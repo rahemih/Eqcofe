@@ -2,53 +2,41 @@
 
 ## Customer Club / Points MVP Foundation
 
-**Status:** IMPLEMENTED / CI VERIFICATION PENDING
+**Status:** COMPLETE / FINAL GATE PASS
 
 ## Scope
 A9 implements the minimal Customer Club points foundation inside the existing `loyalty` bounded context. Points remain non-cash units and are never Toman, Wallet balance, stored value, transferable value, withdrawable value, or a payment instrument.
 
 ## Domain model
-The immutable ledger supports:
-- `earn` — positive points;
-- `redeem` — negative points, only when sufficient balance exists;
-- `expire` — negative points, only when sufficient balance exists;
-- `adjust` — explicit positive/negative correction while preserving non-negative final balance;
-- `reverse` — exact compensating entry for one previous non-reversal entry.
-
-Balance is always derived as the sum of immutable ledger deltas. It is not a separately mutable source of truth.
+The immutable ledger supports `earn`, `redeem`, `expire`, `adjust`, and exact compensating `reverse` entries. Balance is always derived from immutable ledger deltas and cannot become negative.
 
 ## Persistence and concurrency
-Migration `0041_loyalty_points_mvp_foundation.sql`:
-- extends the A3 ledger with explicit reversal lineage;
-- guarantees one reversal per original ledger entry;
-- requires exact opposite delta for a reversal;
-- serializes all customer point mutations with a PostgreSQL transaction advisory lock;
-- rejects any write that would make balance negative;
-- makes ledger rows append-only by rejecting UPDATE/DELETE;
-- preserves reference-based idempotency from A3.
+Migration `0041_loyalty_points_mvp_foundation.sql` adds explicit reversal lineage, one-reversal-per-entry enforcement, exact opposite reversal delta, customer-scoped PostgreSQL advisory locking, negative-balance protection, append-only UPDATE/DELETE rejection, and retained reference idempotency.
 
 ## Application foundation
-`PointsService` and `PointsRepository` provide:
-- balance read;
-- bounded history read;
-- earn/redeem/expire/adjust commands;
-- exact reversal command;
-- inactive/anonymized/unknown customer fail-closed behavior;
-- idempotent same-reference replay when the stored delta matches.
+`PointsService` and `PointsRepository` provide balance/history reads and earn/redeem/expire/adjust/reverse commands with active-customer fail-closed behavior and same-reference idempotent replay.
 
 No HTTP/Admin API is claimed in A9; that remains A10.
 
 ## Deliberately not invented
-There is no canonical business rule yet that defines a Toman-to-points earning rate, order amount conversion, tier multiplier, or points-to-discount monetary exchange. A9 therefore does **not** invent an automatic order-to-points conversion trigger. Such a policy must be explicitly approved before wiring automatic earning.
+There is no canonical approved Toman-to-points earning rate, order amount conversion, tier multiplier, or points-to-discount monetary exchange. A9 therefore does not invent automatic order-to-points conversion. This preserves the no-Wallet boundary and prevents an unsupported monetary rule from entering canonical code.
 
-## No-Wallet boundary
-A9 contains no wallet, cash conversion, withdrawal, transfer, Toman balance, or payment semantics. The existing domain `toToman()` path remains fail-closed.
+## Canonical CI verification
+Verification-only Draft PR #14 tested the exact A9 production source already present on `main`; its branch added only a CI marker and must not be merged.
 
-## Verification coverage
-`test/loyalty-step46-a9.spec.ts` covers non-cash semantics, all MVP ledger entry types, exact reversal, negative-balance concurrency protection, append-only persistence, reversal uniqueness, derived balance, idempotency, active-customer enforcement, and the prohibition on invented monetary conversion policy.
+Final GitHub Actions Canonical CI run `32262486061`, job `verify` (`96098810744`) passed:
+- frozen-lockfile install: PASS
+- OpenAPI: PASS — 513 paths / 582 operations / 1138 refs
+- architecture: PASS — 364 module files scanned
+- project policy: PASS
+- TypeScript build: PASS
+- A9 tests: **10/10 PASS**
+- runtime tests: **194 PASS / 0 FAIL / 0 skipped / 0 cancelled**
+- overall `pnpm verify`: PASS
 
-## Closure gate
-A9 becomes COMPLETE only after Canonical CI passes against the exact A9 source.
+Therefore:
+**STEP 46 / A9 FINAL GATE = PASS**
+**A9 = COMPLETE**
 
-## Next substep after closure
+## Next approved substep
 **Step 46 / A10 — Admin API + RBAC + Audit + Idempotency**
