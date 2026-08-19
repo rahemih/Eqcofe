@@ -34,15 +34,18 @@ function cartHarness(customerId:string|null,customerType:'retail'|'wholesale'){
     cart:async()=>cart,tokenValid:async()=>true,items:async()=>[item],shipping:async()=>({id:SHIPPING,fee_toman:0}),
     insertCheckout:async(_ex:any,c:any,items:any[])=>{calls.checkout={c,items};},extendCartExpiry:async()=>{},
   };
+  const marketingSnapshot:any={apply:async(_ex:any,input:any)=>{calls.marketing=input;}};
   const tx:any={run:async(fn:any)=>fn({})};
   const pricing:any={quoteVariant:async(i:any)=>{calls.priceTypes.push(i.customerType);return{variant_id:VARIANT,base_price_toman:100000,current_toman:customerType==='wholesale'?80000:100000,customer_type:i.customerType,applied_rule_ids:[]};}};
   const availability:any={getOnlineSellableQuantity:async()=>100};
   const reservation:any={};
   const customerCommerce:any={getCustomerType:async(id:string|null)=>{calls.customerIds.push(id);return customerType;}};
+  const purchaseHistory:any={hasCompletedPurchase:async()=>false};
+  const checkoutPromotions:any={evaluate:async()=>({applications:[],totalDiscountToman:0})};
   const tax:any={resolve:async()=>({tax_toman:0,rule_id:TAX,rate_basis_points:0})};
   const ctx:any={get:()=>null};
   const config:any={get:(_k:string,d:string)=>d};
-  const service=new CartService(repo,tx,pricing,availability,reservation,customerCommerce,tax,ctx,config);(service as any).assertNotAdvanced=async()=>{};return{service,calls};
+  const service=new CartService(repo,marketingSnapshot,tx,pricing,availability,reservation,customerCommerce,purchaseHistory,checkoutPromotions,tax,ctx,config);(service as any).assertNotAdvanced=async()=>{};return{service,calls};
 }
 
 test('guest checkout resolves retail through Customer port and quotes retail',async()=>{
