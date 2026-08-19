@@ -66,7 +66,7 @@ export class AutomaticPromotionService {
     const exclusive = eligible.filter(x => x.stacking === 'exclusive')
       .sort((a, b) => b.discountToman - a.discountToman || a.promotionId.localeCompare(b.promotionId));
     if (exclusive.length > 0) {
-      const winner = exclusive[0];
+      const winner = exclusive[0]!;
       return { items: [winner], totalDiscountToman: Math.min(input.subtotalToman, winner.discountToman) };
     }
 
