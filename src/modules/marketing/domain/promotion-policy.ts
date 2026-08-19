@@ -47,6 +47,7 @@ export function evaluatePromotion(raw: PromotionDefinition, ctx: PromotionEvalua
   const subtotalToman = integerToman(ctx.subtotalToman, 'subtotalToman');
   if (ctx.now < definition.eligibility.startsAt || ctx.now >= definition.eligibility.endsAt) return { eligible: false, reason: 'OUTSIDE_ACTIVE_WINDOW', discountToman: 0 };
   if (definition.eligibility.minimumSubtotalToman !== undefined && subtotalToman < definition.eligibility.minimumSubtotalToman) return { eligible: false, reason: 'MINIMUM_SUBTOTAL_NOT_MET', discountToman: 0 };
+  if (definition.eligibility.firstPurchaseOnly && !ctx.customerId) return { eligible: false, reason: 'CUSTOMER_REQUIRED', discountToman: 0 };
   if (definition.eligibility.firstPurchaseOnly && ctx.hasCompletedPurchase) return { eligible: false, reason: 'NOT_FIRST_PURCHASE', discountToman: 0 };
   if (ctx.isWholesale && definition.eligibility.allowWholesale !== true) return { eligible: false, reason: 'WHOLESALE_NOT_ALLOWED', discountToman: 0 };
   if (definition.eligibility.totalUsageLimit !== undefined && ctx.totalRedemptions >= definition.eligibility.totalUsageLimit) return { eligible: false, reason: 'TOTAL_USAGE_LIMIT_REACHED', discountToman: 0 };
