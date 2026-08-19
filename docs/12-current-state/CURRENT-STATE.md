@@ -36,32 +36,46 @@ Step 45 is not to be repeated.
 ## Active step
 **Step 46 — Marketing, Promotions & Customer Club Backend**
 
-### Completed substep
+### Completed substeps
 **A1 — Discovery, Scope Recovery & Business Rules Freeze — COMPLETE**
 
 Canonical A1 artifact:
 `docs/11-step-history/STEP-46-A1-DISCOVERY-SCOPE.md`
 
-### Current substep
-**A2 — Marketing Domain Model + Invariants — IMPLEMENTED / VERIFICATION PENDING**
+**A2 — Marketing Domain Model + Invariants — COMPLETE / FINAL GATE PASS**
 
 Canonical A2 artifact:
 `docs/11-step-history/STEP-46-A2-DOMAIN-MODEL-INVARIANTS.md`
 
-A2 implementation now contains:
+A2 contains:
 - Campaign aggregate and lifecycle invariants;
-- Promotion definition, active-window, Toman and stacking rules;
+- Promotion definition, active-window, integer-Toman and stacking rules;
 - first-purchase and wholesale eligibility facts;
 - Coupon normalization, enablement and usage-limit rules;
 - Redemption reserved/consumed/released/reversed lifecycle;
 - non-cash integer customer-points ledger;
 - dedicated A2 invariant tests.
 
-Static architecture/policy review found and corrected one forbidden-token issue in an initial loyalty error-code name. New domain files otherwise respect the existing domain dependency gate: no NestJS, database/infrastructure dependency or `any` in domain source.
+### A2 canonical verification evidence
+A verification-only branch and Draft PR #6 were created from the exact A2 main base commit `6d6045ba6b0269f0630c5065690f13aa222f8974`; the branch added only a documentation marker and therefore did not change production source.
 
-Fresh runtime verification is not yet evidenced: the GitHub connector returned no check status for the latest A2 commit and the local execution environment could not resolve github.com to clone the repository. No build/test PASS is fabricated.
+GitHub Actions Canonical CI run `32254152022`, job `verify` (`96071833265`) completed successfully using Node `24.18.1` and pnpm `11.21.0`.
 
-Therefore A2 must remain `PARTIAL / VERIFICATION PENDING` until a fresh `pnpm verify` or equivalent CI result is available. A3 must not be formally closed ahead of that gate.
+Verification results:
+- frozen-lockfile dependency install: PASS
+- OpenAPI: PASS — 513 paths / 582 operations / 1138 refs
+- architecture: PASS — 351 module files scanned
+- project policy: PASS — `toman-no-wallet-config-boundary`
+- TypeScript build: PASS
+- runtime tests: **134 PASS / 0 FAIL / 0 skipped / 0 cancelled**
+- overall `pnpm verify`: PASS
+
+Therefore:
+**STEP 46 / A2 FINAL GATE = PASS**
+**A2 = COMPLETE**
+
+### Next approved substep
+**Step 46 / A3 — PostgreSQL Schema + RBAC**
 
 ## Step-46 ownership boundary
 - Pricing remains authoritative for base pricing.
