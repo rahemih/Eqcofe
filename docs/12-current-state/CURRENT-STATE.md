@@ -30,6 +30,7 @@ Step 45 is not to be repeated.
 - **A8 — Order + Redemption + Financial Integrity — COMPLETE / FINAL GATE PASS**
 - **A9 — Customer Club / Points MVP Foundation — COMPLETE / FINAL GATE PASS**
 - **A10 — Admin API + RBAC + Audit + Idempotency — COMPLETE / FINAL GATE PASS**
+- **A11 — E2E + Concurrency + Security + Regression — COMPLETE / FINAL GATE PASS**
 
 Canonical artifacts:
 - `docs/11-step-history/STEP-46-A1-DISCOVERY-SCOPE.md`
@@ -42,33 +43,29 @@ Canonical artifacts:
 - `docs/11-step-history/STEP-46-A8-ORDER-REDEMPTION-FINANCIAL-INTEGRITY.md`
 - `docs/11-step-history/STEP-46-A9-CUSTOMER-CLUB-POINTS-MVP.md`
 - `docs/11-step-history/STEP-46-A10-ADMIN-API-RBAC-AUDIT-IDEMPOTENCY.md`
+- `docs/11-step-history/STEP-46-A11-E2E-CONCURRENCY-SECURITY-REGRESSION.md`
 
-### A10 implementation
-A10 adds staff-only administrative surfaces for Marketing and Loyalty. Marketing Admin exposes Campaign operations, Promotion list/create/enable/disable, Coupon list/create/enable/disable, and read-only Redemption history. Loyalty Admin exposes customer points balance/history plus critical manual adjustment and exact reversal.
+### A11 implementation and verification
+A11 adds no new business feature. It is the Step-46 composition gate covering the full Marketing/Commerce/Loyalty interaction: deterministic promotion resolution, server-owned customer eligibility facts, Checkout/Order marketing snapshot continuity, Redemption reserve/consume/release/reverse lifecycle, deferred financial integrity, concurrency locks, Loyalty append-only/non-negative invariants, and Admin security controls.
 
-A3 RBAC keys are reused rather than duplicated. Critical Marketing activation/deactivation and Loyalty correction routes require Step-Up. All administrative mutations require canonical idempotency scopes. Promotion/Coupon mutations use optimistic version checks and transaction-scoped audit. Loyalty adjustment/reversal writes the immutable ledger entry and audit record in the same transaction executor.
+Verification-only Draft PR #16 tested the exact A11 `main` source; its branch adds only a documentation CI marker and must not be merged.
 
-Redemption remains intentionally read-only in Admin because A8 binds Redemption lifecycle to authoritative Checkout/Order state and deferred financial integrity; arbitrary manual state changes would violate that invariant.
-
-### A10 canonical verification evidence
-Verification-only Draft PR #15 tested the exact A10 `main` source; its branch added only a documentation CI marker and is not part of canonical source.
-
-Final GitHub Actions Canonical CI run `32264512373`, job `verify` (`96105581639`) completed successfully:
+Final GitHub Actions Canonical CI run `32265330752`, job `verify` (`96108299519`) completed successfully:
 - frozen-lockfile install: PASS
 - OpenAPI: PASS — 513 paths / 582 operations / 1138 refs
 - architecture: PASS — 369 module files scanned
-- project policy: PASS
+- project policy: PASS — `toman-no-wallet-config-boundary`
 - TypeScript build: PASS
-- A10 tests: **10/10 PASS**
-- runtime tests: **204 PASS / 0 FAIL / 0 skipped / 0 cancelled**
+- A11 tests: **15/15 PASS**
+- runtime tests: **219 PASS / 0 FAIL / 0 skipped / 0 cancelled**
 - overall `pnpm verify`: PASS
 
 Therefore:
-**STEP 46 / A10 FINAL GATE = PASS**
-**A10 = COMPLETE**
+**STEP 46 / A11 FINAL GATE = PASS**
+**A11 = COMPLETE**
 
 ### Next approved substep
-**Step 46 / A11 — E2E + Concurrency + Security + Regression**
+**Step 46 / A12 — Final Canonical Closure**
 
 ## Step-46 ownership boundary
 - Pricing remains authoritative for base pricing.
