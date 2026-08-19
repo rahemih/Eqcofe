@@ -5,6 +5,9 @@ on:
     branches: [main]
     paths:
       - '.github/workflows/canonical-import.yml'
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize]
   workflow_dispatch:
 
 permissions:
@@ -16,12 +19,14 @@ env:
 
 jobs:
   import:
+    if: github.event_name != 'pull_request' || github.head_ref == 'canonical-import-trigger'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
 
       - name: Download canonical package
         shell: bash
