@@ -59,8 +59,8 @@ Approved roadmap scope: configurable provider adapters for FX, SMS, email, shipp
 
 ### Step 47 progress
 - **A1 — Discovery + Integration Ownership / Rules Freeze — COMPLETE**
-- **A2 — Common Provider Contracts + Failure Model — NEXT**
-- A3 — Integration Configuration + Secrets + RBAC — PLANNED
+- **A2 — Common Provider Contracts + Failure Model — COMPLETE / FINAL GATE PASS**
+- **A3 — Integration Configuration + Secrets + RBAC — NEXT**
 - A4 — HTTP Client / Timeout / Retry / Circuit-Breaker Foundation — PLANNED
 - A5 — Provider Health + Observability — PLANNED
 - A6 — FX Provider Port + Rate Fetch — PLANNED
@@ -71,8 +71,19 @@ Approved roadmap scope: configurable provider adapters for FX, SMS, email, shipp
 - A11 — Security + Failure + Concurrency + E2E Regression — PLANNED
 - A12 — Final Canonical Closure — PLANNED
 
-Canonical A1 artifact:
+Canonical Step-47 artifacts:
 - `docs/11-step-history/STEP-47-A1-DISCOVERY-SCOPE.md`
+- `docs/11-step-history/STEP-47-A2-PROVIDER-CONTRACTS-FAILURE-MODEL.md`
+
+### Step 47 A2 verification evidence
+Draft PR #21 verified the A2 implementation. Canonical CI run `32311586849`, job `verify` (`96255496092`) passed:
+- OpenAPI: PASS — 514 paths / 583 operations / 1146 refs
+- architecture: PASS — 384 module files scanned
+- project policy: PASS
+- TypeScript build: PASS
+- A2 tests: **8/8 PASS**
+- runtime tests: **252 PASS / 0 FAIL / 0 skipped / 0 cancelled**
+- overall `pnpm verify`: PASS
 
 ### Frozen Step-47 ownership boundary
 - `src/modules/integrations` is the existing canonical integration bounded context and must be reused.
