@@ -2,7 +2,7 @@
 
 ## Order + Redemption + Financial Integrity
 
-**Status:** IMPLEMENTED / CI VERIFICATION PENDING
+**Status:** COMPLETE / FINAL GATE PASS
 
 ## Implemented lifecycle
 A8 binds the frozen Redemption lifecycle to authoritative commerce transactions:
@@ -49,8 +49,25 @@ Migration `0040_marketing_redemption_runtime_hardening.sql` hardens audited trig
 ## Verification coverage
 `test/marketing-step46-a8.spec.ts` covers foreign keys, snapshot validation, promotion/coupon concurrency locks, first-purchase race protection, reserve/release/consume/reverse wiring, immutable lifecycle enforcement, deferred financial integrity and domain idempotency.
 
-## A8/A9 boundary
-A8 closes Order/Redemption financial integrity only. Loyalty points earning/redeeming and Customer Club operational workflows are not claimed here and remain later Step-46 substeps.
+## Canonical CI verification
+Verification-only Draft PR #13 tested the exact A8 source already present on `main`; its branch added only a documentation trigger marker and was not merged.
 
-## Closure gate
-A8 becomes COMPLETE only after Canonical CI passes against the exact A8 source.
+Final GitHub Actions Canonical CI run `32261752597`, job `verify` (`96096410165`) completed successfully:
+- frozen-lockfile install: PASS
+- OpenAPI: PASS — 513 paths / 582 operations / 1138 refs
+- architecture: PASS — 362 module files scanned
+- project policy: PASS
+- TypeScript build: PASS
+- A8 tests: **11/11 PASS**
+- runtime tests: **184 PASS / 0 FAIL / 0 skipped / 0 cancelled**
+- overall `pnpm verify`: PASS
+
+Therefore:
+**STEP 46 / A8 FINAL GATE = PASS**
+**A8 = COMPLETE**
+
+## A8/A9 boundary
+A8 closes Order/Redemption financial integrity only. Loyalty points earning/redeeming and Customer Club operational workflows are not claimed here.
+
+## Next approved substep
+**Step 46 / A9 — Customer Club / Points MVP Foundation**
