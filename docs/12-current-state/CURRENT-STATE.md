@@ -28,6 +28,8 @@ Step 45 is not to be repeated.
 - **A6 — First-Purchase + Festival Promotions — COMPLETE / FINAL GATE PASS**
 - **A7 — Pricing/Cart/Checkout Integration — COMPLETE / FINAL GATE PASS**
 - **A8 — Order + Redemption + Financial Integrity — COMPLETE / FINAL GATE PASS**
+- **A9 — Customer Club / Points MVP Foundation — COMPLETE / FINAL GATE PASS**
+- **A10 — Admin API + RBAC + Audit + Idempotency — COMPLETE / FINAL GATE PASS**
 
 Canonical artifacts:
 - `docs/11-step-history/STEP-46-A1-DISCOVERY-SCOPE.md`
@@ -38,33 +40,35 @@ Canonical artifacts:
 - `docs/11-step-history/STEP-46-A6-FIRST-PURCHASE-FESTIVAL.md`
 - `docs/11-step-history/STEP-46-A7-PRICING-CART-CHECKOUT-INTEGRATION.md`
 - `docs/11-step-history/STEP-46-A8-ORDER-REDEMPTION-FINANCIAL-INTEGRITY.md`
+- `docs/11-step-history/STEP-46-A9-CUSTOMER-CLUB-POINTS-MVP.md`
+- `docs/11-step-history/STEP-46-A10-ADMIN-API-RBAC-AUDIT-IDEMPOTENCY.md`
 
-### A8 implementation
-A8 binds Marketing Redemption to authoritative Commerce transactions. Checkout reservation creates `reserved` redemption rows from the immutable A7 marketing snapshot; abandoned/expired reserved Checkout releases them; Order creation consumes the exact reserved facts; Order cancellation/expiry reverses consumed rows without deleting history.
+### A10 implementation
+A10 adds staff-only administrative surfaces for Marketing and Loyalty. Marketing Admin exposes Campaign operations, Promotion list/create/enable/disable, Coupon list/create/enable/disable, and read-only Redemption history. Loyalty Admin exposes customer points balance/history plus critical manual adjustment and exact reversal.
 
-Promotion and coupon usage limits are concurrency-safe through PostgreSQL transaction advisory locks plus row locks. First-purchase reservations are additionally serialized by customer identity and revalidated against authoritative paid Order history, preventing two concurrent Checkouts from both claiming first-purchase eligibility.
+A3 RBAC keys are reused rather than duplicated. Critical Marketing activation/deactivation and Loyalty correction routes require Step-Up. All administrative mutations require canonical idempotency scopes. Promotion/Coupon mutations use optimistic version checks and transaction-scoped audit. Loyalty adjustment/reversal writes the immutable ledger entry and audit record in the same transaction executor.
 
-Migrations `0039_marketing_redemption_integrity.sql` and `0040_marketing_redemption_runtime_hardening.sql` add Checkout/Order foreign keys, lifecycle immutability, state-transition guards, reserve/release/consume/reverse triggers and deferred financial integrity checks. Checkout/Order redemption counts and discount sums must match their immutable marketing snapshots.
+Redemption remains intentionally read-only in Admin because A8 binds Redemption lifecycle to authoritative Checkout/Order state and deferred financial integrity; arbitrary manual state changes would violate that invariant.
 
-### A8 canonical verification evidence
-Verification-only Draft PR #13 tested the exact A8 `main` source; its branch added only a documentation CI marker and is not part of canonical source.
+### A10 canonical verification evidence
+Verification-only Draft PR #15 tested the exact A10 `main` source; its branch added only a documentation CI marker and is not part of canonical source.
 
-Final GitHub Actions Canonical CI run `32261752597`, job `verify` (`96096410165`) completed successfully:
+Final GitHub Actions Canonical CI run `32264512373`, job `verify` (`96105581639`) completed successfully:
 - frozen-lockfile install: PASS
 - OpenAPI: PASS — 513 paths / 582 operations / 1138 refs
-- architecture: PASS — 362 module files scanned
+- architecture: PASS — 369 module files scanned
 - project policy: PASS
 - TypeScript build: PASS
-- A8 tests: 11/11 PASS
-- runtime tests: **184 PASS / 0 FAIL / 0 skipped / 0 cancelled**
+- A10 tests: **10/10 PASS**
+- runtime tests: **204 PASS / 0 FAIL / 0 skipped / 0 cancelled**
 - overall `pnpm verify`: PASS
 
 Therefore:
-**STEP 46 / A8 FINAL GATE = PASS**
-**A8 = COMPLETE**
+**STEP 46 / A10 FINAL GATE = PASS**
+**A10 = COMPLETE**
 
 ### Next approved substep
-**Step 46 / A9 — Customer Club / Points MVP Foundation**
+**Step 46 / A11 — E2E + Concurrency + Security + Regression**
 
 ## Step-46 ownership boundary
 - Pricing remains authoritative for base pricing.
