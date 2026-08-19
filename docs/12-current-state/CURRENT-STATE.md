@@ -52,22 +52,34 @@ The first automated push attempt was rejected only because the GitHub Actions to
 ## Canonical CI
 The canonical source includes `.github/workflows/ci.yml`, configured for Node `24.18.1`, pnpm `11.21.0`, frozen-lockfile installation, and `pnpm verify` on pushes to `main` and pull requests.
 
+## Canonical execution roadmap
+The professional post-Step-44 roadmap is now versioned in the repository:
+
+- root entry point: `ROADMAP.md`
+- detailed execution plan: `docs/12-current-state/MASTER-ROADMAP.md`
+- roadmap version: **2.0**
+- execution range to public MVP launch: **Step 45 → Step 94**
+- post-launch backlog begins at **Step 95+**
+
+The roadmap is separated into Backend, UI/UX, Storefront Frontend, Admin Frontend, Real Integrations, Security/QA/Performance/DevOps, Real Data/Content/Release Candidate and Launch tracks. It supersedes the earlier coarse post-Step-44 list while preserving Step 44 as the verified baseline.
+
 ## Last completed step
 **Step 44 — Comprehensive Notification System — FINAL CANONICAL / CLOSED**
 
 ## Active / next step
-**Step 45 — Articles, Content & SEO** is next. Step 45 implementation has not started in this canonical state.
+**Step 45 — Content, Articles & SEO Backend** is next. Step 45 implementation has not started in this canonical state.
 
 ## Completed backend domains through Step 44
 Identity/Admin, Catalog, Pricing, Inventory, Procurement, Cart, Checkout, Orders, Payments, Fulfillment, After-Sales, Finance, Customer/Wholesale, Central Configuration and Notifications.
 
 ## Planned / not yet complete
-Content/SEO, Marketing/Club, live external integrations, AI, POS, Excel management, analytics, backend final closure, frontend/admin, production infrastructure/hardening, real product data and launch phases.
+Content/SEO, Marketing/Club, live external integrations, AI, POS, Excel management, analytics, backend final closure, UI/UX, storefront frontend, admin frontend, production infrastructure/hardening, real product data and launch phases.
 
 ## Trust rule from this point forward
 1. `rahemih/Eqcofe` is the official repository.
 2. `main` is the canonical branch.
 3. Commit `b239dfe825b615f36caf2e26cc7abc80c70d349c` is the exact freshly verified Step-44 canonical code baseline.
-4. New development must start only after this baseline and must not rewrite recovered history as if it had been freshly verified when it has not.
-5. Step 45 may begin only as a new change on top of this trusted state.
-6. The historical repository and recovery evidence must be retained until the consolidation archive is intentionally closed.
+4. `docs/12-current-state/MASTER-ROADMAP.md` is the canonical execution roadmap for Step 45 onward.
+5. New development must start only after this baseline and must not rewrite recovered history as if it had been freshly verified when it has not.
+6. Step 45 may begin only as a new change on top of this trusted state.
+7. The historical repository and recovery evidence must be retained until the consolidation archive is intentionally closed.
