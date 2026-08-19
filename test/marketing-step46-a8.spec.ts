@@ -73,7 +73,7 @@ test('A8 terminal order integrity accepts reversed history while preserving exac
 });
 
 test('domain redemption remains idempotent for same-order consume and fail-closed otherwise',()=>{
-  const r=new RedemptionAggregate({id:'r',promotionId:'p',couponId:null,customerId:'c',checkoutId:'co',discountToman:100,status:'reserved',orderId:null});
+  const r=RedemptionAggregate.reserve({id:'r',promotionId:'p',customerId:'c',checkoutId:'co',discountToman:100});
   r.consume('o');
   r.consume('o');
   assert.equal(r.snapshot().status,'consumed');
