@@ -4083,6 +4083,22 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/admin/content/articles/operations/summary": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getAdminContentArticlesOperationsSummary"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/admin/content/articles/{id}": {
         parameters: {
             query?: never;
@@ -9611,7 +9627,6 @@ export interface components {
             body?: string | null;
             seo_title?: string | null;
             meta_description?: string | null;
-            scheduled_at?: components["schemas"]["Timestamp"] | null;
         };
         PostAdminAiJobsRequest: components["schemas"]["AIJobCreateRequest"];
         PostAdminAiResearchRequest: {
@@ -17812,7 +17827,9 @@ export interface operations {
     postAdminContentArticles: {
         parameters: {
             query?: never;
-            header?: never;
+            header: {
+                "Idempotency-Key": components["parameters"]["IdempotencyKey"];
+            };
             path?: never;
             cookie?: never;
         };
@@ -17831,6 +17848,24 @@ export interface operations {
             };
             /** @description عملیات پذیرفته شد */
             202: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    getAdminContentArticlesOperationsSummary: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description وضعیت عملیاتی انتشار زمان‌بندی‌شده محتوا */
+            200: {
                 headers: {
                     [name: string]: unknown;
                 };
@@ -17861,7 +17896,9 @@ export interface operations {
     patchAdminContentArticlesId: {
         parameters: {
             query?: never;
-            header?: never;
+            header: {
+                "Idempotency-Key": components["parameters"]["IdempotencyKey"];
+            };
             path: {
                 id: string;
             };
@@ -17885,7 +17922,9 @@ export interface operations {
     postAdminContentArticlesIdSubmitReview: {
         parameters: {
             query?: never;
-            header?: never;
+            header: {
+                "Idempotency-Key": components["parameters"]["IdempotencyKey"];
+            };
             path: {
                 id: string;
             };
@@ -17916,7 +17955,9 @@ export interface operations {
     postAdminContentArticlesIdApprove: {
         parameters: {
             query?: never;
-            header?: never;
+            header: {
+                "Idempotency-Key": components["parameters"]["IdempotencyKey"];
+            };
             path: {
                 id: string;
             };
@@ -17947,7 +17988,9 @@ export interface operations {
     postAdminContentArticlesIdSchedule: {
         parameters: {
             query?: never;
-            header?: never;
+            header: {
+                "Idempotency-Key": components["parameters"]["IdempotencyKey"];
+            };
             path: {
                 id: string;
             };
@@ -17978,7 +18021,9 @@ export interface operations {
     postAdminContentArticlesIdPublish: {
         parameters: {
             query?: never;
-            header?: never;
+            header: {
+                "Idempotency-Key": components["parameters"]["IdempotencyKey"];
+            };
             path: {
                 id: string;
             };
@@ -18005,7 +18050,9 @@ export interface operations {
     postAdminContentArticlesIdUnpublish: {
         parameters: {
             query?: never;
-            header?: never;
+            header: {
+                "Idempotency-Key": components["parameters"]["IdempotencyKey"];
+            };
             path: {
                 id: string;
             };
@@ -18032,7 +18079,9 @@ export interface operations {
     postAdminContentArticlesIdArchive: {
         parameters: {
             query?: never;
-            header?: never;
+            header: {
+                "Idempotency-Key": components["parameters"]["IdempotencyKey"];
+            };
             path: {
                 id: string;
             };
@@ -18104,7 +18153,9 @@ export interface operations {
     postAdminContentArticlesIdVersionsVersionRestore: {
         parameters: {
             query?: never;
-            header?: never;
+            header: {
+                "Idempotency-Key": components["parameters"]["IdempotencyKey"];
+            };
             path: {
                 id: string;
                 version: string;
