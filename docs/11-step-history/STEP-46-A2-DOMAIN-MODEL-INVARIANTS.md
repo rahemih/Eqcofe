@@ -2,7 +2,8 @@
 
 ## Marketing Domain Model + Invariants
 
-**Status:** IMPLEMENTED / RUNTIME VERIFICATION PENDING
+**Status:** COMPLETE
+**Final Gate:** PASS
 
 ## Implemented domain model
 
@@ -36,7 +37,7 @@
 16. Loyalty points do not expose Toman conversion or cash-value semantics.
 17. Duplicate loyalty ledger entry IDs are rejected.
 
-## Test coverage authored
+## Test coverage
 
 `test/marketing-loyalty-step46-a2.spec.ts` covers:
 - campaign lifecycle safety;
@@ -48,18 +49,39 @@
 - redemption lifecycle/idempotency behavior;
 - points balance and cash-conversion prohibition.
 
-## Static gate review
+## Architecture and policy verification
 
-The new domain sources use no NestJS/Kysely/PG/Redis/infrastructure imports and contain no `any`, matching the existing architecture gate rules.
+The A2 domain sources use no NestJS/Kysely/PG/Redis/infrastructure imports and contain no `any`, matching the existing architecture gate rules.
 
-The repository policy scans `src` for the forbidden English cash-account term. An initial A2 error-code name contained that token and was corrected to `LOYALTY_CASH_CONVERSION_FORBIDDEN` before closure documentation.
+An initial A2 error-code name contained the repository's forbidden cash-account token and was corrected to `LOYALTY_CASH_CONVERSION_FORBIDDEN` before closure.
 
-## Runtime verification note
+## Canonical runtime verification
 
-The GitHub connector exposed no combined status/check run for the latest A2 commit, and the execution container could not resolve github.com to clone the repository. Therefore a fresh runtime `pnpm verify` result is not fabricated here.
+A temporary verification-only branch `verify-step46-a2` was created from the exact A2 `main` base commit `6d6045ba6b0269f0630c5065690f13aa222f8974`. Draft PR #6 added only a documentation marker, so production source under test was identical to the A2 source on main.
 
-A2 implementation is complete, but formal A2 COMPLETE status requires a fresh build/test/CI execution. Until that evidence exists, canonical status is `PARTIAL / VERIFICATION PENDING`.
+Canonical CI run: `32254152022`
+Job: `verify` (`96071833265`)
+Runtime: Node `24.18.1`, pnpm `11.21.0`
 
-## Next after verification
+Results:
+- dependency install / frozen lockfile: PASS
+- OpenAPI validation: PASS — 513 paths / 582 operations / 1138 refs
+- architecture gate: PASS — 351 module files scanned
+- project policy gate: PASS — `toman-no-wallet-config-boundary`
+- TypeScript build: PASS
+- full runtime tests: **134 PASS / 0 FAIL / 0 skipped / 0 cancelled**
+- dedicated Step 46 / A2 domain tests: PASS
+- overall `pnpm verify`: PASS
+- GitHub Actions job conclusion: SUCCESS
+
+## Closure
+
+**STEP 46 / A2 FINAL GATE = PASS**
+
+**A2 = COMPLETE**
+
+No database migration or HTTP contract was introduced in A2; those belong to A3 and later substeps.
+
+## Next
 
 Step 46 / A3 — PostgreSQL Schema + RBAC.
