@@ -1,9 +1,9 @@
 import { DomainError } from '../../../shared/errors/domain-error';
-import { ProviderKind } from './provider-contracts';
+import { IntegrationProviderKind } from './provider-contracts';
 
 export interface ProviderConfiguration {
   key: string;
-  kind: ProviderKind;
+  kind: IntegrationProviderKind;
   enabled: boolean;
   baseUrl: string | null;
   timeoutMs: number;
