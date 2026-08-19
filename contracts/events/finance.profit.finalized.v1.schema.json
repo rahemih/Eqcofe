@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "calculation_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "order_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "selected_rule_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "profit_before_distribution_toman": {
+      "type": "integer"
+    },
+    "physical_owner_percent": {
+      "type": "string"
+    },
+    "online_owner_percent": {
+      "type": "string"
+    },
+    "source_fingerprint": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  },
+  "required": [
+    "calculation_id",
+    "order_id",
+    "selected_rule_id",
+    "profit_before_distribution_toman",
+    "physical_owner_percent",
+    "online_owner_percent",
+    "source_fingerprint"
+  ]
+}

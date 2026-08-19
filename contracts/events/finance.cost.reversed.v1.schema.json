@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "cost_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "reversal_cost_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "reason": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "cost_id",
+    "reversal_cost_id",
+    "reason"
+  ]
+}

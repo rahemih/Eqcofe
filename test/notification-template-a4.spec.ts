@@ -1,0 +1,11 @@
+import assert from 'node:assert/strict';
+import { NotificationTemplateRenderer } from '../src/modules/notifications/domain/notification-template.renderer';
+const r=new NotificationTemplateRenderer();
+const base:any={id:'00000000-0000-4000-8000-000000000001',template_key:'order.confirmed',channel:'email',locale:'fa-IR',version:1,status:'active',subject_template:'سفارش {{order_no}}',body_template:'سلام {{name}}، سفارش {{order_no}} تایید شد.',required_variables:['name','order_no'],allowed_variables:['name','order_no'],strict_variables:true};
+const ok=r.render(base,{name:'حسین',order_no:'EQ-42'});assert.equal(ok.subject,'سفارش EQ-42');assert.match(ok.body,/حسین/);
+assert.throws(()=>r.render(base,{name:'حسین'}),(e:any)=>e.code==='NOTIFICATION_TEMPLATE_VARIABLE_MISSING');
+assert.throws(()=>r.render(base,{name:'حسین',order_no:'1',other:'x'}),(e:any)=>e.code==='NOTIFICATION_TEMPLATE_VARIABLE_NOT_ALLOWED');
+assert.throws(()=>r.validateSource('email','{{token}}','x',['token'],['token']),(e:any)=>e.code==='NOTIFICATION_TEMPLATE_SECRET_VARIABLE_FORBIDDEN');
+assert.throws(()=>r.validateSource('email','{{name}}','${process.env.SECRET}',['name'],['name']),(e:any)=>e.code==='NOTIFICATION_TEMPLATE_UNSAFE_SOURCE');
+assert.throws(()=>r.render({...base,channel:'sms',subject_template:null,body_template:'{{name}}',required_variables:['name'],allowed_variables:['name']}, {name:'x'.repeat(2000)}),(e:any)=>e.code==='NOTIFICATION_TEMPLATE_RENDER_TOO_LARGE');
+console.log('notification-template-a4: 6/6 PASS');

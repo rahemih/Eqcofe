@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "fulfillment_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "order_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "allocation_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "minItems": 1
+    },
+    "status": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "fulfillment_id",
+    "order_id",
+    "allocation_ids",
+    "status"
+  ]
+}

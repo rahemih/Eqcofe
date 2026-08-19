@@ -1,0 +1,33 @@
+services:
+  postgres:
+    image: postgres:18.4-alpine
+    environment:
+      POSTGRES_DB: eqcofe
+      POSTGRES_USER: eqcofe
+      POSTGRES_PASSWORD: eqcofe
+    ports:
+      - "5432:5432"
+    volumes:
+      - eqcofe_pg:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U eqcofe -d eqcofe"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  redis:
+    image: redis:7.4-alpine
+    command: ["redis-server", "--appendonly", "yes"]
+    ports:
+      - "6379:6379"
+    volumes:
+      - eqcofe_redis:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+volumes:
+  eqcofe_pg:
+  eqcofe_redis:

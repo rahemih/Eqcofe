@@ -1,0 +1,26 @@
+PASS A11 e2e security test exists
+PASS decision RBAC metadata tested
+PASS step-up negative tested
+PASS step-up binding tested
+PASS idempotency missing-key tested
+PASS idempotency replay tested
+PASS idempotency complete-once tested
+PASS approve reject race tested
+PASS customer routes actor constrained
+PASS approve stepup
+PASS approve/reject decide permission
+PASS pricing no customer sql
+PASS cart no customer sql
+PASS customer no orders sql
+PASS customer no returns sql
+PASS customer no warranty sql
+PASS one default db unique
+PASS wishlist db uniqueness
+PASS one active wholesale db unique
+PASS terminal immutability db guard
+PASS promotion requires approval
+PASS approval/promote commit integrity
+PASS RBAC migration additive
+PASS no automatic role grant
+PASS customer module avoids owner-domain imports
+25/25 PASS

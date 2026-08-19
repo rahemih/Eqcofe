@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "account_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "code": {
+      "type": "string"
+    },
+    "name_fa": {
+      "type": "string"
+    },
+    "account_type": {
+      "type": "string"
+    },
+    "normal_balance": {
+      "type": "string"
+    },
+    "parent_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "uuid"
+    },
+    "is_postable": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "account_id",
+    "code",
+    "name_fa",
+    "account_type",
+    "normal_balance",
+    "parent_id",
+    "is_postable"
+  ]
+}

@@ -1,0 +1,31 @@
+PASS A11 audit exists
+PASS A11 e2e test exists
+PASS one default address
+PASS wishlist uniqueness
+PASS one active wholesale
+PASS terminal immutable
+PASS approval promotion guard
+PASS A9 RBAC additive
+PASS A9 no automatic role grants
+PASS pricing no customer sql
+PASS cart no customer sql
+PASS customer no orders sql
+PASS customer no returns sql
+PASS customer no warranty sql
+PASS contracts/http/openapi.yaml size
+PASS contracts/http/openapi.yaml sha256
+PASS src/generated/openapi.ts size
+PASS src/generated/openapi.ts sha256
+PASS event customer.profile.updated.v1
+PASS event customer.address.created.v1
+PASS event customer.address.updated.v1
+PASS event customer.address.deleted.v1
+PASS event customer.address.default_changed.v1
+PASS event customer.wishlist.item_added.v1
+PASS event customer.wishlist.item_removed.v1
+PASS event customer.wholesale_application.submitted.v1
+PASS event customer.wholesale_application.review_started.v1
+PASS event customer.wholesale_application.approved.v1
+PASS event customer.wholesale_application.rejected.v1
+PASS event customer.type_changed.v1
+30/30 PASS

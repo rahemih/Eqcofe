@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "rule_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "expired"
+      ]
+    },
+    "expired_at": {},
+    "effective_until": {},
+    "reason": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "rule_id",
+    "status",
+    "expired_at",
+    "effective_until",
+    "reason"
+  ]
+}

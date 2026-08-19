@@ -1,0 +1,151 @@
+{
+  "step": 43,
+  "status": "FINAL_CANONICAL_CLOSED",
+  "baseline_step42_artifact_sha256": "8587bee647cfe27b01d7e18c4c05572b892066fceb2a0535898b38b54c37cc87",
+  "changed_files": [
+    {
+      "path": "STEP43_10_CYCLE.log",
+      "size": 76067,
+      "sha256": "f1b35f5457957b93ef170c2daa0e244db321f09bfc200fa9812678dffb01223f",
+      "git_blob": "c5dee8f542a65d825b217f10ea482a7ead0c38da"
+    },
+    {
+      "path": "contracts/http/openapi.yaml",
+      "size": 472327,
+      "sha256": "0ce8653cb375769949658ea48aa444b0891d8aefc40f1f13b0d820c250f3c658",
+      "git_blob": "15a77b8679146cf24f5902320c96d78db0eca785"
+    },
+    {
+      "path": "database/migrations/0028_configuration_core.sql",
+      "size": 5490,
+      "sha256": "ae5431abc76baaf1dac716fe7cf52aec283077c226d8f3e656a5b395c18d6f27",
+      "git_blob": "e0fd01d85c10a23b6bf36036a47f6f47901ad70a"
+    },
+    {
+      "path": "database/migrations/0029_configuration_rbac.sql",
+      "size": 567,
+      "sha256": "545910322015d70e7252aa624f4d9915a5b41261e72aa31ebff14b26fe34aba5",
+      "git_blob": "6f5c979e1484e7c651f38465af82dd6fa4cb8ad1"
+    },
+    {
+      "path": "scripts/step43-final-audit.py",
+      "size": 3893,
+      "sha256": "2dc1d2b7969ffb5e78d8c089b9319387cef87f742e483b82c0088bc436618a8b",
+      "git_blob": "7fd430ba4567b423544290aed4681124aa352551"
+    },
+    {
+      "path": "src/generated/openapi.ts",
+      "size": 698137,
+      "sha256": "2955b81f9220d84135b9828da994dfedd1590d8380d1700da8ea9bd05da519a5",
+      "git_blob": "6b1227a22426488940def050c87614d9abef7da8"
+    },
+    {
+      "path": "src/modules/cart/application/cart-order-checkout.service.ts",
+      "size": 3930,
+      "sha256": "73f78f969bac9253f1f43a555bc6ab40cc9a6e7d2db981e86f4e0e167c452919",
+      "git_blob": "509f48dc5bdd1896ff8bfc50b2d6c3dedc3171b8"
+    },
+    {
+      "path": "src/modules/cart/application/cart.service.ts",
+      "size": 17298,
+      "sha256": "720f78108998a83fadcb570a4355fe452ac5a433c94d07b30aa76055fd113d3e",
+      "git_blob": "6913de091148825906bdea0fc8b4008f9e88b218"
+    },
+    {
+      "path": "src/modules/cart/cart.module.ts",
+      "size": 1242,
+      "sha256": "230d536172ef8b9c2f5a197b5ab8a0c628d0bdc9a4cbd10f5be46fd0d8f6e344",
+      "git_blob": "81db567ca037d4dbde6a116cff5d37ce0c1d70f3"
+    },
+    {
+      "path": "src/modules/configuration/application/configuration.service.ts",
+      "size": 10105,
+      "sha256": "b0f5a0734ef3d204147a672d65451958b154d4af4e4120c19c91bc22d8c0ba11",
+      "git_blob": "83916ec5fd20ac0c9da9b1bfece6260b06a9852c"
+    },
+    {
+      "path": "src/modules/configuration/application/feature-flag.service.ts",
+      "size": 6010,
+      "sha256": "f42e50e679216531d8efe2eb46b18415aa3084e4b3e3351a9b27cb0efafec993",
+      "git_blob": "7dc069b8dacc7fb201119058cd45b574ad071b44"
+    },
+    {
+      "path": "src/modules/configuration/application/ports/store-configuration.port.ts",
+      "size": 311,
+      "sha256": "be1f6cc8eced40a5a65c03b6033dd9c6baa41fee1757e1904c15bc33a5717fa8",
+      "git_blob": "a940152f778f06198fb62465c1551cbd64949c1e"
+    },
+    {
+      "path": "src/modules/configuration/application/store-configuration.service.ts",
+      "size": 1280,
+      "sha256": "b015fdd8d3ad7d704670e59659f05b81e89213fefc51ef1e135d0f0a5870dde3",
+      "git_blob": "e0e5e31f13f8437d7e3dd4ed550dbabfd4a3b69d"
+    },
+    {
+      "path": "src/modules/configuration/configuration.module.ts",
+      "size": 866,
+      "sha256": "c63f9cbe54e4d09348b277a6baf68e55dda77df4d1e1f35beb2b15f7e050b943",
+      "git_blob": "26a35ba73053df1713b457b0e3d7e46a887f78db"
+    },
+    {
+      "path": "src/modules/configuration/domain/configuration.events.ts",
+      "size": 602,
+      "sha256": "d5c1873a34aaf774a81388854d2ef6ed018ac9964d8895c5b5eece534b5dd550",
+      "git_blob": "0448e3146a5e21febe569f09a16d34a7105c3d11"
+    },
+    {
+      "path": "src/modules/configuration/domain/configuration.registry.ts",
+      "size": 3286,
+      "sha256": "8d6e2037145a967b8a9def651c1c68eac3a3910370db6cef405df0c07d71d409",
+      "git_blob": "5fdd2a3a82ace69f0c21324572488d198dfdb5a2"
+    },
+    {
+      "path": "src/modules/configuration/infrastructure/configuration.repository.ts",
+      "size": 6302,
+      "sha256": "2ca480aec4d733d223d276caecc0b2e7b16e70a96342fcacd1fff56ee70fcbe7",
+      "git_blob": "8c1b6ea524655810261c9cc3afda5261b930f50d"
+    },
+    {
+      "path": "src/modules/configuration/presentation/configuration.controller.ts",
+      "size": 5595,
+      "sha256": "592a8ffe7d32731daf12620ff0aa1429d5044dd3f86af40dc39fd62fb5da8b7c",
+      "git_blob": "65c12bc7036db2b6bcfc9cc3ca4ae8a372588368"
+    },
+    {
+      "path": "src/modules/orders/application/order.service.ts",
+      "size": 15851,
+      "sha256": "df586ca8f4754668f50086525dfd829adb747427161e988932cad726ef69e62f",
+      "git_blob": "50f77e426409ceff9e3aa977f8ed29f2dc02e647"
+    },
+    {
+      "path": "src/modules/orders/orders.module.ts",
+      "size": 2436,
+      "sha256": "05ef97811aac144dd2dec8d802aa0740c4c5e2373eed6c48ec89beb670f1b857",
+      "git_blob": "b7736971e00a2b9f34e9bd594d8ec09e0f3b7c00"
+    },
+    {
+      "path": "src/modules/pricing/application/price-rule.service.ts",
+      "size": 5025,
+      "sha256": "3b56dc936b1867038a475934018bfc95231874d9ca112348b3a1d9b22a98aa64",
+      "git_blob": "7b34248a23a964cd30ad0e2151e3c0e2008c44d4"
+    },
+    {
+      "path": "src/modules/pricing/pricing.module.ts",
+      "size": 1864,
+      "sha256": "ab85f8c70e888b960ef8bab9e5f5caf45d0c607253b3bcb2b23b072bdc709ce1",
+      "git_blob": "f8f0eb02c26528fa0e2cb6e2f2e4867a03ce7675"
+    },
+    {
+      "path": "src/platform/config/env.validation.ts",
+      "size": 7475,
+      "sha256": "30cfba505aa1e47d86dbb5f9e6cedeb10f192eee4d975606698006d8b37154d8",
+      "git_blob": "f9e2f2af51fd0d97c8f78bb20179f09c46c9d69b"
+    },
+    {
+      "path": "test/configuration-step43.spec.ts",
+      "size": 3100,
+      "sha256": "f4906dc8c6056cee17e1a7729550edbb0feb90aa7bada85d016d92cad7146ee7",
+      "git_blob": "65d17dc5cf2088eb429c546516b8ab0cb3e54c72"
+    }
+  ]
+}

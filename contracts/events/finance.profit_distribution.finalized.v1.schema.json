@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "distribution_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "calculation_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "order_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "distributable_base_toman": {
+      "type": "integer"
+    },
+    "physical_owner_share_toman": {
+      "type": "integer"
+    },
+    "online_owner_share_toman": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "distribution_id",
+    "calculation_id",
+    "order_id",
+    "distributable_base_toman",
+    "physical_owner_share_toman",
+    "online_owner_share_toman"
+  ]
+}

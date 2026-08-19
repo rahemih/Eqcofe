@@ -1,0 +1,28 @@
+from pathlib import Path
+checks=[]
+def ok(name,cond):
+    if not cond: raise SystemExit(f'FAIL {name}')
+    checks.append(name); print('PASS',name)
+root=Path(__file__).resolve().parents[1]
+svc=(root/'src/modules/customer/application/customer-profile.service.ts').read_text()
+repo=(root/'src/modules/customer/infrastructure/customer.repository.ts').read_text()
+mod=(root/'src/modules/customer/customer.module.ts').read_text()
+event=(root/'contracts/events/customer.profile.updated.v1.schema.json').read_text()
+ok('customer repository exists','class CustomerRepository' in repo)
+ok('profile service exists','class CustomerProfileService' in svc)
+ok('customer module wires profile service','CustomerProfileService' in mod and 'CustomerRepository' in mod)
+ok('self actor required',"actor?.type!=='customer'" in svc)
+ok('customer type not writable',"new Set(['first_name','last_name','email'])" in svc)
+ok('optimistic version predicate','version=${input.expectedVersion}' in repo)
+ok('active mutation guard',"status='active'" in repo)
+ok('version increments','version=version+1' in repo)
+ok('email normalized lower','toLowerCase()' in svc)
+ok('blank normalization','return null' in svc)
+ok('no raw iam query','iam.' not in repo and 'iam.' not in svc)
+ok('outbox profile event',"customer.profile.updated.v1" in svc)
+ok('event excludes profile pii','changed_fields' in svc and 'first_name:updated' not in svc.split("customerEvent('customer.profile.updated.v1",1)[1].split('})],context)',1)[0])
+ok('audit mutation','customer.profile.update' in svc)
+ok('presenter allowlist','account_id' not in svc.split('private present',1)[1].split('async getProfile',1)[0])
+ok('profile event schema', 'customer.profile.updated.v1' in event and 'changed_fields' in event)
+ok('no http controller in a4',not any((root/'src/modules/customer/presentation').glob('*.controller.ts')))
+print(f'{len(checks)}/{len(checks)} PASS')

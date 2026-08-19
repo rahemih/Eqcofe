@@ -1,0 +1,20 @@
+{
+  "step": "42/A9",
+  "status": "COMPLETE/PASS_WITH_ENVIRONMENT_NOTE",
+  "base_a8_head": "2bf6f1301c0f0a2f02cdd968fc2fd88a40453670",
+  "github_branch": "eqcofe/step42-a9-http-security",
+  "github_head": "0549979de8fb5a204baca66ec04855907fcc9e3b",
+  "tests": {
+    "a9": "5/5",
+    "regression": "72/72",
+    "audit": "26/26",
+    "openapi": "510/579/1119",
+    "architecture": "306 PASS",
+    "typescript": "PASS"
+  },
+  "notes": [
+    "current shell Node 22.16.0",
+    "Neon old isolated branch lacks admin.permissions",
+    "large OpenAPI/generated contract changes canonical-only in this connector pass"
+  ]
+}

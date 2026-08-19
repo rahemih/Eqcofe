@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "procurement.purchase_order.approved.v1",
+  "title": "procurement.purchase_order.approved.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "purchase_order_id",
+    "supplier_id",
+    "warehouse_id"
+  ],
+  "properties": {
+    "purchase_order_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "supplier_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "warehouse_id": {
+      "type": "string",
+      "format": "uuid"
+    }
+  }
+}

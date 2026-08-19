@@ -1,0 +1,1 @@
+import { Module } from '@nestjs/common';import { TaxService } from './application/tax.service';import { TaxController } from './presentation/tax.controller';@Module({controllers:[TaxController],providers:[TaxService],exports:[TaxService]})export class TaxModule{}

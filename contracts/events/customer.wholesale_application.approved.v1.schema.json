@@ -1,0 +1,1 @@
+{"$schema":"https://json-schema.org/draft/2020-12/schema","title":"customer.wholesale_application.approved.v1","type":"object","additionalProperties":false,"required":["application_id","customer_id","status"],"properties":{"application_id":{"type":"string","format":"uuid"},"customer_id":{"type":"string","format":"uuid"},"status":{"const":"approved"}}}

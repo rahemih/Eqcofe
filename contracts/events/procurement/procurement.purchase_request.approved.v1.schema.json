@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "procurement.purchase_request.approved.v1",
+  "title": "procurement.purchase_request.approved.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "purchase_request_id",
+    "warehouse_id"
+  ],
+  "properties": {
+    "purchase_request_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "warehouse_id": {
+      "type": "string",
+      "format": "uuid"
+    }
+  }
+}

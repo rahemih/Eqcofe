@@ -1,0 +1,1 @@
+{"$schema":"https://json-schema.org/draft/2020-12/schema","title":"payment.refunded.v1","type":"object","additionalProperties":false,"required":["payment_id","order_id","refunded_toman"],"properties":{"payment_id":{"type":"string","format":"uuid"},"order_id":{"type":"string","format":"uuid"},"refunded_toman":{"type":"integer","minimum":1}}}

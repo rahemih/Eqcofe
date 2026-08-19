@@ -1,0 +1,11 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {readFileSync} from 'node:fs';
+const ctl=readFileSync('src/modules/notifications/presentation/notifications.controller.ts','utf8');
+const svc=readFileSync('src/modules/notifications/application/notification-template.service.ts','utf8');
+const repo=readFileSync('src/modules/notifications/infrastructure/notification-delivery.repository.ts','utf8');
+const api=readFileSync('contracts/http/openapi.yaml','utf8');
+test('admin notification reads are staff permission guarded',()=>{assert.match(ctl,/@StaffOnly\(\) @Permissions\('notifications\.view'\) @Get\('admin\/notifications'\)/);});
+test('manual retry requires permission step-up and idempotency',()=>{assert.ok(ctl.includes("@Permissions('notifications.retry') @RequireStepUp() @RequireIdempotency('notifications.retry')"));assert.ok(repo.includes("set_config('eqcofe.notification_manual_retry','1',true)"));});
+test('template mutations are step-up and idempotent',()=>{for(const scope of ['notifications.template.create','notifications.template.revise','notifications.template.activate','notifications.template.retire'])assert.ok(ctl.includes(`@RequireIdempotency('${scope}')`));assert.ok((ctl.match(/@RequireStepUp\(\)/g)||[]).length>=5);});
+test('template patch creates a new immutable version',()=>{assert.ok(svc.includes('async revise('));assert.ok(svc.includes('nextVersion(ex,before.template_key'));assert.ok(svc.includes("action:'notifications.template.revise'"));});
+test('internal endpoint is service bearer and idempotent',()=>{assert.ok(ctl.includes("@Public() @RequireIdempotency('notifications.internal.enqueue') @Post('internal/notifications')"));assert.ok(ctl.includes('INTERNAL_SERVICE_BEARER'));assert.ok(ctl.includes('Boolean(customer)===Boolean(staff)'));});
+test('openapi advertises A9 security contract',()=>{assert.ok(api.includes('/admin/notifications/templates/{id}/activate:'));assert.ok(api.includes('/admin/notifications/templates/{id}/retire:'));assert.ok(api.includes("stepUpToken: []"));assert.ok(api.includes("#/components/parameters/IdempotencyKey"));});

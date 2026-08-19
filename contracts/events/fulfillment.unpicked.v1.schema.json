@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "fulfillment_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "order_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "allocation_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "quantity": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "total_picked_quantity": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "reason": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 2000
+    },
+    "status": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "fulfillment_id",
+    "order_id",
+    "allocation_id",
+    "quantity",
+    "total_picked_quantity",
+    "reason",
+    "status"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "inventory.reservation.commitment_released.v1",
+  "title": "inventory.reservation.commitment_released.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "reservation_id",
+    "released_quantity"
+  ],
+  "properties": {
+    "reservation_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "released_quantity": {
+      "type": "integer",
+      "minimum": 0
+    }
+  }
+}

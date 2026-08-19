@@ -1,0 +1,14 @@
+packages:
+  - .
+
+onlyBuiltDependencies:
+  - esbuild
+  - msgpackr-extract
+
+ignoredBuiltDependencies:
+  - '@scarf/scarf'
+
+allowBuilds:
+  '@scarf/scarf': false
+  esbuild: true
+  msgpackr-extract: true

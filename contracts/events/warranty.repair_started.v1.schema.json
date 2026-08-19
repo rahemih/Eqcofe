@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "claim_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "claim_number": {
+      "type": "string"
+    },
+    "order_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "order_item_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "comment": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "reason": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "status": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "claim_id",
+    "claim_number",
+    "order_id",
+    "order_item_id",
+    "status"
+  ]
+}

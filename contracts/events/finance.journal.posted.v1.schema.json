@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "journal_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "entry_number": {
+      "type": "string"
+    },
+    "debit_toman": {
+      "type": "integer"
+    },
+    "credit_toman": {
+      "type": "integer"
+    },
+    "posted_at": {},
+    "reason": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "journal_id",
+    "entry_number",
+    "debit_toman",
+    "credit_toman",
+    "posted_at",
+    "reason"
+  ]
+}

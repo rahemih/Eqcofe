@@ -1,0 +1,37 @@
+{
+  "project": "EQCOFE",
+  "step": 41,
+  "stage": "A9",
+  "status": "VERIFIED",
+  "date": "2026-08-16",
+  "scope": "Cross-domain financial integration",
+  "implemented": [
+    "FinanceCrossDomainConsumer via EventConsumerRegistry/consumer inbox",
+    "Order/Payment/Inventory/Returns/Procurement event-driven profit recalculation",
+    "immutable final distribution reversal before post-final financial mutations",
+    "direct/order-item/return/landed-cost lineage order resolution",
+    "in-transaction calculate/reverse methods preserving public wrappers",
+    "worker FinanceModule wiring",
+    "no source-domain writes from Finance integration"
+  ],
+  "verification": {
+    "a9_static_audit": "32/32 PASS",
+    "a9_core_tests": "5/5 PASS",
+    "typescript_changed_file_syntax": "PASS",
+    "a8_audit": "34/34 PASS",
+    "a7_audit": "35/35 PASS",
+    "a6_audit": "34/34 PASS",
+    "a5_audit": "30/30 PASS",
+    "a4_audit": "30/30 PASS",
+    "architecture": "PASS 290 files",
+    "policy": "PASS"
+  },
+  "environment": {
+    "node": "22.16.0",
+    "required_node": ">=24.18.1 <25",
+    "pnpm_installed": false,
+    "full_dependency_build": "BLOCKED_BY_MISSING_DEPENDENCIES"
+  },
+  "migration": "none; existing events.consumer_inbox provides idempotent transaction boundary",
+  "next": "A10 Admin Finance HTTP Contracts + security"
+}

@@ -1,0 +1,11 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"customer.profile.updated.v1",
+  "type":"object",
+  "additionalProperties":false,
+  "required":["customer_id","changed_fields"],
+  "properties":{
+    "customer_id":{"type":"string","format":"uuid"},
+    "changed_fields":{"type":"array","minItems":1,"uniqueItems":true,"items":{"type":"string","enum":["first_name","last_name","email"]}}
+  }
+}

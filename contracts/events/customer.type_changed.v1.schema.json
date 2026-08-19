@@ -1,0 +1,1 @@
+{"$schema":"https://json-schema.org/draft/2020-12/schema","title":"customer.type_changed.v1","type":"object","additionalProperties":false,"required":["customer_id","previous_type","customer_type"],"properties":{"customer_id":{"type":"string","format":"uuid"},"previous_type":{"enum":["retail","wholesale"]},"customer_type":{"enum":["retail","wholesale"]}}}

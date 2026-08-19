@@ -1,0 +1,58 @@
+{
+  "database/migrations/0033_notification_operations.sql": {
+    "sha256": "2c302955d92d610e2908121fd14584f890bb048a5bd32c37f91fb96de3b6fd33",
+    "size": 480
+  },
+  "src/modules/notifications/application/notification-operations.service.ts": {
+    "sha256": "0bdd93ce6fab84de551c59bd387f26bf9c9209af9ce674d19d3bdb9a2d42ec12",
+    "size": 1702
+  },
+  "src/modules/notifications/application/notification-command.service.ts": {
+    "sha256": "a69a10af9b2bbfe130e000bfe4763ee317a7898b7f128f06f10d5fbfa3f90732",
+    "size": 6735
+  },
+  "src/modules/notifications/infrastructure/notification.repository.ts": {
+    "sha256": "d00669fa879bb1030bd94ab2494357a321e4cc98662c7ee11d5ff8d3e634dc1f",
+    "size": 4144
+  },
+  "src/modules/notifications/infrastructure/notification-delivery.repository.ts": {
+    "sha256": "f1dd8e9c37ae8a15735922886ab0cb4feae169cf4c11d9771f7b2441663f45db",
+    "size": 9476
+  },
+  "src/modules/notifications/presentation/notifications.controller.ts": {
+    "sha256": "7b13856a6c061be9cf3d4fa932e4036b90d31f891a0fa6c58540ae518f04de07",
+    "size": 4229
+  },
+  "src/modules/notifications/notifications.module.ts": {
+    "sha256": "8159bc8dfbb149a6b1ec82a6ddf82d85ce08fc27fb51281df595624777f5203e",
+    "size": 2651
+  },
+  "apps/worker/notification-delivery-worker.service.ts": {
+    "sha256": "a3bbbf445d3e28ad1fe6e08d84e98e4438aede1dfee75c3c2cde25553b404ffb",
+    "size": 1214
+  },
+  "apps/worker/app.module.ts": {
+    "sha256": "bb88cf2ce64814ba43f0082cdb8a1e3e9201f5f433a844380e4aef81140f1875",
+    "size": 723
+  },
+  "apps/scheduler/app.module.ts": {
+    "sha256": "a102befc04970ae5fd4ea1793675d4b341ed20de59d9ef0662d19fe0a4de058e",
+    "size": 857
+  },
+  "apps/scheduler/scheduler-tasks.service.ts": {
+    "sha256": "c4e63ccbd4488bcdf52117694f5edf5a3679305da3fc66598cdbb366cb7eafe5",
+    "size": 1665
+  },
+  "test/notification-operations-a10.spec.ts": {
+    "sha256": "fa391bb0a9dc396f7bfad3ec314e6a3ea8953640b16d3912f46f1dafd934e1f0",
+    "size": 1776
+  },
+  "contracts/http/openapi.yaml": {
+    "sha256": "67ddba8b595b0f1a07d6ec3dbe3ce627e21eb32b15111f71a9eca153d84dff28",
+    "size": 474169
+  },
+  "src/generated/openapi.ts": {
+    "sha256": "278005b5fb8b44c9090fb2842d0df8085f70eb29da430cb295383e84cf2c35fa",
+    "size": 701593
+  }
+}

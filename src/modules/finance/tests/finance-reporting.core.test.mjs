@@ -1,0 +1,13 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+const service=fs.readFileSync(new URL('../application/finance-reporting.service.ts',import.meta.url),'utf8');
+const repo=fs.readFileSync(new URL('../infrastructure/finance.repository.ts',import.meta.url),'utf8');
+const controller=fs.readFileSync(new URL('../presentation/finance.controller.ts',import.meta.url),'utf8');
+const migration=fs.readFileSync(new URL('../../../../database/migrations/0025_finance_reporting_exports.sql',import.meta.url),'utf8');
+const openapi=fs.readFileSync(new URL('../../../../contracts/http/openapi.yaml',import.meta.url),'utf8');
+assert.match(service,/finance_summary/);assert.match(service,/journal_trial_balance/);assert.match(service,/toCsv/);
+assert.match(repo,/runFinanceReport/);assert.match(repo,/createReportJob/);assert.match(repo,/createExport/);
+assert.match(controller,/finance\.report\.run/);assert.match(controller,/finance\.export/);assert.match(controller,/RequireStepUp\(\)/);assert.match(controller,/RequireIdempotency\('finance\.report\.run'\)/);
+assert.match(migration,/finance\.report_jobs/);assert.match(migration,/finance\.exports/);assert.match(migration,/FINANCE_COMPLETED_REPORT_IMMUTABLE/);assert.match(migration,/FINANCE_COMPLETED_EXPORT_IMMUTABLE/);
+assert.match(openapi,/FinanceReportRunRequest/);assert.match(openapi,/FinanceExportCreateRequest/);assert.match(openapi,/journal_trial_balance/);assert.match(openapi,/permission: finance\.export/);
+console.log('finance-reporting.core.test: 12 assertions PASS');

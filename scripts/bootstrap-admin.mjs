@@ -1,0 +1,9 @@
+import { randomBytes, scryptSync, createHash } from 'node:crypto';
+import pg from 'pg';
+const { Client }=pg;
+const email=process.argv[2];const password=process.argv[3];
+if(!email||!password||password.length<14){console.error('Usage: pnpm bootstrap:admin admin@example.com "strong-password-min-14"');process.exit(2);}
+const db=new Client({connectionString:process.env.DATABASE_URL});await db.connect();
+const salt=randomBytes(16).toString('hex');const passwordHash=`scrypt$${salt}$${scryptSync(password,salt,64).toString('hex')}`;
+const enrollment=randomBytes(32).toString('base64url');const enrollmentHash=createHash('sha256').update(enrollment).digest('hex');
+try{await db.query('BEGIN');const a=await db.query(`INSERT INTO iam.accounts(email_normalized,password_hash,status,email_verified_at) VALUES($1,$2,'active',now()) RETURNING id`,[email.toLowerCase(),passwordHash]);const staff=await db.query(`INSERT INTO admin.staff_profiles(account_id,first_name,last_name,fido_enrollment_token_hash,fido_enrollment_expires_at) VALUES($1,'System','Administrator',$2,now()+interval '30 minutes') RETURNING id`,[a.rows[0].id,enrollmentHash]);const role=await db.query(`INSERT INTO admin.roles(key,name_fa,description_fa,is_system) VALUES('superadmin','مدیر کل سیستم','نقش اولیه راه‌اندازی',true) ON CONFLICT(key) DO UPDATE SET is_active=true RETURNING id`);await db.query(`INSERT INTO admin.role_permissions(role_id,permission_id) SELECT $1,id FROM admin.permissions ON CONFLICT DO NOTHING`,[role.rows[0].id]);await db.query(`INSERT INTO admin.staff_roles(staff_id,role_id) VALUES($1,$2) ON CONFLICT DO NOTHING`,[staff.rows[0].id,role.rows[0].id]);await db.query('COMMIT');console.log(JSON.stringify({email,staff_id:staff.rows[0].id,fido_enrollment_token:enrollment,expires_in_seconds:1800},null,2));console.error('Store the enrollment token securely and use it once. It is not recoverable.');}catch(e){await db.query('ROLLBACK');throw e;}finally{await db.end();}

@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "inventory.reservation.converted.v1",
+  "title": "inventory.reservation.converted.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "reservation_id"
+  ],
+  "properties": {
+    "reservation_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "order_id": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "uuid"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  }
+}

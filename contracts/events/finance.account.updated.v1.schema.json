@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "account_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "name_fa": {
+      "type": "string"
+    },
+    "parent_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "uuid"
+    },
+    "is_postable": {
+      "type": "boolean"
+    },
+    "is_active": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "account_id",
+    "name_fa",
+    "parent_id",
+    "is_postable",
+    "is_active"
+  ]
+}

@@ -1,49 +1,86 @@
 # EQCOFE — Equipment Coffee
 
-> **Canonical consolidation status:** 2026-08-19 01:29 UTC-07:00  
-> **Trusted state:** see `docs/12-current-state/CURRENT-STATE.md`  
-> **Timestamped evidence snapshot:** see `docs/CANONICAL-SNAPSHOT-2026-08-19-0129-UTC-07.md`
+EQCOFE is an Iranian e-commerce platform for coffee equipment, built as a SQL-first modular monolith with PostgreSQL, explicit transaction boundaries, transactional outbox delivery, worker/scheduler processes, and an OpenAPI-first HTTP contract.
 
-EQCOFE is an Iranian e-commerce platform for coffee equipment. This repository is the **official target repository** and is currently under controlled canonical recovery/consolidation.
+## Canonical status
 
-## Current trust status
+This repository is the canonical import baseline reconstructed from the verified EQCOFE project artifacts through **Step 44 — Comprehensive Notification System**.
 
-Historical recovery evidence identifies **Step 44 — Comprehensive Notification System** as the latest completed implementation and **Step 45 — Articles, Content & SEO** as the next planned step. However, the full Step-44 application tree and its runtime evidence have **not yet been freshly verified on the current official remote `main`**.
-
-Therefore:
-
-- Official repository: `rahemih/Eqcofe`
-- Historical repository: `rahemih/digikala-clone` — preserve until migration verification completes
-- Last historically recovered completed step: **44**
-- Next planned development step: **45**
-- Feature development: **FROZEN pending canonical source + build/test/CI verification**
+- Last completed step: **44 — FINAL CANONICAL / CLOSED**
+- Next planned step: **45 — Articles, Content & SEO**
 - Money unit: **Toman**
 - Wallet: **not part of the product**
+- Node: `>=24.18.1 <25`
+- Package manager: `pnpm@11.21.0`
+- Latest verified full runtime regression on this exact production-source lineage: **127/127 PASS**
+- Latest verified OpenAPI: **513 paths / 582 operations / 1138 refs — PASS**
+- Latest verified architecture gate: **345 files — PASS**
+- PostgreSQL 18.4 isolated verification: **PASS**
 
-Do not treat inherited test numbers as a fresh verification of the current remote tree. The authoritative day-to-day status is `docs/12-current-state/CURRENT-STATE.md`.
+> Import provenance matters: the historical GitHub repository was a partial traceability/recovery mirror. The runnable source in this import comes from the final Step-44 canonical artifact, not from pretending the old GitHub `main` tree was complete.
 
-## Recovered architecture lineage
+## Technology stack
 
-The Step-44 canonical artifact is documented as a TypeScript/Node modular monolith using PostgreSQL/Kysely, separate API/Worker/Scheduler processes, OpenAPI contracts, and transactional outbox/inbox patterns. This architecture is subject to final remote-source verification during consolidation.
+- TypeScript 6 / Node.js 24
+- NestJS 11 + Fastify
+- PostgreSQL + Kysely
+- Redis + BullMQ
+- OpenAPI 3.1
+- Transactional Outbox / event inbox patterns
+- Separate API, Worker and Scheduler processes
 
-## Canonical evidence
+## Repository layout
 
-Connected Google Drive contains:
+- `apps/api` — HTTP process
+- `apps/worker` — asynchronous event/outbox/delivery processing
+- `apps/scheduler` — scheduled lifecycle/maintenance tasks
+- `src/modules` — business modules
+- `src/platform` — platform services and cross-cutting infrastructure
+- `src/shared` — shared kernel primitives
+- `database/migrations` — ordered PostgreSQL migrations
+- `contracts/http` — canonical OpenAPI contract
+- `contracts/events` — event schemas
+- `test` — runtime/invariant tests
+- `scripts` — contract, architecture, policy and test tooling
+- `docs` — canonical product, architecture, history, decisions and current-state documentation
 
-- `Eqcofe-canonical-import-v1.zip`
-- `Eqcofe-canonical-import-v1.bundle`
-- `EQCOFE_CANONICAL_REPOSITORY_REPORT.md`
+## Setup
 
-The Drive report records a prepared 782-file canonical repository through Step 44. Import and fresh verification on this official remote remain the active consolidation gate.
+```bash
+corepack enable
+pnpm install --frozen-lockfile
+cp .env.example .env
+pnpm db:migrate
+pnpm verify
+```
 
-## Safe continuation rule
+Development processes:
 
-Before Step 45 begins:
+```bash
+pnpm dev:api
+pnpm dev:worker
+pnpm dev:scheduler
+```
 
-1. verify the canonical package and intended source tree;
-2. verify/complete import into this repository;
-3. run fresh build/typecheck/lint/tests/regression where supported;
-4. run/record CI;
-5. synchronize canonical documentation and unresolved evidence gaps.
+The default sample environment is fail-closed for live payment/provider behavior. Never commit real credentials.
 
-If a historical conversation, README, roadmap or status note conflicts with repository/test evidence, record the conflict and prefer verified implementation/test evidence rather than guessing.
+## Documentation index
+
+- Product vision: `docs/01-product-vision/EQCOFE-PRODUCT-VISION.md`
+- Business rules: `docs/02-business-rules/EQCOFE-BUSINESS-RULES.md`
+- Architecture: `docs/03-architecture/EQCOFE-ARCHITECTURE.md`
+- Database: `docs/04-database/README.md`
+- API: `docs/05-api/README.md`
+- Security: `docs/06-security/README.md`
+- Testing: `docs/07-testing/README.md`
+- Decisions / ADRs: `docs/09-decisions/`
+- Project history: `docs/10-project-history/MASTER-HISTORY.md`
+- Step history: `docs/11-step-history/`
+- Current state: `docs/12-current-state/CURRENT-STATE.md`
+- Completeness matrix: `docs/12-current-state/COMPLETENESS-MATRIX.md`
+- Unverified register: `docs/12-current-state/UNVERIFIED-REGISTER.md`
+- Roadmap: `ROADMAP.md`
+
+## Provenance and historical accuracy
+
+No fake historical Git commits are manufactured in this repository. Earlier decisions/steps are documented from recoverable artifacts, code, tests, Git evidence, Google Drive and project context. Anything not sufficiently recoverable is explicitly marked `UNVERIFIED` or `PARTIAL`.

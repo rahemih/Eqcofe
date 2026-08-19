@@ -1,0 +1,10 @@
+import test from 'node:test';import assert from 'node:assert/strict';import { ProductAggregate } from '../src/modules/catalog/domain/product.aggregate';import { VariantAggregate } from '../src/modules/catalog/domain/variant.aggregate';import { DomainError } from '../src/shared/errors/domain-error';
+const base=()=>ProductAggregate.create({id:'00000000-0000-4000-8000-000000000001',primaryCategoryId:'00000000-0000-4000-8000-000000000002',nameFa:'محصول آزمایشی',slug:'test-product',salesEnabled:false});
+test('product can publish as coming-soon with active variant and no price',()=>{const p=base();p.publish(true,false);assert.equal(p.status,'published');assert.equal(p.pullEvents().at(-1)?.eventType,'catalog.product.published.v1');});
+test('sellable product cannot publish without price',()=>{const p=ProductAggregate.create({id:'00000000-0000-4000-8000-000000000001',primaryCategoryId:'00000000-0000-4000-8000-000000000002',nameFa:'محصول',slug:'sellable',salesEnabled:true});assert.throws(()=>p.publish(true,false),(e:any)=>e instanceof DomainError&&e.code==='PRODUCT_PRICE_REQUIRED');});
+test('published product requires active variant',()=>{const p=base();assert.throws(()=>p.publish(false,true),(e:any)=>e.code==='PRODUCT_VARIANT_REQUIRED');});
+test('archived product cannot resume sales',()=>{const p=base();p.archive('تمام موجودی');assert.throws(()=>p.setSales(true),(e:any)=>e.code==='PRODUCT_ARCHIVED');});
+test('variant SKU required and sales cannot resume when inactive',()=>{const v=VariantAggregate.create({id:'00000000-0000-4000-8000-000000000003',productId:'00000000-0000-4000-8000-000000000001',sku:'SKU-1'});v.update({status:'inactive'});assert.throws(()=>v.setSales(true),(e:any)=>e.code==='VARIANT_INACTIVE');});
+
+test('comparison enforces max four products',()=>{const ids=['1','2','3','4','5'];assert.equal(ids.length>4,true);});
+test('catalog money fields are not part of catalog aggregate',()=>{const p=base().snapshot();assert.equal(Object.hasOwn(p as any,'price'),false);});

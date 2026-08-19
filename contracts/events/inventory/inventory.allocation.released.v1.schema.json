@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "inventory.allocation.released.v1",
+  "title": "inventory.allocation.released.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "allocation_id",
+    "variant_id",
+    "warehouse_id",
+    "quantity"
+  ],
+  "properties": {
+    "allocation_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "variant_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "warehouse_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "quantity": {
+      "type": "integer"
+    }
+  }
+}

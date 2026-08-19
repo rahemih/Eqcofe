@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "inventory.stock.consumed.v1",
+  "title": "inventory.stock.consumed.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "allocation_id",
+    "warehouse_id",
+    "variant_id",
+    "order_item_id",
+    "quantity",
+    "total_cost_toman"
+  ],
+  "properties": {
+    "allocation_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "warehouse_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "variant_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "order_item_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "quantity": {
+      "type": "integer"
+    },
+    "total_cost_toman": {
+      "type": "integer"
+    }
+  }
+}

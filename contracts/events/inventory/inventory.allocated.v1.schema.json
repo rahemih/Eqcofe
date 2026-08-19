@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "inventory.allocated.v1",
+  "title": "inventory.allocated.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "allocation_id",
+    "order_item_id",
+    "warehouse_id",
+    "variant_id",
+    "quantity"
+  ],
+  "properties": {
+    "allocation_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "order_item_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "warehouse_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "variant_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "quantity": {
+      "type": "integer"
+    },
+    "reservation_id": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "uuid"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  }
+}

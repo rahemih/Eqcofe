@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "rule_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft"
+      ]
+    },
+    "name_fa": {
+      "type": "string"
+    },
+    "scope_type": {
+      "type": "string",
+      "enum": [
+        "global",
+        "category",
+        "brand",
+        "product"
+      ]
+    },
+    "scope_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "uuid"
+    },
+    "priority": {
+      "type": "integer"
+    },
+    "physical_owner_percent": {
+      "type": "string"
+    },
+    "online_owner_percent": {
+      "type": "string"
+    },
+    "effective_from": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "effective_until": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "rule_id",
+    "status",
+    "name_fa",
+    "scope_type",
+    "scope_id",
+    "priority",
+    "physical_owner_percent",
+    "online_owner_percent",
+    "effective_from",
+    "effective_until"
+  ]
+}

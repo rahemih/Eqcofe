@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "inventory.stock.transferred.v1",
+  "title": "inventory.stock.transferred.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "transfer_id",
+    "status",
+    "source_warehouse_id",
+    "destination_warehouse_id"
+  ],
+  "properties": {
+    "transfer_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "status": {
+      "type": "string"
+    },
+    "source_warehouse_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "destination_warehouse_id": {
+      "type": "string",
+      "format": "uuid"
+    }
+  }
+}

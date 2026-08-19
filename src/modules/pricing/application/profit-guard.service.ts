@@ -1,0 +1,3 @@
+import { Inject, Injectable } from '@nestjs/common';
+import { PRICING_COST_BASIS, PricingCostBasisPort } from './ports/cost-basis.port';
+@Injectable() export class ProfitGuardService { constructor(@Inject(PRICING_COST_BASIS)private readonly costs:PricingCostBasisPort){} async evaluate(variantId:string,proposedPriceToman:number){const cost=await this.costs.getUnitCostToman(variantId);if(cost==null)return{status:'unavailable' as const,reason:'COST_BASIS_UNAVAILABLE',unit_cost_toman:null};if(proposedPriceToman<cost)return{status:'blocked' as const,reason:'PRICE_BELOW_COST',unit_cost_toman:cost};return{status:'passed' as const,reason:null,unit_cost_toman:cost};}}

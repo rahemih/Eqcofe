@@ -1,0 +1,14 @@
+{
+  "B1": "Recovered/validated Step 40 scope and prerequisites",
+  "B2": "After-Sales contracts/design baseline",
+  "B3": "PostgreSQL Returns/Warranty schema",
+  "B4": "Returns Application/Core",
+  "B5": "Warranty Application/Core",
+  "B6": "Order/Fulfillment/Inventory/Payment integration boundaries",
+  "B7": "Customer/Admin HTTP contracts, RBAC, Idempotency, Step-Up",
+  "B8": "Refund/Replacement/Restock Resolution Engine",
+  "B9": "Events, Timeline, Notifications",
+  "B10": "PostgreSQL 18.4 E2E and concurrency gate",
+  "B11": "Security/Regression/10-cycle final audit",
+  "B12": "Final Canonical packaging and closure"
+}

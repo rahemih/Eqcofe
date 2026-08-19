@@ -1,0 +1,74 @@
+{
+  "database/migrations/0030_notification_core.sql": {
+    "sha256": "1a189c56b526489c373ea32b5621a538cd3df195459a674fdf5eeb5e9b5e5dc1",
+    "bytes": 12476
+  },
+  "database/migrations/0031_notification_domain_event_templates.sql": {
+    "sha256": "aa3f7e5f14fbb0972c4fb38184b7d01d18f01665ed43083508ed05451440828e",
+    "bytes": 7490
+  },
+  "database/migrations/0032_notification_http_rbac.sql": {
+    "sha256": "e74238ccf1e6592530ab4a2490d22f12b69bb7ba15520941e2e1db7987cb1abf",
+    "bytes": 1938
+  },
+  "database/migrations/0033_notification_operations.sql": {
+    "sha256": "2c302955d92d610e2908121fd14584f890bb048a5bd32c37f91fb96de3b6fd33",
+    "bytes": 480
+  },
+  "contracts/http/openapi.yaml": {
+    "sha256": "67ddba8b595b0f1a07d6ec3dbe3ce627e21eb32b15111f71a9eca153d84dff28",
+    "bytes": 474169
+  },
+  "src/generated/openapi.ts": {
+    "sha256": "278005b5fb8b44c9090fb2842d0df8085f70eb29da430cb295383e84cf2c35fa",
+    "bytes": 701593
+  },
+  "src/modules/notifications/notifications.module.ts": {
+    "sha256": "8159bc8dfbb149a6b1ec82a6ddf82d85ce08fc27fb51281df595624777f5203e",
+    "bytes": 2651
+  },
+  "src/modules/notifications/application/notification-command.service.ts": {
+    "sha256": "a69a10af9b2bbfe130e000bfe4763ee317a7898b7f128f06f10d5fbfa3f90732",
+    "bytes": 6735
+  },
+  "src/modules/notifications/application/notification-delivery.service.ts": {
+    "sha256": "508c9f78fda5e4414b490cb0080a90b0aeddad60fb32e380aac52148dca1042c",
+    "bytes": 5827
+  },
+  "src/modules/notifications/application/notification-in-app.service.ts": {
+    "sha256": "f87c1dec962a806215a879d1dbc9e418e0b49636e545680a1ad13ee294345e78",
+    "bytes": 2143
+  },
+  "src/modules/notifications/application/notification-operations.service.ts": {
+    "sha256": "0bdd93ce6fab84de551c59bd387f26bf9c9209af9ce674d19d3bdb9a2d42ec12",
+    "bytes": 1702
+  },
+  "src/modules/notifications/application/domain-notification.consumer.ts": {
+    "sha256": "9ea3f6d4d02605e1fe2ec96c075ddb4defc8aded7639de01a53cc3dccc170bee",
+    "bytes": 7162
+  },
+  "src/modules/notifications/presentation/notifications.controller.ts": {
+    "sha256": "7b13856a6c061be9cf3d4fa932e4036b90d31f891a0fa6c58540ae518f04de07",
+    "bytes": 4229
+  },
+  "scripts/step44-a11-gate.mjs": {
+    "sha256": "2b8c2a9701fe708315d522f1cfcffd8189818a464d0e7a2a6d14894944554d2e",
+    "bytes": 6261
+  },
+  "scripts/step44-a12-final-audit.py": {
+    "sha256": "aa9662bf605b51cc1c77f7820badf574aea2a58b9ea3b62e0eb23abcbb34ebc4",
+    "bytes": 7304
+  },
+  "STEP44_A11_REPORT.md": {
+    "sha256": "896d9d9287c4b54151cae7df336b579543d4a7a75723ee194f4c7f5b5939035d",
+    "bytes": 4745
+  },
+  "STEP44_A11_10_CYCLE.log": {
+    "sha256": "902773fdfcfdd543d92906b375572c33dce692263cc59e90c880567dee29f347",
+    "bytes": 17267
+  },
+  "STEP44_A12_FINAL_AUDIT.log": {
+    "sha256": "f4a5e52c17c8d92d9062435a9247a1662bf406de86176a1cd7a07e7dc5764748",
+    "bytes": 1693
+  }
+}

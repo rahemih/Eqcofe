@@ -1,0 +1,3 @@
+import { STAFF_NOTIFICATION_PORT } from './application/staff-notification.port';import { StaffNotificationService } from './application/staff-notification.service';import { Module } from '@nestjs/common';import { IdentityModule } from '../identity/identity.module';import { RbacRepository } from './infrastructure/rbac.repository';import { RbacService } from './application/rbac.service';import { RbacController } from './presentation/rbac.controller';
+@Module({imports:[IdentityModule],controllers:[RbacController],providers:[RbacRepository,RbacService,StaffNotificationService,{provide:STAFF_NOTIFICATION_PORT,useExisting:StaffNotificationService}],exports:[RbacService,STAFF_NOTIFICATION_PORT]})
+export class AdminModule {}

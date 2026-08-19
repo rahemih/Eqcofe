@@ -1,0 +1,38 @@
+{
+  "project": "EQCOFE",
+  "step": 42,
+  "stage": "A4",
+  "status": "COMPLETE_PASS",
+  "date": "2026-08-18",
+  "baseline_a3_artifact_sha256": "ccc739032e7d99ef33f9a74652c92ba919b29b582f29dbf18b0bc549ce95d2fd",
+  "scope": "Customer Profile Service + Repository",
+  "source_file_count": 574,
+  "verification": {
+    "a4_static_audit": "17/17 PASS",
+    "a4_profile_tests": "6/6 PASS",
+    "node": "24.18.1",
+    "typescript": "6.0.3 build PASS",
+    "runtime_regression": "40/40 PASS",
+    "openapi": "510 paths / 579 operations / 1108 refs PASS",
+    "architecture": "297 files PASS",
+    "policy": "PASS",
+    "postgresql18_profile_update_semantics": "PASS"
+  },
+  "github": {
+    "repository": "rahemih/digikala-clone",
+    "branch": "eqcofe/step42-a4-customer-profile",
+    "a3_head": "164e3916ae31beb368605b0727723b31a44595b4",
+    "a4_head": "214334a5907f27d3fc7dd9b375b12b7ceb40f54f",
+    "delta_commits": 7,
+    "delta_files": 7
+  },
+  "neon": {
+    "project": "plain-term-89989171",
+    "branch": "br-muddy-mountain-avr7zc8t",
+    "branch_name": "eqcofe-step42-a3-verify",
+    "default_branch_touched": false
+  },
+  "backup_branch": "backup-eqcofe-1",
+  "backup_modified": false,
+  "next": "A5 Address Book Engine"
+}

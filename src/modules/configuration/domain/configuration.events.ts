@@ -1,0 +1,3 @@
+import { RecordedDomainEvent } from '../../../shared/kernel/domain-event';
+export function configurationEvent(eventType:string,id:string,version:number,payload:Record<string,unknown>):RecordedDomainEvent{return{eventType,eventVersion:1,aggregateType:'configuration',aggregateId:id,aggregateVersion:version,occurredAt:new Date(),payload};}
+export function featureFlagEvent(eventType:string,key:string,version:number,payload:Record<string,unknown>):RecordedDomainEvent{return{eventType,eventVersion:1,aggregateType:'feature_flag',aggregateId:key,aggregateVersion:version,occurredAt:new Date(),payload};}

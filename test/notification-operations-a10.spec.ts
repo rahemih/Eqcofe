@@ -1,0 +1,12 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {readFileSync} from 'node:fs';
+const repo=readFileSync('src/modules/notifications/infrastructure/notification-delivery.repository.ts','utf8');
+const ctl=readFileSync('src/modules/notifications/presentation/notifications.controller.ts','utf8');
+const worker=readFileSync('apps/worker/notification-delivery-worker.service.ts','utf8');
+const sched=readFileSync('apps/scheduler/scheduler-tasks.service.ts','utf8');
+const migration=readFileSync('database/migrations/0033_notification_operations.sql','utf8');
+test('scheduled deliveries are not claimed before due',()=>{assert.ok(repo.includes("i.scheduled_at IS NULL OR i.scheduled_at<=now()"));assert.ok(migration.includes('scheduled_at'));});
+test('internal scheduled command is accepted and persisted',()=>{assert.ok(ctl.includes('scheduled_at:scheduled?.toISOString()??null'));});
+test('worker has dedicated notification delivery loop',()=>{assert.ok(worker.includes('processBatch(batch)'));assert.ok(worker.includes('NOTIFICATION_POLL_INTERVAL_MS'));});
+test('scheduler performs stale recovery instead of provider send',()=>{assert.ok(sched.includes('recoverNotificationDeliveries'));assert.ok(sched.includes('notifications.recoverStale(50)'));assert.ok(!sched.includes('processBatch('));});
+test('stale processing recovery is retry-safe',()=>{assert.ok(repo.includes('recoverStaleProcessing'));assert.ok(repo.includes("status='retry_wait'"));assert.ok(repo.includes('NOTIFICATION_WORKER_STALE'));});
+test('operations summary exposes backlog and failures',()=>{assert.ok(repo.includes('scheduled_future'));assert.ok(repo.includes('stale_processing'));assert.ok(repo.includes('failed_attempts_24h'));assert.ok(repo.includes('oldest_due_seconds'));});

@@ -1,0 +1,1 @@
+{"$schema":"https://json-schema.org/draft/2020-12/schema","title":"payment.failed.v1","type":"object","additionalProperties":false,"required":["payment_id","order_id","order_number"],"properties":{"payment_id":{"type":"string","format":"uuid"},"order_id":{"type":"string","format":"uuid"},"order_number":{"type":"string"},"failure_code":{"type":["string","null"]}}}

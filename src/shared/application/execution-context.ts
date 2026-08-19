@@ -1,0 +1,2 @@
+export interface ExecutionActor { readonly type:'customer'|'staff'|'service'|'system'; readonly id?:string; readonly accountId?:string; readonly sessionId?:string; readonly permissions?:readonly string[]; readonly scopes?:readonly string[]; }
+export interface ExecutionContext { readonly requestId:string; readonly traceId?:string; readonly correlationId:string; readonly causationId?:string; readonly actor:ExecutionActor; }

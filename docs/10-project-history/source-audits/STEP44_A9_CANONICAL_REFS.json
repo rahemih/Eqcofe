@@ -1,0 +1,54 @@
+{
+  "step": "44/A9",
+  "status": "COMPLETE/PASS",
+  "files": {
+    "contracts/http/openapi.yaml": {
+      "sha256": "93e69132de3ac89ada5e4273c5eb6dc90553a9658ab37abf3185834b1e1ee0e5",
+      "size": 473725
+    },
+    "src/generated/openapi.ts": {
+      "sha256": "e777d2450b1757d4640014dd6b9cfd26b977a5470278f3b14380fd0f8fd351ea",
+      "size": 700541
+    },
+    "database/migrations/0032_notification_http_rbac.sql": {
+      "sha256": "e74238ccf1e6592530ab4a2490d22f12b69bb7ba15520941e2e1db7987cb1abf",
+      "size": 1938
+    },
+    "src/modules/notifications/presentation/notifications.controller.ts": {
+      "sha256": "bbb9862805b7d9a57a0e17a31358c9f3499ef8e44092ec1e72657fc2288d6a0d",
+      "size": 4085
+    },
+    "src/modules/notifications/application/notification-admin.service.ts": {
+      "sha256": "c98218b942b74f16786d500ed4b9617b14f1076ae3ed3d1cf2a82bcbb6cb3de9",
+      "size": 2211
+    },
+    "src/modules/notifications/application/notification-template.service.ts": {
+      "sha256": "8d8203f7c24d5fbeec91b726ac04ef54a593cf7d0e7dade67f68a6af4a5cf004",
+      "size": 7837
+    },
+    "src/modules/notifications/application/notification-command.service.ts": {
+      "sha256": "a5de561c110889d9549e82340d8a73ebfa9fef2d0ae1e2529a016c1aebe24fb5",
+      "size": 6449
+    },
+    "src/modules/notifications/infrastructure/notification-template.repository.ts": {
+      "sha256": "2a84b45c1db090c42383ece686054de367587eb97726818cbcdf868c13f9731e",
+      "size": 3280
+    },
+    "src/modules/notifications/infrastructure/notification-delivery.repository.ts": {
+      "sha256": "8c7e8575b2fbaadc2c35d1ff8a7e29402e55f021892e230637ba310106bd3b9d",
+      "size": 7083
+    },
+    "src/modules/notifications/notifications.module.ts": {
+      "sha256": "3e4c9794301df4562e5d411ba05e9bcfdb1d575902d556f8ac0b1bd8e12e8a38",
+      "size": 2496
+    },
+    "test/notification-http-a9.spec.ts": {
+      "sha256": "fb237221db373838dd2c10b20cc6f1c8ef86404f16e3471459e99eb34fa25f25",
+      "size": 2117
+    },
+    "STEP44_A9_REPORT.md": {
+      "sha256": "e2a58fd5a0c1357508a681489039ff69fae8f2bfc130f818232ef1f91857689e",
+      "size": 3013
+    }
+  }
+}

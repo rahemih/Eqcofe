@@ -1,0 +1,16 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { DomainNotificationConsumer } from '../src/modules/notifications/application/domain-notification.consumer';
+
+function event(type:string,payload:any={}){return{event_id:'11111111-1111-4111-8111-111111111111',event_type:type,event_version:1,aggregate_type:'x',aggregate_id:'22222222-2222-4222-8222-222222222222',aggregate_version:1,correlation_id:'c1',causation_id:'ca1',trace_id:'t1',payload};}
+function fixture(){const calls:any[]=[];const registry:any={register:(x:any)=>{registry.consumer=x;}};const notifications:any={enqueueFromIntegrationEvent:async(_trx:any,input:any,meta:any)=>{calls.push({input,meta});return{id:'n1'};}};const orders:any={byOrderId:async(_trx:any,id:string)=>({orderId:id,orderNumber:'EQ-1001',customerId:'33333333-3333-4333-8333-333333333333'})};const staff:any={activeWithPermission:async()=>['44444444-4444-4444-8444-444444444444','55555555-5555-4555-8555-555555555555']};const c=new DomainNotificationConsumer(registry,notifications,orders,staff);c.onModuleInit();return{c,calls,orders,staff,registry};}
+
+test('order event resolves customer through Orders-owned port and enqueues all customer channels',async()=>{const f=fixture();await f.c.handle(event('order.submitted.v1',{order_id:'aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa'}),{} as any);assert.equal(f.calls.length,1);assert.equal(f.calls[0].input.notification_kind,'order.submitted');assert.equal(f.calls[0].input.recipient_subject_type,'customer');assert.deepEqual(f.calls[0].input.channels,['in_app','sms','email']);assert.equal(f.calls[0].input.variables.reference,'EQ-1001');assert.equal(f.calls[0].meta.correlationId,'c1');});
+
+test('guest order event produces no customer notification',async()=>{const f=fixture();(f.orders as any).byOrderId=async()=>({orderId:'x',orderNumber:'EQ-GUEST',customerId:null});await f.c.handle(event('payment.failed.v1',{order_id:'aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa'}),{} as any);assert.equal(f.calls.length,0);});
+
+test('after-sales events converge into generic after_sales.update kind',async()=>{const f=fixture();await f.c.handle(event('return.approved.v1',{order_id:'aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa',return_number:'RET-7'}),{} as any);assert.equal(f.calls[0].input.notification_kind,'after_sales.update');assert.match(f.calls[0].input.variables.title,/مرجوعی/);assert.equal(f.calls[0].input.source_id,'11111111-1111-4111-8111-111111111111');});
+
+test('inventory availability event broadcasts in-app only to authorized active staff audience',async()=>{const f=fixture();await f.c.handle(event('inventory.availability.changed.v1',{warehouse_id:'aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa',variant_id:'bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb'}),{} as any);assert.equal(f.calls.length,2);assert.ok(f.calls.every(x=>x.input.recipient_subject_type==='staff'));assert.ok(f.calls.every(x=>JSON.stringify(x.input.channels)==='["in_app"]'));assert.ok(f.calls.every(x=>x.input.notification_kind==='inventory.availability.changed'));});
+
+test('consumer registers only generalized event consumer identity',()=>{const f=fixture();assert.equal(f.registry.consumer.consumerName,'notifications.domain-events.v1');assert.ok(f.registry.consumer.eventTypes.includes('shipment.handed_over.v1'));assert.ok(f.registry.consumer.eventTypes.includes('after_sales.replacement.requested.v1'));});

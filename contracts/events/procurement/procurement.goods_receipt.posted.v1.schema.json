@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "procurement.goods_receipt.posted.v1",
+  "title": "procurement.goods_receipt.posted.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "goods_receipt_id",
+    "purchase_order_id",
+    "warehouse_id"
+  ],
+  "properties": {
+    "goods_receipt_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "purchase_order_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "uuid"
+    },
+    "warehouse_id": {
+      "type": "string",
+      "format": "uuid"
+    }
+  }
+}

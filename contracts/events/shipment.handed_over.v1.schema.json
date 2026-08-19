@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "shipment_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "order_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "fulfillment_status": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "shipment_id",
+    "order_id",
+    "fulfillment_status"
+  ]
+}

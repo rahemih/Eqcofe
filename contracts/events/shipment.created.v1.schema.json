@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "shipment_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "order_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "warehouse_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "shipping_method": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 80
+    },
+    "provider_key": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "fulfillment_status": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "shipment_id",
+    "order_id",
+    "warehouse_id",
+    "shipping_method",
+    "fulfillment_status"
+  ]
+}

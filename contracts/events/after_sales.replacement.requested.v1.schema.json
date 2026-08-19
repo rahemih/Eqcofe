@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "replacement_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "source_type": {
+      "type": "string"
+    },
+    "source_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "order_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "order_item_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "customer_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "variant_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "quantity": {
+      "type": "integer"
+    },
+    "status": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "replacement_id",
+    "source_type",
+    "source_id",
+    "order_id",
+    "order_item_id",
+    "customer_id",
+    "variant_id",
+    "quantity",
+    "status"
+  ]
+}

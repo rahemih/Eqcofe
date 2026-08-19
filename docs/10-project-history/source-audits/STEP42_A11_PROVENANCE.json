@@ -1,0 +1,18 @@
+{
+  "step": 42,
+  "substep": "A11",
+  "status": "COMPLETE_PASS_WITH_ENVIRONMENT_NOTE",
+  "date": "2026-08-18",
+  "baseline_a10_head": "b332043b4390b0d82a79d71ccac075bdc40c0aa1",
+  "github_branch": "eqcofe/step42-a11-verification",
+  "github_head": "44161864f8cb2ce430ad5d6ce69234a46f7cadc4",
+  "node": "24.18.1",
+  "typescript": "6.0.3",
+  "audit": "25/25 PASS",
+  "runtime_regression": "86/86 PASS",
+  "ten_cycle": "10/10 PASS; 860/860 test executions",
+  "postgresql": "18.4 isolated guard verification PASS",
+  "environment_note": "direct two-client container connection blocked by DNS EAI_AGAIN",
+  "main_database_modified": false,
+  "backup_modified": false
+}

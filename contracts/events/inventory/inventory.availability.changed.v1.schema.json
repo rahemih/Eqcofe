@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "inventory.availability.changed.v1",
+  "title": "inventory.availability.changed.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "warehouse_id"
+  ],
+  "properties": {
+    "warehouse_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "variant_id": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "uuid"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  }
+}

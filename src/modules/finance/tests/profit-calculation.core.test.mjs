@@ -1,0 +1,10 @@
+import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';
+const s=fs.readFileSync(new URL('../application/profit-calculation.service.ts',import.meta.url),'utf8');
+const r=fs.readFileSync(new URL('../infrastructure/finance.repository.ts',import.meta.url),'utf8');
+const i=fs.readFileSync(new URL('../../inventory/application/ports/inventory-finance.service.ts',import.meta.url),'utf8');
+const m=fs.readFileSync(new URL('../../../../database/migrations/0022_finance_profit_calculation_hardening.sql',import.meta.url),'utf8');
+test('profit equation uses net sales cogs online costs and shipping margin',()=>{assert.match(s,/netSalesToman-cogsToman-onlineCostsToman\+shippingMarginToman/);});
+test('shipping cost is excluded from online cost and used only in shipping margin',()=>{assert.match(r,/cost_type<>'shipping'/);assert.match(r,/cost_type='shipping'/);});
+test('COGS uses original consumption and valid returned cost lineage',()=>{assert.match(i,/sum\(c\.quantity\*c\.unit_cost_toman\)/);assert.match(i,/return_parent_consumption_id/);});
+test('A6 snapshots are immutable estimated or provisional and atomically superseded',()=>{assert.match(s,/stage:'estimated'\|'provisional'/);assert.match(s,/supersedeProfitCalculation/);assert.match(m,/FINANCE_PROFIT_SNAPSHOT_IMMUTABLE/);});
+test('refund settlement blockers are explicit for later finalization',()=>{assert.match(s,/payment_unsettled/);assert.match(s,/committed_refund_not_succeeded/);assert.match(s,/unresolved_refund/);});

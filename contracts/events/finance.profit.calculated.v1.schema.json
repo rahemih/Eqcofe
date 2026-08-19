@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "calculation_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "calculation_key": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "order_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "stage": {
+      "type": "string",
+      "enum": [
+        "estimated",
+        "provisional"
+      ]
+    },
+    "net_sales_toman": {
+      "type": "integer"
+    },
+    "cogs_toman": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "online_costs_toman": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "shipping_margin_toman": {
+      "type": "integer"
+    },
+    "profit_before_distribution_toman": {
+      "type": "integer"
+    },
+    "source_fingerprint": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "supersedes_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "uuid"
+    }
+  },
+  "required": [
+    "calculation_id",
+    "calculation_key",
+    "order_id",
+    "stage",
+    "net_sales_toman",
+    "cogs_toman",
+    "online_costs_toman",
+    "shipping_margin_toman",
+    "profit_before_distribution_toman",
+    "source_fingerprint",
+    "supersedes_id"
+  ]
+}

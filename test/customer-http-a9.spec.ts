@@ -1,0 +1,8 @@
+import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';
+const c=fs.readFileSync('src/modules/customer/presentation/customer.controller.ts','utf8');
+const m=fs.readFileSync('database/migrations/0027_customer_http_rbac.sql','utf8');
+test('customer routes are actor constrained',()=>{assert.ok((c.match(/@CustomerOnly\(\)/g)||[]).length>=12);assert.match(c,/customer\/profile/);assert.match(c,/customer\/addresses/);assert.match(c,/customer\/wishlist/);assert.match(c,/customer\/wholesale\/applications/);});
+test('admin wholesale routes are staff and RBAC protected',()=>{assert.match(c,/@StaffOnly\(\)/);assert.match(c,/customer\.wholesale\.view/);assert.match(c,/customer\.wholesale\.review/);assert.match(c,/customer\.wholesale\.decide/);});
+test('approve and reject require step-up and idempotency',()=>{assert.ok((c.match(/@RequireStepUp\(\)/g)||[]).length===2);assert.match(c,/RequireIdempotency\('customer\.wholesale\.approve'\)/);assert.match(c,/RequireIdempotency\('customer\.wholesale\.reject'\)/);});
+test('customer mutations use canonical idempotency interceptor metadata',()=>{for(const scope of ['customer.profile.update','customer.address.create','customer.address.update','customer.address.set_default','customer.address.delete','customer.wishlist.add','customer.wishlist.remove','customer.wholesale.submit','customer.wholesale.start_review'])assert.ok(c.includes(`RequireIdempotency('${scope}')`),scope);});
+test('RBAC permission migration is additive',()=>{for(const p of ['customer.wholesale.view','customer.wholesale.review','customer.wholesale.decide'])assert.ok(m.includes(p));assert.match(m,/ON CONFLICT \(key\) DO NOTHING/);});

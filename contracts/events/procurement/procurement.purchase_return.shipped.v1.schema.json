@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "procurement.purchase_return.shipped.v1",
+  "title": "procurement.purchase_return.shipped.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "purchase_return_id",
+    "supplier_id",
+    "warehouse_id",
+    "total_cost_toman"
+  ],
+  "properties": {
+    "purchase_return_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "supplier_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "warehouse_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "total_cost_toman": {
+      "type": "integer",
+      "minimum": 0
+    }
+  }
+}

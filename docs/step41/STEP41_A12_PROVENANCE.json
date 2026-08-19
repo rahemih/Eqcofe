@@ -1,0 +1,31 @@
+{
+  "project": "EQCOFE",
+  "step": 41,
+  "stage": "A12",
+  "status": "BLOCKED_NOT_CANONICAL",
+  "date": "2026-08-16",
+  "baseline": "A11 implementation candidate",
+  "verified_parts": {
+    "A1": "COMPLETE",
+    "A2": "COMPLETE",
+    "A3": "VERIFIED",
+    "A4": "VERIFIED",
+    "A5": "VERIFIED",
+    "A6": "VERIFIED",
+    "A7": "VERIFIED",
+    "A8": "VERIFIED",
+    "A9": "VERIFIED",
+    "A10": "VERIFIED",
+    "A11": "IMPLEMENTED_PARTIAL",
+    "A12": "BLOCKED"
+  },
+  "closure_gates": {
+    "finance_core_tests": "PASS",
+    "postgresql_18_4_e2e": "PASS",
+    "completed_report_export_immutability": "PASS",
+    "ten_cycle_audit": "10/10 PASS",
+    "node24_full_dependency_build": "BLOCKED_ENVIRONMENT",
+    "report_export_real_multi_backend_concurrency": "UNVERIFIED"
+  },
+  "canonical_decision": "DENIED_UNTIL_ALL_GATES_PASS"
+}

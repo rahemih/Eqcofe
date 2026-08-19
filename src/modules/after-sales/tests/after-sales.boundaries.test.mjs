@@ -1,0 +1,10 @@
+import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';
+const pay=fs.readFileSync(new URL('../../payments/application/ports/payment-after-sales.service.ts',import.meta.url),'utf8');
+const inv=fs.readFileSync(new URL('../../inventory/application/ports/inventory-after-sales.service.ts',import.meta.url),'utf8');
+const ful=fs.readFileSync(new URL('../../fulfillment/application/ports/fulfillment-after-sales.service.ts',import.meta.url),'utf8');
+const integ=fs.readFileSync(new URL('../application/after-sales-integration.service.ts',import.meta.url),'utf8');
+test('refund boundary serializes on settlement payment and caps committed refunds',()=>{assert.match(pay,/FOR UPDATE OF p/);assert.match(pay,/REFUND_CAP_EXCEEDED/);assert.match(pay,/payments\.assert_refund_cap/);});
+test('inventory return preserves original sale cost lineage',()=>{assert.match(inv,/return_parent_consumption_id/);assert.match(inv,/already_returned/);assert.match(inv,/RETURN_COST_LINEAGE_INSUFFICIENT/);});
+test('return stock requires explicit sellable quarantine or damaged disposition',()=>assert.match(inv,/sellable','quarantine','damaged/));
+test('fulfillment boundary counts delivered shipments only',()=>{assert.match(ful,/s\.status='delivered'/);assert.match(ful,/FOR UPDATE OF s/);});
+test('integration service consumes ports rather than domain repositories',()=>{assert.match(integ,/PAYMENT_AFTER_SALES_PORT/);assert.match(integ,/INVENTORY_AFTER_SALES_PORT/);assert.match(integ,/FULFILLMENT_AFTER_SALES_PORT/);assert.doesNotMatch(integ,/from .*repository/);});

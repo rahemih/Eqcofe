@@ -1,0 +1,22 @@
+{
+  "step": 43,
+  "status": "FINAL_CANONICAL_CLOSED",
+  "date": "2026-08-18",
+  "baseline": "Step42 FINAL_CANONICAL_CLOSED",
+  "node": "24.18.1",
+  "typescript": "6.0.3",
+  "openapi": {
+    "paths": 510,
+    "operations": 579,
+    "refs": 1132
+  },
+  "architecture_files": 320,
+  "tests": "94/94",
+  "ten_cycle": "10/10",
+  "test_executions": "940/940",
+  "audit": "38/38",
+  "postgres": "18.4",
+  "db_verification_branch": "br-proud-bonus-av3yzha8 deleted",
+  "github_branch": "eqcofe/step43-central-configuration",
+  "launch_blocker": false
+}

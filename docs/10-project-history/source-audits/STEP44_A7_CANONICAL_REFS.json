@@ -1,0 +1,72 @@
+{
+  "project": "EQCOFE",
+  "step": 44,
+  "substep": "A7",
+  "status": "COMPLETE_PASS",
+  "files": {
+    "database/migrations/0030_notification_core.sql": {
+      "sha256": "1a189c56b526489c373ea32b5621a538cd3df195459a674fdf5eeb5e9b5e5dc1",
+      "size": 12476
+    },
+    "src/modules/notifications/application/ports/notification-provider.port.ts": {
+      "sha256": "ff22a08b02f2d693089b6e5349ec3783b3e23e2aed0b1567fe7269d4ed050685",
+      "size": 835
+    },
+    "src/modules/notifications/infrastructure/notification-provider.registry.ts": {
+      "sha256": "76e5cadbb2f2cf08cc3657b380be2f0d8763136ef9a2302fc5f14fbe6107b12c",
+      "size": 495
+    },
+    "src/modules/notifications/domain/notification-retry.policy.ts": {
+      "sha256": "4aee973b6b6049d21c3acfa00c410a04f9e2f9b6156461ce82d3bd0d1bdddcb9",
+      "size": 257
+    },
+    "src/modules/notifications/infrastructure/notification-delivery.repository.ts": {
+      "sha256": "7b4b74a121228f5070f27a5de359364aa304c35db1d2378e75628cfc27c90030",
+      "size": 4653
+    },
+    "src/modules/notifications/application/notification-delivery.service.ts": {
+      "sha256": "508c9f78fda5e4414b490cb0080a90b0aeddad60fb32e380aac52148dca1042c",
+      "size": 5827
+    },
+    "src/modules/notifications/application/notification-command.service.ts": {
+      "sha256": "386d1e893b3fdf44810c1f5496dceedfb868247b80ba69c9ccbe47b11bef0576",
+      "size": 5005
+    },
+    "src/modules/notifications/application/notification-in-app.service.ts": {
+      "sha256": "f87c1dec962a806215a879d1dbc9e418e0b49636e545680a1ad13ee294345e78",
+      "size": 2143
+    },
+    "src/modules/notifications/infrastructure/notification.repository.ts": {
+      "sha256": "2b39678e07b1b558fca4f09e02f2e7f1cbcddfaedd73899b6456af1c9e245fb2",
+      "size": 4108
+    },
+    "src/modules/notifications/notifications.module.ts": {
+      "sha256": "c65604477c2bed0a8dd3bbde0be6fdad3eeb578c5826b115a06213058aad03ab",
+      "size": 2175
+    },
+    "src/modules/customer/application/ports/customer-notification-recipient.port.ts": {
+      "sha256": "920c69876440d71e189fa3a9b6979c024e53d0ec3bf26fb34cb167e8a77732f3",
+      "size": 350
+    },
+    "src/modules/customer/infrastructure/customer-notification-recipient.adapter.ts": {
+      "sha256": "510ec3cebd5c224d865d66dd27db635f9bb081babb8f4740b2a762adec80f02a",
+      "size": 592
+    },
+    "test/notification-delivery-a7.spec.ts": {
+      "sha256": "1617b7cdc0e1b0aca954f490176df1b9529381b869d89fddbeafb7d9c6d81d7a",
+      "size": 1353
+    },
+    "test/notification-command-a5.spec.ts": {
+      "sha256": "d941441a4cf71b04b3fd6a9c075a887edf1b52c275e245cbb58a3c9e6ca9f5ab",
+      "size": 1379
+    },
+    "test/notification-in-app-a6.spec.ts": {
+      "sha256": "5228cfc165aa14b4eb1e4a604b0340262ab559d243eab30837687d0e41e1e73d",
+      "size": 1125
+    },
+    "scripts/step44-a7-audit.py": {
+      "sha256": "be0e61de9bf1c6321396b5f674eeaf7634c676a96aee1c7a868c2be90eeefa10",
+      "size": 4056
+    }
+  }
+}

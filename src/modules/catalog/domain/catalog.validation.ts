@@ -1,0 +1,7 @@
+import { DomainError } from '../../../shared/errors/domain-error';
+export const SLUG=/^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+export function requiredText(value:unknown,field:string,max:number):string { const v=String(value??'').trim(); if(!v)throw new DomainError('VALIDATION_ERROR',`${field} الزامی است.`,{field}); if(v.length>max)throw new DomainError('VALIDATION_ERROR',`${field} بیش از حد طولانی است.`,{field,max}); return v; }
+export function optionalText(value:unknown,max:number):string|null { if(value===undefined||value===null||String(value).trim()==='')return null; const v=String(value).trim(); if(v.length>max)throw new DomainError('VALIDATION_ERROR','متن بیش از حد طولانی است.',{max}); return v; }
+export function slug(value:unknown):string { const v=requiredText(value,'slug',220).toLowerCase(); if(!SLUG.test(v))throw new DomainError('VALIDATION_ERROR','Slug معتبر نیست.',{field:'slug'}); return v; }
+export function positiveInt(value:unknown,field:string,nullable=false):number|null { if(nullable&&(value===undefined||value===null))return null; const n=Number(value); if(!Number.isInteger(n)||n<=0)throw new DomainError('VALIDATION_ERROR',`${field} باید عدد صحیح مثبت باشد.`,{field}); return n; }
+export function expectedVersion(raw:unknown):number { const s=String(raw??'').replace(/^W\//,'').replaceAll('"','').trim(); const n=Number(s); if(!Number.isInteger(n)||n<1)throw new DomainError('VERSION_REQUIRED','نسخه معتبر If-Match الزامی است.'); return n; }

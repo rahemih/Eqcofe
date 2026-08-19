@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "inventory.reservation.created.v1",
+  "title": "inventory.reservation.created.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "reservation_id",
+    "items"
+  ],
+  "properties": {
+    "reservation_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "cart_id": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "uuid"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "order_id": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "uuid"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    }
+  }
+}

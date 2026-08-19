@@ -1,0 +1,82 @@
+{
+  "project": "EQCOFE",
+  "step": 40,
+  "stage": "B12",
+  "status": "FINAL_CANONICAL",
+  "canonical_date": "2026-08-16",
+  "source": {
+    "b11_artifact": "eqcofe-backend-step40-b11-security-regression-verified-2026-08-16.zip",
+    "b11_sha256": "4d1a710630668951150c81d4a636ab6c00e2015aa51bb1065d8ef30e0a357dea",
+    "b11_status": "VERIFIED",
+    "production_code_changed_in_b12": false
+  },
+  "database_evidence": {
+    "postgresql": "18.4",
+    "temporary_branch": "br-floral-base-avt9pmxx",
+    "main_touched": false,
+    "migration_0017": "PASS",
+    "migration_0018": "PASS",
+    "concurrency": {
+      "refund_race": {
+        "session_a": "OK",
+        "session_b": "ERR:PAYMENT_REFUND_CAP_EXCEEDED",
+        "final_refund_rows": 1,
+        "final_refund_total_toman": 6000,
+        "payment_cap_toman": 10000,
+        "verdict": "PASS"
+      },
+      "restock_race": {
+        "session_a": "OK",
+        "session_b": "ERR:RETURN_COST_LINEAGE_INSUFFICIENT",
+        "final_cost_layers": 1,
+        "final_returned_quantity": 2,
+        "sold_cost_lineage_quantity": 2,
+        "verdict": "PASS"
+      },
+      "replacement_race": {
+        "session_a": "OK",
+        "session_b": "ERR:duplicate source_type/source_id",
+        "final_replacement_rows": 1,
+        "verdict": "PASS"
+      },
+      "notification_duplicate_race": {
+        "session_a": "INSERTED",
+        "session_b": "DUPLICATE",
+        "final_notification_rows": 1,
+        "verdict": "PASS"
+      }
+    }
+  },
+  "final_audit": {
+    "b11_security_audit": "51/51 PASS",
+    "typescript_build": "PASS 0 errors",
+    "runtime_regression": "34/34 PASS",
+    "payment_assertions": "81/81 PASS",
+    "openapi": "PASS 509 paths / 577 operations / 1103 refs",
+    "architecture": "PASS 269 files",
+    "policy": "PASS",
+    "financial_audit": "PASS",
+    "ten_cycle_audit": "10/10 PASS",
+    "repeated_gate_executions": 180,
+    "all_10_cycles_pass": true
+  },
+  "stage_chain": {
+    "B1": "Recovered/validated Step 40 scope and prerequisites",
+    "B2": "After-Sales contracts/design baseline",
+    "B3": "PostgreSQL Returns/Warranty schema",
+    "B4": "Returns Application/Core",
+    "B5": "Warranty Application/Core",
+    "B6": "Order/Fulfillment/Inventory/Payment integration boundaries",
+    "B7": "Customer/Admin HTTP contracts, RBAC, Idempotency, Step-Up",
+    "B8": "Refund/Replacement/Restock Resolution Engine",
+    "B9": "Events, Timeline, Notifications",
+    "B10": "PostgreSQL 18.4 E2E and concurrency gate",
+    "B11": "Security/Regression/10-cycle final audit",
+    "B12": "Final Canonical packaging and closure"
+  },
+  "closure": {
+    "known_unresolved_step40_defects": [],
+    "known_regressions": [],
+    "ready_for_next_step": true
+  }
+}

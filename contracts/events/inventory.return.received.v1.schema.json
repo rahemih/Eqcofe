@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "return_item_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "order_item_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "warehouse_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "variant_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "quantity": {
+      "type": "integer"
+    },
+    "bucket": {
+      "type": "string"
+    },
+    "movement_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "format": "uuid"
+      }
+    },
+    "cost_layer_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "format": "uuid"
+      }
+    }
+  },
+  "required": [
+    "return_item_id",
+    "order_item_id",
+    "warehouse_id",
+    "variant_id",
+    "quantity",
+    "bucket",
+    "movement_ids",
+    "cost_layer_ids"
+  ]
+}

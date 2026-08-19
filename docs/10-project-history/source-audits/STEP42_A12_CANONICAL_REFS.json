@@ -1,0 +1,24 @@
+{
+  "step": 42,
+  "substep": "A12",
+  "status": "FINAL_CANONICAL_CLOSED",
+  "baseline_a11_head": "44161864f8cb2ce430ad5d6ce69234a46f7cadc4",
+  "canonical_artifact": {
+    "name": "eqcofe-backend-step42-a11-verification-verified-2026-08-18.zip",
+    "sha256": "b655da0c2fcfd9a6201b4ea4a92b00aabcccd6acaab9d599d6d20e5417dfc8e1"
+  },
+  "contracts": {
+    "contracts/http/openapi.yaml": {
+      "size_bytes": 471474,
+      "sha256": "6db1b21e7766357b0c037213370167b2e27e3c0057220961bc37cd1dad71991d",
+      "git_blob_sha": "d1c230587fd2fcd74ca77cd2f7724278097d7fd5"
+    },
+    "src/generated/openapi.ts": {
+      "size_bytes": 696993,
+      "sha256": "43bf6d984dba9b1fef7d52db5c426417345e8fb8d596c855314e2a2cfbd8a9f0",
+      "git_blob_sha": "be6bcaaee547f046636f1291de0392562a97061f"
+    }
+  },
+  "github_mirror_policy": "Connected GitHub repository is a partial traceability mirror; canonical artifact plus exact hashes remain authoritative for files not mirrored byte-for-byte.",
+  "library_path": "/EQCOFE/Step42"
+}

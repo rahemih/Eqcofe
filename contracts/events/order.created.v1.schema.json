@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "order.created.v1",
+  "title": "order.created.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "order_id",
+    "order_number",
+    "checkout_id",
+    "reservation_id",
+    "grand_total_toman"
+  ],
+  "properties": {
+    "order_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "order_number": {
+      "type": "string"
+    },
+    "checkout_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "reservation_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "grand_total_toman": {
+      "type": "integer",
+      "minimum": 0
+    }
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "journal_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "entry_number": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "debit_toman": {
+      "type": "integer"
+    },
+    "credit_toman": {
+      "type": "integer"
+    },
+    "source_type": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "source_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "uuid"
+    }
+  },
+  "required": [
+    "journal_id",
+    "entry_number",
+    "status",
+    "debit_toman",
+    "credit_toman",
+    "source_type",
+    "source_id"
+  ]
+}

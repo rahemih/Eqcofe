@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "return_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "return_number": {
+      "type": "string"
+    },
+    "order_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "comment": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "reason": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "status": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "return_id",
+    "return_number",
+    "order_id",
+    "status"
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "inventory.stock.adjusted.v1",
+  "title": "inventory.stock.adjusted.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "warehouse_id",
+    "variant_id",
+    "adjustment_type",
+    "quantity"
+  ],
+  "properties": {
+    "warehouse_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "variant_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "adjustment_type": {
+      "type": "string"
+    },
+    "quantity": {
+      "type": "integer"
+    }
+  }
+}

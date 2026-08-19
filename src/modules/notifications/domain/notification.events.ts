@@ -1,0 +1,4 @@
+import { RecordedDomainEvent } from '../../../shared/kernel/domain-event';
+export function notificationQueuedEvent(id:string,payload:Record<string,unknown>):RecordedDomainEvent{return{eventType:'notification.queued.v1',eventVersion:1,aggregateType:'notification',aggregateId:id,aggregateVersion:1,occurredAt:new Date(),payload};}
+export function inAppAcknowledgedEvent(id:string,payload:Record<string,unknown>):RecordedDomainEvent{return{eventType:'notification.in_app.acknowledged.v1',eventVersion:1,aggregateType:'notification_in_app',aggregateId:id,aggregateVersion:1,occurredAt:new Date(),payload};}
+export function deliveryEvent(type:'delivered'|'failed'|'dead_lettered',id:string,payload:Record<string,unknown>):RecordedDomainEvent{return{eventType:`notification.delivery.${type}.v1`,eventVersion:1,aggregateType:'notification_delivery',aggregateId:id,aggregateVersion:1,occurredAt:new Date(),payload};}

@@ -1,0 +1,41 @@
+{
+  "project": "EQCOFE",
+  "step": 42,
+  "stage": "A3",
+  "status": "COMPLETE_PASS",
+  "date": "2026-08-18",
+  "baseline_artifact_sha256": "e28f579d549ca77f46590d74e6c3906ce664fd9d15160e1112f07cb3456f314b",
+  "scope": "PostgreSQL Customer Core Schema/Migration",
+  "migration": "database/migrations/0026_customer_core.sql",
+  "verification": {
+    "a3_static_audit": "24/24 PASS",
+    "a3_schema_tests": "5/5 PASS",
+    "postgresql": "18.4 isolated branch PASS",
+    "openapi": "510 paths / 579 operations / 1108 refs PASS",
+    "architecture": "294 files PASS",
+    "policy": "PASS",
+    "typescript_build": "PASS",
+    "runtime_regression": "34/34 PASS",
+    "node": "24.18.1"
+  },
+  "github": {
+    "repository": "rahemih/digikala-clone",
+    "branch": "eqcofe/step42-a3-customer-schema",
+    "base_sha": "d92d1eedfd41417cf1a96fb8d4ad8e64e7378299",
+    "commits": [
+      "a008c9e128425d39716010d51acb70ca0f1e9f97",
+      "b0073541e612aab3e7aab1f298661735accba337",
+      "164e3916ae31beb368605b0727723b31a44595b4"
+    ],
+    "delta_only": true
+  },
+  "neon": {
+    "project": "plain-term-89989171",
+    "branch": "br-muddy-mountain-avr7zc8t",
+    "branch_name": "eqcofe-step42-a3-verify",
+    "default_branch_touched": false
+  },
+  "backup_branch": "backup-eqcofe-1",
+  "backup_modified": false,
+  "next": "A4 Customer Profile Service + Repository"
+}

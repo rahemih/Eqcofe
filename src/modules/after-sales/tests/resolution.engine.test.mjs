@@ -1,0 +1,11 @@
+import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';
+const ret=fs.readFileSync(new URL('../../returns/application/returns.service.ts',import.meta.url),'utf8');
+const war=fs.readFileSync(new URL('../../warranty/application/warranty.service.ts',import.meta.url),'utf8');
+const integ=fs.readFileSync(new URL('../application/after-sales-integration.service.ts',import.meta.url),'utf8');
+const mig=fs.readFileSync(new URL('../../../../database/migrations/0017_after_sales_resolution_engine.sql',import.meta.url),'utf8');
+test('return resolution requires full item coverage and inspection state',()=>{assert.match(ret,/RETURN_RESOLUTION_INCOMPLETE/);assert.match(ret,/h\.status\)!=='inspecting'/);});
+test('refunds are bounded by line value before payment boundary call',()=>{assert.match(ret,/maxRefundForQuantity/);assert.match(ret,/RETURN_REFUND_LINE_CAP_EXCEEDED/);assert.match(war,/WARRANTY_REFUND_LINE_CAP_EXCEEDED/);});
+test('restock is delegated to inventory and replacement to after-sales queue',()=>{assert.match(ret,/receiveReturnInTransaction/);assert.match(ret,/requestReplacementInTransaction/);});
+test('replacement queue is source-idempotent and lineage guarded',()=>{assert.match(mig,/UNIQUE\(source_type,source_id\)/);assert.match(mig,/AFTER_SALES_REPLACEMENT_LINEAGE_MISMATCH/);});
+test('warranty refund and replacement require explicit quantity',()=>assert.match(war,/WARRANTY_RESOLUTION_QUANTITY_REQUIRED/));
+test('integration service owns no return or warranty repository',()=>{assert.doesNotMatch(integ,/returns\.repository/);assert.doesNotMatch(integ,/warranty\.repository/);});

@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "claim_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "claim_number": {
+      "type": "string"
+    },
+    "customer_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "order_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "order_item_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "issue_type": {
+      "type": "string"
+    },
+    "preferred_resolution": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "required": [
+    "claim_id",
+    "claim_number",
+    "customer_id",
+    "order_id",
+    "order_item_id",
+    "issue_type"
+  ]
+}

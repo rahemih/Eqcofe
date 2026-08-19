@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "procurement.landed_cost.finalized.v1",
+  "title": "procurement.landed_cost.finalized.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "landed_cost_id",
+    "amount_toman",
+    "inventory_revaluation_toman",
+    "consumed_cogs_revaluation_toman"
+  ],
+  "properties": {
+    "landed_cost_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "amount_toman": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "inventory_revaluation_toman": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "consumed_cogs_revaluation_toman": {
+      "type": "integer",
+      "minimum": 0
+    }
+  }
+}

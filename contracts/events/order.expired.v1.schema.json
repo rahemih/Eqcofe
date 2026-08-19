@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "order.expired.v1",
+  "title": "order.expired.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "order_id",
+    "order_number",
+    "reservation_id"
+  ],
+  "properties": {
+    "order_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "order_number": {
+      "type": "string"
+    },
+    "reservation_id": {
+      "type": "string",
+      "format": "uuid"
+    }
+  }
+}

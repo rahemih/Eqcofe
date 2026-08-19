@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "cost_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "order_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "uuid"
+    },
+    "order_item_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "uuid"
+    },
+    "cost_type": {
+      "type": "string"
+    },
+    "cost_treatment": {
+      "type": "string"
+    },
+    "amount_toman": {
+      "type": "integer"
+    },
+    "effect_sign": {
+      "type": "integer",
+      "enum": [
+        1
+      ]
+    },
+    "status": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "cost_id",
+    "order_id",
+    "order_item_id",
+    "cost_type",
+    "cost_treatment",
+    "amount_toman",
+    "effect_sign",
+    "status"
+  ]
+}

@@ -1,0 +1,7 @@
+export interface BalanceLike { onHand:number; reserved:number; allocated:number; damaged:number; quarantine:number; protectionPercent?:number; }
+export function physicalAvailable(b:BalanceLike){return Math.max(0,b.onHand-b.reserved-b.allocated-b.damaged-b.quarantine);}
+export function protectedPhysicalQuantity(b:BalanceLike){const available=physicalAvailable(b);const p=Math.max(0,Math.min(100,b.protectionPercent??0));return Math.ceil(available*p/100);}
+export function onlineSellable(b:BalanceLike){return Math.max(0,physicalAvailable(b)-protectedPhysicalQuantity(b));}
+export interface FifoLayer { id:string; remainingQuantity:number; effectiveUnitCostToman:number; receivedAt:Date|string; }
+export function consumeFifo(layers:FifoLayer[],quantity:number){if(!Number.isInteger(quantity)||quantity<=0)throw new Error('INVALID_QUANTITY');const ordered=[...layers].sort((a,b)=>new Date(a.receivedAt).getTime()-new Date(b.receivedAt).getTime()||a.id.localeCompare(b.id));let left=quantity;const parts=[] as {layerId:string;quantity:number;unitCostToman:number}[];for(const l of ordered){if(left<=0)break;const q=Math.min(left,l.remainingQuantity);if(q>0){parts.push({layerId:l.id,quantity:q,unitCostToman:l.effectiveUnitCostToman});left-=q;}}if(left>0)throw new Error('INSUFFICIENT_COST_LAYERS');return parts;}
+export function weightedCost(parts:{quantity:number;unitCostToman:number}[]){const q=parts.reduce((s,x)=>s+x.quantity,0);if(!q)return null;return Math.round(parts.reduce((s,x)=>s+x.quantity*x.unitCostToman,0)/q);}
