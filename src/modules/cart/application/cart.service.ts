@@ -2,6 +2,7 @@ import { Inject,Injectable } from '@nestjs/common';
 import { randomUUID } from 'node:crypto';
 import { sql } from 'kysely';
 import { CartRepository } from '../infrastructure/cart.repository';
+import { CheckoutMarketingSnapshotRepository } from '../infrastructure/checkout-marketing-snapshot.repository';
 import { hashCapabilityToken as hashToken,newCapabilityToken as newToken } from '../../../shared/security/capability-token';
 import { TransactionManager } from '../../../platform/database/transaction-manager';
 import { DomainError } from '../../../shared/errors/domain-error';
@@ -12,10 +13,12 @@ import { RequestContextStore } from '../../../platform/request-context/request-c
 import { MoneyToman } from '../../../shared/kernel/money-toman';
 import { CUSTOMER_COMMERCE_PORT,CustomerCommercePort } from '../../customer/application/ports/customer-commerce.port';
 import { STORE_CONFIGURATION_PORT,StoreConfigurationPort } from '../../configuration/application/ports/store-configuration.port';
+import { CheckoutPromotionService } from '../../marketing/application/checkout-promotion.service';
+import { ORDER_PURCHASE_HISTORY_PORT,OrderPurchaseHistoryPort } from '../../orders/application/ports/order-purchase-history.port';
 
 @Injectable()
 export class CartService{
- constructor(private readonly repo:CartRepository,private readonly tx:TransactionManager,@Inject(PRICING_QUOTE_PORT)private readonly pricing:PricingQuotePort,@Inject(INVENTORY_AVAILABILITY_PORT)private readonly availability:InventoryAvailabilityPort,@Inject(INVENTORY_RESERVATION_PORT)private readonly reservation:InventoryReservationPort,@Inject(CUSTOMER_COMMERCE_PORT)private readonly customerCommerce:CustomerCommercePort,private readonly tax:TaxService,private readonly ctx:RequestContextStore,@Inject(STORE_CONFIGURATION_PORT)private readonly config:StoreConfigurationPort){}
+ constructor(private readonly repo:CartRepository,private readonly marketingSnapshot:CheckoutMarketingSnapshotRepository,private readonly tx:TransactionManager,@Inject(PRICING_QUOTE_PORT)private readonly pricing:PricingQuotePort,@Inject(INVENTORY_AVAILABILITY_PORT)private readonly availability:InventoryAvailabilityPort,@Inject(INVENTORY_RESERVATION_PORT)private readonly reservation:InventoryReservationPort,@Inject(CUSTOMER_COMMERCE_PORT)private readonly customerCommerce:CustomerCommercePort,@Inject(ORDER_PURCHASE_HISTORY_PORT)private readonly purchaseHistory:OrderPurchaseHistoryPort,private readonly checkoutPromotions:CheckoutPromotionService,private readonly tax:TaxService,private readonly ctx:RequestContextStore,@Inject(STORE_CONFIGURATION_PORT)private readonly config:StoreConfigurationPort){}
  private async verify(c:any,t:string,ex?:any){if(!t||!c||c.status!=='active'||new Date(c.expires_at)<=new Date()||!(await this.repo.tokenValid(String(c.id),t,ex)))throw new DomainError('CART_ACCESS_DENIED','دسترسی به سبد معتبر نیست.');}
  private async cfgNumber(key:string,fallback:number,legacyKey:string){const c:any=this.config;if(typeof c.getNumber==='function')return c.getNumber(key,fallback);if(typeof c.get==='function'){const v=Number(c.get(legacyKey,String(fallback)));return Number.isFinite(v)?v:fallback;}return fallback;}
  private cartTtlHours(){return this.cfgNumber('commerce.cart_ttl_hours',168,'CART_TTL_HOURS');}
@@ -33,15 +36,16 @@ export class CartService{
  async add(id:string,token:string,variantId:string,q:number){await this.assertGlobalSalesEnabled();if(!Number.isSafeInteger(q)||q<1)throw new DomainError('VALIDATION_ERROR','تعداد نامعتبر است.');await this.tx.run(async ex=>{const c=await this.repo.cart(id,ex,true);await this.verify(c,token,ex);await this.assertNotAdvanced(ex,id);const variant=await this.repo.variantForCart(variantId,ex);if(!variant)throw new DomainError('VARIANT_NOT_FOUND','تنوع کالا پیدا نشد.');this.assertSellableItem(variant);const current=await this.repo.currentItemQuantity(id,variantId,ex),available=await this.availability.getOnlineSellableQuantity(variantId);if(current+q>available)throw new DomainError('INSUFFICIENT_STOCK','موجودی قابل فروش آنلاین کافی نیست.',{available});await this.repo.add(ex,id,variantId,q);});return this.view(id,token);}
  async qty(id:string,token:string,itemId:string,q:number){await this.assertGlobalSalesEnabled();if(!Number.isSafeInteger(q)||q<0)throw new DomainError('VALIDATION_ERROR','تعداد نامعتبر است.');await this.tx.run(async ex=>{const c=await this.repo.cart(id,ex,true);await this.verify(c,token,ex);await this.assertNotAdvanced(ex,id);const item=await this.repo.itemById(id,itemId,ex);if(!item)throw new DomainError('CART_ITEM_NOT_FOUND','قلم سبد پیدا نشد.');if(q>0){this.assertSellableItem(item);const available=await this.availability.getOnlineSellableQuantity(String(item.variant_id));if(q>available)throw new DomainError('INSUFFICIENT_STOCK','موجودی قابل فروش آنلاین کافی نیست.',{available});}await this.repo.setQty(ex,id,itemId,q);});return this.view(id,token);}
  async remove(id:string,token:string,itemId:string){await this.tx.run(async ex=>{const c=await this.repo.cart(id,ex,true);await this.verify(c,token,ex);await this.assertNotAdvanced(ex,id);const item=await this.repo.itemById(id,itemId,ex);if(item)await this.repo.setQty(ex,id,itemId,0);});return this.view(id,token);}
- async quote(id:string,token:string,input:{shipping_method_id:string}){
+ async quote(id:string,token:string,input:{shipping_method_id:string;coupon_code?:string|null}){
   await this.assertGlobalSalesEnabled();
   if(!input?.shipping_method_id)throw new DomainError('VALIDATION_ERROR','روش ارسال الزامی است.');
   return this.tx.run(async ex=>{
    const c=await this.repo.cart(id,ex,true);await this.verify(c,token,ex);await this.assertNotAdvanced(ex,id);
    const items=await this.repo.items(id,ex);if(!items.length)throw new DomainError('CART_EMPTY','سبد خرید خالی است.');
    const shipping=await this.repo.shipping(input.shipping_method_id,ex);if(!shipping)throw new DomainError('SHIPPING_METHOD_UNAVAILABLE','روش ارسال در دسترس نیست.');
-   const customerType=await this.customerCommerce.getCustomerType(c.customer_id?String(c.customer_id):null);
-   let subtotal=MoneyToman.zero(),discount=MoneyToman.zero(),tax=MoneyToman.zero();const lines=[] as any[];
+   const customerId=c.customer_id?String(c.customer_id):null;
+   const customerType=await this.customerCommerce.getCustomerType(customerId);
+   let subtotal=MoneyToman.zero(),pricingDiscount=MoneyToman.zero(),tax=MoneyToman.zero();const lines=[] as any[];
    for(const i of items){
     this.assertSellableItem(i);const quantity=Number(i.quantity);const available=await this.availability.getOnlineSellableQuantity(String(i.variant_id));
     if(quantity>available)throw new DomainError('INSUFFICIENT_STOCK','موجودی قابل فروش آنلاین کافی نیست.',{variant_id:String(i.variant_id),available});
@@ -50,14 +54,19 @@ export class CartService{
     if(finalUnit.compare(baseUnit)>0)throw new DomainError('PRICE_INVARIANT_VIOLATION','قیمت نهایی نمی‌تواند از قیمت پایه Snapshot بیشتر باشد.');
     const base=baseUnit.multiplyByInteger(quantity),final=finalUnit.multiplyByInteger(quantity),lineDiscount=base.subtract(final);
     const tr=await this.tax.resolve({productId:String(i.product_id),brandId:i.brand_id?String(i.brand_id):null,categoryId:i.primary_category_id?String(i.primary_category_id):null,taxableToman:final.toJSON()});
-    const lineTax=MoneyToman.from(tr.tax_toman);subtotal=subtotal.add(base);discount=discount.add(lineDiscount);tax=tax.add(lineTax);
+    const lineTax=MoneyToman.from(tr.tax_toman);subtotal=subtotal.add(base);pricingDiscount=pricingDiscount.add(lineDiscount);tax=tax.add(lineTax);
     lines.push({product_id:i.product_id,variant_id:i.variant_id,sku:i.sku,product_name:i.product_name,quantity,unit_base_toman:baseUnit.toJSON(),unit_final_toman:finalUnit.toJSON(),discount_toman:lineDiscount.toJSON(),tax_toman:lineTax.toJSON(),tax_rule_id:tr.rule_id,line_total_toman:final.add(lineTax).toJSON(),pricing_snapshot:{...p,tax:{rule_id:tr.rule_id,rate_basis_points:tr.rate_basis_points}}});
    }
+   const pricingNet=subtotal.subtract(pricingDiscount);
+   const hasCompletedPurchase=customerId?await this.purchaseHistory.hasCompletedPurchase(customerId):false;
+   const marketing=await this.checkoutPromotions.evaluate({couponCode:input.coupon_code,customerId,subtotalToman:pricingNet.toJSON(),isWholesale:customerType==='wholesale',hasCompletedPurchase});
+   const marketingDiscount=MoneyToman.from(marketing.totalDiscountToman),totalDiscount=pricingDiscount.add(marketingDiscount);
    let shippingMoney:MoneyToman;try{shippingMoney=MoneyToman.from(shipping.fee_toman);}catch{throw new DomainError('SHIPPING_PRICE_INVALID','هزینه ارسال خارج از محدوده امن محاسباتی است.');}
-   const total=subtotal.subtract(discount).add(tax).add(shippingMoney),ct=newToken(),checkoutId=randomUUID(),expiresAt=new Date(Date.now()+(await this.checkoutTtlMinutes())*60_000);
-   await this.repo.insertCheckout(ex,{id:checkoutId,cartId:id,cartVersion:Number(c.version),customerId:c.customer_id,tokenHash:hashToken(ct),shippingId:shipping.id,subtotal:subtotal.toJSON(),discount:discount.toJSON(),shipping:shippingMoney.toJSON(),tax:tax.toJSON(),total:total.toJSON(),expiresAt},lines);
+   const pricingOnlyTotal=subtotal.subtract(pricingDiscount).add(tax).add(shippingMoney),total=subtotal.subtract(totalDiscount).add(tax).add(shippingMoney),ct=newToken(),checkoutId=randomUUID(),expiresAt=new Date(Date.now()+(await this.checkoutTtlMinutes())*60_000);
+   await this.repo.insertCheckout(ex,{id:checkoutId,cartId:id,cartVersion:Number(c.version),customerId:c.customer_id,tokenHash:hashToken(ct),shippingId:shipping.id,subtotal:subtotal.toJSON(),discount:pricingDiscount.toJSON(),shipping:shippingMoney.toJSON(),tax:tax.toJSON(),total:pricingOnlyTotal.toJSON(),expiresAt},lines);
+   await this.marketingSnapshot.apply(ex,{checkoutId,pricingDiscountToman:pricingDiscount.toJSON(),marketingDiscountToman:marketingDiscount.toJSON(),marketingSnapshot:{applications:marketing.applications,pricing_net_toman:pricingNet.toJSON()},totalToman:total.toJSON()});
    await this.repo.extendCartExpiry(ex,id,expiresAt);
-   return{checkout_id:checkoutId,checkout_token:ct,customer_type:customerType,subtotal_toman:subtotal.toJSON(),discount_toman:discount.toJSON(),shipping_toman:shippingMoney.toJSON(),tax_toman:tax.toJSON(),total_toman:total.toJSON(),expires_at:expiresAt,items:lines};
+   return{checkout_id:checkoutId,checkout_token:ct,customer_type:customerType,subtotal_toman:subtotal.toJSON(),pricing_discount_toman:pricingDiscount.toJSON(),marketing_discount_toman:marketingDiscount.toJSON(),discount_toman:totalDiscount.toJSON(),shipping_toman:shippingMoney.toJSON(),tax_toman:tax.toJSON(),total_toman:total.toJSON(),marketing_snapshot:{applications:marketing.applications,pricing_net_toman:pricingNet.toJSON()},expires_at:expiresAt,items:lines};
   });
  }
  async reserve(checkoutId:string,token:string){await this.assertGlobalSalesEnabled();if(!token)throw new DomainError('CHECKOUT_ACCESS_REQUIRED','توکن Checkout الزامی است.');return this.tx.run(async ex=>{const co=await this.repo.checkout(checkoutId,ex,true);if(!co||co.status!=='quoted'||new Date(co.expires_at)<=new Date()||hashToken(token)!==co.token_hash)throw new DomainError('CHECKOUT_INVALID','Checkout معتبر نیست.');const cart=await this.repo.cart(String(co.cart_id),ex,true);if(!cart||cart.status!=='active')throw new DomainError('CART_NOT_ACTIVE','سبد خرید دیگر فعال نیست.');if(Number(cart.version)!==Number(co.cart_version_snapshot))throw new DomainError('CART_CHANGED_SINCE_QUOTE','سبد بعد از Quote تغییر کرده است.');for(const i of await this.repo.items(String(co.cart_id),ex))this.assertSellableItem(i);if(!await this.repo.shipping(String(co.shipping_method_id),ex))throw new DomainError('SHIPPING_METHOD_UNAVAILABLE','روش ارسال دیگر در دسترس نیست.');const advanced=await sql<any>`SELECT id FROM cart.checkouts WHERE cart_id=${co.cart_id}::uuid AND id<>${checkoutId}::uuid AND status IN ('reserved','order_created') LIMIT 1`.execute(ex);if(advanced.rows[0])throw new DomainError('CART_ALREADY_IN_CHECKOUT','یک Checkout دیگر از این سبد وارد مرحله نهایی شده است.');const items=await this.repo.checkoutItems(checkoutId,ex);const plan=await this.availability.planOnlineReservation(items.map((i:any)=>({variant_id:String(i.variant_id),quantity:Number(i.quantity)})));const expiry=new Date(Date.now()+(await this.reservationTtlMinutes())*60_000);const r=await this.reservation.reserveInTransaction(ex,{cart_id:String(co.cart_id),customer_id:co.customer_id?String(co.customer_id):undefined,expires_at:expiry.toISOString(),items:plan});await ex.updateTable('cart.checkouts' as any).set({status:'reserved',reservation_id:r.id,expires_at:expiry,updated_at:new Date()} as any).where('id' as any,'=',checkoutId as any).execute();await this.repo.extendCartExpiry(ex,String(co.cart_id),expiry);return{checkout_id:checkoutId,reservation_id:r.id,status:'reserved',expires_at:expiry};});}
