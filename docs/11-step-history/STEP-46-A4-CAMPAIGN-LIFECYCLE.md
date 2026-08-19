@@ -2,7 +2,7 @@
 
 ## Campaign Lifecycle Engine
 
-**Status:** IMPLEMENTED / CI VERIFICATION PENDING
+**Status:** COMPLETE / FINAL GATE PASS
 
 ## Implemented
 
@@ -46,6 +46,24 @@ A2 domain already supported `ended`, while the initial A3 PostgreSQL campaign st
 
 `test/marketing-step46-a4.spec.ts` covers domain lifecycle, expired activation, database state alignment, transition guards, optimistic concurrency, audit/outbox integration, staff/version requirements, reschedule constraints and module wiring.
 
-## Closure gate
+## Canonical CI evidence
 
-A4 becomes COMPLETE only after Canonical CI passes against the exact A4 main source.
+Verification-only Draft PR #8 tested the exact A4 main base commit `327a80ddc331e89aecc2edade779966639330d1c`; the branch added only a documentation marker.
+
+GitHub Actions Canonical CI run `32255765865`, job `verify` (`96076979001`) completed successfully:
+- frozen-lockfile install: PASS
+- OpenAPI: PASS — 513 paths / 582 operations / 1138 refs
+- architecture: PASS — 354 module files scanned
+- project policy: PASS
+- TypeScript build: PASS
+- A4 lifecycle tests: 8/8 PASS
+- runtime tests: **148 PASS / 0 FAIL / 0 skipped / 0 cancelled**
+- overall `pnpm verify`: PASS
+
+Therefore:
+**STEP 46 / A4 FINAL GATE = PASS**
+**A4 = COMPLETE**
+
+## Next approved substep
+
+Step 46 / A5 — Coupon + Eligibility Engine.
