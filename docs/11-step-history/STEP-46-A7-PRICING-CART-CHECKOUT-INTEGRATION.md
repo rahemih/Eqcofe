@@ -2,10 +2,10 @@
 
 ## Pricing / Cart / Checkout Integration
 
-**Status:** IMPLEMENTED / CI VERIFICATION PENDING
+**Status:** COMPLETE / FINAL GATE PASS
 
 ## Implemented
-- Marketing now exposes a single `CheckoutPromotionService` that composes automatic and coupon-backed promotions deterministically.
+- Marketing exposes a single `CheckoutPromotionService` that composes automatic and coupon-backed promotions deterministically.
 - Pricing remains authoritative for line/base price; Marketing is evaluated only against the post-Pricing merchandise amount (`pricing_net_toman`).
 - Cart derives customer type through the Customer commerce port and completed-purchase history through an Orders-owned public port. Client input cannot supply either authoritative fact.
 - Optional `coupon_code` is accepted by checkout quote and validated server-side by the A5 coupon engine.
@@ -27,5 +27,21 @@ A7 integrates deterministic Marketing evaluation and durable commercial snapshot
 ## Verification coverage
 `test/marketing-step46-a7.spec.ts` covers deterministic coupon/automatic composition, stacking cap, server-owned wholesale/purchase facts, post-Pricing Marketing calculation, authoritative paid-order history, persistence invariants, durable snapshot persistence and module wiring.
 
-## Closure gate
-A7 becomes COMPLETE only after Canonical CI passes against the exact A7 source.
+The initial Canonical CI run passed OpenAPI, architecture, policy and TypeScript build, but exposed two legacy `customer-commerce-pricing` harness failures because `CartService` gained A7 dependencies. The harness was updated to inject explicit no-promotion/no-history test doubles while preserving the original customer/pricing assertions; no production behavior was weakened.
+
+## Canonical verification evidence
+Verification-only Draft PR #11 tested the exact A7 main source; its branch contained documentation-only CI trigger markers and is not merged.
+
+Final GitHub Actions Canonical CI run `32260541195`, job `verify` (`96092481216`) completed successfully:
+- frozen-lockfile install: PASS
+- OpenAPI: PASS — 513 paths / 582 operations / 1138 refs
+- architecture: PASS — 362 module files scanned
+- project policy: PASS
+- TypeScript build: PASS
+- A7 tests: 9/9 PASS
+- runtime tests: **173 PASS / 0 FAIL / 0 skipped / 0 cancelled**
+- overall `pnpm verify`: PASS
+
+Therefore:
+**STEP 46 / A7 FINAL GATE = PASS**
+**A7 = COMPLETE**
