@@ -59,5 +59,5 @@ test('loyalty ledger is integer points, prevents negative balance and forbids To
   ledger.redeem({ id: 'entry-2', points: 40, referenceType: 'reward', referenceId: 'reward-1' });
   assert.equal(ledger.balance(), 60);
   assert.throws(() => ledger.redeem({ id: 'entry-3', points: 61, referenceType: 'reward', referenceId: 'reward-2' }), (e: unknown) => e instanceof DomainError && e.code === 'LOYALTY_INSUFFICIENT_POINTS');
-  assert.throws(() => ledger.toToman(), (e: unknown) => e instanceof DomainError && e.code === 'LOYALTY_WALLET_FORBIDDEN');
+  assert.throws(() => ledger.toToman(), (e: unknown) => e instanceof DomainError && e.code === 'LOYALTY_CASH_CONVERSION_FORBIDDEN');
 });
