@@ -24,42 +24,41 @@ Step 45 is not to be repeated.
 - **A2 — Marketing Domain Model + Invariants — COMPLETE / FINAL GATE PASS**
 - **A3 — PostgreSQL Schema + RBAC — COMPLETE / FINAL GATE PASS**
 - **A4 — Campaign Lifecycle Engine — COMPLETE / FINAL GATE PASS**
+- **A5 — Coupon + Eligibility Engine — COMPLETE / FINAL GATE PASS**
 
 Canonical artifacts:
 - `docs/11-step-history/STEP-46-A1-DISCOVERY-SCOPE.md`
 - `docs/11-step-history/STEP-46-A2-DOMAIN-MODEL-INVARIANTS.md`
 - `docs/11-step-history/STEP-46-A3-POSTGRES-RBAC.md`
 - `docs/11-step-history/STEP-46-A4-CAMPAIGN-LIFECYCLE.md`
+- `docs/11-step-history/STEP-46-A5-COUPON-ELIGIBILITY.md`
 
-### A4 implementation
-A4 connected the Campaign domain lifecycle to application and persistence layers:
-- `CampaignService` implements create/read/list, activate, pause, end, archive and reschedule;
-- `CampaignRepository` uses row locks and expected-version compare-and-set semantics;
-- lifecycle writes are transactional and emit audit records plus transactional outbox events;
-- `MarketingModule` registers and exports the campaign lifecycle engine;
-- additive migration `0036_marketing_campaign_lifecycle.sql` hardens persistence and reconciles the previously omitted `ended` state without rewriting A3 migrations.
+### A5 implementation
+A5 added `CouponEligibilityService` and `CouponEligibilityRepository` to the Marketing module. Coupon evaluation now fails closed across campaign/promotion/coupon state and windows, minimum subtotal, first-purchase fact, wholesale policy, total usage, per-customer usage and maximum discount cap while keeping all monetary outputs in integer Toman.
 
-Database lifecycle protection rejects illegal transitions, physical delete, archived mutation, expired activation and rescheduling outside draft/paused.
+Additive migration `0037_marketing_coupon_eligibility_hardening.sql` aligns the PostgreSQL coupon format with the domain contract, prevents coupon windows from exceeding their promotion window, and adds active-redemption usage indexes.
 
-### A4 canonical verification evidence
-Verification-only Draft PR #8 tested the exact A4 main base commit `327a80ddc331e89aecc2edade779966639330d1c`; its branch added only a documentation trigger marker.
+A5 deliberately accepts authoritative `isWholesale` and `hasCompletedPurchase` facts rather than inferring them or directly querying foreign module persistence. Checkout/Orders wiring and atomic reservation remain later integration/integrity work.
 
-GitHub Actions Canonical CI run `32255765865`, job `verify` (`96076979001`) completed successfully:
+### A5 canonical verification evidence
+The initial verification run found one brittle A4 regression assertion that required the Marketing exports array to contain exactly one service. The assertion was made extensible; no A4 production behavior was changed.
+
+GitHub Actions Canonical CI rerun `32256531549`, job `verify` (`96079417704`) completed successfully:
 - frozen-lockfile install: PASS
 - OpenAPI: PASS — 513 paths / 582 operations / 1138 refs
-- architecture: PASS — 354 module files scanned
+- architecture: PASS — 356 module files scanned
 - project policy: PASS
 - TypeScript build: PASS
-- A4 lifecycle tests: 8/8 PASS
-- runtime tests: **148 PASS / 0 FAIL / 0 skipped / 0 cancelled**
+- A5 tests: 8/8 PASS
+- runtime tests: **156 PASS / 0 FAIL / 0 skipped / 0 cancelled**
 - overall `pnpm verify`: PASS
 
 Therefore:
-**STEP 46 / A4 FINAL GATE = PASS**
-**A4 = COMPLETE**
+**STEP 46 / A5 FINAL GATE = PASS**
+**A5 = COMPLETE**
 
 ### Next approved substep
-**Step 46 / A5 — Coupon + Eligibility Engine**
+**Step 46 / A6 — First-Purchase + Festival Promotions**
 
 ## Step-46 ownership boundary
 - Pricing remains authoritative for base pricing.
