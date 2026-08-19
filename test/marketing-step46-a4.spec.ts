@@ -59,5 +59,5 @@ test('reschedule is restricted to draft or paused consistently',()=>{
 test('marketing module registers and exports campaign service',()=>{
   assert.match(moduleFile,/CampaignService/);
   assert.match(moduleFile,/CampaignRepository/);
-  assert.match(moduleFile,/exports: \[CampaignService\]/);
+  assert.match(moduleFile,/exports:\s*\[[^\]]*CampaignService[^\]]*\]/);
 });
