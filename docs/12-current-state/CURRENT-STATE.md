@@ -16,42 +16,6 @@ Later implementation advances `main` beyond that immutable reference.
 - **Step 45 — Content, Articles & SEO Backend — CLOSED / FINAL GATE PASS**
 - **Step 46 — Marketing, Promotions & Customer Club Backend — CLOSED / FINAL GATE PASS**
 
-Step 45 and Step 46 are not to be repeated unless a later verified regression or approved change request explicitly reopens them.
-
-## Step 46 final canonical closure
-All Step-46 substeps are complete:
-- **A1 — Discovery, Scope Recovery & Business Rules Freeze — COMPLETE**
-- **A2 — Marketing Domain Model + Invariants — COMPLETE / FINAL GATE PASS**
-- **A3 — PostgreSQL Schema + RBAC — COMPLETE / FINAL GATE PASS**
-- **A4 — Campaign Lifecycle Engine — COMPLETE / FINAL GATE PASS**
-- **A5 — Coupon + Eligibility Engine — COMPLETE / FINAL GATE PASS**
-- **A6 — First-Purchase + Festival Promotions — COMPLETE / FINAL GATE PASS**
-- **A7 — Pricing/Cart/Checkout Integration — COMPLETE / FINAL GATE PASS**
-- **A8 — Order + Redemption + Financial Integrity — COMPLETE / FINAL GATE PASS**
-- **A9 — Customer Club / Points MVP Foundation — COMPLETE / FINAL GATE PASS**
-- **A10 — Admin API + RBAC + Audit + Idempotency — COMPLETE / FINAL GATE PASS**
-- **A11 — E2E + Concurrency + Security + Regression — COMPLETE / FINAL GATE PASS**
-- **A12 — Final Canonical Closure — COMPLETE / FINAL GATE PASS**
-
-Canonical Step-46 artifacts remain under `docs/11-step-history/STEP-46-*`.
-
-### Step 46 final verification evidence
-A11 is the final executable composition gate immediately before A12. Verification-only Draft PR #16 tested the exact A11 `main` source and was intentionally closed without merge.
-
-Final GitHub Actions Canonical CI run `32265330752`, job `verify` (`96108299519`) completed successfully:
-- frozen-lockfile install: PASS
-- OpenAPI: PASS — 513 paths / 582 operations / 1138 refs
-- architecture: PASS — 369 module files scanned
-- project policy: PASS — `toman-no-wallet-config-boundary`
-- TypeScript build: PASS
-- A11 tests: **15/15 PASS**
-- runtime tests: **219 PASS / 0 FAIL / 0 skipped / 0 cancelled**
-- overall `pnpm verify`: PASS
-
-Therefore:
-**STEP 46 FINAL GATE = PASS**
-**STEP 46 = CLOSED / COMPLETE**
-
 ## Active step
 **Step 47 — External Integration Foundation — ACTIVE**
 
@@ -60,8 +24,8 @@ Approved roadmap scope: configurable provider adapters for FX, SMS, email, shipp
 ### Step 47 progress
 - **A1 — Discovery + Integration Ownership / Rules Freeze — COMPLETE**
 - **A2 — Common Provider Contracts + Failure Model — COMPLETE / FINAL GATE PASS**
-- **A3 — Integration Configuration + Secrets + RBAC — NEXT**
-- A4 — HTTP Client / Timeout / Retry / Circuit-Breaker Foundation — PLANNED
+- **A3 — Integration Configuration + Secrets + RBAC — COMPLETE / FINAL GATE PASS**
+- **A4 — HTTP Client / Timeout / Retry / Circuit-Breaker Foundation — NEXT**
 - A5 — Provider Health + Observability — PLANNED
 - A6 — FX Provider Port + Rate Fetch — PLANNED
 - A7 — FX Preview-before-Apply Integration — PLANNED
@@ -74,25 +38,31 @@ Approved roadmap scope: configurable provider adapters for FX, SMS, email, shipp
 Canonical Step-47 artifacts:
 - `docs/11-step-history/STEP-47-A1-DISCOVERY-SCOPE.md`
 - `docs/11-step-history/STEP-47-A2-PROVIDER-CONTRACTS-FAILURE-MODEL.md`
+- `docs/11-step-history/STEP-47-A3-INTEGRATION-CONFIG-SECRETS-RBAC.md`
 
 ### Step 47 A2 verification evidence
-Draft PR #21 verified the A2 implementation. Canonical CI run `32311586849`, job `verify` (`96255496092`) passed:
+Draft PR #21 verified A2. Canonical CI run `32311586849`, job `verify` (`96255496092`) passed with 252/252 runtime tests.
+
+### Step 47 A3 verification evidence
+Draft PR #22 verified A3. Final Canonical CI run `32312649706`, job `verify` (`96258605260`) passed:
 - OpenAPI: PASS — 514 paths / 583 operations / 1146 refs
-- architecture: PASS — 384 module files scanned
-- project policy: PASS
+- architecture: PASS — 388 module files scanned
+- project policy: PASS — `toman-no-wallet-config-boundary`
 - TypeScript build: PASS
-- A2 tests: **8/8 PASS**
-- runtime tests: **252 PASS / 0 FAIL / 0 skipped / 0 cancelled**
+- A3 tests: **6/6 PASS**
+- runtime tests: **258 PASS / 0 FAIL / 0 skipped / 0 cancelled**
 - overall `pnpm verify`: PASS
 
-### Frozen Step-47 ownership boundary
-- `src/modules/integrations` is the existing canonical integration bounded context and must be reused.
-- Notifications remains authoritative for notification orchestration/delivery and its existing `NotificationProviderPort` / `NotificationProviderRegistry` must be reused for SMS/email adapters.
+### Frozen Step-47 ownership and secret boundary
+- `src/modules/integrations` remains the canonical integration bounded context.
+- Notifications remains authoritative for SMS/email delivery semantics.
 - Payments remains authoritative for payment/refund lifecycle and correctness.
 - Fulfillment remains authoritative for shipment/fulfillment lifecycle.
 - Pricing remains authoritative for product price mutation; FX providers supply observations only.
-- Configuration remains the owner for non-secret provider configuration; raw credentials must not become ordinary business data.
-- Provider transport failures are normalized and fail closed; no fabricated success/default business outcome is allowed.
+- Non-secret provider configuration may be persisted under `integrations.provider_configurations`.
+- Secret values remain environment-owned and are accessed only through the platform configuration boundary; only a validated `EQCOFE_*` secret reference may be persisted.
+- Sensitive-looking keys are rejected from provider JSON configuration at both domain and database boundaries.
+- Provider transport failures remain normalized and fail closed.
 - All network requests require finite timeout; retries must be bounded and safe/idempotent.
 - FX-driven price mutation must preserve preview-before-apply and integer Toman rules.
 
