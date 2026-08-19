@@ -25,6 +25,7 @@ Step 45 is not to be repeated.
 - **A3 — PostgreSQL Schema + RBAC — COMPLETE / FINAL GATE PASS**
 - **A4 — Campaign Lifecycle Engine — COMPLETE / FINAL GATE PASS**
 - **A5 — Coupon + Eligibility Engine — COMPLETE / FINAL GATE PASS**
+- **A6 — First-Purchase + Festival Promotions — COMPLETE / FINAL GATE PASS**
 
 Canonical artifacts:
 - `docs/11-step-history/STEP-46-A1-DISCOVERY-SCOPE.md`
@@ -32,33 +33,34 @@ Canonical artifacts:
 - `docs/11-step-history/STEP-46-A3-POSTGRES-RBAC.md`
 - `docs/11-step-history/STEP-46-A4-CAMPAIGN-LIFECYCLE.md`
 - `docs/11-step-history/STEP-46-A5-COUPON-ELIGIBILITY.md`
+- `docs/11-step-history/STEP-46-A6-FIRST-PURCHASE-FESTIVAL.md`
 
-### A5 implementation
-A5 added `CouponEligibilityService` and `CouponEligibilityRepository` to the Marketing module. Coupon evaluation now fails closed across campaign/promotion/coupon state and windows, minimum subtotal, first-purchase fact, wholesale policy, total usage, per-customer usage and maximum discount cap while keeping all monetary outputs in integer Toman.
+### A6 implementation
+A6 added automatic promotion resolution for active coupon-free promotions. First-purchase promotions require a stable customer identity plus the authoritative completed-purchase fact; guest first-purchase eligibility fails closed. Returning customers are rejected. Festival promotions respect Campaign/Promotion windows, minimum subtotal, wholesale policy, usage limits, integer-Toman maximum discount and deterministic stacking rules.
 
-Additive migration `0037_marketing_coupon_eligibility_hardening.sql` aligns the PostgreSQL coupon format with the domain contract, prevents coupon windows from exceeding their promotion window, and adds active-redemption usage indexes.
+Exclusive automatic promotions override stackable ones and ties resolve deterministically by promotion id. Stackable discounts are capped at subtotal so the payable amount cannot become negative. No new database schema was needed; A6 reuses the A3–A5 Campaign/Promotion/Redemption structures and counts only `reserved` + `consumed` usage.
 
-A5 deliberately accepts authoritative `isWholesale` and `hasCompletedPurchase` facts rather than inferring them or directly querying foreign module persistence. Checkout/Orders wiring and atomic reservation remain later integration/integrity work.
+A6 deliberately does not query Customer or Orders persistence directly. Authoritative `isWholesale` and `hasCompletedPurchase` facts remain integration inputs; Checkout wiring and atomic redemption reservation are A7/A8 responsibilities.
 
-### A5 canonical verification evidence
-The initial verification run found one brittle A4 regression assertion that required the Marketing exports array to contain exactly one service. The assertion was made extensible; no A4 production behavior was changed.
+### A6 canonical verification evidence
+Verification-only Draft PR #10 tested the exact A6 main source. The first CI run exposed a strict TypeScript narrowing issue in the automatic promotion winner selection; it was corrected before closure.
 
-GitHub Actions Canonical CI rerun `32256531549`, job `verify` (`96079417704`) completed successfully:
+Final GitHub Actions Canonical CI run `32258059310`, job `verify` (`96084370271`) completed successfully:
 - frozen-lockfile install: PASS
 - OpenAPI: PASS — 513 paths / 582 operations / 1138 refs
-- architecture: PASS — 356 module files scanned
+- architecture: PASS — 358 module files scanned
 - project policy: PASS
 - TypeScript build: PASS
-- A5 tests: 8/8 PASS
-- runtime tests: **156 PASS / 0 FAIL / 0 skipped / 0 cancelled**
+- A6 tests: 8/8 PASS
+- runtime tests: **164 PASS / 0 FAIL / 0 skipped / 0 cancelled**
 - overall `pnpm verify`: PASS
 
 Therefore:
-**STEP 46 / A5 FINAL GATE = PASS**
-**A5 = COMPLETE**
+**STEP 46 / A6 FINAL GATE = PASS**
+**A6 = COMPLETE**
 
 ### Next approved substep
-**Step 46 / A6 — First-Purchase + Festival Promotions**
+**Step 46 / A7 — Pricing/Cart/Checkout Integration**
 
 ## Step-46 ownership boundary
 - Pricing remains authoritative for base pricing.
