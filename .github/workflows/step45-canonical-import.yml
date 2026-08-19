@@ -1,0 +1,101 @@
+name: EQCOFE Step45 Canonical Selective Import
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - '.step45-trigger/**'
+      - '.github/workflows/step45-canonical-import.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  import-verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout integration branch
+        uses: actions/checkout@v4
+        with:
+          ref: agent/step45-canonical-final
+          fetch-depth: 0
+
+      - name: Download canonical Step45 artifact
+        env:
+          STEP45_URL: 'https://at.adobe.com/6e2cbS1umJ7OfEdU'
+        run: |
+          set -euo pipefail
+          curl -fL "$STEP45_URL" -o /tmp/step45.zip
+          test -s /tmp/step45.zip
+          unzip -t /tmp/step45.zip >/dev/null
+          unzip -q /tmp/step45.zip -d /tmp/step45
+          ROOT="$(find /tmp/step45 -maxdepth 2 -type f -name package.json -printf '%h\n' | head -1)"
+          test -n "$ROOT"
+          echo "STEP45_ROOT=$ROOT" >> "$GITHUB_ENV"
+
+      - name: Apply Step45 delta without overwriting Step46
+        run: |
+          set -euo pipefail
+          ROOT="$STEP45_ROOT"
+          # New Step45 migrations and Content implementation are authoritative.
+          for p in \
+            database/migrations/0034_content_core.sql \
+            database/migrations/0035_content_editorial_lifecycle.sql \
+            src/modules/content \
+            tests/content \
+            docs/steps/step45; do
+            if [ -e "$ROOT/$p" ]; then
+              mkdir -p "$(dirname "$p")"
+              rm -rf "$p"
+              cp -a "$ROOT/$p" "$p"
+            fi
+          done
+
+          # Copy additional Step45-only files that do not exist on current main.
+          while IFS= read -r -d '' f; do
+            rel="${f#$ROOT/}"
+            case "$rel" in
+              .git/*|node_modules/*|src/modules/marketing/*|tests/marketing/*|database/migrations/0036_*|database/migrations/0037_*) continue ;;
+            esac
+            if [ ! -e "$rel" ]; then
+              mkdir -p "$(dirname "$rel")"
+              cp -a "$f" "$rel"
+            fi
+          done < <(find "$ROOT" -type f -print0)
+
+          # Never allow Step46 Marketing/Loyalty deletion/regression.
+          test -d src/modules/marketing
+          test -f database/migrations/0036_marketing_core.sql
+          test -f database/migrations/0037_marketing_coupon_redemption_guard.sql
+
+          rm -rf .step45-import .step45-trigger
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11.21.0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24.18.1
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Full verification
+        run: pnpm verify
+
+      - name: Commit verified Step45 integration
+        run: |
+          set -euo pipefail
+          rm -f .github/workflows/step45-canonical-import.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          if git diff --cached --quiet; then
+            echo 'No Step45 delta to commit.'
+            exit 1
+          fi
+          git commit -m 'step(45): integrate canonical content and SEO backend without Step46 regression'
+          git push origin HEAD:agent/step45-canonical-final
