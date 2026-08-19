@@ -12,14 +12,14 @@
 Verified Step-44 baseline: `b239dfe825b615f36caf2e26cc7abc80c70d349c`.
 Later implementation advances `main` beyond that immutable reference.
 
-## Step 45 closure
-**Step 45 — Content, Articles & SEO Backend — CLOSED / FINAL GATE PASS**
-Step 45 is not to be repeated.
+## Closed steps
+- **Step 45 — Content, Articles & SEO Backend — CLOSED / FINAL GATE PASS**
+- **Step 46 — Marketing, Promotions & Customer Club Backend — CLOSED / FINAL GATE PASS**
 
-## Active step
-**Step 46 — Marketing, Promotions & Customer Club Backend**
+Step 45 and Step 46 are not to be repeated unless a later verified regression or approved change request explicitly reopens them.
 
-### Completed substeps
+## Step 46 final canonical closure
+All Step-46 substeps are complete:
 - **A1 — Discovery, Scope Recovery & Business Rules Freeze — COMPLETE**
 - **A2 — Marketing Domain Model + Invariants — COMPLETE / FINAL GATE PASS**
 - **A3 — PostgreSQL Schema + RBAC — COMPLETE / FINAL GATE PASS**
@@ -31,8 +31,9 @@ Step 45 is not to be repeated.
 - **A9 — Customer Club / Points MVP Foundation — COMPLETE / FINAL GATE PASS**
 - **A10 — Admin API + RBAC + Audit + Idempotency — COMPLETE / FINAL GATE PASS**
 - **A11 — E2E + Concurrency + Security + Regression — COMPLETE / FINAL GATE PASS**
+- **A12 — Final Canonical Closure — COMPLETE / FINAL GATE PASS**
 
-Canonical artifacts:
+Canonical Step-46 artifacts:
 - `docs/11-step-history/STEP-46-A1-DISCOVERY-SCOPE.md`
 - `docs/11-step-history/STEP-46-A2-DOMAIN-MODEL-INVARIANTS.md`
 - `docs/11-step-history/STEP-46-A3-POSTGRES-RBAC.md`
@@ -44,11 +45,10 @@ Canonical artifacts:
 - `docs/11-step-history/STEP-46-A9-CUSTOMER-CLUB-POINTS-MVP.md`
 - `docs/11-step-history/STEP-46-A10-ADMIN-API-RBAC-AUDIT-IDEMPOTENCY.md`
 - `docs/11-step-history/STEP-46-A11-E2E-CONCURRENCY-SECURITY-REGRESSION.md`
+- `docs/11-step-history/STEP-46-A12-FINAL-CANONICAL-CLOSURE.md`
 
-### A11 implementation and verification
-A11 adds no new business feature. It is the Step-46 composition gate covering the full Marketing/Commerce/Loyalty interaction: deterministic promotion resolution, server-owned customer eligibility facts, Checkout/Order marketing snapshot continuity, Redemption reserve/consume/release/reverse lifecycle, deferred financial integrity, concurrency locks, Loyalty append-only/non-negative invariants, and Admin security controls.
-
-Verification-only Draft PR #16 tested the exact A11 `main` source; its branch adds only a documentation CI marker and must not be merged.
+### Step 46 final verification evidence
+A11 is the final executable composition gate immediately before A12. Verification-only Draft PR #16 tested the exact A11 `main` source and was intentionally closed without merge.
 
 Final GitHub Actions Canonical CI run `32265330752`, job `verify` (`96108299519`) completed successfully:
 - frozen-lockfile install: PASS
@@ -60,14 +60,18 @@ Final GitHub Actions Canonical CI run `32265330752`, job `verify` (`96108299519`
 - runtime tests: **219 PASS / 0 FAIL / 0 skipped / 0 cancelled**
 - overall `pnpm verify`: PASS
 
+A12 is documentation/canonical-state closure only and changes no runtime implementation.
+
 Therefore:
-**STEP 46 / A11 FINAL GATE = PASS**
-**A11 = COMPLETE**
+**STEP 46 FINAL GATE = PASS**
+**STEP 46 = CLOSED / COMPLETE**
 
-### Next approved substep
-**Step 46 / A12 — Final Canonical Closure**
+## Active step
+**Step 47 — External Integration Foundation — NEXT**
 
-## Step-46 ownership boundary
+Approved roadmap scope: configurable provider adapters for FX, SMS, email, shipping and auxiliary payment services with health status, retries/timeouts, secret boundaries and fail-closed behavior; FX must preserve preview-before-apply.
+
+## Frozen Step-46 ownership boundary
 - Pricing remains authoritative for base pricing.
 - Marketing owns campaign/promotion/coupon eligibility and redemption state.
 - Cart/Checkout persists commercial snapshots including discounts.
