@@ -10,34 +10,66 @@ permissions:
   contents: write
 
 env:
+  CANONICAL_ZIP_SHA256: 2fd70647072b2808a2879de5b542b8c92d32b9b6252f09cd901e7b43b390e90d
   DRIVE_FILE_ID: 1bWR6xn1_uFHjhPxuRQVsZXBd4NTR9sjy
 
 jobs:
   import:
-    if: github.event_name == 'workflow_dispatch' || github.head_ref == 'canonical-import-trigger'
+    if: github.event_name != 'pull_request' || github.head_ref == 'canonical-import-trigger'
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout trigger branch
+      - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
           ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
 
-      - name: Diagnose Drive package
+      - name: Download canonical package
         shell: bash
         run: |
           set -euo pipefail
           curl --fail --location --retry 3 --retry-delay 2 \
             "https://drive.usercontent.google.com/download?id=${DRIVE_FILE_ID}&export=download&confirm=t" \
             --output /tmp/eqcofe-canonical.zip
-          echo "SIZE=$(stat -c %s /tmp/eqcofe-canonical.zip)"
-          sha256sum /tmp/eqcofe-canonical.zip
-          file /tmp/eqcofe-canonical.zip
-          unzip -t /tmp/eqcofe-canonical.zip
-          rm -rf /tmp/drive-check && mkdir -p /tmp/drive-check
-          unzip -q /tmp/eqcofe-canonical.zip -d /tmp/drive-check
-          find /tmp/drive-check -maxdepth 2 -type f | head -30
-          test -f /tmp/drive-check/Eqcofe/package.json
-          test -f /tmp/drive-check/Eqcofe/contracts/http/openapi.yaml
-          test -f /tmp/drive-check/Eqcofe/database/migrations/0033_notification_operations.sql
-          echo "DRIVE_PACKAGE_STRUCTURALLY_VALID=YES"
+          echo "${CANONICAL_ZIP_SHA256}  /tmp/eqcofe-canonical.zip" | sha256sum --check --strict
+
+      - name: Replace repository with canonical tree
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf /tmp/eqcofe-import
+          mkdir -p /tmp/eqcofe-import
+          unzip -q /tmp/eqcofe-canonical.zip -d /tmp/eqcofe-import
+          test -f /tmp/eqcofe-import/Eqcofe/package.json
+          test -f /tmp/eqcofe-import/Eqcofe/contracts/http/openapi.yaml
+          test -f /tmp/eqcofe-import/Eqcofe/database/migrations/0033_notification_operations.sql
+          rsync -a --delete --exclude='.git/' /tmp/eqcofe-import/Eqcofe/ ./
+          rm -rf .canonical-import .bootstrap
+
+      - name: Commit canonical import
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "EQCOFE Canonical Import"
+          git config user.email "actions@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No canonical changes to commit"
+          else
+            git commit -m "Import canonical EQCOFE source through Step 44"
+            git push origin HEAD:main
+          fi
+
+      - name: Tag canonical import
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch origin main --tags
+          git checkout main
+          git reset --hard origin/main
+          if git rev-parse -q --verify refs/tags/eqcofe-canonical-import-v1 >/dev/null; then
+            echo "Tag already exists"
+          else
+            git tag -a eqcofe-canonical-import-v1 -m "EQCOFE canonical import through Step 44"
+            git push origin eqcofe-canonical-import-v1
+          fi
