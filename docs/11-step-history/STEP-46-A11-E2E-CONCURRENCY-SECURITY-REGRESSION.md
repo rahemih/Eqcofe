@@ -2,7 +2,7 @@
 
 ## E2E + Concurrency + Security + Regression
 
-**Status:** IMPLEMENTED / CI VERIFICATION PENDING
+**Status:** COMPLETE / FINAL GATE PASS
 
 ## Scope
 A11 is the verification and hardening gate for Step 46 before final canonical closure. It adds no new business feature. Instead it proves that the A1–A10 implementation composes safely across Marketing, Pricing, Cart/Checkout, Orders, Customer, Loyalty, RBAC and project policy boundaries.
@@ -36,8 +36,22 @@ A11 verifies:
 ## Regression coverage
 `test/marketing-loyalty-step46-a11.spec.ts` contains 15 dedicated A11 checks and also asserts that the canonical Step-46 A2–A10 regression suites and additive migration lineage 0034–0041 remain present.
 
-## Closure gate
-A11 becomes COMPLETE only after Canonical CI passes against the exact A11 `main` source, including OpenAPI, architecture, project policy, TypeScript build and the full runtime test suite.
+## Canonical CI verification
+Verification-only Draft PR #16 tested the exact A11 source already present on `main`; its branch adds only a documentation CI marker and is not part of canonical source.
 
-## Next substep after closure
+Final GitHub Actions Canonical CI run `32265330752`, job `verify` (`96108299519`) completed successfully:
+- frozen-lockfile install: PASS
+- OpenAPI contract validation: PASS — 513 paths / 582 operations / 1138 refs
+- architecture: PASS — 369 module files scanned
+- project policy: PASS — `toman-no-wallet-config-boundary`
+- TypeScript build: PASS
+- A11 tests: **15/15 PASS**
+- runtime tests: **219 PASS / 0 FAIL / 0 skipped / 0 cancelled**
+- overall `pnpm verify`: PASS
+
+Therefore:
+**STEP 46 / A11 FINAL GATE = PASS**
+**A11 = COMPLETE**
+
+## Next approved substep
 **Step 46 / A12 — Final Canonical Closure**
