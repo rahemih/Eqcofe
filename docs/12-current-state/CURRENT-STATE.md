@@ -26,6 +26,7 @@ Step 45 is not to be repeated.
 - **A4 — Campaign Lifecycle Engine — COMPLETE / FINAL GATE PASS**
 - **A5 — Coupon + Eligibility Engine — COMPLETE / FINAL GATE PASS**
 - **A6 — First-Purchase + Festival Promotions — COMPLETE / FINAL GATE PASS**
+- **A7 — Pricing/Cart/Checkout Integration — COMPLETE / FINAL GATE PASS**
 
 Canonical artifacts:
 - `docs/11-step-history/STEP-46-A1-DISCOVERY-SCOPE.md`
@@ -34,33 +35,34 @@ Canonical artifacts:
 - `docs/11-step-history/STEP-46-A4-CAMPAIGN-LIFECYCLE.md`
 - `docs/11-step-history/STEP-46-A5-COUPON-ELIGIBILITY.md`
 - `docs/11-step-history/STEP-46-A6-FIRST-PURCHASE-FESTIVAL.md`
+- `docs/11-step-history/STEP-46-A7-PRICING-CART-CHECKOUT-INTEGRATION.md`
 
-### A6 implementation
-A6 added automatic promotion resolution for active coupon-free promotions. First-purchase promotions require a stable customer identity plus the authoritative completed-purchase fact; guest first-purchase eligibility fails closed. Returning customers are rejected. Festival promotions respect Campaign/Promotion windows, minimum subtotal, wholesale policy, usage limits, integer-Toman maximum discount and deterministic stacking rules.
+### A7 implementation
+A7 integrates Marketing with the authoritative Pricing/Cart/Checkout flow. Pricing still owns line/base pricing; Marketing is evaluated on the post-Pricing merchandise amount. Cart obtains customer type from Customer and completed-purchase history from an Orders-owned public port, so client input cannot forge wholesale or first-purchase facts.
 
-Exclusive automatic promotions override stackable ones and ties resolve deterministically by promotion id. Stackable discounts are capped at subtotal so the payable amount cannot become negative. No new database schema was needed; A6 reuses the A3–A5 Campaign/Promotion/Redemption structures and counts only `reserved` + `consumed` usage.
+`CheckoutPromotionService` deterministically composes automatic and coupon-backed promotions. Checkout accepts optional `coupon_code`, persists `marketing_discount_toman` and `marketing_snapshot`, and keeps `discount_toman` as the compatible total discount. Additive migration `0038_marketing_checkout_snapshot.sql` updates Checkout/Order financial integrity functions and copies the exact Checkout marketing snapshot into Orders without recalculation.
 
-A6 deliberately does not query Customer or Orders persistence directly. Authoritative `isWholesale` and `hasCompletedPurchase` facts remain integration inputs; Checkout wiring and atomic redemption reservation are A7/A8 responsibilities.
+A7 intentionally does not claim atomic coupon/promotion redemption reservation. Redemption reservation/consume/release, retry/concurrency behavior and final promotion financial integrity are A8 responsibilities.
 
-### A6 canonical verification evidence
-Verification-only Draft PR #10 tested the exact A6 main source. The first CI run exposed a strict TypeScript narrowing issue in the automatic promotion winner selection; it was corrected before closure.
+### A7 canonical verification evidence
+The initial CI attempt passed OpenAPI, architecture, policy and TypeScript build but exposed two legacy cart-pricing harness failures caused by the newly injected A7 dependencies. The harness was adapted with explicit test doubles; production logic was not weakened.
 
-Final GitHub Actions Canonical CI run `32258059310`, job `verify` (`96084370271`) completed successfully:
+Final GitHub Actions Canonical CI run `32260541195`, job `verify` (`96092481216`) completed successfully:
 - frozen-lockfile install: PASS
 - OpenAPI: PASS — 513 paths / 582 operations / 1138 refs
-- architecture: PASS — 358 module files scanned
+- architecture: PASS — 362 module files scanned
 - project policy: PASS
 - TypeScript build: PASS
-- A6 tests: 8/8 PASS
-- runtime tests: **164 PASS / 0 FAIL / 0 skipped / 0 cancelled**
+- A7 tests: 9/9 PASS
+- runtime tests: **173 PASS / 0 FAIL / 0 skipped / 0 cancelled**
 - overall `pnpm verify`: PASS
 
 Therefore:
-**STEP 46 / A6 FINAL GATE = PASS**
-**A6 = COMPLETE**
+**STEP 46 / A7 FINAL GATE = PASS**
+**A7 = COMPLETE**
 
 ### Next approved substep
-**Step 46 / A7 — Pricing/Cart/Checkout Integration**
+**Step 46 / A8 — Order + Redemption + Financial Integrity**
 
 ## Step-46 ownership boundary
 - Pricing remains authoritative for base pricing.
