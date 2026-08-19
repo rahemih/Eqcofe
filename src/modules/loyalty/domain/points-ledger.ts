@@ -1,6 +1,6 @@
 import { DomainError } from '../../../shared/errors/domain-error';
 
-export type LoyaltyEntryType = 'earn' | 'redeem' | 'expire' | 'adjust';
+export type LoyaltyEntryType = 'earn' | 'redeem' | 'expire' | 'adjust' | 'reverse';
 
 export interface LoyaltyEntry {
   id: string;
@@ -9,6 +9,7 @@ export interface LoyaltyEntry {
   pointsDelta: number;
   referenceType: string;
   referenceId: string;
+  reversesEntryId?: string | null;
 }
 
 function assertPoints(value: number, allowNegative = false): number {
@@ -19,10 +20,11 @@ function assertPoints(value: number, allowNegative = false): number {
 }
 
 export class LoyaltyPointsLedger {
-  private readonly entries: LoyaltyEntry[] = [];
+  private readonly entries: LoyaltyEntry[];
 
-  constructor(public readonly customerId: string) {
+  constructor(public readonly customerId: string, existing: readonly LoyaltyEntry[] = []) {
     if (!customerId) throw new DomainError('LOYALTY_CUSTOMER_REQUIRED', 'شناسه مشتری برای باشگاه مشتریان الزامی است.');
+    this.entries = existing.map(entry => ({ ...entry }));
   }
 
   balance(): number { return this.entries.reduce((sum, entry) => sum + entry.pointsDelta, 0); }
@@ -49,15 +51,23 @@ export class LoyaltyPointsLedger {
     this.add({ id: input.id, customerId: this.customerId, type: 'adjust', pointsDelta: delta, referenceType: input.referenceType, referenceId: input.referenceId });
   }
 
+  reverse(input: { id: string; entryId: string; referenceType: string; referenceId: string }): void {
+    const original = this.entries.find(entry => entry.id === input.entryId);
+    if (!original || original.type === 'reverse') throw new DomainError('LOYALTY_INVALID_REVERSAL', 'رکورد امتیاز قابل برگشت نیست.');
+    if (this.entries.some(entry => entry.type === 'reverse' && entry.reversesEntryId === original.id)) throw new DomainError('LOYALTY_ALREADY_REVERSED', 'این رکورد قبلاً برگشت داده شده است.');
+    if (this.balance() - original.pointsDelta < 0) throw new DomainError('LOYALTY_NEGATIVE_BALANCE', 'برگشت این رکورد موجودی امتیاز را منفی می‌کند.');
+    this.add({ id: input.id, customerId: this.customerId, type: 'reverse', pointsDelta: -original.pointsDelta, referenceType: input.referenceType, referenceId: input.referenceId, reversesEntryId: original.id });
+  }
+
   toToman(): never {
     throw new DomainError('LOYALTY_CASH_CONVERSION_FORBIDDEN', 'امتیاز باشگاه مشتریان ارزش نقدی یا موجودی کیف پول نیست.');
   }
 
-  snapshot(): readonly LoyaltyEntry[] { return this.entries.map((entry) => ({ ...entry })); }
+  snapshot(): readonly LoyaltyEntry[] { return this.entries.map(entry => ({ ...entry })); }
 
   private add(entry: LoyaltyEntry): void {
     if (!entry.id || !entry.referenceType || !entry.referenceId) throw new DomainError('LOYALTY_REFERENCE_REQUIRED', 'شناسه و مرجع Ledger الزامی است.');
-    if (this.entries.some((existing) => existing.id === entry.id)) throw new DomainError('LOYALTY_DUPLICATE_ENTRY', 'ثبت تکراری Ledger مجاز نیست.');
+    if (this.entries.some(existing => existing.id === entry.id)) throw new DomainError('LOYALTY_DUPLICATE_ENTRY', 'ثبت تکراری Ledger مجاز نیست.');
     this.entries.push({ ...entry });
   }
 }
