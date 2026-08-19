@@ -1,11 +1,13 @@
 import { Module } from '@nestjs/common';
 import { CampaignService } from './application/campaign.service';
 import { CouponEligibilityService } from './application/coupon-eligibility.service';
+import { AutomaticPromotionService } from './application/automatic-promotion.service';
 import { CampaignRepository } from './infrastructure/campaign.repository';
 import { CouponEligibilityRepository } from './infrastructure/coupon-eligibility.repository';
+import { AutomaticPromotionRepository } from './infrastructure/automatic-promotion.repository';
 
 @Module({
-  providers: [CampaignService, CampaignRepository, CouponEligibilityService, CouponEligibilityRepository],
-  exports: [CampaignService, CouponEligibilityService],
+  providers: [CampaignService, CampaignRepository, CouponEligibilityService, CouponEligibilityRepository, AutomaticPromotionService, AutomaticPromotionRepository],
+  exports: [CampaignService, CouponEligibilityService, AutomaticPromotionService],
 })
 export class MarketingModule {}
