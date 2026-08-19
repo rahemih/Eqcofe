@@ -1,12 +1,12 @@
 # EQCOFE — Complete Master Execution Roadmap
 
-**Roadmap version:** 3.0 — Full Project Roadmap  
+**Roadmap version:** 3.1 — Step-46 Closure Sync  
 **Effective date:** 2026-08-19  
 **Canonical repository:** `rahemih/Eqcofe`  
 **Canonical branch:** `main`  
 **Verified Step-44 code baseline:** `b239dfe825b615f36caf2e26cc7abc80c70d349c`
 
-> This is the canonical end-to-end execution map for EQCOFE. For historical Steps 1–27, the exact original step labels are not independently proven by the recovered Git evidence. Their descriptions below are therefore a normalized reconstruction of the foundation represented by the current product vision, business rules and canonical codebase; they must not be cited as exact historical attribution. Step 28 remains partial-history. Steps 29–44 are verified in the canonical source. Step 45 onward is the approved execution plan.
+> This is the canonical end-to-end execution map for EQCOFE. For historical Steps 1–27, the exact original step labels are not independently proven by the recovered Git evidence. Their descriptions below are therefore a normalized reconstruction of the foundation represented by the current product vision, business rules and canonical codebase; they must not be cited as exact historical attribution. Step 28 remains partial-history. Steps 29–46 are verified/closed in canonical source and closure evidence. Step 47 onward is the approved execution plan.
 
 ## Status legend
 - `RECONSTRUCTED-HISTORY`: normalized description; exact historical step attribution is not proven.
@@ -157,13 +157,13 @@ Implement SMS/email/in-app notification orchestration, immutable templates, idem
 
 # PHASE C — Backend Feature Completion
 
-## Step 45 — Content, Articles & SEO Backend — `NEXT`
-Build article/category/tag models, draft-review-publish/archive workflow, Persian slugs, SEO metadata, canonical/robots fields, internal links, sitemap read models, admin APIs, audit/events and tests.
+## Step 45 — Content, Articles & SEO Backend — `COMPLETE`
+Article/category/tag models, editorial lifecycle, Persian slugs, SEO/canonical/robots metadata, internal links, sitemap read models, admin APIs, audit/events and tests are closed in canonical Step-45 evidence.
 
-## Step 46 — Marketing, Promotions & Customer Club Backend — `PLANNED`
-Implement campaigns, coupons/eligibility, first-purchase/festival promotions and—if retained for MVP—a points/club ledger, with deterministic interaction with Pricing and Orders and no Wallet behavior.
+## Step 46 — Marketing, Promotions & Customer Club Backend — `COMPLETE`
+Campaigns, coupons/eligibility, first-purchase/festival promotions, Pricing/Checkout/Order redemption integration, non-cash points ledger, Admin security surfaces and A11 composition/regression verification are closed. A12 records final canonical closure; Wallet/cash-account behavior remains prohibited.
 
-## Step 47 — External Integration Foundation — `PLANNED`
+## Step 47 — External Integration Foundation — `NEXT`
 Create configurable provider adapters for FX, SMS, email, shipping and auxiliary payment services with health status, retries/timeouts, secret boundaries and fail-closed behavior; include FX preview-before-apply.
 
 ## Step 48 — EQCOFE AI Backend Foundation — `PLANNED`
@@ -275,69 +275,65 @@ Perform auth/RBAC/Step-Up, OWASP/API, CSRF/CORS/CSP, rate-limit/brute-force, sec
 ## Step 80 — Database Production Readiness — `PLANNED`
 Verify clean migration, upgrade path, indexes/query plans, backup/restore, retention, concurrency and disaster-recovery procedures on production-like PostgreSQL.
 
-## Step 81 — End-to-End Commerce QA — `PLANNED`
-Automate and manually verify critical retail/wholesale flows from discovery through payment, fulfillment, cancellation/refund and after-sales.
+## Step 81 — End-to-End QA & Regression — `PLANNED`
+Run production-like retail, wholesale, checkout/payment, fulfillment, returns/warranty, content/marketing, admin and integration E2E suites with regression closure.
 
-## Step 82 — Accessibility & Cross-Device QA — `PLANNED`
-Audit keyboard/focus/contrast/forms, Persian RTL layout, mobile/tablet/desktop and supported browsers; fix launch-blocking accessibility defects.
+## Step 82 — Performance, Load & Resilience — `PLANNED`
+Measure storefront/API/database performance, concurrency, queue/backpressure and failure recovery; fix launch-critical bottlenecks.
 
-## Step 83 — Performance & Core Web Vitals — `PLANNED`
-Optimize frontend/backend performance, image/media delivery, caching, bundles, database hot paths and validate production-like load/Core Web Vitals budgets.
+## Step 83 — Accessibility, SEO & Web Quality Audit — `PLANNED`
+Validate WCAG-oriented accessibility, RTL/responsive behavior, metadata/structured data/crawlability and Core Web Vitals-oriented quality targets.
 
-## Step 84 — Technical SEO & PWA Closure — `PLANNED`
-Validate metadata, canonical URLs, robots/sitemaps, structured data, redirects/404s and the approved PWA/installability/offline scope.
+## Step 84 — Observability, Backup & Incident Readiness — `PLANNED`
+Finalize logs/metrics/traces/alerts, backup verification, restore drill, incident runbooks and operational ownership.
 
-## Step 85 — Observability & Operations — `PLANNED`
-Establish structured logs, metrics/tracing where appropriate, error monitoring, health/readiness, alerts, dashboards and incident/runbook ownership.
+# PHASE I — Deployment and Launch
 
-## Step 86 — CI/CD & Production Infrastructure — `PLANNED`
-Finalize environments, secrets, build/deploy pipeline, SSL/domain/DNS, rollback strategy, backup jobs and production deployment gates.
+## Step 85 — Staging Deployment & Acceptance — `PLANNED`
+Deploy a production-like staging environment, run smoke/UAT with realistic configuration and data, and close release-blocking findings.
 
-# PHASE I — Real Data, Content & Release Candidate
+## Step 86 — Production Infrastructure & Secrets — `PLANNED`
+Provision production runtime/database/cache/storage/DNS/TLS, secret injection, environment configuration and least-privilege access without committing secrets.
 
-## Step 87 — Product Data Model Final Validation — `PLANNED`
-Validate real catalog fields, categories, brands, variants, attributes, SEO/media requirements and import template against actual inventory data.
+## Step 87 — Production Data & Content Readiness — `PLANNED`
+Prepare/import real catalog, media, prices, inventory, content, policies, shipping/payment/provider configuration and verify operational ownership.
 
-## Step 88 — Initial Product Import — `PLANNED`
-Dry-run, validate and import the initial approximately 200 products/variants, stock and prices with reconciliation and audit reports.
+## Step 88 — Soft Launch — `PLANNED`
+Release to a controlled audience, monitor orders/payments/notifications/inventory/support and resolve launch-critical issues under rollback controls.
 
-## Step 89 — Product Photography & Rich Media — `PLANNED`
-Produce/process/attach optimized product photography and approved video/3D assets with alt text and delivery performance checks.
+## Step 89 — Public Launch — `PLANNED`
+Open EQCOFE publicly after soft-launch acceptance, verify the critical customer journey and start heightened production monitoring.
 
-## Step 90 — Launch Content & Policy Pages — `PLANNED`
-Finalize Persian homepage/category/product copy, About/Contact/FAQ, Terms, Returns, Warranty, shipping/payment guidance and launch articles/SEO content.
+## Step 90 — Launch Stabilization — `PLANNED`
+Run the initial post-launch stabilization window, triage incidents, verify financial/inventory reconciliation and close the launch phase.
 
-## Step 91 — Full UAT & Operational Rehearsal — `PLANNED`
-Run stakeholder/user acceptance, admin operational rehearsal, support/refund/stock/notification scenarios and resolve all launch blockers.
+# PHASE J — Post-Launch Growth
 
-## Step 92 — Release Candidate & Launch Freeze — `PLANNED`
-Create the release candidate, freeze scope, rerun full CI/E2E/security/performance/backup-restore checks and approve only severity-1/2 fixes.
+## Step 91 — Marketplace Integrations — `POST-LAUNCH`
+Integrate selected external sales channels such as Torob/Emalls/Basalam/Divar/Digikala only after core operations are stable.
 
-# PHASE J — Launch
+## Step 92 — Advanced AI Automation — `POST-LAUNCH`
+Expand governed AI automation for merchandising, content, support and marketing after production data and controls are mature.
 
-## Step 93 — Soft Launch — `PLANNED`
-Release to a controlled audience, monitor real orders/payments/inventory/notifications/performance, gather feedback and fix launch-blocking issues.
+## Step 93 — PWA / Advanced Offline Experience — `POST-LAUNCH`
+Add installability and advanced offline/customer experience only after the production web application is stable.
 
-## Step 94 — Public MVP Launch — `PLANNED`
-Open EQCOFE publicly after Soft Launch gates pass, enable production monitoring/support routines and establish the first post-launch review cadence.
+## Step 94 — Growth Experimentation & Optimization — `POST-LAUNCH`
+Run controlled conversion/retention/SEO/merchandising experiments with analytics and rollback discipline.
 
-# PHASE K — Post-Launch Growth
+## Step 95 — Long-Term Platform Evolution — `POST-LAUNCH`
+Evolve architecture, integrations and product capabilities based on production evidence without weakening canonical invariants or launch-grade controls.
 
-## Step 95+ — Growth & Full Vision — `POST-LAUNCH`
-Prioritize from real evidence: marketplace/channel integrations, advanced AI recommendations/personalization, marketing automation, advanced loyalty, richer analytics/experimentation and other non-critical Full-Vision capabilities.
+# Current Position
 
-# Milestones
-- **M0 — Trusted Backend Baseline:** Step 44 — COMPLETE
-- **M1 — Backend Feature Complete:** Step 52
-- **M2 — UX/UI Approved:** Step 57
-- **M3 — Storefront Complete:** Step 66
-- **M4 — Admin Complete:** Step 73
-- **M5 — External Services Operational:** Step 78
-- **M6 — Production Ready:** Step 86
-- **M7 — Release Candidate:** Step 92
-- **M8 — Soft Launch Complete:** Step 93
-- **M9 — Public MVP Launch:** Step 94
-
-# Current execution pointer
-**Last verified baseline:** Step 44  
-**Next execution step:** Step 45 — Content, Articles & SEO Backend
+- **Last closed step:** Step 46 — Marketing, Promotions & Customer Club Backend.
+- **Next approved step:** Step 47 — External Integration Foundation.
+- **Backend feature-completion horizon:** Step 52.
+- **UI/UX design begins:** Step 53.
+- **Storefront implementation begins:** Step 58.
+- **Admin frontend begins:** Step 67.
+- **Real provider integration phase:** Step 74.
+- **Production-readiness gate begins:** Step 79.
+- **Soft launch:** Step 88.
+- **Public launch:** Step 89.
+- **Post-launch growth:** Step 91 onward.
