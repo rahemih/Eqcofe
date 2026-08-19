@@ -50,7 +50,7 @@ export class LoyaltyPointsLedger {
   }
 
   toToman(): never {
-    throw new DomainError('LOYALTY_WALLET_FORBIDDEN', 'امتیاز باشگاه مشتریان ارزش نقدی یا موجودی کیف پول نیست.');
+    throw new DomainError('LOYALTY_CASH_CONVERSION_FORBIDDEN', 'امتیاز باشگاه مشتریان ارزش نقدی یا موجودی کیف پول نیست.');
   }
 
   snapshot(): readonly LoyaltyEntry[] { return this.entries.map((entry) => ({ ...entry })); }
