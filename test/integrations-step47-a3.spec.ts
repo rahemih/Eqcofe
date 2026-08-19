@@ -16,14 +16,14 @@ test('A3 provider configuration accepts only bounded timeout retry and HTTPS',()
   assert.throws(()=>validateProviderConfiguration({...v,baseUrl:'http://example.com'}),/HTTPS/);
 });
 
-test('A3 secret resolver fails closed and never invents a value',()=>{
-  const r=new EnvironmentSecretResolver();
-  const ref='EQCOFE_TEST_MISSING_SECRET';
-  delete process.env[ref];
-  assert.throws(()=>r.resolve(ref),/در دسترس نیست/);
-  process.env[ref]='runtime-secret';
-  assert.equal(r.resolve(ref),'runtime-secret');
-  delete process.env[ref];
+test('A3 secret resolver fails closed and uses platform config boundary',()=>{
+  const missing=new EnvironmentSecretResolver({get:()=>undefined} as any);
+  assert.throws(()=>missing.resolve('EQCOFE_TEST_MISSING_SECRET'),/در دسترس نیست/);
+  const available=new EnvironmentSecretResolver({get:(key:string)=>key==='EQCOFE_TEST_SECRET'?'runtime-secret':undefined} as any);
+  assert.equal(available.resolve('EQCOFE_TEST_SECRET'),'runtime-secret');
+  const src=fs.readFileSync('src/modules/integrations/infrastructure/environment-secret.resolver.ts','utf8');
+  assert.doesNotMatch(src,/process\.env/);
+  assert.match(src,/ConfigService/);
 });
 
 test('A3 migration stores only secret references and rejects sensitive config',()=>{
