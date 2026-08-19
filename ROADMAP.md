@@ -1,35 +1,53 @@
-# EQCOFE Roadmap
+# EQCOFE Roadmap — Canonical Execution Plan v2.0
 
-## Current position
-- Steps 42–44: CLOSED
-- **Next: Step 45 — Articles, Content & SEO**
+**Canonical repository:** `rahemih/Eqcofe`  
+**Canonical branch:** `main`  
+**Verified Step-44 code baseline:** `b239dfe825b615f36caf2e26cc7abc80c70d349c`  
+**Current position:** Step 44 CLOSED → **Step 45 NEXT**
 
-## Backend Completion — Steps 42–52
-- 42 Customer Core + Addresses + Wishlist + Wholesale — COMPLETE
-- 43 Central Store Configuration — COMPLETE
-- 44 Comprehensive Notification System — COMPLETE
-- 45 Articles, Content & SEO — NEXT
-- 46 Marketing + Customer Club — PLANNED
-- 47 External Integrations (FX/SMS/Email/Shipping/providers) — PLANNED
-- 48 EQCOFE AI — PLANNED
-- 49 Physical Store / POS — PLANNED
-- 50 Excel Management — PLANNED
-- 51 Analytics + Management Dashboard — PLANNED
-- 52 Backend Final Closure — PLANNED
+The detailed professional roadmap is maintained at:
 
-## Frontend + Admin — Steps 53–58
-Storefront design system, commerce pages, customer/wholesale/content surfaces, admin foundation and admin feature modules.
+**[`docs/12-current-state/MASTER-ROADMAP.md`](docs/12-current-state/MASTER-ROADMAP.md)**
 
-## Production Preparation — Steps 59–62
-Performance/SEO/PWA/accessibility, production infrastructure, security hardening, real-service end-to-end tests.
+This v2 roadmap supersedes the earlier coarse post-Step-44 list while preserving the verified historical baseline and Step numbering.
 
-## Real Data + Final QA — Steps 63–65
-Initial ~200 product import, full-store QA, release candidate.
+## Execution tracks
 
-## Launch — Steps 66–67
-Soft launch then public MVP launch.
+| Track | Steps | Status / purpose |
+|---|---:|---|
+| Historical / verified backend baseline | 1–44 | Step 44 canonical baseline verified; early historical attribution follows the completeness matrix |
+| Backend completion | 45–52 | Content/SEO, marketing, integrations foundation, AI, POS, Excel, analytics, backend closure |
+| UI/UX & design system | 53–57 | IA, journeys, Persian RTL design system, storefront/admin UX, high-fidelity approval |
+| Storefront frontend | 58–66 | Customer-facing production storefront |
+| Admin frontend | 67–73 | Complete operational admin surface |
+| Real integrations | 74–78 | Payments, SMS/email, FX, shipping, media/CDN |
+| Security / QA / performance / DevOps | 79–86 | Production-readiness gates |
+| Real data / content / release candidate | 87–92 | ~200 products, media, policies, UAT, RC |
+| Launch | 93–94 | Soft launch → Public MVP launch |
+| Growth | 95+ | Post-launch integrations, personalization, advanced AI/marketing/analytics |
 
-## Post Launch — Step 68+
-Marketplace integrations, advanced personalization/recommendations/AI, advanced loyalty, behavior analytics and marketing automation.
+## Milestones
 
-Scope-freeze principle: new non-critical features default to POST-LAUNCH unless launch necessity is demonstrated.
+- **M1 Backend Feature Complete:** Step 52
+- **M2 UX/UI Approved:** Step 57
+- **M3 Storefront Feature Complete:** Step 66
+- **M4 Admin Feature Complete:** Step 73
+- **M5 External Services Operational:** Step 78
+- **M6 Production Ready:** Step 86
+- **M7 Release Candidate:** Step 92
+- **M8 Soft Launch Complete:** Step 93
+- **M9 Public MVP Launch:** Step 94
+
+## Next approved execution step
+
+### Step 45 — Content, Articles & SEO Backend
+
+Step 45 is the next canonical implementation step. It covers article/content domain modeling, publishing workflow, SEO metadata/canonical rules, sitemap data, internal linking, secure admin APIs, tests and OpenAPI synchronization.
+
+## Closure rule
+
+A Step is never marked COMPLETE solely because code exists. Relevant implementation, tests, contracts, migrations, security review, documentation and CI must pass. See the full Definition of Done in `MASTER-ROADMAP.md`.
+
+## Scope-freeze principle
+
+New non-critical features default to **POST-LAUNCH** unless launch necessity is demonstrated. This prevents scope drift and keeps the path to a secure MVP measurable.
