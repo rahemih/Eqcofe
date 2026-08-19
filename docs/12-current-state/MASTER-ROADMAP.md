@@ -1,671 +1,343 @@
-# EQCOFE — Master Execution Roadmap
+# EQCOFE — Complete Master Execution Roadmap
 
-**Roadmap version:** 2.0 — Canonical post-Step-44 execution plan  
+**Roadmap version:** 3.0 — Full Project Roadmap  
 **Effective date:** 2026-08-19  
 **Canonical repository:** `rahemih/Eqcofe`  
 **Canonical branch:** `main`  
-**Verified code baseline:** `b239dfe825b615f36caf2e26cc7abc80c70d349c`  
-**Trusted-state document:** `docs/12-current-state/CURRENT-STATE.md`
+**Verified Step-44 code baseline:** `b239dfe825b615f36caf2e26cc7abc80c70d349c`
 
----
+> This is the canonical end-to-end execution map for EQCOFE. For historical Steps 1–27, the exact original step labels are not independently proven by the recovered Git evidence. Their descriptions below are therefore a normalized reconstruction of the foundation represented by the current product vision, business rules and canonical codebase; they must not be cited as exact historical attribution. Step 28 remains partial-history. Steps 29–44 are verified in the canonical source. Step 45 onward is the approved execution plan.
 
-## 1. Purpose
+## Status legend
+- `RECONSTRUCTED-HISTORY`: normalized description; exact historical step attribution is not proven.
+- `PARTIAL-HISTORY`: partial direct evidence exists.
+- `COMPLETE`: present in the canonical source and covered by recovered/fresh verification evidence.
+- `NEXT`: next approved execution step.
+- `PLANNED`: accepted future scope.
+- `POST-LAUNCH`: intentionally after MVP launch.
 
-This document is the canonical execution roadmap for continuing EQCOFE from the verified Step-44 baseline through MVP launch and post-launch development.
+## Global Definition of Done
+A step closes only when applicable implementation, migrations, tests, OpenAPI/contracts, security/RBAC/idempotency review, documentation and CI are green. Financial values remain integer Toman; Wallet must not be reintroduced; external integrations fail closed; `main` remains the source of truth.
 
-It replaces the earlier coarse post-Step-44 roadmap with a professional, dependency-aware plan separated into Backend, UI/UX, Storefront Frontend, Admin Frontend, Integrations, Platform/Security/QA, Data/Content and Launch tracks.
-
-Historical step attribution before Step 28 remains governed by `COMPLETENESS-MATRIX.md` and is not retroactively invented.
-
----
-
-## 2. Roadmap rules
-
-1. `main` is the source of truth.
-2. Step 44 remains the frozen verified baseline. New work begins at Step 45.
-3. A Step may be marked `COMPLETE` only when its implementation, tests, documentation and relevant CI gates pass.
-4. A Step that changes an HTTP contract must update OpenAPI and generated types.
-5. A Step that changes durable state must include migration/recovery considerations and concurrency/idempotency review where applicable.
-6. Security-sensitive admin operations must preserve RBAC, Step-Up, idempotency and audit conventions.
-7. Financial values remain integer **Toman**. Wallet functionality must not be reintroduced.
-8. No live external provider may fabricate success when credentials or connectivity are unavailable.
-9. New non-critical scope defaults to Post-Launch unless it is required for MVP safety, compliance, usability or revenue.
-10. Each Step closes with a small, traceable Git commit/PR and an update to `CURRENT-STATE.md` or its linked evidence.
-
----
-
-## 3. Status legend
-
-- `COMPLETE` — implemented and verified.
-- `NEXT` — next approved execution step.
-- `PLANNED` — accepted roadmap scope, not started.
-- `BLOCKED` — cannot proceed until a named dependency is resolved.
-- `POST-LAUNCH` — intentionally excluded from MVP launch scope.
-- `UNVERIFIED-HISTORY` — historical attribution not proven; do not infer completion from step number alone.
-
----
-
-# PHASE 0 — Verified Baseline and Historical Recovery
-
-## Steps 1–27 — Historical foundation
-**Track:** Historical / Recovery  
-**Status:** `UNVERIFIED-HISTORY`
-
-Historical project decisions and implementation lineage exist indirectly, but exact step-by-step attribution is not reconstructed as fact. Preserve evidence; do not spend launch-critical time recreating historical labels unless needed for a concrete dependency.
-
-## Step 28 — Contract lineage
-**Track:** Backend / Contract  
-**Status:** `PARTIAL-HISTORY`
-
-OpenAPI lineage is retained; exact historical closure remains partial.
-
-## Steps 29–44 — Verified backend evolution
-**Track:** Backend / Platform  
-**Status:** `COMPLETE`
-
-Canonical source and audits cover the implemented backend foundation through:
-
-- platform architecture and project policies;
-- identity/admin security;
-- catalog and variants;
-- pricing;
-- inventory;
-- procurement;
-- cart/checkout/orders;
-- payments;
-- fulfillment;
-- returns/warranty/after-sales;
-- finance;
-- customer/addresses/wishlist/wholesale;
-- central store configuration;
-- comprehensive notifications.
-
-### Step 44 closure gate — PASS
-- canonical tracked files: 782
-- OpenAPI: PASS
-- architecture: PASS
-- project policies: PASS
-- TypeScript build: PASS
-- tests: 127/127 PASS
-- canonical CI: PASS
-
----
-
-# PHASE 1 — Backend Feature Completion
-
-Goal: complete all launch-relevant backend capabilities that are still placeholders or planned modules before frontend feature work depends on them.
-
-## Step 45 — Content, Articles & SEO Backend
-**Track:** Backend / Content / SEO  
-**Status:** `NEXT`
-
-### Scope
-- Article/category/tag domain model.
-- Draft/review/publish/archive workflow.
-- Persian slug and canonical URL rules.
-- SEO metadata: title, description, canonical, robots directives.
-- Structured content blocks where needed.
-- Product/content internal-link relationships.
-- Sitemap data source and publish timestamps.
-- Admin-safe create/update/publish APIs.
-- Audit/outbox events for important publication changes.
-
-### Definition of Done
-- migrations complete;
-- service/domain invariants tested;
-- OpenAPI updated;
-- publish permissions and Step-Up policy defined where appropriate;
-- sitemap/SEO read models exposed;
-- CI green.
-
-## Step 46 — Marketing, Promotions & Customer Club Backend
-**Track:** Backend / Marketing  
-**Status:** `PLANNED`
-
-### Scope
-- campaigns and promotion lifecycle;
-- first-purchase/festival promotion support;
-- coupon/promotion eligibility without violating Pricing ownership;
-- customer points/club ledger if retained for MVP;
-- campaign scheduling and activation windows;
-- no Wallet semantics;
-- auditable admin operations.
-
-### Gate
-Promotion logic must compose with Pricing and Orders deterministically and be covered by conflict/stacking tests.
-
-## Step 47 — External Integration Foundation
-**Track:** Backend / Integrations  
-**Status:** `PLANNED`
-
-### Scope
-- provider abstraction and configuration model for FX, SMS, email, shipping and payment-related auxiliary services;
-- health/status model for providers;
-- retries, timeouts, circuit/fail-closed behavior;
-- secret ownership through environment/secret manager only;
-- configurable automatic USD/FX source;
-- preview of affected products before applying FX-linked price changes;
-- integration audit logs and operator-visible error state.
-
-### Gate
-No external-provider failure may corrupt core transactional state or fabricate delivery/success.
-
-## Step 48 — EQCOFE AI Backend Foundation
-**Track:** Backend / AI  
-**Status:** `PLANNED`
-
-### MVP scope
-- provider-agnostic AI port;
-- prompt/config governance;
-- product Q&A/read-only assistant foundation;
-- draft article/product-content generation only;
-- human approval before publication;
-- rate/cost controls and observability;
-- prompt-injection/data-boundary review.
-
-### Not launch-blocking unless approved
-Advanced personalization, autonomous marketing and recommendation optimization move to Post-Launch.
-
-## Step 49 — Physical Store / POS Backend
-**Track:** Backend / POS / Inventory  
-**Status:** `PLANNED`
-
-### Scope
-- physical-sale transaction model;
-- barcode/SKU lookup;
-- physical-store stock consumption integrated with Inventory;
-- physical/online reserve rules;
-- offline-safe sync strategy definition;
-- reconciliation and conflict handling;
-- role and audit controls.
-
-## Step 50 — Excel Product & Pricing Management Backend
-**Track:** Backend / Operations  
-**Status:** `PLANNED`
-
-### Scope
-- template export;
-- product/variant import;
-- validation and dry-run preview;
-- pricing update preview/apply;
-- row-level error report;
-- idempotent re-import behavior;
-- audit trail and rollback/recovery strategy;
-- no silent overwrite of protected fields.
-
-## Step 51 — Analytics & Management Read Models
-**Track:** Backend / Analytics  
-**Status:** `PLANNED`
-
-### Scope
-- sales/order/revenue/COGS/profit read models;
-- inventory and low-stock metrics;
-- wholesale/customer metrics;
-- campaign/content metrics interfaces;
-- admin dashboard query endpoints;
-- export/report contracts;
-- performance-conscious aggregation strategy.
-
-## Step 52 — Backend Final Closure
-**Track:** Backend / Architecture / QA  
-**Status:** `PLANNED`
-
-### Gate
-No new launch feature begins in backend after this step except severity-1/2 fixes.
-
-### Required checks
-- all launch backend modules non-placeholder;
-- complete migration chain verified on clean PostgreSQL;
-- OpenAPI generation/validation green;
-- architecture and policy checks green;
-- unit/integration/regression suite green;
-- idempotency/concurrency audit for critical mutations;
-- error model consistency;
-- security/RBAC/Step-Up matrix audit;
-- operational configuration documented;
-- backup/restore and migration rollback procedure documented.
-
----
-
-# PHASE 2 — Product UX & Design System
-
-Goal: define the user experience before large-scale frontend implementation to avoid coding screens without a coherent system.
-
-## Step 53 — Information Architecture & User Journeys
-**Track:** UX / Product Design  
-**Status:** `PLANNED`
-
-### Journeys
-- browse/search/filter;
-- product discovery and comparison;
-- product detail with image/video/3D support;
-- cart/checkout/payment;
-- account/orders/invoices/addresses;
-- returns/warranty;
-- wholesale registration/approval/pricing;
-- blog/content discovery;
-- admin operational flows.
-
-### Deliverables
-Sitemap, navigation model, core user flows, error/empty/loading states and mobile-first priorities.
-
-## Step 54 — Persian RTL Design System
-**Track:** UI / Design System  
-**Status:** `PLANNED`
-
-### Deliverables
-- typography tokens;
-- spacing/grid;
-- color system consistent with approved EQCOFE brand direction;
-- buttons, inputs, selects, tables, cards, tabs, dialogs, drawers, toast/alerts;
-- price/Toman formatting;
-- RTL patterns;
-- responsive breakpoints;
-- accessibility states;
-- iconography and media aspect-ratio rules.
-
-## Step 55 — Storefront Wireframes
-**Track:** UX / Storefront  
-**Status:** `PLANNED`
-
-Wireframe responsive layouts for Home, Category/PLP, Search, Product Detail, Compare, Cart, Checkout, Account, Orders, Wholesale, Blog, Article, FAQ/About/Contact/Terms/Returns/Warranty and Archive/Unavailable states.
-
-## Step 56 — Admin UX Architecture
-**Track:** UX / Admin  
-**Status:** `PLANNED`
-
-Define navigation, dashboards, dense tables, bulk operations, product editor, pricing preview, FX apply, stock, orders, after-sales, customers/wholesale, content, notifications, configuration, reports and audit logs.
-
-## Step 57 — Visual Design & Prototype Approval
-**Track:** UI / UX  
-**Status:** `PLANNED`
-
-High-fidelity responsive prototypes for critical revenue and admin flows. Frontend implementation begins only after design tokens and core interaction patterns are stable.
-
----
-
-# PHASE 3 — Storefront Frontend
-
-Goal: production-grade Persian RTL customer experience connected to canonical APIs.
-
-## Step 58 — Frontend Application Foundation
-**Track:** Frontend / Platform  
-**Status:** `PLANNED`
-
-- framework/project setup;
-- routing/layouts;
-- design-system implementation;
-- API client generated/aligned from OpenAPI;
-- auth/session handling;
-- error boundaries;
-- analytics hooks;
-- environment/config boundaries;
-- RTL/i18n foundation.
-
-## Step 59 — Home & Global Navigation
-**Track:** Frontend / Storefront  
-**Status:** `PLANNED`
-
-Home hero, categories, promotional surfaces, wholesale CTA, search entry, responsive header/footer and campaign slots.
-
-## Step 60 — Catalog, Search & Filters
-**Track:** Frontend / Storefront  
-**Status:** `PLANNED`
-
-Category/brand/search pages, pagination, filters, sorting, stock state, low-stock display, SEO-friendly URLs and robust empty/error/loading states.
-
-## Step 61 — Product Detail & Rich Media
-**Track:** Frontend / Storefront  
-**Status:** `PLANNED`
-
-Variants, pricing, stock, media gallery, video, optional 3D/360 viewer, product specifications, related content, shipping/availability information and structured data hooks.
+# PHASE A — Foundation and Core Commerce History
 
-## Step 62 — Compare & Wishlist
-**Track:** Frontend / Storefront  
-**Status:** `PLANNED`
+## Step 1 — Product Vision & Scope — `RECONSTRUCTED-HISTORY`
+Define EQCOFE as a Persian-first RTL commerce platform for café/coffee equipment, target retail and wholesale customers, initial catalog direction and explicit product exclusions.
 
-Maximum four products, same-category compatibility, useful comparison attributes, wishlist state and authenticated/guest behavior rules.
+## Step 2 — Architecture & Repository Foundation — `RECONSTRUCTED-HISTORY`
+Establish the custom-coded application foundation, repository structure, modular boundaries, configuration conventions and development standards that replace the earlier WordPress direction.
 
-## Step 63 — Cart & Checkout
-**Track:** Frontend / Commerce  
-**Status:** `PLANNED`
+## Step 3 — Database & Migration Foundation — `RECONSTRUCTED-HISTORY`
+Establish PostgreSQL persistence conventions, migration sequencing, durable identifiers, timestamps and data-integrity practices used by later domains.
 
-Cart, quantity validation, pricing summary, address, shipping, payment initiation, guest/customer flow, concurrency/expired-checkout handling and recoverable failure UX.
+## Step 4 — Identity & Authentication Foundation — `RECONSTRUCTED-HISTORY`
+Provide account identity, authentication/session/token boundaries and the security primitives required by customer and administrator flows.
 
-## Step 64 — Customer Account & After-Sales
-**Track:** Frontend / Account  
-**Status:** `PLANNED`
+## Step 5 — Authorization, RBAC & Admin Security — `RECONSTRUCTED-HISTORY`
+Define roles/permissions, privileged administrative operations, audit expectations and Step-Up controls for sensitive mutations.
 
-Profile, addresses, orders, invoices, order detail, returns, warranty, notification inbox and saved/wishlist surfaces.
+## Step 6 — Catalog Core — `RECONSTRUCTED-HISTORY`
+Model products, categories, brands and core catalog lifecycle so later pricing, inventory and storefront capabilities have authoritative product ownership.
 
-## Step 65 — Wholesale Experience
-**Track:** Frontend / B2B  
-**Status:** `PLANNED`
+## Step 7 — Product Variants & SKU Model — `RECONSTRUCTED-HISTORY`
+Support independent size/color/model/SKU variants with stable identity and boundaries for variant-specific price and stock behavior.
 
-Wholesale landing, application lifecycle, approval state, wholesale pricing visibility and quantity-discount presentation.
+## Step 8 — Product Media & Rich Assets Foundation — `RECONSTRUCTED-HISTORY`
+Define product images and rich-media metadata, including the future ability to attach short video and 3D/360 assets without coupling media storage to core product rules.
 
-## Step 66 — Content & SEO Frontend
-**Track:** Frontend / Content  
-**Status:** `PLANNED`
+## Step 9 — Catalog Search, Filtering & Read Models — `RECONSTRUCTED-HISTORY`
+Prepare catalog query/read models for search, category/brand filtering, product listing and future storefront performance requirements.
 
-Blog/articles, category/tag pages, article rendering, metadata, canonical URLs, structured data, breadcrumbs, sitemap/robots integration and internal linking.
+## Step 10 — Pricing Core — `RECONSTRUCTED-HISTORY`
+Establish authoritative Toman pricing, price history and safe pricing mutation boundaries used by retail and wholesale commerce.
 
----
+## Step 11 — Pricing Administration & Bulk Change Rules — `RECONSTRUCTED-HISTORY`
+Support controlled bulk/category/brand pricing operations with preview-before-apply semantics and auditable changes.
 
-# PHASE 4 — Admin Frontend
+## Step 12 — Inventory Core — `RECONSTRUCTED-HISTORY`
+Model stock, stock movements and independent variant inventory with concurrency-safe inventory ownership.
 
-Goal: make the platform operational without direct database edits.
+## Step 13 — Inventory Cost/FIFO & Reservation Foundation — `RECONSTRUCTED-HISTORY`
+Preserve cost lineage/FIFO behavior and reservation concepts required by checkout, profit calculation and reliable stock consumption.
 
-## Step 67 — Admin Shell, Auth & RBAC UX
-**Track:** Frontend / Admin  
-**Status:** `PLANNED`
+## Step 14 — Physical/Online Stock Policy — `RECONSTRUCTED-HISTORY`
+Encode coordinated physical/online inventory behavior, including the configurable physical-store reserve and low-stock/out-of-stock policies.
 
-Secure login/session, Step-Up UX, role-aware navigation, permission-denied states, audit-conscious mutation patterns.
+## Step 15 — Procurement Foundation — `RECONSTRUCTED-HISTORY`
+Model purchasing/procurement flows that replenish inventory while preserving cost and audit lineage.
 
-## Step 68 — Catalog & Media Administration
-**Track:** Frontend / Admin  
-**Status:** `PLANNED`
+## Step 16 — Cart Domain — `RECONSTRUCTED-HISTORY`
+Provide cart ownership, cart lines, quantity validation and expiry behavior as the entry point to checkout.
 
-Products, variants, SKU/barcode, category/brand, images/video/3D, archive/reactivation and global/category/brand stop-sale controls.
+## Step 17 — Checkout Orchestration — `RECONSTRUCTED-HISTORY`
+Coordinate customer/address/cart/pricing/inventory validations and create durable checkout state without unsafe external calls inside core transactions.
 
-## Step 69 — Pricing, FX & Excel Administration
-**Track:** Frontend / Admin  
-**Status:** `PLANNED`
+## Step 18 — Order Domain — `RECONSTRUCTED-HISTORY`
+Create immutable/auditable order state, order snapshots and lifecycle rules so later payment, fulfillment and after-sales modules operate on stable commercial records.
 
-Retail/wholesale prices, quantity discounts, bulk %, brand/category %, FX source/rate, affected-product preview, confirmation/apply, price history, Excel dry-run/import/export and error reports.
+## Step 19 — Payment Foundation — `RECONSTRUCTED-HISTORY`
+Define provider-independent payment intent/result handling with idempotency, auditing and fail-closed behavior.
 
-## Step 70 — Inventory, Procurement & POS Administration
-**Track:** Frontend / Admin  
-**Status:** `PLANNED`
+## Step 20 — Refund & Payment Reconciliation — `RECONSTRUCTED-HISTORY`
+Support safe refund/result application and reconciliation without silently overwriting terminal financial decisions.
 
-Stock/variants, low stock, warehouse/physical reserve, transfers, procurement, goods receipt, cost lineage, POS/reconciliation operational screens.
+## Step 21 — Fulfillment & Shipping Foundation — `RECONSTRUCTED-HISTORY`
+Model fulfillment, shipping/tracking and store-pickup boundaries required after successful order/payment processing.
 
-## Step 71 — Orders, Payments, Fulfillment & After-Sales Admin
-**Track:** Frontend / Admin  
-**Status:** `PLANNED`
+## Step 22 — Returns Domain — `RECONSTRUCTED-HISTORY`
+Provide return requests, review/resolution and auditable links to orders/items while preserving historical facts.
 
-Order timeline, payment status/reconciliation, fulfillment/shipment, return/warranty/refund/replacement workflows and operator actions.
+## Step 23 — Warranty & Replacement — `RECONSTRUCTED-HISTORY`
+Support warranty claims and replacement/refund/restock outcomes with immutable decision history.
 
-## Step 72 — Customer, Wholesale, Marketing & Content Admin
-**Track:** Frontend / Admin  
-**Status:** `PLANNED`
+## Step 24 — Finance, Cost & Profit Accounting — `RECONSTRUCTED-HISTORY`
+Calculate commerce financials in Toman using actual cost/COGS/expenses and prepare configurable profit-distribution rules without introducing Wallet semantics.
 
-Customer profile/read models, wholesale approvals, campaigns/customer-club operations, articles/SEO publishing and AI-draft review where enabled.
+## Step 25 — Audit, Outbox & Reliable Domain Events — `RECONSTRUCTED-HISTORY`
+Provide durable audit/event patterns so important business mutations and integrations remain traceable and external side effects can be decoupled from core transactions.
 
-## Step 73 — Configuration, Notifications, Analytics & Audit Admin
-**Track:** Frontend / Admin  
-**Status:** `PLANNED`
+## Step 26 — API Contract & Error/Idempotency Conventions — `RECONSTRUCTED-HISTORY`
+Standardize HTTP/API behavior, errors, idempotency and contract ownership used across modules.
 
-Central configuration, feature flags, notification templates/delivery/dead-letter, provider health, analytics dashboards, reports, audit trail and system operations overview.
+## Step 27 — Test, Build & Verification Foundation — `RECONSTRUCTED-HISTORY`
+Establish automated build/test/policy verification conventions that later evolved into the canonical `pnpm verify` and CI gates.
 
----
+## Step 28 — OpenAPI Contract Lineage — `PARTIAL-HISTORY`
+Retain and validate the OpenAPI contract lineage that later architecture audits explicitly reference; exact original closure evidence remains partial.
 
-# PHASE 5 — Real Integrations & Operational Readiness
+# PHASE B — Verified Backend Evolution
 
-## Step 74 — Production Payment Gateway Readiness
-**Track:** Integrations / Payments  
-**Status:** `PLANNED`
+## Step 29 — Architecture Baseline & Module Boundaries — `COMPLETE`
+Harden modular architecture, dependency boundaries and the backend foundation used by the subsequent verified commerce modules.
 
-Validate ZarinPal production configuration and callback/reconciliation behavior. Additional gateways are optional unless required for launch resilience.
+## Step 30 — Security & Administrative Control Hardening — `COMPLETE`
+Strengthen identity/admin security patterns, authorization boundaries and safe administrative mutation conventions.
 
-## Step 75 — SMS & Email Providers
-**Track:** Integrations / Notifications  
-**Status:** `PLANNED`
+## Step 31 — Architecture & Project Policy Gates — `COMPLETE`
+Formalize automated architecture checks and project policies, including Toman-only financial rules, no-Wallet policy and configuration boundaries.
 
-Wire real providers, sender/domain verification, retry/dead-letter behavior, templates, opt-out/legal requirements where applicable and delivery observability.
+## Step 32 — Catalog & Variant Hardening — `COMPLETE`
+Complete and verify catalog/variant invariants and contracts required by downstream pricing, inventory and commerce operations.
 
-## Step 76 — FX Source & Pricing Automation
-**Track:** Integrations / Pricing  
-**Status:** `PLANNED`
+## Step 33 — Pricing Domain Hardening — `COMPLETE`
+Complete pricing invariants, price-change controls and interfaces used by checkout and future FX/Excel operations.
 
-Configure real reference source, parser/adapter, freshness/error detection, operator preview, approval and safe apply workflow.
+## Step 34 — Inventory Domain Hardening — `COMPLETE`
+Complete concurrency-safe inventory behavior, stock lineage and operational rules used by checkout and fulfillment.
 
-## Step 77 — Shipping / Courier Integration
-**Track:** Integrations / Fulfillment  
-**Status:** `PLANNED`
+## Step 35 — Procurement Domain Completion — `COMPLETE`
+Complete procurement workflows and their inventory/cost integration boundaries.
 
-Shipping quote/estimator strategy, courier/tracking integration where available, manual fallback and store pickup.
+## Step 36 — Cart & Checkout Completion — `COMPLETE`
+Complete cart and checkout orchestration, expiries, validation and durable transaction boundaries.
 
-## Step 78 — Media/Object Storage & CDN
-**Track:** Platform / Media  
-**Status:** `PLANNED`
+## Step 37 — Orders Domain Completion — `COMPLETE`
+Complete order lifecycle, snapshots, invariants and API/contracts.
 
-Production storage, signed uploads, media validation, image derivatives/optimization, video/3D strategy, CDN/cache rules and backup/lifecycle policies.
+## Step 38 — Payments Completion — `COMPLETE`
+Complete provider-independent payment/refund handling, idempotency and payment-state integrity; historical Step-38 completion is retained in canonical source evidence.
 
----
+## Step 39 — Fulfillment Completion — `COMPLETE`
+Complete fulfillment/shipping/store-pickup domain behavior and order handoff rules.
 
-# PHASE 6 — Security, Quality, Performance & Production Engineering
+## Step 40 — After-Sales Completion — `COMPLETE`
+Complete returns, warranty, replacement/refund/restock resolution and immutable/auditable after-sales history.
 
-## Step 79 — Security Hardening Audit
-**Track:** Security  
-**Status:** `PLANNED`
+## Step 41 — Finance Completion — `COMPLETE`
+Complete finance, COGS/profit and financial read/write boundaries required by management and later analytics.
 
-- auth/session/cookie review;
-- admin 2FA/WebAuthn/Step-Up review;
-- RBAC matrix;
-- CSP/security headers;
-- CSRF/origin protections;
-- SQL injection/query-boundary review;
-- rate limiting/brute-force controls;
-- secret/config scan;
-- upload/media security;
-- dependency vulnerability review;
-- audit-log integrity.
+## Step 42 — Customer, Addresses, Wishlist & Wholesale — `COMPLETE`
+Implement authoritative customer profile, owned addresses/default-address invariant, wishlist uniqueness and wholesale application/approval lifecycle.
 
-## Step 80 — Database & Migration Production Gate
-**Track:** Database / Reliability  
-**Status:** `PLANNED`
+## Step 43 — Central Store Configuration — `COMPLETE`
+Centralize operational defaults such as TTLs, physical reserve, low-stock/archive thresholds, wholesale quantity threshold and global sales enablement.
 
-Clean migration from zero, upgrade path, indexes/query plans, transaction/concurrency tests, backup/restore rehearsal, PITR strategy if supported, retention and disaster-recovery runbook.
+## Step 44 — Comprehensive Notification System — `COMPLETE / VERIFIED BASELINE`
+Implement SMS/email/in-app notification orchestration, immutable templates, idempotent enqueue/delivery, dead-letter/retry controls and server-side recipient resolution. Fresh canonical verification: 782 tracked files, OpenAPI PASS, architecture PASS, policy PASS, TypeScript build PASS, 127/127 tests PASS and canonical CI PASS.
 
-## Step 81 — End-to-End Commerce QA
-**Track:** QA  
-**Status:** `PLANNED`
+# PHASE C — Backend Feature Completion
 
-Realistic flows for retail, wholesale, guest/customer, price changes, inventory reservation, payment success/failure/reconciliation, fulfillment, cancellation, returns/refunds/warranty and notifications.
+## Step 45 — Content, Articles & SEO Backend — `NEXT`
+Build article/category/tag models, draft-review-publish/archive workflow, Persian slugs, SEO metadata, canonical/robots fields, internal links, sitemap read models, admin APIs, audit/events and tests.
 
-## Step 82 — Frontend Accessibility & Browser QA
-**Track:** QA / Accessibility  
-**Status:** `PLANNED`
+## Step 46 — Marketing, Promotions & Customer Club Backend — `PLANNED`
+Implement campaigns, coupons/eligibility, first-purchase/festival promotions and—if retained for MVP—a points/club ledger, with deterministic interaction with Pricing and Orders and no Wallet behavior.
 
-Keyboard navigation, focus, contrast, labels, RTL rendering, screen-size matrix, modern browser coverage and mobile-device verification.
+## Step 47 — External Integration Foundation — `PLANNED`
+Create configurable provider adapters for FX, SMS, email, shipping and auxiliary payment services with health status, retries/timeouts, secret boundaries and fail-closed behavior; include FX preview-before-apply.
 
-## Step 83 — Performance & Core Web Vitals
-**Track:** Performance  
-**Status:** `PLANNED`
+## Step 48 — EQCOFE AI Backend Foundation — `PLANNED`
+Add provider-agnostic AI ports, governed prompts, product Q&A and draft content generation with human approval, cost/rate controls, observability and prompt/data-boundary security.
 
-Bundle/image optimization, cache strategy, lazy loading, API latency review, DB slow queries, CDN, target Web Vitals and load tests for launch-critical endpoints.
+## Step 49 — Physical Store / POS Backend — `PLANNED`
+Implement barcode/SKU physical sales, shared inventory consumption, reserve rules, offline/sync strategy, reconciliation, RBAC and audit controls.
 
-## Step 84 — SEO Technical Closure
-**Track:** SEO / QA  
-**Status:** `PLANNED`
+## Step 50 — Excel Product & Pricing Management Backend — `PLANNED`
+Provide export templates, validated/dry-run imports, row-level errors, product/variant updates, price preview/apply, idempotent re-import and recovery/audit behavior.
 
-Indexability, canonical URLs, sitemap, robots, metadata, schema.org/structured data, pagination/filter crawling strategy, redirects, 404/410/archive behavior and content quality checks.
+## Step 51 — Analytics & Management Read Models — `PLANNED`
+Build performant sales, revenue, COGS/profit, inventory, wholesale/customer and operational analytics endpoints plus management exports.
 
-## Step 85 — Observability & Operations
-**Track:** DevOps / Operations  
-**Status:** `PLANNED`
+## Step 52 — Backend Final Closure — `PLANNED`
+Run a backend-wide closure: no launch placeholders, clean-database migration test, OpenAPI/build/tests/policies/security review and performance checks; freeze new backend launch scope after PASS.
 
-Structured logs, error tracking, metrics, health checks, alerting, job/queue visibility, provider health, audit access and incident runbooks.
+# PHASE D — UI/UX Product Design
 
-## Step 86 — Production Infrastructure & CI/CD
-**Track:** DevOps  
-**Status:** `PLANNED`
+## Step 53 — Information Architecture & User Journeys — `PLANNED`
+Map Persian storefront/admin navigation and end-to-end journeys for retail, wholesale, checkout, account, after-sales and administration before UI implementation.
 
-Production environments, secrets, database/Redis, build/deploy pipeline, migration release procedure, rollback, domain/DNS/SSL, backups, branch protections and release tagging.
+## Step 54 — RTL Design System & Accessibility Foundation — `PLANNED`
+Define typography, spacing, grid, components, forms, states, responsive rules, Persian RTL behavior, accessibility targets and brand tokens.
 
----
+## Step 55 — Storefront Wireframes — `PLANNED`
+Wireframe Home, category/search, product detail, compare, cart, checkout, account, wholesale, content and policy pages with mobile-first behavior.
 
-# PHASE 7 — Real Data, Content & Release Candidate
+## Step 56 — Admin UX Architecture & Wireframes — `PLANNED`
+Design admin navigation, dashboards, tables, bulk operations, editors, audit/error states and operational workflows before frontend coding.
 
-## Step 87 — Product Data Model Validation with Real Samples
-**Track:** Data / Catalog  
-**Status:** `PLANNED`
+## Step 57 — High-Fidelity UI & Prototype Approval — `PLANNED`
+Produce high-fidelity responsive screens and interactive critical-flow prototypes, validate consistency/accessibility and freeze the implementation design baseline.
 
-Validate real attributes, variants, units, brands/categories, pricing, tax/shipping needs and media requirements before bulk import.
+# PHASE E — Storefront Frontend
 
-## Step 88 — Initial Catalog Import (~200 Products)
-**Track:** Data / Operations  
-**Status:** `PLANNED`
+## Step 58 — Frontend Application Foundation — `PLANNED`
+Set up the production frontend shell, routing, RTL/i18n, generated API client, auth/session handling, state/data strategy, error boundaries and test infrastructure.
 
-Import validated products/variants/prices/stock using controlled Excel/admin pipeline with dry-run and reconciliation.
+## Step 59 — Home, Navigation & Discovery — `PLANNED`
+Implement homepage, responsive header/navigation, promotional surfaces, categories/brands, search entry points and core discovery interactions.
 
-## Step 89 — Product Photography & Media Completion
-**Track:** Content / Media  
-**Status:** `PLANNED`
+## Step 60 — Search, Category, Filters & Listing — `PLANNED`
+Implement indexed/category listings, filters, sorting, pagination/infinite strategy, empty/loading/error states and SEO-friendly listing behavior.
 
-Real product photography, optimized images, alt text, video/3D assets where justified, naming/metadata and quality review.
+## Step 61 — Product Detail & Rich Media — `PLANNED`
+Implement product/variant selection, stock/price states, media gallery, video/3D capability, specifications, related content and add-to-cart behavior.
 
-## Step 90 — Commercial Content & Policy Pages
-**Track:** Content / Legal / UX  
-**Status:** `PLANNED`
+## Step 62 — Compare & Wishlist — `PLANNED`
+Implement category-compatible comparison for up to four products and authenticated wishlist UX using authoritative backend data.
 
-About, Contact, FAQ, Terms, Privacy where applicable, shipping, returns, warranty, wholesale information, launch campaign copy and initial editorial content.
+## Step 63 — Cart & Checkout Frontend — `PLANNED`
+Implement cart, address, shipping/pickup, pricing/discount presentation, payment handoff, idempotent submission and recovery/error flows.
 
-## Step 91 — Full Store Acceptance QA
-**Track:** QA / UAT  
-**Status:** `PLANNED`
+## Step 64 — Customer Account & After-Sales — `PLANNED`
+Implement profile, addresses, orders/invoices, order detail, returns, warranty, notifications and account security surfaces.
 
-Cross-functional acceptance using real catalog and configured services; no seeded/demo assumptions allowed to pass as production readiness.
+## Step 65 — Wholesale Experience — `PLANNED`
+Implement wholesale application/status, approved wholesale pricing and B2B-oriented quantity/order UX.
 
-## Step 92 — Release Candidate & Launch Freeze
-**Track:** Release Engineering  
-**Status:** `PLANNED`
+## Step 66 — Content, SEO & Policy Frontend — `PLANNED`
+Implement article/blog surfaces, SEO metadata/structured data, sitemap/robots consumption, About/Contact/FAQ/Terms/Returns/Warranty and archive/stop-sale views.
 
-Create RC tag, freeze features, triage only release blockers, final security/performance regression, backup verification and rollback rehearsal.
+# PHASE F — Admin Frontend
 
----
+## Step 67 — Admin Shell, RBAC & Dashboard Foundation — `PLANNED`
+Implement secure admin shell, permission-aware navigation, Step-Up UX, dashboard foundation and global operational states.
 
-# PHASE 8 — Launch
+## Step 68 — Catalog & Media Administration — `PLANNED`
+Implement product/category/brand/variant editing, drag-drop media management, video/3D metadata, archive/reactivation and bulk catalog operations.
 
-## Step 93 — Soft Launch
-**Track:** Launch / Operations  
-**Status:** `PLANNED`
+## Step 69 — Pricing, FX & Excel Administration — `PLANNED`
+Implement price history, bulk/category/brand updates, FX-source/status, affected-product preview/apply and Excel import/export/dry-run/error UX.
 
-Limited audience/order volume, real payment/shipping/notification monitoring, support workflow, inventory reconciliation and rapid blocker fixes.
+## Step 70 — Inventory, Procurement & POS Administration — `PLANNED`
+Implement stock/variant views, low-stock/reserve controls, procurement operations and POS/reconciliation management.
 
-### Exit criteria
-- no unresolved severity-1 issue;
-- payment and order accounting reconcile;
-- inventory remains consistent;
-- backups confirmed;
-- operational alerts usable;
-- customer support process functioning.
+## Step 71 — Orders, Payments, Fulfillment & After-Sales Administration — `PLANNED`
+Implement order/payment/fulfillment operational views, tracking/pickup, refund controls, returns/warranty decisions and exception handling.
 
-## Step 94 — Public MVP Launch
-**Track:** Launch  
-**Status:** `PLANNED`
+## Step 72 — Customer, Wholesale, Marketing & Content Administration — `PLANNED`
+Implement customer/wholesale review, campaign/promotion/club management and article/content editorial workflows.
 
-Open public traffic, enable approved campaign/SEO surfaces, monitor conversion/performance/errors/orders and maintain launch war-room checklist.
+## Step 73 — Configuration, Notifications, Analytics & Audit Administration — `PLANNED`
+Implement central configuration, notification templates/dead letters, provider health, analytics/reports and searchable audit logs.
 
----
+# PHASE G — Real External Integrations
 
-# PHASE 9 — Post-Launch Growth
+## Step 74 — Payment Gateway Production Integration — `PLANNED`
+Integrate selected live gateway(s), webhook verification, idempotency/reconciliation, sandbox-to-production controls and operational runbooks.
 
-## Step 95+ — Growth backlog
-**Track:** Post-Launch  
-**Status:** `POST-LAUNCH`
+## Step 75 — SMS & Email Production Integration — `PLANNED`
+Connect real SMS/email providers to the Step-44 notification system, validate delivery/error/dead-letter behavior and expose provider health.
 
-Candidate streams, prioritized by measured business value:
+## Step 76 — Shipping & Tracking Integration — `PLANNED`
+Connect selected shipping/courier/tracking services or production-ready manual fallback, with cost/SLA/tracking behavior and failure recovery.
 
-- Digikala/Basalam/Divar/Torob/Emalls or other marketplace integrations;
-- advanced AI product assistant;
-- personalization/recommendations;
-- advanced customer club/loyalty;
-- behavioral analytics;
-- marketing automation;
-- advanced SEO/content automation;
-- additional payment/shipping providers;
-- operational optimization and cost reduction;
-- experimentation/A-B testing;
-- mobile/PWA enhancements beyond launch baseline.
+## Step 77 — FX Rate Production Integration — `PLANNED`
+Connect configurable exchange-rate source(s), validate freshness/failure handling and preserve mandatory affected-product preview before price apply.
 
----
+## Step 78 — External Integration Closure — `PLANNED`
+Run cross-provider E2E, retry/timeout/security/observability tests and document fallback/incident procedures before declaring integrations production-ready.
 
-# 4. Track Summary
+# PHASE H — Production Readiness, Security & QA
 
-| Track | Steps | Launch role |
-|---|---:|---|
-| Verified Backend Baseline | 29–44 | COMPLETE |
-| Backend Completion | 45–52 | Required before backend freeze |
-| UI/UX & Design System | 53–57 | Required before broad frontend implementation |
-| Storefront Frontend | 58–66 | MVP critical |
-| Admin Frontend | 67–73 | Operations critical |
-| Real Integrations | 74–78 | Launch-critical subset |
-| Security / QA / Performance / DevOps | 79–86 | Launch gate |
-| Real Data / Content / RC | 87–92 | Launch gate |
-| Launch | 93–94 | Soft launch → Public MVP |
-| Growth | 95+ | Post-launch |
+## Step 79 — Security Audit & Hardening — `PLANNED`
+Perform auth/RBAC/Step-Up, OWASP/API, CSRF/CORS/CSP, rate-limit/brute-force, secret/logging, upload and dependency review; remediate launch-critical findings.
 
----
+## Step 80 — Database Production Readiness — `PLANNED`
+Verify clean migration, upgrade path, indexes/query plans, backup/restore, retention, concurrency and disaster-recovery procedures on production-like PostgreSQL.
 
-# 5. Milestones
+## Step 81 — End-to-End Commerce QA — `PLANNED`
+Automate and manually verify critical retail/wholesale flows from discovery through payment, fulfillment, cancellation/refund and after-sales.
 
-## Milestone M1 — Backend Feature Complete
-Ends at **Step 52**.
+## Step 82 — Accessibility & Cross-Device QA — `PLANNED`
+Audit keyboard/focus/contrast/forms, Persian RTL layout, mobile/tablet/desktop and supported browsers; fix launch-blocking accessibility defects.
 
-## Milestone M2 — UX/UI Approved
-Ends at **Step 57**.
+## Step 83 — Performance & Core Web Vitals — `PLANNED`
+Optimize frontend/backend performance, image/media delivery, caching, bundles, database hot paths and validate production-like load/Core Web Vitals budgets.
 
-## Milestone M3 — Customer Storefront Feature Complete
-Ends at **Step 66**.
+## Step 84 — Technical SEO & PWA Closure — `PLANNED`
+Validate metadata, canonical URLs, robots/sitemaps, structured data, redirects/404s and the approved PWA/installability/offline scope.
 
-## Milestone M4 — Admin Operations Feature Complete
-Ends at **Step 73**.
+## Step 85 — Observability & Operations — `PLANNED`
+Establish structured logs, metrics/tracing where appropriate, error monitoring, health/readiness, alerts, dashboards and incident/runbook ownership.
 
-## Milestone M5 — External Services Operational
-Ends at **Step 78**.
+## Step 86 — CI/CD & Production Infrastructure — `PLANNED`
+Finalize environments, secrets, build/deploy pipeline, SSL/domain/DNS, rollback strategy, backup jobs and production deployment gates.
 
-## Milestone M6 — Production Ready
-Ends at **Step 86**.
+# PHASE I — Real Data, Content & Release Candidate
 
-## Milestone M7 — Release Candidate
-Ends at **Step 92**.
+## Step 87 — Product Data Model Final Validation — `PLANNED`
+Validate real catalog fields, categories, brands, variants, attributes, SEO/media requirements and import template against actual inventory data.
 
-## Milestone M8 — Soft Launch Complete
-Ends at **Step 93**.
+## Step 88 — Initial Product Import — `PLANNED`
+Dry-run, validate and import the initial approximately 200 products/variants, stock and prices with reconciliation and audit reports.
 
-## Milestone M9 — Public MVP Launch
-Ends at **Step 94**.
+## Step 89 — Product Photography & Rich Media — `PLANNED`
+Produce/process/attach optimized product photography and approved video/3D assets with alt text and delivery performance checks.
 
----
+## Step 90 — Launch Content & Policy Pages — `PLANNED`
+Finalize Persian homepage/category/product copy, About/Contact/FAQ, Terms, Returns, Warranty, shipping/payment guidance and launch articles/SEO content.
 
-# 6. Mandatory Definition of Done for every Step
+## Step 91 — Full UAT & Operational Rehearsal — `PLANNED`
+Run stakeholder/user acceptance, admin operational rehearsal, support/refund/stock/notification scenarios and resolve all launch blockers.
 
-A Step is not `COMPLETE` merely because code exists.
+## Step 92 — Release Candidate & Launch Freeze — `PLANNED`
+Create the release candidate, freeze scope, rerun full CI/E2E/security/performance/backup-restore checks and approve only severity-1/2 fixes.
 
-Minimum closure requirements, where applicable:
+# PHASE J — Launch
 
-1. Scope and acceptance criteria are explicit.
-2. Implementation is committed to the canonical repository.
-3. Tests are added/updated and pass.
-4. `pnpm verify` passes for code changes.
-5. OpenAPI/generated types are synchronized for HTTP changes.
-6. Database migration and rollback/recovery implications are reviewed for schema changes.
-7. Security/RBAC/idempotency/audit implications are reviewed for sensitive mutations.
-8. UX states include loading, empty, error, disabled and permission-denied where relevant.
-9. Documentation and `CURRENT-STATE.md` are updated.
-10. No new unresolved launch blocker is introduced.
+## Step 93 — Soft Launch — `PLANNED`
+Release to a controlled audience, monitor real orders/payments/inventory/notifications/performance, gather feedback and fix launch-blocking issues.
 
----
+## Step 94 — Public MVP Launch — `PLANNED`
+Open EQCOFE publicly after Soft Launch gates pass, enable production monitoring/support routines and establish the first post-launch review cadence.
 
-# 7. Critical-path execution order
+# PHASE K — Post-Launch Growth
 
-The default sequence from the current state is:
+## Step 95+ — Growth & Full Vision — `POST-LAUNCH`
+Prioritize from real evidence: marketplace/channel integrations, advanced AI recommendations/personalization, marketing automation, advanced loyalty, richer analytics/experimentation and other non-critical Full-Vision capabilities.
 
-`45 → 46 → 47 → 48 → 49 → 50 → 51 → 52 → 53 → 54 → 55 → 56 → 57 → 58 → ... → 94`
+# Milestones
+- **M0 — Trusted Backend Baseline:** Step 44 — COMPLETE
+- **M1 — Backend Feature Complete:** Step 52
+- **M2 — UX/UI Approved:** Step 57
+- **M3 — Storefront Complete:** Step 66
+- **M4 — Admin Complete:** Step 73
+- **M5 — External Services Operational:** Step 78
+- **M6 — Production Ready:** Step 86
+- **M7 — Release Candidate:** Step 92
+- **M8 — Soft Launch Complete:** Step 93
+- **M9 — Public MVP Launch:** Step 94
 
-Parallel execution is allowed only when dependencies are clear. Recommended safe parallelism after Backend APIs stabilize:
-
-- UI/UX Steps 53–57 can overlap late backend work without changing backend ownership.
-- Storefront and Admin implementation may run in parallel after design system + relevant API contracts stabilize.
-- Data/media preparation can begin before Step 87 operationally, but production import occurs only after the Excel/admin pipeline and schema are frozen.
-- Security, accessibility and performance reviews should run continuously, with final closure in Steps 79–86.
-
----
-
-# 8. Immediate next action
-
-**Start Step 45 — Content, Articles & SEO Backend.**
-
-Before implementation, create the Step-45 sub-plan and acceptance criteria against the current canonical source, then proceed in small reviewed substeps. No Step-46 implementation starts until Step 45 closure evidence is recorded, unless an explicitly approved parallel track has no shared dependency.
+# Current execution pointer
+**Last verified baseline:** Step 44  
+**Next execution step:** Step 45 — Content, Articles & SEO Backend
