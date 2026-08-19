@@ -23,8 +23,11 @@ jobs:
         run: |
           set -euo pipefail
           cat .step45-import/chunk-* | base64 -d > /tmp/step45-canonical-payload.zip
-          echo '7215f984a6c0577bae23fcf81479f4919c059b258991928d376887d458bfe5fa  /tmp/step45-canonical-payload.zip' | sha256sum -c -
+          echo '997a252f564403982f2669c79e7a44063a388135f17795ed5503f4875a9f5930  /tmp/step45-canonical-payload.zip' | sha256sum -c -
           unzip -oq /tmp/step45-canonical-payload.zip -d .
+          git apply --check .step45-shared.patch
+          git apply .step45-shared.patch
+          rm -f .step45-shared.patch
           rm -rf .step45-import
           rm -f .github/workflows/step45-canonical-import.yml
 
