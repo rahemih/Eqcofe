@@ -2,7 +2,7 @@
 
 ## PostgreSQL Schema + RBAC
 
-**Status:** IMPLEMENTED / CI VERIFICATION PENDING
+**Status:** COMPLETE / FINAL GATE PASS
 
 ## Persistence added
 
@@ -48,6 +48,26 @@ Role assignment is intentionally not automatic.
 
 `test/marketing-loyalty-step46-a3.spec.ts` verifies schema presence, financial constraints, redemption uniqueness/state protections, coupon usage limits, points concurrency protection and additive/risk-classified RBAC.
 
-## Closure gate
+## Canonical CI verification
 
-A3 may be marked COMPLETE only after canonical CI passes on the exact A3 source.
+Verification-only Draft PR #7 was created from exact A3 main base commit `a95d8dc264c130dd4034531c1fc2acecbb60d77a`; its branch added only a documentation trigger marker.
+
+GitHub Actions Canonical CI run `32254988853`, job `verify` (`96074498864`) completed successfully.
+
+Results:
+- frozen-lockfile install: PASS
+- OpenAPI: PASS — 513 paths / 582 operations / 1138 refs
+- architecture: PASS — 351 module files scanned
+- project policy: PASS
+- TypeScript build: PASS
+- runtime tests: **140 PASS / 0 FAIL / 0 skipped / 0 cancelled**
+- A3 persistence/RBAC tests: 6/6 PASS
+- overall `pnpm verify`: PASS
+
+## Final decision
+
+**STEP 46 / A3 FINAL GATE = PASS**
+
+**A3 = COMPLETE**
+
+Next approved substep: **Step 46 / A4 — Campaign Lifecycle Engine**.
