@@ -1,0 +1,41 @@
+name: Temporary Google Drive Backup Artifact
+
+on:
+  push:
+    branches: [backup-drive-20260819-1727]
+    paths:
+      - '.github/workflows/manual-drive-backup.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout full repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Build backup package
+        shell: bash
+        run: |
+          set -euo pipefail
+          NAME='EQCOFE_GITHUB_BACKUP_2026-08-19_17-27_AZ'
+          mkdir -p "/tmp/$NAME"
+          git rev-parse HEAD > "/tmp/$NAME/BACKUP_COMMIT_SHA.txt"
+          git branch -a > "/tmp/$NAME/BRANCHES.txt"
+          git tag -l > "/tmp/$NAME/TAGS.txt"
+          git log --oneline --decorate --all -n 200 > "/tmp/$NAME/RECENT_HISTORY.txt"
+          git archive --format=zip --output="/tmp/$NAME/eqcofe-main-source.zip" main
+          git bundle create "/tmp/$NAME/eqcofe-full-repository.bundle" --all
+          sha256sum "/tmp/$NAME/eqcofe-main-source.zip" "/tmp/$NAME/eqcofe-full-repository.bundle" > "/tmp/$NAME/SHA256SUMS.txt"
+
+      - name: Upload backup artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: EQCOFE_GITHUB_BACKUP_2026-08-19_17-27_AZ
+          path: /tmp/EQCOFE_GITHUB_BACKUP_2026-08-19_17-27_AZ/
+          retention-days: 1
+          compression-level: 6
