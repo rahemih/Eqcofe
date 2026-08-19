@@ -27,6 +27,7 @@ Step 45 is not to be repeated.
 - **A5 — Coupon + Eligibility Engine — COMPLETE / FINAL GATE PASS**
 - **A6 — First-Purchase + Festival Promotions — COMPLETE / FINAL GATE PASS**
 - **A7 — Pricing/Cart/Checkout Integration — COMPLETE / FINAL GATE PASS**
+- **A8 — Order + Redemption + Financial Integrity — COMPLETE / FINAL GATE PASS**
 
 Canonical artifacts:
 - `docs/11-step-history/STEP-46-A1-DISCOVERY-SCOPE.md`
@@ -36,33 +37,34 @@ Canonical artifacts:
 - `docs/11-step-history/STEP-46-A5-COUPON-ELIGIBILITY.md`
 - `docs/11-step-history/STEP-46-A6-FIRST-PURCHASE-FESTIVAL.md`
 - `docs/11-step-history/STEP-46-A7-PRICING-CART-CHECKOUT-INTEGRATION.md`
+- `docs/11-step-history/STEP-46-A8-ORDER-REDEMPTION-FINANCIAL-INTEGRITY.md`
 
-### A7 implementation
-A7 integrates Marketing with the authoritative Pricing/Cart/Checkout flow. Pricing still owns line/base pricing; Marketing is evaluated on the post-Pricing merchandise amount. Cart obtains customer type from Customer and completed-purchase history from an Orders-owned public port, so client input cannot forge wholesale or first-purchase facts.
+### A8 implementation
+A8 binds Marketing Redemption to authoritative Commerce transactions. Checkout reservation creates `reserved` redemption rows from the immutable A7 marketing snapshot; abandoned/expired reserved Checkout releases them; Order creation consumes the exact reserved facts; Order cancellation/expiry reverses consumed rows without deleting history.
 
-`CheckoutPromotionService` deterministically composes automatic and coupon-backed promotions. Checkout accepts optional `coupon_code`, persists `marketing_discount_toman` and `marketing_snapshot`, and keeps `discount_toman` as the compatible total discount. Additive migration `0038_marketing_checkout_snapshot.sql` updates Checkout/Order financial integrity functions and copies the exact Checkout marketing snapshot into Orders without recalculation.
+Promotion and coupon usage limits are concurrency-safe through PostgreSQL transaction advisory locks plus row locks. First-purchase reservations are additionally serialized by customer identity and revalidated against authoritative paid Order history, preventing two concurrent Checkouts from both claiming first-purchase eligibility.
 
-A7 intentionally does not claim atomic coupon/promotion redemption reservation. Redemption reservation/consume/release, retry/concurrency behavior and final promotion financial integrity are A8 responsibilities.
+Migrations `0039_marketing_redemption_integrity.sql` and `0040_marketing_redemption_runtime_hardening.sql` add Checkout/Order foreign keys, lifecycle immutability, state-transition guards, reserve/release/consume/reverse triggers and deferred financial integrity checks. Checkout/Order redemption counts and discount sums must match their immutable marketing snapshots.
 
-### A7 canonical verification evidence
-The initial CI attempt passed OpenAPI, architecture, policy and TypeScript build but exposed two legacy cart-pricing harness failures caused by the newly injected A7 dependencies. The harness was adapted with explicit test doubles; production logic was not weakened.
+### A8 canonical verification evidence
+Verification-only Draft PR #13 tested the exact A8 `main` source; its branch added only a documentation CI marker and is not part of canonical source.
 
-Final GitHub Actions Canonical CI run `32260541195`, job `verify` (`96092481216`) completed successfully:
+Final GitHub Actions Canonical CI run `32261752597`, job `verify` (`96096410165`) completed successfully:
 - frozen-lockfile install: PASS
 - OpenAPI: PASS — 513 paths / 582 operations / 1138 refs
 - architecture: PASS — 362 module files scanned
 - project policy: PASS
 - TypeScript build: PASS
-- A7 tests: 9/9 PASS
-- runtime tests: **173 PASS / 0 FAIL / 0 skipped / 0 cancelled**
+- A8 tests: 11/11 PASS
+- runtime tests: **184 PASS / 0 FAIL / 0 skipped / 0 cancelled**
 - overall `pnpm verify`: PASS
 
 Therefore:
-**STEP 46 / A7 FINAL GATE = PASS**
-**A7 = COMPLETE**
+**STEP 46 / A8 FINAL GATE = PASS**
+**A8 = COMPLETE**
 
 ### Next approved substep
-**Step 46 / A8 — Order + Redemption + Financial Integrity**
+**Step 46 / A9 — Customer Club / Points MVP Foundation**
 
 ## Step-46 ownership boundary
 - Pricing remains authoritative for base pricing.
