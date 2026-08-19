@@ -2,7 +2,7 @@
 
 ## Common Provider Contracts + Failure Model
 
-**Status:** IMPLEMENTED / VERIFICATION PENDING
+**Status:** COMPLETE / FINAL GATE PASS
 
 ## Scope
 A2 defines the provider-agnostic language used by later Step-47 adapters. It introduces no vendor, endpoint, credential, FX source, courier, payment gateway or messaging provider.
@@ -43,4 +43,19 @@ A2 does not replace existing domain ports:
 ## Verification
 Eight dedicated A2 tests cover timeout validation, idempotent-write retry policy, auth failures, rate limiting, upstream 5xx, invalid request 4xx, malformed failure metadata and fail-closed unknown failures.
 
-Final status will be changed to COMPLETE only after canonical CI passes.
+Canonical CI verification on Draft PR #21, run `32311586849`, job `verify` (`96255496092`) passed:
+- frozen-lockfile install: PASS
+- OpenAPI: PASS — 514 paths / 583 operations / 1146 refs
+- architecture: PASS — 384 module files scanned
+- project policy: PASS — `toman-no-wallet-config-boundary`
+- TypeScript build: PASS
+- A2 dedicated tests: 8/8 PASS
+- full runtime tests: 252 PASS / 0 FAIL / 0 skipped / 0 cancelled
+- overall `pnpm verify`: PASS
+
+Therefore:
+**STEP 47 / A2 FINAL GATE = PASS**
+**A2 = COMPLETE**
+
+## Next approved substep
+**Step 47 / A3 — Integration Configuration + Secrets + RBAC**
