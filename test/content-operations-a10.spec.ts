@@ -1,0 +1,14 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+const svc=readFileSync('src/modules/content/application/article-operations.service.ts','utf8');
+const repo=readFileSync('src/modules/content/infrastructure/content.repository.ts','utf8');
+const scheduler=readFileSync('apps/scheduler/scheduler-tasks.service.ts','utf8');
+const app=readFileSync('apps/scheduler/app.module.ts','utf8');
+const ctl=readFileSync('src/modules/content/presentation/content-admin.controller.ts','utf8');
+test('scheduled publisher claims due rows concurrency-safely',()=>{assert.ok(repo.includes('FOR UPDATE SKIP LOCKED'));assert.ok(repo.includes("status='scheduled' AND scheduled_at IS NOT NULL AND scheduled_at<=now()"));});
+test('scheduled publish is idempotent and system-owned',()=>{assert.ok(repo.includes("AND status='scheduled' AND scheduled_at IS NOT NULL AND scheduled_at<=now()"));assert.ok(svc.includes("actorType:'system'"));assert.ok(svc.includes("published_by:'system'"));});
+test('scheduled publish writes transition audit and outbox',()=>{assert.ok(svc.includes("fromStatus:'scheduled',toStatus:'published'"));assert.ok(svc.includes("content.article.scheduled_publish"));assert.ok(svc.includes("content.article.published.v1"));});
+test('conflict is fail-closed and observable',()=>{assert.ok(svc.includes('scheduledPublishConflict'));assert.ok(svc.includes('scheduled_publish_blocked'));assert.ok(svc.includes('blocked_ids'));});
+test('scheduler runs content publication every minute',()=>{assert.ok(scheduler.includes('publishScheduledContent'));assert.ok(scheduler.includes('this.content.publishDue(50)'));assert.ok(app.includes('ContentModule'));});
+test('operations summary is RBAC protected',()=>{assert.ok(ctl.includes("@Permissions('content.view') @Get('operations/summary')"));assert.ok(repo.includes('scheduled_due'));assert.ok(repo.includes('oldest_due_seconds'));});

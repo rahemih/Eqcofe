@@ -1,0 +1,18 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+const repo=readFileSync('src/modules/content/infrastructure/content.repository.ts','utf8');
+const admin=readFileSync('src/modules/content/presentation/content-admin.controller.ts','utf8');
+const pub=readFileSync('src/modules/content/application/article-public-query.service.ts','utf8');
+const seo=readFileSync('src/modules/content/application/article-seo.service.ts','utf8');
+const sitemap=readFileSync('src/modules/content/application/article-sitemap.service.ts','utf8');
+const scheduler=readFileSync('apps/scheduler/scheduler-tasks.service.ts','utf8');
+const openapi=readFileSync('contracts/http/openapi.yaml','utf8');
+test('A11 scheduled publication is due-only and SKIP LOCKED',()=>{assert.match(repo,/FOR UPDATE SKIP LOCKED/);assert.match(repo,/status='scheduled'.*scheduled_at.*<=now\(\)/s);});
+test('A11 publish path is DB-idempotent',()=>{assert.match(repo,/AND status='scheduled'.*scheduled_at.*<=now\(\)/s);});
+test('A11 public reads cannot consume current draft snapshot',()=>{assert.match(repo,/JOIN content\.article_versions v ON v\.id=a\.published_version_id/);assert.ok(!pub.includes('current_version_id'));});
+test('A11 SEO indexability is lifecycle derived',()=>{assert.match(seo,/noindex,nofollow/);assert.match(seo,/published/);});
+test('A11 sitemap only consumes published snapshot rows',()=>{assert.match(repo,/status='published'.*published_version_id IS NOT NULL/s);assert.match(sitemap,/canonicalUrlForSlug/);});
+test('A11 sensitive admin lifecycle requires step-up and idempotency',()=>{for(const k of ['approve','schedule','publish','unpublish','archive','version.restore']){assert.ok(admin.includes('RequireStepUp'));assert.ok(admin.includes(`content.article.${k}`));}});
+test('A11 OpenAPI publishes hardened mutation contract',()=>{assert.ok(openapi.match(/IdempotencyKey/g)!.length>=9);assert.ok(openapi.match(/stepUpToken/g)!.length>=6);});
+test('A11 scheduler delegates bounded publication batch',()=>{assert.match(scheduler,/publishDue\(50\)/);});
