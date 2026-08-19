@@ -1,0 +1,72 @@
+name: Step45 Canonical Import
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  import-and-verify:
+    if: github.head_ref == 'agent/step45-canonicalization'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout import branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
+
+      - name: Reconstruct verified payload
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat .step45-import/chunk-* | base64 -d > /tmp/step45-canonical-payload.zip
+          echo '7215f984a6c0577bae23fcf81479f4919c059b258991928d376887d458bfe5fa  /tmp/step45-canonical-payload.zip' | sha256sum -c -
+          unzip -oq /tmp/step45-canonical-payload.zip -d .
+          rm -rf .step45-import
+          rm -f .github/workflows/step45-canonical-import.yml
+
+      - name: No destructive diff gate
+        shell: bash
+        run: |
+          set -euo pipefail
+          git add -A
+          git diff --cached --name-status origin/main | tee /tmp/step45-diff.txt
+          if awk '$1 ~ /^D/ || $1 ~ /^R/ {bad=1} END{exit bad}' /tmp/step45-diff.txt; then
+            echo 'No deletion/rename in final Step45 diff.'
+          else
+            echo 'Destructive diff detected.' >&2
+            exit 1
+          fi
+          if git diff --cached --name-only origin/main | grep -E '^(src/modules/marketing/|src/modules/loyalty/|test/marketing-loyalty-step46-a2\.spec\.ts|docs/11-step-history/STEP-46-)'; then
+            echo 'Step46 file overlap detected.' >&2
+            exit 1
+          fi
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11.21.0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24.18.1
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Verify canonical Step45 on current lineage
+        run: pnpm verify
+
+      - name: Persist canonical Step45 commit
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'eqcofe-canonical-bot'
+          git config user.email 'eqcofe-canonical-bot@users.noreply.github.com'
+          git commit -m 'step(45): persist canonical content and SEO backend'
+          git push origin HEAD:${{ github.head_ref }}
