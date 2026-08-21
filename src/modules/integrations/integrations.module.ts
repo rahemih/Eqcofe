@@ -4,6 +4,7 @@ import { NotificationChannelAdapterFactory } from './application/notification-ch
 import { ProviderConfigurationService } from './application/provider-configuration.service';
 import { ProviderHealthService } from './application/provider-health.service';
 import { IntegrationProviderRegistry } from './application/provider-registry';
+import { ShippingProviderService } from './application/shipping-provider.service';
 import { EnvironmentSecretResolver } from './infrastructure/environment-secret.resolver';
 import { FxRateRepository } from './infrastructure/fx-rate.repository';
 import { ProviderCircuitBreaker } from './infrastructure/provider-circuit-breaker';
@@ -11,27 +12,5 @@ import { ProviderConfigurationRepository } from './infrastructure/provider-confi
 import { ProviderHealthRepository } from './infrastructure/provider-health.repository';
 import { ProviderHttpClient } from './infrastructure/provider-http-client';
 
-@Module({
-  providers:[
-    ProviderConfigurationRepository,
-    EnvironmentSecretResolver,
-    ProviderConfigurationService,
-    ProviderCircuitBreaker,
-    ProviderHttpClient,
-    IntegrationProviderRegistry,
-    ProviderHealthRepository,
-    ProviderHealthService,
-    FxRateRepository,
-    FxRateService,
-    NotificationChannelAdapterFactory,
-  ],
-  exports:[
-    ProviderConfigurationService,
-    ProviderHttpClient,
-    IntegrationProviderRegistry,
-    ProviderHealthService,
-    FxRateService,
-    NotificationChannelAdapterFactory,
-  ],
-})
+@Module({providers:[ProviderConfigurationRepository,EnvironmentSecretResolver,ProviderConfigurationService,ProviderCircuitBreaker,ProviderHttpClient,IntegrationProviderRegistry,ProviderHealthRepository,ProviderHealthService,FxRateRepository,FxRateService,NotificationChannelAdapterFactory,ShippingProviderService],exports:[ProviderConfigurationService,ProviderHttpClient,IntegrationProviderRegistry,ProviderHealthService,FxRateService,NotificationChannelAdapterFactory,ShippingProviderService]})
 export class IntegrationsModule {}
