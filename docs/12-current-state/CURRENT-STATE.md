@@ -25,7 +25,20 @@ Later implementation advances `main` beyond that immutable reference.
 - **A2 — Provider-Agnostic AI Contracts + Failure Model — COMPLETE / FINAL GATE PASS**
 - **A3 — Governed Prompt Model + Persistence + Governance Controls — COMPLETE / FINAL GATE PASS**
 - **A4 — AI Provider Configuration / Adapter Boundary + Secrets / Resilience Integration — COMPLETE / FINAL GATE PASS**
-- **A5 — NEXT**
+- **A5 — Product Q&A Orchestration + Safe Catalog Context — COMPLETE / FINAL GATE PASS**
+- **A6 — Draft Content Generation + Human Approval Boundary — NEXT**
+
+### Step 48 A5 verification evidence
+PR #38 establishes the read-only Product Q&A orchestration boundary. Implementation head `c36541e302fead49c5733a09b5e470c67df7e537` passed Canonical CI run `32482001230`, job `verify` (`96770193953`):
+- OpenAPI: PASS — 514 paths / 583 operations / 1146 refs
+- architecture: PASS — 409 files scanned
+- project policy: PASS — `toman-no-wallet-config-boundary`
+- TypeScript build: PASS
+- A5 dedicated tests: **6/6 PASS**
+- runtime tests: **344 PASS / 0 FAIL / 0 skipped / 0 cancelled**
+- overall `pnpm verify`: PASS
+
+A5 adds `ProductQaService`, consumes only exported Catalog queries, resolves the active governed `product-qa` prompt, supports Persian/Unicode product slugs, sends an explicit allow-listed product context, separates governed instructions from authoritative context and untrusted user questions, and fails closed on provider/output errors. Price, internal IDs/SKU and unrelated/internal fields are excluded from provider context. A5 adds no database migration, public HTTP endpoint, Content generation integration, autonomous tool execution or commerce mutation authority. A prior A4 test was minimally updated to preserve its IntegrationsModule-import invariant while allowing the additive CatalogModule import; no test was deleted or disabled.
 
 ### Step 48 A4 verification evidence
 PR #37 establishes the AI provider configuration/adapter boundary. Implementation head `287b2dacd3f6afd3ba902d57f357b7517b263f91` passed Canonical CI run `32481083286`, job `verify` (`96767380130`):
