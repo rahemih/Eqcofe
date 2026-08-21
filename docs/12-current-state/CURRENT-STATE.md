@@ -27,7 +27,20 @@ Later implementation advances `main` beyond that immutable reference.
 - **A4 — AI Provider Configuration / Adapter Boundary + Secrets / Resilience Integration — COMPLETE / FINAL GATE PASS**
 - **A5 — Product Q&A Orchestration + Safe Catalog Context — COMPLETE / FINAL GATE PASS**
 - **A6 — Draft Content Generation + Human Approval Boundary — COMPLETE / FINAL GATE PASS**
-- **A7 — AI Usage / Cost / Rate Controls — NEXT**
+- **A7 — AI Usage / Cost / Rate Controls — COMPLETE / FINAL GATE PASS**
+- **A8 — NEXT**
+
+### Step 48 A7 verification evidence
+PR #40 establishes server-side AI usage, cost and rate controls. Implementation head `f4b644de8434428975ca4d5ae6ec2847e1171206` passed Canonical CI run `32483996493`, job `verify` (`96776325010`):
+- OpenAPI: PASS — 514 paths / 583 operations / 1146 refs
+- architecture: PASS — 412 files scanned
+- project policy: PASS — `toman-no-wallet-config-boundary`
+- TypeScript build: PASS
+- A7 dedicated tests: **7/7 PASS**
+- runtime tests: **357 PASS / 0 FAIL / 0 skipped / 0 cancelled**
+- overall `pnpm verify`: PASS
+
+A7 adds forward-only migration `0047_ai_usage_cost_rate_controls.sql`, provider-neutral per-operation usage policies, atomic reservation before provider execution, request/minute and token ceilings, integer micro-cost daily budgets, and explicit success/failure settlement. Both Product Q&A and Draft Content generation are gated before provider execution. A7 adds no public AI HTTP endpoint, vendor-specific pricing contract, autonomous business mutation or unrelated dependency.
 
 ### Step 48 A6 verification evidence
 PR #39 establishes governed AI draft generation while preserving Content-owned editorial authority. Implementation head `8083244637c2d3862e886fe518f748a0ee4d4b8f` passed Canonical CI run `32483061869`, job `verify` (`96773456625`):
