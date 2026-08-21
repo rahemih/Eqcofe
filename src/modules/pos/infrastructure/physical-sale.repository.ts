@@ -16,6 +16,13 @@ export class PhysicalSaleRepository {
     return result.rows[0] ?? null;
   }
 
+  async byId(id: string, ex: DatabaseExecutor = this.db, lock = false) {
+    const query = lock
+      ? sql<any>`SELECT * FROM pos.physical_sales WHERE id=${id}::uuid FOR UPDATE`
+      : sql<any>`SELECT * FROM pos.physical_sales WHERE id=${id}::uuid`;
+    return (await query.execute(ex)).rows[0] ?? null;
+  }
+
   async byClientCommandId(clientCommandId: string, ex: DatabaseExecutor = this.db, lock = false) {
     const query = lock
       ? sql<any>`SELECT * FROM pos.physical_sales WHERE client_command_id=${clientCommandId}::uuid FOR UPDATE`
