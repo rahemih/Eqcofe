@@ -1,0 +1,19 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
+import { AiUsageControlService } from '../src/modules/ai/application/ai-usage-control.service';
+
+const migration=readFileSync('database/migrations/0047_ai_usage_cost_rate_controls.sql','utf8');
+const repoSource=readFileSync('src/modules/ai/infrastructure/ai-usage.repository.ts','utf8');
+const productSource=readFileSync('src/modules/ai/application/product-qa.service.ts','utf8');
+const draftSource=readFileSync('src/modules/ai/application/draft-content-generation.service.ts','utf8');
+
+function service(result:any={ok:true,reservedCostMicros:123}){const calls:any[]=[];const repo={reserve:async(input:any)=>{calls.push(['reserve',input]);return result;},settle:async(input:any)=>{calls.push(['settle',input]);return true;}};return{svc:new AiUsageControlService(repo as any),calls};}
+
+test('A7 reserves usage before provider work with deterministic token estimate',async()=>{const x=service();const r=await x.svc.reserve({requestId:'11111111-1111-4111-8111-111111111111',operation:'product_qa',providerInput:'abcd'.repeat(100),maxOutputTokens:700});assert.equal(r.estimatedInputTokens,100);assert.equal(x.calls[0][0],'reserve');assert.equal(x.calls[0][1].reservedOutputTokens,700);});
+test('A7 maps rate and cost limits to fail-closed domain errors',async()=>{for(const [reason,code] of [['rate_limit','AI_RATE_LIMITED'],['budget_limit','AI_COST_BUDGET_EXCEEDED'],['input_limit','AI_USAGE_LIMIT_EXCEEDED']] as const){const x=service({ok:false,reason});await assert.rejects(()=>x.svc.reserve({requestId:'11111111-1111-4111-8111-111111111111',operation:'draft_content',providerInput:'payload',maxOutputTokens:100}),(e:any)=>{assert.equal(e.code,code);return true;});}});
+test('A7 settles actual token usage and failed reservations explicitly',async()=>{const x=service();await x.svc.settleSuccess('11111111-1111-4111-8111-111111111111',{inputTokens:10,outputTokens:20});await x.svc.settleFailure('22222222-2222-4222-8222-222222222222');assert.deepEqual(x.calls[0][1],{requestId:'11111111-1111-4111-8111-111111111111',inputTokens:10,outputTokens:20});assert.equal(x.calls[1][1].failed,true);});
+test('A7 migration is forward-only and enforces positive bounded policy fields',()=>{assert.match(migration,/CREATE TABLE ai\.usage_policies/);assert.match(migration,/CREATE TABLE ai\.usage_reservations/);assert.match(migration,/max_requests_per_minute integer NOT NULL CHECK \(max_requests_per_minute > 0\)/);assert.match(migration,/daily_budget_micros bigint NOT NULL CHECK \(daily_budget_micros >= 0\)/);assert.match(migration,/ON DELETE RESTRICT/);assert.doesNotMatch(migration,/DROP TABLE|TRUNCATE|DELETE FROM/i);});
+test('A7 serializes reservation admission and accounts rate plus daily budget',()=>{assert.match(repoSource,/FOR UPDATE/);assert.match(repoSource,/minute_bucket=date_trunc\('minute',now\(\)\)/);assert.match(repoSource,/dayCost \+ BigInt\(reservedCostMicros\)/);assert.match(repoSource,/max_requests_per_minute/);});
+test('A7 gates both Product Q&A and draft generation before provider invocation',()=>{for(const source of [productSource,draftSource]){assert.match(source,/await this\.usage\.reserve/);const reserve=source.indexOf('await this.usage.reserve');const provider=source.indexOf('this.provider.generateText');assert.ok(reserve>=0&&provider>reserve);assert.match(source,/settleSuccess/);assert.match(source,/settleFailure/);} });
+test('A7 remains provider-neutral and introduces no public HTTP or commerce mutation authority',()=>{assert.doesNotMatch(repoSource,/openai|anthropic|gemini|vendor/i);assert.doesNotMatch(productSource+draftSource,/Controller\(|@Post\(|@Patch\(|@Delete\(/);assert.doesNotMatch(repoSource,/pricing\.|inventory\.|orders\.|payments\.|refund|finance\./i);});
