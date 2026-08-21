@@ -16,11 +16,12 @@ Later implementation advances `main` beyond that immutable reference.
 - **Step 45 — Content, Articles & SEO Backend — CLOSED / FINAL GATE PASS**
 - **Step 46 — Marketing, Promotions & Customer Club Backend — CLOSED / FINAL GATE PASS**
 - **Step 47 — External Integration Foundation — CLOSED / FINAL GATE PASS**
+- **Step 48 — EQCOFE AI Backend Foundation — CLOSED / FINAL GATE PASS**
 
 ## Active step
-**Step 48 — EQCOFE AI Backend Foundation — ACTIVE**
+**Step 49 — Physical Store / POS Backend — NEXT**
 
-### Step 48 progress
+### Step 48 final closure
 - **A1 — Discovery / Requirements / Ownership Freeze — COMPLETE**
 - **A2 — Provider-Agnostic AI Contracts + Failure Model — COMPLETE / FINAL GATE PASS**
 - **A3 — Governed Prompt Model + Persistence + Governance Controls — COMPLETE / FINAL GATE PASS**
@@ -30,7 +31,9 @@ Later implementation advances `main` beyond that immutable reference.
 - **A7 — AI Usage / Cost / Rate Controls — COMPLETE / FINAL GATE PASS**
 - **A8 — Safe AI Observability — COMPLETE / FINAL GATE PASS**
 - **A9 — AI Security / RBAC / API Boundary + Regression Gate — COMPLETE / FINAL GATE PASS**
-- **A10 — Final Canonical Closure — NEXT**
+- **A10 — Final Canonical Closure — COMPLETE / FINAL GATE PASS**
+
+A10 is documentation/canonical-state closure only. It introduces no feature, schema, migration, API surface, dependency, business rule or ownership change. The final Step-48 closure artifact is `docs/11-step-history/STEP-48-A10-FINAL-CANONICAL-CLOSURE.md`; closure is valid only with the exact A10 head passing Canonical CI and PR #43 merged into `main`.
 
 ### Step 48 A9 verification evidence
 PR #42 establishes the Step-48 security and API-boundary regression gate. Implementation head `7592a4953f7bf23cf4bc59912a2080c30725db08` passed Canonical CI run `32486347684`, job `verify` (`96783623659`):
