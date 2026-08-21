@@ -2,7 +2,7 @@
 
 ## HTTP Client / Timeout / Retry / Circuit-Breaker Foundation
 
-**Status:** IMPLEMENTED / VERIFICATION PENDING
+**Status:** COMPLETE / FINAL GATE PASS
 
 A4 adds the shared outbound HTTP resilience layer used by later provider adapters. It introduces no real vendor adapter.
 
@@ -24,4 +24,20 @@ A4 adds the shared outbound HTTP resilience layer used by later provider adapter
 - `src/modules/integrations/integrations.module.ts`
 - `test/integrations-step47-a4.spec.ts`
 
-A4 is COMPLETE only after canonical CI passes.
+## Verification
+Canonical CI run `32467452912`, job `verify` (`96726992205`) passed:
+- frozen-lockfile install: PASS
+- OpenAPI: PASS — 514 paths / 583 operations / 1146 refs
+- architecture: PASS — 390 module files scanned
+- project policy: PASS — `toman-no-wallet-config-boundary`
+- TypeScript build: PASS
+- A4 dedicated tests: 6/6 PASS
+- full runtime tests: 264 PASS / 0 FAIL / 0 skipped / 0 cancelled
+- overall `pnpm verify`: PASS
+
+Therefore:
+**STEP 47 / A4 FINAL GATE = PASS**
+**A4 = COMPLETE**
+
+## Next approved substep
+**Step 47 / A5 — Provider Health + Observability**
