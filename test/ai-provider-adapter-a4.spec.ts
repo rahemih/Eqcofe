@@ -18,7 +18,7 @@ test('A4 adds AI as an additive integration provider kind',()=>{
 test('A4 reuses integrations configuration secret and resilient HTTP boundaries',()=>{
   assert.match(adapter,/ProviderConfigurationService/);
   assert.match(adapter,/ProviderHttpClient/);
-  assert.match(aiModule,/imports: \[IntegrationsModule\]/);
+  assert.match(aiModule,/imports:\s*\[[^\]]*IntegrationsModule[^\]]*\]/);
   assert.match(secretResolver,/EQCOFE_\[A-Z0-9_\]/);
   assert.match(httpClient,/AbortController/);
   assert.match(httpClient,/circuitBreaker/);
