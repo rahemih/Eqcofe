@@ -24,7 +24,20 @@ Later implementation advances `main` beyond that immutable reference.
 - **A1 — Discovery / Requirements / Ownership Freeze — COMPLETE**
 - **A2 — Provider-Agnostic AI Contracts + Failure Model — COMPLETE / FINAL GATE PASS**
 - **A3 — Governed Prompt Model + Persistence + Governance Controls — COMPLETE / FINAL GATE PASS**
-- **A4 — AI Provider Configuration / Adapter Boundary + Secrets / Resilience Integration — NEXT**
+- **A4 — AI Provider Configuration / Adapter Boundary + Secrets / Resilience Integration — COMPLETE / FINAL GATE PASS**
+- **A5 — NEXT**
+
+### Step 48 A4 verification evidence
+PR #37 establishes the AI provider configuration/adapter boundary. Implementation head `287b2dacd3f6afd3ba902d57f357b7517b263f91` passed Canonical CI run `32481083286`, job `verify` (`96767380130`):
+- OpenAPI: PASS — 514 paths / 583 operations / 1146 refs
+- architecture: PASS — 408 files scanned
+- project policy: PASS — `toman-no-wallet-config-boundary`
+- TypeScript build: PASS
+- A4 dedicated tests: **6/6 PASS**
+- runtime tests: **338 PASS / 0 FAIL / 0 skipped / 0 cancelled**
+- overall `pnpm verify`: PASS
+
+A4 adds forward-only migration `0046_integration_ai_provider_kind.sql`, extends the existing Integrations provider kind with `ai`, and adds a vendor-neutral configured AI text-generation adapter that reuses Integrations-owned configuration, environment secret resolution, timeout/retry/idempotency and circuit-breaker transport. Raw secrets remain environment-owned. No Product Q&A HTTP API, Content generation integration, autonomous business mutation, or parallel credential store is introduced. An initial CI attempt failed because `halfOpenMaxCalls` was missing from the circuit-breaker policy; that defect was corrected before the successful gate above.
 
 ### Step 48 A3 verification evidence
 PR #36 establishes the governed-prompt persistence/governance gate. Implementation head `663d709e90c25bf77cb867ea5e22d9441ef8e0a0` passed Canonical CI run `32480383438`, job `verify` (`96765233896`):
@@ -36,7 +49,7 @@ PR #36 establishes the governed-prompt persistence/governance gate. Implementati
 - runtime tests: **332 PASS / 0 FAIL / 0 skipped / 0 cancelled**
 - overall `pnpm verify`: PASS
 
-A3 adds forward-only migration `0045_ai_governed_prompts.sql`, immutable prompt-version history, staff-only governance, optimistic concurrency and operation-bound active resolution. It adds no provider adapter/vendor SDK, provider secret persistence, Product Q&A HTTP API, Content generation integration, cost/rate implementation, or commerce mutation authority. Final documentation/current-state head must also pass Canonical CI before PR #36 is merged to `main`.
+A3 adds forward-only migration `0045_ai_governed_prompts.sql`, immutable prompt-version history, staff-only governance, optimistic concurrency and operation-bound active resolution. It adds no provider adapter/vendor SDK, provider secret persistence, Product Q&A HTTP API, Content generation integration, cost/rate implementation, or commerce mutation authority.
 
 ### Step 48 A2 verification evidence
 PR #35 establishes the provider-neutral AI contract/failure-model gate. The implementation head `69c591cfc80b85fe681660738207e9036afa425d` passed Canonical CI run `32479583308`, job `verify` (`96762878114`):
