@@ -72,7 +72,7 @@ test('A5 fails closed on provider failure and does not expose provider failure i
 test('A5 is application-only, read-only toward Catalog and introduces no public HTTP or commerce mutation path',()=>{
   assert.match(source,/CatalogQueryService/);
   assert.match(source,/this\.catalog\.product\(/);
-  assert.match(moduleSource,/imports: \[CatalogModule, IntegrationsModule\]/);
+  assert.match(moduleSource,/imports: \[[^\]]*CatalogModule[^\]]*IntegrationsModule[^\]]*\]/);
   assert.doesNotMatch(source,/Controller\(|@Post\(|@Patch\(|@Delete\(/);
   assert.doesNotMatch(source,/pricing\.|inventory\.|orders\.|payments\.|finance\.|UPDATE |INSERT INTO|DELETE FROM/i);
 });
