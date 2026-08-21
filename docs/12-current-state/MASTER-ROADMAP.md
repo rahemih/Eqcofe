@@ -1,12 +1,12 @@
 # EQCOFE — Complete Master Execution Roadmap
 
-**Roadmap version:** 3.2 — Step-47 Closure Sync  
+**Roadmap version:** 3.3 — Step-48 Closure Sync  
 **Effective date:** 2026-08-21  
 **Canonical repository:** `rahemih/Eqcofe`  
 **Canonical branch:** `main`  
 **Verified Step-44 code baseline:** `b239dfe825b615f36caf2e26cc7abc80c70d349c`
 
-> This is the canonical end-to-end execution map for EQCOFE. For historical Steps 1–27, the exact original step labels are not independently proven by the recovered Git evidence. Their descriptions below are therefore a normalized reconstruction of the foundation represented by the current product vision, business rules and canonical codebase; they must not be cited as exact historical attribution. Step 28 remains partial-history. Steps 29–47 are verified/closed in canonical source and closure evidence. Step 48 onward is the approved execution plan.
+> This is the canonical end-to-end execution map for EQCOFE. For historical Steps 1–27, the exact original step labels are not independently proven by the recovered Git evidence. Their descriptions below are therefore a normalized reconstruction of the foundation represented by the current product vision, business rules and canonical codebase; they must not be cited as exact historical attribution. Step 28 remains partial-history. Steps 29–48 are verified/closed in canonical source and closure evidence. Step 49 onward is the approved execution plan.
 
 ## Status legend
 - `RECONSTRUCTED-HISTORY`: normalized description; exact historical step attribution is not proven.
@@ -166,10 +166,10 @@ Campaigns, coupons/eligibility, first-purchase/festival promotions, Pricing/Chec
 ## Step 47 — External Integration Foundation — `COMPLETE`
 Provider-agnostic contracts, configuration/secret boundaries, resilient HTTPS transport, timeout/retry/circuit breaker, provider health observability, FX observation + preview-before-apply, SMS/email adapters, shipping integration boundary, payment_aux observation/command foundation and A11 security/failure/regression verification are closed in canonical Step-47 evidence.
 
-## Step 48 — EQCOFE AI Backend Foundation — `NEXT`
-Add provider-agnostic AI ports, governed prompts, product Q&A and draft content generation with human approval, cost/rate controls, observability and prompt/data-boundary security.
+## Step 48 — EQCOFE AI Backend Foundation — `COMPLETE`
+Provider-agnostic AI contracts, governed prompts, configured provider boundary, read-only Product Q&A orchestration, Content-owned draft generation with human approval, server-side usage/cost/rate controls, safe append-only observability, delimiter-injection hardening, output safety and final security/regression closure are complete in canonical Step-48 evidence.
 
-## Step 49 — Physical Store / POS Backend — `PLANNED`
+## Step 49 — Physical Store / POS Backend — `NEXT`
 Implement barcode/SKU physical sales, shared inventory consumption, reserve rules, offline/sync strategy, reconciliation, RBAC and audit controls.
 
 ## Step 50 — Excel Product & Pricing Management Backend — `PLANNED`
@@ -326,8 +326,8 @@ Evolve architecture, integrations and product capabilities based on production e
 
 # Current Position
 
-- **Last closed step:** Step 47 — External Integration Foundation.
-- **Next approved step:** Step 48 — EQCOFE AI Backend Foundation.
+- **Last closed step:** Step 48 — EQCOFE AI Backend Foundation.
+- **Next approved step:** Step 49 — Physical Store / POS Backend.
 - **Backend feature-completion horizon:** Step 52.
 - **UI/UX design begins:** Step 53.
 - **Storefront implementation begins:** Step 58.
