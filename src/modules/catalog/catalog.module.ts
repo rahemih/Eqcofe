@@ -8,6 +8,8 @@ import { CatalogQueryService } from './application/catalog-query.service';
 import { CatalogStructureService } from './application/catalog-structure.service';
 import { SalesControlService } from './application/sales-control.service';
 import { MediaService } from './application/media.service';
+import { PosVariantLookupService } from './application/pos-variant-lookup.service';
+import { PosVariantLookupRepository } from './infrastructure/pos-variant-lookup.repository';
 import { PricingModule } from '../pricing/pricing.module';
 import { MEDIA_STORAGE_PORT } from './application/ports/media-storage.port';
 import { ConfiguredMediaStorageAdapter } from './infrastructure/configured-media-storage.adapter';
@@ -26,11 +28,13 @@ import { CatalogCustomerAdapter } from './infrastructure/catalog-customer.adapte
     MediaService,
     SalesControlService,
     CatalogStructureService,
+    PosVariantLookupRepository,
+    PosVariantLookupService,
     ConfiguredMediaStorageAdapter,
     { provide: MEDIA_STORAGE_PORT, useExisting: ConfiguredMediaStorageAdapter },
     CatalogCustomerAdapter,
     { provide: CATALOG_CUSTOMER_PORT, useExisting: CatalogCustomerAdapter },
   ],
-  exports: [CatalogQueryService,CATALOG_CUSTOMER_PORT],
+  exports: [CatalogQueryService,PosVariantLookupService,CATALOG_CUSTOMER_PORT],
 })
 export class CatalogModule {}
