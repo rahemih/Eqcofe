@@ -18,7 +18,25 @@ Later implementation advances `main` beyond that immutable reference.
 - **Step 47 — External Integration Foundation — CLOSED / FINAL GATE PASS**
 
 ## Active step
-**Step 48 — EQCOFE AI Backend Foundation — NEXT**
+**Step 48 — EQCOFE AI Backend Foundation — ACTIVE**
+
+### Step 48 progress
+- **A1 — Discovery / Requirements / Ownership Freeze — COMPLETE**
+- **A2 — Provider-Agnostic AI Contracts + Failure Model — NEXT**
+
+### Step 48 A1 frozen boundary
+- `src/modules/ai` is the canonical AI bounded context and is already registered through `DomainModulesModule`; before Step 48 it contains only the module shell/placeholders.
+- AI owns provider-neutral AI contracts/orchestration, governed prompt identity/versioning, product-Q&A orchestration, draft-generation orchestration, AI usage/cost/rate metadata and prompt/data-boundary enforcement.
+- Catalog remains authoritative for product facts; Product Q&A is read-only and may consume only an explicit allowed Catalog context.
+- Content remains authoritative for draft persistence, editorial lifecycle, approval and publication; AI may propose/generate draft content but cannot approve or publish it.
+- Integrations remains authoritative for external provider configuration/secret resolution and resilient transport primitives established in Step 47. AI-specific provider contracts remain in AI and must stay vendor-neutral.
+- AI has no authority to mutate Pricing, Inventory, Cart/Checkout, Orders, Payments, Refunds, Finance, permissions, secrets or administrative state.
+- Model output is untrusted application input; prompt injection cannot confer authorization or override business/security rules.
+- Provider payloads must be data-minimized/allow-listed; secrets and unrelated sensitive commerce/customer data must not be disclosed to providers.
+- Generated content requires human approval through Content-owned workflows.
+- Server-side rate/cost controls and safe observability are required; raw secret/prompt leakage through logs is forbidden.
+- Step 48 adds only forward-only persistence when required; existing migrations are not rewritten.
+- General-purpose autonomous agents, arbitrary tool execution, autonomous commerce mutations, model training/fine-tuning and unrelated AI expansion are outside Step-48 scope.
 
 ### Step 47 final closure
 - **A1 — Discovery + Integration Ownership / Rules Freeze — COMPLETE**
