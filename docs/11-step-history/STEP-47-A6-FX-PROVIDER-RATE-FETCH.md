@@ -2,14 +2,14 @@
 
 ## FX Provider Port + Rate Fetch
 
-**Status:** IMPLEMENTED / VERIFICATION PENDING
+**Status:** COMPLETE / FINAL GATE PASS
 
 A6 introduces a provider-agnostic FX rate contract and fetch service. It does not select a production vendor and does not mutate product prices.
 
 ## Ownership
 - Integrations owns FX provider transport, observation validation and immutable fetched-observation history.
 - Pricing remains authoritative for currency-rate registration/selection and all product-price mutations.
-- A7 will compose fetched observations with Pricing preview-before-apply.
+- A7 composes fetched observations with Pricing preview-before-apply.
 
 ## Runtime rules
 - `FxProviderPort` extends the common integration provider contract with `fetchRate`.
@@ -33,10 +33,22 @@ A6 introduces a provider-agnostic FX rate contract and fetch service. It does no
 - `test/integrations-step47-a6.spec.ts`
 
 ## Existing Pricing composition point
-`CurrencyPricingService.refresh()` currently fails closed with `CURRENCY_PROVIDER_NOT_CONFIGURED`. A6 intentionally leaves that method unchanged. A7 will replace that deferred boundary with controlled preview-before-apply composition rather than allowing Integrations to mutate prices directly.
+`CurrencyPricingService.refresh()` remains fail-closed until A7 wires controlled preview-before-apply composition. A6 intentionally does not permit Integrations to mutate product prices directly.
 
 ## Verification
-A6 becomes COMPLETE only after Canonical CI passes on the exact branch source.
+PR #25 verified the exact A6 source. Canonical CI run `32469549578`, job `verify` (`96733275878`) passed:
+- frozen-lockfile install: PASS
+- OpenAPI: PASS — 514 paths / 583 operations / 1146 refs
+- architecture: PASS — 396 module files scanned
+- project policy: PASS — `toman-no-wallet-config-boundary`
+- TypeScript build: PASS
+- A6 dedicated tests: 7/7 PASS
+- runtime tests: **277 PASS / 0 FAIL / 0 skipped / 0 cancelled**
+- overall `pnpm verify`: PASS
+
+Therefore:
+**STEP 47 / A6 FINAL GATE = PASS**
+**A6 = COMPLETE**
 
 ## Next approved substep
 **Step 47 / A7 — FX Preview-before-Apply Integration**
