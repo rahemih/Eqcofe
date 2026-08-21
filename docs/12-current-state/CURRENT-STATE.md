@@ -27,8 +27,8 @@ Approved roadmap scope: configurable provider adapters for FX, SMS, email, shipp
 - **A3 — Integration Configuration + Secrets + RBAC — COMPLETE / FINAL GATE PASS**
 - **A4 — HTTP Client / Timeout / Retry / Circuit-Breaker Foundation — COMPLETE / FINAL GATE PASS**
 - **A5 — Provider Health + Observability — COMPLETE / FINAL GATE PASS**
-- **A6 — FX Provider Port + Rate Fetch — NEXT**
-- A7 — FX Preview-before-Apply Integration — PLANNED
+- **A6 — FX Provider Port + Rate Fetch — COMPLETE / FINAL GATE PASS**
+- **A7 — FX Preview-before-Apply Integration — NEXT**
 - A8 — SMS + Email Real Adapter Foundation — PLANNED
 - A9 — Shipping Provider Foundation — PLANNED
 - A10 — Auxiliary Payment Provider Foundation — PLANNED
@@ -41,15 +41,16 @@ Canonical Step-47 artifacts:
 - `docs/11-step-history/STEP-47-A3-INTEGRATION-CONFIG-SECRETS-RBAC.md`
 - `docs/11-step-history/STEP-47-A4-HTTP-RESILIENCE.md`
 - `docs/11-step-history/STEP-47-A5-PROVIDER-HEALTH-OBSERVABILITY.md`
+- `docs/11-step-history/STEP-47-A6-FX-PROVIDER-RATE-FETCH.md`
 
-### Step 47 A5 verification evidence
-Draft PR #24 verified A5. Final Canonical CI run `32468099365`, job `verify` (`96728945724`) passed:
+### Step 47 A6 verification evidence
+PR #25 verified A6. Canonical CI run `32469549578`, job `verify` (`96733275878`) passed on the implementation source:
 - OpenAPI: PASS — 514 paths / 583 operations / 1146 refs
-- architecture: PASS — 393 module files scanned
+- architecture: PASS — 396 module files scanned
 - project policy: PASS — `toman-no-wallet-config-boundary`
 - TypeScript build: PASS
-- A5 tests: **6/6 PASS**
-- runtime tests: **270 PASS / 0 FAIL / 0 skipped / 0 cancelled**
+- A6 tests: **7/7 PASS**
+- runtime tests: **277 PASS / 0 FAIL / 0 skipped / 0 cancelled**
 - overall `pnpm verify`: PASS
 
 ### Frozen Step-47 integration boundary
@@ -57,7 +58,11 @@ Draft PR #24 verified A5. Final Canonical CI run `32468099365`, job `verify` (`9
 - Notifications remains authoritative for SMS/email delivery semantics.
 - Payments remains authoritative for payment/refund lifecycle and correctness.
 - Fulfillment remains authoritative for shipment/fulfillment lifecycle.
-- Pricing remains authoritative for product price mutation; FX providers supply observations only.
+- Pricing remains authoritative for currency-rate registration/selection and all product-price mutation; Integrations supplies FX observations only.
+- FX provider observations use normalized three-letter source currency codes and target unit `TOMAN`.
+- FX `rateToToman` is a positive safe integer and stale/future-invalid observations fail closed.
+- Valid fetched FX observations are immutable append-only operational evidence.
+- A6 does not activate automatic price mutation; preview-before-apply remains mandatory and is owned by A7 composition.
 - Secret values remain environment-owned; only validated secret references may be persisted.
 - Provider transport failures are normalized and fail closed.
 - Every outbound provider request has a finite timeout.
