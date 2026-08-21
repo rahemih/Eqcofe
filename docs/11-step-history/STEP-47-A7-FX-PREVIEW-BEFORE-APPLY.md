@@ -2,7 +2,7 @@
 
 ## FX Preview-before-Apply Integration
 
-**Status:** IMPLEMENTED / VERIFICATION PENDING
+**Status:** COMPLETE / FINAL GATE PASS
 
 A7 composes the A6 FX observation service with the existing Pricing currency workflow while preserving Pricing ownership and mandatory preview-before-apply.
 
@@ -40,7 +40,19 @@ A7 composes the A6 FX observation service with the existing Pricing currency wor
 - Financial values remain integer Toman.
 
 ## Verification
-A7 becomes COMPLETE only after Canonical CI passes on the exact branch source.
+PR #28 verified the exact A7 source. Canonical CI run `32470399491`, job `verify` (`96735777882`) passed:
+- frozen-lockfile install: PASS
+- OpenAPI: PASS — 514 paths / 583 operations / 1146 refs
+- architecture: PASS — 397 module files scanned
+- project policy: PASS — `toman-no-wallet-config-boundary`
+- TypeScript build: PASS
+- A7 dedicated tests: 7/7 PASS
+- runtime tests: **284 PASS / 0 FAIL / 0 skipped / 0 cancelled**
+- overall `pnpm verify`: PASS
+
+Therefore:
+**STEP 47 / A7 FINAL GATE = PASS**
+**A7 = COMPLETE**
 
 ## Next approved substep
 **Step 47 / A8 — SMS + Email Real Adapter Foundation**
