@@ -1,4 +1,4 @@
-export type IntegrationProviderKind = 'fx' | 'sms' | 'email' | 'shipping' | 'payment_aux';
+export type IntegrationProviderKind = 'fx' | 'sms' | 'email' | 'shipping' | 'payment_aux' | 'ai';
 export type IntegrationOperationKind = 'read' | 'write' | 'health';
 export type ProviderHealthState = 'healthy' | 'degraded' | 'unavailable' | 'unknown';
 export type ProviderRetryDisposition = 'never' | 'safe' | 'conditional';
