@@ -1,7 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Optional } from '@nestjs/common';
 import { randomUUID } from 'node:crypto';
 import { DomainError } from '../../../shared/errors/domain-error';
 import { ArticleDraftService } from '../../content/application/article-draft.service';
+import { AiObservabilityService } from './ai-observability.service';
 import { AiUsageControlService } from './ai-usage-control.service';
 import { GovernedPromptService } from './governed-prompt.service';
 import { ConfiguredAiProviderAdapter } from '../infrastructure/configured-ai-provider.adapter';
@@ -20,6 +21,7 @@ export class DraftContentGenerationService {
     private readonly provider: ConfiguredAiProviderAdapter,
     private readonly articles: ArticleDraftService,
     private readonly usage: AiUsageControlService,
+    @Optional() private readonly observability?: AiObservabilityService,
   ) {}
 
   async generateArticleDraft(input: { brief: unknown }) {
@@ -29,6 +31,7 @@ export class DraftContentGenerationService {
     const providerInput = this.compose(prompt.template, brief);
     const maxOutputTokens = 3000;
     await this.usage.reserve({requestId,operation:'draft_content',providerInput,maxOutputTokens});
+    const startedAt = Date.now();
 
     let result;
     try {
@@ -41,18 +44,32 @@ export class DraftContentGenerationService {
       });
     } catch (error) {
       await this.usage.settleFailure(requestId);
+      await this.observe({requestId,prompt,outcome:'provider_failed',providerFailureKind:'unknown',latencyMs:Date.now()-startedAt});
       throw error;
     }
     if (!result.ok) {
       await this.usage.settleFailure(requestId);
+      await this.observe({requestId,prompt,outcome:'provider_failed',providerFailureKind:result.failure.kind,latencyMs:Date.now()-startedAt});
       throw new DomainError('AI_DRAFT_CONTENT_PROVIDER_FAILURE', 'تولید پیش‌نویس هوشمند در حال حاضر در دسترس نیست.');
     }
     await this.usage.settleSuccess(requestId,result.value.usage);
 
-    const generated = this.parseGeneratedArticle(result.value.text);
-    const draft = await this.articles.create({ title_fa: generated.title_fa, body: generated.body, seo_title: generated.seo_title ?? null, meta_description: generated.meta_description ?? null });
-    if (draft.status !== 'draft') throw new DomainError('AI_DRAFT_CONTENT_STATE_INVALID', 'پیش‌نویس تولیدشده در وضعیت امن ایجاد نشد.');
-    return { draft, approval_required: true, prompt: { key: prompt.key, version: prompt.version }, usage: result.value.usage, model: result.value.model ?? null, provider_request_id: result.value.providerRequestId ?? null };
+    try {
+      const generated = this.parseGeneratedArticle(result.value.text);
+      const draft = await this.articles.create({ title_fa: generated.title_fa, body: generated.body, seo_title: generated.seo_title ?? null, meta_description: generated.meta_description ?? null });
+      if (draft.status !== 'draft') throw new DomainError('AI_DRAFT_CONTENT_STATE_INVALID', 'پیش‌نویس تولیدشده در وضعیت امن ایجاد نشد.');
+      await this.observe({requestId,prompt,outcome:'succeeded',model:result.value.model,inputTokens:result.value.usage.inputTokens,outputTokens:result.value.usage.outputTokens,latencyMs:Date.now()-startedAt});
+      return { draft, approval_required: true, prompt: { key: prompt.key, version: prompt.version }, usage: result.value.usage, model: result.value.model ?? null, provider_request_id: result.value.providerRequestId ?? null };
+    } catch (error) {
+      await this.observe({requestId,prompt,outcome:'application_failed',model:result.value.model,inputTokens:result.value.usage.inputTokens,outputTokens:result.value.usage.outputTokens,latencyMs:Date.now()-startedAt});
+      throw error;
+    }
+  }
+
+  private async observe(input:any) {
+    if (!this.observability) return;
+    const {prompt,...rest}=input;
+    await this.observability.record({operation:'draft_content',promptKey:prompt.key,promptVersion:prompt.version,...rest});
   }
 
   private brief(value: unknown): string { const v=String(value??'').trim(); if(v.length<10||v.length>MAX_BRIEF_LENGTH) throw new DomainError('AI_DRAFT_CONTENT_BRIEF_INVALID','شرح محتوای درخواستی معتبر نیست.'); return v; }
