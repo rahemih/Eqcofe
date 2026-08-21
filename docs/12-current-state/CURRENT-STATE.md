@@ -23,7 +23,20 @@ Later implementation advances `main` beyond that immutable reference.
 ### Step 48 progress
 - **A1 — Discovery / Requirements / Ownership Freeze — COMPLETE**
 - **A2 — Provider-Agnostic AI Contracts + Failure Model — COMPLETE / FINAL GATE PASS**
-- **A3 — Governed Prompt Model + Persistence + Governance Controls — NEXT**
+- **A3 — Governed Prompt Model + Persistence + Governance Controls — COMPLETE / FINAL GATE PASS**
+- **A4 — AI Provider Configuration / Adapter Boundary + Secrets / Resilience Integration — NEXT**
+
+### Step 48 A3 verification evidence
+PR #36 establishes the governed-prompt persistence/governance gate. Implementation head `663d709e90c25bf77cb867ea5e22d9441ef8e0a0` passed Canonical CI run `32480383438`, job `verify` (`96765233896`):
+- OpenAPI: PASS — 514 paths / 583 operations / 1146 refs
+- architecture: PASS — 407 files scanned
+- project policy: PASS — `toman-no-wallet-config-boundary`
+- TypeScript build: PASS
+- A3 dedicated tests: **6/6 PASS**
+- runtime tests: **332 PASS / 0 FAIL / 0 skipped / 0 cancelled**
+- overall `pnpm verify`: PASS
+
+A3 adds forward-only migration `0045_ai_governed_prompts.sql`, immutable prompt-version history, staff-only governance, optimistic concurrency and operation-bound active resolution. It adds no provider adapter/vendor SDK, provider secret persistence, Product Q&A HTTP API, Content generation integration, cost/rate implementation, or commerce mutation authority. Final documentation/current-state head must also pass Canonical CI before PR #36 is merged to `main`.
 
 ### Step 48 A2 verification evidence
 PR #35 establishes the provider-neutral AI contract/failure-model gate. The implementation head `69c591cfc80b85fe681660738207e9036afa425d` passed Canonical CI run `32479583308`, job `verify` (`96762878114`):
@@ -35,7 +48,7 @@ PR #35 establishes the provider-neutral AI contract/failure-model gate. The impl
 - runtime tests: **326 PASS / 0 FAIL / 0 skipped / 0 cancelled**
 - overall `pnpm verify`: PASS
 
-A2 adds no database migration, OpenAPI surface, vendor SDK, provider adapter, prompt persistence, Product Q&A endpoint, Content integration or cost/rate persistence. Its final documentation/current-state head must also pass Canonical CI before PR #35 is merged to `main`.
+A2 adds no database migration, OpenAPI surface, vendor SDK, provider adapter, prompt persistence, Product Q&A endpoint, Content integration or cost/rate persistence.
 
 ### Step 48 A1 frozen boundary
 - `src/modules/ai` is the canonical AI bounded context and is already registered through `DomainModulesModule`; before Step 48 it contains only the module shell/placeholders.
