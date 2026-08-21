@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { FxRateService } from './application/fx-rate.service';
+import { NotificationChannelAdapterFactory } from './application/notification-channel-adapter.factory';
 import { ProviderConfigurationService } from './application/provider-configuration.service';
 import { ProviderHealthService } from './application/provider-health.service';
 import { IntegrationProviderRegistry } from './application/provider-registry';
@@ -22,6 +23,7 @@ import { ProviderHttpClient } from './infrastructure/provider-http-client';
     ProviderHealthService,
     FxRateRepository,
     FxRateService,
+    NotificationChannelAdapterFactory,
   ],
   exports:[
     ProviderConfigurationService,
@@ -29,6 +31,7 @@ import { ProviderHttpClient } from './infrastructure/provider-http-client';
     IntegrationProviderRegistry,
     ProviderHealthService,
     FxRateService,
+    NotificationChannelAdapterFactory,
   ],
 })
 export class IntegrationsModule {}
