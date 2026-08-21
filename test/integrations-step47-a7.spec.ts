@@ -64,6 +64,6 @@ test('A7 keeps raw FX transport out of Pricing and preserves existing profit gua
   const impact = await readFile('src/modules/pricing/application/currency-impact.service.ts','utf8');
   assert.match(bridge,/this\.fx\.fetch/);
   assert.match(bridge,/this\.impact\.preview/);
-  assert.doesNotMatch(bridge,/fetch\(|ProviderHttpClient|insertBasePrice|closeBasePriceAt/);
+  assert.doesNotMatch(bridge,/ProviderHttpClient|insertBasePrice|closeBasePriceAt|https?:\/\//);
   assert.match(impact,/this\.guard\.evaluate/);
 });
