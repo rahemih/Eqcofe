@@ -30,17 +30,17 @@ Later implementation advances `main` beyond that immutable reference.
 - **A8 — SMS + Email Real Adapter Foundation — COMPLETE / FINAL GATE PASS**
 - **A9 — Shipping Provider Foundation — COMPLETE / FINAL GATE PASS**
 - **A10 — Auxiliary Payment Provider Foundation — COMPLETE / FINAL GATE PASS**
-- **A11 — Security + Failure + Concurrency + E2E Regression — NEXT**
-- A12 — Final Canonical Closure — PLANNED
+- **A11 — Security + Failure + Concurrency + E2E Regression — COMPLETE / FINAL GATE PASS**
+- **A12 — Final Canonical Closure — NEXT**
 
-### Step 47 A10 verification evidence
-PR #31 verified the A10 implementation. Canonical CI run `32474146181`, job `verify` (`96746902886`) passed:
+### Step 47 A11 verification evidence
+PR #32 verified the A11 composition/security/regression gate. Canonical CI run `32475315265`, job `verify` (`96750325586`) passed:
 - OpenAPI: PASS — 514 paths / 583 operations / 1146 refs
 - architecture: PASS — 402 files scanned
 - project policy: PASS — `toman-no-wallet-config-boundary`
 - TypeScript build: PASS
-- A10 dedicated tests: **8/8 PASS**
-- runtime tests: **308 PASS / 0 FAIL / 0 skipped / 0 cancelled**
+- A11 dedicated tests: **15/15 PASS**
+- runtime tests: **323 PASS / 0 FAIL / 0 skipped / 0 cancelled**
 - overall `pnpm verify`: PASS
 
 ### Frozen Step-47 integration boundary
@@ -55,6 +55,8 @@ PR #31 verified the A10 implementation. Canonical CI run `32474146181`, job `ver
 - Provider transport failures are normalized and fail closed.
 - Production provider URLs require HTTPS.
 - FX refresh registers the observation in Pricing and returns a mandatory impact preview; price apply remains separate, Step-Up and idempotent.
+- External write retries require idempotency; circuit-breaker and timeout behavior are bounded.
+- Generic integration services must not hard-code provider vendors.
 
 ## Frozen Step-46 ownership boundary
 - Pricing remains authoritative for base pricing.
