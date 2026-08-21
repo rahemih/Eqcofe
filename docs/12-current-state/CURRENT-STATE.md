@@ -29,28 +29,27 @@ Later implementation advances `main` beyond that immutable reference.
 - **A7 — FX Preview-before-Apply Integration — COMPLETE / FINAL GATE PASS**
 - **A8 — SMS + Email Real Adapter Foundation — COMPLETE / FINAL GATE PASS**
 - **A9 — Shipping Provider Foundation — COMPLETE / FINAL GATE PASS**
-- **A10 — Auxiliary Payment Provider Foundation — NEXT**
-- A11 — Security + Failure + Concurrency + E2E Regression — PLANNED
+- **A10 — Auxiliary Payment Provider Foundation — COMPLETE / FINAL GATE PASS**
+- **A11 — Security + Failure + Concurrency + E2E Regression — NEXT**
 - A12 — Final Canonical Closure — PLANNED
 
-### Step 47 A9 verification evidence
-PR #30 verified the A9 implementation. Canonical CI run `32473449568`, job `verify` (`96744859189`) passed:
+### Step 47 A10 verification evidence
+PR #31 verified the A10 implementation. Canonical CI run `32474146181`, job `verify` (`96746902886`) passed:
 - OpenAPI: PASS — 514 paths / 583 operations / 1146 refs
-- architecture: PASS — 400 files scanned
+- architecture: PASS — 402 files scanned
 - project policy: PASS — `toman-no-wallet-config-boundary`
 - TypeScript build: PASS
-- A9 dedicated tests: **8/8 PASS**
-- runtime tests: **300 PASS / 0 FAIL / 0 skipped / 0 cancelled**
+- A10 dedicated tests: **8/8 PASS**
+- runtime tests: **308 PASS / 0 FAIL / 0 skipped / 0 cancelled**
 - overall `pnpm verify`: PASS
 
 ### Frozen Step-47 integration boundary
 - `src/modules/integrations` is the canonical external integration bounded context.
 - Notifications remains authoritative for SMS/email recipient resolution, rendering and delivery lifecycle.
-- Integrations owns SMS/email provider configuration, secret resolution and resilient external HTTP adapter behavior.
 - Fulfillment remains authoritative for shipment/tracking persistence and shipment lifecycle.
-- Integrations owns shipping provider HTTP/config/secret/webhook verification and returns normalized observations only.
-- The existing Fulfillment `ShippingProviderPort` remains the canonical shipping boundary.
-- Payments remains authoritative for payment/refund lifecycle and correctness.
+- Payments remains authoritative for initiate/verify/reconcile/refund/webhook handling and all payment-state transitions.
+- Integrations may expose `payment_aux` inquiry/command observations only; those observations are not authoritative payment outcomes.
+- Integrations owns external provider configuration, environment secret resolution and resilient transport behavior.
 - Pricing remains authoritative for product price mutation; FX providers supply observations only.
 - Secret values remain environment-owned; only validated secret references may be persisted.
 - Provider transport failures are normalized and fail closed.
