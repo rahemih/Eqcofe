@@ -5,13 +5,15 @@ import { TransactionManager } from '../../../platform/database/transaction-manag
 import { createPhysicalSale, addPhysicalSaleLine } from '../domain/physical-sale';
 import { PhysicalSaleRepository } from '../infrastructure/physical-sale.repository';
 
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+
 @Injectable()
 export class PhysicalSaleService {
   constructor(private readonly tx: TransactionManager, private readonly repo: PhysicalSaleRepository) {}
 
   async createDraft(input: { clientCommandId: unknown; staffActorId: unknown }) {
     const sale = createPhysicalSale({ id: randomUUID(), clientCommandId: input.clientCommandId, staffActorId: input.staffActorId });
-    return this.tx.execute(async (ex) => {
+    return this.tx.run(async (ex) => {
       const created = await this.repo.create(ex, sale);
       if (created) return created;
       const replay = await this.repo.byClientCommandId(sale.clientCommandId, ex, true);
@@ -22,19 +24,24 @@ export class PhysicalSaleService {
     });
   }
 
-  async addLine(input: { saleId: unknown; clientCommandId: unknown; staffActorId: unknown; variantId: unknown; quantity: unknown }) {
-    const probe = createPhysicalSale({ id: input.saleId, clientCommandId: input.clientCommandId, staffActorId: input.staffActorId });
-    const domain = addPhysicalSaleLine(probe, { variantId: input.variantId, quantity: input.quantity });
-    const line = domain.lines[0];
-    return this.tx.execute(async (ex) => {
-      const sale = await this.repo.byClientCommandId(probe.clientCommandId, ex, true);
-      if (!sale || sale.id !== probe.id || sale.staff_actor_id !== probe.staffActorId) {
-        throw new DomainError('POS_SALE_NOT_FOUND', 'فروش فیزیکی پیدا نشد.');
-      }
+  async addLine(input: { saleId: unknown; staffActorId: unknown; variantId: unknown; quantity: unknown }) {
+    const saleId = this.uuid(input.saleId, 'POS_SALE_ID_INVALID');
+    const staffActorId = this.uuid(input.staffActorId, 'POS_STAFF_ACTOR_ID_INVALID');
+    const probe = addPhysicalSaleLine(createPhysicalSale({ id: saleId, clientCommandId: randomUUID(), staffActorId }), { variantId: input.variantId, quantity: input.quantity });
+    const line = probe.lines[0];
+    return this.tx.run(async (ex) => {
+      const sale = await this.repo.byId(saleId, ex, true);
+      if (!sale || sale.staff_actor_id !== staffActorId) throw new DomainError('POS_SALE_NOT_FOUND', 'فروش فیزیکی پیدا نشد.');
       if (sale.status !== 'draft') throw new DomainError('POS_SALE_NOT_EDITABLE', 'فروش فیزیکی در وضعیت قابل ویرایش نیست.');
-      const saved = await this.repo.addOrIncreaseLine(ex, { id: randomUUID(), saleId: sale.id, variantId: line.variantId, quantity: line.quantity });
+      const saved = await this.repo.addOrIncreaseLine(ex, { id: randomUUID(), saleId, variantId: line.variantId, quantity: line.quantity });
       if (!saved) throw new DomainError('POS_QUANTITY_INVALID', 'تعداد فروش فیزیکی معتبر نیست.');
       return saved;
     });
+  }
+
+  private uuid(value: unknown, code: string) {
+    const normalized = String(value ?? '').trim().toLowerCase();
+    if (!UUID_RE.test(normalized)) throw new DomainError(code, 'شناسه فروش فیزیکی معتبر نیست.');
+    return normalized;
   }
 }
