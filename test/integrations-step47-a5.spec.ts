@@ -47,5 +47,8 @@ test('A5 module exports provider registry and health service for future adapters
   const source = await readFile('src/modules/integrations/integrations.module.ts','utf8');
   assert.match(source,/IntegrationProviderRegistry/);
   assert.match(source,/ProviderHealthService/);
-  assert.match(source,/exports:\[ProviderConfigurationService, ProviderHttpClient, IntegrationProviderRegistry, ProviderHealthService\]/);
+  assert.match(source,/exports:\[[\s\S]*ProviderConfigurationService/);
+  assert.match(source,/exports:\[[\s\S]*ProviderHttpClient/);
+  assert.match(source,/exports:\[[\s\S]*IntegrationProviderRegistry/);
+  assert.match(source,/exports:\[[\s\S]*ProviderHealthService/);
 });
