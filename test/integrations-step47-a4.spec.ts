@@ -49,5 +49,5 @@ test('A4 integration module exports shared provider http client', async () => {
   const source = await readFile('src/modules/integrations/integrations.module.ts','utf8');
   assert.match(source,/ProviderCircuitBreaker/);
   assert.match(source,/ProviderHttpClient/);
-  assert.match(source,/exports:\[ProviderConfigurationService, ProviderHttpClient\]/);
+  assert.match(source,/exports:\[[^\]]*ProviderConfigurationService[^\]]*ProviderHttpClient[^\]]*\]/);
 });

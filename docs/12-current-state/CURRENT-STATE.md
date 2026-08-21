@@ -26,8 +26,8 @@ Approved roadmap scope: configurable provider adapters for FX, SMS, email, shipp
 - **A2 — Common Provider Contracts + Failure Model — COMPLETE / FINAL GATE PASS**
 - **A3 — Integration Configuration + Secrets + RBAC — COMPLETE / FINAL GATE PASS**
 - **A4 — HTTP Client / Timeout / Retry / Circuit-Breaker Foundation — COMPLETE / FINAL GATE PASS**
-- **A5 — Provider Health + Observability — NEXT**
-- A6 — FX Provider Port + Rate Fetch — PLANNED
+- **A5 — Provider Health + Observability — COMPLETE / FINAL GATE PASS**
+- **A6 — FX Provider Port + Rate Fetch — NEXT**
 - A7 — FX Preview-before-Apply Integration — PLANNED
 - A8 — SMS + Email Real Adapter Foundation — PLANNED
 - A9 — Shipping Provider Foundation — PLANNED
@@ -40,15 +40,16 @@ Canonical Step-47 artifacts:
 - `docs/11-step-history/STEP-47-A2-PROVIDER-CONTRACTS-FAILURE-MODEL.md`
 - `docs/11-step-history/STEP-47-A3-INTEGRATION-CONFIG-SECRETS-RBAC.md`
 - `docs/11-step-history/STEP-47-A4-HTTP-RESILIENCE.md`
+- `docs/11-step-history/STEP-47-A5-PROVIDER-HEALTH-OBSERVABILITY.md`
 
-### Step 47 A4 verification evidence
-Draft PR #23 verified A4. Canonical CI run `32467452912`, job `verify` (`96726992205`) passed:
+### Step 47 A5 verification evidence
+Draft PR #24 verified A5. Final Canonical CI run `32468099365`, job `verify` (`96728945724`) passed:
 - OpenAPI: PASS — 514 paths / 583 operations / 1146 refs
-- architecture: PASS — 390 module files scanned
+- architecture: PASS — 393 module files scanned
 - project policy: PASS — `toman-no-wallet-config-boundary`
 - TypeScript build: PASS
-- A4 tests: **6/6 PASS**
-- runtime tests: **264 PASS / 0 FAIL / 0 skipped / 0 cancelled**
+- A5 tests: **6/6 PASS**
+- runtime tests: **270 PASS / 0 FAIL / 0 skipped / 0 cancelled**
 - overall `pnpm verify`: PASS
 
 ### Frozen Step-47 integration boundary
@@ -63,6 +64,9 @@ Draft PR #23 verified A4. Canonical CI run `32467452912`, job `verify` (`9672699
 - Retry attempts are bounded and write retries require idempotency.
 - Retry backoff and `Retry-After` waits are capped.
 - Provider circuit breakers fail closed while open and permit bounded half-open probes.
+- Provider health checks are independent from business transactions.
+- Health observations are append-only and current state is derived from the latest sample.
+- Observability summaries expose state counts and latency without storing secret/config payloads.
 - Production provider URLs require HTTPS.
 - FX-driven price mutation must preserve preview-before-apply and integer Toman rules.
 
