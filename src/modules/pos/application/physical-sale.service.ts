@@ -29,6 +29,7 @@ export class PhysicalSaleService {
     const staffActorId = this.uuid(input.staffActorId, 'POS_STAFF_ACTOR_ID_INVALID');
     const probe = addPhysicalSaleLine(createPhysicalSale({ id: saleId, clientCommandId: randomUUID(), staffActorId }), { variantId: input.variantId, quantity: input.quantity });
     const line = probe.lines[0];
+    if (!line) throw new DomainError('POS_LINE_INVALID', 'ردیف فروش فیزیکی معتبر نیست.');
     return this.tx.run(async (ex) => {
       const sale = await this.repo.byId(saleId, ex, true);
       if (!sale || sale.staff_actor_id !== staffActorId) throw new DomainError('POS_SALE_NOT_FOUND', 'فروش فیزیکی پیدا نشد.');
