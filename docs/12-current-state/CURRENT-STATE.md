@@ -28,7 +28,20 @@ Later implementation advances `main` beyond that immutable reference.
 - **A5 — Product Q&A Orchestration + Safe Catalog Context — COMPLETE / FINAL GATE PASS**
 - **A6 — Draft Content Generation + Human Approval Boundary — COMPLETE / FINAL GATE PASS**
 - **A7 — AI Usage / Cost / Rate Controls — COMPLETE / FINAL GATE PASS**
-- **A8 — NEXT**
+- **A8 — Safe AI Observability — COMPLETE / FINAL GATE PASS**
+- **A9 — AI Security / RBAC / API Boundary + Regression Gate — NEXT**
+
+### Step 48 A8 verification evidence
+PR #41 establishes safe append-only AI invocation observability. Implementation head `ce6fc4995ab9d5a36c62d0ca68fbdcabcc675cd7` passed Canonical CI run `32484720074`, job `verify` (`96778556640`):
+- OpenAPI: PASS — 514 paths / 583 operations / 1146 refs
+- architecture: PASS — 414 files scanned
+- project policy: PASS — `toman-no-wallet-config-boundary`
+- TypeScript build: PASS
+- A8 dedicated tests: **6/6 PASS**
+- runtime tests: **363 PASS / 0 FAIL / 0 skipped / 0 cancelled**
+- overall `pnpm verify`: PASS
+
+A8 adds forward-only migration `0048_ai_safe_observability.sql`, append-only invocation observations and bounded operational summaries. Stored observability data is limited to safe metadata: request id, operation, governed prompt identity/version, normalized outcome/failure kind, bounded model identifier, token counts, latency and timestamp. Raw prompts, user questions, Catalog context, content briefs, generated response bodies, provider payloads and secrets are not persisted. Product Q&A and Draft Content generation both record success/provider-failure/application-failure outcomes. No public AI HTTP endpoint or commerce/admin mutation authority is introduced.
 
 ### Step 48 A7 verification evidence
 PR #40 establishes server-side AI usage, cost and rate controls. Implementation head `f4b644de8434428975ca4d5ae6ec2847e1171206` passed Canonical CI run `32483996493`, job `verify` (`96776325010`):
