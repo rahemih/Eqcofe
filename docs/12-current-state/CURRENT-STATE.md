@@ -26,7 +26,20 @@ Later implementation advances `main` beyond that immutable reference.
 - **A3 — Governed Prompt Model + Persistence + Governance Controls — COMPLETE / FINAL GATE PASS**
 - **A4 — AI Provider Configuration / Adapter Boundary + Secrets / Resilience Integration — COMPLETE / FINAL GATE PASS**
 - **A5 — Product Q&A Orchestration + Safe Catalog Context — COMPLETE / FINAL GATE PASS**
-- **A6 — Draft Content Generation + Human Approval Boundary — NEXT**
+- **A6 — Draft Content Generation + Human Approval Boundary — COMPLETE / FINAL GATE PASS**
+- **A7 — AI Usage / Cost / Rate Controls — NEXT**
+
+### Step 48 A6 verification evidence
+PR #39 establishes governed AI draft generation while preserving Content-owned editorial authority. Implementation head `8083244637c2d3862e886fe518f748a0ee4d4b8f` passed Canonical CI run `32483061869`, job `verify` (`96773456625`):
+- OpenAPI: PASS — 514 paths / 583 operations / 1146 refs
+- architecture: PASS — 410 files scanned
+- project policy: PASS — `toman-no-wallet-config-boundary`
+- TypeScript build: PASS
+- A6 dedicated tests: **6/6 PASS**
+- runtime tests: **350 PASS / 0 FAIL / 0 skipped / 0 cancelled**
+- overall `pnpm verify`: PASS
+
+A6 adds `DraftContentGenerationService`, resolves the active governed `draft-content` prompt, treats briefs as untrusted input, validates a strict generated-article JSON schema and persists only through Content-owned `ArticleDraftService`. Generated output must remain `draft` and explicitly requires human approval. AI never calls Content approval, scheduling or publication services and has no direct Content persistence or commerce mutation authority. A6 adds no database migration, public AI HTTP endpoint or new runtime dependency. The closed A5 import assertion was minimally made additive so the A5 ownership invariant remains valid as ContentModule is legitimately added; no test was removed or disabled.
 
 ### Step 48 A5 verification evidence
 PR #38 establishes the read-only Product Q&A orchestration boundary. Implementation head `c36541e302fead49c5733a09b5e470c67df7e537` passed Canonical CI run `32482001230`, job `verify` (`96770193953`):
