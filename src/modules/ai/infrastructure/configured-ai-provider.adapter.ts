@@ -59,7 +59,7 @@ export class ConfiguredAiProviderAdapter implements AiProviderPort {
       body,
       context: { requestId: request.context.requestId, operation: 'write', idempotencyKey: request.context.requestId, timeoutMs: Math.min(request.context.timeoutMs, loaded.configuration.timeoutMs) },
       maxAttempts: Math.max(1, loaded.configuration.retryMaxAttempts + 1),
-      circuitBreaker: { failureThreshold: 3, openMs: 30_000 },
+      circuitBreaker: { failureThreshold: 3, openMs: 30_000, halfOpenMaxCalls: 1 },
     });
     if (!result.ok) return { ok: false, failure: this.mapFailure(result.failure) };
 
