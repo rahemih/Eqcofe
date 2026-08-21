@@ -29,7 +29,20 @@ Later implementation advances `main` beyond that immutable reference.
 - **A6 — Draft Content Generation + Human Approval Boundary — COMPLETE / FINAL GATE PASS**
 - **A7 — AI Usage / Cost / Rate Controls — COMPLETE / FINAL GATE PASS**
 - **A8 — Safe AI Observability — COMPLETE / FINAL GATE PASS**
-- **A9 — AI Security / RBAC / API Boundary + Regression Gate — NEXT**
+- **A9 — AI Security / RBAC / API Boundary + Regression Gate — COMPLETE / FINAL GATE PASS**
+- **A10 — Final Canonical Closure — NEXT**
+
+### Step 48 A9 verification evidence
+PR #42 establishes the Step-48 security and API-boundary regression gate. Implementation head `7592a4953f7bf23cf4bc59912a2080c30725db08` passed Canonical CI run `32486347684`, job `verify` (`96783623659`):
+- OpenAPI: PASS — 514 paths / 583 operations / 1146 refs
+- architecture: PASS — 415 files scanned
+- project policy: PASS — `toman-no-wallet-config-boundary`
+- TypeScript build: PASS
+- A9 dedicated tests: **7/7 PASS**
+- runtime tests: **370 PASS / 0 FAIL / 0 skipped / 0 cancelled**
+- overall `pnpm verify`: PASS
+
+A9 fixes delimiter-injection risk by NFKC-normalizing/bounding untrusted text, rejecting control characters, and JSON-framing untrusted Product-Q&A questions and Content briefs so they cannot imitate governed prompt structure. Model output is rejected when executable or secret-like. Governed prompt mutation remains staff-only. AI still has no presentation controller/public HTTP bypass and OpenAPI is intentionally unchanged while remaining valid. Product Q&A remains read-only against Catalog; draft generation remains Content-owned, draft-only and human-approved. No autonomous tool execution or Pricing, Inventory, Orders, Payments, Refunds, Finance, Permission, Secret or Admin mutation authority is introduced. The first A9 CI failure was only an incorrect A8 test filename in the A9 regression-presence assertion; it was corrected without removing or disabling any test.
 
 ### Step 48 A8 verification evidence
 PR #41 establishes safe append-only AI invocation observability. Implementation head `ce6fc4995ab9d5a36c62d0ca68fbdcabcc675cd7` passed Canonical CI run `32484720074`, job `verify` (`96778556640`):
