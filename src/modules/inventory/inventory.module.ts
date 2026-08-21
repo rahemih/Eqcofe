@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { InventoryRepository } from './infrastructure/inventory.repository';
 import { InventoryService } from './application/inventory.service';
+import { InventoryPosService } from './application/inventory-pos.service';
 import { InventoryController } from './presentation/inventory.controller';
 import { InventoryCostBasisService } from './application/ports/inventory-cost-basis.service';
 import { AllocationTransferService } from './application/allocation-transfer.service';
@@ -17,7 +18,7 @@ import { InventoryFinanceService } from './application/ports/inventory-finance.s
 @Module({
   controllers:[InventoryController],
   providers:[
-    InventoryRepository,InventoryService,InventoryCostBasisService,AllocationTransferService,InventoryAvailabilityService,InventoryProcurementService,InventoryFulfillmentService,InventoryAfterSalesService,InventoryFinanceService,
+    InventoryRepository,InventoryService,InventoryPosService,InventoryCostBasisService,AllocationTransferService,InventoryAvailabilityService,InventoryProcurementService,InventoryFulfillmentService,InventoryAfterSalesService,InventoryFinanceService,
     {provide:INVENTORY_AVAILABILITY_PORT,useExisting:InventoryAvailabilityService},
     {provide:INVENTORY_COST_BASIS_PORT,useExisting:InventoryCostBasisService},
     {provide:INVENTORY_RESERVATION_PORT,useExisting:InventoryService},
@@ -26,5 +27,5 @@ import { InventoryFinanceService } from './application/ports/inventory-finance.s
     {provide:INVENTORY_AFTER_SALES_PORT,useExisting:InventoryAfterSalesService},
     {provide:INVENTORY_FINANCE_PORT,useExisting:InventoryFinanceService},
   ],
-  exports:[InventoryService,AllocationTransferService,INVENTORY_AVAILABILITY_PORT,INVENTORY_COST_BASIS_PORT,INVENTORY_RESERVATION_PORT,INVENTORY_PROCUREMENT_PORT,INVENTORY_FULFILLMENT_PORT,INVENTORY_AFTER_SALES_PORT,INVENTORY_FINANCE_PORT],
+  exports:[InventoryService,InventoryPosService,AllocationTransferService,INVENTORY_AVAILABILITY_PORT,INVENTORY_COST_BASIS_PORT,INVENTORY_RESERVATION_PORT,INVENTORY_PROCUREMENT_PORT,INVENTORY_FULFILLMENT_PORT,INVENTORY_AFTER_SALES_PORT,INVENTORY_FINANCE_PORT],
 }) export class InventoryModule{}
