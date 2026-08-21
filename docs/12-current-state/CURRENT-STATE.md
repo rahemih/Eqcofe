@@ -28,31 +28,29 @@ Later implementation advances `main` beyond that immutable reference.
 - **A6 — FX Provider Port + Rate Fetch — COMPLETE / FINAL GATE PASS**
 - **A7 — FX Preview-before-Apply Integration — COMPLETE / FINAL GATE PASS**
 - **A8 — SMS + Email Real Adapter Foundation — COMPLETE / FINAL GATE PASS**
-- **A9 — Shipping Provider Foundation — NEXT**
-- A10 — Auxiliary Payment Provider Foundation — PLANNED
+- **A9 — Shipping Provider Foundation — COMPLETE / FINAL GATE PASS**
+- **A10 — Auxiliary Payment Provider Foundation — NEXT**
 - A11 — Security + Failure + Concurrency + E2E Regression — PLANNED
 - A12 — Final Canonical Closure — PLANNED
 
-Canonical Step-47 artifacts include `docs/11-step-history/STEP-47-A8-SMS-EMAIL-ADAPTER-FOUNDATION.md` and all preceding A1–A7 records.
-
-### Step 47 A8 verification evidence
-PR #29 verified the A8 implementation. Canonical CI run `32471231262`, job `verify` (`96738236635`) passed on corrected A8 source:
+### Step 47 A9 verification evidence
+PR #30 verified the A9 implementation. Canonical CI run `32473449568`, job `verify` (`96744859189`) passed:
 - OpenAPI: PASS — 514 paths / 583 operations / 1146 refs
-- architecture: PASS — 398 files scanned
+- architecture: PASS — 400 files scanned
 - project policy: PASS — `toman-no-wallet-config-boundary`
 - TypeScript build: PASS
-- A8 dedicated tests: **8/8 PASS**
-- runtime tests: **292 PASS / 0 FAIL / 0 skipped / 0 cancelled**
+- A9 dedicated tests: **8/8 PASS**
+- runtime tests: **300 PASS / 0 FAIL / 0 skipped / 0 cancelled**
 - overall `pnpm verify`: PASS
 
 ### Frozen Step-47 integration boundary
 - `src/modules/integrations` is the canonical external integration bounded context.
-- Notifications remains authoritative for SMS/email recipient resolution, rendering, delivery lifecycle, attempts, retry scheduling, dead-letter, audit and outbox.
-- Integrations owns SMS/email provider configuration, environment secret resolution and resilient external HTTP adapter behavior.
-- No SMS/email vendor is hard-coded or selected by A8.
-- Outbound provider sends are idempotent writes with finite timeout, bounded retry and circuit breaker.
+- Notifications remains authoritative for SMS/email recipient resolution, rendering and delivery lifecycle.
+- Integrations owns SMS/email provider configuration, secret resolution and resilient external HTTP adapter behavior.
+- Fulfillment remains authoritative for shipment/tracking persistence and shipment lifecycle.
+- Integrations owns shipping provider HTTP/config/secret/webhook verification and returns normalized observations only.
+- The existing Fulfillment `ShippingProviderPort` remains the canonical shipping boundary.
 - Payments remains authoritative for payment/refund lifecycle and correctness.
-- Fulfillment remains authoritative for shipment/fulfillment lifecycle.
 - Pricing remains authoritative for product price mutation; FX providers supply observations only.
 - Secret values remain environment-owned; only validated secret references may be persisted.
 - Provider transport failures are normalized and fail closed.
