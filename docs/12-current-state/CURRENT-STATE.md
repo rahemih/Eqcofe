@@ -22,7 +22,20 @@ Later implementation advances `main` beyond that immutable reference.
 
 ### Step 48 progress
 - **A1 — Discovery / Requirements / Ownership Freeze — COMPLETE**
-- **A2 — Provider-Agnostic AI Contracts + Failure Model — NEXT**
+- **A2 — Provider-Agnostic AI Contracts + Failure Model — COMPLETE / FINAL GATE PASS**
+- **A3 — Governed Prompt Model + Persistence + Governance Controls — NEXT**
+
+### Step 48 A2 verification evidence
+PR #35 establishes the provider-neutral AI contract/failure-model gate. The implementation head `69c591cfc80b85fe681660738207e9036afa425d` passed Canonical CI run `32479583308`, job `verify` (`96762878114`):
+- OpenAPI: PASS — 514 paths / 583 operations / 1146 refs
+- architecture: PASS — 404 files scanned
+- project policy: PASS — `toman-no-wallet-config-boundary`
+- TypeScript build: PASS
+- A2 dedicated tests: **3/3 PASS**
+- runtime tests: **326 PASS / 0 FAIL / 0 skipped / 0 cancelled**
+- overall `pnpm verify`: PASS
+
+A2 adds no database migration, OpenAPI surface, vendor SDK, provider adapter, prompt persistence, Product Q&A endpoint, Content integration or cost/rate persistence. Its final documentation/current-state head must also pass Canonical CI before PR #35 is merged to `main`.
 
 ### Step 48 A1 frozen boundary
 - `src/modules/ai` is the canonical AI bounded context and is already registered through `DomainModulesModule`; before Step 48 it contains only the module shell/placeholders.
