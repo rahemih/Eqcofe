@@ -120,7 +120,7 @@ export class ProductQaService {
 
   private slug(value: unknown): string {
     const slug = String(value ?? '').trim().toLowerCase();
-    if (!/^[a-z0-9][a-z0-9-]{1,199}$/.test(slug)) throw new DomainError('AI_PRODUCT_QA_PRODUCT_INVALID', 'شناسه محصول معتبر نیست.');
+    if (!/^[\p{L}\p{N}][\p{L}\p{N}-]{1,199}$/u.test(slug)) throw new DomainError('AI_PRODUCT_QA_PRODUCT_INVALID', 'شناسه محصول معتبر نیست.');
     return slug;
   }
 
