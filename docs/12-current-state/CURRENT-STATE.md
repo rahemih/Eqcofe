@@ -15,11 +15,12 @@ Later implementation advances `main` beyond that immutable reference.
 ## Closed steps
 - **Step 45 — Content, Articles & SEO Backend — CLOSED / FINAL GATE PASS**
 - **Step 46 — Marketing, Promotions & Customer Club Backend — CLOSED / FINAL GATE PASS**
+- **Step 47 — External Integration Foundation — CLOSED / FINAL GATE PASS**
 
 ## Active step
-**Step 47 — External Integration Foundation — ACTIVE**
+**Step 48 — EQCOFE AI Backend Foundation — NEXT**
 
-### Step 47 progress
+### Step 47 final closure
 - **A1 — Discovery + Integration Ownership / Rules Freeze — COMPLETE**
 - **A2 — Common Provider Contracts + Failure Model — COMPLETE / FINAL GATE PASS**
 - **A3 — Integration Configuration + Secrets + RBAC — COMPLETE / FINAL GATE PASS**
@@ -31,10 +32,10 @@ Later implementation advances `main` beyond that immutable reference.
 - **A9 — Shipping Provider Foundation — COMPLETE / FINAL GATE PASS**
 - **A10 — Auxiliary Payment Provider Foundation — COMPLETE / FINAL GATE PASS**
 - **A11 — Security + Failure + Concurrency + E2E Regression — COMPLETE / FINAL GATE PASS**
-- **A12 — Final Canonical Closure — NEXT**
+- **A12 — Final Canonical Closure — COMPLETE / FINAL GATE PASS**
 
-### Step 47 A11 verification evidence
-PR #32 verified the A11 composition/security/regression gate. Canonical CI run `32475315265`, job `verify` (`96750325586`) passed:
+### Step 47 final verification evidence
+A11 PR #32 established the implementation/security/regression gate. Canonical CI run `32475315265`, job `verify` (`96750325586`) passed:
 - OpenAPI: PASS — 514 paths / 583 operations / 1146 refs
 - architecture: PASS — 402 files scanned
 - project policy: PASS — `toman-no-wallet-config-boundary`
@@ -42,6 +43,8 @@ PR #32 verified the A11 composition/security/regression gate. Canonical CI run `
 - A11 dedicated tests: **15/15 PASS**
 - runtime tests: **323 PASS / 0 FAIL / 0 skipped / 0 cancelled**
 - overall `pnpm verify`: PASS
+
+A12 is documentation/canonical-state closure only. It introduces no new business feature, schema, runtime integration or ownership change. A12 is considered closed only after Canonical CI passes on its exact closure branch and the closure PR is merged into `main`.
 
 ### Frozen Step-47 integration boundary
 - `src/modules/integrations` is the canonical external integration bounded context.
