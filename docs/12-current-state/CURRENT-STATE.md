@@ -19,8 +19,6 @@ Later implementation advances `main` beyond that immutable reference.
 ## Active step
 **Step 47 — External Integration Foundation — ACTIVE**
 
-Approved roadmap scope: configurable provider adapters for FX, SMS, email, shipping and auxiliary payment services with health status, retries/timeouts, secret boundaries and fail-closed behavior; FX must preserve preview-before-apply.
-
 ### Step 47 progress
 - **A1 — Discovery + Integration Ownership / Rules Freeze — COMPLETE**
 - **A2 — Common Provider Contracts + Failure Model — COMPLETE / FINAL GATE PASS**
@@ -29,53 +27,37 @@ Approved roadmap scope: configurable provider adapters for FX, SMS, email, shipp
 - **A5 — Provider Health + Observability — COMPLETE / FINAL GATE PASS**
 - **A6 — FX Provider Port + Rate Fetch — COMPLETE / FINAL GATE PASS**
 - **A7 — FX Preview-before-Apply Integration — COMPLETE / FINAL GATE PASS**
-- **A8 — SMS + Email Real Adapter Foundation — NEXT**
-- A9 — Shipping Provider Foundation — PLANNED
+- **A8 — SMS + Email Real Adapter Foundation — COMPLETE / FINAL GATE PASS**
+- **A9 — Shipping Provider Foundation — NEXT**
 - A10 — Auxiliary Payment Provider Foundation — PLANNED
 - A11 — Security + Failure + Concurrency + E2E Regression — PLANNED
 - A12 — Final Canonical Closure — PLANNED
 
-Canonical Step-47 artifacts:
-- `docs/11-step-history/STEP-47-A1-DISCOVERY-SCOPE.md`
-- `docs/11-step-history/STEP-47-A2-PROVIDER-CONTRACTS-FAILURE-MODEL.md`
-- `docs/11-step-history/STEP-47-A3-INTEGRATION-CONFIG-SECRETS-RBAC.md`
-- `docs/11-step-history/STEP-47-A4-HTTP-RESILIENCE.md`
-- `docs/11-step-history/STEP-47-A5-PROVIDER-HEALTH-OBSERVABILITY.md`
-- `docs/11-step-history/STEP-47-A6-FX-PROVIDER-RATE-FETCH.md`
-- `docs/11-step-history/STEP-47-A7-FX-PREVIEW-BEFORE-APPLY.md`
+Canonical Step-47 artifacts include `docs/11-step-history/STEP-47-A8-SMS-EMAIL-ADAPTER-FOUNDATION.md` and all preceding A1–A7 records.
 
-### Step 47 A7 verification evidence
-PR #28 verified the exact A7 implementation source. Canonical CI run `32470399491`, job `verify` (`96735777882`) passed:
+### Step 47 A8 verification evidence
+PR #29 verified the A8 implementation. Canonical CI run `32471231262`, job `verify` (`96738236635`) passed on corrected A8 source:
 - OpenAPI: PASS — 514 paths / 583 operations / 1146 refs
-- architecture: PASS — 397 module files scanned
+- architecture: PASS — 398 files scanned
 - project policy: PASS — `toman-no-wallet-config-boundary`
 - TypeScript build: PASS
-- A7 dedicated tests: **7/7 PASS**
-- runtime tests: **284 PASS / 0 FAIL / 0 skipped / 0 cancelled**
+- A8 dedicated tests: **8/8 PASS**
+- runtime tests: **292 PASS / 0 FAIL / 0 skipped / 0 cancelled**
 - overall `pnpm verify`: PASS
 
 ### Frozen Step-47 integration boundary
-- `src/modules/integrations` remains the canonical integration bounded context.
-- Notifications remains authoritative for SMS/email delivery semantics.
+- `src/modules/integrations` is the canonical external integration bounded context.
+- Notifications remains authoritative for SMS/email recipient resolution, rendering, delivery lifecycle, attempts, retry scheduling, dead-letter, audit and outbox.
+- Integrations owns SMS/email provider configuration, environment secret resolution and resilient external HTTP adapter behavior.
+- No SMS/email vendor is hard-coded or selected by A8.
+- Outbound provider sends are idempotent writes with finite timeout, bounded retry and circuit breaker.
 - Payments remains authoritative for payment/refund lifecycle and correctness.
 - Fulfillment remains authoritative for shipment/fulfillment lifecycle.
 - Pricing remains authoritative for product price mutation; FX providers supply observations only.
 - Secret values remain environment-owned; only validated secret references may be persisted.
 - Provider transport failures are normalized and fail closed.
-- Every outbound provider request has a finite timeout.
-- Retry attempts are bounded and write retries require idempotency.
-- Retry backoff and `Retry-After` waits are capped.
-- Provider circuit breakers fail closed while open and permit bounded half-open probes.
-- Provider health checks are independent from business transactions.
-- Health observations are append-only and current state is derived from the latest sample.
-- Observability summaries expose state counts and latency without storing secret/config payloads.
 - Production provider URLs require HTTPS.
-- FX observations are positive integer Toman values, freshness-validated and append-only.
-- FX fetch never mutates product prices directly.
-- FX refresh registers the observation in Pricing and returns a mandatory impact preview.
-- Suspicious fetched rates are retained for review but cannot auto-preview or apply.
-- FX price mutation remains a separate Step-Up + idempotent apply operation consuming a valid preview.
-- Existing ProfitGuard, preview expiry and affected-count checks remain authoritative.
+- FX refresh registers the observation in Pricing and returns a mandatory impact preview; price apply remains separate, Step-Up and idempotent.
 
 ## Frozen Step-46 ownership boundary
 - Pricing remains authoritative for base pricing.
