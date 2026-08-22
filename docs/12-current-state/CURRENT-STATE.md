@@ -18,6 +18,7 @@
 - Step-50 A4 merge: `4118ea87f7e6d895596d2ccd8411b2b89b997518`.
 - Step-50 A5 merge: `458fe4eed2202e45e786ff690ab5989f96baeb31`.
 - Step-50 A6 merge: `bfb10e39bab53b1371260f005693ba9589139c7e`.
+- Step-50 A7 merge: `1ac725e7bc23557993905d6d7754ee8b822fee5a`.
 
 ## Closed steps
 - **Step 45 — Content, Articles & SEO Backend — CLOSED / FINAL GATE PASS**
@@ -55,8 +56,8 @@ Step 49 evidence must not be rewritten or falsely marked closed before that defe
 - **A4 — Catalog Dry-Run Validation + Row-Level Error Model — COMPLETE / FINAL GATE PASS**
 - **A5 — Catalog Product / Variant Apply Boundary — COMPLETE / FINAL GATE PASS**
 - **A6 — Pricing Preview / Apply Boundary — COMPLETE / FINAL GATE PASS**
-- **A7 — Re-import / Recovery / Concurrency Controls — NEXT**
-- **A8 — Staff RBAC / Audit / API + Export Operations — PENDING**
+- **A7 — Re-import / Recovery / Concurrency Controls — COMPLETE / FINAL GATE PASS**
+- **A8 — Staff RBAC / Audit / API + Export Operations — NEXT**
 - **A9 — Security / E2E / Regression Gate — PENDING**
 - **A10 — Final Canonical Closure — PENDING**
 
@@ -197,6 +198,31 @@ Job: `verify` (`97041781242`) — PASS
 - Overall `pnpm verify`: PASS
 - Initial CI run `32577294596` failed only because an A2 regression encoded a temporary no-PricingModule assumption; the test was narrowed to the durable parser/template no-mutation/no-execution invariant without deleting or disabling any test.
 
+## Step 50 A7 canonical foundation
+A7 hardens re-import, recovery and concurrency around the existing Excel orchestration boundary:
+- forward-only migration `0056_excel_import_recovery.sql` adds append-only `excel.import_job_attempts` evidence;
+- one active processing attempt per import job is database-enforced;
+- each claim is bound to a unique worker token and terminal transitions require that exact token;
+- completed jobs cannot acquire a new execution claim;
+- failed jobs cannot auto-retry and require explicit evidence-backed recovery;
+- recovery preserves failed attempt evidence and only resets the orchestration job to `pending`;
+- retry is bounded to three total attempts;
+- no Catalog/Pricing/Inventory/Payments/Finance mutation authority is added and no historical workbook payload is persisted.
+
+Implementation head before evidence commit: `7da51fe5b9b95eea6463045e2464d5eba41d87b5`
+Final PR head: `38589cb0929a36ba185c0326311e06ea90f6ab7d`
+Merge commit: `1ac725e7bc23557993905d6d7754ee8b822fee5a`
+Implementation CI run: `32578116785` — PASS
+Exact-head CI run: `32578195241` — PASS
+Exact-head verify job: `97043535652` — PASS
+- OpenAPI: PASS — 514 paths / 583 operations / 1146 refs
+- Architecture: PASS — 448 files scanned
+- Project policy: PASS — `toman-no-wallet-config-boundary`
+- TypeScript build: PASS
+- A7 dedicated tests: **6/6 PASS**
+- Runtime tests: **468 PASS / 0 FAIL / 0 skipped / 0 cancelled**
+- Overall `pnpm verify`: PASS
+
 ## Step 49 frozen ownership boundary
 - POS owns physical-sale/session orchestration, physical-sale transaction identity, POS-specific offline command/sync state, reconciliation state, and POS-facing read models.
 - Catalog remains authoritative for product/variant/SKU/barcode identity and lifecycle facts.
@@ -206,7 +232,7 @@ Job: `verify` (`97041781242`) — PASS
 - Finance remains authoritative for accounting/financial facts.
 
 ## Next safe action
-Proceed to **Step 50 / A7 — Re-import / Recovery / Concurrency Controls** from canonical A6 merge `bfb10e39bab53b1371260f005693ba9589139c7e`. Do not perform Step 49 A11 closure before Step 53 completes.
+Proceed to **Step 50 / A8 — Staff RBAC / Audit / API + Export Operations** from canonical A7 merge `1ac725e7bc23557993905d6d7754ee8b822fee5a`. Do not perform Step 49 A11 closure before Step 53 completes.
 
 ## Global trust rules
 1. `rahemih/Eqcofe` is the official repository.
