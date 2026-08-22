@@ -8,5 +8,5 @@ import { NotificationsModule } from '../../src/modules/notifications/notificatio
 import { PaymentsModule } from '../../src/modules/payments/payments.module';
 import { ContentModule } from '../../src/modules/content/content.module';
 import { SchedulerTasksService } from './scheduler-tasks.service';
-@Module({ imports: [ScheduleModule.forRoot(), SchedulerPlatformModule, InventoryModule, CartModule, OrdersModule, PaymentsModule, NotificationsModule, ContentModule], providers: [SchedulerTasksService] })
+@Module({ imports: [ScheduleModule.forRoot(), SchedulerPlatformModule, InventoryModule, CartModule, OrdersModule, PaymentsModule, ContentModule, NotificationsModule, ContentModule], providers: [SchedulerTasksService] })
 export class SchedulerAppModule {}
