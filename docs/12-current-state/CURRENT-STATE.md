@@ -15,6 +15,7 @@
 - Step-50 A1 merge: `11a39c6bda058c9d590acfcf2c78616197c86247`.
 - Step-50 A2 merge: `2f1780684c2575750535f8740e678d7e5c4e37cb`.
 - Step-50 A3 merge: `de0cd36237ce51e2acb87a12b432b121b42e8a9d`.
+- Step-50 A4 merge: `4118ea87f7e6d895596d2ccd8411b2b89b997518`.
 
 ## Closed steps
 - **Step 45 — Content, Articles & SEO Backend — CLOSED / FINAL GATE PASS**
@@ -49,8 +50,8 @@ Step 49 evidence must not be rewritten or falsely marked closed before that defe
 - **A1 — Discovery / Requirements / Ownership Freeze — COMPLETE / FINAL GATE PASS**
 - **A2 — Workbook Contract + Safe Parser / Export Template Foundation — COMPLETE / FINAL GATE PASS**
 - **A3 — Import Job Persistence + Fingerprint / Idempotency Foundation — COMPLETE / FINAL GATE PASS**
-- **A4 — Catalog Dry-Run Validation + Row-Level Error Model — NEXT**
-- **A5 — Catalog Product / Variant Apply Boundary — PENDING**
+- **A4 — Catalog Dry-Run Validation + Row-Level Error Model — COMPLETE / FINAL GATE PASS**
+- **A5 — Catalog Product / Variant Apply Boundary — NEXT**
 - **A6 — Pricing Preview / Apply Boundary — PENDING**
 - **A7 — Re-import / Recovery / Concurrency Controls — PENDING**
 - **A8 — Staff RBAC / Audit / API + Export Operations — PENDING**
@@ -123,6 +124,33 @@ Job: `verify` (`97031479566`) — PASS
 - Runtime tests: **444 PASS / 0 FAIL / 0 skipped / 0 cancelled**
 - No workbook binary/raw payload, Catalog/Pricing mutation, HTTP/API surface or new npm dependency is introduced.
 
+## Step 50 A4 canonical foundation
+A4 introduces read-only Catalog dry-run validation over the sanitized workbook contract:
+- `products` and `variants` sheets plus required headers are validated before row execution;
+- product slugs resolve through exported `CatalogQueryService`;
+- SKU resolves through Catalog-owned `PosVariantLookupService`;
+- variant/product ownership mismatches fail closed;
+- row results retain sheet, 1-based workbook row, code, field and message;
+- `prices` is not treated as Catalog authority;
+- Excel imports `CatalogModule` only to consume exported query/read boundaries;
+- no Catalog/Pricing mutation, direct Catalog SQL, migration, HTTP/API, apply or recovery authority is introduced.
+
+Implementation/final PR head: `0863315c3843fc484f50f1ae4fc3dc5ae1f75e7d`
+
+Merge commit: `4118ea87f7e6d895596d2ccd8411b2b89b997518`
+
+Canonical implementation CI run: `32575606327` — PASS
+
+Exact documentation-head CI run: `32575683495` — PASS
+
+- OpenAPI: PASS — 514 paths / 583 operations / 1146 refs
+- Architecture: PASS — 442 files scanned
+- Project policy: PASS — `toman-no-wallet-config-boundary`
+- TypeScript build: PASS
+- A4 dedicated tests: **6/6 PASS**
+- Runtime tests: **450 PASS / 0 FAIL / 0 skipped / 0 cancelled**
+- First CI run `32575520560` failed only because an A2 test encoded a temporary no-CatalogModule assumption; the test was narrowed to the durable no-mutation/no-execution invariant without deleting or disabling any test.
+
 ## Step 49 frozen ownership boundary
 - POS owns physical-sale/session orchestration, physical-sale transaction identity, POS-specific offline command/sync state, reconciliation state, and POS-facing read models.
 - Catalog remains authoritative for product/variant/SKU/barcode identity and lifecycle facts.
@@ -132,7 +160,7 @@ Job: `verify` (`97031479566`) — PASS
 - Finance remains authoritative for accounting/financial facts.
 
 ## Next safe action
-Proceed to **Step 50 / A4 — Catalog Dry-Run Validation + Row-Level Error Model** from canonical merge `de0cd36237ce51e2acb87a12b432b121b42e8a9d`. Do not perform Step 49 A11 closure before Step 53 completes.
+Proceed to **Step 50 / A5 — Catalog Product / Variant Apply Boundary** from canonical merge `4118ea87f7e6d895596d2ccd8411b2b89b997518`. Do not perform Step 49 A11 closure before Step 53 completes.
 
 ## Global trust rules
 1. `rahemih/Eqcofe` is the official repository.
