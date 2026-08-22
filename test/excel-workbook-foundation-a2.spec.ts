@@ -70,8 +70,8 @@ test('Step 50 A2 parser and template retain no mutation or workbook execution au
   const moduleSource = readFileSync('src/modules/excel/excel.module.ts', 'utf8');
   const parserSource = readFileSync('src/modules/excel/application/safe-workbook-parser.service.ts', 'utf8');
   const templateSource = readFileSync('src/modules/excel/application/export-template.service.ts', 'utf8');
-  assert.doesNotMatch(moduleSource, /PricingModule|InventoryModule|PaymentsModule|FinanceModule|ProductCommandService|VariantCommandService/);
-  assert.doesNotMatch(parserSource + templateSource, /CatalogQueryService|PosVariantLookupService|ProductCommandService|VariantCommandService|eval\(|Function\(|child_process|exec\(|spawn\(/);
+  assert.doesNotMatch(moduleSource, /InventoryModule|PaymentsModule|FinanceModule|ProductCommandService|VariantCommandService|BasePriceService|BulkPricingService|PricingRepository/);
+  assert.doesNotMatch(parserSource + templateSource, /CatalogQueryService|PosVariantLookupService|ProductCommandService|VariantCommandService|PricingImportApplyService|BasePriceService|BulkPricingService|PricingRepository|eval\(|Function\(|child_process|exec\(|spawn\(/);
   assert.match(parserSource, /EXCEL_FORMULA_FORBIDDEN/);
   assert.match(parserSource, /EXCEL_MACRO_FORBIDDEN/);
   assert.match(parserSource, /EXCEL_EXTERNAL_LINK_FORBIDDEN/);
