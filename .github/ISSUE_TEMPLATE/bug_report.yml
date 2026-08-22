@@ -1,0 +1,38 @@
+name: Bug report
+description: Report a reproducible EQCOFE defect without sharing secrets or production data.
+title: "[Bug]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Provide reproducible evidence. Do not include credentials, personal data or production dumps.
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: What failed?
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction
+      description: Minimal steps, command or request that reproduces the problem.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Safe evidence
+      description: Sanitized logs, CI run URL, commit SHA or screenshots with secrets removed.
+  - type: input
+    id: commit
+    attributes:
+      label: Commit or branch
+      placeholder: main@<sha>

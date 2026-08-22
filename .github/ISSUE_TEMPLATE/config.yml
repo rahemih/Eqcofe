@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Security issue
+    url: https://github.com/rahemih/Eqcofe/security/policy
+    about: Follow the private reporting guidance in SECURITY.md. Do not publish exploit details.

@@ -13,6 +13,7 @@
 - Step-48 final closure merge: `149d5ec440fc789376ade48553b67f636a571f6d`.
 - Step-49 A10 merge: `b6adb6180ffd9e770af7ae04f85f8d513e5bffc8`.
 - Step-50 A1 merge: `11a39c6bda058c9d590acfcf2c78616197c86247`.
+- Step-50 A2 merge: `2f1780684c2575750535f8740e678d7e5c4e37cb`.
 
 ## Closed steps
 - **Step 45 — Content, Articles & SEO Backend — CLOSED / FINAL GATE PASS**
@@ -45,7 +46,7 @@ Step 49 evidence must not be rewritten or falsely marked closed before that defe
 
 ### Step 50 progress
 - **A1 — Discovery / Requirements / Ownership Freeze — COMPLETE / FINAL GATE PASS**
-- **A2 — Workbook Contract + Safe Parser / Export Template Foundation — COMPLETE / FINAL GATE PASS candidate pending exact-head CI + merge**
+- **A2 — Workbook Contract + Safe Parser / Export Template Foundation — COMPLETE / FINAL GATE PASS**
 - **A3 — Import Job Persistence + Fingerprint / Idempotency Foundation — NEXT**
 - **A4 — Catalog Dry-Run Validation + Row-Level Error Model — PENDING**
 - **A5 — Catalog Product / Variant Apply Boundary — PENDING**
@@ -80,9 +81,12 @@ A2 introduces a dedicated `src/modules/excel` bounded orchestration surface with
 - no new npm dependency is introduced; binary XLSX upload/codec transport remains a later boundary, while A2 defines the sanitized decoded-workbook contract that later orchestration must consume.
 
 ### Step 50 A2 verification evidence
-PR: `#55`  
+PR: `#55` — MERGED  
 Implementation head: `1e7a23b0b16a954d53a57876bcfb26119221dbbc`  
-Canonical implementation CI run: `32557880443`  
+Final PR head: `edca7a2916d6b5a6b69c3b24c738ce33aa4076f1`  
+Merge commit: `2f1780684c2575750535f8740e678d7e5c4e37cb`  
+Canonical implementation CI run: `32557880443` — PASS  
+Final exact-head Canonical CI run: `32557958240` — PASS  
 Job: `verify` (`96994851910`) — PASS
 
 - OpenAPI: PASS — 514 paths / 583 operations / 1146 refs
@@ -102,7 +106,7 @@ Job: `verify` (`96994851910`) — PASS
 - Finance remains authoritative for accounting/financial facts.
 
 ## Next safe action
-After exact A2 documentation/current-state head passes Canonical CI and PR #55 is merged to `main`, proceed to **Step 50 / A3 — Import Job Persistence + Fingerprint / Idempotency Foundation**. Do not perform Step 49 A11 closure before Step 53 completes.
+Proceed to **Step 50 / A3 — Import Job Persistence + Fingerprint / Idempotency Foundation** from canonical merge `2f1780684c2575750535f8740e678d7e5c4e37cb`. Do not perform Step 49 A11 closure before Step 53 completes.
 
 ## Global trust rules
 1. `rahemih/Eqcofe` is the official repository.

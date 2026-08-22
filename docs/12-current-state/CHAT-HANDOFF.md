@@ -16,12 +16,16 @@ Conversation history is supporting context only. It must not override current ca
 
 - Official repository: `rahemih/Eqcofe`
 - Canonical branch: `main`
-- Verified canonical HEAD at handoff creation: `d929caf7ad5524934617d1d45c79a15299277fbb`
-- Last completed step: **Step 47 — External Integration Foundation — CLOSED / FINAL GATE PASS**
-- Next step: **Step 48 — EQCOFE AI Backend Foundation**
+- Verified canonical HEAD at snapshot creation: `2f1780684c2575750535f8740e678d7e5c4e37cb`
+- Last fully closed step: **Step 48 — EQCOFE AI Backend Foundation — CLOSED / FINAL GATE PASS**
+- Deferred closure: **Step 49 A1–A10 complete; A11 intentionally deferred until Step 53**
+- Active step: **Step 50 — Excel Product & Pricing Management Backend**
+- Last completed substep: **Step 50 / A2 — COMPLETE / FINAL GATE PASS**
+- Next approved substep: **Step 50 / A3 — Import Job Persistence + Fingerprint / Idempotency Foundation**
+- Latest merged PR: **#55**
+- Latest exact-head Canonical CI: **32557958240 — PASS**
 - Linear project: **EQCOFE**
-- Linear current issue: **HOS-6 — Step 48 — AI Content Operations**
-- Linear completed issue for previous step: **HOS-5 — Step 47 — External Integration Foundation**
+- Linear current issue: **RE-VERIFY before execution; do not reuse the stale Step-48 issue reference**
 
 > Before every new-chat handoff, re-read GitHub `main`, CURRENT-STATE, MASTER-ROADMAP, and the current Linear issue. Do not trust the snapshot above if newer canonical evidence exists.
 

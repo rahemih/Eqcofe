@@ -1,12 +1,12 @@
 # EQCOFE — Complete Master Execution Roadmap
 
-**Roadmap version:** 3.3 — Step-48 Closure Sync  
-**Effective date:** 2026-08-21  
+**Roadmap version:** 3.4 — Step-50 A2 Canonical Sync  
+**Effective date:** 2026-08-22  
 **Canonical repository:** `rahemih/Eqcofe`  
 **Canonical branch:** `main`  
 **Verified Step-44 code baseline:** `b239dfe825b615f36caf2e26cc7abc80c70d349c`
 
-> This is the canonical end-to-end execution map for EQCOFE. For historical Steps 1–27, the exact original step labels are not independently proven by the recovered Git evidence. Their descriptions below are therefore a normalized reconstruction of the foundation represented by the current product vision, business rules and canonical codebase; they must not be cited as exact historical attribution. Step 28 remains partial-history. Steps 29–48 are verified/closed in canonical source and closure evidence. Step 49 onward is the approved execution plan.
+> This is the canonical end-to-end execution map for EQCOFE. For historical Steps 1–27, the exact original step labels are not independently proven by the recovered Git evidence. Their descriptions below are therefore a normalized reconstruction of the foundation represented by the current product vision, business rules and canonical codebase; they must not be cited as exact historical attribution. Step 28 remains partial-history. Steps 29–48 are verified/closed in canonical source and closure evidence. Step 49 is implemented through A10 with A11 intentionally deferred until Step 53. Step 50 is active: A1–A2 are complete and A3 is next.
 
 ## Status legend
 - `RECONSTRUCTED-HISTORY`: normalized description; exact historical step attribution is not proven.
@@ -169,11 +169,11 @@ Provider-agnostic contracts, configuration/secret boundaries, resilient HTTPS tr
 ## Step 48 — EQCOFE AI Backend Foundation — `COMPLETE`
 Provider-agnostic AI contracts, governed prompts, configured provider boundary, read-only Product Q&A orchestration, Content-owned draft generation with human approval, server-side usage/cost/rate controls, safe append-only observability, delimiter-injection hardening, output safety and final security/regression closure are complete in canonical Step-48 evidence.
 
-## Step 49 — Physical Store / POS Backend — `NEXT`
-Implement barcode/SKU physical sales, shared inventory consumption, reserve rules, offline/sync strategy, reconciliation, RBAC and audit controls.
+## Step 49 — Physical Store / POS Backend — `A1–A10 COMPLETE / A11 DEFERRED UNTIL STEP 53`
+Barcode/SKU physical sales, shared inventory consumption, reserve rules, offline/sync, reconciliation, RBAC, audit and the A10 security/concurrency/E2E gate are complete. Final canonical closure A11 remains intentionally deferred until Step 53.
 
-## Step 50 — Excel Product & Pricing Management Backend — `PLANNED`
-Provide export templates, validated/dry-run imports, row-level errors, product/variant updates, price preview/apply, idempotent re-import and recovery/audit behavior.
+## Step 50 — Excel Product & Pricing Management Backend — `ACTIVE / A3 NEXT`
+A1 ownership freeze and A2 workbook contract/safe parser/export-template foundation are complete with Canonical CI PASS. Continue with A3 import-job persistence and fingerprint/idempotency, then validated dry-run, Catalog/Pricing apply boundaries, recovery, audit/API and final closure.
 
 ## Step 51 — Analytics & Management Read Models — `PLANNED`
 Build performant sales, revenue, COGS/profit, inventory, wholesale/customer and operational analytics endpoints plus management exports.
@@ -326,8 +326,10 @@ Evolve architecture, integrations and product capabilities based on production e
 
 # Current Position
 
-- **Last closed step:** Step 48 — EQCOFE AI Backend Foundation.
-- **Next approved step:** Step 49 — Physical Store / POS Backend.
+- **Last fully closed step:** Step 48 — EQCOFE AI Backend Foundation.
+- **Deferred closure:** Step 49 A1–A10 complete; A11 deferred until Step 53.
+- **Active step:** Step 50 — Excel Product & Pricing Management Backend.
+- **Next approved substep:** Step 50 / A3 — Import Job Persistence + Fingerprint / Idempotency Foundation.
 - **Backend feature-completion horizon:** Step 52.
 - **UI/UX design begins:** Step 53.
 - **Storefront implementation begins:** Step 58.
