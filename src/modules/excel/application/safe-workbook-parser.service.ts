@@ -52,6 +52,9 @@ export class SafeWorkbookParserService {
   }
 
   private assertEnvelope(input: WorkbookUploadEnvelope): void {
+    if (!input || typeof input !== 'object') {
+      throw new WorkbookValidationError('EXCEL_WORKBOOK_REQUIRED', 'ساختار workbook الزامی است.');
+    }
     const fileName = String(input.fileName ?? '').normalize('NFKC').trim();
     if (!/\.xlsx$/i.test(fileName) || fileName.length > 180) {
       throw new WorkbookValidationError('EXCEL_FILE_NAME_INVALID', 'نام یا پسوند فایل معتبر نیست.');
