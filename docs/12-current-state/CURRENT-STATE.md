@@ -20,6 +20,7 @@
 - Step-50 A6 merge: `bfb10e39bab53b1371260f005693ba9589139c7e`.
 - Step-50 A7 merge: `1ac725e7bc23557993905d6d7754ee8b822fee5a`.
 - Step-50 A8 merge: `6fe3147ef1af901253dbb7f8295e4781555157f8`.
+- Step-50 A9 merge: `d67a70ffd0fc54a8fe908a4a7e608cc06b49e1ad`.
 
 ## Closed steps
 - **Step 45 — Content, Articles & SEO Backend — CLOSED / FINAL GATE PASS**
@@ -59,8 +60,8 @@ Step 49 evidence must not be rewritten or falsely marked closed before that defe
 - **A6 — Pricing Preview / Apply Boundary — COMPLETE / FINAL GATE PASS**
 - **A7 — Re-import / Recovery / Concurrency Controls — COMPLETE / FINAL GATE PASS**
 - **A8 — Staff RBAC / Audit / API + Export Operations — COMPLETE / FINAL GATE PASS**
-- **A9 — Security / E2E / Regression Gate — NEXT**
-- **A10 — Final Canonical Closure — PENDING**
+- **A9 — Security / E2E / Regression Gate — COMPLETE / FINAL GATE PASS**
+- **A10 — Final Canonical Closure — NEXT**
 
 ## Step 50 A1 frozen boundary
 - Step-50 orchestration owns workbook/template contract versioning, import-job identity/fingerprint metadata, parse/validation/dry-run orchestration, row-level result records, preview/apply orchestration, idempotent re-import/replay state, and import/export audit/recovery metadata.
@@ -253,6 +254,34 @@ Exact-head verify job: `97048572444` — PASS
 - Runtime tests: **476 PASS / 0 FAIL / 0 skipped / 0 cancelled**
 - Overall `pnpm verify`: PASS
 
+## Step 50 A9 canonical gate
+A9 is the Step-50 security, E2E and regression gate and introduces no new business feature or authority:
+- all `/admin/excel` routes remain staff-only and permission-separated;
+- apply/recovery remain Step-Up and idempotency protected, and import creation remains idempotent;
+- workbook input remains untrusted and fail-closed through the A2 parser;
+- Catalog/Pricing apply remain exact-preview-hash bound and owner-service controlled;
+- recovery remains A7 evidence, retry and worker-token constrained;
+- Audit excludes raw workbook/sheet/cell payload and secrets;
+- runtime RBAC/Step-Up/idempotency agree with the A8 OpenAPI contract;
+- migrations `0055`–`0057` remain additive and forward-only;
+- all focused Step-50 suites A2–A8 remain present;
+- no Inventory/Orders/Payments/Finance authority, migration, dependency or new API is introduced by A9.
+
+Initial gate head: `2d46def081cfdf795372a555eefe3d77fcbf4112`
+Final PR head: `7f88eea3587e960b0632fc65425ebbfc742a56c1`
+Merge commit: `d67a70ffd0fc54a8fe908a4a7e608cc06b49e1ad`
+Focused CI run: `32584563409` — PASS
+Focused verify job: `97058886399` — PASS
+Exact-head CI run: `32584676256` — PASS
+Exact-head verify job: `97059158988` — PASS
+- OpenAPI: PASS — 522 paths / 591 operations / 1161 refs
+- Architecture: PASS — 450 files scanned
+- Project policy: PASS — `toman-no-wallet-config-boundary`
+- TypeScript build: PASS
+- A9 dedicated tests: **10/10 PASS**
+- Runtime tests: **486 PASS / 0 FAIL / 0 skipped / 0 cancelled**
+- Overall `pnpm verify`: PASS
+
 ## Step 49 frozen ownership boundary
 - POS owns physical-sale/session orchestration, physical-sale transaction identity, POS-specific offline command/sync state, reconciliation state, and POS-facing read models.
 - Catalog remains authoritative for product/variant/SKU/barcode identity and lifecycle facts.
@@ -262,7 +291,7 @@ Exact-head verify job: `97048572444` — PASS
 - Finance remains authoritative for accounting/financial facts.
 
 ## Next safe action
-Proceed to **Step 50 / A9 — Security / E2E / Regression Gate** from canonical A8 merge `6fe3147ef1af901253dbb7f8295e4781555157f8`. Do not perform Step 49 A11 closure before Step 53 completes.
+Proceed to **Step 50 / A10 — Final Canonical Closure** from canonical A9 merge `d67a70ffd0fc54a8fe908a4a7e608cc06b49e1ad`. Do not perform Step 49 A11 closure before Step 53 completes.
 
 ## Global trust rules
 1. `rahemih/Eqcofe` is the official repository.
