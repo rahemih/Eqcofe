@@ -66,11 +66,12 @@ test('Step 50 A2 export template is versioned and separates Catalog from Pricing
   assert.ok(template.sheets.find((sheet) => sheet.name === 'variants')?.columns.some((column) => column.key === 'sku'));
 });
 
-test('Step 50 A2 introduces no Catalog Pricing mutation or workbook execution authority', () => {
+test('Step 50 A2 parser and template retain no mutation or workbook execution authority', () => {
   const moduleSource = readFileSync('src/modules/excel/excel.module.ts', 'utf8');
   const parserSource = readFileSync('src/modules/excel/application/safe-workbook-parser.service.ts', 'utf8');
-  assert.doesNotMatch(moduleSource, /CatalogModule|PricingModule|InventoryModule|PaymentsModule|FinanceModule/);
-  assert.doesNotMatch(parserSource, /eval\(|Function\(|child_process|exec\(|spawn\(/);
+  const templateSource = readFileSync('src/modules/excel/application/export-template.service.ts', 'utf8');
+  assert.doesNotMatch(moduleSource, /PricingModule|InventoryModule|PaymentsModule|FinanceModule|ProductCommandService|VariantCommandService/);
+  assert.doesNotMatch(parserSource + templateSource, /CatalogQueryService|PosVariantLookupService|ProductCommandService|VariantCommandService|eval\(|Function\(|child_process|exec\(|spawn\(/);
   assert.match(parserSource, /EXCEL_FORMULA_FORBIDDEN/);
   assert.match(parserSource, /EXCEL_MACRO_FORBIDDEN/);
   assert.match(parserSource, /EXCEL_EXTERNAL_LINK_FORBIDDEN/);
