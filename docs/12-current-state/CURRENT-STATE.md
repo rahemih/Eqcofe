@@ -14,6 +14,7 @@
 - Step-49 A5 merged baseline: `ee48c1350991dbb1effda2de21f2ffbcb0b2830c`.
 - Step-49 A6 merge: `8f23e38b05812f67b56a1f8986be283ec0947995`.
 - Step-49 A7 merge: `e2cea0598c0ba612b1d92fda14a064cc23d43d8a`.
+- Step-49 A8 merge: `d36ebf6e99059878977e0dbbc74db22aaba14a3a`.
 
 ## Closed steps
 - **Step 45 — Content, Articles & SEO Backend — CLOSED / FINAL GATE PASS**
@@ -35,8 +36,8 @@ Detailed closure evidence for closed steps remains immutable in `docs/11-step-hi
 - **A6 — Physical Sale Commit / Payment-Finance Integration Boundary — COMPLETE / FINAL GATE PASS**
 - **A7 — Offline Command Queue + Idempotent Sync — COMPLETE / FINAL GATE PASS**
 - **A8 — Reconciliation + Conflict / Recovery Controls — COMPLETE / FINAL GATE PASS**
-- **A9 — POS RBAC / Admin Operations / Audit + API Contract — NEXT**
-- **A10 — Security / Concurrency / E2E Regression Gate — PENDING**
+- **A9 — POS RBAC / Admin Operations / Audit + API Contract — COMPLETE / FINAL GATE PASS**
+- **A10 — Security / Concurrency / E2E Regression Gate — NEXT**
 - **A11 — Final Canonical Closure — PENDING**
 
 ## Step 49 frozen ownership boundary
@@ -48,32 +49,35 @@ Detailed closure evidence for closed steps remains immutable in `docs/11-step-hi
 - **Finance** remains authoritative for financial facts/accounting. POS cannot directly become a Finance ledger.
 - Existing Orders/Fulfillment/Customer/Marketing ownership remains unchanged unless an explicitly scoped later Step-49 boundary requires integration.
 
-## Step 49 A8 canonical implementation
-A8 introduces forward-only migration `0053_pos_offline_reconciliation.sql` and defines explicit recovery for failed A7 offline commands:
-1. failed commands remain observable and can be inspected only by their owning staff actor at the A8 application boundary;
-2. retry is explicit, never automatic, and is capped at five recovery attempts;
-3. every retry records append-only reconciliation history before failed→queued transition;
-4. retry delegates back to A7 `OfflineCommandSyncService`, causing current Pricing, Inventory and Payments rules to be re-evaluated instead of trusting stale offline facts;
-5. `abandoned` is a terminal state with explicit history and preserved prior error evidence;
-6. applied commands cannot be abandoned, abandoned commands cannot be retried, and cross-staff recovery fails closed;
-7. offline payloads and historical line effects are never rewritten by reconciliation;
-8. history UPDATE/DELETE is blocked by a database trigger.
+## Step 49 A9 canonical implementation
+A9 introduces forward-only migration `0054_pos_rbac_audit_api.sql` and the previously deferred POS HTTP/security boundary:
+1. additive permissions `pos.view`, `pos.sell`, and `pos.reconcile` use canonical risk levels;
+2. all `/admin/pos` routes are staff-only and explicitly permission guarded;
+3. POS write endpoints require canonical idempotency, while reconciliation retry/abandon additionally require Step-Up;
+4. `PosOperationsService` delegates to existing A2–A7 application boundaries and records bounded central audit metadata instead of duplicating commerce authority;
+5. `PosAdminReconciliationService` permits authorized cross-staff inspection/recovery, but never changes the original command owner;
+6. admin retry only requeues the failed command and returns `requires_owner_sync: true`; later sync still executes as the original command owner through A7 server-authoritative rules;
+7. reconciliation retry/abandon writes central audit in the same transaction as the recovery-state change;
+8. `contracts/http/step49-pos-a9.yaml` freezes a strict A9 POS API contract whose offline payload cannot carry price, stock, COGS, paid-state or total authority.
 
-A8 deliberately does not introduce cross-user/admin reconciliation permission. Administrative RBAC, audit integration and HTTP/OpenAPI exposure remain A9 scope.
+The first A9 CI run (`32553653049`) exposed one brittle closed-A2 test that assumed POS would never have a controller. A2 had intentionally deferred HTTP to a later Step-49 substep; the assertion was minimally corrected to preserve the actual A2 persistence invariant while requiring the planned A9 controller to remain Staff/RBAC protected. No test was removed or disabled.
 
-## Step 49 A8 verification evidence
-PR: `#51`  
-Implementation head: `4dbcf5b56159d3598bbbf413bf16aa00143752a7`  
-Canonical implementation CI run: `32552910890`  
-Job: `verify` (`96982428605`) — PASS
+## Step 49 A9 verification evidence
+PR: `#52`  
+Implementation head after regression-assertion correction: `e23cac78cd3e540cdc39fd2d00fba789cd15e75b`  
+Canonical implementation CI run: `32553710252`  
+Job: `verify` (`96984484978`) — PASS
 
-- OpenAPI: PASS — 514 paths / 583 operations / 1146 refs
-- Architecture: PASS — 429 files scanned
+- OpenAPI canonical root validation: PASS — 514 paths / 583 operations / 1146 refs
+- Architecture: PASS — 432 files scanned
 - Project policy: PASS — `toman-no-wallet-config-boundary`
 - TypeScript build: PASS
-- A8 dedicated tests: **7/7 PASS**
-- Runtime tests: **413 PASS / 0 FAIL / 0 skipped / 0 cancelled**
+- A9 dedicated tests: **7/7 PASS**
+- Runtime tests: **420 PASS / 0 FAIL / 0 skipped / 0 cancelled**
 - Overall `pnpm verify`: PASS
+
+## Step 49 A8 canonical implementation
+A8 introduces forward-only migration `0053_pos_offline_reconciliation.sql` and explicit recovery for failed A7 offline commands. Retry is explicit and capped at five attempts; every decision is append-only, `abandoned` is terminal, payload/history rewriting is prohibited, and owner-scoped recovery delegates back to canonical A7 sync.
 
 ## Step 49 A7 canonical implementation
 A7 introduces forward-only migration `0052_pos_offline_command_sync.sql` and establishes an offline-intent / authoritative-server synchronization boundary. POS captures only allow-listed `sale.sync` intent with stable client command identity and deterministic payload hash. Replay-safe line effects prevent duplicate quantities. Reconnect sync uses canonical POS creation, Pricing snapshot and A6 commit boundaries; stale offline price/stock/payment facts are never trusted.
@@ -101,9 +105,10 @@ A6 introduces forward-only migration `0051_pos_commit_payment_finance.sql` and e
 - Recovery is explicit and bounded; no automatic retry loop exists.
 - Reconciliation history is append-only and destructive history rewriting is prohibited.
 - `abandoned` is terminal.
+- Cross-staff admin recovery never changes original command ownership.
 
 ## Next safe action
-Proceed to **Step 49 / A9 — POS RBAC / Admin Operations / Audit + API Contract** only after the exact A8 documentation/current-state head passes Canonical CI and PR #51 is merged to `main`.
+Proceed to **Step 49 / A10 — Security / Concurrency / E2E Regression Gate** only after the exact A9 documentation/current-state head passes Canonical CI and PR #52 is merged to `main`.
 
 ## Global trust rules
 1. `rahemih/Eqcofe` is the official repository.
