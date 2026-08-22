@@ -20,30 +20,14 @@ jobs:
           ref: agent/step45-canonical-final
           fetch-depth: 0
 
-      - name: Download canonical Step45 artifact
-        env:
-          STEP45_URL: 'https://at.adobe.com/6e2cbS1umJ7OfEdU'
+      - name: Materialize canonical Step45 source
         run: |
           set -euo pipefail
-          if ! curl -fL "$STEP45_URL" -o /tmp/step45.zip; then
-            echo "External Step45 artifact unavailable; reconstructing repository-pinned artifact."
-            test -n "$(find .step45-import -maxdepth 1 -type f -name 'chunk-*' -print -quit)"
-            : > /tmp/step45.zip
-            for chunk in .step45-import/chunk-*; do
-              base64 --decode "$chunk" >> /tmp/step45.zip
-            done
-          fi
-          test -s /tmp/step45.zip
-          if ! unzip -t /tmp/step45.zip; then
-            echo "Pinned artifact lacks a central directory; repairing recoverable ZIP entries."
-            printf 'y\n' | zip -FF /tmp/step45.zip --out /tmp/step45-repaired.zip
-            mv /tmp/step45-repaired.zip /tmp/step45.zip
-            unzip -t /tmp/step45.zip
-          fi
-          unzip -q /tmp/step45.zip -d /tmp/step45
-          ROOT="$(find /tmp/step45 -maxdepth 2 -type f -name package.json -printf '%h\n' | head -1)"
-          if [ -z "$ROOT" ]; then ROOT=/tmp/step45; fi
-          echo "STEP45_ROOT=$ROOT" >> "$GITHUB_ENV"
+          git fetch origin agent/step45-canonical-final-v3
+          git worktree add --detach /tmp/step45 origin/agent/step45-canonical-final-v3
+          test -f /tmp/step45/package.json
+          test -d /tmp/step45/src/modules/content
+          echo "STEP45_ROOT=/tmp/step45" >> "$GITHUB_ENV"
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
