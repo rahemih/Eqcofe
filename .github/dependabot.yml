@@ -7,6 +7,18 @@ updates:
       interval: monthly
     open-pull-requests-limit: 3
     rebase-strategy: auto
+    allow:
+      - dependency-name: "@nestjs/*"
+        update-types:
+          - version-update:semver-minor
+          - version-update:semver-patch
+      - dependency-type: production
+        update-types:
+          - version-update:semver-patch
+      - dependency-type: development
+        update-types:
+          - version-update:semver-minor
+          - version-update:semver-patch
     groups:
       nestjs-minor-patch:
         patterns:
@@ -14,14 +26,13 @@ updates:
         update-types:
           - minor
           - patch
-      runtime-minor-patch:
+      runtime-patch:
         dependency-type: production
         patterns:
           - "*"
         exclude-patterns:
           - "@nestjs/*"
         update-types:
-          - minor
           - patch
       development-minor-patch:
         dependency-type: development
