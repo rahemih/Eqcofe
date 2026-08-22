@@ -1,6 +1,6 @@
 # Step 50 / A9 — Security / E2E / Regression Gate
 
-Status: COMPLETE / FINAL GATE PASS pending final merge/state-sync evidence.
+Status: COMPLETE / FINAL GATE PASS.
 
 ## Scope
 A9 is a gate-only substep. It adds no business feature, persistence authority, migration, dependency, or HTTP surface. It verifies that the complete Step-50 A2–A8 implementation preserves the frozen ownership, security, concurrency, idempotency, audit and contract boundaries before final closure.
@@ -19,10 +19,14 @@ A9 is a gate-only substep. It adds no business feature, persistence authority, m
 - A9 introduces no migration or persistence authority of its own.
 
 ## Verification
-Implementation PR: `#82`
+Implementation PR: `#82` — MERGED
 Initial/focused gate head: `2d46def081cfdf795372a555eefe3d77fcbf4112`
-Canonical CI run: `32584563409` — PASS
-Verify job: `97058886399` — PASS
+Final PR head: `7f88eea3587e960b0632fc65425ebbfc742a56c1`
+Merge commit: `d67a70ffd0fc54a8fe908a4a7e608cc06b49e1ad`
+Canonical focused CI run: `32584563409` — PASS
+Focused verify job: `97058886399` — PASS
+Final exact-head CI run: `32584676256` — PASS
+Final exact-head verify job: `97059158988` — PASS
 
 - OpenAPI: PASS — 522 paths / 591 operations / 1161 refs
 - Architecture: PASS — 450 files scanned
@@ -32,4 +36,4 @@ Verify job: `97058886399` — PASS
 - Runtime tests: **486 PASS / 0 FAIL / 0 skipped / 0 cancelled**
 - Overall `pnpm verify`: PASS
 
-Final exact-head CI, merge commit, canonical main CI and state-sync evidence are recorded after merge.
+The documentation-only final state-sync records canonical `main` status and advances Step 50 to A10.
