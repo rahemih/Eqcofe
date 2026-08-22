@@ -23,7 +23,10 @@ jobs:
       - name: Materialize canonical Step45 source
         run: |
           set -euo pipefail
-          git fetch origin agent/step45-canonical-final-v3
+          git fetch origin main agent/step45-canonical-final-v3
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git merge --no-edit origin/main
           git worktree add --detach /tmp/step45 origin/agent/step45-canonical-final-v3
           test -f /tmp/step45/package.json
           test -d /tmp/step45/src/modules/content
