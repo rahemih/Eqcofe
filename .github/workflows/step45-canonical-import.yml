@@ -28,10 +28,16 @@ jobs:
           if ! curl -fL "$STEP45_URL" -o /tmp/step45.zip; then
             echo "External Step45 artifact unavailable; reconstructing repository-pinned artifact."
             test -n "$(find .step45-import -maxdepth 1 -type f -name 'chunk-*' -print -quit)"
-            cat .step45-import/chunk-* | base64 --decode > /tmp/step45.zip
+            cat .step45-import/chunk-* > /tmp/step45-artifact.b64
+            base64 --decode /tmp/step45-artifact.b64 > /tmp/step45.zip
           fi
           test -s /tmp/step45.zip
-          unzip -t /tmp/step45.zip >/dev/null
+          if ! unzip -t /tmp/step45.zip; then
+            echo "First decode is not a complete ZIP; attempting nested base64 decode."
+            base64 --decode /tmp/step45.zip > /tmp/step45-nested.zip
+            mv /tmp/step45-nested.zip /tmp/step45.zip
+            unzip -t /tmp/step45.zip
+          fi
           unzip -q /tmp/step45.zip -d /tmp/step45
           ROOT="$(find /tmp/step45 -maxdepth 2 -type f -name package.json -printf '%h\n' | head -1)"
           test -n "$ROOT"
