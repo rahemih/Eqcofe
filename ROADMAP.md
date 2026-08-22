@@ -1,9 +1,9 @@
-# EQCOFE Roadmap — Canonical Execution Plan v2.0
+# EQCOFE Roadmap — Canonical Execution Plan v2.1
 
 **Canonical repository:** `rahemih/Eqcofe`  
 **Canonical branch:** `main`  
 **Verified Step-44 code baseline:** `b239dfe825b615f36caf2e26cc7abc80c70d349c`  
-**Current position:** Step 44 CLOSED → **Step 45 NEXT**
+**Current position:** Steps 45–48 CLOSED; Step 49 A1–A10 COMPLETE with A11 deferred until Step 53; **Step 50 / A3 NEXT**
 
 The detailed professional roadmap is maintained at:
 
@@ -40,9 +40,9 @@ This v2 roadmap supersedes the earlier coarse post-Step-44 list while preserving
 
 ## Next approved execution step
 
-### Step 45 — Content, Articles & SEO Backend
+### Step 50 / A3 — Import Job Persistence + Fingerprint / Idempotency Foundation
 
-Step 45 is the next canonical implementation step. It covers article/content domain modeling, publishing workflow, SEO metadata/canonical rules, sitemap data, internal linking, secure admin APIs, tests and OpenAPI synchronization.
+Step 50 A1 and A2 are merged with Canonical CI PASS. A3 is the next approved substep and must add only the import-job persistence and fingerprint/idempotency boundary defined by the canonical Step-50 ownership freeze. Step 49 A11 remains intentionally deferred until Step 53.
 
 ## Closure rule
 

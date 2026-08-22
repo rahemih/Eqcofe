@@ -2,7 +2,7 @@
   "name": "eqcofe-backend",
   "version": "0.9.0",
   "private": true,
-  "description": "EQCOFE modular-monolith backend — canonical source through Step 44 (Notifications)",
+  "description": "EQCOFE modular-monolith backend — canonical source through Step 50/A2 (Excel workbook foundation)",
   "license": "UNLICENSED",
   "packageManager": "pnpm@11.21.0",
   "engines": {
