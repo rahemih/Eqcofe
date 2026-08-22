@@ -14,6 +14,7 @@
 - Step-49 A10 merge: `b6adb6180ffd9e770af7ae04f85f8d513e5bffc8`.
 - Step-50 A1 merge: `11a39c6bda058c9d590acfcf2c78616197c86247`.
 - Step-50 A2 merge: `2f1780684c2575750535f8740e678d7e5c4e37cb`.
+- Step-50 A3 merge: `de0cd36237ce51e2acb87a12b432b121b42e8a9d`.
 
 ## Closed steps
 - **Step 45 — Content, Articles & SEO Backend — CLOSED / FINAL GATE PASS**
@@ -47,8 +48,8 @@ Step 49 evidence must not be rewritten or falsely marked closed before that defe
 ### Step 50 progress
 - **A1 — Discovery / Requirements / Ownership Freeze — COMPLETE / FINAL GATE PASS**
 - **A2 — Workbook Contract + Safe Parser / Export Template Foundation — COMPLETE / FINAL GATE PASS**
-- **A3 — Import Job Persistence + Fingerprint / Idempotency Foundation — COMPLETE / FINAL GATE PASS candidate pending exact documentation-head CI + merge**
-- **A4 — Catalog Dry-Run Validation + Row-Level Error Model — PENDING**
+- **A3 — Import Job Persistence + Fingerprint / Idempotency Foundation — COMPLETE / FINAL GATE PASS**
+- **A4 — Catalog Dry-Run Validation + Row-Level Error Model — NEXT**
 - **A5 — Catalog Product / Variant Apply Boundary — PENDING**
 - **A6 — Pricing Preview / Apply Boundary — PENDING**
 - **A7 — Re-import / Recovery / Concurrency Controls — PENDING**
@@ -97,12 +98,20 @@ Job: `verify` (`96994851910`) — PASS
 - Runtime tests: **438 PASS / 0 FAIL / 0 skipped / 0 cancelled**
 - Overall `pnpm verify`: PASS
 
-## Step 50 A3 canonical candidate
+## Step 50 A3 canonical foundation
 A3 adds the forward-only `excel.import_jobs` orchestration boundary, deterministic SHA-256 fingerprinting over sanitized A2 workbook content, database-enforced `(contract_version, fingerprint)` uniqueness, atomic duplicate detection, explicit pending/processing/completed/failed lifecycle transitions, requester-conflict protection and terminal replay safety.
 
 Implementation head: `cacd969d12d106e17fae4fa106c411904350458c`
 
+Final PR head: `5a427a787e3f43f79dff7e421c0ff6512225f673`
+
+Merge commit: `de0cd36237ce51e2acb87a12b432b121b42e8a9d`
+
 Canonical implementation CI run: `32573137560` — PASS
+
+Final exact-head PR CI run: `32573263073` — PASS
+
+Canonical main CI run: `32573327905` — PASS
 Job: `verify` (`97031479566`) — PASS
 
 - Migration: `0055_excel_import_jobs.sql` — forward-only
@@ -123,7 +132,7 @@ Job: `verify` (`97031479566`) — PASS
 - Finance remains authoritative for accounting/financial facts.
 
 ## Next safe action
-After exact A3 documentation-head Canonical CI passes and PR #70 is merged, synchronize final merge evidence and proceed to **Step 50 / A4 — Catalog Dry-Run Validation + Row-Level Error Model**. Do not perform Step 49 A11 closure before Step 53 completes.
+Proceed to **Step 50 / A4 — Catalog Dry-Run Validation + Row-Level Error Model** from canonical merge `de0cd36237ce51e2acb87a12b432b121b42e8a9d`. Do not perform Step 49 A11 closure before Step 53 completes.
 
 ## Global trust rules
 1. `rahemih/Eqcofe` is the official repository.
