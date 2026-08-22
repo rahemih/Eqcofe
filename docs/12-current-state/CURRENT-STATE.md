@@ -16,6 +16,7 @@
 - Step-50 A2 merge: `2f1780684c2575750535f8740e678d7e5c4e37cb`.
 - Step-50 A3 merge: `de0cd36237ce51e2acb87a12b432b121b42e8a9d`.
 - Step-50 A4 merge: `4118ea87f7e6d895596d2ccd8411b2b89b997518`.
+- Step-50 A5 merge: `458fe4eed2202e45e786ff690ab5989f96baeb31`.
 
 ## Closed steps
 - **Step 45 — Content, Articles & SEO Backend — CLOSED / FINAL GATE PASS**
@@ -51,8 +52,8 @@ Step 49 evidence must not be rewritten or falsely marked closed before that defe
 - **A2 — Workbook Contract + Safe Parser / Export Template Foundation — COMPLETE / FINAL GATE PASS**
 - **A3 — Import Job Persistence + Fingerprint / Idempotency Foundation — COMPLETE / FINAL GATE PASS**
 - **A4 — Catalog Dry-Run Validation + Row-Level Error Model — COMPLETE / FINAL GATE PASS**
-- **A5 — Catalog Product / Variant Apply Boundary — COMPLETE candidate; merge pending exact-head CI**
-- **A6 — Pricing Preview / Apply Boundary — NEXT after A5 merge**
+- **A5 — Catalog Product / Variant Apply Boundary — COMPLETE / FINAL GATE PASS**
+- **A6 — Pricing Preview / Apply Boundary — NEXT**
 - **A7 — Re-import / Recovery / Concurrency Controls — PENDING**
 - **A8 — Staff RBAC / Audit / API + Export Operations — PENDING**
 - **A9 — Security / E2E / Regression Gate — PENDING**
@@ -103,15 +104,10 @@ Job: `verify` (`96994851910`) — PASS
 A3 adds the forward-only `excel.import_jobs` orchestration boundary, deterministic SHA-256 fingerprinting over sanitized A2 workbook content, database-enforced `(contract_version, fingerprint)` uniqueness, atomic duplicate detection, explicit pending/processing/completed/failed lifecycle transitions, requester-conflict protection and terminal replay safety.
 
 Implementation head: `cacd969d12d106e17fae4fa106c411904350458c`
-
 Final PR head: `5a427a787e3f43f79dff7e421c0ff6512225f673`
-
 Merge commit: `de0cd36237ce51e2acb87a12b432b121b42e8a9d`
-
 Canonical implementation CI run: `32573137560` — PASS
-
 Final exact-head PR CI run: `32573263073` — PASS
-
 Canonical main CI run: `32573327905` — PASS
 Job: `verify` (`97031479566`) — PASS
 
@@ -136,11 +132,8 @@ A4 introduces read-only Catalog dry-run validation over the sanitized workbook c
 - no Catalog/Pricing mutation, direct Catalog SQL, migration, HTTP/API, apply or recovery authority is introduced.
 
 Implementation/final PR head: `0863315c3843fc484f50f1ae4fc3dc5ae1f75e7d`
-
 Merge commit: `4118ea87f7e6d895596d2ccd8411b2b89b997518`
-
 Canonical implementation CI run: `32575606327` — PASS
-
 Exact documentation-head CI run: `32575683495` — PASS
 
 - OpenAPI: PASS — 514 paths / 583 operations / 1146 refs
@@ -151,7 +144,7 @@ Exact documentation-head CI run: `32575683495` — PASS
 - Runtime tests: **450 PASS / 0 FAIL / 0 skipped / 0 cancelled**
 - First CI run `32575520560` failed only because an A2 test encoded a temporary no-CatalogModule assumption; the test was narrowed to the durable no-mutation/no-execution invariant without deleting or disabling any test.
 
-## Step 50 A5 canonical candidate
+## Step 50 A5 canonical foundation
 A5 adds a server-derived Catalog apply preview and an atomic Catalog-owned mutation boundary:
 - preview runs only after A4 dry-run succeeds;
 - workbook fingerprint, canonical Product/Variant IDs and optimistic versions are bound into a SHA-256 preview hash;
@@ -165,9 +158,11 @@ A5 adds a server-derived Catalog apply preview and an atomic Catalog-owned mutat
 - no new migration, dependency, HTTP/API or RBAC surface is introduced in A5.
 
 Implementation head: `07695e1adf994a5a5bc9ba45f31e678da89e89f5`
-
+Final PR head: `28776ec6768ce0ca46f5d692ca9bea483e2eb4b8`
+Merge commit: `458fe4eed2202e45e786ff690ab5989f96baeb31`
 Canonical implementation CI run: `32576419753` — PASS
-Job: `verify` (`97039325191`) — PASS
+Final exact-head CI run: `32576543739` — PASS
+Job: `verify` (`97039619238`) — PASS
 
 - OpenAPI: PASS — 514 paths / 583 operations / 1146 refs
 - Architecture: PASS — 444 files scanned
@@ -186,7 +181,7 @@ Job: `verify` (`97039325191`) — PASS
 - Finance remains authoritative for accounting/financial facts.
 
 ## Next safe action
-Complete exact-head CI and merge for **Step 50 / A5 — Catalog Product / Variant Apply Boundary**, then proceed to **Step 50 / A6 — Pricing Preview / Apply Boundary**. Do not perform Step 49 A11 closure before Step 53 completes.
+Proceed to **Step 50 / A6 — Pricing Preview / Apply Boundary** from canonical A5 merge `458fe4eed2202e45e786ff690ab5989f96baeb31`. Do not perform Step 49 A11 closure before Step 53 completes.
 
 ## Global trust rules
 1. `rahemih/Eqcofe` is the official repository.
