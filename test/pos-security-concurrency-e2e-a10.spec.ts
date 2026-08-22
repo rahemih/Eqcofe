@@ -34,7 +34,7 @@ test('Step 49 A10 requires idempotency on every POS HTTP mutation and step-up on
 });
 
 test('Step 49 A10 serializes physical sale commit and rejects stale optimistic versions before authoritative mutations',()=>{
-  assert.match(commit,/saleRepo\.byId\(saleId,ex,true\)/);
+  assert.match(commit,/repo\.byId\(saleId,ex,true\)/);
   assert.match(commit,/Number\(sale\.version\)!==expectedVersion/);
   assert.match(commit,/POS_SALE_VERSION_CONFLICT/);
   assert.match(saleRepo,/SELECT \* FROM pos\.physical_sales WHERE id=.*FOR UPDATE/s);
@@ -126,6 +126,6 @@ test('Step 49 A10 retains every Step 49 regression suite A2 through A9',()=>{
 test('Step 49 A10 is a gate-only substep and adds no new persistence authority',()=>{
   const migrations=fs.readdirSync('database/migrations');
   assert.equal(migrations.some(name=>name.startsWith('0055_')),false);
-  assert.match(commit,/pos\.physical_sale\.committed\.v1/);
+  assert.match(commit,/pos\.sale\.committed\.v1/);
   assert.doesNotMatch(offline,/setInterval|setTimeout|@Cron|@Interval/);
 });
