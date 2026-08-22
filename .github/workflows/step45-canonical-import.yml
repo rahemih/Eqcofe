@@ -28,8 +28,10 @@ jobs:
           if ! curl -fL "$STEP45_URL" -o /tmp/step45.zip; then
             echo "External Step45 artifact unavailable; reconstructing repository-pinned artifact."
             test -n "$(find .step45-import -maxdepth 1 -type f -name 'chunk-*' -print -quit)"
-            cat .step45-import/chunk-* > /tmp/step45-artifact.b64
-            base64 --decode /tmp/step45-artifact.b64 > /tmp/step45.zip
+            : > /tmp/step45.zip
+            for chunk in .step45-import/chunk-*; do
+              base64 --decode "$chunk" >> /tmp/step45.zip
+            done
           fi
           test -s /tmp/step45.zip
           if ! unzip -t /tmp/step45.zip; then
