@@ -40,25 +40,45 @@ export class OfflineCommandRepository {
   async reopenFailedForRetry(ex:DatabaseExecutor,input:{id:string;actorId:string;note:string|null;historyId:string}){
     const current=await this.byId(ex,input.id,true);
     if(!current||String(current.status)!=='failed'||String(current.staff_actor_id)!==input.actorId)return null;
+    return this.reopenFailed(ex,current,input.actorId,input.note,input.historyId);
+  }
+
+  async adminReopenFailedForRetry(ex:DatabaseExecutor,input:{id:string;adminActorId:string;note:string|null;historyId:string}){
+    const current=await this.byId(ex,input.id,true);
+    if(!current||String(current.status)!=='failed')return null;
+    return this.reopenFailed(ex,current,input.adminActorId,input.note,input.historyId);
+  }
+
+  private async reopenFailed(ex:DatabaseExecutor,current:any,actorId:string,note:string|null,historyId:string){
     const priorError=String(current.error_code??'');
     const nextRecovery=Number(current.recovery_count??0)+1;
     if(!priorError||!Number.isSafeInteger(nextRecovery)||nextRecovery>5)return null;
     await sql`INSERT INTO pos.offline_command_reconciliation_history(id,command_id,action,actor_id,prior_error_code,recovery_count,note)
-      VALUES(${input.historyId}::uuid,${input.id}::uuid,'retry_requested',${input.actorId}::uuid,${priorError},${nextRecovery},${input.note})`.execute(ex);
+      VALUES(${historyId}::uuid,${String(current.id)}::uuid,'retry_requested',${actorId}::uuid,${priorError},${nextRecovery},${note})`.execute(ex);
     const r=await sql<any>`UPDATE pos.offline_commands SET status='queued',error_code=NULL,failed_at=NULL,abandoned_at=NULL,recovery_count=${nextRecovery},updated_at=now()
-      WHERE id=${input.id}::uuid AND status='failed' AND staff_actor_id=${input.actorId}::uuid AND recovery_count=${Number(current.recovery_count??0)} RETURNING *`.execute(ex);
+      WHERE id=${String(current.id)}::uuid AND status='failed' AND recovery_count=${Number(current.recovery_count??0)} RETURNING *`.execute(ex);
     return r.rows[0]??null;
   }
 
   async abandonFailed(ex:DatabaseExecutor,input:{id:string;actorId:string;note:string|null;historyId:string}){
     const current=await this.byId(ex,input.id,true);
     if(!current||String(current.status)!=='failed'||String(current.staff_actor_id)!==input.actorId)return null;
+    return this.abandon(ex,current,input.actorId,input.note,input.historyId);
+  }
+
+  async adminAbandonFailed(ex:DatabaseExecutor,input:{id:string;adminActorId:string;note:string|null;historyId:string}){
+    const current=await this.byId(ex,input.id,true);
+    if(!current||String(current.status)!=='failed')return null;
+    return this.abandon(ex,current,input.adminActorId,input.note,input.historyId);
+  }
+
+  private async abandon(ex:DatabaseExecutor,current:any,actorId:string,note:string|null,historyId:string){
     const priorError=String(current.error_code??'');
     if(!priorError)return null;
     await sql`INSERT INTO pos.offline_command_reconciliation_history(id,command_id,action,actor_id,prior_error_code,recovery_count,note)
-      VALUES(${input.historyId}::uuid,${input.id}::uuid,'abandoned',${input.actorId}::uuid,${priorError},${Number(current.recovery_count??0)},${input.note})`.execute(ex);
+      VALUES(${historyId}::uuid,${String(current.id)}::uuid,'abandoned',${actorId}::uuid,${priorError},${Number(current.recovery_count??0)},${note})`.execute(ex);
     const r=await sql<any>`UPDATE pos.offline_commands SET status='abandoned',abandoned_at=now(),updated_at=now()
-      WHERE id=${input.id}::uuid AND status='failed' AND staff_actor_id=${input.actorId}::uuid RETURNING *`.execute(ex);
+      WHERE id=${String(current.id)}::uuid AND status='failed' RETURNING *`.execute(ex);
     return r.rows[0]??null;
   }
 
@@ -71,6 +91,11 @@ export class OfflineCommandRepository {
     return (await sql<any>`SELECT id,client_command_id,command_type,status,error_code,recovery_count,queued_at,failed_at,updated_at
       FROM pos.offline_commands WHERE staff_actor_id=${staffActorId}::uuid AND status='failed'
       ORDER BY failed_at,id LIMIT ${limit}`.execute(ex)).rows;
+  }
+
+  async failedForAdmin(ex:DatabaseExecutor,limit:number){
+    return (await sql<any>`SELECT id,client_command_id,staff_actor_id,command_type,status,error_code,recovery_count,queued_at,failed_at,updated_at
+      FROM pos.offline_commands WHERE status='failed' ORDER BY failed_at,id LIMIT ${limit}`.execute(ex)).rows;
   }
 
   async lockLineIdentity(ex:DatabaseExecutor,commandId:string,lineIndex:number){
