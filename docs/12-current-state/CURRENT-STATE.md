@@ -12,6 +12,7 @@
 - Verified Step-44 baseline: `b239dfe825b615f36caf2e26cc7abc80c70d349c`.
 - Step-48 final closure merge: `149d5ec440fc789376ade48553b67f636a571f6d`.
 - Step-49 A5 merged baseline: `ee48c1350991dbb1effda2de21f2ffbcb0b2830c`.
+- Step-49 A6 merge: `8f23e38b05812f67b56a1f8986be283ec0947995`.
 
 ## Closed steps
 - **Step 45 — Content, Articles & SEO Backend — CLOSED / FINAL GATE PASS**
@@ -31,8 +32,8 @@ Detailed closure evidence for closed steps remains immutable in `docs/11-step-hi
 - **A4 — Shared Inventory Consumption + Physical/Online Reserve Enforcement — COMPLETE / FINAL GATE PASS**
 - **A5 — POS Pricing / Commercial Snapshot Boundary — COMPLETE / FINAL GATE PASS**
 - **A6 — Physical Sale Commit / Payment-Finance Integration Boundary — COMPLETE / FINAL GATE PASS**
-- **A7 — Offline Command Queue + Idempotent Sync — NEXT**
-- **A8 — Reconciliation + Conflict / Recovery Controls — PENDING**
+- **A7 — Offline Command Queue + Idempotent Sync — COMPLETE / FINAL GATE PASS**
+- **A8 — Reconciliation + Conflict / Recovery Controls — NEXT**
 - **A9 — POS RBAC / Admin Operations / Audit + API Contract — PENDING**
 - **A10 — Security / Concurrency / E2E Regression Gate — PENDING**
 - **A11 — Final Canonical Closure — PENDING**
@@ -46,6 +47,35 @@ Detailed closure evidence for closed steps remains immutable in `docs/11-step-hi
 - **Finance** remains authoritative for financial facts/accounting. POS cannot directly become a Finance ledger.
 - Existing Orders/Fulfillment/Customer/Marketing ownership remains unchanged unless an explicitly scoped later Step-49 boundary requires integration.
 
+## Step 49 A7 canonical implementation
+A7 introduces forward-only migration `0052_pos_offline_command_sync.sql` and establishes an offline-intent / authoritative-server synchronization boundary:
+1. POS captures only `sale.sync` commands with stable client command identity and deterministic payload hash;
+2. the accepted payload is allow-listed to warehouse, customer type, payment method, bounded external reference, and variant quantities;
+3. unknown command/payload/line fields fail closed, so offline clients cannot inject price, stock, COGS or payment-state authority;
+4. duplicate variants are normalized and bounded before persistence;
+5. `pos.offline_command_line_effects` plus transaction advisory locks make line application replay-safe and prevent duplicate quantity increments;
+6. reconnect sync creates/replays the physical sale through `PhysicalSaleService`, prices through current authoritative `PosPricingSnapshotService`, and commits through A6 `PhysicalSaleCommitService`;
+7. stale offline commercial/inventory facts are therefore never trusted; Pricing, Inventory and Payments re-evaluate current server state;
+8. successful commands become `applied`; failed commands persist an observable failure code and are not auto-replayed in A7.
+
+A7 deliberately does not implement recovery/reconciliation decisions. Failed-command retry/abandon/recovery controls and conflict inspection are A8 scope so A7 cannot silently reinterpret history.
+
+## Step 49 A7 verification evidence
+PR: `#50`  
+Implementation head after strict-typing correction: `f6b1b56832e599bc207ded848f669a4d009cbf72`  
+Canonical implementation CI run: `32551013775`  
+Job: `verify` (`96977621374`) — PASS
+
+- OpenAPI: PASS — 514 paths / 583 operations / 1146 refs
+- Architecture: PASS — 428 files scanned
+- Project policy: PASS — `toman-no-wallet-config-boundary`
+- TypeScript build: PASS
+- A7 dedicated tests: **7/7 PASS**
+- Runtime tests: **406 PASS / 0 FAIL / 0 skipped / 0 cancelled**
+- Overall `pnpm verify`: PASS
+
+The first A7 CI run (`32550957197`) failed only at strict TypeScript indexed access for `payload.lines[i]`; typed `entries()` iteration corrected it without deleting/disabling tests or weakening production safeguards.
+
 ## Step 49 A6 canonical implementation
 A6 introduces forward-only migration `0051_pos_commit_payment_finance.sql` and establishes an atomic server-side physical-sale commit path:
 1. authenticated staff and optimistic POS version are required;
@@ -56,23 +86,7 @@ A6 introduces forward-only migration `0051_pos_commit_payment_finance.sql` and e
 6. `pos.sale.committed.v1` is emitted with authoritative sale, receipt, revenue, COGS and movement references;
 7. Finance consumes that event idempotently into `finance.pos_sale_financial_facts`, enforcing `revenue_toman - cogs_toman = gross_profit_toman`.
 
-The full path is one database transaction: any receipt, stock, FIFO/cost-lineage or final CAS failure rolls back the commit. POS does not call the order-bound online `PaymentService` and does not write Finance facts directly.
-
-## Step 49 A6 verification evidence
-PR: `#49`  
-Implementation head after assertion correction: `0de869409df81b9d9bec303abdbd6843ad9b9ea8`  
-Canonical implementation CI run: `32539808847`  
-Job: `verify` (`96947463346`) — PASS
-
-- OpenAPI: PASS — 514 paths / 583 operations / 1146 refs
-- Architecture: PASS — 426 files scanned
-- Project policy: PASS — `toman-no-wallet-config-boundary`
-- TypeScript build: PASS
-- A6 dedicated tests: **6/6 PASS**
-- Runtime tests: **399 PASS / 0 FAIL / 0 skipped / 0 cancelled**
-- Overall `pnpm verify`: PASS
-
-The first A6 CI run (`32539696690`) exposed two test-assertion defects only; both were corrected without deleting or disabling tests and without weakening production safeguards.
+The full A6 commit path is one database transaction: any receipt, stock, FIFO/cost-lineage or final CAS failure rolls back the commit. POS does not call the order-bound online `PaymentService` and does not write Finance facts directly.
 
 ## Step 49 shared inventory / reserve invariants
 - Physical and online commerce use the same authoritative Inventory state.
@@ -86,15 +100,16 @@ The first A6 CI run (`32539696690`) exposed two test-assertion defects only; bot
 - Quantity mutation invalidates stale pricing snapshots.
 - Sale totals obey `subtotal_toman - discount_total_toman = total_toman` at persistence boundary.
 
-## Step 49 offline / reconciliation freeze for next substeps
+## Step 49 offline / reconciliation invariants
 - Offline capability is limited to POS-originated command capture/synchronization; it is not a separate authoritative store database.
 - Every offline command requires stable client-command/idempotency identity.
-- Server reconciliation is authoritative; stale offline price/stock facts cannot silently override server rules.
-- Conflicts must remain observable and recoverable; destructive history rewriting is prohibited.
-- Secrets and privileged credentials must not be embedded in offline payloads.
+- Server state is authoritative; stale offline price/stock facts cannot silently override server rules.
+- Line effects are replay-safe and command identity is payload-bound.
+- Failed sync remains observable and terminal within A7; automatic retry/recovery is prohibited until A8 defines reconciliation controls.
+- Destructive history rewriting is prohibited.
 
 ## Next safe action
-Proceed to **Step 49 / A7 — Offline Command Queue + Idempotent Sync** only after the exact A6 documentation/current-state head passes Canonical CI and PR #49 is merged to `main`.
+Proceed to **Step 49 / A8 — Reconciliation + Conflict / Recovery Controls** only after the exact A7 documentation/current-state head passes Canonical CI and PR #50 is merged to `main`.
 
 ## Global trust rules
 1. `rahemih/Eqcofe` is the official repository.
