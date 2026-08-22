@@ -5,14 +5,16 @@ import { PricingModule } from '../pricing/pricing.module';
 import { PaymentsModule } from '../payments/payments.module';
 import { PhysicalSaleService } from './application/physical-sale.service';
 import { PhysicalSaleCommitService } from './application/physical-sale-commit.service';
+import { OfflineCommandSyncService } from './application/offline-command-sync.service';
 import { PosScanResolutionService } from './application/pos-scan-resolution.service';
 import { PosInventoryConsumptionService } from './application/pos-inventory-consumption.service';
 import { PosPricingSnapshotService } from './application/pos-pricing-snapshot.service';
 import { PhysicalSaleRepository } from './infrastructure/physical-sale.repository';
+import { OfflineCommandRepository } from './infrastructure/offline-command.repository';
 
 @Module({
   imports: [CatalogModule, InventoryModule, PricingModule, PaymentsModule],
-  providers: [PhysicalSaleRepository, PhysicalSaleService, PhysicalSaleCommitService, PosScanResolutionService, PosInventoryConsumptionService, PosPricingSnapshotService],
-  exports: [PhysicalSaleService, PhysicalSaleCommitService, PosScanResolutionService, PosInventoryConsumptionService, PosPricingSnapshotService],
+  providers: [PhysicalSaleRepository, OfflineCommandRepository, PhysicalSaleService, PhysicalSaleCommitService, OfflineCommandSyncService, PosScanResolutionService, PosInventoryConsumptionService, PosPricingSnapshotService],
+  exports: [PhysicalSaleService, PhysicalSaleCommitService, OfflineCommandSyncService, PosScanResolutionService, PosInventoryConsumptionService, PosPricingSnapshotService],
 })
 export class PosModule {}
