@@ -1,9 +1,35 @@
-import { readFileSync } from 'node:fs';
+import { readFileSync, readdirSync } from 'node:fs';
 import { parse } from 'yaml';
 
 const file = 'contracts/http/openapi.yaml';
 const doc = parse(readFileSync(file, 'utf8'));
 if (doc.openapi !== '3.1.0') throw new Error(`Expected OpenAPI 3.1.0, got ${doc.openapi}`);
+
+const overlayFiles = readdirSync('contracts/http')
+  .filter((name) => /^openapi-.+\.yaml$/.test(name))
+  .sort();
+for (const overlayFile of overlayFiles) {
+  const overlay = parse(readFileSync(`contracts/http/${overlayFile}`, 'utf8'));
+  if (overlay.openapi !== '3.1.0') throw new Error(`Expected OpenAPI 3.1.0 in ${overlayFile}`);
+  for (const [path, item] of Object.entries(overlay.paths ?? {})) {
+    if (doc.paths?.[path]) throw new Error(`Duplicate OpenAPI path from ${overlayFile}: ${path}`);
+    doc.paths ??= {};
+    doc.paths[path] = item;
+  }
+  for (const tag of overlay.tags ?? []) {
+    doc.tags ??= [];
+    if (!doc.tags.some((candidate) => candidate?.name === tag?.name)) doc.tags.push(tag);
+  }
+  for (const [section, entries] of Object.entries(overlay.components ?? {})) {
+    doc.components ??= {};
+    doc.components[section] ??= {};
+    for (const [key, value] of Object.entries(entries ?? {})) {
+      if (doc.components[section][key] !== undefined) throw new Error(`Duplicate OpenAPI component from ${overlayFile}: ${section}.${key}`);
+      doc.components[section][key] = value;
+    }
+  }
+}
+
 const operationIds = new Set();
 const duplicates = [];
 let operations = 0;
@@ -27,7 +53,7 @@ for (const ref of refs.filter((x) => x.startsWith('#/'))) {
     if (current === undefined) throw new Error(`Broken ref: ${ref}`);
   }
 }
-console.log(JSON.stringify({ openapi: doc.openapi, paths: Object.keys(doc.paths ?? {}).length, operations, refs: refs.length, status: 'PASS' }, null, 2));
+console.log(JSON.stringify({ openapi: doc.openapi, paths: Object.keys(doc.paths ?? {}).length, operations, refs: refs.length, overlays: overlayFiles, status: 'PASS' }, null, 2));
 
 function walk(value, visit) {
   visit(value);
