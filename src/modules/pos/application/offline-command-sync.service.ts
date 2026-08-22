@@ -57,7 +57,7 @@ export class OfflineCommandSyncService {
       if(String(sale.status)==='committed')return this.markApplied(String(command.id),sale);
       if(String(sale.status)!=='draft')throw new DomainError('POS_OFFLINE_SALE_NOT_SYNCABLE','فروش متناظر فرمان آفلاین قابل همگام‌سازی نیست.');
 
-      for(let i=0;i<payload.lines.length;i++)await this.applyLine(String(command.id),i,String(sale.id),actor.id!,payload.lines[i]);
+      for(const [i,line] of payload.lines.entries())await this.applyLine(String(command.id),i,String(sale.id),actor.id!,line);
       await this.pricing.priceDraft({saleId:String(sale.id),staffActorId:actor.id!,customerType:payload.customer_type});
       const priced=await this.saleRepo.byId(String(sale.id));
       if(!priced||String(priced.status)!=='draft')throw new DomainError('POS_OFFLINE_SALE_CHANGED','وضعیت فروش هنگام همگام‌سازی تغییر کرده است.');
