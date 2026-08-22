@@ -11,7 +11,7 @@ const TYPES=[
   'order.created.v1','order.submitted.v1','order.confirmed.v1','order.cancelled.v1','order.expired.v1',
   'payment.initiated.v1','payment.failed.v1','payment.paid.v1','payment.late_received.v1','payment.partially_refunded.v1','payment.refunded.v1',
   'inventory.stock.consumed.v1','inventory.return.received.v1','return.resolved.v1',
-  'procurement.landed_cost.finalized.v1',
+  'procurement.landed_cost.finalized.v1','pos.sale.committed.v1',
 ] as const;
 
 const FINAL_INVALIDATORS=new Set<string>([
@@ -32,6 +32,10 @@ export class FinanceCrossDomainConsumer implements EventConsumer,OnModuleInit{
   onModuleInit(){this.registry.register(this);}
 
   async handle(event:IntegrationEvent,trx:Transaction<DatabaseSchema>):Promise<void>{
+    if(event.event_type==='pos.sale.committed.v1'){
+      await this.recordPosSale(event,trx);
+      return;
+    }
     const orderIds=await this.resolveOrderIds(event,trx);
     for(const orderId of orderIds){
       if(FINAL_INVALIDATORS.has(event.event_type)){
@@ -40,6 +44,17 @@ export class FinanceCrossDomainConsumer implements EventConsumer,OnModuleInit{
       }
       await this.calculations.calculateInTransaction(trx,orderId,`cross-domain:${event.event_type}:${event.event_id}`);
     }
+  }
+
+  private async recordPosSale(event:IntegrationEvent,trx:Transaction<DatabaseSchema>){
+    const p=(event.payload??{}) as Record<string,unknown>;
+    const saleId=String(p.sale_id??'');
+    const revenue=Number(p.revenue_toman);
+    const cogs=Number(p.cogs_toman);
+    if(!/^[0-9a-f-]{36}$/i.test(saleId)||!Number.isSafeInteger(revenue)||revenue<0||!Number.isSafeInteger(cogs)||cogs<0)throw new Error('Invalid POS finance event payload');
+    await sql`INSERT INTO finance.pos_sale_financial_facts(sale_id,source_event_id,revenue_toman,cogs_toman,gross_profit_toman)
+      VALUES(${saleId}::uuid,${event.event_id}::uuid,${revenue},${cogs},${revenue-cogs})
+      ON CONFLICT (sale_id) DO NOTHING`.execute(trx);
   }
 
   private async resolveOrderIds(event:IntegrationEvent,trx:Transaction<DatabaseSchema>):Promise<string[]>{
