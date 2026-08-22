@@ -51,8 +51,8 @@ Step 49 evidence must not be rewritten or falsely marked closed before that defe
 - **A2 — Workbook Contract + Safe Parser / Export Template Foundation — COMPLETE / FINAL GATE PASS**
 - **A3 — Import Job Persistence + Fingerprint / Idempotency Foundation — COMPLETE / FINAL GATE PASS**
 - **A4 — Catalog Dry-Run Validation + Row-Level Error Model — COMPLETE / FINAL GATE PASS**
-- **A5 — Catalog Product / Variant Apply Boundary — NEXT**
-- **A6 — Pricing Preview / Apply Boundary — PENDING**
+- **A5 — Catalog Product / Variant Apply Boundary — COMPLETE candidate; merge pending exact-head CI**
+- **A6 — Pricing Preview / Apply Boundary — NEXT after A5 merge**
 - **A7 — Re-import / Recovery / Concurrency Controls — PENDING**
 - **A8 — Staff RBAC / Audit / API + Export Operations — PENDING**
 - **A9 — Security / E2E / Regression Gate — PENDING**
@@ -151,6 +151,32 @@ Exact documentation-head CI run: `32575683495` — PASS
 - Runtime tests: **450 PASS / 0 FAIL / 0 skipped / 0 cancelled**
 - First CI run `32575520560` failed only because an A2 test encoded a temporary no-CatalogModule assumption; the test was narrowed to the durable no-mutation/no-execution invariant without deleting or disabling any test.
 
+## Step 50 A5 canonical candidate
+A5 adds a server-derived Catalog apply preview and an atomic Catalog-owned mutation boundary:
+- preview runs only after A4 dry-run succeeds;
+- workbook fingerprint, canonical Product/Variant IDs and optimistic versions are bound into a SHA-256 preview hash;
+- apply requires the exact preview hash and recomputes canonical state, so stale previews fail closed;
+- Product `name_fa` and lifecycle status changes are applied only through Catalog aggregate rules;
+- Variant `barcode` changes are applied only through the Variant aggregate;
+- Catalog performs all multi-row Product/Variant mutation in one transaction with optimistic version checks;
+- changed aggregates preserve Outbox and central Audit writes;
+- publish continues to enforce the existing active-variant and sellable-price rule while Pricing remains authoritative for price mutation;
+- no direct Catalog SQL exists in Excel and no Pricing/Inventory/Payments/Finance mutation authority is introduced;
+- no new migration, dependency, HTTP/API or RBAC surface is introduced in A5.
+
+Implementation head: `07695e1adf994a5a5bc9ba45f31e678da89e89f5`
+
+Canonical implementation CI run: `32576419753` — PASS
+Job: `verify` (`97039325191`) — PASS
+
+- OpenAPI: PASS — 514 paths / 583 operations / 1146 refs
+- Architecture: PASS — 444 files scanned
+- Project policy: PASS — `toman-no-wallet-config-boundary`
+- TypeScript build: PASS
+- A5 dedicated tests: **6/6 PASS**
+- Runtime tests: **456 PASS / 0 FAIL / 0 skipped / 0 cancelled**
+- Overall `pnpm verify`: PASS
+
 ## Step 49 frozen ownership boundary
 - POS owns physical-sale/session orchestration, physical-sale transaction identity, POS-specific offline command/sync state, reconciliation state, and POS-facing read models.
 - Catalog remains authoritative for product/variant/SKU/barcode identity and lifecycle facts.
@@ -160,7 +186,7 @@ Exact documentation-head CI run: `32575683495` — PASS
 - Finance remains authoritative for accounting/financial facts.
 
 ## Next safe action
-Proceed to **Step 50 / A5 — Catalog Product / Variant Apply Boundary** from canonical merge `4118ea87f7e6d895596d2ccd8411b2b89b997518`. Do not perform Step 49 A11 closure before Step 53 completes.
+Complete exact-head CI and merge for **Step 50 / A5 — Catalog Product / Variant Apply Boundary**, then proceed to **Step 50 / A6 — Pricing Preview / Apply Boundary**. Do not perform Step 49 A11 closure before Step 53 completes.
 
 ## Global trust rules
 1. `rahemih/Eqcofe` is the official repository.
