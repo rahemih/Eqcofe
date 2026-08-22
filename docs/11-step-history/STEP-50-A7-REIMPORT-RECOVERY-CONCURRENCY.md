@@ -1,6 +1,6 @@
 # Step 50 / A7 — Re-import / Recovery / Concurrency Controls
 
-Status: COMPLETE / FINAL GATE PASS pending final merge/state sync evidence.
+Status: COMPLETE / FINAL GATE PASS
 
 ## Scope
 A7 hardens Excel import orchestration only. Catalog and Pricing remain authoritative for business mutations.
@@ -26,10 +26,14 @@ A7 hardens Excel import orchestration only. Catalog and Pricing remain authorita
 - `test/excel-recovery-concurrency-a7.spec.ts`
 
 ## Verification
-Implementation PR: #78
-Implementation head: `7da51fe5b9b95eea6463045e2464d5eba41d87b5`
-Canonical CI run: `32578116785`
-Verify job: `97043356080`
+Implementation PR: #78 — MERGED
+Implementation head before evidence commit: `7da51fe5b9b95eea6463045e2464d5eba41d87b5`
+Final PR head: `38589cb0929a36ba185c0326311e06ea90f6ab7d`
+Merge commit: `1ac725e7bc23557993905d6d7754ee8b822fee5a`
+Implementation CI run: `32578116785` — PASS
+Implementation verify job: `97043356080` — PASS
+Exact-head CI run: `32578195241` — PASS
+Exact-head verify job: `97043535652` — PASS
 
 - OpenAPI: PASS — 514 paths / 583 operations / 1146 refs
 - Architecture: PASS — 448 files scanned
