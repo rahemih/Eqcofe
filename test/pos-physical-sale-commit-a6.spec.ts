@@ -39,7 +39,7 @@ test('Step 49 A6 commits only through Payments and Inventory authoritative bound
 
 test('Step 49 A6 requires authenticated staff and optimistic version',async()=>{
   const noStaff=make({actor:null}).svc;
-  await assert.rejects(()=>noStaff.commit({saleId,warehouseId,expectedVersion:5,paymentMethod:'cash'}),(e:any)=>e.code==='POS_STAFF_REQUIRED');
+  assert.throws(()=>noStaff.commit({saleId,warehouseId,expectedVersion:5,paymentMethod:'cash'}),(e:any)=>e.code==='POS_STAFF_REQUIRED');
   const wrong=make({sale:{version:6}}).svc;
   await assert.rejects(()=>wrong.commit({saleId,warehouseId,expectedVersion:5,paymentMethod:'cash'}),(e:any)=>e.code==='POS_SALE_VERSION_CONFLICT');
 });
@@ -73,6 +73,6 @@ test('Step 49 A6 POS imports Payments but does not fabricate online order paymen
   assert.match(mod,/PaymentsModule/);
   assert.match(svc,/PhysicalSalePaymentService/);
   assert.match(svc,/InventoryPosService/);
-  assert.doesNotMatch(svc,/PaymentService/);
+  assert.doesNotMatch(svc,/payments\/application\/payment\.service/);
   assert.doesNotMatch(svc,/orders\.orders|payments\.payments/);
 });
