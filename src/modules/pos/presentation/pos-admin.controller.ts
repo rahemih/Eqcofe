@@ -45,11 +45,11 @@ export class PosAdminController {
   @Post('offline/commands/:clientCommandId/sync')
   syncOffline(@Param('clientCommandId') clientCommandId:string){return this.ops.syncOffline(clientCommandId);}
 
-  @Permissions('pos.view')
+  @Permissions('pos.reconcile')
   @Get('reconciliation/failed')
   listFailed(@Query('limit') limit?:string){return this.reconciliation.listFailed(limit??50);}
 
-  @Permissions('pos.view')
+  @Permissions('pos.reconcile')
   @Get('reconciliation/:clientCommandId')
   inspect(@Param('clientCommandId') clientCommandId:string){return this.reconciliation.inspect(clientCommandId);}
 
