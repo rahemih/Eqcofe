@@ -39,6 +39,7 @@ export class CatalogImportApplyService {
 
   async apply(command: CatalogImportApplyCommand): Promise<{ products: number; variants: number }> {
     const context = this.ctx.require();
+    const auditReason = `excel-import:${command.sourceFingerprint}`;
     await this.tx.run(async (trx) => {
       for (const operation of command.products) {
         const product = await this.repo.productById(trx, operation.id, true);
@@ -70,9 +71,9 @@ export class CatalogImportApplyService {
             resourceId: product.id,
             beforeData: before,
             afterData: product.snapshot(),
+            reason: auditReason,
             requestId: context.requestId,
             traceId: context.traceId,
-            metadata: { source_fingerprint: command.sourceFingerprint },
           });
         }
       }
@@ -94,9 +95,9 @@ export class CatalogImportApplyService {
             resourceId: variant.id,
             beforeData: before,
             afterData: variant.snapshot(),
+            reason: auditReason,
             requestId: context.requestId,
             traceId: context.traceId,
-            metadata: { source_fingerprint: command.sourceFingerprint },
           });
         }
       }
