@@ -1,0 +1,242 @@
+openapi: 3.1.0
+tags:
+  - name: Admin Excel
+components:
+  schemas:
+    ExcelCellInput:
+      type: object
+      additionalProperties: false
+      required: [value]
+      properties:
+        value:
+          oneOf:
+            - type: string
+            - type: number
+            - type: boolean
+            - type: 'null'
+        formula:
+          type: [string, 'null']
+    ExcelSheetInput:
+      type: object
+      additionalProperties: false
+      required: [name, rows]
+      properties:
+        name:
+          type: string
+        rows:
+          type: array
+          maxItems: 5000
+          items:
+            type: array
+            maxItems: 64
+            items:
+              $ref: '#/components/schemas/ExcelCellInput'
+    ExcelWorkbookEnvelope:
+      type: object
+      additionalProperties: false
+      required: [fileName, mimeType, byteLength, sheets]
+      properties:
+        fileName:
+          type: string
+          maxLength: 180
+          pattern: '\\.xlsx$'
+        mimeType:
+          type: string
+          const: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+        byteLength:
+          type: integer
+          minimum: 1
+          maximum: 10485760
+        hasMacros:
+          type: boolean
+        externalLinks:
+          type: array
+          items: { type: string }
+        sheets:
+          type: array
+          minItems: 1
+          maxItems: 8
+          items:
+            $ref: '#/components/schemas/ExcelSheetInput'
+    ExcelWorkbookRequest:
+      type: object
+      additionalProperties: false
+      required: [workbook]
+      properties:
+        workbook:
+          $ref: '#/components/schemas/ExcelWorkbookEnvelope'
+    ExcelApplyRequest:
+      type: object
+      additionalProperties: false
+      required: [workbook, expected_preview_hash]
+      properties:
+        workbook:
+          $ref: '#/components/schemas/ExcelWorkbookEnvelope'
+        expected_preview_hash:
+          type: string
+          pattern: '^[0-9a-fA-F]{64}$'
+    ExcelRecoverRequest:
+      type: object
+      additionalProperties: false
+      required: [note]
+      properties:
+        note:
+          type: string
+          minLength: 3
+          maxLength: 500
+paths:
+  /admin/excel/exports/template:
+    get:
+      tags: [Admin Excel]
+      operationId: getAdminExcelExportTemplate
+      security:
+        - adminSession: []
+      responses:
+        '200': { description: قرارداد نسخه‌دار template اکسل }
+      x-eqcofe:
+        domain: excel
+        permission: excel.view
+        audit: false
+  /admin/excel/dry-run:
+    post:
+      tags: [Admin Excel]
+      operationId: postAdminExcelDryRun
+      security:
+        - adminSession: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/ExcelWorkbookRequest' }
+      responses:
+        '200': { description: نتیجه dry-run بدون mutation }
+      x-eqcofe:
+        domain: excel
+        permission: excel.view
+        audit: false
+  /admin/excel/catalog/preview:
+    post:
+      tags: [Admin Excel]
+      operationId: postAdminExcelCatalogPreview
+      security:
+        - adminSession: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/ExcelWorkbookRequest' }
+      responses:
+        '200': { description: پیش‌نمایش server-derived تغییرات Catalog }
+      x-eqcofe:
+        domain: excel
+        permission: excel.view
+        audit: false
+  /admin/excel/pricing/preview:
+    post:
+      tags: [Admin Excel]
+      operationId: postAdminExcelPricingPreview
+      security:
+        - adminSession: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/ExcelWorkbookRequest' }
+      responses:
+        '200': { description: پیش‌نمایش server-derived تغییرات Pricing }
+      x-eqcofe:
+        domain: excel
+        permission: excel.view
+        audit: false
+  /admin/excel/imports:
+    post:
+      tags: [Admin Excel]
+      operationId: postAdminExcelImports
+      security:
+        - adminSession: []
+      parameters:
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/ExcelWorkbookRequest' }
+      responses:
+        '201': { description: import job ثبت یا idempotently بازیابی شد }
+      x-eqcofe:
+        domain: excel
+        permission: excel.import
+        audit: true
+        idempotency: required
+  /admin/excel/catalog/apply:
+    post:
+      tags: [Admin Excel]
+      operationId: postAdminExcelCatalogApply
+      security:
+        - adminSession: []
+          stepUpToken: []
+      parameters:
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/ExcelApplyRequest' }
+      responses:
+        '200': { description: تغییرات از boundary رسمی Catalog اعمال شد }
+      x-eqcofe:
+        domain: excel
+        permission: excel.apply
+        audit: true
+        idempotency: required
+        stepUp: true
+  /admin/excel/pricing/apply:
+    post:
+      tags: [Admin Excel]
+      operationId: postAdminExcelPricingApply
+      security:
+        - adminSession: []
+          stepUpToken: []
+      parameters:
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/ExcelApplyRequest' }
+      responses:
+        '200': { description: قیمت‌ها از boundary رسمی Pricing اعمال شدند }
+      x-eqcofe:
+        domain: excel
+        permission: excel.apply
+        audit: true
+        idempotency: required
+        stepUp: true
+  /admin/excel/imports/{id}/recover:
+    post:
+      tags: [Admin Excel]
+      operationId: postAdminExcelImportRecover
+      security:
+        - adminSession: []
+          stepUpToken: []
+      parameters:
+        - $ref: '#/components/parameters/IdempotencyKey'
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/ExcelRecoverRequest' }
+      responses:
+        '200': { description: recovery صریح و محدود ثبت شد }
+      x-eqcofe:
+        domain: excel
+        permission: excel.recover
+        audit: true
+        idempotency: required
+        stepUp: true
