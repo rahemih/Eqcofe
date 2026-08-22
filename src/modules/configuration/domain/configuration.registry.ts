@@ -14,6 +14,7 @@ export const CONFIGURATION_DEFINITIONS:Record<string,ConfigurationDefinition>={
  'catalog.out_of_stock_archive_days':{key:'catalog.out_of_stock_archive_days',valueType:'integer',riskLevel:'medium',scopeable:false,min:1,max:3650},
  'pricing.wholesale_quantity_discount_min_qty':{key:'pricing.wholesale_quantity_discount_min_qty',valueType:'integer',riskLevel:'high',scopeable:false,min:2,max:100000},
  'sales.global_sales_enabled':{key:'sales.global_sales_enabled',valueType:'boolean',riskLevel:'critical',scopeable:false},
+ 'content.public_base_url':{key:'content.public_base_url',valueType:'string',riskLevel:'medium',scopeable:false},
 };
 export function definition(key:string){const d=CONFIGURATION_DEFINITIONS[key];if(!d)throw new DomainError('CONFIGURATION_KEY_NOT_FOUND','کلید تنظیمات شناخته‌شده نیست.');return d;}
 export function validateConfigurationValue(key:string,value:unknown){const d=definition(key);let v=value;if(d.valueType==='boolean'){if(typeof v!=='boolean')throw new DomainError('VALIDATION_ERROR','مقدار تنظیمات باید درست/نادرست باشد.');}

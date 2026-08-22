@@ -4286,10 +4286,6 @@ components:
           - 'null'
           minLength: 1
           maxLength: 500
-        scheduled_at:
-          oneOf:
-          - *id001
-          - type: 'null'
       minProperties: 1
     PostAdminAiJobsRequest:
       $ref: '#/components/schemas/AIJobCreateRequest'
@@ -12908,6 +12904,8 @@ paths:
           description: عملیات موفق
         '202':
           description: عملیات پذیرفته شد
+      parameters:
+      - $ref: '#/components/parameters/IdempotencyKey'
       security:
       - adminSession: []
       requestBody:
@@ -12916,6 +12914,16 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/PostAdminContentArticlesRequest'
+  /admin/content/articles/operations/summary:
+    get:
+      tags:
+      - Admin Content
+      operationId: getAdminContentArticlesOperationsSummary
+      responses:
+        '200':
+          description: وضعیت عملیاتی انتشار زمان‌بندی‌شده محتوا
+      security:
+      - adminSession: []
   /admin/content/articles/{id}:
     get:
       tags:
@@ -12941,6 +12949,7 @@ paths:
         '200':
           description: عملیات موفق
       parameters:
+      - $ref: '#/components/parameters/IdempotencyKey'
       - name: id
         in: path
         required: true
@@ -12966,6 +12975,7 @@ paths:
         '202':
           description: عملیات پذیرفته شد
       parameters:
+      - $ref: '#/components/parameters/IdempotencyKey'
       - name: id
         in: path
         required: true
@@ -12991,6 +13001,7 @@ paths:
         '202':
           description: عملیات پذیرفته شد
       parameters:
+      - $ref: '#/components/parameters/IdempotencyKey'
       - name: id
         in: path
         required: true
@@ -12999,6 +13010,7 @@ paths:
           format: uuid
       security:
       - adminSession: []
+        stepUpToken: []
       requestBody:
         required: true
         content:
@@ -13016,6 +13028,7 @@ paths:
         '202':
           description: عملیات پذیرفته شد
       parameters:
+      - $ref: '#/components/parameters/IdempotencyKey'
       - name: id
         in: path
         required: true
@@ -13024,6 +13037,7 @@ paths:
           format: uuid
       security:
       - adminSession: []
+        stepUpToken: []
       requestBody:
         required: true
         content:
@@ -13041,6 +13055,7 @@ paths:
         '202':
           description: عملیات پذیرفته شد
       parameters:
+      - $ref: '#/components/parameters/IdempotencyKey'
       - name: id
         in: path
         required: true
@@ -13049,6 +13064,7 @@ paths:
           format: uuid
       security:
       - adminSession: []
+        stepUpToken: []
       x-eqcofe:
         requestBody: none
         noRequestBody: true
@@ -13063,6 +13079,7 @@ paths:
         '202':
           description: عملیات پذیرفته شد
       parameters:
+      - $ref: '#/components/parameters/IdempotencyKey'
       - name: id
         in: path
         required: true
@@ -13071,6 +13088,7 @@ paths:
           format: uuid
       security:
       - adminSession: []
+        stepUpToken: []
       x-eqcofe:
         requestBody: none
         noRequestBody: true
@@ -13085,6 +13103,7 @@ paths:
         '202':
           description: عملیات پذیرفته شد
       parameters:
+      - $ref: '#/components/parameters/IdempotencyKey'
       - name: id
         in: path
         required: true
@@ -13093,6 +13112,7 @@ paths:
           format: uuid
       security:
       - adminSession: []
+        stepUpToken: []
       requestBody:
         required: true
         content:
@@ -13149,6 +13169,7 @@ paths:
         '202':
           description: عملیات پذیرفته شد
       parameters:
+      - $ref: '#/components/parameters/IdempotencyKey'
       - name: id
         in: path
         required: true
@@ -13162,6 +13183,7 @@ paths:
           type: string
       security:
       - adminSession: []
+        stepUpToken: []
       requestBody:
         required: true
         content:

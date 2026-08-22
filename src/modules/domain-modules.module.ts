@@ -26,6 +26,7 @@ import { AnalyticsModule } from './analytics/analytics.module';
 import { SecurityModule } from './security/security.module';
 import { OperationsModule } from './operations/operations.module';
 import { AfterSalesIntegrationModule } from './after-sales/after-sales.module';
+import { ExcelModule } from './excel/excel.module';
 
 @Module({
   imports: [
@@ -55,7 +56,8 @@ import { AfterSalesIntegrationModule } from './after-sales/after-sales.module';
     AnalyticsModule,
     SecurityModule,
     OperationsModule,
-    AfterSalesIntegrationModule
+    AfterSalesIntegrationModule,
+    ExcelModule
   ],
   exports: [
     IdentityModule,
@@ -84,7 +86,8 @@ import { AfterSalesIntegrationModule } from './after-sales/after-sales.module';
     AnalyticsModule,
     SecurityModule,
     OperationsModule,
-    AfterSalesIntegrationModule
+    AfterSalesIntegrationModule,
+    ExcelModule
   ],
 })
 export class DomainModulesModule {}
