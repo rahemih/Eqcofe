@@ -17,6 +17,7 @@
 - Step-50 A3 merge: `de0cd36237ce51e2acb87a12b432b121b42e8a9d`.
 - Step-50 A4 merge: `4118ea87f7e6d895596d2ccd8411b2b89b997518`.
 - Step-50 A5 merge: `458fe4eed2202e45e786ff690ab5989f96baeb31`.
+- Step-50 A6 merge: `bfb10e39bab53b1371260f005693ba9589139c7e`.
 
 ## Closed steps
 - **Step 45 — Content, Articles & SEO Backend — CLOSED / FINAL GATE PASS**
@@ -53,8 +54,8 @@ Step 49 evidence must not be rewritten or falsely marked closed before that defe
 - **A3 — Import Job Persistence + Fingerprint / Idempotency Foundation — COMPLETE / FINAL GATE PASS**
 - **A4 — Catalog Dry-Run Validation + Row-Level Error Model — COMPLETE / FINAL GATE PASS**
 - **A5 — Catalog Product / Variant Apply Boundary — COMPLETE / FINAL GATE PASS**
-- **A6 — Pricing Preview / Apply Boundary — NEXT**
-- **A7 — Re-import / Recovery / Concurrency Controls — PENDING**
+- **A6 — Pricing Preview / Apply Boundary — COMPLETE / FINAL GATE PASS**
+- **A7 — Re-import / Recovery / Concurrency Controls — NEXT**
 - **A8 — Staff RBAC / Audit / API + Export Operations — PENDING**
 - **A9 — Security / E2E / Regression Gate — PENDING**
 - **A10 — Final Canonical Closure — PENDING**
@@ -72,7 +73,7 @@ Step 49 evidence must not be rewritten or falsely marked closed before that defe
 - Future management HTTP surfaces require Staff/RBAC, validation, idempotency/errors, OpenAPI/strict contract coverage and Step-Up for sensitive apply/recovery actions where applicable.
 
 ## Step 50 A2 canonical foundation
-A2 introduces a dedicated `src/modules/excel` bounded orchestration surface without importing Catalog or Pricing mutation services:
+A2 introduces a dedicated `src/modules/excel` bounded orchestration surface without giving parser/template mutation authority:
 - versioned workbook contract `eqcofe-step50-v1`;
 - XLSX filename/MIME and 10 MiB upload bound;
 - bounded sheet/row/column/cell model;
@@ -84,14 +85,13 @@ A2 introduces a dedicated `src/modules/excel` bounded orchestration surface with
 - no new npm dependency is introduced; binary XLSX upload/codec transport remains a later boundary, while A2 defines the sanitized decoded-workbook contract that later orchestration must consume.
 
 ### Step 50 A2 verification evidence
-PR: `#55` — MERGED  
-Implementation head: `1e7a23b0b16a954d53a57876bcfb26119221dbbc`  
-Final PR head: `edca7a2916d6b5a6b69c3b24c738ce33aa4076f1`  
-Merge commit: `2f1780684c2575750535f8740e678d7e5c4e37cb`  
-Canonical implementation CI run: `32557880443` — PASS  
-Final exact-head Canonical CI run: `32557958240` — PASS  
+PR: `#55` — MERGED
+Implementation head: `1e7a23b0b16a954d53a57876bcfb26119221dbbc`
+Final PR head: `edca7a2916d6b5a6b69c3b24c738ce33aa4076f1`
+Merge commit: `2f1780684c2575750535f8740e678d7e5c4e37cb`
+Canonical implementation CI run: `32557880443` — PASS
+Final exact-head Canonical CI run: `32557958240` — PASS
 Job: `verify` (`96994851910`) — PASS
-
 - OpenAPI: PASS — 514 paths / 583 operations / 1146 refs
 - Architecture: PASS — 436 files scanned
 - Project policy: PASS — `toman-no-wallet-config-boundary`
@@ -110,7 +110,6 @@ Canonical implementation CI run: `32573137560` — PASS
 Final exact-head PR CI run: `32573263073` — PASS
 Canonical main CI run: `32573327905` — PASS
 Job: `verify` (`97031479566`) — PASS
-
 - Migration: `0055_excel_import_jobs.sql` — forward-only
 - OpenAPI: PASS — 514 paths / 583 operations / 1146 refs
 - Architecture: PASS — 440 files scanned
@@ -135,7 +134,6 @@ Implementation/final PR head: `0863315c3843fc484f50f1ae4fc3dc5ae1f75e7d`
 Merge commit: `4118ea87f7e6d895596d2ccd8411b2b89b997518`
 Canonical implementation CI run: `32575606327` — PASS
 Exact documentation-head CI run: `32575683495` — PASS
-
 - OpenAPI: PASS — 514 paths / 583 operations / 1146 refs
 - Architecture: PASS — 442 files scanned
 - Project policy: PASS — `toman-no-wallet-config-boundary`
@@ -163,7 +161,6 @@ Merge commit: `458fe4eed2202e45e786ff690ab5989f96baeb31`
 Canonical implementation CI run: `32576419753` — PASS
 Final exact-head CI run: `32576543739` — PASS
 Job: `verify` (`97039619238`) — PASS
-
 - OpenAPI: PASS — 514 paths / 583 operations / 1146 refs
 - Architecture: PASS — 444 files scanned
 - Project policy: PASS — `toman-no-wallet-config-boundary`
@@ -171,6 +168,34 @@ Job: `verify` (`97039619238`) — PASS
 - A5 dedicated tests: **6/6 PASS**
 - Runtime tests: **456 PASS / 0 FAIL / 0 skipped / 0 cancelled**
 - Overall `pnpm verify`: PASS
+
+## Step 50 A6 canonical foundation
+A6 adds the canonical Pricing preview/apply boundary for the workbook `prices` sheet:
+- SKU identity resolves through Catalog-owned `PosVariantLookupService`;
+- `price_toman` must be a non-negative safe integer Toman and duplicate SKU rows fail closed;
+- preview binds workbook fingerprint, canonical variant identity, current base-price ID/amount, proposed price and profit-guard outcome into a deterministic SHA-256 hash;
+- apply requires the exact preview hash and rechecks current base-price identity/amount inside the Pricing transaction;
+- stale price state fails closed with `PRICE_CHANGED_SINCE_PREVIEW`;
+- price decreases re-run canonical Profit Guard at apply time;
+- changed prices append new canonical `pricing.base_prices` history with `source_type = excel_import`, closing the previous interval;
+- Pricing writes canonical Outbox and central Audit evidence including source fingerprint;
+- unchanged proposed prices are no-op mutations;
+- Excel performs no direct Pricing SQL and receives no Inventory/Payments/Finance authority;
+- no new migration, dependency, HTTP/API or RBAC surface is introduced in A6.
+
+Implementation/final head before merge: `9ef01069081165f9fcff17096d26a6a17cdb70ab`
+Merge commit: `bfb10e39bab53b1371260f005693ba9589139c7e`
+Implementation CI run: `32577388495` — PASS
+Exact-head CI run: `32577469737` — PASS
+Job: `verify` (`97041781242`) — PASS
+- OpenAPI: PASS — 514 paths / 583 operations / 1146 refs
+- Architecture: PASS — 446 files scanned
+- Project policy: PASS — `toman-no-wallet-config-boundary`
+- TypeScript build: PASS
+- A6 dedicated tests: **6/6 PASS**
+- Runtime tests: **462 PASS / 0 FAIL / 0 skipped / 0 cancelled**
+- Overall `pnpm verify`: PASS
+- Initial CI run `32577294596` failed only because an A2 regression encoded a temporary no-PricingModule assumption; the test was narrowed to the durable parser/template no-mutation/no-execution invariant without deleting or disabling any test.
 
 ## Step 49 frozen ownership boundary
 - POS owns physical-sale/session orchestration, physical-sale transaction identity, POS-specific offline command/sync state, reconciliation state, and POS-facing read models.
@@ -181,7 +206,7 @@ Job: `verify` (`97039619238`) — PASS
 - Finance remains authoritative for accounting/financial facts.
 
 ## Next safe action
-Proceed to **Step 50 / A6 — Pricing Preview / Apply Boundary** from canonical A5 merge `458fe4eed2202e45e786ff690ab5989f96baeb31`. Do not perform Step 49 A11 closure before Step 53 completes.
+Proceed to **Step 50 / A7 — Re-import / Recovery / Concurrency Controls** from canonical A6 merge `bfb10e39bab53b1371260f005693ba9589139c7e`. Do not perform Step 49 A11 closure before Step 53 completes.
 
 ## Global trust rules
 1. `rahemih/Eqcofe` is the official repository.
