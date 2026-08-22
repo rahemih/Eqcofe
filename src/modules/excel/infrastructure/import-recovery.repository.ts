@@ -51,8 +51,15 @@ export class ImportRecoveryRepository {
 
   async recordRecovery(ex: DatabaseExecutor, input: { jobId: string; attemptNo: number; note: string }) {
     const result = await sql<ImportAttemptRow>`UPDATE excel.import_job_attempts
-      SET status='abandoned',ended_at=COALESCE(ended_at,now()),recovery_note=${input.note}
-      WHERE job_id=${input.jobId}::uuid AND attempt_no=${input.attemptNo} AND status='failed' RETURNING *`.execute(ex);
+      SET recovery_note=${input.note}
+      WHERE job_id=${input.jobId}::uuid AND attempt_no=${input.attemptNo} AND status='failed' AND recovery_note IS NULL RETURNING *`.execute(ex);
+    return result.rows[0] ?? null;
+  }
+
+  async resetFailedJob(ex: DatabaseExecutor, jobId: string) {
+    const result = await sql<any>`UPDATE excel.import_jobs
+      SET status='pending',completed_at=NULL,failure_code=NULL,failure_message=NULL
+      WHERE id=${jobId}::uuid AND status='failed' RETURNING *`.execute(ex);
     return result.rows[0] ?? null;
   }
 }
