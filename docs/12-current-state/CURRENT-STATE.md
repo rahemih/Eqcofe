@@ -12,6 +12,7 @@
 - Verified Step-44 baseline: `b239dfe825b615f36caf2e26cc7abc80c70d349c`.
 - Step-48 final closure merge: `149d5ec440fc789376ade48553b67f636a571f6d`.
 - Step-49 A10 merge: `b6adb6180ffd9e770af7ae04f85f8d513e5bffc8`.
+- Step-50 A1 merge: `11a39c6bda058c9d590acfcf2c78616197c86247`.
 
 ## Closed steps
 - **Step 45 — Content, Articles & SEO Backend — CLOSED / FINAL GATE PASS**
@@ -43,9 +44,9 @@ Step 49 evidence must not be rewritten or falsely marked closed before that defe
 **Step 50 — Excel Product & Pricing Management Backend — ACTIVE**
 
 ### Step 50 progress
-- **A1 — Discovery / Requirements / Ownership Freeze — COMPLETE / FINAL GATE PASS candidate pending exact-head CI + merge**
-- **A2 — Workbook Contract + Safe Parser / Export Template Foundation — NEXT**
-- **A3 — Import Job Persistence + Fingerprint / Idempotency Foundation — PENDING**
+- **A1 — Discovery / Requirements / Ownership Freeze — COMPLETE / FINAL GATE PASS**
+- **A2 — Workbook Contract + Safe Parser / Export Template Foundation — COMPLETE / FINAL GATE PASS candidate pending exact-head CI + merge**
+- **A3 — Import Job Persistence + Fingerprint / Idempotency Foundation — NEXT**
 - **A4 — Catalog Dry-Run Validation + Row-Level Error Model — PENDING**
 - **A5 — Catalog Product / Variant Apply Boundary — PENDING**
 - **A6 — Pricing Preview / Apply Boundary — PENDING**
@@ -66,6 +67,32 @@ Step 49 evidence must not be rewritten or falsely marked closed before that defe
 - Any Step-50 persistence is forward-only and limited to orchestration evidence; existing Catalog/Pricing tables remain authoritative and old migrations are not rewritten.
 - Future management HTTP surfaces require Staff/RBAC, validation, idempotency/errors, OpenAPI/strict contract coverage and Step-Up for sensitive apply/recovery actions where applicable.
 
+## Step 50 A2 canonical foundation
+A2 introduces a dedicated `src/modules/excel` bounded orchestration surface without importing Catalog or Pricing mutation services:
+- versioned workbook contract `eqcofe-step50-v1`;
+- XLSX filename/MIME and 10 MiB upload bound;
+- bounded sheet/row/column/cell model;
+- fail-closed rejection of macros, formulas, external links, invalid sheet names, duplicate sheets, unsafe control characters and unsupported cell types;
+- NFKC normalization of sheet names and text;
+- versioned export-template metadata with `products`, `variants`, and `prices` sheets;
+- `price_toman` is template metadata only; Pricing remains authoritative for actual Toman mutation;
+- no database migration, HTTP/OpenAPI endpoint, import-job persistence or business mutation is introduced in A2;
+- no new npm dependency is introduced; binary XLSX upload/codec transport remains a later boundary, while A2 defines the sanitized decoded-workbook contract that later orchestration must consume.
+
+### Step 50 A2 verification evidence
+PR: `#55`  
+Implementation head: `1e7a23b0b16a954d53a57876bcfb26119221dbbc`  
+Canonical implementation CI run: `32557880443`  
+Job: `verify` (`96994851910`) — PASS
+
+- OpenAPI: PASS — 514 paths / 583 operations / 1146 refs
+- Architecture: PASS — 436 files scanned
+- Project policy: PASS — `toman-no-wallet-config-boundary`
+- TypeScript build: PASS
+- A2 dedicated tests: **5/5 PASS**
+- Runtime tests: **438 PASS / 0 FAIL / 0 skipped / 0 cancelled**
+- Overall `pnpm verify`: PASS
+
 ## Step 49 frozen ownership boundary
 - POS owns physical-sale/session orchestration, physical-sale transaction identity, POS-specific offline command/sync state, reconciliation state, and POS-facing read models.
 - Catalog remains authoritative for product/variant/SKU/barcode identity and lifecycle facts.
@@ -75,7 +102,7 @@ Step 49 evidence must not be rewritten or falsely marked closed before that defe
 - Finance remains authoritative for accounting/financial facts.
 
 ## Next safe action
-After exact A1 documentation/current-state head passes Canonical CI and PR #54 is merged to `main`, proceed to **Step 50 / A2 — Workbook Contract + Safe Parser / Export Template Foundation**. Do not perform Step 49 A11 closure before Step 53 completes.
+After exact A2 documentation/current-state head passes Canonical CI and PR #55 is merged to `main`, proceed to **Step 50 / A3 — Import Job Persistence + Fingerprint / Idempotency Foundation**. Do not perform Step 49 A11 closure before Step 53 completes.
 
 ## Global trust rules
 1. `rahemih/Eqcofe` is the official repository.
