@@ -11,22 +11,17 @@ export class PhysicalSaleRepository {
   async create(ex: DatabaseExecutor, input: { id: string; clientCommandId: string; staffActorId: string }) {
     const result = await sql<any>`INSERT INTO pos.physical_sales(id,client_command_id,staff_actor_id)
       VALUES(${input.id}::uuid,${input.clientCommandId}::uuid,${input.staffActorId}::uuid)
-      ON CONFLICT (client_command_id) DO NOTHING
-      RETURNING *`.execute(ex);
+      ON CONFLICT (client_command_id) DO NOTHING RETURNING *`.execute(ex);
     return result.rows[0] ?? null;
   }
 
   async byId(id: string, ex: DatabaseExecutor = this.db, lock = false) {
-    const query = lock
-      ? sql<any>`SELECT * FROM pos.physical_sales WHERE id=${id}::uuid FOR UPDATE`
-      : sql<any>`SELECT * FROM pos.physical_sales WHERE id=${id}::uuid`;
+    const query = lock ? sql<any>`SELECT * FROM pos.physical_sales WHERE id=${id}::uuid FOR UPDATE` : sql<any>`SELECT * FROM pos.physical_sales WHERE id=${id}::uuid`;
     return (await query.execute(ex)).rows[0] ?? null;
   }
 
   async byClientCommandId(clientCommandId: string, ex: DatabaseExecutor = this.db, lock = false) {
-    const query = lock
-      ? sql<any>`SELECT * FROM pos.physical_sales WHERE client_command_id=${clientCommandId}::uuid FOR UPDATE`
-      : sql<any>`SELECT * FROM pos.physical_sales WHERE client_command_id=${clientCommandId}::uuid`;
+    const query = lock ? sql<any>`SELECT * FROM pos.physical_sales WHERE client_command_id=${clientCommandId}::uuid FOR UPDATE` : sql<any>`SELECT * FROM pos.physical_sales WHERE client_command_id=${clientCommandId}::uuid`;
     return (await query.execute(ex)).rows[0] ?? null;
   }
 
@@ -35,14 +30,12 @@ export class PhysicalSaleRepository {
       VALUES(${input.id}::uuid,${input.saleId}::uuid,${input.variantId}::uuid,${input.quantity})
       ON CONFLICT (sale_id,variant_id) DO UPDATE SET quantity=pos.physical_sale_lines.quantity + EXCLUDED.quantity,
         base_price_toman=NULL,discount_toman=NULL,unit_price_toman=NULL,pricing_base_price_id=NULL,pricing_rule_ids=NULL,pricing_customer_type=NULL,priced_at=NULL
-      WHERE pos.physical_sale_lines.quantity + EXCLUDED.quantity BETWEEN 1 AND 999
-      RETURNING *`.execute(ex);
+      WHERE pos.physical_sale_lines.quantity + EXCLUDED.quantity BETWEEN 1 AND 999 RETURNING *`.execute(ex);
     return result.rows[0] ?? null;
   }
 
   async linesForUpdate(ex: DatabaseExecutor, saleId: string) {
-    const result = await sql<any>`SELECT * FROM pos.physical_sale_lines WHERE sale_id=${saleId}::uuid ORDER BY id FOR UPDATE`.execute(ex);
-    return result.rows;
+    return (await sql<any>`SELECT * FROM pos.physical_sale_lines WHERE sale_id=${saleId}::uuid ORDER BY id FOR UPDATE`.execute(ex)).rows;
   }
 
   async applyPriceSnapshot(ex: DatabaseExecutor, input: { lineId:string;basePriceToman:number;discountToman:number;unitPriceToman:number;basePriceId:string;ruleIds:string[];customerType:'retail'|'wholesale' }) {
@@ -55,11 +48,13 @@ export class PhysicalSaleRepository {
     return result.rows[0]??null;
   }
 
+  async commitDraft(ex: DatabaseExecutor, input:{saleId:string;expectedVersion:number;warehouseId:string;paymentReceiptId:string;totalCostToman:number}){
+    const result=await sql<any>`UPDATE pos.physical_sales SET status='committed',warehouse_id=${input.warehouseId}::uuid,payment_receipt_id=${input.paymentReceiptId}::uuid,total_cost_toman=${input.totalCostToman},committed_at=now(),updated_at=now(),version=version+1 WHERE id=${input.saleId}::uuid AND status='draft' AND version=${input.expectedVersion} RETURNING *`.execute(ex);
+    return result.rows[0]??null;
+  }
+
   async voidDraft(ex: DatabaseExecutor, input: { saleId: string; expectedVersion: number }) {
-    const result = await sql<any>`UPDATE pos.physical_sales
-      SET status='voided',voided_at=now(),updated_at=now(),version=version+1
-      WHERE id=${input.saleId}::uuid AND status='draft' AND version=${input.expectedVersion}
-      RETURNING *`.execute(ex);
+    const result = await sql<any>`UPDATE pos.physical_sales SET status='voided',voided_at=now(),updated_at=now(),version=version+1 WHERE id=${input.saleId}::uuid AND status='draft' AND version=${input.expectedVersion} RETURNING *`.execute(ex);
     return result.rows[0] ?? null;
   }
 }
