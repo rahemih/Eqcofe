@@ -48,10 +48,10 @@ test('Step 49 A2 repository serializes sale mutation and does not mutate Catalog
   assert.doesNotMatch(source, /UPDATE\s+(catalog|pricing|inventory|payments|finance)\./i);
 });
 
-test('Step 49 A2 exposes no POS HTTP controller and leaves barcode pricing inventory payment work for later substeps', () => {
-  const moduleSource = readFileSync('src/modules/pos/pos.module.ts', 'utf8');
-  assert.match(moduleSource, /PhysicalSaleService/);
-  assert.doesNotMatch(moduleSource, /controllers\s*:/);
+test('Step 49 A2 deferred HTTP and later A9 does not rewrite the original A2 persistence boundary', () => {
   const migration = readFileSync('database/migrations/0049_pos_physical_sales.sql', 'utf8');
   assert.doesNotMatch(migration, /barcode|payment|price_snapshot|inventory_reservation/i);
+  const a9 = readFileSync('src/modules/pos/presentation/pos-admin.controller.ts', 'utf8');
+  assert.match(a9, /@StaffOnly\(\)/);
+  assert.match(a9, /@Permissions\('pos\.(view|sell|reconcile)'\)/);
 });
