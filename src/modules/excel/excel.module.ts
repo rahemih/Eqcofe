@@ -4,6 +4,7 @@ import { SafeWorkbookParserService } from './application/safe-workbook-parser.se
 import { ExportTemplateService } from './application/export-template.service';
 import { ImportJobService } from './application/import-job.service';
 import { CatalogDryRunService } from './application/catalog-dry-run.service';
+import { CatalogApplyService } from './application/catalog-apply.service';
 import { ImportJobRepository } from './infrastructure/import-job.repository';
 
 @Module({
@@ -14,7 +15,8 @@ import { ImportJobRepository } from './infrastructure/import-job.repository';
     ImportJobRepository,
     ImportJobService,
     CatalogDryRunService,
+    CatalogApplyService,
   ],
-  exports: [SafeWorkbookParserService, ExportTemplateService, ImportJobService, CatalogDryRunService],
+  exports: [SafeWorkbookParserService, ExportTemplateService, ImportJobService, CatalogDryRunService, CatalogApplyService],
 })
 export class ExcelModule {}
