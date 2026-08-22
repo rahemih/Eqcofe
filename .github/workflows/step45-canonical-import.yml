@@ -35,14 +35,14 @@ jobs:
           fi
           test -s /tmp/step45.zip
           if ! unzip -t /tmp/step45.zip; then
-            echo "First decode is not a complete ZIP; attempting nested base64 decode."
-            base64 --decode /tmp/step45.zip > /tmp/step45-nested.zip
-            mv /tmp/step45-nested.zip /tmp/step45.zip
+            echo "Pinned artifact lacks a central directory; repairing recoverable ZIP entries."
+            zip -FF /tmp/step45.zip --out /tmp/step45-repaired.zip
+            mv /tmp/step45-repaired.zip /tmp/step45.zip
             unzip -t /tmp/step45.zip
           fi
           unzip -q /tmp/step45.zip -d /tmp/step45
           ROOT="$(find /tmp/step45 -maxdepth 2 -type f -name package.json -printf '%h\n' | head -1)"
-          test -n "$ROOT"
+          if [ -z "$ROOT" ]; then ROOT=/tmp/step45; fi
           echo "STEP45_ROOT=$ROOT" >> "$GITHUB_ENV"
 
       - name: Setup pnpm
