@@ -5,12 +5,50 @@ updates:
     target-branch: main
     schedule:
       interval: monthly
-    open-pull-requests-limit: 5
+    open-pull-requests-limit: 3
     rebase-strategy: auto
+    groups:
+      nestjs-minor-patch:
+        patterns:
+          - "@nestjs/*"
+        update-types:
+          - minor
+          - patch
+      runtime-minor-patch:
+        dependency-type: production
+        patterns:
+          - "*"
+        exclude-patterns:
+          - "@nestjs/*"
+        update-types:
+          - minor
+          - patch
+      development-minor-patch:
+        dependency-type: development
+        patterns:
+          - "*"
+        update-types:
+          - minor
+          - patch
+    ignore:
+      - dependency-name: "*"
+        update-types:
+          - version-update:semver-major
   - package-ecosystem: github-actions
     directory: /
     target-branch: main
     schedule:
       interval: monthly
-    open-pull-requests-limit: 5
+    open-pull-requests-limit: 3
     rebase-strategy: auto
+    groups:
+      actions-minor-patch:
+        patterns:
+          - "*"
+        update-types:
+          - minor
+          - patch
+    ignore:
+      - dependency-name: "*"
+        update-types:
+          - version-update:semver-major
