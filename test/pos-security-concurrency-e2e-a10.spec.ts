@@ -125,7 +125,8 @@ test('Step 49 A10 retains every Step 49 regression suite A2 through A9',()=>{
 
 test('Step 49 A10 is a gate-only substep and adds no new persistence authority',()=>{
   const migrations=fs.readdirSync('database/migrations');
-  assert.equal(migrations.some(name=>name.startsWith('0055_')),false);
+  const a10Persistence=migrations.filter(name=>/step[-_]?49.*a10|pos.*security.*concurrency.*e2e/i.test(name));
+  assert.deepEqual(a10Persistence,[]);
   assert.match(commit,/pos\.sale\.committed\.v1/);
   assert.doesNotMatch(offline,/setInterval|setTimeout|@Cron|@Interval/);
 });

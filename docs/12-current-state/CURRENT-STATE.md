@@ -47,7 +47,7 @@ Step 49 evidence must not be rewritten or falsely marked closed before that defe
 ### Step 50 progress
 - **A1 — Discovery / Requirements / Ownership Freeze — COMPLETE / FINAL GATE PASS**
 - **A2 — Workbook Contract + Safe Parser / Export Template Foundation — COMPLETE / FINAL GATE PASS**
-- **A3 — Import Job Persistence + Fingerprint / Idempotency Foundation — NEXT**
+- **A3 — Import Job Persistence + Fingerprint / Idempotency Foundation — COMPLETE / FINAL GATE PASS candidate pending exact documentation-head CI + merge**
 - **A4 — Catalog Dry-Run Validation + Row-Level Error Model — PENDING**
 - **A5 — Catalog Product / Variant Apply Boundary — PENDING**
 - **A6 — Pricing Preview / Apply Boundary — PENDING**
@@ -97,6 +97,23 @@ Job: `verify` (`96994851910`) — PASS
 - Runtime tests: **438 PASS / 0 FAIL / 0 skipped / 0 cancelled**
 - Overall `pnpm verify`: PASS
 
+## Step 50 A3 canonical candidate
+A3 adds the forward-only `excel.import_jobs` orchestration boundary, deterministic SHA-256 fingerprinting over sanitized A2 workbook content, database-enforced `(contract_version, fingerprint)` uniqueness, atomic duplicate detection, explicit pending/processing/completed/failed lifecycle transitions, requester-conflict protection and terminal replay safety.
+
+Implementation head: `cacd969d12d106e17fae4fa106c411904350458c`
+
+Canonical implementation CI run: `32573137560` — PASS
+Job: `verify` (`97031479566`) — PASS
+
+- Migration: `0055_excel_import_jobs.sql` — forward-only
+- OpenAPI: PASS — 514 paths / 583 operations / 1146 refs
+- Architecture: PASS — 440 files scanned
+- Project policy: PASS — `toman-no-wallet-config-boundary`
+- TypeScript build: PASS
+- A3 dedicated tests: **6/6 PASS**
+- Runtime tests: **444 PASS / 0 FAIL / 0 skipped / 0 cancelled**
+- No workbook binary/raw payload, Catalog/Pricing mutation, HTTP/API surface or new npm dependency is introduced.
+
 ## Step 49 frozen ownership boundary
 - POS owns physical-sale/session orchestration, physical-sale transaction identity, POS-specific offline command/sync state, reconciliation state, and POS-facing read models.
 - Catalog remains authoritative for product/variant/SKU/barcode identity and lifecycle facts.
@@ -106,7 +123,7 @@ Job: `verify` (`96994851910`) — PASS
 - Finance remains authoritative for accounting/financial facts.
 
 ## Next safe action
-Proceed to **Step 50 / A3 — Import Job Persistence + Fingerprint / Idempotency Foundation** from canonical merge `2f1780684c2575750535f8740e678d7e5c4e37cb`. Do not perform Step 49 A11 closure before Step 53 completes.
+After exact A3 documentation-head Canonical CI passes and PR #70 is merged, synchronize final merge evidence and proceed to **Step 50 / A4 — Catalog Dry-Run Validation + Row-Level Error Model**. Do not perform Step 49 A11 closure before Step 53 completes.
 
 ## Global trust rules
 1. `rahemih/Eqcofe` is the official repository.
