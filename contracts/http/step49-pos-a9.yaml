@@ -1,0 +1,176 @@
+openapi: 3.1.0
+info:
+  title: EQCOFE Step 49 POS A9 Contract
+  version: 49.9.0
+paths:
+  /admin/pos/scan:
+    get:
+      security: [{ bearerAuth: [] }]
+      x-permission: pos.view
+      parameters:
+        - { in: query, name: kind, required: true, schema: { type: string, enum: [sku, barcode] } }
+        - { in: query, name: value, required: true, schema: { type: string, minLength: 1, maxLength: 200 } }
+      responses: { '200': { description: Resolved catalog variant } }
+  /admin/pos/sales:
+    post:
+      security: [{ bearerAuth: [] }]
+      x-permission: pos.sell
+      parameters: [{ $ref: '#/components/parameters/IdempotencyKey' }]
+      responses: { '201': { description: Draft physical sale } }
+  /admin/pos/sales/{id}/lines:
+    post:
+      security: [{ bearerAuth: [] }]
+      x-permission: pos.sell
+      parameters:
+        - { $ref: '#/components/parameters/SaleId' }
+        - { $ref: '#/components/parameters/IdempotencyKey' }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              required: [variant_id, quantity]
+              properties:
+                variant_id: { type: string, format: uuid }
+                quantity: { type: integer, minimum: 1, maximum: 999 }
+      responses: { '201': { description: Updated sale line } }
+  /admin/pos/sales/{id}/price:
+    post:
+      security: [{ bearerAuth: [] }]
+      x-permission: pos.sell
+      parameters:
+        - { $ref: '#/components/parameters/SaleId' }
+        - { $ref: '#/components/parameters/IdempotencyKey' }
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              properties:
+                customer_type: { type: string, enum: [retail, wholesale], default: retail }
+      responses: { '200': { description: Authoritative Toman pricing snapshot } }
+  /admin/pos/sales/{id}/commit:
+    post:
+      security: [{ bearerAuth: [] }]
+      x-permission: pos.sell
+      parameters:
+        - { $ref: '#/components/parameters/SaleId' }
+        - { $ref: '#/components/parameters/IdempotencyKey' }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              required: [warehouse_id, expected_version, payment_method]
+              properties:
+                warehouse_id: { type: string, format: uuid }
+                expected_version: { type: integer, minimum: 1 }
+                payment_method: { type: string, enum: [cash, card] }
+                external_reference: { type: string, minLength: 1, maxLength: 160 }
+      responses: { '200': { description: Committed physical sale } }
+  /admin/pos/offline/commands:
+    post:
+      security: [{ bearerAuth: [] }]
+      x-permission: pos.sell
+      parameters: [{ $ref: '#/components/parameters/IdempotencyKey' }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/OfflineSaleSyncPayload' }
+      responses: { '201': { description: Captured offline intent } }
+  /admin/pos/offline/commands/{clientCommandId}/sync:
+    post:
+      security: [{ bearerAuth: [] }]
+      x-permission: pos.sell
+      parameters:
+        - { $ref: '#/components/parameters/ClientCommandId' }
+        - { $ref: '#/components/parameters/IdempotencyKey' }
+      responses: { '200': { description: Server-authoritative sync result } }
+  /admin/pos/reconciliation/failed:
+    get:
+      security: [{ bearerAuth: [] }]
+      x-permission: pos.reconcile
+      parameters:
+        - { in: query, name: limit, schema: { type: integer, minimum: 1, maximum: 100, default: 50 } }
+      responses: { '200': { description: Failed POS commands } }
+  /admin/pos/reconciliation/{clientCommandId}:
+    get:
+      security: [{ bearerAuth: [] }]
+      x-permission: pos.reconcile
+      parameters: [{ $ref: '#/components/parameters/ClientCommandId' }]
+      responses: { '200': { description: Command and immutable reconciliation history } }
+  /admin/pos/reconciliation/{clientCommandId}/retry:
+    post:
+      security: [{ bearerAuth: [] }]
+      x-permission: pos.reconcile
+      x-step-up-required: true
+      parameters:
+        - { $ref: '#/components/parameters/ClientCommandId' }
+        - { $ref: '#/components/parameters/IdempotencyKey' }
+      requestBody: { $ref: '#/components/requestBodies/ReconciliationNote' }
+      responses: { '200': { description: Requeued command; owner sync remains required } }
+  /admin/pos/reconciliation/{clientCommandId}/abandon:
+    post:
+      security: [{ bearerAuth: [] }]
+      x-permission: pos.reconcile
+      x-step-up-required: true
+      parameters:
+        - { $ref: '#/components/parameters/ClientCommandId' }
+        - { $ref: '#/components/parameters/IdempotencyKey' }
+      requestBody: { $ref: '#/components/requestBodies/ReconciliationNote' }
+      responses: { '200': { description: Terminal abandoned command } }
+components:
+  securitySchemes:
+    bearerAuth: { type: http, scheme: bearer, bearerFormat: JWT }
+  parameters:
+    IdempotencyKey:
+      in: header
+      name: Idempotency-Key
+      required: true
+      schema: { type: string, format: uuid }
+    SaleId:
+      in: path
+      name: id
+      required: true
+      schema: { type: string, format: uuid }
+    ClientCommandId:
+      in: path
+      name: clientCommandId
+      required: true
+      schema: { type: string, format: uuid }
+  requestBodies:
+    ReconciliationNote:
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: false
+            properties:
+              note: { type: string, minLength: 1, maxLength: 500 }
+  schemas:
+    OfflineSaleSyncPayload:
+      type: object
+      additionalProperties: false
+      required: [warehouse_id, customer_type, payment_method, lines]
+      properties:
+        warehouse_id: { type: string, format: uuid }
+        customer_type: { type: string, enum: [retail, wholesale] }
+        payment_method: { type: string, enum: [cash, card] }
+        external_reference: { type: string, minLength: 1, maxLength: 160 }
+        lines:
+          type: array
+          minItems: 1
+          maxItems: 100
+          items:
+            type: object
+            additionalProperties: false
+            required: [variant_id, quantity]
+            properties:
+              variant_id: { type: string, format: uuid }
+              quantity: { type: integer, minimum: 1, maximum: 999 }
