@@ -1,6 +1,6 @@
 # Step 50 / A8 — Staff RBAC / Audit / API + Export Operations
 
-Status: COMPLETE / FINAL GATE PASS pending final merge/state-sync evidence.
+Status: COMPLETE / FINAL GATE PASS.
 
 ## Scope
 A8 exposes the already-governed Excel A2–A7 orchestration to staff administration without creating a parallel Catalog, Pricing, inventory or payment authority.
@@ -17,10 +17,10 @@ A8 exposes the already-governed Excel A2–A7 orchestration to staff administrat
 - Import-job creation is permission-guarded and HTTP-idempotent in addition to A3 fingerprint idempotency.
 - Catalog/Pricing apply requires `excel.apply`, Step-Up and idempotency and delegates only to A5/A6 owner boundaries.
 - Recovery requires `excel.recover`, Step-Up and idempotency and delegates only to A7 bounded recovery.
-- Every HTTP workbook body is passed through the existing fail-closed `SafeWorkbookParserService` before orchestration; missing workbook input now fails with a controlled validation error.
+- Every HTTP workbook body is passed through the existing fail-closed `SafeWorkbookParserService` before orchestration; missing workbook input fails with a controlled validation error.
 - Central Audit writes only bounded safe metadata (job ID, contract/fingerprint, counts/status/attempt number and bounded recovery reason); raw workbook/sheets are never written to Audit.
 - Additive OpenAPI overlay `contracts/http/openapi-step50-a8.yaml` defines 8 strict Admin Excel operations and schemas.
-- Canonical OpenAPI validator now assembles sorted `openapi-*.yaml` additive overlays, rejects duplicate paths/components, and validates operation IDs and local refs over the assembled contract.
+- Canonical OpenAPI validator assembles sorted `openapi-*.yaml` additive overlays, rejects duplicate paths/components, and validates operation IDs and local refs over the assembled contract.
 
 ## API surface
 - `GET /admin/excel/exports/template`
@@ -41,10 +41,14 @@ A8 exposes the already-governed Excel A2–A7 orchestration to staff administrat
 - ExcelModule does not import Inventory, Orders, Payments or Finance.
 
 ## Verification
-Implementation PR: #80
+Implementation PR: `#80` — MERGED
 Implementation head before evidence commit: `6bbfba7e7b727827e05d2a691e93ad550eca7926`
-Canonical implementation CI run: `32580222781`
-Verify job: `97048348609`
+Final PR head: `cfb4f63151814a5cc321ebd1a47d386990dc62b8`
+Merge commit: `6fe3147ef1af901253dbb7f8295e4781555157f8`
+Canonical implementation CI run: `32580222781` — PASS
+Implementation verify job: `97048348609` — PASS
+Final exact-head CI run: `32580318662` — PASS
+Final exact-head verify job: `97048572444` — PASS
 
 - OpenAPI: PASS — 522 paths / 591 operations / 1161 refs; overlay `openapi-step50-a8.yaml` assembled and validated
 - Architecture: PASS — 450 files scanned
@@ -54,4 +58,4 @@ Verify job: `97048348609`
 - Runtime tests: **476 PASS / 0 FAIL / 0 skipped / 0 cancelled**
 - Overall `pnpm verify`: PASS
 
-Final exact-head CI, merge commit, canonical main CI and state-sync evidence are recorded after merge.
+The documentation-only final state-sync PR records canonical `main` status and advances Step 50 to A9.
