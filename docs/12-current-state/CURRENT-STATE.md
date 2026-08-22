@@ -19,6 +19,7 @@
 - Step-50 A5 merge: `458fe4eed2202e45e786ff690ab5989f96baeb31`.
 - Step-50 A6 merge: `bfb10e39bab53b1371260f005693ba9589139c7e`.
 - Step-50 A7 merge: `1ac725e7bc23557993905d6d7754ee8b822fee5a`.
+- Step-50 A8 merge: `6fe3147ef1af901253dbb7f8295e4781555157f8`.
 
 ## Closed steps
 - **Step 45 — Content, Articles & SEO Backend — CLOSED / FINAL GATE PASS**
@@ -57,8 +58,8 @@ Step 49 evidence must not be rewritten or falsely marked closed before that defe
 - **A5 — Catalog Product / Variant Apply Boundary — COMPLETE / FINAL GATE PASS**
 - **A6 — Pricing Preview / Apply Boundary — COMPLETE / FINAL GATE PASS**
 - **A7 — Re-import / Recovery / Concurrency Controls — COMPLETE / FINAL GATE PASS**
-- **A8 — Staff RBAC / Audit / API + Export Operations — NEXT**
-- **A9 — Security / E2E / Regression Gate — PENDING**
+- **A8 — Staff RBAC / Audit / API + Export Operations — COMPLETE / FINAL GATE PASS**
+- **A9 — Security / E2E / Regression Gate — NEXT**
 - **A10 — Final Canonical Closure — PENDING**
 
 ## Step 50 A1 frozen boundary
@@ -223,6 +224,35 @@ Exact-head verify job: `97043535652` — PASS
 - Runtime tests: **468 PASS / 0 FAIL / 0 skipped / 0 cancelled**
 - Overall `pnpm verify`: PASS
 
+## Step 50 A8 canonical foundation
+A8 exposes the A2–A7 Excel orchestration through a hardened staff administration boundary:
+- forward-only migration `0057_excel_rbac_audit_api.sql` adds `excel.view`, `excel.import`, `excel.apply`, and `excel.recover` without assigning roles implicitly;
+- `/admin/excel` is staff-only and every route carries explicit RBAC;
+- template export reuses the versioned A2 contract and does not invent binary XLSX codec/transport;
+- dry-run and Catalog/Pricing previews remain non-mutating;
+- import creation is HTTP-idempotent in addition to fingerprint identity;
+- Catalog/Pricing apply require critical `excel.apply`, Step-Up and idempotency and continue through A5/A6 owner boundaries;
+- recovery requires critical `excel.recover`, Step-Up and idempotency and remains A7 evidence/retry bound;
+- all HTTP workbook input passes through `SafeWorkbookParserService`; missing workbook input fails closed with a controlled validation error;
+- central Audit records only safe orchestration metadata and never raw workbook/sheet payloads;
+- additive `openapi-step50-a8.yaml` contributes 8 strict Admin Excel operations; the canonical validator assembles sorted OpenAPI overlays and rejects duplicate paths/components before validating operations/refs;
+- Excel does not gain direct Catalog/Pricing SQL or Inventory/Orders/Payments/Finance authority.
+
+Implementation head before evidence commit: `6bbfba7e7b727827e05d2a691e93ad550eca7926`
+Final PR head: `cfb4f63151814a5cc321ebd1a47d386990dc62b8`
+Merge commit: `6fe3147ef1af901253dbb7f8295e4781555157f8`
+Implementation CI run: `32580222781` — PASS
+Implementation verify job: `97048348609` — PASS
+Exact-head CI run: `32580318662` — PASS
+Exact-head verify job: `97048572444` — PASS
+- OpenAPI: PASS — 522 paths / 591 operations / 1161 refs; `openapi-step50-a8.yaml` assembled
+- Architecture: PASS — 450 files scanned
+- Project policy: PASS — `toman-no-wallet-config-boundary`
+- TypeScript build: PASS
+- A8 dedicated tests: **8/8 PASS**
+- Runtime tests: **476 PASS / 0 FAIL / 0 skipped / 0 cancelled**
+- Overall `pnpm verify`: PASS
+
 ## Step 49 frozen ownership boundary
 - POS owns physical-sale/session orchestration, physical-sale transaction identity, POS-specific offline command/sync state, reconciliation state, and POS-facing read models.
 - Catalog remains authoritative for product/variant/SKU/barcode identity and lifecycle facts.
@@ -232,7 +262,7 @@ Exact-head verify job: `97043535652` — PASS
 - Finance remains authoritative for accounting/financial facts.
 
 ## Next safe action
-Proceed to **Step 50 / A8 — Staff RBAC / Audit / API + Export Operations** from canonical A7 merge `1ac725e7bc23557993905d6d7754ee8b822fee5a`. Do not perform Step 49 A11 closure before Step 53 completes.
+Proceed to **Step 50 / A9 — Security / E2E / Regression Gate** from canonical A8 merge `6fe3147ef1af901253dbb7f8295e4781555157f8`. Do not perform Step 49 A11 closure before Step 53 completes.
 
 ## Global trust rules
 1. `rahemih/Eqcofe` is the official repository.
