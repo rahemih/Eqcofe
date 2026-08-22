@@ -36,7 +36,7 @@ jobs:
           test -s /tmp/step45.zip
           if ! unzip -t /tmp/step45.zip; then
             echo "Pinned artifact lacks a central directory; repairing recoverable ZIP entries."
-            zip -FF /tmp/step45.zip --out /tmp/step45-repaired.zip
+            printf 'y\n' | zip -FF /tmp/step45.zip --out /tmp/step45-repaired.zip
             mv /tmp/step45-repaired.zip /tmp/step45.zip
             unzip -t /tmp/step45.zip
           fi
