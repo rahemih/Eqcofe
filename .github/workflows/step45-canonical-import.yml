@@ -33,6 +33,19 @@ jobs:
           test -n "$ROOT"
           echo "STEP45_ROOT=$ROOT" >> "$GITHUB_ENV"
 
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11.21.0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24.18.1
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
       - name: Apply Step45 delta without overwriting Step46
         run: |
           set -euo pipefail
@@ -61,25 +74,93 @@ jobs:
             fi
           done < <(find "$ROOT" -type f -print0)
 
-          # Preserve current Step46 implementation using structural checks instead of historical filenames.
+          STEP45_ROOT="$ROOT" node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+          import YAML from 'yaml';
+
+          const root = process.env.STEP45_ROOT;
+          const openapiPath = 'contracts/http/openapi.yaml';
+          const artifactOpenapiPath = `${root}/${openapiPath}`;
+          if (!fs.existsSync(artifactOpenapiPath)) {
+            throw new Error(`Canonical Step45 OpenAPI not found at ${artifactOpenapiPath}`);
+          }
+
+          const current = YAML.parse(fs.readFileSync(openapiPath, 'utf8'));
+          const canonical = YAML.parse(fs.readFileSync(artifactOpenapiPath, 'utf8'));
+          const contentPath = /(?:article|content|blog|seo|sitemap)/i;
+
+          current.tags ??= [];
+          const knownTags = new Set(current.tags.map((tag) => tag.name));
+          for (const tag of canonical.tags ?? []) {
+            if (!knownTags.has(tag.name)) current.tags.push(tag);
+          }
+
+          current.components ??= {};
+          for (const section of ['schemas', 'responses', 'parameters', 'headers', 'securitySchemes']) {
+            current.components[section] ??= {};
+            for (const [name, value] of Object.entries(canonical.components?.[section] ?? {})) {
+              if (!(name in current.components[section]) || contentPath.test(name)) {
+                current.components[section][name] = value;
+              }
+            }
+          }
+
+          current.paths ??= {};
+          for (const [path, operation] of Object.entries(canonical.paths ?? {})) {
+            if (contentPath.test(path)) current.paths[path] = operation;
+          }
+
+          fs.writeFileSync(openapiPath, YAML.stringify(current, { lineWidth: 0 }));
+          NODE
+
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+
+          const servicePath = 'apps/scheduler/scheduler-tasks.service.ts';
+          let service = fs.readFileSync(servicePath, 'utf8');
+          const importLine = "import { ArticleOperationsService } from '../../src/modules/content/application/article-operations.service';";
+          if (!service.includes(importLine)) {
+            service = service.replace(
+              "import { OrderService } from '../../src/modules/orders/application/order.service';",
+              "import { OrderService } from '../../src/modules/orders/application/order.service';\n" + importLine,
+            );
+          }
+          if (!service.includes('private readonly content: ArticleOperationsService')) {
+            service = service.replace(
+              'private readonly notifications:NotificationOperationsService)',
+              'private readonly notifications:NotificationOperationsService, private readonly content: ArticleOperationsService)',
+            );
+          }
+          if (!service.includes('publishScheduledContent')) {
+            service = service.replace(
+              '  @Cron(CronExpression.EVERY_10_MINUTES) refreshCurrencyRates()',
+              '  @Cron(CronExpression.EVERY_MINUTE) async publishScheduledContent(): Promise<void> { await this.content.publishDue(50); }\n  @Cron(CronExpression.EVERY_10_MINUTES) refreshCurrencyRates()',
+            );
+          }
+          fs.writeFileSync(servicePath, service);
+
+          const modulePath = 'apps/scheduler/app.module.ts';
+          let moduleSource = fs.readFileSync(modulePath, 'utf8');
+          const moduleImport = "import { ContentModule } from '../../src/modules/content/content.module';";
+          if (!moduleSource.includes(moduleImport)) {
+            moduleSource = moduleSource.replace(
+              "import { PaymentsModule } from '../../src/modules/payments/payments.module';",
+              "import { PaymentsModule } from '../../src/modules/payments/payments.module';\n" + moduleImport,
+            );
+          }
+          if (!moduleSource.includes('PaymentsModule, ContentModule')) {
+            moduleSource = moduleSource.replace('PaymentsModule, NotificationsModule', 'PaymentsModule, ContentModule, NotificationsModule');
+          }
+          fs.writeFileSync(modulePath, moduleSource);
+          NODE
+
           test -d src/modules/marketing
           test -n "$(find src/modules/marketing -type f -print -quit)"
           test -n "$(find database/migrations -maxdepth 1 -type f \( -name '0036*' -o -name '0037*' -o -iname '*marketing*' -o -iname '*loyalty*' \) -print -quit)"
+          grep -q 'publishDue(50)' apps/scheduler/scheduler-tasks.service.ts
+          grep -q 'publishScheduledContent' apps/scheduler/scheduler-tasks.service.ts
 
           rm -rf .step45-import .step45-trigger
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 11.21.0
-
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 24.18.1
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
 
       - name: Full verification
         run: pnpm verify
