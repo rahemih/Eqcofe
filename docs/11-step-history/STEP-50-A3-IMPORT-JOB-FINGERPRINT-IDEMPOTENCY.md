@@ -1,7 +1,7 @@
 # Step 50 / A3 — Import Job Persistence + Fingerprint / Idempotency Foundation
 
 ## Status
-**COMPLETE / FINAL GATE PASS candidate pending exact documentation-head CI and merge**
+**COMPLETE / FINAL GATE PASS**
 
 ## Scope
 A3 adds only the import-job identity, lifecycle and content-idempotency persistence boundary. It does not validate Catalog rows, mutate Catalog/Pricing, expose HTTP endpoints, persist workbook binaries, or apply imported business state.
@@ -53,9 +53,17 @@ The Step-49 A10 regression test previously treated every future `0055_*` migrati
 ## Verification evidence
 Implementation head: `cacd969d12d106e17fae4fa106c411904350458c`
 
+Final PR head: `5a427a787e3f43f79dff7e421c0ff6512225f673`
+
+Merge commit: `de0cd36237ce51e2acb87a12b432b121b42e8a9d`
+
 Canonical CI run: `32573137560`
 
 Job: `verify` (`97031479566`) — **PASS**
+
+Final exact-head PR CI run: `32573263073` — **PASS**
+
+Canonical main CI run: `32573327905` — **PASS**
 
 - OpenAPI: **PASS** — 514 paths / 583 operations / 1146 refs
 - Architecture: **PASS** — 440 files scanned
@@ -66,4 +74,4 @@ Job: `verify` (`97031479566`) — **PASS**
 - Overall `pnpm verify`: **PASS**
 
 ## Next safe action
-After exact documentation-head Canonical CI passes and PR #70 is merged, synchronize the canonical current-state documents and proceed to **Step 50 / A4 — Catalog Dry-Run Validation + Row-Level Error Model**.
+Proceed to **Step 50 / A4 — Catalog Dry-Run Validation + Row-Level Error Model** from canonical merge `de0cd36237ce51e2acb87a12b432b121b42e8a9d`.

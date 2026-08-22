@@ -16,14 +16,14 @@ Conversation history is supporting context only. It must not override current ca
 
 - Official repository: `rahemih/Eqcofe`
 - Canonical branch: `main`
-- Verified canonical HEAD at snapshot creation: `2f1780684c2575750535f8740e678d7e5c4e37cb`
+- Verified canonical HEAD at snapshot creation: `de0cd36237ce51e2acb87a12b432b121b42e8a9d`
 - Last fully closed step: **Step 48 — EQCOFE AI Backend Foundation — CLOSED / FINAL GATE PASS**
 - Deferred closure: **Step 49 A1–A10 complete; A11 intentionally deferred until Step 53**
 - Active step: **Step 50 — Excel Product & Pricing Management Backend**
-- Last completed substep: **Step 50 / A2 — COMPLETE / FINAL GATE PASS**
-- Next approved substep: **Step 50 / A3 — Import Job Persistence + Fingerprint / Idempotency Foundation**
-- Latest merged PR: **#55**
-- Latest exact-head Canonical CI: **32557958240 — PASS**
+- Last completed substep: **Step 50 / A3 — COMPLETE / FINAL GATE PASS**
+- Next approved substep: **Step 50 / A4 — Catalog Dry-Run Validation + Row-Level Error Model**
+- Latest merged PR: **#70**
+- Latest exact-head Canonical CI: **32573327905 — PASS**
 - Linear project: **EQCOFE**
 - Linear current issue: **RE-VERIFY before execution; do not reuse the stale Step-48 issue reference**
 

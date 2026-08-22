@@ -4,19 +4,19 @@ EQCOFE is an Iranian e-commerce platform for coffee equipment, built as a SQL-fi
 
 ## Canonical status
 
-This repository is the canonical EQCOFE backend source through **Step 50 / A2 — Workbook Contract + Safe Parser Foundation**.
+This repository is the canonical EQCOFE backend source through **Step 50 / A3 — Import Job Persistence + Fingerprint / Idempotency Foundation**.
 
 - Last fully closed step: **48 — EQCOFE AI Backend Foundation — FINAL CANONICAL / CLOSED**
 - Deferred closure: **Step 49 A1–A10 complete; A11 intentionally deferred until Step 53**
 - Active step: **50 — Excel Product & Pricing Management Backend**
-- Next approved substep: **Step 50 / A3 — Import Job Persistence + Fingerprint / Idempotency Foundation**
+- Next approved substep: **Step 50 / A4 — Catalog Dry-Run Validation + Row-Level Error Model**
 - Money unit: **Toman**
 - Wallet: **not part of the product**
 - Node: `>=24.18.1 <25`
 - Package manager: `pnpm@11.21.0`
-- Latest verified full runtime regression on this exact production-source lineage: **438/438 PASS**
+- Latest verified full runtime regression on this exact production-source lineage: **444/444 PASS**
 - Latest verified OpenAPI: **514 paths / 583 operations / 1146 refs — PASS**
-- Latest verified architecture gate: **436 files — PASS**
+- Latest verified architecture gate: **440 files — PASS**
 - PostgreSQL 18.4 isolated verification: **PASS**
 
 > Import provenance matters: the historical GitHub repository was a partial traceability/recovery mirror. The runnable source in this import comes from the final Step-44 canonical artifact, not from pretending the old GitHub `main` tree was complete.
