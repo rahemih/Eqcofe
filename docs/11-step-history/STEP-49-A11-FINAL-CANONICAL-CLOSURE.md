@@ -1,6 +1,6 @@
 # Step 49 / A11 — Final Canonical Closure Audit
 
-Status: CLOSURE CANDIDATE — requires exact-head Canonical CI PASS and merge.
+Status: COMPLETE / FINAL GATE PASS — implementation closure PR merged; canonical state-sync pending final CI/merge.
 
 ## Scope
 A11 is the deferred final canonical closure audit for Step 49 — Physical Store / POS Backend. It introduces no new POS feature, persistence authority, business rule, dependency, permission or API. It verifies the complete A1–A10 lineage, repository placement, migration lineage, ownership boundaries, security/concurrency controls, regression evidence and canonical documentation.
@@ -37,7 +37,7 @@ Step 49 migrations are additive and forward-only:
 5. `0053_pos_offline_reconciliation.sql`
 6. `0054_pos_rbac_audit_api.sql`
 
-A3 and A4 correctly required no POS migration because identity remained Catalog-owned and stock consumption remained Inventory-owned. A10 was gate-only and introduced no migration.
+A3 and A4 correctly required no POS migration because identity remained Catalog-owned and stock consumption remained Inventory-owned. A10 and A11 are gate-only and introduce no migration.
 
 ## Ownership and business-rule audit
 - POS owns physical-sale orchestration, POS transaction identity, immutable sale snapshots, offline command/sync state and reconciliation state.
@@ -62,15 +62,14 @@ A9/A10 and current source preserve:
 - Client input cannot authoritatively set price, stock, COGS, paid state or totals.
 - Audit metadata remains bounded and excludes secret/raw unsafe authority.
 
-## Regression evidence
-Step 49 A10 is a gate-only security/concurrency/E2E regression suite and retains focused A2–A9 suites. The later Step-50 final verification re-ran the full repository after Step 49 with 494 PASS / 0 FAIL / 0 skipped / 0 cancelled, while Step-49 focused tests remained present and passing in the same canonical run.
+## Fresh A11 verification evidence
+Closure PR: `#86` — MERGED
+Closure exact head: `01ffd795f1a16dd9866f98257602d24a66ac96b5`
+Canonical CI run: `32635230753` — PASS
+Verify job: `97183852550` — PASS
+Closure merge: `2ebe995c829914b6cb230c7e05363af59be2ec38`
 
-The A11 closure branch must receive a fresh Canonical CI `pnpm verify` PASS before merge. No test may be removed or disabled for closure.
+The full canonical `pnpm verify` gate passed on the exact A11 head without changing runtime code or disabling tests. The later Step-50 final verification had already re-run the complete repository with 494 PASS / 0 FAIL / 0 skipped / 0 cancelled, including the retained Step-49 focused suites.
 
-## Closure decision
-Step 49 may be declared `CLOSED / FINAL GATE PASS` only after:
-1. this A11 exact head receives Canonical CI PASS;
-2. A11 is merged to `main`;
-3. `CURRENT-STATE.md` and `MASTER-ROADMAP.md` are synchronized from merged evidence;
-4. final state-sync receives Canonical CI PASS and is merged;
-5. Linear is synchronized with final GitHub/CI evidence.
+## Final state-sync gate
+`CURRENT-STATE.md`, `MASTER-ROADMAP.md` and this closure evidence are synchronized on the post-merge state-sync branch. Step 49 is declared `CLOSED / FINAL GATE PASS` only after that exact state-sync head receives Canonical CI PASS and is merged, followed by Linear synchronization.
