@@ -12,6 +12,7 @@
 - Verified Step-44 baseline: `b239dfe825b615f36caf2e26cc7abc80c70d349c`.
 - Step-48 final closure merge: `149d5ec440fc789376ade48553b67f636a571f6d`.
 - Step-49 A10 merge: `b6adb6180ffd9e770af7ae04f85f8d513e5bffc8`.
+- Step-49 A11 final closure merge: `2ebe995c829914b6cb230c7e05363af59be2ec38`.
 - Step-50 A1 merge: `11a39c6bda058c9d590acfcf2c78616197c86247`.
 - Step-50 A2 merge: `2f1780684c2575750535f8740e678d7e5c4e37cb`.
 - Step-50 A3 merge: `de0cd36237ce51e2acb87a12b432b121b42e8a9d`.
@@ -28,17 +29,18 @@
 - **Step 46 — Marketing, Promotions & Customer Club Backend — CLOSED / FINAL GATE PASS**
 - **Step 47 — External Integration Foundation — CLOSED / FINAL GATE PASS**
 - **Step 48 — EQCOFE AI Backend Foundation — CLOSED / FINAL GATE PASS**
+- **Step 49 — Physical Store / POS Backend — CLOSED / FINAL GATE PASS**
 - **Step 50 — Excel Product & Pricing Management Backend — CLOSED / FINAL GATE PASS**
 
 Detailed closure evidence remains immutable in `docs/11-step-history/` and merged PR/CI history.
 
-## Deferred closure state
-**Step 49 — Physical Store / POS Backend — implementation complete through A10; A11 Final Canonical Closure intentionally deferred by explicit project instruction until Step 53 completes.**
+## Step 49 final closure state
+**Step 49 — Physical Store / POS Backend — CLOSED / FINAL GATE PASS.**
 
-Step 49 evidence must not be rewritten or falsely marked closed before that deferred A11 audit. The deferred audit must review PRs #44–#53 and changed files, verify Step-49 migrations and `src/modules/pos`, verify CI evidence, complete the A11 closure document, synchronize `CURRENT-STATE.md` and `MASTER-ROADMAP.md`, and formally close Step 49.
+A11 completed the previously deferred final canonical closure audit after reviewing PRs #44–#53, changed files, Step-49 migrations, `src/modules/pos`, ownership/security/concurrency/recovery invariants and fresh Canonical CI evidence. No feature, migration, dependency, permission, API or business-rule change was introduced by A11.
 
 ### Step 49 progress
-- **A1 — Discovery / Requirements / Ownership Freeze — COMPLETE**
+- **A1 — Discovery / Requirements / Ownership Freeze — COMPLETE / FINAL GATE PASS**
 - **A2 — POS Domain + Physical Sale Transaction Model — COMPLETE / FINAL GATE PASS**
 - **A3 — Barcode / SKU Resolution Boundary — COMPLETE / FINAL GATE PASS**
 - **A4 — Shared Inventory Consumption + Physical/Online Reserve Enforcement — COMPLETE / FINAL GATE PASS**
@@ -48,7 +50,7 @@ Step 49 evidence must not be rewritten or falsely marked closed before that defe
 - **A8 — Reconciliation + Conflict / Recovery Controls — COMPLETE / FINAL GATE PASS**
 - **A9 — POS RBAC / Admin Operations / Audit + API Contract — COMPLETE / FINAL GATE PASS**
 - **A10 — Security / Concurrency / E2E Regression Gate — COMPLETE / FINAL GATE PASS**
-- **A11 — Final Canonical Closure — DEFERRED UNTIL STEP 53**
+- **A11 — Final Canonical Closure Audit — COMPLETE / FINAL GATE PASS**
 
 ## Current position
 **Step 50 — Excel Product & Pricing Management Backend — CLOSED / FINAL GATE PASS**
@@ -316,7 +318,7 @@ Verify job: `97170521019` — PASS
 - Finance remains authoritative for accounting/financial facts.
 
 ## Next safe action
-Proceed to **Step 51 — Analytics & Management Read Models** from the final Step-50 canonical state after the state-sync PR is merged. Do not perform Step 49 A11 closure before Step 53 completes.
+Proceed to **Step 51 — Analytics & Management Read Models** from the final Step-49/Step-50 canonical state.
 
 ## Global trust rules
 1. `rahemih/Eqcofe` is the official repository.
