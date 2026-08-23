@@ -4,6 +4,7 @@ import { AnalyticsAuthoritativeSourceReader } from './infrastructure/analytics-a
 import { AnalyticsProjectionService } from './application/analytics-projection.service';
 import { AnalyticsQueryService } from './application/analytics-query.service';
 import { AnalyticsCrossDomainConsumer } from './application/analytics-cross-domain.consumer';
+import { SalesRevenueManagementService } from './application/sales-revenue-management.service';
 
 @Module({
   providers: [
@@ -12,7 +13,8 @@ import { AnalyticsCrossDomainConsumer } from './application/analytics-cross-doma
     AnalyticsProjectionService,
     AnalyticsQueryService,
     AnalyticsCrossDomainConsumer,
+    SalesRevenueManagementService,
   ],
-  exports: [AnalyticsProjectionService, AnalyticsQueryService],
+  exports: [AnalyticsProjectionService, AnalyticsQueryService, SalesRevenueManagementService],
 })
 export class AnalyticsModule {}
