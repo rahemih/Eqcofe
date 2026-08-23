@@ -117,8 +117,11 @@ test('Step 50 A10 rejects external relationships and ZIP traversal before workbo
 test('Step 50 A10 rejects malformed base64 and corrupted ZIP integrity fail closed', () => {
   assert.throws(() => new BinaryXlsxCodecService().decode({ fileName: 'x.xlsx', mimeType: EXCEL_MIME_XLSX, contentBase64: 'not-base64===' }), (error: unknown) => error instanceof WorkbookValidationError && error.code === 'EXCEL_BINARY_INVALID');
   const bytes = workbook(validSheet, [], false);
-  bytes[40] ^= 0xff;
-  assert.throws(() => new BinaryXlsxCodecService().decode(upload(bytes)), (error: unknown) => error instanceof WorkbookValidationError);
+  const marker = Buffer.from('slug');
+  const offset = bytes.indexOf(marker);
+  assert.notEqual(offset, -1);
+  bytes[offset] ^= 0x01;
+  assert.throws(() => new BinaryXlsxCodecService().decode(upload(bytes)), (error: unknown) => error instanceof WorkbookValidationError && error.code === 'EXCEL_ZIP_INTEGRITY_INVALID');
 });
 
 test('Step 50 A10 removes client authority over decoded sheets macros links and byte length', () => {
