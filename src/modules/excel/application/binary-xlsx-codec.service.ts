@@ -231,7 +231,7 @@ export class BinaryXlsxCodecService {
   private readSharedStrings(xml: string): string[] {
     const strings: string[] = [];
     for (const match of xml.matchAll(/<(?:\w+:)?si\b[^>]*>([\s\S]*?)<\/(?:\w+:)?si>/gi)) {
-      strings.push(this.textNodes(match[1]));
+      strings.push(this.textNodes(match[1] ?? ''));
     }
     return strings;
   }
@@ -247,14 +247,14 @@ export class BinaryXlsxCodecService {
       if (observedRows > EXCEL_MAX_ROWS_PER_SHEET) {
         throw new WorkbookValidationError('EXCEL_ROW_LIMIT_EXCEEDED', 'تعداد ردیف‌های شیت معتبر نیست.');
       }
-      const rowTag = rowMatch[1];
+      const rowTag = rowMatch[1] ?? '';
       const rowNumber = Number(this.attribute(rowTag, 'r') ?? observedRows);
       if (!Number.isSafeInteger(rowNumber) || rowNumber < 1 || rowNumber > EXCEL_MAX_ROWS_PER_SHEET) {
         throw new WorkbookValidationError('EXCEL_ROW_LIMIT_EXCEEDED', 'شماره ردیف XLSX معتبر نیست.');
       }
       const row: WorkbookCellInput[] = [];
-      for (const cellMatch of rowMatch[2].matchAll(/<(?:\w+:)?c\b([^>]*?)(?:>([\s\S]*?)<\/(?:\w+:)?c>|\/\s*>)/gi)) {
-        const attrs = cellMatch[1];
+      for (const cellMatch of (rowMatch[2] ?? '').matchAll(/<(?:\w+:)?c\b([^>]*?)(?:>([\s\S]*?)<\/(?:\w+:)?c>|\/\s*>)/gi)) {
+        const attrs = cellMatch[1] ?? '';
         const body = cellMatch[2] ?? '';
         const coordinate = this.attribute(attrs, 'r');
         if (!coordinate) throw new WorkbookValidationError('EXCEL_CELL_REFERENCE_INVALID', 'مرجع سلول XLSX معتبر نیست.');
@@ -276,13 +276,17 @@ export class BinaryXlsxCodecService {
     if (type === 'inlinestr') return this.textNodes(body);
     const valueMatch = body.match(/<(?:\w+:)?v\b[^>]*>([\s\S]*?)<\/(?:\w+:)?v>/i);
     if (!valueMatch) return null;
-    const raw = this.decodeXml(valueMatch[1]).trim();
+    const raw = this.decodeXml(valueMatch[1] ?? '').trim();
     if (type === 's') {
       const index = Number(raw);
       if (!Number.isSafeInteger(index) || index < 0 || index >= sharedStrings.length) {
         throw new WorkbookValidationError('EXCEL_SHARED_STRING_INVALID', 'مرجع متن اشتراکی XLSX معتبر نیست.');
       }
-      return sharedStrings[index];
+      const shared = sharedStrings[index];
+      if (shared === undefined) {
+        throw new WorkbookValidationError('EXCEL_SHARED_STRING_INVALID', 'مرجع متن اشتراکی XLSX معتبر نیست.');
+      }
+      return shared;
     }
     if (type === 'b') {
       if (raw === '1') return true;
@@ -303,22 +307,24 @@ export class BinaryXlsxCodecService {
 
   private columnIndex(reference: string): number {
     const match = /^([A-Z]+)[1-9][0-9]*$/i.exec(reference.trim());
-    if (!match) throw new WorkbookValidationError('EXCEL_CELL_REFERENCE_INVALID', 'مرجع سلول XLSX معتبر نیست.');
+    const letters = match?.[1];
+    if (!letters) throw new WorkbookValidationError('EXCEL_CELL_REFERENCE_INVALID', 'مرجع سلول XLSX معتبر نیست.');
     let value = 0;
-    for (const char of match[1].toUpperCase()) value = value * 26 + char.charCodeAt(0) - 64;
+    for (const char of letters.toUpperCase()) value = value * 26 + char.charCodeAt(0) - 64;
     return value - 1;
   }
 
   private textNodes(xml: string): string {
     let value = '';
-    for (const match of xml.matchAll(/<(?:\w+:)?t\b[^>]*>([\s\S]*?)<\/(?:\w+:)?t>/gi)) value += this.decodeXml(match[1]);
+    for (const match of xml.matchAll(/<(?:\w+:)?t\b[^>]*>([\s\S]*?)<\/(?:\w+:)?t>/gi)) value += this.decodeXml(match[1] ?? '');
     return value.normalize('NFKC').trim();
   }
 
   private attribute(tag: string, name: string): string | undefined {
     const escaped = name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     const match = new RegExp(`(?:^|\\s)${escaped}\\s*=\\s*(["'])([\\s\\S]*?)\\1`, 'i').exec(tag);
-    return match ? this.decodeXml(match[2]) : undefined;
+    const value = match?.[2];
+    return value === undefined ? undefined : this.decodeXml(value);
   }
 
   private resolveTarget(base: string, target: string): string {
@@ -346,8 +352,8 @@ export class BinaryXlsxCodecService {
   }
 
   private decodeXml(value: string): string {
-    return value.replace(/&(#x[0-9a-f]+|#\d+|amp|lt|gt|quot|apos);/gi, (entity, key: string) => {
-      const lower = key.toLowerCase();
+    return value.replace(/&(#x[0-9a-f]+|#\d+|amp|lt|gt|quot|apos);/gi, (_entity, key: string | undefined) => {
+      const lower = String(key ?? '').toLowerCase();
       if (lower === 'amp') return '&';
       if (lower === 'lt') return '<';
       if (lower === 'gt') return '>';
