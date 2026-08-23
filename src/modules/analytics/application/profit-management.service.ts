@@ -61,9 +61,16 @@ function safeSubtract(left: number, right: number): number {
 
 function basisPoints(numerator: number, denominator: number): number {
   if (denominator <= 0) return 0;
-  const value = Math.round((numerator * 10_000) / denominator);
-  if (!Number.isSafeInteger(value)) throw new Error('ANALYTICS_RESULT_INTEGER_OUT_OF_RANGE');
-  return value;
+  const scaled = BigInt(numerator) * 10_000n;
+  const divisor = BigInt(denominator);
+  const negative = scaled < 0n;
+  const absolute = negative ? -scaled : scaled;
+  const rounded = (absolute + divisor / 2n) / divisor;
+  const signed = negative ? -rounded : rounded;
+  if (signed > BigInt(Number.MAX_SAFE_INTEGER) || signed < BigInt(Number.MIN_SAFE_INTEGER)) {
+    throw new Error('ANALYTICS_RESULT_INTEGER_OUT_OF_RANGE');
+  }
+  return Number(signed);
 }
 
 @Injectable()
