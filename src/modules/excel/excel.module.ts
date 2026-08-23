@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { CatalogModule } from '../catalog/catalog.module';
 import { PricingModule } from '../pricing/pricing.module';
+import { BinaryXlsxCodecService } from './application/binary-xlsx-codec.service';
 import { SafeWorkbookParserService } from './application/safe-workbook-parser.service';
 import { ExportTemplateService } from './application/export-template.service';
 import { ImportJobService } from './application/import-job.service';
@@ -17,6 +18,7 @@ import { ExcelAdminController } from './presentation/excel-admin.controller';
   imports: [CatalogModule, PricingModule],
   controllers: [ExcelAdminController],
   providers: [
+    BinaryXlsxCodecService,
     SafeWorkbookParserService,
     ExportTemplateService,
     ImportJobRepository,
@@ -28,6 +30,6 @@ import { ExcelAdminController } from './presentation/excel-admin.controller';
     PricingApplyService,
     ExcelAdminService,
   ],
-  exports: [SafeWorkbookParserService, ExportTemplateService, ImportJobService, ImportRecoveryService, CatalogDryRunService, CatalogApplyService, PricingApplyService, ExcelAdminService],
+  exports: [BinaryXlsxCodecService, SafeWorkbookParserService, ExportTemplateService, ImportJobService, ImportRecoveryService, CatalogDryRunService, CatalogApplyService, PricingApplyService, ExcelAdminService],
 })
 export class ExcelModule {}
