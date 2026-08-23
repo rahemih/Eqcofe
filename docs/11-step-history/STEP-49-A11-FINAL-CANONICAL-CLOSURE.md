@@ -1,6 +1,6 @@
 # Step 49 / A11 — Final Canonical Closure Audit
 
-Status: COMPLETE / FINAL GATE PASS — implementation closure PR merged; canonical state-sync pending final CI/merge.
+Status: COMPLETE / FINAL GATE PASS
 
 ## Scope
 A11 is the deferred final canonical closure audit for Step 49 — Physical Store / POS Backend. It introduces no new POS feature, persistence authority, business rule, dependency, permission or API. It verifies the complete A1–A10 lineage, repository placement, migration lineage, ownership boundaries, security/concurrency controls, regression evidence and canonical documentation.
@@ -69,7 +69,13 @@ Canonical CI run: `32635230753` — PASS
 Verify job: `97183852550` — PASS
 Closure merge: `2ebe995c829914b6cb230c7e05363af59be2ec38`
 
-The full canonical `pnpm verify` gate passed on the exact A11 head without changing runtime code or disabling tests. The later Step-50 final verification had already re-run the complete repository with 494 PASS / 0 FAIL / 0 skipped / 0 cancelled, including the retained Step-49 focused suites.
+Final state-sync PR: `#87` — MERGED
+State-sync exact head: `8f2b686a94357ffee0f4430265c7f652be9de279`
+State-sync Canonical CI: `32635424474` — PASS
+State-sync verify job: `97184310658` — PASS
+State-sync merge: `34eb67f33ae817618733482d93fb9b4c6eff0470`
 
-## Final state-sync gate
-`CURRENT-STATE.md`, `MASTER-ROADMAP.md` and this closure evidence are synchronized on the post-merge state-sync branch. Step 49 is declared `CLOSED / FINAL GATE PASS` only after that exact state-sync head receives Canonical CI PASS and is merged, followed by Linear synchronization.
+The full canonical `pnpm verify` gate passed on both the A11 closure head and the final state-sync head without changing runtime code or disabling tests. The Step-50 final verification had also re-run the complete repository with 494 PASS / 0 FAIL / 0 skipped / 0 cancelled, including the retained Step-49 focused suites.
+
+## Final decision
+Step 49 — Physical Store / POS Backend is CLOSED / FINAL GATE PASS. `CURRENT-STATE.md`, `MASTER-ROADMAP.md`, this closure evidence and Linear are synchronized with the final GitHub/CI state.
