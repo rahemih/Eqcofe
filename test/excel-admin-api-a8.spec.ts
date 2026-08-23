@@ -45,7 +45,7 @@ test('Step 50 A8 audit metadata excludes raw workbook payload', () => {
 test('Step 50 A8 application boundary rejects non-staff actors before orchestration', () => {
   const ctx: any = { get: () => ({ actor: { type: 'customer', id: '11111111-1111-4111-8111-111111111111' } }) };
   const noop: any = {};
-  const service = new ExcelAdminService(noop, { build: () => ({}) } as any, noop, noop, noop, noop, noop, noop, ctx);
+  const service = new ExcelAdminService(noop, noop, { build: () => ({}) } as any, noop, noop, noop, noop, noop, noop, ctx);
   assert.throws(
     () => service.exportTemplate(),
     (error: unknown) => error instanceof DomainError && error.code === 'EXCEL_STAFF_REQUIRED',

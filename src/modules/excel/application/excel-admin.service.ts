@@ -2,8 +2,9 @@ import { Injectable } from '@nestjs/common';
 import { AuditWriter } from '../../../platform/audit/audit.writer';
 import { RequestContextStore } from '../../../platform/request-context/request-context.store';
 import { DomainError } from '../../../shared/errors/domain-error';
-import { WorkbookUploadEnvelope } from '../domain/workbook-contract';
+import { BinaryWorkbookUpload } from '../domain/workbook-contract';
 import { createWorkbookFingerprint } from '../domain/workbook-fingerprint';
+import { BinaryXlsxCodecService } from './binary-xlsx-codec.service';
 import { SafeWorkbookParserService } from './safe-workbook-parser.service';
 import { ExportTemplateService } from './export-template.service';
 import { ImportJobService } from './import-job.service';
@@ -16,6 +17,7 @@ import { PricingApplyService } from './pricing-apply.service';
 export class ExcelAdminService {
   constructor(
     private readonly parser: SafeWorkbookParserService,
+    private readonly binary: BinaryXlsxCodecService,
     private readonly templates: ExportTemplateService,
     private readonly jobs: ImportJobService,
     private readonly recovery: ImportRecoveryService,
@@ -31,9 +33,9 @@ export class ExcelAdminService {
     return this.templates.build();
   }
 
-  async createImport(envelope: WorkbookUploadEnvelope) {
+  async createImport(upload: BinaryWorkbookUpload) {
     const actor = this.staff();
-    const workbook = this.parser.parse(envelope);
+    const workbook = this.workbook(upload);
     const result = await this.jobs.create({ workbook, requestedBy: actor.id });
     await this.writeAudit('excel.import.create', 'excel.import_job', result.job.id, {
       contract_version: result.job.contract_version,
@@ -44,24 +46,24 @@ export class ExcelAdminService {
     return result;
   }
 
-  async dryRun(envelope: WorkbookUploadEnvelope) {
+  async dryRun(upload: BinaryWorkbookUpload) {
     this.staff();
-    return this.dryRunService.validate(this.parser.parse(envelope));
+    return this.dryRunService.validate(this.workbook(upload));
   }
 
-  async catalogPreview(envelope: WorkbookUploadEnvelope) {
+  async catalogPreview(upload: BinaryWorkbookUpload) {
     this.staff();
-    return this.catalog.preview(this.parser.parse(envelope));
+    return this.catalog.preview(this.workbook(upload));
   }
 
-  async pricingPreview(envelope: WorkbookUploadEnvelope) {
+  async pricingPreview(upload: BinaryWorkbookUpload) {
     this.staff();
-    return this.pricing.preview(this.parser.parse(envelope));
+    return this.pricing.preview(this.workbook(upload));
   }
 
-  async catalogApply(envelope: WorkbookUploadEnvelope, expectedPreviewHash: unknown) {
+  async catalogApply(upload: BinaryWorkbookUpload, expectedPreviewHash: unknown) {
     this.staff();
-    const workbook = this.parser.parse(envelope);
+    const workbook = this.workbook(upload);
     const fingerprint = createWorkbookFingerprint(workbook);
     const previewHash = this.previewHash(expectedPreviewHash);
     const result = await this.catalog.apply(workbook, previewHash);
@@ -73,9 +75,9 @@ export class ExcelAdminService {
     return result;
   }
 
-  async pricingApply(envelope: WorkbookUploadEnvelope, expectedPreviewHash: unknown) {
+  async pricingApply(upload: BinaryWorkbookUpload, expectedPreviewHash: unknown) {
     this.staff();
-    const workbook = this.parser.parse(envelope);
+    const workbook = this.workbook(upload);
     const fingerprint = createWorkbookFingerprint(workbook);
     const previewHash = this.previewHash(expectedPreviewHash);
     const result = await this.pricing.apply(workbook, previewHash);
@@ -93,6 +95,10 @@ export class ExcelAdminService {
       next_attempt_no: result.nextAttemptNo,
     }, String(note ?? '').normalize('NFKC').trim());
     return result;
+  }
+
+  private workbook(upload: BinaryWorkbookUpload) {
+    return this.parser.parse(this.binary.decode(upload));
   }
 
   private staff() {
