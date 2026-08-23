@@ -1,7 +1,7 @@
 # EQCOFE Current State
 
 ## Trusted state date
-**2026-08-22**
+**2026-08-23**
 
 ## Official repository
 - Repository: `rahemih/Eqcofe`
@@ -21,12 +21,14 @@
 - Step-50 A7 merge: `1ac725e7bc23557993905d6d7754ee8b822fee5a`.
 - Step-50 A8 merge: `6fe3147ef1af901253dbb7f8295e4781555157f8`.
 - Step-50 A9 merge: `d67a70ffd0fc54a8fe908a4a7e608cc06b49e1ad`.
+- Step-50 A10 implementation/final-closure merge: `f41007622b5b9fa32f240d8b8a4729d4110d4700`.
 
 ## Closed steps
 - **Step 45 — Content, Articles & SEO Backend — CLOSED / FINAL GATE PASS**
 - **Step 46 — Marketing, Promotions & Customer Club Backend — CLOSED / FINAL GATE PASS**
 - **Step 47 — External Integration Foundation — CLOSED / FINAL GATE PASS**
 - **Step 48 — EQCOFE AI Backend Foundation — CLOSED / FINAL GATE PASS**
+- **Step 50 — Excel Product & Pricing Management Backend — CLOSED / FINAL GATE PASS**
 
 Detailed closure evidence remains immutable in `docs/11-step-history/` and merged PR/CI history.
 
@@ -48,8 +50,8 @@ Step 49 evidence must not be rewritten or falsely marked closed before that defe
 - **A10 — Security / Concurrency / E2E Regression Gate — COMPLETE / FINAL GATE PASS**
 - **A11 — Final Canonical Closure — DEFERRED UNTIL STEP 53**
 
-## Active step
-**Step 50 — Excel Product & Pricing Management Backend — ACTIVE**
+## Current position
+**Step 50 — Excel Product & Pricing Management Backend — CLOSED / FINAL GATE PASS**
 
 ### Step 50 progress
 - **A1 — Discovery / Requirements / Ownership Freeze — COMPLETE / FINAL GATE PASS**
@@ -61,7 +63,7 @@ Step 49 evidence must not be rewritten or falsely marked closed before that defe
 - **A7 — Re-import / Recovery / Concurrency Controls — COMPLETE / FINAL GATE PASS**
 - **A8 — Staff RBAC / Audit / API + Export Operations — COMPLETE / FINAL GATE PASS**
 - **A9 — Security / E2E / Regression Gate — COMPLETE / FINAL GATE PASS**
-- **A10 — Final Canonical Closure — NEXT**
+- **A10 — Final Canonical Closure + Binary XLSX Trust-Gap Remediation — COMPLETE / FINAL GATE PASS**
 
 ## Step 50 A1 frozen boundary
 - Step-50 orchestration owns workbook/template contract versioning, import-job identity/fingerprint metadata, parse/validation/dry-run orchestration, row-level result records, preview/apply orchestration, idempotent re-import/replay state, and import/export audit/recovery metadata.
@@ -85,7 +87,7 @@ A2 introduces a dedicated `src/modules/excel` bounded orchestration surface with
 - versioned export-template metadata with `products`, `variants`, and `prices` sheets;
 - `price_toman` is template metadata only; Pricing remains authoritative for actual Toman mutation;
 - no database migration, HTTP/OpenAPI endpoint, import-job persistence or business mutation is introduced in A2;
-- no new npm dependency is introduced; binary XLSX upload/codec transport remains a later boundary, while A2 defines the sanitized decoded-workbook contract that later orchestration must consume.
+- no new npm dependency is introduced; A10 later closes the deferred binary XLSX upload/codec transport boundary.
 
 ### Step 50 A2 verification evidence
 PR: `#55` — MERGED
@@ -229,12 +231,11 @@ Exact-head verify job: `97043535652` — PASS
 A8 exposes the A2–A7 Excel orchestration through a hardened staff administration boundary:
 - forward-only migration `0057_excel_rbac_audit_api.sql` adds `excel.view`, `excel.import`, `excel.apply`, and `excel.recover` without assigning roles implicitly;
 - `/admin/excel` is staff-only and every route carries explicit RBAC;
-- template export reuses the versioned A2 contract and does not invent binary XLSX codec/transport;
+- template export reuses the versioned A2 contract;
 - dry-run and Catalog/Pricing previews remain non-mutating;
 - import creation is HTTP-idempotent in addition to fingerprint identity;
 - Catalog/Pricing apply require critical `excel.apply`, Step-Up and idempotency and continue through A5/A6 owner boundaries;
 - recovery requires critical `excel.recover`, Step-Up and idempotency and remains A7 evidence/retry bound;
-- all HTTP workbook input passes through `SafeWorkbookParserService`; missing workbook input fails closed with a controlled validation error;
 - central Audit records only safe orchestration metadata and never raw workbook/sheet payloads;
 - additive `openapi-step50-a8.yaml` contributes 8 strict Admin Excel operations; the canonical validator assembles sorted OpenAPI overlays and rejects duplicate paths/components before validating operations/refs;
 - Excel does not gain direct Catalog/Pricing SQL or Inventory/Orders/Payments/Finance authority.
@@ -258,7 +259,6 @@ Exact-head verify job: `97048572444` — PASS
 A9 is the Step-50 security, E2E and regression gate and introduces no new business feature or authority:
 - all `/admin/excel` routes remain staff-only and permission-separated;
 - apply/recovery remain Step-Up and idempotency protected, and import creation remains idempotent;
-- workbook input remains untrusted and fail-closed through the A2 parser;
 - Catalog/Pricing apply remain exact-preview-hash bound and owner-service controlled;
 - recovery remains A7 evidence, retry and worker-token constrained;
 - Audit excludes raw workbook/sheet/cell payload and secrets;
@@ -282,6 +282,31 @@ Exact-head verify job: `97059158988` — PASS
 - Runtime tests: **486 PASS / 0 FAIL / 0 skipped / 0 cancelled**
 - Overall `pnpm verify`: PASS
 
+## Step 50 A10 final canonical closure
+A10 audited A1–A9 and found a material trust-boundary gap: the management API still accepted client-supplied decoded workbook facts while A2 had explicitly deferred real binary XLSX package inspection. A10 closed that gap before closure:
+- `BinaryXlsxCodecService` now owns server-side XLSX ZIP/OOXML decoding;
+- HTTP accepts opaque base64 XLSX bytes plus file identity, not authoritative client `sheets`, `hasMacros`, `externalLinks` or `byteLength` facts;
+- upload, ZIP entry-count and uncompressed-expansion bounds are enforced;
+- ZIP64, encryption, unsupported compression, duplicate entries, path traversal and CRC mismatch fail closed;
+- required OOXML parts are verified;
+- VBA/ActiveX/embedded executable/macro-sheet content, macro-enabled content types, external-link parts/relationships, unsafe XML declarations and formulas are rejected from actual package bytes;
+- server-derived workbook sheets/cells are then passed into the existing sanitized parser;
+- no new npm dependency, migration, permission or business-domain authority was added;
+- Catalog/Pricing preview/apply ownership, Staff/RBAC, Step-Up/idempotency, Audit and recovery boundaries remain intact.
+
+PR: `#84` — MERGED
+Final exact-head: `9ca5d33d77afdf054981078bddcca0b5aa69b569`
+Merge commit: `f41007622b5b9fa32f240d8b8a4729d4110d4700`
+Canonical final CI: `32629722672` — PASS
+Verify job: `97170521019` — PASS
+- OpenAPI: PASS — 522 paths / 591 operations / 1159 refs
+- Architecture: PASS — 451 files scanned
+- Project policy: PASS — `toman-no-wallet-config-boundary`
+- TypeScript build: PASS
+- A10 dedicated tests: **8/8 PASS**
+- Runtime tests: **494 PASS / 0 FAIL / 0 skipped / 0 cancelled**
+- Overall `pnpm verify`: PASS
+
 ## Step 49 frozen ownership boundary
 - POS owns physical-sale/session orchestration, physical-sale transaction identity, POS-specific offline command/sync state, reconciliation state, and POS-facing read models.
 - Catalog remains authoritative for product/variant/SKU/barcode identity and lifecycle facts.
@@ -291,7 +316,7 @@ Exact-head verify job: `97059158988` — PASS
 - Finance remains authoritative for accounting/financial facts.
 
 ## Next safe action
-Proceed to **Step 50 / A10 — Final Canonical Closure** from canonical A9 merge `d67a70ffd0fc54a8fe908a4a7e608cc06b49e1ad`. Do not perform Step 49 A11 closure before Step 53 completes.
+Proceed to **Step 51 — Analytics & Management Read Models** from the final Step-50 canonical state after the state-sync PR is merged. Do not perform Step 49 A11 closure before Step 53 completes.
 
 ## Global trust rules
 1. `rahemih/Eqcofe` is the official repository.

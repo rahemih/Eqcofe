@@ -1,12 +1,12 @@
 # EQCOFE — Complete Master Execution Roadmap
 
-**Roadmap version:** 3.5 — Step-50 A3 Canonical Sync
-**Effective date:** 2026-08-22  
+**Roadmap version:** 3.6 — Step-50 Final Canonical Closure
+**Effective date:** 2026-08-23  
 **Canonical repository:** `rahemih/Eqcofe`  
 **Canonical branch:** `main`  
 **Verified Step-44 code baseline:** `b239dfe825b615f36caf2e26cc7abc80c70d349c`
 
-> This is the canonical end-to-end execution map for EQCOFE. For historical Steps 1–27, the exact original step labels are not independently proven by the recovered Git evidence. Their descriptions below are therefore a normalized reconstruction of the foundation represented by the current product vision, business rules and canonical codebase; they must not be cited as exact historical attribution. Step 28 remains partial-history. Steps 29–48 are verified/closed in canonical source and closure evidence. Step 49 is implemented through A10 with A11 intentionally deferred until Step 53. Step 50 is active: A1–A3 are complete and A4 is next.
+> This is the canonical end-to-end execution map for EQCOFE. For historical Steps 1–27, the exact original step labels are not independently proven by the recovered Git evidence. Their descriptions below are therefore a normalized reconstruction of the foundation represented by the current product vision, business rules and canonical codebase; they must not be cited as exact historical attribution. Step 28 remains partial-history. Steps 29–48 are verified/closed in canonical source and closure evidence. Step 49 is implemented through A10 with A11 intentionally deferred until Step 53. Step 50 is CLOSED / FINAL GATE PASS. Step 51 is the next approved backend step.
 
 ## Status legend
 - `RECONSTRUCTED-HISTORY`: normalized description; exact historical step attribution is not proven.
@@ -172,10 +172,10 @@ Provider-agnostic AI contracts, governed prompts, configured provider boundary, 
 ## Step 49 — Physical Store / POS Backend — `A1–A10 COMPLETE / A11 DEFERRED UNTIL STEP 53`
 Barcode/SKU physical sales, shared inventory consumption, reserve rules, offline/sync, reconciliation, RBAC, audit and the A10 security/concurrency/E2E gate are complete. Final canonical closure A11 remains intentionally deferred until Step 53.
 
-## Step 50 — Excel Product & Pricing Management Backend — `ACTIVE / A4 NEXT`
-A1 ownership freeze, A2 workbook contract/safe parser/export-template foundation and A3 import-job persistence/fingerprint idempotency are complete with Canonical CI PASS. Continue with A4 validated Catalog dry-run and row-level errors, then Catalog/Pricing apply boundaries, recovery, audit/API and final closure.
+## Step 50 — Excel Product & Pricing Management Backend — `COMPLETE / FINAL GATE PASS`
+A1–A9 delivered the governed Excel orchestration, dry-run/apply/recovery/RBAC/API/security boundaries. A10 found and remediated the remaining binary XLSX trust gap by moving ZIP/OOXML inspection to a server-owned fail-closed boundary, then passed Canonical CI with 494/494 runtime tests, TypeScript, OpenAPI, architecture and project-policy gates. Closure evidence is retained in `docs/11-step-history/STEP-50-A10-FINAL-CANONICAL-CLOSURE.md` and PR #84.
 
-## Step 51 — Analytics & Management Read Models — `PLANNED`
+## Step 51 — Analytics & Management Read Models — `NEXT`
 Build performant sales, revenue, COGS/profit, inventory, wholesale/customer and operational analytics endpoints plus management exports.
 
 ## Step 52 — Backend Final Closure — `PLANNED`
@@ -326,10 +326,9 @@ Evolve architecture, integrations and product capabilities based on production e
 
 # Current Position
 
-- **Last fully closed step:** Step 48 — EQCOFE AI Backend Foundation.
+- **Last fully closed step:** Step 50 — Excel Product & Pricing Management Backend.
 - **Deferred closure:** Step 49 A1–A10 complete; A11 deferred until Step 53.
-- **Active step:** Step 50 — Excel Product & Pricing Management Backend.
-- **Next approved substep:** Step 50 / A4 — Catalog Dry-Run Validation + Row-Level Error Model.
+- **Next approved step:** Step 51 — Analytics & Management Read Models.
 - **Backend feature-completion horizon:** Step 52.
 - **UI/UX design begins:** Step 53.
 - **Storefront implementation begins:** Step 58.
