@@ -5,6 +5,7 @@ import YAML from 'yaml';
 
 const controller = fs.readFileSync('src/modules/excel/presentation/excel-admin.controller.ts','utf8');
 const admin = fs.readFileSync('src/modules/excel/application/excel-admin.service.ts','utf8');
+const codec = fs.readFileSync('src/modules/excel/application/binary-xlsx-codec.service.ts','utf8');
 const parser = fs.readFileSync('src/modules/excel/application/safe-workbook-parser.service.ts','utf8');
 const catalogApply = fs.readFileSync('src/modules/excel/application/catalog-apply.service.ts','utf8');
 const pricingApply = fs.readFileSync('src/modules/excel/application/pricing-apply.service.ts','utf8');
@@ -31,10 +32,11 @@ test('Step 50 A9 requires Step-Up and idempotency for all apply and recovery mut
 });
 
 test('Step 50 A9 treats every workbook as untrusted and fails closed before orchestration',()=>{
-  assert.match(admin,/this\.parser\.parse\(envelope\)/);
-  assert.match(parser,/EXCEL_MACRO_FORBIDDEN/);
-  assert.match(parser,/EXCEL_EXTERNAL_LINK_FORBIDDEN/);
-  assert.match(parser,/EXCEL_FORMULA_FORBIDDEN/);
+  assert.match(admin,/this\.parser\.parse\(this\.binary\.decode\(upload\)\)/);
+  assert.match(codec,/EXCEL_MACRO_FORBIDDEN/);
+  assert.match(codec,/EXCEL_EXTERNAL_LINK_FORBIDDEN/);
+  assert.match(codec,/EXCEL_FORMULA_FORBIDDEN/);
+  assert.match(codec,/EXCEL_ZIP_EXPANSION_LIMIT/);
   assert.match(parser,/EXCEL_FILE_SIZE_INVALID/);
   assert.match(parser,/EXCEL_CELL_TYPE_INVALID/);
 });
@@ -59,7 +61,7 @@ test('Step 50 A9 recovery remains explicit bounded and concurrency guarded',()=>
 test('Step 50 A9 audit never stores raw workbook sheets cells or secrets',()=>{
   assert.match(admin,/writeAudit/);
   assert.match(admin,/fingerprint/);
-  assert.doesNotMatch(admin,/afterData:\s*envelope|afterData:\s*workbook|beforeData:\s*envelope|beforeData:\s*workbook/);
+  assert.doesNotMatch(admin,/afterData:\s*upload|afterData:\s*workbook|beforeData:\s*upload|beforeData:\s*workbook/);
   assert.doesNotMatch(a55,/bytea|workbook_payload|raw_workbook/i);
   assert.doesNotMatch(a56,/bytea|workbook_payload|raw_workbook/i);
 });
