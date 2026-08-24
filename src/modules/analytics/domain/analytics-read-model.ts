@@ -26,6 +26,18 @@ export interface CustomerMetric {
   sourceWatermark: Date;
 }
 
+export type WholesaleApplicationStatus = 'submitted' | 'under_review' | 'approved' | 'rejected';
+
+export interface WholesaleApplicationMetric {
+  applicationId: string;
+  customerId: string;
+  status: WholesaleApplicationStatus;
+  submittedAt: Date;
+  reviewStartedAt: Date | null;
+  reviewedAt: Date | null;
+  sourceWatermark: Date;
+}
+
 export interface ProfitDailyMetric {
   businessDate: string;
   revenueToman: number;
