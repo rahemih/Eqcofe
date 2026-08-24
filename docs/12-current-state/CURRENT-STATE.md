@@ -374,7 +374,7 @@ Verify job: `97170521019` — PASS
 - Finance remains authoritative for accounting/financial facts.
 
 ## Next safe action
-Proceed to **Step 52 — Backend Final Closure** from the Step-51 closure evidence in `docs/11-step-history/STEP-51-A15-FINAL-CANONICAL-CLOSURE.md`. Preserve all Step-51 ownership, security and contract invariants.
+Proceed to **Step 52 / A2 — Launch Placeholder & Incomplete-Code Audit** from the verified Step-52 baseline `72d6d6ac59902b3f84cb191ce5bb74591a2a30c2` and A1 evidence in `docs/11-step-history/STEP-52-A1-CANONICAL-HANDOFF-SCOPE-FREEZE.md`. A2 is read-only discovery; preserve all closed ownership, security, migration and contract invariants.
 
 ## Global trust rules
 1. `rahemih/Eqcofe` is the official repository.
