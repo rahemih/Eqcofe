@@ -1,12 +1,12 @@
 # EQCOFE — Complete Master Execution Roadmap
 
-**Roadmap version:** 3.14 — Step-51 A13 Hardened Management HTTP
+**Roadmap version:** 3.15 — Step-51 A14 Security/E2E Gate
 **Effective date:** 2026-08-24
 **Canonical repository:** `rahemih/Eqcofe`  
 **Canonical branch:** `main`  
 **Verified Step-44 code baseline:** `b239dfe825b615f36caf2e26cc7abc80c70d349c`
 
-> This is the canonical end-to-end execution map for EQCOFE. For historical Steps 1–27, the exact original step labels are not independently proven by the recovered Git evidence. Their descriptions below are therefore a normalized reconstruction of the foundation represented by the current product vision, business rules and canonical codebase; they must not be cited as exact historical attribution. Step 28 remains partial-history. Steps 29–50 are verified/closed in canonical source and closure evidence. Step 49 A11 has completed its previously deferred final canonical closure audit. Step 50 remains CLOSED / FINAL GATE PASS. Step 51 is IN PROGRESS with A1–A13 complete; A14 Security/E2E/Regression Gate is the next approved slice.
+> This is the canonical end-to-end execution map for EQCOFE. For historical Steps 1–27, the exact original step labels are not independently proven by the recovered Git evidence. Their descriptions below are therefore a normalized reconstruction of the foundation represented by the current product vision, business rules and canonical codebase; they must not be cited as exact historical attribution. Step 28 remains partial-history. Steps 29–50 are verified/closed in canonical source and closure evidence. Step 49 A11 has completed its previously deferred final canonical closure audit. Step 50 remains CLOSED / FINAL GATE PASS. Step 51 is IN PROGRESS with A1–A14 complete; A15 Final Canonical Closure is the next approved slice.
 
 ## Status legend
 - `RECONSTRUCTED-HISTORY`: normalized description; exact historical step attribution is not proven.
@@ -176,7 +176,7 @@ Barcode/SKU physical sales, shared Inventory-owned consumption and physical prot
 A1–A9 delivered the governed Excel orchestration, dry-run/apply/recovery/RBAC/API/security boundaries. A10 found and remediated the remaining binary XLSX trust gap by moving ZIP/OOXML inspection to a server-owned fail-closed boundary, then passed Canonical CI with 494/494 runtime tests, TypeScript, OpenAPI, architecture and project-policy gates. Closure evidence is retained in `docs/11-step-history/STEP-50-A10-FINAL-CANONICAL-CLOSURE.md` and PR #84.
 
 ## Step 51 — Analytics & Management Read Models — `IN PROGRESS`
-A1–A3 froze ownership and delivered Analytics-owned projections plus authoritative-source ingestion. A4–A8 delivered bounded read-side management models for sales/revenue, COGS/profit, inventory, customer lifetime metrics and wholesale application lifecycle analytics. A9–A10 froze and delivered operational analytics. A11 froze exports; A12 delivered immutable/idempotent jobs and safe CSV/JSON. A13 delivered Staff/RBAC-separated management HTTP, Step-Up/idempotency enforcement, protected authenticated download and exact OpenAPI contracts. A14 security/E2E/regression verification and final Step-51 closure remain incomplete.
+A1–A3 froze ownership and delivered Analytics-owned projections plus authoritative-source ingestion. A4–A8 delivered bounded read-side management models for sales/revenue, COGS/profit, inventory, customer lifetime metrics and wholesale application lifecycle analytics. A9–A10 froze and delivered operational analytics. A11 froze exports; A12 delivered immutable/idempotent jobs and safe CSV/JSON. A13 delivered hardened management HTTP/OpenAPI. A14 passed the security/E2E/regression gate with denial, actor-isolation, audit, header, migration and complete regression evidence. Final canonical closure remains incomplete.
 
 ## Step 52 — Backend Final Closure — `PLANNED`
 Run a backend-wide closure: no launch placeholders, clean-database migration test, OpenAPI/build/tests/policies/security review and performance checks; freeze new backend launch scope after PASS.
@@ -328,8 +328,8 @@ Evolve architecture, integrations and product capabilities based on production e
 
 - **Last fully closed step:** Step 50 — Excel Product & Pricing Management Backend.
 - **Step 49 closure:** CLOSED / FINAL GATE PASS after A11 audit.
-- **Active step:** Step 51 — Analytics & Management Read Models; A1–A13 complete.
-- **Next approved substep:** Step 51 / A14 — Security / E2E / Regression Gate.
+- **Active step:** Step 51 — Analytics & Management Read Models; A1–A14 complete.
+- **Next approved substep:** Step 51 / A15 — Final Canonical Closure.
 - **Backend feature-completion horizon:** Step 52.
 - **UI/UX design begins:** Step 53.
 - **Storefront implementation begins:** Step 58.

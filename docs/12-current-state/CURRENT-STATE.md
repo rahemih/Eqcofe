@@ -38,6 +38,8 @@
 - Step-51 A12 implementation merge: `7e17e4969b812916cb730e4ba5dc5b9052a84ab7`.
 - Step-51 A12 final evidence merge / A13 baseline: `9b8860f081976b8ab7d66e3de48062775e61bb8b`.
 - Step-51 A13 implementation merge: `4b178f7c634d78018f14e4abd4a538ca0cef4264`.
+- Step-51 A13 final evidence merge / A14 baseline: `d42ed2964e470808efa6d85f11204141a62cf4af`.
+- Step-51 A14 implementation merge: `884122a3a7914208109aa04fe4e6a410b1d02bbd`.
 
 ## Closed steps
 - **Step 45 — Content, Articles & SEO Backend — CLOSED / FINAL GATE PASS**
@@ -84,6 +86,7 @@ A11 completed the previously deferred final canonical closure audit after review
 - **A11 — Management Export Discovery / Contract Freeze — COMPLETE / FINAL GATE PASS**
 - **A12 — Management Export Jobs + Safe Serialization — COMPLETE / FINAL GATE PASS**
 - **A13 — Hardened Management HTTP / RBAC / OpenAPI — COMPLETE / FINAL GATE PASS**
+- **A14 — Security / E2E / Regression Gate — COMPLETE / FINAL GATE PASS**
 
 ### Step 51 current canonical boundary
 - Analytics is read-side and non-authoritative. Orders, Payments, Finance, Inventory, Customer and Wholesale retain mutation authority for their own facts.
@@ -96,10 +99,11 @@ A11 completed the previously deferred final canonical closure audit after review
 - A11 freezes nine single-dataset Analytics exports, CSV/JSON safe serialization, 1–500 row and 366-day bounds, immutable idempotent job evidence, three export permissions, audit/redaction and authenticated direct delivery.
 - A12 adds migration `0061`, three permissions, actor/idempotency-bound immutable export jobs, nine allow-listed datasets, hardened CSV/JSON, content/freshness evidence and audit-safe direct-download application behavior.
 - A13 adds migration `0062`, Staff-only/RBAC-separated HTTP over the existing bounded reads and export boundary, exact OpenAPI contracts, Step-Up/idempotency agreement and protected byte-preserving downloads.
+- A14 verifies runtime permission denial, Step-Up/idempotency enforcement, actor isolation, audit redaction, protected download bytes/headers, OpenAPI agreement, migration lineage and complete Step-51 regression without changing production source.
 - No cross-domain mutation authority, new projection, XLSX writer, public/external delivery, SLA threshold or monetary/business-rule change has been introduced.
 
 ### Next approved Step 51 slice
-**A14 — Security / E2E / Regression Gate** is next. It is verification-only and may add focused tests/evidence required to prove the complete Step-51 boundary; it must not add new product scope.
+**A15 — Final Canonical Closure** is next. It must reconcile A1–A14 evidence and close Step 51 only after the exact closure source passes Canonical CI and GitHub/Linear/Roadmap agree.
 
 ## Step 50 final closure state
 **Step 50 — Excel Product & Pricing Management Backend — CLOSED / FINAL GATE PASS**
@@ -367,7 +371,7 @@ Verify job: `97170521019` — PASS
 - Finance remains authoritative for accounting/financial facts.
 
 ## Next safe action
-Proceed to **Step 51 / A14 — Security / E2E / Regression Gate** from the A13 evidence in `docs/11-step-history/STEP-51-A13-HARDENED-MANAGEMENT-HTTP-RBAC-OPENAPI.md`. Keep A14 verification-only and do not add new projections, XLSX, public links, external delivery or unrelated business scope.
+Proceed to **Step 51 / A15 — Final Canonical Closure** from the A14 evidence in `docs/11-step-history/STEP-51-A14-SECURITY-E2E-REGRESSION-GATE.md`. Do not mark Step 51 closed before exact-source Canonical CI and GitHub/Linear/Roadmap reconciliation pass.
 
 ## Global trust rules
 1. `rahemih/Eqcofe` is the official repository.
