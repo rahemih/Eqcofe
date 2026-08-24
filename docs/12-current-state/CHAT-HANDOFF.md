@@ -16,16 +16,15 @@ Conversation history is supporting context only. It must not override current ca
 
 - Official repository: `rahemih/Eqcofe`
 - Canonical branch: `main`
-- Verified pre-closure canonical HEAD: `bb418213d17110dabfbb5ac3c99f24489ef26fe7`
+- Verified Step-52 baseline HEAD: `72d6d6ac59902b3f84cb191ce5bb74591a2a30c2`
 - Last fully closed step: **Step 51 — Analytics & Management Read Models — CLOSED / FINAL GATE PASS**
-- Active/next step: **Step 52 — Backend Final Closure — PLANNED**
-- Last completed substep: **Step 51 / A15 — Final Canonical Closure**
-- Next approved step: **Step 52 — Backend Final Closure**
-- Latest pre-closure merged PR: **#114**
-- Latest pre-closure exact-head Canonical CI: **32737149982 — PASS**
-- Step-51 closure PR: **#115 — must pass Canonical CI before merge**
+- Active step: **Step 52 — Backend Final Closure — IN PROGRESS**
+- Last completed substep: **Step 52 / A1 — Canonical Handoff & Scope Freeze**
+- Next approved substep: **Step 52 / A2 — Launch Placeholder & Incomplete-Code Audit**
+- Step-51 closure PR: **#115 — MERGED**
+- Step-51 closure Canonical CI: **32737751481 — PASS**
 - Linear project: **EQCOFE**
-- Linear closure issue: **HOS-9 — mark Done only after closure PR merge**
+- Linear current issue: **HOS-10 — In Progress**
 
 > Before every new-chat handoff, re-read GitHub `main`, CURRENT-STATE, MASTER-ROADMAP, and the current Linear issue. Do not trust the snapshot above if newer canonical evidence exists.
 
