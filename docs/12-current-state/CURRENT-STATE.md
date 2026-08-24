@@ -30,6 +30,7 @@
 - Step-51 A6 implementation merge: `ec59ca7020a50923bb9bfc8ae329ba397f0c99cc`; final evidence merge: `a9b38cd3fd9f9100a862f850b282fb9abfcc1024`.
 - Step-51 A7 implementation merge: `84babcaf8ca2dff930696d058339cf2b84417762`; final evidence merge / canonical audit baseline: `bb1d2376d00e9b615e1532d0520d951ef1b07e09`.
 - Step-51 A8 implementation merge: `77516f27a468006996bcbcbdd411b27d6870d0e9`.
+- Step-51 A8 final evidence merge / A9 discovery baseline: `f1da042582dc1443a94be3a2cfa1866c0b0d18d8`.
 
 ## Closed steps
 - **Step 45 — Content, Articles & SEO Backend — CLOSED / FINAL GATE PASS**
@@ -71,16 +72,19 @@ A11 completed the previously deferred final canonical closure audit after review
 - **A6 — Inventory Management Read Model — COMPLETE / FINAL GATE PASS**
 - **A7 — Customer Management Read Model — COMPLETE / FINAL GATE PASS**
 - **A8 — Wholesale Management Read Model — COMPLETE / FINAL GATE PASS**
+- **A9 — Operational Analytics Discovery / Ownership Freeze — COMPLETE / FINAL GATE PASS**
 
 ### Step 51 current canonical boundary
 - Analytics is read-side and non-authoritative. Orders, Payments, Finance, Inventory, Customer and Wholesale retain mutation authority for their own facts.
 - A2 introduced forward-only Analytics projections and stale-watermark protection; A3 consumes event triggers but re-reads authoritative source state before projection.
 - A4–A8 provide bounded management composition for sales/revenue, profit/COGS, inventory, customer lifetime metrics and the wholesale application lifecycle.
 - A8 re-reads Customer-owned wholesale application facts before stale-watermark-guarded Analytics projection and adds migration `0059`.
-- No A4–A8 HTTP/RBAC surface, cross-domain mutation authority or direct management export surface has been introduced.
+- A9 freezes operational analytics to four derived projections: Fulfillment per order, Shipment per shipment, Returns per return and Warranty per claim.
+- A9 verified that carrier tracking transitions currently update authoritative Shipment state without an Outbox domain event; A10 must close that durable trigger gap before Shipment projection can be accepted.
+- No A4–A9 HTTP/RBAC surface, cross-domain mutation authority, direct management export, SLA threshold or business-rule change has been introduced.
 
 ### Next approved Step 51 slice
-**A9 — Operational Analytics Discovery / Ownership Freeze** is next. It must identify the exact launch-critical operational facts, authoritative owners, event triggers, projection granularity and bounded query semantics before implementation. Management exports and final HTTP/RBAC exposure remain later Step-51 work.
+**A10 — Operational Analytics Projection + Bounded Read Model** is next. It is limited to the four A9-frozen projections, authoritative source re-read, stale/replay safety, the Shipment tracking trigger-gap closure and bounded status/age/cycle/freshness reads. Management exports and final HTTP/RBAC exposure remain later Step-51 work.
 
 ## Step 50 final closure state
 **Step 50 — Excel Product & Pricing Management Backend — CLOSED / FINAL GATE PASS**
@@ -348,7 +352,7 @@ Verify job: `97170521019` — PASS
 - Finance remains authoritative for accounting/financial facts.
 
 ## Next safe action
-Proceed to **Step 51 / A9 — Operational Analytics Discovery / Ownership Freeze** from canonical A8 implementation merge `77516f27a468006996bcbcbdd411b27d6870d0e9`. Do not repeat A4–A8 and do not expose operational/export HTTP surfaces before their own frozen slices.
+Proceed to **Step 51 / A10 — Operational Analytics Projection + Bounded Read Model** from the A9 freeze in `docs/11-step-history/STEP-51-A9-OPERATIONAL-ANALYTICS-DISCOVERY-OWNERSHIP-FREEZE.md`. Do not add SLA classifications, management exports or operational HTTP/RBAC surfaces without their own approved slices.
 
 ## Global trust rules
 1. `rahemih/Eqcofe` is the official repository.
