@@ -12,8 +12,10 @@ import { WholesaleManagementService } from './application/wholesale-management.s
 import { OperationalManagementService } from './application/operational-management.service';
 import { ManagementExportRepository } from './infrastructure/management-export.repository';
 import { ManagementExportService } from './application/management-export.service';
+import { AnalyticsManagementController } from './presentation/analytics-management.controller';
 
 @Module({
+  controllers: [AnalyticsManagementController],
   providers: [
     AnalyticsProjectionRepository,
     AnalyticsAuthoritativeSourceReader,
