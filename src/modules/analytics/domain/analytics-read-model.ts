@@ -52,3 +52,18 @@ export interface ProjectionCheckpoint {
   sourceCursor: string;
   projectedAt: Date;
 }
+
+export interface OperationalMetric {
+  id: string;
+  orderId: string;
+  customerId?: string;
+  warehouseId?: string;
+  carrierProviderId?: string | null;
+  status: string;
+  startedAt: Date;
+  milestoneAt: Date | null;
+  completedAt: Date | null;
+  sourceVersion: number;
+  sourceWatermark: Date;
+  timestamps: Record<string, Date | null>;
+}

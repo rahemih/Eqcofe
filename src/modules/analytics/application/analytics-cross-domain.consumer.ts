@@ -13,6 +13,10 @@ const TYPES = [
   'finance.profit.calculated.v1','finance.profit.finalized.v1','finance.profit.reversed.v1',
   'customer.wholesale_application.submitted.v1','customer.wholesale_application.review_started.v1',
   'customer.wholesale_application.approved.v1','customer.wholesale_application.rejected.v1',
+  'fulfillment.allocated.v1','fulfillment.preparation_started.v1','fulfillment.picked.v1','fulfillment.unpicked.v1',
+  'shipment.created.v1','shipment.ready.v1','shipment.handed_over.v1','shipment.cancelled.v1','shipment.tracking_status_changed.v1',
+  'return.requested.v1','return.review_started.v1','return.approved.v1','return.rejected.v1','return.received.v1','return.inspection_started.v1','return.resolved.v1','return.cancelled.v1',
+  'warranty.claim_requested.v1','warranty.review_started.v1','warranty.approved.v1','warranty.rejected.v1','warranty.received.v1','warranty.repair_started.v1','warranty.resolved.v1','warranty.closed.v1',
 ] as const;
 
 @Injectable()
@@ -30,6 +34,30 @@ export class AnalyticsCrossDomainConsumer implements EventConsumer, OnModuleInit
 
   async handle(event: IntegrationEvent, trx: Transaction<DatabaseSchema>): Promise<void> {
     const watermark = new Date();
+    if (event.event_type.startsWith('fulfillment.')) {
+      const orderId=this.payloadId(event,'order_id'); if(!orderId)return;
+      const metric=await this.source.fulfillmentOperational(trx,orderId); if(!metric)return;
+      await this.repository.upsertOperational(trx,'fulfillment',metric);
+      await this.repository.advanceCheckpoint(trx,'fulfillment_operational_metrics',event.event_id); return;
+    }
+    if (event.event_type.startsWith('shipment.')) {
+      const shipmentId=this.payloadId(event,'shipment_id')??event.aggregate_id;
+      const metric=await this.source.shipmentOperational(trx,shipmentId); if(!metric)return;
+      await this.repository.upsertOperational(trx,'shipment',metric);
+      await this.repository.advanceCheckpoint(trx,'shipment_operational_metrics',event.event_id); return;
+    }
+    if (event.event_type.startsWith('return.')) {
+      const returnId=this.payloadId(event,'return_id')??event.aggregate_id;
+      const metric=await this.source.returnOperational(trx,returnId); if(!metric)return;
+      await this.repository.upsertOperational(trx,'return',metric);
+      await this.repository.advanceCheckpoint(trx,'return_operational_metrics',event.event_id); return;
+    }
+    if (event.event_type.startsWith('warranty.')) {
+      const claimId=this.payloadId(event,'claim_id')??event.aggregate_id;
+      const metric=await this.source.warrantyOperational(trx,claimId); if(!metric)return;
+      await this.repository.upsertOperational(trx,'warranty',metric);
+      await this.repository.advanceCheckpoint(trx,'warranty_operational_metrics',event.event_id); return;
+    }
     if (event.event_type.startsWith('customer.wholesale_application.')) {
       const applicationId = this.resolveWholesaleApplicationId(event);
       if (!applicationId) return;
@@ -71,6 +99,8 @@ export class AnalyticsCrossDomainConsumer implements EventConsumer, OnModuleInit
       await this.repository.advanceCheckpoint(trx, 'customer_metrics', event.event_id);
     }
   }
+
+  private payloadId(event:IntegrationEvent,key:string):string|null{const p=(event.payload??{}) as Record<string,unknown>;return typeof p[key]==='string'?String(p[key]):null;}
 
   private async resolveOrderId(event: IntegrationEvent, trx: Transaction<DatabaseSchema>): Promise<string | null> {
     const p = (event.payload ?? {}) as Record<string, unknown>;

@@ -8,6 +8,7 @@ import {
   SalesDailyMetric,
   WholesaleApplicationMetric,
   WholesaleApplicationStatus,
+  OperationalMetric,
 } from '../domain/analytics-read-model';
 
 function safeInteger(value: unknown): number {
@@ -18,6 +19,40 @@ function safeInteger(value: unknown): number {
 
 @Injectable()
 export class AnalyticsAuthoritativeSourceReader {
+  private operational(row:any,input:{id:string;orderId:string;customerId?:string;warehouseId?:string;carrierProviderId?:string|null;started:string;milestone?:string|null;completed?:string|null;timestamps:string[]}):OperationalMetric{
+    const sourceVersion=safeInteger(row.version);
+    if(sourceVersion<1)throw new Error('ANALYTICS_SOURCE_VERSION_INVALID');
+    const startedAt=new Date(row[input.started]);
+    const sourceWatermark=new Date(row.updated_at);
+    if(Number.isNaN(startedAt.getTime())||Number.isNaN(sourceWatermark.getTime()))throw new Error('ANALYTICS_SOURCE_TIMESTAMP_INVALID');
+    const timestamps:Record<string,Date|null>={};
+    for(const key of input.timestamps){const value=row[key];timestamps[key]=value==null?null:new Date(value);if(timestamps[key]&&Number.isNaN(timestamps[key]!.getTime()))throw new Error('ANALYTICS_SOURCE_TIMESTAMP_INVALID');}
+    return{id:String(row[input.id]),orderId:String(row[input.orderId]),customerId:input.customerId?String(row[input.customerId]):undefined,
+      warehouseId:input.warehouseId?String(row[input.warehouseId]):undefined,carrierProviderId:input.carrierProviderId?(row[input.carrierProviderId]?String(row[input.carrierProviderId]):null):undefined,
+      status:String(row.status),startedAt,milestoneAt:input.milestone&&row[input.milestone]?new Date(row[input.milestone]):null,
+      completedAt:input.completed&&row[input.completed]?new Date(row[input.completed]):null,sourceVersion,sourceWatermark,timestamps};
+  }
+
+  async fulfillmentOperational(ex:DatabaseExecutor,orderId:string):Promise<OperationalMetric|null>{
+    const r=await sql<any>`SELECT order_id,status,created_at,preparation_started_at,completed_at,cancelled_at,version,updated_at FROM fulfillment.fulfillments WHERE order_id=${orderId}::uuid`.execute(ex);
+    return r.rows[0]?this.operational(r.rows[0],{id:'order_id',orderId:'order_id',started:'created_at',milestone:'preparation_started_at',completed:'completed_at',timestamps:['preparation_started_at','completed_at','cancelled_at']}):null;
+  }
+
+  async shipmentOperational(ex:DatabaseExecutor,shipmentId:string):Promise<OperationalMetric|null>{
+    const r=await sql<any>`SELECT id,order_id,warehouse_id,carrier_provider_id,status,created_at,ready_at,handed_over_at,delivered_at,cancelled_at,last_tracking_at,version,updated_at FROM fulfillment.shipments WHERE id=${shipmentId}::uuid`.execute(ex);
+    return r.rows[0]?this.operational(r.rows[0],{id:'id',orderId:'order_id',warehouseId:'warehouse_id',carrierProviderId:'carrier_provider_id',started:'created_at',milestone:'handed_over_at',completed:'delivered_at',timestamps:['ready_at','handed_over_at','delivered_at','cancelled_at','last_tracking_at']}):null;
+  }
+
+  async returnOperational(ex:DatabaseExecutor,returnId:string):Promise<OperationalMetric|null>{
+    const r=await sql<any>`SELECT id,order_id,customer_id,status,requested_at,reviewed_at,approved_at,rejected_at,received_at,inspection_started_at,resolved_at,cancelled_at,version,updated_at FROM returns.returns WHERE id=${returnId}::uuid`.execute(ex);
+    return r.rows[0]?this.operational(r.rows[0],{id:'id',orderId:'order_id',customerId:'customer_id',started:'requested_at',milestone:'received_at',completed:'resolved_at',timestamps:['reviewed_at','approved_at','rejected_at','received_at','inspection_started_at','resolved_at','cancelled_at']}):null;
+  }
+
+  async warrantyOperational(ex:DatabaseExecutor,claimId:string):Promise<OperationalMetric|null>{
+    const r=await sql<any>`SELECT id,order_id,customer_id,status,requested_at,reviewed_at,approved_at,rejected_at,received_at,repair_started_at,resolved_at,closed_at,cancelled_at,version,updated_at FROM warranty.claims WHERE id=${claimId}::uuid`.execute(ex);
+    return r.rows[0]?this.operational(r.rows[0],{id:'id',orderId:'order_id',customerId:'customer_id',started:'requested_at',milestone:'received_at',completed:'closed_at',timestamps:['reviewed_at','approved_at','rejected_at','received_at','repair_started_at','resolved_at','closed_at','cancelled_at']}):null;
+  }
+
   async wholesaleApplication(
     ex: DatabaseExecutor,
     applicationId: string,
