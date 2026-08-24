@@ -10,6 +10,8 @@ import { InventoryManagementService } from './application/inventory-management.s
 import { CustomerManagementService } from './application/customer-management.service';
 import { WholesaleManagementService } from './application/wholesale-management.service';
 import { OperationalManagementService } from './application/operational-management.service';
+import { ManagementExportRepository } from './infrastructure/management-export.repository';
+import { ManagementExportService } from './application/management-export.service';
 
 @Module({
   providers: [
@@ -24,6 +26,8 @@ import { OperationalManagementService } from './application/operational-manageme
     CustomerManagementService,
     WholesaleManagementService,
     OperationalManagementService,
+    ManagementExportRepository,
+    ManagementExportService,
   ],
   exports: [
     AnalyticsProjectionService,
@@ -34,6 +38,7 @@ import { OperationalManagementService } from './application/operational-manageme
     CustomerManagementService,
     WholesaleManagementService,
     OperationalManagementService,
+    ManagementExportService,
   ],
 })
 export class AnalyticsModule {}
