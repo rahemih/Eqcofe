@@ -16,16 +16,16 @@ Conversation history is supporting context only. It must not override current ca
 
 - Official repository: `rahemih/Eqcofe`
 - Canonical branch: `main`
-- Verified canonical HEAD at snapshot creation: `de0cd36237ce51e2acb87a12b432b121b42e8a9d`
-- Last fully closed step: **Step 48 — EQCOFE AI Backend Foundation — CLOSED / FINAL GATE PASS**
-- Deferred closure: **Step 49 A1–A10 complete; A11 intentionally deferred until Step 53**
-- Active step: **Step 50 — Excel Product & Pricing Management Backend**
-- Last completed substep: **Step 50 / A3 — COMPLETE / FINAL GATE PASS**
-- Next approved substep: **Step 50 / A4 — Catalog Dry-Run Validation + Row-Level Error Model**
-- Latest merged PR: **#70**
-- Latest exact-head Canonical CI: **32573327905 — PASS**
+- Verified pre-closure canonical HEAD: `bb418213d17110dabfbb5ac3c99f24489ef26fe7`
+- Last fully closed step: **Step 51 — Analytics & Management Read Models — CLOSED / FINAL GATE PASS**
+- Active/next step: **Step 52 — Backend Final Closure — PLANNED**
+- Last completed substep: **Step 51 / A15 — Final Canonical Closure**
+- Next approved step: **Step 52 — Backend Final Closure**
+- Latest pre-closure merged PR: **#114**
+- Latest pre-closure exact-head Canonical CI: **32737149982 — PASS**
+- Step-51 closure PR: **#115 — must pass Canonical CI before merge**
 - Linear project: **EQCOFE**
-- Linear current issue: **RE-VERIFY before execution; do not reuse the stale Step-48 issue reference**
+- Linear closure issue: **HOS-9 — mark Done only after closure PR merge**
 
 > Before every new-chat handoff, re-read GitHub `main`, CURRENT-STATE, MASTER-ROADMAP, and the current Linear issue. Do not trust the snapshot above if newer canonical evidence exists.
 
