@@ -42,8 +42,11 @@ test('Step 51 A2 remains a read-model boundary without commerce mutation authori
   assert.doesNotMatch(repository, /DELETE FROM (orders|finance|inventory|catalog|pricing|customer)\./i);
 });
 
-test('Step 51 A2 module exports projection and query surfaces but exposes no HTTP controller', () => {
+test('Step 51 A2 module retains projection/query surfaces and later HTTP is isolated to A13', () => {
   assert.match(moduleSource, /AnalyticsProjectionService/);
   assert.match(moduleSource, /AnalyticsQueryService/);
-  assert.doesNotMatch(moduleSource, /controllers\s*:/);
+  assert.match(moduleSource, /controllers:\s*\[AnalyticsManagementController\]/);
+  const controller = readFileSync('src/modules/analytics/presentation/analytics-management.controller.ts', 'utf8');
+  assert.match(controller, /@Controller\('admin\/analytics'\)/);
+  assert.doesNotMatch(service, /Controller|@Get|@Post/);
 });

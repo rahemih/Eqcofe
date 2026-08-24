@@ -1,0 +1,193 @@
+openapi: 3.1.0
+tags:
+  - name: Admin Analytics
+components:
+  schemas:
+    AnalyticsDate:
+      type: string
+      format: date
+      pattern: '^\d{4}-\d{2}-\d{2}$'
+    AnalyticsExportDataset:
+      type: string
+      enum: [sales_revenue_daily, profit_daily, inventory_snapshot, customer_lifetime, wholesale_applications, fulfillment_operations, shipment_operations, return_operations, warranty_operations]
+    AnalyticsExportParameters:
+      type: object
+      additionalProperties: false
+      properties:
+        from: { type: string, minLength: 1 }
+        to: { type: string, minLength: 1 }
+        as_of: { type: string, minLength: 1 }
+        limit: { type: integer, minimum: 1, maximum: 500 }
+    AnalyticsExportCreateRequest:
+      type: object
+      additionalProperties: false
+      required: [dataset, format, parameters]
+      properties:
+        dataset: { $ref: '#/components/schemas/AnalyticsExportDataset' }
+        format: { type: string, enum: [csv, json] }
+        parameters: { $ref: '#/components/schemas/AnalyticsExportParameters' }
+    AnalyticsExportJob:
+      type: object
+      additionalProperties: true
+      required: [id, dataset_key, format, parameters, status, requested_by, created_at]
+      properties:
+        id: { type: string, format: uuid }
+        dataset_key: { $ref: '#/components/schemas/AnalyticsExportDataset' }
+        format: { type: string, enum: [csv, json] }
+        parameters: { type: object }
+        status: { type: string, enum: [queued, running, completed, failed] }
+        requested_by: { type: string, format: uuid }
+        row_count: { type: [integer, 'null'], minimum: 0, maximum: 500 }
+        source_watermark: { type: [string, 'null'], format: date-time }
+        filename: { type: [string, 'null'] }
+        mime_type: { type: [string, 'null'], enum: [text/csv, application/json, null] }
+        content_hash: { type: [string, 'null'], pattern: '^[0-9a-f]{64}$' }
+        error_code: { type: [string, 'null'] }
+        created_at: { type: string, format: date-time }
+        started_at: { type: [string, 'null'], format: date-time }
+        completed_at: { type: [string, 'null'], format: date-time }
+    AnalyticsExportCreateResponse:
+      type: object
+      additionalProperties: false
+      required: [job, replay]
+      properties:
+        job: { $ref: '#/components/schemas/AnalyticsExportJob' }
+        replay: { type: boolean }
+  parameters:
+    AnalyticsFrom:
+      name: from
+      in: query
+      required: true
+      schema: { type: string, minLength: 1 }
+    AnalyticsTo:
+      name: to
+      in: query
+      required: true
+      schema: { type: string, minLength: 1 }
+    AnalyticsLimit:
+      name: limit
+      in: query
+      required: false
+      schema: { type: integer, minimum: 1, maximum: 500, default: 500 }
+paths:
+  /admin/analytics/sales-revenue:
+    get:
+      tags: [Admin Analytics]
+      operationId: getAdminAnalyticsSalesRevenue
+      security: [{ adminSession: [] }]
+      parameters: [{ $ref: '#/components/parameters/AnalyticsFrom' }, { $ref: '#/components/parameters/AnalyticsTo' }]
+      responses: { '200': { description: Read model محدود فروش و درآمد } }
+      x-eqcofe: { domain: analytics, permission: analytics.view, audit: false }
+  /admin/analytics/profit:
+    get:
+      tags: [Admin Analytics]
+      operationId: getAdminAnalyticsProfit
+      security: [{ adminSession: [] }]
+      parameters: [{ $ref: '#/components/parameters/AnalyticsFrom' }, { $ref: '#/components/parameters/AnalyticsTo' }]
+      responses: { '200': { description: Read model محدود COGS و سود } }
+      x-eqcofe: { domain: analytics, permission: analytics.view, audit: false }
+  /admin/analytics/inventory:
+    get:
+      tags: [Admin Analytics]
+      operationId: getAdminAnalyticsInventory
+      security: [{ adminSession: [] }]
+      parameters: [{ $ref: '#/components/parameters/AnalyticsLimit' }]
+      responses: { '200': { description: Read model محدود موجودی } }
+      x-eqcofe: { domain: analytics, permission: analytics.view, audit: false }
+  /admin/analytics/customers:
+    get:
+      tags: [Admin Analytics]
+      operationId: getAdminAnalyticsCustomers
+      security: [{ adminSession: [] }]
+      parameters: [{ $ref: '#/components/parameters/AnalyticsLimit' }]
+      responses: { '200': { description: Read model محدود مشتریان } }
+      x-eqcofe: { domain: analytics, permission: analytics.view, audit: false }
+  /admin/analytics/wholesale-applications:
+    get:
+      tags: [Admin Analytics]
+      operationId: getAdminAnalyticsWholesaleApplications
+      security: [{ adminSession: [] }]
+      parameters: [{ $ref: '#/components/parameters/AnalyticsLimit' }]
+      responses: { '200': { description: Read model محدود درخواست‌های عمده‌فروشی } }
+      x-eqcofe: { domain: analytics, permission: analytics.view, audit: false }
+  /admin/analytics/operations:
+    get:
+      tags: [Admin Analytics]
+      operationId: getAdminAnalyticsOperations
+      security: [{ adminSession: [] }]
+      parameters:
+        - { $ref: '#/components/parameters/AnalyticsFrom' }
+        - { $ref: '#/components/parameters/AnalyticsTo' }
+        - name: as_of
+          in: query
+          required: true
+          schema: { type: string, format: date-time }
+        - { $ref: '#/components/parameters/AnalyticsLimit' }
+      responses: { '200': { description: Read model محدود عملیات fulfillment، shipment، return و warranty } }
+      x-eqcofe: { domain: analytics, permission: analytics.view, audit: false }
+  /admin/analytics/exports:
+    get:
+      tags: [Admin Analytics]
+      operationId: getAdminAnalyticsExports
+      security: [{ adminSession: [] }]
+      parameters: [{ $ref: '#/components/parameters/AnalyticsLimit' }]
+      responses:
+        '200':
+          description: خروجی‌های متعلق به کاربر سازمانی جاری
+          content:
+            application/json:
+              schema: { type: array, maxItems: 500, items: { $ref: '#/components/schemas/AnalyticsExportJob' } }
+      x-eqcofe: { domain: analytics, permission: analytics.export.view, audit: false }
+    post:
+      tags: [Admin Analytics]
+      operationId: postAdminAnalyticsExport
+      security: [{ adminSession: [], stepUpToken: [] }]
+      parameters: [{ $ref: '#/components/parameters/IdempotencyKey' }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/AnalyticsExportCreateRequest' }
+      responses:
+        '201':
+          description: خروجی ساخته یا idempotently بازیابی شد
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/AnalyticsExportCreateResponse' }
+      x-eqcofe: { domain: analytics, permission: analytics.export.create, audit: true, idempotency: required, stepUp: true }
+  /admin/analytics/exports/{id}:
+    get:
+      tags: [Admin Analytics]
+      operationId: getAdminAnalyticsExport
+      security: [{ adminSession: [] }]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+      responses:
+        '200':
+          description: metadata خروجی متعلق به کاربر سازمانی جاری
+          content: { application/json: { schema: { $ref: '#/components/schemas/AnalyticsExportJob' } } }
+      x-eqcofe: { domain: analytics, permission: analytics.export.view, audit: false }
+  /admin/analytics/exports/{id}/download:
+    get:
+      tags: [Admin Analytics]
+      operationId: getAdminAnalyticsExportDownload
+      security: [{ adminSession: [], stepUpToken: [] }]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+      responses:
+        '200':
+          description: محتوای مستقیم و احراز هویت‌شده خروجی
+          headers:
+            Content-Disposition: { required: true, schema: { type: string, pattern: '^attachment; filename="[A-Za-z0-9._-]+"$' } }
+            X-Content-Type-Options: { required: true, schema: { type: string, const: nosniff } }
+            Cache-Control: { required: true, schema: { type: string, const: 'no-store, private' } }
+          content:
+            text/csv: { schema: { type: string } }
+            application/json: { schema: { type: string } }
+      x-eqcofe: { domain: analytics, permission: analytics.export.download, audit: true, stepUp: true }
