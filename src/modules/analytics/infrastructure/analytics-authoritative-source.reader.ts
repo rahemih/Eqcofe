@@ -1,7 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { sql } from 'kysely';
 import { DatabaseExecutor } from '../../../platform/database/transaction-manager';
-import { CustomerMetric, InventorySnapshotMetric, ProfitDailyMetric, SalesDailyMetric } from '../domain/analytics-read-model';
+import {
+  CustomerMetric,
+  InventorySnapshotMetric,
+  ProfitDailyMetric,
+  SalesDailyMetric,
+  WholesaleApplicationMetric,
+  WholesaleApplicationStatus,
+} from '../domain/analytics-read-model';
 
 function safeInteger(value: unknown): number {
   const n = Number(value ?? 0);
@@ -11,6 +18,28 @@ function safeInteger(value: unknown): number {
 
 @Injectable()
 export class AnalyticsAuthoritativeSourceReader {
+  async wholesaleApplication(
+    ex: DatabaseExecutor,
+    applicationId: string,
+    watermark: Date,
+  ): Promise<WholesaleApplicationMetric | null> {
+    const r = await sql<any>`SELECT
+      id,customer_id,status,submitted_at,review_started_at,reviewed_at
+      FROM customer.wholesale_applications
+      WHERE id=${applicationId}::uuid`.execute(ex);
+    const row = r.rows[0];
+    if (!row) return null;
+    return {
+      applicationId: String(row.id),
+      customerId: String(row.customer_id),
+      status: String(row.status) as WholesaleApplicationStatus,
+      submittedAt: new Date(row.submitted_at),
+      reviewStartedAt: row.review_started_at ? new Date(row.review_started_at) : null,
+      reviewedAt: row.reviewed_at ? new Date(row.reviewed_at) : null,
+      sourceWatermark: watermark,
+    };
+  }
+
   async orderContext(ex: DatabaseExecutor, orderId: string) {
     const r = await sql<any>`SELECT id,customer_id,created_at FROM orders.orders WHERE id=${orderId}::uuid`.execute(ex);
     const row = r.rows[0];

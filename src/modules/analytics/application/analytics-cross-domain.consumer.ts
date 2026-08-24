@@ -11,6 +11,8 @@ const TYPES = [
   'payment.initiated.v1','payment.failed.v1','payment.paid.v1','payment.late_received.v1','payment.partially_refunded.v1','payment.refunded.v1',
   'inventory.stock.consumed.v1','inventory.return.received.v1',
   'finance.profit.calculated.v1','finance.profit.finalized.v1','finance.profit.reversed.v1',
+  'customer.wholesale_application.submitted.v1','customer.wholesale_application.review_started.v1',
+  'customer.wholesale_application.approved.v1','customer.wholesale_application.rejected.v1',
 ] as const;
 
 @Injectable()
@@ -28,6 +30,16 @@ export class AnalyticsCrossDomainConsumer implements EventConsumer, OnModuleInit
 
   async handle(event: IntegrationEvent, trx: Transaction<DatabaseSchema>): Promise<void> {
     const watermark = new Date();
+    if (event.event_type.startsWith('customer.wholesale_application.')) {
+      const applicationId = this.resolveWholesaleApplicationId(event);
+      if (!applicationId) return;
+      const metric = await this.source.wholesaleApplication(trx, applicationId, watermark);
+      if (!metric) return;
+      await this.repository.upsertWholesaleApplication(trx, metric);
+      await this.repository.advanceCheckpoint(trx, 'wholesale_application_metrics', event.event_id);
+      return;
+    }
+
     if (event.event_type.startsWith('inventory.')) {
       const variantId = await this.resolveVariantId(event, trx);
       if (!variantId) return;
@@ -73,6 +85,12 @@ export class AnalyticsCrossDomainConsumer implements EventConsumer, OnModuleInit
       return r.rows[0]?.order_id ? String(r.rows[0].order_id) : null;
     }
     return null;
+  }
+
+  private resolveWholesaleApplicationId(event: IntegrationEvent): string | null {
+    const p = (event.payload ?? {}) as Record<string, unknown>;
+    if (typeof p.application_id === 'string') return p.application_id;
+    return event.aggregate_type === 'customer_wholesale_application' ? event.aggregate_id : null;
   }
 
   private async resolveVariantId(event: IntegrationEvent, trx: Transaction<DatabaseSchema>): Promise<string | null> {

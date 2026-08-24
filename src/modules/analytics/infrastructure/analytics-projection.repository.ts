@@ -6,6 +6,7 @@ import {
   InventorySnapshotMetric,
   ProfitDailyMetric,
   SalesDailyMetric,
+  WholesaleApplicationMetric,
 } from '../domain/analytics-read-model';
 
 @Injectable()
@@ -69,6 +70,21 @@ export class AnalyticsProjectionRepository {
       WHERE analytics.profit_daily.source_watermark <= EXCLUDED.source_watermark`.execute(ex);
   }
 
+  async upsertWholesaleApplication(ex: DatabaseExecutor, metric: WholesaleApplicationMetric) {
+    await sql`INSERT INTO analytics.wholesale_application_metrics(
+      application_id,customer_id,status,submitted_at,review_started_at,reviewed_at,source_watermark,projected_at)
+      VALUES(${metric.applicationId}::uuid,${metric.customerId}::uuid,${metric.status},${metric.submittedAt},${metric.reviewStartedAt},${metric.reviewedAt},${metric.sourceWatermark},now())
+      ON CONFLICT (application_id) DO UPDATE SET
+        customer_id=EXCLUDED.customer_id,
+        status=EXCLUDED.status,
+        submitted_at=EXCLUDED.submitted_at,
+        review_started_at=EXCLUDED.review_started_at,
+        reviewed_at=EXCLUDED.reviewed_at,
+        source_watermark=EXCLUDED.source_watermark,
+        projected_at=now()
+      WHERE analytics.wholesale_application_metrics.source_watermark <= EXCLUDED.source_watermark`.execute(ex);
+  }
+
   async advanceCheckpoint(ex: DatabaseExecutor, projectionKey: string, sourceCursor: string) {
     await sql`INSERT INTO analytics.projection_checkpoints(projection_key,source_cursor,projected_at)
       VALUES(${projectionKey},${sourceCursor},now())
@@ -89,5 +105,9 @@ export class AnalyticsProjectionRepository {
 
   async profitDaily(from: string, to: string) {
     return (await sql<any>`SELECT * FROM analytics.profit_daily WHERE business_date BETWEEN ${from}::date AND ${to}::date ORDER BY business_date`.execute(this.db())).rows;
+  }
+
+  async wholesaleApplicationMetrics(limit = 500) {
+    return (await sql<any>`SELECT * FROM analytics.wholesale_application_metrics ORDER BY submitted_at DESC,application_id LIMIT ${limit}`.execute(this.db())).rows;
   }
 }

@@ -8,6 +8,7 @@ import { SalesRevenueManagementService } from './application/sales-revenue-manag
 import { ProfitManagementService } from './application/profit-management.service';
 import { InventoryManagementService } from './application/inventory-management.service';
 import { CustomerManagementService } from './application/customer-management.service';
+import { WholesaleManagementService } from './application/wholesale-management.service';
 
 @Module({
   providers: [
@@ -20,6 +21,7 @@ import { CustomerManagementService } from './application/customer-management.ser
     ProfitManagementService,
     InventoryManagementService,
     CustomerManagementService,
+    WholesaleManagementService,
   ],
   exports: [
     AnalyticsProjectionService,
@@ -28,6 +30,7 @@ import { CustomerManagementService } from './application/customer-management.ser
     ProfitManagementService,
     InventoryManagementService,
     CustomerManagementService,
+    WholesaleManagementService,
   ],
 })
 export class AnalyticsModule {}
