@@ -29,6 +29,7 @@
 - Step-51 A5 implementation merge: `b57a2ae3919490f8897ee456cea2dde24c6c3729`; final evidence merge: `d16a928e562d299b1ce562467ca8c54c36e962a6`.
 - Step-51 A6 implementation merge: `ec59ca7020a50923bb9bfc8ae329ba397f0c99cc`; final evidence merge: `a9b38cd3fd9f9100a862f850b282fb9abfcc1024`.
 - Step-51 A7 implementation merge: `84babcaf8ca2dff930696d058339cf2b84417762`; final evidence merge / canonical audit baseline: `bb1d2376d00e9b615e1532d0520d951ef1b07e09`.
+- Step-51 A8 implementation merge: `77516f27a468006996bcbcbdd411b27d6870d0e9`.
 
 ## Closed steps
 - **Step 45 — Content, Articles & SEO Backend — CLOSED / FINAL GATE PASS**
@@ -69,16 +70,17 @@ A11 completed the previously deferred final canonical closure audit after review
 - **A5 — COGS / Profit Management Read Model — COMPLETE / FINAL GATE PASS**
 - **A6 — Inventory Management Read Model — COMPLETE / FINAL GATE PASS**
 - **A7 — Customer Management Read Model — COMPLETE / FINAL GATE PASS**
+- **A8 — Wholesale Management Read Model — COMPLETE / FINAL GATE PASS**
 
 ### Step 51 current canonical boundary
 - Analytics is read-side and non-authoritative. Orders, Payments, Finance, Inventory, Customer and Wholesale retain mutation authority for their own facts.
 - A2 introduced forward-only Analytics projections and stale-watermark protection; A3 consumes event triggers but re-reads authoritative source state before projection.
-- A4–A7 provide bounded management composition for sales/revenue, profit/COGS, inventory and customer lifetime metrics.
-- No A4–A7 HTTP/RBAC surface, cross-domain mutation authority or direct management export surface has been introduced.
-- `analytics.customer_metrics` does not prove wholesale application lifecycle coverage; wholesale management analytics remains a distinct required slice.
+- A4–A8 provide bounded management composition for sales/revenue, profit/COGS, inventory, customer lifetime metrics and the wholesale application lifecycle.
+- A8 re-reads Customer-owned wholesale application facts before stale-watermark-guarded Analytics projection and adds migration `0059`.
+- No A4–A8 HTTP/RBAC surface, cross-domain mutation authority or direct management export surface has been introduced.
 
 ### Next approved Step 51 slice
-**A8 — Wholesale Management Read Model** is the next bounded slice. It must consume authoritative Customer-owned wholesale application facts through Analytics-owned projection ingestion, preserve stale-watermark/idempotent read-side controls, and introduce no Customer/Wholesale mutation authority. Operational analytics, management exports and final HTTP/RBAC exposure remain later Step-51 work.
+**A9 — Operational Analytics Discovery / Ownership Freeze** is next. It must identify the exact launch-critical operational facts, authoritative owners, event triggers, projection granularity and bounded query semantics before implementation. Management exports and final HTTP/RBAC exposure remain later Step-51 work.
 
 ## Step 50 final closure state
 **Step 50 — Excel Product & Pricing Management Backend — CLOSED / FINAL GATE PASS**
@@ -346,7 +348,7 @@ Verify job: `97170521019` — PASS
 - Finance remains authoritative for accounting/financial facts.
 
 ## Next safe action
-Proceed to **Step 51 / A8 — Wholesale Management Read Model** from canonical A7 baseline `bb1d2376d00e9b615e1532d0520d951ef1b07e09`. Do not repeat A4–A7 and do not expose operational/export HTTP surfaces before their own frozen slices.
+Proceed to **Step 51 / A9 — Operational Analytics Discovery / Ownership Freeze** from canonical A8 implementation merge `77516f27a468006996bcbcbdd411b27d6870d0e9`. Do not repeat A4–A8 and do not expose operational/export HTTP surfaces before their own frozen slices.
 
 ## Global trust rules
 1. `rahemih/Eqcofe` is the official repository.
