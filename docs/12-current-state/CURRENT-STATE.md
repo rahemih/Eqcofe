@@ -1,7 +1,7 @@
 # EQCOFE Current State
 
 ## Trusted state date
-**2026-08-23**
+**2026-08-24**
 
 ## Official repository
 - Repository: `rahemih/Eqcofe`
@@ -23,6 +23,12 @@
 - Step-50 A8 merge: `6fe3147ef1af901253dbb7f8295e4781555157f8`.
 - Step-50 A9 merge: `d67a70ffd0fc54a8fe908a4a7e608cc06b49e1ad`.
 - Step-50 A10 implementation/final-closure merge: `f41007622b5b9fa32f240d8b8a4729d4110d4700`.
+- Step-51 A2 implementation merge: `f1ed3b1f555a6bac518e9fdf66919b503e2a2a59`; final evidence merge: `8b86c8697ee851589a2bc9a3670a1515ce23307f`.
+- Step-51 A3 implementation merge: `3a1a292500b2a8638cd4e345a0912341dec08309`; final evidence merge: `5fe451d7998bfca876a5de715137c7fff2908cd9`.
+- Step-51 A4 implementation merge: `57e42d1154c19f1a554dff602556d1d5c947f8a`; final evidence merge: `501235990299f8e5fd1d53fe3c4ffb8a0729d86f`.
+- Step-51 A5 implementation merge: `b57a2ae3919490f8897ee456cea2dde24c6c3729`; final evidence merge: `d16a928e562d299b1ce562467ca8c54c36e962a6`.
+- Step-51 A6 implementation merge: `ec59ca7020a50923bb9bfc8ae329ba397f0c99cc`; final evidence merge: `a9b38cd3fd9f9100a862f850b282fb9abfcc1024`.
+- Step-51 A7 implementation merge: `84babcaf8ca2dff930696d058339cf2b84417762`; final evidence merge / canonical audit baseline: `bb1d2376d00e9b615e1532d0520d951ef1b07e09`.
 
 ## Closed steps
 - **Step 45 — Content, Articles & SEO Backend — CLOSED / FINAL GATE PASS**
@@ -53,6 +59,28 @@ A11 completed the previously deferred final canonical closure audit after review
 - **A11 — Final Canonical Closure Audit — COMPLETE / FINAL GATE PASS**
 
 ## Current position
+**Step 51 — Analytics & Management Read Models — IN PROGRESS**
+
+### Step 51 progress
+- **A1 — Discovery / Requirements / Ownership Freeze — COMPLETE**
+- **A2 — Analytics Data Model & Read Projection Foundation — COMPLETE / FINAL GATE PASS**
+- **A3 — Authoritative Projection Ingestion — COMPLETE / FINAL GATE PASS**
+- **A4 — Sales & Revenue Management Read Model — COMPLETE / FINAL GATE PASS**
+- **A5 — COGS / Profit Management Read Model — COMPLETE / FINAL GATE PASS**
+- **A6 — Inventory Management Read Model — COMPLETE / FINAL GATE PASS**
+- **A7 — Customer Management Read Model — COMPLETE / FINAL GATE PASS**
+
+### Step 51 current canonical boundary
+- Analytics is read-side and non-authoritative. Orders, Payments, Finance, Inventory, Customer and Wholesale retain mutation authority for their own facts.
+- A2 introduced forward-only Analytics projections and stale-watermark protection; A3 consumes event triggers but re-reads authoritative source state before projection.
+- A4–A7 provide bounded management composition for sales/revenue, profit/COGS, inventory and customer lifetime metrics.
+- No A4–A7 HTTP/RBAC surface, cross-domain mutation authority or direct management export surface has been introduced.
+- `analytics.customer_metrics` does not prove wholesale application lifecycle coverage; wholesale management analytics remains a distinct required slice.
+
+### Next approved Step 51 slice
+**A8 — Wholesale Management Read Model** is the next bounded slice. It must consume authoritative Customer-owned wholesale application facts through Analytics-owned projection ingestion, preserve stale-watermark/idempotent read-side controls, and introduce no Customer/Wholesale mutation authority. Operational analytics, management exports and final HTTP/RBAC exposure remain later Step-51 work.
+
+## Step 50 final closure state
 **Step 50 — Excel Product & Pricing Management Backend — CLOSED / FINAL GATE PASS**
 
 ### Step 50 progress
@@ -318,7 +346,7 @@ Verify job: `97170521019` — PASS
 - Finance remains authoritative for accounting/financial facts.
 
 ## Next safe action
-Proceed to **Step 51 — Analytics & Management Read Models** from the final Step-49/Step-50 canonical state.
+Proceed to **Step 51 / A8 — Wholesale Management Read Model** from canonical A7 baseline `bb1d2376d00e9b615e1532d0520d951ef1b07e09`. Do not repeat A4–A7 and do not expose operational/export HTTP surfaces before their own frozen slices.
 
 ## Global trust rules
 1. `rahemih/Eqcofe` is the official repository.
