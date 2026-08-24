@@ -34,6 +34,8 @@
 - Step-51 A9 discovery/final evidence merge: `a3c0aeb3aa346987357181d1b572a7081b7d0efc`.
 - Step-51 A10 implementation merge: `06f2d3636e8232b318d846c7ea3f50ff684d33cb`.
 - Step-51 A10 final evidence merge / A11 discovery baseline: `5df2b32ac9fafc5b2a3e7628f62fca83d5e53331`.
+- Step-51 A11 discovery/final evidence merge: `551cd800d5c96fc4c148896e8322295dbbaf078e`.
+- Step-51 A12 implementation merge: `7e17e4969b812916cb730e4ba5dc5b9052a84ab7`.
 
 ## Closed steps
 - **Step 45 — Content, Articles & SEO Backend — CLOSED / FINAL GATE PASS**
@@ -78,6 +80,7 @@ A11 completed the previously deferred final canonical closure audit after review
 - **A9 — Operational Analytics Discovery / Ownership Freeze — COMPLETE / FINAL GATE PASS**
 - **A10 — Operational Analytics Projection + Bounded Read Model — COMPLETE / FINAL GATE PASS**
 - **A11 — Management Export Discovery / Contract Freeze — COMPLETE / FINAL GATE PASS**
+- **A12 — Management Export Jobs + Safe Serialization — COMPLETE / FINAL GATE PASS**
 
 ### Step 51 current canonical boundary
 - Analytics is read-side and non-authoritative. Orders, Payments, Finance, Inventory, Customer and Wholesale retain mutation authority for their own facts.
@@ -88,10 +91,11 @@ A11 completed the previously deferred final canonical closure audit after review
 - A9 verified that carrier tracking transitions currently update authoritative Shipment state without an Outbox domain event; A10 must close that durable trigger gap before Shipment projection can be accepted.
 - A10 adds migration `0060`, four source-version/watermark-guarded projections, bounded status/age/cycle/freshness composition and atomically closes the Shipment tracking trigger gap with `shipment.tracking_status_changed.v1`.
 - A11 freezes nine single-dataset Analytics exports, CSV/JSON safe serialization, 1–500 row and 366-day bounds, immutable idempotent job evidence, three export permissions, audit/redaction and authenticated direct delivery.
-- No A4–A11 HTTP surface, cross-domain mutation authority, actual management export, XLSX writer, SLA threshold or monetary/business-rule change has been introduced.
+- A12 adds migration `0061`, three permissions, actor/idempotency-bound immutable export jobs, nine allow-listed datasets, hardened CSV/JSON, content/freshness evidence and audit-safe direct-download application behavior.
+- No A4–A12 HTTP/OpenAPI surface, cross-domain mutation authority, XLSX writer, public/external delivery, SLA threshold or monetary/business-rule change has been introduced.
 
 ### Next approved Step 51 slice
-**A12 — Management Export Jobs + Safe Serialization** is next. It is limited to Analytics-owned job persistence, three frozen permissions, existing-management-service composition, CSV/JSON allow-list serialization, injection/content bounds, immutable terminal artifacts and audit-safe direct-download application behavior. HTTP controller/OpenAPI exposure remains a later hardened slice.
+**A13 — Hardened Management HTTP / RBAC / OpenAPI** is next. It may expose only existing A4–A10 bounded reads and A12 export operations with Staff/RBAC separation, Step-Up and idempotency where frozen, strict validation, download-header protection, audit agreement and exact OpenAPI contracts.
 
 ## Step 50 final closure state
 **Step 50 — Excel Product & Pricing Management Backend — CLOSED / FINAL GATE PASS**
@@ -359,7 +363,7 @@ Verify job: `97170521019` — PASS
 - Finance remains authoritative for accounting/financial facts.
 
 ## Next safe action
-Proceed to **Step 51 / A12 — Management Export Jobs + Safe Serialization** from the A11 freeze in `docs/11-step-history/STEP-51-A11-MANAGEMENT-EXPORT-DISCOVERY-CONTRACT-FREEZE.md`. Do not add XLSX, public links, external delivery or HTTP/OpenAPI exposure outside the frozen slices.
+Proceed to **Step 51 / A13 — Hardened Management HTTP / RBAC / OpenAPI** from the A12 evidence in `docs/11-step-history/STEP-51-A12-MANAGEMENT-EXPORT-JOBS-SAFE-SERIALIZATION.md`. Do not add new projections, XLSX, public links, external delivery or unrelated business scope.
 
 ## Global trust rules
 1. `rahemih/Eqcofe` is the official repository.
