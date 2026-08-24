@@ -1,13 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { AnalyticsProjectionRepository } from '../infrastructure/analytics-projection.repository';
 
-type Kind='fulfillment'|'shipment'|'return'|'warranty';
+export type OperationalKind='fulfillment'|'shipment'|'return'|'warranty';
 export interface OperationalRow{id:string;orderId:string;status:string;startedAt:Date;completedAt:Date|null;ageSeconds:number;cycleSeconds:number|null;sourceVersion:number;sourceWatermark:Date;}
 export interface OperationalDomainReadModel{totalCount:number;completedCount:number;averageCompletedCycleSeconds:number;countsByStatus:Record<string,number>;sourceWatermark:Date|null;rows:OperationalRow[];}
 export interface OperationalManagementReadModel{asOf:Date;fulfillment:OperationalDomainReadModel;shipment:OperationalDomainReadModel;returns:OperationalDomainReadModel;warranty:OperationalDomainReadModel;}
 
 const MAX_LIMIT=500;
-const STATUSES:Record<Kind,Set<string>>={
+const STATUSES:Record<OperationalKind,Set<string>>={
   fulfillment:new Set(['unfulfilled','partially_allocated','allocated','preparing','partially_shipped','shipped','partially_delivered','delivered','cancelled']),
   shipment:new Set(['draft','ready','handed_over','in_transit','delivered','delivery_failed','cancelled','returned']),
   return:new Set(['requested','under_review','approved','rejected','in_transit_to_store','received','inspecting','resolved','cancelled']),
@@ -29,7 +29,13 @@ export class OperationalManagementService{
     ]);
     return{asOf,fulfillment,shipment,returns,warranty};
   }
-  private async domain(kind:Kind,from:Date,to:Date,asOf:Date,bounded:number):Promise<OperationalDomainReadModel>{
+  async readOne(kind:OperationalKind,input:{from:unknown;to:unknown;asOf:unknown;limit?:unknown}):Promise<OperationalDomainReadModel>{
+    if(!STATUSES[kind])throw new Error('ANALYTICS_OPERATIONAL_KIND_INVALID');
+    const from=date(input?.from,'ANALYTICS_FROM_INVALID'),to=date(input?.to,'ANALYTICS_TO_INVALID'),asOf=date(input?.asOf,'ANALYTICS_AS_OF_INVALID'),bounded=limit(input?.limit);
+    if(from>to||to>asOf||Math.floor((to.getTime()-from.getTime())/86_400_000)+1>366)throw new Error('ANALYTICS_OPERATIONAL_WINDOW_INVALID');
+    return this.domain(kind,from,to,asOf,bounded);
+  }
+  private async domain(kind:OperationalKind,from:Date,to:Date,asOf:Date,bounded:number):Promise<OperationalDomainReadModel>{
     const rows:OperationalRow[]=(await this.repository.operationalMetrics(kind,from,to,bounded)).map((r:any)=>{
       const status=String(r.status);if(!STATUSES[kind].has(status))throw new Error('ANALYTICS_OPERATIONAL_STATUS_INVALID');
       const startedAt=date(r.started_at,'ANALYTICS_OPERATIONAL_STARTED_AT_INVALID');
