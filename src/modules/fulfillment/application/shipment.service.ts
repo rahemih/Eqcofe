@@ -99,7 +99,12 @@ export class ShipmentService{
     const hash=payloadHash??sha(Buffer.from(JSON.stringify(u.payload)));if(u.occurredAt.getTime()>Date.now()+5*60_000)throw new DomainError('SHIPPING_TRACKING_TIME_INVALID','زمان رویداد رهگیری در آینده نامعتبر است.');
     await this.repo.insertTrackingEvent(ex,{id:randomUUID(),shipmentId:String(sh.id),providerKey,externalEventId:u.externalEventId??null,trackingNumber:u.trackingNumber,providerStatus:u.providerStatus,normalizedStatus:u.normalizedStatus,occurredAt:u.occurredAt,payloadHash:hash,payload:u.payload});
     const allowed:Record<string,string[]>={handed_over:['in_transit','delivered','delivery_failed'],in_transit:['delivered','delivery_failed','returned'],delivery_failed:['in_transit','returned']};
-    if((allowed[String(sh.status)]??[]).includes(u.normalizedStatus))await this.repo.setShipmentState(ex,String(sh.id),u.normalizedStatus);
+    if((allowed[String(sh.status)]??[]).includes(u.normalizedStatus)){
+      const next=await this.repo.setShipmentState(ex,String(sh.id),u.normalizedStatus);
+      await this.outbox.append(ex,[fulfillmentEvent('shipment.tracking_status_changed.v1',String(sh.id),Number(next.version),{
+        shipment_id:String(sh.id),order_id:String(sh.order_id),status:u.normalizedStatus,occurred_at:u.occurredAt.toISOString()
+      })],this.context());
+    }
     return sh;
   }
 }

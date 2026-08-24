@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "shipment_id": { "type": "string", "format": "uuid" },
+    "order_id": { "type": "string", "format": "uuid" },
+    "status": { "type": "string", "enum": ["in_transit", "delivered", "delivery_failed", "returned"] },
+    "occurred_at": { "type": "string", "format": "date-time" }
+  },
+  "required": ["shipment_id", "order_id", "status", "occurred_at"]
+}
