@@ -6,6 +6,7 @@ import { AnalyticsQueryService } from './application/analytics-query.service';
 import { AnalyticsCrossDomainConsumer } from './application/analytics-cross-domain.consumer';
 import { SalesRevenueManagementService } from './application/sales-revenue-management.service';
 import { ProfitManagementService } from './application/profit-management.service';
+import { InventoryManagementService } from './application/inventory-management.service';
 
 @Module({
   providers: [
@@ -16,12 +17,14 @@ import { ProfitManagementService } from './application/profit-management.service
     AnalyticsCrossDomainConsumer,
     SalesRevenueManagementService,
     ProfitManagementService,
+    InventoryManagementService,
   ],
   exports: [
     AnalyticsProjectionService,
     AnalyticsQueryService,
     SalesRevenueManagementService,
     ProfitManagementService,
+    InventoryManagementService,
   ],
 })
 export class AnalyticsModule {}
