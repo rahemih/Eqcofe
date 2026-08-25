@@ -10,6 +10,16 @@ export interface ClaimedOutboxEvent {
   payload: unknown; attempt_count: number;
 }
 
+export interface EventPipelineSummary {
+  outbox: Array<{ status: string; count: number }>;
+  inbox: Array<{ status: string; count: number }>;
+  pending_due: number;
+  stale_processing: number;
+  dead_letter: number;
+  failed_inbox: number;
+  oldest_due_seconds: number | null;
+}
+
 @Injectable()
 export class OutboxRepository {
   constructor(@Inject(KYSELY_DB) private readonly db: Kysely<DatabaseSchema>) {}
@@ -55,5 +65,20 @@ export class OutboxRepository {
       available_at: new Date(Date.now() + delayMs),
       locked_at: null, locked_by: null, last_error_code: errorCode.slice(0, 120),
     }).where('id', '=', id).execute();
+  }
+
+  async operationsSummary(staleBefore: Date): Promise<EventPipelineSummary> {
+    if (Number.isNaN(staleBefore.getTime())) throw new Error('OUTBOX_STALE_BEFORE_INVALID');
+    const [outbox, inbox, meta] = await Promise.all([
+      sql<{status:string;count:number}>`SELECT status,count(*)::int count FROM events.outbox GROUP BY status ORDER BY status`.execute(this.db),
+      sql<{status:string;count:number}>`SELECT status,count(*)::int count FROM events.consumer_inbox GROUP BY status ORDER BY status`.execute(this.db),
+      sql<any>`SELECT
+        (SELECT count(*)::int FROM events.outbox WHERE status='pending' AND available_at<=now()) pending_due,
+        (SELECT count(*)::int FROM events.outbox WHERE status='processing' AND locked_at<${staleBefore}) stale_processing,
+        (SELECT count(*)::int FROM events.outbox WHERE status='dead_letter') dead_letter,
+        (SELECT count(*)::int FROM events.consumer_inbox WHERE status='failed') failed_inbox,
+        (SELECT EXTRACT(EPOCH FROM (now()-min(created_at)))::bigint FROM events.outbox WHERE status='pending' AND available_at<=now()) oldest_due_seconds`.execute(this.db),
+    ]);
+    return {outbox:outbox.rows,inbox:inbox.rows,...meta.rows[0]};
   }
 }
