@@ -1,7 +1,7 @@
 # EQCOFE Current State
 
 ## Trusted state date
-**2026-08-24**
+**2026-08-25**
 
 ## Official repository
 - Repository: `rahemih/Eqcofe`
@@ -374,7 +374,15 @@ Verify job: `97170521019` — PASS
 - Finance remains authoritative for accounting/financial facts.
 
 ## Next safe action
-Proceed to **Step 52 / A2 — Launch Placeholder & Incomplete-Code Audit** from the verified Step-52 baseline `72d6d6ac59902b3f84cb191ce5bb74591a2a30c2` and A1 evidence in `docs/11-step-history/STEP-52-A1-CANONICAL-HANDOFF-SCOPE-FREEZE.md`. A2 is read-only discovery; preserve all closed ownership, security, migration and contract invariants.
+After GitHub exact-source CI and merge verification for A3, proceed to **Step 52 / A4 — Database Integrity & Concurrency Gate**. Preserve the forward-only migration lineage and all closed ownership, security and contract invariants.
+
+## Step 52 active closure state
+- **A1 — Canonical Handoff & Scope Freeze — COMPLETE / FINAL GATE PASS**
+- **A2 — Launch Placeholder & Incomplete-Code Audit — COMPLETE / AUDIT GATE PASS**
+- **A3 — Clean Database Migration Verification — REMEDIATED / CANDIDATE GATE PASS**
+- **A4 — Database Integrity & Concurrency Gate — NEXT after canonical A3 merge**
+
+A2 found no enabled placeholder or fabricated-success launch blocker. A3 reproduced a clean-lineage PostgreSQL failure at migration 0054, added the forward-only `0053a_admin_permission_sensitive_risk.sql` bridge without rewriting history, and passed 65/65 fresh-database migrations with 65/65 matching checksums plus 570/570 runtime tests. Canonical A3 completion remains conditioned on GitHub CI and main merge evidence.
 
 ## Global trust rules
 1. `rahemih/Eqcofe` is the official repository.
