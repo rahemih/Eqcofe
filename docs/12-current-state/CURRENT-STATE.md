@@ -374,17 +374,18 @@ Verify job: `97170521019` — PASS
 - Finance remains authoritative for accounting/financial facts.
 
 ## Next safe action
-After GitHub exact-source CI and merge verification for A5, proceed to **Step 52 / A6 — Backend Security Final Review**. Preserve the forward-only migration lineage and all closed ownership, security and contract invariants.
+After GitHub exact-source CI and merge verification for A6, proceed to **Step 52 / A7 — Performance & Boundedness Verification**.
 
 ## Step 52 active closure state
 - **A1 — Canonical Handoff & Scope Freeze — COMPLETE / FINAL GATE PASS**
 - **A2 — Launch Placeholder & Incomplete-Code Audit — COMPLETE / AUDIT GATE PASS**
 - **A3 — Clean Database Migration Verification — COMPLETE / REMEDIATED FINAL GATE PASS**
 - **A4 — Database Integrity & Concurrency Gate — COMPLETE / FINAL GATE PASS**
-- **A5 — Contract, Build & Full Regression Gate — CANDIDATE GATE PASS**
-- **A6 — Backend Security Final Review — NEXT after canonical A5 merge**
+- **A5 — Contract, Build & Full Regression Gate — COMPLETE / FINAL GATE PASS**
+- **A6 — Backend Security Final Review — REMEDIATED / CANDIDATE GATE PASS**
+- **A7 — Performance & Boundedness Verification — NEXT after canonical A6 merge**
 
-A2 found no enabled placeholder or fabricated-success launch blocker. A3 repaired the clean-lineage PostgreSQL failure with forward-only migration `0053a`. A4 passed catalog and transactional database integrity probes and merged through PR #118. A5 independently reran the full contract/build/regression gate with 570/570 runtime tests and every verification stage passing. Canonical A5 completion remains conditioned on GitHub CI and main merge evidence.
+A2–A5 are canonically complete. A6 validated and remediated two shared provider-transport gaps: automatic redirect following and unbounded response buffering. Redirects now fail closed and successful bodies are streamed under a 1 MiB ceiling; 572/572 tests and every verification gate pass. Canonical A6 completion remains conditioned on GitHub CI and main merge evidence.
 
 ## Global trust rules
 1. `rahemih/Eqcofe` is the official repository.
