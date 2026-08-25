@@ -1,6 +1,6 @@
 # EQCOFE — Complete Master Execution Roadmap
 
-**Roadmap version:** 3.22 — Step-52 A7 Performance & Boundedness Verification
+**Roadmap version:** 3.23 — Step-52 A8 Operational Readiness Audit
 **Effective date:** 2026-08-24
 **Canonical repository:** `rahemih/Eqcofe`  
 **Canonical branch:** `main`  
@@ -179,7 +179,7 @@ A1–A9 delivered the governed Excel orchestration, dry-run/apply/recovery/RBAC/
 A1–A14 delivered and verified the non-authoritative Analytics projection/read boundary, bounded sales/profit/inventory/customer/wholesale/operational management models, safe actor-bound exports and hardened Staff/RBAC HTTP/OpenAPI surface. A15 reconciled the full lineage and reran exact-source canonical verification with 567/567 tests plus TypeScript, OpenAPI, architecture and project-policy PASS. Closure evidence is retained in `docs/11-step-history/STEP-51-A15-FINAL-CANONICAL-CLOSURE.md`.
 
 ## Step 52 — Backend Final Closure — `IN PROGRESS`
-A1–A6 are canonically complete. A7 found and remediated unbounded operational configuration, bulk-pricing scope resolution and all-inventory materialization. Candidate verification passes 575/575 runtime tests plus all static gates. A7 awaits exact-source GitHub CI/merge; A8 Operational Readiness Audit follows.
+A1–A7 are canonically complete. A8 completed the operational readiness audit and recorded five bounded remediation items covering event-pipeline visibility, scheduler isolation, no-op cron removal, readiness deadlines and notification-worker environment validation. A9 is limited to these findings.
 
 # PHASE D — UI/UX Product Design
 
@@ -328,8 +328,8 @@ Evolve architecture, integrations and product capabilities based on production e
 
 - **Last fully closed step:** Step 51 — Analytics & Management Read Models.
 - **Step 49 closure:** CLOSED / FINAL GATE PASS after A11 audit.
-- **Active step:** Step 52 — Backend Final Closure (`IN PROGRESS`); A1–A6 complete, A7 remediated candidate pass.
-- **Next approved substep:** Step 52 / A8 — Operational Readiness Audit, after canonical A7 merge.
+- **Active step:** Step 52 — Backend Final Closure (`IN PROGRESS`); A1–A8 audit complete.
+- **Next approved substep:** Step 52 / A9 — Evidence-Based Remediation for A8-F01 through A8-F05.
 - **Backend feature-completion horizon:** Step 52.
 - **UI/UX design begins:** Step 53.
 - **Storefront implementation begins:** Step 58.
