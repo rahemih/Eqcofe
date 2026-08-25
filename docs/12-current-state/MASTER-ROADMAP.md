@@ -1,6 +1,6 @@
 # EQCOFE — Complete Master Execution Roadmap
 
-**Roadmap version:** 3.19 — Step-52 A4 Database Integrity & Concurrency Gate
+**Roadmap version:** 3.20 — Step-52 A5 Contract, Build & Full Regression Gate
 **Effective date:** 2026-08-24
 **Canonical repository:** `rahemih/Eqcofe`  
 **Canonical branch:** `main`  
@@ -179,7 +179,7 @@ A1–A9 delivered the governed Excel orchestration, dry-run/apply/recovery/RBAC/
 A1–A14 delivered and verified the non-authoritative Analytics projection/read boundary, bounded sales/profit/inventory/customer/wholesale/operational management models, safe actor-bound exports and hardened Staff/RBAC HTTP/OpenAPI surface. A15 reconciled the full lineage and reran exact-source canonical verification with 567/567 tests plus TypeScript, OpenAPI, architecture and project-policy PASS. Closure evidence is retained in `docs/11-step-history/STEP-51-A15-FINAL-CANONICAL-CLOSURE.md`.
 
 ## Step 52 — Backend Final Closure — `IN PROGRESS`
-A1 passed the canonical handoff gate. A2 found no enabled placeholder or fabricated-success launch blocker. A3 repaired and canonically merged the clean PostgreSQL lineage blocker through forward-only migration `0053a`. A4 rebuilt all 65 migrations and passed database catalog and transactional integrity probes with zero unvalidated constraints, invalid indexes or application tables without primary keys. A4 awaits exact-source GitHub CI and merge verification; A5 Contract, Build & Full Regression Gate follows.
+A1 passed the canonical handoff gate. A2 found no enabled placeholder or fabricated-success launch blocker. A3 repaired and canonically merged the clean PostgreSQL lineage blocker through forward-only migration `0053a`. A4 passed and canonically merged the database integrity/concurrency gate. A5 independently passes 570/570 runtime tests plus TypeScript, OpenAPI, architecture and project-policy verification and awaits exact-source GitHub CI/merge; A6 Backend Security Final Review follows.
 
 # PHASE D — UI/UX Product Design
 
@@ -328,8 +328,8 @@ Evolve architecture, integrations and product capabilities based on production e
 
 - **Last fully closed step:** Step 51 — Analytics & Management Read Models.
 - **Step 49 closure:** CLOSED / FINAL GATE PASS after A11 audit.
-- **Active step:** Step 52 — Backend Final Closure (`IN PROGRESS`); A1–A3 complete, A4 candidate pass.
-- **Next approved substep:** Step 52 / A5 — Contract, Build & Full Regression Gate, after canonical A4 merge.
+- **Active step:** Step 52 — Backend Final Closure (`IN PROGRESS`); A1–A4 complete, A5 candidate pass.
+- **Next approved substep:** Step 52 / A6 — Backend Security Final Review, after canonical A5 merge.
 - **Backend feature-completion horizon:** Step 52.
 - **UI/UX design begins:** Step 53.
 - **Storefront implementation begins:** Step 58.
