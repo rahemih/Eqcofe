@@ -4,10 +4,11 @@ EQCOFE is an Iranian e-commerce platform for coffee equipment, built as a SQL-fi
 
 ## Canonical status
 
-This repository is the canonical EQCOFE backend source through **Step 52 — Backend Final Closure** and the canonical product-design contract source for active **Step 53 — Information Architecture & User Journeys**.
+This repository is the canonical EQCOFE backend source through **Step 52 — Backend Final Closure** and the canonical product-design contract source through **Step 53 — Information Architecture & User Journeys**.
 
-- Last fully closed step: **52 — Backend Final Closure — FINAL GATE PASS**
-- Active step: **53 — Information Architecture & User Journeys**
+- Last fully closed step: **53 — Information Architecture & User Journeys — FINAL GATE PASS upon closure merge**
+- Product-design step: **53 — Information Architecture & User Journeys — FINAL GATE PASS**
+- Next planned step: **54 — RTL Design System & Accessibility Foundation**
 - Money unit: **Toman**
 - Wallet: **not part of the product**
 - Node: `>=24.18.1 <25`
