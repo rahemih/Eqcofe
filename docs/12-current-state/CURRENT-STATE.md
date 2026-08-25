@@ -50,6 +50,7 @@
 - **Step 49 — Physical Store / POS Backend — CLOSED / FINAL GATE PASS**
 - **Step 50 — Excel Product & Pricing Management Backend — CLOSED / FINAL GATE PASS**
 - **Step 51 — Analytics & Management Read Models — CLOSED / FINAL GATE PASS**
+- **Step 52 — Backend Final Closure — CLOSED / FINAL CANONICAL GATE PASS**
 
 Detailed closure evidence remains immutable in `docs/11-step-history/` and merged PR/CI history.
 
@@ -374,7 +375,7 @@ Verify job: `97170521019` — PASS
 - Finance remains authoritative for accounting/financial facts.
 
 ## Next safe action
-After canonical A9 CI/merge, proceed to **Step 52 / A10 — Post-Remediation Full Verification**.
+After Step 52/A12 final canonical closure merges, proceed to **Step 53 — Information Architecture & User Journeys**.
 
 ## Step 52 active closure state
 - **A1 — Canonical Handoff & Scope Freeze — COMPLETE / FINAL GATE PASS**
@@ -385,10 +386,23 @@ After canonical A9 CI/merge, proceed to **Step 52 / A10 — Post-Remediation Ful
 - **A6 — Backend Security Final Review — COMPLETE / REMEDIATED FINAL GATE PASS**
 - **A7 — Performance & Boundedness Verification — COMPLETE / REMEDIATED FINAL GATE PASS**
 - **A8 — Operational Readiness Audit — COMPLETE / AUDIT GATE PASS**
-- **A9 — Evidence-Based Remediation — REMEDIATED / CANDIDATE GATE PASS**
-- **A10 — Post-Remediation Full Verification — NEXT after canonical A9 merge**
+- **A9 — Evidence-Based Remediation — COMPLETE / FINAL GATE PASS**
+- **A10 — Post-Remediation Full Verification — COMPLETE / FINAL GATE PASS**
+- **A11 — Full Backend Regression & Closure Gate — COMPLETE / FINAL GATE PASS**
+- **A12 — Final Canonical Closure — CANDIDATE / FINAL CI + MERGE PENDING**
 
-A2–A8 are canonically complete. A9 remediated all five A8 findings without adding a migration, dependency, HTTP operation, permission or business-domain feature. Candidate verification passes 578/578 runtime tests plus all static gates; canonical A9 completion remains conditioned on exact-head CI and merge.
+A2–A11 are canonically complete. A9 remediated all five A8 findings without adding a migration, dependency, HTTP operation, permission or business-domain feature. A10 and A11 independently reran the integrated backend with 578/578 runtime tests and all static gates passing. A12 is documentation/governance-only and closes Step 52 after exact-head CI and merge.
+
+## Step 52 final closure state
+**Step 52 — Backend Final Closure — CANDIDATE / FINAL A12 CI + MERGE PENDING.**
+
+- A1–A8 completed the scope freeze, placeholder audit, clean migration, database integrity/concurrency, contract/build/regression, security, performance/boundedness and operational-readiness gates.
+- A9 remediated exactly the five A8 operational findings: event-pipeline visibility, real currency refresh scheduling, real product-archive scheduling, truthful readiness/startup checks and notification configuration extraction.
+- A10 canonical CI run `32831124616`, job `97749803568`: OpenAPI 531 paths / 601 operations / 1179 refs PASS; architecture 467 files PASS; project policy PASS; TypeScript build PASS; runtime 578/578 PASS.
+- A11 independent full backend regression gate passed on Canonical CI run `32831498835`; no runtime/business source was changed by the gate.
+- A12 introduces no runtime feature, migration, dependency, permission, access restriction or business rule. Its only purpose is canonical closure and roadmap/current-state reconciliation.
+- Step 52 becomes CLOSED only when the exact final A12 head passes Canonical CI and the closure PR merges to `main`.
+- The next execution track is UI/UX & Design System, beginning with Step 53.
 
 ## Global trust rules
 1. `rahemih/Eqcofe` is the official repository.
