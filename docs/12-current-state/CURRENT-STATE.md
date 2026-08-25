@@ -45,6 +45,8 @@
 - Step-52 A8 merge: `8af5c81a6c16ba4dae53f7442d72a4cc5c470d6f`.
 - Step-52 A9 merge: `c6dad3a634e5b267be05b4b8845d09ae63765fb3`.
 - Step-52 A10 merge / A11 scope-freeze baseline: `2d7a07430fb36ecdabeae029c3a84f80a342b086`.
+- Step-52 A11 regression-gate merge: `c2dd18e9a7732f886a6b34675802081199c810df`.
+- Step-52 A11 launch-scope-freeze merge / A12 baseline: `2defd692cff824a89d50027648db25a70344df0d`.
 
 ## Closed steps
 - **Step 45 — Content, Articles & SEO Backend — CLOSED / FINAL GATE PASS**
@@ -54,6 +56,7 @@
 - **Step 49 — Physical Store / POS Backend — CLOSED / FINAL GATE PASS**
 - **Step 50 — Excel Product & Pricing Management Backend — CLOSED / FINAL GATE PASS**
 - **Step 51 — Analytics & Management Read Models — CLOSED / FINAL GATE PASS**
+- **Step 52 — Backend Final Closure — CLOSED / FINAL GATE PASS**
 
 Detailed closure evidence remains immutable in `docs/11-step-history/` and merged PR/CI history.
 
@@ -378,7 +381,7 @@ Verify job: `97170521019` — PASS
 - Finance remains authoritative for accounting/financial facts.
 
 ## Next safe action
-After canonical A11 CI/merge, proceed to **Step 52 / A12 — Final Canonical Closure**. No new backend feature or business-rule expansion is approved inside the frozen Step-52 scope.
+Proceed to **Step 53 — Information Architecture & User Journeys**. The Step-52 backend scope remains frozen; reopening requires new defect evidence or an explicit later roadmap decision.
 
 ## Step 52 active closure state
 - **A1 — Canonical Handoff & Scope Freeze — COMPLETE / FINAL GATE PASS**
@@ -391,10 +394,10 @@ After canonical A11 CI/merge, proceed to **Step 52 / A12 — Final Canonical Clo
 - **A8 — Operational Readiness Audit — COMPLETE / AUDIT GATE PASS**
 - **A9 — Evidence-Based Remediation — COMPLETE / REMEDIATED FINAL GATE PASS**
 - **A10 — Post-Remediation Full Verification — COMPLETE / FINAL GATE PASS**
-- **A11 — Backend Launch-Scope Freeze — CANDIDATE GATE PASS**
-- **A12 — Final Canonical Closure — NEXT after canonical A11 merge**
+- **A11 — Backend Launch-Scope Freeze — COMPLETE / FINAL GATE PASS**
+- **A12 — Final Canonical Closure — FINAL GATE PASS / MERGE-READY**
 
-A1–A10 are canonically complete. A9 remediated all five A8 findings without adding a migration, dependency, HTTP operation, permission or business-domain feature; A10 independently passed 65/65 clean migrations, checksum parity, 578/578 runtime tests and all static gates. A11 freezes the verified backend scope with no remaining Step-52 launch blocker. Real OTP/SMS/email, shipping and payment production configuration remain explicit later-phase dependencies, fail closed, and are not waived by this freeze.
+A1–A12 are complete. A9 remediated all five A8 findings without adding a migration, dependency, HTTP operation, permission or business-domain feature; A10 and A11 independently passed 578/578 runtime tests and all static gates, while A10 also passed 65/65 clean migrations with checksum parity. A11 freezes the verified backend scope with no remaining Step-52 blocker, and A12 records canonical closure. Real OTP/SMS/email, shipping and payment production configuration remain explicit later-phase dependencies, fail closed, and are not waived by this closure.
 
 ## Global trust rules
 1. `rahemih/Eqcofe` is the official repository.
