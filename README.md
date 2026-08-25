@@ -4,20 +4,20 @@ EQCOFE is an Iranian e-commerce platform for coffee equipment, built as a SQL-fi
 
 ## Canonical status
 
-This repository is the canonical EQCOFE backend source through **Step 50 / A3 — Import Job Persistence + Fingerprint / Idempotency Foundation**.
+This repository is the canonical EQCOFE backend source through **Step 52 / A1**, with A2 audited and the A3 clean-database remediation under canonical verification.
 
-- Last fully closed step: **48 — EQCOFE AI Backend Foundation — FINAL CANONICAL / CLOSED**
-- Deferred closure: **Step 49 A1–A10 complete; A11 intentionally deferred until Step 53**
-- Active step: **50 — Excel Product & Pricing Management Backend**
-- Next approved substep: **Step 50 / A4 — Catalog Dry-Run Validation + Row-Level Error Model**
+- Last fully closed step: **51 — Analytics & Management Read Models — FINAL GATE PASS**
+- Active step: **52 — Backend Final Closure**
+- Current candidate gate: **Step 52 / A3 — Clean Database Migration Verification**
+- Next gate after canonical A3 completion: **Step 52 / A4 — Database Integrity & Concurrency Gate**
 - Money unit: **Toman**
 - Wallet: **not part of the product**
 - Node: `>=24.18.1 <25`
 - Package manager: `pnpm@11.21.0`
-- Latest verified full runtime regression on this exact production-source lineage: **444/444 PASS**
-- Latest verified OpenAPI: **514 paths / 583 operations / 1146 refs — PASS**
-- Latest verified architecture gate: **440 files — PASS**
-- PostgreSQL 18.4 isolated verification: **PASS**
+- Latest candidate full runtime regression: **570/570 PASS**
+- Latest verified OpenAPI: **531 paths / 601 operations / 1179 refs — PASS**
+- Latest verified architecture gate: **467 files — PASS**
+- Fresh isolated PostgreSQL migration verification: **65/65 migrations PASS; checksums MATCH**
 
 > Import provenance matters: the historical GitHub repository was a partial traceability/recovery mirror. The runnable source in this import comes from the final Step-44 canonical artifact, not from pretending the old GitHub `main` tree was complete.
 
