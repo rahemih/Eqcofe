@@ -3,7 +3,7 @@
 **Canonical repository:** `rahemih/Eqcofe`  
 **Canonical branch:** `main`  
 **Verified Step-44 code baseline:** `b239dfe825b615f36caf2e26cc7abc80c70d349c`  
-**Current position:** Steps 45–51 CLOSED; Step 52 Backend Final Closure A1–A11 COMPLETE; **A12 final canonical closure in progress → Step 53 NEXT after closure**
+**Current position:** Steps 45–51 CLOSED; Step 52 Backend Final Closure **FINAL GATE PASS / MERGE-READY**; **Step 53 NEXT after A12 merge**
 
 The detailed professional roadmap is maintained at:
 
@@ -16,7 +16,7 @@ This roadmap preserves historical Step numbering while keeping the execution poi
 | Track | Steps | Status / purpose |
 |---|---:|---|
 | Historical / verified backend baseline | 1–44 | Step 44 canonical baseline verified; early historical attribution follows the completeness matrix |
-| Backend completion | 45–52 | Content/SEO, marketing, integrations, AI, POS, Excel, analytics and backend final closure — **closure gate active at Step 52/A12** |
+| Backend completion | 45–52 | Content/SEO, marketing, integrations, AI, POS, Excel, analytics and backend final closure — **Step 52 final gate passed; canonical closure occurs on A12 merge** |
 | UI/UX & design system | 53–57 | IA, journeys, Persian RTL design system, storefront/admin UX, high-fidelity approval — **NEXT track** |
 | Storefront frontend | 58–66 | Customer-facing production storefront |
 | Admin frontend | 67–73 | Complete operational admin surface |
@@ -28,7 +28,7 @@ This roadmap preserves historical Step numbering while keeping the execution poi
 
 ## Milestones
 
-- **M1 Backend Feature Complete:** Step 52 — pending final A12 canonical merge
+- **M1 Backend Feature Complete:** Step 52 — **FINAL GATE PASS / canonical on A12 merge**
 - **M2 UX/UI Approved:** Step 57
 - **M3 Storefront Feature Complete:** Step 66
 - **M4 Admin Feature Complete:** Step 73
@@ -42,7 +42,7 @@ This roadmap preserves historical Step numbering while keeping the execution poi
 
 ### Step 53 — Information Architecture & User Journeys
 
-Step 53 begins only after Step 52/A12 final canonical closure merges. It must map Persian RTL storefront/admin information architecture and end-to-end journeys for retail, wholesale, checkout, account, after-sales and administration before UI implementation.
+Step 53 begins after Step 52/A12 final canonical closure merges. It maps Persian RTL storefront/admin information architecture and end-to-end journeys for retail, wholesale, checkout, account, after-sales and administration before UI implementation.
 
 ## Closure rule
 
