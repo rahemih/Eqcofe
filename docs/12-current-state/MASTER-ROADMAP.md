@@ -1,6 +1,6 @@
 # EQCOFE — Complete Master Execution Roadmap
 
-**Roadmap version:** 3.17 — Step-52 A1 Canonical Handoff & Scope Freeze
+**Roadmap version:** 3.18 — Step-52 A3 Clean Database Remediation Gate
 **Effective date:** 2026-08-24
 **Canonical repository:** `rahemih/Eqcofe`  
 **Canonical branch:** `main`  
@@ -179,7 +179,7 @@ A1–A9 delivered the governed Excel orchestration, dry-run/apply/recovery/RBAC/
 A1–A14 delivered and verified the non-authoritative Analytics projection/read boundary, bounded sales/profit/inventory/customer/wholesale/operational management models, safe actor-bound exports and hardened Staff/RBAC HTTP/OpenAPI surface. A15 reconciled the full lineage and reran exact-source canonical verification with 567/567 tests plus TypeScript, OpenAPI, architecture and project-policy PASS. Closure evidence is retained in `docs/11-step-history/STEP-51-A15-FINAL-CANONICAL-CLOSURE.md`.
 
 ## Step 52 — Backend Final Closure — `IN PROGRESS`
-A1 passed the canonical handoff gate on Step-51 closure merge `72d6d6ac59902b3f84cb191ce5bb74591a2a30c2`, reconciled GitHub/Roadmap/Current State/Linear, and froze Step 52 as a backend-wide closure rather than a new feature step. The remaining bounded gates cover launch-placeholder discovery, clean-database migrations, database integrity/concurrency, contracts/build/regression, security, performance/boundedness, operational readiness, evidence-based remediation when required, final exact-source verification, launch-scope freeze and canonical closure. A2 Launch Placeholder & Incomplete-Code Audit is next.
+A1 passed the canonical handoff gate. A2 found no enabled placeholder or fabricated-success launch blocker. A3 then reproduced a clean PostgreSQL lineage failure at migration 0054 and remedied it with the new forward-only `0053a_admin_permission_sensitive_risk.sql` bridge; no historical migration was rewritten. Candidate evidence passes 65/65 clean migrations, 65/65 checksums and 570/570 runtime tests. A3 awaits exact-source GitHub CI and merge verification; A4 Database Integrity & Concurrency Gate follows.
 
 # PHASE D — UI/UX Product Design
 
@@ -328,8 +328,8 @@ Evolve architecture, integrations and product capabilities based on production e
 
 - **Last fully closed step:** Step 51 — Analytics & Management Read Models.
 - **Step 49 closure:** CLOSED / FINAL GATE PASS after A11 audit.
-- **Active step:** Step 52 — Backend Final Closure (`IN PROGRESS`); A1 complete.
-- **Next approved substep:** Step 52 / A2 — Launch Placeholder & Incomplete-Code Audit.
+- **Active step:** Step 52 — Backend Final Closure (`IN PROGRESS`); A1–A2 complete, A3 candidate pass.
+- **Next approved substep:** Step 52 / A4 — Database Integrity & Concurrency Gate, after canonical A3 merge.
 - **Backend feature-completion horizon:** Step 52.
 - **UI/UX design begins:** Step 53.
 - **Storefront implementation begins:** Step 58.
