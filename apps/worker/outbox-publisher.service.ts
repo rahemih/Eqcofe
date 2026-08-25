@@ -11,6 +11,7 @@ import { StructuredLogger } from '../../src/platform/observability/structured-lo
 export class OutboxPublisherService implements OnApplicationBootstrap, OnApplicationShutdown {
   private stopping = false;
   private readonly workerId = `outbox-${randomUUID()}`;
+  private lastSummaryAt = 0;
 
   constructor(
     private readonly config: ConfigService,
@@ -51,8 +52,18 @@ export class OutboxPublisherService implements OnApplicationBootstrap, OnApplica
         const dead = event.attempt_count >= maxAttempts;
         const delay = Math.min(60_000, 500 * 2 ** Math.min(event.attempt_count, 7));
         await this.outbox.markFailed(event.id, safeError(error), dead, delay);
+        this.logger[dead?'error':'warn'](`outbox delivery ${dead?'dead-lettered':'retry scheduled'}: ${safeError(error)}`);
       }
     }
+    await this.emitOperationalSummary(timeout);
+  }
+
+  private async emitOperationalSummary(processingTimeoutMs:number):Promise<void>{
+    const now=Date.now(),interval=this.config.get<number>('EVENT_PIPELINE_SUMMARY_INTERVAL_MS',60_000);
+    if(now-this.lastSummaryAt<interval)return;
+    const summary=await this.outbox.operationsSummary(new Date(now-processingTimeoutMs));
+    this.lastSummaryAt=now;
+    this.logger.log(`event pipeline summary: ${JSON.stringify(summary)}`);
   }
 }
 

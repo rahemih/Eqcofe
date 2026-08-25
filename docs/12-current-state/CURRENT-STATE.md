@@ -374,7 +374,7 @@ Verify job: `97170521019` — PASS
 - Finance remains authoritative for accounting/financial facts.
 
 ## Next safe action
-Proceed to **Step 52 / A9 — Evidence-Based Remediation** after canonical A8 audit evidence.
+After canonical A9 CI/merge, proceed to **Step 52 / A10 — Post-Remediation Full Verification**.
 
 ## Step 52 active closure state
 - **A1 — Canonical Handoff & Scope Freeze — COMPLETE / FINAL GATE PASS**
@@ -385,9 +385,10 @@ Proceed to **Step 52 / A9 — Evidence-Based Remediation** after canonical A8 au
 - **A6 — Backend Security Final Review — COMPLETE / REMEDIATED FINAL GATE PASS**
 - **A7 — Performance & Boundedness Verification — COMPLETE / REMEDIATED FINAL GATE PASS**
 - **A8 — Operational Readiness Audit — COMPLETE / AUDIT GATE PASS**
-- **A9 — Evidence-Based Remediation — NEXT**
+- **A9 — Evidence-Based Remediation — REMEDIATED / CANDIDATE GATE PASS**
+- **A10 — Post-Remediation Full Verification — NEXT after canonical A9 merge**
 
-A2–A7 are canonically complete. A8 verified existing health, shutdown, recovery, notification/content visibility and bounded scheduler controls, then recorded five remediation items: event-pipeline backlog visibility, scheduler task isolation, removal of no-op cron registrations, readiness deadlines and central notification-worker configuration validation. A9 is restricted to those evidence-backed findings.
+A2–A8 are canonically complete. A9 remediated all five A8 findings without adding a migration, dependency, HTTP operation, permission or business-domain feature. Candidate verification passes 578/578 runtime tests plus all static gates; canonical A9 completion remains conditioned on exact-head CI and merge.
 
 ## Global trust rules
 1. `rahemih/Eqcofe` is the official repository.
