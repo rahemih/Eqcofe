@@ -2,7 +2,7 @@
 
 ## Backend Launch-Scope Freeze
 
-**Status:** CANDIDATE GATE PASS — requires exact-head Canonical CI and merge
+**Status:** COMPLETE / FINAL GATE PASS
 
 ## Verified baseline
 
@@ -12,6 +12,11 @@
 - A10 PR: `#124` — MERGED
 - A10 exact-head Canonical CI: `32831288316` — PASS
 - Open pull requests at A11 start: `0`
+- Independent regression-gate merge: `c2dd18e9a7732f886a6b34675802081199c810df`; CI `32831498835` — PASS.
+- Scope-freeze PR: `#127` — MERGED.
+- Scope-freeze exact head: `f10f5bdb4601fbb5a27e925cf94984ceb8b01083`.
+- Scope-freeze CI: `32832086766`; verify job `97752823056` — PASS.
+- Scope-freeze merge: `2defd692cff824a89d50027648db25a70344df0d`.
 
 ## Freeze decision
 
@@ -40,8 +45,8 @@ The A10 evidence wording was corrected to match the merged A9 implementation: A9
 - Unresolved Step-52 backend launch blocker: **NONE**
 - Feature creep after freeze: **PROHIBITED**
 
-**STEP 52 / A11 CANDIDATE GATE = PASS**
+**STEP 52 / A11 FINAL GATE = PASS**
 
 ## Next approved substep
 
-**Step 52 / A12 — Final Canonical Closure**, only after this documentation-only change passes exact-head Canonical CI and merges to `main`.
+**Step 52 / A12 — Final Canonical Closure**.

@@ -1,23 +1,23 @@
-# EQCOFE Roadmap — Canonical Execution Plan v2.1
+# EQCOFE Roadmap — Canonical Execution Plan v3.1
 
 **Canonical repository:** `rahemih/Eqcofe`  
 **Canonical branch:** `main`  
 **Verified Step-44 code baseline:** `b239dfe825b615f36caf2e26cc7abc80c70d349c`  
-**Current position:** Steps 45–51 CLOSED; Step 52 A1–A10 COMPLETE; **Step 52 / A11 Backend Launch-Scope Freeze candidate, A12 NEXT**
+**Current position:** Steps 45–52 CLOSED / FINAL GATE PASS; **Step 53 NEXT**
 
 The detailed professional roadmap is maintained at:
 
 **[`docs/12-current-state/MASTER-ROADMAP.md`](docs/12-current-state/MASTER-ROADMAP.md)**
 
-This v2 roadmap supersedes the earlier coarse post-Step-44 list while preserving the verified historical baseline and Step numbering.
+This roadmap preserves the verified historical baseline and Step numbering while keeping the execution pointer synchronized with canonical evidence.
 
 ## Execution tracks
 
 | Track | Steps | Status / purpose |
 |---|---:|---|
 | Historical / verified backend baseline | 1–44 | Step 44 canonical baseline verified; early historical attribution follows the completeness matrix |
-| Backend completion | 45–52 | Content/SEO, marketing, integrations foundation, AI, POS, Excel, analytics, backend closure |
-| UI/UX & design system | 53–57 | IA, journeys, Persian RTL design system, storefront/admin UX, high-fidelity approval |
+| Backend completion | 45–52 | **COMPLETE / FINAL GATE PASS** |
+| UI/UX & design system | 53–57 | **NEXT** — IA, journeys, Persian RTL design system, storefront/admin UX, high-fidelity approval |
 | Storefront frontend | 58–66 | Customer-facing production storefront |
 | Admin frontend | 67–73 | Complete operational admin surface |
 | Real integrations | 74–78 | Payments, SMS/email, FX, shipping, media/CDN |
@@ -28,7 +28,7 @@ This v2 roadmap supersedes the earlier coarse post-Step-44 list while preserving
 
 ## Milestones
 
-- **M1 Backend Feature Complete:** Step 52
+- **M1 Backend Feature Complete:** Step 52 — **COMPLETE**
 - **M2 UX/UI Approved:** Step 57
 - **M3 Storefront Feature Complete:** Step 66
 - **M4 Admin Feature Complete:** Step 73
@@ -40,9 +40,9 @@ This v2 roadmap supersedes the earlier coarse post-Step-44 list while preserving
 
 ## Next approved execution step
 
-### Step 52 / A12 — Final Canonical Closure
+### Step 53 — Information Architecture & User Journeys
 
-Step 52 A1–A10 are merged with Canonical CI PASS and A11 freezes the backend launch scope. A12 must reconcile final GitHub/CI/Linear evidence, close Step 52 without adding product scope, and authorize Step 53 as the next planned execution step.
+Map Persian RTL storefront/admin information architecture and end-to-end journeys for retail, wholesale, checkout, account, after-sales and administration before UI implementation.
 
 ## Closure rule
 
