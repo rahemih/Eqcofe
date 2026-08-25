@@ -27,4 +27,3 @@ Ramp کامل و مقدارهای دقیق در Contract ماشین‌خوان �
 ## Content acceptance
 
 هر Component باید با متن فارسی طولانی، عدد Latin، متن ترکیبی فارسی/انگلیسی، بزرگ‌نمایی 200% و Text-spacing override بدون Clip یا Overlap باقی بماند. Truncation فقط همراه نام کامل قابل‌دسترسی و راه مشاهدهٔ مقدار کامل مجاز است.
-

@@ -48,4 +48,3 @@ Variant و State دقیق هر خانواده در Contract JSON ثبت شده �
 - Permission-aware Navigation فقط Hint است؛ 401/403/404 Server-side باقی می‌ماند.
 - Action terminal یا destructive Confirmation عمومی ندارد؛ دامنه اثر، irreversibility و Reference را نشان می‌دهد.
 - Customer و Staff shell Component token مشترک دارند اما Session/Navigation/Authorization context مشترک ندارند.
-

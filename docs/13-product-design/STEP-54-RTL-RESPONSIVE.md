@@ -33,4 +33,3 @@
 ## Verification handoff
 
 Steps 55–57 باید حداقل عرض‌های 320، 360، 600، 840، 1200 و 1440px، Zoom 400%، متن طولانی فارسی و Keyboard-only را روی Wireframe/Prototype بررسی کنند. Step 54 فقط Foundation و معیار پذیرش را تثبیت می‌کند.
-

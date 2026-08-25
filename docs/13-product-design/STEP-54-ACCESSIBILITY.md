@@ -42,4 +42,3 @@ Error summary در ابتدای Form به Fieldهای نامعتبر Link می�
 ## Gate rule
 
 هیچ Wireframe یا UI بعدی بدون Mapping به این Matrix قابل PASS نیست. هر استثنا باید دلیل essential، دامنه، جایگزین و Evidence داشته باشد و در همان Step ثبت شود.
-
