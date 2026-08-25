@@ -1,6 +1,6 @@
 # EQCOFE — Complete Master Execution Roadmap
 
-**Roadmap version:** 3.18 — Step-52 A3 Clean Database Remediation Gate
+**Roadmap version:** 3.19 — Step-52 A4 Database Integrity & Concurrency Gate
 **Effective date:** 2026-08-24
 **Canonical repository:** `rahemih/Eqcofe`  
 **Canonical branch:** `main`  
@@ -179,7 +179,7 @@ A1–A9 delivered the governed Excel orchestration, dry-run/apply/recovery/RBAC/
 A1–A14 delivered and verified the non-authoritative Analytics projection/read boundary, bounded sales/profit/inventory/customer/wholesale/operational management models, safe actor-bound exports and hardened Staff/RBAC HTTP/OpenAPI surface. A15 reconciled the full lineage and reran exact-source canonical verification with 567/567 tests plus TypeScript, OpenAPI, architecture and project-policy PASS. Closure evidence is retained in `docs/11-step-history/STEP-51-A15-FINAL-CANONICAL-CLOSURE.md`.
 
 ## Step 52 — Backend Final Closure — `IN PROGRESS`
-A1 passed the canonical handoff gate. A2 found no enabled placeholder or fabricated-success launch blocker. A3 then reproduced a clean PostgreSQL lineage failure at migration 0054 and remedied it with the new forward-only `0053a_admin_permission_sensitive_risk.sql` bridge; no historical migration was rewritten. Candidate evidence passes 65/65 clean migrations, 65/65 checksums and 570/570 runtime tests. A3 awaits exact-source GitHub CI and merge verification; A4 Database Integrity & Concurrency Gate follows.
+A1 passed the canonical handoff gate. A2 found no enabled placeholder or fabricated-success launch blocker. A3 repaired and canonically merged the clean PostgreSQL lineage blocker through forward-only migration `0053a`. A4 rebuilt all 65 migrations and passed database catalog and transactional integrity probes with zero unvalidated constraints, invalid indexes or application tables without primary keys. A4 awaits exact-source GitHub CI and merge verification; A5 Contract, Build & Full Regression Gate follows.
 
 # PHASE D — UI/UX Product Design
 
@@ -328,8 +328,8 @@ Evolve architecture, integrations and product capabilities based on production e
 
 - **Last fully closed step:** Step 51 — Analytics & Management Read Models.
 - **Step 49 closure:** CLOSED / FINAL GATE PASS after A11 audit.
-- **Active step:** Step 52 — Backend Final Closure (`IN PROGRESS`); A1–A2 complete, A3 candidate pass.
-- **Next approved substep:** Step 52 / A4 — Database Integrity & Concurrency Gate, after canonical A3 merge.
+- **Active step:** Step 52 — Backend Final Closure (`IN PROGRESS`); A1–A3 complete, A4 candidate pass.
+- **Next approved substep:** Step 52 / A5 — Contract, Build & Full Regression Gate, after canonical A4 merge.
 - **Backend feature-completion horizon:** Step 52.
 - **UI/UX design begins:** Step 53.
 - **Storefront implementation begins:** Step 58.

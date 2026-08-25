@@ -374,15 +374,16 @@ Verify job: `97170521019` — PASS
 - Finance remains authoritative for accounting/financial facts.
 
 ## Next safe action
-After GitHub exact-source CI and merge verification for A3, proceed to **Step 52 / A4 — Database Integrity & Concurrency Gate**. Preserve the forward-only migration lineage and all closed ownership, security and contract invariants.
+After GitHub exact-source CI and merge verification for A4, proceed to **Step 52 / A5 — Contract, Build & Full Regression Gate**. Preserve the forward-only migration lineage and all closed ownership, security and contract invariants.
 
 ## Step 52 active closure state
 - **A1 — Canonical Handoff & Scope Freeze — COMPLETE / FINAL GATE PASS**
 - **A2 — Launch Placeholder & Incomplete-Code Audit — COMPLETE / AUDIT GATE PASS**
-- **A3 — Clean Database Migration Verification — REMEDIATED / CANDIDATE GATE PASS**
-- **A4 — Database Integrity & Concurrency Gate — NEXT after canonical A3 merge**
+- **A3 — Clean Database Migration Verification — COMPLETE / REMEDIATED FINAL GATE PASS**
+- **A4 — Database Integrity & Concurrency Gate — CANDIDATE GATE PASS**
+- **A5 — Contract, Build & Full Regression Gate — NEXT after canonical A4 merge**
 
-A2 found no enabled placeholder or fabricated-success launch blocker. A3 reproduced a clean-lineage PostgreSQL failure at migration 0054, added the forward-only `0053a_admin_permission_sensitive_risk.sql` bridge without rewriting history, and passed 65/65 fresh-database migrations with 65/65 matching checksums plus 570/570 runtime tests. Canonical A3 completion remains conditioned on GitHub CI and main merge evidence.
+A2 found no enabled placeholder or fabricated-success launch blocker. A3 reproduced and repaired the clean-lineage PostgreSQL failure with forward-only migration `0053a`, then merged through PR #117 and exact-head Canonical CI. A4 rebuilt all 65 migrations and found zero unvalidated constraints, invalid indexes or application tables without primary keys; transactional check, unique, foreign-key and cascade probes passed. Canonical A4 completion remains conditioned on GitHub CI and main merge evidence.
 
 ## Global trust rules
 1. `rahemih/Eqcofe` is the official repository.
