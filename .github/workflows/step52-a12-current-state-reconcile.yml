@@ -1,0 +1,76 @@
+name: Step52 A12 Current State Reconcile
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'ROADMAP.md'
+      - 'docs/11-step-history/STEP-52-A12-FINAL-CANONICAL-CLOSURE.md'
+      - '.github/workflows/step52-a12-current-state-reconcile.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  reconcile:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout A12 branch
+        uses: actions/checkout@v5.1.0
+        with:
+          ref: step52-a12-final-canonical-closure
+          fetch-depth: 0
+
+      - name: Reconcile CURRENT-STATE fail closed
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('docs/12-current-state/CURRENT-STATE.md')
+          s = p.read_text()
+
+          def replace_once(old, new, label):
+              global s
+              count = s.count(old)
+              if count != 1:
+                  raise SystemExit(f'{label}: expected exactly one match, got {count}')
+              s = s.replace(old, new, 1)
+
+          replace_once(
+              '- **Step 51 — Analytics & Management Read Models — CLOSED / FINAL GATE PASS**\n',
+              '- **Step 51 — Analytics & Management Read Models — CLOSED / FINAL GATE PASS**\n- **Step 52 — Backend Final Closure — CLOSED / FINAL CANONICAL GATE PASS**\n',
+              'closed-step-anchor')
+
+          replace_once(
+              '## Next safe action\nAfter canonical A9 CI/merge, proceed to **Step 52 / A10 — Post-Remediation Full Verification**.',
+              '## Next safe action\nAfter Step 52/A12 final canonical closure merges, proceed to **Step 53 — Information Architecture & User Journeys**.',
+              'next-safe-action')
+
+          replace_once(
+              '- **A9 — Evidence-Based Remediation — REMEDIATED / CANDIDATE GATE PASS**\n- **A10 — Post-Remediation Full Verification — NEXT after canonical A9 merge**',
+              '- **A9 — Evidence-Based Remediation — COMPLETE / FINAL GATE PASS**\n- **A10 — Post-Remediation Full Verification — COMPLETE / FINAL GATE PASS**\n- **A11 — Full Backend Regression & Closure Gate — COMPLETE / FINAL GATE PASS**\n- **A12 — Final Canonical Closure — CANDIDATE / FINAL CI + MERGE PENDING**',
+              'step52-progress')
+
+          replace_once(
+              'A2–A8 are canonically complete. A9 remediated all five A8 findings without adding a migration, dependency, HTTP operation, permission or business-domain feature. Candidate verification passes 578/578 runtime tests plus all static gates; canonical A9 completion remains conditioned on exact-head CI and merge.',
+              'A2–A11 are canonically complete. A9 remediated all five A8 findings without adding a migration, dependency, HTTP operation, permission or business-domain feature. A10 and A11 independently reran the integrated backend with 578/578 runtime tests and all static gates passing. A12 is documentation/governance-only and closes Step 52 after exact-head CI and merge.',
+              'step52-summary')
+
+          marker = '\n## Global trust rules\n'
+          if s.count(marker) != 1:
+              raise SystemExit(f'global-trust-anchor: expected exactly one match, got {s.count(marker)}')
+          closure = '''\n## Step 52 final closure state\n**Step 52 — Backend Final Closure — CANDIDATE / FINAL A12 CI + MERGE PENDING.**\n\n- A1–A8 completed the scope freeze, placeholder audit, clean migration, database integrity/concurrency, contract/build/regression, security, performance/boundedness and operational-readiness gates.\n- A9 remediated exactly the five A8 operational findings: event-pipeline visibility, real currency refresh scheduling, real product-archive scheduling, truthful readiness/startup checks and notification configuration extraction.\n- A10 canonical CI run `32831124616`, job `97749803568`: OpenAPI 531 paths / 601 operations / 1179 refs PASS; architecture 467 files PASS; project policy PASS; TypeScript build PASS; runtime 578/578 PASS.\n- A11 independent full backend regression gate passed on Canonical CI run `32831498835`; no runtime/business source was changed by the gate.\n- A12 introduces no runtime feature, migration, dependency, permission, access restriction or business rule. Its only purpose is canonical closure and roadmap/current-state reconciliation.\n- Step 52 becomes CLOSED only when the exact final A12 head passes Canonical CI and the closure PR merges to `main`.\n- The next execution track is UI/UX & Design System, beginning with Step 53.\n'''
+          s = s.replace(marker, closure + marker, 1)
+          p.write_text(s)
+          PY
+
+      - name: Commit reconciliation when needed
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/12-current-state/CURRENT-STATE.md
+          if git diff --cached --quiet; then
+            echo 'CURRENT-STATE already reconciled.'
+            exit 0
+          fi
+          git commit -m 'docs(current-state): reconcile Step 52 final closure candidate'
+          git push origin HEAD:step52-a12-final-canonical-closure
