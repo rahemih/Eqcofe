@@ -5,6 +5,12 @@ function int(value: unknown, fallback: number, name: string): number {
   return parsed;
 }
 
+function boundedInt(value: unknown, fallback: number, name: string, min: number, max: number): number {
+  const parsed = int(value, fallback, name);
+  if (parsed < min || parsed > max) throw new Error(`${name} must be between ${min} and ${max}`);
+  return parsed;
+}
+
 function bool(value: unknown, fallback: boolean): boolean {
   if (value === undefined || value === '') return fallback;
   return String(value).toLowerCase() === 'true';
@@ -37,14 +43,14 @@ export function validateEnvironment(raw: Record<string, unknown>): Record<string
     SERVICE_NAME: String(raw.SERVICE_NAME ?? 'eqcofe'),
     API_PORT: int(raw.API_PORT, 3000, 'API_PORT'),
     DATABASE_URL: databaseUrl,
-    DB_POOL_MAX: int(raw.DB_POOL_MAX, 20, 'DB_POOL_MAX'),
+    DB_POOL_MAX: boundedInt(raw.DB_POOL_MAX, 20, 'DB_POOL_MAX', 1, 100),
     REDIS_HOST: String(raw.REDIS_HOST ?? '127.0.0.1'),
     REDIS_PORT: int(raw.REDIS_PORT, 6379, 'REDIS_PORT'),
     REDIS_PASSWORD: raw.REDIS_PASSWORD ? String(raw.REDIS_PASSWORD) : undefined,
-    OUTBOX_POLL_INTERVAL_MS: int(raw.OUTBOX_POLL_INTERVAL_MS, 500, 'OUTBOX_POLL_INTERVAL_MS'),
-    OUTBOX_BATCH_SIZE: int(raw.OUTBOX_BATCH_SIZE, 100, 'OUTBOX_BATCH_SIZE'),
-    OUTBOX_PROCESSING_TIMEOUT_MS: int(raw.OUTBOX_PROCESSING_TIMEOUT_MS, 30000, 'OUTBOX_PROCESSING_TIMEOUT_MS'),
-    OUTBOX_MAX_ATTEMPTS: int(raw.OUTBOX_MAX_ATTEMPTS, 12, 'OUTBOX_MAX_ATTEMPTS'),
+    OUTBOX_POLL_INTERVAL_MS: boundedInt(raw.OUTBOX_POLL_INTERVAL_MS, 500, 'OUTBOX_POLL_INTERVAL_MS', 100, 60_000),
+    OUTBOX_BATCH_SIZE: boundedInt(raw.OUTBOX_BATCH_SIZE, 100, 'OUTBOX_BATCH_SIZE', 1, 500),
+    OUTBOX_PROCESSING_TIMEOUT_MS: boundedInt(raw.OUTBOX_PROCESSING_TIMEOUT_MS, 30000, 'OUTBOX_PROCESSING_TIMEOUT_MS', 1_000, 3_600_000),
+    OUTBOX_MAX_ATTEMPTS: boundedInt(raw.OUTBOX_MAX_ATTEMPTS, 12, 'OUTBOX_MAX_ATTEMPTS', 1, 100),
     OPENAPI_DOCS_ENABLED: bool(raw.OPENAPI_DOCS_ENABLED, nodeEnv !== 'production'),
     AUTH_ENCRYPTION_KEY: String(raw.AUTH_ENCRYPTION_KEY ?? ''),
     AUTH_TOKEN_HMAC_SECRET: String(raw.AUTH_TOKEN_HMAC_SECRET ?? ''),
@@ -70,11 +76,11 @@ export function validateEnvironment(raw: Record<string, unknown>): Record<string
     PAYMENT_PROVIDER_KEY: paymentProviderKey,
     PAYMENT_CALLBACK_BASE_URL: raw.PAYMENT_CALLBACK_BASE_URL ? String(raw.PAYMENT_CALLBACK_BASE_URL) : undefined,
     PAYMENT_REDIRECT_ALLOWED_HOSTS: String(raw.PAYMENT_REDIRECT_ALLOWED_HOSTS ?? ''),
-    PAYMENT_RECONCILIATION_MAX_ATTEMPTS: int(raw.PAYMENT_RECONCILIATION_MAX_ATTEMPTS,8,'PAYMENT_RECONCILIATION_MAX_ATTEMPTS'),
+    PAYMENT_RECONCILIATION_MAX_ATTEMPTS: boundedInt(raw.PAYMENT_RECONCILIATION_MAX_ATTEMPTS,8,'PAYMENT_RECONCILIATION_MAX_ATTEMPTS',1,100),
     ZARINPAL_MERCHANT_ID: raw.ZARINPAL_MERCHANT_ID ? String(raw.ZARINPAL_MERCHANT_ID) : undefined,
     ZARINPAL_SANDBOX: bool(raw.ZARINPAL_SANDBOX,nodeEnv!=='production'),
     ZARINPAL_REVERSE_ENABLED: bool(raw.ZARINPAL_REVERSE_ENABLED,false),
-    ZARINPAL_TIMEOUT_MS: int(raw.ZARINPAL_TIMEOUT_MS,10000,'ZARINPAL_TIMEOUT_MS'),
+    ZARINPAL_TIMEOUT_MS: boundedInt(raw.ZARINPAL_TIMEOUT_MS,10000,'ZARINPAL_TIMEOUT_MS',100,120_000),
     SHIPPING_PROVIDER_KEY: shippingProviderKey,
     SHIPPING_WEBHOOK_ENABLED: shippingWebhookEnabled,
     SHIPPING_WEBHOOK_HMAC_SECRET: raw.SHIPPING_WEBHOOK_HMAC_SECRET ? String(raw.SHIPPING_WEBHOOK_HMAC_SECRET) : undefined,
@@ -83,6 +89,6 @@ export function validateEnvironment(raw: Record<string, unknown>): Record<string
     SHIPPING_WEBHOOK_ALLOWED_CLOCK_SKEW_SECONDS: int(raw.SHIPPING_WEBHOOK_ALLOWED_CLOCK_SKEW_SECONDS,300,'SHIPPING_WEBHOOK_ALLOWED_CLOCK_SKEW_SECONDS'),
     SHIPPING_PROVIDER_BASE_URL: raw.SHIPPING_PROVIDER_BASE_URL ? String(raw.SHIPPING_PROVIDER_BASE_URL) : undefined,
     SHIPPING_PROVIDER_API_TOKEN: raw.SHIPPING_PROVIDER_API_TOKEN ? String(raw.SHIPPING_PROVIDER_API_TOKEN) : undefined,
-    SHIPPING_PROVIDER_TIMEOUT_MS: int(raw.SHIPPING_PROVIDER_TIMEOUT_MS,10000,'SHIPPING_PROVIDER_TIMEOUT_MS'),
+    SHIPPING_PROVIDER_TIMEOUT_MS: boundedInt(raw.SHIPPING_PROVIDER_TIMEOUT_MS,10000,'SHIPPING_PROVIDER_TIMEOUT_MS',100,120_000),
   };
 }
