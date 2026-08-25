@@ -1,0 +1,71 @@
+name: Step52 A12 Final Status Reconcile
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'ROADMAP.md'
+      - 'docs/11-step-history/STEP-52-A12-FINAL-CANONICAL-CLOSURE.md'
+      - '.github/workflows/step52-a12-final-status-reconcile.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  reconcile:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout A12 branch
+        uses: actions/checkout@v5.1.0
+        with:
+          ref: step52-a12-final-canonical-closure
+          fetch-depth: 0
+
+      - name: Reconcile final A12 status fail closed
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('docs/12-current-state/CURRENT-STATE.md')
+          s = p.read_text()
+
+          def replace_once(old, new, label):
+              global s
+              count = s.count(old)
+              if count != 1:
+                  raise SystemExit(f'{label}: expected exactly one match, got {count}')
+              s = s.replace(old, new, 1)
+
+          replace_once(
+              '- **A12 — Final Canonical Closure — CANDIDATE / FINAL CI + MERGE PENDING**',
+              '- **A12 — Final Canonical Closure — FINAL GATE PASS / MERGE-READY**',
+              'a12-progress')
+
+          replace_once(
+              'A2–A11 are canonically complete. A9 remediated all five A8 findings without adding a migration, dependency, HTTP operation, permission or business-domain feature. A10 and A11 independently reran the integrated backend with 578/578 runtime tests and all static gates passing. A12 is documentation/governance-only and closes Step 52 after exact-head CI and merge.',
+              'A2–A11 are canonically complete. A9 remediated all five A8 findings without adding a migration, dependency, HTTP operation, permission or business-domain feature. A10 and A11 independently reran the integrated backend with 578/578 runtime tests and all static gates passing. A12 is documentation/governance-only; its clean-head Canonical CI passed and Step 52 becomes canonically closed when the merge-ready A12 PR merges.',
+              'step52-summary-final')
+
+          replace_once(
+              '**Step 52 — Backend Final Closure — CANDIDATE / FINAL A12 CI + MERGE PENDING.**',
+              '**Step 52 — Backend Final Closure — FINAL GATE PASS / MERGE-READY.**',
+              'step52-final-heading')
+
+          replace_once(
+              '- Step 52 becomes CLOSED only when the exact final A12 head passes Canonical CI and the closure PR merges to `main`.',
+              '- Exact clean-head A12 Canonical CI run `32832020438`, job `97752619764`, passed; Step 52 becomes canonically CLOSED when this merge-ready closure PR merges to `main`.',
+              'step52-final-condition')
+
+          p.write_text(s)
+          PY
+
+      - name: Commit final status when needed
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/12-current-state/CURRENT-STATE.md
+          if git diff --cached --quiet; then
+            echo 'Final CURRENT-STATE already reconciled.'
+            exit 0
+          fi
+          git commit -m 'docs(current-state): mark Step 52 final gate merge-ready'
+          git push origin HEAD:step52-a12-final-canonical-closure
