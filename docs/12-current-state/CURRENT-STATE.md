@@ -47,6 +47,7 @@
 - Step-52 A10 merge / A11 scope-freeze baseline: `2d7a07430fb36ecdabeae029c3a84f80a342b086`.
 - Step-52 A11 regression-gate merge: `c2dd18e9a7732f886a6b34675802081199c810df`.
 - Step-52 A11 launch-scope-freeze merge / A12 baseline: `2defd692cff824a89d50027648db25a70344df0d`.
+- Step-52 A12 final closure exact head: `1e123d70bef99cb6a4d7f913e87e2bb64e88e864`; Canonical CI `32832698608` PASS; final merge/main baseline: `97569886a2dba1de45e7a671cd41135d4b071b7e`.
 
 ## Closed steps
 - **Step 45 — Content, Articles & SEO Backend — CLOSED / FINAL GATE PASS**
@@ -381,7 +382,7 @@ Verify job: `97170521019` — PASS
 - Finance remains authoritative for accounting/financial facts.
 
 ## Next safe action
-Proceed to **Step 53 — Information Architecture & User Journeys**. The Step-52 backend scope remains frozen; reopening requires new defect evidence or an explicit later roadmap decision.
+Complete **Step 53 / A11 — Full Verification, Canonicalization & Final Closure** from the source-backed IA/journey artifacts. The Step-52 backend scope remains frozen; reopening requires new defect evidence or an explicit later roadmap decision.
 
 ## Step 52 active closure state
 - **A1 — Canonical Handoff & Scope Freeze — COMPLETE / FINAL GATE PASS**
@@ -395,9 +396,27 @@ Proceed to **Step 53 — Information Architecture & User Journeys**. The Step-52
 - **A9 — Evidence-Based Remediation — COMPLETE / REMEDIATED FINAL GATE PASS**
 - **A10 — Post-Remediation Full Verification — COMPLETE / FINAL GATE PASS**
 - **A11 — Backend Launch-Scope Freeze — COMPLETE / FINAL GATE PASS**
-- **A12 — Final Canonical Closure — FINAL GATE PASS / MERGE-READY**
+- **A12 — Final Canonical Closure — COMPLETE / FINAL GATE PASS / MERGED**
 
 A1–A12 are complete. A9 remediated all five A8 findings without adding a migration, dependency, HTTP operation, permission or business-domain feature; A10 and A11 independently passed 578/578 runtime tests and all static gates, while A10 also passed 65/65 clean migrations with checksum parity. A11 freezes the verified backend scope with no remaining Step-52 blocker, and A12 records canonical closure. Real OTP/SMS/email, shipping and payment production configuration remain explicit later-phase dependencies, fail closed, and are not waived by this closure.
+
+## Step 53 active product-design state
+
+**Step 53 — Information Architecture & User Journeys — IN PROGRESS.**
+
+- **A1 — Canonical Handoff, Source Audit & Scope Freeze — COMPLETE / HANDOFF GATE PASS**
+- **A2 — Actor & Experience Boundary — COMPLETE / CONTRACT GATE PASS**
+- **A3 — Storefront Information Architecture — COMPLETE / IA GATE PASS**
+- **A4 — Retail Discovery & Compare Journeys — COMPLETE / JOURNEY GATE PASS**
+- **A5 — Cart, Checkout, Payment & Recovery — COMPLETE / JOURNEY GATE PASS**
+- **A6 — Account, Order & After-Sales — COMPLETE / JOURNEY GATE PASS**
+- **A7 — Wholesale Application & Approved-Customer — COMPLETE / JOURNEY GATE PASS**
+- **A8 — Admin IA & Operational Journeys — COMPLETE / ADMIN GATE PASS**
+- **A9 — State, Permission, Recovery & Accessibility Handoff — COMPLETE / HANDOFF GATE PASS**
+- **A10 — Business Rule/OpenAPI Traceability & Automated Validation — COMPLETE / LOCAL GATE PASS**
+- **A11 — Full Verification, Canonicalization & Final Closure — IN PROGRESS**
+
+Current Step-53 contract contains 7 actors, 6 Storefront navigation entries, 8 Admin groups, 12 customer journeys, 12 Admin journeys and 153 validated OpenAPI operation references. It introduces no runtime code, migration, endpoint, permission or business-rule change. UI tokens/components, wireframes, high-fidelity design and frontend implementation remain outside Step-53 scope.
 
 ## Global trust rules
 1. `rahemih/Eqcofe` is the official repository.

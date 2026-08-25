@@ -4,10 +4,10 @@ EQCOFE is an Iranian e-commerce platform for coffee equipment, built as a SQL-fi
 
 ## Canonical status
 
-This repository is the canonical EQCOFE backend source through **Step 52 — Backend Final Closure**.
+This repository is the canonical EQCOFE backend source through **Step 52 — Backend Final Closure** and the canonical product-design contract source for active **Step 53 — Information Architecture & User Journeys**.
 
 - Last fully closed step: **52 — Backend Final Closure — FINAL GATE PASS**
-- Next planned step: **53 — Information Architecture & User Journeys**
+- Active step: **53 — Information Architecture & User Journeys**
 - Money unit: **Toman**
 - Wallet: **not part of the product**
 - Node: `>=24.18.1 <25`
@@ -16,6 +16,7 @@ This repository is the canonical EQCOFE backend source through **Step 52 — Bac
 - Latest verified OpenAPI: **531 paths / 601 operations / 1179 refs — PASS**
 - Latest verified architecture gate: **467 files — PASS**
 - Fresh isolated PostgreSQL migration verification: **65/65 migrations PASS; checksums MATCH**
+- Step-53 experience contract: **7 actors / 24 journeys / 153 OpenAPI operation references — PASS**
 
 > Import provenance matters: the historical GitHub repository was a partial traceability/recovery mirror. The runnable source in this import comes from the final Step-44 canonical artifact, not from pretending the old GitHub `main` tree was complete.
 
