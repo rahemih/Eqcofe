@@ -37,6 +37,38 @@ test('A4 transport has finite AbortController timeout and bounded attempts', asy
   assert.match(source,/Math\.min\(250 \* \(2 \*\* \(attempt - 1\)\), 5_000\)/);
 });
 
+test('Step 52 A6 rejects provider redirects at the shared transport boundary', async () => {
+  const original = globalThis.fetch;
+  let redirect: RequestRedirect | undefined;
+  globalThis.fetch = async (_url, init) => {
+    redirect = init?.redirect;
+    return new Response('{}', { status: 200, headers: { 'content-type': 'application/json' } });
+  };
+  try {
+    const result = await new ProviderHttpClient(new ProviderCircuitBreaker()).execute({ providerKey:'x', url:'https://provider.example/status', context:{requestId:'r',operation:'read',timeoutMs:1000}, maxAttempts:1, circuitBreaker:policy });
+    assert.equal(result.ok, true);
+    assert.equal(redirect, 'error');
+  } finally {
+    globalThis.fetch = original;
+  }
+});
+
+test('Step 52 A6 rejects oversized provider responses before buffering', async () => {
+  const original = globalThis.fetch;
+  globalThis.fetch = async () => new Response('{}', { status: 200, headers: { 'content-length': '1048577' } });
+  try {
+    const result = await new ProviderHttpClient(new ProviderCircuitBreaker()).execute({ providerKey:'x', url:'https://provider.example/status', context:{requestId:'r',operation:'read',timeoutMs:1000}, maxAttempts:1, circuitBreaker:policy });
+    assert.equal(result.ok, false);
+    if (!result.ok) {
+      assert.equal(result.failure.kind, 'invalid_response');
+      assert.equal(result.failure.code, 'PROVIDER_RESPONSE_TOO_LARGE');
+      assert.equal(result.failure.retry, 'never');
+    }
+  } finally {
+    globalThis.fetch = original;
+  }
+});
+
 test('A4 uses canonical provider failure and retry semantics', async () => {
   const source = await readFile('src/modules/integrations/infrastructure/provider-http-client.ts','utf8');
   assert.match(source,/providerFailureFromHttpStatus/);
