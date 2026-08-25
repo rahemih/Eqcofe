@@ -19,6 +19,9 @@ A12 closes Backend Final Closure after reconciling A1–A11 implementation, audi
 - A10 post-remediation verification: PR `#124`, merge `2d7a07430fb36ecdabeae029c3a84f80a342b086`.
 - A11 independent regression: merge `c2dd18e9a7732f886a6b34675802081199c810df`; CI `32831498835` — PASS.
 - A11 launch-scope freeze: PR `#127`, merge `2defd692cff824a89d50027648db25a70344df0d`; CI `32832086766` — PASS.
+- A12 closure PR: `#128`.
+- A12 initial exact-head: `33073a0267b009a34dceabcd0886a7a4f1a694d5`.
+- A12 initial Canonical CI: `32832529977`; verify job `97754175574` — PASS.
 
 ## Final evidence
 
