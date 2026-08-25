@@ -11,6 +11,9 @@
 - Implementation tree: `7f3fd74a3dc3ad68bc59ebd461674a55fc989af4`, identical to the locally verified candidate tree.
 - Canonical CI: run `32852266428`; verify job `97815730069` — PASS.
 - Implementation merge: `379ddbab7c9b44dff96180fe829fab7b136ea1df`.
+- Final closure PR: `#130`.
+- Closure initial exact head: `6aaf1453a468d5cf90e7636295206693125fd024`.
+- Closure initial Canonical CI: run `32852647733`; verify job `97816980193` — PASS.
 
 ## Delivered canonical artifacts
 
@@ -51,4 +54,3 @@
 ## Next official execution step
 
 **Step 54 — RTL Design System & Accessibility Foundation**.
-
