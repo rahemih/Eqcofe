@@ -1,12 +1,12 @@
 # EQCOFE — Complete Master Execution Roadmap
 
-**Roadmap version:** 3.27 — Step-52 Final Canonical Closure
+**Roadmap version:** 3.28 — Step-53 Information Architecture Execution
 **Effective date:** 2026-08-25
 **Canonical repository:** `rahemih/Eqcofe`  
 **Canonical branch:** `main`  
 **Verified Step-44 code baseline:** `b239dfe825b615f36caf2e26cc7abc80c70d349c`
 
-> This is the canonical end-to-end execution map for EQCOFE. For historical Steps 1–27, the exact original step labels are not independently proven by the recovered Git evidence. Their descriptions below are therefore a normalized reconstruction of the foundation represented by the current product vision, business rules and canonical codebase; they must not be cited as exact historical attribution. Step 28 remains partial-history. Steps 29–52 are verified/closed in canonical source and closure evidence. Step 52 is CLOSED / FINAL GATE PASS; Step 53 is next.
+> This is the canonical end-to-end execution map for EQCOFE. For historical Steps 1–27, the exact original step labels are not independently proven by the recovered Git evidence. Their descriptions below are therefore a normalized reconstruction of the foundation represented by the current product vision, business rules and canonical codebase; they must not be cited as exact historical attribution. Step 28 remains partial-history. Steps 29–52 are verified/closed in canonical source and closure evidence. Step 52 is CLOSED / FINAL GATE PASS; Step 53 is active.
 
 ## Status legend
 - `RECONSTRUCTED-HISTORY`: normalized description; exact historical step attribution is not proven.
@@ -183,8 +183,24 @@ A1–A12 are complete. A9 remediated the five A8 findings with bounded payload-f
 
 # PHASE D — UI/UX Product Design
 
-## Step 53 — Information Architecture & User Journeys — `PLANNED`
+## Step 53 — Information Architecture & User Journeys — `IN PROGRESS`
 Map Persian storefront/admin navigation and end-to-end journeys for retail, wholesale, checkout, account, after-sales and administration before UI implementation.
+
+Frozen execution gates:
+
+1. A1 — Canonical Handoff, Source Audit & Scope Freeze.
+2. A2 — Actor & Experience Boundary.
+3. A3 — Storefront Information Architecture.
+4. A4 — Retail Discovery & Compare Journeys.
+5. A5 — Cart, Checkout, Payment & Recovery Journeys.
+6. A6 — Account, Order & After-Sales Journeys.
+7. A7 — Wholesale Application & Approved-Customer Journeys.
+8. A8 — Admin Information Architecture & Operational Journeys.
+9. A9 — State, Permission, Recovery & Accessibility Handoff.
+10. A10 — Business Rule/OpenAPI Traceability & Automated Validation.
+11. A11 — Full Verification, Canonicalization & Final Closure.
+
+Step 53 produces design contracts and maps only. Design tokens/components remain Step 54; Storefront/Admin wireframes remain Steps 55–56; high-fidelity UI/prototype remains Step 57; frontend code remains Steps 58 onward.
 
 ## Step 54 — RTL Design System & Accessibility Foundation — `PLANNED`
 Define typography, spacing, grid, components, forms, states, responsive rules, Persian RTL behavior, accessibility targets and brand tokens.
@@ -328,8 +344,9 @@ Evolve architecture, integrations and product capabilities based on production e
 
 - **Last fully closed step:** Step 52 — Backend Final Closure.
 - **Step 49 closure:** CLOSED / FINAL GATE PASS after A11 audit.
-- **Active step:** None; Step 52 is `CLOSED / FINAL GATE PASS`.
-- **Next approved step:** Step 53 — Information Architecture & User Journeys.
+- **Active step:** Step 53 — Information Architecture & User Journeys.
+- **Active substep:** A1–A10 artifacts implemented; A11 verification/canonical closure pending.
+- **Next approved step after closure:** Step 54 — RTL Design System & Accessibility Foundation.
 - **Backend feature-completion horizon:** Step 52.
 - **UI/UX design begins:** Step 53.
 - **Storefront implementation begins:** Step 58.

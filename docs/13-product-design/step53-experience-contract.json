@@ -1,0 +1,333 @@
+{
+  "schemaVersion": 1,
+  "step": 53,
+  "title": "Information Architecture & User Journeys",
+  "language": "fa-IR",
+  "direction": "rtl",
+  "canonicalSources": [
+    "docs/01-product-vision/EQCOFE-PRODUCT-VISION.md",
+    "docs/02-business-rules/EQCOFE-BUSINESS-RULES.md",
+    "contracts/http/openapi.yaml"
+  ],
+  "actors": [
+    { "id": "guest", "label": "مهمان", "boundary": "Public and guest-cart operations only" },
+    { "id": "retail", "label": "مشتری خرده‌فروشی", "boundary": "Authenticated customer-owned resources" },
+    { "id": "wholesale-applicant", "label": "متقاضی عمده", "boundary": "Authenticated retail customer until authoritative approval" },
+    { "id": "wholesale", "label": "مشتری عمده تأییدشده", "boundary": "Authoritative wholesale pricing and quantity experience" },
+    { "id": "staff", "label": "کارمند", "boundary": "Permission and scope filtered administration" },
+    { "id": "approver", "label": "تأییدکننده", "boundary": "Step-up protected review and approval operations" },
+    { "id": "operator", "label": "اپراتور عملیات", "boundary": "Security, operations and recovery surfaces" }
+  ],
+  "requiredAreas": [
+    "storefront-navigation",
+    "retail",
+    "checkout",
+    "payment-recovery",
+    "account",
+    "after-sales",
+    "wholesale",
+    "admin-navigation",
+    "admin-operations",
+    "permissions",
+    "state-visibility",
+    "accessibility-handoff"
+  ],
+  "storefrontNavigation": [
+    { "id": "home", "label": "خانه", "audience": ["guest", "retail", "wholesale"] },
+    { "id": "catalog", "label": "فروشگاه", "children": ["categories", "brands", "search", "campaigns"], "audience": ["guest", "retail", "wholesale"] },
+    { "id": "compare", "label": "مقایسه", "audience": ["guest", "retail", "wholesale"] },
+    { "id": "content", "label": "مجله و راهنما", "children": ["articles", "policies"], "audience": ["guest", "retail", "wholesale"] },
+    { "id": "cart", "label": "سبد خرید", "audience": ["guest", "retail", "wholesale"] },
+    { "id": "account", "label": "حساب من", "children": ["profile", "addresses", "orders", "wishlist", "alerts", "loyalty", "wholesale", "returns", "warranty", "security"], "audience": ["retail", "wholesale-applicant", "wholesale"] }
+  ],
+  "adminNavigation": [
+    { "id": "admin-home", "label": "نمای کلی", "permissionAware": true },
+    { "id": "commerce", "label": "فروش و سفارش", "children": ["orders", "payments", "refunds", "fulfillment", "shipments", "pos"], "permissionAware": true },
+    { "id": "merchandising", "label": "کالا و قیمت", "children": ["catalog", "media", "pricing", "fx", "excel", "marketing", "content", "reviews"], "permissionAware": true },
+    { "id": "supply", "label": "موجودی و تأمین", "children": ["inventory", "warehouses", "reservations", "procurement", "suppliers"], "permissionAware": true },
+    { "id": "customers", "label": "مشتریان", "children": ["customers", "wholesale", "loyalty", "returns", "warranty", "notifications"], "permissionAware": true },
+    { "id": "finance", "label": "مالی و گزارش‌ها", "children": ["finance", "profit", "reports", "exports", "analytics"], "permissionAware": true },
+    { "id": "governance", "label": "تنظیمات و کنترل", "children": ["configuration", "feature-flags", "integrations", "staff", "rbac", "approvals"], "permissionAware": true },
+    { "id": "reliability", "label": "امنیت و عملیات", "children": ["security", "operations", "data-quality", "reconciliation", "audit"], "permissionAware": true }
+  ],
+  "journeys": [
+    {
+      "id": "SJ-01",
+      "area": "retail",
+      "title": "کشف محصول از جستجو، دسته و برند",
+      "actors": ["guest", "retail", "wholesale"],
+      "entry": "خانه، جستجو، دسته یا برند",
+      "success": "رسیدن به محصول و Variant قابل انتخاب با قیمت و موجودی جاری",
+      "states": ["loading", "empty", "no-results", "partial-media", "out-of-stock", "error", "recovery"],
+      "operations": ["GET /products", "GET /products/{slug}", "GET /categories/{slug}/products", "GET /categories/{slug}/filters", "GET /brands/{slug}/products", "GET /search", "GET /search/suggestions"]
+    },
+    {
+      "id": "SJ-02",
+      "area": "retail",
+      "title": "مقایسه محصولات هم‌دسته",
+      "actors": ["guest", "retail", "wholesale"],
+      "entry": "فهرست یا صفحه محصول",
+      "success": "مقایسه حداکثر چهار محصول سازگار از یک دسته",
+      "states": ["empty", "incompatible-category", "maximum-four", "removed-item", "error"],
+      "operations": ["POST /compare/validate", "POST /compare"]
+    },
+    {
+      "id": "SJ-03",
+      "area": "account",
+      "title": "ورود با OTP و ادغام سبد مهمان",
+      "actors": ["guest", "retail", "wholesale"],
+      "entry": "ورود یا اقدام نیازمند حساب",
+      "success": "Session معتبر و ادغام شفاف سبد مهمان با سبد مشتری",
+      "states": ["otp-requested", "otp-invalid", "otp-expired", "rate-limited", "merge-conflict", "success"],
+      "operations": ["POST /auth/otp/request", "POST /auth/otp/verify", "GET /auth/session", "POST /customer/cart/access", "POST /customer/cart/merge"]
+    },
+    {
+      "id": "SJ-04",
+      "area": "checkout",
+      "title": "سبد تا ثبت سفارش",
+      "actors": ["guest", "retail", "wholesale"],
+      "entry": "سبد دارای حداقل یک قلم معتبر",
+      "success": "Order پایدار از Quote و Reservation معتبر",
+      "states": ["price-changed", "stock-changed", "minimum-quantity", "address-required", "shipping-unavailable", "quote-expired", "reservation-expired", "duplicate-submit"],
+      "operations": ["POST /cart", "GET /cart/{id}", "POST /cart/{id}/items", "PATCH /cart/{id}/items/{itemId}", "DELETE /cart/{id}/items/{itemId}", "POST /cart/{id}/quote", "GET /shipping-methods", "POST /checkout/{id}/reserve", "POST /checkout/{id}/order"]
+    },
+    {
+      "id": "SJ-05",
+      "area": "payment-recovery",
+      "title": "پرداخت، بازگشت و بازیابی نتیجه نامشخص",
+      "actors": ["retail", "wholesale"],
+      "entry": "سفارش پرداخت‌نشده",
+      "success": "نمایش نتیجه authoritative پرداخت یا مسیر امن تلاش مجدد",
+      "states": ["initiating", "provider-redirect", "callback-return", "pending", "paid", "failed", "unknown", "late-payment", "retry-safe"],
+      "operations": ["POST /customer/orders/{order_number}/payments", "GET /customer/orders/{order_number}/payments/{payment_id}", "GET /customer/payments/{payment_id}/status", "POST /customer/payments/{payment_id}/verify"]
+    },
+    {
+      "id": "SJ-06",
+      "area": "account",
+      "title": "پروفایل و نشانی‌ها",
+      "actors": ["retail", "wholesale-applicant", "wholesale"],
+      "entry": "حساب من",
+      "success": "پروفایل و نشانی‌های customer-owned با حداکثر یک نشانی پیش‌فرض",
+      "states": ["empty-addresses", "validation-error", "ownership-denied", "default-changed", "delete-blocked"],
+      "operations": ["GET /customer/profile", "PATCH /customer/profile", "GET /customer/addresses", "POST /customer/addresses", "PATCH /customer/addresses/{id}", "DELETE /customer/addresses/{id}", "POST /customer/addresses/{id}/set-default"]
+    },
+    {
+      "id": "SJ-07",
+      "area": "account",
+      "title": "پیگیری سفارش، فاکتور و لغو مجاز",
+      "actors": ["retail", "wholesale"],
+      "entry": "سفارش‌های من",
+      "success": "مشاهده Snapshot، Timeline، فاکتور و فقط Action مجاز",
+      "states": ["empty", "loading", "not-found", "not-owned", "cancel-allowed", "cancel-blocked", "download-error"],
+      "operations": ["GET /customer/orders", "GET /customer/orders/{order_number}", "GET /customer/orders/{order_number}/timeline", "GET /customer/orders/{order_number}/invoice", "POST /customer/orders/{order_number}/cancel"]
+    },
+    {
+      "id": "SJ-08",
+      "area": "after-sales",
+      "title": "درخواست و پیگیری مرجوعی",
+      "actors": ["retail", "wholesale"],
+      "entry": "جزئیات سفارش واجد شرایط",
+      "success": "درخواست ثبت‌شده با وضعیت و Timeline غیرقابل بازنویسی",
+      "states": ["not-eligible", "draft", "requested", "under-review", "approved", "rejected", "received", "inspecting", "resolved", "cancelled"],
+      "operations": ["POST /customer/orders/{order_number}/returns", "GET /customer/returns", "GET /customer/returns/{return_number}", "GET /customer/returns/{return_number}/timeline", "POST /customer/returns/{return_number}/cancel"]
+    },
+    {
+      "id": "SJ-09",
+      "area": "after-sales",
+      "title": "ثبت و پیگیری گارانتی",
+      "actors": ["retail", "wholesale"],
+      "entry": "جزئیات سفارش یا گارانتی‌ها",
+      "success": "Claim ثبت‌شده با وضعیت و Timeline قابل پیگیری",
+      "states": ["not-eligible", "requested", "under-review", "approved", "rejected", "received", "repairing", "resolved", "closed"],
+      "operations": ["POST /customer/warranty/claims", "GET /customer/warranty/claims", "GET /customer/warranty/claims/{claim_number}", "GET /customer/warranty/claims/{claim_number}/timeline"]
+    },
+    {
+      "id": "SJ-10",
+      "area": "wholesale",
+      "title": "درخواست و پیگیری عضویت عمده",
+      "actors": ["retail", "wholesale-applicant"],
+      "entry": "حساب من یا معرفی فروش عمده",
+      "success": "نمایش وضعیت authoritative درخواست بدون self-promotion",
+      "states": ["eligible", "already-active", "submitted", "under-review", "approved", "rejected", "validation-error"],
+      "operations": ["POST /customer/wholesale/applications", "GET /customer/wholesale/application"]
+    },
+    {
+      "id": "SJ-11",
+      "area": "wholesale",
+      "title": "خرید مشتری عمده تأییدشده",
+      "actors": ["wholesale"],
+      "entry": "Session با customer_type عمده",
+      "success": "قیمت authoritative عمده و قواعد مقدار در Quote و Order",
+      "states": ["approval-required", "minimum-quantity", "price-changed", "stock-changed", "reservation-expired"],
+      "operations": ["GET /auth/session", "GET /products/{slug}", "POST /cart/{id}/quote", "POST /checkout/{id}/reserve", "POST /checkout/{id}/order"]
+    },
+    {
+      "id": "SJ-12",
+      "area": "account",
+      "title": "علاقه‌مندی، هشدار، باشگاه و نظر",
+      "actors": ["retail", "wholesale"],
+      "entry": "محصول یا حساب من",
+      "success": "مدیریت منابع customer-owned بدون کپی حقیقت قیمت/موجودی",
+      "states": ["empty", "duplicate", "not-owned", "pending-review", "approved", "rejected", "error"],
+      "operations": ["GET /customer/wishlist", "POST /customer/wishlist/{product_id}", "DELETE /customer/wishlist/{product_id}", "GET /customer/product-alerts", "POST /customer/product-alerts", "DELETE /customer/product-alerts/{id}", "GET /customer/loyalty", "GET /customer/loyalty/history", "GET /customer/loyalty/benefits", "POST /customer/products/{product_id}/reviews"]
+    },
+    {
+      "id": "AJ-01",
+      "area": "admin-navigation",
+      "title": "کاتالوگ، Variant و رسانه تا انتشار",
+      "actors": ["staff", "approver"],
+      "entry": "کالا و قیمت",
+      "success": "محصول قابل فروش با Variant و رسانه تأییدشده",
+      "states": ["draft", "validation-error", "media-pending", "review-required", "published", "sales-stopped", "archived"],
+      "operations": ["GET /admin/products", "POST /admin/products", "PATCH /admin/products/{id}", "POST /admin/products/{id}/publish", "POST /admin/products/{id}/stop-sales", "POST /admin/products/{id}/archive"]
+    },
+    {
+      "id": "AJ-02",
+      "area": "admin-operations",
+      "title": "قیمت‌گذاری و ارز با Preview-before-Apply",
+      "actors": ["staff", "approver"],
+      "entry": "قیمت و ارز",
+      "success": "اعمال کنترل‌شده روی Snapshot پیش‌نمایش معتبر",
+      "states": ["draft", "preview", "impact-changed", "approval-required", "step-up-required", "applied", "rejected", "expired"],
+      "operations": ["POST /admin/pricing/bulk/preview", "POST /admin/pricing/bulk/apply", "POST /admin/pricing/currency/impact-preview", "POST /admin/pricing/currency/apply"]
+    },
+    {
+      "id": "AJ-03",
+      "area": "admin-operations",
+      "title": "موجودی و تأمین تا دریافت کالا",
+      "actors": ["staff", "approver"],
+      "entry": "موجودی و تأمین",
+      "success": "دریافت/انتقال ثبت‌شده با FIFO و تاریخچه معتبر",
+      "states": ["low-stock", "reserved", "request-draft", "submitted", "approved", "ordered", "received", "reversed", "conflict"],
+      "operations": ["GET /admin/inventory", "GET /admin/inventory/{variant_id}/movements", "POST /admin/inventory/transfers", "POST /admin/procurement/purchase-requests", "POST /admin/procurement/purchase-orders", "POST /admin/procurement/goods-receipts"]
+    },
+    {
+      "id": "AJ-04",
+      "area": "admin-operations",
+      "title": "سفارش تا آماده‌سازی و ارسال",
+      "actors": ["staff"],
+      "entry": "فروش و سفارش",
+      "success": "تکمیل Actionهای مجاز سفارش و تحویل به حمل",
+      "states": ["new", "payment-pending", "confirmed", "allocation-needed", "picking", "ready", "handed-over", "completed", "blocked"],
+      "operations": ["GET /admin/orders", "GET /admin/orders/{id}", "GET /admin/orders/{id}/allowed-actions", "POST /admin/orders/{id}/confirm", "POST /admin/fulfillment/orders/{order_id}/allocate", "POST /admin/fulfillment/orders/{order_id}/start-preparation", "POST /admin/shipments", "POST /admin/shipments/{id}/mark-ready", "POST /admin/shipments/{id}/handover"]
+    },
+    {
+      "id": "AJ-05",
+      "area": "admin-operations",
+      "title": "بررسی پرداخت و بازپرداخت",
+      "actors": ["staff", "approver"],
+      "entry": "پرداخت‌ها و بازپرداخت‌ها",
+      "success": "نتیجه reconciled یا Refund terminal با Audit",
+      "states": ["pending", "unknown", "reconcile-required", "refund-requested", "approved", "processing", "completed", "failed", "retryable"],
+      "operations": ["GET /admin/payments", "GET /admin/payments/{id}/attempts", "POST /admin/payments/{id}/reconcile", "GET /admin/refunds", "POST /admin/refunds/{id}/approve", "POST /admin/refunds/{id}/process", "POST /admin/refunds/{id}/reconcile"]
+    },
+    {
+      "id": "AJ-06",
+      "area": "admin-operations",
+      "title": "رسیدگی به مرجوعی و گارانتی",
+      "actors": ["staff", "approver"],
+      "entry": "مشتریان و خدمات پس از فروش",
+      "success": "Resolution معتبر بدون بازنویسی تصمیم terminal",
+      "states": ["requested", "under-review", "approved", "rejected", "received", "inspection-or-repair", "resolved", "closed"],
+      "operations": ["GET /admin/returns", "POST /admin/returns/{id}/start-review", "POST /admin/returns/{id}/approve", "POST /admin/returns/{id}/resolve", "GET /admin/warranty/claims", "POST /admin/warranty/claims/{id}/start-review", "POST /admin/warranty/claims/{id}/approve", "POST /admin/warranty/claims/{id}/resolve", "POST /admin/warranty/claims/{id}/close"]
+    },
+    {
+      "id": "AJ-07",
+      "area": "admin-operations",
+      "title": "بررسی درخواست عمده",
+      "actors": ["staff", "approver"],
+      "entry": "مشتریان و عمده‌فروشی",
+      "success": "تصمیم terminal تأیید یا رد با اثر authoritative روی نوع مشتری",
+      "states": ["submitted", "under-review", "approval-step-up", "approved", "rejected", "already-decided"],
+      "operations": ["GET /admin/wholesale/applications", "GET /admin/wholesale/applications/{id}", "POST /admin/wholesale/applications/{id}/start-review", "POST /admin/wholesale/applications/{id}/approve", "POST /admin/wholesale/applications/{id}/reject"]
+    },
+    {
+      "id": "AJ-08",
+      "area": "admin-operations",
+      "title": "محتوا، کمپین و انتشار کنترل‌شده",
+      "actors": ["staff", "approver"],
+      "entry": "بازاریابی و محتوا",
+      "success": "نسخه یا کمپین approved و زمان‌بندی/منتشرشده",
+      "states": ["draft", "preview", "submitted", "approved", "scheduled", "published-or-active", "paused", "archived"],
+      "operations": ["GET /admin/content/articles", "POST /admin/content/articles", "POST /admin/content/articles/{id}/submit-review", "POST /admin/content/articles/{id}/approve", "POST /admin/content/articles/{id}/publish", "GET /admin/marketing/campaigns", "POST /admin/marketing/campaigns/{id}/preview", "POST /admin/marketing/campaigns/{id}/approve", "POST /admin/marketing/campaigns/{id}/schedule"]
+    },
+    {
+      "id": "AJ-09",
+      "area": "admin-operations",
+      "title": "مالی، سود، گزارش و Export",
+      "actors": ["staff", "approver"],
+      "entry": "مالی و گزارش‌ها",
+      "success": "گزارش bounded یا تصمیم مالی posted/finalized با Audit",
+      "states": ["loading", "empty", "preview", "approval-required", "posted", "finalized", "reversed", "export-running", "export-ready", "export-expired"],
+      "operations": ["GET /admin/finance/dashboard", "GET /admin/finance/journals", "POST /admin/finance/journals/{id}/post", "GET /admin/finance/profit", "POST /admin/finance/profit-rules/{id}/preview", "GET /admin/reports", "POST /admin/reports/run", "GET /admin/reports/jobs/{id}"]
+    },
+    {
+      "id": "AJ-10",
+      "area": "permissions",
+      "title": "Staff، RBAC، Scope و Approval",
+      "actors": ["approver", "operator"],
+      "entry": "تنظیمات و کنترل",
+      "success": "دسترسی حداقلی و تغییر حساس step-up/audited",
+      "states": ["permission-hidden", "scope-filtered", "step-up-required", "pending-approval", "approved", "rejected", "session-revoked"],
+      "operations": ["GET /admin/me/permissions", "GET /admin/me/scopes", "GET /admin/rbac/roles", "PUT /admin/rbac/roles/{id}/permissions", "GET /admin/staff", "PUT /admin/staff/{id}/roles", "PUT /admin/staff/{id}/scopes", "GET /admin/approvals", "POST /admin/approvals/{id}/approve"]
+    },
+    {
+      "id": "AJ-11",
+      "area": "admin-operations",
+      "title": "امنیت، عملیات و بازیابی",
+      "actors": ["operator", "approver"],
+      "entry": "امنیت و عملیات",
+      "success": "Finding/Alert/Job قابل مشاهده و اقدام بازیابی کنترل‌شده",
+      "states": ["healthy", "degraded", "alerting", "acknowledged", "investigating", "contained", "recovery-preview", "recovered", "failed"],
+      "operations": ["GET /admin/security/dashboard", "GET /admin/security/incidents", "POST /admin/security/incidents/{id}/start-investigation", "GET /admin/operations/dashboard", "GET /admin/operations/alerts", "GET /admin/operations/queues", "POST /admin/operations/jobs/{id}/retry", "POST /admin/operations/backups/{id}/restore-preview"]
+    },
+    {
+      "id": "AJ-12",
+      "area": "admin-operations",
+      "title": "Provider، تنظیمات و Notification Delivery",
+      "actors": ["operator", "approver"],
+      "entry": "تنظیمات و کنترل",
+      "success": "تغییر provider/config با preview/approval و وضعیت delivery شفاف",
+      "states": ["disabled", "standby", "active", "maintenance", "unhealthy", "change-requested", "approved", "applied", "delivery-failed", "dead-letter", "retry-step-up"],
+      "operations": ["GET /admin/integrations/providers", "POST /admin/integrations/providers/{id}/health-check", "POST /admin/integrations/{type}/switch-provider", "GET /admin/configuration", "POST /admin/configuration/{key}/preview", "POST /admin/configuration/{key}/change-requests", "GET /admin/notifications", "POST /admin/notifications/{id}/retry"]
+    }
+  ],
+  "crossCuttingStates": [
+    "initial-loading",
+    "progressive-loading",
+    "empty-first-use",
+    "empty-filtered",
+    "validation-error",
+    "authorization-denied",
+    "step-up-required",
+    "concurrency-conflict",
+    "idempotent-replay",
+    "offline-or-timeout",
+    "provider-unavailable",
+    "partial-success",
+    "terminal-success",
+    "terminal-failure",
+    "safe-retry",
+    "audit-reference"
+  ],
+  "accessibilityHandoff": [
+    "Logical RTL reading and focus order",
+    "Keyboard reachable navigation and actions",
+    "Visible focus and non-color status cues",
+    "Persian labels with machine-readable field names",
+    "Error summary plus field-level association",
+    "Live-region announcement for async status changes",
+    "Reduced-motion compatible progress and transitions",
+    "Touch targets and responsive priority preserved in later design"
+  ],
+  "businessRuleTraceability": [
+    { "rule": "Toman only and no Wallet", "journeys": ["SJ-04", "SJ-05", "AJ-02", "AJ-05", "AJ-09"] },
+    { "rule": "Compare at most four category-compatible products", "journeys": ["SJ-02"] },
+    { "rule": "Wholesale status only after approval", "journeys": ["SJ-10", "SJ-11", "AJ-07"] },
+    { "rule": "One default customer address", "journeys": ["SJ-06"] },
+    { "rule": "Idempotent fail-closed payments and refunds", "journeys": ["SJ-05", "AJ-05"] },
+    { "rule": "Immutable after-sales decisions and history", "journeys": ["SJ-08", "SJ-09", "AJ-06"] },
+    { "rule": "Preview before controlled monetary/config changes", "journeys": ["AJ-02", "AJ-09", "AJ-12"] },
+    { "rule": "Permission, scope, step-up and audit boundaries", "journeys": ["AJ-01", "AJ-02", "AJ-05", "AJ-07", "AJ-10", "AJ-11", "AJ-12"] }
+  ]
+}
