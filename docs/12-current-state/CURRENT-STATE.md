@@ -385,8 +385,21 @@ Verify job: `97170521019` — PASS
 - Payments remains authoritative for payment facts.
 - Finance remains authoritative for accounting/financial facts.
 
+## Step 54 active product-design state
+
+**Step 54 — RTL Design System & Accessibility Foundation — IN PROGRESS / A1–A10 PASS / A11 BLOCKED.**
+
+- Canonical source baseline: `04bb8ff12e72b838d65c0951c9c1512e44ef1809`.
+- Linear: `HOS-12 — In Progress`.
+- Scope: 12 frozen gates; no wireframe, high-fidelity screen, frontend or backend change.
+- Repository contract: Persian-first RTL, Vazirmatn, Light theme, Teal/Blue/Neutral with no Brown, 4/8/12 grid, 13 component families and WCAG 2.2 AA target.
+- Local verification: Step-54 validator PASS; focused tests 5/5; full runtime regression 583/583; OpenAPI 531/601/1179; architecture 467; policy/build PASS.
+- Figma: [EQCOFE Step 54 — RTL Design System Foundation](https://www.figma.com/design/Y07a0Mv9WRGwcq9uCtZFTc); three collections and 54 color variables created.
+- Open blocker: Figma Starter-plan MCP tool-call limit prevents completing metric variables, text/effect styles, component sets and final visual QA.
+- Dark theme is explicitly deferred: it is not a Roadmap requirement and the current Figma plan permits one mode per collection.
+
 ## Next safe action
-Proceed to **Step 54 — RTL Design System & Accessibility Foundation**. Step 53 authorizes visual-system design, not Storefront/Admin wireframes or frontend implementation.
+Resume **Step 54 / A11** after Figma MCP capacity is available. Do not start Step 55 or claim Step 54 closure before A11 and A12 pass.
 
 ## Step 52 active closure state
 - **A1 — Canonical Handoff & Scope Freeze — COMPLETE / FINAL GATE PASS**

@@ -19,7 +19,7 @@
     "start:scheduler": "node dist/apps/scheduler/main.js",
     "db:migrate": "tsx database/migrate.ts",
     "contract:validate": "node scripts/validate-openapi.mjs",
-    "design:validate": "node scripts/validate-step53-experience.mjs",
+    "design:validate": "node scripts/validate-step53-experience.mjs && node scripts/validate-step54-design-system.mjs",
     "contract:types": "openapi-typescript contracts/http/openapi.yaml -o src/generated/openapi.ts",
     "arch:check": "node scripts/check-architecture.mjs",
     "policy:check": "node scripts/check-project-policies.mjs",

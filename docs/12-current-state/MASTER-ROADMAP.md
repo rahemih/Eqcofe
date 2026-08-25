@@ -204,8 +204,25 @@ Step 53 produces design contracts and maps only. Design tokens/components remain
 
 A1–A10 produced the source-backed Persian/RTL IA, 7 actor boundaries, 24 customer/Admin journeys, cross-cutting state/accessibility handoff and 153 validated OpenAPI operation references. A11 passed the full regression, exact-head Canonical CI and final canonicalization without adding runtime product scope.
 
-## Step 54 — RTL Design System & Accessibility Foundation — `PLANNED`
+## Step 54 — RTL Design System & Accessibility Foundation — `IN PROGRESS / A1–A10 PASS / A11 BLOCKED`
 Define typography, spacing, grid, components, forms, states, responsive rules, Persian RTL behavior, accessibility targets and brand tokens.
+
+Frozen execution gates:
+
+1. A1 — Canonical Handoff, Source/Brand Audit & Scope Freeze.
+2. A2 — Design Principles, Naming & Token Architecture.
+3. A3 — Persian Typography, Numerals & Content Rules.
+4. A4 — Color, Contrast & Semantic Roles.
+5. A5 — Spacing, Sizing, Radius, Elevation & Iconography.
+6. A6 — RTL Layout, Grid & Responsive Foundation.
+7. A7 — Navigation, Surface & Feedback Component Contracts.
+8. A8 — Forms, Validation & Data-entry Component Contracts.
+9. A9 — Commerce/Admin State & Data-display Patterns.
+10. A10 — Accessibility Foundation & Acceptance Matrix.
+11. A11 — Figma Variables/Styles/Component Library + machine-readable repository contract.
+12. A12 — Full Verification, Canonicalization & Final Closure.
+
+A1–A10 have source-backed Repository contracts and an automated validator. A11 has an editable Figma file with three collections and 54 verified color variables, but the Starter-plan MCP call limit blocks creation/validation of the remaining metric variables, styles and components. Step 54 remains open; A12 and Steps 55 onward are not authorized until A11 resumes and passes.
 
 ## Step 55 — Storefront Wireframes — `PLANNED`
 Wireframe Home, category/search, product detail, compare, cart, checkout, account, wholesale, content and policy pages with mobile-first behavior.
