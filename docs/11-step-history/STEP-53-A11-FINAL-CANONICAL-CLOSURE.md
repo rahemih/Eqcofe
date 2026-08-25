@@ -1,6 +1,6 @@
 # EQCOFE — Step 53 / A11 Final Canonical Closure
 
-**Status:** FINAL GATE PASS / MERGE-READY
+**Status:** COMPLETE / FINAL GATE PASS / MERGED
 
 ## Canonical lineage
 
@@ -14,6 +14,9 @@
 - Final closure PR: `#130`.
 - Closure initial exact head: `6aaf1453a468d5cf90e7636295206693125fd024`.
 - Closure initial Canonical CI: run `32852647733`; verify job `97816980193` — PASS.
+- Closure final exact head: `118addddc5520cb9af9fe462d333ccef89850f5e`.
+- Closure final Canonical CI: run `32852826457`; verify job `97817570431` — PASS.
+- Final closure merge: `a8230752504ccbce364384e53626bd218af730b0`.
 
 ## Delivered canonical artifacts
 
@@ -49,7 +52,7 @@
 
 **STEP 53 / A11 FINAL GATE = PASS**
 
-**STEP 53 — INFORMATION ARCHITECTURE & USER JOURNEYS = CLOSED / FINAL GATE PASS upon merge of this exact closure evidence**
+**STEP 53 — INFORMATION ARCHITECTURE & USER JOURNEYS = CLOSED / FINAL GATE PASS**
 
 ## Next official execution step
 
