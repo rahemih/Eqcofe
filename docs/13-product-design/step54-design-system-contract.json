@@ -1,0 +1,202 @@
+{
+  "schemaVersion": "1.0.0",
+  "step": 54,
+  "status": "IN_PROGRESS",
+  "foundation": {
+    "language": "fa-IR",
+    "direction": "rtl",
+    "currency": "Toman",
+    "walletAllowed": false,
+    "brownAllowed": false,
+    "accessibilityTarget": "WCAG 2.2 AA",
+    "baseUnitPx": 4,
+    "defaultTheme": "light",
+    "themes": ["light"]
+  },
+  "naming": {
+    "tokenSeparator": "/",
+    "cssPrefix": "--eq",
+    "componentCase": "PascalCase",
+    "variantFormat": "Property=Value"
+  },
+  "typography": {
+    "primary": "Vazirmatn",
+    "fallbacks": ["Tahoma", "Arial", "sans-serif"],
+    "license": "SIL Open Font License 1.1",
+    "weights": [400, 500, 600, 700],
+    "numerals": {
+      "customerFacing": "Persian",
+      "machineIdentifiers": "Latin when exact copy/paste is required",
+      "money": "Persian grouped integer plus تومان",
+      "decimals": "Prohibited for money"
+    },
+    "styles": {
+      "display": {"fontSize": 40, "lineHeight": 56, "weight": 700},
+      "heading/1": {"fontSize": 32, "lineHeight": 48, "weight": 700},
+      "heading/2": {"fontSize": 28, "lineHeight": 40, "weight": 700},
+      "heading/3": {"fontSize": 24, "lineHeight": 36, "weight": 600},
+      "title/large": {"fontSize": 20, "lineHeight": 32, "weight": 600},
+      "title/medium": {"fontSize": 18, "lineHeight": 28, "weight": 600},
+      "body/large": {"fontSize": 18, "lineHeight": 32, "weight": 400},
+      "body/medium": {"fontSize": 16, "lineHeight": 28, "weight": 400},
+      "body/small": {"fontSize": 14, "lineHeight": 24, "weight": 400},
+      "label/large": {"fontSize": 16, "lineHeight": 24, "weight": 600},
+      "label/medium": {"fontSize": 14, "lineHeight": 20, "weight": 600},
+      "caption": {"fontSize": 12, "lineHeight": 20, "weight": 400},
+      "numeric/tabular": {"fontSize": 14, "lineHeight": 24, "weight": 500}
+    }
+  },
+  "primitives": {
+    "color": {
+      "white": "#FFFFFF",
+      "black": "#000000",
+      "neutral/0": "#FFFFFF",
+      "neutral/50": "#F8FAFC",
+      "neutral/100": "#F1F5F9",
+      "neutral/200": "#E2E8F0",
+      "neutral/300": "#CBD5E1",
+      "neutral/400": "#94A3B8",
+      "neutral/500": "#64748B",
+      "neutral/600": "#475569",
+      "neutral/700": "#334155",
+      "neutral/800": "#1E293B",
+      "neutral/900": "#0F172A",
+      "neutral/950": "#020617",
+      "teal/50": "#F0FDFA",
+      "teal/100": "#CCFBF1",
+      "teal/200": "#99F6E4",
+      "teal/300": "#5EEAD4",
+      "teal/400": "#2DD4BF",
+      "teal/500": "#14B8A6",
+      "teal/600": "#0D9488",
+      "teal/700": "#0F766E",
+      "teal/800": "#115E59",
+      "teal/900": "#134E4A",
+      "blue/50": "#EFF6FF",
+      "blue/500": "#3B82F6",
+      "blue/700": "#1D4ED8",
+      "green/50": "#F0FDF4",
+      "green/700": "#15803D",
+      "amber/50": "#FFFBEB",
+      "amber/700": "#B45309",
+      "red/50": "#FEF2F2",
+      "red/700": "#B91C1C",
+      "purple/50": "#FAF5FF",
+      "purple/700": "#7E22CE"
+    },
+    "spacing": {"0": 0, "0.5": 2, "1": 4, "2": 8, "3": 12, "4": 16, "5": 20, "6": 24, "8": 32, "10": 40, "12": 48, "16": 64, "20": 80},
+    "radius": {"none": 0, "sm": 4, "md": 8, "lg": 12, "xl": 16, "2xl": 24, "full": 9999},
+    "size": {"icon/sm": 16, "icon/md": 20, "icon/lg": 24, "control/sm": 36, "control/md": 44, "control/lg": 52, "touch/min": 44},
+    "border": {"hairline": 1, "strong": 2, "focus": 3},
+    "duration": {"instant": 0, "fast": 120, "normal": 200, "slow": 320}
+  },
+  "semanticColor": {
+    "light": {
+      "bg/canvas": "neutral/50",
+      "bg/surface": "white",
+      "bg/subtle": "neutral/100",
+      "bg/inverse": "neutral/900",
+      "text/primary": "neutral/900",
+      "text/secondary": "neutral/600",
+      "text/muted": "neutral/500",
+      "text/inverse": "white",
+      "border/default": "neutral/300",
+      "border/strong": "neutral/500",
+      "action/primary": "teal/700",
+      "action/primary-hover": "teal/800",
+      "action/primary-active": "teal/900",
+      "action/focus": "blue/700",
+      "status/info": "blue/700",
+      "status/success": "green/700",
+      "status/warning": "amber/700",
+      "status/danger": "red/700",
+      "status/special": "purple/700"
+    }
+  },
+  "effects": {
+    "elevation/0": "none",
+    "elevation/1": "0 1px 2px rgba(15,23,42,0.08)",
+    "elevation/2": "0 4px 12px rgba(15,23,42,0.12)",
+    "elevation/3": "0 12px 32px rgba(15,23,42,0.16)",
+    "focus/ring": "0 0 0 3px #1D4ED8"
+  },
+  "responsive": {
+    "contentMaxPx": 1280,
+    "breakpoints": {"compact": 0, "mobileWide": 360, "tablet": 600, "desktop": 840, "wide": 1200, "max": 1440},
+    "grid": {
+      "compact": {"columns": 4, "margin": 16, "gutter": 16},
+      "tablet": {"columns": 8, "margin": 24, "gutter": 24},
+      "desktop": {"columns": 12, "margin": 32, "gutter": 24}
+    },
+    "rules": [
+      "Use logical inline/block properties; never encode left/right as meaning.",
+      "DOM and focus order remain logical in RTL; visual reordering must not reverse semantics.",
+      "Content priority is preserved when columns collapse.",
+      "Tables expose a card/list alternative or bounded horizontal scroll with sticky row context.",
+      "Touch controls remain at least 44 by 44 CSS pixels."
+    ]
+  },
+  "components": {
+    "Button": {"variants": {"style": ["primary", "secondary", "tertiary", "danger"], "size": ["sm", "md", "lg"], "state": ["default", "hover", "focus", "disabled", "loading"]}, "a11y": ["accessible name", "visible focus", "loading announcement", "disabled semantics"]},
+    "IconButton": {"variants": {"style": ["standard", "danger"], "size": ["md", "lg"], "state": ["default", "hover", "focus", "disabled"]}, "a11y": ["mandatory accessible name", "tooltip not sole name", "44px target"]},
+    "TextField": {"variants": {"state": ["default", "focus", "filled", "error", "disabled", "read-only"], "density": ["comfortable", "compact"]}, "a11y": ["persistent label", "help association", "error association", "required text"]},
+    "Select": {"variants": {"state": ["default", "focus", "filled", "error", "disabled"], "density": ["comfortable", "compact"]}, "a11y": ["keyboard operation", "announced value", "label and error association"]},
+    "ChoiceControl": {"variants": {"type": ["checkbox", "radio", "switch"], "state": ["off", "on", "mixed", "focus", "disabled"]}, "a11y": ["native semantics", "visible label", "group legend", "state announcement"]},
+    "Badge": {"variants": {"tone": ["neutral", "info", "success", "warning", "danger", "special"], "emphasis": ["subtle", "strong"]}, "a11y": ["text label", "never color-only"]},
+    "Alert": {"variants": {"tone": ["info", "success", "warning", "danger"], "action": ["none", "single"]}, "a11y": ["icon plus heading/text", "role selected by urgency", "dismiss accessible name"]},
+    "Card": {"variants": {"surface": ["plain", "outlined", "elevated"], "interactive": ["false", "true"]}, "a11y": ["single clear target", "heading hierarchy", "focus when interactive"]},
+    "Dialog": {"variants": {"severity": ["standard", "danger"], "width": ["sm", "md", "lg"]}, "a11y": ["labelled title", "described content", "focus trap", "focus return", "escape policy"]},
+    "Tabs": {"variants": {"style": ["line", "contained"], "state": ["default", "focus", "disabled"]}, "a11y": ["roving tabindex", "arrow keys follow RTL intent", "selected state"]},
+    "Pagination": {"variants": {"mode": ["pages", "cursor"]}, "a11y": ["nav label", "current page", "previous/next names follow reading direction"]},
+    "DataTable": {"variants": {"density": ["comfortable", "compact"], "selection": ["none", "single", "multiple"]}, "a11y": ["header associations", "caption or accessible name", "sort state", "keyboard action alternative"]},
+    "StatePanel": {"variants": {"state": ["loading", "empty", "no-result", "error", "offline", "denied", "unknown-result"]}, "a11y": ["meaningful heading", "bounded next action", "status announcement", "no fake success"]}
+  },
+  "statePatterns": {
+    "load": ["initial", "progressive", "refresh"],
+    "empty": ["first-use", "filtered", "no-result"],
+    "input": ["validation", "server-validation", "conflict"],
+    "access": ["unauthenticated", "denied", "scope-filtered", "step-up"],
+    "provider": ["offline", "timeout", "unavailable", "unknown-result"],
+    "mutation": ["submitting", "idempotent-replay", "partial", "success", "failed"],
+    "lifecycle": ["pending", "active", "terminal", "expired", "reversed"],
+    "operations": ["healthy", "degraded", "alerting", "recovering"]
+  },
+  "accessibility": {
+    "conformance": "WCAG 2.2 Level AA target; conformance is verified on implemented screens in later steps",
+    "textContrast": {"normal": 4.5, "large": 3},
+    "nonTextContrast": 3,
+    "focusContrast": 3,
+    "minimumTargetPx": 44,
+    "focusRingPx": 3,
+    "requirements": [
+      "Keyboard access for all interactive controls.",
+      "Logical focus order and focus not obscured.",
+      "Skip mechanism for repeated navigation.",
+      "Persian page language and RTL direction are programmatically set.",
+      "Status, validation and lifecycle meaning is not color-only.",
+      "Form errors have a summary and field-level association.",
+      "Async mutation and provider outcomes use appropriate live-region announcements.",
+      "Reduced-motion disables non-essential transitions and preserves understanding.",
+      "Zoom/reflow to 400 percent does not lose content or operation.",
+      "Text spacing overrides do not clip or overlap content.",
+      "Dragging has a single-pointer alternative.",
+      "Authentication does not depend on a cognitive-function test without an alternative."
+    ]
+  },
+  "figmaScope": {
+    "collections": ["Primitives", "Semantic Color", "Spacing & Size"],
+    "modes": {"Primitives": ["Value"], "Semantic Color": ["Light"], "Spacing & Size": ["Value"]},
+    "textStyles": ["display", "heading/1", "heading/2", "heading/3", "title/large", "title/medium", "body/large", "body/medium", "body/small", "label/large", "label/medium", "caption", "numeric/tabular"],
+    "effectStyles": ["elevation/1", "elevation/2", "elevation/3", "focus/ring"],
+    "componentFamilies": ["Button", "IconButton", "TextField", "Select", "ChoiceControl", "Badge", "Alert", "Card", "Dialog", "Tabs", "Pagination", "DataTable", "StatePanel"]
+  },
+  "explicitExclusions": [
+    "Dark theme mode until the canonical requirement and a Figma plan supporting multi-mode collections exist",
+    "Storefront wireframes",
+    "Admin wireframes",
+    "High-fidelity screens or interactive prototype",
+    "Frontend runtime implementation",
+    "Backend, migration, API, permission or business-rule changes",
+    "Logo invention without an approved source asset"
+  ]
+}

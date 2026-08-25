@@ -8,7 +8,7 @@ This repository is the canonical EQCOFE backend source through **Step 52 — Bac
 
 - Last fully closed step: **53 — Information Architecture & User Journeys — FINAL GATE PASS**
 - Product-design step: **53 — Information Architecture & User Journeys — FINAL GATE PASS**
-- Next planned step: **54 — RTL Design System & Accessibility Foundation**
+- Active product-design step: **54 — RTL Design System & Accessibility Foundation — A1–A10 PASS / A11 BLOCKED**
 - Money unit: **Toman**
 - Wallet: **not part of the product**
 - Node: `>=24.18.1 <25`
@@ -18,6 +18,7 @@ This repository is the canonical EQCOFE backend source through **Step 52 — Bac
 - Latest verified architecture gate: **467 files — PASS**
 - Fresh isolated PostgreSQL migration verification: **65/65 migrations PASS; checksums MATCH**
 - Step-53 experience contract: **7 actors / 24 journeys / 153 OpenAPI operation references — PASS**
+- Step-54 foundation contract: **35 primitive colors / 19 semantic roles / 13 type styles / 13 component families / 12 accessibility requirements — PASS**
 
 > Import provenance matters: the historical GitHub repository was a partial traceability/recovery mirror. The runnable source in this import comes from the final Step-44 canonical artifact, not from pretending the old GitHub `main` tree was complete.
 

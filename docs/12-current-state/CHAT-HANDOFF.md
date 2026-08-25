@@ -18,13 +18,14 @@ Conversation history is supporting context only. It must not override current ca
 - Canonical branch: `main`
 - Verified Step-53 final closure merge: `a8230752504ccbce364384e53626bd218af730b0`
 - Last fully closed step: **Step 53 — Information Architecture & User Journeys — FINAL GATE PASS**
-- Active step: **NONE**
-- Last canonical substep: **Step 53 / A11 — Final Canonical Closure**
-- Next approved step: **Step 54 — RTL Design System & Accessibility Foundation**
+- Active step: **Step 54 — RTL Design System & Accessibility Foundation**
+- Active substep: **Step 54 / A11 — Figma Design System Library (blocked by Starter-plan MCP limit)**
+- Last completed substep: **Step 54 / A10 — Accessibility Foundation & Acceptance Matrix**
+- Next approved action: **Resume Step 54 / A11 only; Step 55 is not authorized**
 - Step-51 closure PR: **#115 — MERGED**
 - Step-51 closure Canonical CI: **32737751481 — PASS**
 - Linear project: **EQCOFE**
-- Linear current issue: **HOS-11 — Done**
+- Linear current issue: **HOS-12 — In Progress**
 
 > Before every new-chat handoff, re-read GitHub `main`, CURRENT-STATE, MASTER-ROADMAP, and the current Linear issue. Do not trust the snapshot above if newer canonical evidence exists.
 
