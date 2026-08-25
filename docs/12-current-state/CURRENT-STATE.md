@@ -51,6 +51,7 @@
 - Step-53 implementation exact head: `20c442058a6d8739bf1379ebdb8643e455bf4968`; Canonical CI `32852266428`, verify job `97815730069` PASS; implementation merge: `379ddbab7c9b44dff96180fe829fab7b136ea1df`.
 - Step-53 final closure PR: `#130`; initial exact head `6aaf1453a468d5cf90e7636295206693125fd024`; Canonical CI `32852647733`, verify job `97816980193` PASS.
 - Step-53 final closure exact head: `118addddc5520cb9af9fe462d333ccef89850f5e`; Canonical CI `32852826457`, verify job `97817570431` PASS; final closure merge: `a8230752504ccbce364384e53626bd218af730b0`.
+- Step-54 A1–A10 exact head: `fce1ea103ea6c4db49e7e54127d60bd93661dfdf`; Canonical CI `32858856685` PASS; checkpoint merge/main: `d44e885c0ec29195929091887daf9f501ba4a65a`.
 
 ## Closed steps
 - **Step 45 — Content, Articles & SEO Backend — CLOSED / FINAL GATE PASS**
@@ -389,11 +390,12 @@ Verify job: `97170521019` — PASS
 
 **Step 54 — RTL Design System & Accessibility Foundation — IN PROGRESS / A1–A10 PASS / A11 BLOCKED.**
 
-- Canonical source baseline: `04bb8ff12e72b838d65c0951c9c1512e44ef1809`.
+- Canonical source baseline: `04bb8ff12e72b838d65c0951c9c1512e44ef1809`; A1–A10 checkpoint merge: `d44e885c0ec29195929091887daf9f501ba4a65a`.
 - Linear: `HOS-12 — In Progress`.
 - Scope: 12 frozen gates; no wireframe, high-fidelity screen, frontend or backend change.
 - Repository contract: Persian-first RTL, Vazirmatn, Light theme, Teal/Blue/Neutral with no Brown, 4/8/12 grid, 13 component families and WCAG 2.2 AA target.
 - Local verification: Step-54 validator PASS; focused tests 5/5; full runtime regression 583/583; OpenAPI 531/601/1179; architecture 467; policy/build PASS.
+- Canonical checkpoint: PR `#132`, exact head `fce1ea103ea6c4db49e7e54127d60bd93661dfdf`, CI `32858856685` PASS, merge `d44e885c0ec29195929091887daf9f501ba4a65a`.
 - Figma: [EQCOFE Step 54 — RTL Design System Foundation](https://www.figma.com/design/Y07a0Mv9WRGwcq9uCtZFTc); three collections and 54 color variables created.
 - Open blocker: Figma Starter-plan MCP tool-call limit prevents completing metric variables, text/effect styles, component sets and final visual QA.
 - Dark theme is explicitly deferred: it is not a Roadmap requirement and the current Figma plan permits one mode per collection.

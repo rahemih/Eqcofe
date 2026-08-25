@@ -16,6 +16,8 @@ Conversation history is supporting context only. It must not override current ca
 
 - Official repository: `rahemih/Eqcofe`
 - Canonical branch: `main`
+- Verified Step-54 A1–A10 checkpoint merge: `d44e885c0ec29195929091887daf9f501ba4a65a`
+- Checkpoint PR/CI: `#132` / `32858856685` — PASS
 - Verified Step-53 final closure merge: `a8230752504ccbce364384e53626bd218af730b0`
 - Last fully closed step: **Step 53 — Information Architecture & User Journeys — FINAL GATE PASS**
 - Active step: **Step 54 — RTL Design System & Accessibility Foundation**

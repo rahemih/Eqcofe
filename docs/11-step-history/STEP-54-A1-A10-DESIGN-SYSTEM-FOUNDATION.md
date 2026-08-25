@@ -48,3 +48,12 @@ No Storefront/Admin wireframe, high-fidelity screen, prototype, frontend code, b
 - Step-53 experience validator: PASS — 7 actors / 24 journeys / 153 operation references.
 - Architecture: 467 files — PASS.
 - Project policy, TypeScript build and `git diff --check`: PASS.
+
+## Canonical checkpoint evidence
+
+- Implementation PR: `#132` — MERGED.
+- Exact head: `fce1ea103ea6c4db49e7e54127d60bd93661dfdf`.
+- Canonical CI: run `32858856685` / run number `448` — SUCCESS.
+- Checkpoint merge/main: `d44e885c0ec29195929091887daf9f501ba4a65a`.
+
+This is an A1–A10 checkpoint, not Step-54 closure. Linear HOS-12 remains In Progress and A11/A12 remain open.
