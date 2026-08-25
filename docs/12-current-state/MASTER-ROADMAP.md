@@ -1,12 +1,12 @@
 # EQCOFE — Complete Master Execution Roadmap
 
-**Roadmap version:** 3.24 — Step-52 A9 Evidence-Based Remediation
-**Effective date:** 2026-08-24
+**Roadmap version:** 3.26 — Step-52 A11 Backend Launch-Scope Freeze
+**Effective date:** 2026-08-25
 **Canonical repository:** `rahemih/Eqcofe`  
 **Canonical branch:** `main`  
 **Verified Step-44 code baseline:** `b239dfe825b615f36caf2e26cc7abc80c70d349c`
 
-> This is the canonical end-to-end execution map for EQCOFE. For historical Steps 1–27, the exact original step labels are not independently proven by the recovered Git evidence. Their descriptions below are therefore a normalized reconstruction of the foundation represented by the current product vision, business rules and canonical codebase; they must not be cited as exact historical attribution. Step 28 remains partial-history. Steps 29–51 are verified/closed in canonical source and closure evidence. Step 51 is CLOSED / FINAL GATE PASS. Step 52 Backend Final Closure is active through the A7 candidate gate.
+> This is the canonical end-to-end execution map for EQCOFE. For historical Steps 1–27, the exact original step labels are not independently proven by the recovered Git evidence. Their descriptions below are therefore a normalized reconstruction of the foundation represented by the current product vision, business rules and canonical codebase; they must not be cited as exact historical attribution. Step 28 remains partial-history. Steps 29–51 are verified/closed in canonical source and closure evidence. Step 51 is CLOSED / FINAL GATE PASS. Step 52 Backend Final Closure is active through the A11 candidate gate.
 
 ## Status legend
 - `RECONSTRUCTED-HISTORY`: normalized description; exact historical step attribution is not proven.
@@ -179,7 +179,7 @@ A1–A9 delivered the governed Excel orchestration, dry-run/apply/recovery/RBAC/
 A1–A14 delivered and verified the non-authoritative Analytics projection/read boundary, bounded sales/profit/inventory/customer/wholesale/operational management models, safe actor-bound exports and hardened Staff/RBAC HTTP/OpenAPI surface. A15 reconciled the full lineage and reran exact-source canonical verification with 567/567 tests plus TypeScript, OpenAPI, architecture and project-policy PASS. Closure evidence is retained in `docs/11-step-history/STEP-51-A15-FINAL-CANONICAL-CLOSURE.md`.
 
 ## Step 52 — Backend Final Closure — `IN PROGRESS`
-A1–A8 are canonically complete. A9 remediated the five A8 findings with bounded payload-free event summaries, scheduler isolation, no-op cron removal, readiness deadlines and validated notification-worker configuration. Candidate verification passes 578/578 runtime tests plus all static gates. A10 follows after exact-source CI/merge.
+A1–A10 are canonically complete. A9 remediated the five A8 findings with bounded payload-free event summaries, scheduler isolation, no-op cron removal, readiness deadlines and validated notification-worker configuration. A10 independently passed 65/65 clean migrations, checksum parity, 578/578 runtime tests and all static gates. A11 freezes the verified backend launch scope; A12 is the only remaining Step-52 closure action.
 
 # PHASE D — UI/UX Product Design
 
@@ -328,8 +328,8 @@ Evolve architecture, integrations and product capabilities based on production e
 
 - **Last fully closed step:** Step 51 — Analytics & Management Read Models.
 - **Step 49 closure:** CLOSED / FINAL GATE PASS after A11 audit.
-- **Active step:** Step 52 — Backend Final Closure (`IN PROGRESS`); A1–A8 complete, A9 remediated candidate pass.
-- **Next approved substep:** Step 52 / A10 — Post-Remediation Full Verification, after canonical A9 merge.
+- **Active step:** Step 52 — Backend Final Closure (`IN PROGRESS`); A1–A10 complete, A11 candidate pass.
+- **Next approved substep:** Step 52 / A12 — Final Canonical Closure, after canonical A11 merge.
 - **Backend feature-completion horizon:** Step 52.
 - **UI/UX design begins:** Step 53.
 - **Storefront implementation begins:** Step 58.

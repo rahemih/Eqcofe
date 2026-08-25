@@ -12,7 +12,7 @@ A10 is a verification-only closure gate over the exact canonical source produced
 - Canonical CI run: `32831124616`.
 - Verify job: `97749803568`.
 
-A9 remediated only the five findings frozen by A8: event-pipeline visibility, real currency refresh scheduling, real product-archive scheduling, truthful readiness/startup checks, and notification configuration extraction. A10 proves those remediations did not regress the wider backend.
+A9 remediated only the five findings frozen by A8: event-pipeline visibility, scheduler failure isolation, removal of misleading no-op FX/archive cron registrations, truthful readiness/startup checks, and notification configuration extraction. A10 proves those remediations did not regress the wider backend.
 
 ## Final verification evidence
 - Frozen-lockfile install: PASS.
@@ -39,4 +39,4 @@ The required full post-remediation verification passed on the exact PR source. T
 **A10 = COMPLETE**
 
 ## Next approved substep
-**Step 52 / A11 — Full Backend Regression & Closure Gate**.
+**Step 52 / A11 — Backend Launch-Scope Freeze**.

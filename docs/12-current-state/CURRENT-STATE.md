@@ -41,6 +41,10 @@
 - Step-51 A13 final evidence merge / A14 baseline: `d42ed2964e470808efa6d85f11204141a62cf4af`.
 - Step-51 A14 implementation merge: `884122a3a7914208109aa04fe4e6a410b1d02bbd`.
 - Step-51 A14 final evidence merge / A15 closure baseline: `bb418213d17110dabfbb5ac3c99f24489ef26fe7`.
+- Step-52 A7 merge: `a3c320601d7e08766c410cc7521e425eab6b1572`.
+- Step-52 A8 merge: `8af5c81a6c16ba4dae53f7442d72a4cc5c470d6f`.
+- Step-52 A9 merge: `c6dad3a634e5b267be05b4b8845d09ae63765fb3`.
+- Step-52 A10 merge / A11 scope-freeze baseline: `2d7a07430fb36ecdabeae029c3a84f80a342b086`.
 
 ## Closed steps
 - **Step 45 — Content, Articles & SEO Backend — CLOSED / FINAL GATE PASS**
@@ -374,7 +378,7 @@ Verify job: `97170521019` — PASS
 - Finance remains authoritative for accounting/financial facts.
 
 ## Next safe action
-After canonical A9 CI/merge, proceed to **Step 52 / A10 — Post-Remediation Full Verification**.
+After canonical A11 CI/merge, proceed to **Step 52 / A12 — Final Canonical Closure**. No new backend feature or business-rule expansion is approved inside the frozen Step-52 scope.
 
 ## Step 52 active closure state
 - **A1 — Canonical Handoff & Scope Freeze — COMPLETE / FINAL GATE PASS**
@@ -385,10 +389,12 @@ After canonical A9 CI/merge, proceed to **Step 52 / A10 — Post-Remediation Ful
 - **A6 — Backend Security Final Review — COMPLETE / REMEDIATED FINAL GATE PASS**
 - **A7 — Performance & Boundedness Verification — COMPLETE / REMEDIATED FINAL GATE PASS**
 - **A8 — Operational Readiness Audit — COMPLETE / AUDIT GATE PASS**
-- **A9 — Evidence-Based Remediation — REMEDIATED / CANDIDATE GATE PASS**
-- **A10 — Post-Remediation Full Verification — NEXT after canonical A9 merge**
+- **A9 — Evidence-Based Remediation — COMPLETE / REMEDIATED FINAL GATE PASS**
+- **A10 — Post-Remediation Full Verification — COMPLETE / FINAL GATE PASS**
+- **A11 — Backend Launch-Scope Freeze — CANDIDATE GATE PASS**
+- **A12 — Final Canonical Closure — NEXT after canonical A11 merge**
 
-A2–A8 are canonically complete. A9 remediated all five A8 findings without adding a migration, dependency, HTTP operation, permission or business-domain feature. Candidate verification passes 578/578 runtime tests plus all static gates; canonical A9 completion remains conditioned on exact-head CI and merge.
+A1–A10 are canonically complete. A9 remediated all five A8 findings without adding a migration, dependency, HTTP operation, permission or business-domain feature; A10 independently passed 65/65 clean migrations, checksum parity, 578/578 runtime tests and all static gates. A11 freezes the verified backend scope with no remaining Step-52 launch blocker. Real OTP/SMS/email, shipping and payment production configuration remain explicit later-phase dependencies, fail closed, and are not waived by this freeze.
 
 ## Global trust rules
 1. `rahemih/Eqcofe` is the official repository.
