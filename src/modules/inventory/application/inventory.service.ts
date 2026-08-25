@@ -23,7 +23,7 @@ export class InventoryService {
   ) {}
 
   warehouses(){ const allowed=this.scopes.allowedIds(this.ctx.get()?.actor,'warehouse');return this.repo.listWarehouses(allowed); }
-  async list(variantId?:string){ const rows=await this.repo.listBalances(variantId);const allowed=this.scopes.allowedIds(this.ctx.get()?.actor,'warehouse');return rows.filter((row:any)=>allowed===null||allowed.includes(String(row.warehouse_id))).map((row:any)=>({...row,...this.availabilityFromRow(row)})); }
+  async list(variantId?:string){ const maxRows=5_000,rows=await this.repo.listBalances(variantId,maxRows+1);if(rows.length>maxRows)throw new DomainError('INVENTORY_LIST_TOO_LARGE','فهرست موجودی بیش از حد مجاز است؛ فیلتر واریانت را مشخص کنید.',{max_rows:maxRows});const allowed=this.scopes.allowedIds(this.ctx.get()?.actor,'warehouse');return rows.filter((row:any)=>allowed===null||allowed.includes(String(row.warehouse_id))).map((row:any)=>({...row,...this.availabilityFromRow(row)})); }
   async detail(variantId:string){return{variant_id:variantId,warehouses:await this.list(variantId),unit_cost_toman:(await this.costBasis(variantId)).unit_cost_toman};}
   reservations(status?:string){const allowed=this.scopes.allowedIds(this.ctx.get()?.actor,'warehouse');return this.repo.listReservations(status,allowed);}
   async reservation(id:string){const view=await this.repo.reservationView(id);if(!view)return null;const allowed=this.scopes.allowedIds(this.ctx.get()?.actor,'warehouse');if(allowed!==null&&view.items.some((x:any)=>!allowed.includes(String(x.warehouse_id))))throw new DomainError('SCOPE_FORBIDDEN','این رزرو خارج از محدوده دسترسی انبار است.');return view;}

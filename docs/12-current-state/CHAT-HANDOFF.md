@@ -16,11 +16,12 @@ Conversation history is supporting context only. It must not override current ca
 
 - Official repository: `rahemih/Eqcofe`
 - Canonical branch: `main`
-- Verified Step-52 baseline HEAD: `72d6d6ac59902b3f84cb191ce5bb74591a2a30c2`
+- Verified Step-52 baseline HEAD: `73fafb0160ffe56318b7654619bc2b7c989c1312`
 - Last fully closed step: **Step 51 — Analytics & Management Read Models — CLOSED / FINAL GATE PASS**
 - Active step: **Step 52 — Backend Final Closure — IN PROGRESS**
-- Last completed substep: **Step 52 / A1 — Canonical Handoff & Scope Freeze**
-- Next approved substep: **Step 52 / A2 — Launch Placeholder & Incomplete-Code Audit**
+- Last canonical substep: **Step 52 / A6 — Backend Security Final Review**
+- Candidate substep: **Step 52 / A7 — Performance & Boundedness Verification**
+- Next approved substep: **Step 52 / A8 — Operational Readiness Audit, after A7 CI/merge**
 - Step-51 closure PR: **#115 — MERGED**
 - Step-51 closure Canonical CI: **32737751481 — PASS**
 - Linear project: **EQCOFE**

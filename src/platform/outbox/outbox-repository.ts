@@ -15,6 +15,8 @@ export class OutboxRepository {
   constructor(@Inject(KYSELY_DB) private readonly db: Kysely<DatabaseSchema>) {}
 
   async claimBatch(workerId: string, limit: number, staleBefore: Date): Promise<ClaimedOutboxEvent[]> {
+    if (!Number.isSafeInteger(limit) || limit < 1 || limit > 500) throw new Error('OUTBOX_BATCH_SIZE_INVALID');
+    if (Number.isNaN(staleBefore.getTime())) throw new Error('OUTBOX_STALE_BEFORE_INVALID');
     return this.db.transaction().execute(async (trx) => {
       const result = await sql<ClaimedOutboxEvent>`
         WITH candidates AS (

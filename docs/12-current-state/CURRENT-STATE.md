@@ -374,7 +374,7 @@ Verify job: `97170521019` — PASS
 - Finance remains authoritative for accounting/financial facts.
 
 ## Next safe action
-After GitHub exact-source CI and merge verification for A6, proceed to **Step 52 / A7 — Performance & Boundedness Verification**.
+After GitHub exact-source CI and merge verification for A7, proceed to **Step 52 / A8 — Operational Readiness Audit**.
 
 ## Step 52 active closure state
 - **A1 — Canonical Handoff & Scope Freeze — COMPLETE / FINAL GATE PASS**
@@ -382,10 +382,11 @@ After GitHub exact-source CI and merge verification for A6, proceed to **Step 52
 - **A3 — Clean Database Migration Verification — COMPLETE / REMEDIATED FINAL GATE PASS**
 - **A4 — Database Integrity & Concurrency Gate — COMPLETE / FINAL GATE PASS**
 - **A5 — Contract, Build & Full Regression Gate — COMPLETE / FINAL GATE PASS**
-- **A6 — Backend Security Final Review — REMEDIATED / CANDIDATE GATE PASS**
-- **A7 — Performance & Boundedness Verification — NEXT after canonical A6 merge**
+- **A6 — Backend Security Final Review — COMPLETE / REMEDIATED FINAL GATE PASS**
+- **A7 — Performance & Boundedness Verification — REMEDIATED / CANDIDATE GATE PASS**
+- **A8 — Operational Readiness Audit — NEXT after canonical A7 merge**
 
-A2–A5 are canonically complete. A6 validated and remediated two shared provider-transport gaps: automatic redirect following and unbounded response buffering. Redirects now fail closed and successful bodies are streamed under a 1 MiB ceiling; 572/572 tests and every verification gate pass. Canonical A6 completion remains conditioned on GitHub CI and main merge evidence.
+A2–A6 are canonically complete. A7 validated and remediated unbounded operational configuration plus bulk-pricing and inventory result paths. Candidate verification passes 575/575 tests and every static gate. Canonical A7 completion remains conditioned on GitHub CI and main merge evidence.
 
 ## Global trust rules
 1. `rahemih/Eqcofe` is the official repository.
