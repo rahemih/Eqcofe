@@ -53,6 +53,7 @@
 - Step-53 final closure exact head: `118addddc5520cb9af9fe462d333ccef89850f5e`; Canonical CI `32852826457`, verify job `97817570431` PASS; final closure merge: `a8230752504ccbce364384e53626bd218af730b0`.
 - Step-54 A1–A10 exact head: `fce1ea103ea6c4db49e7e54127d60bd93661dfdf`; Canonical CI `32858856685` PASS; checkpoint merge/main: `d44e885c0ec29195929091887daf9f501ba4a65a`.
 - Step-54 A11 exact head: `51d61d80859c965beb26c926f7d4dabbd79e5ca9`; Canonical CI `33237646099`, verify job `99061325385` PASS; merge/main: `7d64f814cdba1472470aee99eddce55e8e67f3f8`.
+- Step-54 A12 final closure exact head: `99d2b5d2c49f395bd4e490384e8dd5baa292cdc7`; Canonical CI `33237793475`, verify job `99061721464` PASS; final closure merge/main baseline: `065cf9a66e5a84b570994085454dc4554b81e2b9`.
 
 ## Closed steps
 - **Step 45 — Content, Articles & SEO Backend — CLOSED / FINAL GATE PASS**
@@ -393,12 +394,13 @@ Verify job: `97170521019` — PASS
 **Step 54 — RTL Design System & Accessibility Foundation — CLOSED / FINAL GATE PASS.**
 
 - Canonical source baseline: `04bb8ff12e72b838d65c0951c9c1512e44ef1809`; A1–A10 checkpoint merge: `d44e885c0ec29195929091887daf9f501ba4a65a`.
-- Linear: `HOS-12`; synchronization to Done follows the final closure merge.
+- Linear: `HOS-12` — Done; description reconciled to the final A11 free repository canonical-library scope while preserving Done status.
 - Scope: 12 frozen gates; no wireframe, high-fidelity screen, frontend or backend change.
 - Repository library: Persian-first RTL, Vazirmatn, Light theme, Teal/Blue/Neutral with no Brown, 4/8/12 grid, 13 component families and WCAG 2.2 AA target; three deterministic generated artifacts are checked for drift.
 - Final verification: Step-54 validator PASS; generator check PASS; focused tests 8/8; full runtime regression 586/586; OpenAPI 531/601/1179; architecture 467; policy/build PASS.
 - Canonical checkpoint: PR `#132`, exact head `fce1ea103ea6c4db49e7e54127d60bd93661dfdf`, CI `32858856685` PASS, merge `d44e885c0ec29195929091887daf9f501ba4a65a`.
 - A11 canonical library: PR `#134`, exact head `51d61d80859c965beb26c926f7d4dabbd79e5ca9`, CI `33237646099` PASS, merge `7d64f814cdba1472470aee99eddce55e8e67f3f8`.
+- A12 final closure: PR `#135`, exact head `99d2b5d2c49f395bd4e490384e8dd5baa292cdc7`, Canonical CI `33237793475` PASS, verify job `99061721464` PASS, merge/main baseline `065cf9a66e5a84b570994085454dc4554b81e2b9`.
 - Figma: [EQCOFE Step 54 — RTL Design System Foundation](https://www.figma.com/design/Y07a0Mv9WRGwcq9uCtZFTc); optional free-tier mirror with three collections and 54 color variables. Its 19 semantic WEB syntax values were corrected; metric/style/component work remains incomplete and explicitly recorded as `PARTIAL_FREE_TIER`.
 - Cost boundary: no paid plan or service is required. Repository artifacts are canonical; incomplete Figma capacity is not represented as complete.
 - Dark theme is explicitly deferred: it is not a Roadmap requirement and the current Figma plan permits one mode per collection.
