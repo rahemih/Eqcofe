@@ -388,20 +388,20 @@ Verify job: `97170521019` — PASS
 
 ## Step 54 active product-design state
 
-**Step 54 — RTL Design System & Accessibility Foundation — IN PROGRESS / A1–A10 PASS / A11 BLOCKED.**
+**Step 54 — RTL Design System & Accessibility Foundation — IN PROGRESS / A1–A10 PASS / A11 LOCAL PASS / CANONICAL CI PENDING.**
 
 - Canonical source baseline: `04bb8ff12e72b838d65c0951c9c1512e44ef1809`; A1–A10 checkpoint merge: `d44e885c0ec29195929091887daf9f501ba4a65a`.
 - Linear: `HOS-12 — In Progress`.
 - Scope: 12 frozen gates; no wireframe, high-fidelity screen, frontend or backend change.
-- Repository contract: Persian-first RTL, Vazirmatn, Light theme, Teal/Blue/Neutral with no Brown, 4/8/12 grid, 13 component families and WCAG 2.2 AA target.
-- Local verification: Step-54 validator PASS; focused tests 5/5; full runtime regression 583/583; OpenAPI 531/601/1179; architecture 467; policy/build PASS.
+- Repository library: Persian-first RTL, Vazirmatn, Light theme, Teal/Blue/Neutral with no Brown, 4/8/12 grid, 13 component families and WCAG 2.2 AA target; three deterministic generated artifacts are checked for drift.
+- A11 local verification: Step-54 validator PASS; generator check PASS; focused tests 8/8; full runtime regression 586/586; OpenAPI 531/601/1179; architecture 467; policy/build PASS. Canonical CI remains pending.
 - Canonical checkpoint: PR `#132`, exact head `fce1ea103ea6c4db49e7e54127d60bd93661dfdf`, CI `32858856685` PASS, merge `d44e885c0ec29195929091887daf9f501ba4a65a`.
-- Figma: [EQCOFE Step 54 — RTL Design System Foundation](https://www.figma.com/design/Y07a0Mv9WRGwcq9uCtZFTc); three collections and 54 color variables created.
-- Open blocker: Figma Starter-plan MCP tool-call limit prevents completing metric variables, text/effect styles, component sets and final visual QA.
+- Figma: [EQCOFE Step 54 — RTL Design System Foundation](https://www.figma.com/design/Y07a0Mv9WRGwcq9uCtZFTc); optional free-tier mirror with three collections and 54 color variables. Its 19 semantic WEB syntax values were corrected; metric/style/component work remains incomplete and explicitly recorded as `PARTIAL_FREE_TIER`.
+- Cost boundary: no paid plan or service is required. Repository artifacts are canonical; incomplete Figma capacity is not represented as complete.
 - Dark theme is explicitly deferred: it is not a Roadmap requirement and the current Figma plan permits one mode per collection.
 
 ## Next safe action
-Resume **Step 54 / A11** after Figma MCP capacity is available. Do not start Step 55 or claim Step 54 closure before A11 and A12 pass.
+Run the full A11 regression and exact-head Canonical CI. Do not start Step 55 or claim Step 54 closure before A12 merge and state synchronization pass.
 
 ## Step 52 active closure state
 - **A1 — Canonical Handoff & Scope Freeze — COMPLETE / FINAL GATE PASS**

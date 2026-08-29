@@ -1,7 +1,18 @@
 {
   "schemaVersion": "1.0.0",
   "step": 54,
-  "status": "IN_PROGRESS",
+  "status": "A11_CANDIDATE",
+  "repositoryLibrary": {
+    "canonicalSource": true,
+    "generator": "scripts/generate-step54-repository-library.mjs",
+    "artifacts": [
+      "docs/13-product-design/generated/eqcofe-design-tokens.css",
+      "docs/13-product-design/generated/eqcofe-design-system.manifest.json",
+      "docs/13-product-design/generated/EQCOFE-DESIGN-SYSTEM-CATALOG.md"
+    ],
+    "figmaMirrorStatus": "PARTIAL_FREE_TIER",
+    "figmaUrl": "https://www.figma.com/design/Y07a0Mv9WRGwcq9uCtZFTc"
+  },
   "foundation": {
     "language": "fa-IR",
     "direction": "rtl",

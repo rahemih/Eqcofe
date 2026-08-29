@@ -21,9 +21,9 @@ Conversation history is supporting context only. It must not override current ca
 - Verified Step-53 final closure merge: `a8230752504ccbce364384e53626bd218af730b0`
 - Last fully closed step: **Step 53 — Information Architecture & User Journeys — FINAL GATE PASS**
 - Active step: **Step 54 — RTL Design System & Accessibility Foundation**
-- Active substep: **Step 54 / A11 — Figma Design System Library (blocked by Starter-plan MCP limit)**
+- Active substep: **Step 54 / A11 — Free Repository Design-System Library (local PASS; Canonical CI pending)**
 - Last completed substep: **Step 54 / A10 — Accessibility Foundation & Acceptance Matrix**
-- Next approved action: **Resume Step 54 / A11 only; Step 55 is not authorized**
+- Next approved action: **Verify and canonicalize Step 54 / A11, then execute A12; Step 55 is not authorized**
 - Step-51 closure PR: **#115 — MERGED**
 - Step-51 closure Canonical CI: **32737751481 — PASS**
 - Linear project: **EQCOFE**
