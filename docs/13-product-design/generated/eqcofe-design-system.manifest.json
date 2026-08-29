@@ -1,0 +1,482 @@
+{
+  "schemaVersion": "1.0.0",
+  "step": 54,
+  "sourceContract": "docs/13-product-design/step54-design-system-contract.json",
+  "sourceSha256": "3ff46d609e41277c1f94f9099198d03fc52f96b2bdf91db401b0775f88958a7b",
+  "canonicalLibrary": "repository",
+  "figmaMirror": {
+    "role": "optional-free-tier-companion",
+    "status": "PARTIAL_FREE_TIER",
+    "url": "https://www.figma.com/design/Y07a0Mv9WRGwcq9uCtZFTc"
+  },
+  "foundation": {
+    "language": "fa-IR",
+    "direction": "rtl",
+    "currency": "Toman",
+    "walletAllowed": false,
+    "brownAllowed": false,
+    "accessibilityTarget": "WCAG 2.2 AA",
+    "baseUnitPx": 4,
+    "defaultTheme": "light",
+    "themes": [
+      "light"
+    ]
+  },
+  "tokenSummary": {
+    "primitiveColors": 35,
+    "semanticColors": 19,
+    "metrics": 34,
+    "typographyStyles": 13,
+    "effectStyles": 4
+  },
+  "typography": [
+    {
+      "name": "display",
+      "fontSize": 40,
+      "lineHeight": 56,
+      "weight": 700
+    },
+    {
+      "name": "heading/1",
+      "fontSize": 32,
+      "lineHeight": 48,
+      "weight": 700
+    },
+    {
+      "name": "heading/2",
+      "fontSize": 28,
+      "lineHeight": 40,
+      "weight": 700
+    },
+    {
+      "name": "heading/3",
+      "fontSize": 24,
+      "lineHeight": 36,
+      "weight": 600
+    },
+    {
+      "name": "title/large",
+      "fontSize": 20,
+      "lineHeight": 32,
+      "weight": 600
+    },
+    {
+      "name": "title/medium",
+      "fontSize": 18,
+      "lineHeight": 28,
+      "weight": 600
+    },
+    {
+      "name": "body/large",
+      "fontSize": 18,
+      "lineHeight": 32,
+      "weight": 400
+    },
+    {
+      "name": "body/medium",
+      "fontSize": 16,
+      "lineHeight": 28,
+      "weight": 400
+    },
+    {
+      "name": "body/small",
+      "fontSize": 14,
+      "lineHeight": 24,
+      "weight": 400
+    },
+    {
+      "name": "label/large",
+      "fontSize": 16,
+      "lineHeight": 24,
+      "weight": 600
+    },
+    {
+      "name": "label/medium",
+      "fontSize": 14,
+      "lineHeight": 20,
+      "weight": 600
+    },
+    {
+      "name": "caption",
+      "fontSize": 12,
+      "lineHeight": 20,
+      "weight": 400
+    },
+    {
+      "name": "numeric/tabular",
+      "fontSize": 14,
+      "lineHeight": 24,
+      "weight": 500
+    }
+  ],
+  "effects": {
+    "elevation/0": "none",
+    "elevation/1": "0 1px 2px rgba(15,23,42,0.08)",
+    "elevation/2": "0 4px 12px rgba(15,23,42,0.12)",
+    "elevation/3": "0 12px 32px rgba(15,23,42,0.16)",
+    "focus/ring": "0 0 0 3px #1D4ED8"
+  },
+  "components": [
+    {
+      "name": "Button",
+      "variantAxes": {
+        "style": [
+          "primary",
+          "secondary",
+          "tertiary",
+          "danger"
+        ],
+        "size": [
+          "sm",
+          "md",
+          "lg"
+        ],
+        "state": [
+          "default",
+          "hover",
+          "focus",
+          "disabled",
+          "loading"
+        ]
+      },
+      "variantCombinationCount": 60,
+      "accessibility": [
+        "accessible name",
+        "visible focus",
+        "loading announcement",
+        "disabled semantics"
+      ]
+    },
+    {
+      "name": "IconButton",
+      "variantAxes": {
+        "style": [
+          "standard",
+          "danger"
+        ],
+        "size": [
+          "md",
+          "lg"
+        ],
+        "state": [
+          "default",
+          "hover",
+          "focus",
+          "disabled"
+        ]
+      },
+      "variantCombinationCount": 16,
+      "accessibility": [
+        "mandatory accessible name",
+        "tooltip not sole name",
+        "44px target"
+      ]
+    },
+    {
+      "name": "TextField",
+      "variantAxes": {
+        "state": [
+          "default",
+          "focus",
+          "filled",
+          "error",
+          "disabled",
+          "read-only"
+        ],
+        "density": [
+          "comfortable",
+          "compact"
+        ]
+      },
+      "variantCombinationCount": 12,
+      "accessibility": [
+        "persistent label",
+        "help association",
+        "error association",
+        "required text"
+      ]
+    },
+    {
+      "name": "Select",
+      "variantAxes": {
+        "state": [
+          "default",
+          "focus",
+          "filled",
+          "error",
+          "disabled"
+        ],
+        "density": [
+          "comfortable",
+          "compact"
+        ]
+      },
+      "variantCombinationCount": 10,
+      "accessibility": [
+        "keyboard operation",
+        "announced value",
+        "label and error association"
+      ]
+    },
+    {
+      "name": "ChoiceControl",
+      "variantAxes": {
+        "type": [
+          "checkbox",
+          "radio",
+          "switch"
+        ],
+        "state": [
+          "off",
+          "on",
+          "mixed",
+          "focus",
+          "disabled"
+        ]
+      },
+      "variantCombinationCount": 15,
+      "accessibility": [
+        "native semantics",
+        "visible label",
+        "group legend",
+        "state announcement"
+      ]
+    },
+    {
+      "name": "Badge",
+      "variantAxes": {
+        "tone": [
+          "neutral",
+          "info",
+          "success",
+          "warning",
+          "danger",
+          "special"
+        ],
+        "emphasis": [
+          "subtle",
+          "strong"
+        ]
+      },
+      "variantCombinationCount": 12,
+      "accessibility": [
+        "text label",
+        "never color-only"
+      ]
+    },
+    {
+      "name": "Alert",
+      "variantAxes": {
+        "tone": [
+          "info",
+          "success",
+          "warning",
+          "danger"
+        ],
+        "action": [
+          "none",
+          "single"
+        ]
+      },
+      "variantCombinationCount": 8,
+      "accessibility": [
+        "icon plus heading/text",
+        "role selected by urgency",
+        "dismiss accessible name"
+      ]
+    },
+    {
+      "name": "Card",
+      "variantAxes": {
+        "surface": [
+          "plain",
+          "outlined",
+          "elevated"
+        ],
+        "interactive": [
+          "false",
+          "true"
+        ]
+      },
+      "variantCombinationCount": 6,
+      "accessibility": [
+        "single clear target",
+        "heading hierarchy",
+        "focus when interactive"
+      ]
+    },
+    {
+      "name": "Dialog",
+      "variantAxes": {
+        "severity": [
+          "standard",
+          "danger"
+        ],
+        "width": [
+          "sm",
+          "md",
+          "lg"
+        ]
+      },
+      "variantCombinationCount": 6,
+      "accessibility": [
+        "labelled title",
+        "described content",
+        "focus trap",
+        "focus return",
+        "escape policy"
+      ]
+    },
+    {
+      "name": "Tabs",
+      "variantAxes": {
+        "style": [
+          "line",
+          "contained"
+        ],
+        "state": [
+          "default",
+          "focus",
+          "disabled"
+        ]
+      },
+      "variantCombinationCount": 6,
+      "accessibility": [
+        "roving tabindex",
+        "arrow keys follow RTL intent",
+        "selected state"
+      ]
+    },
+    {
+      "name": "Pagination",
+      "variantAxes": {
+        "mode": [
+          "pages",
+          "cursor"
+        ]
+      },
+      "variantCombinationCount": 2,
+      "accessibility": [
+        "nav label",
+        "current page",
+        "previous/next names follow reading direction"
+      ]
+    },
+    {
+      "name": "DataTable",
+      "variantAxes": {
+        "density": [
+          "comfortable",
+          "compact"
+        ],
+        "selection": [
+          "none",
+          "single",
+          "multiple"
+        ]
+      },
+      "variantCombinationCount": 6,
+      "accessibility": [
+        "header associations",
+        "caption or accessible name",
+        "sort state",
+        "keyboard action alternative"
+      ]
+    },
+    {
+      "name": "StatePanel",
+      "variantAxes": {
+        "state": [
+          "loading",
+          "empty",
+          "no-result",
+          "error",
+          "offline",
+          "denied",
+          "unknown-result"
+        ]
+      },
+      "variantCombinationCount": 7,
+      "accessibility": [
+        "meaningful heading",
+        "bounded next action",
+        "status announcement",
+        "no fake success"
+      ]
+    }
+  ],
+  "statePatterns": {
+    "load": [
+      "initial",
+      "progressive",
+      "refresh"
+    ],
+    "empty": [
+      "first-use",
+      "filtered",
+      "no-result"
+    ],
+    "input": [
+      "validation",
+      "server-validation",
+      "conflict"
+    ],
+    "access": [
+      "unauthenticated",
+      "denied",
+      "scope-filtered",
+      "step-up"
+    ],
+    "provider": [
+      "offline",
+      "timeout",
+      "unavailable",
+      "unknown-result"
+    ],
+    "mutation": [
+      "submitting",
+      "idempotent-replay",
+      "partial",
+      "success",
+      "failed"
+    ],
+    "lifecycle": [
+      "pending",
+      "active",
+      "terminal",
+      "expired",
+      "reversed"
+    ],
+    "operations": [
+      "healthy",
+      "degraded",
+      "alerting",
+      "recovering"
+    ]
+  },
+  "accessibility": {
+    "conformance": "WCAG 2.2 Level AA target; conformance is verified on implemented screens in later steps",
+    "textContrast": {
+      "normal": 4.5,
+      "large": 3
+    },
+    "nonTextContrast": 3,
+    "focusContrast": 3,
+    "minimumTargetPx": 44,
+    "focusRingPx": 3,
+    "requirements": [
+      "Keyboard access for all interactive controls.",
+      "Logical focus order and focus not obscured.",
+      "Skip mechanism for repeated navigation.",
+      "Persian page language and RTL direction are programmatically set.",
+      "Status, validation and lifecycle meaning is not color-only.",
+      "Form errors have a summary and field-level association.",
+      "Async mutation and provider outcomes use appropriate live-region announcements.",
+      "Reduced-motion disables non-essential transitions and preserves understanding.",
+      "Zoom/reflow to 400 percent does not lose content or operation.",
+      "Text spacing overrides do not clip or overlap content.",
+      "Dragging has a single-pointer alternative.",
+      "Authentication does not depend on a cognitive-function test without an alternative."
+    ]
+  }
+}

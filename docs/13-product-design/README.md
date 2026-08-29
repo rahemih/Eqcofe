@@ -26,8 +26,11 @@ Step 54 قرارداد بصری Persian-first RTL را بدون ساخت Screen 
 - `STEP-54-COMPONENT-CONTRACTS.md`: Component، Form، State و Data patterns.
 - `STEP-54-ACCESSIBILITY.md`: هدف WCAG 2.2 AA و Acceptance matrix.
 - `step54-design-system-contract.json`: مرجع ماشین‌خوان Token/Component/Accessibility.
+- `generated/eqcofe-design-tokens.css`: خروجی قطعی CSS Tokenها برای مصرف Stepهای Frontend بعدی.
+- `generated/eqcofe-design-system.manifest.json`: Manifest ماشین‌خوان Component، State و Accessibility.
+- `generated/EQCOFE-DESIGN-SYSTEM-CATALOG.md`: کاتالوگ فارسی API خانواده‌های Component.
 
-فایل قابل‌ویرایش [EQCOFE Step 54 — RTL Design System Foundation](https://www.figma.com/design/Y07a0Mv9WRGwcq9uCtZFTc) مکمل دیداری است. در Plan فعلی Figma فقط یک Mode و تعداد محدودی تماس MCP ممکن است؛ Repository نباید وجود Artifact نیمه‌کاره را به‌عنوان PASS کتابخانه تلقی کند.
+این سه خروجی با `pnpm design:generate` از Contract ساخته و با `pnpm design:check` در CI تطبیق داده می‌شوند. Repository کتابخانه Canonical رایگان است. فایل قابل‌ویرایش [EQCOFE Step 54 — RTL Design System Foundation](https://www.figma.com/design/Y07a0Mv9WRGwcq9uCtZFTc) فقط Mirror اختیاری و رایگان است؛ محدودیت Plan یا ناقص‌بودن آن نباید پنهان یا به‌عنوان کتابخانه کامل ادعا شود.
 
 ## Change rule
 

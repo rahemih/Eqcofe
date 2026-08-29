@@ -8,6 +8,11 @@ const requiredDocs = [
   'docs/13-product-design/STEP-54-COMPONENT-CONTRACTS.md',
   'docs/13-product-design/STEP-54-ACCESSIBILITY.md'
 ];
+const requiredRepositoryArtifacts = [
+  'docs/13-product-design/generated/eqcofe-design-tokens.css',
+  'docs/13-product-design/generated/eqcofe-design-system.manifest.json',
+  'docs/13-product-design/generated/EQCOFE-DESIGN-SYSTEM-CATALOG.md'
+];
 
 const contract = JSON.parse(readFileSync(contractPath, 'utf8'));
 const errors = [];
@@ -21,6 +26,18 @@ if (contract.foundation?.currency !== 'Toman' || contract.foundation?.walletAllo
 }
 if (contract.foundation?.brownAllowed !== false) errors.push('Brown palette must remain prohibited');
 if (contract.foundation?.accessibilityTarget !== 'WCAG 2.2 AA') errors.push('WCAG 2.2 AA target is required');
+if (contract.status !== 'A11_CANDIDATE' && contract.status !== 'COMPLETE') {
+  errors.push('Step 54 contract must be an A11 candidate or complete');
+}
+if (contract.repositoryLibrary?.canonicalSource !== true) {
+  errors.push('The free repository library must be the canonical design-system source');
+}
+if (contract.repositoryLibrary?.figmaMirrorStatus !== 'PARTIAL_FREE_TIER') {
+  errors.push('Figma must remain explicitly recorded as a partial free-tier mirror');
+}
+if (JSON.stringify(contract.repositoryLibrary?.artifacts) !== JSON.stringify(requiredRepositoryArtifacts)) {
+  errors.push('Repository-library artifact list does not match the canonical output set');
+}
 if (JSON.stringify(contract.foundation?.themes) !== JSON.stringify(['light'])) {
   errors.push('Step 54 canonical theme must remain Light-only until a later approved enhancement');
 }
@@ -29,6 +46,10 @@ if (contract.semanticColor?.dark) errors.push('Dark semantic values must not be 
 for (const file of requiredDocs) {
   const text = readFileSync(file, 'utf8');
   if (text.trim().length < 900) errors.push(`${file}: expected a substantive Step-54 artifact`);
+}
+for (const file of requiredRepositoryArtifacts) {
+  const text = readFileSync(file, 'utf8');
+  if (text.trim().length < 400) errors.push(`${file}: expected a substantive generated artifact`);
 }
 
 const primitiveColors = contract.primitives?.color ?? {};
@@ -104,6 +125,8 @@ console.log(JSON.stringify({
   component_families: Object.keys(contract.components).length,
   state_families: Object.keys(contract.statePatterns).length,
   accessibility_requirements: contract.accessibility.requirements.length,
+  repository_artifacts: requiredRepositoryArtifacts.length,
+  figma_mirror: contract.repositoryLibrary.figmaMirrorStatus,
   brown_tokens: 0
 }, null, 2));
 
