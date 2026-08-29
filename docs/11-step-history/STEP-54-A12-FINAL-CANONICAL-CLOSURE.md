@@ -1,6 +1,6 @@
 # Step 54 / A12 — Final Canonical Closure
 
-**Status:** FINAL CLOSURE CANDIDATE / EXACT-HEAD CI REQUIRED
+**Status:** COMPLETE / FINAL GATE PASS / MERGED
 
 ## Completed scope
 
@@ -13,6 +13,14 @@ All 12 frozen Step-54 gates are complete in source. The canonical result is a Pe
 - Canonical CI: `33237646099`, run number `452` — SUCCESS.
 - Verify job: `99061325385` — SUCCESS.
 - Merge commit: `7d64f814cdba1472470aee99eddce55e8e67f3f8`.
+
+## A12 canonical evidence
+
+- Pull request: [#135](https://github.com/rahemih/Eqcofe/pull/135) — MERGED.
+- Exact head: `99d2b5d2c49f395bd4e490384e8dd5baa292cdc7`.
+- Canonical CI: `33237793475`, run number `454` — SUCCESS.
+- Verify job: `99061721464` — SUCCESS.
+- Merge commit / canonical `main` baseline: `065cf9a66e5a84b570994085454dc4554b81e2b9`.
 
 ## Final library evidence
 
@@ -34,4 +42,4 @@ All 12 frozen Step-54 gates are complete in source. The canonical result is a Pe
 
 ## Scope freeze
 
-No wireframe, screen, high-fidelity prototype, runtime frontend component, backend behavior, API, migration, dependency, permission or business-rule change was introduced. Step 55 becomes the next planned product-design step only after this closure candidate passes exact-head Canonical CI and merges to `main`.
+No wireframe, screen, high-fidelity prototype, runtime frontend component, backend behavior, API, migration, dependency, permission or business-rule change was introduced. A12 passed exact-head Canonical CI and merged to `main`; Step 54 is closed. Step 55 is the next planned product-design step but is not started or implemented by this closure.

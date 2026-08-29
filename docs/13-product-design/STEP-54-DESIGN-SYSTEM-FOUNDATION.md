@@ -1,6 +1,6 @@
 # Step 54 — RTL Design System Foundation
 
-**Status:** IN PROGRESS / A1–A10 CONTRACT READY
+**Status:** COMPLETE / FINAL GATE PASS / MERGED
 
 ## مرز و منبع حقیقت
 
@@ -70,4 +70,11 @@ Light تم Canonical Step 54 است. Dark mode در Roadmap الزام نشده 
 | A9 | Commerce/Admin state و Data-display patterns | PASS |
 | A10 | Accessibility target و Acceptance matrix | PASS |
 
-A11 فقط با Figma Library واقعی و Contract ماشین‌خوان پاس می‌شود. A12 به Full verification، exact-head CI، Merge و Canonical state sync نیاز دارد.
+## Gate A11 و A12
+
+| Gate | خروجی | نتیجه |
+|---|---|---|
+| A11 | کتابخانهٔ Canonical رایگان در Repository شامل CSS Tokenها، Manifest ماشین‌خوان و کاتالوگ فارسی؛ Figma فقط Mirror اختیاری `PARTIAL_FREE_TIER` | PASS / PR #134 MERGED |
+| A12 | Full verification، exact-head Canonical CI، Merge و Canonical state sync | PASS / PR #135 MERGED |
+
+Repository منبع Canonical کتابخانهٔ Design System است و هیچ سرویس یا Plan پولی برای مصرف آن لازم نیست. Figma یک Mirror اختیاری `PARTIAL_FREE_TIER` است؛ Metric variable، Text/Effect style، Component set و Visual QA ناقص آن به‌عنوان خروجی کامل ادعا نمی‌شوند. A12 با exact head `99d2b5d2c49f395bd4e490384e8dd5baa292cdc7`، Canonical CI `33237793475`، Verify job `99061721464` و Merge commit `065cf9a66e5a84b570994085454dc4554b81e2b9` بسته شد.
