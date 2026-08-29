@@ -18,12 +18,14 @@ Conversation history is supporting context only. It must not override current ca
 - Canonical branch: `main`
 - Verified Step-54 A1–A10 checkpoint merge: `d44e885c0ec29195929091887daf9f501ba4a65a`
 - Checkpoint PR/CI: `#132` / `32858856685` — PASS
+- Verified Step-54 A11 library merge: `7d64f814cdba1472470aee99eddce55e8e67f3f8`
+- A11 PR/CI: `#134` / `33237646099` — PASS
 - Verified Step-53 final closure merge: `a8230752504ccbce364384e53626bd218af730b0`
-- Last fully closed step: **Step 53 — Information Architecture & User Journeys — FINAL GATE PASS**
-- Active step: **Step 54 — RTL Design System & Accessibility Foundation**
-- Active substep: **Step 54 / A11 — Free Repository Design-System Library (local PASS; Canonical CI pending)**
-- Last completed substep: **Step 54 / A10 — Accessibility Foundation & Acceptance Matrix**
-- Next approved action: **Verify and canonicalize Step 54 / A11, then execute A12; Step 55 is not authorized**
+- Last fully closed step: **Step 54 — RTL Design System & Accessibility Foundation — FINAL GATE PASS**
+- Active step: **NONE**
+- Active substep: **NONE**
+- Last completed substep: **Step 54 / A12 — Final Canonical Closure**
+- Next approved action: **Run the Step-55 canonical handoff gate before Storefront wireframe work**
 - Step-51 closure PR: **#115 — MERGED**
 - Step-51 closure Canonical CI: **32737751481 — PASS**
 - Linear project: **EQCOFE**

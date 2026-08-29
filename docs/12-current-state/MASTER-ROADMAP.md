@@ -204,7 +204,7 @@ Step 53 produces design contracts and maps only. Design tokens/components remain
 
 A1–A10 produced the source-backed Persian/RTL IA, 7 actor boundaries, 24 customer/Admin journeys, cross-cutting state/accessibility handoff and 153 validated OpenAPI operation references. A11 passed the full regression, exact-head Canonical CI and final canonicalization without adding runtime product scope.
 
-## Step 54 — RTL Design System & Accessibility Foundation — `IN PROGRESS / A1–A10 PASS / A11 LOCAL PASS / CANONICAL CI PENDING`
+## Step 54 — RTL Design System & Accessibility Foundation — `CLOSED / FINAL GATE PASS`
 Define typography, spacing, grid, components, forms, states, responsive rules, Persian RTL behavior, accessibility targets and brand tokens.
 
 Frozen execution gates:
@@ -222,7 +222,7 @@ Frozen execution gates:
 11. A11 — Free Repository Token/Component Contract Library + optional Figma Starter mirror.
 12. A12 — Full Verification, Canonicalization & Final Closure.
 
-A1–A10 have source-backed Repository contracts and an automated validator. Under the owner's explicit no-paid-service boundary, A11 makes the Repository the canonical free design-system library: deterministic CSS tokens, a machine-readable component manifest and a Persian catalog are generated from one contract and checked for drift in CI. The Figma Starter file remains an optional `PARTIAL_FREE_TIER` mirror with three collections and 54 color variables; missing paid-plan capacity is neither hidden nor a launch blocker. A11 has local PASS evidence, while A12 and Steps 55 onward remain unauthorized until exact-head CI, merge and final state synchronization pass.
+A1–A10 established the source-backed visual, RTL, component, state and accessibility contracts. Under the owner's explicit no-paid-service boundary, A11 made the Repository the canonical free design-system library: deterministic CSS tokens, a machine-readable component manifest and a Persian catalog are generated from one contract and checked for drift in CI. PR #134 and Canonical CI `33237646099` passed and merged at `7d64f814cdba1472470aee99eddce55e8e67f3f8`. The Figma Starter file remains an optional `PARTIAL_FREE_TIER` mirror with three collections and 54 color variables; missing paid-plan capacity is neither hidden nor a blocker. A12 records final closure after full regression; Step 55 is now the next planned product-design step.
 
 ## Step 55 — Storefront Wireframes — `PLANNED`
 Wireframe Home, category/search, product detail, compare, cart, checkout, account, wholesale, content and policy pages with mobile-first behavior.

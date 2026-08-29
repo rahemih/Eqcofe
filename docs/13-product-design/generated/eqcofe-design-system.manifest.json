@@ -2,7 +2,7 @@
   "schemaVersion": "1.0.0",
   "step": 54,
   "sourceContract": "docs/13-product-design/step54-design-system-contract.json",
-  "sourceSha256": "3ff46d609e41277c1f94f9099198d03fc52f96b2bdf91db401b0775f88958a7b",
+  "sourceSha256": "fe627e00d750a11c530d5978ffa22302bb07640d5d7b3e568e96157bed2c14e3",
   "canonicalLibrary": "repository",
   "figmaMirror": {
     "role": "optional-free-tier-companion",

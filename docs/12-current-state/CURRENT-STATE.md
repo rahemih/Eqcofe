@@ -1,7 +1,7 @@
 # EQCOFE Current State
 
 ## Trusted state date
-**2026-08-25**
+**2026-08-29**
 
 ## Official repository
 - Repository: `rahemih/Eqcofe`
@@ -52,6 +52,7 @@
 - Step-53 final closure PR: `#130`; initial exact head `6aaf1453a468d5cf90e7636295206693125fd024`; Canonical CI `32852647733`, verify job `97816980193` PASS.
 - Step-53 final closure exact head: `118addddc5520cb9af9fe462d333ccef89850f5e`; Canonical CI `32852826457`, verify job `97817570431` PASS; final closure merge: `a8230752504ccbce364384e53626bd218af730b0`.
 - Step-54 A1–A10 exact head: `fce1ea103ea6c4db49e7e54127d60bd93661dfdf`; Canonical CI `32858856685` PASS; checkpoint merge/main: `d44e885c0ec29195929091887daf9f501ba4a65a`.
+- Step-54 A11 exact head: `51d61d80859c965beb26c926f7d4dabbd79e5ca9`; Canonical CI `33237646099`, verify job `99061325385` PASS; merge/main: `7d64f814cdba1472470aee99eddce55e8e67f3f8`.
 
 ## Closed steps
 - **Step 45 — Content, Articles & SEO Backend — CLOSED / FINAL GATE PASS**
@@ -63,6 +64,7 @@
 - **Step 51 — Analytics & Management Read Models — CLOSED / FINAL GATE PASS**
 - **Step 52 — Backend Final Closure — CLOSED / FINAL GATE PASS**
 - **Step 53 — Information Architecture & User Journeys — CLOSED / FINAL GATE PASS**
+- **Step 54 — RTL Design System & Accessibility Foundation — CLOSED / FINAL GATE PASS**
 
 Detailed closure evidence remains immutable in `docs/11-step-history/` and merged PR/CI history.
 
@@ -386,22 +388,23 @@ Verify job: `97170521019` — PASS
 - Payments remains authoritative for payment facts.
 - Finance remains authoritative for accounting/financial facts.
 
-## Step 54 active product-design state
+## Step 54 final product-design state
 
-**Step 54 — RTL Design System & Accessibility Foundation — IN PROGRESS / A1–A10 PASS / A11 LOCAL PASS / CANONICAL CI PENDING.**
+**Step 54 — RTL Design System & Accessibility Foundation — CLOSED / FINAL GATE PASS.**
 
 - Canonical source baseline: `04bb8ff12e72b838d65c0951c9c1512e44ef1809`; A1–A10 checkpoint merge: `d44e885c0ec29195929091887daf9f501ba4a65a`.
-- Linear: `HOS-12 — In Progress`.
+- Linear: `HOS-12`; synchronization to Done follows the final closure merge.
 - Scope: 12 frozen gates; no wireframe, high-fidelity screen, frontend or backend change.
 - Repository library: Persian-first RTL, Vazirmatn, Light theme, Teal/Blue/Neutral with no Brown, 4/8/12 grid, 13 component families and WCAG 2.2 AA target; three deterministic generated artifacts are checked for drift.
-- A11 local verification: Step-54 validator PASS; generator check PASS; focused tests 8/8; full runtime regression 586/586; OpenAPI 531/601/1179; architecture 467; policy/build PASS. Canonical CI remains pending.
+- Final verification: Step-54 validator PASS; generator check PASS; focused tests 8/8; full runtime regression 586/586; OpenAPI 531/601/1179; architecture 467; policy/build PASS.
 - Canonical checkpoint: PR `#132`, exact head `fce1ea103ea6c4db49e7e54127d60bd93661dfdf`, CI `32858856685` PASS, merge `d44e885c0ec29195929091887daf9f501ba4a65a`.
+- A11 canonical library: PR `#134`, exact head `51d61d80859c965beb26c926f7d4dabbd79e5ca9`, CI `33237646099` PASS, merge `7d64f814cdba1472470aee99eddce55e8e67f3f8`.
 - Figma: [EQCOFE Step 54 — RTL Design System Foundation](https://www.figma.com/design/Y07a0Mv9WRGwcq9uCtZFTc); optional free-tier mirror with three collections and 54 color variables. Its 19 semantic WEB syntax values were corrected; metric/style/component work remains incomplete and explicitly recorded as `PARTIAL_FREE_TIER`.
 - Cost boundary: no paid plan or service is required. Repository artifacts are canonical; incomplete Figma capacity is not represented as complete.
 - Dark theme is explicitly deferred: it is not a Roadmap requirement and the current Figma plan permits one mode per collection.
 
 ## Next safe action
-Run the full A11 regression and exact-head Canonical CI. Do not start Step 55 or claim Step 54 closure before A12 merge and state synchronization pass.
+Start **Step 55 — Storefront Wireframes** only from the final Step-54 closure merge and re-run its canonical handoff gate before any design mutation.
 
 ## Step 52 active closure state
 - **A1 — Canonical Handoff & Scope Freeze — COMPLETE / FINAL GATE PASS**
