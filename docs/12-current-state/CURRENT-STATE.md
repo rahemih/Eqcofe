@@ -69,6 +69,18 @@
 
 Detailed closure evidence remains immutable in `docs/11-step-history/` and merged PR/CI history.
 
+## Step 55 active product-design state
+
+**Step 55 — Storefront Wireframes — IN PROGRESS; A COMPLETE / FOUNDATION GATE PASS.**
+
+- A baseline: canonical `main` at `0e251696478e2cd91571c6103257e0c978c16c88`, with Step 54 closed and Step 55 not started.
+- Canonical foundation: `docs/13-product-design/step55-storefront-wireframe-contract.json` plus the foundation and acceptance/traceability documents.
+- Frozen later inventory: 37 screen obligations — B 6, C 5, D 7, E 12 and F 7 — covering all 12 Step 53 storefront journeys.
+- Inherited design boundary: Persian-first RTL, Light-only, integer Toman, no Wallet, no Brown, 4/8/12 grid, 44px internal target and WCAG 2.2 AA target without a conformance claim.
+- Repository artifacts are canonical. Figma is optional and cannot block a gate; no approved logo/brand asset is invented.
+- A introduces no page wireframe, high-fidelity UI, frontend/backend runtime, API, migration, dependency, permission or business-rule change.
+- Next allowed substep: **55-B — Discovery & Shopping Entry — NOT STARTED**. Step 55 remains open until F completes the final audit and canonical closure.
+
 ## Step 49 final closure state
 **Step 49 — Physical Store / POS Backend — CLOSED / FINAL GATE PASS.**
 

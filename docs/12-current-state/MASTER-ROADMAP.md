@@ -1,12 +1,12 @@
 # EQCOFE — Complete Master Execution Roadmap
 
-**Roadmap version:** 3.30 — Step-54 Final Canonical Closure
+**Roadmap version:** 3.31 — Step-55-A Storefront Wireframe Foundation
 **Effective date:** 2026-08-29
 **Canonical repository:** `rahemih/Eqcofe`  
 **Canonical branch:** `main`  
 **Verified Step-44 code baseline:** `b239dfe825b615f36caf2e26cc7abc80c70d349c`
 
-> This is the canonical end-to-end execution map for EQCOFE. For historical Steps 1–27, the exact original step labels are not independently proven by the recovered Git evidence. Their descriptions below are therefore a normalized reconstruction of the foundation represented by the current product vision, business rules and canonical codebase; they must not be cited as exact historical attribution. Step 28 remains partial-history. Steps 29–54 are verified/closed in canonical source and closure evidence. Step 54 is CLOSED / FINAL GATE PASS; Step 55 is planned and has not started.
+> This is the canonical end-to-end execution map for EQCOFE. For historical Steps 1–27, the exact original step labels are not independently proven by the recovered Git evidence. Their descriptions below are therefore a normalized reconstruction of the foundation represented by the current product vision, business rules and canonical codebase; they must not be cited as exact historical attribution. Step 28 remains partial-history. Steps 29–54 are verified/closed in canonical source and closure evidence. Step 54 is CLOSED / FINAL GATE PASS; Step 55 is IN PROGRESS after completion of its foundation gate A.
 
 ## Status legend
 - `RECONSTRUCTED-HISTORY`: normalized description; exact historical step attribution is not proven.
@@ -224,8 +224,19 @@ Frozen execution gates:
 
 A1–A10 established the source-backed visual, RTL, component, state and accessibility contracts. Under the owner's explicit no-paid-service boundary, A11 made the Repository the canonical free design-system library: deterministic CSS tokens, a machine-readable component manifest and a Persian catalog are generated from one contract and checked for drift in CI. PR #134 and Canonical CI `33237646099` passed and merged at `7d64f814cdba1472470aee99eddce55e8e67f3f8`. The Figma Starter file remains an optional `PARTIAL_FREE_TIER` mirror with three collections and 54 color variables; missing paid-plan capacity is neither hidden nor a blocker. A12 exact head `99d2b5d2c49f395bd4e490384e8dd5baa292cdc7` passed Canonical CI `33237793475` (verify job `99061721464`) and merged at `065cf9a66e5a84b570994085454dc4554b81e2b9`, closing Step 54. Step 55 is the next planned product-design step and has not started.
 
-## Step 55 — Storefront Wireframes — `PLANNED`
+## Step 55 — Storefront Wireframes — `IN PROGRESS — A COMPLETE`
 Wireframe Home, category/search, product detail, compare, cart, checkout, account, wholesale, content and policy pages with mobile-first behavior.
+
+Frozen execution gates:
+
+1. A — Scope Recovery & Wireframe Framework — `COMPLETE / FOUNDATION GATE PASS`.
+2. B — Discovery & Shopping Entry — `NEXT / NOT STARTED`.
+3. C — Product Evaluation — `PLANNED`.
+4. D — Cart, Checkout & Payment Recovery — `PLANNED`.
+5. E — Account, Wholesale & After-Sales — `PLANNED`.
+6. F — Content, Policy, Responsive Audit & Canonical Closure — `PLANNED`.
+
+A recovered the canonical Step 53/54 inputs and froze a repository-native foundation: 37 screen obligations across B–F, the inherited mobile-first 4/8/12 grid, global Storefront shell, shared low-fidelity conventions and state/recovery vocabulary, all 12 storefront-journey mappings, artifact governance and later-gate acceptance. A contains no page wireframe, high-fidelity UI, runtime/API/business-rule change or paid-service dependency. Figma remains optional and non-canonical. Step 55 is not closed; B has not started.
 
 ## Step 56 — Admin UX Architecture & Wireframes — `PLANNED`
 Design admin navigation, dashboards, tables, bulk operations, editors, audit/error states and operational workflows before frontend coding.
@@ -363,8 +374,8 @@ Evolve architecture, integrations and product capabilities based on production e
 
 - **Last fully closed step:** Step 54 — RTL Design System & Accessibility Foundation.
 - **Step 49 closure:** CLOSED / FINAL GATE PASS after A11 audit.
-- **Active step:** None; Step 54 is `CLOSED / FINAL GATE PASS`.
-- **Next approved step:** Step 55 — Storefront Wireframes (`PLANNED`; not started).
+- **Active step:** Step 55 — Storefront Wireframes (`IN PROGRESS — A COMPLETE`).
+- **Next approved substep:** Step 55-B — Discovery & Shopping Entry (`NOT STARTED`).
 - **Backend feature-completion horizon:** Step 52.
 - **UI/UX design begins:** Step 53.
 - **Storefront implementation begins:** Step 58.

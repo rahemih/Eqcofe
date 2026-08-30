@@ -1,0 +1,180 @@
+{
+  "step": 55,
+  "substep": "A",
+  "status": "A_COMPLETE_STEP_IN_PROGRESS",
+  "title": "Storefront Wireframe Scope and Framework",
+  "canonicalSource": "repository",
+  "figmaMirror": "OPTIONAL_NOT_REQUIRED",
+  "foundation": {
+    "language": "fa-IR",
+    "direction": "rtl",
+    "currency": "Toman",
+    "walletAllowed": false,
+    "theme": "light",
+    "accessibilityTarget": "WCAG 2.2 AA",
+    "sourceSteps": [53, 54],
+    "step54ClosureBaseline": "0e251696478e2cd91571c6103257e0c978c16c88"
+  },
+  "scope": {
+    "included": [
+      "Storefront wireframe scope, screen inventory and later-gate ownership",
+      "Mobile-first responsive grid and global storefront shell",
+      "Shared low-fidelity conventions, layout regions and state vocabulary",
+      "Traceability to Step 53 customer journeys, OpenAPI capability references and Step 54 design-system contracts",
+      "Acceptance matrix and artifact governance for Step 55-B through 55-F"
+    ],
+    "excluded": [
+      "Any Step 55-B through 55-F page wireframe",
+      "Admin wireframes reserved for Step 56",
+      "High-fidelity UI, interactive prototype or usability claim reserved for Step 57",
+      "Frontend runtime, backend, API, migration, dependency, permission or business-rule implementation",
+      "Brand or logo invention, paid-service requirement and Figma as canonical source"
+    ]
+  },
+  "responsive": {
+    "contentMaxPx": 1280,
+    "verificationWidthsPx": [320, 360, 600, 840, 1200, 1440],
+    "breakpoints": {"compact": 0, "mobileWide": 360, "tablet": 600, "desktop": 840, "wide": 1200, "max": 1440},
+    "grid": {
+      "compact": {"columns": 4, "marginPx": 16, "gutterPx": 16},
+      "tablet": {"columns": 8, "marginPx": 24, "gutterPx": 24},
+      "desktop": {"columns": 12, "marginPx": 32, "gutterPx": 24}
+    },
+    "rules": [
+      "Start every later wireframe at 320px and expand by content capacity.",
+      "Use logical inline/block directions; DOM and focus order follow meaning in RTL.",
+      "Collapse columns by content priority without hiding the primary task or authoritative status.",
+      "Use an equivalent card/list or bounded horizontal scroll when tabular comparison cannot reflow.",
+      "Keep interactive targets at least 44 by 44 CSS pixels and clear of sticky surfaces.",
+      "Verify 400 percent zoom, long Persian strings, bidi identifiers and keyboard-only operation."
+    ]
+  },
+  "shell": {
+    "regions": [
+      {"id": "skip-link", "role": "navigation", "required": "all", "behavior": "First focusable control targets main content."},
+      {"id": "utility-bar", "role": "complementary", "required": "contextual", "behavior": "Shows truthful service/context notices; may collapse before primary navigation."},
+      {"id": "site-header", "role": "banner", "required": "all", "behavior": "Contains source-approved wordmark slot, search entry and primary actions without inventing a logo."},
+      {"id": "primary-navigation", "role": "navigation", "required": "all", "behavior": "Home, shop, compare, content, cart and account destinations remain reachable."},
+      {"id": "breadcrumb", "role": "navigation", "required": "hierarchical", "behavior": "Reflects information hierarchy, not browser history."},
+      {"id": "main-content", "role": "main", "required": "all", "behavior": "Exactly one primary page heading and the current task/status."},
+      {"id": "context-actions", "role": "region", "required": "contextual", "behavior": "Primary and recovery actions stay near the affected content."},
+      {"id": "site-footer", "role": "contentinfo", "required": "all", "behavior": "Policy, contact, content and support destinations; no unverified trust claims."}
+    ],
+    "compact": [
+      "Header becomes two rows only when search needs a full-width row.",
+      "Primary navigation uses an accessible disclosure; cart and account remain directly reachable.",
+      "No bottom-navigation invention is allowed without a later approved contract.",
+      "Sticky purchase or checkout actions reserve safe-area space and never cover focused content."
+    ],
+    "expanded": [
+      "Header aligns to the 12-column grid and keeps search visually dominant for discovery.",
+      "Primary destinations remain visible; utility actions do not displace the main task.",
+      "Footer may use multiple columns while preserving semantic heading and reading order."
+    ]
+  },
+  "wireframeConventions": {
+    "fidelity": "structural-low-fidelity",
+    "requiredAnnotations": ["screen-id", "owner-gate", "viewport", "actor", "journey-id", "state", "source-reference", "primary-action", "recovery-action"],
+    "contentRules": [
+      "Use realistic Persian labels and content-length envelopes, not lorem ipsum.",
+      "Use approved neutral media placeholders labelled by purpose; do not invent product photography, logo or brand art.",
+      "Show integer values with Persian-readable grouping and the explicit unit تومان; never use Wallet terminology.",
+      "Place Latin URLs, SKUs, hashes and order references in bidi-isolated samples.",
+      "Mark server-authoritative values and do not imply provider success before verification."
+    ],
+    "interactionNotation": ["solid-arrow primary path", "dashed-arrow recovery path", "lock-marker unavailable action", "authority-marker server-owned fact", "annotation-note unresolved content dependency"],
+    "layoutRegions": ["page-intro", "query-or-filter", "primary-content", "supporting-content", "summary", "primary-actions", "status-and-recovery", "related-content"]
+  },
+  "stateCoverage": {
+    "families": {
+      "load": ["initial", "progressive", "refresh"],
+      "empty": ["first-use", "filtered", "no-result"],
+      "input": ["validation", "server-validation", "conflict"],
+      "access": ["unauthenticated", "denied", "scope-filtered", "step-up"],
+      "provider": ["offline", "timeout", "unavailable", "unknown-result"],
+      "mutation": ["submitting", "idempotent-replay", "partial", "success", "failed"],
+      "lifecycle": ["pending", "active", "terminal", "expired", "reversed"],
+      "availability": ["enabled", "disabled-with-reason", "out-of-stock", "price-changed", "quantity-invalid"]
+    },
+    "rules": [
+      "Every async screen has initial loading plus refresh behavior that preserves context.",
+      "Empty, filtered-empty and no-result states explain cause and give a relevant next action.",
+      "Disabled actions expose a reason and do not replace server-side permission or validation.",
+      "Unauthenticated, denied, not-found and expired-session states remain distinguishable.",
+      "Unknown provider result offers authoritative status check, never fabricated success or uncontrolled duplicate payment.",
+      "Form failure preserves safe user input and maps summary errors to affected fields.",
+      "Recovery paths are bounded, idempotency-aware and retain an order/payment/case reference when available."
+    ]
+  },
+  "screenInventory": [
+    {"id":"SF-B-01","gate":"55-B","name":"Home","routeIntent":"/","journeys":["SJ-01"],"components":["Card","Button","StatePanel"],"requiredStates":["initial","progressive","no-result"]},
+    {"id":"SF-B-02","gate":"55-B","name":"Category landing","routeIntent":"/category/:slug","journeys":["SJ-01"],"components":["Card","Pagination","StatePanel"],"requiredStates":["initial","filtered","no-result"]},
+    {"id":"SF-B-03","gate":"55-B","name":"Search results","routeIntent":"/search?q=","journeys":["SJ-01"],"components":["TextField","Card","Pagination","StatePanel"],"requiredStates":["initial","no-result","offline"]},
+    {"id":"SF-B-04","gate":"55-B","name":"Product listing","routeIntent":"listing-region","journeys":["SJ-01","SJ-11"],"components":["Card","Badge","Pagination"],"requiredStates":["progressive","out-of-stock","price-changed"]},
+    {"id":"SF-B-05","gate":"55-B","name":"Filter and sort","routeIntent":"listing-query-state","journeys":["SJ-01"],"components":["Select","ChoiceControl","Button"],"requiredStates":["enabled","disabled-with-reason","filtered"]},
+    {"id":"SF-B-06","gate":"55-B","name":"Discovery recovery","routeIntent":"listing-state","journeys":["SJ-01"],"components":["StatePanel","Button"],"requiredStates":["no-result","timeout","failed"]},
+    {"id":"SF-C-01","gate":"55-C","name":"Product detail","routeIntent":"/product/:slug","journeys":["SJ-01","SJ-02","SJ-11","SJ-12"],"components":["Card","Badge","Select","Button","StatePanel"],"requiredStates":["initial","out-of-stock","price-changed"]},
+    {"id":"SF-C-02","gate":"55-C","name":"Product media","routeIntent":"product-media-region","journeys":["SJ-01"],"components":["Tabs","Dialog","StatePanel"],"requiredStates":["progressive","unavailable","no-result"]},
+    {"id":"SF-C-03","gate":"55-C","name":"Compare selection","routeIntent":"compare-selection-state","journeys":["SJ-02"],"components":["ChoiceControl","Alert","Button"],"requiredStates":["enabled","disabled-with-reason","validation"]},
+    {"id":"SF-C-04","gate":"55-C","name":"Compare table","routeIntent":"/compare","journeys":["SJ-02"],"components":["DataTable","Card","Button","StatePanel"],"requiredStates":["initial","first-use","conflict"]},
+    {"id":"SF-C-05","gate":"55-C","name":"Wishlist and alert actions","routeIntent":"product-owned-actions","journeys":["SJ-03","SJ-12"],"components":["IconButton","Dialog","Alert"],"requiredStates":["unauthenticated","submitting","success"]},
+    {"id":"SF-D-01","gate":"55-D","name":"Cart","routeIntent":"/cart","journeys":["SJ-03","SJ-04","SJ-11"],"components":["Card","TextField","Alert","Button","StatePanel"],"requiredStates":["first-use","quantity-invalid","price-changed"]},
+    {"id":"SF-D-02","gate":"55-D","name":"Checkout identity","routeIntent":"/checkout/identity","journeys":["SJ-03","SJ-04"],"components":["TextField","Button","Alert"],"requiredStates":["validation","unauthenticated","submitting"]},
+    {"id":"SF-D-03","gate":"55-D","name":"Checkout address","routeIntent":"/checkout/address","journeys":["SJ-04","SJ-06"],"components":["ChoiceControl","Dialog","Button","Alert"],"requiredStates":["first-use","validation","conflict"]},
+    {"id":"SF-D-04","gate":"55-D","name":"Checkout delivery","routeIntent":"/checkout/delivery","journeys":["SJ-04"],"components":["ChoiceControl","Alert","Button"],"requiredStates":["initial","unavailable","disabled-with-reason"]},
+    {"id":"SF-D-05","gate":"55-D","name":"Checkout review","routeIntent":"/checkout/review","journeys":["SJ-04","SJ-11"],"components":["Card","Alert","Button","Dialog"],"requiredStates":["price-changed","expired","submitting"]},
+    {"id":"SF-D-06","gate":"55-D","name":"Payment return and verification","routeIntent":"/payment/return","journeys":["SJ-05"],"components":["StatePanel","Alert","Button"],"requiredStates":["progressive","unknown-result","timeout"]},
+    {"id":"SF-D-07","gate":"55-D","name":"Order outcome and recovery","routeIntent":"/order/:order-number/outcome","journeys":["SJ-05","SJ-07"],"components":["StatePanel","Alert","Button"],"requiredStates":["success","failed","idempotent-replay"]},
+    {"id":"SF-E-01","gate":"55-E","name":"Account overview","routeIntent":"/account","journeys":["SJ-06","SJ-07","SJ-10","SJ-12"],"components":["Card","Alert","StatePanel"],"requiredStates":["initial","unauthenticated","partial"]},
+    {"id":"SF-E-02","gate":"55-E","name":"Profile and security","routeIntent":"/account/profile","journeys":["SJ-03","SJ-06"],"components":["TextField","Button","Alert"],"requiredStates":["validation","step-up","success"]},
+    {"id":"SF-E-03","gate":"55-E","name":"Addresses","routeIntent":"/account/addresses","journeys":["SJ-06"],"components":["Card","Dialog","Button","StatePanel"],"requiredStates":["first-use","conflict","failed"]},
+    {"id":"SF-E-04","gate":"55-E","name":"Orders","routeIntent":"/account/orders","journeys":["SJ-07"],"components":["Card","Pagination","StatePanel"],"requiredStates":["initial","first-use","filtered"]},
+    {"id":"SF-E-05","gate":"55-E","name":"Order detail and invoice","routeIntent":"/account/orders/:order-number","journeys":["SJ-05","SJ-07","SJ-08","SJ-09"],"components":["Card","Badge","Alert","Button"],"requiredStates":["initial","denied","terminal"]},
+    {"id":"SF-E-06","gate":"55-E","name":"Customer tools","routeIntent":"/account/tools","journeys":["SJ-12"],"components":["Tabs","Card","StatePanel"],"requiredStates":["first-use","partial","server-validation"]},
+    {"id":"SF-E-07","gate":"55-E","name":"Wholesale introduction","routeIntent":"/wholesale","journeys":["SJ-10"],"components":["Card","Button","StatePanel"],"requiredStates":["enabled","unauthenticated","disabled-with-reason"]},
+    {"id":"SF-E-08","gate":"55-E","name":"Wholesale application","routeIntent":"/account/wholesale/apply","journeys":["SJ-10"],"components":["TextField","Select","Button","Alert"],"requiredStates":["validation","submitting","conflict"]},
+    {"id":"SF-E-09","gate":"55-E","name":"Wholesale status","routeIntent":"/account/wholesale","journeys":["SJ-10"],"components":["StatePanel","Badge","Alert"],"requiredStates":["pending","terminal","failed"]},
+    {"id":"SF-E-10","gate":"55-E","name":"Approved wholesale context","routeIntent":"wholesale-commerce-state","journeys":["SJ-11"],"components":["Badge","Alert","Card"],"requiredStates":["active","quantity-invalid","price-changed"]},
+    {"id":"SF-E-11","gate":"55-E","name":"Return request and detail","routeIntent":"/account/returns/:return-number?","journeys":["SJ-08"],"components":["TextField","Card","Badge","StatePanel"],"requiredStates":["validation","pending","terminal"]},
+    {"id":"SF-E-12","gate":"55-E","name":"Warranty claim and detail","routeIntent":"/account/warranty/:claim-number?","journeys":["SJ-09"],"components":["TextField","Card","Badge","StatePanel"],"requiredStates":["validation","pending","terminal"]},
+    {"id":"SF-F-01","gate":"55-F","name":"Article listing","routeIntent":"/articles","journeys":["SJ-01"],"components":["Card","Pagination","StatePanel"],"requiredStates":["initial","first-use","no-result"]},
+    {"id":"SF-F-02","gate":"55-F","name":"Article detail","routeIntent":"/articles/:slug","journeys":["SJ-01"],"components":["Card","StatePanel"],"requiredStates":["initial","no-result","failed"]},
+    {"id":"SF-F-03","gate":"55-F","name":"About","routeIntent":"/about","journeys":[],"components":["Card"],"requiredStates":["initial","failed"]},
+    {"id":"SF-F-04","gate":"55-F","name":"Contact and support","routeIntent":"/contact","journeys":["SJ-05","SJ-08","SJ-09"],"components":["TextField","Select","Button","Alert"],"requiredStates":["validation","submitting","failed"]},
+    {"id":"SF-F-05","gate":"55-F","name":"FAQ","routeIntent":"/faq","journeys":["SJ-01","SJ-10"],"components":["TextField","StatePanel"],"requiredStates":["initial","no-result","failed"]},
+    {"id":"SF-F-06","gate":"55-F","name":"Terms and commerce policies","routeIntent":"/policies/terms","journeys":["SJ-04","SJ-11"],"components":["Card","Alert"],"requiredStates":["initial","no-result"]},
+    {"id":"SF-F-07","gate":"55-F","name":"Returns and warranty policies","routeIntent":"/policies/returns-warranty","journeys":["SJ-08","SJ-09"],"components":["Card","Alert"],"requiredStates":["initial","no-result"]}
+  ],
+  "acceptanceGates": [
+    {"id":"55-B","title":"Discovery and shopping entry","requiredScreens":["SF-B-01","SF-B-02","SF-B-03","SF-B-04","SF-B-05","SF-B-06"],"requiredJourneys":["SJ-01","SJ-11"]},
+    {"id":"55-C","title":"Product evaluation","requiredScreens":["SF-C-01","SF-C-02","SF-C-03","SF-C-04","SF-C-05"],"requiredJourneys":["SJ-01","SJ-02","SJ-03","SJ-11","SJ-12"]},
+    {"id":"55-D","title":"Cart, checkout and payment recovery","requiredScreens":["SF-D-01","SF-D-02","SF-D-03","SF-D-04","SF-D-05","SF-D-06","SF-D-07"],"requiredJourneys":["SJ-03","SJ-04","SJ-05","SJ-06","SJ-07","SJ-11"]},
+    {"id":"55-E","title":"Account, wholesale and after-sales","requiredScreens":["SF-E-01","SF-E-02","SF-E-03","SF-E-04","SF-E-05","SF-E-06","SF-E-07","SF-E-08","SF-E-09","SF-E-10","SF-E-11","SF-E-12"],"requiredJourneys":["SJ-03","SJ-05","SJ-06","SJ-07","SJ-08","SJ-09","SJ-10","SJ-11","SJ-12"]},
+    {"id":"55-F","title":"Content, policy, responsive audit and canonical closure","requiredScreens":["SF-F-01","SF-F-02","SF-F-03","SF-F-04","SF-F-05","SF-F-06","SF-F-07"],"requiredJourneys":["SJ-01","SJ-04","SJ-05","SJ-08","SJ-09","SJ-10","SJ-11"]}
+  ],
+  "acceptance": {
+    "perScreen": [
+      "Required annotations and Persian content envelope are present.",
+      "Compact 320px structure and expanded responsive behavior are explicit.",
+      "Relevant loading, empty, error, disabled, access and recovery states are mapped.",
+      "Primary and recovery paths map to at least one Step 53 journey when the screen is transactional.",
+      "Components use Step 54 family names and tokens without inventing a new visual system.",
+      "Keyboard order, focus visibility, 44px targets, reflow and bidi behavior have review evidence."
+    ],
+    "step55ACompleteWhen": [
+      "Step 54 closure and Step 55 not-started baseline are recorded.",
+      "Scope, inventory, shell, conventions, states, traceability and later-gate matrix validate.",
+      "Repository validators, focused tests, pnpm verify and git diff --check pass.",
+      "Exact-head Canonical CI passes and the dedicated PR is merged to main.",
+      "Remote main is re-read; Step 55 remains in progress and 55-B remains not started."
+    ]
+  },
+  "artifactGovernance": {
+    "directory": "docs/13-product-design/step55-wireframes/<gate>/<screen-id>/",
+    "filePattern": "<screen-id>--<viewport>--<state>--v<revision>.<ext>",
+    "allowedViewportLabels": ["320", "360", "600", "840", "1200", "1440"],
+    "requiredCompanion": ["README.md", "traceability.json", "acceptance.md"],
+    "sourceOfTruth": "Repository artifacts and this contract",
+    "figmaPolicy": "A free optional mirror may link to repository screen IDs; it cannot replace repository evidence or block a gate."
+  }
+}
