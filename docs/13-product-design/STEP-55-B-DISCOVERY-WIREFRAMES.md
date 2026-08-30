@@ -47,4 +47,4 @@ Price, stock and customer type are server-authoritative. Product cards use integ
 
 55-B changes product-design contracts, generated wireframe evidence, validators, tests and current-state documentation only. It introduces no frontend/backend runtime, actual router, API, migration, dependency, permission, business rule, high-fidelity UI or interactive prototype. Admin stays in Step 56, high fidelity/prototype in Step 57 and Storefront implementation in Step 58 onward.
 
-55-C may begin only after this dedicated branch passes focused and full verification, exact-head Canonical CI, merge and remote-main re-read.
+Implementation PR `#138` at head `39ae82340f31298b67baa9aaddcc4a84ad22820f` passed Canonical CI `33297101212` and verify job `99218555170`, including full `pnpm verify`. The final evidence head still requires its own exact-head Canonical CI, merge and remote-`main` re-read before 55-C may begin.

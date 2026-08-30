@@ -35,7 +35,10 @@ No frontend/backend runtime, router, endpoint, migration, dependency, permission
 
 - Deterministic generator/check: PASS — 44 artifacts / 24 frames.
 - Step 55 validator: PASS — 6 completed B screens, 24 frames, 6 reviewed widths.
-- Focused and full verification, exact-head Canonical CI, PR and merge evidence are recorded in the final evidence synchronization before canonical merge.
-- `git diff --check`: PASS before PR.
+- PR: `#138` — Step 55-B Discovery & Shopping Entry wireframes.
+- Implementation head: `39ae82340f31298b67baa9aaddcc4a84ad22820f`.
+- Implementation Canonical CI: `33297101212` — PASS; verify job `99218555170` — PASS, including full `pnpm verify`.
+- The final evidence head must pass a new exact-head Canonical CI before merge; merge and remote-`main` evidence are confirmed in the final handoff.
+- `git diff --check`: PASS.
 
 Step 55 remains open through 55-F. After canonical merge of this Gate, only 55-C — Product Evaluation — may begin.

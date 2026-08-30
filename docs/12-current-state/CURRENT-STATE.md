@@ -82,8 +82,8 @@ Detailed closure evidence remains immutable in `docs/11-step-history/` and merge
 - A introduces no page wireframe. Its PR `#137` final head `614a548db5c5f96e902f1bb2ae824753d56ed6e0` passed Canonical CI `33295639025` / verify `99214700084`, merged at `75b117582b2e6315091c0e99459ad14b9a4fea0c`, and main Canonical CI `33295685153` / verify `99214821929` passed.
 - B Canonical source: `step55-discovery-wireframes.json` and `step55-wireframes/B/` — 6 screens, 24 low-fidelity SVG frames, 44 deterministic artifacts, complete state/responsive/RTL/accessibility/commerce/recovery companions and SHA-256 provenance.
 - B introduces no high-fidelity UI, frontend/backend runtime, API, migration, dependency, permission or business-rule change. Figma remains optional/non-blocking.
-- Linear: `HOS-13` — Step 55 — In Progress; A complete and B implementation evidence recorded pending canonical PR/CI merge.
-- Step 55-B PR/CI/merge evidence is synchronized in this section after the dedicated exact-head Gate passes.
+- Linear: `HOS-13` — Step 55 — In Progress; A complete and B implementation evidence recorded pending final canonical merge.
+- Step 55-B implementation: PR `#138`, head `39ae82340f31298b67baa9aaddcc4a84ad22820f`, Canonical CI `33297101212` PASS, verify job `99218555170` PASS. The final evidence head remains subject to its own exact-head Gate before merge.
 - Next allowed substep: **55-C — Product Evaluation — NOT STARTED**. Step 55 remains open until F completes the final audit and canonical closure.
 
 ## Step 49 final closure state
