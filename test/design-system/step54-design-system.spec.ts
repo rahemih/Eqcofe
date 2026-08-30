@@ -4,7 +4,7 @@ import { readFileSync } from 'node:fs';
 import test from 'node:test';
 
 const contract = JSON.parse(readFileSync('docs/13-product-design/step54-design-system-contract.json', 'utf8'));
-const contractSource = readFileSync('docs/13-product-design/step54-design-system-contract.json', 'utf8');
+const contractSource = readFileSync('docs/13-product-design/step54-design-system-contract.json', 'utf8').replace(/\r\n/g, '\n');
 const manifest = JSON.parse(readFileSync('docs/13-product-design/generated/eqcofe-design-system.manifest.json', 'utf8'));
 const tokensCss = readFileSync('docs/13-product-design/generated/eqcofe-design-tokens.css', 'utf8');
 

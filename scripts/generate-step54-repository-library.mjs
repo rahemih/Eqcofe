@@ -9,7 +9,8 @@ const outputs = {
   catalog: 'docs/13-product-design/generated/EQCOFE-DESIGN-SYSTEM-CATALOG.md'
 };
 
-const source = readFileSync(contractPath, 'utf8');
+// Normalize checkout line endings so repository artifacts are deterministic on Windows and Linux.
+const source = readFileSync(contractPath, 'utf8').replace(/\r\n/g, '\n');
 const contract = JSON.parse(source);
 const generated = {
   [outputs.css]: renderCss(contract),
