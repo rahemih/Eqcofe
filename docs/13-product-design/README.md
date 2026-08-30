@@ -32,6 +32,17 @@ Step 54 قرارداد بصری Persian-first RTL را بدون ساخت Screen 
 
 این سه خروجی با `pnpm design:generate` از Contract ساخته و با `pnpm design:check` در CI تطبیق داده می‌شوند. Repository کتابخانه Canonical رایگان است. فایل قابل‌ویرایش [EQCOFE Step 54 — RTL Design System Foundation](https://www.figma.com/design/Y07a0Mv9WRGwcq9uCtZFTc) فقط Mirror اختیاری و رایگان است؛ محدودیت Plan یا ناقص‌بودن آن نباید پنهان یا به‌عنوان کتابخانه کامل ادعا شود.
 
+## Step 55 wireframes
+
+- `step55-storefront-wireframe-contract.json`: inventory، shell، state و Gateهای تثبیت‌شده Storefront.
+- `STEP-55-STOREFRONT-WIREFRAME-FOUNDATION.md`: چارچوب mobile-first و زبان مشترک وایرفریم.
+- `STEP-55-ACCEPTANCE-AND-TRACEABILITY.md`: معیار پذیرش screen/gate و سیاست استثنا.
+- `step55-discovery-wireframes.json`: قرارداد Canonical مرحله 55-B برای Home، Category/Search، Listing، Filter/Sort و Recovery.
+- `STEP-55-B-DISCOVERY-WIREFRAMES.md`: تصمیم‌های ساختاری، responsive، RTL، commerce و boundary مرحله B.
+- `step55-wireframes/B/`: 24 قاب SVG کم‌جزئیات و companionهای ردیابی/پذیرش برای شش screen.
+
+`pnpm design:generate` هم کتابخانه Step 54 و هم artifactهای 55-B را تولید می‌کند؛ `pnpm design:check` drift هر دو مجموعه را می‌بندد. SVGها دارایی برند یا UI نهایی نیستند؛ evidence ساختاری کم‌جزئیات‌اند. Repository Canonical و Figma اختیاری/غیرمسدودکننده باقی می‌ماند.
+
 ## Change rule
 
 هر تغییر بعدی باید یکی از این سه نوع باشد: اصلاح خطای اثبات‌شده در Traceability، تصمیم صریح Roadmap بعدی، یا refinement در Step مربوط به Design System/Wireframe. تغییر Business Rule یا افزودن API از این پوشه مجاز نیست. در تعارض، Product Vision و Business Rules برای قصد محصول و OpenAPI روی `main` برای قابلیت Backend مرجع هستند.

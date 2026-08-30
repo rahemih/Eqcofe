@@ -1,6 +1,6 @@
 # Step 55 — Acceptance & Traceability Matrix
 
-**Status:** 55-A COMPLETE; 55-B..55-F NOT STARTED
+**Status:** 55-A and 55-B COMPLETE; 55-C..55-F NOT STARTED
 
 ## Gate ownership
 
@@ -42,3 +42,7 @@ An exception must name the screen/state, source requirement, reason, impact, tem
 ## 55-A acceptance result
 
 55-A passes when its contract and two documents are substantive, every screen and gate ID is unique, every required gate owns its exact screens, all 12 storefront journeys are covered, all referenced journey/component/state IDs exist upstream, Step 54 responsive and product constraints match exactly, and repository validation plus full verification, exact-head CI, merge and remote-main re-read succeed. No 55-B artifact is allowed in this change.
+
+## 55-B acceptance result
+
+55-B passes with six owned screen folders, 24 deterministic low-fidelity frames, three required state frames per screen at 320px, one expanded primary frame per screen at 1440px, explicit behavior for every inherited width, 400% reflow review, Persian/RTL/accessibility evidence and complete journey/OpenAPI/component/state companions. The Gate-level manifest binds the source and 43 generated child artifacts with SHA-256. Product Detail remains only a handoff to 55-C; no later screen, runtime, API, business rule, high-fidelity UI, prototype or paid/Figma dependency enters this Gate.

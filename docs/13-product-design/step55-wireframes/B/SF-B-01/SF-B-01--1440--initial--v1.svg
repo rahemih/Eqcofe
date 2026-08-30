@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="1000" viewBox="0 0 1440 1000" role="img" aria-labelledby="title desc">
+<title id="title">SF-B-01 — خانه و ورودی خرید — initial — 1440px</title>
+<desc id="desc">وایرفریم کم‌جزئیات فارسی و راست‌به‌چپ برای شروع کشف محصول از جست‌وجو یا دسته‌بندی. اقدام اصلی جست‌وجوی محصول و بازیابی مشاهده همه دسته‌ها است.</desc>
+<rect width="1440" height="1000" fill="#F8FAFC"/>
+<style>text{font-family:Vazirmatn,Tahoma,Arial,sans-serif;fill:#0F172A}.muted{fill:#475569}.meta{font-size:10px}.body{font-size:13px}.label{font-size:12px;font-weight:600}.title{font-size:28px;font-weight:700}.section{font-size:18px;font-weight:700}.price{font-size:14px;font-weight:700}.wire{fill:#fff;stroke:#CBD5E1;stroke-width:1}.soft{fill:#F1F5F9;stroke:#CBD5E1}.accent{fill:#F0FDFA;stroke:#0F766E;stroke-width:1.5}.action{fill:#0F766E}.actionText{fill:#fff;font-size:12px;font-weight:700}.danger{fill:#FEF2F2;stroke:#B91C1C}.warning{fill:#FFFBEB;stroke:#B45309}.focus{fill:none;stroke:#1D4ED8;stroke-width:3;stroke-dasharray:5 3}</style>
+<rect x="0" y="0" width="1440" height="34" rx="0" fill="#0F172A" stroke="#0F172A"/>
+<text x="1428" y="22" class="meta" text-anchor="end" fill="#FFFFFF" style="fill:#FFFFFF">SF-B-01 · 55-B · 1440px · initial · v1</text>
+<text x="12" y="22" class="meta" text-anchor="start" fill="#FFFFFF" style="fill:#FFFFFF">منبع: Repository</text>
+<text x="1360" y="53" class="meta" text-anchor="end" fill="#1D4ED8" style="fill:#1D4ED8">پرش به محتوای اصلی</text>
+<rect x="80" y="62" width="1280" height="56" rx="8" fill="#FFFFFF" stroke="#CBD5E1"/>
+<text x="1348" y="96" class="label" text-anchor="end">[محل نشان تأییدشده]</text>
+<rect x="410" y="48" width="590" height="44" rx="8" fill="#FFFFFF" stroke="#94A3B8"/>
+<text x="980" y="76" class="body muted" text-anchor="end">جست‌وجوی نام، برند یا دسته</text>
+<text x="360" y="78" class="label" text-anchor="end">فروشگاه   مقایسه   مجله</text>
+<text x="210" y="78" class="label" text-anchor="end">حساب   سبد</text>
+<line x1="80" y1="154" x2="1360" y2="154" stroke="#CBD5E1"/>
+<text x="1360" y="176" class="title" text-anchor="end">خانه و ورودی خرید</text>
+<text x="1360" y="202" class="body muted" text-anchor="end">کار اصلی: شروع کشف محصول از جست‌وجو یا دسته‌بندی</text>
+<text x="1360" y="223" class="label" text-anchor="end" fill="#475569" style="fill:#475569">وضعیت: در حال آماده‌سازی خانه</text>
+<rect x="80" y="244" width="1280" height="130" rx="12" fill="#F0FDFA" stroke="#0F766E"/>
+<text x="1344" y="274" class="section" text-anchor="end">تجهیز مناسب را با جست‌وجو شروع کنید</text>
+<text x="1344" y="298" class="body muted" text-anchor="end">ورودی کوتاه، نتیجه روشن و امکان بازگشت امن</text>
+<rect x="96" y="318" width="1248" height="44" rx="8" fill="#FFFFFF" stroke="#64748B"/>
+<text x="1328" y="346" class="body muted" text-anchor="end">مثلاً آسیاب دستی</text>
+<text x="1360" y="398" class="section" text-anchor="end">دسته‌های اصلی</text>
+<rect x="1055" y="412" width="305" height="84" rx="8" fill="#FFFFFF" stroke="#CBD5E1"/>
+<text x="1350" y="442" class="meta muted" text-anchor="end">[رسانه دسته]</text>
+<text x="1350" y="466" class="label" text-anchor="end">دم‌آوری</text>
+<rect x="730" y="412" width="305" height="84" rx="8" fill="#FFFFFF" stroke="#CBD5E1"/>
+<text x="1025" y="442" class="meta muted" text-anchor="end">[رسانه دسته]</text>
+<text x="1025" y="466" class="label" text-anchor="end">ابزار بار سرد</text>
+<rect x="405" y="412" width="305" height="84" rx="8" fill="#FFFFFF" stroke="#CBD5E1"/>
+<text x="700" y="442" class="meta muted" text-anchor="end">[رسانه دسته]</text>
+<text x="700" y="466" class="label" text-anchor="end">ابزار بار گرم</text>
+<rect x="80" y="412" width="305" height="84" rx="8" fill="#FFFFFF" stroke="#CBD5E1"/>
+<text x="375" y="442" class="meta muted" text-anchor="end">[رسانه دسته]</text>
+<text x="375" y="466" class="label" text-anchor="end">ماگ و اکسسوری</text>
+<text x="1360" y="524" class="section" text-anchor="end">محصول‌های منتخب</text>
+<rect x="1053.5" y="540" width="306.5" height="240" rx="8" fill="#FFFFFF" stroke="#CBD5E1"/>
+<rect x="1065.5" y="552" width="282.5" height="120" rx="6" fill="#E2E8F0" stroke="#E2E8F0"/>
+<rect x="1065.5" y="690" width="246.5" height="12" rx="4" fill="#E2E8F0" stroke="#E2E8F0"/>
+<rect x="1065.5" y="718" width="206.5" height="12" rx="4" fill="#E2E8F0" stroke="#E2E8F0"/>
+<rect x="729" y="540" width="306.5" height="240" rx="8" fill="#FFFFFF" stroke="#CBD5E1"/>
+<rect x="741" y="552" width="282.5" height="120" rx="6" fill="#E2E8F0" stroke="#E2E8F0"/>
+<rect x="741" y="690" width="246.5" height="12" rx="4" fill="#E2E8F0" stroke="#E2E8F0"/>
+<rect x="741" y="718" width="206.5" height="12" rx="4" fill="#E2E8F0" stroke="#E2E8F0"/>
+<rect x="404.5" y="540" width="306.5" height="240" rx="8" fill="#FFFFFF" stroke="#CBD5E1"/>
+<rect x="416.5" y="552" width="282.5" height="120" rx="6" fill="#E2E8F0" stroke="#E2E8F0"/>
+<rect x="416.5" y="690" width="246.5" height="12" rx="4" fill="#E2E8F0" stroke="#E2E8F0"/>
+<rect x="416.5" y="718" width="206.5" height="12" rx="4" fill="#E2E8F0" stroke="#E2E8F0"/>
+<rect x="80" y="540" width="306.5" height="240" rx="8" fill="#FFFFFF" stroke="#CBD5E1"/>
+<rect x="92" y="552" width="282.5" height="120" rx="6" fill="#E2E8F0" stroke="#E2E8F0"/>
+<rect x="92" y="690" width="246.5" height="12" rx="4" fill="#E2E8F0" stroke="#E2E8F0"/>
+<rect x="92" y="718" width="206.5" height="12" rx="4" fill="#E2E8F0" stroke="#E2E8F0"/>
+<line x1="80" y1="922" x2="1360" y2="922" stroke="#CBD5E1"/>
+<text x="1360" y="950" class="meta muted" text-anchor="end">راهنما · تماس · قوانین · بازگشت و ضمانت</text>
+<text x="1360" y="972" class="meta muted" text-anchor="end">بدون ادعای اعتماد یا Provider تأییدنشده</text>
+</svg>

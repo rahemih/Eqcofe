@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="1000" viewBox="0 0 1440 1000" role="img" aria-labelledby="title desc">
+<title id="title">SF-B-06 — بازیابی مسیر کشف محصول — no-result — 1440px</title>
+<desc id="desc">وایرفریم کم‌جزئیات فارسی و راست‌به‌چپ برای بازگشت کنترل‌شده از نتیجه خالی یا خطای موقت. اقدام اصلی تلاش دوباره و بازیابی پاک‌کردن فیلتر یا بازگشت به دسته‌ها است.</desc>
+<rect width="1440" height="1000" fill="#F8FAFC"/>
+<style>text{font-family:Vazirmatn,Tahoma,Arial,sans-serif;fill:#0F172A}.muted{fill:#475569}.meta{font-size:10px}.body{font-size:13px}.label{font-size:12px;font-weight:600}.title{font-size:28px;font-weight:700}.section{font-size:18px;font-weight:700}.price{font-size:14px;font-weight:700}.wire{fill:#fff;stroke:#CBD5E1;stroke-width:1}.soft{fill:#F1F5F9;stroke:#CBD5E1}.accent{fill:#F0FDFA;stroke:#0F766E;stroke-width:1.5}.action{fill:#0F766E}.actionText{fill:#fff;font-size:12px;font-weight:700}.danger{fill:#FEF2F2;stroke:#B91C1C}.warning{fill:#FFFBEB;stroke:#B45309}.focus{fill:none;stroke:#1D4ED8;stroke-width:3;stroke-dasharray:5 3}</style>
+<rect x="0" y="0" width="1440" height="34" rx="0" fill="#0F172A" stroke="#0F172A"/>
+<text x="1428" y="22" class="meta" text-anchor="end" fill="#FFFFFF" style="fill:#FFFFFF">SF-B-06 · 55-B · 1440px · no-result · v1</text>
+<text x="12" y="22" class="meta" text-anchor="start" fill="#FFFFFF" style="fill:#FFFFFF">منبع: Repository</text>
+<text x="1360" y="53" class="meta" text-anchor="end" fill="#1D4ED8" style="fill:#1D4ED8">پرش به محتوای اصلی</text>
+<rect x="80" y="62" width="1280" height="56" rx="8" fill="#FFFFFF" stroke="#CBD5E1"/>
+<text x="1348" y="96" class="label" text-anchor="end">[محل نشان تأییدشده]</text>
+<rect x="410" y="48" width="590" height="44" rx="8" fill="#FFFFFF" stroke="#94A3B8"/>
+<text x="980" y="76" class="body muted" text-anchor="end">جست‌وجوی نام، برند یا دسته</text>
+<text x="360" y="78" class="label" text-anchor="end">فروشگاه   مقایسه   مجله</text>
+<text x="210" y="78" class="label" text-anchor="end">حساب   سبد</text>
+<line x1="80" y1="154" x2="1360" y2="154" stroke="#CBD5E1"/>
+<text x="1360" y="176" class="title" text-anchor="end">بازیابی مسیر کشف محصول</text>
+<text x="1360" y="202" class="body muted" text-anchor="end">کار اصلی: بازگشت کنترل‌شده از نتیجه خالی یا خطای موقت</text>
+<text x="1360" y="223" class="label" text-anchor="end" fill="#475569" style="fill:#475569">وضعیت: نتیجه‌ای مطابق انتخاب‌ها نیست</text>
+<rect x="540" y="260" width="820" height="220" rx="12" fill="#FFFFFF" stroke="#64748B"/>
+<text x="1340" y="302" class="section" text-anchor="end" fill="#64748B" style="fill:#64748B">نتیجه‌ای مطابق انتخاب‌ها نیست</text>
+<text x="1340" y="336" class="body muted" text-anchor="end">عبارت و دسته معتبرند؛ فقط فیلترهای فعلی نتیجه را خالی کرده‌اند.</text>
+<rect x="560" y="402" width="780" height="48" rx="8" fill="#0F766E" stroke="#0F766E"/>
+<text x="950" y="432" class="actionText" text-anchor="middle">پاک‌کردن همه فیلترها</text>
+<text x="950" y="464" class="label" text-anchor="middle" fill="#1D4ED8" style="fill:#1D4ED8">پاک‌کردن فیلتر یا بازگشت به دسته‌ها</text>
+<line x1="80" y1="922" x2="1360" y2="922" stroke="#CBD5E1"/>
+<text x="1360" y="950" class="meta muted" text-anchor="end">راهنما · تماس · قوانین · بازگشت و ضمانت</text>
+<text x="1360" y="972" class="meta muted" text-anchor="end">بدون ادعای اعتماد یا Provider تأییدنشده</text>
+</svg>

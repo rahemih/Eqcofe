@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="1000" viewBox="0 0 1440 1000" role="img" aria-labelledby="title desc">
+<title id="title">SF-B-04 — فهرست محصولات — progressive — 1440px</title>
+<desc id="desc">وایرفریم کم‌جزئیات فارسی و راست‌به‌چپ برای مقایسه سریع عنوان، قیمت و موجودی جاری محصول‌ها. اقدام اصلی بازکردن محصول و بازیابی بازخوانی قیمت و موجودی است.</desc>
+<rect width="1440" height="1000" fill="#F8FAFC"/>
+<style>text{font-family:Vazirmatn,Tahoma,Arial,sans-serif;fill:#0F172A}.muted{fill:#475569}.meta{font-size:10px}.body{font-size:13px}.label{font-size:12px;font-weight:600}.title{font-size:28px;font-weight:700}.section{font-size:18px;font-weight:700}.price{font-size:14px;font-weight:700}.wire{fill:#fff;stroke:#CBD5E1;stroke-width:1}.soft{fill:#F1F5F9;stroke:#CBD5E1}.accent{fill:#F0FDFA;stroke:#0F766E;stroke-width:1.5}.action{fill:#0F766E}.actionText{fill:#fff;font-size:12px;font-weight:700}.danger{fill:#FEF2F2;stroke:#B91C1C}.warning{fill:#FFFBEB;stroke:#B45309}.focus{fill:none;stroke:#1D4ED8;stroke-width:3;stroke-dasharray:5 3}</style>
+<rect x="0" y="0" width="1440" height="34" rx="0" fill="#0F172A" stroke="#0F172A"/>
+<text x="1428" y="22" class="meta" text-anchor="end" fill="#FFFFFF" style="fill:#FFFFFF">SF-B-04 · 55-B · 1440px · progressive · v1</text>
+<text x="12" y="22" class="meta" text-anchor="start" fill="#FFFFFF" style="fill:#FFFFFF">منبع: Repository</text>
+<text x="1360" y="53" class="meta" text-anchor="end" fill="#1D4ED8" style="fill:#1D4ED8">پرش به محتوای اصلی</text>
+<rect x="80" y="62" width="1280" height="56" rx="8" fill="#FFFFFF" stroke="#CBD5E1"/>
+<text x="1348" y="96" class="label" text-anchor="end">[محل نشان تأییدشده]</text>
+<rect x="410" y="48" width="590" height="44" rx="8" fill="#FFFFFF" stroke="#94A3B8"/>
+<text x="980" y="76" class="body muted" text-anchor="end">جست‌وجوی نام، برند یا دسته</text>
+<text x="360" y="78" class="label" text-anchor="end">فروشگاه   مقایسه   مجله</text>
+<text x="210" y="78" class="label" text-anchor="end">حساب   سبد</text>
+<line x1="80" y1="154" x2="1360" y2="154" stroke="#CBD5E1"/>
+<text x="1360" y="176" class="title" text-anchor="end">فهرست محصولات</text>
+<text x="1360" y="202" class="body muted" text-anchor="end">کار اصلی: مقایسه سریع عنوان، قیمت و موجودی جاری محصول‌ها</text>
+<text x="1360" y="223" class="label" text-anchor="end" fill="#0F766E" style="fill:#0F766E">وضعیت: ۱۲ محصول از ۴۸ محصول آماده است</text>
+<text x="1360" y="257" class="meta muted" text-anchor="end">خانه / فروشگاه / دسته</text>
+<rect x="80" y="272" width="1280" height="56" rx="8" fill="#FFFFFF" stroke="#CBD5E1"/>
+<text x="1348" y="294" class="label" text-anchor="end">۴۸ محصول</text>
+<text x="1348" y="316" class="body muted" text-anchor="end">مرتب‌سازی: مرتبط‌ترین</text>
+<rect x="1100" y="348" width="260" height="560" rx="8" fill="#FFFFFF" stroke="#CBD5E1"/>
+<text x="1342" y="380" class="section" text-anchor="end">فیلترها</text>
+<line x1="1116" y1="408" x2="1344" y2="408" stroke="#E2E8F0"/>
+<text x="1342" y="434" class="label" text-anchor="end">موجودی</text>
+<line x1="1116" y1="494" x2="1344" y2="494" stroke="#E2E8F0"/>
+<text x="1342" y="520" class="label" text-anchor="end">برند</text>
+<line x1="1116" y1="580" x2="1344" y2="580" stroke="#E2E8F0"/>
+<text x="1342" y="606" class="label" text-anchor="end">بازه قیمت (تومان)</text>
+<line x1="1116" y1="666" x2="1344" y2="666" stroke="#E2E8F0"/>
+<text x="1342" y="692" class="label" text-anchor="end">ویژگی‌ها</text>
+<rect x="756" y="348" width="320" height="260" rx="8" fill="#FFFFFF" stroke="#CBD5E1"/>
+<rect x="768" y="360" width="296" height="118" rx="6" fill="#F1F5F9" stroke="#CBD5E1"/>
+<text x="1056" y="418" class="meta muted" text-anchor="end">[رسانه محصول]</text>
+<text x="1062" y="492" class="label" text-anchor="end">آسیاب دستی مدل مرجع</text>
+<text x="1062" y="520" class="body" text-anchor="end" fill="#15803D" style="fill:#15803D">موجود</text>
+<text x="1062" y="548" class="price" text-anchor="end">۲٬۳۹۰٬۰۰۰ تومان</text>
+<rect x="770" y="566" width="292" height="32" rx="6" fill="#FFFFFF" stroke="#0F766E"/>
+<text x="916" y="588" class="label" text-anchor="middle" fill="#0F766E" style="fill:#0F766E">مشاهده محصول</text>
+<rect x="418" y="348" width="320" height="260" rx="8" fill="#FFFFFF" stroke="#CBD5E1"/>
+<rect x="430" y="360" width="296" height="118" rx="6" fill="#F1F5F9" stroke="#CBD5E1"/>
+<text x="718" y="418" class="meta muted" text-anchor="end">[رسانه محصول]</text>
+<text x="724" y="492" class="label" text-anchor="end">دریپر سرامیکی مدل نمونه</text>
+<text x="724" y="520" class="body" text-anchor="end" fill="#15803D" style="fill:#15803D">موجود</text>
+<text x="724" y="548" class="price" text-anchor="end">۲٬۳۹۰٬۰۰۰ تومان</text>
+<rect x="432" y="566" width="292" height="32" rx="6" fill="#FFFFFF" stroke="#0F766E"/>
+<text x="578" y="588" class="label" text-anchor="middle" fill="#0F766E" style="fill:#0F766E">مشاهده محصول</text>
+<rect x="80" y="348" width="320" height="260" rx="8" fill="#FFFFFF" stroke="#CBD5E1"/>
+<rect x="92" y="360" width="296" height="118" rx="6" fill="#F1F5F9" stroke="#CBD5E1"/>
+<text x="380" y="418" class="meta muted" text-anchor="end">[رسانه محصول]</text>
+<text x="386" y="492" class="label" text-anchor="end">کتری دم‌آوری حرفه‌ای</text>
+<text x="386" y="520" class="body" text-anchor="end" fill="#15803D" style="fill:#15803D">موجود</text>
+<text x="386" y="548" class="price" text-anchor="end">۲٬۳۹۰٬۰۰۰ تومان</text>
+<rect x="94" y="566" width="292" height="32" rx="6" fill="#FFFFFF" stroke="#0F766E"/>
+<text x="240" y="588" class="label" text-anchor="middle" fill="#0F766E" style="fill:#0F766E">مشاهده محصول</text>
+<rect x="756" y="626" width="320" height="260" rx="8" fill="#FFFFFF" stroke="#CBD5E1"/>
+<rect x="768" y="638" width="296" height="118" rx="6" fill="#F1F5F9" stroke="#CBD5E1"/>
+<text x="1056" y="696" class="meta muted" text-anchor="end">[رسانه محصول]</text>
+<text x="1062" y="770" class="label" text-anchor="end">ترازو قهوه دقیق</text>
+<text x="1062" y="798" class="body" text-anchor="end" fill="#15803D" style="fill:#15803D">موجود</text>
+<text x="1062" y="826" class="price" text-anchor="end">۲٬۳۹۰٬۰۰۰ تومان</text>
+<rect x="770" y="844" width="292" height="32" rx="6" fill="#FFFFFF" stroke="#0F766E"/>
+<text x="916" y="866" class="label" text-anchor="middle" fill="#0F766E" style="fill:#0F766E">مشاهده محصول</text>
+<rect x="418" y="626" width="320" height="260" rx="8" fill="#FFFFFF" stroke="#CBD5E1"/>
+<rect x="430" y="638" width="296" height="118" rx="6" fill="#F1F5F9" stroke="#CBD5E1"/>
+<text x="718" y="696" class="meta muted" text-anchor="end">[رسانه محصول]</text>
+<text x="724" y="770" class="label" text-anchor="end">آسیاب دستی مدل مرجع</text>
+<text x="724" y="798" class="body" text-anchor="end" fill="#15803D" style="fill:#15803D">موجود</text>
+<text x="724" y="826" class="price" text-anchor="end">۲٬۳۹۰٬۰۰۰ تومان</text>
+<rect x="432" y="844" width="292" height="32" rx="6" fill="#FFFFFF" stroke="#0F766E"/>
+<text x="578" y="866" class="label" text-anchor="middle" fill="#0F766E" style="fill:#0F766E">مشاهده محصول</text>
+<rect x="80" y="626" width="320" height="260" rx="8" fill="#FFFFFF" stroke="#CBD5E1"/>
+<rect x="92" y="638" width="296" height="118" rx="6" fill="#F1F5F9" stroke="#CBD5E1"/>
+<text x="380" y="696" class="meta muted" text-anchor="end">[رسانه محصول]</text>
+<text x="386" y="770" class="label" text-anchor="end">دریپر سرامیکی مدل نمونه</text>
+<text x="386" y="798" class="body" text-anchor="end" fill="#15803D" style="fill:#15803D">موجود</text>
+<text x="386" y="826" class="price" text-anchor="end">۲٬۳۹۰٬۰۰۰ تومان</text>
+<rect x="94" y="844" width="292" height="32" rx="6" fill="#FFFFFF" stroke="#0F766E"/>
+<text x="240" y="866" class="label" text-anchor="middle" fill="#0F766E" style="fill:#0F766E">مشاهده محصول</text>
+<line x1="80" y1="922" x2="1360" y2="922" stroke="#CBD5E1"/>
+<text x="1360" y="950" class="meta muted" text-anchor="end">راهنما · تماس · قوانین · بازگشت و ضمانت</text>
+<text x="1360" y="972" class="meta muted" text-anchor="end">بدون ادعای اعتماد یا Provider تأییدنشده</text>
+</svg>

@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="1180" viewBox="0 0 320 1180" role="img" aria-labelledby="title desc">
+<title id="title">SF-B-02 — دسته ابزار دم‌آوری — initial — 320px</title>
+<desc id="desc">وایرفریم کم‌جزئیات فارسی و راست‌به‌چپ برای شناخت دسته و رسیدن به فهرست مرتبط. اقدام اصلی مشاهده محصولات دسته و بازیابی پاک‌کردن فیلترهای دسته است.</desc>
+<rect width="320" height="1180" fill="#F8FAFC"/>
+<style>text{font-family:Vazirmatn,Tahoma,Arial,sans-serif;fill:#0F172A}.muted{fill:#475569}.meta{font-size:10px}.body{font-size:13px}.label{font-size:12px;font-weight:600}.title{font-size:20px;font-weight:700}.section{font-size:15px;font-weight:700}.price{font-size:14px;font-weight:700}.wire{fill:#fff;stroke:#CBD5E1;stroke-width:1}.soft{fill:#F1F5F9;stroke:#CBD5E1}.accent{fill:#F0FDFA;stroke:#0F766E;stroke-width:1.5}.action{fill:#0F766E}.actionText{fill:#fff;font-size:12px;font-weight:700}.danger{fill:#FEF2F2;stroke:#B91C1C}.warning{fill:#FFFBEB;stroke:#B45309}.focus{fill:none;stroke:#1D4ED8;stroke-width:3;stroke-dasharray:5 3}</style>
+<rect x="0" y="0" width="320" height="30" rx="0" fill="#0F172A" stroke="#0F172A"/>
+<text x="308" y="19" class="meta" text-anchor="end" fill="#FFFFFF" style="fill:#FFFFFF">SF-B-02 · 55-B · 320px · initial · v1</text>
+<text x="12" y="19" class="meta" text-anchor="start" fill="#FFFFFF" style="fill:#FFFFFF">منبع: Repository</text>
+<text x="304" y="49" class="meta" text-anchor="end" fill="#1D4ED8" style="fill:#1D4ED8">پرش به محتوای اصلی</text>
+<rect x="16" y="58" width="288" height="48" rx="8" fill="#FFFFFF" stroke="#CBD5E1"/>
+<text x="292" y="88" class="label" text-anchor="end">[محل نشان تأییدشده]</text>
+<text x="136" y="88" class="label" text-anchor="middle">حساب</text>
+<text x="80" y="88" class="label" text-anchor="middle">سبد</text>
+<text x="36" y="88" class="label" text-anchor="middle">منو</text>
+<rect x="16" y="114" width="288" height="48" rx="8" fill="#FFFFFF" stroke="#94A3B8"/>
+<text x="290" y="144" class="body muted" text-anchor="end">جست‌وجوی نام، برند یا دسته</text>
+<line x1="16" y1="166" x2="304" y2="166" stroke="#CBD5E1"/>
+<text x="304" y="178" class="title" text-anchor="end">دسته ابزار دم‌آوری</text>
+<text x="304" y="204" class="body muted" text-anchor="end">کار اصلی: شناخت دسته و رسیدن به فهرست</text>
+<text x="304" y="224" class="body muted" text-anchor="end">مرتبط</text>
+<text x="304" y="245" class="label" text-anchor="end" fill="#475569" style="fill:#475569">وضعیت: در حال دریافت دسته</text>
+<text x="304" y="279" class="meta muted" text-anchor="end">خانه / فروشگاه / دسته</text>
+<rect x="16" y="294" width="288" height="56" rx="8" fill="#FFFFFF" stroke="#CBD5E1"/>
+<text x="292" y="316" class="label" text-anchor="end">۴۸ محصول</text>
+<text x="292" y="338" class="body muted" text-anchor="end">مرتب‌سازی: مرتبط‌ترین</text>
+<rect x="16" y="362" width="288" height="44" rx="8" fill="#FFFFFF" stroke="#64748B"/>
+<text x="292" y="390" class="label" text-anchor="end">فیلتر و مرتب‌سازی</text>
+<rect x="16" y="420" width="288" height="150" rx="8" fill="#FFFFFF" stroke="#CBD5E1"/>
+<rect x="28" y="432" width="264" height="68" rx="6" fill="#E2E8F0" stroke="#E2E8F0"/>
+<rect x="28" y="512" width="228" height="12" rx="4" fill="#E2E8F0" stroke="#E2E8F0"/>
+<rect x="28" y="536" width="188" height="12" rx="4" fill="#E2E8F0" stroke="#E2E8F0"/>
+<rect x="16" y="584" width="288" height="150" rx="8" fill="#FFFFFF" stroke="#CBD5E1"/>
+<rect x="28" y="596" width="264" height="68" rx="6" fill="#E2E8F0" stroke="#E2E8F0"/>
+<rect x="28" y="676" width="228" height="12" rx="4" fill="#E2E8F0" stroke="#E2E8F0"/>
+<rect x="28" y="700" width="188" height="12" rx="4" fill="#E2E8F0" stroke="#E2E8F0"/>
+<rect x="16" y="748" width="288" height="150" rx="8" fill="#FFFFFF" stroke="#CBD5E1"/>
+<rect x="28" y="760" width="264" height="68" rx="6" fill="#E2E8F0" stroke="#E2E8F0"/>
+<rect x="28" y="840" width="228" height="12" rx="4" fill="#E2E8F0" stroke="#E2E8F0"/>
+<rect x="28" y="864" width="188" height="12" rx="4" fill="#E2E8F0" stroke="#E2E8F0"/>
+<line x1="16" y1="1088" x2="304" y2="1088" stroke="#CBD5E1"/>
+<text x="304" y="1116" class="meta muted" text-anchor="end">راهنما · تماس · قوانین · بازگشت و ضمانت</text>
+<text x="304" y="1138" class="meta muted" text-anchor="end">بدون ادعای اعتماد یا Provider تأییدنشده</text>
+</svg>
