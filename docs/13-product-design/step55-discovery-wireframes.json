@@ -1,0 +1,210 @@
+{
+  "schemaVersion": "1.0.0",
+  "step": 55,
+  "substep": "B",
+  "status": "B_COMPLETE_STEP_IN_PROGRESS",
+  "title": "Discovery and Shopping Entry Wireframes",
+  "baseline": "75b117582b2e6315091c0e99459ad14b9a4fea0c",
+  "canonicalSource": "repository",
+  "figmaMirror": "OPTIONAL_NOT_REQUIRED",
+  "revision": 1,
+  "language": "fa-IR",
+  "direction": "rtl",
+  "currency": "Toman",
+  "walletAllowed": false,
+  "theme": "light",
+  "fidelity": "structural-low-fidelity",
+  "journeys": ["SJ-01", "SJ-11"],
+  "operations": [
+    "GET /products",
+    "GET /products/{slug}",
+    "GET /categories/{slug}/products",
+    "GET /categories/{slug}/filters",
+    "GET /brands/{slug}/products",
+    "GET /search",
+    "GET /search/suggestions",
+    "GET /auth/session"
+  ],
+  "flow": [
+    {"from": "SF-B-01", "action": "انتخاب دسته", "to": "SF-B-02", "kind": "primary"},
+    {"from": "SF-B-01", "action": "ثبت عبارت جست‌وجو", "to": "SF-B-03", "kind": "primary"},
+    {"from": "SF-B-02", "action": "مرتب‌سازی یا فیلتر", "to": "SF-B-05", "kind": "primary"},
+    {"from": "SF-B-03", "action": "مرتب‌سازی یا فیلتر", "to": "SF-B-05", "kind": "primary"},
+    {"from": "SF-B-05", "action": "اعمال انتخاب‌ها", "to": "SF-B-04", "kind": "primary"},
+    {"from": "SF-B-04", "action": "انتخاب محصول", "to": "SF-C-01", "kind": "handoff"},
+    {"from": "SF-B-02", "action": "رفع خطا یا پاک‌کردن فیلتر", "to": "SF-B-06", "kind": "recovery"},
+    {"from": "SF-B-03", "action": "تلاش دوباره یا اصلاح عبارت", "to": "SF-B-06", "kind": "recovery"}
+  ],
+  "responsiveReview": [
+    {"width": 320, "grid": "4 columns / 16 margin / 16 gutter", "shell": "دو ردیف؛ منو disclosure؛ جست‌وجو تمام‌عرض", "listing": "یک ستون", "filter": "drawer تمام‌قد"},
+    {"width": 360, "grid": "4 columns / 16 margin / 16 gutter", "shell": "دو ردیف؛ اقدام‌های حساب و سبد در دسترس", "listing": "یک ستون", "filter": "drawer تمام‌قد"},
+    {"width": 600, "grid": "8 columns / 24 margin / 24 gutter", "shell": "جست‌وجو در ردیف مستقل در صورت نیاز", "listing": "دو ستون", "filter": "drawer با خلاصه انتخاب‌ها"},
+    {"width": 840, "grid": "12 columns / 32 margin / 24 gutter", "shell": "ناوبری و جست‌وجو هم‌زمان نمایان", "listing": "سه ستون؛ فیلتر کنار محتوا", "filter": "aside سه‌ستونه"},
+    {"width": 1200, "grid": "12 columns / 32 margin / 24 gutter", "shell": "جست‌وجوی غالب و مقصدهای اصلی نمایان", "listing": "چهار ستون؛ فیلتر کنار محتوا", "filter": "aside سه‌ستونه"},
+    {"width": 1440, "grid": "12 columns / 32 margin / 24 gutter; content max 1280", "shell": "محتوا در مرکز با عرض حداکثر 1280", "listing": "چهار ستون؛ فضای بیشتر فقط در gutter", "filter": "aside سه‌ستونه"}
+  ],
+  "crossCutting": {
+    "shellRegions": ["skip-link", "utility-bar", "site-header", "primary-navigation", "breadcrumb", "main-content", "context-actions", "site-footer"],
+    "keyboardOrder": ["پرش به محتوا", "لوگوی تأییدشده/خانه", "جست‌وجو", "حساب", "سبد", "ناوبری", "breadcrumb", "عنوان صفحه", "کنترل‌های پرس‌وجو", "محتوای اصلی", "صفحه‌بندی", "footer"],
+    "commerce": [
+      "قیمت و موجودی در کارت‌ها server-authoritative هستند.",
+      "مبلغ فقط عدد صحیح گروه‌بندی‌شده با واحد صریح تومان است.",
+      "قیمت عمده فقط برای Session تأییدشده و با برچسب متنی نمایش داده می‌شود.",
+      "تغییر قیمت یا موجودی هنگام refresh پنهان نمی‌شود و اقدام امن پیشنهاد می‌شود.",
+      "هیچ Wallet یا موجودی نقدی در discovery نمایش داده نمی‌شود."
+    ],
+    "accessibility": [
+      "هر صفحه دقیقاً یک H1 و landmarkهای banner، navigation، main و contentinfo دارد.",
+      "هدف تعاملی حداقل 44×44 CSS px و focus قابل مشاهده و بدون پوشانده‌شدن است.",
+      "نتیجه جست‌وجو، تعداد فیلتر و refresh با status announcement اعلام می‌شود.",
+      "وضعیت موجودی، قیمت و خطا فقط با رنگ منتقل نمی‌شود.",
+      "در zoom 400% ترتیب معنی‌دار باقی می‌ماند و scroll دوبعدی ایجاد نمی‌شود.",
+      "شناسه‌های Latin و SKU با bidi isolation نمایش داده می‌شوند."
+    ],
+    "content": [
+      "متن فارسی واقعی و طولانی جای lorem ipsum را می‌گیرد.",
+      "محل تصویر با قاب خنثی و برچسب «رسانه محصول» نشان داده می‌شود؛ تصویر یا لوگو اختراع نمی‌شود.",
+      "اعداد مشتری‌محور فارسی‌اند؛ شناسه قابل کپی می‌تواند Latin بماند.",
+      "عنوان فیلتر و label ورودی در همه وضعیت‌ها قابل مشاهده می‌ماند."
+    ]
+  },
+  "screens": [
+    {
+      "id": "SF-B-01",
+      "name": "Home",
+      "title": "خانه و ورودی خرید",
+      "routeIntent": "/",
+      "actors": ["guest", "retail", "wholesale"],
+      "journeys": ["SJ-01"],
+      "operations": ["GET /products", "GET /search/suggestions"],
+      "components": ["Card", "Button", "StatePanel"],
+      "layout": "home",
+      "primaryTask": "شروع کشف محصول از جست‌وجو یا دسته‌بندی",
+      "primaryAction": "جست‌وجوی محصول",
+      "recoveryAction": "مشاهده همه دسته‌ها",
+      "contentPriority": ["جست‌وجو", "دسته‌های اصلی", "محصول‌های منتخب", "راهنمای خرید"],
+      "states": [
+        {"id": "initial", "title": "در حال آماده‌سازی خانه", "message": "ساختار صفحه فوری است و محتوای پویا با placeholder معنایی تکمیل می‌شود.", "action": "ادامه مرور دسته‌ها"},
+        {"id": "progressive", "title": "محصول‌ها در حال تکمیل‌اند", "message": "دسته‌ها قابل استفاده‌اند؛ بخش محصول‌های منتخب بدون جابه‌جایی ناگهانی تکمیل می‌شود.", "action": "مشاهده همه محصولات"},
+        {"id": "no-result", "title": "محصول پیشنهادی در دسترس نیست", "message": "این بخش خالی است؛ جست‌وجو و دسته‌بندی‌ها همچنان مسیر معتبر کشف محصول هستند.", "action": "رفتن به فروشگاه"}
+      ]
+    },
+    {
+      "id": "SF-B-02",
+      "name": "Category landing",
+      "title": "دسته ابزار دم‌آوری",
+      "routeIntent": "/category/:slug",
+      "actors": ["guest", "retail", "wholesale"],
+      "journeys": ["SJ-01"],
+      "operations": ["GET /categories/{slug}/products", "GET /categories/{slug}/filters"],
+      "components": ["Card", "Pagination", "StatePanel"],
+      "layout": "category",
+      "primaryTask": "شناخت دسته و رسیدن به فهرست مرتبط",
+      "primaryAction": "مشاهده محصولات دسته",
+      "recoveryAction": "پاک‌کردن فیلترهای دسته",
+      "contentPriority": ["عنوان و مسیر دسته", "زیردسته‌ها", "خلاصه نتیجه", "فهرست محصول", "صفحه‌بندی"],
+      "states": [
+        {"id": "initial", "title": "در حال دریافت دسته", "message": "عنوان و breadcrumb ثابت می‌مانند و فهرست با skeleton معنایی بارگذاری می‌شود.", "action": "بازخوانی دسته"},
+        {"id": "filtered", "title": "۳ فیلتر فعال", "message": "۲۴ محصول مطابق انتخاب‌های شما نمایش داده می‌شود و حذف هر فیلتر مستقل است.", "action": "نمایش فیلترها"},
+        {"id": "no-result", "title": "محصولی با این فیلترها پیدا نشد", "message": "دسته معتبر است؛ انتخاب‌ها را تغییر دهید یا همه فیلترها را پاک کنید.", "action": "پاک‌کردن همه فیلترها"}
+      ]
+    },
+    {
+      "id": "SF-B-03",
+      "name": "Search results",
+      "title": "نتایج جست‌وجوی «آسیاب دستی»",
+      "routeIntent": "/search?q=",
+      "actors": ["guest", "retail", "wholesale"],
+      "journeys": ["SJ-01"],
+      "operations": ["GET /search", "GET /search/suggestions"],
+      "components": ["TextField", "Card", "Pagination", "StatePanel"],
+      "layout": "search",
+      "primaryTask": "اصلاح عبارت و ارزیابی نتایج جست‌وجو",
+      "primaryAction": "جست‌وجوی دوباره",
+      "recoveryAction": "حفظ عبارت و تلاش دوباره",
+      "contentPriority": ["عبارت جست‌وجو", "تعداد نتیجه", "پیشنهاد اصلاح", "فهرست محصول", "صفحه‌بندی"],
+      "states": [
+        {"id": "initial", "title": "در حال جست‌وجوی «آسیاب دستی»", "message": "عبارت، کنترل‌ها و جای صفحه حفظ می‌شوند تا نتیجه authoritative برسد.", "action": "توقف لازم نیست"},
+        {"id": "no-result", "title": "برای «آسیاب دستی مسافرتی خیلی کوچک» نتیجه‌ای نبود", "message": "املای عبارت را بررسی کنید، واژه‌های کمتر بنویسید یا یک دسته مرتبط را باز کنید.", "action": "جست‌وجوی «آسیاب دستی»"},
+        {"id": "offline", "title": "اتصال اینترنت برقرار نیست", "message": "عبارت شما حفظ شده است. پس از اتصال، همان جست‌وجو را بدون ثبت دوباره اجرا کنید.", "action": "تلاش دوباره"}
+      ]
+    },
+    {
+      "id": "SF-B-04",
+      "name": "Product listing",
+      "title": "فهرست محصولات",
+      "routeIntent": "listing-region",
+      "actors": ["guest", "retail", "wholesale"],
+      "journeys": ["SJ-01", "SJ-11"],
+      "operations": ["GET /products", "GET /categories/{slug}/products", "GET /brands/{slug}/products", "GET /auth/session"],
+      "components": ["Card", "Badge", "Pagination"],
+      "layout": "listing",
+      "primaryTask": "مقایسه سریع عنوان، قیمت و موجودی جاری محصول‌ها",
+      "primaryAction": "بازکردن محصول",
+      "recoveryAction": "بازخوانی قیمت و موجودی",
+      "contentPriority": ["خلاصه پرس‌وجو", "کارت محصول", "قیمت و موجودی authoritative", "برچسب عمده تأییدشده", "صفحه‌بندی"],
+      "states": [
+        {"id": "progressive", "title": "۱۲ محصول از ۴۸ محصول آماده است", "message": "کارت‌های آماده قابل استفاده‌اند و ادامه فهرست بدون تغییر جای محتوا اضافه می‌شود.", "action": "ادامه مرور"},
+        {"id": "out-of-stock", "title": "این Variant فعلاً ناموجود است", "message": "قیمت اطلاع‌رسانی است؛ اقدام خرید غیرفعال با دلیل و مسیر مشاهده محصول حفظ می‌شود.", "action": "مشاهده جزئیات"},
+        {"id": "price-changed", "title": "قیمت یک محصول به‌روز شد", "message": "قیمت تازه با واحد تومان نمایش داده شده و قیمت قدیمی مبنای خرید نیست.", "action": "تأیید و ادامه"}
+      ]
+    },
+    {
+      "id": "SF-B-05",
+      "name": "Filter and sort",
+      "title": "فیلتر و مرتب‌سازی محصولات",
+      "routeIntent": "listing-query-state",
+      "actors": ["guest", "retail", "wholesale"],
+      "journeys": ["SJ-01"],
+      "operations": ["GET /products", "GET /categories/{slug}/filters"],
+      "components": ["Select", "ChoiceControl", "Button"],
+      "layout": "filters",
+      "primaryTask": "محدودکردن فهرست بدون ازدست‌دادن پرس‌وجو و جای صفحه",
+      "primaryAction": "اعمال ۳ فیلتر",
+      "recoveryAction": "پاک‌کردن انتخاب ناسازگار",
+      "contentPriority": ["تعداد انتخاب‌ها", "مرتب‌سازی", "موجودی", "برند", "بازه قیمت تومان", "اعمال/پاک‌کردن"],
+      "states": [
+        {"id": "enabled", "title": "فیلترها آماده‌اند", "message": "هر گروه legend روشن دارد و شمار نتیجه پیش از اعمال به‌صورت status اعلام می‌شود.", "action": "اعمال ۳ فیلتر"},
+        {"id": "disabled-with-reason", "title": "بازه قیمت فعلاً قابل انتخاب نیست", "message": "داده معتبر این فیلتر دریافت نشده است؛ سایر فیلترها قابل استفاده‌اند و علت کنار کنترل نوشته شده.", "action": "تلاش دوباره برای قیمت"},
+        {"id": "filtered", "title": "۳ فیلتر اعمال شد", "message": "برند، موجودی و بازه قیمت در خلاصه بالای نتایج باقی می‌ماند و هر مورد جداگانه حذف می‌شود.", "action": "مشاهده ۲۴ محصول"}
+      ]
+    },
+    {
+      "id": "SF-B-06",
+      "name": "Discovery recovery",
+      "title": "بازیابی مسیر کشف محصول",
+      "routeIntent": "listing-state",
+      "actors": ["guest", "retail", "wholesale"],
+      "journeys": ["SJ-01"],
+      "operations": ["GET /products", "GET /search", "GET /categories/{slug}/products"],
+      "components": ["StatePanel", "Button"],
+      "layout": "recovery",
+      "primaryTask": "بازگشت کنترل‌شده از نتیجه خالی یا خطای موقت",
+      "primaryAction": "تلاش دوباره",
+      "recoveryAction": "پاک‌کردن فیلتر یا بازگشت به دسته‌ها",
+      "contentPriority": ["عنوان دقیق وضعیت", "زمینه حفظ‌شده", "اقدام bounded", "مسیر جایگزین", "شناسه پیگیری در صورت وجود"],
+      "states": [
+        {"id": "no-result", "title": "نتیجه‌ای مطابق انتخاب‌ها نیست", "message": "عبارت و دسته معتبرند؛ فقط فیلترهای فعلی نتیجه را خالی کرده‌اند.", "action": "پاک‌کردن همه فیلترها"},
+        {"id": "timeout", "title": "دریافت نتیجه بیشتر از حد معمول طول کشید", "message": "وضعیت قبلی حفظ شده است. یک تلاش کنترل‌شده انجام دهید یا به فهرست قبلی برگردید.", "action": "تلاش دوباره"},
+        {"id": "failed", "title": "نمایش محصولات ممکن نشد", "message": "موفقیت فرض نمی‌شود. عبارت، دسته و فیلترها حفظ شده‌اند و مرجع خطا برای پشتیبانی قابل کپی است.", "action": "بازخوانی نتایج"}
+      ]
+    }
+  ],
+  "acceptance": {
+    "framePolicy": "For every screen generate the three required compact states at 320px plus its primary expanded state at 1440px.",
+    "requiredWidths": [320, 360, 600, 840, 1200, 1440],
+    "zoomPercent": 400,
+    "minimumTargetPx": 44,
+    "requiredCompanions": ["README.md", "traceability.json", "acceptance.md"],
+    "screenCount": 6,
+    "expectedFrameCount": 24,
+    "gateCompleteWhen": [
+      "All six SF-B screen folders and deterministic artifacts exist.",
+      "Every frozen required state has a 320px frame and every screen has a 1440px expanded frame.",
+      "Responsive behavior is reviewed at 320, 360, 600, 840, 1200 and 1440px plus 400 percent zoom.",
+      "Journey, OpenAPI capability, component, state, commerce and recovery traceability validates.",
+      "No high-fidelity UI, frontend runtime, API, business rule, paid service, invented logo or Figma dependency is introduced.",
+      "Focused tests, full pnpm verify, git diff check and exact-head Canonical CI pass before merge."
+    ]
+  }
+}

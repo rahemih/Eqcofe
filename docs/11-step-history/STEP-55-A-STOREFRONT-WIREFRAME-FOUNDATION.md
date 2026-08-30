@@ -1,6 +1,6 @@
 # Step 55-A — Storefront Wireframe Scope Recovery & Framework
 
-**Verdict:** COMPLETE / FOUNDATION GATE PASS — Step 55 IN PROGRESS; 55-B NOT STARTED
+**Verdict:** COMPLETE / FOUNDATION GATE PASS — Step 55 IN PROGRESS; A CANONICAL
 
 ## Canonical handoff
 
@@ -26,7 +26,8 @@ No B–F page wireframe, Admin wireframe, high-fidelity screen, prototype, front
 - PR: `#137` — Step 55-A Storefront wireframe scope and framework.
 - Implementation head: `140a987aa45cf7ef6d65cfddc59da451c9ddfd1f`.
 - Implementation Canonical CI: `33295574726` — PASS; verify job `99214535550` — PASS, including full `pnpm verify`.
-- The final evidence commit must pass a new exact-head Canonical CI before merge; the merge SHA and remote-main re-read are recorded in the final handoff.
+- Final evidence head: `614a548db5c5f96e902f1bb2ae824753d56ed6e0`; Canonical CI `33295639025` — PASS; verify job `99214700084` — PASS.
+- Merge/main baseline: `75b117582b2e6315091c0e99459ad14b9a4fea0c`; main Canonical CI `33295685153` — PASS; verify job `99214821929` — PASS.
 - `git diff --check`: PASS.
 
-Step 55 remains `IN PROGRESS — A COMPLETE`; only 55-B may begin next.
+Step 55 remains `IN PROGRESS`; A is canonical and 55-B subsequently completed on its dedicated Gate. Only the latest Roadmap/Current State determines the next allowed substep.

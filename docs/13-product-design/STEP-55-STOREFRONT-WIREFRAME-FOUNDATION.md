@@ -1,6 +1,6 @@
 # Step 55-A — Storefront Wireframe Scope & Framework
 
-**Status:** COMPLETE / FOUNDATION GATE PASS — Step 55 remains IN PROGRESS; 55-B has not started.
+**Status:** 55-A COMPLETE / FOUNDATION GATE PASS; 55-B COMPLETE; Step 55 remains IN PROGRESS and 55-C is next.
 
 ## Canonical handoff
 
@@ -50,4 +50,4 @@ Later artifacts live under `docs/13-product-design/step55-wireframes/<gate>/<scr
 
 ## Boundary verdict
 
-55-A freezes the system for producing and reviewing storefront wireframes. It does not draw Home, listing, product, compare, cart, checkout, account, wholesale, content or policy frames. The next allowed design mutation after this gate is 55-B only.
+55-A froze the system for producing and reviewing storefront wireframes and did not draw any page. 55-B has since added only the six discovery obligations under `step55-wireframes/B/` using that frozen system. Product, compare, cart, checkout, account, wholesale, content and policy frames remain absent; the next allowed design mutation is 55-C Product Evaluation only.

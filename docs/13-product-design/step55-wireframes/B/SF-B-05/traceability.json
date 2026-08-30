@@ -1,0 +1,100 @@
+{
+  "schemaVersion": "1.0.0",
+  "step": 55,
+  "gate": "55-B",
+  "screenId": "SF-B-05",
+  "revision": 1,
+  "status": "COMPLETE",
+  "routeIntent": "listing-query-state",
+  "actors": [
+    "guest",
+    "retail",
+    "wholesale"
+  ],
+  "journeys": [
+    "SJ-01"
+  ],
+  "openApiCapabilities": [
+    "GET /products",
+    "GET /categories/{slug}/filters"
+  ],
+  "step54Components": [
+    "Select",
+    "ChoiceControl",
+    "Button"
+  ],
+  "requiredStates": [
+    "enabled",
+    "disabled-with-reason",
+    "filtered"
+  ],
+  "primaryTask": "محدودکردن فهرست بدون ازدست‌دادن پرس‌وجو و جای صفحه",
+  "primaryAction": "اعمال ۳ فیلتر",
+  "recoveryAction": "پاک‌کردن انتخاب ناسازگار",
+  "responsiveEvidence": [
+    {
+      "width": 320,
+      "decision": "کنترل‌ها در drawer تمام‌قد؛ اقدام اعمال sticky با فضای امن",
+      "focus": "trigger → drawer heading → sort → groups → clear → apply → trigger"
+    },
+    {
+      "width": 360,
+      "decision": "کنترل‌ها در drawer تمام‌قد؛ اقدام اعمال sticky با فضای امن",
+      "focus": "trigger → drawer heading → sort → groups → clear → apply → trigger"
+    },
+    {
+      "width": 600,
+      "decision": "کنترل‌ها در drawer با خلاصه انتخاب‌ها؛ اقدام اعمال sticky با فضای امن",
+      "focus": "trigger → drawer heading → sort → groups → clear → apply → trigger"
+    },
+    {
+      "width": 840,
+      "decision": "aside سه‌ستونه کنار فهرست؛ خلاصه انتخاب‌ها بالای نتایج",
+      "focus": "summary → sort → filter groups → clear/apply → first product"
+    },
+    {
+      "width": 1200,
+      "decision": "aside سه‌ستونه کنار فهرست؛ خلاصه انتخاب‌ها بالای نتایج",
+      "focus": "summary → sort → filter groups → clear/apply → first product"
+    },
+    {
+      "width": 1440,
+      "decision": "aside سه‌ستونه کنار فهرست؛ خلاصه انتخاب‌ها بالای نتایج",
+      "focus": "summary → sort → filter groups → clear/apply → first product"
+    }
+  ],
+  "zoomEvidence": {
+    "percent": 400,
+    "verdict": "PASS_BY_REFLOW_CONTRACT",
+    "horizontalTwoAxisScroll": false
+  },
+  "accessibility": [
+    "هر صفحه دقیقاً یک H1 و landmarkهای banner، navigation، main و contentinfo دارد.",
+    "هدف تعاملی حداقل 44×44 CSS px و focus قابل مشاهده و بدون پوشانده‌شدن است.",
+    "نتیجه جست‌وجو، تعداد فیلتر و refresh با status announcement اعلام می‌شود.",
+    "وضعیت موجودی، قیمت و خطا فقط با رنگ منتقل نمی‌شود.",
+    "در zoom 400% ترتیب معنی‌دار باقی می‌ماند و scroll دوبعدی ایجاد نمی‌شود.",
+    "شناسه‌های Latin و SKU با bidi isolation نمایش داده می‌شوند."
+  ],
+  "commerce": [
+    "قیمت و موجودی در کارت‌ها server-authoritative هستند.",
+    "مبلغ فقط عدد صحیح گروه‌بندی‌شده با واحد صریح تومان است.",
+    "قیمت عمده فقط برای Session تأییدشده و با برچسب متنی نمایش داده می‌شود.",
+    "تغییر قیمت یا موجودی هنگام refresh پنهان نمی‌شود و اقدام امن پیشنهاد می‌شود.",
+    "هیچ Wallet یا موجودی نقدی در discovery نمایش داده نمی‌شود."
+  ],
+  "artifacts": [
+    "SF-B-05--320--enabled--v1.svg",
+    "SF-B-05--1440--enabled--v1.svg",
+    "SF-B-05--320--disabled-with-reason--v1.svg",
+    "SF-B-05--320--filtered--v1.svg"
+  ],
+  "boundary": {
+    "highFidelity": false,
+    "runtimeImplementation": false,
+    "apiMutation": false,
+    "businessRuleMutation": false,
+    "inventedBrandAsset": false,
+    "paidDependency": false
+  }
+}

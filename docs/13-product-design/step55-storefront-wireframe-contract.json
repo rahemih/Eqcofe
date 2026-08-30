@@ -1,10 +1,13 @@
 {
   "step": 55,
-  "substep": "A",
-  "status": "A_COMPLETE_STEP_IN_PROGRESS",
-  "title": "Storefront Wireframe Scope and Framework",
+  "substep": "B",
+  "status": "B_COMPLETE_STEP_IN_PROGRESS",
+  "title": "Storefront Wireframes — Discovery Gate Complete",
   "canonicalSource": "repository",
   "figmaMirror": "OPTIONAL_NOT_REQUIRED",
+  "completedGates": ["55-A", "55-B"],
+  "nextGate": "55-C",
+  "gateBContract": "docs/13-product-design/step55-discovery-wireframes.json",
   "foundation": {
     "language": "fa-IR",
     "direction": "rtl",
@@ -21,10 +24,11 @@
       "Mobile-first responsive grid and global storefront shell",
       "Shared low-fidelity conventions, layout regions and state vocabulary",
       "Traceability to Step 53 customer journeys, OpenAPI capability references and Step 54 design-system contracts",
-      "Acceptance matrix and artifact governance for Step 55-B through 55-F"
+      "Acceptance matrix and artifact governance for Step 55-B through 55-F",
+      "Step 55-B Home, category/search, listing, filter/sort and discovery-recovery wireframes"
     ],
     "excluded": [
-      "Any Step 55-B through 55-F page wireframe",
+      "Any Step 55-C through 55-F page wireframe",
       "Admin wireframes reserved for Step 56",
       "High-fidelity UI, interactive prototype or usability claim reserved for Step 57",
       "Frontend runtime, backend, API, migration, dependency, permission or business-rule implementation",
@@ -167,6 +171,14 @@
       "Repository validators, focused tests, pnpm verify and git diff --check pass.",
       "Exact-head Canonical CI passes and the dedicated PR is merged to main.",
       "Remote main is re-read; Step 55 remains in progress and 55-B remains not started."
+    ],
+    "step55BCompleteWhen": [
+      "All six frozen 55-B screen obligations have deterministic repository wireframes and required companions.",
+      "Every required 55-B state has a 320px frame and every screen has a 1440px expanded frame.",
+      "Behavior at 320, 360, 600, 840, 1200 and 1440px plus 400 percent zoom is reviewed.",
+      "Journey, OpenAPI capability, Step 54 component, state, commerce, RTL, accessibility and recovery traceability validates.",
+      "Generator drift check, focused tests, pnpm verify, git diff check and exact-head Canonical CI pass.",
+      "The dedicated PR merges; remote main is re-read; Step 55 remains in progress and only 55-C may start next."
     ]
   },
   "artifactGovernance": {

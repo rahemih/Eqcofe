@@ -1,0 +1,100 @@
+{
+  "schemaVersion": "1.0.0",
+  "step": 55,
+  "gate": "55-B",
+  "screenId": "SF-B-06",
+  "revision": 1,
+  "status": "COMPLETE",
+  "routeIntent": "listing-state",
+  "actors": [
+    "guest",
+    "retail",
+    "wholesale"
+  ],
+  "journeys": [
+    "SJ-01"
+  ],
+  "openApiCapabilities": [
+    "GET /products",
+    "GET /search",
+    "GET /categories/{slug}/products"
+  ],
+  "step54Components": [
+    "StatePanel",
+    "Button"
+  ],
+  "requiredStates": [
+    "no-result",
+    "timeout",
+    "failed"
+  ],
+  "primaryTask": "بازگشت کنترل‌شده از نتیجه خالی یا خطای موقت",
+  "primaryAction": "تلاش دوباره",
+  "recoveryAction": "پاک‌کردن فیلتر یا بازگشت به دسته‌ها",
+  "responsiveEvidence": [
+    {
+      "width": 320,
+      "decision": "StatePanel تک‌ستونه؛ اقدام‌ها تمام‌عرض و پشت‌سرهم",
+      "focus": "state heading → preserved context → primary recovery → alternative route → footer"
+    },
+    {
+      "width": 360,
+      "decision": "StatePanel تک‌ستونه؛ اقدام‌ها تمام‌عرض و پشت‌سرهم",
+      "focus": "state heading → preserved context → primary recovery → alternative route → footer"
+    },
+    {
+      "width": 600,
+      "decision": "StatePanel تک‌ستونه؛ اقدام‌ها تمام‌عرض و پشت‌سرهم",
+      "focus": "state heading → preserved context → primary recovery → alternative route → footer"
+    },
+    {
+      "width": 840,
+      "decision": "StatePanel حداکثر 8 ستون؛ اقدام اصلی و جایگزین کنار هم",
+      "focus": "state heading → preserved context → primary recovery → alternative route → footer"
+    },
+    {
+      "width": 1200,
+      "decision": "StatePanel حداکثر 8 ستون؛ اقدام اصلی و جایگزین کنار هم",
+      "focus": "state heading → preserved context → primary recovery → alternative route → footer"
+    },
+    {
+      "width": 1440,
+      "decision": "StatePanel حداکثر 8 ستون؛ اقدام اصلی و جایگزین کنار هم",
+      "focus": "state heading → preserved context → primary recovery → alternative route → footer"
+    }
+  ],
+  "zoomEvidence": {
+    "percent": 400,
+    "verdict": "PASS_BY_REFLOW_CONTRACT",
+    "horizontalTwoAxisScroll": false
+  },
+  "accessibility": [
+    "هر صفحه دقیقاً یک H1 و landmarkهای banner، navigation، main و contentinfo دارد.",
+    "هدف تعاملی حداقل 44×44 CSS px و focus قابل مشاهده و بدون پوشانده‌شدن است.",
+    "نتیجه جست‌وجو، تعداد فیلتر و refresh با status announcement اعلام می‌شود.",
+    "وضعیت موجودی، قیمت و خطا فقط با رنگ منتقل نمی‌شود.",
+    "در zoom 400% ترتیب معنی‌دار باقی می‌ماند و scroll دوبعدی ایجاد نمی‌شود.",
+    "شناسه‌های Latin و SKU با bidi isolation نمایش داده می‌شوند."
+  ],
+  "commerce": [
+    "قیمت و موجودی در کارت‌ها server-authoritative هستند.",
+    "مبلغ فقط عدد صحیح گروه‌بندی‌شده با واحد صریح تومان است.",
+    "قیمت عمده فقط برای Session تأییدشده و با برچسب متنی نمایش داده می‌شود.",
+    "تغییر قیمت یا موجودی هنگام refresh پنهان نمی‌شود و اقدام امن پیشنهاد می‌شود.",
+    "هیچ Wallet یا موجودی نقدی در discovery نمایش داده نمی‌شود."
+  ],
+  "artifacts": [
+    "SF-B-06--320--no-result--v1.svg",
+    "SF-B-06--1440--no-result--v1.svg",
+    "SF-B-06--320--timeout--v1.svg",
+    "SF-B-06--320--failed--v1.svg"
+  ],
+  "boundary": {
+    "highFidelity": false,
+    "runtimeImplementation": false,
+    "apiMutation": false,
+    "businessRuleMutation": false,
+    "inventedBrandAsset": false,
+    "paidDependency": false
+  }
+}
