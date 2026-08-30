@@ -79,6 +79,7 @@ Detailed closure evidence remains immutable in `docs/11-step-history/` and merge
 - Inherited design boundary: Persian-first RTL, Light-only, integer Toman, no Wallet, no Brown, 4/8/12 grid, 44px internal target and WCAG 2.2 AA target without a conformance claim.
 - Repository artifacts are canonical. Figma is optional and cannot block a gate; no approved logo/brand asset is invented.
 - A introduces no page wireframe, high-fidelity UI, frontend/backend runtime, API, migration, dependency, permission or business-rule change.
+- Step 55-A implementation: PR `#137`, head `140a987aa45cf7ef6d65cfddc59da451c9ddfd1f`, Canonical CI `33295574726` PASS, verify job `99214535550` PASS; final evidence head remains subject to its own exact-head gate before merge.
 - Next allowed substep: **55-B — Discovery & Shopping Entry — NOT STARTED**. Step 55 remains open until F completes the final audit and canonical closure.
 
 ## Step 49 final closure state

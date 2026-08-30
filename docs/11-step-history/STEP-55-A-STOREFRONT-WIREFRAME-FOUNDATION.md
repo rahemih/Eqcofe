@@ -23,4 +23,10 @@ No B–F page wireframe, Admin wireframe, high-fidelity screen, prototype, front
 
 ## Verification and canonical evidence
 
-Local verification, exact-head Canonical CI, PR and merge evidence are reported on the merged PR and final handoff. Step 55 remains `IN PROGRESS — A COMPLETE`; only 55-B may begin next.
+- PR: `#137` — Step 55-A Storefront wireframe scope and framework.
+- Implementation head: `140a987aa45cf7ef6d65cfddc59da451c9ddfd1f`.
+- Implementation Canonical CI: `33295574726` — PASS; verify job `99214535550` — PASS, including full `pnpm verify`.
+- The final evidence commit must pass a new exact-head Canonical CI before merge; the merge SHA and remote-main re-read are recorded in the final handoff.
+- `git diff --check`: PASS.
+
+Step 55 remains `IN PROGRESS — A COMPLETE`; only 55-B may begin next.
