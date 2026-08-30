@@ -38,7 +38,10 @@ No frontend/backend runtime, router, endpoint, migration, dependency, permission
 - PR: `#138` — Step 55-B Discovery & Shopping Entry wireframes.
 - Implementation head: `39ae82340f31298b67baa9aaddcc4a84ad22820f`.
 - Implementation Canonical CI: `33297101212` — PASS; verify job `99218555170` — PASS, including full `pnpm verify`.
-- The final evidence head must pass a new exact-head Canonical CI before merge; merge and remote-`main` evidence are confirmed in the final handoff.
+- Final evidence head: `956cde6ebbdb9694c9571030608a6f0e0809b506`.
+- Final exact-head Canonical CI: `33297193079` — PASS; verify job `99218795810` — PASS.
+- Canonical merge/`main`: `a9a35422347273f35da85ba5e3711a7d9cd3b9a1`.
+- Post-merge Canonical CI: `33297252729` — PASS; verify job `99218944170` — PASS.
 - `git diff --check`: PASS.
 
-Step 55 remains open through 55-F. After canonical merge of this Gate, only 55-C — Product Evaluation — may begin.
+Step 55 remains open through 55-F. Gate B is canonically complete; only 55-C — Product Evaluation — may begin next.
