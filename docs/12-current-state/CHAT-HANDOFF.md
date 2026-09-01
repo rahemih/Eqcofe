@@ -24,11 +24,10 @@ Conversation history is supporting context only. It must not override current ca
 - Last fully closed step: **Step 54 — RTL Design System & Accessibility Foundation — FINAL GATE PASS**
 - Verified Step-55 A foundation merge: `75b117582b2e6315091c0e99459ad14b9a4fea0c`
 - Verified Step-55 B closure: PR `#138`; final head `956cde6ebbdb9694c9571030608a6f0e0809b506`; exact-head CI `33297193079` / verify `99218795810` — PASS; merge/main `a9a35422347273f35da85ba5e3711a7d9cd3b9a1`; post-merge CI `33297252729` / verify `99218944170` — PASS.
-- Active step: **Step 55 — Storefront Wireframes — A/B COMPLETE; C GATE ACTIVE**
-- Active substep: **Step 55 / C — Product Evaluation**
-- Last completed substep: **Step 55 / B — Discovery & Shopping Entry**
-- Current action: **Verify and canonicalize Step 55-C from baseline `8e9501c7d489cfee143851e4e1a043442ee64f09`**
-- Step-55 C implementation evidence: PR `#140`; head `f7752be27910db467fb9b007ff2c9137d0c18340`; Canonical CI `33500617721` / verify `99832841761` — PASS; final exact-head Gate pending.
+- Active step: **Step 55 — Storefront Wireframes — A/B/C COMPLETE**
+- Active substep: **NONE**
+- Last completed substep: **Step 55 / C — Product Evaluation**
+- Step-55 C closure: PR `#140`; final head `adb015b46a90ba8383d0cbf17a149050ebdc1cd0`; exact-head CI `33500791061` / verify `99833400342` — PASS; merge/main `1a45bc71809eeae7e9e0670715a30f2c3069ab32`; post-merge CI `33500900444` / verify `99833752685` — PASS.
 - Next approved action after C merge: **Start Step 55-D Cart, Checkout & Payment Recovery**
 - Step-51 closure PR: **#115 — MERGED**
 - Step-51 closure Canonical CI: **32737751481 — PASS**
