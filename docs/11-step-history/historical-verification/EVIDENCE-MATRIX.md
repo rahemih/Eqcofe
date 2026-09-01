@@ -61,6 +61,8 @@ The audit does not modify `docs/12-current-state/MASTER-ROADMAP.md`, `CURRENT-ST
 
 The repository was created on 2026-08-19 and received the feature-bearing tree as one aggregate import through Step 44. Consequently, source presence proves current capability but cannot independently prove which pre-import numbered Step introduced it. Steps 1–27 remain **UNVERIFIED** for historical attribution; Step 28 remains **PARTIAL**. No tags were returned, and no Step 1–28 provenance branch or PR lineage was found.
 
+The predecessor repository `rahemih/digikala-clone` was also fully audited. Its 168 reachable commits and every advertised branch establish pre-import EQCOFE development and later-Step content continuity, including 48 byte-identical blobs shared between legacy branch `Eqcofe-02` and aggregate import `b239dfe825`. However, explicit numbered history begins at Step 38, and none of 16 historical recovery-payload variants could be reconstructed. This additional evidence does not justify changing the Step 01–28 classifications. See [LEGACY-REPOSITORY-RECOVERY.md](LEGACY-REPOSITORY-RECOVERY.md).
+
 ## Remediation decision
 
 No code remediation is justified within scope. Missing historical provenance cannot be repaired by code; the Step 3 live-database gap is an environment limitation; the Step 9 search-runtime limitation cannot be safely assigned to a historically unverified DoD without a separate approved implementation scope; and Step 54 artifact drift is explicitly out of scope.
