@@ -1,6 +1,6 @@
 # Step 55-D — Cart, Checkout & Payment Recovery Wireframes
 
-**Status:** COMPLETE / GATE PASS candidate — Step 55 remains IN PROGRESS; 55-E is next.
+**Status:** COMPLETE / FINAL GATE PASS — Step 55 remains IN PROGRESS; 55-E is next.
 
 ## Scope and authority
 
@@ -40,4 +40,4 @@ Visual QA corrected compact RTL heading clipping, mixed Persian/Latin wrapping a
 - Generator drift, focused tests, full project verification and exact-head Canonical CI must pass before merge.
 - Step 55 stays open; only 55-E may begin after D closes.
 
-Implementation evidence: PR `#142`, head `74a17346d374f6728e9be467e252f645fbc1468b`, Canonical CI `33505194321` and verify job `99847477144` — PASS. The evidence-sync head must pass before merge.
+Canonical evidence: PR `#142`; implementation head `74a17346d374f6728e9be467e252f645fbc1468b`, Canonical CI `33505194321` / verify `99847477144` PASS; final exact head `eea113f25b6ec047c1e575cb87a0b016d96c5c8e`, Canonical CI `33505374371` / verify `99848049249` PASS; merge/main `b5f2534e6893411462cec219e4b75fd6de5a377a`; post-merge CI `33505503842` / verify `99848460921` PASS.
