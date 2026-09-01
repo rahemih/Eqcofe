@@ -1,0 +1,66 @@
+# Steps 01–28 Historical Recovery and Verification Matrix
+
+## Audit identity
+
+- Repository: `rahemih/Eqcofe`
+- Canonical branch: `main`
+- Canonical baseline: `ae40460bed512bc8a492ffa101f4e6263cd7c4d3` (2026-09-01; Step 55-D merge #143)
+- Aggregate historical import: `b239dfe825b615f36caf2e26cc7abc80c70d349c` (2026-08-19; source imported through Step 44)
+- Audit branch: `audit/verify-steps-01-28`
+- Scope: Steps 1–28 only
+
+## Integrity boundary
+
+The audit does not modify `docs/12-current-state/MASTER-ROADMAP.md`, `CURRENT-STATE.md`, or `CHAT-HANDOFF.md`; it does not change Step 29+, active/next Step, Linear, or Figma. Historical attribution and current canonical verification are independent axes.
+
+## Matrix
+
+| Step | Reconstructed title | Historical Attribution | Current Canonical Verification | Overall |
+|---:|---|---|---|---|
+| 01 | Product Vision & Scope | UNVERIFIED | VERIFIED_CURRENT | NOT_HISTORICALLY_CONFIRMED |
+| 02 | Architecture & Repository Foundation | UNVERIFIED | VERIFIED_CURRENT | NOT_HISTORICALLY_CONFIRMED |
+| 03 | Database & Migration Foundation | UNVERIFIED | PARTIAL_CURRENT | NOT_HISTORICALLY_CONFIRMED |
+| 04 | Identity & Authentication Foundation | UNVERIFIED | VERIFIED_CURRENT | NOT_HISTORICALLY_CONFIRMED |
+| 05 | Authorization, RBAC & Admin Security | UNVERIFIED | VERIFIED_CURRENT | NOT_HISTORICALLY_CONFIRMED |
+| 06 | Catalog Core | UNVERIFIED | VERIFIED_CURRENT | NOT_HISTORICALLY_CONFIRMED |
+| 07 | Product Variants & SKU Model | UNVERIFIED | VERIFIED_CURRENT | NOT_HISTORICALLY_CONFIRMED |
+| 08 | Product Media & Rich Assets Foundation | UNVERIFIED | VERIFIED_CURRENT | NOT_HISTORICALLY_CONFIRMED |
+| 09 | Catalog Search, Filtering & Read Models | UNVERIFIED | PARTIAL_CURRENT | NOT_HISTORICALLY_CONFIRMED |
+| 10 | Pricing Core | UNVERIFIED | VERIFIED_CURRENT | NOT_HISTORICALLY_CONFIRMED |
+| 11 | Pricing Administration & Bulk Change Rules | UNVERIFIED | VERIFIED_CURRENT | NOT_HISTORICALLY_CONFIRMED |
+| 12 | Inventory Core | UNVERIFIED | VERIFIED_CURRENT | NOT_HISTORICALLY_CONFIRMED |
+| 13 | Inventory Cost/FIFO & Reservation Foundation | UNVERIFIED | VERIFIED_CURRENT | NOT_HISTORICALLY_CONFIRMED |
+| 14 | Physical/Online Stock Policy | UNVERIFIED | VERIFIED_CURRENT | NOT_HISTORICALLY_CONFIRMED |
+| 15 | Procurement Foundation | UNVERIFIED | VERIFIED_CURRENT | NOT_HISTORICALLY_CONFIRMED |
+| 16 | Cart Domain | UNVERIFIED | VERIFIED_CURRENT | NOT_HISTORICALLY_CONFIRMED |
+| 17 | Checkout Orchestration | UNVERIFIED | VERIFIED_CURRENT | NOT_HISTORICALLY_CONFIRMED |
+| 18 | Order Domain | UNVERIFIED | VERIFIED_CURRENT | NOT_HISTORICALLY_CONFIRMED |
+| 19 | Payment Foundation | UNVERIFIED | VERIFIED_CURRENT | NOT_HISTORICALLY_CONFIRMED |
+| 20 | Refund & Payment Reconciliation | UNVERIFIED | VERIFIED_CURRENT | NOT_HISTORICALLY_CONFIRMED |
+| 21 | Fulfillment & Shipping Foundation | UNVERIFIED | VERIFIED_CURRENT | NOT_HISTORICALLY_CONFIRMED |
+| 22 | Returns Domain | UNVERIFIED | VERIFIED_CURRENT | NOT_HISTORICALLY_CONFIRMED |
+| 23 | Warranty & Replacement | UNVERIFIED | VERIFIED_CURRENT | NOT_HISTORICALLY_CONFIRMED |
+| 24 | Finance, Cost & Profit Accounting | UNVERIFIED | VERIFIED_CURRENT | NOT_HISTORICALLY_CONFIRMED |
+| 25 | Audit, Outbox & Reliable Domain Events | UNVERIFIED | VERIFIED_CURRENT | NOT_HISTORICALLY_CONFIRMED |
+| 26 | API Contract & Error/Idempotency Conventions | UNVERIFIED | VERIFIED_CURRENT | NOT_HISTORICALLY_CONFIRMED |
+| 27 | Test, Build & Verification Foundation | UNVERIFIED | VERIFIED_CURRENT | NOT_HISTORICALLY_CONFIRMED |
+| 28 | OpenAPI Contract Lineage | PARTIAL | VERIFIED_CURRENT | PARTIAL_CONFIRMATION |
+
+## Shared verification record
+
+- OpenAPI validator: **PASS** — 531 paths, 601 operations, 1179 refs.
+- Architecture: **PASS** — 467 files.
+- Project policy: **PASS**.
+- TypeScript build: **PASS**.
+- Test suite: **PASS — 610/610** outside sandbox. The sandboxed attempt failed at Node/tsx startup with `uv_os_get_passwd ENOMEM`; the identical suite passed outside sandbox.
+- Full `pnpm verify`: **FAIL** at `design:check` because three Step 54 generated artifacts drift from the Step 54 contract. No out-of-scope remediation was made.
+- PostgreSQL clean migration: **NOT RUN** because Docker/PostgreSQL/psql is unavailable. Migration source/checksum/ordering and source-level lineage tests were inspected.
+- Canonical main CI at baseline: GitHub Actions run `33505894484`, **SUCCESS**, for exact SHA `ae40460bed512bc8a492ffa101f4e6263cd7c4d3`.
+
+## Historical finding
+
+The repository was created on 2026-08-19 and received the feature-bearing tree as one aggregate import through Step 44. Consequently, source presence proves current capability but cannot independently prove which pre-import numbered Step introduced it. Steps 1–27 remain **UNVERIFIED** for historical attribution; Step 28 remains **PARTIAL**. No tags were returned, and no Step 1–28 provenance branch or PR lineage was found.
+
+## Remediation decision
+
+No code remediation is justified within scope. Missing historical provenance cannot be repaired by code; the Step 3 live-database gap is an environment limitation; the Step 9 search-runtime limitation cannot be safely assigned to a historically unverified DoD without a separate approved implementation scope; and Step 54 artifact drift is explicitly out of scope.
