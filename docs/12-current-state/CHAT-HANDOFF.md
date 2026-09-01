@@ -28,6 +28,7 @@ Conversation history is supporting context only. It must not override current ca
 - Active substep: **Step 55 / D — Cart, Checkout & Payment Recovery**
 - Last completed substep: **Step 55 / C — Product Evaluation**
 - Step-55 C closure: PR `#140`; final head `adb015b46a90ba8383d0cbf17a149050ebdc1cd0`; exact-head CI `33500791061` / verify `99833400342` — PASS; merge/main `1a45bc71809eeae7e9e0670715a30f2c3069ab32`; post-merge CI `33500900444` / verify `99833752685` — PASS.
+- Step-55 D implementation: PR `#142`; head `74a17346d374f6728e9be467e252f645fbc1468b`; Canonical CI `33505194321` / verify `99847477144` — PASS; evidence-sync/final merge pending.
 - Current action: **Verify and canonicalize Step 55-D from baseline `6c866afbdae6499d60df5656e92e78da20923811`**
 - Next approved action after D merge: **Start Step 55-E Account, Wholesale & After-Sales**
 - Step-51 closure PR: **#115 — MERGED**

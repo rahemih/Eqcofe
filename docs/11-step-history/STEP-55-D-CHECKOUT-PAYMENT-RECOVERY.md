@@ -12,5 +12,4 @@ The contract covers Cart quantity/price change, OTP and safe guest-cart merge, c
 
 No runtime, API, database, dependency, permission, business-rule or Provider change is introduced. No Wallet, brand/media asset, fake payment success, high-fidelity UI or Figma requirement is added. Account and detailed order management remain excluded for 55-E.
 
-Canonical PR/CI/merge evidence is recorded after exact-head verification. Step 55 remains open through 55-F.
-
+Canonical implementation evidence: PR `#142`, head `74a17346d374f6728e9be467e252f645fbc1468b`, Canonical CI `33505194321` and verify job `99847477144` — PASS. Final exact-head and merge evidence are recorded after this evidence-sync commit passes. Step 55 remains open through 55-F.

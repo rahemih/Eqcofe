@@ -40,3 +40,4 @@ Visual QA corrected compact RTL heading clipping, mixed Persian/Latin wrapping a
 - Generator drift, focused tests, full project verification and exact-head Canonical CI must pass before merge.
 - Step 55 stays open; only 55-E may begin after D closes.
 
+Implementation evidence: PR `#142`, head `74a17346d374f6728e9be467e252f645fbc1468b`, Canonical CI `33505194321` and verify job `99847477144` — PASS. The evidence-sync head must pass before merge.

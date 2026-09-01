@@ -89,6 +89,7 @@ Detailed closure evidence remains immutable in `docs/11-step-history/` and merge
 - C PR `#140`: implementation head `f7752be27910db467fb9b007ff2c9137d0c18340`, CI `33500617721` / verify `99832841761` PASS; final head `adb015b46a90ba8383d0cbf17a149050ebdc1cd0`, CI `33500791061` / verify `99833400342` PASS; merge/`main` `1a45bc71809eeae7e9e0670715a30f2c3069ab32`; post-merge CI `33500900444` / verify `99833752685` PASS.
 - D source: `step55-checkout-payment-wireframes.json` and `step55-wireframes/D/` — 7 screens, 28 low-fidelity SVG frames and 51 deterministic artifacts covering Cart, Checkout, Payment Verify and Order Recovery.
 - D preserves authoritative quote/stock/shipping/payment/order, 168-hour Cart TTL, 15-minute Checkout TTL, idempotent submission and fail-closed unknown payment recovery. It introduces no runtime/API/rule/dependency change.
+- D Canonical implementation evidence: PR `#142`, head `74a17346d374f6728e9be467e252f645fbc1468b`, Canonical CI `33505194321` / verify `99847477144` PASS; final exact-head and merge evidence await the evidence-sync gate.
 - Next allowed substep after D Canonical merge: **55-E — Account, Wholesale & After-Sales**. Step 55 remains open until F completes final audit and canonical closure.
 
 ## Step 49 final closure state
