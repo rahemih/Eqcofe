@@ -10,12 +10,15 @@ const step53 = JSON.parse(readFileSync('docs/13-product-design/step53-experience
 const step54 = JSON.parse(readFileSync('docs/13-product-design/step54-design-system-contract.json', 'utf8'));
 const gateBPath = 'docs/13-product-design/step55-discovery-wireframes.json';
 const gateB = JSON.parse(readFileSync(gateBPath, 'utf8'));
+const gateCPath = 'docs/13-product-design/step55-product-evaluation-wireframes.json';
+const gateC = JSON.parse(readFileSync(gateCPath, 'utf8'));
 const errors = [];
 
-if (contract.step !== 55 || contract.substep !== 'B' || contract.status !== 'B_COMPLETE_STEP_IN_PROGRESS') errors.push('Step 55-B status is invalid');
+if (contract.step !== 55 || contract.substep !== 'C' || contract.status !== 'C_COMPLETE_STEP_IN_PROGRESS') errors.push('Step 55-C status is invalid');
 if (contract.canonicalSource !== 'repository' || contract.figmaMirror !== 'OPTIONAL_NOT_REQUIRED') errors.push('Repository/Figma authority is invalid');
-if (JSON.stringify(contract.completedGates) !== JSON.stringify(['55-A', '55-B']) || contract.nextGate !== '55-C') errors.push('Completed/next gate state is invalid');
+if (JSON.stringify(contract.completedGates) !== JSON.stringify(['55-A', '55-B', '55-C']) || contract.nextGate !== '55-D') errors.push('Completed/next gate state is invalid');
 if (contract.gateBContract !== gateBPath) errors.push('Gate B contract pointer is invalid');
+if (contract.gateCContract !== gateCPath) errors.push('Gate C contract pointer is invalid');
 for (const key of ['language', 'direction', 'currency', 'walletAllowed', 'theme', 'accessibilityTarget']) {
   const upstream = key === 'theme' ? step54.foundation.defaultTheme : step54.foundation[key];
   if (contract.foundation[key] !== upstream) errors.push(`Foundation drift: ${key}`);
@@ -70,9 +73,10 @@ if (contract.screenInventory.length !== 37) errors.push('Frozen inventory must c
 if ((contract.shell.regions ?? []).length < 8) errors.push('Global shell is incomplete');
 if ((contract.stateCoverage.rules ?? []).length < 7) errors.push('Cross-cutting state rules are incomplete');
 if ((contract.acceptance.perScreen ?? []).length < 6) errors.push('Per-screen acceptance is incomplete');
-if (!contract.scope.included.some((item) => /Step 55-B Home/.test(item)) || !contract.scope.excluded.some((item) => /55-C through 55-F/.test(item))) errors.push('55-B boundary is not explicit');
+if (!contract.scope.included.some((item) => /Step 55-C product detail/.test(item)) || !contract.scope.excluded.some((item) => /55-D through 55-F/.test(item))) errors.push('55-C boundary is not explicit');
 
 validateGateB();
+validateGateC();
 
 if (errors.length) {
   console.error(errors.join('\n'));
@@ -81,11 +85,12 @@ if (errors.length) {
 
 const referencedOperations = new Set(step53.journeys.filter((j) => mappedJourneys.has(j.id)).flatMap((j) => j.operations));
 console.log(JSON.stringify({
-  status: 'PASS', step: '55-B', screens: contract.screenInventory.length, completed_gate_b_screens: gateB.screens.length,
-  gate_b_frames: gateB.acceptance.expectedFrameCount, later_gates: contract.acceptanceGates.length,
+  status: 'PASS', step: '55-C', screens: contract.screenInventory.length, completed_gate_b_screens: gateB.screens.length,
+  completed_gate_c_screens: gateC.screens.length, gate_b_frames: gateB.acceptance.expectedFrameCount,
+  gate_c_frames: gateC.acceptance.expectedFrameCount, later_gates: contract.acceptanceGates.length,
   storefront_journeys: mappedJourneys.size, screen_journey_links: links, inherited_openapi_operations: referencedOperations.size,
   shell_regions: contract.shell.regions.length, state_families: Object.keys(contract.stateCoverage.families).length,
-  verification_widths: contract.responsive.verificationWidthsPx.length, step55_c_started: false
+  verification_widths: contract.responsive.verificationWidthsPx.length, step55_d_started: false
 }, null, 2));
 
 function validateGateB() {
@@ -159,6 +164,78 @@ function validateGateB() {
     if (manifest.screenCount !== 6 || manifest.frameCount !== 24 || manifest.sourceContract !== gateBPath) errors.push('Gate B manifest summary drift');
   }
   if (!existsSync(`${root}/README.md`) || readFileSync(`${root}/README.md`, 'utf8').trim().length < 2500) errors.push('Gate B overview is missing or not substantive');
+}
+
+function validateGateC() {
+  if (gateC.step !== 55 || gateC.substep !== 'C' || gateC.status !== 'C_COMPLETE_STEP_IN_PROGRESS') errors.push('Gate C source status is invalid');
+  if (gateC.baseline !== '8e9501c7d489cfee143851e4e1a043442ee64f09') errors.push('Gate C baseline drift');
+  if (gateC.canonicalSource !== 'repository' || gateC.figmaMirror !== 'OPTIONAL_NOT_REQUIRED') errors.push('Gate C authority is invalid');
+  if (gateC.language !== 'fa-IR' || gateC.direction !== 'rtl' || gateC.currency !== 'Toman' || gateC.walletAllowed !== false || gateC.theme !== 'light') errors.push('Gate C product foundation drift');
+  if (JSON.stringify(gateC.acceptance.requiredWidths) !== JSON.stringify(contract.responsive.verificationWidthsPx)) errors.push('Gate C verification widths drift');
+  if (gateC.acceptance.zoomPercent !== 400 || gateC.acceptance.minimumTargetPx !== 44) errors.push('Gate C accessibility thresholds drift');
+  if (gateC.screens.length !== 5 || gateC.acceptance.screenCount !== 5 || gateC.acceptance.expectedFrameCount !== 20) errors.push('Gate C screen/frame count drift');
+
+  const expectedC = contract.acceptanceGates.find((gate) => gate.id === '55-C').requiredScreens;
+  if (JSON.stringify(gateC.screens.map((screen) => screen.id)) !== JSON.stringify(expectedC)) errors.push('Gate C screen inventory drift');
+  if (JSON.stringify(gateC.journeys) !== JSON.stringify(['SJ-01', 'SJ-02', 'SJ-03', 'SJ-11', 'SJ-12'])) errors.push('Gate C journey set drift');
+  const journeys = new Map(step53.journeys.map((journey) => [journey.id, journey]));
+  const root = 'docs/13-product-design/step55-wireframes/C';
+  let frameCount = 0;
+
+  for (const screen of gateC.screens) {
+    const frozen = contract.screenInventory.find((item) => item.id === screen.id);
+    if (!frozen) {
+      errors.push(`${screen.id}: not frozen upstream`);
+      continue;
+    }
+    if (screen.routeIntent !== frozen.routeIntent) errors.push(`${screen.id}: route intent drift`);
+    if (JSON.stringify(screen.journeys) !== JSON.stringify(frozen.journeys)) errors.push(`${screen.id}: journey drift`);
+    if (JSON.stringify(screen.components) !== JSON.stringify(frozen.components)) errors.push(`${screen.id}: component drift`);
+    if (JSON.stringify(screen.states.map((state) => state.id)) !== JSON.stringify(frozen.requiredStates)) errors.push(`${screen.id}: state drift`);
+    if (!screen.primaryTask || !screen.primaryAction || !screen.recoveryAction || screen.contentPriority.length < 4) errors.push(`${screen.id}: task/recovery/content priority incomplete`);
+    const allowedOperations = new Set(screen.journeys.flatMap((id) => journeys.get(id)?.operations ?? []));
+    for (const operation of screen.operations) if (!allowedOperations.has(operation)) errors.push(`${screen.id}: operation outside mapped journeys: ${operation}`);
+
+    const folder = `${root}/${screen.id}`;
+    for (const companion of gateC.acceptance.requiredCompanions) {
+      const path = `${folder}/${companion}`;
+      if (!existsSync(path)) errors.push(`${screen.id}: missing ${companion}`);
+      else if (readFileSync(path, 'utf8').trim().length < (companion === 'README.md' ? 1700 : 800)) errors.push(`${screen.id}: ${companion} is not substantive`);
+    }
+
+    const frames = screen.states.flatMap((state, index) => [{ width: 320, state: state.id }, ...(index === 0 ? [{ width: 1440, state: state.id }] : [])]);
+    frameCount += frames.length;
+    for (const frame of frames) {
+      const filename = `${screen.id}--${frame.width}--${frame.state}--v${gateC.revision}.svg`;
+      const path = `${folder}/${filename}`;
+      if (!existsSync(path)) {
+        errors.push(`${screen.id}: missing frame ${filename}`);
+        continue;
+      }
+      const svg = readFileSync(path, 'utf8');
+      if (!svg.startsWith('<svg ') || !svg.includes('<title id="title">') || !svg.includes('<desc id="desc">')) errors.push(`${filename}: accessible SVG metadata missing`);
+      if (!svg.includes(screen.id) || !svg.includes(frame.state) || !svg.includes(`${frame.width}px`)) errors.push(`${filename}: frame annotations incomplete`);
+      if (/کیف پول|lorem ipsum|<image\b|data:image/i.test(svg)) errors.push(`${filename}: forbidden artifact content`);
+    }
+
+    if (existsSync(`${folder}/traceability.json`)) {
+      const trace = JSON.parse(readFileSync(`${folder}/traceability.json`, 'utf8'));
+      if (trace.screenId !== screen.id || trace.status !== 'COMPLETE' || trace.responsiveEvidence.length !== 6) errors.push(`${screen.id}: traceability identity/responsive evidence invalid`);
+      if (Object.values(trace.boundary).some(Boolean)) errors.push(`${screen.id}: boundary violation`);
+      if (trace.zoomEvidence.horizontalTwoAxisScroll !== false) errors.push(`${screen.id}: 400% zoom reflow is not bounded`);
+    }
+  }
+
+  if (frameCount !== gateC.acceptance.expectedFrameCount) errors.push('Gate C generated frame plan is incomplete');
+  const manifestPath = `${root}/gate-c-manifest.json`;
+  if (!existsSync(manifestPath)) errors.push('Gate C manifest missing');
+  else {
+    const manifest = JSON.parse(readFileSync(manifestPath, 'utf8'));
+    if (manifest.screenCount !== 5 || manifest.frameCount !== 20 || manifest.sourceContract !== gateCPath || manifest.generatedArtifacts.length !== 36) errors.push('Gate C manifest summary drift');
+  }
+  if (!existsSync(`${root}/README.md`) || readFileSync(`${root}/README.md`, 'utf8').trim().length < 2000) errors.push('Gate C overview is missing or not substantive');
+  if (!gateC.crossCutting.comparison.some((rule) => /چهار محصول/.test(rule) && /دسته/.test(rule))) errors.push('Gate C comparison boundary is incomplete');
+  if (!gateC.crossCutting.customerActions.some((rule) => /customer-owned/.test(rule))) errors.push('Gate C customer ownership boundary is incomplete');
 }
 
 function unique(items, label) {

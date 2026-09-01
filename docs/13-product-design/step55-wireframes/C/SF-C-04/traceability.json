@@ -1,0 +1,115 @@
+{
+  "schemaVersion": "1.0.0",
+  "step": 55,
+  "gate": "55-C",
+  "screenId": "SF-C-04",
+  "revision": 1,
+  "status": "COMPLETE",
+  "routeIntent": "/compare",
+  "actors": [
+    "guest",
+    "retail",
+    "wholesale"
+  ],
+  "journeys": [
+    "SJ-02"
+  ],
+  "openApiCapabilities": [
+    "POST /compare/validate",
+    "POST /compare"
+  ],
+  "step54Components": [
+    "DataTable",
+    "Card",
+    "Button",
+    "StatePanel"
+  ],
+  "requiredStates": [
+    "initial",
+    "first-use",
+    "conflict"
+  ],
+  "primaryTask": "مقایسه ویژگی‌های هم‌معنا و بازگشت به محصول مناسب",
+  "primaryAction": "مشاهده محصول منتخب",
+  "recoveryAction": "حذف مورد ناسازگار و اعتبارسنجی دوباره",
+  "responsiveEvidence": [
+    {
+      "width": 320,
+      "decision": "کارت ویژگی عمودی؛ بدون جدول دوبعدی",
+      "focus": "H1 → product cards → attribute lists → remove/view actions"
+    },
+    {
+      "width": 360,
+      "decision": "کارت محصول با حذف مستقیم و شمارش ۴تایی",
+      "focus": "H1 → product cards → attribute lists → remove/view actions"
+    },
+    {
+      "width": 600,
+      "decision": "دو کارت در هر ردیف؛ ویژگی‌ها در list متناظر",
+      "focus": "H1 → product cards → attribute lists → remove/view actions"
+    },
+    {
+      "width": 840,
+      "decision": "جدول با ستون عنوان sticky و scroll افقی bounded",
+      "focus": "H1 → table caption/headers → cells by row → remove/view actions"
+    },
+    {
+      "width": 1200,
+      "decision": "حداکثر چهار ستون محصول؛ عنوان ویژگی sticky",
+      "focus": "H1 → table caption/headers → cells by row → remove/view actions"
+    },
+    {
+      "width": 1440,
+      "decision": "چهار محصول در محدوده 1280؛ کارت جایگزین همچنان موجود",
+      "focus": "H1 → table caption/headers → cells by row → remove/view actions"
+    }
+  ],
+  "zoomEvidence": {
+    "percent": 400,
+    "verdict": "PASS_BY_REFLOW_CONTRACT",
+    "horizontalTwoAxisScroll": false
+  },
+  "accessibility": [
+    "هر صفحه دقیقاً یک H1 و landmarkهای banner، navigation، main و contentinfo دارد.",
+    "هدف تعاملی حداقل 44×44 CSS px و focus قابل مشاهده و بدون پوشانده‌شدن است.",
+    "Tab رسانه، انتخاب Variant، شمار مقایسه و نتیجه اقدام customer-owned announce می‌شوند.",
+    "جدول مقایسه header association دارد و در compact کارت/list معادل ارائه می‌شود.",
+    "رسانه drag-only نیست؛ دکمه قبلی/بعدی و نام قابل دسترس دارد.",
+    "در zoom 400% ترتیب معنی‌دار باقی می‌ماند و scroll دوبعدی صفحه ایجاد نمی‌شود.",
+    "شناسه‌های Latin و SKU با bidi isolation نمایش داده می‌شوند."
+  ],
+  "commerce": [
+    "قیمت، موجودی، وضعیت فروش و Variant از پاسخ authoritative محصول می‌آیند.",
+    "مبلغ فقط عدد صحیح گروه‌بندی‌شده با واحد صریح تومان است؛ Wallet نمایش داده نمی‌شود.",
+    "قیمت عمده فقط برای Session تأییدشده و با برچسب متنی صریح نمایش داده می‌شود.",
+    "تغییر قیمت یا موجودی انتخاب قبلی را بی‌صدا معتبر نگه نمی‌دارد و ادامه نیازمند تأیید داده تازه است.",
+    "Variant ناموجود یا فروش‌متوقف‌شده اقدام ادامه خرید ندارد و دلیل متنی ارائه می‌کند.",
+    "صفحه مقایسه حقیقت قیمت و موجودی را Snapshot مالکانه نمی‌کند و refresh تغییرها را اعلام می‌کند."
+  ],
+  "comparison": [
+    "حداکثر چهار محصول و فقط از یک دسته سازگار قابل مقایسه‌اند.",
+    "رسیدن به سقف چهار مورد، انتخاب پنجم را با دلیل و مسیر حذف یک مورد متوقف می‌کند.",
+    "ناسازگاری دسته پیش از افزودن fail-closed است و انتخاب‌های معتبر قبلی حفظ می‌شوند.",
+    "حذف محصول بلافاصله شمارش، focus و جدول/کارت جایگزین را به‌روزرسانی می‌کند."
+  ],
+  "customerActions": [
+    "علاقه‌مندی و هشدار customer-owned هستند؛ کاربر مهمان به ورود هدایت می‌شود و intent امن حفظ می‌شود.",
+    "Submittng، success و خطا با announcement مستقل نشان داده می‌شوند؛ آیکن تنها حامل معنا نیست.",
+    "علاقه‌مندی یا هشدار، نسخه‌ای از حقیقت قیمت/موجودی ذخیره نمی‌کند.",
+    "ثبت تکراری نتیجه idempotent روشن دارد و موفقیت کاذب نمایش داده نمی‌شود."
+  ],
+  "artifacts": [
+    "SF-C-04--320--initial--v1.svg",
+    "SF-C-04--1440--initial--v1.svg",
+    "SF-C-04--320--first-use--v1.svg",
+    "SF-C-04--320--conflict--v1.svg"
+  ],
+  "boundary": {
+    "highFidelity": false,
+    "runtimeImplementation": false,
+    "apiMutation": false,
+    "businessRuleMutation": false,
+    "inventedBrandAsset": false,
+    "paidDependency": false
+  }
+}

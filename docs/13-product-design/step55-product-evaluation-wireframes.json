@@ -1,0 +1,209 @@
+{
+  "schemaVersion": "1.0.0",
+  "step": 55,
+  "substep": "C",
+  "status": "C_COMPLETE_STEP_IN_PROGRESS",
+  "title": "Product Evaluation Wireframes",
+  "baseline": "8e9501c7d489cfee143851e4e1a043442ee64f09",
+  "canonicalSource": "repository",
+  "figmaMirror": "OPTIONAL_NOT_REQUIRED",
+  "revision": 1,
+  "language": "fa-IR",
+  "direction": "rtl",
+  "currency": "Toman",
+  "walletAllowed": false,
+  "theme": "light",
+  "fidelity": "structural-low-fidelity",
+  "journeys": ["SJ-01", "SJ-02", "SJ-03", "SJ-11", "SJ-12"],
+  "operations": [
+    "GET /products/{slug}",
+    "GET /auth/session",
+    "POST /compare/validate",
+    "POST /compare",
+    "POST /auth/otp/request",
+    "POST /auth/otp/verify",
+    "GET /customer/wishlist",
+    "POST /customer/wishlist/{product_id}",
+    "DELETE /customer/wishlist/{product_id}",
+    "GET /customer/product-alerts",
+    "POST /customer/product-alerts",
+    "DELETE /customer/product-alerts/{id}"
+  ],
+  "flow": [
+    {"from": "SF-B-04", "action": "بازکردن محصول", "to": "SF-C-01", "kind": "handoff"},
+    {"from": "SF-C-01", "action": "بررسی رسانه", "to": "SF-C-02", "kind": "primary"},
+    {"from": "SF-C-01", "action": "افزودن به مقایسه", "to": "SF-C-03", "kind": "primary"},
+    {"from": "SF-C-03", "action": "مقایسه ۲ محصول", "to": "SF-C-04", "kind": "primary"},
+    {"from": "SF-C-01", "action": "ذخیره یا ساخت هشدار", "to": "SF-C-05", "kind": "primary"},
+    {"from": "SF-C-05", "action": "ورود و ادامه همان اقدام", "to": "SF-C-05", "kind": "recovery"},
+    {"from": "SF-C-01", "action": "انتخاب Variant معتبر", "to": "SF-D-01", "kind": "handoff"},
+    {"from": "SF-C-04", "action": "بازگشت به محصول منتخب", "to": "SF-C-01", "kind": "recovery"}
+  ],
+  "responsiveReview": [
+    {"width": 320, "grid": "4 columns / 16 margin / 16 gutter", "detail": "رسانه، عنوان، حقیقت تجاری و Variant به‌ترتیب عمودی", "media": "قاب اصلی تمام‌عرض؛ thumbnail به‌صورت فهرست کنترل‌پذیر", "compare": "کارت ویژگی عمودی؛ بدون جدول دوبعدی"},
+    {"width": 360, "grid": "4 columns / 16 margin / 16 gutter", "detail": "همان ترتیب 320 با فضای متن بیشتر و اقدام sticky بدون پوشاندن focus", "media": "tabها قابل scroll تک‌محوری با کنترل قبلی/بعدی", "compare": "کارت محصول با حذف مستقیم و شمارش ۴تایی"},
+    {"width": 600, "grid": "8 columns / 24 margin / 24 gutter", "detail": "رسانه بالا و پنل اطلاعات دو ناحیه زیر آن", "media": "قاب اصلی و thumbnail کنار هم در محدوده رسانه", "compare": "دو کارت در هر ردیف؛ ویژگی‌ها در list متناظر"},
+    {"width": 840, "grid": "12 columns / 32 margin / 24 gutter", "detail": "رسانه ۷ ستون و اطلاعات/Variant پنج ستون", "media": "tabها و viewer هم‌زمان؛ dialog در عرض متوسط", "compare": "جدول با ستون عنوان sticky و scroll افقی bounded"},
+    {"width": 1200, "grid": "12 columns / 32 margin / 24 gutter", "detail": "رسانه ۷ ستون و اطلاعات پنج ستون با خلاصه اقدام", "media": "thumbnail عمودی و viewer بزرگ", "compare": "حداکثر چهار ستون محصول؛ عنوان ویژگی sticky"},
+    {"width": 1440, "grid": "12 columns / 32 margin / 24 gutter; content max 1280", "detail": "محتوا در 1280px مرکزی؛ نسبت 7/5 حفظ می‌شود", "media": "فضای اضافه فقط در gutter و viewer", "compare": "چهار محصول در محدوده 1280؛ کارت جایگزین همچنان موجود"}
+  ],
+  "crossCutting": {
+    "shellRegions": ["skip-link", "utility-bar", "site-header", "primary-navigation", "breadcrumb", "main-content", "context-actions", "site-footer"],
+    "keyboardOrder": ["پرش به محتوا", "نشان تأییدشده/خانه", "جست‌وجو", "حساب", "سبد", "ناوبری", "breadcrumb", "عنوان محصول", "رسانه", "قیمت و موجودی", "Variant", "مقایسه", "علاقه‌مندی و هشدار", "محتوای تکمیلی", "footer"],
+    "commerce": [
+      "قیمت، موجودی، وضعیت فروش و Variant از پاسخ authoritative محصول می‌آیند.",
+      "مبلغ فقط عدد صحیح گروه‌بندی‌شده با واحد صریح تومان است؛ Wallet نمایش داده نمی‌شود.",
+      "قیمت عمده فقط برای Session تأییدشده و با برچسب متنی صریح نمایش داده می‌شود.",
+      "تغییر قیمت یا موجودی انتخاب قبلی را بی‌صدا معتبر نگه نمی‌دارد و ادامه نیازمند تأیید داده تازه است.",
+      "Variant ناموجود یا فروش‌متوقف‌شده اقدام ادامه خرید ندارد و دلیل متنی ارائه می‌کند.",
+      "صفحه مقایسه حقیقت قیمت و موجودی را Snapshot مالکانه نمی‌کند و refresh تغییرها را اعلام می‌کند."
+    ],
+    "comparison": [
+      "حداکثر چهار محصول و فقط از یک دسته سازگار قابل مقایسه‌اند.",
+      "رسیدن به سقف چهار مورد، انتخاب پنجم را با دلیل و مسیر حذف یک مورد متوقف می‌کند.",
+      "ناسازگاری دسته پیش از افزودن fail-closed است و انتخاب‌های معتبر قبلی حفظ می‌شوند.",
+      "حذف محصول بلافاصله شمارش، focus و جدول/کارت جایگزین را به‌روزرسانی می‌کند."
+    ],
+    "customerActions": [
+      "علاقه‌مندی و هشدار customer-owned هستند؛ کاربر مهمان به ورود هدایت می‌شود و intent امن حفظ می‌شود.",
+      "Submittng، success و خطا با announcement مستقل نشان داده می‌شوند؛ آیکن تنها حامل معنا نیست.",
+      "علاقه‌مندی یا هشدار، نسخه‌ای از حقیقت قیمت/موجودی ذخیره نمی‌کند.",
+      "ثبت تکراری نتیجه idempotent روشن دارد و موفقیت کاذب نمایش داده نمی‌شود."
+    ],
+    "accessibility": [
+      "هر صفحه دقیقاً یک H1 و landmarkهای banner، navigation، main و contentinfo دارد.",
+      "هدف تعاملی حداقل 44×44 CSS px و focus قابل مشاهده و بدون پوشانده‌شدن است.",
+      "Tab رسانه، انتخاب Variant، شمار مقایسه و نتیجه اقدام customer-owned announce می‌شوند.",
+      "جدول مقایسه header association دارد و در compact کارت/list معادل ارائه می‌شود.",
+      "رسانه drag-only نیست؛ دکمه قبلی/بعدی و نام قابل دسترس دارد.",
+      "در zoom 400% ترتیب معنی‌دار باقی می‌ماند و scroll دوبعدی صفحه ایجاد نمی‌شود.",
+      "شناسه‌های Latin و SKU با bidi isolation نمایش داده می‌شوند."
+    ],
+    "content": [
+      "متن فارسی واقعی و طولانی جای lorem ipsum را می‌گیرد.",
+      "رسانه فقط placeholder خنثی برچسب‌دار است؛ تصویر، ویدئو، مدل سه‌بعدی یا لوگو اختراع نمی‌شود.",
+      "ویژگی فنی، نام Variant، واحد و مقدار در مقایسه label روشن دارند.",
+      "اعداد مشتری‌محور فارسی‌اند؛ شناسه قابل کپی می‌تواند Latin بماند."
+    ]
+  },
+  "screens": [
+    {
+      "id": "SF-C-01",
+      "name": "Product detail",
+      "title": "آسیاب دستی حرفه‌ای مدل E-Q40",
+      "routeIntent": "/product/:slug",
+      "actors": ["guest", "retail", "wholesale"],
+      "journeys": ["SJ-01", "SJ-02", "SJ-11", "SJ-12"],
+      "operations": ["GET /products/{slug}", "GET /auth/session"],
+      "components": ["Card", "Badge", "Select", "Button", "StatePanel"],
+      "layout": "product-detail",
+      "primaryTask": "ارزیابی محصول و انتخاب Variant بر اساس حقیقت جاری",
+      "primaryAction": "انتخاب مدل و ادامه",
+      "recoveryAction": "بازخوانی قیمت و موجودی",
+      "contentPriority": ["عنوان و دسته", "رسانه", "قیمت و موجودی", "Variant", "ویژگی‌های کلیدی", "مقایسه و اقدام‌های شخصی"],
+      "states": [
+        {"id": "initial", "title": "جزئیات محصول آماده است", "message": "مدل استیل، موجودی ۸ عدد و قیمت جاری ۴٬۸۹۰٬۰۰۰ تومان از منبع authoritative نمایش داده می‌شود.", "action": "انتخاب مدل استیل"},
+        {"id": "out-of-stock", "title": "مدل مشکی فعلاً ناموجود است", "message": "سایر Variantها تغییر نکرده‌اند؛ ادامه خرید برای این مدل غیرفعال است و هشدار موجودی در دسترس قرار می‌گیرد.", "action": "ساخت هشدار موجودی"},
+        {"id": "price-changed", "title": "قیمت مدل انتخابی به‌روز شد", "message": "قیمت تازه ۵٬۰۵۰٬۰۰۰ تومان است؛ قیمت قبلی مبنای ادامه نیست و انتخاب پس از تأیید حفظ می‌شود.", "action": "تأیید قیمت تازه"}
+      ]
+    },
+    {
+      "id": "SF-C-02",
+      "name": "Product media",
+      "title": "رسانه و نمای محصول",
+      "routeIntent": "product-media-region",
+      "actors": ["guest", "retail", "wholesale"],
+      "journeys": ["SJ-01"],
+      "operations": ["GET /products/{slug}"],
+      "components": ["Tabs", "Dialog", "StatePanel"],
+      "layout": "product-media",
+      "primaryTask": "بررسی رسانه موجود بدون وابستگی به gesture یا قالب خاص",
+      "primaryAction": "نمایش قاب بعدی",
+      "recoveryAction": "بازگشت به اطلاعات متنی محصول",
+      "contentPriority": ["نوع رسانه", "قاب فعال", "شرح جایگزین", "کنترل قبلی/بعدی", "thumbnailها", "بازگشت به محصول"],
+      "states": [
+        {"id": "progressive", "title": "رسانه اصلی آماده است", "message": "قاب اول قابل بررسی است؛ دو قاب بعدی بدون جابه‌جایی ناگهانی تکمیل می‌شوند و شرح متنی حفظ شده است.", "action": "نمایش قاب بعدی"},
+        {"id": "unavailable", "title": "نمای سه‌بعدی در دسترس نیست", "message": "تصویرهای موجود و مشخصات فنی همچنان قابل استفاده‌اند؛ قابلیت تأییدنشده جایگزین یا موفق فرض نمی‌شود.", "action": "مشاهده تصویرها"},
+        {"id": "no-result", "title": "رسانه‌ای برای این Variant ثبت نشده است", "message": "نام Variant و ویژگی‌های متنی معتبر باقی می‌مانند و تصمیم خرید به placeholder گمراه‌کننده وابسته نیست.", "action": "بازگشت به مشخصات"}
+      ]
+    },
+    {
+      "id": "SF-C-03",
+      "name": "Compare selection",
+      "title": "انتخاب برای مقایسه",
+      "routeIntent": "compare-selection-state",
+      "actors": ["guest", "retail", "wholesale"],
+      "journeys": ["SJ-02"],
+      "operations": ["POST /compare/validate"],
+      "components": ["ChoiceControl", "Alert", "Button"],
+      "layout": "compare-selection",
+      "primaryTask": "ساخت مجموعه حداکثر چهارتایی از محصولات هم‌دسته",
+      "primaryAction": "مقایسه ۲ محصول",
+      "recoveryAction": "حذف مورد ناسازگار یا یکی از چهار انتخاب",
+      "contentPriority": ["شمار انتخاب", "نام دسته مشترک", "محصول‌های انتخاب‌شده", "دلیل محدودیت", "حذف مورد", "شروع مقایسه"],
+      "states": [
+        {"id": "enabled", "title": "۲ از ۴ محصول انتخاب شده است", "message": "هر دو محصول از دسته آسیاب دستی‌اند و آماده اعتبارسنجی نهایی مقایسه هستند.", "action": "مقایسه ۲ محصول"},
+        {"id": "disabled-with-reason", "title": "سقف چهار محصول تکمیل است", "message": "برای افزودن محصول پنجم ابتدا یکی از چهار مورد فعلی را حذف کنید؛ انتخاب‌های معتبر حفظ می‌شوند.", "action": "مدیریت چهار انتخاب"},
+        {"id": "validation", "title": "این محصول از دسته سازگار نیست", "message": "محصول ابزار دم‌آوری به مجموعه آسیاب دستی افزوده نشد؛ دو انتخاب قبلی بدون تغییر باقی ماند.", "action": "بازگشت به آسیاب‌های دستی"}
+      ]
+    },
+    {
+      "id": "SF-C-04",
+      "name": "Compare table",
+      "title": "مقایسه آسیاب‌های دستی",
+      "routeIntent": "/compare",
+      "actors": ["guest", "retail", "wholesale"],
+      "journeys": ["SJ-02"],
+      "operations": ["POST /compare/validate", "POST /compare"],
+      "components": ["DataTable", "Card", "Button", "StatePanel"],
+      "layout": "compare-table",
+      "primaryTask": "مقایسه ویژگی‌های هم‌معنا و بازگشت به محصول مناسب",
+      "primaryAction": "مشاهده محصول منتخب",
+      "recoveryAction": "حذف مورد ناسازگار و اعتبارسنجی دوباره",
+      "contentPriority": ["عنوان و تعداد", "نام محصول‌ها", "قیمت و موجودی جاری", "ویژگی‌های هم‌معنا", "اختلاف‌ها", "حذف/بازگشت"],
+      "states": [
+        {"id": "initial", "title": "مقایسه ۲ محصول آماده است", "message": "قیمت، موجودی، جنس تیغه، ظرفیت و وزن با header association و کارت معادل compact نمایش داده می‌شوند.", "action": "مشاهده E-Q40"},
+        {"id": "first-use", "title": "هنوز محصولی برای مقایسه انتخاب نشده است", "message": "از یک دسته حداقل دو محصول انتخاب کنید؛ محدودیت چهار مورد پیش از افزودن توضیح داده می‌شود.", "action": "رفتن به آسیاب‌های دستی"},
+        {"id": "conflict", "title": "یکی از محصولات دیگر با این مقایسه سازگار نیست", "message": "محصول ناسازگار مشخص شده است؛ موردهای معتبر و جای focus حفظ می‌شوند و refresh بی‌صدا حذف نمی‌کند.", "action": "حذف مورد ناسازگار"}
+      ]
+    },
+    {
+      "id": "SF-C-05",
+      "name": "Wishlist and alert actions",
+      "title": "علاقه‌مندی و هشدار محصول",
+      "routeIntent": "product-owned-actions",
+      "actors": ["guest", "retail", "wholesale"],
+      "journeys": ["SJ-03", "SJ-12"],
+      "operations": ["GET /auth/session", "POST /auth/otp/request", "POST /auth/otp/verify", "GET /customer/wishlist", "POST /customer/wishlist/{product_id}", "DELETE /customer/wishlist/{product_id}", "GET /customer/product-alerts", "POST /customer/product-alerts", "DELETE /customer/product-alerts/{id}"],
+      "components": ["IconButton", "Dialog", "Alert"],
+      "layout": "customer-actions",
+      "primaryTask": "ذخیره محصول یا ساخت هشدار با مالکیت حساب و بازخورد روشن",
+      "primaryAction": "افزودن به علاقه‌مندی",
+      "recoveryAction": "ورود و ادامه همان اقدام یا تلاش کنترل‌شده",
+      "contentPriority": ["نام محصول", "وضعیت Session", "علاقه‌مندی", "نوع هشدار", "بازخورد mutation", "مدیریت از حساب"],
+      "states": [
+        {"id": "unauthenticated", "title": "برای ذخیره محصول وارد شوید", "message": "محصول و اقدام انتخابی به‌صورت امن حفظ می‌شوند؛ پس از OTP همان درخواست دوباره تأیید می‌شود.", "action": "ورود و ادامه"},
+        {"id": "submitting", "title": "در حال ذخیره در علاقه‌مندی‌ها", "message": "کنترل دوباره فعال نمی‌شود تا نتیجه authoritative برسد؛ قیمت و موجودی در این منبع کپی نمی‌شوند.", "action": "لطفاً منتظر بمانید"},
+        {"id": "success", "title": "محصول به علاقه‌مندی‌ها افزوده شد", "message": "مدیریت این محصول از حساب من در دسترس است؛ ثبت تکراری منبع تازه‌ای ایجاد نمی‌کند.", "action": "مشاهده علاقه‌مندی‌ها"}
+      ]
+    }
+  ],
+  "acceptance": {
+    "framePolicy": "For every screen generate the three required compact states at 320px plus its primary expanded state at 1440px.",
+    "requiredWidths": [320, 360, 600, 840, 1200, 1440],
+    "zoomPercent": 400,
+    "minimumTargetPx": 44,
+    "requiredCompanions": ["README.md", "traceability.json", "acceptance.md"],
+    "screenCount": 5,
+    "expectedFrameCount": 20,
+    "gateCompleteWhen": [
+      "All five SF-C screen folders and deterministic artifacts exist.",
+      "Every frozen required state has a 320px frame and every screen has a 1440px expanded frame.",
+      "Product detail, media, comparison and customer-owned actions preserve authoritative state and bounded recovery.",
+      "Responsive behavior is reviewed at 320, 360, 600, 840, 1200 and 1440px plus 400 percent zoom.",
+      "Journey, OpenAPI capability, component, state, commerce and recovery traceability validates.",
+      "No high-fidelity UI, frontend runtime, API, business rule, paid service, invented logo or Figma dependency is introduced.",
+      "Focused tests, full pnpm verify, git diff check and exact-head Canonical CI pass before merge."
+    ]
+  }
+}
