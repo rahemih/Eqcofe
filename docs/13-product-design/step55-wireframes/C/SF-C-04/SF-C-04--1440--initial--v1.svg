@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="1000" viewBox="0 0 1440 1000" role="img" aria-labelledby="title desc" lang="fa">
+<title id="title">SF-C-04 — مقایسه آسیاب‌های دستی — initial — 1440px</title>
+<desc id="desc">وایرفریم کم‌جزئیات فارسی و راست‌به‌چپ برای Step 55-C؛ اقدام اصلی مشاهده محصول منتخب و بازیابی حذف مورد ناسازگار و اعتبارسنجی دوباره.</desc>
+<style>text{font-family:Vazirmatn,Tahoma,Arial,sans-serif;fill:#0F172A}.h1{font-size:28px;font-weight:700}.h2{font-size:18px;font-weight:700}.body{font-size:14px}.label{font-size:13px;font-weight:600}.meta{font-size:11px}.muted{fill:#64748B}.mono{font-family:monospace}</style>
+<rect x="0" y="0" width="1440" height="1000" rx="0" fill="#F8FAFC" stroke="#F8FAFC"/>
+<rect x="80" y="18" width="1280" height="82" rx="8" fill="#FFFFFF" stroke="#CBD5E1"/>
+<text x="1348" y="46" class="label" text-anchor="end">جای نشان تأییدشده</text>
+<rect x="92" y="30" width="360" height="44" rx="6" fill="#F8FAFC" stroke="#94A3B8"/>
+<text x="440" y="58" class="body" text-anchor="end">جست‌وجوی محصول</text>
+<text x="1170" y="94" class="meta muted" text-anchor="end">دسته‌ها · مقایسه · حساب · سبد</text>
+<text x="1360" y="128" class="meta muted" text-anchor="end">فروشگاه / محصول / SF-C-04</text>
+<text x="1360" y="166" class="h1" text-anchor="end">مقایسه آسیاب‌های دستی</text>
+<rect x="80" y="186" width="1280" height="76" rx="8" fill="#FFFFFF" stroke="#0F766E"/>
+<text x="1348" y="210" class="h2" text-anchor="end" fill="#0F766E" style="fill:#0F766E">مقایسه ۲ محصول آماده است</text>
+<text x="1348" y="231" class="body" text-anchor="end">قیمت، موجودی، جنس تیغه، ظرفیت و وزن با header association و کارت معادل compact نمایش داده می‌شوند.</text>
+<text x="92" y="248" class="label" text-anchor="start" fill="#0F766E" style="fill:#0F766E">مشاهده E-Q40</text>
+<rect x="80" y="286" width="1280" height="430" rx="8" fill="#FFFFFF" stroke="#CBD5E1"/>
+<text x="1344" y="324" class="h2" text-anchor="end">ویژگی</text>
+<text x="1124" y="324" class="h2" text-anchor="end">E-Q40</text>
+<text x="594" y="324" class="h2" text-anchor="end">M-32</text>
+<line x1="80" y1="358" x2="1360" y2="358" stroke="#E2E8F0"/>
+<text x="1344" y="392" class="label" text-anchor="end">قیمت جاری</text>
+<text x="1124" y="392" class="body" text-anchor="end">۴٬۸۹۰٬۰۰۰ تومان</text>
+<text x="594" y="392" class="body" text-anchor="end">۵٬۱۲۰٬۰۰۰ تومان</text>
+<line x1="80" y1="416" x2="1360" y2="416" stroke="#E2E8F0"/>
+<text x="1344" y="450" class="label" text-anchor="end">موجودی</text>
+<text x="1124" y="450" class="body" text-anchor="end">۸ عدد</text>
+<text x="594" y="450" class="body" text-anchor="end">۵ عدد</text>
+<line x1="80" y1="474" x2="1360" y2="474" stroke="#E2E8F0"/>
+<text x="1344" y="508" class="label" text-anchor="end">جنس تیغه</text>
+<text x="1124" y="508" class="body" text-anchor="end">فولادی</text>
+<text x="594" y="508" class="body" text-anchor="end">سرامیکی</text>
+<line x1="80" y1="532" x2="1360" y2="532" stroke="#E2E8F0"/>
+<text x="1344" y="566" class="label" text-anchor="end">ظرفیت</text>
+<text x="1124" y="566" class="body" text-anchor="end">۳۵ گرم</text>
+<text x="594" y="566" class="body" text-anchor="end">۳۰ گرم</text>
+<line x1="80" y1="590" x2="1360" y2="590" stroke="#E2E8F0"/>
+<text x="1344" y="624" class="label" text-anchor="end">وزن</text>
+<text x="1124" y="624" class="body" text-anchor="end">۶۲۰ گرم</text>
+<text x="594" y="624" class="body" text-anchor="end">۵۸۰ گرم</text>
+<line x1="80" y1="932" x2="1360" y2="932" stroke="#CBD5E1"/>
+<text x="1360" y="958" class="meta muted" text-anchor="end">راهنما · تماس · قوانین · بازگشت و ضمانت</text>
+<text x="1360" y="978" class="meta muted" text-anchor="end">بدون ادعای Provider یا دارایی تأییدنشده</text>
+<text x="80" y="984" class="meta mono" text-anchor="start">SF-C-04 · 55-C · initial · 1440px · v1</text>
+</svg>

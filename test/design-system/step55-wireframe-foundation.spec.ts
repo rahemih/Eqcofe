@@ -20,13 +20,13 @@ test('Step 55-A inherits the exact Step 54 breakpoint and 4/8/12 grid foundation
   assert.deepEqual(contract.responsive.verificationWidthsPx, [320, 360, 600, 840, 1200, 1440]);
 });
 
-test('Step 55-B preserves the frozen 37-screen inventory while completing discovery only', () => {
-  assert.equal(contract.status, 'B_COMPLETE_STEP_IN_PROGRESS');
-  assert.deepEqual(contract.completedGates, ['55-A', '55-B']);
-  assert.equal(contract.nextGate, '55-C');
+test('Step 55-C preserves the frozen 37-screen inventory while completing product evaluation', () => {
+  assert.equal(contract.status, 'C_COMPLETE_STEP_IN_PROGRESS');
+  assert.deepEqual(contract.completedGates, ['55-A', '55-B', '55-C']);
+  assert.equal(contract.nextGate, '55-D');
   assert.equal(contract.screenInventory.length, 37);
   assert.deepEqual(contract.acceptanceGates.map((gate: { id: string }) => gate.id), ['55-B', '55-C', '55-D', '55-E', '55-F']);
-  assert.match(contract.scope.excluded.join(' '), /55-C through 55-F/);
+  assert.match(contract.scope.excluded.join(' '), /55-D through 55-F/);
 });
 
 test('Step 55 inventory covers every Step 53 storefront journey', () => {

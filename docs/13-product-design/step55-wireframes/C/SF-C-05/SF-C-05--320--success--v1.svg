@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="1160" viewBox="0 0 320 1160" role="img" aria-labelledby="title desc" lang="fa">
+<title id="title">SF-C-05 — علاقه‌مندی و هشدار محصول — success — 320px</title>
+<desc id="desc">وایرفریم کم‌جزئیات فارسی و راست‌به‌چپ برای Step 55-C؛ اقدام اصلی افزودن به علاقه‌مندی و بازیابی ورود و ادامه همان اقدام یا تلاش کنترل‌شده.</desc>
+<style>text{font-family:Vazirmatn,Tahoma,Arial,sans-serif;fill:#0F172A}.h1{font-size:20px;font-weight:700}.h2{font-size:15px;font-weight:700}.body{font-size:12px}.label{font-size:11px;font-weight:600}.meta{font-size:9px}.muted{fill:#64748B}.mono{font-family:monospace}</style>
+<rect x="0" y="0" width="320" height="1160" rx="0" fill="#F8FAFC" stroke="#F8FAFC"/>
+<rect x="16" y="18" width="288" height="96" rx="8" fill="#FFFFFF" stroke="#CBD5E1"/>
+<text x="292" y="46" class="label" text-anchor="end">جای نشان تأییدشده</text>
+<rect x="28" y="30" width="112" height="44" rx="6" fill="#F8FAFC" stroke="#94A3B8"/>
+<text x="132" y="58" class="body" text-anchor="end">جست‌وجوی محصول</text>
+<text x="292" y="96" class="meta muted" text-anchor="end">منو · حساب · سبد</text>
+<text x="304" y="134" class="meta muted" text-anchor="end">فروشگاه / محصول / SF-C-05</text>
+<text x="304" y="164" class="h1" text-anchor="end">علاقه‌مندی و هشدار محصول</text>
+<rect x="16" y="184" width="288" height="92" rx="8" fill="#FFFFFF" stroke="#0F766E"/>
+<text x="292" y="208" class="h2" text-anchor="end" fill="#0F766E" style="fill:#0F766E">محصول به علاقه‌مندی‌ها افزوده شد</text>
+<text x="292" y="229" class="body" text-anchor="end">مدیریت این محصول از حساب من در دسترس است؛ ثبت</text>
+<text x="292" y="246" class="body" text-anchor="end">تکراری منبع تازه‌ای ایجاد نمی‌کند.</text>
+<text x="28" y="262" class="label" text-anchor="start" fill="#0F766E" style="fill:#0F766E">مشاهده علاقه‌مندی‌ها</text>
+<rect x="16" y="292" width="288" height="190" rx="8" fill="#FFFFFF" stroke="#CBD5E1"/>
+<text x="288" y="324" class="h2" text-anchor="end">علاقه‌مندی</text>
+<text x="288" y="360" class="body" text-anchor="end">وضعیت حساب با موفقیت به‌روز شد</text>
+<rect x="32" y="418" width="256" height="44" rx="8" fill="#0F766E" stroke="#0F766E"/>
+<text x="160" y="446" class="label" text-anchor="middle" fill="#FFFFFF" style="fill:#FFFFFF">مشاهده علاقه‌مندی‌ها</text>
+<rect x="16" y="498" width="288" height="190" rx="8" fill="#FFFFFF" stroke="#CBD5E1"/>
+<text x="288" y="530" class="h2" text-anchor="end">هشدار موجودی و قیمت</text>
+<text x="288" y="566" class="body" text-anchor="end">وضعیت حساب با موفقیت به‌روز شد</text>
+<rect x="32" y="624" width="256" height="44" rx="8" fill="#0F766E" stroke="#0F766E"/>
+<text x="160" y="652" class="label" text-anchor="middle" fill="#FFFFFF" style="fill:#FFFFFF">مدیریت هشدار</text>
+<line x1="16" y1="1082" x2="304" y2="1082" stroke="#CBD5E1"/>
+<text x="304" y="1108" class="meta muted" text-anchor="end">راهنما · تماس · قوانین · بازگشت و ضمانت</text>
+<text x="304" y="1128" class="meta muted" text-anchor="end">بدون ادعای Provider یا دارایی تأییدنشده</text>
+<text x="16" y="1144" class="meta mono" text-anchor="start">SF-C-05 · 55-C · success · 320px · v1</text>
+</svg>

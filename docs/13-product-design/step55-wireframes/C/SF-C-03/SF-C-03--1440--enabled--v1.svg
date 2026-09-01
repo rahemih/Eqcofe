@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="1000" viewBox="0 0 1440 1000" role="img" aria-labelledby="title desc" lang="fa">
+<title id="title">SF-C-03 — انتخاب برای مقایسه — enabled — 1440px</title>
+<desc id="desc">وایرفریم کم‌جزئیات فارسی و راست‌به‌چپ برای Step 55-C؛ اقدام اصلی مقایسه ۲ محصول و بازیابی حذف مورد ناسازگار یا یکی از چهار انتخاب.</desc>
+<style>text{font-family:Vazirmatn,Tahoma,Arial,sans-serif;fill:#0F172A}.h1{font-size:28px;font-weight:700}.h2{font-size:18px;font-weight:700}.body{font-size:14px}.label{font-size:13px;font-weight:600}.meta{font-size:11px}.muted{fill:#64748B}.mono{font-family:monospace}</style>
+<rect x="0" y="0" width="1440" height="1000" rx="0" fill="#F8FAFC" stroke="#F8FAFC"/>
+<rect x="80" y="18" width="1280" height="82" rx="8" fill="#FFFFFF" stroke="#CBD5E1"/>
+<text x="1348" y="46" class="label" text-anchor="end">جای نشان تأییدشده</text>
+<rect x="92" y="30" width="360" height="44" rx="6" fill="#F8FAFC" stroke="#94A3B8"/>
+<text x="440" y="58" class="body" text-anchor="end">جست‌وجوی محصول</text>
+<text x="1170" y="94" class="meta muted" text-anchor="end">دسته‌ها · مقایسه · حساب · سبد</text>
+<text x="1360" y="128" class="meta muted" text-anchor="end">فروشگاه / محصول / SF-C-03</text>
+<text x="1360" y="166" class="h1" text-anchor="end">انتخاب برای مقایسه</text>
+<rect x="80" y="186" width="1280" height="76" rx="8" fill="#FFFFFF" stroke="#0F766E"/>
+<text x="1348" y="210" class="h2" text-anchor="end" fill="#0F766E" style="fill:#0F766E">۲ از ۴ محصول انتخاب شده است</text>
+<text x="1348" y="231" class="body" text-anchor="end">هر دو محصول از دسته آسیاب دستی‌اند و آماده اعتبارسنجی نهایی مقایسه هستند.</text>
+<text x="92" y="248" class="label" text-anchor="start" fill="#0F766E" style="fill:#0F766E">مقایسه ۲ محصول</text>
+<text x="1360" y="306" class="h2" text-anchor="end">۲ از ۴ انتخاب · دسته آسیاب دستی</text>
+<rect x="80" y="328" width="308" height="230" rx="8" fill="#FFFFFF" stroke="#CBD5E1"/>
+<rect x="346" y="344" width="24" height="24" rx="4" fill="#0F766E" stroke="#0F766E"/>
+<text x="334" y="362" class="label" text-anchor="end">آسیاب دستی مدل 1</text>
+<text x="372" y="394" class="body" text-anchor="end">انتخاب‌شده</text>
+<text x="96" y="530" class="label" text-anchor="start" fill="#0F766E" style="fill:#0F766E">حذف</text>
+<rect x="404" y="328" width="308" height="230" rx="8" fill="#FFFFFF" stroke="#CBD5E1"/>
+<rect x="670" y="344" width="24" height="24" rx="4" fill="#0F766E" stroke="#0F766E"/>
+<text x="658" y="362" class="label" text-anchor="end">آسیاب دستی مدل 2</text>
+<text x="696" y="394" class="body" text-anchor="end">انتخاب‌شده</text>
+<text x="420" y="530" class="label" text-anchor="start" fill="#0F766E" style="fill:#0F766E">حذف</text>
+<rect x="728" y="328" width="308" height="230" rx="8" fill="#FFFFFF" stroke="#CBD5E1"/>
+<rect x="994" y="344" width="24" height="24" rx="4" fill="#FFFFFF" stroke="#0F766E"/>
+<text x="982" y="362" class="label" text-anchor="end">آسیاب دستی مدل 3</text>
+<text x="1020" y="394" class="body" text-anchor="end">انتخاب‌نشده</text>
+<text x="744" y="530" class="label" text-anchor="start" fill="#0F766E" style="fill:#0F766E">افزودن</text>
+<rect x="1052" y="328" width="308" height="230" rx="8" fill="#FFFFFF" stroke="#CBD5E1"/>
+<rect x="1318" y="344" width="24" height="24" rx="4" fill="#FFFFFF" stroke="#0F766E"/>
+<text x="1306" y="362" class="label" text-anchor="end">آسیاب دستی مدل 4</text>
+<text x="1344" y="394" class="body" text-anchor="end">انتخاب‌نشده</text>
+<text x="1068" y="530" class="label" text-anchor="start" fill="#0F766E" style="fill:#0F766E">افزودن</text>
+<rect x="80" y="590" width="1280" height="54" rx="8" fill="#0F766E" stroke="#0F766E"/>
+<text x="720" y="624" class="label" text-anchor="middle" fill="#FFFFFF" style="fill:#FFFFFF">مقایسه ۲ محصول</text>
+<line x1="80" y1="932" x2="1360" y2="932" stroke="#CBD5E1"/>
+<text x="1360" y="958" class="meta muted" text-anchor="end">راهنما · تماس · قوانین · بازگشت و ضمانت</text>
+<text x="1360" y="978" class="meta muted" text-anchor="end">بدون ادعای Provider یا دارایی تأییدنشده</text>
+<text x="80" y="984" class="meta mono" text-anchor="start">SF-C-03 · 55-C · enabled · 1440px · v1</text>
+</svg>

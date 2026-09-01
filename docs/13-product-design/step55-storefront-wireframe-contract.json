@@ -1,13 +1,14 @@
 {
   "step": 55,
-  "substep": "B",
-  "status": "B_COMPLETE_STEP_IN_PROGRESS",
-  "title": "Storefront Wireframes — Discovery Gate Complete",
+  "substep": "C",
+  "status": "C_COMPLETE_STEP_IN_PROGRESS",
+  "title": "Storefront Wireframes — Product Evaluation Gate Complete",
   "canonicalSource": "repository",
   "figmaMirror": "OPTIONAL_NOT_REQUIRED",
-  "completedGates": ["55-A", "55-B"],
-  "nextGate": "55-C",
+  "completedGates": ["55-A", "55-B", "55-C"],
+  "nextGate": "55-D",
   "gateBContract": "docs/13-product-design/step55-discovery-wireframes.json",
+  "gateCContract": "docs/13-product-design/step55-product-evaluation-wireframes.json",
   "foundation": {
     "language": "fa-IR",
     "direction": "rtl",
@@ -25,10 +26,11 @@
       "Shared low-fidelity conventions, layout regions and state vocabulary",
       "Traceability to Step 53 customer journeys, OpenAPI capability references and Step 54 design-system contracts",
       "Acceptance matrix and artifact governance for Step 55-B through 55-F",
-      "Step 55-B Home, category/search, listing, filter/sort and discovery-recovery wireframes"
+      "Step 55-B Home, category/search, listing, filter/sort and discovery-recovery wireframes",
+      "Step 55-C product detail/media, comparison and customer-owned action wireframes"
     ],
     "excluded": [
-      "Any Step 55-C through 55-F page wireframe",
+      "Any Step 55-D through 55-F page wireframe",
       "Admin wireframes reserved for Step 56",
       "High-fidelity UI, interactive prototype or usability claim reserved for Step 57",
       "Frontend runtime, backend, API, migration, dependency, permission or business-rule implementation",
