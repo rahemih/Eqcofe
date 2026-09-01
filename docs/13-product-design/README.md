@@ -43,8 +43,11 @@ Step 54 قرارداد بصری Persian-first RTL را بدون ساخت Screen 
 - `step55-product-evaluation-wireframes.json`: قرارداد Canonical مرحله 55-C برای Product Detail/Media، Compare و Wishlist/Alert.
 - `STEP-55-C-PRODUCT-EVALUATION-WIREFRAMES.md`: تصمیم‌های حقیقت تجاری، رسانه، مقایسه، customer ownership و responsive مرحله C.
 - `step55-wireframes/C/`: 20 قاب SVG کم‌جزئیات و companionهای ردیابی/پذیرش برای پنج screen.
+- `step55-checkout-payment-wireframes.json`: قرارداد Canonical مرحله 55-D برای Cart، Checkout، Payment Verify و Order Recovery.
+- `STEP-55-D-CHECKOUT-PAYMENT-RECOVERY-WIREFRAMES.md`: تصمیم‌های quote، expiry، identity/address/delivery و پرداخت fail-closed.
+- `step55-wireframes/D/`: 28 قاب SVG کم‌جزئیات و companionهای ردیابی/پذیرش برای هفت screen.
 
-`pnpm design:generate` کتابخانه Step 54 و artifactهای 55-B/C را تولید می‌کند؛ `pnpm design:check` drift همه مجموعه‌ها را می‌بندد. SVGها دارایی برند یا UI نهایی نیستند؛ evidence ساختاری کم‌جزئیات‌اند. Repository Canonical و Figma اختیاری/غیرمسدودکننده باقی می‌ماند.
+`pnpm design:generate` کتابخانه Step 54 و artifactهای 55-B/C/D را تولید می‌کند؛ `pnpm design:check` drift همه مجموعه‌ها را می‌بندد. SVGها دارایی برند یا UI نهایی نیستند؛ evidence ساختاری کم‌جزئیات‌اند. Repository Canonical و Figma اختیاری/غیرمسدودکننده باقی می‌ماند.
 
 ## Change rule
 

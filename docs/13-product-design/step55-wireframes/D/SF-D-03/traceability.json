@@ -1,0 +1,115 @@
+{
+  "schemaVersion": "1.0.0",
+  "step": 55,
+  "gate": "55-D",
+  "screenId": "SF-D-03",
+  "revision": 1,
+  "status": "COMPLETE",
+  "routeIntent": "/checkout/address",
+  "actors": [
+    "retail",
+    "wholesale"
+  ],
+  "journeys": [
+    "SJ-04",
+    "SJ-06"
+  ],
+  "openApiCapabilities": [
+    "GET /customer/addresses",
+    "POST /customer/addresses",
+    "PATCH /customer/addresses/{id}",
+    "POST /customer/addresses/{id}/set-default"
+  ],
+  "step54Components": [
+    "ChoiceControl",
+    "Dialog",
+    "Button",
+    "Alert"
+  ],
+  "requiredStates": [
+    "first-use",
+    "validation",
+    "conflict"
+  ],
+  "primaryTask": "انتخاب یا ثبت نشانی customer-owned معتبر",
+  "primaryAction": "انتخاب نشانی و ادامه",
+  "recoveryAction": "اصلاح نشانی یا بازگشت به هویت",
+  "responsiveEvidence": [
+    {
+      "width": 320,
+      "decision": "هر مرحله یک task؛ اقدام زیر محتوای مرتبط",
+      "focus": "H1 → progress → address cards → add/edit → primary"
+    },
+    {
+      "width": 360,
+      "decision": "ورودی‌ها تمام‌عرض؛ progress متنی",
+      "focus": "H1 → progress → address cards → add/edit → primary"
+    },
+    {
+      "width": 600,
+      "decision": "فرم 6 ستون با راهنمای 2 ستون",
+      "focus": "H1 → progress → address cards → add/edit → primary"
+    },
+    {
+      "width": 840,
+      "decision": "فرم 7 ستون و خلاصه پنج ستون",
+      "focus": "H1 → progress → address list → form/dialog → summary → primary"
+    },
+    {
+      "width": 1200,
+      "decision": "step content و order summary هم‌زمان",
+      "focus": "H1 → progress → address list → form/dialog → summary → primary"
+    },
+    {
+      "width": 1440,
+      "decision": "نسبت‌ها ثابت و whitespace در gutter",
+      "focus": "H1 → progress → address list → form/dialog → summary → primary"
+    }
+  ],
+  "zoomEvidence": {
+    "percent": 400,
+    "verdict": "PASS_BY_REFLOW_CONTRACT",
+    "horizontalTwoAxisScroll": false
+  },
+  "accessibility": [
+    "هر صفحه یک H1، landmarkهای معنادار و progress متنی برای checkout دارد.",
+    "هدف تعاملی حداقل 44×44 CSS px، focus واضح و error summary مرتبط با field دارد.",
+    "تغییر جمع، انقضا، ارسال و نتیجه verify با announcement مستقل بیان می‌شود.",
+    "در 400% zoom ترتیب معنی‌دار حفظ و scroll دوبعدی صفحه ایجاد نمی‌شود.",
+    "انتخاب‌ها فقط با رنگ مشخص نمی‌شوند و اقدام disabled دلیل متنی دارد."
+  ],
+  "commerce": [
+    "قیمت، موجودی، تخفیف، نوع مشتری، هزینه ارسال و جمع فقط از quote authoritative می‌آیند.",
+    "تمام مبالغ عدد صحیح گروه‌بندی‌شده با واحد صریح تومان‌اند و Wallet نمایش داده نمی‌شود.",
+    "تغییر قیمت، موجودی، حداقل تعداد یا نوع مشتری quote قبلی را بی‌صدا معتبر نگه نمی‌دارد.",
+    "cart TTL برابر 168 ساعت و checkout TTL برابر 15 دقیقه است؛ انقضا با مسیر بازسازی quote نشان داده می‌شود.",
+    "رزرو موجودی و ثبت سفارش فقط پس از اعتبارسنجی نهایی انجام می‌شود؛ UI موفقیت زودهنگام نمی‌سازد."
+  ],
+  "identityAddressDelivery": [
+    "سبد مهمان پس از OTP با merge صریح و حل conflict به حساب متصل می‌شود.",
+    "نشانی customer-owned است؛ مالکیت، اعتبارسنجی و قانون یک نشانی پیش‌فرض حفظ می‌شود.",
+    "روش ارسال فقط از فهرست authoritative و متناسب با نشانی/سبد انتخاب می‌شود.",
+    "داده حساس یا OTP در وایرفریم، URL، analytics یا پیام خطا بازتاب داده نمی‌شود."
+  ],
+  "paymentRecovery": [
+    "بازگشت Provider نتیجه پرداخت نیست؛ verify یا status authoritative تعیین‌کننده است.",
+    "unknown-result، timeout و callback تکراری موفقیت یا شکست ساختگی نشان نمی‌دهند.",
+    "retry فقط پس از status check و با idempotency/مرجع پایدار پیشنهاد می‌شود.",
+    "شماره سفارش و شناسه پرداخت در bidi isolation و بدون نمایش secret ارائه می‌شوند.",
+    "نتیجه نهایی سفارش، پرداخت ثبت‌شده و مسیر جزئیات/پشتیبانی را روشن می‌کند."
+  ],
+  "artifacts": [
+    "SF-D-03--320--first-use--v1.svg",
+    "SF-D-03--1440--first-use--v1.svg",
+    "SF-D-03--320--validation--v1.svg",
+    "SF-D-03--320--conflict--v1.svg"
+  ],
+  "boundary": {
+    "highFidelity": false,
+    "runtimeImplementation": false,
+    "apiMutation": false,
+    "businessRuleMutation": false,
+    "inventedBrandAsset": false,
+    "paidDependency": false
+  }
+}

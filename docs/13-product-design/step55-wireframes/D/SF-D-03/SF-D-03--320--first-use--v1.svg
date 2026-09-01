@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="1220" viewBox="0 0 320 1220" role="img" aria-labelledby="title desc" lang="fa">
+<title id="title">SF-D-03 — انتخاب نشانی تحویل — first-use — 320px</title>
+<desc id="desc">وایرفریم کم‌جزئیات فارسی و راست‌به‌چپ Step 55-D؛ اقدام اصلی انتخاب نشانی و ادامه و بازیابی اصلاح نشانی یا بازگشت به هویت.</desc>
+<style>text{font-family:Vazirmatn,Tahoma,Arial,sans-serif;fill:#0F172A}.h1{font-size:20px;font-weight:700}.h2{font-size:15px;font-weight:700}.body{font-size:12px}.label{font-size:11px;font-weight:600}.meta{font-size:9px}.muted{fill:#64748B}.mono{font-family:monospace}</style>
+<rect x="0" y="0" width="320" height="1220" rx="0" fill="#F8FAFC" stroke="#F8FAFC"/>
+<rect x="16" y="18" width="288" height="96" rx="8" fill="#FFFFFF" stroke="#CBD5E1"/>
+<text x="292" y="46" class="label" text-anchor="end">جای نشان تأییدشده</text>
+<rect x="28" y="30" width="112" height="44" rx="6" fill="#F8FAFC" stroke="#94A3B8"/>
+<text x="132" y="58" class="body" text-anchor="end">جست‌وجوی محصول</text>
+<text x="292" y="96" class="meta muted" text-anchor="end">منو · حساب · سبد</text>
+<text x="304" y="134" class="meta muted" text-anchor="end">تسویه‌حساب / SF-D-03</text>
+<text x="304" y="164" class="h1" text-anchor="end">انتخاب نشانی تحویل</text>
+<rect x="16" y="184" width="288" height="149" rx="8" fill="#FFFFFF" stroke="#0F766E"/>
+<text x="292" y="208" class="h2" text-anchor="end" fill="#0F766E" style="fill:#0F766E">هنوز نشانی ثبت نشده</text>
+<text x="292" y="228" class="h2" text-anchor="end" fill="#0F766E" style="fill:#0F766E">است</text>
+<text x="292" y="249" class="body" text-anchor="end">برای محاسبه روش ارسال یک نشانی</text>
+<text x="292" y="266" class="body" text-anchor="end">معتبر ثبت کنید؛ quote کالاها حفظ</text>
+<text x="292" y="283" class="body" text-anchor="end">می‌شود.</text>
+<text x="28" y="319" class="label" text-anchor="start" fill="#0F766E" style="fill:#0F766E">افزودن نشانی</text>
+<rect x="16" y="349" width="288" height="38" rx="8" fill="#FFFFFF" stroke="#CBD5E1"/>
+<text x="292" y="373" class="label" text-anchor="end">مرحله 2 از ۴ · نشانی</text>
+
+<rect x="16" y="403" width="288" height="300" rx="8" fill="#FFFFFF" stroke="#64748B"/>
+<text x="160" y="483" class="h2" text-anchor="middle">نشانی ثبت نشده است</text>
+<text x="160" y="523" class="body muted" text-anchor="middle">نشانی معتبر برای محاسبه ارسال لازم</text>
+<text x="160" y="545" class="body muted" text-anchor="middle">است.</text>
+<rect x="50" y="593" width="220" height="48" rx="8" fill="#0F766E" stroke="#0F766E"/>
+<text x="160" y="623" class="label" text-anchor="middle" fill="#FFFFFF" style="fill:#FFFFFF">افزودن نشانی</text>
+<line x1="16" y1="1142" x2="304" y2="1142" stroke="#CBD5E1"/>
+<text x="304" y="1168" class="meta muted" text-anchor="end">راهنما · تماس · قوانین پرداخت و بازگشت</text>
+<text x="304" y="1188" class="meta muted" text-anchor="end">بدون Wallet یا ادعای Provider تأییدنشده</text>
+<text x="16" y="1204" class="meta mono" text-anchor="start">SF-D-03 · 55-D · first-use · 320px · v1</text>
+</svg>
