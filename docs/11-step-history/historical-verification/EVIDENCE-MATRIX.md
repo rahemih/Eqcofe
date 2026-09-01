@@ -19,13 +19,13 @@ The audit does not modify `docs/12-current-state/MASTER-ROADMAP.md`, `CURRENT-ST
 |---:|---|---|---|---|
 | 01 | Product Vision & Scope | UNVERIFIED | VERIFIED_CURRENT | NOT_HISTORICALLY_CONFIRMED |
 | 02 | Architecture & Repository Foundation | UNVERIFIED | VERIFIED_CURRENT | NOT_HISTORICALLY_CONFIRMED |
-| 03 | Database & Migration Foundation | UNVERIFIED | PARTIAL_CURRENT | NOT_HISTORICALLY_CONFIRMED |
+| 03 | Database & Migration Foundation | UNVERIFIED | VERIFIED_CURRENT | NOT_HISTORICALLY_CONFIRMED |
 | 04 | Identity & Authentication Foundation | UNVERIFIED | VERIFIED_CURRENT | NOT_HISTORICALLY_CONFIRMED |
 | 05 | Authorization, RBAC & Admin Security | UNVERIFIED | VERIFIED_CURRENT | NOT_HISTORICALLY_CONFIRMED |
 | 06 | Catalog Core | UNVERIFIED | VERIFIED_CURRENT | NOT_HISTORICALLY_CONFIRMED |
 | 07 | Product Variants & SKU Model | UNVERIFIED | VERIFIED_CURRENT | NOT_HISTORICALLY_CONFIRMED |
 | 08 | Product Media & Rich Assets Foundation | UNVERIFIED | VERIFIED_CURRENT | NOT_HISTORICALLY_CONFIRMED |
-| 09 | Catalog Search, Filtering & Read Models | UNVERIFIED | PARTIAL_CURRENT | NOT_HISTORICALLY_CONFIRMED |
+| 09 | Catalog Search, Filtering & Read Models | UNVERIFIED | VERIFIED_CURRENT | NOT_HISTORICALLY_CONFIRMED |
 | 10 | Pricing Core | UNVERIFIED | VERIFIED_CURRENT | NOT_HISTORICALLY_CONFIRMED |
 | 11 | Pricing Administration & Bulk Change Rules | UNVERIFIED | VERIFIED_CURRENT | NOT_HISTORICALLY_CONFIRMED |
 | 12 | Inventory Core | UNVERIFIED | VERIFIED_CURRENT | NOT_HISTORICALLY_CONFIRMED |
@@ -56,6 +56,8 @@ The audit does not modify `docs/12-current-state/MASTER-ROADMAP.md`, `CURRENT-ST
 - Full `pnpm verify`: **FAIL** at `design:check` because three Step 54 generated artifacts drift from the Step 54 contract. No out-of-scope remediation was made.
 - PostgreSQL clean migration: **NOT RUN** because Docker/PostgreSQL/psql is unavailable. Migration source/checksum/ordering and source-level lineage tests were inspected.
 - Canonical main CI at baseline: GitHub Actions run `33505894484`, **SUCCESS**, for exact SHA `ae40460bed512bc8a492ffa101f4e6263cd7c4d3`.
+- Step 03 database evidence: Step 52 clean PostgreSQL lineage **PASS — 65/65 migrations and 65/65 checksums; 0 unvalidated constraints; 0 invalid indexes**.
+- Step 09 remediation branch: real `/search` and `/search/suggestions` Catalog runtime added; build and OpenAPI validation PASS; full regression **614/614 PASS**.
 
 ## Historical finding
 
@@ -63,6 +65,8 @@ The repository was created on 2026-08-19 and received the feature-bearing tree a
 
 The predecessor repository `rahemih/digikala-clone` was also fully audited. Its 168 reachable commits and every advertised branch establish pre-import EQCOFE development and later-Step content continuity, including 48 byte-identical blobs shared between legacy branch `Eqcofe-02` and aggregate import `b239dfe825`. However, explicit numbered history begins at Step 38, and none of 16 historical recovery-payload variants could be reconstructed. This additional evidence does not justify changing the Step 01–28 classifications. See [LEGACY-REPOSITORY-RECOVERY.md](LEGACY-REPOSITORY-RECOVERY.md).
 
+Google Drive canonical-import packages, Eqcofe-02 snapshot, later canonical backup, reports, and recovery documents were also inventoried. The import-time report independently records Steps 01–27 as `UNVERIFIED` and Step 28 as `PARTIAL`, so these backups corroborate rather than supersede the historical classification. See [DRIVE-BACKUP-RECOVERY.md](DRIVE-BACKUP-RECOVERY.md).
+
 ## Remediation decision
 
-No code remediation is justified within scope. Missing historical provenance cannot be repaired by code; the Step 3 live-database gap is an environment limitation; the Step 9 search-runtime limitation cannot be safely assigned to a historically unverified DoD without a separate approved implementation scope; and Step 54 artifact drift is explicitly out of scope.
+The user separately authorized retrospective technical remediation while preserving Step 29+. Step 03 was upgraded using already-canonical real PostgreSQL evidence; Step 09 received a bounded Catalog-owned search runtime plus regression tests. Missing historical provenance cannot be repaired by code, and Step 54 artifact drift remains explicitly out of scope.

@@ -4,7 +4,7 @@
 
 - Reconstructed title: **Database & Migration Foundation**
 - Historical Attribution: **UNVERIFIED**
-- Current Canonical Verification: **PARTIAL_CURRENT**
+- Current Canonical Verification: **VERIFIED_CURRENT**
 - Overall confirmation: **NOT_HISTORICALLY_CONFIRMED**
 
 ## Reconstructed Definition of Done
@@ -28,7 +28,7 @@ Repository-wide searches covered Git history (all 649 reachable commits), merged
 
 ## Verification
 
-Migration source and clean-lineage source tests exist, but no Docker/PostgreSQL/psql runtime was available for a fresh apply against an empty database.
+Migration source and clean-lineage tests exist. Canonical Step 52 evidence records a real clean PostgreSQL execution of all 65 migrations with all 65 checksums matching, plus zero unvalidated constraints and zero invalid indexes. This later verification covers and supersedes the audit host's lack of local PostgreSQL.
 
 Shared exact-baseline checks on `ae40460bed512bc8a492ffa101f4e6263cd7c4d3`:
 
@@ -38,10 +38,10 @@ Shared exact-baseline checks on `ae40460bed512bc8a492ffa101f4e6263cd7c4d3`:
 - `pnpm build`: **PASS**.
 - `pnpm test` outside the Windows sandbox: **PASS — 610/610**.
 - `pnpm verify`: **FAIL before architecture/build/tests** because three Step 54 generated design-system files drift from the Step 54 contract; this is outside Steps 1–28 and was not remediated.
-- Fresh PostgreSQL migration apply: **NOT RUN** — Docker/PostgreSQL/psql is unavailable on this host.
+- Fresh PostgreSQL migration apply on this host: **NOT RUN**. Canonical clean PostgreSQL evidence: **PASS — 65/65 migrations and checksums** in `STEP-52-A12-FINAL-CANONICAL-CLOSURE.md`.
 
 ## Gaps and decision
 
-Historical attribution is unverified, so the numbered Step cannot be honestly marked historically complete even where the current capability is verified. Current implementation/verification also has the limitation stated above.
+Historical attribution is unverified, so the numbered Step cannot be honestly marked historically complete even though the current capability is verified.
 
-No runtime remediation was made: the proven gaps are missing historical provenance, unavailable live PostgreSQL infrastructure, a current search-runtime gap, or Step 54 drift outside the authorized scope.
+No database code was changed for Step 03. The prior limitation was an evidence-discovery gap resolved by canonical Step 52 PostgreSQL records, not by fabricating a new run.
