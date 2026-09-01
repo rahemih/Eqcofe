@@ -12,5 +12,11 @@ The contract covers authoritative product price/stock/Variant decisions, media f
 
 No runtime, API, database, dependency, permission or business-rule change is introduced. No brand/media asset, provider success, high-fidelity UI or Figma requirement is invented. Cart and checkout remain excluded for 55-D.
 
-Canonical PR/CI/merge evidence is recorded after exact-head verification. Step 55 remains open through 55-F.
+## Canonical evidence
 
+- PR: `#140` — Step 55-C Product Evaluation wireframes.
+- Implementation head: `f7752be27910db467fb9b007ff2c9137d0c18340`.
+- Implementation Canonical CI: `33500617721` — PASS; verify job `99832841761` — PASS, including full `pnpm verify`.
+- Final exact-head CI and merge evidence are recorded before Gate closure.
+
+Step 55 remains open through 55-F.
