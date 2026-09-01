@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="1000" viewBox="0 0 1440 1000" role="img" aria-labelledby="title desc" lang="fa">
+<title id="title">SF-D-02 — ورود و هویت تسویه‌حساب — validation — 1440px</title>
+<desc id="desc">وایرفریم کم‌جزئیات فارسی و راست‌به‌چپ Step 55-D؛ اقدام اصلی تأیید هویت و ادامه و بازیابی درخواست کنترل‌شده کد تازه یا بازگشت به سبد.</desc>
+<style>text{font-family:Vazirmatn,Tahoma,Arial,sans-serif;fill:#0F172A}.h1{font-size:28px;font-weight:700}.h2{font-size:18px;font-weight:700}.body{font-size:14px}.label{font-size:13px;font-weight:600}.meta{font-size:11px}.muted{fill:#64748B}.mono{font-family:monospace}</style>
+<rect x="0" y="0" width="1440" height="1000" rx="0" fill="#F8FAFC" stroke="#F8FAFC"/>
+<rect x="80" y="18" width="1280" height="82" rx="8" fill="#FFFFFF" stroke="#CBD5E1"/>
+<text x="1348" y="46" class="label" text-anchor="end">جای نشان تأییدشده</text>
+<rect x="92" y="30" width="360" height="44" rx="6" fill="#F8FAFC" stroke="#94A3B8"/>
+<text x="440" y="58" class="body" text-anchor="end">جست‌وجوی محصول</text>
+<text x="1348" y="94" class="meta muted" text-anchor="end">دسته‌ها · مقایسه · حساب · سبد</text>
+<text x="1360" y="128" class="meta muted" text-anchor="end">تسویه‌حساب / SF-D-02</text>
+<text x="1360" y="166" class="h1" text-anchor="end">ورود و هویت تسویه‌حساب</text>
+<rect x="80" y="186" width="1280" height="76" rx="8" fill="#FFFFFF" stroke="#B91C1C"/>
+<text x="1348" y="210" class="h2" text-anchor="end" fill="#B91C1C" style="fill:#B91C1C">کد واردشده معتبر نیست</text>
+<text x="1348" y="231" class="body" text-anchor="end">کد شش‌رقمی را بررسی کنید؛ سبد و quote امن حفظ شده‌اند و خطا به ورودی مرتبط است.</text>
+<text x="92" y="248" class="label" text-anchor="start" fill="#B91C1C" style="fill:#B91C1C">بررسی دوباره کد</text>
+<rect x="80" y="286" width="1280" height="38" rx="8" fill="#FFFFFF" stroke="#CBD5E1"/>
+<text x="1348" y="310" class="label" text-anchor="end">مرحله 1 از ۴ · هویت</text>
+
+<rect x="660" y="340" width="700" height="400" rx="8" fill="#FFFFFF" stroke="#CBD5E1"/>
+<text x="1344" y="374" class="h2" text-anchor="end">کد تأیید شش‌رقمی</text>
+<rect x="676" y="398" width="668" height="48" rx="6" fill="#FFFFFF" stroke="#B91C1C"/>
+<text x="1332" y="429" class="body" text-anchor="end">••••••</text>
+<text x="1344" y="472" class="body" text-anchor="end" fill="#B91C1C" style="fill:#B91C1C">کد نامعتبر است؛ ورودی را دوباره بررسی کنید</text>
+<text x="1344" y="506" class="body muted" text-anchor="end">سبد مهمان و quote امن حفظ می‌شوند</text>
+<rect x="676" y="558" width="668" height="48" rx="8" fill="#0F766E" stroke="#0F766E"/>
+<text x="1010" y="588" class="label" text-anchor="middle" fill="#FFFFFF" style="fill:#FFFFFF">تأیید هویت و ادامه</text>
+<text x="1010" y="644" class="label" text-anchor="middle" fill="#1D4ED8" style="fill:#1D4ED8">بازگشت به سبد</text>
+<line x1="80" y1="932" x2="1360" y2="932" stroke="#CBD5E1"/>
+<text x="1360" y="958" class="meta muted" text-anchor="end">راهنما · تماس · قوانین پرداخت و بازگشت</text>
+<text x="1360" y="978" class="meta muted" text-anchor="end">بدون Wallet یا ادعای Provider تأییدنشده</text>
+<text x="80" y="984" class="meta mono" text-anchor="start">SF-D-02 · 55-D · validation · 1440px · v1</text>
+</svg>

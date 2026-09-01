@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="1000" viewBox="0 0 1440 1000" role="img" aria-labelledby="title desc" lang="fa">
+<title id="title">SF-D-07 — نتیجه سفارش — success — 1440px</title>
+<desc id="desc">وایرفریم کم‌جزئیات فارسی و راست‌به‌چپ Step 55-D؛ اقدام اصلی مشاهده جزئیات سفارش و بازیابی بازگشت به وضعیت پرداخت یا پشتیبانی با مرجع.</desc>
+<style>text{font-family:Vazirmatn,Tahoma,Arial,sans-serif;fill:#0F172A}.h1{font-size:28px;font-weight:700}.h2{font-size:18px;font-weight:700}.body{font-size:14px}.label{font-size:13px;font-weight:600}.meta{font-size:11px}.muted{fill:#64748B}.mono{font-family:monospace}</style>
+<rect x="0" y="0" width="1440" height="1000" rx="0" fill="#F8FAFC" stroke="#F8FAFC"/>
+<rect x="80" y="18" width="1280" height="82" rx="8" fill="#FFFFFF" stroke="#CBD5E1"/>
+<text x="1348" y="46" class="label" text-anchor="end">جای نشان تأییدشده</text>
+<rect x="92" y="30" width="360" height="44" rx="6" fill="#F8FAFC" stroke="#94A3B8"/>
+<text x="440" y="58" class="body" text-anchor="end">جست‌وجوی محصول</text>
+<text x="1348" y="94" class="meta muted" text-anchor="end">دسته‌ها · مقایسه · حساب · سبد</text>
+<text x="1360" y="128" class="meta muted" text-anchor="end">تسویه‌حساب / SF-D-07</text>
+<text x="1360" y="166" class="h1" text-anchor="end">نتیجه سفارش</text>
+<rect x="80" y="186" width="1280" height="76" rx="8" fill="#FFFFFF" stroke="#0F766E"/>
+<text x="1348" y="210" class="h2" text-anchor="end" fill="#0F766E" style="fill:#0F766E">سفارش با موفقیت ثبت و پرداخت شد</text>
+<text x="1348" y="231" class="body" text-anchor="end">سفارش EQ-14052 و پرداخت تأییدشده‌اند؛ فاکتور و timeline از جزئیات سفارش در دسترس‌اند.</text>
+<text x="92" y="248" class="label" text-anchor="start" fill="#0F766E" style="fill:#0F766E">مشاهده جزئیات سفارش</text>
+<rect x="540" y="286" width="820" height="430" rx="10" fill="#FFFFFF" stroke="#0F766E"/>
+<text x="1340" y="328" class="h2" text-anchor="end" fill="#0F766E" style="fill:#0F766E">وضعیت نهایی سفارش</text>
+<text x="1340" y="372" class="h2" text-anchor="end">نتیجه: تأییدشده</text>
+<line x1="560" y1="396" x2="1340" y2="396" stroke="#E2E8F0"/>
+<text x="1340" y="436" class="body mono" text-anchor="end">شماره سفارش: EQ-14052</text>
+<text x="1340" y="470" class="body mono" text-anchor="end">شناسه پرداخت: PAY-9F31</text>
+<text x="1340" y="512" class="body muted" text-anchor="end">timeline و فاکتور از جزئیات سفارش خوانده می‌شوند.</text>
+<rect x="560" y="564" width="780" height="50" rx="8" fill="#0F766E" stroke="#0F766E"/>
+<text x="950" y="595" class="label" text-anchor="middle" fill="#FFFFFF" style="fill:#FFFFFF">مشاهده جزئیات سفارش</text>
+<text x="950" y="648" class="label" text-anchor="middle" fill="#1D4ED8" style="fill:#1D4ED8">وضعیت پرداخت · پشتیبانی</text>
+<line x1="80" y1="932" x2="1360" y2="932" stroke="#CBD5E1"/>
+<text x="1360" y="958" class="meta muted" text-anchor="end">راهنما · تماس · قوانین پرداخت و بازگشت</text>
+<text x="1360" y="978" class="meta muted" text-anchor="end">بدون Wallet یا ادعای Provider تأییدنشده</text>
+<text x="80" y="984" class="meta mono" text-anchor="start">SF-D-07 · 55-D · success · 1440px · v1</text>
+</svg>

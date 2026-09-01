@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="1220" viewBox="0 0 320 1220" role="img" aria-labelledby="title desc" lang="fa">
+<title id="title">SF-D-05 — بازبینی و ثبت سفارش — expired — 320px</title>
+<desc id="desc">وایرفریم کم‌جزئیات فارسی و راست‌به‌چپ Step 55-D؛ اقدام اصلی ثبت سفارش و رفتن به پرداخت و بازیابی بازسازی quote/reservation یا بازگشت به مرحله مرتبط.</desc>
+<style>text{font-family:Vazirmatn,Tahoma,Arial,sans-serif;fill:#0F172A}.h1{font-size:20px;font-weight:700}.h2{font-size:15px;font-weight:700}.body{font-size:12px}.label{font-size:11px;font-weight:600}.meta{font-size:9px}.muted{fill:#64748B}.mono{font-family:monospace}</style>
+<rect x="0" y="0" width="320" height="1220" rx="0" fill="#F8FAFC" stroke="#F8FAFC"/>
+<rect x="16" y="18" width="288" height="96" rx="8" fill="#FFFFFF" stroke="#CBD5E1"/>
+<text x="292" y="46" class="label" text-anchor="end">جای نشان تأییدشده</text>
+<rect x="28" y="30" width="112" height="44" rx="6" fill="#F8FAFC" stroke="#94A3B8"/>
+<text x="132" y="58" class="body" text-anchor="end">جست‌وجوی محصول</text>
+<text x="292" y="96" class="meta muted" text-anchor="end">منو · حساب · سبد</text>
+<text x="304" y="134" class="meta muted" text-anchor="end">تسویه‌حساب / SF-D-05</text>
+<text x="304" y="164" class="h1" text-anchor="end">بازبینی و ثبت سفارش</text>
+<rect x="16" y="184" width="288" height="149" rx="8" fill="#FFFFFF" stroke="#B45309"/>
+<text x="292" y="208" class="h2" text-anchor="end" fill="#B45309" style="fill:#B45309">رزرو checkout منقضی</text>
+<text x="292" y="228" class="h2" text-anchor="end" fill="#B45309" style="fill:#B45309">شده است</text>
+<text x="292" y="249" class="body" text-anchor="end">مهلت ۱۵ دقیقه‌ای پایان یافته؛</text>
+<text x="292" y="266" class="body" text-anchor="end">موجودی و قیمت دوباره بررسی می‌شوند</text>
+<text x="292" y="283" class="body" text-anchor="end">و سفارش تکراری ساخته نمی‌شود.</text>
+<text x="28" y="319" class="label" text-anchor="start" fill="#B45309" style="fill:#B45309">بازسازی رزرو</text>
+<rect x="16" y="349" width="288" height="38" rx="8" fill="#FFFFFF" stroke="#CBD5E1"/>
+<text x="292" y="373" class="label" text-anchor="end">مرحله 4 از ۴ · بازبینی</text>
+
+<rect x="16" y="403" width="288" height="320" rx="8" fill="#FFFFFF" stroke="#CBD5E1"/>
+<text x="288" y="435" class="h2" text-anchor="end">کالاها، نشانی و ارسال</text>
+<text x="288" y="479" class="body" text-anchor="end">۲ × آسیاب E-Q40 — استیل</text>
+<text x="288" y="517" class="body" text-anchor="end">نشانی: تهران، خیابان نمونه</text>
+<text x="288" y="555" class="body" text-anchor="end">ارسال استاندارد — ۱۸۰٬۰۰۰ تومان</text>
+<text x="288" y="593" class="body" text-anchor="end">نوع مشتری: خرده‌فروشی</text>
+<rect x="16" y="743" width="288" height="300" rx="8" fill="#FFFFFF" stroke="#B91C1C"/>
+<text x="288" y="775" class="h2" text-anchor="end">جمع نهایی</text>
+<text x="288" y="819" class="h2" text-anchor="end" fill="#0F766E" style="fill:#0F766E">۱۰٬۲۴۰٬۰۰۰ تومان</text>
+<text x="288" y="857" class="body" text-anchor="end" fill="#B91C1C" style="fill:#B91C1C">رزرو ۱۵ دقیقه‌ای منقضی شد</text>
+<rect x="32" y="917" width="256" height="50" rx="8" fill="#0F766E" stroke="#0F766E"/>
+<text x="160" y="948" class="label" text-anchor="middle" fill="#FFFFFF" style="fill:#FFFFFF">بازسازی رزرو</text>
+<line x1="16" y1="1142" x2="304" y2="1142" stroke="#CBD5E1"/>
+<text x="304" y="1168" class="meta muted" text-anchor="end">راهنما · تماس · قوانین پرداخت و بازگشت</text>
+<text x="304" y="1188" class="meta muted" text-anchor="end">بدون Wallet یا ادعای Provider تأییدنشده</text>
+<text x="16" y="1204" class="meta mono" text-anchor="start">SF-D-05 · 55-D · expired · 320px · v1</text>
+</svg>

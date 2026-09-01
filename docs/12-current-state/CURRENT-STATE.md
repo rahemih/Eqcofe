@@ -72,7 +72,7 @@ Detailed closure evidence remains immutable in `docs/11-step-history/` and merge
 
 ## Step 55 active product-design state
 
-**Step 55 — Storefront Wireframes — IN PROGRESS; A/B/C COMPLETE / FINAL GATE PASS.**
+**Step 55 — Storefront Wireframes — IN PROGRESS; A/B/C COMPLETE / FINAL GATE PASS; D implementation prepared for Canonical Gate.**
 
 - A baseline: canonical `main` at `0e251696478e2cd91571c6103257e0c978c16c88`, with Step 54 closed and Step 55 not started.
 - Canonical foundation: `docs/13-product-design/step55-storefront-wireframe-contract.json` plus the foundation and acceptance/traceability documents.
@@ -82,12 +82,14 @@ Detailed closure evidence remains immutable in `docs/11-step-history/` and merge
 - A introduces no page wireframe. Its PR `#137` final head `614a548db5c5f96e902f1bb2ae824753d56ed6e0` passed Canonical CI `33295639025` / verify `99214700084`, merged at `75b117582b2e6315091c0e99459ad14b9a4fea0c`, and main Canonical CI `33295685153` / verify `99214821929` passed.
 - B Canonical source: `step55-discovery-wireframes.json` and `step55-wireframes/B/` — 6 screens, 24 low-fidelity SVG frames, 44 deterministic artifacts, complete state/responsive/RTL/accessibility/commerce/recovery companions and SHA-256 provenance.
 - B introduces no high-fidelity UI, frontend/backend runtime, API, migration, dependency, permission or business-rule change. Figma remains optional/non-blocking.
-- Linear: `HOS-13` — Step 55 — In Progress; A/B/C complete and D is the next allowed Gate.
+- Linear: `HOS-13` — Step 55 — In Progress; A/B/C complete and D implementation/verification is active.
 - Step 55-B: PR `#138`; implementation head `39ae82340f31298b67baa9aaddcc4a84ad22820f`, CI `33297101212` / verify `99218555170` PASS; final head `956cde6ebbdb9694c9571030608a6f0e0809b506`, CI `33297193079` / verify `99218795810` PASS; merge/`main` `a9a35422347273f35da85ba5e3711a7d9cd3b9a1`; post-merge CI `33297252729` / verify `99218944170` PASS.
 - C source: `step55-product-evaluation-wireframes.json` and `step55-wireframes/C/` — 5 screens, 20 low-fidelity SVG frames and 37 deterministic artifacts covering product detail/media, comparison and customer-owned actions.
 - C preserves authoritative price/stock/Variant, max-four same-category comparison, safe guest-intent recovery, Persian RTL, all six widths and 400% zoom. It introduces no runtime/API/rule/dependency change.
 - C PR `#140`: implementation head `f7752be27910db467fb9b007ff2c9137d0c18340`, CI `33500617721` / verify `99832841761` PASS; final head `adb015b46a90ba8383d0cbf17a149050ebdc1cd0`, CI `33500791061` / verify `99833400342` PASS; merge/`main` `1a45bc71809eeae7e9e0670715a30f2c3069ab32`; post-merge CI `33500900444` / verify `99833752685` PASS.
-- Next allowed substep after C Canonical merge: **55-D — Cart, Checkout & Payment Recovery**. Step 55 remains open until F completes final audit and canonical closure.
+- D source: `step55-checkout-payment-wireframes.json` and `step55-wireframes/D/` — 7 screens, 28 low-fidelity SVG frames and 51 deterministic artifacts covering Cart, Checkout, Payment Verify and Order Recovery.
+- D preserves authoritative quote/stock/shipping/payment/order, 168-hour Cart TTL, 15-minute Checkout TTL, idempotent submission and fail-closed unknown payment recovery. It introduces no runtime/API/rule/dependency change.
+- Next allowed substep after D Canonical merge: **55-E — Account, Wholesale & After-Sales**. Step 55 remains open until F completes final audit and canonical closure.
 
 ## Step 49 final closure state
 **Step 49 — Physical Store / POS Backend — CLOSED / FINAL GATE PASS.**

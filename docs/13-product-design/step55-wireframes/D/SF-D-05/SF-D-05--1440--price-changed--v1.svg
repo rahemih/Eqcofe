@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="1000" viewBox="0 0 1440 1000" role="img" aria-labelledby="title desc" lang="fa">
+<title id="title">SF-D-05 — بازبینی و ثبت سفارش — price-changed — 1440px</title>
+<desc id="desc">وایرفریم کم‌جزئیات فارسی و راست‌به‌چپ Step 55-D؛ اقدام اصلی ثبت سفارش و رفتن به پرداخت و بازیابی بازسازی quote/reservation یا بازگشت به مرحله مرتبط.</desc>
+<style>text{font-family:Vazirmatn,Tahoma,Arial,sans-serif;fill:#0F172A}.h1{font-size:28px;font-weight:700}.h2{font-size:18px;font-weight:700}.body{font-size:14px}.label{font-size:13px;font-weight:600}.meta{font-size:11px}.muted{fill:#64748B}.mono{font-family:monospace}</style>
+<rect x="0" y="0" width="1440" height="1000" rx="0" fill="#F8FAFC" stroke="#F8FAFC"/>
+<rect x="80" y="18" width="1280" height="82" rx="8" fill="#FFFFFF" stroke="#CBD5E1"/>
+<text x="1348" y="46" class="label" text-anchor="end">جای نشان تأییدشده</text>
+<rect x="92" y="30" width="360" height="44" rx="6" fill="#F8FAFC" stroke="#94A3B8"/>
+<text x="440" y="58" class="body" text-anchor="end">جست‌وجوی محصول</text>
+<text x="1348" y="94" class="meta muted" text-anchor="end">دسته‌ها · مقایسه · حساب · سبد</text>
+<text x="1360" y="128" class="meta muted" text-anchor="end">تسویه‌حساب / SF-D-05</text>
+<text x="1360" y="166" class="h1" text-anchor="end">بازبینی و ثبت سفارش</text>
+<rect x="80" y="186" width="1280" height="76" rx="8" fill="#FFFFFF" stroke="#B45309"/>
+<text x="1348" y="210" class="h2" text-anchor="end" fill="#B45309" style="fill:#B45309">جمع سفارش تغییر کرده است</text>
+<text x="1348" y="231" class="body" text-anchor="end">quote تازه ۱۰٬۳۵۰٬۰۰۰ تومان است؛ مبلغ قبلی مبنای ثبت سفارش نیست.</text>
+<text x="92" y="248" class="label" text-anchor="start" fill="#B45309" style="fill:#B45309">تأیید جمع تازه</text>
+<rect x="80" y="286" width="1280" height="38" rx="8" fill="#FFFFFF" stroke="#CBD5E1"/>
+<text x="1348" y="310" class="label" text-anchor="end">مرحله 4 از ۴ · بازبینی</text>
+
+<rect x="80" y="340" width="820" height="420" rx="8" fill="#FFFFFF" stroke="#CBD5E1"/>
+<text x="884" y="372" class="h2" text-anchor="end">کالاها، نشانی و ارسال</text>
+<text x="884" y="416" class="body" text-anchor="end">۲ × آسیاب E-Q40 — استیل</text>
+<text x="884" y="454" class="body" text-anchor="end">نشانی: تهران، خیابان نمونه</text>
+<text x="884" y="492" class="body" text-anchor="end">ارسال استاندارد — ۱۸۰٬۰۰۰ تومان</text>
+<text x="884" y="530" class="body" text-anchor="end">نوع مشتری: خرده‌فروشی</text>
+<rect x="924" y="340" width="436" height="420" rx="8" fill="#FFFFFF" stroke="#CBD5E1"/>
+<text x="1344" y="372" class="h2" text-anchor="end">جمع نهایی</text>
+<text x="1344" y="416" class="h2" text-anchor="end" fill="#B45309" style="fill:#B45309">۱۰٬۳۵۰٬۰۰۰ تومان — تازه</text>
+<text x="1344" y="454" class="body" text-anchor="end" fill="#64748B" style="fill:#64748B">اعتبار رزرو: ۱۲ دقیقه</text>
+<rect x="940" y="514" width="404" height="50" rx="8" fill="#0F766E" stroke="#0F766E"/>
+<text x="1142" y="545" class="label" text-anchor="middle" fill="#FFFFFF" style="fill:#FFFFFF">ثبت سفارش و رفتن به پرداخت</text>
+<line x1="80" y1="932" x2="1360" y2="932" stroke="#CBD5E1"/>
+<text x="1360" y="958" class="meta muted" text-anchor="end">راهنما · تماس · قوانین پرداخت و بازگشت</text>
+<text x="1360" y="978" class="meta muted" text-anchor="end">بدون Wallet یا ادعای Provider تأییدنشده</text>
+<text x="80" y="984" class="meta mono" text-anchor="start">SF-D-05 · 55-D · price-changed · 1440px · v1</text>
+</svg>

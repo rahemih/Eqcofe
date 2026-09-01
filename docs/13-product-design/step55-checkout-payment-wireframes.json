@@ -1,0 +1,174 @@
+{
+  "schemaVersion": "1.0.0",
+  "step": 55,
+  "substep": "D",
+  "status": "D_COMPLETE_STEP_IN_PROGRESS",
+  "title": "Cart, Checkout and Payment Recovery Wireframes",
+  "baseline": "6c866afbdae6499d60df5656e92e78da20923811",
+  "canonicalSource": "repository",
+  "figmaMirror": "OPTIONAL_NOT_REQUIRED",
+  "revision": 1,
+  "language": "fa-IR",
+  "direction": "rtl",
+  "currency": "Toman",
+  "walletAllowed": false,
+  "theme": "light",
+  "fidelity": "structural-low-fidelity",
+  "journeys": ["SJ-03", "SJ-04", "SJ-05", "SJ-06", "SJ-07", "SJ-11"],
+  "operations": [
+    "POST /auth/otp/request", "POST /auth/otp/verify", "GET /auth/session", "POST /customer/cart/access", "POST /customer/cart/merge",
+    "POST /cart", "GET /cart/{id}", "POST /cart/{id}/items", "PATCH /cart/{id}/items/{itemId}", "DELETE /cart/{id}/items/{itemId}", "POST /cart/{id}/quote", "GET /shipping-methods", "POST /checkout/{id}/reserve", "POST /checkout/{id}/order",
+    "GET /customer/addresses", "POST /customer/addresses", "PATCH /customer/addresses/{id}", "POST /customer/addresses/{id}/set-default",
+    "POST /customer/orders/{order_number}/payments", "GET /customer/orders/{order_number}/payments/{payment_id}", "GET /customer/payments/{payment_id}/status", "POST /customer/payments/{payment_id}/verify",
+    "GET /customer/orders/{order_number}", "GET /customer/orders/{order_number}/timeline"
+  ],
+  "flow": [
+    {"from":"SF-C-01","action":"انتخاب مدل و ادامه","to":"SF-D-01","kind":"handoff"},
+    {"from":"SF-D-01","action":"ادامه تسویه‌حساب","to":"SF-D-02","kind":"primary"},
+    {"from":"SF-D-02","action":"تأیید هویت و ادامه","to":"SF-D-03","kind":"primary"},
+    {"from":"SF-D-03","action":"انتخاب نشانی","to":"SF-D-04","kind":"primary"},
+    {"from":"SF-D-04","action":"انتخاب روش ارسال","to":"SF-D-05","kind":"primary"},
+    {"from":"SF-D-05","action":"ثبت سفارش و رفتن به پرداخت","to":"SF-D-06","kind":"primary"},
+    {"from":"SF-D-06","action":"بررسی وضعیت authoritative","to":"SF-D-07","kind":"primary"},
+    {"from":"SF-D-06","action":"تلاش کنترل‌شده یا بازگشت به سفارش","to":"SF-D-06","kind":"recovery"},
+    {"from":"SF-D-07","action":"مشاهده جزئیات سفارش","to":"SF-E-05","kind":"handoff"}
+  ],
+  "responsiveReview": [
+    {"width":320,"grid":"4 columns / 16 margin / 16 gutter","cart":"کارت کالا و خلاصه سفارش عمودی","checkout":"هر مرحله یک task؛ اقدام زیر محتوای مرتبط","payment":"StatePanel تک‌ستونه با مرجع قابل کپی"},
+    {"width":360,"grid":"4 columns / 16 margin / 16 gutter","cart":"کنترل تعداد 44px و جمع بدون تراکم","checkout":"ورودی‌ها تمام‌عرض؛ progress متنی","payment":"اقدام اصلی و status check پشت‌سرهم"},
+    {"width":600,"grid":"8 columns / 24 margin / 24 gutter","cart":"کالاها 5 ستون و خلاصه 3 ستون یا stacked بر اساس محتوا","checkout":"فرم 6 ستون با راهنمای 2 ستون","payment":"پنل وضعیت حداکثر 6 ستون"},
+    {"width":840,"grid":"12 columns / 32 margin / 24 gutter","cart":"فهرست 8 ستون و خلاصه sticky چهار ستون بدون پوشاندن focus","checkout":"فرم 7 ستون و خلاصه پنج ستون","payment":"وضعیت 8 ستون و خلاصه سفارش چهار ستون"},
+    {"width":1200,"grid":"12 columns / 32 margin / 24 gutter","cart":"نسبت 8/4 و جمع authoritative","checkout":"step content و order summary هم‌زمان","payment":"مرجع، timeline و recovery کنار خلاصه"},
+    {"width":1440,"grid":"12 columns / 32 margin / 24 gutter; content max 1280","cart":"محتوا در 1280px مرکزی","checkout":"نسبت‌ها ثابت و whitespace در gutter","payment":"پنل اصلی حداکثر 820px؛ خلاصه 436px"}
+  ],
+  "crossCutting": {
+    "commerce": [
+      "قیمت، موجودی، تخفیف، نوع مشتری، هزینه ارسال و جمع فقط از quote authoritative می‌آیند.",
+      "تمام مبالغ عدد صحیح گروه‌بندی‌شده با واحد صریح تومان‌اند و Wallet نمایش داده نمی‌شود.",
+      "تغییر قیمت، موجودی، حداقل تعداد یا نوع مشتری quote قبلی را بی‌صدا معتبر نگه نمی‌دارد.",
+      "cart TTL برابر 168 ساعت و checkout TTL برابر 15 دقیقه است؛ انقضا با مسیر بازسازی quote نشان داده می‌شود.",
+      "رزرو موجودی و ثبت سفارش فقط پس از اعتبارسنجی نهایی انجام می‌شود؛ UI موفقیت زودهنگام نمی‌سازد."
+    ],
+    "identityAddressDelivery": [
+      "سبد مهمان پس از OTP با merge صریح و حل conflict به حساب متصل می‌شود.",
+      "نشانی customer-owned است؛ مالکیت، اعتبارسنجی و قانون یک نشانی پیش‌فرض حفظ می‌شود.",
+      "روش ارسال فقط از فهرست authoritative و متناسب با نشانی/سبد انتخاب می‌شود.",
+      "داده حساس یا OTP در وایرفریم، URL، analytics یا پیام خطا بازتاب داده نمی‌شود."
+    ],
+    "paymentRecovery": [
+      "بازگشت Provider نتیجه پرداخت نیست؛ verify یا status authoritative تعیین‌کننده است.",
+      "unknown-result، timeout و callback تکراری موفقیت یا شکست ساختگی نشان نمی‌دهند.",
+      "retry فقط پس از status check و با idempotency/مرجع پایدار پیشنهاد می‌شود.",
+      "شماره سفارش و شناسه پرداخت در bidi isolation و بدون نمایش secret ارائه می‌شوند.",
+      "نتیجه نهایی سفارش، پرداخت ثبت‌شده و مسیر جزئیات/پشتیبانی را روشن می‌کند."
+    ],
+    "accessibility": [
+      "هر صفحه یک H1، landmarkهای معنادار و progress متنی برای checkout دارد.",
+      "هدف تعاملی حداقل 44×44 CSS px، focus واضح و error summary مرتبط با field دارد.",
+      "تغییر جمع، انقضا، ارسال و نتیجه verify با announcement مستقل بیان می‌شود.",
+      "در 400% zoom ترتیب معنی‌دار حفظ و scroll دوبعدی صفحه ایجاد نمی‌شود.",
+      "انتخاب‌ها فقط با رنگ مشخص نمی‌شوند و اقدام disabled دلیل متنی دارد."
+    ]
+  },
+  "screens": [
+    {
+      "id":"SF-D-01","name":"Cart","title":"سبد خرید","routeIntent":"/cart","actors":["guest","retail","wholesale"],
+      "journeys":["SJ-03","SJ-04","SJ-11"],
+      "operations":["POST /cart","GET /cart/{id}","PATCH /cart/{id}/items/{itemId}","DELETE /cart/{id}/items/{itemId}","POST /cart/{id}/quote","POST /customer/cart/access","POST /customer/cart/merge"],
+      "components":["Card","TextField","Alert","Button","StatePanel"],"layout":"cart",
+      "primaryTask":"بازبینی کالا، تعداد و quote جاری پیش از checkout","primaryAction":"ادامه تسویه‌حساب","recoveryAction":"اصلاح تعداد یا دریافت quote تازه",
+      "contentPriority":["کالا و Variant","قیمت/موجودی جاری","تعداد","خطای خط","جمع تومان","ادامه checkout"],
+      "states":[
+        {"id":"first-use","title":"سبد خرید خالی است","message":"هنوز کالایی برای تسویه‌حساب انتخاب نشده است؛ مسیر بازگشت به محصولات حفظ می‌شود.","action":"مشاهده محصولات"},
+        {"id":"quantity-invalid","title":"تعداد این کالا معتبر نیست","message":"حداکثر موجودی فعلی ۸ عدد است؛ مقدار قبلی حفظ شده و ادامه تا اصلاح غیرفعال می‌ماند.","action":"تنظیم تعداد روی ۸"},
+        {"id":"price-changed","title":"قیمت سبد به‌روز شد","message":"قیمت E-Q40 تغییر کرده است؛ جمع تازه ۱۰٬۱۰۰٬۰۰۰ تومان پیش از ادامه باید تأیید شود.","action":"تأیید quote تازه"}
+      ]
+    },
+    {
+      "id":"SF-D-02","name":"Checkout identity","title":"ورود و هویت تسویه‌حساب","routeIntent":"/checkout/identity","actors":["guest","retail","wholesale"],
+      "journeys":["SJ-03","SJ-04"],"operations":["POST /auth/otp/request","POST /auth/otp/verify","GET /auth/session","POST /customer/cart/access","POST /customer/cart/merge"],
+      "components":["TextField","Button","Alert"],"layout":"identity",
+      "primaryTask":"تأیید Session و اتصال امن سبد مهمان","primaryAction":"تأیید هویت و ادامه","recoveryAction":"درخواست کنترل‌شده کد تازه یا بازگشت به سبد",
+      "contentPriority":["مرحله checkout","شماره موبایل","کد OTP","زمان/محدودیت","merge سبد","ادامه"],
+      "states":[
+        {"id":"validation","title":"کد واردشده معتبر نیست","message":"کد شش‌رقمی را بررسی کنید؛ سبد و quote امن حفظ شده‌اند و خطا به ورودی مرتبط است.","action":"بررسی دوباره کد"},
+        {"id":"unauthenticated","title":"برای ادامه هویت خود را تأیید کنید","message":"شماره موبایل برای دریافت OTP لازم است؛ پرداخت یا سفارش پیش از تأیید ساخته نمی‌شود.","action":"دریافت کد ورود"},
+        {"id":"submitting","title":"در حال تأیید کد و اتصال سبد","message":"درخواست دوم ارسال نمی‌شود؛ نتیجه Session و merge authoritative منتظر می‌ماند.","action":"لطفاً منتظر بمانید"}
+      ]
+    },
+    {
+      "id":"SF-D-03","name":"Checkout address","title":"انتخاب نشانی تحویل","routeIntent":"/checkout/address","actors":["retail","wholesale"],
+      "journeys":["SJ-04","SJ-06"],"operations":["GET /customer/addresses","POST /customer/addresses","PATCH /customer/addresses/{id}","POST /customer/addresses/{id}/set-default"],
+      "components":["ChoiceControl","Dialog","Button","Alert"],"layout":"address",
+      "primaryTask":"انتخاب یا ثبت نشانی customer-owned معتبر","primaryAction":"انتخاب نشانی و ادامه","recoveryAction":"اصلاح نشانی یا بازگشت به هویت",
+      "contentPriority":["مرحله checkout","نشانی‌ها","پیش‌فرض","گیرنده/تماس","اعتبارسنجی","افزودن/ویرایش"],
+      "states":[
+        {"id":"first-use","title":"هنوز نشانی ثبت نشده است","message":"برای محاسبه روش ارسال یک نشانی معتبر ثبت کنید؛ quote کالاها حفظ می‌شود.","action":"افزودن نشانی"},
+        {"id":"validation","title":"اطلاعات نشانی کامل نیست","message":"استان، شهر، کدپستی و نشانی دقیق را تکمیل کنید؛ خطاها کنار field و در summary هستند.","action":"تکمیل موارد مشخص‌شده"},
+        {"id":"conflict","title":"این نشانی هم‌زمان تغییر کرده است","message":"نسخه تازه نشانی نمایش داده شد؛ انتخاب قبلی بدون تأیید دوباره استفاده نمی‌شود.","action":"بازبینی نسخه تازه"}
+      ]
+    },
+    {
+      "id":"SF-D-04","name":"Checkout delivery","title":"روش ارسال","routeIntent":"/checkout/delivery","actors":["retail","wholesale"],
+      "journeys":["SJ-04"],"operations":["GET /shipping-methods","POST /cart/{id}/quote"],
+      "components":["ChoiceControl","Alert","Button"],"layout":"delivery",
+      "primaryTask":"انتخاب روش ارسال معتبر برای سبد و نشانی جاری","primaryAction":"انتخاب ارسال و ادامه","recoveryAction":"تغییر نشانی یا دریافت روش‌ها دوباره",
+      "contentPriority":["مرحله checkout","نشانی خلاصه","روش‌ها","هزینه تومان","بازه تحویل","دلیل عدم دسترسی"],
+      "states":[
+        {"id":"initial","title":"روش‌های ارسال آماده‌اند","message":"ارسال استاندارد و تحویل حضوری از پاسخ authoritative برای نشانی جاری نمایش داده می‌شوند.","action":"انتخاب ارسال استاندارد"},
+        {"id":"unavailable","title":"برای این نشانی روش ارسال موجود نیست","message":"هیچ Provider یا هزینه‌ای حدس زده نمی‌شود؛ تغییر نشانی و بررسی دوباره در دسترس است.","action":"تغییر نشانی"},
+        {"id":"disabled-with-reason","title":"تحویل سریع برای این سبد غیرفعال است","message":"وزن سبد از محدوده این روش بیشتر است؛ سایر روش‌های معتبر بدون تغییر باقی می‌مانند.","action":"انتخاب روش دیگر"}
+      ]
+    },
+    {
+      "id":"SF-D-05","name":"Checkout review","title":"بازبینی و ثبت سفارش","routeIntent":"/checkout/review","actors":["retail","wholesale"],
+      "journeys":["SJ-04","SJ-11"],"operations":["POST /cart/{id}/quote","POST /checkout/{id}/reserve","POST /checkout/{id}/order","GET /auth/session"],
+      "components":["Card","Alert","Button","Dialog"],"layout":"review",
+      "primaryTask":"تأیید حقیقت نهایی سفارش و ثبت idempotent","primaryAction":"ثبت سفارش و رفتن به پرداخت","recoveryAction":"بازسازی quote/reservation یا بازگشت به مرحله مرتبط",
+      "contentPriority":["کالاها","نوع مشتری","نشانی/ارسال","جمع تومان","انقضا","ثبت سفارش"],
+      "states":[
+        {"id":"price-changed","title":"جمع سفارش تغییر کرده است","message":"quote تازه ۱۰٬۳۵۰٬۰۰۰ تومان است؛ مبلغ قبلی مبنای ثبت سفارش نیست.","action":"تأیید جمع تازه"},
+        {"id":"expired","title":"رزرو checkout منقضی شده است","message":"مهلت ۱۵ دقیقه‌ای پایان یافته؛ موجودی و قیمت دوباره بررسی می‌شوند و سفارش تکراری ساخته نمی‌شود.","action":"بازسازی رزرو"},
+        {"id":"submitting","title":"در حال ثبت سفارش","message":"درخواست با کلید idempotency در حال پردازش است؛ دکمه دوباره فعال نمی‌شود.","action":"لطفاً منتظر بمانید"}
+      ]
+    },
+    {
+      "id":"SF-D-06","name":"Payment return and verification","title":"بررسی نتیجه پرداخت","routeIntent":"/payment/return","actors":["retail","wholesale"],
+      "journeys":["SJ-05"],"operations":["GET /customer/orders/{order_number}/payments/{payment_id}","GET /customer/payments/{payment_id}/status","POST /customer/payments/{payment_id}/verify"],
+      "components":["StatePanel","Alert","Button"],"layout":"payment",
+      "primaryTask":"تعیین نتیجه پرداخت فقط از status/verify authoritative","primaryAction":"بررسی وضعیت پرداخت","recoveryAction":"تلاش کنترل‌شده یا بازگشت به سفارش",
+      "contentPriority":["وضعیت غیرقطعی","شماره سفارش","شناسه پرداخت","status check","verify","retry-safe recovery"],
+      "states":[
+        {"id":"progressive","title":"در حال بررسی نتیجه پرداخت","message":"بازگشت از درگاه دریافت شد؛ نتیجه نهایی از سرویس پرداخت و سفارش استعلام می‌شود.","action":"بررسی خودکار وضعیت"},
+        {"id":"unknown-result","title":"نتیجه پرداخت هنوز مشخص نیست","message":"موفقیت یا شکست اعلام نمی‌شود؛ شماره سفارش EQ-14052 حفظ شده و status check امن است.","action":"بررسی دوباره وضعیت"},
+        {"id":"timeout","title":"پاسخ بررسی پرداخت دیر رسید","message":"درخواست قبلی ممکن است پردازش شده باشد؛ پرداخت تازه پیش از استعلام دوباره ساخته نمی‌شود.","action":"استعلام وضعیت پرداخت"}
+      ]
+    },
+    {
+      "id":"SF-D-07","name":"Order outcome and recovery","title":"نتیجه سفارش","routeIntent":"/order/:order-number/outcome","actors":["retail","wholesale"],
+      "journeys":["SJ-05","SJ-07"],"operations":["GET /customer/orders/{order_number}","GET /customer/orders/{order_number}/timeline","GET /customer/payments/{payment_id}/status"],
+      "components":["StatePanel","Alert","Button"],"layout":"outcome",
+      "primaryTask":"نمایش نتیجه authoritative سفارش و مسیر بعد","primaryAction":"مشاهده جزئیات سفارش","recoveryAction":"بازگشت به وضعیت پرداخت یا پشتیبانی با مرجع",
+      "contentPriority":["نتیجه","شماره سفارش","پرداخت ثبت‌شده","timeline","اقدام بعد","پشتیبانی"],
+      "states":[
+        {"id":"success","title":"سفارش با موفقیت ثبت و پرداخت شد","message":"سفارش EQ-14052 و پرداخت تأییدشده‌اند؛ فاکتور و timeline از جزئیات سفارش در دسترس‌اند.","action":"مشاهده جزئیات سفارش"},
+        {"id":"failed","title":"پرداخت تأیید نشد","message":"سفارش بدون پرداخت موفق باقی مانده است؛ علت امن نمایش داده می‌شود و retry فقط پس از status check مجاز است.","action":"بررسی گزینه‌های پرداخت"},
+        {"id":"idempotent-replay","title":"این نتیجه قبلاً ثبت شده است","message":"callback تکراری سفارش یا پرداخت دیگری نساخت؛ همان نتیجه authoritative نمایش داده می‌شود.","action":"مشاهده همان سفارش"}
+      ]
+    }
+  ],
+  "acceptance": {
+    "framePolicy":"For every screen generate all three required compact states at 320px plus its first state at 1440px.",
+    "requiredWidths":[320,360,600,840,1200,1440],"zoomPercent":400,"minimumTargetPx":44,
+    "requiredCompanions":["README.md","traceability.json","acceptance.md"],"screenCount":7,"expectedFrameCount":28,
+    "gateCompleteWhen":[
+      "All seven SF-D folders and deterministic artifacts exist.",
+      "Every required state has compact evidence and every screen has expanded evidence.",
+      "Cart, identity, address, delivery, review, payment verification and outcome preserve authoritative state and bounded recovery.",
+      "All inherited widths and 400 percent zoom are reviewed.",
+      "Journey, operation, component, state, commerce, payment, RTL and accessibility traceability validates.",
+      "No runtime, API, business rule, provider, high-fidelity asset, paid dependency or Figma requirement is introduced.",
+      "Focused tests, full verification, exact-head CI and merge pass."
+    ]
+  }
+}
