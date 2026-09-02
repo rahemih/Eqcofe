@@ -24,14 +24,14 @@ Conversation history is supporting context only. It must not override current ca
 - Last fully closed step: **Step 54 — RTL Design System & Accessibility Foundation — FINAL GATE PASS**
 - Verified Step-55 A foundation merge: `75b117582b2e6315091c0e99459ad14b9a4fea0c`
 - Verified Step-55 B closure: PR `#138`; final head `956cde6ebbdb9694c9571030608a6f0e0809b506`; exact-head CI `33297193079` / verify `99218795810` — PASS; merge/main `a9a35422347273f35da85ba5e3711a7d9cd3b9a1`; post-merge CI `33297252729` / verify `99218944170` — PASS.
-- Active step: **Step 55 — Storefront Wireframes — A/B/C/D COMPLETE; E GATE ACTIVE**
-- Active substep: **Step 55 / E — Account, Wholesale & After-Sales**
-- Last completed substep: **Step 55 / D — Cart, Checkout & Payment Recovery**
+- Active step: **Step 55 — Storefront Wireframes — A/B/C/D/E COMPLETE; F NEXT**
+- Active substep: **NONE — 55-F is the next approved substep**
+- Last completed substep: **Step 55 / E — Account, Wholesale & After-Sales**
 - Step-55 C closure: PR `#140`; final head `adb015b46a90ba8383d0cbf17a149050ebdc1cd0`; exact-head CI `33500791061` / verify `99833400342` — PASS; merge/main `1a45bc71809eeae7e9e0670715a30f2c3069ab32`; post-merge CI `33500900444` / verify `99833752685` — PASS.
 - Step-55 D closure: PR `#142`; final head `eea113f25b6ec047c1e575cb87a0b016d96c5c8e`; exact-head CI `33505374371` / verify `99848049249` — PASS; merge/main `b5f2534e6893411462cec219e4b75fd6de5a377a`; post-merge CI `33505503842` / verify `99848460921` — PASS.
-- Step-55 E implementation: PR `#148`; head `77b803f0435cfed91945fe2eb8743c59ca46bea6`; Canonical CI `33595054452` / verify `100136712674` — PASS; evidence-sync/final merge pending.
-- Current action: **Verify and canonicalize Step 55-E from baseline `ae40460bed512bc8a492ffa101f4e6263cd7c4d3`**
-- Next approved action after E merge: **Start Step 55-F Content, Policy, Responsive Audit & Canonical Closure**
+- Step-55 E closure: PR `#148`; final head `569f9e56121c163435f89413995ef2a868162a69`; exact-head CI `33595224368` / verify `100137201538` — PASS; merge/main `c6a0db9b6a731f3b9be2614c3a6230296c985419`; post-merge CI `33595332775` / verify `100137520705` — PASS.
+- Current action: **Step 55-E complete; no active substep**
+- Next approved action: **Start Step 55-F Content, Policy, Responsive Audit & Canonical Closure**
 - Step-51 closure PR: **#115 — MERGED**
 - Step-51 closure Canonical CI: **32737751481 — PASS**
 - Linear project: **EQCOFE**

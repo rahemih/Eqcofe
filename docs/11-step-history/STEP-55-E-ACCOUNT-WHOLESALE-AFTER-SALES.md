@@ -1,6 +1,6 @@
 # Step 55-E — Account, Wholesale & After-Sales
 
-**Verdict:** COMPLETE / GATE PASS candidate — Step 55 IN PROGRESS; 55-F next.
+**Verdict:** COMPLETE / FINAL GATE PASS — Step 55 IN PROGRESS; 55-F next.
 
 ## Delivered evidence
 
@@ -14,4 +14,4 @@ No runtime, API, database, dependency, permission, business-rule, upload or Prov
 
 Local full verification passed: 616/616 tests, OpenAPI 531 paths / 601 operations / 1179 references, Step 53/54/55 validators, all deterministic generator drift checks, Architecture over 467 files, Toman/no-Wallet policy and TypeScript build.
 
-Canonical implementation evidence: PR `#148`, head `77b803f0435cfed91945fe2eb8743c59ca46bea6`, Canonical CI `33595054452` and verify job `100136712674` — PASS. Final exact-head and merge evidence are recorded after this evidence-sync commit passes. Step 55 remains open through 55-F.
+Canonical evidence: PR `#148`; implementation head `77b803f0435cfed91945fe2eb8743c59ca46bea6`, Canonical CI `33595054452` / verify `100136712674` PASS; final exact head `569f9e56121c163435f89413995ef2a868162a69`, Canonical CI `33595224368` / verify `100137201538` PASS; merge/main `c6a0db9b6a731f3b9be2614c3a6230296c985419`; post-merge CI `33595332775` / verify `100137520705` PASS. Step 55 remains open through 55-F.

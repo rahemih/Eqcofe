@@ -1,6 +1,6 @@
 # Step 55-E — Account, Wholesale & After-Sales Wireframes
 
-**Status:** COMPLETE / GATE PASS candidate — Step 55 remains IN PROGRESS; 55-F is next.
+**Status:** COMPLETE / FINAL GATE PASS — Step 55 remains IN PROGRESS; 55-F is next.
 
 ## Scope and authority
 
@@ -40,4 +40,4 @@ Visual QA found and corrected duplicated RTL direction that clipped Persian text
 
 Local gate evidence: full verification 616/616 tests PASS; OpenAPI 531 paths / 601 operations / 1179 references; Architecture 467 files; TypeScript build, Toman/no-Wallet policy and every design drift check PASS.
 
-Implementation evidence: PR `#148`, head `77b803f0435cfed91945fe2eb8743c59ca46bea6`, Canonical CI `33595054452` and verify job `100136712674` — PASS. The evidence-sync head must pass before merge.
+Canonical evidence: PR `#148`; implementation head `77b803f0435cfed91945fe2eb8743c59ca46bea6`, Canonical CI `33595054452` / verify `100136712674` PASS; final exact head `569f9e56121c163435f89413995ef2a868162a69`, Canonical CI `33595224368` / verify `100137201538` PASS; merge/main `c6a0db9b6a731f3b9be2614c3a6230296c985419`; post-merge CI `33595332775` / verify `100137520705` PASS.
