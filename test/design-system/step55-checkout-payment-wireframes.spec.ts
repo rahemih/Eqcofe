@@ -15,8 +15,8 @@ test('Step 55-D owns exactly the seven frozen checkout and payment-recovery scre
   assert.deepEqual(gate.screens.map((screen: { id: string }) => screen.id), expected);
   assert.equal(gate.screens.every((screen: { id: string }) => screen.id.startsWith('SF-D-')), true);
   assert.equal(gate.status, 'D_COMPLETE_STEP_IN_PROGRESS');
-  assert.deepEqual(foundation.completedGates, ['55-A', '55-B', '55-C', '55-D', '55-E']);
-  assert.equal(foundation.nextGate, '55-F');
+  assert.deepEqual(foundation.completedGates, ['55-A', '55-B', '55-C', '55-D', '55-E', '55-F']);
+  assert.equal(foundation.nextGate, null);
 });
 
 test('Step 55-D covers every required state with compact and expanded evidence', () => {

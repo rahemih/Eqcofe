@@ -1,0 +1,111 @@
+{
+  "schemaVersion": 1,
+  "step": 55,
+  "gate": "55-F",
+  "screenId": "SF-F-01",
+  "revision": 1,
+  "status": "COMPLETE",
+  "routeIntent": "/articles",
+  "actors": [
+    "guest",
+    "retail",
+    "wholesale"
+  ],
+  "journeys": [
+    "SJ-01"
+  ],
+  "operationTraceMode": "openapi-direct-content-capability",
+  "openApiCapabilities": [
+    "GET /articles"
+  ],
+  "step54Components": [
+    "Card",
+    "Pagination",
+    "StatePanel"
+  ],
+  "requiredStates": [
+    "initial",
+    "first-use",
+    "no-result"
+  ],
+  "primaryTask": "پیدا کردن مقاله published و مرتبط",
+  "primaryAction": "مطالعه مقاله",
+  "recoveryAction": "پاک‌کردن فیلتر یا تلاش دوباره",
+  "responsiveEvidence": [
+    {
+      "width": 320,
+      "decision": "تک‌ستون با عنوان و metadata پیش از متن",
+      "focus": "H1 → جست‌وجو/موضوع → کارت‌ها → pagination → recovery"
+    },
+    {
+      "width": 360,
+      "decision": "کارت تک‌ستون با متن آزادتر",
+      "focus": "H1 → جست‌وجو/موضوع → کارت‌ها → pagination → recovery"
+    },
+    {
+      "width": 600,
+      "decision": "دو کارت یا متن bounded در 8 ستون",
+      "focus": "H1 → جست‌وجو/موضوع → کارت‌ها → pagination → recovery"
+    },
+    {
+      "width": 840,
+      "decision": "فهرست 8 ستون و rail مرتبط 4 ستون",
+      "focus": "H1 → جست‌وجو/موضوع → کارت‌ها → pagination → recovery"
+    },
+    {
+      "width": 1200,
+      "decision": "بدنه خوانا 8/4 در ظرف bounded",
+      "focus": "H1 → جست‌وجو/موضوع → کارت‌ها → pagination → recovery"
+    },
+    {
+      "width": 1440,
+      "decision": "عرض متن خوانا و rail در 1280",
+      "focus": "H1 → جست‌وجو/موضوع → کارت‌ها → pagination → recovery"
+    }
+  ],
+  "zoomEvidence": {
+    "percent": 400,
+    "verdict": "PASS_BY_REFLOW_CONTRACT",
+    "horizontalTwoAxisScroll": false
+  },
+  "accessibility": [
+    "هر صفحه یک H1، landmarkهای معنادار، skip link و وضعیت قابل اعلام مستقل از رنگ دارد.",
+    "هدف تعاملی حداقل 44×44 CSS px، focus واضح و error summary مرتبط با field دارد.",
+    "عنوان‌های مقاله و سیاست سلسله‌مراتب منطقی دارند و فهرست محتوا به heading واقعی پیوند می‌خورد.",
+    "در 400% zoom ترتیب معنایی حفظ و scroll دوبعدی صفحه ایجاد نمی‌شود.",
+    "جست‌وجوی FAQ، pagination، related links و فرم تماس نام و ترتیب keyboard روشن دارند."
+  ],
+  "contentTruth": [
+    "فقط مقاله published و indexable از endpoint عمومی authoritative نمایش داده می‌شود؛ draft یا scheduled وارد Storefront نمی‌شود.",
+    "صفحه مقاله slug، عنوان، تاریخ انتشار، نویسنده/منبع مجاز و related content را بدون اختراع claim نشان می‌دهد.",
+    "no-result، first-use و failed از هم جدا هستند و retry فقط همان query را تکرار می‌کند.",
+    "درباره ما از محتوای مصوب کسب‌وکار استفاده می‌کند و آمار، گواهی یا شریک ساختگی ندارد."
+  ],
+  "policySafety": [
+    "قوانین قیمت، سفارش، ارسال، پرداخت، مرجوعی و گارانتی توضیح رابط‌اند و Business Rule تازه نمی‌سازند.",
+    "قیمت‌ها تومان‌اند، Wallet وجود ندارد و نتیجه پرداخت فقط از status/verify authoritative می‌آید.",
+    "سیاست مرجوعی یا گارانتی eligibility قطعی برای پرونده خاص وعده نمی‌دهد و کاربر را به بررسی سفارش خودش هدایت می‌کند.",
+    "نسخه و تاریخ اجرای سیاست در سطح قابل مشاهده است؛ نبود سند published به no-result fail-closed منجر می‌شود."
+  ],
+  "supportPrivacy": [
+    "فرم تماس فقط موضوع، پیام و مرجع ماسک‌شده لازم را می‌گیرد و OTP، token، secret یا داده پرداخت درخواست نمی‌کند.",
+    "ارسال پشتیبانی بدون API مصوب به‌عنوان Runtime موجود ادعا نمی‌شود؛ قاب فقط intent و حالت‌های فرم را تثبیت می‌کند.",
+    "پیام خطا داده حساس یا وجود رکورد متعلق به دیگری را افشا نمی‌کند و ورودی امن حفظ می‌شود.",
+    "کانال، ساعت پاسخ یا SLA بدون منبع مصوب وعده داده نمی‌شود."
+  ],
+  "artifacts": [
+    "SF-F-01--320--initial--v1.svg",
+    "SF-F-01--1440--initial--v1.svg",
+    "SF-F-01--320--first-use--v1.svg",
+    "SF-F-01--320--no-result--v1.svg"
+  ],
+  "boundary": {
+    "highFidelity": false,
+    "runtimeImplementation": false,
+    "apiMutation": false,
+    "businessRuleMutation": false,
+    "inventedBrandAsset": false,
+    "paidDependency": false,
+    "providerClaim": false
+  }
+}
