@@ -39,3 +39,5 @@ Visual QA found and corrected duplicated RTL direction that clipped Persian text
 - Step 55 stays open; only 55-F may begin after E closes.
 
 Local gate evidence: full verification 616/616 tests PASS; OpenAPI 531 paths / 601 operations / 1179 references; Architecture 467 files; TypeScript build, Toman/no-Wallet policy and every design drift check PASS.
+
+Implementation evidence: PR `#148`, head `77b803f0435cfed91945fe2eb8743c59ca46bea6`, Canonical CI `33595054452` and verify job `100136712674` — PASS. The evidence-sync head must pass before merge.

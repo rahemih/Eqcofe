@@ -92,7 +92,7 @@ Detailed closure evidence remains immutable in `docs/11-step-history/` and merge
 - D Canonical evidence: PR `#142`; implementation head `74a17346d374f6728e9be467e252f645fbc1468b`, CI `33505194321` / verify `99847477144` PASS; final head `eea113f25b6ec047c1e575cb87a0b016d96c5c8e`, CI `33505374371` / verify `99848049249` PASS; merge/main `b5f2534e6893411462cec219e4b75fd6de5a377a`; post-merge CI `33505503842` / verify `99848460921` PASS.
 - E source: `step55-account-wholesale-after-sales-wireframes.json` and `step55-wireframes/E/` — 12 screens, 48 low-fidelity SVG frames and 86 deterministic artifacts covering account, order/invoice, wholesale and after-sales.
 - E preserves customer ownership, privacy, authoritative wholesale approval/price/quantity, return/warranty eligibility, stable case timelines and bounded idempotent recovery. It introduces no runtime/API/rule/upload/dependency change.
-- E local gate: 616/616 tests, OpenAPI 531/601/1179, Architecture 467 files, TypeScript build, policy and deterministic design drift checks PASS; Canonical PR/CI evidence pending.
+- E gate: 616/616 local tests, OpenAPI 531/601/1179, Architecture 467 files, TypeScript build, policy and deterministic design drift checks PASS. Canonical implementation evidence: PR `#148`, head `77b803f0435cfed91945fe2eb8743c59ca46bea6`, CI `33595054452` / verify `100136712674` PASS; final exact-head and merge evidence await the evidence-sync gate.
 - Next allowed substep after E Canonical merge: **55-F — Content, Policy, Responsive Audit & Canonical Closure**. Step 55 remains open until F completes final audit and canonical closure.
 
 ## Step 49 final closure state
