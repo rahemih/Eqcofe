@@ -1,6 +1,6 @@
 # Step 55-A — Storefront Wireframe Scope & Framework
 
-**Status:** 55-A COMPLETE / FOUNDATION GATE PASS; 55-B COMPLETE; Step 55 remains IN PROGRESS and 55-C is next.
+**Status:** 55-A through 55-F COMPLETE LOCALLY; Step 55 closure candidate pending Canonical CI/merge.
 
 ## Canonical handoff
 
@@ -50,4 +50,4 @@ Later artifacts live under `docs/13-product-design/step55-wireframes/<gate>/<scr
 
 ## Boundary verdict
 
-55-A froze the system for producing and reviewing storefront wireframes and did not draw any page. 55-B has since added only the six discovery obligations under `step55-wireframes/B/` using that frozen system. Product, compare, cart, checkout, account, wholesale, content and policy frames remain absent; the next allowed design mutation is 55-C Product Evaluation only.
+55-A froze the system for producing and reviewing storefront wireframes and did not draw a page. Gates B through F now provide all 37 frozen Storefront obligations and 145 deterministic frames under `step55-wireframes/`, while preserving this foundation. The final audit records unique ownership, all 12 journeys, all Step 54 component references, six widths, 400% reflow, five manifests and zero open exceptions. Admin remains Step 56 and high-fidelity/prototype work remains Step 57; no runtime, API mutation or business-rule implementation enters Step 55.

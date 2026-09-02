@@ -1,7 +1,7 @@
 # EQCOFE Current State
 
 ## Trusted state date
-**2026-09-01**
+**2026-09-02**
 
 ## Official repository
 - Repository: `rahemih/Eqcofe`
@@ -72,7 +72,7 @@ Detailed closure evidence remains immutable in `docs/11-step-history/` and merge
 
 ## Step 55 active product-design state
 
-**Step 55 — Storefront Wireframes — IN PROGRESS; A/B/C/D/E COMPLETE / FINAL GATE PASS; F is next.**
+**Step 55 — Storefront Wireframes — IN PROGRESS; A–F COMPLETE LOCALLY; CANONICAL CLOSURE CANDIDATE.**
 
 - A baseline: canonical `main` at `0e251696478e2cd91571c6103257e0c978c16c88`, with Step 54 closed and Step 55 not started.
 - Canonical foundation: `docs/13-product-design/step55-storefront-wireframe-contract.json` plus the foundation and acceptance/traceability documents.
@@ -82,7 +82,7 @@ Detailed closure evidence remains immutable in `docs/11-step-history/` and merge
 - A introduces no page wireframe. Its PR `#137` final head `614a548db5c5f96e902f1bb2ae824753d56ed6e0` passed Canonical CI `33295639025` / verify `99214700084`, merged at `75b117582b2e6315091c0e99459ad14b9a4fea0c`, and main Canonical CI `33295685153` / verify `99214821929` passed.
 - B Canonical source: `step55-discovery-wireframes.json` and `step55-wireframes/B/` — 6 screens, 24 low-fidelity SVG frames, 44 deterministic artifacts, complete state/responsive/RTL/accessibility/commerce/recovery companions and SHA-256 provenance.
 - B introduces no high-fidelity UI, frontend/backend runtime, API, migration, dependency, permission or business-rule change. Figma remains optional/non-blocking.
-- Linear: `HOS-13` — Step 55 — In Progress; A/B/C/D/E complete and F is next.
+- Linear: `HOS-13` — Step 55 — In Progress until the 55-F implementation and final state-sync merges both pass Canonical CI.
 - Step 55-B: PR `#138`; implementation head `39ae82340f31298b67baa9aaddcc4a84ad22820f`, CI `33297101212` / verify `99218555170` PASS; final head `956cde6ebbdb9694c9571030608a6f0e0809b506`, CI `33297193079` / verify `99218795810` PASS; merge/`main` `a9a35422347273f35da85ba5e3711a7d9cd3b9a1`; post-merge CI `33297252729` / verify `99218944170` PASS.
 - C source: `step55-product-evaluation-wireframes.json` and `step55-wireframes/C/` — 5 screens, 20 low-fidelity SVG frames and 37 deterministic artifacts covering product detail/media, comparison and customer-owned actions.
 - C preserves authoritative price/stock/Variant, max-four same-category comparison, safe guest-intent recovery, Persian RTL, all six widths and 400% zoom. It introduces no runtime/API/rule/dependency change.
@@ -93,7 +93,9 @@ Detailed closure evidence remains immutable in `docs/11-step-history/` and merge
 - E source: `step55-account-wholesale-after-sales-wireframes.json` and `step55-wireframes/E/` — 12 screens, 48 low-fidelity SVG frames and 86 deterministic artifacts covering account, order/invoice, wholesale and after-sales.
 - E preserves customer ownership, privacy, authoritative wholesale approval/price/quantity, return/warranty eligibility, stable case timelines and bounded idempotent recovery. It introduces no runtime/API/rule/upload/dependency change.
 - E Canonical evidence: PR `#148`; implementation head `77b803f0435cfed91945fe2eb8743c59ca46bea6`, CI `33595054452` / verify `100136712674` PASS; final head `569f9e56121c163435f89413995ef2a868162a69`, CI `33595224368` / verify `100137201538` PASS; merge/main `c6a0db9b6a731f3b9be2614c3a6230296c985419`; post-merge CI `33595332775` / verify `100137520705` PASS.
-- Next allowed substep after E Canonical merge: **55-F — Content, Policy, Responsive Audit & Canonical Closure**. Step 55 remains open until F completes final audit and canonical closure.
+- F source: `step55-content-policy-final-audit-wireframes.json` and `step55-wireframes/F/` — 7 screens, 25 low-fidelity SVG frames and 50 deterministic artifacts covering articles, About, Contact, FAQ and policies.
+- F audit candidate: all 37 Storefront screens, 145 frames, five manifests, 268 deterministic artifacts and 12 journeys pass with zero open exceptions. Step 55 remains open until exact-head CI, merge, post-merge CI and final state synchronization complete.
+- F local verification: 623/623 tests; OpenAPI 531 paths / 601 operations / 1179 references; Architecture 467 files; build, project policy, Step 53/54/55 validation and all design drift checks PASS.
 
 ## Step 49 final closure state
 **Step 49 — Physical Store / POS Backend — CLOSED / FINAL GATE PASS.**

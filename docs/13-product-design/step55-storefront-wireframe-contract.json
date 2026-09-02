@@ -1,16 +1,17 @@
 {
   "step": 55,
-  "substep": "E",
-  "status": "E_COMPLETE_STEP_IN_PROGRESS",
-  "title": "Storefront Wireframes — Account, Wholesale and After-Sales Gate Complete",
+  "substep": "F",
+  "status": "F_COMPLETE_STEP_CLOSURE_CANDIDATE",
+  "title": "Storefront Wireframes — Content, Policy and Final Audit Closure Candidate",
   "canonicalSource": "repository",
   "figmaMirror": "OPTIONAL_NOT_REQUIRED",
-  "completedGates": ["55-A", "55-B", "55-C", "55-D", "55-E"],
-  "nextGate": "55-F",
+  "completedGates": ["55-A", "55-B", "55-C", "55-D", "55-E", "55-F"],
+  "nextGate": null,
   "gateBContract": "docs/13-product-design/step55-discovery-wireframes.json",
   "gateCContract": "docs/13-product-design/step55-product-evaluation-wireframes.json",
   "gateDContract": "docs/13-product-design/step55-checkout-payment-wireframes.json",
   "gateEContract": "docs/13-product-design/step55-account-wholesale-after-sales-wireframes.json",
+  "gateFContract": "docs/13-product-design/step55-content-policy-final-audit-wireframes.json",
   "foundation": {
     "language": "fa-IR",
     "direction": "rtl",
@@ -31,10 +32,10 @@
       "Step 55-B Home, category/search, listing, filter/sort and discovery-recovery wireframes",
       "Step 55-C product detail/media, comparison and customer-owned action wireframes",
       "Step 55-D cart, checkout, payment verification and order-recovery wireframes",
-      "Step 55-E account, wholesale, order, return and warranty wireframes"
+      "Step 55-E account, wholesale, order, return and warranty wireframes",
+      "Step 55-F article, static content, support, FAQ and policy wireframes plus the complete 37-screen final audit"
     ],
     "excluded": [
-      "Any Step 55-F page wireframe",
       "Admin wireframes reserved for Step 56",
       "High-fidelity UI, interactive prototype or usability claim reserved for Step 57",
       "Frontend runtime, backend, API, migration, dependency, permission or business-rule implementation",

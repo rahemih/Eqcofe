@@ -1,0 +1,1153 @@
+{
+  "schemaVersion": 1,
+  "step": 55,
+  "status": "FINAL_AUDIT_PASS_CLOSURE_CANDIDATE",
+  "baseline": "9105a78af19e8a5f8fc30cc62a5dab94d208e46a",
+  "canonicalSource": "repository",
+  "gateCount": 5,
+  "screenCount": 37,
+  "frameCount": 145,
+  "manifestCount": 5,
+  "generatedArtifactCountIncludingManifests": 268,
+  "verificationWidths": [
+    320,
+    360,
+    600,
+    840,
+    1200,
+    1440
+  ],
+  "zoomPercent": 400,
+  "minimumTargetPx": 44,
+  "journeyCount": 12,
+  "journeyIds": [
+    "SJ-01",
+    "SJ-02",
+    "SJ-03",
+    "SJ-04",
+    "SJ-05",
+    "SJ-06",
+    "SJ-07",
+    "SJ-08",
+    "SJ-09",
+    "SJ-10",
+    "SJ-11",
+    "SJ-12"
+  ],
+  "gateSummaries": [
+    {
+      "gate": "55-B",
+      "source": "docs/13-product-design/step55-discovery-wireframes.json",
+      "screens": 6,
+      "frames": 24,
+      "status": "B_COMPLETE_STEP_IN_PROGRESS"
+    },
+    {
+      "gate": "55-C",
+      "source": "docs/13-product-design/step55-product-evaluation-wireframes.json",
+      "screens": 5,
+      "frames": 20,
+      "status": "C_COMPLETE_STEP_IN_PROGRESS"
+    },
+    {
+      "gate": "55-D",
+      "source": "docs/13-product-design/step55-checkout-payment-wireframes.json",
+      "screens": 7,
+      "frames": 28,
+      "status": "D_COMPLETE_STEP_IN_PROGRESS"
+    },
+    {
+      "gate": "55-E",
+      "source": "docs/13-product-design/step55-account-wholesale-after-sales-wireframes.json",
+      "screens": 12,
+      "frames": 48,
+      "status": "E_COMPLETE_STEP_IN_PROGRESS"
+    },
+    {
+      "gate": "55-F",
+      "source": "docs/13-product-design/step55-content-policy-final-audit-wireframes.json",
+      "screens": 7,
+      "frames": 25,
+      "status": "F_COMPLETE_STEP_CLOSURE_CANDIDATE"
+    }
+  ],
+  "screens": [
+    {
+      "id": "SF-B-01",
+      "gate": "55-B",
+      "journeys": [
+        "SJ-01"
+      ],
+      "components": [
+        "Card",
+        "Button",
+        "StatePanel"
+      ],
+      "states": [
+        "initial",
+        "progressive",
+        "no-result"
+      ],
+      "widths": [
+        320,
+        360,
+        600,
+        840,
+        1200,
+        1440
+      ],
+      "zoomPercent": 400,
+      "verdict": "PASS"
+    },
+    {
+      "id": "SF-B-02",
+      "gate": "55-B",
+      "journeys": [
+        "SJ-01"
+      ],
+      "components": [
+        "Card",
+        "Pagination",
+        "StatePanel"
+      ],
+      "states": [
+        "initial",
+        "filtered",
+        "no-result"
+      ],
+      "widths": [
+        320,
+        360,
+        600,
+        840,
+        1200,
+        1440
+      ],
+      "zoomPercent": 400,
+      "verdict": "PASS"
+    },
+    {
+      "id": "SF-B-03",
+      "gate": "55-B",
+      "journeys": [
+        "SJ-01"
+      ],
+      "components": [
+        "TextField",
+        "Card",
+        "Pagination",
+        "StatePanel"
+      ],
+      "states": [
+        "initial",
+        "no-result",
+        "offline"
+      ],
+      "widths": [
+        320,
+        360,
+        600,
+        840,
+        1200,
+        1440
+      ],
+      "zoomPercent": 400,
+      "verdict": "PASS"
+    },
+    {
+      "id": "SF-B-04",
+      "gate": "55-B",
+      "journeys": [
+        "SJ-01",
+        "SJ-11"
+      ],
+      "components": [
+        "Card",
+        "Badge",
+        "Pagination"
+      ],
+      "states": [
+        "progressive",
+        "out-of-stock",
+        "price-changed"
+      ],
+      "widths": [
+        320,
+        360,
+        600,
+        840,
+        1200,
+        1440
+      ],
+      "zoomPercent": 400,
+      "verdict": "PASS"
+    },
+    {
+      "id": "SF-B-05",
+      "gate": "55-B",
+      "journeys": [
+        "SJ-01"
+      ],
+      "components": [
+        "Select",
+        "ChoiceControl",
+        "Button"
+      ],
+      "states": [
+        "enabled",
+        "disabled-with-reason",
+        "filtered"
+      ],
+      "widths": [
+        320,
+        360,
+        600,
+        840,
+        1200,
+        1440
+      ],
+      "zoomPercent": 400,
+      "verdict": "PASS"
+    },
+    {
+      "id": "SF-B-06",
+      "gate": "55-B",
+      "journeys": [
+        "SJ-01"
+      ],
+      "components": [
+        "StatePanel",
+        "Button"
+      ],
+      "states": [
+        "no-result",
+        "timeout",
+        "failed"
+      ],
+      "widths": [
+        320,
+        360,
+        600,
+        840,
+        1200,
+        1440
+      ],
+      "zoomPercent": 400,
+      "verdict": "PASS"
+    },
+    {
+      "id": "SF-C-01",
+      "gate": "55-C",
+      "journeys": [
+        "SJ-01",
+        "SJ-02",
+        "SJ-11",
+        "SJ-12"
+      ],
+      "components": [
+        "Card",
+        "Badge",
+        "Select",
+        "Button",
+        "StatePanel"
+      ],
+      "states": [
+        "initial",
+        "out-of-stock",
+        "price-changed"
+      ],
+      "widths": [
+        320,
+        360,
+        600,
+        840,
+        1200,
+        1440
+      ],
+      "zoomPercent": 400,
+      "verdict": "PASS"
+    },
+    {
+      "id": "SF-C-02",
+      "gate": "55-C",
+      "journeys": [
+        "SJ-01"
+      ],
+      "components": [
+        "Tabs",
+        "Dialog",
+        "StatePanel"
+      ],
+      "states": [
+        "progressive",
+        "unavailable",
+        "no-result"
+      ],
+      "widths": [
+        320,
+        360,
+        600,
+        840,
+        1200,
+        1440
+      ],
+      "zoomPercent": 400,
+      "verdict": "PASS"
+    },
+    {
+      "id": "SF-C-03",
+      "gate": "55-C",
+      "journeys": [
+        "SJ-02"
+      ],
+      "components": [
+        "ChoiceControl",
+        "Alert",
+        "Button"
+      ],
+      "states": [
+        "enabled",
+        "disabled-with-reason",
+        "validation"
+      ],
+      "widths": [
+        320,
+        360,
+        600,
+        840,
+        1200,
+        1440
+      ],
+      "zoomPercent": 400,
+      "verdict": "PASS"
+    },
+    {
+      "id": "SF-C-04",
+      "gate": "55-C",
+      "journeys": [
+        "SJ-02"
+      ],
+      "components": [
+        "DataTable",
+        "Card",
+        "Button",
+        "StatePanel"
+      ],
+      "states": [
+        "initial",
+        "first-use",
+        "conflict"
+      ],
+      "widths": [
+        320,
+        360,
+        600,
+        840,
+        1200,
+        1440
+      ],
+      "zoomPercent": 400,
+      "verdict": "PASS"
+    },
+    {
+      "id": "SF-C-05",
+      "gate": "55-C",
+      "journeys": [
+        "SJ-03",
+        "SJ-12"
+      ],
+      "components": [
+        "IconButton",
+        "Dialog",
+        "Alert"
+      ],
+      "states": [
+        "unauthenticated",
+        "submitting",
+        "success"
+      ],
+      "widths": [
+        320,
+        360,
+        600,
+        840,
+        1200,
+        1440
+      ],
+      "zoomPercent": 400,
+      "verdict": "PASS"
+    },
+    {
+      "id": "SF-D-01",
+      "gate": "55-D",
+      "journeys": [
+        "SJ-03",
+        "SJ-04",
+        "SJ-11"
+      ],
+      "components": [
+        "Card",
+        "TextField",
+        "Alert",
+        "Button",
+        "StatePanel"
+      ],
+      "states": [
+        "first-use",
+        "quantity-invalid",
+        "price-changed"
+      ],
+      "widths": [
+        320,
+        360,
+        600,
+        840,
+        1200,
+        1440
+      ],
+      "zoomPercent": 400,
+      "verdict": "PASS"
+    },
+    {
+      "id": "SF-D-02",
+      "gate": "55-D",
+      "journeys": [
+        "SJ-03",
+        "SJ-04"
+      ],
+      "components": [
+        "TextField",
+        "Button",
+        "Alert"
+      ],
+      "states": [
+        "validation",
+        "unauthenticated",
+        "submitting"
+      ],
+      "widths": [
+        320,
+        360,
+        600,
+        840,
+        1200,
+        1440
+      ],
+      "zoomPercent": 400,
+      "verdict": "PASS"
+    },
+    {
+      "id": "SF-D-03",
+      "gate": "55-D",
+      "journeys": [
+        "SJ-04",
+        "SJ-06"
+      ],
+      "components": [
+        "ChoiceControl",
+        "Dialog",
+        "Button",
+        "Alert"
+      ],
+      "states": [
+        "first-use",
+        "validation",
+        "conflict"
+      ],
+      "widths": [
+        320,
+        360,
+        600,
+        840,
+        1200,
+        1440
+      ],
+      "zoomPercent": 400,
+      "verdict": "PASS"
+    },
+    {
+      "id": "SF-D-04",
+      "gate": "55-D",
+      "journeys": [
+        "SJ-04"
+      ],
+      "components": [
+        "ChoiceControl",
+        "Alert",
+        "Button"
+      ],
+      "states": [
+        "initial",
+        "unavailable",
+        "disabled-with-reason"
+      ],
+      "widths": [
+        320,
+        360,
+        600,
+        840,
+        1200,
+        1440
+      ],
+      "zoomPercent": 400,
+      "verdict": "PASS"
+    },
+    {
+      "id": "SF-D-05",
+      "gate": "55-D",
+      "journeys": [
+        "SJ-04",
+        "SJ-11"
+      ],
+      "components": [
+        "Card",
+        "Alert",
+        "Button",
+        "Dialog"
+      ],
+      "states": [
+        "price-changed",
+        "expired",
+        "submitting"
+      ],
+      "widths": [
+        320,
+        360,
+        600,
+        840,
+        1200,
+        1440
+      ],
+      "zoomPercent": 400,
+      "verdict": "PASS"
+    },
+    {
+      "id": "SF-D-06",
+      "gate": "55-D",
+      "journeys": [
+        "SJ-05"
+      ],
+      "components": [
+        "StatePanel",
+        "Alert",
+        "Button"
+      ],
+      "states": [
+        "progressive",
+        "unknown-result",
+        "timeout"
+      ],
+      "widths": [
+        320,
+        360,
+        600,
+        840,
+        1200,
+        1440
+      ],
+      "zoomPercent": 400,
+      "verdict": "PASS"
+    },
+    {
+      "id": "SF-D-07",
+      "gate": "55-D",
+      "journeys": [
+        "SJ-05",
+        "SJ-07"
+      ],
+      "components": [
+        "StatePanel",
+        "Alert",
+        "Button"
+      ],
+      "states": [
+        "success",
+        "failed",
+        "idempotent-replay"
+      ],
+      "widths": [
+        320,
+        360,
+        600,
+        840,
+        1200,
+        1440
+      ],
+      "zoomPercent": 400,
+      "verdict": "PASS"
+    },
+    {
+      "id": "SF-E-01",
+      "gate": "55-E",
+      "journeys": [
+        "SJ-06",
+        "SJ-07",
+        "SJ-10",
+        "SJ-12"
+      ],
+      "components": [
+        "Card",
+        "Alert",
+        "StatePanel"
+      ],
+      "states": [
+        "initial",
+        "unauthenticated",
+        "partial"
+      ],
+      "widths": [
+        320,
+        360,
+        600,
+        840,
+        1200,
+        1440
+      ],
+      "zoomPercent": 400,
+      "verdict": "PASS"
+    },
+    {
+      "id": "SF-E-02",
+      "gate": "55-E",
+      "journeys": [
+        "SJ-03",
+        "SJ-06"
+      ],
+      "components": [
+        "TextField",
+        "Button",
+        "Alert"
+      ],
+      "states": [
+        "validation",
+        "step-up",
+        "success"
+      ],
+      "widths": [
+        320,
+        360,
+        600,
+        840,
+        1200,
+        1440
+      ],
+      "zoomPercent": 400,
+      "verdict": "PASS"
+    },
+    {
+      "id": "SF-E-03",
+      "gate": "55-E",
+      "journeys": [
+        "SJ-06"
+      ],
+      "components": [
+        "Card",
+        "Dialog",
+        "Button",
+        "StatePanel"
+      ],
+      "states": [
+        "first-use",
+        "conflict",
+        "failed"
+      ],
+      "widths": [
+        320,
+        360,
+        600,
+        840,
+        1200,
+        1440
+      ],
+      "zoomPercent": 400,
+      "verdict": "PASS"
+    },
+    {
+      "id": "SF-E-04",
+      "gate": "55-E",
+      "journeys": [
+        "SJ-07"
+      ],
+      "components": [
+        "Card",
+        "Pagination",
+        "StatePanel"
+      ],
+      "states": [
+        "initial",
+        "first-use",
+        "filtered"
+      ],
+      "widths": [
+        320,
+        360,
+        600,
+        840,
+        1200,
+        1440
+      ],
+      "zoomPercent": 400,
+      "verdict": "PASS"
+    },
+    {
+      "id": "SF-E-05",
+      "gate": "55-E",
+      "journeys": [
+        "SJ-05",
+        "SJ-07",
+        "SJ-08",
+        "SJ-09"
+      ],
+      "components": [
+        "Card",
+        "Badge",
+        "Alert",
+        "Button"
+      ],
+      "states": [
+        "initial",
+        "denied",
+        "terminal"
+      ],
+      "widths": [
+        320,
+        360,
+        600,
+        840,
+        1200,
+        1440
+      ],
+      "zoomPercent": 400,
+      "verdict": "PASS"
+    },
+    {
+      "id": "SF-E-06",
+      "gate": "55-E",
+      "journeys": [
+        "SJ-12"
+      ],
+      "components": [
+        "Tabs",
+        "Card",
+        "StatePanel"
+      ],
+      "states": [
+        "first-use",
+        "partial",
+        "server-validation"
+      ],
+      "widths": [
+        320,
+        360,
+        600,
+        840,
+        1200,
+        1440
+      ],
+      "zoomPercent": 400,
+      "verdict": "PASS"
+    },
+    {
+      "id": "SF-E-07",
+      "gate": "55-E",
+      "journeys": [
+        "SJ-10"
+      ],
+      "components": [
+        "Card",
+        "Button",
+        "StatePanel"
+      ],
+      "states": [
+        "enabled",
+        "unauthenticated",
+        "disabled-with-reason"
+      ],
+      "widths": [
+        320,
+        360,
+        600,
+        840,
+        1200,
+        1440
+      ],
+      "zoomPercent": 400,
+      "verdict": "PASS"
+    },
+    {
+      "id": "SF-E-08",
+      "gate": "55-E",
+      "journeys": [
+        "SJ-10"
+      ],
+      "components": [
+        "TextField",
+        "Select",
+        "Button",
+        "Alert"
+      ],
+      "states": [
+        "validation",
+        "submitting",
+        "conflict"
+      ],
+      "widths": [
+        320,
+        360,
+        600,
+        840,
+        1200,
+        1440
+      ],
+      "zoomPercent": 400,
+      "verdict": "PASS"
+    },
+    {
+      "id": "SF-E-09",
+      "gate": "55-E",
+      "journeys": [
+        "SJ-10"
+      ],
+      "components": [
+        "StatePanel",
+        "Badge",
+        "Alert"
+      ],
+      "states": [
+        "pending",
+        "terminal",
+        "failed"
+      ],
+      "widths": [
+        320,
+        360,
+        600,
+        840,
+        1200,
+        1440
+      ],
+      "zoomPercent": 400,
+      "verdict": "PASS"
+    },
+    {
+      "id": "SF-E-10",
+      "gate": "55-E",
+      "journeys": [
+        "SJ-11"
+      ],
+      "components": [
+        "Badge",
+        "Alert",
+        "Card"
+      ],
+      "states": [
+        "active",
+        "quantity-invalid",
+        "price-changed"
+      ],
+      "widths": [
+        320,
+        360,
+        600,
+        840,
+        1200,
+        1440
+      ],
+      "zoomPercent": 400,
+      "verdict": "PASS"
+    },
+    {
+      "id": "SF-E-11",
+      "gate": "55-E",
+      "journeys": [
+        "SJ-08"
+      ],
+      "components": [
+        "TextField",
+        "Card",
+        "Badge",
+        "StatePanel"
+      ],
+      "states": [
+        "validation",
+        "pending",
+        "terminal"
+      ],
+      "widths": [
+        320,
+        360,
+        600,
+        840,
+        1200,
+        1440
+      ],
+      "zoomPercent": 400,
+      "verdict": "PASS"
+    },
+    {
+      "id": "SF-E-12",
+      "gate": "55-E",
+      "journeys": [
+        "SJ-09"
+      ],
+      "components": [
+        "TextField",
+        "Card",
+        "Badge",
+        "StatePanel"
+      ],
+      "states": [
+        "validation",
+        "pending",
+        "terminal"
+      ],
+      "widths": [
+        320,
+        360,
+        600,
+        840,
+        1200,
+        1440
+      ],
+      "zoomPercent": 400,
+      "verdict": "PASS"
+    },
+    {
+      "id": "SF-F-01",
+      "gate": "55-F",
+      "journeys": [
+        "SJ-01"
+      ],
+      "components": [
+        "Card",
+        "Pagination",
+        "StatePanel"
+      ],
+      "states": [
+        "initial",
+        "first-use",
+        "no-result"
+      ],
+      "widths": [
+        320,
+        360,
+        600,
+        840,
+        1200,
+        1440
+      ],
+      "zoomPercent": 400,
+      "verdict": "PASS"
+    },
+    {
+      "id": "SF-F-02",
+      "gate": "55-F",
+      "journeys": [
+        "SJ-01"
+      ],
+      "components": [
+        "Card",
+        "StatePanel"
+      ],
+      "states": [
+        "initial",
+        "no-result",
+        "failed"
+      ],
+      "widths": [
+        320,
+        360,
+        600,
+        840,
+        1200,
+        1440
+      ],
+      "zoomPercent": 400,
+      "verdict": "PASS"
+    },
+    {
+      "id": "SF-F-03",
+      "gate": "55-F",
+      "journeys": [],
+      "components": [
+        "Card"
+      ],
+      "states": [
+        "initial",
+        "failed"
+      ],
+      "widths": [
+        320,
+        360,
+        600,
+        840,
+        1200,
+        1440
+      ],
+      "zoomPercent": 400,
+      "verdict": "PASS"
+    },
+    {
+      "id": "SF-F-04",
+      "gate": "55-F",
+      "journeys": [
+        "SJ-05",
+        "SJ-08",
+        "SJ-09"
+      ],
+      "components": [
+        "TextField",
+        "Select",
+        "Button",
+        "Alert"
+      ],
+      "states": [
+        "validation",
+        "submitting",
+        "failed"
+      ],
+      "widths": [
+        320,
+        360,
+        600,
+        840,
+        1200,
+        1440
+      ],
+      "zoomPercent": 400,
+      "verdict": "PASS"
+    },
+    {
+      "id": "SF-F-05",
+      "gate": "55-F",
+      "journeys": [
+        "SJ-01",
+        "SJ-10"
+      ],
+      "components": [
+        "TextField",
+        "StatePanel"
+      ],
+      "states": [
+        "initial",
+        "no-result",
+        "failed"
+      ],
+      "widths": [
+        320,
+        360,
+        600,
+        840,
+        1200,
+        1440
+      ],
+      "zoomPercent": 400,
+      "verdict": "PASS"
+    },
+    {
+      "id": "SF-F-06",
+      "gate": "55-F",
+      "journeys": [
+        "SJ-04",
+        "SJ-11"
+      ],
+      "components": [
+        "Card",
+        "Alert"
+      ],
+      "states": [
+        "initial",
+        "no-result"
+      ],
+      "widths": [
+        320,
+        360,
+        600,
+        840,
+        1200,
+        1440
+      ],
+      "zoomPercent": 400,
+      "verdict": "PASS"
+    },
+    {
+      "id": "SF-F-07",
+      "gate": "55-F",
+      "journeys": [
+        "SJ-08",
+        "SJ-09"
+      ],
+      "components": [
+        "Card",
+        "Alert"
+      ],
+      "states": [
+        "initial",
+        "no-result"
+      ],
+      "widths": [
+        320,
+        360,
+        600,
+        840,
+        1200,
+        1440
+      ],
+      "zoomPercent": 400,
+      "verdict": "PASS"
+    }
+  ],
+  "checks": [
+    {
+      "id": "unique-screen-ownership",
+      "verdict": "PASS"
+    },
+    {
+      "id": "all-storefront-journeys-mapped",
+      "verdict": "PASS"
+    },
+    {
+      "id": "step54-components-only",
+      "verdict": "PASS"
+    },
+    {
+      "id": "required-states-covered",
+      "verdict": "PASS"
+    },
+    {
+      "id": "all-widths-traced",
+      "verdict": "PASS"
+    },
+    {
+      "id": "zoom-reflow-bounded",
+      "verdict": "PASS"
+    },
+    {
+      "id": "accessible-svg-metadata",
+      "verdict": "PASS"
+    },
+    {
+      "id": "manifest-hashes-valid",
+      "verdict": "PASS"
+    },
+    {
+      "id": "toman-no-wallet-no-brown",
+      "verdict": "PASS"
+    },
+    {
+      "id": "no-runtime-or-paid-dependency",
+      "verdict": "PASS"
+    }
+  ],
+  "openExceptions": [],
+  "boundary": {
+    "runtimeImplementation": false,
+    "apiMutation": false,
+    "businessRuleMutation": false,
+    "highFidelity": false,
+    "inventedBrandAsset": false,
+    "paidDependency": false,
+    "figmaRequired": false
+  },
+  "verdict": "PASS_PENDING_CANONICAL_CI_AND_MERGE"
+}
