@@ -1,15 +1,16 @@
 {
   "step": 55,
-  "substep": "D",
-  "status": "D_COMPLETE_STEP_IN_PROGRESS",
-  "title": "Storefront Wireframes — Checkout and Payment Recovery Gate Complete",
+  "substep": "E",
+  "status": "E_COMPLETE_STEP_IN_PROGRESS",
+  "title": "Storefront Wireframes — Account, Wholesale and After-Sales Gate Complete",
   "canonicalSource": "repository",
   "figmaMirror": "OPTIONAL_NOT_REQUIRED",
-  "completedGates": ["55-A", "55-B", "55-C", "55-D"],
-  "nextGate": "55-E",
+  "completedGates": ["55-A", "55-B", "55-C", "55-D", "55-E"],
+  "nextGate": "55-F",
   "gateBContract": "docs/13-product-design/step55-discovery-wireframes.json",
   "gateCContract": "docs/13-product-design/step55-product-evaluation-wireframes.json",
   "gateDContract": "docs/13-product-design/step55-checkout-payment-wireframes.json",
+  "gateEContract": "docs/13-product-design/step55-account-wholesale-after-sales-wireframes.json",
   "foundation": {
     "language": "fa-IR",
     "direction": "rtl",
@@ -29,10 +30,11 @@
       "Acceptance matrix and artifact governance for Step 55-B through 55-F",
       "Step 55-B Home, category/search, listing, filter/sort and discovery-recovery wireframes",
       "Step 55-C product detail/media, comparison and customer-owned action wireframes",
-      "Step 55-D cart, checkout, payment verification and order-recovery wireframes"
+      "Step 55-D cart, checkout, payment verification and order-recovery wireframes",
+      "Step 55-E account, wholesale, order, return and warranty wireframes"
     ],
     "excluded": [
-      "Any Step 55-E through 55-F page wireframe",
+      "Any Step 55-F page wireframe",
       "Admin wireframes reserved for Step 56",
       "High-fidelity UI, interactive prototype or usability claim reserved for Step 57",
       "Frontend runtime, backend, API, migration, dependency, permission or business-rule implementation",

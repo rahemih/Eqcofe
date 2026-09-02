@@ -1,6 +1,6 @@
 # Step 55 — Acceptance & Traceability Matrix
 
-**Status:** 55-A through 55-D COMPLETE; 55-E..55-F NOT STARTED
+**Status:** 55-A through 55-E COMPLETE; 55-F NOT STARTED
 
 ## Gate ownership
 
@@ -54,3 +54,7 @@ An exception must name the screen/state, source requirement, reason, impact, tem
 ## 55-D acceptance result
 
 55-D passes with seven owned screen folders, 28 deterministic low-fidelity frames and 50 generated child artifacts bound by the Gate manifest. Cart, identity, address, delivery, review, payment verification and order outcome cover all frozen compact states, expanded evidence, every inherited width and 400% reflow. Quote/stock/shipping/payment/order stay authoritative; expiry, conflict, timeout, unknown-result and callback replay have bounded fail-closed recovery. Account detail remains a handoff to 55-E and no runtime, API, Provider, rule, high-fidelity or paid/Figma dependency enters the Gate.
+
+## 55-E acceptance result
+
+55-E passes with twelve owned screen folders, 48 deterministic low-fidelity frames and 85 generated child artifacts bound by the Gate manifest. Account, profile/security, addresses, orders/invoice, customer tools, wholesale and after-sales cover all frozen compact states, expanded evidence, every inherited width and 400% reflow. Customer ownership, privacy, authoritative approval/price/quantity, return/warranty eligibility and bounded idempotent recovery remain explicit. Content/policy and final audit remain a handoff to 55-F; no runtime, API, upload, rule, high-fidelity or paid/Figma dependency enters the Gate.

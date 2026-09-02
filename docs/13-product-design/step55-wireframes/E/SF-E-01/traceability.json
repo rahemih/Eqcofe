@@ -1,0 +1,123 @@
+{
+  "schemaVersion": 1,
+  "step": 55,
+  "gate": "55-E",
+  "screenId": "SF-E-01",
+  "revision": 1,
+  "status": "COMPLETE",
+  "routeIntent": "/account",
+  "actors": [
+    "retail",
+    "wholesale-applicant",
+    "wholesale"
+  ],
+  "journeys": [
+    "SJ-06",
+    "SJ-07",
+    "SJ-10",
+    "SJ-12"
+  ],
+  "openApiCapabilities": [
+    "GET /customer/profile",
+    "GET /customer/orders",
+    "GET /customer/wholesale/application",
+    "GET /customer/wishlist",
+    "GET /customer/loyalty"
+  ],
+  "step54Components": [
+    "Card",
+    "Alert",
+    "StatePanel"
+  ],
+  "requiredStates": [
+    "initial",
+    "unauthenticated",
+    "partial"
+  ],
+  "primaryTask": "دیدن خلاصه قابل اعتماد حساب و اقدام‌های مهم",
+  "primaryAction": "مشاهده سفارش‌های من",
+  "recoveryAction": "تلاش دوباره فقط برای بخش ناموفق",
+  "responsiveEvidence": [
+    {
+      "width": 320,
+      "decision": "کارت‌های تک‌ستون و ناوبری خطی",
+      "focus": "H1 → هشدار نشست → سفارش اخیر → خدمات → عمده → ابزارها"
+    },
+    {
+      "width": 360,
+      "decision": "کارت تک‌ستون با متن آزادتر",
+      "focus": "H1 → هشدار نشست → سفارش اخیر → خدمات → عمده → ابزارها"
+    },
+    {
+      "width": 600,
+      "decision": "دو کارت در ردیف در صورت ظرفیت",
+      "focus": "H1 → هشدار نشست → سفارش اخیر → خدمات → عمده → ابزارها"
+    },
+    {
+      "width": 840,
+      "decision": "ناوبری 3 ستون و محتوا 9 ستون",
+      "focus": "H1 → هشدار نشست → سفارش اخیر → خدمات → عمده → ابزارها"
+    },
+    {
+      "width": 1200,
+      "decision": "ناوبری ثابت 3/9",
+      "focus": "H1 → هشدار نشست → سفارش اخیر → خدمات → عمده → ابزارها"
+    },
+    {
+      "width": 1440,
+      "decision": "ناوبری ثابت 3/9 در 1280",
+      "focus": "H1 → هشدار نشست → سفارش اخیر → خدمات → عمده → ابزارها"
+    }
+  ],
+  "zoomEvidence": {
+    "percent": 400,
+    "verdict": "PASS_BY_REFLOW_CONTRACT",
+    "horizontalTwoAxisScroll": false
+  },
+  "accessibility": [
+    "هر صفحه یک H1، landmark معنادار و وضعیت قابل اعلام مستقل از رنگ دارد.",
+    "هدف تعاملی حداقل 44×44 CSS px، focus واضح و error summary مرتبط با field دارد.",
+    "Tabs، فیلتر، timeline و status با نام و ترتیب keyboard روشن ارائه می‌شوند.",
+    "در 400% zoom ترتیب معنایی حفظ و scroll دوبعدی صفحه ایجاد نمی‌شود.",
+    "تاریخ، مبلغ، شماره سفارش و status در متن فارسی خوانش bidi پایدار دارند."
+  ],
+  "ownershipPrivacy": [
+    "همه منابع حساب، نشانی، سفارش، علاقه‌مندی، مرجوعی و گارانتی customer-owned و session-bound هستند.",
+    "شماره موبایل، کدپستی، شناسه پرداخت و شماره‌های مرجع فقط به‌صورت ماسک‌شده یا bidi-isolated نمایش داده می‌شوند.",
+    "حالت denied هیچ وجود یا محتوای رکورد متعلق به کاربر دیگر را افشا نمی‌کند.",
+    "OTP، secret، token، سند حساس و payload داخلی در URL، analytics یا پیام خطا بازتاب داده نمی‌شوند."
+  ],
+  "accountOrders": [
+    "Overview از read modelهای authoritative تغذیه می‌شود و partial failure را از empty state جدا می‌کند.",
+    "سفارش، timeline، invoice و payment status از منبع مالک خود خوانده می‌شوند و UI وضعیت تازه اختراع نمی‌کند.",
+    "لغو سفارش فقط وقتی capability authoritative اجازه دهد ارائه می‌شود و حالت terminal دلیل متنی دارد.",
+    "فاکتور مبلغ‌های صحیح و گروه‌بندی‌شده تومان دارد و Wallet در هیچ سطحی وجود ندارد."
+  ],
+  "wholesale": [
+    "متقاضی تا approval authoritative مشتری retail باقی می‌ماند و قیمت عمده زودتر نمایش داده نمی‌شود.",
+    "ارسال درخواست عمده idempotent است و conflict به درخواست فعال موجود هدایت می‌کند.",
+    "وضعیت pending، approved و rejected از GET application می‌آید و UI تصمیم مدیریتی نمی‌سازد.",
+    "مشتری عمده تأییدشده قیمت و حداقل/حداکثر تعداد authoritative را می‌بیند؛ بیش از ۱۰ واحد فقط طبق quote معتبر محاسبه می‌شود."
+  ],
+  "afterSales": [
+    "مرجوعی فقط برای سفارش و قلم واجد شرایط همان مشتری ساخته می‌شود و eligibility حدس زده نمی‌شود.",
+    "گارانتی فقط با محصول، سفارش و evidence مجاز ثبت می‌شود؛ upload واقعی یا سند جعلی در وایرفریم نیست.",
+    "pending و terminal از timeline authoritative می‌آیند و لغو فقط در وضعیت مجاز نمایش داده می‌شود.",
+    "خطای server-validation ورودی امن را حفظ می‌کند و retry تکراری رکورد دوم نمی‌سازد."
+  ],
+  "artifacts": [
+    "SF-E-01--320--initial--v1.svg",
+    "SF-E-01--1440--initial--v1.svg",
+    "SF-E-01--320--unauthenticated--v1.svg",
+    "SF-E-01--320--partial--v1.svg"
+  ],
+  "boundary": {
+    "highFidelity": false,
+    "runtimeImplementation": false,
+    "apiMutation": false,
+    "businessRuleMutation": false,
+    "inventedBrandAsset": false,
+    "paidDependency": false,
+    "realUpload": false
+  }
+}
