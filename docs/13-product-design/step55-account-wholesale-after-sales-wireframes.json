@@ -1,0 +1,151 @@
+{
+  "schemaVersion": 1,
+  "step": 55,
+  "substep": "E",
+  "status": "E_COMPLETE_STEP_IN_PROGRESS",
+  "revision": 1,
+  "baseline": "ae40460bed512bc8a492ffa101f4e6263cd7c4d3",
+  "title": "Account, Wholesale and After-Sales Wireframes",
+  "canonicalSource": "repository",
+  "figmaMirror": "OPTIONAL_NOT_REQUIRED",
+  "language": "fa-IR",
+  "direction": "rtl",
+  "currency": "Toman",
+  "walletAllowed": false,
+  "theme": "light",
+  "journeys": ["SJ-03", "SJ-05", "SJ-06", "SJ-07", "SJ-08", "SJ-09", "SJ-10", "SJ-11", "SJ-12"],
+  "responsiveReview": [
+    {"width":320,"grid":"4 ستون، حاشیه 16، فاصله 12","account":"کارت‌های تک‌ستون و ناوبری خطی","records":"خلاصه رکورد پیش از جزئیات","forms":"فیلد و اقدام تمام‌عرض"},
+    {"width":360,"grid":"4 ستون، حاشیه 16، فاصله 12","account":"کارت تک‌ستون با متن آزادتر","records":"فیلترها در disclosure","forms":"فیلد و اقدام تمام‌عرض"},
+    {"width":600,"grid":"8 ستون، حاشیه 24، فاصله 16","account":"دو کارت در ردیف در صورت ظرفیت","records":"خلاصه و timeline عمودی","forms":"فرم bounded در 6 ستون"},
+    {"width":840,"grid":"12 ستون، حاشیه 32، فاصله 20","account":"ناوبری 3 ستون و محتوا 9 ستون","records":"فهرست 5 ستون و جزئیات 7 ستون","forms":"فرم 7 ستون و راهنما 5 ستون"},
+    {"width":1200,"grid":"12 ستون، حاشیه 32، فاصله 24","account":"ناوبری ثابت 3/9","records":"master/detail bounded 4/8","forms":"فرم 7/5 با خلاصه مستقل"},
+    {"width":1440,"grid":"12 ستون در ظرف 1280","account":"ناوبری ثابت 3/9 در 1280","records":"فهرست و detail در 1280","forms":"فرم و راهنما در 1280"}
+  ],
+  "crossCutting": {
+    "ownershipPrivacy": [
+      "همه منابع حساب، نشانی، سفارش، علاقه‌مندی، مرجوعی و گارانتی customer-owned و session-bound هستند.",
+      "شماره موبایل، کدپستی، شناسه پرداخت و شماره‌های مرجع فقط به‌صورت ماسک‌شده یا bidi-isolated نمایش داده می‌شوند.",
+      "حالت denied هیچ وجود یا محتوای رکورد متعلق به کاربر دیگر را افشا نمی‌کند.",
+      "OTP، secret، token، سند حساس و payload داخلی در URL، analytics یا پیام خطا بازتاب داده نمی‌شوند."
+    ],
+    "accountOrders": [
+      "Overview از read modelهای authoritative تغذیه می‌شود و partial failure را از empty state جدا می‌کند.",
+      "سفارش، timeline، invoice و payment status از منبع مالک خود خوانده می‌شوند و UI وضعیت تازه اختراع نمی‌کند.",
+      "لغو سفارش فقط وقتی capability authoritative اجازه دهد ارائه می‌شود و حالت terminal دلیل متنی دارد.",
+      "فاکتور مبلغ‌های صحیح و گروه‌بندی‌شده تومان دارد و Wallet در هیچ سطحی وجود ندارد."
+    ],
+    "wholesale": [
+      "متقاضی تا approval authoritative مشتری retail باقی می‌ماند و قیمت عمده زودتر نمایش داده نمی‌شود.",
+      "ارسال درخواست عمده idempotent است و conflict به درخواست فعال موجود هدایت می‌کند.",
+      "وضعیت pending، approved و rejected از GET application می‌آید و UI تصمیم مدیریتی نمی‌سازد.",
+      "مشتری عمده تأییدشده قیمت و حداقل/حداکثر تعداد authoritative را می‌بیند؛ بیش از ۱۰ واحد فقط طبق quote معتبر محاسبه می‌شود."
+    ],
+    "afterSales": [
+      "مرجوعی فقط برای سفارش و قلم واجد شرایط همان مشتری ساخته می‌شود و eligibility حدس زده نمی‌شود.",
+      "گارانتی فقط با محصول، سفارش و evidence مجاز ثبت می‌شود؛ upload واقعی یا سند جعلی در وایرفریم نیست.",
+      "pending و terminal از timeline authoritative می‌آیند و لغو فقط در وضعیت مجاز نمایش داده می‌شود.",
+      "خطای server-validation ورودی امن را حفظ می‌کند و retry تکراری رکورد دوم نمی‌سازد."
+    ],
+    "accessibility": [
+      "هر صفحه یک H1، landmark معنادار و وضعیت قابل اعلام مستقل از رنگ دارد.",
+      "هدف تعاملی حداقل 44×44 CSS px، focus واضح و error summary مرتبط با field دارد.",
+      "Tabs، فیلتر، timeline و status با نام و ترتیب keyboard روشن ارائه می‌شوند.",
+      "در 400% zoom ترتیب معنایی حفظ و scroll دوبعدی صفحه ایجاد نمی‌شود.",
+      "تاریخ، مبلغ، شماره سفارش و status در متن فارسی خوانش bidi پایدار دارند."
+    ]
+  },
+  "screens": [
+    {
+      "id":"SF-E-01","name":"Account overview","title":"پیشخوان حساب کاربری","routeIntent":"/account","actors":["retail","wholesale-applicant","wholesale"],
+      "journeys":["SJ-06","SJ-07","SJ-10","SJ-12"],"operations":["GET /customer/profile","GET /customer/orders","GET /customer/wholesale/application","GET /customer/wishlist","GET /customer/loyalty"],
+      "components":["Card","Alert","StatePanel"],"layout":"dashboard","primaryTask":"دیدن خلاصه قابل اعتماد حساب و اقدام‌های مهم","primaryAction":"مشاهده سفارش‌های من","recoveryAction":"تلاش دوباره فقط برای بخش ناموفق",
+      "contentPriority":["هویت و امنیت","سفارش‌های اخیر","خدمات مشتری","وضعیت عمده","علاقه‌مندی و امتیاز"],
+      "states":[{"id":"initial","title":"خلاصه حساب آماده است","message":"سفارش اخیر، نشانی و ابزارهای مشتری از منابع authoritative نمایش داده می‌شوند.","action":"مشاهده سفارش‌های من"},{"id":"unauthenticated","title":"نشست شما پایان یافته است","message":"برای دسترسی دوباره OTP لازم است؛ هیچ داده شخصی یا سفارش نمایش داده نمی‌شود.","action":"ورود امن به حساب"},{"id":"partial","title":"بخشی از اطلاعات در دسترس نیست","message":"پروفایل و سفارش‌ها حاضرند اما امتیاز مشتری بارگذاری نشد؛ سایر بخش‌ها قابل استفاده می‌مانند.","action":"تلاش دوباره برای امتیاز"}]
+    },
+    {
+      "id":"SF-E-02","name":"Profile and security","title":"پروفایل و امنیت","routeIntent":"/account/profile","actors":["retail","wholesale-applicant","wholesale"],
+      "journeys":["SJ-03","SJ-06"],"operations":["GET /auth/session","POST /auth/otp/request","POST /auth/otp/verify","GET /customer/profile","PATCH /customer/profile"],
+      "components":["TextField","Button","Alert"],"layout":"form","primaryTask":"بازبینی و ویرایش امن اطلاعات مشتری","primaryAction":"ذخیره تغییرات پروفایل","recoveryAction":"اصلاح فیلد یا تأیید دوباره هویت",
+      "contentPriority":["وضعیت نشست","نام و تماس","فیلدهای قابل ویرایش","step-up","نتیجه ذخیره"],
+      "states":[{"id":"validation","title":"اطلاعات پروفایل نیاز به اصلاح دارد","message":"خطاها کنار فیلد و در summary آمده‌اند و مقادیر امن حفظ شده‌اند.","action":"اصلاح موارد مشخص‌شده"},{"id":"step-up","title":"تأیید هویت دوباره لازم است","message":"برای تغییر شماره تماس یک OTP تازه لازم است و تغییر پیش از تأیید اعمال نمی‌شود.","action":"دریافت کد تأیید"},{"id":"success","title":"پروفایل به‌روز شد","message":"نسخه authoritative تازه دریافت شد و زمان تغییر برای کاربر اعلام می‌شود.","action":"بازگشت به حساب"}]
+    },
+    {
+      "id":"SF-E-03","name":"Addresses","title":"نشانی‌های من","routeIntent":"/account/addresses","actors":["retail","wholesale-applicant","wholesale"],
+      "journeys":["SJ-06"],"operations":["GET /customer/addresses","POST /customer/addresses","PATCH /customer/addresses/{id}","DELETE /customer/addresses/{id}","POST /customer/addresses/{id}/set-default"],
+      "components":["Card","Dialog","Button","StatePanel"],"layout":"addresses","primaryTask":"مدیریت نشانی‌های customer-owned و پیش‌فرض","primaryAction":"افزودن نشانی","recoveryAction":"دریافت نسخه تازه یا تلاش دوباره",
+      "contentPriority":["نشانی پیش‌فرض","فهرست نشانی‌ها","افزودن/ویرایش","حذف مشروط","نسخه و conflict"],
+      "states":[{"id":"first-use","title":"هنوز نشانی ثبت نشده است","message":"اولین نشانی می‌تواند پس از اعتبارسنجی به‌عنوان پیش‌فرض ثبت شود.","action":"افزودن اولین نشانی"},{"id":"conflict","title":"نشانی هم‌زمان تغییر کرده است","message":"نسخه تازه نمایش داده می‌شود و تغییر قبلی بدون بازبینی بازنویسی نمی‌شود.","action":"بازبینی نسخه تازه"},{"id":"failed","title":"ذخیره نشانی انجام نشد","message":"اطلاعات امن فرم حفظ شده و هیچ نشانی تکراری ساخته نشده است.","action":"تلاش دوباره برای ذخیره"}]
+    },
+    {
+      "id":"SF-E-04","name":"Orders","title":"سفارش‌های من","routeIntent":"/account/orders","actors":["retail","wholesale"],
+      "journeys":["SJ-07"],"operations":["GET /customer/orders"],"components":["Card","Pagination","StatePanel"],"layout":"list","primaryTask":"پیدا کردن و پیگیری سفارش customer-owned","primaryAction":"مشاهده جزئیات سفارش","recoveryAction":"پاک‌کردن فیلتر یا تلاش دوباره",
+      "contentPriority":["شماره و تاریخ","وضعیت","جمع تومان","ارسال/پرداخت","فیلتر","صفحه‌بندی"],
+      "states":[{"id":"initial","title":"سفارش‌ها آماده‌اند","message":"فهرست صفحه‌بندی‌شده با وضعیت و جمع authoritative نمایش داده می‌شود.","action":"مشاهده سفارش EQ-14052"},{"id":"first-use","title":"هنوز سفارشی ندارید","message":"این empty state با خطای دریافت متفاوت است و مسیر محصولات را ارائه می‌کند.","action":"مشاهده محصولات"},{"id":"filtered","title":"سفارشی با این فیلتر پیدا نشد","message":"تاریخ و وضعیت انتخاب‌شده حفظ شده‌اند و پاک‌کردن فیلتر bounded است.","action":"پاک‌کردن فیلترها"}]
+    },
+    {
+      "id":"SF-E-05","name":"Order detail and invoice","title":"جزئیات سفارش و فاکتور","routeIntent":"/account/orders/:order-number","actors":["retail","wholesale"],
+      "journeys":["SJ-05","SJ-07","SJ-08","SJ-09"],"operations":["GET /customer/orders/{order_number}","GET /customer/orders/{order_number}/timeline","GET /customer/orders/{order_number}/invoice","POST /customer/orders/{order_number}/cancel","GET /customer/orders/{order_number}/payments/{payment_id}"],
+      "components":["Card","Badge","Alert","Button"],"layout":"detail","primaryTask":"دیدن حقیقت سفارش، timeline و فاکتور","primaryAction":"دریافت فاکتور سفارش","recoveryAction":"بررسی وضعیت یا تماس با پشتیبانی با مرجع",
+      "contentPriority":["شماره و وضعیت","اقلام","پرداخت","ارسال","timeline","فاکتور و اقدام مجاز"],
+      "states":[{"id":"initial","title":"جزئیات سفارش آماده است","message":"اقلام، پرداخت، ارسال و فاکتور از منابع authoritative همان سفارش آمده‌اند.","action":"دریافت فاکتور"},{"id":"denied","title":"دسترسی به این سفارش مجاز نیست","message":"وجود یا محتوای سفارش دیگر افشا نمی‌شود و مسیر امن حساب باقی می‌ماند.","action":"بازگشت به سفارش‌های من"},{"id":"terminal","title":"این سفارش در وضعیت نهایی است","message":"لغو دیگر مجاز نیست؛ timeline و مسیر مرجوعی یا گارانتی واجد شرایط نمایش داده می‌شود.","action":"بررسی خدمات پس از فروش"}]
+    },
+    {
+      "id":"SF-E-06","name":"Customer tools","title":"ابزارهای مشتری","routeIntent":"/account/tools","actors":["retail","wholesale"],
+      "journeys":["SJ-12"],"operations":["GET /customer/wishlist","POST /customer/wishlist/{product_id}","DELETE /customer/wishlist/{product_id}","GET /customer/product-alerts","POST /customer/product-alerts","DELETE /customer/product-alerts/{id}","GET /customer/loyalty","GET /customer/loyalty/history","GET /customer/loyalty/benefits","POST /customer/products/{product_id}/reviews"],
+      "components":["Tabs","Card","StatePanel"],"layout":"tools","primaryTask":"مدیریت علاقه‌مندی، هشدار، امتیاز و نظر","primaryAction":"مشاهده علاقه‌مندی‌ها","recoveryAction":"تلاش دوباره برای تب ناموفق",
+      "contentPriority":["Tabs معنادار","علاقه‌مندی","هشدار محصول","امتیاز و مزایا","نظرهای مجاز"],
+      "states":[{"id":"first-use","title":"فهرست علاقه‌مندی خالی است","message":"محصولی ذخیره نشده و تب‌های هشدار و امتیاز همچنان قابل دسترس‌اند.","action":"پیدا کردن محصول"},{"id":"partial","title":"هشدارها در دسترس نیستند","message":"علاقه‌مندی و امتیاز حاضرند؛ فقط بخش ناموفق دوباره درخواست می‌شود.","action":"تلاش دوباره برای هشدارها"},{"id":"server-validation","title":"ثبت نظر پذیرفته نشد","message":"شرایط سفارش یا محتوای نظر از پاسخ سرور نمایش داده می‌شود و متن امن حفظ می‌ماند.","action":"اصلاح نظر"}]
+    },
+    {
+      "id":"SF-E-07","name":"Wholesale introduction","title":"خرید عمده از ایکوفی","routeIntent":"/wholesale","actors":["guest","retail","wholesale-applicant"],
+      "journeys":["SJ-10"],"operations":["GET /customer/wholesale/application"],"components":["Card","Button","StatePanel"],"layout":"wholesale","primaryTask":"فهم شرایط و ورود امن به درخواست عمده","primaryAction":"شروع درخواست عمده","recoveryAction":"ورود به حساب یا مشاهده وضعیت موجود",
+      "contentPriority":["مزایا بدون وعده ساختگی","شرایط","فرایند بررسی","CTA","وضعیت درخواست موجود"],
+      "states":[{"id":"enabled","title":"درخواست خرید عمده در دسترس است","message":"شرایط و فرایند بررسی روشن‌اند؛ approval یا تخفیف پیش از تصمیم تضمین نمی‌شود.","action":"شروع درخواست عمده"},{"id":"unauthenticated","title":"برای درخواست وارد حساب شوید","message":"پس از OTP به همین مسیر بازمی‌گردید و درخواست ناشناس ساخته نمی‌شود.","action":"ورود و ادامه"},{"id":"disabled-with-reason","title":"درخواست فعال دیگری دارید","message":"فرم دوم ساخته نمی‌شود و وضعیت authoritative درخواست موجود در دسترس است.","action":"مشاهده وضعیت درخواست"}]
+    },
+    {
+      "id":"SF-E-08","name":"Wholesale application","title":"درخواست همکاری عمده","routeIntent":"/account/wholesale/apply","actors":["retail","wholesale-applicant"],
+      "journeys":["SJ-10"],"operations":["POST /customer/wholesale/applications","GET /customer/wholesale/application"],"components":["TextField","Select","Button","Alert"],"layout":"form","primaryTask":"ثبت یک درخواست عمده معتبر و idempotent","primaryAction":"ثبت درخواست برای بررسی","recoveryAction":"اصلاح فیلد یا رفتن به درخواست موجود",
+      "contentPriority":["نوع کسب‌وکار","اطلاعات تماس","شناسه‌های لازم","شرایط","ارسال idempotent"],
+      "states":[{"id":"validation","title":"اطلاعات درخواست کامل نیست","message":"فیلدهای لازم مشخص‌اند و داده معتبر واردشده حفظ می‌شود.","action":"تکمیل موارد مشخص‌شده"},{"id":"submitting","title":"درخواست در حال ثبت است","message":"ارسال دوم غیرفعال است تا نتیجه authoritative دریافت شود.","action":"لطفاً منتظر بمانید"},{"id":"conflict","title":"یک درخواست فعال از قبل وجود دارد","message":"رکورد تازه ساخته نمی‌شود و کاربر به وضعیت همان درخواست هدایت می‌شود.","action":"مشاهده درخواست موجود"}]
+    },
+    {
+      "id":"SF-E-09","name":"Wholesale status","title":"وضعیت درخواست عمده","routeIntent":"/account/wholesale","actors":["wholesale-applicant","retail"],
+      "journeys":["SJ-10"],"operations":["GET /customer/wholesale/application"],"components":["StatePanel","Badge","Alert"],"layout":"status","primaryTask":"پیگیری تصمیم authoritative درخواست عمده","primaryAction":"مشاهده آخرین وضعیت","recoveryAction":"تلاش دوباره یا بازگشت به حساب",
+      "contentPriority":["وضعیت","شماره درخواست","timeline خلاصه","دلیل امن","اقدام بعد"],
+      "states":[{"id":"pending","title":"درخواست در حال بررسی است","message":"هیچ زمان یا نتیجه‌ای حدس زده نمی‌شود؛ آخرین به‌روزرسانی authoritative نمایش داده می‌شود.","action":"بازگشت به حساب"},{"id":"terminal","title":"بررسی درخواست پایان یافته است","message":"نتیجه approved یا rejected با توضیح مجاز و اقدام بعد نمایش داده می‌شود.","action":"مشاهده نتیجه و شرایط"},{"id":"failed","title":"وضعیت درخواست دریافت نشد","message":"نتیجه ساختگی نمایش داده نمی‌شود و retry فقط همان رکورد را می‌خواند.","action":"تلاش دوباره"}]
+    },
+    {
+      "id":"SF-E-10","name":"Approved wholesale context","title":"زمینه خرید عمده تأییدشده","routeIntent":"wholesale-commerce-state","actors":["wholesale"],
+      "journeys":["SJ-11"],"operations":["GET /auth/session","GET /products/{slug}","POST /cart/{id}/quote","POST /checkout/{id}/reserve","POST /checkout/{id}/order"],"components":["Badge","Alert","Card"],"layout":"wholesale","primaryTask":"خرید با قیمت و تعداد عمده authoritative","primaryAction":"افزودن با شرایط عمده","recoveryAction":"اصلاح تعداد یا دریافت quote تازه",
+      "contentPriority":["نشان تأیید عمده","قیمت عمده","حداقل/موجودی","تخفیف تعداد","quote تومان","checkout"],
+      "states":[{"id":"active","title":"حساب عمده فعال است","message":"قیمت و محدودیت تعداد از Session، محصول و quote authoritative آمده‌اند.","action":"افزودن به سبد عمده"},{"id":"quantity-invalid","title":"تعداد عمده معتبر نیست","message":"حداقل یا موجودی فعلی رعایت نشده و ادامه تا اصلاح تعداد غیرفعال است.","action":"اصلاح تعداد سفارش"},{"id":"price-changed","title":"quote عمده به‌روز شد","message":"جمع و تخفیف تازه به تومان پیش از ادامه باید بازبینی شود.","action":"تأیید quote تازه"}]
+    },
+    {
+      "id":"SF-E-11","name":"Return request and detail","title":"مرجوعی سفارش","routeIntent":"/account/returns/:return-number?","actors":["retail","wholesale"],
+      "journeys":["SJ-08"],"operations":["POST /customer/orders/{order_number}/returns","GET /customer/returns","GET /customer/returns/{return_number}","GET /customer/returns/{return_number}/timeline","POST /customer/returns/{return_number}/cancel"],"components":["TextField","Card","Badge","StatePanel"],"layout":"case","primaryTask":"ثبت یا پیگیری مرجوعی واجد شرایط","primaryAction":"ثبت درخواست مرجوعی","recoveryAction":"اصلاح درخواست یا پیگیری همان پرونده",
+      "contentPriority":["سفارش/قلم واجد شرایط","دلیل","جزئیات امن","وضعیت","timeline","لغو مجاز"],
+      "states":[{"id":"validation","title":"درخواست مرجوعی نیاز به اصلاح دارد","message":"قلم، تعداد یا دلیل معتبر نیست؛ eligibility authoritative و خطا مرتبط نمایش داده می‌شود.","action":"اصلاح درخواست"},{"id":"pending","title":"مرجوعی در حال بررسی است","message":"شماره مرجوعی RT-1052 و timeline همان پرونده بدون نتیجه‌سازی نمایش داده می‌شوند.","action":"مشاهده timeline"},{"id":"terminal","title":"پرونده مرجوعی بسته شده است","message":"نتیجه نهایی و اقدام مجاز بعدی نمایش داده می‌شود؛ لغو دیگر ارائه نمی‌شود.","action":"بازگشت به سفارش"}]
+    },
+    {
+      "id":"SF-E-12","name":"Warranty claim and detail","title":"درخواست گارانتی","routeIntent":"/account/warranty/:claim-number?","actors":["retail","wholesale"],
+      "journeys":["SJ-09"],"operations":["POST /customer/warranty/claims","GET /customer/warranty/claims","GET /customer/warranty/claims/{claim_number}","GET /customer/warranty/claims/{claim_number}/timeline"],"components":["TextField","Card","Badge","StatePanel"],"layout":"case","primaryTask":"ثبت یا پیگیری پرونده گارانتی معتبر","primaryAction":"ثبت درخواست گارانتی","recoveryAction":"اصلاح داده یا پیگیری همان پرونده",
+      "contentPriority":["محصول/سفارش","شرح ایراد","evidence مجاز","شماره پرونده","timeline","اقدام بعد"],
+      "states":[{"id":"validation","title":"اطلاعات گارانتی کامل نیست","message":"محصول، سفارش یا شرح ایراد باید اصلاح شود؛ ورودی امن حفظ می‌ماند.","action":"تکمیل درخواست"},{"id":"pending","title":"پرونده گارانتی در حال بررسی است","message":"شماره WR-0841 و آخرین رویداد authoritative نمایش داده می‌شوند.","action":"مشاهده timeline"},{"id":"terminal","title":"بررسی گارانتی پایان یافته است","message":"نتیجه نهایی و مسیر پشتیبانی مرتبط بدون وعده خارج از قرارداد نمایش داده می‌شود.","action":"مشاهده نتیجه پرونده"}]
+    }
+  ],
+  "acceptance": {
+    "framePolicy":"For every screen generate all three required compact states at 320px plus its first state at 1440px.",
+    "requiredWidths":[320,360,600,840,1200,1440],"zoomPercent":400,"minimumTargetPx":44,
+    "requiredCompanions":["README.md","traceability.json","acceptance.md"],"screenCount":12,"expectedFrameCount":48,
+    "gateCompleteWhen":[
+      "All twelve SF-E folders and deterministic artifacts exist.",
+      "Every required state has compact evidence and every screen has expanded evidence.",
+      "Account, orders, wholesale and after-sales preserve ownership, authoritative state and bounded recovery.",
+      "All inherited widths and 400 percent zoom are reviewed.",
+      "Journey, operation, component, state, privacy, commerce, RTL and accessibility traceability validates.",
+      "No runtime, API, business rule, upload, high-fidelity asset, paid dependency or Figma requirement is introduced.",
+      "Focused tests, full verification, exact-head CI and merge pass."
+    ]
+  }
+}
