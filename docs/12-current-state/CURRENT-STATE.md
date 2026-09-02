@@ -96,6 +96,7 @@ Detailed closure evidence remains immutable in `docs/11-step-history/` and merge
 - F source: `step55-content-policy-final-audit-wireframes.json` and `step55-wireframes/F/` — 7 screens, 25 low-fidelity SVG frames and 50 deterministic artifacts covering articles, About, Contact, FAQ and policies.
 - F audit candidate: all 37 Storefront screens, 145 frames, five manifests, 268 deterministic artifacts and 12 journeys pass with zero open exceptions. Step 55 remains open until exact-head CI, merge, post-merge CI and final state synchronization complete.
 - F local verification: 623/623 tests; OpenAPI 531 paths / 601 operations / 1179 references; Architecture 467 files; build, project policy, Step 53/54/55 validation and all design drift checks PASS.
+- F initial Canonical evidence: PR `#150`; implementation head `70f5eea102143971b4126f63b480f3120f1a4908`; CI `33596925507` / verify `100142144317` PASS. Exact evidence-sync head CI, merge and final state synchronization remain open.
 
 ## Step 49 final closure state
 **Step 49 — Physical Store / POS Backend — CLOSED / FINAL GATE PASS.**

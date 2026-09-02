@@ -30,6 +30,7 @@ Conversation history is supporting context only. It must not override current ca
 - Step-55 C closure: PR `#140`; final head `adb015b46a90ba8383d0cbf17a149050ebdc1cd0`; exact-head CI `33500791061` / verify `99833400342` — PASS; merge/main `1a45bc71809eeae7e9e0670715a30f2c3069ab32`; post-merge CI `33500900444` / verify `99833752685` — PASS.
 - Step-55 D closure: PR `#142`; final head `eea113f25b6ec047c1e575cb87a0b016d96c5c8e`; exact-head CI `33505374371` / verify `99848049249` — PASS; merge/main `b5f2534e6893411462cec219e4b75fd6de5a377a`; post-merge CI `33505503842` / verify `99848460921` — PASS.
 - Step-55 E closure: PR `#148`; final head `569f9e56121c163435f89413995ef2a868162a69`; exact-head CI `33595224368` / verify `100137201538` — PASS; merge/main `c6a0db9b6a731f3b9be2614c3a6230296c985419`; post-merge CI `33595332775` / verify `100137520705` — PASS.
+- Step-55 F initial evidence: PR `#150`; implementation head `70f5eea102143971b4126f63b480f3120f1a4908`; Canonical CI `33596925507` / verify `100142144317` — PASS; evidence-sync exact-head CI and merge remain open.
 - Current action: **Run Step 55-F exact-head CI, merge, post-merge CI and final state synchronization**
 - Next approved action after closure: **Start Step 56 Admin UX Architecture & Wireframes**
 - Step-51 closure PR: **#115 — MERGED**
