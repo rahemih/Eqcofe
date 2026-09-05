@@ -47,3 +47,5 @@ Local closure-candidate verification: 623/623 tests PASS; OpenAPI 531 paths / 60
 Initial Canonical evidence: PR `#150`; implementation head `70f5eea102143971b4126f63b480f3120f1a4908`; Canonical CI `33596925507` / verify `100142144317` PASS.
 
 Final implementation evidence: evidence-sync head `d85bf44c0f987fabedd843994124caa1576835ac`, Canonical CI `33597074463` / verify `100142576021` PASS; merge/main `ae56fa4cb8a44168aeeb9d92ca7e19ddcf648b94`; post-merge CI `33602772166` / verify `100159960576` PASS. Final state-sync PR evidence is recorded before its merge.
+
+Final state-sync evidence: PR `#151`; initial head `8080d5cd0208ed0e13bcc740ccbb8340af972dca`; Canonical CI `33949134139` / verify `101260481097` PASS. Its evidence-sync head must pass independently before merge.

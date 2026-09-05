@@ -98,6 +98,7 @@ Detailed closure evidence remains immutable in `docs/11-step-history/` and merge
 - F final audit: all 37 Storefront screens, 145 frames, five manifests, 268 deterministic artifacts and 12 journeys pass with zero open exceptions.
 - F local verification: 623/623 tests; OpenAPI 531 paths / 601 operations / 1179 references; Architecture 467 files; build, project policy, Step 53/54/55 validation and all design drift checks PASS.
 - F Canonical evidence: PR `#150`; implementation head `70f5eea102143971b4126f63b480f3120f1a4908`, CI `33596925507` / verify `100142144317` PASS; final head `d85bf44c0f987fabedd843994124caa1576835ac`, CI `33597074463` / verify `100142576021` PASS; merge/main `ae56fa4cb8a44168aeeb9d92ca7e19ddcf648b94`; post-merge CI `33602772166` / verify `100159960576` PASS.
+- Final state-sync: PR `#151`; initial head `8080d5cd0208ed0e13bcc740ccbb8340af972dca`; Canonical CI `33949134139` / verify `101260481097` PASS. Final exact-head CI and merge are the remaining closure transport checks.
 
 ## Step 49 final closure state
 **Step 49 — Physical Store / POS Backend — CLOSED / FINAL GATE PASS.**

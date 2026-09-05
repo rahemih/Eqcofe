@@ -19,3 +19,5 @@ Local closure-candidate verification passed: 623/623 tests, OpenAPI 531 paths / 
 Initial Canonical evidence: PR `#150`; implementation head `70f5eea102143971b4126f63b480f3120f1a4908`; Canonical CI `33596925507` / verify `100142144317` PASS.
 
 Final implementation evidence: evidence-sync head `d85bf44c0f987fabedd843994124caa1576835ac`, Canonical CI `33597074463` / verify `100142576021` PASS; PR #150 merge/main `ae56fa4cb8a44168aeeb9d92ca7e19ddcf648b94`; post-merge CI `33602772166` / verify `100159960576` PASS. The dedicated final state-sync PR closes machine status, Roadmap, Current State and Linear handoff without adding product scope.
+
+Final state-sync evidence: PR `#151`; initial head `8080d5cd0208ed0e13bcc740ccbb8340af972dca`; Canonical CI `33949134139` / verify `101260481097` PASS. Its final evidence head is required to pass independently before merge.
