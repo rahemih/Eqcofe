@@ -12,7 +12,15 @@ for (let step = 1; step <= 28; step += 1) {
   if (!existsSync(path)) throw new Error(`missing Phase A evidence document: ${path}`);
   const text = readFileSync(path, 'utf8');
   if (!/Definition of Done/i.test(text)) throw new Error(`missing Definition of Done section: ${path}`);
-  if (!/(final verdict|verdict)/i.test(text)) throw new Error(`missing verdict section: ${path}`);
+
+  const hasExplicitVerdict = /(final verdict|verdict)/i.test(text);
+  const hasStructuredClassification =
+    /Historical Attribution:/i.test(text) &&
+    /Current Canonical Verification:/i.test(text) &&
+    /Overall confirmation:/i.test(text);
+  if (!hasExplicitVerdict && !hasStructuredClassification) {
+    throw new Error(`missing reviewable final classification/verdict: ${path}`);
+  }
 }
 
 run('pnpm', ['verify']);
