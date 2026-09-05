@@ -1,16 +1,17 @@
 # EQCOFE — Complete Master Execution Roadmap
 
-**Roadmap version:** 3.39 — Step-55 Final Canonical Closure
+**Roadmap version:** 3.40 — Phase-A Final Canonical Closure
 **Effective date:** 2026-09-05
 **Canonical repository:** `rahemih/Eqcofe`  
 **Canonical branch:** `main`  
 **Verified Step-44 code baseline:** `b239dfe825b615f36caf2e26cc7abc80c70d349c`
 
-> This is the canonical end-to-end execution map for EQCOFE. For historical Steps 1–27, the exact original step labels are not independently proven by the recovered Git evidence. Their descriptions below are therefore a normalized reconstruction of the foundation represented by the current product vision, business rules and canonical codebase; they must not be cited as exact historical attribution. Step 28 remains partial-history. Steps 29–55 are verified/closed in canonical source and closure evidence. Step 55 is CLOSED / FINAL GATE PASS; Step 56 is next.
+> This is the canonical end-to-end execution map for EQCOFE. Phase A (Steps 1–28) is now `CLOSED / FINAL GATE PASS` by current canonical verification. For historical Steps 1–27, the exact original step labels/closure lineage are not independently proven by recovered Git evidence and remain `Historical Attribution: UNVERIFIED`; Step 28 remains `Historical Attribution: PARTIAL`. Current-baseline verification must not be cited as recovered historical provenance. Steps 29–55 retain their existing canonical status. Step 55 is CLOSED / FINAL GATE PASS; Step 56 is next.
 
 ## Status legend
-- `RECONSTRUCTED-HISTORY`: normalized description; exact historical step attribution is not proven.
-- `PARTIAL-HISTORY`: partial direct evidence exists.
+- `RECONSTRUCTED-HISTORY`: normalized historical description; exact historical step attribution is not proven.
+- `PARTIAL-HISTORY`: partial direct historical evidence exists.
+- `COMPLETE / VERIFIED BY CURRENT CANONICAL BASELINE`: current implementation and applicable verification gates pass, without claiming historical attribution.
 - `COMPLETE`: present in the canonical source and covered by recovered/fresh verification evidence.
 - `NEXT`: next approved execution step.
 - `PLANNED`: accepted future scope.
@@ -19,7 +20,51 @@
 ## Global Definition of Done
 A step closes only when applicable implementation, migrations, tests, OpenAPI/contracts, security/RBAC/idempotency review, documentation and CI are green. Financial values remain integer Toman; Wallet must not be reintroduced; external integrations fail closed; `main` remains the source of truth.
 
-# PHASE A — Foundation and Core Commerce History
+# PHASE A — Foundation and Core Commerce History — `CLOSED / FINAL GATE PASS`
+
+## Phase A current-baseline closure
+
+Technical baseline: `d6a1695bbb8c9fef6c70f83b4f8d5a131f112063` on `main`.
+
+- Technical audit PR: `#144`; exact head `e3cdc336900be3a8d581d8ebfa28a8378bb052d1`; merge commit `ba42d752a0f2db12ccfe6eaee31034e7c8f58643`.
+- PR #144 exact-head Canonical CI `33950117727` — PASS; Phase A Verification `33950117696` — PASS.
+- Post-merge Canonical CI `33951504582` — PASS.
+- Main verification-trigger enablement PR `#152`; merge/current technical baseline `d6a1695bbb8c9fef6c70f83b4f8d5a131f112063`.
+- Exact technical-baseline Canonical CI `33951615151` — PASS; Phase A Verification `33951615134` — PASS.
+- Evidence: `docs/11-step-history/historical-verification/STEP-01-VERIFICATION.md` through `STEP-28-VERIFICATION.md`, `docs/11-step-history/historical-verification/EVIDENCE-MATRIX.md`, and `docs/11-step-history/PHASE-A-FINAL-CANONICAL-CLOSURE.md`.
+
+| Step | Current technical status | Historical Attribution |
+| ---: | --- | --- |
+| 1 | COMPLETE / VERIFIED BY CURRENT CANONICAL BASELINE | UNVERIFIED |
+| 2 | COMPLETE / VERIFIED BY CURRENT CANONICAL BASELINE | UNVERIFIED |
+| 3 | COMPLETE / VERIFIED BY CURRENT CANONICAL BASELINE | UNVERIFIED |
+| 4 | COMPLETE / VERIFIED BY CURRENT CANONICAL BASELINE | UNVERIFIED |
+| 5 | COMPLETE / VERIFIED BY CURRENT CANONICAL BASELINE | UNVERIFIED |
+| 6 | COMPLETE / VERIFIED BY CURRENT CANONICAL BASELINE | UNVERIFIED |
+| 7 | COMPLETE / VERIFIED BY CURRENT CANONICAL BASELINE | UNVERIFIED |
+| 8 | COMPLETE / VERIFIED BY CURRENT CANONICAL BASELINE | UNVERIFIED |
+| 9 | COMPLETE / VERIFIED BY CURRENT CANONICAL BASELINE | UNVERIFIED |
+| 10 | COMPLETE / VERIFIED BY CURRENT CANONICAL BASELINE | UNVERIFIED |
+| 11 | COMPLETE / VERIFIED BY CURRENT CANONICAL BASELINE | UNVERIFIED |
+| 12 | COMPLETE / VERIFIED BY CURRENT CANONICAL BASELINE | UNVERIFIED |
+| 13 | COMPLETE / VERIFIED BY CURRENT CANONICAL BASELINE | UNVERIFIED |
+| 14 | COMPLETE / VERIFIED BY CURRENT CANONICAL BASELINE | UNVERIFIED |
+| 15 | COMPLETE / VERIFIED BY CURRENT CANONICAL BASELINE | UNVERIFIED |
+| 16 | COMPLETE / VERIFIED BY CURRENT CANONICAL BASELINE | UNVERIFIED |
+| 17 | COMPLETE / VERIFIED BY CURRENT CANONICAL BASELINE | UNVERIFIED |
+| 18 | COMPLETE / VERIFIED BY CURRENT CANONICAL BASELINE | UNVERIFIED |
+| 19 | COMPLETE / VERIFIED BY CURRENT CANONICAL BASELINE | UNVERIFIED |
+| 20 | COMPLETE / VERIFIED BY CURRENT CANONICAL BASELINE | UNVERIFIED |
+| 21 | COMPLETE / VERIFIED BY CURRENT CANONICAL BASELINE | UNVERIFIED |
+| 22 | COMPLETE / VERIFIED BY CURRENT CANONICAL BASELINE | UNVERIFIED |
+| 23 | COMPLETE / VERIFIED BY CURRENT CANONICAL BASELINE | UNVERIFIED |
+| 24 | COMPLETE / VERIFIED BY CURRENT CANONICAL BASELINE | UNVERIFIED |
+| 25 | COMPLETE / VERIFIED BY CURRENT CANONICAL BASELINE | UNVERIFIED |
+| 26 | COMPLETE / VERIFIED BY CURRENT CANONICAL BASELINE | UNVERIFIED |
+| 27 | COMPLETE / VERIFIED BY CURRENT CANONICAL BASELINE | UNVERIFIED |
+| 28 | COMPLETE / VERIFIED BY CURRENT CANONICAL BASELINE | PARTIAL |
+
+The historical markers retained in the Step headings below classify provenance only. They do not override the separate current technical verdict table above.
 
 ## Step 1 — Product Vision & Scope — `RECONSTRUCTED-HISTORY`
 Define EQCOFE as a Persian-first RTL commerce platform for café/coffee equipment, target retail and wholesale customers, initial catalog direction and explicit product exclusions.
@@ -373,6 +418,7 @@ Evolve architecture, integrations and product capabilities based on production e
 # Current Position
 
 - **Last fully closed step:** Step 55 — Storefront Wireframes.
+- **Phase A:** CLOSED / FINAL GATE PASS — Steps 1–28 are COMPLETE / VERIFIED BY CURRENT CANONICAL BASELINE; historical attribution remains UNVERIFIED for Steps 1–27 and PARTIAL for Step 28.
 - **Step 49 closure:** CLOSED / FINAL GATE PASS after A11 audit.
 - **Active step:** NONE.
 - **Next approved step:** Step 56 — Admin UX Architecture & Wireframes.
