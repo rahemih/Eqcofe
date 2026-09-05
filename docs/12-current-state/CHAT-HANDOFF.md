@@ -12,6 +12,20 @@
 
 Conversation history is supporting context only. It must not override current canonical GitHub evidence.
 
+## Phase A canonical closure snapshot
+
+- Phase A — Steps 01–28: **CLOSED / FINAL GATE PASS**.
+- Steps 01–28 current technical status: `COMPLETE / VERIFIED BY CURRENT CANONICAL BASELINE`.
+- Historical attribution remains separate and intentionally limited: Steps 01–27 `UNVERIFIED`; Step 28 `PARTIAL`.
+- Technical audit PR: `#144`; exact head `e3cdc336900be3a8d581d8ebfa28a8378bb052d1`; merge commit `ba42d752a0f2db12ccfe6eaee31034e7c8f58643`.
+- PR #144 exact-head CI: Canonical CI `33950117727` PASS; Phase A Verification `33950117696` PASS.
+- Post-merge Canonical CI on PR #144 merge: `33951504582` PASS.
+- Main verification-trigger PR: `#152`; merge/current technical baseline `d6a1695bbb8c9fef6c70f83b4f8d5a131f112063`.
+- Exact technical-baseline CI on `main`: Canonical CI `33951615151` PASS; Phase A Verification `33951615134` PASS.
+- Closure evidence: `docs/11-step-history/PHASE-A-FINAL-CANONICAL-CLOSURE.md` plus the 28 independent historical-verification documents.
+- Valid blocker: NONE.
+- This closure proves current canonical behavior; it does not convert current verification into historical provenance.
+
 ## Current handoff snapshot
 
 - Official repository: `rahemih/Eqcofe`
