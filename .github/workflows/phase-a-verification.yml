@@ -1,0 +1,51 @@
+name: Phase A Verification
+
+permissions:
+  contents: read
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/phase-a-verification.yml'
+      - 'apps/**'
+      - 'contracts/**'
+      - 'database/**'
+      - 'docs/11-step-history/**'
+      - 'scripts/**'
+      - 'src/**'
+      - 'test/**'
+      - 'package.json'
+      - 'pnpm-lock.yaml'
+      - 'tsconfig*.json'
+
+jobs:
+  phase-a:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: eqcofe_phase_a
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd="pg_isready -U postgres -d eqcofe_phase_a"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=10
+    env:
+      DATABASE_URL: postgresql://postgres:postgres@127.0.0.1:5432/eqcofe_phase_a
+    steps:
+      - uses: actions/checkout@v5.1.0
+      - uses: pnpm/action-setup@v6.0.10
+        with:
+          version: 11.21.0
+      - uses: actions/setup-node@v6.5.0
+        with:
+          node-version: 24.18.1
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: node scripts/verify-phase-a.mjs
