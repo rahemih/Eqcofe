@@ -1,8 +1,8 @@
 {
   "step": 55,
   "substep": "F",
-  "status": "F_COMPLETE_STEP_CLOSURE_CANDIDATE",
-  "title": "Storefront Wireframes — Content, Policy and Final Audit Closure Candidate",
+  "status": "CLOSED_FINAL_GATE_PASS",
+  "title": "Storefront Wireframes — Closed after Content, Policy and Final Audit",
   "canonicalSource": "repository",
   "figmaMirror": "OPTIONAL_NOT_REQUIRED",
   "completedGates": ["55-A", "55-B", "55-C", "55-D", "55-E", "55-F"],

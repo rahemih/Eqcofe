@@ -1,6 +1,6 @@
 # Step 55 — Acceptance & Traceability Matrix
 
-**Status:** 55-A through 55-F COMPLETE LOCALLY; STEP CLOSURE CANDIDATE PENDING CANONICAL CI/MERGE
+**Status:** STEP 55 CLOSED / FINAL GATE PASS
 
 ## Gate ownership
 
@@ -33,7 +33,7 @@ The canonical JSON lists exact screen IDs. All 12 storefront journeys are covere
 
 Each of 55-B through 55-F passes only when all owned screen IDs have repository artifacts, traceability and acceptance companions; all required states and widths are reviewed; design validators and full verification pass; exact-head Canonical CI passes; and its dedicated PR merges. Completion of one gate does not authorize work owned by the next.
 
-55-F additionally audits the complete storefront set for shell consistency, duplicated/missing journeys, responsive/RTL/accessibility coverage, artifact drift and unresolved exceptions. Only 55-F may canonicalize Step 55 as fully closed. Until then the Roadmap must say Step 55 `IN PROGRESS` and list the latest completed gate.
+55-F additionally audits the complete storefront set for shell consistency, duplicated/missing journeys, responsive/RTL/accessibility coverage, artifact drift and unresolved exceptions. Its final audit and Canonical CI/merge evidence authorize the Roadmap to record Step 55 as fully closed.
 
 ## Exception policy
 
@@ -63,4 +63,4 @@ An exception must name the screen/state, source requirement, reason, impact, tem
 
 55-F passes locally with seven owned screen folders, 25 deterministic low-fidelity frames and 49 generated child artifacts bound by the Gate manifest. Article listing/detail, About, Contact, FAQ, Terms and Returns/Warranty cover every frozen compact state plus expanded evidence, all six inherited widths and 400% reflow. Article reads trace only to the three approved public OpenAPI capabilities; static, policy and support surfaces invent no operation. Published-only content, policy versioning, no unsupported eligibility promise and support privacy remain explicit.
 
-The final repository audit passes all 37 uniquely-owned screens, 145 frames, five manifests, 12 storefront journeys and ten cross-cutting checks with zero open exceptions. This is a closure candidate until exact-head CI, merge, post-merge CI and final canonical state synchronization pass; only then may the machine status and Roadmap become `CLOSED / FINAL GATE PASS`.
+The final repository audit passes all 37 uniquely-owned screens, 145 frames, five manifests, 12 storefront journeys and ten cross-cutting checks with zero open exceptions. PR #150 exact-head and post-merge Canonical CI passed; the final state synchronization records the machine status and Roadmap as `CLOSED / FINAL GATE PASS`.

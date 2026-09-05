@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "step": 55,
   "substep": "F",
-  "status": "F_COMPLETE_STEP_CLOSURE_CANDIDATE",
+  "status": "CLOSED_FINAL_GATE_PASS",
   "revision": 1,
   "baseline": "9105a78af19e8a5f8fc30cc62a5dab94d208e46a",
   "title": "Content, Policy, Responsive Audit and Canonical Closure",

@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "step": 55,
-  "status": "FINAL_AUDIT_PASS_CLOSURE_CANDIDATE",
+  "status": "CLOSED_FINAL_GATE_PASS",
   "baseline": "9105a78af19e8a5f8fc30cc62a5dab94d208e46a",
   "canonicalSource": "repository",
   "gateCount": 5,
@@ -68,7 +68,7 @@
       "source": "docs/13-product-design/step55-content-policy-final-audit-wireframes.json",
       "screens": 7,
       "frames": 25,
-      "status": "F_COMPLETE_STEP_CLOSURE_CANDIDATE"
+      "status": "CLOSED_FINAL_GATE_PASS"
     }
   ],
   "screens": [
@@ -1149,5 +1149,5 @@
     "paidDependency": false,
     "figmaRequired": false
   },
-  "verdict": "PASS_PENDING_CANONICAL_CI_AND_MERGE"
+  "verdict": "PASS"
 }

@@ -2,9 +2,9 @@
   "schemaVersion": 1,
   "step": 55,
   "substep": "F",
-  "status": "F_COMPLETE_STEP_CLOSURE_CANDIDATE",
+  "status": "CLOSED_FINAL_GATE_PASS",
   "sourceContract": "docs/13-product-design/step55-content-policy-final-audit-wireframes.json",
-  "sourceSha256": "b2f8c369bf39a3d9cd43bc0cce8a41a98f8206155043d7bdf518b8aec478deb3",
+  "sourceSha256": "28ac1bb1e81e93576d44a71b311669083c56f3e089942c89bea57684bce87439",
   "canonicalSource": "repository",
   "figmaMirror": "OPTIONAL_NOT_REQUIRED",
   "screenCount": 7,
@@ -38,8 +38,8 @@
   "generatedArtifacts": [
     {
       "path": "docs/13-product-design/step55-wireframes/F/README.md",
-      "sha256": "b1c21350f597e7ac1ef1c2e14b7f6716b299c8e4ae777d2a275d6d86db144f24",
-      "bytes": 7090
+      "sha256": "b2cba0a76b9415fb04924538d9ebed2fc2fb332884ea8beba819bad6bf6bb1fb",
+      "bytes": 7070
     },
     {
       "path": "docs/13-product-design/step55-wireframes/F/SF-F-01/README.md",
@@ -273,13 +273,13 @@
     },
     {
       "path": "docs/13-product-design/step55-wireframes/F/storefront-final-audit.json",
-      "sha256": "22539d730b74fff116b865c6224ca286da527014db0df1785c2df12035a9cc42",
-      "bytes": 19380
+      "sha256": "c71eaac06e2f775d8e947cd64758e3945d62039ee8cb777b9f740ea13b63660c",
+      "bytes": 19326
     },
     {
       "path": "docs/13-product-design/step55-wireframes/F/STOREFRONT-FINAL-AUDIT.md",
-      "sha256": "2f2c55c84dca3d056d4081313cd08540629fcadbaead2d3772522bd738e49365",
-      "bytes": 2001
+      "sha256": "f85da2e1c25c2f3ea57344142fdf0525a84655777da3b3999995140da550049b",
+      "bytes": 1983
     }
   ]
 }

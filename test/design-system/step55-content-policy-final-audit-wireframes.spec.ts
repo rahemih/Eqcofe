@@ -14,7 +14,7 @@ test('Step 55-F owns exactly the seven frozen content, support and policy screen
   const expected=foundation.acceptanceGates.find((item:{id:string})=>item.id==='55-F').requiredScreens;
   assert.deepEqual(gate.screens.map((screen:{id:string})=>screen.id),expected);
   assert.equal(gate.screens.every((screen:{id:string})=>screen.id.startsWith('SF-F-')),true);
-  assert.equal(gate.status,'F_COMPLETE_STEP_CLOSURE_CANDIDATE');
+  assert.equal(gate.status,'CLOSED_FINAL_GATE_PASS');
   assert.deepEqual(foundation.completedGates,['55-A','55-B','55-C','55-D','55-E','55-F']);
   assert.equal(foundation.nextGate,null);
 });
