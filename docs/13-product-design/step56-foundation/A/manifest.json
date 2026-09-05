@@ -1,0 +1,15 @@
+{
+  "step": 56,
+  "substep": "A",
+  "status": "FOUNDATION_CANDIDATE_BLOCKED",
+  "source": "docs/13-product-design/step56-admin-ux-contract.json",
+  "sourceSha256": "fd3b3351e414ccce4712cc2974cd029ff471896522a4ae8ca07bfeed0ab25476",
+  "pageWireframeCount": 0,
+  "canonicalSource": "repository",
+  "figmaMirror": "OPTIONAL_NOT_REQUIRED",
+  "generatedArtifacts": [
+    {"path":"docs/13-product-design/step56-foundation/A/admin-traceability.json","sha256":"621f1350ba1e65e8f4c67697cab8e545af9981a7a7f3a925c4c45247792fb5f2","bytes":789221},
+    {"path":"docs/13-product-design/step56-foundation/A/ADMIN-SCOPE-INVENTORY.md","sha256":"da6ce285e0f82c4193c8a957712ffa67d133eacd64f7fd79ffc039af207cb1c6","bytes":12733},
+    {"path":"docs/13-product-design/step56-foundation/A/SOURCE-GAPS.md","sha256":"23a368d93c1e3ce4f72b27a107a52cc0e35a7505a29520d371bfe7b7e62a1b18","bytes":48678}
+  ]
+}
