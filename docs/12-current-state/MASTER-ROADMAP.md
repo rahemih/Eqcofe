@@ -1,12 +1,12 @@
 # EQCOFE — Complete Master Execution Roadmap
 
-**Roadmap version:** 3.38 — Step-55-F Canonical Closure Candidate
-**Effective date:** 2026-09-02
+**Roadmap version:** 3.39 — Step-55 Final Canonical Closure
+**Effective date:** 2026-09-05
 **Canonical repository:** `rahemih/Eqcofe`  
 **Canonical branch:** `main`  
 **Verified Step-44 code baseline:** `b239dfe825b615f36caf2e26cc7abc80c70d349c`
 
-> This is the canonical end-to-end execution map for EQCOFE. For historical Steps 1–27, the exact original step labels are not independently proven by the recovered Git evidence. Their descriptions below are therefore a normalized reconstruction of the foundation represented by the current product vision, business rules and canonical codebase; they must not be cited as exact historical attribution. Step 28 remains partial-history. Steps 29–54 are verified/closed in canonical source and closure evidence. Step 54 is CLOSED / FINAL GATE PASS; all Step 55 gates are complete locally and F is the Canonical closure candidate pending CI/merge/state synchronization.
+> This is the canonical end-to-end execution map for EQCOFE. For historical Steps 1–27, the exact original step labels are not independently proven by the recovered Git evidence. Their descriptions below are therefore a normalized reconstruction of the foundation represented by the current product vision, business rules and canonical codebase; they must not be cited as exact historical attribution. Step 28 remains partial-history. Steps 29–55 are verified/closed in canonical source and closure evidence. Step 55 is CLOSED / FINAL GATE PASS; Step 56 is next.
 
 ## Status legend
 - `RECONSTRUCTED-HISTORY`: normalized description; exact historical step attribution is not proven.
@@ -224,7 +224,7 @@ Frozen execution gates:
 
 A1–A10 established the source-backed visual, RTL, component, state and accessibility contracts. Under the owner's explicit no-paid-service boundary, A11 made the Repository the canonical free design-system library: deterministic CSS tokens, a machine-readable component manifest and a Persian catalog are generated from one contract and checked for drift in CI. PR #134 and Canonical CI `33237646099` passed and merged at `7d64f814cdba1472470aee99eddce55e8e67f3f8`. The Figma Starter file remains an optional `PARTIAL_FREE_TIER` mirror with three collections and 54 color variables; missing paid-plan capacity is neither hidden nor a blocker. A12 exact head `99d2b5d2c49f395bd4e490384e8dd5baa292cdc7` passed Canonical CI `33237793475` (verify job `99061721464`) and merged at `065cf9a66e5a84b570994085454dc4554b81e2b9`, closing Step 54. Step 55 is the next planned product-design step and has not started.
 
-## Step 55 — Storefront Wireframes — `IN PROGRESS — A–F COMPLETE; CLOSURE CANDIDATE`
+## Step 55 — Storefront Wireframes — `CLOSED / FINAL GATE PASS`
 Wireframe Home, category/search, product detail, compare, cart, checkout, account, wholesale, content and policy pages with mobile-first behavior.
 
 Frozen execution gates:
@@ -234,11 +234,11 @@ Frozen execution gates:
 3. C — Product Evaluation — `COMPLETE / GATE PASS`.
 4. D — Cart, Checkout & Payment Recovery — `COMPLETE / FINAL GATE PASS`.
 5. E — Account, Wholesale & After-Sales — `COMPLETE / FINAL GATE PASS`.
-6. F — Content, Policy, Responsive Audit & Canonical Closure — `COMPLETE LOCALLY / CANONICAL CLOSURE CANDIDATE`.
+6. F — Content, Policy, Responsive Audit & Canonical Closure — `COMPLETE / FINAL GATE PASS`.
 
-A recovered the canonical Step 53/54 inputs and froze a repository-native foundation. B–F now cover all 37 screen obligations with 145 deterministic low-fidelity frames, five SHA-bound manifests and responsive/accessibility traceability across all six widths plus 400% zoom. F adds seven article/static/support/policy surfaces and a final audit covering all 12 storefront journeys with zero open exceptions. PR #150 implementation head `70f5eea102143971b4126f63b480f3120f1a4908` passed Canonical CI `33596925507` / verify `100142144317`; evidence-sync CI, merge, post-merge CI and final state synchronization remain. No high-fidelity UI, runtime/API mutation/business-rule/upload change or paid-service dependency is introduced; Figma remains optional and non-canonical.
+A recovered the canonical Step 53/54 inputs and froze a repository-native foundation. B–F cover all 37 screen obligations with 145 deterministic low-fidelity frames, five SHA-bound manifests and responsive/accessibility traceability across all six widths plus 400% zoom. F adds seven article/static/support/policy surfaces and a final audit covering all 12 storefront journeys with zero open exceptions. PR #150 final head `d85bf44c0f987fabedd843994124caa1576835ac` passed Canonical CI `33597074463` / verify `100142576021`, merged at `ae56fa4cb8a44168aeeb9d92ca7e19ddcf648b94`, and post-merge CI `33602772166` / verify `100159960576` passed. No high-fidelity UI, runtime/API mutation/business-rule/upload change or paid-service dependency is introduced; Figma remains optional and non-canonical.
 
-## Step 56 — Admin UX Architecture & Wireframes — `PLANNED`
+## Step 56 — Admin UX Architecture & Wireframes — `NEXT`
 Design admin navigation, dashboards, tables, bulk operations, editors, audit/error states and operational workflows before frontend coding.
 
 ## Step 57 — High-Fidelity UI & Prototype Approval — `PLANNED`
@@ -372,10 +372,10 @@ Evolve architecture, integrations and product capabilities based on production e
 
 # Current Position
 
-- **Last fully closed step:** Step 54 — RTL Design System & Accessibility Foundation.
+- **Last fully closed step:** Step 55 — Storefront Wireframes.
 - **Step 49 closure:** CLOSED / FINAL GATE PASS after A11 audit.
-- **Active step:** Step 55 — Storefront Wireframes (`IN PROGRESS — A–F COMPLETE; CLOSURE CANDIDATE`).
-- **Next approved action:** Canonicalize Step 55-F through exact-head CI, merge and final state synchronization.
+- **Active step:** NONE.
+- **Next approved step:** Step 56 — Admin UX Architecture & Wireframes.
 - **Backend feature-completion horizon:** Step 52.
 - **UI/UX design begins:** Step 53.
 - **Storefront implementation begins:** Step 58.

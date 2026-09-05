@@ -1,6 +1,6 @@
 # Step 55-A — Storefront Wireframe Scope & Framework
 
-**Status:** 55-A through 55-F COMPLETE LOCALLY; Step 55 closure candidate pending Canonical CI/merge.
+**Status:** STEP 55 CLOSED / FINAL GATE PASS; all A–F gates complete.
 
 ## Canonical handoff
 

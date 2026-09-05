@@ -1,6 +1,6 @@
 # Step 55-F — Content, Policy, Responsive Audit & Canonical Closure
 
-**Status:** COMPLETE LOCALLY / CLOSURE CANDIDATE — Canonical exact-head CI, merge and final state sync remain required.
+**Status:** COMPLETE / FINAL GATE PASS — Step 55 closed by final state synchronization.
 
 ## Scope and authority
 
@@ -32,7 +32,7 @@ The visual review checks all seven compact first states plus expanded article li
 
 55-F adds design contracts, low-fidelity SVG evidence, documentation, validators and tests only. It introduces no frontend/backend Runtime, router, API mutation, migration, dependency, permission, business rule, real provider, upload, brand asset, high-fidelity UI, prototype or conformance/usability claim.
 
-The local result is intentionally a closure candidate. Step 55 becomes closed only after the implementation head passes Canonical CI, the PR merges, `main` passes again, a final state-sync changes machine-readable status to `CLOSED_FINAL_GATE_PASS`, that sync merges, and its resulting `main` also passes Canonical CI. Linear `HOS-13` remains In Progress until that sequence completes.
+The implementation and evidence-sync heads passed Canonical CI, PR #150 merged, and the resulting `main` passed Canonical CI. This state-sync changes the machine-readable result to `CLOSED_FINAL_GATE_PASS`; after its own exact-head and post-merge CI pass, Linear `HOS-13` is synchronized to Done.
 
 ## Acceptance
 
@@ -44,4 +44,6 @@ The local result is intentionally a closure candidate. Step 55 becomes closed on
 
 Local closure-candidate verification: 623/623 tests PASS; OpenAPI 531 paths / 601 operations / 1179 references; Architecture 467 files; Step 53/54/55 validators, every deterministic generator drift check, Toman/no-Wallet policy and TypeScript build PASS.
 
-Initial Canonical evidence: PR `#150`; implementation head `70f5eea102143971b4126f63b480f3120f1a4908`; Canonical CI `33596925507` / verify `100142144317` PASS. The evidence-sync head and its exact-head CI remain required before merge.
+Initial Canonical evidence: PR `#150`; implementation head `70f5eea102143971b4126f63b480f3120f1a4908`; Canonical CI `33596925507` / verify `100142144317` PASS.
+
+Final implementation evidence: evidence-sync head `d85bf44c0f987fabedd843994124caa1576835ac`, Canonical CI `33597074463` / verify `100142576021` PASS; merge/main `ae56fa4cb8a44168aeeb9d92ca7e19ddcf648b94`; post-merge CI `33602772166` / verify `100159960576` PASS. Final state-sync PR evidence is recorded before its merge.

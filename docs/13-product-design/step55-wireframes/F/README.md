@@ -1,6 +1,6 @@
 # Step 55-F — محتوا، قوانین و ممیزی نهایی
 
-**وضعیت:** COMPLETE / CLOSURE GATE CANDIDATE — Step 55 پس از CI و Merge نهایی بسته می‌شود.
+**وضعیت:** CLOSED / FINAL GATE PASS.
 
 قرارداد `docs/13-product-design/step55-content-policy-final-audit-wireframes.json` منبع قطعی هفت صفحه F و ممیزی کل 37 صفحه است. generator قاب‌ها، companionها، گزارش audit و manifest را می‌سازد. Repository مرجع است و Figma اختیاری/غیرمسدودکننده می‌ماند.
 
@@ -59,4 +59,4 @@ Article فقط snapshot منتشرشده را نشان می‌دهد. About، FA
 
 ## مرز
 
-55-F هیچ Runtime، Route واقعی، API mutation، Migration، Dependency، Permission، Business Rule، Provider، فایل واقعی یا High-fidelity UI ایجاد نمی‌کند. Step 55 فقط پس از exact-head CI، merge، post-merge CI و state sync نهایی بسته می‌شود.
+55-F هیچ Runtime، Route واقعی، API mutation، Migration، Dependency، Permission، Business Rule، Provider، فایل واقعی یا High-fidelity UI ایجاد نمی‌کند. exact-head CI، merge و post-merge CI پیاده‌سازی PASS شده‌اند و این state sync وضعیت بسته‌شدن Step 55 را قطعی می‌کند.

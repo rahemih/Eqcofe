@@ -1,6 +1,6 @@
 # Step 55 — Storefront Final Audit
 
-**Verdict:** PASS / CLOSURE CANDIDATE — exact-head Canonical CI and merge remain required.
+**Verdict:** CLOSED / FINAL GATE PASS.
 
 The repository-native audit covers every frozen Storefront obligation from 55-B through 55-F. It records 37 uniquely-owned screens, 145 deterministic low-fidelity frames, 5 Gate manifests, all 12 Step 53 storefront journeys, six widths and 400% reflow.
 
@@ -12,7 +12,7 @@ The repository-native audit covers every frozen Storefront obligation from 55-B 
 | 55-C | 5 | 20 | C_COMPLETE_STEP_IN_PROGRESS | PASS |
 | 55-D | 7 | 28 | D_COMPLETE_STEP_IN_PROGRESS | PASS |
 | 55-E | 12 | 48 | E_COMPLETE_STEP_IN_PROGRESS | PASS |
-| 55-F | 7 | 25 | F_COMPLETE_STEP_CLOSURE_CANDIDATE | PASS |
+| 55-F | 7 | 25 | CLOSED_FINAL_GATE_PASS | PASS |
 
 ## Checks
 
@@ -33,4 +33,4 @@ All screen IDs have one owner and every required state has compact evidence; eac
 
 ## Exceptions and boundary
 
-Open exceptions: **NONE**. Figma is optional/non-canonical. No runtime, route implementation, API mutation, migration, dependency, permission, business-rule, real provider, upload or high-fidelity claim enters Step 55. Step 55 may close only after the exact F head, merge head and final state synchronization pass Canonical CI.
+Open exceptions: **NONE**. Figma is optional/non-canonical. No runtime, route implementation, API mutation, migration, dependency, permission, business-rule, real provider, upload or high-fidelity claim enters Step 55. Implementation exact-head, merge-head and post-merge Canonical CI have passed; this final state synchronization makes the audited closure machine-readable.

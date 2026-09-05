@@ -20,8 +20,8 @@ test('Step 55-A inherits the exact Step 54 breakpoint and 4/8/12 grid foundation
   assert.deepEqual(contract.responsive.verificationWidthsPx, [320, 360, 600, 840, 1200, 1440]);
 });
 
-test('Step 55-F preserves the frozen 37-screen inventory as the closure candidate', () => {
-  assert.equal(contract.status, 'F_COMPLETE_STEP_CLOSURE_CANDIDATE');
+test('Step 55-F closes the frozen 37-screen inventory after the final audit', () => {
+  assert.equal(contract.status, 'CLOSED_FINAL_GATE_PASS');
   assert.deepEqual(contract.completedGates, ['55-A', '55-B', '55-C', '55-D', '55-E', '55-F']);
   assert.equal(contract.nextGate, null);
   assert.equal(contract.screenInventory.length, 37);
