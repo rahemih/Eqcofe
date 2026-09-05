@@ -8,6 +8,23 @@
 - Default/canonical branch: `main`
 - Historical repository: `rahemih/digikala-clone` — historical/recovery evidence only; not canonical application source.
 
+## Phase A canonical closure
+
+**Phase A — Steps 01–28 — CLOSED / FINAL GATE PASS.**
+
+- Steps 01–28 current technical status: `COMPLETE / VERIFIED BY CURRENT CANONICAL BASELINE`.
+- Historical attribution remains separate: Steps 01–27 `UNVERIFIED`; Step 28 `PARTIAL`.
+- Technical audit PR: `#144`; exact head `e3cdc336900be3a8d581d8ebfa28a8378bb052d1`; merge commit `ba42d752a0f2db12ccfe6eaee31034e7c8f58643`.
+- PR #144 exact-head CI: Canonical CI `33950117727` PASS; Phase A Verification `33950117696` PASS.
+- Post-merge Canonical CI on PR #144 merge: `33951504582` PASS.
+- Verification-trigger enablement PR: `#152`; merge/current technical baseline `d6a1695bbb8c9fef6c70f83b4f8d5a131f112063`.
+- Exact technical-baseline post-merge CI on `main`: Canonical CI `33951615151` PASS; Phase A Verification `33951615134` PASS.
+- Phase A Verification includes full `pnpm verify`, live PostgreSQL clean migration application, migration checksum parity, constraint/index integrity and a second migration replay.
+- Evidence: `docs/11-step-history/historical-verification/STEP-01-VERIFICATION.md` through `STEP-28-VERIFICATION.md`, `EVIDENCE-MATRIX.md`, and `docs/11-step-history/PHASE-A-FINAL-CANONICAL-CLOSURE.md`.
+- Blocker: NONE.
+- This current-state closure does not claim recovered historical provenance for Steps 01–27.
+- Current project execution remains unchanged: Active step `NONE — Step 55 is closed`; next approved step `Step 56 — Admin UX Architecture & Wireframes`.
+
 ## Canonical baseline lineage
 - Verified Step-44 baseline: `b239dfe825b615f36caf2e26cc7abc80c70d349c`.
 - Step-48 final closure merge: `149d5ec440fc789376ade48553b67f636a571f6d`.
@@ -57,6 +74,7 @@
 - Step-55 A foundation merge/main baseline: `75b117582b2e6315091c0e99459ad14b9a4fea0c`; main Canonical CI `33295685153` PASS.
 
 ## Closed steps
+- **Phase A — Steps 01–28 — CLOSED / FINAL GATE PASS — VERIFIED BY CURRENT CANONICAL BASELINE**
 - **Step 45 — Content, Articles & SEO Backend — CLOSED / FINAL GATE PASS**
 - **Step 46 — Marketing, Promotions & Customer Club Backend — CLOSED / FINAL GATE PASS**
 - **Step 47 — External Integration Foundation — CLOSED / FINAL GATE PASS**
