@@ -17,6 +17,10 @@ on:
       - 'package.json'
       - 'pnpm-lock.yaml'
       - 'tsconfig*.json'
+  push:
+    branches:
+      - main
+  workflow_dispatch:
 
 jobs:
   phase-a:
