@@ -42,4 +42,6 @@ Resolution requires separately authorized canonical reconciliation or explicit a
 
 ## Transport and canonical status
 
-This candidate must remain a draft PR. Exact-head CI evidence will be recorded after the PR run; a green structural CI does not waive the readiness blocker. Merge SHA and post-merge CI are **NOT APPLICABLE — merge prohibited while the final gate is blocked**. Roadmap/CURRENT-STATE are not promoted to A complete. The starting canonical execution position remains unchanged.
+Draft PR: [#154](https://github.com/rahemih/Eqcofe/pull/154). Implementation head: `f23824726e144f428f96af7ade92a0829144761b`. Exact-head [Canonical CI 33955677029](https://github.com/rahemih/Eqcofe/actions/runs/33955677029) **PASS**; `verify` job `101278467400` **PASS**, including frozen install and full `pnpm verify` on the repository-pinned CI toolchain. The final evidence-recording head must pass independently; its immutable SHA/run is available in PR checks and the execution report rather than a self-referential commit claim.
+
+This candidate remains a draft PR. A green structural CI does not waive the readiness blocker. Merge SHA and post-merge CI are **NOT APPLICABLE — merge prohibited while the final gate is blocked**. Roadmap/CURRENT-STATE are not promoted to A complete. The starting canonical execution position remains unchanged.
