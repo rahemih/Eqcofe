@@ -1,6 +1,6 @@
 # Step 55 — Acceptance & Traceability Matrix
 
-**Status:** 55-A through 55-D COMPLETE; 55-E..55-F NOT STARTED
+**Status:** STEP 55 CLOSED / FINAL GATE PASS
 
 ## Gate ownership
 
@@ -31,9 +31,9 @@ The canonical JSON lists exact screen IDs. All 12 storefront journeys are covere
 
 ## Gate-level Definition of Done
 
-Each of 55-B through 55-E passes only when all owned screen IDs have repository artifacts, traceability and acceptance companions; all required states and widths are reviewed; design validators and `pnpm verify` pass; exact-head Canonical CI passes; and its dedicated PR merges. Completion of one gate does not authorize work owned by the next.
+Each of 55-B through 55-F passes only when all owned screen IDs have repository artifacts, traceability and acceptance companions; all required states and widths are reviewed; design validators and full verification pass; exact-head Canonical CI passes; and its dedicated PR merges. Completion of one gate does not authorize work owned by the next.
 
-55-F additionally audits the complete storefront set for shell consistency, duplicated/missing journeys, responsive/RTL/accessibility coverage, artifact drift and unresolved exceptions. Only 55-F may canonicalize Step 55 as fully closed. Until then the Roadmap must say Step 55 `IN PROGRESS` and list the latest completed gate.
+55-F additionally audits the complete storefront set for shell consistency, duplicated/missing journeys, responsive/RTL/accessibility coverage, artifact drift and unresolved exceptions. Its final audit and Canonical CI/merge evidence authorize the Roadmap to record Step 55 as fully closed.
 
 ## Exception policy
 
@@ -54,3 +54,13 @@ An exception must name the screen/state, source requirement, reason, impact, tem
 ## 55-D acceptance result
 
 55-D passes with seven owned screen folders, 28 deterministic low-fidelity frames and 50 generated child artifacts bound by the Gate manifest. Cart, identity, address, delivery, review, payment verification and order outcome cover all frozen compact states, expanded evidence, every inherited width and 400% reflow. Quote/stock/shipping/payment/order stay authoritative; expiry, conflict, timeout, unknown-result and callback replay have bounded fail-closed recovery. Account detail remains a handoff to 55-E and no runtime, API, Provider, rule, high-fidelity or paid/Figma dependency enters the Gate.
+
+## 55-E acceptance result
+
+55-E passes with twelve owned screen folders, 48 deterministic low-fidelity frames and 85 generated child artifacts bound by the Gate manifest. Account, profile/security, addresses, orders/invoice, customer tools, wholesale and after-sales cover all frozen compact states, expanded evidence, every inherited width and 400% reflow. Customer ownership, privacy, authoritative approval/price/quantity, return/warranty eligibility and bounded idempotent recovery remain explicit. Content/policy and final audit remain a handoff to 55-F; no runtime, API, upload, rule, high-fidelity or paid/Figma dependency enters the Gate.
+
+## 55-F acceptance result
+
+55-F passes locally with seven owned screen folders, 25 deterministic low-fidelity frames and 49 generated child artifacts bound by the Gate manifest. Article listing/detail, About, Contact, FAQ, Terms and Returns/Warranty cover every frozen compact state plus expanded evidence, all six inherited widths and 400% reflow. Article reads trace only to the three approved public OpenAPI capabilities; static, policy and support surfaces invent no operation. Published-only content, policy versioning, no unsupported eligibility promise and support privacy remain explicit.
+
+The final repository audit passes all 37 uniquely-owned screens, 145 frames, five manifests, 12 storefront journeys and ten cross-cutting checks with zero open exceptions. PR #150 exact-head and post-merge Canonical CI passed; the final state synchronization records the machine status and Roadmap as `CLOSED / FINAL GATE PASS`.

@@ -1,0 +1,123 @@
+{
+  "schemaVersion": 1,
+  "step": 55,
+  "substep": "F",
+  "status": "CLOSED_FINAL_GATE_PASS",
+  "revision": 1,
+  "baseline": "9105a78af19e8a5f8fc30cc62a5dab94d208e46a",
+  "title": "Content, Policy, Responsive Audit and Canonical Closure",
+  "canonicalSource": "repository",
+  "figmaMirror": "OPTIONAL_NOT_REQUIRED",
+  "language": "fa-IR",
+  "direction": "rtl",
+  "currency": "Toman",
+  "walletAllowed": false,
+  "theme": "light",
+  "journeys": ["SJ-01", "SJ-04", "SJ-05", "SJ-08", "SJ-09", "SJ-10", "SJ-11"],
+  "directOpenApiCapabilities": ["GET /articles", "GET /articles/{slug}", "GET /articles/{slug}/related"],
+  "responsiveReview": [
+    {"width":320,"grid":"4 ستون، حاشیه 16، فاصله 12","content":"تک‌ستون با عنوان و metadata پیش از متن","policy":"فهرست محتوای خطی با anchor معنادار","support":"فرم تمام‌عرض و مرجع امن"},
+    {"width":360,"grid":"4 ستون، حاشیه 16، فاصله 12","content":"کارت تک‌ستون با متن آزادتر","policy":"accordion/anchor بدون scroll افقی","support":"فیلد و اقدام تمام‌عرض"},
+    {"width":600,"grid":"8 ستون، حاشیه 24، فاصله 16","content":"دو کارت یا متن bounded در 8 ستون","policy":"فهرست محتوا بالای بدنه","support":"فرم bounded در 6 ستون"},
+    {"width":840,"grid":"12 ستون، حاشیه 32، فاصله 20","content":"فهرست 8 ستون و rail مرتبط 4 ستون","policy":"فهرست محتوا 3 ستون و متن 9 ستون","support":"فرم 7 ستون و راهنما 5 ستون"},
+    {"width":1200,"grid":"12 ستون، حاشیه 32، فاصله 24","content":"بدنه خوانا 8/4 در ظرف bounded","policy":"ناوبری sticky بدون پوشاندن focus","support":"فرم و کانال‌ها 7/5"},
+    {"width":1440,"grid":"12 ستون در ظرف 1280","content":"عرض متن خوانا و rail در 1280","policy":"3/9 در ظرف 1280","support":"7/5 در ظرف 1280"}
+  ],
+  "crossCutting": {
+    "contentTruth": [
+      "فقط مقاله published و indexable از endpoint عمومی authoritative نمایش داده می‌شود؛ draft یا scheduled وارد Storefront نمی‌شود.",
+      "صفحه مقاله slug، عنوان، تاریخ انتشار، نویسنده/منبع مجاز و related content را بدون اختراع claim نشان می‌دهد.",
+      "no-result، first-use و failed از هم جدا هستند و retry فقط همان query را تکرار می‌کند.",
+      "درباره ما از محتوای مصوب کسب‌وکار استفاده می‌کند و آمار، گواهی یا شریک ساختگی ندارد."
+    ],
+    "policySafety": [
+      "قوانین قیمت، سفارش، ارسال، پرداخت، مرجوعی و گارانتی توضیح رابط‌اند و Business Rule تازه نمی‌سازند.",
+      "قیمت‌ها تومان‌اند، Wallet وجود ندارد و نتیجه پرداخت فقط از status/verify authoritative می‌آید.",
+      "سیاست مرجوعی یا گارانتی eligibility قطعی برای پرونده خاص وعده نمی‌دهد و کاربر را به بررسی سفارش خودش هدایت می‌کند.",
+      "نسخه و تاریخ اجرای سیاست در سطح قابل مشاهده است؛ نبود سند published به no-result fail-closed منجر می‌شود."
+    ],
+    "supportPrivacy": [
+      "فرم تماس فقط موضوع، پیام و مرجع ماسک‌شده لازم را می‌گیرد و OTP، token، secret یا داده پرداخت درخواست نمی‌کند.",
+      "ارسال پشتیبانی بدون API مصوب به‌عنوان Runtime موجود ادعا نمی‌شود؛ قاب فقط intent و حالت‌های فرم را تثبیت می‌کند.",
+      "پیام خطا داده حساس یا وجود رکورد متعلق به دیگری را افشا نمی‌کند و ورودی امن حفظ می‌شود.",
+      "کانال، ساعت پاسخ یا SLA بدون منبع مصوب وعده داده نمی‌شود."
+    ],
+    "accessibility": [
+      "هر صفحه یک H1، landmarkهای معنادار، skip link و وضعیت قابل اعلام مستقل از رنگ دارد.",
+      "هدف تعاملی حداقل 44×44 CSS px، focus واضح و error summary مرتبط با field دارد.",
+      "عنوان‌های مقاله و سیاست سلسله‌مراتب منطقی دارند و فهرست محتوا به heading واقعی پیوند می‌خورد.",
+      "در 400% zoom ترتیب معنایی حفظ و scroll دوبعدی صفحه ایجاد نمی‌شود.",
+      "جست‌وجوی FAQ، pagination، related links و فرم تماس نام و ترتیب keyboard روشن دارند."
+    ],
+    "finalAudit": [
+      "هر 37 شناسه SF-B تا SF-F دقیقاً یک مالک Gate دارد و duplicate یا missing screen وجود ندارد.",
+      "همه 12 journey فروشگاه حداقل یک mapping دارند و هر Component از قرارداد Step 54 می‌آید.",
+      "هر 145 قاب مورد انتظار metadata دسترس‌پذیر، state، viewport و revision دارد.",
+      "هر پنج manifest منبع و child artifactها را با SHA-256 می‌بندد و generator drift صفر است.",
+      "عرض‌های 320، 360، 600، 840، 1200، 1440 و zoom 400% برای تمام صفحه‌ها ردیابی شده‌اند.",
+      "هیچ exception باز، Wallet، رنگ Brown، دارایی برند اختراعی، Runtime یا paid/Figma dependency وجود ندارد."
+    ]
+  },
+  "screens": [
+    {
+      "id":"SF-F-01","name":"Article listing","title":"مجله و راهنمای قهوه","routeIntent":"/articles","actors":["guest","retail","wholesale"],"journeys":["SJ-01"],
+      "operations":["GET /articles"],"operationTraceMode":"openapi-direct-content-capability","components":["Card","Pagination","StatePanel"],"layout":"listing",
+      "primaryTask":"پیدا کردن مقاله published و مرتبط","primaryAction":"مطالعه مقاله","recoveryAction":"پاک‌کردن فیلتر یا تلاش دوباره",
+      "contentPriority":["عنوان و معرفی","موضوع/جست‌وجو","کارت مقاله","تاریخ/خلاصه","pagination","related discovery"],
+      "states":[{"id":"initial","title":"مقاله‌های منتشرشده آماده‌اند","message":"فهرست authoritative با عنوان، تاریخ و خلاصه واقعی نمایش داده می‌شود.","action":"مطالعه راهنمای انتخاب آسیاب"},{"id":"first-use","title":"هنوز مقاله‌ای منتشر نشده است","message":"draft یا scheduled نمایش داده نمی‌شود و مسیر محصولات و FAQ باقی می‌ماند.","action":"مشاهده پرسش‌های پرتکرار"},{"id":"no-result","title":"مقاله‌ای با این جست‌وجو پیدا نشد","message":"عبارت واردشده حفظ می‌شود و پاک‌کردن query مسیر bounded است.","action":"پاک‌کردن جست‌وجو"}]
+    },
+    {
+      "id":"SF-F-02","name":"Article detail","title":"راهنمای انتخاب آسیاب دستی","routeIntent":"/articles/:slug","actors":["guest","retail","wholesale"],"journeys":["SJ-01"],
+      "operations":["GET /articles/{slug}","GET /articles/{slug}/related"],"operationTraceMode":"openapi-direct-content-capability","components":["Card","StatePanel"],"layout":"article",
+      "primaryTask":"خواندن محتوای published با ساختار قابل پیمایش","primaryAction":"مشاهده مقاله مرتبط","recoveryAction":"بازگشت به فهرست یا تلاش دوباره",
+      "contentPriority":["breadcrumb","عنوان و metadata","خلاصه","headingها و متن","منبع مجاز","related content"],
+      "states":[{"id":"initial","title":"مقاله منتشرشده آماده مطالعه است","message":"slug، تاریخ انتشار، headingها و related content از snapshot عمومی آمده‌اند.","action":"مطالعه مقاله مرتبط"},{"id":"no-result","title":"این مقاله در دسترس نیست","message":"draft، حذف‌شده یا slug نامعتبر به محتوای حدسی تبدیل نمی‌شود.","action":"بازگشت به همه مقاله‌ها"},{"id":"failed","title":"دریافت مقاله انجام نشد","message":"عنوان یا متن قدیمی نمایش داده نمی‌شود و retry همان slug را می‌خواند.","action":"تلاش دوباره"}]
+    },
+    {
+      "id":"SF-F-03","name":"About","title":"درباره ایکوفی","routeIntent":"/about","actors":["guest","retail","wholesale"],"journeys":[],
+      "operations":[],"operationTraceMode":"static-approved-content","components":["Card"],"layout":"article",
+      "primaryTask":"شناخت محدوده و ارزش پیشنهادی مصوب EQCOFE","primaryAction":"مشاهده دسته‌بندی محصولات","recoveryAction":"رفتن به تماس در صورت نبود محتوا",
+      "contentPriority":["هویت برند مصوب","محدوده تجهیزات قهوه","روش انتخاب/پشتیبانی","مرز ادعاها","راه ارتباط"],
+      "states":[{"id":"initial","title":"داستان و محدوده ایکوفی","message":"فقط محتوای مصوب نمایش داده می‌شود؛ آمار، گواهی، شریک یا سابقه ساختگی وجود ندارد.","action":"مشاهده محصولات"},{"id":"failed","title":"محتوای درباره ما در دسترس نیست","message":"متن حدسی جایگزین نمی‌شود و مسیر تماس و فروشگاه قابل استفاده می‌ماند.","action":"تماس با ایکوفی"}]
+    },
+    {
+      "id":"SF-F-04","name":"Contact and support","title":"تماس و پشتیبانی","routeIntent":"/contact","actors":["guest","retail","wholesale"],"journeys":["SJ-05","SJ-08","SJ-09"],
+      "operations":[],"operationTraceMode":"no-approved-public-mutation","components":["TextField","Select","Button","Alert"],"layout":"form",
+      "primaryTask":"آماده‌کردن درخواست پشتیبانی با حداقل داده لازم","primaryAction":"ارسال درخواست پشتیبانی","recoveryAction":"اصلاح فیلد یا استفاده از کانال مصوب",
+      "contentPriority":["موضوع","اطلاعات تماس ماسک‌شده","شماره سفارش/پرونده اختیاری","پیام","هشدار داده حساس","اقدام"],
+      "states":[{"id":"validation","title":"اطلاعات تماس نیاز به اصلاح دارد","message":"موضوع یا پیام کامل نیست؛ خطاها به field متصل‌اند و ورودی امن حفظ می‌شود.","action":"تکمیل موارد مشخص‌شده"},{"id":"submitting","title":"درخواست در حال ارسال است","message":"ارسال دوباره غیرفعال می‌ماند و موفقیت پیش از پاسخ authoritative اعلام نمی‌شود.","action":"لطفاً منتظر بمانید"},{"id":"failed","title":"ارسال درخواست انجام نشد","message":"پیام امن حفظ شده و شماره سفارش ماسک‌شده است؛ کانال یا SLA ساختگی ارائه نمی‌شود.","action":"تلاش دوباره"}]
+    },
+    {
+      "id":"SF-F-05","name":"FAQ","title":"پرسش‌های پرتکرار","routeIntent":"/faq","actors":["guest","retail","wholesale-applicant","wholesale"],"journeys":["SJ-01","SJ-10"],
+      "operations":[],"operationTraceMode":"static-approved-content","components":["TextField","StatePanel"],"layout":"faq",
+      "primaryTask":"یافتن پاسخ کوتاه و مصوب پیش از تماس","primaryAction":"بازکردن پاسخ","recoveryAction":"پاک‌کردن جست‌وجو یا رفتن به تماس",
+      "contentPriority":["جست‌وجو","موضوع‌ها","پرسش","پاسخ","پیوند سیاست/فرایند","تماس"],
+      "states":[{"id":"initial","title":"پاسخ‌های پرتکرار آماده‌اند","message":"پرسش‌های سفارش، پرداخت، ارسال و عمده‌فروشی با پاسخ مصوب نمایش داده می‌شوند.","action":"بازکردن پاسخ پرداخت"},{"id":"no-result","title":"پاسخی برای این عبارت پیدا نشد","message":"عبارت حفظ می‌شود و تماس به‌عنوان مسیر بعدی بدون ادعای SLA در دسترس است.","action":"پاک‌کردن جست‌وجو"},{"id":"failed","title":"پرسش‌ها بارگذاری نشدند","message":"پاسخ قدیمی یا حدسی نمایش داده نمی‌شود و retry bounded است.","action":"تلاش دوباره"}]
+    },
+    {
+      "id":"SF-F-06","name":"Terms and commerce policies","title":"شرایط استفاده و قوانین خرید","routeIntent":"/policies/terms","actors":["guest","retail","wholesale"],"journeys":["SJ-04","SJ-11"],
+      "operations":[],"operationTraceMode":"static-approved-policy","components":["Card","Alert"],"layout":"policy",
+      "primaryTask":"فهم نسخه مصوب قوانین پیش از خرید","primaryAction":"رفتن به بخش پرداخت و سفارش","recoveryAction":"بازگشت به FAQ یا تماس",
+      "contentPriority":["نسخه/تاریخ اجرا","فهرست محتوا","قیمت تومان","سفارش/ارسال","پرداخت","عمده‌فروشی"],
+      "states":[{"id":"initial","title":"قوانین خرید منتشر شده‌اند","message":"نسخه و تاریخ اجرا همراه با بخش‌های قیمت، سفارش، ارسال و پرداخت نمایش داده می‌شود.","action":"مطالعه قوانین پرداخت"},{"id":"no-result","title":"نسخه منتشرشده قوانین موجود نیست","message":"قانون حدسی نمایش داده نمی‌شود و ادامه خرید به محتوای نامعتبر متکی نمی‌ماند.","action":"تماس برای راهنمایی"}]
+    },
+    {
+      "id":"SF-F-07","name":"Returns and warranty policies","title":"سیاست مرجوعی و گارانتی","routeIntent":"/policies/returns-warranty","actors":["guest","retail","wholesale"],"journeys":["SJ-08","SJ-09"],
+      "operations":[],"operationTraceMode":"static-approved-policy","components":["Card","Alert"],"layout":"policy",
+      "primaryTask":"فهم فرایند عمومی بدون وعده eligibility پرونده خاص","primaryAction":"بررسی سفارش خودم","recoveryAction":"رفتن به حساب یا پشتیبانی",
+      "contentPriority":["نسخه/تاریخ اجرا","شرایط عمومی","موارد خارج از پوشش","فرایند مرجوعی","فرایند گارانتی","پیگیری پرونده"],
+      "states":[{"id":"initial","title":"سیاست خدمات پس از فروش منتشر شده است","message":"شرایط عمومی و فرایندها روشن‌اند؛ eligibility نهایی فقط روی سفارش customer-owned بررسی می‌شود.","action":"بررسی سفارش خودم"},{"id":"no-result","title":"سیاست منتشرشده در دسترس نیست","message":"وعده یا شرط حدسی نمایش داده نمی‌شود و مسیر پشتیبانی امن باقی می‌ماند.","action":"تماس با پشتیبانی"}]
+    }
+  ],
+  "audit": {
+    "gates":["55-B","55-C","55-D","55-E","55-F"],"screenCount":37,"frameCount":145,"manifestCount":5,"generatedArtifactCountIncludingManifests":268,
+    "requiredWidths":[320,360,600,840,1200,1440],"zoomPercent":400,"minimumTargetPx":44,"openExceptions":[],
+    "requiredChecks":["unique-screen-ownership","all-storefront-journeys-mapped","step54-components-only","required-states-covered","all-widths-traced","zoom-reflow-bounded","accessible-svg-metadata","manifest-hashes-valid","toman-no-wallet-no-brown","no-runtime-or-paid-dependency"]
+  },
+  "acceptance": {
+    "framePolicy":"For each screen generate every required compact state at 320px plus its first state at 1440px.",
+    "requiredWidths":[320,360,600,840,1200,1440],"zoomPercent":400,"minimumTargetPx":44,"requiredCompanions":["README.md","traceability.json","acceptance.md"],
+    "screenCount":7,"expectedFrameCount":25,"expectedGeneratedChildren":49,
+    "gateCompleteWhen":["All seven SF-F folders and deterministic artifacts exist.","Every required state has compact evidence and every screen has expanded evidence.","Published content, policy versioning, support privacy and fail-closed absence are explicit.","The final audit proves 37 unique screens, 145 frames, five valid manifests, 12 journeys and zero open exceptions.","All inherited widths and 400 percent zoom are reviewed.","No runtime, API mutation, business rule, invented claim, paid dependency or Figma requirement is introduced.","Focused tests, full verification, exact-head CI, merge and final state synchronization pass."]
+  }
+}

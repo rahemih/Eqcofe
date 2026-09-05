@@ -1,0 +1,107 @@
+{
+  "schemaVersion": 1,
+  "step": 55,
+  "gate": "55-F",
+  "screenId": "SF-F-06",
+  "revision": 1,
+  "status": "COMPLETE",
+  "routeIntent": "/policies/terms",
+  "actors": [
+    "guest",
+    "retail",
+    "wholesale"
+  ],
+  "journeys": [
+    "SJ-04",
+    "SJ-11"
+  ],
+  "operationTraceMode": "static-approved-policy",
+  "openApiCapabilities": [],
+  "step54Components": [
+    "Card",
+    "Alert"
+  ],
+  "requiredStates": [
+    "initial",
+    "no-result"
+  ],
+  "primaryTask": "فهم نسخه مصوب قوانین پیش از خرید",
+  "primaryAction": "رفتن به بخش پرداخت و سفارش",
+  "recoveryAction": "بازگشت به FAQ یا تماس",
+  "responsiveEvidence": [
+    {
+      "width": 320,
+      "decision": "فهرست محتوای خطی با anchor معنادار",
+      "focus": "H1 → نسخه → فهرست محتوا → بخش‌ها → اقدام"
+    },
+    {
+      "width": 360,
+      "decision": "accordion/anchor بدون scroll افقی",
+      "focus": "H1 → نسخه → فهرست محتوا → بخش‌ها → اقدام"
+    },
+    {
+      "width": 600,
+      "decision": "فهرست محتوا بالای بدنه",
+      "focus": "H1 → نسخه → فهرست محتوا → بخش‌ها → اقدام"
+    },
+    {
+      "width": 840,
+      "decision": "فهرست محتوا 3 ستون و متن 9 ستون",
+      "focus": "H1 → نسخه → navigation 3 ستون → policy 9 ستون → اقدام"
+    },
+    {
+      "width": 1200,
+      "decision": "ناوبری sticky بدون پوشاندن focus",
+      "focus": "H1 → نسخه → navigation 3 ستون → policy 9 ستون → اقدام"
+    },
+    {
+      "width": 1440,
+      "decision": "3/9 در ظرف 1280",
+      "focus": "H1 → نسخه → navigation 3 ستون → policy 9 ستون → اقدام"
+    }
+  ],
+  "zoomEvidence": {
+    "percent": 400,
+    "verdict": "PASS_BY_REFLOW_CONTRACT",
+    "horizontalTwoAxisScroll": false
+  },
+  "accessibility": [
+    "هر صفحه یک H1، landmarkهای معنادار، skip link و وضعیت قابل اعلام مستقل از رنگ دارد.",
+    "هدف تعاملی حداقل 44×44 CSS px، focus واضح و error summary مرتبط با field دارد.",
+    "عنوان‌های مقاله و سیاست سلسله‌مراتب منطقی دارند و فهرست محتوا به heading واقعی پیوند می‌خورد.",
+    "در 400% zoom ترتیب معنایی حفظ و scroll دوبعدی صفحه ایجاد نمی‌شود.",
+    "جست‌وجوی FAQ، pagination، related links و فرم تماس نام و ترتیب keyboard روشن دارند."
+  ],
+  "contentTruth": [
+    "فقط مقاله published و indexable از endpoint عمومی authoritative نمایش داده می‌شود؛ draft یا scheduled وارد Storefront نمی‌شود.",
+    "صفحه مقاله slug، عنوان، تاریخ انتشار، نویسنده/منبع مجاز و related content را بدون اختراع claim نشان می‌دهد.",
+    "no-result، first-use و failed از هم جدا هستند و retry فقط همان query را تکرار می‌کند.",
+    "درباره ما از محتوای مصوب کسب‌وکار استفاده می‌کند و آمار، گواهی یا شریک ساختگی ندارد."
+  ],
+  "policySafety": [
+    "قوانین قیمت، سفارش، ارسال، پرداخت، مرجوعی و گارانتی توضیح رابط‌اند و Business Rule تازه نمی‌سازند.",
+    "قیمت‌ها تومان‌اند، Wallet وجود ندارد و نتیجه پرداخت فقط از status/verify authoritative می‌آید.",
+    "سیاست مرجوعی یا گارانتی eligibility قطعی برای پرونده خاص وعده نمی‌دهد و کاربر را به بررسی سفارش خودش هدایت می‌کند.",
+    "نسخه و تاریخ اجرای سیاست در سطح قابل مشاهده است؛ نبود سند published به no-result fail-closed منجر می‌شود."
+  ],
+  "supportPrivacy": [
+    "فرم تماس فقط موضوع، پیام و مرجع ماسک‌شده لازم را می‌گیرد و OTP، token، secret یا داده پرداخت درخواست نمی‌کند.",
+    "ارسال پشتیبانی بدون API مصوب به‌عنوان Runtime موجود ادعا نمی‌شود؛ قاب فقط intent و حالت‌های فرم را تثبیت می‌کند.",
+    "پیام خطا داده حساس یا وجود رکورد متعلق به دیگری را افشا نمی‌کند و ورودی امن حفظ می‌شود.",
+    "کانال، ساعت پاسخ یا SLA بدون منبع مصوب وعده داده نمی‌شود."
+  ],
+  "artifacts": [
+    "SF-F-06--320--initial--v1.svg",
+    "SF-F-06--1440--initial--v1.svg",
+    "SF-F-06--320--no-result--v1.svg"
+  ],
+  "boundary": {
+    "highFidelity": false,
+    "runtimeImplementation": false,
+    "apiMutation": false,
+    "businessRuleMutation": false,
+    "inventedBrandAsset": false,
+    "paidDependency": false,
+    "providerClaim": false
+  }
+}

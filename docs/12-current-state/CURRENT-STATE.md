@@ -1,7 +1,7 @@
 # EQCOFE Current State
 
 ## Trusted state date
-**2026-09-01**
+**2026-09-05**
 
 ## Official repository
 - Repository: `rahemih/Eqcofe`
@@ -67,12 +67,13 @@
 - **Step 52 — Backend Final Closure — CLOSED / FINAL GATE PASS**
 - **Step 53 — Information Architecture & User Journeys — CLOSED / FINAL GATE PASS**
 - **Step 54 — RTL Design System & Accessibility Foundation — CLOSED / FINAL GATE PASS**
+- **Step 55 — Storefront Wireframes — CLOSED / FINAL GATE PASS**
 
 Detailed closure evidence remains immutable in `docs/11-step-history/` and merged PR/CI history.
 
-## Step 55 active product-design state
+## Step 55 final product-design state
 
-**Step 55 — Storefront Wireframes — IN PROGRESS; A/B/C/D COMPLETE / FINAL GATE PASS; E is next.**
+**Step 55 — Storefront Wireframes — CLOSED / FINAL GATE PASS; A–F COMPLETE.**
 
 - A baseline: canonical `main` at `0e251696478e2cd91571c6103257e0c978c16c88`, with Step 54 closed and Step 55 not started.
 - Canonical foundation: `docs/13-product-design/step55-storefront-wireframe-contract.json` plus the foundation and acceptance/traceability documents.
@@ -82,7 +83,7 @@ Detailed closure evidence remains immutable in `docs/11-step-history/` and merge
 - A introduces no page wireframe. Its PR `#137` final head `614a548db5c5f96e902f1bb2ae824753d56ed6e0` passed Canonical CI `33295639025` / verify `99214700084`, merged at `75b117582b2e6315091c0e99459ad14b9a4fea0c`, and main Canonical CI `33295685153` / verify `99214821929` passed.
 - B Canonical source: `step55-discovery-wireframes.json` and `step55-wireframes/B/` — 6 screens, 24 low-fidelity SVG frames, 44 deterministic artifacts, complete state/responsive/RTL/accessibility/commerce/recovery companions and SHA-256 provenance.
 - B introduces no high-fidelity UI, frontend/backend runtime, API, migration, dependency, permission or business-rule change. Figma remains optional/non-blocking.
-- Linear: `HOS-13` — Step 55 — In Progress; A/B/C/D complete and E is next.
+- Linear: `HOS-13` — synchronized to Done after final state-sync merge and post-merge Canonical CI.
 - Step 55-B: PR `#138`; implementation head `39ae82340f31298b67baa9aaddcc4a84ad22820f`, CI `33297101212` / verify `99218555170` PASS; final head `956cde6ebbdb9694c9571030608a6f0e0809b506`, CI `33297193079` / verify `99218795810` PASS; merge/`main` `a9a35422347273f35da85ba5e3711a7d9cd3b9a1`; post-merge CI `33297252729` / verify `99218944170` PASS.
 - C source: `step55-product-evaluation-wireframes.json` and `step55-wireframes/C/` — 5 screens, 20 low-fidelity SVG frames and 37 deterministic artifacts covering product detail/media, comparison and customer-owned actions.
 - C preserves authoritative price/stock/Variant, max-four same-category comparison, safe guest-intent recovery, Persian RTL, all six widths and 400% zoom. It introduces no runtime/API/rule/dependency change.
@@ -90,7 +91,14 @@ Detailed closure evidence remains immutable in `docs/11-step-history/` and merge
 - D source: `step55-checkout-payment-wireframes.json` and `step55-wireframes/D/` — 7 screens, 28 low-fidelity SVG frames and 51 deterministic artifacts covering Cart, Checkout, Payment Verify and Order Recovery.
 - D preserves authoritative quote/stock/shipping/payment/order, 168-hour Cart TTL, 15-minute Checkout TTL, idempotent submission and fail-closed unknown payment recovery. It introduces no runtime/API/rule/dependency change.
 - D Canonical evidence: PR `#142`; implementation head `74a17346d374f6728e9be467e252f645fbc1468b`, CI `33505194321` / verify `99847477144` PASS; final head `eea113f25b6ec047c1e575cb87a0b016d96c5c8e`, CI `33505374371` / verify `99848049249` PASS; merge/main `b5f2534e6893411462cec219e4b75fd6de5a377a`; post-merge CI `33505503842` / verify `99848460921` PASS.
-- Next allowed substep after D Canonical merge: **55-E — Account, Wholesale & After-Sales**. Step 55 remains open until F completes final audit and canonical closure.
+- E source: `step55-account-wholesale-after-sales-wireframes.json` and `step55-wireframes/E/` — 12 screens, 48 low-fidelity SVG frames and 86 deterministic artifacts covering account, order/invoice, wholesale and after-sales.
+- E preserves customer ownership, privacy, authoritative wholesale approval/price/quantity, return/warranty eligibility, stable case timelines and bounded idempotent recovery. It introduces no runtime/API/rule/upload/dependency change.
+- E Canonical evidence: PR `#148`; implementation head `77b803f0435cfed91945fe2eb8743c59ca46bea6`, CI `33595054452` / verify `100136712674` PASS; final head `569f9e56121c163435f89413995ef2a868162a69`, CI `33595224368` / verify `100137201538` PASS; merge/main `c6a0db9b6a731f3b9be2614c3a6230296c985419`; post-merge CI `33595332775` / verify `100137520705` PASS.
+- F source: `step55-content-policy-final-audit-wireframes.json` and `step55-wireframes/F/` — 7 screens, 25 low-fidelity SVG frames and 50 deterministic artifacts covering articles, About, Contact, FAQ and policies.
+- F final audit: all 37 Storefront screens, 145 frames, five manifests, 268 deterministic artifacts and 12 journeys pass with zero open exceptions.
+- F local verification: 623/623 tests; OpenAPI 531 paths / 601 operations / 1179 references; Architecture 467 files; build, project policy, Step 53/54/55 validation and all design drift checks PASS.
+- F Canonical evidence: PR `#150`; implementation head `70f5eea102143971b4126f63b480f3120f1a4908`, CI `33596925507` / verify `100142144317` PASS; final head `d85bf44c0f987fabedd843994124caa1576835ac`, CI `33597074463` / verify `100142576021` PASS; merge/main `ae56fa4cb8a44168aeeb9d92ca7e19ddcf648b94`; post-merge CI `33602772166` / verify `100159960576` PASS.
+- Final state-sync: PR `#151`; initial head `8080d5cd0208ed0e13bcc740ccbb8340af972dca`; Canonical CI `33949134139` / verify `101260481097` PASS. Final exact-head CI and merge are the remaining closure transport checks.
 
 ## Step 49 final closure state
 **Step 49 — Physical Store / POS Backend — CLOSED / FINAL GATE PASS.**
@@ -429,7 +437,7 @@ Verify job: `97170521019` — PASS
 - Dark theme is explicitly deferred: it is not a Roadmap requirement and the current Figma plan permits one mode per collection.
 
 ## Next safe action
-Start **Step 55 — Storefront Wireframes** only from the final Step-54 closure merge and re-run its canonical handoff gate before any design mutation.
+Start **Step 56 — Admin UX Architecture & Wireframes** only from the final Step-55 closure merge and re-run its canonical handoff gate before any design mutation.
 
 ## Step 52 active closure state
 - **A1 — Canonical Handoff & Scope Freeze — COMPLETE / FINAL GATE PASS**

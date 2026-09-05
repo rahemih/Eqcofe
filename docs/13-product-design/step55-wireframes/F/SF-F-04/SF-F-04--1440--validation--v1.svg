@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="1000" viewBox="0 0 1440 1000" role="img" aria-labelledby="title desc" lang="fa">
+<title id="title">SF-F-04 — تماس و پشتیبانی — validation — 1440px</title>
+<desc id="desc">وایرفریم کم‌جزئیات فارسی و راست‌به‌چپ Step 55-F؛ اقدام اصلی ارسال درخواست پشتیبانی و بازیابی اصلاح فیلد یا استفاده از کانال مصوب.</desc>
+<style>text{font-family:Vazirmatn,Tahoma,Arial,sans-serif;fill:#0F172A}.h1{font-size:28px;font-weight:700}.h2{font-size:18px;font-weight:700}.body{font-size:14px}.label{font-size:13px;font-weight:600}.meta{font-size:11px}.muted{fill:#64748B}.mono{font-family:monospace}</style>
+<rect x="0" y="0" width="1440" height="1000" rx="0" fill="#F8FAFC" stroke="#F8FAFC"/>
+<rect x="80" y="18" width="1280" height="82" rx="8" fill="#FFFFFF" stroke="#CBD5E1"/>
+<text x="1348" y="46" class="label" text-anchor="end">EQCOFE · راهنما</text>
+<rect x="92" y="30" width="360" height="44" rx="6" fill="#F8FAFC" stroke="#94A3B8"/>
+<text x="440" y="58" class="body" text-anchor="end">جست‌وجوی محصول</text>
+<text x="1348" y="94" class="meta muted" text-anchor="end">دسته‌ها · مجله · حساب · سبد</text>
+<text x="1360" y="128" class="meta muted" text-anchor="end">محتوا و قوانین / SF-F-04</text>
+<text x="1360" y="166" class="h1" text-anchor="end">تماس و پشتیبانی</text>
+<rect x="80" y="186" width="1280" height="76" rx="8" fill="#FFFFFF" stroke="#B91C1C"/>
+<text x="1348" y="210" class="h2" text-anchor="end" fill="#B91C1C" style="fill:#B91C1C">اطلاعات تماس نیاز به اصلاح دارد</text>
+<text x="1348" y="231" class="body" text-anchor="end">موضوع یا پیام کامل نیست؛ خطاها به field متصل‌اند و ورودی امن حفظ می‌شود.</text>
+<text x="92" y="248" class="label" text-anchor="start" fill="#B91C1C" style="fill:#B91C1C">تکمیل موارد مشخص‌شده</text>
+<rect x="540" y="286" width="820" height="610" rx="8" fill="#FFFFFF" stroke="#CBD5E1"/>
+<text x="1344" y="328" class="label" text-anchor="end">موضوع</text>
+<rect x="556" y="340" width="788" height="48" rx="6" fill="#FFFFFF" stroke="#B91C1C"/>
+<text x="1332" y="370" class="body" text-anchor="end">اطلاعات امن</text>
+<text x="1344" y="404" class="meta" text-anchor="end" fill="#B91C1C" style="fill:#B91C1C">این فیلد را اصلاح کنید</text>
+<text x="1344" y="444" class="label" text-anchor="end">اطلاعات تماس ماسک‌شده</text>
+<rect x="556" y="456" width="788" height="48" rx="6" fill="#FFFFFF" stroke="#94A3B8"/>
+<text x="1332" y="486" class="body" text-anchor="end">EQ-14••• · اختیاری</text>
+<text x="1344" y="560" class="label" text-anchor="end">شماره سفارش/پرونده اختیاری</text>
+<rect x="556" y="572" width="788" height="48" rx="6" fill="#FFFFFF" stroke="#94A3B8"/>
+<text x="1332" y="602" class="body" text-anchor="end">اطلاعات امن</text>
+<text x="1344" y="676" class="label" text-anchor="end">پیام</text>
+<rect x="556" y="688" width="788" height="48" rx="6" fill="#FFFFFF" stroke="#94A3B8"/>
+<text x="1332" y="718" class="body" text-anchor="end">اطلاعات امن</text>
+<rect x="556" y="786" width="788" height="48" rx="8" fill="#0F766E" stroke="#0F766E"/>
+<text x="950" y="816" class="label" text-anchor="middle" fill="#FFFFFF" style="fill:#FFFFFF">ارسال درخواست پشتیبانی</text>
+<rect x="80" y="924" width="1280" height="48" rx="8" fill="#FFFFFF" stroke="#CBD5E1"/>
+<text x="1348" y="954" class="meta muted" text-anchor="end">حریم خصوصی · تماس · شرایط · مرجوعی و گارانتی</text>
+<text x="80" y="984" class="meta mono" text-anchor="start">SF-F-04 · 55-F · validation · 1440px · v1</text>
+</svg>
