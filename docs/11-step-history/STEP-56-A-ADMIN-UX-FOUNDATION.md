@@ -1,47 +1,47 @@
-# Step 56-A — Canonical Handoff and Admin UX Scope Candidate
+# Step 56-A — Canonical Handoff and Admin UX Scope Freeze
 
-**Final verdict: BLOCKED — NOT CLOSED / NOT MERGEABLE.**
+**Foundation acceptance: PASS. Canonical closure requires the final PR head CI, merge and post-merge CI recorded by GitHub. Step 56 remains IN_PROGRESS; B–H are NOT_STARTED.**
 
-## Starting evidence
+## Starting canonical evidence
 
-- Repository: `rahemih/Eqcofe`; canonical branch `main`.
-- Independently recovered starting main: `8e7eb050785fb7d284e33398045372162998e33d`.
-- Roadmap 3.40, Current State, Step 55 machine contract and final audit agree: Step 55 CLOSED / FINAL GATE PASS; active step NONE; Step 56 NEXT.
-- Step 55 final synchronization PR #151: exact head `842703ba37546ad553bfa0bb876ba04c7694434f`; Canonical CI `33949227612` PASS; merge `b5891d4e901814fbb3d1ea1cb17f0073232644e1`; post-merge CI `33949283677` PASS. Current GitHub evidence resolves stale older prose about remaining transport checks.
-- A separate checkout preserves pre-existing local changes. Branch: `docs/step56-a-admin-ux-foundation`.
+- Repository: `rahemih/Eqcofe`; branch `main`; independently recovered starting SHA `8e7eb050785fb7d284e33398045372162998e33d`.
+- Roadmap 3.40, Current State, Step 55 contract and closure evidence agree: Step 55 CLOSED / FINAL GATE PASS, active step NONE, Step 56 NEXT.
+- Step 55 final synchronization PR #151: exact head `842703ba37546ad553bfa0bb876ba04c7694434f`; Canonical CI `33949227612` PASS; merge `b5891d4e901814fbb3d1ea1cb17f0073232644e1`; post-merge CI `33949283677` PASS.
+- The three mutable canonical state documents are preserved in the hash-pinned baseline snapshot. Current state promotion does not rewrite starting evidence.
 
-## Delivered candidate
+## Frozen foundation
 
-The Admin UX contract pins 117 recovered source files, retains 3 admin experience personas and all 12 Step 53 admin journeys, accounts for 28 backend modules, defines 97 task/surface obligations with 111 journey links, and maps a 532-operation union to one owning surface per operation. It records 507 assembled admin OpenAPI operations, 376 source controller routes and 118 explicit permission keys.
+The contract pins 136 sources: canonical state and Step 53 IA/journeys/machine contract, Step 54 system and generated evidence, Step 55 closure/handoff, OpenAPI, controllers, permission migrations and RBAC/security implementation. It retains 3 experience personas, 12 admin journeys, 28 backend domains, 97 task/surface obligations and 111 screen–journey links. Roles remain server-defined, with warehouse and physical_store scope boundaries; experience personas do not grant permissions.
 
-Later ownership is B 7, C 8, D 21, E 11, F 16 and G 34 obligations; H audits the complete union. All B–H statuses remain NOT_STARTED. No actual admin page wireframe is created.
+The operation union is 532: 507 assembled admin OpenAPI operations and 376 source controller routes. Permission evidence contains 114 runtime keys, 118 controller/fallback keys and 122 all-source keys. B owns 7 obligations, C 8, D 21, E 11, F 16 and G 34; H must audit all 97 obligations and all 12 journeys.
 
-The foundation includes global states, RTL/responsive/accessibility inheritance, integer Toman/no-Wallet/no-Brown, actor and role distinction, dangerous-action confirmation, Step-Up/audit expectations, canonical organization and optional non-blocking Figma. Four deterministic artifacts contain inventory, machine traceability, source gaps and manifest. No runtime/frontend/backend/API/migration/dependency/business-rule/permission changes are present.
+Global states, pre-authentication and authenticated entry, responsive and accessibility inheritance, Persian-first RTL, integer Toman, no-Wallet/no-Brown, dangerous-action confirmation, Step-Up/audit and recovery expectations are frozen. Figma is an optional non-blocking mirror. Four deterministic artifacts provide inventory, traceability, source discrepancies and hashes. Page wireframes: **0**. No runtime/frontend/backend/API/migration/dependency/business-rule/permission changes.
 
-## Why this gate cannot close
+## Retained implementation evidence requirements
 
-1. GAP-01: 156 assembled admin operations have no matching source controller route. This is static source reconciliation, not live endpoint testing.
-2. GAP-02: 151 of those operations have no exact permission key recoverable from OpenAPI or a matching controller. They are explicitly UNRESOLVED_NOT_GRANTED.
-3. GAP-03: 25 source controller operations are absent from assembled OpenAPI. Eleven have supplemental POS contract evidence; that file is not part of the canonical OpenAPI validator's assembly.
+- GAP-01: 156 assembled operations without matching source controllers.
+- GAP-02: 151 operations without exact recoverable permissions.
+- GAP-03: 25 controller operations absent from assembled OpenAPI, including 11 with supplemental POS evidence.
+- GAP-04: 5 explicit OpenAPI/controller permission contradictions.
 
-These are overlapping evidence sets, not 332 distinct missing operations. Contract-only operations stay quarantined concept obligations; no supported execution or permission is invented. The full operation lists and source paths are in `docs/13-product-design/step56-foundation/A/SOURCE-GAPS.md` and the machine contract.
+These sets overlap. Every obligation remains in scope, with affected surfaces, owning domains and H audit obligations. Missing or conflicting authority prohibits executable success and remains NO_ACTION until separately authorized canonical reconciliation. Foundation acceptance certifies design scope and restrictions, not runtime readiness or resolution of these evidence requirements.
 
-Resolution requires separately authorized canonical reconciliation or explicit approved scope deferral. This task forbids the backend/API/permission changes that would otherwise be possible remediation. No automatic deferral, merge or Step 56-B work occurs.
+Independent gpt-6-astra review identified missing contradictory permission claims, source provenance, baseline isolation, H coverage, actor/journey consistency and pre-authentication handling. These were corrected and regression-tested. Review also confirmed the original canonical foundation scope does not require backend repair before A acceptance. The unmerged draft's stricter rule was corrected; no user-approved scope deferral or removed obligation is claimed.
 
-## Local validation
+## Validation
 
-- Focused Step 56-A tests: **8/8 PASS**.
-- Structural validator: **PASS**, with separate final-gate result **BLOCKED**.
-- Readiness mode `--require-ready`: expected **exit 2 / BLOCKED**, covered by a negative test.
-- Four deterministic artifact drift checks: **PASS**; page-wireframe count **0**.
-- Full `pnpm verify`: **PASS — 635 tests, 0 failures, 0 skips, 0 cancellations**.
-- Existing OpenAPI assembly: **531 paths / 601 operations / 1179 refs**.
-- Architecture, policy, TypeScript build, Step 53/54/55 validators and all existing generated-artifact checks: **PASS**.
-- Local Node: 24.19.0; local pnpm: 11.19.0. The existing CI independently uses pinned Node 24.18.1 / pnpm 11.21.0; no toolchain/dependency file changed.
-- Initial restricted tsx execution could not read OS user information. Authorized execution outside that environment passed. Initial full verification exposed Windows CRLF checkout/hash differences; the isolated checkout was normalized to canonical LF without a tracked source change, then full verification passed.
+- Focused Step 56-A tests: **22/22 PASS**.
+- Structural validation and foundation readiness mode: **PASS**; runtime release remains restricted.
+- Deterministic generation and drift checks: **PASS**, four artifacts, zero page wireframes.
+- Full `pnpm verify`: **649 tests PASS**, zero failures, skips or cancellations; existing architecture/policy/OpenAPI/TypeScript and Step 53/54/55 checks passed.
+- `git diff --check` is required on the final patch.
+- Existing OpenAPI assembly: 531 paths, 601 operations, 1179 references.
+- Local Node 24.19.0 / pnpm 11.19.0; CI retains repository-pinned Node 24.18.1 / pnpm 11.21.0. Dependencies and lockfile are unchanged.
 
-## Transport and canonical status
+## Canonical transport
 
-Draft PR: [#154](https://github.com/rahemih/Eqcofe/pull/154). Implementation head: `f23824726e144f428f96af7ade92a0829144761b`. Exact-head [Canonical CI 33955677029](https://github.com/rahemih/Eqcofe/actions/runs/33955677029) **PASS**; `verify` job `101278467400` **PASS**, including frozen install and full `pnpm verify` on the repository-pinned CI toolchain. The final evidence-recording head must pass independently; its immutable SHA/run is available in PR checks and the execution report rather than a self-referential commit claim.
+Dedicated branch: `docs/step56-a-admin-ux-foundation`; PR [#154](https://github.com/rahemih/Eqcofe/pull/154).
 
-This candidate remains a draft PR. A green structural CI does not waive the readiness blocker. Merge SHA and post-merge CI are **NOT APPLICABLE — merge prohibited while the final gate is blocked**. Roadmap/CURRENT-STATE are not promoted to A complete. The starting canonical execution position remains unchanged.
+Earlier draft head `f3430c95a5ec048054e63b09032325b49f8d2544` passed Canonical CI `33955765115`, verify job `101278715516`; that is historical evidence, not a substitute for the final corrected head. The immutable final head, matching CI run/job, merge SHA and post-merge CI are recorded in GitHub PR/check history and the execution report, avoiding a self-referential commit claim.
+
+Roadmap, Current State and Chat Handoff are synchronized in this PR to A complete, active step NONE, B NEXT / NOT_STARTED. Canonical acceptance becomes effective only after all required transport checks pass. Stop after A; no B execution is authorized by this closure.

@@ -38,21 +38,25 @@ Conversation history is supporting context only. It must not override current ca
 - Last fully closed step: **Step 55 — Storefront Wireframes — FINAL GATE PASS**
 - Verified Step-55 A foundation merge: `75b117582b2e6315091c0e99459ad14b9a4fea0c`
 - Verified Step-55 B closure: PR `#138`; final head `956cde6ebbdb9694c9571030608a6f0e0809b506`; exact-head CI `33297193079` / verify `99218795810` — PASS; merge/main `a9a35422347273f35da85ba5e3711a7d9cd3b9a1`; post-merge CI `33297252729` / verify `99218944170` — PASS.
-- Active step: **NONE — Step 55 is closed**
+- Active step: **NONE — 56-A finished; 56-B NOT_STARTED**
 - Active substep: **NONE**
-- Last completed canonical substep: **Step 55 / F — Content, Policy & Final Audit**
+- Last completed canonical substep: **Step 56 / A — Admin UX Foundation & Scope Freeze**
 - Step-55 C closure: PR `#140`; final head `adb015b46a90ba8383d0cbf17a149050ebdc1cd0`; exact-head CI `33500791061` / verify `99833400342` — PASS; merge/main `1a45bc71809eeae7e9e0670715a30f2c3069ab32`; post-merge CI `33500900444` / verify `99833752685` — PASS.
 - Step-55 D closure: PR `#142`; final head `eea113f25b6ec047c1e575cb87a0b016d96c5c8e`; exact-head CI `33505374371` / verify `99848049249` — PASS; merge/main `b5f2534e6893411462cec219e4b75fd6de5a377a`; post-merge CI `33505503842` / verify `99848460921` — PASS.
 - Step-55 E closure: PR `#148`; final head `569f9e56121c163435f89413995ef2a868162a69`; exact-head CI `33595224368` / verify `100137201538` — PASS; merge/main `c6a0db9b6a731f3b9be2614c3a6230296c985419`; post-merge CI `33595332775` / verify `100137520705` — PASS.
 - Step-55 F initial evidence: PR `#150`; implementation head `70f5eea102143971b4126f63b480f3120f1a4908`; Canonical CI `33596925507` / verify `100142144317` — PASS.
 - Step-55 F final implementation evidence: final head `d85bf44c0f987fabedd843994124caa1576835ac`; CI `33597074463` / verify `100142576021` — PASS; merge/main `ae56fa4cb8a44168aeeb9d92ca7e19ddcf648b94`; post-merge CI `33602772166` / verify `100159960576` — PASS.
 - Step-55 final state-sync: PR `#151`; initial head `8080d5cd0208ed0e13bcc740ccbb8340af972dca`; CI `33949134139` / verify `101260481097` — PASS; final evidence head and merge remain transport checks.
-- Current action: **NONE — final state synchronization completed**
-- Next approved action: **Start Step 56 Admin UX Architecture & Wireframes**
+- Current action: **NONE — stop after 56-A foundation**
+- Next approved action: **Step 56-B — Admin IA & Shell; NOT_STARTED and requires a later instruction**
 - Step-51 closure PR: **#115 — MERGED**
 - Step-51 closure Canonical CI: **32737751481 — PASS**
 - Linear project: **EQCOFE**
 - Linear current issue: **HOS-13 — Step 55 — Done after final state-sync post-merge CI**
+
+### Step 56-A handoff boundary
+
+PR #154 freezes 97 obligations and the full 532-operation source union. The foundation is complete; source gaps are not backend repairs. The four implementation evidence sets remain NO_ACTION until canonical reconciliation, with every obligation preserved for H design audit. Read the foundation contract, acceptance matrix and `step56-foundation/A/SOURCE-GAPS.md` before later design. Verify the exact PR head, merge and post-merge CI before treating this handoff as canonical. Zero admin page wireframes exist; B–H have not started. Linear was not mutated in this foundation task; GitHub/current-state evidence takes precedence over an older issue snapshot.
 
 > Before every new-chat handoff, re-read GitHub `main`, CURRENT-STATE, MASTER-ROADMAP, and the current Linear issue. Do not trust the snapshot above if newer canonical evidence exists.
 

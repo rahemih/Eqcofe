@@ -1,8 +1,8 @@
-# Step 56-A — Admin UX Foundation and Scope Candidate
+# Step 56-A — Admin UX Foundation and Scope Freeze
 
-**Verdict: FOUNDATION CANDIDATE / FINAL GATE BLOCKED.**
+**56-A: COMPLETE / FOUNDATION ACCEPTANCE PASS. Overall Step 56 remains in progress; B–H NOT_STARTED.**
 
-This is the complete recovered scope proposal for 56-A, not an approved final freeze. Exact permissions and executable capability cannot be certified for the unresolved source gaps below. No page wireframe is created. Step 56-B and every later gate remain **NOT_STARTED**. A green structural validator or Canonical CI must not be read as permission to merge this candidate.
+This freezes the complete Admin UX design obligations, source evidence, uncertainties and mandatory action restrictions. It does not certify runtime availability, API consistency or permission reconciliation. No page wireframe is created. Canonical closure additionally requires exact-head CI, merge and post-merge verification. Step 56-B and every later gate remain **NOT_STARTED**.
 
 ## Canonical handoff
 
@@ -12,7 +12,7 @@ At that exact baseline, MASTER-ROADMAP version 3.40 and CURRENT-STATE record Ste
 
 Some older Step 55 prose still says final transport checks remain. Current GitHub resolves that stale wording: PR #151 is merged; final head `842703ba37546ad553bfa0bb876ba04c7694434f` passed Canonical CI `33949227612`; merge `b5891d4e901814fbb3d1ea1cb17f0073232644e1` passed post-merge CI `33949283677`. The later Phase A closure at the starting SHA preserves this execution position. Historical Step 55 evidence is not rewritten in this candidate.
 
-The machine contract's `sources` array pins normalized UTF-8/LF SHA-256 for the recovered Roadmap, Current State, handoff, product vision, business rules, Step 53 IA/journeys/state/admin docs and contract, Step 54 contract/component/accessibility/responsive/typography docs and generated library, Step 55 contracts and closure history, HTTP contracts, controller/module inventory and security conventions. `sources` is a baseline evidence inventory, not a claim that historical implementation attribution has been recovered.
+The machine contract's `sources` array pins 136 normalized UTF-8/LF SHA-256 source records for the recovered Roadmap, Current State, handoff, product vision, business rules, Step 53 IA/journeys/state/admin docs and contract, Step 54 contract/component/accessibility/responsive/typography docs and generated library, Step 55 contracts and closure history, HTTP contracts, controller/module inventory and security conventions, including 18 referenced permission migrations and the RBAC repository. The original three mutable canonical-state documents are preserved in `step56-baseline-canonical-state.json` with the original commit, path, content and hash. Later state promotion must not rewrite these baseline snapshots or relabel later content as starting evidence. Other source records are checked against current source. No historical implementation attribution is invented.
 
 ## Scope and counts
 
@@ -26,7 +26,9 @@ The machine contract's `sources` array pins normalized UTF-8/LF SHA-256 for the 
 | Assembled admin OpenAPI operations | 507 | 601 total operations, including 94 non-admin operations |
 | Source admin controller routes | 376 | 351 match assembled OpenAPI; 25 do not |
 | Union of admin operations | 532 | Every operation assigned one owning surface |
-| Explicit permission keys | 118 | Recovered from controller metadata or explicit OpenAPI extension |
+| Controller/fallback permission keys | 118 | Observed controller keys, or contract keys where no controller exists; not a reconciled grant inventory |
+| Runtime / all-source permission keys | 114 / 122 | All-source count preserves conflicting OpenAPI claims as well |
+| Explicit permission conflicts | 5 | Both source claims retained; no action authorization |
 | Unresolved permission operations | 151 | No guessed permission or role assignment |
 
 A surface obligation means the task's entry, read/detail context, supported actions, review and result/recovery facets. It is not a one-endpoint screen or a promise of exactly 97 URL pages. Later B–G may split a workspace into linked frames while retaining its stable obligation ID and every assigned operation. They cannot discard a facet, operation or state to reduce the count. The generated inventory and JSON traceability make all assignments reviewable.
@@ -38,6 +40,8 @@ Excluded: runtime/frontend/backend implementation, real routes, migrations, HTTP
 ## Actors, roles and permission boundaries
 
 The three Step 53 personas describe work. Approver and operator remain staff; their names do not grant permissions. Actual roles are active server-managed records joined to explicit permissions with assignment expiry. No role seed or role-to-permission matrix is invented. Guest/customer/service/system actors do not gain interactive admin access. Login and FIDO challenges are specific pre-session entry points, not an unauthenticated admin shell.
+
+All three personas can enter the B authentication/shell obligations. AT-B-01 separates direct preauthentication login/FIDO from authenticated session/Step-Up/credential self-service; it never requires a valid session before login. The currently assignable staff scope types are exactly `warehouse` and `physical_store`, as constrained by `RbacService.setScopes`. Shell navigation, destination search and quick actions consume availability/permission evidence from the full 532-operation inventory, including conflicts and unavailable approval/recovery routes owned by later gates.
 
 Every operation row carries source, controller/handler/line where present, permission keys, permission source migrations, Step-Up decorator evidence and contract audit hints. Surface permission arrays are a union for discoverability, never an all-or-any access check. PermissionsGuard requires every permission specified on an operation. Session and StaffOnly boundaries remain separate. Backend owner services and ScopePolicy remain authoritative for entity/store/warehouse scope. In particular, the current ScopePolicy treats no entries for a scope type as unrestricted for staff; design must not silently replace this with a new deny/grant model.
 
@@ -67,12 +71,16 @@ Canonical input: `step56-admin-ux-contract.json`; stable IDs: `AD-{B..G}-{NN}` a
 
 Future B–G should follow the Step 55 pattern: gate contract, repository-native low-fidelity frames, README, traceability/acceptance companions and a deterministic manifest. This names later obligations only; those directories and frames are not created now. Figma is an optional, non-blocking mirror of repository-approved artifacts; the incomplete free-tier Step 54 mirror is not claimed complete. No paid capacity is required.
 
-## Blocking source discrepancies
+## Open implementation evidence requirements
 
 GAP-01: 156 assembled admin operations have no matching source controller. Examples include `/admin/dashboard`, admin order actions, AI jobs and operational recovery. OperationsModule and SecurityModule are empty module declarations at this baseline; security session/FIDO routes elsewhere are separately traced. A contract path is not proof of a usable capability.
 
-GAP-02: 151 of those operations also lack an explicit permission key. Their complete permission boundary cannot be truthfully frozen. Naming a plausible permission would change the meaning of this task.
+GAP-02: 151 of those operations also lack an explicit permission key. Their design boundary is frozen as NO_ACTION; no executable permission grant is asserted. Naming a plausible permission would change the meaning of this task.
 
 GAP-03: 25 implemented admin routes are outside the canonical OpenAPI assembly. Some POS routes have `contracts/http/step49-pos-a9.yaml`, which the canonical OpenAPI validator does not assemble. Runtime-only marketing/loyalty routes are also preserved explicitly. Supplemental evidence does not silently become canonical assembled API.
 
-The source gap register lists every affected operation and surface. These are blocked scope findings, not authorized remediations or automatic deferrals. 56-A cannot be FINAL GATE PASS or merged until separate authorized canonical reconciliation or explicit approved scope deferral resolves them. B remains not started. Existing Roadmap/Current State closure claims are not rewritten as new backend verification.
+GAP-04: five matched routes have contradictory explicit permission declarations: RBAC create/update/permission replacement, finance profit-rule preview and campaign activation. `permissionClaims` retains both controller and OpenAPI keys; `CONFLICT_UNRESOLVED_NOT_GRANTED` and `PERMISSION_CONFLICT_NO_ACTION` prevent a reconciled access claim. This finding was identified by the user-authorized independent gpt-6-astra review.
+
+The source gap register lists every affected operation, surface and responsible domain, with retained-design/NO_ACTION disposition and release prerequisites. All 97 obligations remain counted. H must audit the full design union, unavailable/disabled behavior and preserved restrictions; no source gap is silently waived. Missing, conflicted or non-assembled authority cannot support an executable-success claim before canonical reconciliation. Existing Roadmap/Current State backend closure claims are not rewritten as new runtime verification.
+
+The earlier unmerged draft incorrectly made complete runtime/API reconciliation a prerequisite of foundation acceptance. Original Step 56 concerns design before frontend coding, while Step 53 assigns authoritative permission/scope implementation to Steps 67–78. The user-authorized independent gpt-6-astra review confirmed this distinction. Correcting that draft rule retains the original foundation-only scope and every requirement; it is not a claim of user-approved scope removal or backend remediation.

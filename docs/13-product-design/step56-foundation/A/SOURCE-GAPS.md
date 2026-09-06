@@ -1,12 +1,14 @@
-# Step 56-A — Unresolved canonical source gaps
+# Step 56-A — Open implementation evidence requirements
 
-These gaps block FINAL GATE PASS and merge. Structural validation verifies that this register is complete; it does not waive a gap or prove runtime implementation. No backend/API/permission repair is authorized by this foundation.
+These findings remain unresolved implementation evidence requirements. Foundation acceptance freezes complete design scope and mandatory NO_ACTION restrictions; it does not certify runtime/API/permission reconciliation. Every obligation remains counted and H must audit its unavailable/disabled concept coverage. Backend/API/permission repair is outside this foundation.
 
 ## GAP-01 — 156 operations
 
 156 assembled Admin OpenAPI operations have no matching source controller route; contract existence does not prove executable admin capability.
 
-Resolution: Separate authorized canonical API/runtime reconciliation or explicit approved scope deferral; do not implement backend in 56-A.
+Foundation disposition: RETAINED_DESIGN_OBLIGATION_NO_ACTION. Scope removed: false. Design audit: 56-H. Responsible domains: admin, ai, catalog, customer, integrations, loyalty, marketing, operations, orders, pos, security.
+
+Execution release prerequisite: Separate authorized canonical API/runtime reconciliation; do not implement backend in 56-A.
 
 | Operation | Surface | OpenAPI source | Controller source | Permission status |
 |---|---|---|---|---|
@@ -171,7 +173,9 @@ Resolution: Separate authorized canonical API/runtime reconciliation or explicit
 
 151 contract-only operations have no explicit permission key in OpenAPI or matching runtime controller. Complete permission boundary cannot be frozen as verified.
 
-Resolution: Owner-approved canonical permission evidence or explicit scope deferral; never invent permission names or persona grants.
+Foundation disposition: RETAINED_DESIGN_OBLIGATION_NO_ACTION. Scope removed: false. Design audit: 56-H. Responsible domains: admin, ai, catalog, customer, integrations, loyalty, marketing, operations, orders, pos, security.
+
+Execution release prerequisite: Owner-approved canonical permission evidence; never invent permission names or persona grants.
 
 | Operation | Surface | OpenAPI source | Controller source | Permission status |
 |---|---|---|---|---|
@@ -331,7 +335,9 @@ Resolution: Owner-approved canonical permission evidence or explicit scope defer
 
 25 implemented admin controller operations are outside assembled OpenAPI; POS has a separate supplemental contract for some of them.
 
-Resolution: Separate authorized contract reconciliation; preserve existing source truth and do not silently add overlay/API changes in A.
+Foundation disposition: RETAINED_DESIGN_OBLIGATION_NO_ACTION. Scope removed: false. Design audit: 56-H. Responsible domains: loyalty, marketing, pos.
+
+Execution release prerequisite: Separate authorized contract reconciliation; preserve existing source truth and do not silently add overlay/API changes in A.
 
 | Operation | Surface | OpenAPI source | Controller source | Permission status |
 |---|---|---|---|---|
@@ -360,3 +366,19 @@ Resolution: Separate authorized contract reconciliation; preserve existing sourc
 | `POST /admin/pos/sales/{id}/commit` | AD-E-10 | contracts/http/step49-pos-a9.yaml | src/modules/pos/presentation/pos-admin.controller.ts:31 | SOURCE_EXPLICIT |
 | `POST /admin/pos/sales/{id}/lines` | AD-E-10 | contracts/http/step49-pos-a9.yaml | src/modules/pos/presentation/pos-admin.controller.ts:20 | SOURCE_EXPLICIT |
 | `POST /admin/pos/sales/{id}/price` | AD-E-10 | contracts/http/step49-pos-a9.yaml | src/modules/pos/presentation/pos-admin.controller.ts:25 | SOURCE_EXPLICIT |
+
+## GAP-04 — 5 operations
+
+Five source controller permission declarations conflict with explicit OpenAPI permission keys. Both claims are preserved; neither is represented as reconciled authority.
+
+Foundation disposition: RETAINED_DESIGN_OBLIGATION_NO_ACTION. Scope removed: false. Design audit: 56-H. Responsible domains: admin, finance, marketing.
+
+Execution release prerequisite: Separate authorized canonical permission-contract reconciliation; no action permitted from conflicted design evidence.
+
+| Operation | Surface | OpenAPI source | Controller source | Permission status |
+|---|---|---|---|---|
+| `PATCH /admin/rbac/roles/{id}` | AD-G-16 | contracts/http/openapi.yaml | src/modules/admin/presentation/rbac.controller.ts:16 | CONFLICT_UNRESOLVED_NOT_GRANTED |
+| `POST /admin/finance/profit-rules/{id}/preview` | AD-G-06 | contracts/http/openapi.yaml | src/modules/finance/presentation/finance.controller.ts:89 | CONFLICT_UNRESOLVED_NOT_GRANTED |
+| `POST /admin/marketing/campaigns/{id}/activate` | AD-F-07 | contracts/http/openapi.yaml | src/modules/marketing/presentation/marketing-admin.controller.ts:15 | CONFLICT_UNRESOLVED_NOT_GRANTED |
+| `POST /admin/rbac/roles` | AD-G-16 | contracts/http/openapi.yaml | src/modules/admin/presentation/rbac.controller.ts:14 | CONFLICT_UNRESOLVED_NOT_GRANTED |
+| `PUT /admin/rbac/roles/{id}/permissions` | AD-G-16 | contracts/http/openapi.yaml | src/modules/admin/presentation/rbac.controller.ts:17 | CONFLICT_UNRESOLVED_NOT_GRANTED |

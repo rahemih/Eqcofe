@@ -1,6 +1,6 @@
-# Step 56-A — Admin scope candidate
+# Step 56-A — Admin scope foundation
 
-**Final gate: BLOCKED.** This is a foundation inventory, not a page wireframe. A task workspace groups read/detail/action surfaces; 97 obligations are not a claim of 97 implemented pages.
+**Foundation acceptance: PASS; canonical transport required. Runtime release restrictions remain.** This is a foundation inventory, not a page wireframe. A task workspace groups read/detail/action surfaces; 97 obligations are not a claim of 97 implemented pages.
 
 | ID | Gate | Persian task | Journeys | Domains | Operations | Blocked operations |
 |---|---|---|---|---|---:|---:|
@@ -53,7 +53,7 @@
 | AD-F-04 | 56-F | سطح‌های باشگاه | AJ-08 | loyalty | 3 | 3 |
 | AD-F-05 | 56-F | بررسی و نظارت بر نظرها | AJ-08 | catalog | 5 | 5 |
 | AD-F-06 | 56-F | مقاله، نسخه و انتشار | AJ-08 | content | 14 | 0 |
-| AD-F-07 | 56-F | کمپین و چرخه اجرا | AJ-08 | marketing | 15 | 10 |
+| AD-F-07 | 56-F | کمپین و چرخه اجرا | AJ-08 | marketing | 15 | 11 |
 | AD-F-08 | 56-F | کوپن و استفاده‌ها | AJ-08 | marketing | 9 | 7 |
 | AD-F-09 | 56-F | ترویج‌های فروش | AJ-08 | marketing | 4 | 4 |
 | AD-F-10 | 56-F | بخش‌بندی مخاطب | AJ-08 | marketing | 5 | 5 |
@@ -68,7 +68,7 @@
 | AD-G-03 | 56-G | حساب‌های حسابداری | AJ-09 | finance | 5 | 0 |
 | AD-G-04 | 56-G | هزینه‌ها و نهایی‌سازی | AJ-09 | finance | 5 | 0 |
 | AD-G-05 | 56-G | سود سفارش و تاریخچهٔ محاسبه | AJ-09 | finance | 6 | 0 |
-| AD-G-06 | 56-G | قواعد تقسیم سود | AJ-09 | finance | 7 | 0 |
+| AD-G-06 | 56-G | قواعد تقسیم سود | AJ-09 | finance | 7 | 1 |
 | AD-G-07 | 56-G | توزیع سود | AJ-09 | finance | 2 | 0 |
 | AD-G-08 | 56-G | گزارش و کار خروجی | AJ-09 | finance | 7 | 0 |
 | AD-G-09 | 56-G | تحلیل مدیریتی | AJ-09 | analytics | 6 | 0 |
@@ -78,7 +78,7 @@
 | AD-G-13 | 56-G | درخواست تغییر تنظیمات | AJ-12 | configuration | 6 | 0 |
 | AD-G-14 | 56-G | پرچم قابلیت | AJ-12 | configuration | 10 | 0 |
 | AD-G-15 | 56-G | ارائه‌دهنده و سلامت و تغییر فعال | AJ-12 | integrations | 8 | 8 |
-| AD-G-16 | 56-G | نقش و مجموعه مجوزها | AJ-10 | admin | 6 | 0 |
+| AD-G-16 | 56-G | نقش و مجموعه مجوزها | AJ-10 | admin | 6 | 3 |
 | AD-G-17 | 56-G | کارکنان، دامنه و بازیابی کلید | AJ-10 | admin | 9 | 0 |
 | AD-G-18 | 56-G | صف تأیید و تصمیم نهایی | AJ-10 | admin | 5 | 5 |
 | AD-G-19 | 56-G | رویداد و نمای امنیت | AJ-11 | security | 3 | 3 |
@@ -106,8 +106,8 @@
 
 ### 56-B — NOT_STARTED
 
-- A final gate must pass before any page wireframe
-- Resolve or explicitly defer each listed source gap through authorized canonical governance before claiming an executable flow
+- A foundation acceptance and canonical transport must pass before any page wireframe
+- Retain every open implementation evidence requirement; show unavailable/disabled concept-only behavior until canonical reconciliation before any executable-flow claim
 - Cover every assigned task, facet, operation, state and permission branch
 - Provide compact and expanded low-fidelity evidence plus all six widths and 400% reflow review
 - Document keyboard/focus/touch/RTL/error/recovery behavior against Step 54
@@ -115,8 +115,8 @@
 
 ### 56-C — NOT_STARTED
 
-- A final gate must pass before any page wireframe
-- Resolve or explicitly defer each listed source gap through authorized canonical governance before claiming an executable flow
+- A foundation acceptance and canonical transport must pass before any page wireframe
+- Retain every open implementation evidence requirement; show unavailable/disabled concept-only behavior until canonical reconciliation before any executable-flow claim
 - Cover every assigned task, facet, operation, state and permission branch
 - Provide compact and expanded low-fidelity evidence plus all six widths and 400% reflow review
 - Document keyboard/focus/touch/RTL/error/recovery behavior against Step 54
@@ -124,8 +124,8 @@
 
 ### 56-D — NOT_STARTED
 
-- A final gate must pass before any page wireframe
-- Resolve or explicitly defer each listed source gap through authorized canonical governance before claiming an executable flow
+- A foundation acceptance and canonical transport must pass before any page wireframe
+- Retain every open implementation evidence requirement; show unavailable/disabled concept-only behavior until canonical reconciliation before any executable-flow claim
 - Cover every assigned task, facet, operation, state and permission branch
 - Provide compact and expanded low-fidelity evidence plus all six widths and 400% reflow review
 - Document keyboard/focus/touch/RTL/error/recovery behavior against Step 54
@@ -133,8 +133,8 @@
 
 ### 56-E — NOT_STARTED
 
-- A final gate must pass before any page wireframe
-- Resolve or explicitly defer each listed source gap through authorized canonical governance before claiming an executable flow
+- A foundation acceptance and canonical transport must pass before any page wireframe
+- Retain every open implementation evidence requirement; show unavailable/disabled concept-only behavior until canonical reconciliation before any executable-flow claim
 - Cover every assigned task, facet, operation, state and permission branch
 - Provide compact and expanded low-fidelity evidence plus all six widths and 400% reflow review
 - Document keyboard/focus/touch/RTL/error/recovery behavior against Step 54
@@ -142,8 +142,8 @@
 
 ### 56-F — NOT_STARTED
 
-- A final gate must pass before any page wireframe
-- Resolve or explicitly defer each listed source gap through authorized canonical governance before claiming an executable flow
+- A foundation acceptance and canonical transport must pass before any page wireframe
+- Retain every open implementation evidence requirement; show unavailable/disabled concept-only behavior until canonical reconciliation before any executable-flow claim
 - Cover every assigned task, facet, operation, state and permission branch
 - Provide compact and expanded low-fidelity evidence plus all six widths and 400% reflow review
 - Document keyboard/focus/touch/RTL/error/recovery behavior against Step 54
@@ -151,8 +151,8 @@
 
 ### 56-G — NOT_STARTED
 
-- A final gate must pass before any page wireframe
-- Resolve or explicitly defer each listed source gap through authorized canonical governance before claiming an executable flow
+- A foundation acceptance and canonical transport must pass before any page wireframe
+- Retain every open implementation evidence requirement; show unavailable/disabled concept-only behavior until canonical reconciliation before any executable-flow claim
 - Cover every assigned task, facet, operation, state and permission branch
 - Provide compact and expanded low-fidelity evidence plus all six widths and 400% reflow review
 - Document keyboard/focus/touch/RTL/error/recovery behavior against Step 54
@@ -161,6 +161,6 @@
 ### 56-H — NOT_STARTED
 
 - Audit every B–G obligation and cross-domain handoff
-- Zero unresolved permission and source-coverage exceptions
+- Zero unresolved design coverage or action-restriction gaps; implementation evidence requirements remain release-blocking until reconciled
 - Verify all manifests and inherited contracts
 - Exact-head CI PASS, merge, post-merge CI and canonical state synchronization
