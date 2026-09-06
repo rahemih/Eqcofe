@@ -1,0 +1,347 @@
+{
+  "id": "AD-B-06",
+  "task": "AT-B-06",
+  "journeys": [
+    "AJ-01"
+  ],
+  "actors": [
+    "approver",
+    "operator",
+    "staff"
+  ],
+  "domains": [
+    "admin"
+  ],
+  "operations": [],
+  "operationViews": [],
+  "blockedOperations": [],
+  "facets": [
+    "entry-and-context",
+    "permission-aware-read-or-explicit-unavailable",
+    "detail-and-history-or-no-read-explanation",
+    "allowed-action-review-or-read-only",
+    "authoritative-outcome-and-recovery"
+  ],
+  "states": [
+    {
+      "id": "approval-required",
+      "view": "table",
+      "behavior": "Conditional owner-lifecycle state: expose labeled read-only/disabled context and safe exit; no transition unless exact current owner policy permits it. Shared patterns do not invent an endpoint or lifecycle.",
+      "coverage": "SHARED_OR_SOURCE_CONDITIONAL"
+    },
+    {
+      "id": "archived",
+      "view": "table",
+      "behavior": "Conditional owner-lifecycle state: expose labeled read-only/disabled context and safe exit; no transition unless exact current owner policy permits it. Shared patterns do not invent an endpoint or lifecycle.",
+      "coverage": "SHARED_OR_SOURCE_CONDITIONAL"
+    },
+    {
+      "id": "audit-reference",
+      "view": "table",
+      "behavior": "Conditional shared pattern only: render outcome only after owner-authoritative response. No source support means unavailable; never optimistic success, fabricated reference or repeated mutation.",
+      "coverage": "SHARED_OR_SOURCE_CONDITIONAL"
+    },
+    {
+      "id": "authoritative-success",
+      "view": "table",
+      "behavior": "Conditional shared pattern only: render outcome only after owner-authoritative response. No source support means unavailable; never optimistic success, fabricated reference or repeated mutation.",
+      "coverage": "SHARED_OR_SOURCE_CONDITIONAL"
+    },
+    {
+      "id": "blocked-by-lifecycle",
+      "view": "table",
+      "behavior": "Conditional owner-lifecycle state: expose labeled read-only/disabled context and safe exit; no transition unless exact current owner policy permits it. Shared patterns do not invent an endpoint or lifecycle.",
+      "coverage": "SHARED_OR_SOURCE_CONDITIONAL"
+    },
+    {
+      "id": "cancelled",
+      "view": "table",
+      "behavior": "Conditional owner-lifecycle state: expose labeled read-only/disabled context and safe exit; no transition unless exact current owner policy permits it. Shared patterns do not invent an endpoint or lifecycle.",
+      "coverage": "SHARED_OR_SOURCE_CONDITIONAL"
+    },
+    {
+      "id": "destructive-action-confirmation",
+      "view": "table",
+      "behavior": "Conditional owner-lifecycle state: expose labeled read-only/disabled context and safe exit; no transition unless exact current owner policy permits it. Shared patterns do not invent an endpoint or lifecycle.",
+      "coverage": "SHARED_OR_SOURCE_CONDITIONAL"
+    },
+    {
+      "id": "disabled",
+      "view": "table",
+      "behavior": "Conditional owner-lifecycle state: expose labeled read-only/disabled context and safe exit; no transition unless exact current owner policy permits it. Shared patterns do not invent an endpoint or lifecycle.",
+      "coverage": "SHARED_OR_SOURCE_CONDITIONAL"
+    },
+    {
+      "id": "draft",
+      "view": "table",
+      "behavior": "Conditional owner-lifecycle state: expose labeled read-only/disabled context and safe exit; no transition unless exact current owner policy permits it. Shared patterns do not invent an endpoint or lifecycle.",
+      "coverage": "SHARED_OR_SOURCE_CONDITIONAL"
+    },
+    {
+      "id": "empty-filtered",
+      "view": "table",
+      "behavior": "Distinguish no data from filtered empty and denied; offer clear filter only where applicable, never expose hidden counts.",
+      "coverage": "SHARED_OR_SOURCE_CONDITIONAL"
+    },
+    {
+      "id": "empty-first-use",
+      "view": "table",
+      "behavior": "Distinguish no data from filtered empty and denied; offer clear filter only where applicable, never expose hidden counts.",
+      "coverage": "SHARED_OR_SOURCE_CONDITIONAL"
+    },
+    {
+      "id": "idempotent-replay",
+      "view": "table",
+      "behavior": "Conditional shared pattern only: render outcome only after owner-authoritative response. No source support means unavailable; never optimistic success, fabricated reference or repeated mutation.",
+      "coverage": "SHARED_OR_SOURCE_CONDITIONAL"
+    },
+    {
+      "id": "impact-changed",
+      "view": "conflict",
+      "behavior": "Stop submission; re-read current authority and version, preserve only safe draft, request explicit review. Expired session returns to login; never replay.",
+      "coverage": "SHARED_OR_SOURCE_CONDITIONAL"
+    },
+    {
+      "id": "initial-loading",
+      "view": "table",
+      "behavior": "Announce busy status; reserve layout; prevent duplicate submissions; keep safe cancel reachable without implying server cancellation.",
+      "coverage": "SHARED_OR_SOURCE_CONDITIONAL"
+    },
+    {
+      "id": "irreversible-outcome",
+      "view": "table",
+      "behavior": "Conditional shared pattern only: render outcome only after owner-authoritative response. No source support means unavailable; never optimistic success, fabricated reference or repeated mutation.",
+      "coverage": "SHARED_OR_SOURCE_CONDITIONAL"
+    },
+    {
+      "id": "manual-review",
+      "view": "table",
+      "behavior": "Conditional owner-lifecycle state: expose labeled read-only/disabled context and safe exit; no transition unless exact current owner policy permits it. Shared patterns do not invent an endpoint or lifecycle.",
+      "coverage": "SHARED_OR_SOURCE_CONDITIONAL"
+    },
+    {
+      "id": "media-pending",
+      "view": "table",
+      "behavior": "Conditional owner-lifecycle state: expose labeled read-only/disabled context and safe exit; no transition unless exact current owner policy permits it. Shared patterns do not invent an endpoint or lifecycle.",
+      "coverage": "SHARED_OR_SOURCE_CONDITIONAL"
+    },
+    {
+      "id": "no-results",
+      "view": "table",
+      "behavior": "Distinguish no data from filtered empty and denied; offer clear filter only where applicable, never expose hidden counts.",
+      "coverage": "SHARED_OR_SOURCE_CONDITIONAL"
+    },
+    {
+      "id": "offline",
+      "view": "conflict",
+      "behavior": "Announce failure without secrets. Unknown mutation result uses owner-supported status read; no blind retry. Read failure offers explicit safe refresh and preserves safe context.",
+      "coverage": "SHARED_OR_SOURCE_CONDITIONAL"
+    },
+    {
+      "id": "partial-success",
+      "view": "table",
+      "behavior": "Conditional shared pattern only: render outcome only after owner-authoritative response. No source support means unavailable; never optimistic success, fabricated reference or repeated mutation.",
+      "coverage": "SHARED_OR_SOURCE_CONDITIONAL"
+    },
+    {
+      "id": "permission-denied",
+      "view": "table",
+      "behavior": "Fail closed; remove sensitive rows/counts/actions, retain neutral explanation and safe exit. Recheck exact session, permissions and assigned scope before any destination.",
+      "coverage": "SHARED_OR_SOURCE_CONDITIONAL"
+    },
+    {
+      "id": "preview-expired",
+      "view": "conflict",
+      "behavior": "Stop submission; re-read current authority and version, preserve only safe draft, request explicit review. Expired session returns to login; never replay.",
+      "coverage": "SHARED_OR_SOURCE_CONDITIONAL"
+    },
+    {
+      "id": "progressive-loading",
+      "view": "table",
+      "behavior": "Announce busy status; reserve layout; prevent duplicate submissions; keep safe cancel reachable without implying server cancellation.",
+      "coverage": "SHARED_OR_SOURCE_CONDITIONAL"
+    },
+    {
+      "id": "provider-unavailable",
+      "view": "conflict",
+      "behavior": "Announce failure without secrets. Unknown mutation result uses owner-supported status read; no blind retry. Read failure offers explicit safe refresh and preserves safe context.",
+      "coverage": "SHARED_OR_SOURCE_CONDITIONAL"
+    },
+    {
+      "id": "published",
+      "view": "table",
+      "behavior": "Conditional owner-lifecycle state: expose labeled read-only/disabled context and safe exit; no transition unless exact current owner policy permits it. Shared patterns do not invent an endpoint or lifecycle.",
+      "coverage": "SHARED_OR_SOURCE_CONDITIONAL"
+    },
+    {
+      "id": "read-only",
+      "view": "table",
+      "behavior": "Conditional owner-lifecycle state: expose labeled read-only/disabled context and safe exit; no transition unless exact current owner policy permits it. Shared patterns do not invent an endpoint or lifecycle.",
+      "coverage": "SHARED_OR_SOURCE_CONDITIONAL"
+    },
+    {
+      "id": "refresh-loading",
+      "view": "table",
+      "behavior": "Announce busy status; reserve layout; prevent duplicate submissions; keep safe cancel reachable without implying server cancellation.",
+      "coverage": "SHARED_OR_SOURCE_CONDITIONAL"
+    },
+    {
+      "id": "review-required",
+      "view": "table",
+      "behavior": "Conditional owner-lifecycle state: expose labeled read-only/disabled context and safe exit; no transition unless exact current owner policy permits it. Shared patterns do not invent an endpoint or lifecycle.",
+      "coverage": "SHARED_OR_SOURCE_CONDITIONAL"
+    },
+    {
+      "id": "safe-retry",
+      "view": "conflict",
+      "behavior": "Announce failure without secrets. Unknown mutation result uses owner-supported status read; no blind retry. Read failure offers explicit safe refresh and preserves safe context.",
+      "coverage": "SHARED_OR_SOURCE_CONDITIONAL"
+    },
+    {
+      "id": "sales-stopped",
+      "view": "table",
+      "behavior": "Conditional owner-lifecycle state: expose labeled read-only/disabled context and safe exit; no transition unless exact current owner policy permits it. Shared patterns do not invent an endpoint or lifecycle.",
+      "coverage": "SHARED_OR_SOURCE_CONDITIONAL"
+    },
+    {
+      "id": "scope-filtered",
+      "view": "table",
+      "behavior": "Fail closed; remove sensitive rows/counts/actions, retain neutral explanation and safe exit. Recheck exact session, permissions and assigned scope before any destination.",
+      "coverage": "SHARED_OR_SOURCE_CONDITIONAL"
+    },
+    {
+      "id": "server-error",
+      "view": "conflict",
+      "behavior": "Announce failure without secrets. Unknown mutation result uses owner-supported status read; no blind retry. Read failure offers explicit safe refresh and preserves safe context.",
+      "coverage": "SHARED_OR_SOURCE_CONDITIONAL"
+    },
+    {
+      "id": "session-expired",
+      "view": "conflict",
+      "behavior": "Stop submission; re-read current authority and version, preserve only safe draft, request explicit review. Expired session returns to login; never replay.",
+      "coverage": "SHARED_OR_SOURCE_CONDITIONAL"
+    },
+    {
+      "id": "stale-data",
+      "view": "conflict",
+      "behavior": "Stop submission; re-read current authority and version, preserve only safe draft, request explicit review. Expired session returns to login; never replay.",
+      "coverage": "SHARED_OR_SOURCE_CONDITIONAL"
+    },
+    {
+      "id": "status-check",
+      "view": "conflict",
+      "behavior": "Announce failure without secrets. Unknown mutation result uses owner-supported status read; no blind retry. Read failure offers explicit safe refresh and preserves safe context.",
+      "coverage": "SHARED_OR_SOURCE_CONDITIONAL"
+    },
+    {
+      "id": "step-up-required",
+      "view": "table",
+      "behavior": "Conditional owner-lifecycle state: expose labeled read-only/disabled context and safe exit; no transition unless exact current owner policy permits it. Shared patterns do not invent an endpoint or lifecycle.",
+      "coverage": "SHARED_OR_SOURCE_CONDITIONAL"
+    },
+    {
+      "id": "submitting",
+      "view": "table",
+      "behavior": "Announce busy status; reserve layout; prevent duplicate submissions; keep safe cancel reachable without implying server cancellation.",
+      "coverage": "SHARED_OR_SOURCE_CONDITIONAL"
+    },
+    {
+      "id": "terminal-success",
+      "view": "table",
+      "behavior": "Conditional shared pattern only: render outcome only after owner-authoritative response. No source support means unavailable; never optimistic success, fabricated reference or repeated mutation.",
+      "coverage": "SHARED_OR_SOURCE_CONDITIONAL"
+    },
+    {
+      "id": "timeout",
+      "view": "conflict",
+      "behavior": "Announce failure without secrets. Unknown mutation result uses owner-supported status read; no blind retry. Read failure offers explicit safe refresh and preserves safe context.",
+      "coverage": "SHARED_OR_SOURCE_CONDITIONAL"
+    },
+    {
+      "id": "unauthenticated",
+      "view": "table",
+      "behavior": "Fail closed; remove sensitive rows/counts/actions, retain neutral explanation and safe exit. Recheck exact session, permissions and assigned scope before any destination.",
+      "coverage": "SHARED_OR_SOURCE_CONDITIONAL"
+    },
+    {
+      "id": "unknown-result",
+      "view": "conflict",
+      "behavior": "Announce failure without secrets. Unknown mutation result uses owner-supported status read; no blind retry. Read failure offers explicit safe refresh and preserves safe context.",
+      "coverage": "SHARED_OR_SOURCE_CONDITIONAL"
+    },
+    {
+      "id": "validation-error",
+      "view": "conflict",
+      "behavior": "Announce failure without secrets. Unknown mutation result uses owner-supported status read; no blind retry. Read failure offers explicit safe refresh and preserves safe context.",
+      "coverage": "SHARED_OR_SOURCE_CONDITIONAL"
+    },
+    {
+      "id": "version-conflict",
+      "view": "conflict",
+      "behavior": "Stop submission; re-read current authority and version, preserve only safe draft, request explicit review. Expired session returns to login; never replay.",
+      "coverage": "SHARED_OR_SOURCE_CONDITIONAL"
+    }
+  ],
+  "frames": [
+    {
+      "path": "docs/13-product-design/step56-wireframes/B/AD-B-06/AD-B-06--320--table--v1.svg",
+      "view": "table",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/B/AD-B-06/AD-B-06--360--table--v1.svg",
+      "view": "table",
+      "width": 360
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/B/AD-B-06/AD-B-06--600--table--v1.svg",
+      "view": "table",
+      "width": 600
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/B/AD-B-06/AD-B-06--840--table--v1.svg",
+      "view": "table",
+      "width": 840
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/B/AD-B-06/AD-B-06--1200--table--v1.svg",
+      "view": "table",
+      "width": 1200
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/B/AD-B-06/AD-B-06--1440--table--v1.svg",
+      "view": "table",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/B/AD-B-06/AD-B-06--320--detail--v1.svg",
+      "view": "detail",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/B/AD-B-06/AD-B-06--1440--detail--v1.svg",
+      "view": "detail",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/B/AD-B-06/AD-B-06--320--form--v1.svg",
+      "view": "form",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/B/AD-B-06/AD-B-06--1440--form--v1.svg",
+      "view": "form",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/B/AD-B-06/AD-B-06--320--conflict--v1.svg",
+      "view": "conflict",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/B/AD-B-06/AD-B-06--1440--conflict--v1.svg",
+      "view": "conflict",
+      "width": 1440
+    }
+  ]
+}
