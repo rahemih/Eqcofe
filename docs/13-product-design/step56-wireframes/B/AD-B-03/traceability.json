@@ -1,0 +1,360 @@
+{
+  "id": "AD-B-03",
+  "task": "AT-B-03",
+  "journeys": [
+    "AJ-11"
+  ],
+  "actors": [
+    "approver",
+    "operator",
+    "staff"
+  ],
+  "domains": [
+    "operations"
+  ],
+  "operations": [
+    "GET /admin/dashboard"
+  ],
+  "operationViews": [
+    {
+      "operation": "GET /admin/dashboard",
+      "view": "AD-B-03/unavailable",
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "permissions": {
+        "runtime": null,
+        "openapi": null
+      },
+      "source": "contracts/http/openapi.yaml"
+    }
+  ],
+  "blockedOperations": [
+    "GET /admin/dashboard"
+  ],
+  "facets": [
+    "entry-and-context",
+    "permission-aware-read-or-explicit-unavailable",
+    "detail-and-history-or-no-read-explanation",
+    "allowed-action-review-or-read-only",
+    "authoritative-outcome-and-recovery"
+  ],
+  "states": [
+    {
+      "id": "acknowledged",
+      "view": "unavailable",
+      "behavior": "Unavailable concept only; do not claim dashboard execution, data, success, health, approval or permission. Offer known authorized destinations; retain NO_ACTION.",
+      "coverage": "UNAVAILABLE_ONLY"
+    },
+    {
+      "id": "alerting",
+      "view": "unavailable",
+      "behavior": "Unavailable concept only; do not claim dashboard execution, data, success, health, approval or permission. Offer known authorized destinations; retain NO_ACTION.",
+      "coverage": "UNAVAILABLE_ONLY"
+    },
+    {
+      "id": "approval-required",
+      "view": "unavailable",
+      "behavior": "Unavailable concept only; do not claim dashboard execution, data, success, health, approval or permission. Offer known authorized destinations; retain NO_ACTION.",
+      "coverage": "UNAVAILABLE_ONLY"
+    },
+    {
+      "id": "audit-reference",
+      "view": "unavailable",
+      "behavior": "Unavailable concept only; do not claim dashboard execution, data, success, health, approval or permission. Offer known authorized destinations; retain NO_ACTION.",
+      "coverage": "UNAVAILABLE_ONLY"
+    },
+    {
+      "id": "authoritative-success",
+      "view": "unavailable",
+      "behavior": "Unavailable concept only; do not claim dashboard execution, data, success, health, approval or permission. Offer known authorized destinations; retain NO_ACTION.",
+      "coverage": "UNAVAILABLE_ONLY"
+    },
+    {
+      "id": "blocked-by-lifecycle",
+      "view": "unavailable",
+      "behavior": "Unavailable concept only; do not claim dashboard execution, data, success, health, approval or permission. Offer known authorized destinations; retain NO_ACTION.",
+      "coverage": "UNAVAILABLE_ONLY"
+    },
+    {
+      "id": "cancelled",
+      "view": "unavailable",
+      "behavior": "Unavailable concept only; do not claim dashboard execution, data, success, health, approval or permission. Offer known authorized destinations; retain NO_ACTION.",
+      "coverage": "UNAVAILABLE_ONLY"
+    },
+    {
+      "id": "contained",
+      "view": "unavailable",
+      "behavior": "Unavailable concept only; do not claim dashboard execution, data, success, health, approval or permission. Offer known authorized destinations; retain NO_ACTION.",
+      "coverage": "UNAVAILABLE_ONLY"
+    },
+    {
+      "id": "degraded",
+      "view": "unavailable",
+      "behavior": "Unavailable concept only; do not claim dashboard execution, data, success, health, approval or permission. Offer known authorized destinations; retain NO_ACTION.",
+      "coverage": "UNAVAILABLE_ONLY"
+    },
+    {
+      "id": "destructive-action-confirmation",
+      "view": "unavailable",
+      "behavior": "Unavailable concept only; do not claim dashboard execution, data, success, health, approval or permission. Offer known authorized destinations; retain NO_ACTION.",
+      "coverage": "UNAVAILABLE_ONLY"
+    },
+    {
+      "id": "disabled",
+      "view": "unavailable",
+      "behavior": "Unavailable concept only; do not claim dashboard execution, data, success, health, approval or permission. Offer known authorized destinations; retain NO_ACTION.",
+      "coverage": "UNAVAILABLE_ONLY"
+    },
+    {
+      "id": "empty-filtered",
+      "view": "unavailable",
+      "behavior": "Unavailable concept only; do not claim dashboard execution, data, success, health, approval or permission. Offer known authorized destinations; retain NO_ACTION.",
+      "coverage": "UNAVAILABLE_ONLY"
+    },
+    {
+      "id": "empty-first-use",
+      "view": "unavailable",
+      "behavior": "Unavailable concept only; do not claim dashboard execution, data, success, health, approval or permission. Offer known authorized destinations; retain NO_ACTION.",
+      "coverage": "UNAVAILABLE_ONLY"
+    },
+    {
+      "id": "failed",
+      "view": "unavailable",
+      "behavior": "Unavailable concept only; do not claim dashboard execution, data, success, health, approval or permission. Offer known authorized destinations; retain NO_ACTION.",
+      "coverage": "UNAVAILABLE_ONLY"
+    },
+    {
+      "id": "healthy",
+      "view": "unavailable",
+      "behavior": "Unavailable concept only; do not claim dashboard execution, data, success, health, approval or permission. Offer known authorized destinations; retain NO_ACTION.",
+      "coverage": "UNAVAILABLE_ONLY"
+    },
+    {
+      "id": "idempotent-replay",
+      "view": "unavailable",
+      "behavior": "Unavailable concept only; do not claim dashboard execution, data, success, health, approval or permission. Offer known authorized destinations; retain NO_ACTION.",
+      "coverage": "UNAVAILABLE_ONLY"
+    },
+    {
+      "id": "impact-changed",
+      "view": "unavailable",
+      "behavior": "Unavailable concept only; do not claim dashboard execution, data, success, health, approval or permission. Offer known authorized destinations; retain NO_ACTION.",
+      "coverage": "UNAVAILABLE_ONLY"
+    },
+    {
+      "id": "initial-loading",
+      "view": "unavailable",
+      "behavior": "Unavailable concept only; do not claim dashboard execution, data, success, health, approval or permission. Offer known authorized destinations; retain NO_ACTION.",
+      "coverage": "UNAVAILABLE_ONLY"
+    },
+    {
+      "id": "investigating",
+      "view": "unavailable",
+      "behavior": "Unavailable concept only; do not claim dashboard execution, data, success, health, approval or permission. Offer known authorized destinations; retain NO_ACTION.",
+      "coverage": "UNAVAILABLE_ONLY"
+    },
+    {
+      "id": "irreversible-outcome",
+      "view": "unavailable",
+      "behavior": "Unavailable concept only; do not claim dashboard execution, data, success, health, approval or permission. Offer known authorized destinations; retain NO_ACTION.",
+      "coverage": "UNAVAILABLE_ONLY"
+    },
+    {
+      "id": "manual-review",
+      "view": "unavailable",
+      "behavior": "Unavailable concept only; do not claim dashboard execution, data, success, health, approval or permission. Offer known authorized destinations; retain NO_ACTION.",
+      "coverage": "UNAVAILABLE_ONLY"
+    },
+    {
+      "id": "no-results",
+      "view": "unavailable",
+      "behavior": "Unavailable concept only; do not claim dashboard execution, data, success, health, approval or permission. Offer known authorized destinations; retain NO_ACTION.",
+      "coverage": "UNAVAILABLE_ONLY"
+    },
+    {
+      "id": "offline",
+      "view": "unavailable",
+      "behavior": "Unavailable concept only; do not claim dashboard execution, data, success, health, approval or permission. Offer known authorized destinations; retain NO_ACTION.",
+      "coverage": "UNAVAILABLE_ONLY"
+    },
+    {
+      "id": "partial-success",
+      "view": "unavailable",
+      "behavior": "Unavailable concept only; do not claim dashboard execution, data, success, health, approval or permission. Offer known authorized destinations; retain NO_ACTION.",
+      "coverage": "UNAVAILABLE_ONLY"
+    },
+    {
+      "id": "permission-denied",
+      "view": "unavailable",
+      "behavior": "Unavailable concept only; do not claim dashboard execution, data, success, health, approval or permission. Offer known authorized destinations; retain NO_ACTION.",
+      "coverage": "UNAVAILABLE_ONLY"
+    },
+    {
+      "id": "preview-expired",
+      "view": "unavailable",
+      "behavior": "Unavailable concept only; do not claim dashboard execution, data, success, health, approval or permission. Offer known authorized destinations; retain NO_ACTION.",
+      "coverage": "UNAVAILABLE_ONLY"
+    },
+    {
+      "id": "progressive-loading",
+      "view": "unavailable",
+      "behavior": "Unavailable concept only; do not claim dashboard execution, data, success, health, approval or permission. Offer known authorized destinations; retain NO_ACTION.",
+      "coverage": "UNAVAILABLE_ONLY"
+    },
+    {
+      "id": "provider-unavailable",
+      "view": "unavailable",
+      "behavior": "Unavailable concept only; do not claim dashboard execution, data, success, health, approval or permission. Offer known authorized destinations; retain NO_ACTION.",
+      "coverage": "UNAVAILABLE_ONLY"
+    },
+    {
+      "id": "read-only",
+      "view": "unavailable",
+      "behavior": "Unavailable concept only; do not claim dashboard execution, data, success, health, approval or permission. Offer known authorized destinations; retain NO_ACTION.",
+      "coverage": "UNAVAILABLE_ONLY"
+    },
+    {
+      "id": "recovered",
+      "view": "unavailable",
+      "behavior": "Unavailable concept only; do not claim dashboard execution, data, success, health, approval or permission. Offer known authorized destinations; retain NO_ACTION.",
+      "coverage": "UNAVAILABLE_ONLY"
+    },
+    {
+      "id": "recovery-preview",
+      "view": "unavailable",
+      "behavior": "Unavailable concept only; do not claim dashboard execution, data, success, health, approval or permission. Offer known authorized destinations; retain NO_ACTION.",
+      "coverage": "UNAVAILABLE_ONLY"
+    },
+    {
+      "id": "refresh-loading",
+      "view": "unavailable",
+      "behavior": "Unavailable concept only; do not claim dashboard execution, data, success, health, approval or permission. Offer known authorized destinations; retain NO_ACTION.",
+      "coverage": "UNAVAILABLE_ONLY"
+    },
+    {
+      "id": "safe-retry",
+      "view": "unavailable",
+      "behavior": "Unavailable concept only; do not claim dashboard execution, data, success, health, approval or permission. Offer known authorized destinations; retain NO_ACTION.",
+      "coverage": "UNAVAILABLE_ONLY"
+    },
+    {
+      "id": "scope-filtered",
+      "view": "unavailable",
+      "behavior": "Unavailable concept only; do not claim dashboard execution, data, success, health, approval or permission. Offer known authorized destinations; retain NO_ACTION.",
+      "coverage": "UNAVAILABLE_ONLY"
+    },
+    {
+      "id": "server-error",
+      "view": "unavailable",
+      "behavior": "Unavailable concept only; do not claim dashboard execution, data, success, health, approval or permission. Offer known authorized destinations; retain NO_ACTION.",
+      "coverage": "UNAVAILABLE_ONLY"
+    },
+    {
+      "id": "session-expired",
+      "view": "unavailable",
+      "behavior": "Unavailable concept only; do not claim dashboard execution, data, success, health, approval or permission. Offer known authorized destinations; retain NO_ACTION.",
+      "coverage": "UNAVAILABLE_ONLY"
+    },
+    {
+      "id": "stale-data",
+      "view": "unavailable",
+      "behavior": "Unavailable concept only; do not claim dashboard execution, data, success, health, approval or permission. Offer known authorized destinations; retain NO_ACTION.",
+      "coverage": "UNAVAILABLE_ONLY"
+    },
+    {
+      "id": "status-check",
+      "view": "unavailable",
+      "behavior": "Unavailable concept only; do not claim dashboard execution, data, success, health, approval or permission. Offer known authorized destinations; retain NO_ACTION.",
+      "coverage": "UNAVAILABLE_ONLY"
+    },
+    {
+      "id": "step-up-required",
+      "view": "unavailable",
+      "behavior": "Unavailable concept only; do not claim dashboard execution, data, success, health, approval or permission. Offer known authorized destinations; retain NO_ACTION.",
+      "coverage": "UNAVAILABLE_ONLY"
+    },
+    {
+      "id": "submitting",
+      "view": "unavailable",
+      "behavior": "Unavailable concept only; do not claim dashboard execution, data, success, health, approval or permission. Offer known authorized destinations; retain NO_ACTION.",
+      "coverage": "UNAVAILABLE_ONLY"
+    },
+    {
+      "id": "terminal-success",
+      "view": "unavailable",
+      "behavior": "Unavailable concept only; do not claim dashboard execution, data, success, health, approval or permission. Offer known authorized destinations; retain NO_ACTION.",
+      "coverage": "UNAVAILABLE_ONLY"
+    },
+    {
+      "id": "timeout",
+      "view": "unavailable",
+      "behavior": "Unavailable concept only; do not claim dashboard execution, data, success, health, approval or permission. Offer known authorized destinations; retain NO_ACTION.",
+      "coverage": "UNAVAILABLE_ONLY"
+    },
+    {
+      "id": "unauthenticated",
+      "view": "unavailable",
+      "behavior": "Unavailable concept only; do not claim dashboard execution, data, success, health, approval or permission. Offer known authorized destinations; retain NO_ACTION.",
+      "coverage": "UNAVAILABLE_ONLY"
+    },
+    {
+      "id": "unknown-result",
+      "view": "unavailable",
+      "behavior": "Unavailable concept only; do not claim dashboard execution, data, success, health, approval or permission. Offer known authorized destinations; retain NO_ACTION.",
+      "coverage": "UNAVAILABLE_ONLY"
+    },
+    {
+      "id": "validation-error",
+      "view": "unavailable",
+      "behavior": "Unavailable concept only; do not claim dashboard execution, data, success, health, approval or permission. Offer known authorized destinations; retain NO_ACTION.",
+      "coverage": "UNAVAILABLE_ONLY"
+    },
+    {
+      "id": "version-conflict",
+      "view": "unavailable",
+      "behavior": "Unavailable concept only; do not claim dashboard execution, data, success, health, approval or permission. Offer known authorized destinations; retain NO_ACTION.",
+      "coverage": "UNAVAILABLE_ONLY"
+    }
+  ],
+  "frames": [
+    {
+      "path": "docs/13-product-design/step56-wireframes/B/AD-B-03/AD-B-03--320--unavailable--v1.svg",
+      "view": "unavailable",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/B/AD-B-03/AD-B-03--360--unavailable--v1.svg",
+      "view": "unavailable",
+      "width": 360
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/B/AD-B-03/AD-B-03--600--unavailable--v1.svg",
+      "view": "unavailable",
+      "width": 600
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/B/AD-B-03/AD-B-03--840--unavailable--v1.svg",
+      "view": "unavailable",
+      "width": 840
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/B/AD-B-03/AD-B-03--1200--unavailable--v1.svg",
+      "view": "unavailable",
+      "width": 1200
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/B/AD-B-03/AD-B-03--1440--unavailable--v1.svg",
+      "view": "unavailable",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/B/AD-B-03/AD-B-03--320--destinations--v1.svg",
+      "view": "destinations",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/B/AD-B-03/AD-B-03--1440--destinations--v1.svg",
+      "view": "destinations",
+      "width": 1440
+    }
+  ]
+}

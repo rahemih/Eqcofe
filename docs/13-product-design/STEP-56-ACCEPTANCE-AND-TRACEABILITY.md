@@ -1,6 +1,6 @@
 # Step 56 — Acceptance and Traceability
 
-**56-A: FOUNDATION ACCEPTANCE PASS; canonical CI/merge/post-merge verification required. B–H: NOT_STARTED.**
+**56-A: FOUNDATION ACCEPTANCE PASS; canonical CI/merge/post-merge verification required. 56-B: design gate complete, canonical transport required; C–H: NOT_STARTED.**
 
 ## Acceptance matrix
 
@@ -48,3 +48,7 @@ Order → Payments/Refund carries stable order/payment identity, attempts and au
 Full `pnpm verify` continues all existing OpenAPI/design/architecture/policy/build/test checks and adds foundation structural validation/drift checking. No existing test, migration, dependency, runtime or policy check is weakened. `git diff --check` remains required. Merge requires foundation acceptance, the explicit readiness check and exact-head Canonical CI. Source discrepancies remain visible as open implementation evidence requirements, with no claim of backend/API/permission remediation.
 
 After foundation verification, obtain exact-head Canonical CI PASS, merge, reread remote main and post-merge CI, then synchronize Roadmap/Current State/Step History with actual transport evidence. Do not predict a commit SHA or self-certify a CI run. Stop after A; B begins only under a later instruction.
+
+## B progression
+
+The foundation contract remains the immutable A closure snapshot. B contract `step56-admin-shell-wireframes.json` and `STEP-56-B-ADMIN-IA-SHELL.md` supply subsequent evidence; A's historical nextGate is not a current execution instruction. B retains every A obligation/restriction and provides 74 frames / 91 artifacts. Stop after B; C starts only under a later instruction.
