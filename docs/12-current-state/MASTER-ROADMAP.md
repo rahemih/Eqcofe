@@ -1,12 +1,12 @@
 # EQCOFE — Complete Master Execution Roadmap
 
-**Roadmap version:** 3.40 — Phase-A Final Canonical Closure
+**Roadmap version:** 3.41 — Step-56-A Admin UX Foundation
 **Effective date:** 2026-09-05
 **Canonical repository:** `rahemih/Eqcofe`  
 **Canonical branch:** `main`  
 **Verified Step-44 code baseline:** `b239dfe825b615f36caf2e26cc7abc80c70d349c`
 
-> This is the canonical end-to-end execution map for EQCOFE. Phase A (Steps 1–28) is now `CLOSED / FINAL GATE PASS` by current canonical verification. For historical Steps 1–27, the exact original step labels/closure lineage are not independently proven by recovered Git evidence and remain `Historical Attribution: UNVERIFIED`; Step 28 remains `Historical Attribution: PARTIAL`. Current-baseline verification must not be cited as recovered historical provenance. Steps 29–55 retain their existing canonical status. Step 55 is CLOSED / FINAL GATE PASS; Step 56 is next.
+> This is the canonical end-to-end execution map for EQCOFE. Phase A (Steps 1–28) is now `CLOSED / FINAL GATE PASS` by current canonical verification. For historical Steps 1–27, the exact original step labels/closure lineage are not independently proven by recovered Git evidence and remain `Historical Attribution: UNVERIFIED`; Step 28 remains `Historical Attribution: PARTIAL`. Current-baseline verification must not be cited as recovered historical provenance. Steps 29–55 retain their existing canonical status. Step 55 is CLOSED / FINAL GATE PASS; Step 56-A foundation is complete and Step 56-B is next, not started.
 
 ## Status legend
 - `RECONSTRUCTED-HISTORY`: normalized historical description; exact historical step attribution is not proven.
@@ -283,8 +283,14 @@ Frozen execution gates:
 
 A recovered the canonical Step 53/54 inputs and froze a repository-native foundation. B–F cover all 37 screen obligations with 145 deterministic low-fidelity frames, five SHA-bound manifests and responsive/accessibility traceability across all six widths plus 400% zoom. F adds seven article/static/support/policy surfaces and a final audit covering all 12 storefront journeys with zero open exceptions. PR #150 final head `d85bf44c0f987fabedd843994124caa1576835ac` passed Canonical CI `33597074463` / verify `100142576021`, merged at `ae56fa4cb8a44168aeeb9d92ca7e19ddcf648b94`, and post-merge CI `33602772166` / verify `100159960576` passed. Final state-sync PR #151 initial head `8080d5cd0208ed0e13bcc740ccbb8340af972dca` passed CI `33949134139` / verify `101260481097`. No high-fidelity UI, runtime/API mutation/business-rule/upload change or paid-service dependency is introduced; Figma remains optional and non-canonical.
 
-## Step 56 — Admin UX Architecture & Wireframes — `NEXT`
+## Step 56 — Admin UX Architecture & Wireframes — `IN_PROGRESS`
 Design admin navigation, dashboards, tables, bulk operations, editors, audit/error states and operational workflows before frontend coding.
+
+- **56-A — Canonical Handoff & Scope Freeze: COMPLETE / FOUNDATION GATE PASS.**
+- **56-B — Admin IA & Shell: NEXT / NOT_STARTED.**
+- **56-C–H: NOT_STARTED.**
+
+A freezes 3 personas, 12 inherited admin journeys, 97 task/surface obligations, 28 modules and 532 source-traced operations. It retains 136 pinned sources and immutable starting-state snapshots, Persian RTL/Step-54 accessibility/responsive rules, exact permission claims and mandatory NO_ACTION restrictions. All four open implementation evidence sets remain visible: 156 contract-only routes, 151 missing permission declarations, 25 controller-only routes, and 5 explicit permission conflicts. These are not runtime fixes or removed design obligations. H must audit all 97 obligations and preserved restrictions; executable release requires canonical reconciliation. No page wireframe or runtime/API/migration/dependency/permission/business-rule change occurs in A. Repository artifacts are canonical; Figma is optional. Evidence and CI lineage: `docs/11-step-history/STEP-56-A-ADMIN-UX-FOUNDATION.md` and PR #154. Canonical acceptance becomes effective through the verified PR merge and post-merge CI.
 
 ## Step 57 — High-Fidelity UI & Prototype Approval — `PLANNED`
 Produce high-fidelity responsive screens and interactive critical-flow prototypes, validate consistency/accessibility and freeze the implementation design baseline.
@@ -420,8 +426,8 @@ Evolve architecture, integrations and product capabilities based on production e
 - **Last fully closed step:** Step 55 — Storefront Wireframes.
 - **Phase A:** CLOSED / FINAL GATE PASS — Steps 1–28 are COMPLETE / VERIFIED BY CURRENT CANONICAL BASELINE; historical attribution remains UNVERIFIED for Steps 1–27 and PARTIAL for Step 28.
 - **Step 49 closure:** CLOSED / FINAL GATE PASS after A11 audit.
-- **Active step:** NONE.
-- **Next approved step:** Step 56 — Admin UX Architecture & Wireframes.
+- **Active step:** NONE — 56-A finished; 56-B has not started.
+- **Next approved step:** Step 56-B — Admin Information Architecture & Shell — NOT_STARTED.
 - **Backend feature-completion horizon:** Step 52.
 - **UI/UX design begins:** Step 53.
 - **Storefront implementation begins:** Step 58.

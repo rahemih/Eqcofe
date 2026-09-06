@@ -1,0 +1,15 @@
+{
+  "step": 56,
+  "substep": "A",
+  "status": "A_COMPLETE_STEP_IN_PROGRESS",
+  "source": "docs/13-product-design/step56-admin-ux-contract.json",
+  "sourceSha256": "cbc743dbdd1449105c8c2c1193d36040f5a7b4446a012ec985c04b769421732a",
+  "pageWireframeCount": 0,
+  "canonicalSource": "repository",
+  "figmaMirror": "OPTIONAL_NOT_REQUIRED",
+  "generatedArtifacts": [
+    {"path":"docs/13-product-design/step56-foundation/A/admin-traceability.json","sha256":"dde8cab43c96d78efb144b409aad935a2a9757a8ba88235660aaa21c01c7cec5","bytes":882231},
+    {"path":"docs/13-product-design/step56-foundation/A/ADMIN-SCOPE-INVENTORY.md","sha256":"950ebb05cc38af6d3b6050c454cebb7b38e6690688568912f5c8ce9e1f3f4a24","bytes":13345},
+    {"path":"docs/13-product-design/step56-foundation/A/SOURCE-GAPS.md","sha256":"270c1bb6018749a60815fb4e1e0e539be990941d170647e2ed75b438fd3692c2","bytes":50911}
+  ]
+}

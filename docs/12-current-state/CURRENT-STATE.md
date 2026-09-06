@@ -23,7 +23,24 @@
 - Evidence: `docs/11-step-history/historical-verification/STEP-01-VERIFICATION.md` through `STEP-28-VERIFICATION.md`, `EVIDENCE-MATRIX.md`, and `docs/11-step-history/PHASE-A-FINAL-CANONICAL-CLOSURE.md`.
 - Blocker: NONE.
 - This current-state closure does not claim recovered historical provenance for Steps 01–27.
-- Current project execution remains unchanged: Active step `NONE — Step 55 is closed`; next approved step `Step 56 — Admin UX Architecture & Wireframes`.
+- Historical execution snapshot at Phase A closure: Active step `NONE — Step 55 is closed`; next approved step `Step 56 — Admin UX Architecture & Wireframes`. The current Step 56 position is recorded below.
+
+## Step 56 current product-design state
+
+**56-A — Canonical Handoff & Scope Freeze — COMPLETE / FOUNDATION GATE PASS.**
+
+- Active step/substep: **NONE**; 56-A is finished and execution stops here.
+- Overall Step 56: **IN_PROGRESS**; B–H are **NOT_STARTED**.
+- Next approved substep: **56-B — Admin Information Architecture & Shell**; not started by this handoff.
+- Starting main: `8e7eb050785fb7d284e33398045372162998e33d`; original Roadmap/Current State/Handoff are preserved in `step56-baseline-canonical-state.json`.
+- Contract: `docs/13-product-design/step56-admin-ux-contract.json`; 136 pinned source records; 3 personas; 12 journeys; 97 task/surface obligations; 111 journey links; 28 modules; 532 operations (507 assembled OpenAPI / 376 controller routes).
+- Permissions: 114 controller keys, 118 controller-or-fallback keys and 122 total distinct source claims; conflicting claims are never merged into an invented grant.
+- Four open implementation evidence sets remain: 156 contract-only routes, 151 missing permission declarations, 25 controller-only routes and 5 explicit permission conflicts. Every affected obligation remains counted with NO_ACTION restrictions, responsible domains, H design-audit coverage and execution-release prerequisites.
+- Foundation acceptance certifies the complete design scope and restrictions; it does not certify backend/API/permission reconciliation or product launch readiness.
+- Validation: 22 focused tests; full `pnpm verify` 649/649 PASS; zero failures/skips/cancellations; 4 deterministic artifacts; 0 page wireframes.
+- Persian-first RTL, integer Toman/no-Wallet/no-Brown, Step 54 responsive/accessibility rules, confirmation/Step-Up/audit boundaries and optional non-blocking Figma are retained.
+- Independent gpt-6-astra review identified and rechecked provenance, H coverage, auth entry, lifecycle/actor/domain coverage and permission-conflict corrections.
+- Evidence: PR #154 and `docs/11-step-history/STEP-56-A-ADMIN-UX-FOUNDATION.md`; exact-head CI, verified merge and post-merge CI are required transport evidence. No runtime/frontend/backend/API/migration/dependency/permission/business-rule change is included.
 
 ## Canonical baseline lineage
 - Verified Step-44 baseline: `b239dfe825b615f36caf2e26cc7abc80c70d349c`.
@@ -455,7 +472,7 @@ Verify job: `97170521019` — PASS
 - Dark theme is explicitly deferred: it is not a Roadmap requirement and the current Figma plan permits one mode per collection.
 
 ## Next safe action
-Start **Step 56 — Admin UX Architecture & Wireframes** only from the final Step-55 closure merge and re-run its canonical handoff gate before any design mutation.
+Start **Step 56-B — Admin Information Architecture & Shell** only under a later instruction, after verifying the 56-A merge/post-merge CI and all source-gap action restrictions. 56-B is NOT_STARTED.
 
 ## Step 52 active closure state
 - **A1 — Canonical Handoff & Scope Freeze — COMPLETE / FINAL GATE PASS**
