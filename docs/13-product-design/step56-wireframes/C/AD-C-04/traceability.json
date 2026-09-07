@@ -1,0 +1,357 @@
+{
+  "id": "AD-C-04",
+  "task": "AT-C-04",
+  "journeys": [
+    "AJ-01"
+  ],
+  "actors": [
+    "approver",
+    "staff"
+  ],
+  "domains": [
+    "catalog"
+  ],
+  "operations": [
+    "DELETE /admin/products/{product_id}/media/{media_id}",
+    "GET /admin/products/{product_id}/media",
+    "POST /admin/products/{product_id}/media",
+    "POST /admin/products/{product_id}/media/reorder"
+  ],
+  "operationViews": [
+    {
+      "operation": "DELETE /admin/products/{product_id}/media/{media_id}",
+      "view": "detach",
+      "permissionClaims": {
+        "runtime": [
+          "products.manage"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "stepUp": false
+    },
+    {
+      "operation": "GET /admin/products/{product_id}/media",
+      "view": "gallery",
+      "permissionClaims": {
+        "runtime": [
+          "products.manage"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "stepUp": false
+    },
+    {
+      "operation": "POST /admin/products/{product_id}/media",
+      "view": "attach",
+      "permissionClaims": {
+        "runtime": [
+          "products.manage"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "stepUp": false
+    },
+    {
+      "operation": "POST /admin/products/{product_id}/media/reorder",
+      "view": "reorder",
+      "permissionClaims": {
+        "runtime": [
+          "products.manage"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "stepUp": false
+    }
+  ],
+  "blockedOperations": [],
+  "facets": [
+    "entry-and-context",
+    "permission-aware-read-or-explicit-unavailable",
+    "detail-and-history-or-no-read-explanation",
+    "allowed-action-review-or-read-only",
+    "authoritative-outcome-and-recovery"
+  ],
+  "states": [
+    {
+      "id": "approval-required",
+      "view": "gallery",
+      "behavior": "Inherited conditional obligation: no generic approval queue, replay guarantee, partial bulk outcome or audit-history endpoint exists here. Use current command response and manual review; unsupported action remains disabled. Media approval is its own source-defined lifecycle."
+    },
+    {
+      "id": "archived",
+      "view": "gallery",
+      "behavior": "Domain-specific applicability: product lifecycle applies to C01; media lifecycle to C04/C07; sales stop applies only to source-supported targets. Other surfaces retain context/read-only status and do not invent this lifecycle."
+    },
+    {
+      "id": "audit-reference",
+      "view": "gallery",
+      "behavior": "Inherited conditional obligation: no generic approval queue, replay guarantee, partial bulk outcome or audit-history endpoint exists here. Use current command response and manual review; unsupported action remains disabled. Media approval is its own source-defined lifecycle."
+    },
+    {
+      "id": "authoritative-success",
+      "view": "gallery",
+      "behavior": "Show the source-supported current state and permitted next action; no state name alone grants authority."
+    },
+    {
+      "id": "blocked-by-lifecycle",
+      "view": "gallery",
+      "behavior": "Show the source-supported current state and permitted next action; no state name alone grants authority."
+    },
+    {
+      "id": "cancelled",
+      "view": "gallery",
+      "behavior": "Show the source-supported current state and permitted next action; no state name alone grants authority."
+    },
+    {
+      "id": "destructive-action-confirmation",
+      "view": "detach",
+      "behavior": "Show target, scope, impact and reversibility; safe cancel is initial focus. Step-Up is server-required for sales-control apply only in this C source; confirmation does not invent permission or approval."
+    },
+    {
+      "id": "disabled",
+      "view": "gallery",
+      "behavior": "Show the source-supported current state and permitted next action; no state name alone grants authority."
+    },
+    {
+      "id": "draft",
+      "view": "gallery",
+      "behavior": "Domain-specific applicability: product lifecycle applies to C01; media lifecycle to C04/C07; sales stop applies only to source-supported targets. Other surfaces retain context/read-only status and do not invent this lifecycle."
+    },
+    {
+      "id": "empty-filtered",
+      "view": "gallery",
+      "behavior": "Distinguish empty data, local-filter empty and denied. Clear only local filters; do not invent server search or leak hidden counts."
+    },
+    {
+      "id": "empty-first-use",
+      "view": "gallery",
+      "behavior": "Distinguish empty data, local-filter empty and denied. Clear only local filters; do not invent server search or leak hidden counts."
+    },
+    {
+      "id": "idempotent-replay",
+      "view": "gallery",
+      "behavior": "Inherited conditional obligation: no generic approval queue, replay guarantee, partial bulk outcome or audit-history endpoint exists here. Use current command response and manual review; unsupported action remains disabled. Media approval is its own source-defined lifecycle."
+    },
+    {
+      "id": "impact-changed",
+      "view": "gallery",
+      "behavior": "Stop submission, reload authorized current record/version or obtain a new sales preview; preserve safe draft for explicit comparison. No silent overwrite and no claim of fresh server recount where absent."
+    },
+    {
+      "id": "initial-loading",
+      "view": "gallery",
+      "behavior": "Reserve layout and announce busy status; disable duplicate submit; safe navigation does not imply server cancellation."
+    },
+    {
+      "id": "irreversible-outcome",
+      "view": "gallery",
+      "behavior": "Inherited conditional obligation: no generic approval queue, replay guarantee, partial bulk outcome or audit-history endpoint exists here. Use current command response and manual review; unsupported action remains disabled. Media approval is its own source-defined lifecycle."
+    },
+    {
+      "id": "manual-review",
+      "view": "gallery",
+      "behavior": "Show the source-supported current state and permitted next action; no state name alone grants authority."
+    },
+    {
+      "id": "media-pending",
+      "view": "gallery",
+      "behavior": "Domain-specific applicability: product lifecycle applies to C01; media lifecycle to C04/C07; sales stop applies only to source-supported targets. Other surfaces retain context/read-only status and do not invent this lifecycle."
+    },
+    {
+      "id": "no-results",
+      "view": "gallery",
+      "behavior": "Distinguish empty data, local-filter empty and denied. Clear only local filters; do not invent server search or leak hidden counts."
+    },
+    {
+      "id": "offline",
+      "view": "gallery",
+      "behavior": "Read failure permits explicit refresh; unknown mutation outcome prohibits automatic retry. Use existing owner read to reconcile; no status read means manual follow-up. Preserve safe draft and show field errors without secrets."
+    },
+    {
+      "id": "partial-success",
+      "view": "gallery",
+      "behavior": "Inherited conditional obligation: no generic approval queue, replay guarantee, partial bulk outcome or audit-history endpoint exists here. Use current command response and manual review; unsupported action remains disabled. Media approval is its own source-defined lifecycle."
+    },
+    {
+      "id": "permission-denied",
+      "view": "gallery",
+      "behavior": "Fail closed; hide sensitive object/counts and actions, retain neutral safe exit. Reauthenticate and recheck exact per-operation permission before reload; never replay pending command."
+    },
+    {
+      "id": "preview-expired",
+      "view": "gallery",
+      "behavior": "Stop submission, reload authorized current record/version or obtain a new sales preview; preserve safe draft for explicit comparison. No silent overwrite and no claim of fresh server recount where absent."
+    },
+    {
+      "id": "progressive-loading",
+      "view": "gallery",
+      "behavior": "Reserve layout and announce busy status; disable duplicate submit; safe navigation does not imply server cancellation."
+    },
+    {
+      "id": "provider-unavailable",
+      "view": "gallery",
+      "behavior": "Read failure permits explicit refresh; unknown mutation outcome prohibits automatic retry. Use existing owner read to reconcile; no status read means manual follow-up. Preserve safe draft and show field errors without secrets."
+    },
+    {
+      "id": "published",
+      "view": "gallery",
+      "behavior": "Domain-specific applicability: product lifecycle applies to C01; media lifecycle to C04/C07; sales stop applies only to source-supported targets. Other surfaces retain context/read-only status and do not invent this lifecycle."
+    },
+    {
+      "id": "read-only",
+      "view": "gallery",
+      "behavior": "Show the source-supported current state and permitted next action; no state name alone grants authority."
+    },
+    {
+      "id": "refresh-loading",
+      "view": "gallery",
+      "behavior": "Reserve layout and announce busy status; disable duplicate submit; safe navigation does not imply server cancellation."
+    },
+    {
+      "id": "review-required",
+      "view": "gallery",
+      "behavior": "Inherited conditional obligation: no generic approval queue, replay guarantee, partial bulk outcome or audit-history endpoint exists here. Use current command response and manual review; unsupported action remains disabled. Media approval is its own source-defined lifecycle."
+    },
+    {
+      "id": "safe-retry",
+      "view": "gallery",
+      "behavior": "Read failure permits explicit refresh; unknown mutation outcome prohibits automatic retry. Use existing owner read to reconcile; no status read means manual follow-up. Preserve safe draft and show field errors without secrets."
+    },
+    {
+      "id": "sales-stopped",
+      "view": "gallery",
+      "behavior": "Domain-specific applicability: product lifecycle applies to C01; media lifecycle to C04/C07; sales stop applies only to source-supported targets. Other surfaces retain context/read-only status and do not invent this lifecycle."
+    },
+    {
+      "id": "scope-filtered",
+      "view": "gallery",
+      "behavior": "Fail closed; hide sensitive object/counts and actions, retain neutral safe exit. Reauthenticate and recheck exact per-operation permission before reload; never replay pending command."
+    },
+    {
+      "id": "server-error",
+      "view": "gallery",
+      "behavior": "Read failure permits explicit refresh; unknown mutation outcome prohibits automatic retry. Use existing owner read to reconcile; no status read means manual follow-up. Preserve safe draft and show field errors without secrets."
+    },
+    {
+      "id": "session-expired",
+      "view": "gallery",
+      "behavior": "Stop submission, reload authorized current record/version or obtain a new sales preview; preserve safe draft for explicit comparison. No silent overwrite and no claim of fresh server recount where absent."
+    },
+    {
+      "id": "stale-data",
+      "view": "gallery",
+      "behavior": "Stop submission, reload authorized current record/version or obtain a new sales preview; preserve safe draft for explicit comparison. No silent overwrite and no claim of fresh server recount where absent."
+    },
+    {
+      "id": "status-check",
+      "view": "gallery",
+      "behavior": "Read failure permits explicit refresh; unknown mutation outcome prohibits automatic retry. Use existing owner read to reconcile; no status read means manual follow-up. Preserve safe draft and show field errors without secrets."
+    },
+    {
+      "id": "step-up-required",
+      "view": "detach",
+      "behavior": "Show target, scope, impact and reversibility; safe cancel is initial focus. Step-Up is server-required for sales-control apply only in this C source; confirmation does not invent permission or approval."
+    },
+    {
+      "id": "submitting",
+      "view": "gallery",
+      "behavior": "Reserve layout and announce busy status; disable duplicate submit; safe navigation does not imply server cancellation."
+    },
+    {
+      "id": "terminal-success",
+      "view": "gallery",
+      "behavior": "Inherited conditional obligation: no generic approval queue, replay guarantee, partial bulk outcome or audit-history endpoint exists here. Use current command response and manual review; unsupported action remains disabled. Media approval is its own source-defined lifecycle."
+    },
+    {
+      "id": "timeout",
+      "view": "gallery",
+      "behavior": "Read failure permits explicit refresh; unknown mutation outcome prohibits automatic retry. Use existing owner read to reconcile; no status read means manual follow-up. Preserve safe draft and show field errors without secrets."
+    },
+    {
+      "id": "unauthenticated",
+      "view": "gallery",
+      "behavior": "Fail closed; hide sensitive object/counts and actions, retain neutral safe exit. Reauthenticate and recheck exact per-operation permission before reload; never replay pending command."
+    },
+    {
+      "id": "unknown-result",
+      "view": "gallery",
+      "behavior": "Read failure permits explicit refresh; unknown mutation outcome prohibits automatic retry. Use existing owner read to reconcile; no status read means manual follow-up. Preserve safe draft and show field errors without secrets."
+    },
+    {
+      "id": "validation-error",
+      "view": "gallery",
+      "behavior": "Read failure permits explicit refresh; unknown mutation outcome prohibits automatic retry. Use existing owner read to reconcile; no status read means manual follow-up. Preserve safe draft and show field errors without secrets."
+    },
+    {
+      "id": "version-conflict",
+      "view": "gallery",
+      "behavior": "Stop submission, reload authorized current record/version or obtain a new sales preview; preserve safe draft for explicit comparison. No silent overwrite and no claim of fresh server recount where absent."
+    }
+  ],
+  "frames": [
+    {
+      "path": "docs/13-product-design/step56-wireframes/C/AD-C-04/AD-C-04--320--gallery--v1.svg",
+      "view": "gallery",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/C/AD-C-04/AD-C-04--360--gallery--v1.svg",
+      "view": "gallery",
+      "width": 360
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/C/AD-C-04/AD-C-04--600--gallery--v1.svg",
+      "view": "gallery",
+      "width": 600
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/C/AD-C-04/AD-C-04--840--gallery--v1.svg",
+      "view": "gallery",
+      "width": 840
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/C/AD-C-04/AD-C-04--1200--gallery--v1.svg",
+      "view": "gallery",
+      "width": 1200
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/C/AD-C-04/AD-C-04--1440--gallery--v1.svg",
+      "view": "gallery",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/C/AD-C-04/AD-C-04--320--attach--v1.svg",
+      "view": "attach",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/C/AD-C-04/AD-C-04--1440--attach--v1.svg",
+      "view": "attach",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/C/AD-C-04/AD-C-04--320--reorder--v1.svg",
+      "view": "reorder",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/C/AD-C-04/AD-C-04--1440--reorder--v1.svg",
+      "view": "reorder",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/C/AD-C-04/AD-C-04--320--detach--v1.svg",
+      "view": "detach",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/C/AD-C-04/AD-C-04--1440--detach--v1.svg",
+      "view": "detach",
+      "width": 1440
+    }
+  ]
+}

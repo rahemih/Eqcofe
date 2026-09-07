@@ -1,0 +1,445 @@
+{
+  "id": "AD-C-03",
+  "task": "AT-C-03",
+  "journeys": [
+    "AJ-01"
+  ],
+  "actors": [
+    "approver",
+    "staff"
+  ],
+  "domains": [
+    "catalog"
+  ],
+  "operations": [
+    "GET /admin/attributes",
+    "GET /admin/attributes/{id}/values",
+    "GET /admin/products/{product_id}/attributes",
+    "GET /admin/variants/{id}/attributes",
+    "PATCH /admin/attribute-values/{id}",
+    "PATCH /admin/attributes/{id}",
+    "POST /admin/attributes",
+    "POST /admin/attributes/{id}/values",
+    "PUT /admin/products/{product_id}/attributes",
+    "PUT /admin/variants/{id}/attributes"
+  ],
+  "operationViews": [
+    {
+      "operation": "GET /admin/attributes",
+      "view": "list",
+      "permissionClaims": {
+        "runtime": [
+          "attributes.manage"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "stepUp": false
+    },
+    {
+      "operation": "GET /admin/attributes/{id}/values",
+      "view": "list",
+      "permissionClaims": {
+        "runtime": [
+          "attributes.manage"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "stepUp": false
+    },
+    {
+      "operation": "GET /admin/products/{product_id}/attributes",
+      "view": "list",
+      "permissionClaims": {
+        "runtime": [
+          "products.manage"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "stepUp": false
+    },
+    {
+      "operation": "GET /admin/variants/{id}/attributes",
+      "view": "list",
+      "permissionClaims": {
+        "runtime": [
+          "products.manage"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "stepUp": false
+    },
+    {
+      "operation": "PATCH /admin/attribute-values/{id}",
+      "view": "value",
+      "permissionClaims": {
+        "runtime": [
+          "attributes.manage"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "stepUp": false
+    },
+    {
+      "operation": "PATCH /admin/attributes/{id}",
+      "view": "definition",
+      "permissionClaims": {
+        "runtime": [
+          "attributes.manage"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "stepUp": false
+    },
+    {
+      "operation": "POST /admin/attributes",
+      "view": "definition",
+      "permissionClaims": {
+        "runtime": [
+          "attributes.manage"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "stepUp": false
+    },
+    {
+      "operation": "POST /admin/attributes/{id}/values",
+      "view": "value",
+      "permissionClaims": {
+        "runtime": [
+          "attributes.manage"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "stepUp": false
+    },
+    {
+      "operation": "PUT /admin/products/{product_id}/attributes",
+      "view": "assign",
+      "permissionClaims": {
+        "runtime": [
+          "products.manage"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "stepUp": false
+    },
+    {
+      "operation": "PUT /admin/variants/{id}/attributes",
+      "view": "assign",
+      "permissionClaims": {
+        "runtime": [
+          "products.manage"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "stepUp": false
+    }
+  ],
+  "blockedOperations": [],
+  "facets": [
+    "entry-and-context",
+    "permission-aware-read-or-explicit-unavailable",
+    "detail-and-history-or-no-read-explanation",
+    "allowed-action-review-or-read-only",
+    "authoritative-outcome-and-recovery"
+  ],
+  "states": [
+    {
+      "id": "approval-required",
+      "view": "list",
+      "behavior": "Inherited conditional obligation: no generic approval queue, replay guarantee, partial bulk outcome or audit-history endpoint exists here. Use current command response and manual review; unsupported action remains disabled. Media approval is its own source-defined lifecycle."
+    },
+    {
+      "id": "archived",
+      "view": "list",
+      "behavior": "Domain-specific applicability: product lifecycle applies to C01; media lifecycle to C04/C07; sales stop applies only to source-supported targets. Other surfaces retain context/read-only status and do not invent this lifecycle."
+    },
+    {
+      "id": "audit-reference",
+      "view": "list",
+      "behavior": "Inherited conditional obligation: no generic approval queue, replay guarantee, partial bulk outcome or audit-history endpoint exists here. Use current command response and manual review; unsupported action remains disabled. Media approval is its own source-defined lifecycle."
+    },
+    {
+      "id": "authoritative-success",
+      "view": "list",
+      "behavior": "Show the source-supported current state and permitted next action; no state name alone grants authority."
+    },
+    {
+      "id": "blocked-by-lifecycle",
+      "view": "list",
+      "behavior": "Show the source-supported current state and permitted next action; no state name alone grants authority."
+    },
+    {
+      "id": "cancelled",
+      "view": "list",
+      "behavior": "Show the source-supported current state and permitted next action; no state name alone grants authority."
+    },
+    {
+      "id": "destructive-action-confirmation",
+      "view": "list",
+      "behavior": "Show target, scope, impact and reversibility; safe cancel is initial focus. Step-Up is server-required for sales-control apply only in this C source; confirmation does not invent permission or approval."
+    },
+    {
+      "id": "disabled",
+      "view": "list",
+      "behavior": "Show the source-supported current state and permitted next action; no state name alone grants authority."
+    },
+    {
+      "id": "draft",
+      "view": "list",
+      "behavior": "Domain-specific applicability: product lifecycle applies to C01; media lifecycle to C04/C07; sales stop applies only to source-supported targets. Other surfaces retain context/read-only status and do not invent this lifecycle."
+    },
+    {
+      "id": "empty-filtered",
+      "view": "list",
+      "behavior": "Distinguish empty data, local-filter empty and denied. Clear only local filters; do not invent server search or leak hidden counts."
+    },
+    {
+      "id": "empty-first-use",
+      "view": "list",
+      "behavior": "Distinguish empty data, local-filter empty and denied. Clear only local filters; do not invent server search or leak hidden counts."
+    },
+    {
+      "id": "idempotent-replay",
+      "view": "list",
+      "behavior": "Inherited conditional obligation: no generic approval queue, replay guarantee, partial bulk outcome or audit-history endpoint exists here. Use current command response and manual review; unsupported action remains disabled. Media approval is its own source-defined lifecycle."
+    },
+    {
+      "id": "impact-changed",
+      "view": "mismatch",
+      "behavior": "Stop submission, reload authorized current record/version or obtain a new sales preview; preserve safe draft for explicit comparison. No silent overwrite and no claim of fresh server recount where absent."
+    },
+    {
+      "id": "initial-loading",
+      "view": "list",
+      "behavior": "Reserve layout and announce busy status; disable duplicate submit; safe navigation does not imply server cancellation."
+    },
+    {
+      "id": "irreversible-outcome",
+      "view": "list",
+      "behavior": "Inherited conditional obligation: no generic approval queue, replay guarantee, partial bulk outcome or audit-history endpoint exists here. Use current command response and manual review; unsupported action remains disabled. Media approval is its own source-defined lifecycle."
+    },
+    {
+      "id": "manual-review",
+      "view": "list",
+      "behavior": "Show the source-supported current state and permitted next action; no state name alone grants authority."
+    },
+    {
+      "id": "media-pending",
+      "view": "list",
+      "behavior": "Domain-specific applicability: product lifecycle applies to C01; media lifecycle to C04/C07; sales stop applies only to source-supported targets. Other surfaces retain context/read-only status and do not invent this lifecycle."
+    },
+    {
+      "id": "no-results",
+      "view": "list",
+      "behavior": "Distinguish empty data, local-filter empty and denied. Clear only local filters; do not invent server search or leak hidden counts."
+    },
+    {
+      "id": "offline",
+      "view": "mismatch",
+      "behavior": "Read failure permits explicit refresh; unknown mutation outcome prohibits automatic retry. Use existing owner read to reconcile; no status read means manual follow-up. Preserve safe draft and show field errors without secrets."
+    },
+    {
+      "id": "partial-success",
+      "view": "list",
+      "behavior": "Inherited conditional obligation: no generic approval queue, replay guarantee, partial bulk outcome or audit-history endpoint exists here. Use current command response and manual review; unsupported action remains disabled. Media approval is its own source-defined lifecycle."
+    },
+    {
+      "id": "permission-denied",
+      "view": "list",
+      "behavior": "Fail closed; hide sensitive object/counts and actions, retain neutral safe exit. Reauthenticate and recheck exact per-operation permission before reload; never replay pending command."
+    },
+    {
+      "id": "preview-expired",
+      "view": "mismatch",
+      "behavior": "Stop submission, reload authorized current record/version or obtain a new sales preview; preserve safe draft for explicit comparison. No silent overwrite and no claim of fresh server recount where absent."
+    },
+    {
+      "id": "progressive-loading",
+      "view": "list",
+      "behavior": "Reserve layout and announce busy status; disable duplicate submit; safe navigation does not imply server cancellation."
+    },
+    {
+      "id": "provider-unavailable",
+      "view": "mismatch",
+      "behavior": "Read failure permits explicit refresh; unknown mutation outcome prohibits automatic retry. Use existing owner read to reconcile; no status read means manual follow-up. Preserve safe draft and show field errors without secrets."
+    },
+    {
+      "id": "published",
+      "view": "list",
+      "behavior": "Domain-specific applicability: product lifecycle applies to C01; media lifecycle to C04/C07; sales stop applies only to source-supported targets. Other surfaces retain context/read-only status and do not invent this lifecycle."
+    },
+    {
+      "id": "read-only",
+      "view": "list",
+      "behavior": "Show the source-supported current state and permitted next action; no state name alone grants authority."
+    },
+    {
+      "id": "refresh-loading",
+      "view": "list",
+      "behavior": "Reserve layout and announce busy status; disable duplicate submit; safe navigation does not imply server cancellation."
+    },
+    {
+      "id": "review-required",
+      "view": "list",
+      "behavior": "Inherited conditional obligation: no generic approval queue, replay guarantee, partial bulk outcome or audit-history endpoint exists here. Use current command response and manual review; unsupported action remains disabled. Media approval is its own source-defined lifecycle."
+    },
+    {
+      "id": "safe-retry",
+      "view": "mismatch",
+      "behavior": "Read failure permits explicit refresh; unknown mutation outcome prohibits automatic retry. Use existing owner read to reconcile; no status read means manual follow-up. Preserve safe draft and show field errors without secrets."
+    },
+    {
+      "id": "sales-stopped",
+      "view": "list",
+      "behavior": "Domain-specific applicability: product lifecycle applies to C01; media lifecycle to C04/C07; sales stop applies only to source-supported targets. Other surfaces retain context/read-only status and do not invent this lifecycle."
+    },
+    {
+      "id": "scope-filtered",
+      "view": "list",
+      "behavior": "Fail closed; hide sensitive object/counts and actions, retain neutral safe exit. Reauthenticate and recheck exact per-operation permission before reload; never replay pending command."
+    },
+    {
+      "id": "server-error",
+      "view": "mismatch",
+      "behavior": "Read failure permits explicit refresh; unknown mutation outcome prohibits automatic retry. Use existing owner read to reconcile; no status read means manual follow-up. Preserve safe draft and show field errors without secrets."
+    },
+    {
+      "id": "session-expired",
+      "view": "mismatch",
+      "behavior": "Stop submission, reload authorized current record/version or obtain a new sales preview; preserve safe draft for explicit comparison. No silent overwrite and no claim of fresh server recount where absent."
+    },
+    {
+      "id": "stale-data",
+      "view": "mismatch",
+      "behavior": "Stop submission, reload authorized current record/version or obtain a new sales preview; preserve safe draft for explicit comparison. No silent overwrite and no claim of fresh server recount where absent."
+    },
+    {
+      "id": "status-check",
+      "view": "mismatch",
+      "behavior": "Read failure permits explicit refresh; unknown mutation outcome prohibits automatic retry. Use existing owner read to reconcile; no status read means manual follow-up. Preserve safe draft and show field errors without secrets."
+    },
+    {
+      "id": "step-up-required",
+      "view": "list",
+      "behavior": "Show target, scope, impact and reversibility; safe cancel is initial focus. Step-Up is server-required for sales-control apply only in this C source; confirmation does not invent permission or approval."
+    },
+    {
+      "id": "submitting",
+      "view": "list",
+      "behavior": "Reserve layout and announce busy status; disable duplicate submit; safe navigation does not imply server cancellation."
+    },
+    {
+      "id": "terminal-success",
+      "view": "list",
+      "behavior": "Inherited conditional obligation: no generic approval queue, replay guarantee, partial bulk outcome or audit-history endpoint exists here. Use current command response and manual review; unsupported action remains disabled. Media approval is its own source-defined lifecycle."
+    },
+    {
+      "id": "timeout",
+      "view": "mismatch",
+      "behavior": "Read failure permits explicit refresh; unknown mutation outcome prohibits automatic retry. Use existing owner read to reconcile; no status read means manual follow-up. Preserve safe draft and show field errors without secrets."
+    },
+    {
+      "id": "unauthenticated",
+      "view": "list",
+      "behavior": "Fail closed; hide sensitive object/counts and actions, retain neutral safe exit. Reauthenticate and recheck exact per-operation permission before reload; never replay pending command."
+    },
+    {
+      "id": "unknown-result",
+      "view": "mismatch",
+      "behavior": "Read failure permits explicit refresh; unknown mutation outcome prohibits automatic retry. Use existing owner read to reconcile; no status read means manual follow-up. Preserve safe draft and show field errors without secrets."
+    },
+    {
+      "id": "validation-error",
+      "view": "mismatch",
+      "behavior": "Read failure permits explicit refresh; unknown mutation outcome prohibits automatic retry. Use existing owner read to reconcile; no status read means manual follow-up. Preserve safe draft and show field errors without secrets."
+    },
+    {
+      "id": "version-conflict",
+      "view": "mismatch",
+      "behavior": "Stop submission, reload authorized current record/version or obtain a new sales preview; preserve safe draft for explicit comparison. No silent overwrite and no claim of fresh server recount where absent."
+    }
+  ],
+  "frames": [
+    {
+      "path": "docs/13-product-design/step56-wireframes/C/AD-C-03/AD-C-03--320--list--v1.svg",
+      "view": "list",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/C/AD-C-03/AD-C-03--360--list--v1.svg",
+      "view": "list",
+      "width": 360
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/C/AD-C-03/AD-C-03--600--list--v1.svg",
+      "view": "list",
+      "width": 600
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/C/AD-C-03/AD-C-03--840--list--v1.svg",
+      "view": "list",
+      "width": 840
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/C/AD-C-03/AD-C-03--1200--list--v1.svg",
+      "view": "list",
+      "width": 1200
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/C/AD-C-03/AD-C-03--1440--list--v1.svg",
+      "view": "list",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/C/AD-C-03/AD-C-03--320--definition--v1.svg",
+      "view": "definition",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/C/AD-C-03/AD-C-03--1440--definition--v1.svg",
+      "view": "definition",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/C/AD-C-03/AD-C-03--320--value--v1.svg",
+      "view": "value",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/C/AD-C-03/AD-C-03--1440--value--v1.svg",
+      "view": "value",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/C/AD-C-03/AD-C-03--320--assign--v1.svg",
+      "view": "assign",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/C/AD-C-03/AD-C-03--1440--assign--v1.svg",
+      "view": "assign",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/C/AD-C-03/AD-C-03--320--mismatch--v1.svg",
+      "view": "mismatch",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/C/AD-C-03/AD-C-03--1440--mismatch--v1.svg",
+      "view": "mismatch",
+      "width": 1440
+    }
+  ]
+}
