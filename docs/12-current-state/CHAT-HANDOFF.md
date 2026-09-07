@@ -38,17 +38,17 @@ Conversation history is supporting context only. It must not override current ca
 - Last fully closed step: **Step 55 — Storefront Wireframes — FINAL GATE PASS**
 - Verified Step-55 A foundation merge: `75b117582b2e6315091c0e99459ad14b9a4fea0c`
 - Verified Step-55 B closure: PR `#138`; final head `956cde6ebbdb9694c9571030608a6f0e0809b506`; exact-head CI `33297193079` / verify `99218795810` — PASS; merge/main `a9a35422347273f35da85ba5e3711a7d9cd3b9a1`; post-merge CI `33297252729` / verify `99218944170` — PASS.
-- Active step: **NONE — 56-B finished; 56-C NOT_STARTED**
+- Active step: **NONE — 56-C finished; 56-D NOT_STARTED**
 - Active substep: **NONE**
-- Last completed canonical substep: **Step 56 / A — Admin UX Foundation & Scope Freeze**
+- Last completed canonical substep: **Step 56 / C — Catalog, Product & Media**
 - Step-55 C closure: PR `#140`; final head `adb015b46a90ba8383d0cbf17a149050ebdc1cd0`; exact-head CI `33500791061` / verify `99833400342` — PASS; merge/main `1a45bc71809eeae7e9e0670715a30f2c3069ab32`; post-merge CI `33500900444` / verify `99833752685` — PASS.
 - Step-55 D closure: PR `#142`; final head `eea113f25b6ec047c1e575cb87a0b016d96c5c8e`; exact-head CI `33505374371` / verify `99848049249` — PASS; merge/main `b5f2534e6893411462cec219e4b75fd6de5a377a`; post-merge CI `33505503842` / verify `99848460921` — PASS.
 - Step-55 E closure: PR `#148`; final head `569f9e56121c163435f89413995ef2a868162a69`; exact-head CI `33595224368` / verify `100137201538` — PASS; merge/main `c6a0db9b6a731f3b9be2614c3a6230296c985419`; post-merge CI `33595332775` / verify `100137520705` — PASS.
 - Step-55 F initial evidence: PR `#150`; implementation head `70f5eea102143971b4126f63b480f3120f1a4908`; Canonical CI `33596925507` / verify `100142144317` — PASS.
 - Step-55 F final implementation evidence: final head `d85bf44c0f987fabedd843994124caa1576835ac`; CI `33597074463` / verify `100142576021` — PASS; merge/main `ae56fa4cb8a44168aeeb9d92ca7e19ddcf648b94`; post-merge CI `33602772166` / verify `100159960576` — PASS.
 - Step-55 final state-sync: PR `#151`; initial head `8080d5cd0208ed0e13bcc740ccbb8340af972dca`; CI `33949134139` / verify `101260481097` — PASS; final evidence head and merge remain transport checks.
-- Current action: **NONE — stop after 56-B shell**
-- Next approved action: **Step 56-C — Catalog, Product & Media; NOT_STARTED and requires a later instruction**
+- Current action: **NONE — stop after 56-C catalog/media**
+- Next approved action: **Step 56-D — Pricing, Inventory & Procurement; NOT_STARTED and requires a later instruction**
 - Step-51 closure PR: **#115 — MERGED**
 - Step-51 closure Canonical CI: **32737751481 — PASS**
 - Linear project: **EQCOFE**
@@ -167,6 +167,10 @@ A new EQCOFE chat should be able to continue safely using:
 
 without requiring a manual paste of all previous conversations.
 
-### Current Step 56-B handoff
+### Historical Step 56-B handoff
 
 B is complete subject to final-head CI, merge and post-merge evidence in its Step History/PR. Seven obligations, 74 frames, 91 artifacts; C–H not started. Preserve all four NO_ACTION source gaps and the immutable A snapshot. Do not treat generic shell patterns as completed C–G domain designs.
+
+### Current Step 56-C handoff
+
+C complete subject to exact-head CI, merge/post-merge evidence; 8 surfaces/46 operations/114 frames/133 artifacts. D–H NOT_STARTED. Preserve A source gaps and C source limitations, especially media and preview guarantees. Do not start D from this handoff alone.

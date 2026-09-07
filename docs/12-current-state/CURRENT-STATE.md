@@ -25,7 +25,11 @@
 - This current-state closure does not claim recovered historical provenance for Steps 01–27.
 - Historical execution snapshot at Phase A closure: Active step `NONE — Step 55 is closed`; next approved step `Step 56 — Admin UX Architecture & Wireframes`. The current Step 56 position is recorded below.
 
-## Current Step 56-B position
+## Current Step 56-C position
+
+**56-C COMPLETE / GATE PASS**, effective after final-head CI, merge and post-merge checks. Active NONE; next 56-D NOT_STARTED; D–H NOT_STARTED. Eight surfaces /46 operations /41 variants /114 frames /133 artifacts. Source-specific lifecycle, media, assignment, version and sales-preview restrictions are preserved. No runtime/API/permission changes. Contract: `step56-catalog-media-wireframes.json`; history: `STEP-56-C-CATALOG-MEDIA.md`. A/B contracts and their older nextGate values are immutable closure snapshots; this section records current progression.
+
+## Step 56-B closure snapshot
 
 **56-B COMPLETE / GATE PASS**, effective after final-head CI, merge and post-merge verification. Active step NONE; next 56-C NOT_STARTED; C–H NOT_STARTED.
 
@@ -478,7 +482,7 @@ Verify job: `97170521019` — PASS
 - Dark theme is explicitly deferred: it is not a Roadmap requirement and the current Figma plan permits one mode per collection.
 
 ## Next safe action
-Start **Step 56-C — Catalog, Product & Media** only under a later instruction after verifying B transport evidence. 56-C is NOT_STARTED.
+Start **Step 56-D — Pricing, Inventory & Procurement** only under a later instruction after verifying C transport evidence. 56-D is NOT_STARTED.
 
 ## Step 52 active closure state
 - **A1 — Canonical Handoff & Scope Freeze — COMPLETE / FINAL GATE PASS**

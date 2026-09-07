@@ -1,6 +1,6 @@
 # Step 56 — Acceptance and Traceability
 
-**56-A: FOUNDATION ACCEPTANCE PASS; canonical CI/merge/post-merge verification required. 56-B: design gate complete, canonical transport required; C–H: NOT_STARTED.**
+**56-A: FOUNDATION ACCEPTANCE PASS; canonical CI/merge/post-merge verification required. 56-B: design gate complete, canonical transport required; 56-C: design gate complete, transport required; D–H: NOT_STARTED.**
 
 ## Acceptance matrix
 
@@ -52,3 +52,7 @@ After foundation verification, obtain exact-head Canonical CI PASS, merge, rerea
 ## B progression
 
 The foundation contract remains the immutable A closure snapshot. B contract `step56-admin-shell-wireframes.json` and `STEP-56-B-ADMIN-IA-SHELL.md` supply subsequent evidence; A's historical nextGate is not a current execution instruction. B retains every A obligation/restriction and provides 74 frames / 91 artifacts. Stop after B; C starts only under a later instruction.
+
+## C progression
+
+C contract and `STEP-56-C-CATALOG-MEDIA.md` record 8/46 scope,114 frames/133 artifacts and source-specific restrictions. A/B remain immutable snapshots. Current Roadmap controls progression; D–H not started. Canonical transport must pass; stop after C.
