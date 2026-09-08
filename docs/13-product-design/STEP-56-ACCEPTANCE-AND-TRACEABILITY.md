@@ -60,3 +60,7 @@ C contract and `STEP-56-C-CATALOG-MEDIA.md` record 8/46 scope,114 frames/133 art
 ## D progression
 
 D contract `step56-pricing-inventory-wireframes.json` and history/specification `STEP-56-D-PRICING-INVENTORY.md` supply21/112 scope,624 frames/669 artifacts and989 state dispositions. Source limits remain explicit; no runtime readiness claim. A/B/C are immutable snapshots. Current Roadmap controls progression; E–H NOT_STARTED. Exact-head CI/merge/post-merge must pass. Stop after D.
+
+## E progression
+
+E design gate complete, transport required. Contract `step56-commerce-operations-wireframes.json` and history/specification `STEP-56-E-COMMERCE-OPERATIONS.md` supply11/74 scope,368 frames/393 artifacts.26 operations retain NO_ACTION. Exact authority, visible lifecycle guards and all inherited states traced. A–D snapshots immutable; current Roadmap controls progression. F–H NOT_STARTED. Stop after E.

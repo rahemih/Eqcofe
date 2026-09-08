@@ -1,0 +1,574 @@
+{
+  "id": "AD-E-04",
+  "task": "AT-E-04",
+  "journeys": [
+    "AJ-04"
+  ],
+  "actors": [
+    "staff"
+  ],
+  "domains": [
+    "fulfillment"
+  ],
+  "operations": [
+    "GET /admin/fulfillment/orders",
+    "GET /admin/fulfillment/orders/{order_id}",
+    "POST /admin/fulfillment/allocations/{id}/pick",
+    "POST /admin/fulfillment/allocations/{id}/unpick",
+    "POST /admin/fulfillment/orders/{order_id}/allocate",
+    "POST /admin/fulfillment/orders/{order_id}/start-preparation"
+  ],
+  "operationViews": [
+    {
+      "operation": "GET /admin/fulfillment/orders",
+      "view": "op-01",
+      "permissionClaims": {
+        "runtime": [
+          "fulfillment.view"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "stepUp": false,
+      "idempotencyScope": null,
+      "versionRequired": false,
+      "recovery": "READ_OR_MANUAL_NO_RETRY",
+      "executionEnabled": true,
+      "fields": []
+    },
+    {
+      "operation": "GET /admin/fulfillment/orders/{order_id}",
+      "view": "op-02",
+      "permissionClaims": {
+        "runtime": [
+          "fulfillment.view"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "stepUp": false,
+      "idempotencyScope": null,
+      "versionRequired": false,
+      "recovery": "READ_OR_MANUAL_NO_RETRY",
+      "executionEnabled": true,
+      "fields": []
+    },
+    {
+      "operation": "POST /admin/fulfillment/allocations/{id}/pick",
+      "view": "op-03",
+      "permissionClaims": {
+        "runtime": [
+          "fulfillment.pick"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "stepUp": false,
+      "idempotencyScope": "fulfillment.pick",
+      "versionRequired": false,
+      "recovery": "EXPLICIT_SAME_KEY_SAME_PAYLOAD_AFTER_STATUS_CHECK",
+      "executionEnabled": true,
+      "fields": [
+        "افزایش تعداد برداشت — صحیح مثبت",
+        "یادداشت اختیاری — حداکثر ۱۰۰۰ نویسه"
+      ],
+      "confirmationView": "op-03-confirm",
+      "confirmation": "SAFE_CANCEL_FIRST",
+      "resultView": "success",
+      "guard": "عدد واردشده افزایش برداشت است؛ جمع از تخصیص بیشتر نشود و تخصیص آزاد یا ارسال‌شده نباشد."
+    },
+    {
+      "operation": "POST /admin/fulfillment/allocations/{id}/unpick",
+      "view": "op-04",
+      "permissionClaims": {
+        "runtime": [
+          "fulfillment.pick"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "stepUp": false,
+      "idempotencyScope": "fulfillment.unpick",
+      "versionRequired": false,
+      "recovery": "EXPLICIT_SAME_KEY_SAME_PAYLOAD_AFTER_STATUS_CHECK",
+      "executionEnabled": true,
+      "fields": [
+        "تعداد برگشت — صحیح مثبت",
+        "دلیل الزامی — حداکثر ۲۰۰۰ نویسه"
+      ],
+      "confirmationView": "op-04-confirm",
+      "confirmation": "SAFE_CANCEL_FIRST",
+      "resultView": "success",
+      "guard": "کاهش برداشت از مقدار ارسال‌شده عبور نکند؛ دلیل الزامی است."
+    },
+    {
+      "operation": "POST /admin/fulfillment/orders/{order_id}/allocate",
+      "view": "op-05",
+      "permissionClaims": {
+        "runtime": [
+          "fulfillment.allocate"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "stepUp": false,
+      "idempotencyScope": "fulfillment.allocate",
+      "versionRequired": false,
+      "recovery": "EXPLICIT_SAME_KEY_SAME_PAYLOAD_AFTER_STATUS_CHECK",
+      "executionEnabled": true,
+      "fields": [
+        "راهبرد تخصیص",
+        "قلم سفارش، انبار و تعداد مثبت — ردیف‌های یکتا"
+      ],
+      "confirmationView": "op-05-confirm",
+      "confirmation": "SAFE_CANCEL_FIRST",
+      "resultView": "success",
+      "guard": "سفارش تأییدشده با پرداخت تسویه و رزرو؛ راهبرد ترجیح یک انبار یا دستی؛ ردیف قلم و انبار تکراری مجاز نیست."
+    },
+    {
+      "operation": "POST /admin/fulfillment/orders/{order_id}/start-preparation",
+      "view": "op-06",
+      "permissionClaims": {
+        "runtime": [
+          "fulfillment.allocate"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "stepUp": false,
+      "idempotencyScope": "fulfillment.start_preparation",
+      "versionRequired": false,
+      "recovery": "EXPLICIT_SAME_KEY_SAME_PAYLOAD_AFTER_STATUS_CHECK",
+      "executionEnabled": true,
+      "fields": [
+        "یادداشت اختیاری — حداکثر ۲۰۰۰ نویسه"
+      ],
+      "confirmationView": "op-06-confirm",
+      "confirmation": "SAFE_CANCEL_FIRST",
+      "resultView": "success",
+      "guard": "تمام مقدار همهٔ اقلام باید تخصیص یافته باشد."
+    }
+  ],
+  "blockedOperations": [],
+  "facets": [
+    "entry-and-context",
+    "permission-aware-read-or-explicit-unavailable",
+    "detail-and-history-or-no-read-explanation",
+    "allowed-action-review-or-read-only",
+    "authoritative-outcome-and-recovery"
+  ],
+  "states": [
+    {
+      "id": "allocation-needed",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Confirmed settled order and reservation required. Allocate single_warehouse_preferred/manual with unique positive item/warehouse quantities. Start preparation requires full allocation. Pick delta cannot exceed allocation; unpick cannot undercut shipped quantity and requires reason. No uniform warehouse scope guarantee is inferred. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "approval-required",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Confirmed settled order and reservation required. Allocate single_warehouse_preferred/manual with unique positive item/warehouse quantities. Start preparation requires full allocation. Pick delta cannot exceed allocation; unpick cannot undercut shipped quantity and requires reason. No uniform warehouse scope guarantee is inferred. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "audit-reference",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Confirmed settled order and reservation required. Allocate single_warehouse_preferred/manual with unique positive item/warehouse quantities. Start preparation requires full allocation. Pick delta cannot exceed allocation; unpick cannot undercut shipped quantity and requires reason. No uniform warehouse scope guarantee is inferred. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "authoritative-success",
+      "view": "success",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Confirmed settled order and reservation required. Allocate single_warehouse_preferred/manual with unique positive item/warehouse quantities. Start preparation requires full allocation. Pick delta cannot exceed allocation; unpick cannot undercut shipped quantity and requires reason. No uniform warehouse scope guarantee is inferred. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "blocked",
+      "view": "denied",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Confirmed settled order and reservation required. Allocate single_warehouse_preferred/manual with unique positive item/warehouse quantities. Start preparation requires full allocation. Pick delta cannot exceed allocation; unpick cannot undercut shipped quantity and requires reason. No uniform warehouse scope guarantee is inferred. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "blocked-by-lifecycle",
+      "view": "denied",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Confirmed settled order and reservation required. Allocate single_warehouse_preferred/manual with unique positive item/warehouse quantities. Start preparation requires full allocation. Pick delta cannot exceed allocation; unpick cannot undercut shipped quantity and requires reason. No uniform warehouse scope guarantee is inferred. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "cancelled",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Confirmed settled order and reservation required. Allocate single_warehouse_preferred/manual with unique positive item/warehouse quantities. Start preparation requires full allocation. Pick delta cannot exceed allocation; unpick cannot undercut shipped quantity and requires reason. No uniform warehouse scope guarantee is inferred. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "completed",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Confirmed settled order and reservation required. Allocate single_warehouse_preferred/manual with unique positive item/warehouse quantities. Start preparation requires full allocation. Pick delta cannot exceed allocation; unpick cannot undercut shipped quantity and requires reason. No uniform warehouse scope guarantee is inferred. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "confirmed",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Confirmed settled order and reservation required. Allocate single_warehouse_preferred/manual with unique positive item/warehouse quantities. Start preparation requires full allocation. Pick delta cannot exceed allocation; unpick cannot undercut shipped quantity and requires reason. No uniform warehouse scope guarantee is inferred. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "destructive-action-confirmation",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Confirmed settled order and reservation required. Allocate single_warehouse_preferred/manual with unique positive item/warehouse quantities. Start preparation requires full allocation. Pick delta cannot exceed allocation; unpick cannot undercut shipped quantity and requires reason. No uniform warehouse scope guarantee is inferred. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "disabled",
+      "view": "denied",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Confirmed settled order and reservation required. Allocate single_warehouse_preferred/manual with unique positive item/warehouse quantities. Start preparation requires full allocation. Pick delta cannot exceed allocation; unpick cannot undercut shipped quantity and requires reason. No uniform warehouse scope guarantee is inferred. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "empty-filtered",
+      "view": "empty",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Confirmed settled order and reservation required. Allocate single_warehouse_preferred/manual with unique positive item/warehouse quantities. Start preparation requires full allocation. Pick delta cannot exceed allocation; unpick cannot undercut shipped quantity and requires reason. No uniform warehouse scope guarantee is inferred. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "empty-first-use",
+      "view": "empty",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Confirmed settled order and reservation required. Allocate single_warehouse_preferred/manual with unique positive item/warehouse quantities. Start preparation requires full allocation. Pick delta cannot exceed allocation; unpick cannot undercut shipped quantity and requires reason. No uniform warehouse scope guarantee is inferred. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "handed-over",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Confirmed settled order and reservation required. Allocate single_warehouse_preferred/manual with unique positive item/warehouse quantities. Start preparation requires full allocation. Pick delta cannot exceed allocation; unpick cannot undercut shipped quantity and requires reason. No uniform warehouse scope guarantee is inferred. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "idempotent-replay",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Confirmed settled order and reservation required. Allocate single_warehouse_preferred/manual with unique positive item/warehouse quantities. Start preparation requires full allocation. Pick delta cannot exceed allocation; unpick cannot undercut shipped quantity and requires reason. No uniform warehouse scope guarantee is inferred. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "impact-changed",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Confirmed settled order and reservation required. Allocate single_warehouse_preferred/manual with unique positive item/warehouse quantities. Start preparation requires full allocation. Pick delta cannot exceed allocation; unpick cannot undercut shipped quantity and requires reason. No uniform warehouse scope guarantee is inferred. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "initial-loading",
+      "view": "loading",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Confirmed settled order and reservation required. Allocate single_warehouse_preferred/manual with unique positive item/warehouse quantities. Start preparation requires full allocation. Pick delta cannot exceed allocation; unpick cannot undercut shipped quantity and requires reason. No uniform warehouse scope guarantee is inferred. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "irreversible-outcome",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Confirmed settled order and reservation required. Allocate single_warehouse_preferred/manual with unique positive item/warehouse quantities. Start preparation requires full allocation. Pick delta cannot exceed allocation; unpick cannot undercut shipped quantity and requires reason. No uniform warehouse scope guarantee is inferred. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "manual-review",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Confirmed settled order and reservation required. Allocate single_warehouse_preferred/manual with unique positive item/warehouse quantities. Start preparation requires full allocation. Pick delta cannot exceed allocation; unpick cannot undercut shipped quantity and requires reason. No uniform warehouse scope guarantee is inferred. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "new",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Confirmed settled order and reservation required. Allocate single_warehouse_preferred/manual with unique positive item/warehouse quantities. Start preparation requires full allocation. Pick delta cannot exceed allocation; unpick cannot undercut shipped quantity and requires reason. No uniform warehouse scope guarantee is inferred. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "no-results",
+      "view": "empty",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Confirmed settled order and reservation required. Allocate single_warehouse_preferred/manual with unique positive item/warehouse quantities. Start preparation requires full allocation. Pick delta cannot exceed allocation; unpick cannot undercut shipped quantity and requires reason. No uniform warehouse scope guarantee is inferred. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "offline",
+      "view": "conflict",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Confirmed settled order and reservation required. Allocate single_warehouse_preferred/manual with unique positive item/warehouse quantities. Start preparation requires full allocation. Pick delta cannot exceed allocation; unpick cannot undercut shipped quantity and requires reason. No uniform warehouse scope guarantee is inferred. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "partial-success",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Confirmed settled order and reservation required. Allocate single_warehouse_preferred/manual with unique positive item/warehouse quantities. Start preparation requires full allocation. Pick delta cannot exceed allocation; unpick cannot undercut shipped quantity and requires reason. No uniform warehouse scope guarantee is inferred. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "payment-pending",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Confirmed settled order and reservation required. Allocate single_warehouse_preferred/manual with unique positive item/warehouse quantities. Start preparation requires full allocation. Pick delta cannot exceed allocation; unpick cannot undercut shipped quantity and requires reason. No uniform warehouse scope guarantee is inferred. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "permission-denied",
+      "view": "denied",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Confirmed settled order and reservation required. Allocate single_warehouse_preferred/manual with unique positive item/warehouse quantities. Start preparation requires full allocation. Pick delta cannot exceed allocation; unpick cannot undercut shipped quantity and requires reason. No uniform warehouse scope guarantee is inferred. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "picking",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Confirmed settled order and reservation required. Allocate single_warehouse_preferred/manual with unique positive item/warehouse quantities. Start preparation requires full allocation. Pick delta cannot exceed allocation; unpick cannot undercut shipped quantity and requires reason. No uniform warehouse scope guarantee is inferred. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "preview-expired",
+      "view": "denied",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Confirmed settled order and reservation required. Allocate single_warehouse_preferred/manual with unique positive item/warehouse quantities. Start preparation requires full allocation. Pick delta cannot exceed allocation; unpick cannot undercut shipped quantity and requires reason. No uniform warehouse scope guarantee is inferred. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "progressive-loading",
+      "view": "loading",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Confirmed settled order and reservation required. Allocate single_warehouse_preferred/manual with unique positive item/warehouse quantities. Start preparation requires full allocation. Pick delta cannot exceed allocation; unpick cannot undercut shipped quantity and requires reason. No uniform warehouse scope guarantee is inferred. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "provider-unavailable",
+      "view": "denied",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Confirmed settled order and reservation required. Allocate single_warehouse_preferred/manual with unique positive item/warehouse quantities. Start preparation requires full allocation. Pick delta cannot exceed allocation; unpick cannot undercut shipped quantity and requires reason. No uniform warehouse scope guarantee is inferred. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "read-only",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Confirmed settled order and reservation required. Allocate single_warehouse_preferred/manual with unique positive item/warehouse quantities. Start preparation requires full allocation. Pick delta cannot exceed allocation; unpick cannot undercut shipped quantity and requires reason. No uniform warehouse scope guarantee is inferred. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "ready",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Confirmed settled order and reservation required. Allocate single_warehouse_preferred/manual with unique positive item/warehouse quantities. Start preparation requires full allocation. Pick delta cannot exceed allocation; unpick cannot undercut shipped quantity and requires reason. No uniform warehouse scope guarantee is inferred. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "refresh-loading",
+      "view": "loading",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Confirmed settled order and reservation required. Allocate single_warehouse_preferred/manual with unique positive item/warehouse quantities. Start preparation requires full allocation. Pick delta cannot exceed allocation; unpick cannot undercut shipped quantity and requires reason. No uniform warehouse scope guarantee is inferred. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "safe-retry",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Confirmed settled order and reservation required. Allocate single_warehouse_preferred/manual with unique positive item/warehouse quantities. Start preparation requires full allocation. Pick delta cannot exceed allocation; unpick cannot undercut shipped quantity and requires reason. No uniform warehouse scope guarantee is inferred. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "scope-filtered",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Confirmed settled order and reservation required. Allocate single_warehouse_preferred/manual with unique positive item/warehouse quantities. Start preparation requires full allocation. Pick delta cannot exceed allocation; unpick cannot undercut shipped quantity and requires reason. No uniform warehouse scope guarantee is inferred. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "server-error",
+      "view": "denied",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Confirmed settled order and reservation required. Allocate single_warehouse_preferred/manual with unique positive item/warehouse quantities. Start preparation requires full allocation. Pick delta cannot exceed allocation; unpick cannot undercut shipped quantity and requires reason. No uniform warehouse scope guarantee is inferred. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "session-expired",
+      "view": "denied",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Confirmed settled order and reservation required. Allocate single_warehouse_preferred/manual with unique positive item/warehouse quantities. Start preparation requires full allocation. Pick delta cannot exceed allocation; unpick cannot undercut shipped quantity and requires reason. No uniform warehouse scope guarantee is inferred. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "stale-data",
+      "view": "conflict",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Confirmed settled order and reservation required. Allocate single_warehouse_preferred/manual with unique positive item/warehouse quantities. Start preparation requires full allocation. Pick delta cannot exceed allocation; unpick cannot undercut shipped quantity and requires reason. No uniform warehouse scope guarantee is inferred. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "status-check",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Confirmed settled order and reservation required. Allocate single_warehouse_preferred/manual with unique positive item/warehouse quantities. Start preparation requires full allocation. Pick delta cannot exceed allocation; unpick cannot undercut shipped quantity and requires reason. No uniform warehouse scope guarantee is inferred. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "step-up-required",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Confirmed settled order and reservation required. Allocate single_warehouse_preferred/manual with unique positive item/warehouse quantities. Start preparation requires full allocation. Pick delta cannot exceed allocation; unpick cannot undercut shipped quantity and requires reason. No uniform warehouse scope guarantee is inferred. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "submitting",
+      "view": "loading",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Confirmed settled order and reservation required. Allocate single_warehouse_preferred/manual with unique positive item/warehouse quantities. Start preparation requires full allocation. Pick delta cannot exceed allocation; unpick cannot undercut shipped quantity and requires reason. No uniform warehouse scope guarantee is inferred. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "terminal-success",
+      "view": "success",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Confirmed settled order and reservation required. Allocate single_warehouse_preferred/manual with unique positive item/warehouse quantities. Start preparation requires full allocation. Pick delta cannot exceed allocation; unpick cannot undercut shipped quantity and requires reason. No uniform warehouse scope guarantee is inferred. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "timeout",
+      "view": "conflict",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Confirmed settled order and reservation required. Allocate single_warehouse_preferred/manual with unique positive item/warehouse quantities. Start preparation requires full allocation. Pick delta cannot exceed allocation; unpick cannot undercut shipped quantity and requires reason. No uniform warehouse scope guarantee is inferred. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "unauthenticated",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Confirmed settled order and reservation required. Allocate single_warehouse_preferred/manual with unique positive item/warehouse quantities. Start preparation requires full allocation. Pick delta cannot exceed allocation; unpick cannot undercut shipped quantity and requires reason. No uniform warehouse scope guarantee is inferred. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "unknown-result",
+      "view": "conflict",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Confirmed settled order and reservation required. Allocate single_warehouse_preferred/manual with unique positive item/warehouse quantities. Start preparation requires full allocation. Pick delta cannot exceed allocation; unpick cannot undercut shipped quantity and requires reason. No uniform warehouse scope guarantee is inferred. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "validation-error",
+      "view": "denied",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Confirmed settled order and reservation required. Allocate single_warehouse_preferred/manual with unique positive item/warehouse quantities. Start preparation requires full allocation. Pick delta cannot exceed allocation; unpick cannot undercut shipped quantity and requires reason. No uniform warehouse scope guarantee is inferred. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "version-conflict",
+      "view": "conflict",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Confirmed settled order and reservation required. Allocate single_warehouse_preferred/manual with unique positive item/warehouse quantities. Start preparation requires full allocation. Pick delta cannot exceed allocation; unpick cannot undercut shipped quantity and requires reason. No uniform warehouse scope guarantee is inferred. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    }
+  ],
+  "frames": [
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-04/AD-E-04--320--overview--v1.svg",
+      "view": "overview",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-04/AD-E-04--360--overview--v1.svg",
+      "view": "overview",
+      "width": 360
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-04/AD-E-04--600--overview--v1.svg",
+      "view": "overview",
+      "width": 600
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-04/AD-E-04--840--overview--v1.svg",
+      "view": "overview",
+      "width": 840
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-04/AD-E-04--1200--overview--v1.svg",
+      "view": "overview",
+      "width": 1200
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-04/AD-E-04--1440--overview--v1.svg",
+      "view": "overview",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-04/AD-E-04--320--op-01--v1.svg",
+      "view": "op-01",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-04/AD-E-04--1440--op-01--v1.svg",
+      "view": "op-01",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-04/AD-E-04--320--op-02--v1.svg",
+      "view": "op-02",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-04/AD-E-04--1440--op-02--v1.svg",
+      "view": "op-02",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-04/AD-E-04--320--op-03-confirm--v1.svg",
+      "view": "op-03-confirm",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-04/AD-E-04--1440--op-03-confirm--v1.svg",
+      "view": "op-03-confirm",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-04/AD-E-04--320--op-03--v1.svg",
+      "view": "op-03",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-04/AD-E-04--1440--op-03--v1.svg",
+      "view": "op-03",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-04/AD-E-04--320--op-04-confirm--v1.svg",
+      "view": "op-04-confirm",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-04/AD-E-04--1440--op-04-confirm--v1.svg",
+      "view": "op-04-confirm",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-04/AD-E-04--320--op-04--v1.svg",
+      "view": "op-04",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-04/AD-E-04--1440--op-04--v1.svg",
+      "view": "op-04",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-04/AD-E-04--320--op-05-confirm--v1.svg",
+      "view": "op-05-confirm",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-04/AD-E-04--1440--op-05-confirm--v1.svg",
+      "view": "op-05-confirm",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-04/AD-E-04--320--op-05--v1.svg",
+      "view": "op-05",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-04/AD-E-04--1440--op-05--v1.svg",
+      "view": "op-05",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-04/AD-E-04--320--op-06-confirm--v1.svg",
+      "view": "op-06-confirm",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-04/AD-E-04--1440--op-06-confirm--v1.svg",
+      "view": "op-06-confirm",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-04/AD-E-04--320--op-06--v1.svg",
+      "view": "op-06",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-04/AD-E-04--1440--op-06--v1.svg",
+      "view": "op-06",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-04/AD-E-04--320--conflict--v1.svg",
+      "view": "conflict",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-04/AD-E-04--1440--conflict--v1.svg",
+      "view": "conflict",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-04/AD-E-04--320--denied--v1.svg",
+      "view": "denied",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-04/AD-E-04--1440--denied--v1.svg",
+      "view": "denied",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-04/AD-E-04--320--loading--v1.svg",
+      "view": "loading",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-04/AD-E-04--1440--loading--v1.svg",
+      "view": "loading",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-04/AD-E-04--320--empty--v1.svg",
+      "view": "empty",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-04/AD-E-04--1440--empty--v1.svg",
+      "view": "empty",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-04/AD-E-04--320--success--v1.svg",
+      "view": "success",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-04/AD-E-04--1440--success--v1.svg",
+      "view": "success",
+      "width": 1440
+    }
+  ]
+}

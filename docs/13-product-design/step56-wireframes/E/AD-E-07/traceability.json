@@ -1,0 +1,690 @@
+{
+  "id": "AD-E-07",
+  "task": "AT-E-07",
+  "journeys": [
+    "AJ-06"
+  ],
+  "actors": [
+    "approver",
+    "staff"
+  ],
+  "domains": [
+    "returns"
+  ],
+  "operations": [
+    "GET /admin/returns",
+    "GET /admin/returns/{id}",
+    "GET /admin/returns/{id}/timeline",
+    "POST /admin/returns/{id}/approve",
+    "POST /admin/returns/{id}/receive",
+    "POST /admin/returns/{id}/reject",
+    "POST /admin/returns/{id}/resolve",
+    "POST /admin/returns/{id}/start-inspection",
+    "POST /admin/returns/{id}/start-review"
+  ],
+  "operationViews": [
+    {
+      "operation": "GET /admin/returns",
+      "view": "op-01",
+      "permissionClaims": {
+        "runtime": [
+          "returns.view"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "stepUp": false,
+      "idempotencyScope": null,
+      "versionRequired": false,
+      "recovery": "READ_OR_MANUAL_NO_RETRY",
+      "executionEnabled": true,
+      "fields": []
+    },
+    {
+      "operation": "GET /admin/returns/{id}",
+      "view": "op-02",
+      "permissionClaims": {
+        "runtime": [
+          "returns.view"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "stepUp": false,
+      "idempotencyScope": null,
+      "versionRequired": false,
+      "recovery": "READ_OR_MANUAL_NO_RETRY",
+      "executionEnabled": true,
+      "fields": []
+    },
+    {
+      "operation": "GET /admin/returns/{id}/timeline",
+      "view": "op-03",
+      "permissionClaims": {
+        "runtime": [
+          "returns.view"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "stepUp": false,
+      "idempotencyScope": null,
+      "versionRequired": false,
+      "recovery": "READ_OR_MANUAL_NO_RETRY",
+      "executionEnabled": true,
+      "fields": []
+    },
+    {
+      "operation": "POST /admin/returns/{id}/approve",
+      "view": "op-04",
+      "permissionClaims": {
+        "runtime": [
+          "returns.review"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "stepUp": false,
+      "idempotencyScope": "return.admin.approve",
+      "versionRequired": false,
+      "recovery": "EXPLICIT_SAME_KEY_SAME_PAYLOAD_AFTER_STATUS_CHECK",
+      "executionEnabled": true,
+      "fields": [
+        "توضیح اختیاری — حداکثر ۲۰۰۰ نویسه"
+      ],
+      "confirmationView": "op-04-confirm",
+      "confirmation": "SAFE_CANCEL_FIRST",
+      "resultView": "success",
+      "guard": "فقط در حال بررسی؛ وضعیت به تأییدشده می‌رود."
+    },
+    {
+      "operation": "POST /admin/returns/{id}/receive",
+      "view": "op-05",
+      "permissionClaims": {
+        "runtime": [
+          "returns.receive"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "stepUp": false,
+      "idempotencyScope": "return.admin.receive",
+      "versionRequired": false,
+      "recovery": "EXPLICIT_SAME_KEY_SAME_PAYLOAD_AFTER_STATUS_CHECK",
+      "executionEnabled": true,
+      "fields": [
+        "زمان دریافت — اختیاری",
+        "شناسهٔ قلم مرجوعی و تعداد دریافتی — تمام اقلام",
+        "یادداشت اختیاری"
+      ],
+      "confirmationView": "op-05-confirm",
+      "confirmation": "SAFE_CANCEL_FIRST",
+      "resultView": "success",
+      "guard": "فقط تأییدشده یا در مسیر بازگشت؛ پس از دریافت، همهٔ اقلام باید مقدار مثبت داشته باشند. زمان بیش از پنج دقیقه آینده مجاز نیست."
+    },
+    {
+      "operation": "POST /admin/returns/{id}/reject",
+      "view": "op-06",
+      "permissionClaims": {
+        "runtime": [
+          "returns.review"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "stepUp": false,
+      "idempotencyScope": "return.admin.reject",
+      "versionRequired": false,
+      "recovery": "EXPLICIT_SAME_KEY_SAME_PAYLOAD_AFTER_STATUS_CHECK",
+      "executionEnabled": true,
+      "fields": [
+        "دلیل رد — الزامی، حداکثر ۲۰۰۰ نویسه"
+      ],
+      "confirmationView": "op-06-confirm",
+      "confirmation": "SAFE_CANCEL_FIRST",
+      "resultView": "success",
+      "guard": "فقط در حال بررسی؛ دلیل رد الزامی است."
+    },
+    {
+      "operation": "POST /admin/returns/{id}/resolve",
+      "view": "op-07",
+      "permissionClaims": {
+        "runtime": [
+          "returns.resolve"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "stepUp": true,
+      "idempotencyScope": "return.admin.resolve",
+      "versionRequired": false,
+      "recovery": "EXPLICIT_SAME_KEY_SAME_PAYLOAD_AFTER_STATUS_CHECK",
+      "executionEnabled": true,
+      "fields": [
+        "یادداشت نتیجه — الزامی، حداکثر ۴۰۰۰ نویسه",
+        "شناسهٔ هر قلم — دقیقاً یک‌بار",
+        "نتیجهٔ قلم: بازپرداخت، جایگزینی، تعمیر یا بدون اقدام",
+        "تعیین وضعیت کالا — مستقل از نتیجهٔ مشتری",
+        "انبار — برای وضعیت‌های موجودی",
+        "مبلغ تومان صحیح مثبت — فقط برای بازپرداخت"
+      ],
+      "confirmationView": "op-07-confirm",
+      "confirmation": "SAFE_CANCEL_FIRST",
+      "resultView": "success",
+      "guard": "فقط در حال بازرسی؛ همهٔ اقلام دقیقاً یک‌بار. وضعیت کالا: قابل‌فروش، قرنطینه، آسیب‌دیده، تعمیر، جایگزینی، بازپرداخت یا بدون اقدام. سه وضعیت موجودی انبار می‌خواهند."
+    },
+    {
+      "operation": "POST /admin/returns/{id}/start-inspection",
+      "view": "op-08",
+      "permissionClaims": {
+        "runtime": [
+          "returns.inspect"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "stepUp": false,
+      "idempotencyScope": "return.admin.start_inspection",
+      "versionRequired": false,
+      "recovery": "EXPLICIT_SAME_KEY_SAME_PAYLOAD_AFTER_STATUS_CHECK",
+      "executionEnabled": true,
+      "fields": [
+        "توضیح اختیاری — حداکثر ۲۰۰۰ نویسه"
+      ],
+      "confirmationView": "op-08-confirm",
+      "confirmation": "SAFE_CANCEL_FIRST",
+      "resultView": "success",
+      "guard": "فقط دریافت‌شده؛ وضعیت به در حال بازرسی می‌رود."
+    },
+    {
+      "operation": "POST /admin/returns/{id}/start-review",
+      "view": "op-09",
+      "permissionClaims": {
+        "runtime": [
+          "returns.review"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "stepUp": false,
+      "idempotencyScope": "return.admin.start_review",
+      "versionRequired": false,
+      "recovery": "EXPLICIT_SAME_KEY_SAME_PAYLOAD_AFTER_STATUS_CHECK",
+      "executionEnabled": true,
+      "fields": [
+        "توضیح اختیاری — حداکثر ۲۰۰۰ نویسه"
+      ],
+      "confirmationView": "op-09-confirm",
+      "confirmation": "SAFE_CANCEL_FIRST",
+      "resultView": "success",
+      "guard": "فقط درخواست ثبت‌شده؛ وضعیت به در حال بررسی می‌رود."
+    }
+  ],
+  "blockedOperations": [],
+  "facets": [
+    "entry-and-context",
+    "permission-aware-read-or-explicit-unavailable",
+    "detail-and-history-or-no-read-explanation",
+    "allowed-action-review-or-read-only",
+    "authoritative-outcome-and-recovery"
+  ],
+  "states": [
+    {
+      "id": "approval-required",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved; receive approved/in_transit_to_store requires all items positive after receipt; inspect received; resolve inspecting only with exact unique item coverage and resolution_note. Refund positive integer amount capped by delivered line value, non-refund amount forbidden; stock dispositions require warehouse. Reject needs reason. Resolve requires Step-Up. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "approved",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved; receive approved/in_transit_to_store requires all items positive after receipt; inspect received; resolve inspecting only with exact unique item coverage and resolution_note. Refund positive integer amount capped by delivered line value, non-refund amount forbidden; stock dispositions require warehouse. Reject needs reason. Resolve requires Step-Up. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "audit-reference",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved; receive approved/in_transit_to_store requires all items positive after receipt; inspect received; resolve inspecting only with exact unique item coverage and resolution_note. Refund positive integer amount capped by delivered line value, non-refund amount forbidden; stock dispositions require warehouse. Reject needs reason. Resolve requires Step-Up. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "authoritative-success",
+      "view": "success",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved; receive approved/in_transit_to_store requires all items positive after receipt; inspect received; resolve inspecting only with exact unique item coverage and resolution_note. Refund positive integer amount capped by delivered line value, non-refund amount forbidden; stock dispositions require warehouse. Reject needs reason. Resolve requires Step-Up. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "blocked-by-lifecycle",
+      "view": "denied",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved; receive approved/in_transit_to_store requires all items positive after receipt; inspect received; resolve inspecting only with exact unique item coverage and resolution_note. Refund positive integer amount capped by delivered line value, non-refund amount forbidden; stock dispositions require warehouse. Reject needs reason. Resolve requires Step-Up. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "cancelled",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved; receive approved/in_transit_to_store requires all items positive after receipt; inspect received; resolve inspecting only with exact unique item coverage and resolution_note. Refund positive integer amount capped by delivered line value, non-refund amount forbidden; stock dispositions require warehouse. Reject needs reason. Resolve requires Step-Up. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "closed",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved; receive approved/in_transit_to_store requires all items positive after receipt; inspect received; resolve inspecting only with exact unique item coverage and resolution_note. Refund positive integer amount capped by delivered line value, non-refund amount forbidden; stock dispositions require warehouse. Reject needs reason. Resolve requires Step-Up. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "destructive-action-confirmation",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved; receive approved/in_transit_to_store requires all items positive after receipt; inspect received; resolve inspecting only with exact unique item coverage and resolution_note. Refund positive integer amount capped by delivered line value, non-refund amount forbidden; stock dispositions require warehouse. Reject needs reason. Resolve requires Step-Up. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "disabled",
+      "view": "denied",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved; receive approved/in_transit_to_store requires all items positive after receipt; inspect received; resolve inspecting only with exact unique item coverage and resolution_note. Refund positive integer amount capped by delivered line value, non-refund amount forbidden; stock dispositions require warehouse. Reject needs reason. Resolve requires Step-Up. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "empty-filtered",
+      "view": "empty",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved; receive approved/in_transit_to_store requires all items positive after receipt; inspect received; resolve inspecting only with exact unique item coverage and resolution_note. Refund positive integer amount capped by delivered line value, non-refund amount forbidden; stock dispositions require warehouse. Reject needs reason. Resolve requires Step-Up. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "empty-first-use",
+      "view": "empty",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved; receive approved/in_transit_to_store requires all items positive after receipt; inspect received; resolve inspecting only with exact unique item coverage and resolution_note. Refund positive integer amount capped by delivered line value, non-refund amount forbidden; stock dispositions require warehouse. Reject needs reason. Resolve requires Step-Up. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "idempotent-replay",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved; receive approved/in_transit_to_store requires all items positive after receipt; inspect received; resolve inspecting only with exact unique item coverage and resolution_note. Refund positive integer amount capped by delivered line value, non-refund amount forbidden; stock dispositions require warehouse. Reject needs reason. Resolve requires Step-Up. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "impact-changed",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved; receive approved/in_transit_to_store requires all items positive after receipt; inspect received; resolve inspecting only with exact unique item coverage and resolution_note. Refund positive integer amount capped by delivered line value, non-refund amount forbidden; stock dispositions require warehouse. Reject needs reason. Resolve requires Step-Up. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "initial-loading",
+      "view": "loading",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved; receive approved/in_transit_to_store requires all items positive after receipt; inspect received; resolve inspecting only with exact unique item coverage and resolution_note. Refund positive integer amount capped by delivered line value, non-refund amount forbidden; stock dispositions require warehouse. Reject needs reason. Resolve requires Step-Up. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "inspection-or-repair",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved; receive approved/in_transit_to_store requires all items positive after receipt; inspect received; resolve inspecting only with exact unique item coverage and resolution_note. Refund positive integer amount capped by delivered line value, non-refund amount forbidden; stock dispositions require warehouse. Reject needs reason. Resolve requires Step-Up. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "irreversible-outcome",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved; receive approved/in_transit_to_store requires all items positive after receipt; inspect received; resolve inspecting only with exact unique item coverage and resolution_note. Refund positive integer amount capped by delivered line value, non-refund amount forbidden; stock dispositions require warehouse. Reject needs reason. Resolve requires Step-Up. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "manual-review",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved; receive approved/in_transit_to_store requires all items positive after receipt; inspect received; resolve inspecting only with exact unique item coverage and resolution_note. Refund positive integer amount capped by delivered line value, non-refund amount forbidden; stock dispositions require warehouse. Reject needs reason. Resolve requires Step-Up. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "no-results",
+      "view": "empty",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved; receive approved/in_transit_to_store requires all items positive after receipt; inspect received; resolve inspecting only with exact unique item coverage and resolution_note. Refund positive integer amount capped by delivered line value, non-refund amount forbidden; stock dispositions require warehouse. Reject needs reason. Resolve requires Step-Up. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "offline",
+      "view": "conflict",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved; receive approved/in_transit_to_store requires all items positive after receipt; inspect received; resolve inspecting only with exact unique item coverage and resolution_note. Refund positive integer amount capped by delivered line value, non-refund amount forbidden; stock dispositions require warehouse. Reject needs reason. Resolve requires Step-Up. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "partial-success",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved; receive approved/in_transit_to_store requires all items positive after receipt; inspect received; resolve inspecting only with exact unique item coverage and resolution_note. Refund positive integer amount capped by delivered line value, non-refund amount forbidden; stock dispositions require warehouse. Reject needs reason. Resolve requires Step-Up. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "permission-denied",
+      "view": "denied",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved; receive approved/in_transit_to_store requires all items positive after receipt; inspect received; resolve inspecting only with exact unique item coverage and resolution_note. Refund positive integer amount capped by delivered line value, non-refund amount forbidden; stock dispositions require warehouse. Reject needs reason. Resolve requires Step-Up. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "preview-expired",
+      "view": "denied",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved; receive approved/in_transit_to_store requires all items positive after receipt; inspect received; resolve inspecting only with exact unique item coverage and resolution_note. Refund positive integer amount capped by delivered line value, non-refund amount forbidden; stock dispositions require warehouse. Reject needs reason. Resolve requires Step-Up. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "progressive-loading",
+      "view": "loading",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved; receive approved/in_transit_to_store requires all items positive after receipt; inspect received; resolve inspecting only with exact unique item coverage and resolution_note. Refund positive integer amount capped by delivered line value, non-refund amount forbidden; stock dispositions require warehouse. Reject needs reason. Resolve requires Step-Up. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "provider-unavailable",
+      "view": "denied",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved; receive approved/in_transit_to_store requires all items positive after receipt; inspect received; resolve inspecting only with exact unique item coverage and resolution_note. Refund positive integer amount capped by delivered line value, non-refund amount forbidden; stock dispositions require warehouse. Reject needs reason. Resolve requires Step-Up. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "read-only",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved; receive approved/in_transit_to_store requires all items positive after receipt; inspect received; resolve inspecting only with exact unique item coverage and resolution_note. Refund positive integer amount capped by delivered line value, non-refund amount forbidden; stock dispositions require warehouse. Reject needs reason. Resolve requires Step-Up. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "received",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved; receive approved/in_transit_to_store requires all items positive after receipt; inspect received; resolve inspecting only with exact unique item coverage and resolution_note. Refund positive integer amount capped by delivered line value, non-refund amount forbidden; stock dispositions require warehouse. Reject needs reason. Resolve requires Step-Up. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "refresh-loading",
+      "view": "loading",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved; receive approved/in_transit_to_store requires all items positive after receipt; inspect received; resolve inspecting only with exact unique item coverage and resolution_note. Refund positive integer amount capped by delivered line value, non-refund amount forbidden; stock dispositions require warehouse. Reject needs reason. Resolve requires Step-Up. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "rejected",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved; receive approved/in_transit_to_store requires all items positive after receipt; inspect received; resolve inspecting only with exact unique item coverage and resolution_note. Refund positive integer amount capped by delivered line value, non-refund amount forbidden; stock dispositions require warehouse. Reject needs reason. Resolve requires Step-Up. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "requested",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved; receive approved/in_transit_to_store requires all items positive after receipt; inspect received; resolve inspecting only with exact unique item coverage and resolution_note. Refund positive integer amount capped by delivered line value, non-refund amount forbidden; stock dispositions require warehouse. Reject needs reason. Resolve requires Step-Up. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "resolved",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved; receive approved/in_transit_to_store requires all items positive after receipt; inspect received; resolve inspecting only with exact unique item coverage and resolution_note. Refund positive integer amount capped by delivered line value, non-refund amount forbidden; stock dispositions require warehouse. Reject needs reason. Resolve requires Step-Up. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "safe-retry",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved; receive approved/in_transit_to_store requires all items positive after receipt; inspect received; resolve inspecting only with exact unique item coverage and resolution_note. Refund positive integer amount capped by delivered line value, non-refund amount forbidden; stock dispositions require warehouse. Reject needs reason. Resolve requires Step-Up. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "scope-filtered",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved; receive approved/in_transit_to_store requires all items positive after receipt; inspect received; resolve inspecting only with exact unique item coverage and resolution_note. Refund positive integer amount capped by delivered line value, non-refund amount forbidden; stock dispositions require warehouse. Reject needs reason. Resolve requires Step-Up. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "server-error",
+      "view": "denied",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved; receive approved/in_transit_to_store requires all items positive after receipt; inspect received; resolve inspecting only with exact unique item coverage and resolution_note. Refund positive integer amount capped by delivered line value, non-refund amount forbidden; stock dispositions require warehouse. Reject needs reason. Resolve requires Step-Up. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "session-expired",
+      "view": "denied",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved; receive approved/in_transit_to_store requires all items positive after receipt; inspect received; resolve inspecting only with exact unique item coverage and resolution_note. Refund positive integer amount capped by delivered line value, non-refund amount forbidden; stock dispositions require warehouse. Reject needs reason. Resolve requires Step-Up. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "stale-data",
+      "view": "conflict",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved; receive approved/in_transit_to_store requires all items positive after receipt; inspect received; resolve inspecting only with exact unique item coverage and resolution_note. Refund positive integer amount capped by delivered line value, non-refund amount forbidden; stock dispositions require warehouse. Reject needs reason. Resolve requires Step-Up. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "status-check",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved; receive approved/in_transit_to_store requires all items positive after receipt; inspect received; resolve inspecting only with exact unique item coverage and resolution_note. Refund positive integer amount capped by delivered line value, non-refund amount forbidden; stock dispositions require warehouse. Reject needs reason. Resolve requires Step-Up. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "step-up-required",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved; receive approved/in_transit_to_store requires all items positive after receipt; inspect received; resolve inspecting only with exact unique item coverage and resolution_note. Refund positive integer amount capped by delivered line value, non-refund amount forbidden; stock dispositions require warehouse. Reject needs reason. Resolve requires Step-Up. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "submitting",
+      "view": "loading",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved; receive approved/in_transit_to_store requires all items positive after receipt; inspect received; resolve inspecting only with exact unique item coverage and resolution_note. Refund positive integer amount capped by delivered line value, non-refund amount forbidden; stock dispositions require warehouse. Reject needs reason. Resolve requires Step-Up. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "terminal-success",
+      "view": "success",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved; receive approved/in_transit_to_store requires all items positive after receipt; inspect received; resolve inspecting only with exact unique item coverage and resolution_note. Refund positive integer amount capped by delivered line value, non-refund amount forbidden; stock dispositions require warehouse. Reject needs reason. Resolve requires Step-Up. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "timeout",
+      "view": "conflict",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved; receive approved/in_transit_to_store requires all items positive after receipt; inspect received; resolve inspecting only with exact unique item coverage and resolution_note. Refund positive integer amount capped by delivered line value, non-refund amount forbidden; stock dispositions require warehouse. Reject needs reason. Resolve requires Step-Up. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "unauthenticated",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved; receive approved/in_transit_to_store requires all items positive after receipt; inspect received; resolve inspecting only with exact unique item coverage and resolution_note. Refund positive integer amount capped by delivered line value, non-refund amount forbidden; stock dispositions require warehouse. Reject needs reason. Resolve requires Step-Up. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "under-review",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved; receive approved/in_transit_to_store requires all items positive after receipt; inspect received; resolve inspecting only with exact unique item coverage and resolution_note. Refund positive integer amount capped by delivered line value, non-refund amount forbidden; stock dispositions require warehouse. Reject needs reason. Resolve requires Step-Up. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "unknown-result",
+      "view": "conflict",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved; receive approved/in_transit_to_store requires all items positive after receipt; inspect received; resolve inspecting only with exact unique item coverage and resolution_note. Refund positive integer amount capped by delivered line value, non-refund amount forbidden; stock dispositions require warehouse. Reject needs reason. Resolve requires Step-Up. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "validation-error",
+      "view": "denied",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved; receive approved/in_transit_to_store requires all items positive after receipt; inspect received; resolve inspecting only with exact unique item coverage and resolution_note. Refund positive integer amount capped by delivered line value, non-refund amount forbidden; stock dispositions require warehouse. Reject needs reason. Resolve requires Step-Up. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "version-conflict",
+      "view": "conflict",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved; receive approved/in_transit_to_store requires all items positive after receipt; inspect received; resolve inspecting only with exact unique item coverage and resolution_note. Refund positive integer amount capped by delivered line value, non-refund amount forbidden; stock dispositions require warehouse. Reject needs reason. Resolve requires Step-Up. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    }
+  ],
+  "frames": [
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-07/AD-E-07--320--overview--v1.svg",
+      "view": "overview",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-07/AD-E-07--360--overview--v1.svg",
+      "view": "overview",
+      "width": 360
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-07/AD-E-07--600--overview--v1.svg",
+      "view": "overview",
+      "width": 600
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-07/AD-E-07--840--overview--v1.svg",
+      "view": "overview",
+      "width": 840
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-07/AD-E-07--1200--overview--v1.svg",
+      "view": "overview",
+      "width": 1200
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-07/AD-E-07--1440--overview--v1.svg",
+      "view": "overview",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-07/AD-E-07--320--op-01--v1.svg",
+      "view": "op-01",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-07/AD-E-07--1440--op-01--v1.svg",
+      "view": "op-01",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-07/AD-E-07--320--op-02--v1.svg",
+      "view": "op-02",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-07/AD-E-07--1440--op-02--v1.svg",
+      "view": "op-02",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-07/AD-E-07--320--op-03--v1.svg",
+      "view": "op-03",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-07/AD-E-07--1440--op-03--v1.svg",
+      "view": "op-03",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-07/AD-E-07--320--op-04-confirm--v1.svg",
+      "view": "op-04-confirm",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-07/AD-E-07--1440--op-04-confirm--v1.svg",
+      "view": "op-04-confirm",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-07/AD-E-07--320--op-04--v1.svg",
+      "view": "op-04",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-07/AD-E-07--1440--op-04--v1.svg",
+      "view": "op-04",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-07/AD-E-07--320--op-05-confirm--v1.svg",
+      "view": "op-05-confirm",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-07/AD-E-07--1440--op-05-confirm--v1.svg",
+      "view": "op-05-confirm",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-07/AD-E-07--320--op-05--v1.svg",
+      "view": "op-05",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-07/AD-E-07--1440--op-05--v1.svg",
+      "view": "op-05",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-07/AD-E-07--320--op-06-confirm--v1.svg",
+      "view": "op-06-confirm",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-07/AD-E-07--1440--op-06-confirm--v1.svg",
+      "view": "op-06-confirm",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-07/AD-E-07--320--op-06--v1.svg",
+      "view": "op-06",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-07/AD-E-07--1440--op-06--v1.svg",
+      "view": "op-06",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-07/AD-E-07--320--op-07-confirm--v1.svg",
+      "view": "op-07-confirm",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-07/AD-E-07--1440--op-07-confirm--v1.svg",
+      "view": "op-07-confirm",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-07/AD-E-07--320--op-07--v1.svg",
+      "view": "op-07",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-07/AD-E-07--1440--op-07--v1.svg",
+      "view": "op-07",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-07/AD-E-07--320--op-08-confirm--v1.svg",
+      "view": "op-08-confirm",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-07/AD-E-07--1440--op-08-confirm--v1.svg",
+      "view": "op-08-confirm",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-07/AD-E-07--320--op-08--v1.svg",
+      "view": "op-08",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-07/AD-E-07--1440--op-08--v1.svg",
+      "view": "op-08",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-07/AD-E-07--320--op-09-confirm--v1.svg",
+      "view": "op-09-confirm",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-07/AD-E-07--1440--op-09-confirm--v1.svg",
+      "view": "op-09-confirm",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-07/AD-E-07--320--op-09--v1.svg",
+      "view": "op-09",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-07/AD-E-07--1440--op-09--v1.svg",
+      "view": "op-09",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-07/AD-E-07--320--conflict--v1.svg",
+      "view": "conflict",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-07/AD-E-07--1440--conflict--v1.svg",
+      "view": "conflict",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-07/AD-E-07--320--denied--v1.svg",
+      "view": "denied",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-07/AD-E-07--1440--denied--v1.svg",
+      "view": "denied",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-07/AD-E-07--320--loading--v1.svg",
+      "view": "loading",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-07/AD-E-07--1440--loading--v1.svg",
+      "view": "loading",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-07/AD-E-07--320--empty--v1.svg",
+      "view": "empty",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-07/AD-E-07--1440--empty--v1.svg",
+      "view": "empty",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-07/AD-E-07--320--success--v1.svg",
+      "view": "success",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-07/AD-E-07--1440--success--v1.svg",
+      "view": "success",
+      "width": 1440
+    }
+  ]
+}

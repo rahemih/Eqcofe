@@ -1,0 +1,731 @@
+{
+  "id": "AD-E-08",
+  "task": "AT-E-08",
+  "journeys": [
+    "AJ-06"
+  ],
+  "actors": [
+    "approver",
+    "staff"
+  ],
+  "domains": [
+    "warranty"
+  ],
+  "operations": [
+    "GET /admin/warranty/claims",
+    "GET /admin/warranty/claims/{id}",
+    "GET /admin/warranty/claims/{id}/timeline",
+    "POST /admin/warranty/claims/{id}/approve",
+    "POST /admin/warranty/claims/{id}/close",
+    "POST /admin/warranty/claims/{id}/receive",
+    "POST /admin/warranty/claims/{id}/reject",
+    "POST /admin/warranty/claims/{id}/resolve",
+    "POST /admin/warranty/claims/{id}/start-repair",
+    "POST /admin/warranty/claims/{id}/start-review"
+  ],
+  "operationViews": [
+    {
+      "operation": "GET /admin/warranty/claims",
+      "view": "op-01",
+      "permissionClaims": {
+        "runtime": [
+          "warranty.view"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "stepUp": false,
+      "idempotencyScope": null,
+      "versionRequired": false,
+      "recovery": "READ_OR_MANUAL_NO_RETRY",
+      "executionEnabled": true,
+      "fields": []
+    },
+    {
+      "operation": "GET /admin/warranty/claims/{id}",
+      "view": "op-02",
+      "permissionClaims": {
+        "runtime": [
+          "warranty.view"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "stepUp": false,
+      "idempotencyScope": null,
+      "versionRequired": false,
+      "recovery": "READ_OR_MANUAL_NO_RETRY",
+      "executionEnabled": true,
+      "fields": []
+    },
+    {
+      "operation": "GET /admin/warranty/claims/{id}/timeline",
+      "view": "op-03",
+      "permissionClaims": {
+        "runtime": [
+          "warranty.view"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "stepUp": false,
+      "idempotencyScope": null,
+      "versionRequired": false,
+      "recovery": "READ_OR_MANUAL_NO_RETRY",
+      "executionEnabled": true,
+      "fields": []
+    },
+    {
+      "operation": "POST /admin/warranty/claims/{id}/approve",
+      "view": "op-04",
+      "permissionClaims": {
+        "runtime": [
+          "warranty.review"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "stepUp": false,
+      "idempotencyScope": "warranty.admin.approve",
+      "versionRequired": false,
+      "recovery": "EXPLICIT_SAME_KEY_SAME_PAYLOAD_AFTER_STATUS_CHECK",
+      "executionEnabled": true,
+      "fields": [
+        "توضیح اختیاری — حداکثر ۲۰۰۰ نویسه"
+      ],
+      "confirmationView": "op-04-confirm",
+      "confirmation": "SAFE_CANCEL_FIRST",
+      "resultView": "success",
+      "guard": "فقط در حال بررسی؛ وضعیت به تأییدشده می‌رود."
+    },
+    {
+      "operation": "POST /admin/warranty/claims/{id}/close",
+      "view": "op-05",
+      "permissionClaims": {
+        "runtime": [
+          "warranty.resolve"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "stepUp": true,
+      "idempotencyScope": "warranty.admin.close",
+      "versionRequired": false,
+      "recovery": "EXPLICIT_SAME_KEY_SAME_PAYLOAD_AFTER_STATUS_CHECK",
+      "executionEnabled": true,
+      "fields": [
+        "یادداشت نتیجه — الزامی، حداکثر ۴۰۰۰ نویسه"
+      ],
+      "confirmationView": "op-05-confirm",
+      "confirmation": "SAFE_CANCEL_FIRST",
+      "resultView": "success",
+      "guard": "فقط حل‌شده؛ یادداشت نتیجه الزامی است. بستن پرونده به معنی پرداخت بازپرداخت نیست."
+    },
+    {
+      "operation": "POST /admin/warranty/claims/{id}/receive",
+      "view": "op-06",
+      "permissionClaims": {
+        "runtime": [
+          "warranty.receive"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "stepUp": false,
+      "idempotencyScope": "warranty.admin.receive",
+      "versionRequired": false,
+      "recovery": "EXPLICIT_SAME_KEY_SAME_PAYLOAD_AFTER_STATUS_CHECK",
+      "executionEnabled": true,
+      "fields": [
+        "زمان دریافت — اختیاری",
+        "شرح وضعیت کالا — اختیاری، حداکثر ۴۰۰۰ نویسه"
+      ],
+      "confirmationView": "op-06-confirm",
+      "confirmation": "SAFE_CANCEL_FIRST",
+      "resultView": "success",
+      "guard": "فقط تأییدشده؛ زمان دریافت بیش از پنج دقیقه آینده مجاز نیست."
+    },
+    {
+      "operation": "POST /admin/warranty/claims/{id}/reject",
+      "view": "op-07",
+      "permissionClaims": {
+        "runtime": [
+          "warranty.review"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "stepUp": false,
+      "idempotencyScope": "warranty.admin.reject",
+      "versionRequired": false,
+      "recovery": "EXPLICIT_SAME_KEY_SAME_PAYLOAD_AFTER_STATUS_CHECK",
+      "executionEnabled": true,
+      "fields": [
+        "دلیل رد — الزامی، حداکثر ۲۰۰۰ نویسه"
+      ],
+      "confirmationView": "op-07-confirm",
+      "confirmation": "SAFE_CANCEL_FIRST",
+      "resultView": "success",
+      "guard": "فقط در حال بررسی؛ دلیل رد الزامی است."
+    },
+    {
+      "operation": "POST /admin/warranty/claims/{id}/resolve",
+      "view": "op-08",
+      "permissionClaims": {
+        "runtime": [
+          "warranty.resolve"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "stepUp": true,
+      "idempotencyScope": "warranty.admin.resolve",
+      "versionRequired": false,
+      "recovery": "EXPLICIT_SAME_KEY_SAME_PAYLOAD_AFTER_STATUS_CHECK",
+      "executionEnabled": true,
+      "fields": [
+        "یادداشت نتیجه — الزامی، حداکثر ۴۰۰۰ نویسه",
+        "نتیجه: تعمیر، جایگزینی، بازپرداخت، بازرسی یا بدون اقدام",
+        "تعداد — برای بازپرداخت یا جایگزینی",
+        "مبلغ تومان صحیح مثبت — فقط برای بازپرداخت"
+      ],
+      "confirmationView": "op-08-confirm",
+      "confirmation": "SAFE_CANCEL_FIRST",
+      "resultView": "success",
+      "guard": "فقط دریافت‌شده یا در حال تعمیر؛ مقدار جایگزینی یا بازپرداخت مثبت و حداکثر تحویل‌شده. مبلغ فقط برای بازپرداخت و در سقف ارزش قلم."
+    },
+    {
+      "operation": "POST /admin/warranty/claims/{id}/start-repair",
+      "view": "op-09",
+      "permissionClaims": {
+        "runtime": [
+          "warranty.repair"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "stepUp": false,
+      "idempotencyScope": "warranty.admin.start_repair",
+      "versionRequired": false,
+      "recovery": "EXPLICIT_SAME_KEY_SAME_PAYLOAD_AFTER_STATUS_CHECK",
+      "executionEnabled": true,
+      "fields": [
+        "توضیح اختیاری — حداکثر ۲۰۰۰ نویسه"
+      ],
+      "confirmationView": "op-09-confirm",
+      "confirmation": "SAFE_CANCEL_FIRST",
+      "resultView": "success",
+      "guard": "فقط دریافت‌شده؛ وضعیت به در حال تعمیر می‌رود."
+    },
+    {
+      "operation": "POST /admin/warranty/claims/{id}/start-review",
+      "view": "op-10",
+      "permissionClaims": {
+        "runtime": [
+          "warranty.review"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "stepUp": false,
+      "idempotencyScope": "warranty.admin.start_review",
+      "versionRequired": false,
+      "recovery": "EXPLICIT_SAME_KEY_SAME_PAYLOAD_AFTER_STATUS_CHECK",
+      "executionEnabled": true,
+      "fields": [
+        "توضیح اختیاری — حداکثر ۲۰۰۰ نویسه"
+      ],
+      "confirmationView": "op-10-confirm",
+      "confirmation": "SAFE_CANCEL_FIRST",
+      "resultView": "success",
+      "guard": "فقط درخواست ثبت‌شده؛ وضعیت به در حال بررسی می‌رود."
+    }
+  ],
+  "blockedOperations": [],
+  "facets": [
+    "entry-and-context",
+    "permission-aware-read-or-explicit-unavailable",
+    "detail-and-history-or-no-read-explanation",
+    "allowed-action-review-or-read-only",
+    "authoritative-outcome-and-recovery"
+  ],
+  "states": [
+    {
+      "id": "approval-required",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved->received->repairing; resolve received/repairing, close resolved only. Refund/replacement needs positive quantity within delivered quantity; refund positive integer Toman capped by line value, non-refund amount forbidden. Resolve and close require Step-Up; both require resolution_note. Refund/replacement references are requests. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "approved",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved->received->repairing; resolve received/repairing, close resolved only. Refund/replacement needs positive quantity within delivered quantity; refund positive integer Toman capped by line value, non-refund amount forbidden. Resolve and close require Step-Up; both require resolution_note. Refund/replacement references are requests. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "audit-reference",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved->received->repairing; resolve received/repairing, close resolved only. Refund/replacement needs positive quantity within delivered quantity; refund positive integer Toman capped by line value, non-refund amount forbidden. Resolve and close require Step-Up; both require resolution_note. Refund/replacement references are requests. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "authoritative-success",
+      "view": "success",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved->received->repairing; resolve received/repairing, close resolved only. Refund/replacement needs positive quantity within delivered quantity; refund positive integer Toman capped by line value, non-refund amount forbidden. Resolve and close require Step-Up; both require resolution_note. Refund/replacement references are requests. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "blocked-by-lifecycle",
+      "view": "denied",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved->received->repairing; resolve received/repairing, close resolved only. Refund/replacement needs positive quantity within delivered quantity; refund positive integer Toman capped by line value, non-refund amount forbidden. Resolve and close require Step-Up; both require resolution_note. Refund/replacement references are requests. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "cancelled",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved->received->repairing; resolve received/repairing, close resolved only. Refund/replacement needs positive quantity within delivered quantity; refund positive integer Toman capped by line value, non-refund amount forbidden. Resolve and close require Step-Up; both require resolution_note. Refund/replacement references are requests. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "closed",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved->received->repairing; resolve received/repairing, close resolved only. Refund/replacement needs positive quantity within delivered quantity; refund positive integer Toman capped by line value, non-refund amount forbidden. Resolve and close require Step-Up; both require resolution_note. Refund/replacement references are requests. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "destructive-action-confirmation",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved->received->repairing; resolve received/repairing, close resolved only. Refund/replacement needs positive quantity within delivered quantity; refund positive integer Toman capped by line value, non-refund amount forbidden. Resolve and close require Step-Up; both require resolution_note. Refund/replacement references are requests. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "disabled",
+      "view": "denied",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved->received->repairing; resolve received/repairing, close resolved only. Refund/replacement needs positive quantity within delivered quantity; refund positive integer Toman capped by line value, non-refund amount forbidden. Resolve and close require Step-Up; both require resolution_note. Refund/replacement references are requests. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "empty-filtered",
+      "view": "empty",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved->received->repairing; resolve received/repairing, close resolved only. Refund/replacement needs positive quantity within delivered quantity; refund positive integer Toman capped by line value, non-refund amount forbidden. Resolve and close require Step-Up; both require resolution_note. Refund/replacement references are requests. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "empty-first-use",
+      "view": "empty",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved->received->repairing; resolve received/repairing, close resolved only. Refund/replacement needs positive quantity within delivered quantity; refund positive integer Toman capped by line value, non-refund amount forbidden. Resolve and close require Step-Up; both require resolution_note. Refund/replacement references are requests. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "idempotent-replay",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved->received->repairing; resolve received/repairing, close resolved only. Refund/replacement needs positive quantity within delivered quantity; refund positive integer Toman capped by line value, non-refund amount forbidden. Resolve and close require Step-Up; both require resolution_note. Refund/replacement references are requests. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "impact-changed",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved->received->repairing; resolve received/repairing, close resolved only. Refund/replacement needs positive quantity within delivered quantity; refund positive integer Toman capped by line value, non-refund amount forbidden. Resolve and close require Step-Up; both require resolution_note. Refund/replacement references are requests. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "initial-loading",
+      "view": "loading",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved->received->repairing; resolve received/repairing, close resolved only. Refund/replacement needs positive quantity within delivered quantity; refund positive integer Toman capped by line value, non-refund amount forbidden. Resolve and close require Step-Up; both require resolution_note. Refund/replacement references are requests. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "inspection-or-repair",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved->received->repairing; resolve received/repairing, close resolved only. Refund/replacement needs positive quantity within delivered quantity; refund positive integer Toman capped by line value, non-refund amount forbidden. Resolve and close require Step-Up; both require resolution_note. Refund/replacement references are requests. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "irreversible-outcome",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved->received->repairing; resolve received/repairing, close resolved only. Refund/replacement needs positive quantity within delivered quantity; refund positive integer Toman capped by line value, non-refund amount forbidden. Resolve and close require Step-Up; both require resolution_note. Refund/replacement references are requests. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "manual-review",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved->received->repairing; resolve received/repairing, close resolved only. Refund/replacement needs positive quantity within delivered quantity; refund positive integer Toman capped by line value, non-refund amount forbidden. Resolve and close require Step-Up; both require resolution_note. Refund/replacement references are requests. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "no-results",
+      "view": "empty",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved->received->repairing; resolve received/repairing, close resolved only. Refund/replacement needs positive quantity within delivered quantity; refund positive integer Toman capped by line value, non-refund amount forbidden. Resolve and close require Step-Up; both require resolution_note. Refund/replacement references are requests. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "offline",
+      "view": "conflict",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved->received->repairing; resolve received/repairing, close resolved only. Refund/replacement needs positive quantity within delivered quantity; refund positive integer Toman capped by line value, non-refund amount forbidden. Resolve and close require Step-Up; both require resolution_note. Refund/replacement references are requests. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "partial-success",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved->received->repairing; resolve received/repairing, close resolved only. Refund/replacement needs positive quantity within delivered quantity; refund positive integer Toman capped by line value, non-refund amount forbidden. Resolve and close require Step-Up; both require resolution_note. Refund/replacement references are requests. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "permission-denied",
+      "view": "denied",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved->received->repairing; resolve received/repairing, close resolved only. Refund/replacement needs positive quantity within delivered quantity; refund positive integer Toman capped by line value, non-refund amount forbidden. Resolve and close require Step-Up; both require resolution_note. Refund/replacement references are requests. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "preview-expired",
+      "view": "denied",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved->received->repairing; resolve received/repairing, close resolved only. Refund/replacement needs positive quantity within delivered quantity; refund positive integer Toman capped by line value, non-refund amount forbidden. Resolve and close require Step-Up; both require resolution_note. Refund/replacement references are requests. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "progressive-loading",
+      "view": "loading",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved->received->repairing; resolve received/repairing, close resolved only. Refund/replacement needs positive quantity within delivered quantity; refund positive integer Toman capped by line value, non-refund amount forbidden. Resolve and close require Step-Up; both require resolution_note. Refund/replacement references are requests. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "provider-unavailable",
+      "view": "denied",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved->received->repairing; resolve received/repairing, close resolved only. Refund/replacement needs positive quantity within delivered quantity; refund positive integer Toman capped by line value, non-refund amount forbidden. Resolve and close require Step-Up; both require resolution_note. Refund/replacement references are requests. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "read-only",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved->received->repairing; resolve received/repairing, close resolved only. Refund/replacement needs positive quantity within delivered quantity; refund positive integer Toman capped by line value, non-refund amount forbidden. Resolve and close require Step-Up; both require resolution_note. Refund/replacement references are requests. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "received",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved->received->repairing; resolve received/repairing, close resolved only. Refund/replacement needs positive quantity within delivered quantity; refund positive integer Toman capped by line value, non-refund amount forbidden. Resolve and close require Step-Up; both require resolution_note. Refund/replacement references are requests. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "refresh-loading",
+      "view": "loading",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved->received->repairing; resolve received/repairing, close resolved only. Refund/replacement needs positive quantity within delivered quantity; refund positive integer Toman capped by line value, non-refund amount forbidden. Resolve and close require Step-Up; both require resolution_note. Refund/replacement references are requests. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "rejected",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved->received->repairing; resolve received/repairing, close resolved only. Refund/replacement needs positive quantity within delivered quantity; refund positive integer Toman capped by line value, non-refund amount forbidden. Resolve and close require Step-Up; both require resolution_note. Refund/replacement references are requests. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "requested",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved->received->repairing; resolve received/repairing, close resolved only. Refund/replacement needs positive quantity within delivered quantity; refund positive integer Toman capped by line value, non-refund amount forbidden. Resolve and close require Step-Up; both require resolution_note. Refund/replacement references are requests. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "resolved",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved->received->repairing; resolve received/repairing, close resolved only. Refund/replacement needs positive quantity within delivered quantity; refund positive integer Toman capped by line value, non-refund amount forbidden. Resolve and close require Step-Up; both require resolution_note. Refund/replacement references are requests. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "safe-retry",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved->received->repairing; resolve received/repairing, close resolved only. Refund/replacement needs positive quantity within delivered quantity; refund positive integer Toman capped by line value, non-refund amount forbidden. Resolve and close require Step-Up; both require resolution_note. Refund/replacement references are requests. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "scope-filtered",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved->received->repairing; resolve received/repairing, close resolved only. Refund/replacement needs positive quantity within delivered quantity; refund positive integer Toman capped by line value, non-refund amount forbidden. Resolve and close require Step-Up; both require resolution_note. Refund/replacement references are requests. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "server-error",
+      "view": "denied",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved->received->repairing; resolve received/repairing, close resolved only. Refund/replacement needs positive quantity within delivered quantity; refund positive integer Toman capped by line value, non-refund amount forbidden. Resolve and close require Step-Up; both require resolution_note. Refund/replacement references are requests. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "session-expired",
+      "view": "denied",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved->received->repairing; resolve received/repairing, close resolved only. Refund/replacement needs positive quantity within delivered quantity; refund positive integer Toman capped by line value, non-refund amount forbidden. Resolve and close require Step-Up; both require resolution_note. Refund/replacement references are requests. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "stale-data",
+      "view": "conflict",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved->received->repairing; resolve received/repairing, close resolved only. Refund/replacement needs positive quantity within delivered quantity; refund positive integer Toman capped by line value, non-refund amount forbidden. Resolve and close require Step-Up; both require resolution_note. Refund/replacement references are requests. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "status-check",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved->received->repairing; resolve received/repairing, close resolved only. Refund/replacement needs positive quantity within delivered quantity; refund positive integer Toman capped by line value, non-refund amount forbidden. Resolve and close require Step-Up; both require resolution_note. Refund/replacement references are requests. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "step-up-required",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved->received->repairing; resolve received/repairing, close resolved only. Refund/replacement needs positive quantity within delivered quantity; refund positive integer Toman capped by line value, non-refund amount forbidden. Resolve and close require Step-Up; both require resolution_note. Refund/replacement references are requests. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "submitting",
+      "view": "loading",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved->received->repairing; resolve received/repairing, close resolved only. Refund/replacement needs positive quantity within delivered quantity; refund positive integer Toman capped by line value, non-refund amount forbidden. Resolve and close require Step-Up; both require resolution_note. Refund/replacement references are requests. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "terminal-success",
+      "view": "success",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved->received->repairing; resolve received/repairing, close resolved only. Refund/replacement needs positive quantity within delivered quantity; refund positive integer Toman capped by line value, non-refund amount forbidden. Resolve and close require Step-Up; both require resolution_note. Refund/replacement references are requests. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "timeout",
+      "view": "conflict",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved->received->repairing; resolve received/repairing, close resolved only. Refund/replacement needs positive quantity within delivered quantity; refund positive integer Toman capped by line value, non-refund amount forbidden. Resolve and close require Step-Up; both require resolution_note. Refund/replacement references are requests. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "unauthenticated",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved->received->repairing; resolve received/repairing, close resolved only. Refund/replacement needs positive quantity within delivered quantity; refund positive integer Toman capped by line value, non-refund amount forbidden. Resolve and close require Step-Up; both require resolution_note. Refund/replacement references are requests. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "under-review",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved->received->repairing; resolve received/repairing, close resolved only. Refund/replacement needs positive quantity within delivered quantity; refund positive integer Toman capped by line value, non-refund amount forbidden. Resolve and close require Step-Up; both require resolution_note. Refund/replacement references are requests. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "unknown-result",
+      "view": "conflict",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved->received->repairing; resolve received/repairing, close resolved only. Refund/replacement needs positive quantity within delivered quantity; refund positive integer Toman capped by line value, non-refund amount forbidden. Resolve and close require Step-Up; both require resolution_note. Refund/replacement references are requests. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "validation-error",
+      "view": "denied",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved->received->repairing; resolve received/repairing, close resolved only. Refund/replacement needs positive quantity within delivered quantity; refund positive integer Toman capped by line value, non-refund amount forbidden. Resolve and close require Step-Up; both require resolution_note. Refund/replacement references are requests. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "version-conflict",
+      "view": "conflict",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Requested->under_review->approved->received->repairing; resolve received/repairing, close resolved only. Refund/replacement needs positive quantity within delivered quantity; refund positive integer Toman capped by line value, non-refund amount forbidden. Resolve and close require Step-Up; both require resolution_note. Refund/replacement references are requests. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    }
+  ],
+  "frames": [
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-08/AD-E-08--320--overview--v1.svg",
+      "view": "overview",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-08/AD-E-08--360--overview--v1.svg",
+      "view": "overview",
+      "width": 360
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-08/AD-E-08--600--overview--v1.svg",
+      "view": "overview",
+      "width": 600
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-08/AD-E-08--840--overview--v1.svg",
+      "view": "overview",
+      "width": 840
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-08/AD-E-08--1200--overview--v1.svg",
+      "view": "overview",
+      "width": 1200
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-08/AD-E-08--1440--overview--v1.svg",
+      "view": "overview",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-08/AD-E-08--320--op-01--v1.svg",
+      "view": "op-01",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-08/AD-E-08--1440--op-01--v1.svg",
+      "view": "op-01",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-08/AD-E-08--320--op-02--v1.svg",
+      "view": "op-02",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-08/AD-E-08--1440--op-02--v1.svg",
+      "view": "op-02",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-08/AD-E-08--320--op-03--v1.svg",
+      "view": "op-03",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-08/AD-E-08--1440--op-03--v1.svg",
+      "view": "op-03",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-08/AD-E-08--320--op-04-confirm--v1.svg",
+      "view": "op-04-confirm",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-08/AD-E-08--1440--op-04-confirm--v1.svg",
+      "view": "op-04-confirm",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-08/AD-E-08--320--op-04--v1.svg",
+      "view": "op-04",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-08/AD-E-08--1440--op-04--v1.svg",
+      "view": "op-04",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-08/AD-E-08--320--op-05-confirm--v1.svg",
+      "view": "op-05-confirm",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-08/AD-E-08--1440--op-05-confirm--v1.svg",
+      "view": "op-05-confirm",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-08/AD-E-08--320--op-05--v1.svg",
+      "view": "op-05",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-08/AD-E-08--1440--op-05--v1.svg",
+      "view": "op-05",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-08/AD-E-08--320--op-06-confirm--v1.svg",
+      "view": "op-06-confirm",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-08/AD-E-08--1440--op-06-confirm--v1.svg",
+      "view": "op-06-confirm",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-08/AD-E-08--320--op-06--v1.svg",
+      "view": "op-06",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-08/AD-E-08--1440--op-06--v1.svg",
+      "view": "op-06",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-08/AD-E-08--320--op-07-confirm--v1.svg",
+      "view": "op-07-confirm",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-08/AD-E-08--1440--op-07-confirm--v1.svg",
+      "view": "op-07-confirm",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-08/AD-E-08--320--op-07--v1.svg",
+      "view": "op-07",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-08/AD-E-08--1440--op-07--v1.svg",
+      "view": "op-07",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-08/AD-E-08--320--op-08-confirm--v1.svg",
+      "view": "op-08-confirm",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-08/AD-E-08--1440--op-08-confirm--v1.svg",
+      "view": "op-08-confirm",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-08/AD-E-08--320--op-08--v1.svg",
+      "view": "op-08",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-08/AD-E-08--1440--op-08--v1.svg",
+      "view": "op-08",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-08/AD-E-08--320--op-09-confirm--v1.svg",
+      "view": "op-09-confirm",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-08/AD-E-08--1440--op-09-confirm--v1.svg",
+      "view": "op-09-confirm",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-08/AD-E-08--320--op-09--v1.svg",
+      "view": "op-09",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-08/AD-E-08--1440--op-09--v1.svg",
+      "view": "op-09",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-08/AD-E-08--320--op-10-confirm--v1.svg",
+      "view": "op-10-confirm",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-08/AD-E-08--1440--op-10-confirm--v1.svg",
+      "view": "op-10-confirm",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-08/AD-E-08--320--op-10--v1.svg",
+      "view": "op-10",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-08/AD-E-08--1440--op-10--v1.svg",
+      "view": "op-10",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-08/AD-E-08--320--conflict--v1.svg",
+      "view": "conflict",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-08/AD-E-08--1440--conflict--v1.svg",
+      "view": "conflict",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-08/AD-E-08--320--denied--v1.svg",
+      "view": "denied",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-08/AD-E-08--1440--denied--v1.svg",
+      "view": "denied",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-08/AD-E-08--320--loading--v1.svg",
+      "view": "loading",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-08/AD-E-08--1440--loading--v1.svg",
+      "view": "loading",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-08/AD-E-08--320--empty--v1.svg",
+      "view": "empty",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-08/AD-E-08--1440--empty--v1.svg",
+      "view": "empty",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-08/AD-E-08--320--success--v1.svg",
+      "view": "success",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-08/AD-E-08--1440--success--v1.svg",
+      "view": "success",
+      "width": 1440
+    }
+  ]
+}

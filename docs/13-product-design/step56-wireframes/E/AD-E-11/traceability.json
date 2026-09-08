@@ -1,0 +1,562 @@
+{
+  "id": "AD-E-11",
+  "task": "AT-E-11",
+  "journeys": [
+    "AJ-04",
+    "AJ-11"
+  ],
+  "actors": [
+    "approver",
+    "operator",
+    "staff"
+  ],
+  "domains": [
+    "pos"
+  ],
+  "operations": [
+    "GET /admin/pos/reconciliation/{clientCommandId}",
+    "GET /admin/pos/reconciliation/failed",
+    "POST /admin/pos/offline/commands",
+    "POST /admin/pos/offline/commands/{clientCommandId}/sync",
+    "POST /admin/pos/reconciliation/{clientCommandId}/abandon",
+    "POST /admin/pos/reconciliation/{clientCommandId}/retry"
+  ],
+  "operationViews": [
+    {
+      "operation": "GET /admin/pos/reconciliation/{clientCommandId}",
+      "view": "op-01",
+      "permissionClaims": {
+        "runtime": [
+          "pos.reconcile"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "stepUp": false,
+      "idempotencyScope": null,
+      "versionRequired": false,
+      "recovery": "NO_ACTION",
+      "executionEnabled": false,
+      "fields": []
+    },
+    {
+      "operation": "GET /admin/pos/reconciliation/failed",
+      "view": "op-02",
+      "permissionClaims": {
+        "runtime": [
+          "pos.reconcile"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "stepUp": false,
+      "idempotencyScope": null,
+      "versionRequired": false,
+      "recovery": "NO_ACTION",
+      "executionEnabled": false,
+      "fields": []
+    },
+    {
+      "operation": "POST /admin/pos/offline/commands",
+      "view": "op-03",
+      "permissionClaims": {
+        "runtime": [
+          "pos.sell"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "stepUp": false,
+      "idempotencyScope": "pos.offline.capture",
+      "versionRequired": false,
+      "recovery": "NO_ACTION",
+      "executionEnabled": false,
+      "fields": []
+    },
+    {
+      "operation": "POST /admin/pos/offline/commands/{clientCommandId}/sync",
+      "view": "op-04",
+      "permissionClaims": {
+        "runtime": [
+          "pos.sell"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "stepUp": false,
+      "idempotencyScope": "pos.offline.sync",
+      "versionRequired": false,
+      "recovery": "NO_ACTION",
+      "executionEnabled": false,
+      "fields": []
+    },
+    {
+      "operation": "POST /admin/pos/reconciliation/{clientCommandId}/abandon",
+      "view": "op-05",
+      "permissionClaims": {
+        "runtime": [
+          "pos.reconcile"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "stepUp": true,
+      "idempotencyScope": "pos.reconciliation.admin.abandon",
+      "versionRequired": false,
+      "recovery": "NO_ACTION",
+      "executionEnabled": false,
+      "fields": []
+    },
+    {
+      "operation": "POST /admin/pos/reconciliation/{clientCommandId}/retry",
+      "view": "op-06",
+      "permissionClaims": {
+        "runtime": [
+          "pos.reconcile"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "stepUp": true,
+      "idempotencyScope": "pos.reconciliation.admin.retry",
+      "versionRequired": false,
+      "recovery": "NO_ACTION",
+      "executionEnabled": false,
+      "fields": []
+    }
+  ],
+  "blockedOperations": [
+    "GET /admin/pos/reconciliation/{clientCommandId}",
+    "GET /admin/pos/reconciliation/failed",
+    "POST /admin/pos/offline/commands",
+    "POST /admin/pos/offline/commands/{clientCommandId}/sync",
+    "POST /admin/pos/reconciliation/{clientCommandId}/abandon",
+    "POST /admin/pos/reconciliation/{clientCommandId}/retry"
+  ],
+  "facets": [
+    "entry-and-context",
+    "permission-aware-read-or-explicit-unavailable",
+    "detail-and-history-or-no-read-explanation",
+    "allowed-action-review-or-read-only",
+    "authoritative-outcome-and-recovery"
+  ],
+  "states": [
+    {
+      "id": "acknowledged",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "alerting",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "allocation-needed",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "approval-required",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "audit-reference",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "authoritative-success",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "blocked",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "blocked-by-lifecycle",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "cancelled",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "completed",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "confirmed",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "contained",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "degraded",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "destructive-action-confirmation",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "disabled",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "empty-filtered",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "empty-first-use",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "failed",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "handed-over",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "healthy",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "idempotent-replay",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "impact-changed",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "initial-loading",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "investigating",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "irreversible-outcome",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "manual-review",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "new",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "no-results",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "offline",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "partial-success",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "payment-pending",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "permission-denied",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "picking",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "preview-expired",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "progressive-loading",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "provider-unavailable",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "read-only",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "ready",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "recovered",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "recovery-preview",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "refresh-loading",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "safe-retry",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "scope-filtered",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "server-error",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "session-expired",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "stale-data",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "status-check",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "step-up-required",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "submitting",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "terminal-success",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "timeout",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "unauthenticated",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "unknown-result",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "validation-error",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "version-conflict",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    }
+  ],
+  "frames": [
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-11/AD-E-11--320--overview--v1.svg",
+      "view": "overview",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-11/AD-E-11--360--overview--v1.svg",
+      "view": "overview",
+      "width": 360
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-11/AD-E-11--600--overview--v1.svg",
+      "view": "overview",
+      "width": 600
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-11/AD-E-11--840--overview--v1.svg",
+      "view": "overview",
+      "width": 840
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-11/AD-E-11--1200--overview--v1.svg",
+      "view": "overview",
+      "width": 1200
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-11/AD-E-11--1440--overview--v1.svg",
+      "view": "overview",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-11/AD-E-11--320--op-01--v1.svg",
+      "view": "op-01",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-11/AD-E-11--1440--op-01--v1.svg",
+      "view": "op-01",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-11/AD-E-11--320--op-02--v1.svg",
+      "view": "op-02",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-11/AD-E-11--1440--op-02--v1.svg",
+      "view": "op-02",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-11/AD-E-11--320--op-03--v1.svg",
+      "view": "op-03",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-11/AD-E-11--1440--op-03--v1.svg",
+      "view": "op-03",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-11/AD-E-11--320--op-04--v1.svg",
+      "view": "op-04",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-11/AD-E-11--1440--op-04--v1.svg",
+      "view": "op-04",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-11/AD-E-11--320--op-05--v1.svg",
+      "view": "op-05",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-11/AD-E-11--1440--op-05--v1.svg",
+      "view": "op-05",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-11/AD-E-11--320--op-06--v1.svg",
+      "view": "op-06",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-11/AD-E-11--1440--op-06--v1.svg",
+      "view": "op-06",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-11/AD-E-11--320--conflict--v1.svg",
+      "view": "conflict",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-11/AD-E-11--1440--conflict--v1.svg",
+      "view": "conflict",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-11/AD-E-11--320--denied--v1.svg",
+      "view": "denied",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-11/AD-E-11--1440--denied--v1.svg",
+      "view": "denied",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-11/AD-E-11--320--loading--v1.svg",
+      "view": "loading",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-11/AD-E-11--1440--loading--v1.svg",
+      "view": "loading",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-11/AD-E-11--320--empty--v1.svg",
+      "view": "empty",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-11/AD-E-11--1440--empty--v1.svg",
+      "view": "empty",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-11/AD-E-11--320--success--v1.svg",
+      "view": "success",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-11/AD-E-11--1440--success--v1.svg",
+      "view": "success",
+      "width": 1440
+    }
+  ]
+}
