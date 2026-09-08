@@ -1,0 +1,3350 @@
+{
+  "step": 56,
+  "substep": "D",
+  "source": "docs/13-product-design/step56-pricing-inventory-wireframes.json",
+  "sourceSha256": "f8660fae39b8d9f223b151f5253afdb8593d8dff56d598b0b38734ba5c0c96df",
+  "screenCount": 21,
+  "frameCount": 624,
+  "artifacts": [
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-01/AD-D-01--320--overview--v1.svg",
+      "sha256": "937dfd06446acf63d785fdc1a9d3e1778b0217faa7fd1069bf89c53163d02d30",
+      "bytes": 3750
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-01/AD-D-01--360--overview--v1.svg",
+      "sha256": "ddd5f57b8c29f68ffe53536b043035b1d50233b6eefb4f7c038dc1f1db7cef24",
+      "bytes": 3541
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-01/AD-D-01--600--overview--v1.svg",
+      "sha256": "f3c5756da1db52465ae904eb495e1f516e2d1eb6b24364d88fec7ea30fa1d383",
+      "bytes": 3123
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-01/AD-D-01--840--overview--v1.svg",
+      "sha256": "8302318852bc2b88896f788ef41924ae8ed249f86622075a03c479c00de9684f",
+      "bytes": 4917
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-01/AD-D-01--1200--overview--v1.svg",
+      "sha256": "a8e3e114e4dc0df3e84deee7710c5ceba1c89169dac66ed525c5cde1b7c2c234",
+      "bytes": 4724
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-01/AD-D-01--1440--overview--v1.svg",
+      "sha256": "be7eb094f83c1301c59c507689bda4b9153a58ec05201a2419e0f86dd5321136",
+      "bytes": 4640
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-01/AD-D-01--320--op-01--v1.svg",
+      "sha256": "ac3289ae8dcd8347a2be858fb23979da5ba160e0f7340f53ff1154849e64e629",
+      "bytes": 4906
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-01/AD-D-01--1440--op-01--v1.svg",
+      "sha256": "db2bda93cdc77184b60bcc8ae03ed311c6ad3c688eb7895b66d43ae0cc070a5b",
+      "bytes": 7679
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-01/AD-D-01--320--op-02--v1.svg",
+      "sha256": "57caec6668839f3eb56a18cfa5029944e16bd893dc00f6fa41c64d8387fe7488",
+      "bytes": 3950
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-01/AD-D-01--1440--op-02--v1.svg",
+      "sha256": "ee621b87469b1846c507f920b98f0ee6beec715971b9f0e923f93cefa2fa1dbd",
+      "bytes": 5263
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-01/AD-D-01--320--op-03--v1.svg",
+      "sha256": "d0866640eea704d90e1e714d9bd6e315aa5ef80f231d48c99a48279382fdbf88",
+      "bytes": 5277
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-01/AD-D-01--1440--op-03--v1.svg",
+      "sha256": "3dcf059183c9c7d2a725ab65799d8d77d364a7721c602229dbb93184fe05df0e",
+      "bytes": 5962
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-01/AD-D-01--320--op-04--v1.svg",
+      "sha256": "57caec6668839f3eb56a18cfa5029944e16bd893dc00f6fa41c64d8387fe7488",
+      "bytes": 3950
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-01/AD-D-01--1440--op-04--v1.svg",
+      "sha256": "ee621b87469b1846c507f920b98f0ee6beec715971b9f0e923f93cefa2fa1dbd",
+      "bytes": 5263
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-01/AD-D-01--320--conflict--v1.svg",
+      "sha256": "a152fb1347a23c9c556f5cac0eaea6b63b27b0a952bf05825b514203edc7312d",
+      "bytes": 4433
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-01/AD-D-01--1440--conflict--v1.svg",
+      "sha256": "e398e94721859cc43a9e23bd43e49c629855c8e47f2bf30c62d826fcd08a1161",
+      "bytes": 5013
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-01/AD-D-01--320--denied--v1.svg",
+      "sha256": "d6ef095a15b369b227018f0ebacf80f5ca66c79eea19a0efc54a7d32d4b9621c",
+      "bytes": 3917
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-01/AD-D-01--1440--denied--v1.svg",
+      "sha256": "a6f3a592534a04df8ad1c1fb620ca95df11b9bd17b8a60ed0159270e4a8c2c92",
+      "bytes": 4703
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-01/AD-D-01--320--op-02-confirm--v1.svg",
+      "sha256": "816e44fbe0e15e7774f5e0c61dc6c45e43b587df2a497e455b29bd7f042045ed",
+      "bytes": 4378
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-01/AD-D-01--1440--op-02-confirm--v1.svg",
+      "sha256": "4e73c6043ed221a9c048a950066082bfe7d1350faaf5cc8b171361065b245542",
+      "bytes": 5169
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-01/AD-D-01--320--op-03-result--v1.svg",
+      "sha256": "0401c67aeb3b169bfcd986e7507b1b111c46c185dbde4781a0fbbff79bf52ab0",
+      "bytes": 4532
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-01/AD-D-01--1440--op-03-result--v1.svg",
+      "sha256": "323ca1fd8d18ef84991c1ef098c60e351c65bf9468f6debdf7643ae9943814d1",
+      "bytes": 5219
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-01/AD-D-01--320--op-04-confirm--v1.svg",
+      "sha256": "816e44fbe0e15e7774f5e0c61dc6c45e43b587df2a497e455b29bd7f042045ed",
+      "bytes": 4378
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-01/AD-D-01--1440--op-04-confirm--v1.svg",
+      "sha256": "4e73c6043ed221a9c048a950066082bfe7d1350faaf5cc8b171361065b245542",
+      "bytes": 5169
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-01/AD-D-01--320--loading--v1.svg",
+      "sha256": "3f3a0480b0b00d05233ca861e8865c483af4c37eb3340725cd8178bab2b28fdc",
+      "bytes": 2991
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-01/AD-D-01--1440--loading--v1.svg",
+      "sha256": "34ff05c0c18ecef37a6e0e09a5c960a6da66414a632f96d923f965dbe57aaa12",
+      "bytes": 4296
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-01/AD-D-01--320--empty--v1.svg",
+      "sha256": "d8e58a4fa6d2c85c0769ebadd2dbf27c773ca6f54ee70f6cdf516da294a494ba",
+      "bytes": 3348
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-01/AD-D-01--1440--empty--v1.svg",
+      "sha256": "49e3bdf0fbea27b00984eba063d406242687c0cc06398a3632101c0698fe5a8a",
+      "bytes": 4551
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-01/AD-D-01--320--success--v1.svg",
+      "sha256": "9058a0da06ecca860419a0f529f893a3b86b3f1dbbb82913c757dea5f9e66817",
+      "bytes": 3797
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-01/AD-D-01--1440--success--v1.svg",
+      "sha256": "ed71f1ae2d49c7769a0c0811a355de4f4addb7607a1787a4ecdc7757325b1245",
+      "bytes": 4687
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-01/traceability.json",
+      "sha256": "b6c29427499e15d76d8534df4468fa7fbae6408923d104638491410d79394ea3",
+      "bytes": 25053
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-01/README.md",
+      "sha256": "46d0df67d56bd8dc904361dd86f222c734d356ad4bbfd33eee141485fb7d9608",
+      "bytes": 17455
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-02/AD-D-02--320--overview--v1.svg",
+      "sha256": "1a1ef634d7cf9de7b4e3ee70a036f877cdaeb277a1830a1eae99bfbe8b39cff8",
+      "bytes": 3635
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-02/AD-D-02--360--overview--v1.svg",
+      "sha256": "2acacc8780c614c9744b87760e2b710d1b617dbed11fd186f883fe4ac9b1e225",
+      "bytes": 3426
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-02/AD-D-02--600--overview--v1.svg",
+      "sha256": "02c849cb6bec7c980e573a8b04fb358cf7de79e69aefd8a52e0f3a11d7379b85",
+      "bytes": 3112
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-02/AD-D-02--840--overview--v1.svg",
+      "sha256": "c587e655e0971d46768416ed1a537bba3668953bd453d9bda080b45570f2005a",
+      "bytes": 4906
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-02/AD-D-02--1200--overview--v1.svg",
+      "sha256": "85a488bb1eba5999f6e646ee92811cba1e1390cf5cfbf489c2f00b813d348e37",
+      "bytes": 4609
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-02/AD-D-02--1440--overview--v1.svg",
+      "sha256": "3c8e9e6ba37736db14eba42fe21df6b5d39298ffe0212d7308cdbcfe2acb71c4",
+      "bytes": 4629
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-02/AD-D-02--320--op-01--v1.svg",
+      "sha256": "d67dde3d12838c61dcd2c36a8df63600680b346b2900bf549b6a93e3f39c7bda",
+      "bytes": 4791
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-02/AD-D-02--1440--op-01--v1.svg",
+      "sha256": "74a633b5395075516e40b65a6dfdee683449243abf939355c559933ee2817792",
+      "bytes": 7656
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-02/AD-D-02--320--op-02--v1.svg",
+      "sha256": "dedcb51902ce48cc8a49419f224a6d534014bb02baacc3d961621b85bfd7dc17",
+      "bytes": 3685
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-02/AD-D-02--1440--op-02--v1.svg",
+      "sha256": "1e14d766401f4c1b9deddd2cf27b1029c0bdae06b6f019999f004d439b46d641",
+      "bytes": 4679
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-02/AD-D-02--320--op-03--v1.svg",
+      "sha256": "38c321d6b2643eca13fd2b52ba19eb6944c049077b4d4544fe356d1d336269b3",
+      "bytes": 4140
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-02/AD-D-02--1440--op-03--v1.svg",
+      "sha256": "3427ddfc13b7f23efa8f624ce94432996aa80d8c03886755e29d9da6ccbf4f33",
+      "bytes": 5773
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-02/AD-D-02--320--op-04--v1.svg",
+      "sha256": "959b4074c455d3ec82030a1a70724440eb26241884d5fc013d0f1969ec54b41d",
+      "bytes": 4990
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-02/AD-D-02--1440--op-04--v1.svg",
+      "sha256": "2ba2ecde465f0880e8886abf568dbb87997f709a005cf8c6302a36f87dc2072e",
+      "bytes": 6418
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-02/AD-D-02--320--op-05--v1.svg",
+      "sha256": "3cf1539354143f1e3ada2a8a5b3ac1fbab694725a88add12fd6cb26ceec14608",
+      "bytes": 3383
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-02/AD-D-02--1440--op-05--v1.svg",
+      "sha256": "cedb1b3e8e9f4825a475bb281b0dc79f847fc7e95edcd384aedadc5f51cc0ef7",
+      "bytes": 4586
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-02/AD-D-02--320--op-06--v1.svg",
+      "sha256": "c14c6771e4fcc88f28787e70f7578014bbb89e864208518e375093aeea57427f",
+      "bytes": 3511
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-02/AD-D-02--1440--op-06--v1.svg",
+      "sha256": "a9b59573090acd7e4168d8af79de53306e68cce38d1f81de59ae84f7f6c434c9",
+      "bytes": 4610
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-02/AD-D-02--320--conflict--v1.svg",
+      "sha256": "b6c4c99003ba9343e603694abb83a052c4ee1efc12c4e53a4176fc3ab3b8527e",
+      "bytes": 4324
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-02/AD-D-02--1440--conflict--v1.svg",
+      "sha256": "00c7e25c1b1e4154095a09ef51c871c6b6bb7b564a5001d18fcd561d5ff3ff33",
+      "bytes": 5008
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-02/AD-D-02--320--denied--v1.svg",
+      "sha256": "840d6cb243236b3a21aba0e3a54abf31a9ec0b38adf1c76334ae529e7d6cedaa",
+      "bytes": 3808
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-02/AD-D-02--1440--denied--v1.svg",
+      "sha256": "e217cbb7988ede9121633050de458993730812742c80e1c3acfc40a3421708c8",
+      "bytes": 4698
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-02/AD-D-02--320--op-03-confirm--v1.svg",
+      "sha256": "3cdf3074b8d77832ba0a86bf482e2b51963d4aec74e51603118307de77bc631a",
+      "bytes": 4281
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-02/AD-D-02--1440--op-03-confirm--v1.svg",
+      "sha256": "371bce6b93b672f67997a51e59c67a3a2b5bde55a08a3c07ba25d5854928a39b",
+      "bytes": 5176
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-02/AD-D-02--320--op-04-confirm--v1.svg",
+      "sha256": "4e1549e38b84ac2eec858f8632fbeb843eea42ebafc600a2f5008619f1d5b436",
+      "bytes": 4263
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-02/AD-D-02--1440--op-04-confirm--v1.svg",
+      "sha256": "abfe22384018383d1ad831fd3d158b05bca17583e39ff4ab17f632266ad1ddd8",
+      "bytes": 5158
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-02/AD-D-02--320--loading--v1.svg",
+      "sha256": "eb2e05c146f291cffb41720d95497c38dc31f1ce031a109deab381440385dd60",
+      "bytes": 3021
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-02/AD-D-02--1440--loading--v1.svg",
+      "sha256": "ab0db67eb3896a1dde4f32e85565db5cca444e836e439dec73c8d5857f6934dc",
+      "bytes": 4326
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-02/AD-D-02--320--empty--v1.svg",
+      "sha256": "36139f91d40cd9eab3586c736a4801cf864e01356992ee1321abdbd8e1276e7e",
+      "bytes": 3378
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-02/AD-D-02--1440--empty--v1.svg",
+      "sha256": "7c1b11f455d013a19b9b4f8a57a7472ead4731d74ec872244d224b3bb82d28cd",
+      "bytes": 4581
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-02/AD-D-02--320--success--v1.svg",
+      "sha256": "9558afc59971dcf99fe2481e011022ec41403adc992610a7e583e797bd035615",
+      "bytes": 3827
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-02/AD-D-02--1440--success--v1.svg",
+      "sha256": "a6e702aab547714cdbf94f5655cf37f912ea69e8c7c0d91f54909733bb90f265",
+      "bytes": 4717
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-02/traceability.json",
+      "sha256": "65f9a8f7bfb1667a86abe5eeb74500eab655e77f1cf8219662df8a710b893c9c",
+      "bytes": 27468
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-02/README.md",
+      "sha256": "06753bdc2112c9ec7590291a2cb5bc247fc178730e4517da721e8eac5718193c",
+      "bytes": 18645
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-03/AD-D-03--320--overview--v1.svg",
+      "sha256": "2e839a116b631a4f99c8ea9e96770fdf7b0f2d21252476a95468a60be8fe0a7f",
+      "bytes": 3730
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-03/AD-D-03--360--overview--v1.svg",
+      "sha256": "244d46fc9a191f41222f789cffa3068c4f45e2bee53feac95a5c56a5d1f3aeb3",
+      "bytes": 3521
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-03/AD-D-03--600--overview--v1.svg",
+      "sha256": "2da27317a3e4f3c393b8f3d2d148638d5b73894ed7985d672924c3754c05db51",
+      "bytes": 3207
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-03/AD-D-03--840--overview--v1.svg",
+      "sha256": "0d1778dd2ecb46a6465e4d8aa4df8c9d006210b7292032915fcc239cc29497db",
+      "bytes": 5001
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-03/AD-D-03--1200--overview--v1.svg",
+      "sha256": "ac234e7332fffac9d69d50d6f3c49e672740c9d25677e5a20d5684694b3dc9fb",
+      "bytes": 4704
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-03/AD-D-03--1440--overview--v1.svg",
+      "sha256": "c86b2d64a5867ed06bbab257064aaececa367a9d58eb460ab14e38139bf385b8",
+      "bytes": 4724
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-03/AD-D-03--320--op-01--v1.svg",
+      "sha256": "a0f4bed67b03c63e90a364cd89699e61df86ebe240de09668a329e4f14eac0e4",
+      "bytes": 3884
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-03/AD-D-03--1440--op-01--v1.svg",
+      "sha256": "a3b3911b4991894e1af4406a7d0fb5a717199b184aea5cb5aa5244d5f088e8c8",
+      "bytes": 4774
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-03/AD-D-03--320--op-02--v1.svg",
+      "sha256": "6ee3b40bc17ed103c756a6ed974fb8b3aa97f9386c4303cd25b5e6c8bc7ffc30",
+      "bytes": 6086
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-03/AD-D-03--1440--op-02--v1.svg",
+      "sha256": "f9dcaa04445d04e6b7822a7a23c878d9e48d8daa192b2e4c0293a7529fce3a93",
+      "bytes": 6246
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-03/AD-D-03--320--op-03--v1.svg",
+      "sha256": "1130738e881a71bf0a417a5a21cf8acb059929007d1f5eb67c7789c163c751fb",
+      "bytes": 5527
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-03/AD-D-03--1440--op-03--v1.svg",
+      "sha256": "8254f1e4411fb430b07db599e3bbaa3f97d770c8ad9fbc75934d42737bcd5cbd",
+      "bytes": 6318
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-03/AD-D-03--320--conflict--v1.svg",
+      "sha256": "fcf35fe512a1fe4b3fa133cef6f8d6e61d304e33167e7469c324a4bff152a757",
+      "bytes": 4377
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-03/AD-D-03--1440--conflict--v1.svg",
+      "sha256": "c39e49f213db408cfb8bba44132e62b6ac46fe6ddade98c5dd66623c3ff30ced",
+      "bytes": 5061
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-03/AD-D-03--320--denied--v1.svg",
+      "sha256": "6bc6d59195712d97d836743566baa4a1ac869b2438022a360b1f1575b040e10f",
+      "bytes": 3861
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-03/AD-D-03--1440--denied--v1.svg",
+      "sha256": "719106d4f6e8811e7b4629144b84ba8d152bbc6b38c85f3391d82fff79a371af",
+      "bytes": 4751
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-03/AD-D-03--320--op-03-result--v1.svg",
+      "sha256": "b74690db61794f7bd888ef20c7d1d14f9b135359f4fcd2282e4d650344100a53",
+      "bytes": 4512
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-03/AD-D-03--1440--op-03-result--v1.svg",
+      "sha256": "351749417e7248454165f0b4907ef826afdcee3b5f679fc507ef303650e5a21c",
+      "bytes": 5303
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-03/AD-D-03--320--loading--v1.svg",
+      "sha256": "502f0c8efeeab76dcd5e405d1e552db6fee90b950839d8a38ef314eeed329bdb",
+      "bytes": 3072
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-03/AD-D-03--1440--loading--v1.svg",
+      "sha256": "89b42a6326f805299d5cefe3984f8bed190718ca887428dc60b229f208d92df2",
+      "bytes": 4377
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-03/AD-D-03--320--empty--v1.svg",
+      "sha256": "dd155f4310f496a50cb11aae286c8b1603ab6fa28d2ba5463f0b801014a163d8",
+      "bytes": 3429
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-03/AD-D-03--1440--empty--v1.svg",
+      "sha256": "2937523b9ced2e4bab138206e50209597c2e586b38947a14cebd8f44da5ab53b",
+      "bytes": 4632
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-03/AD-D-03--320--success--v1.svg",
+      "sha256": "5b66240e52f006cf5ee71ddb86f95d0d62d745648630113c83ea561592f6a15b",
+      "bytes": 3878
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-03/AD-D-03--1440--success--v1.svg",
+      "sha256": "9ee55e640833c021df1c98719fcfd9bcb66f3475234def25d03f89704e1d9e87",
+      "bytes": 4768
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-03/traceability.json",
+      "sha256": "d839a7c164e9fb5a37a6865194eafe6d58871d69b84f19101db34f7f155824dd",
+      "bytes": 26648
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-03/README.md",
+      "sha256": "f8f79a229271dca21b71ebf149c763828eb854664aba462166cea7a59ec43355",
+      "bytes": 20710
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-04/AD-D-04--320--overview--v1.svg",
+      "sha256": "224d3f27e1030843416aad0393e417b410b651656a24019931b3cd7dadd6f06e",
+      "bytes": 3890
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-04/AD-D-04--360--overview--v1.svg",
+      "sha256": "af248a8e0a32cd4db1a2f4f5edced61f473d721fd2e3c3ee036f9f7a3e02dcb6",
+      "bytes": 3681
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-04/AD-D-04--600--overview--v1.svg",
+      "sha256": "01e865b330b15b0b0acb2f50a0be2fcc600e483f4af4f85b365ea27b95da8b3e",
+      "bytes": 3368
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-04/AD-D-04--840--overview--v1.svg",
+      "sha256": "26ee3b0918afb6c77ced5f6de180870772bac63c145cadadfecfd106dc0d339a",
+      "bytes": 5162
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-04/AD-D-04--1200--overview--v1.svg",
+      "sha256": "2c7cb50cdc1ad909aae7dd1b1de151131da33fdd71cc6f3477764cfb11cb534a",
+      "bytes": 4864
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-04/AD-D-04--1440--overview--v1.svg",
+      "sha256": "d9d9d3e959182f3b2b4cfc84715741b9713924aec516e70103aace44ebdb4031",
+      "bytes": 4780
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-04/AD-D-04--320--op-01--v1.svg",
+      "sha256": "ea2ad536b154120e9045392e6129bff49ae4b136adced08481d75e0a9d04db10",
+      "bytes": 5151
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-04/AD-D-04--1440--op-01--v1.svg",
+      "sha256": "0c33c811c0c8e521f29cb17df2045b600a13f80988c03c8ee399b5ac26eaf6cb",
+      "bytes": 7912
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-04/AD-D-04--320--op-02--v1.svg",
+      "sha256": "178ea62518d786c343adb38e4e65d2fe2a31e22eb99a9fdab549113c0b2131f7",
+      "bytes": 4044
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-04/AD-D-04--1440--op-02--v1.svg",
+      "sha256": "bd025ba8b869b620198b89a80c1ae3b6b8768fad8b72f9e066b016d743bb9909",
+      "bytes": 4830
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-04/AD-D-04--320--op-03--v1.svg",
+      "sha256": "890372397751fe73f44459151e38c6a966edc7a690bcb705dff3db6552671037",
+      "bytes": 4101
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-04/AD-D-04--1440--op-03--v1.svg",
+      "sha256": "6aa9da0a41ad5806bbb8df4e877889962fbc85402caaa38ecf582cfcb6936e66",
+      "bytes": 4993
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-04/AD-D-04--320--op-04--v1.svg",
+      "sha256": "cbd4139aa80874fa681098b5a1fd392b1e033ac32b6c171bc6b68ee934adbed6",
+      "bytes": 4110
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-04/AD-D-04--1440--op-04--v1.svg",
+      "sha256": "6f65b20720deb1e3d597ad2224159850cb1a3bec0c316745addfef82da02c7d0",
+      "bytes": 5003
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-04/AD-D-04--320--op-05--v1.svg",
+      "sha256": "a509dfed9b531ff426f56f8a828f6772d8322dae49a3765986e5d43831fd7a75",
+      "bytes": 4303
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-04/AD-D-04--1440--op-05--v1.svg",
+      "sha256": "6267649b8d1d5d4611fcbfb06b43198d5b20ac9e8be2513f10e27bdee352ab38",
+      "bytes": 5723
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-04/AD-D-04--320--op-06--v1.svg",
+      "sha256": "1e232047db066dd0a33b3331e0cc9e777fda4483928c6cb1f4fb4fc3812f6c9b",
+      "bytes": 3914
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-04/AD-D-04--1440--op-06--v1.svg",
+      "sha256": "b6ffa19f30e7c6d23cb07f1fa02166b226ebdb14a4a5f60ec201076cc7152a43",
+      "bytes": 5331
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-04/AD-D-04--320--op-07--v1.svg",
+      "sha256": "0839f828877000c08fc00b7aff54fa52072237b3c6a6261921daed73ef668bd4",
+      "bytes": 6247
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-04/AD-D-04--1440--op-07--v1.svg",
+      "sha256": "40454418710bc7311865e4be8c85b98e2e794f5853ef81728994130d9aa516f4",
+      "bytes": 6302
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-04/AD-D-04--320--op-08--v1.svg",
+      "sha256": "2759d3b06b09860c1ac9977bdb38e685ee72d89ea118da6fcda315756f1e60ee",
+      "bytes": 3985
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-04/AD-D-04--1440--op-08--v1.svg",
+      "sha256": "41844549fd5dbb857f85504cc1a3a5e553a2dd8bc840f327ef151cb9d44258b0",
+      "bytes": 5402
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-04/AD-D-04--320--conflict--v1.svg",
+      "sha256": "ec7047252277f3267a307494770cba10ae1b64db5015c203668cdfa92ce4e583",
+      "bytes": 4565
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-04/AD-D-04--1440--conflict--v1.svg",
+      "sha256": "9cc752b880c13bd6b5cd63b34a2332c442614dbd9c7e0dfb919cea2fc982928e",
+      "bytes": 5145
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-04/AD-D-04--320--denied--v1.svg",
+      "sha256": "8b80dbcd0fda3c635da40fc40f30af0dd40478765bb9a509f1f0c83b420e5ecf",
+      "bytes": 4049
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-04/AD-D-04--1440--denied--v1.svg",
+      "sha256": "7873c35b2c892abe2124f99d3c5a539dc93c889a7df3a9d1c3855af50627b4dc",
+      "bytes": 4835
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-04/AD-D-04--320--op-06-confirm--v1.svg",
+      "sha256": "aa561815140445a374f5a06d8cbdd79667361dc3c76c6347ee9a0458368c9ebb",
+      "bytes": 4539
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-04/AD-D-04--1440--op-06-confirm--v1.svg",
+      "sha256": "95b89f9dd477b492d489dfa7642a4bd0c0c619b9fd2499f98d71ba823e144481",
+      "bytes": 5330
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-04/AD-D-04--320--op-08-result--v1.svg",
+      "sha256": "1be149dd87ad54e75c4d2e0fc6633be8b1ae7dd4141c9965ba6489b65a15a85c",
+      "bytes": 4672
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-04/AD-D-04--1440--op-08-result--v1.svg",
+      "sha256": "ace4e3eba13142459664038775e84ed9d6233185a345a50e37d8cf35700b9ee7",
+      "bytes": 5359
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-04/AD-D-04--320--loading--v1.svg",
+      "sha256": "65ded0ddaa52e2a6c115968c21ccca556b10df2f4fc44d377cfd2ef17b819259",
+      "bytes": 3101
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-04/AD-D-04--1440--loading--v1.svg",
+      "sha256": "7457a549b1ae981740a488c6b1d5f9fd234aefa3a1d3af3c7aa3f3809bb401a0",
+      "bytes": 4406
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-04/AD-D-04--320--empty--v1.svg",
+      "sha256": "da994837e0baecad1d962c08cd287e4839fd59c43a8d92cfa16911e05ffe4db4",
+      "bytes": 3458
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-04/AD-D-04--1440--empty--v1.svg",
+      "sha256": "ade30ecda6f5d8e720670e93737b42c7259d22c92fef7530de03b1020cf5d4f7",
+      "bytes": 4661
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-04/AD-D-04--320--success--v1.svg",
+      "sha256": "73ce1d7c181f37054e27891fbd37732e5fc3994908fc0aa84f58cd06f53af834",
+      "bytes": 3907
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-04/AD-D-04--1440--success--v1.svg",
+      "sha256": "7d621349c69880eb1501792f6374587682565aa83094ebd47681559e72784c9f",
+      "bytes": 4797
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-04/traceability.json",
+      "sha256": "ec6862cd7634752ea5cbea86fcdb81a891b28a3c49eebf66f22ccf836b18850f",
+      "bytes": 32513
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-04/README.md",
+      "sha256": "7395ad6f2d5bef5d6483468ea35c9b8d73d96dda3ea0dcb2f561aac4bf3fefab",
+      "bytes": 21856
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-05/AD-D-05--320--overview--v1.svg",
+      "sha256": "98ad94b988ccbc8ceb9bfe378210016f6d7302eb62dcc4f5f0594ef537e92807",
+      "bytes": 3686
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-05/AD-D-05--360--overview--v1.svg",
+      "sha256": "3edfe10189c0142a083032763ff086245b87cb6ca03b36d1d6e10452899e8a4a",
+      "bytes": 3477
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-05/AD-D-05--600--overview--v1.svg",
+      "sha256": "f6af84c4ed542a752be4b5258fc71f15e7411aadd71ca369cb39464a7e84d34c",
+      "bytes": 3163
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-05/AD-D-05--840--overview--v1.svg",
+      "sha256": "8864bfb0f55915c8b36faa74a403e179baf9c7e1002baafc8bd3355ab10567c9",
+      "bytes": 4957
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-05/AD-D-05--1200--overview--v1.svg",
+      "sha256": "d6019b85aa8ee0208dd502a19f22191478ac1d84f338e761a2615f9b784ea32c",
+      "bytes": 4660
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-05/AD-D-05--1440--overview--v1.svg",
+      "sha256": "5917f159a2f30f77fece8fb98e68ed671b723f7df92aee7fccc9a62ddd281b3d",
+      "bytes": 4680
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-05/AD-D-05--320--op-01--v1.svg",
+      "sha256": "f2baf61dac117eb8c2f335e45ede76bed43c0238005d79caf48d159867ae583b",
+      "bytes": 4842
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-05/AD-D-05--1440--op-01--v1.svg",
+      "sha256": "4c5a62168490923a5c0578775a99ffd7d49202ff66c1ffc1c5d1b7db826318c2",
+      "bytes": 7709
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-05/AD-D-05--320--op-02--v1.svg",
+      "sha256": "f06cc8122c07df4f3b387e5f6c3b427d7901ca552b7116233db3dac4289c8d90",
+      "bytes": 3736
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-05/AD-D-05--1440--op-02--v1.svg",
+      "sha256": "302fd93753c290b8ef58e8fbc6590c453326fc7285e008850f140470a0580ef1",
+      "bytes": 4730
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-05/AD-D-05--320--op-03--v1.svg",
+      "sha256": "62dd224337df09ff52b29a1d970e56a4ae63a9a6749a1445aa9e685a530d2bba",
+      "bytes": 3593
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-05/AD-D-05--1440--op-03--v1.svg",
+      "sha256": "182429a2af464cb8c6ef7de929b97cf79991ee2ffadf6813b03e3b89e0f912d5",
+      "bytes": 5222
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-05/AD-D-05--320--op-04--v1.svg",
+      "sha256": "6e7aaa753f06d7b2772818a9eba4e1a163e026c50b466816645c0da46600c4d2",
+      "bytes": 4443
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-05/AD-D-05--1440--op-04--v1.svg",
+      "sha256": "f30feb13be6bcf7101fd4e254f2b9b743cc8ced4e1dd7b13ca8b6445e98964e6",
+      "bytes": 5865
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-05/AD-D-05--320--op-05--v1.svg",
+      "sha256": "1421163b120a965911b8fc271284e6b94b82a27989421146724edd1451b26c68",
+      "bytes": 3538
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-05/AD-D-05--1440--op-05--v1.svg",
+      "sha256": "00e23ac092d93f0099cce630c15b6b884cda2386632b58c4ab2aeb7db30b5513",
+      "bytes": 4637
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-05/AD-D-05--320--op-06--v1.svg",
+      "sha256": "ec0703454cca80cca9dbdbfac85ec4e866b6cc4c80be59453d293883e3e57bfb",
+      "bytes": 3562
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-05/AD-D-05--1440--op-06--v1.svg",
+      "sha256": "e650c8da603152fb7a87227bfbb213fd58af05d4827d66ef7d65a3dc77cbae52",
+      "bytes": 4661
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-05/AD-D-05--320--conflict--v1.svg",
+      "sha256": "fe677873bc97d07ab696013144b226cb3deb3d81f31c6307c9025282c0036db0",
+      "bytes": 4369
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-05/AD-D-05--1440--conflict--v1.svg",
+      "sha256": "7814a4be6eb2c6d18c497dcf26486e2f00eb0cbde8840ba0c94a42db1ba1f9be",
+      "bytes": 5053
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-05/AD-D-05--320--denied--v1.svg",
+      "sha256": "e6d88a2c313ebb844841a8c2be6bde3ff4d97137f62296c6173bb1bec6ac3f5d",
+      "bytes": 3853
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-05/AD-D-05--1440--denied--v1.svg",
+      "sha256": "0823a76ab73350dc584cbae1e4c3c7848b75932ec56f2be35c22a539255d9af3",
+      "bytes": 4743
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-05/AD-D-05--320--op-03-confirm--v1.svg",
+      "sha256": "8da3ef169203ea71d2335b1709522407b659e2e1bcde7470fc46039f3b1eb594",
+      "bytes": 4332
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-05/AD-D-05--1440--op-03-confirm--v1.svg",
+      "sha256": "0d85cb2cbb8895ec682410d20edcaa190e56e69bf46bf8db0a55f2de7d73b3a4",
+      "bytes": 5227
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-05/AD-D-05--320--op-04-confirm--v1.svg",
+      "sha256": "37270db40432ca4d2291b04c9ee90cabf048a30713ec122e829177a981a70289",
+      "bytes": 4314
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-05/AD-D-05--1440--op-04-confirm--v1.svg",
+      "sha256": "7bd2ec5302c52367d8cb7e695c77bae22fa5b23e3170bc8772eceb5c3db711f6",
+      "bytes": 5209
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-05/AD-D-05--320--loading--v1.svg",
+      "sha256": "798f7f9ff13b6a09a3410603b1499023d95498d96e7dfa3fe00f0ec6afebc35b",
+      "bytes": 3065
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-05/AD-D-05--1440--loading--v1.svg",
+      "sha256": "42300d85bfc3ff8313b8a214a689894585c01f34cd6442b22304d6533ec757d7",
+      "bytes": 4370
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-05/AD-D-05--320--empty--v1.svg",
+      "sha256": "e2624156bf892cb13a5e6660b5c4f72f6e6f500b51683fd67ef7de014ccd177d",
+      "bytes": 3422
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-05/AD-D-05--1440--empty--v1.svg",
+      "sha256": "448949b66a127821a8ad3c68d2aa9960fb358af37e8fc4d7cd93a9681e0554d4",
+      "bytes": 4625
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-05/AD-D-05--320--success--v1.svg",
+      "sha256": "93846b74591027c6204145f9b54eef090860235363863a90ac966dc93b2483bb",
+      "bytes": 3871
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-05/AD-D-05--1440--success--v1.svg",
+      "sha256": "53fac2dbe89d80cd65ccfbe48498401443c64294edc93729ccc1917666bc6973",
+      "bytes": 4761
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-05/traceability.json",
+      "sha256": "f0e09c1f30eaca653f77556b6ca09ad3de57f40b4cbbf57ddd6b6348d7a93a3d",
+      "bytes": 29384
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-05/README.md",
+      "sha256": "6bf165e0aabf5d7aec5156332ac45a3be2f96f7f945617dc27522f016f4ea878",
+      "bytes": 20408
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-06/AD-D-06--320--overview--v1.svg",
+      "sha256": "9a5d4b5889cb111938e039fd1b6e86852a2a50d9020034708881e87c1524757c",
+      "bytes": 3748
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-06/AD-D-06--360--overview--v1.svg",
+      "sha256": "2a410bc672c5e1225060e4081aa33f73a0350aa0fc0253fb2499e45f2463abfe",
+      "bytes": 3643
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-06/AD-D-06--600--overview--v1.svg",
+      "sha256": "323d0ea983616d733b28409e8034930cf8fa8f506721db29b024b1d74ffe1d14",
+      "bytes": 3225
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-06/AD-D-06--840--overview--v1.svg",
+      "sha256": "e88636bed0732f19cf2e963b926593b837406e523bdeab7834643a6841f1f210",
+      "bytes": 5019
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-06/AD-D-06--1200--overview--v1.svg",
+      "sha256": "59d2542a42a3c13f711b2c429966c67a7e1b66d4798e580c98611efedf67c939",
+      "bytes": 4722
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-06/AD-D-06--1440--overview--v1.svg",
+      "sha256": "785d93403bfa5a7aa4b82629e449050887ae89119974df94a89b20fff7f8ca3e",
+      "bytes": 4742
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-06/AD-D-06--320--op-01--v1.svg",
+      "sha256": "6290702e282df2cb3e88bbf0333dc01c286fc8b99898d72dcfca49f31c1c8e0e",
+      "bytes": 5008
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-06/AD-D-06--1440--op-01--v1.svg",
+      "sha256": "b76f9639bf8e3114130571740af5c8fcc4e470dc21f03d8ce8b52275a4e4f9a6",
+      "bytes": 7772
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-06/AD-D-06--320--op-02--v1.svg",
+      "sha256": "27dd5d3ab730bbbfb8cf150d2f2853f95de79465b8c04a1b5a155ec07ca5a98f",
+      "bytes": 3798
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-06/AD-D-06--1440--op-02--v1.svg",
+      "sha256": "d46ec80ac8c71b900fc6b190ff2e630d6cf5a35131186843c50202d0f10b2824",
+      "bytes": 4792
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-06/AD-D-06--320--op-03--v1.svg",
+      "sha256": "27dd5d3ab730bbbfb8cf150d2f2853f95de79465b8c04a1b5a155ec07ca5a98f",
+      "bytes": 3798
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-06/AD-D-06--1440--op-03--v1.svg",
+      "sha256": "d46ec80ac8c71b900fc6b190ff2e630d6cf5a35131186843c50202d0f10b2824",
+      "bytes": 4792
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-06/AD-D-06--320--op-04--v1.svg",
+      "sha256": "914e46727306b54d00f5b3b6cd893b423bee8967e5d64a95aeb1f4529542aa34",
+      "bytes": 4120
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-06/AD-D-06--1440--op-04--v1.svg",
+      "sha256": "ba41c8abb4c083b296057dcc769d80882f728d0c47b2924563c3ba0bdfe224a0",
+      "bytes": 7395
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-06/AD-D-06--320--op-05--v1.svg",
+      "sha256": "914e46727306b54d00f5b3b6cd893b423bee8967e5d64a95aeb1f4529542aa34",
+      "bytes": 4120
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-06/AD-D-06--1440--op-05--v1.svg",
+      "sha256": "ba41c8abb4c083b296057dcc769d80882f728d0c47b2924563c3ba0bdfe224a0",
+      "bytes": 7395
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-06/AD-D-06--320--conflict--v1.svg",
+      "sha256": "ff3f09dd1386809f405656d97b6a23dcdf8f88200d49c4f30072b4c92f303412",
+      "bytes": 4255
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-06/AD-D-06--1440--conflict--v1.svg",
+      "sha256": "21aa00e35fd0cef404ad27529c030dd02fb5d0dff72c029c175f0ab53f202651",
+      "bytes": 5043
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-06/AD-D-06--320--denied--v1.svg",
+      "sha256": "05f7f7f79ff6dced5ce52e57e58e6b0b6d27877ce2bbff2b47bea75cedb9dea9",
+      "bytes": 3739
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-06/AD-D-06--1440--denied--v1.svg",
+      "sha256": "7ff1f5d4f6618fd3220bea6d2724677f069faf16534d9e484e25be5bb0a75e7c",
+      "bytes": 4733
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-06/AD-D-06--320--loading--v1.svg",
+      "sha256": "9d69aca7b41b10ceee011265d9cc9a285d3ba6d359479d1f11bbc4168a2230a0",
+      "bytes": 3067
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-06/AD-D-06--1440--loading--v1.svg",
+      "sha256": "90e3e6fa989a80d282527026c12c6aecda473161cf2411a0658842d8b1153f2f",
+      "bytes": 4372
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-06/AD-D-06--320--empty--v1.svg",
+      "sha256": "d128b71bb1ffdf7cda2f30a7678f8a3efcaee8c04b1a71981623661ec2018b09",
+      "bytes": 3424
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-06/AD-D-06--1440--empty--v1.svg",
+      "sha256": "e9472eb1217bbe705979635c268269be94e081a652e52f503d3a75397a64cc3a",
+      "bytes": 4627
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-06/AD-D-06--320--success--v1.svg",
+      "sha256": "ca9ca11c100fb0304307080dadfbd2aa5135266a32418af4f811284309d6b409",
+      "bytes": 3873
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-06/AD-D-06--1440--success--v1.svg",
+      "sha256": "1f39e339dd63866c4cb889854a1df0d7d4c42b8adce8bd9102593c61b62fdc9a",
+      "bytes": 4763
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-06/traceability.json",
+      "sha256": "98d257430c9b046c16e711b89774561874c50e84d8cee7a2699758c683629b2e",
+      "bytes": 29173
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-06/README.md",
+      "sha256": "e6e4e916f47edb4d717a43ee06917914696baae03dd9ee3eea009a5b7ab344c1",
+      "bytes": 21745
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-07/AD-D-07--320--overview--v1.svg",
+      "sha256": "7c0f74f51f1f64e292cbc1645af620ff343f6530edb90ef4c3aea176d3a87f7c",
+      "bytes": 3658
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-07/AD-D-07--360--overview--v1.svg",
+      "sha256": "bfd735544b7108a91f3e3bed7dfed733bc53267d9906bb8896f18b8d0e155bc6",
+      "bytes": 3449
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-07/AD-D-07--600--overview--v1.svg",
+      "sha256": "07fb1467f791a452bbe9956888c2a1440726f4156b393397ced3072402025591",
+      "bytes": 3135
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-07/AD-D-07--840--overview--v1.svg",
+      "sha256": "de0ae5190a6bd2a3f6bbb76b2f2f370972c8bfb0096a6856948e4aa4f4475c02",
+      "bytes": 4929
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-07/AD-D-07--1200--overview--v1.svg",
+      "sha256": "e0b9c98dee5bce0f8b01b4150c4de793215409f9c1fdabf9fc1b4e37dc8a3dcf",
+      "bytes": 4632
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-07/AD-D-07--1440--overview--v1.svg",
+      "sha256": "cc55fc1c9233cbfa842d7a1f023dd35cc5bdf1eb1394e0caa0121edb3a635537",
+      "bytes": 4652
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-07/AD-D-07--320--op-01--v1.svg",
+      "sha256": "bcf785d4bbb5f8f033d70d14f098dd6142d5f0f2df31b80a32948142e27a15c0",
+      "bytes": 5482
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-07/AD-D-07--1440--op-01--v1.svg",
+      "sha256": "af1f10accb935ceb833456f04f6e549b6bd73e35285adb5b0cb46127af7eb63a",
+      "bytes": 6486
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-07/AD-D-07--320--conflict--v1.svg",
+      "sha256": "37cd6b909691ff4a31b3e4dc493388cb0f475278ea1ffd1e083c1f7b3e8cd44a",
+      "bytes": 4365
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-07/AD-D-07--1440--conflict--v1.svg",
+      "sha256": "2331eaf48331aff258980c7f8a2cd5e7a52544c62c57e27b4b9e763d3dc8c130",
+      "bytes": 5049
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-07/AD-D-07--320--denied--v1.svg",
+      "sha256": "93318b1aad4e2b23ea767759f0ced2fa8c10367cfc8892adae4cc470c701f4c6",
+      "bytes": 3849
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-07/AD-D-07--1440--denied--v1.svg",
+      "sha256": "28b82e3cb5c03c9130dfb65786db8a8864ec8415ce6c38db64fb0c91c786a613",
+      "bytes": 4739
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-07/AD-D-07--320--op-01-confirm--v1.svg",
+      "sha256": "90eb412674b851431dce185b59cd31f01ef51dd935256274a15fc0f0a6aef1aa",
+      "bytes": 4145
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-07/AD-D-07--1440--op-01-confirm--v1.svg",
+      "sha256": "950bb9761718f718fe439acc007abd6f50b32506d1aca1bb28d402246103c794",
+      "bytes": 5144
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-07/AD-D-07--320--loading--v1.svg",
+      "sha256": "7cbe18664b4c1cbd2da340f015218be004ebf2acec66223372d7a397d3974f02",
+      "bytes": 3068
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-07/AD-D-07--1440--loading--v1.svg",
+      "sha256": "bf8769cbfa57ea0344eaf5e2e066ff70f57209084659ed6f2c9cbb0a49b453a1",
+      "bytes": 4373
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-07/AD-D-07--320--empty--v1.svg",
+      "sha256": "6dc6bb81187913eab87c0d98b565e906854c75e0e27ac6f0ce05dacee88cce34",
+      "bytes": 3425
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-07/AD-D-07--1440--empty--v1.svg",
+      "sha256": "f385273714b90b9a82379bda7be7e3539af60be844d8c2338e3fee18c2564402",
+      "bytes": 4628
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-07/AD-D-07--320--success--v1.svg",
+      "sha256": "cba80dbb99e2f39479fc8875edcdbe35460d472190dfa75577065ad11aa09dca",
+      "bytes": 3874
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-07/AD-D-07--1440--success--v1.svg",
+      "sha256": "ff49db2d8d7ed6cb9a130a538a212feede31238b26498f0aff19af810622965f",
+      "bytes": 4764
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-07/traceability.json",
+      "sha256": "ca2f97afa719848afe37c73e5f66e2d0691bf4d28401f3ed83c444c64fed828c",
+      "bytes": 26303
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-07/README.md",
+      "sha256": "8b8b5ba479e26d2b2d360377494f4f60f90151373540fadf4a8c7f0bea5dad3e",
+      "bytes": 21741
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-08/AD-D-08--320--overview--v1.svg",
+      "sha256": "726858ef001d4958427aa45ca8107da9c1bca63c38445bcd53668f5fb07f678c",
+      "bytes": 3607
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-08/AD-D-08--360--overview--v1.svg",
+      "sha256": "95078e6c8d4e8ad95d0ca6996e6cb5718286ea87fb79153e8d2d30d1ccd84d33",
+      "bytes": 3502
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-08/AD-D-08--600--overview--v1.svg",
+      "sha256": "d9c8d15abc81384e9e69d4e68eb4f6b8231bf91948b1d9c3f379673e08fdb306",
+      "bytes": 3188
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-08/AD-D-08--840--overview--v1.svg",
+      "sha256": "0f723f48781bfff9a7cb4733e2bf67243cf8d5ac923ebaed0998fdd68ae29c93",
+      "bytes": 4982
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-08/AD-D-08--1200--overview--v1.svg",
+      "sha256": "090878b6c00474623db41dd9b0154cc8d5c31ea0cd54bd8ec68770e883818d35",
+      "bytes": 4685
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-08/AD-D-08--1440--overview--v1.svg",
+      "sha256": "398f604777bca9c98c7b8ac032aefe301c0006fa641aaa3b05084062c1d66696",
+      "bytes": 4705
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-08/AD-D-08--320--op-01--v1.svg",
+      "sha256": "73380f606a89f722bf719e05bd4d64e02f40bbf1902c0042c3e1a034d7634aca",
+      "bytes": 4867
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-08/AD-D-08--1440--op-01--v1.svg",
+      "sha256": "9970dbaa27e62ac29a822493234af538af0e00a5409326f743d4fbf8b41c1145",
+      "bytes": 7738
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-08/AD-D-08--320--op-02--v1.svg",
+      "sha256": "77be97d96bd3176abdc4d57dc0e4d25180d9e418867ee9d0bc65cecaf1ac9f39",
+      "bytes": 3657
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-08/AD-D-08--1440--op-02--v1.svg",
+      "sha256": "ad5a06437e90816dacf03983717da3cb87ae25e863ced5d22c097f5a33d78dda",
+      "bytes": 4755
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-08/AD-D-08--320--op-03--v1.svg",
+      "sha256": "08cf01f5a043a3dec15227fb879da5724c2e86285f58c259a44c73575db40363",
+      "bytes": 4297
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-08/AD-D-08--1440--op-03--v1.svg",
+      "sha256": "b4d67ef9e3b7b8707482bfcab5a70fa28277add98ebf7a8d82a65ed3eb9dd53b",
+      "bytes": 5609
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-08/AD-D-08--320--op-04--v1.svg",
+      "sha256": "5b78244ca4e8efd5a1f8d13de0bc4b9d858906a1729af1eeca8fa7c25653d1be",
+      "bytes": 3319
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-08/AD-D-08--1440--op-04--v1.svg",
+      "sha256": "bb21d73d0d39154d6b35a7c24dc20c674e6ff62cd0bbeb5a9af173ed5d2c035a",
+      "bytes": 4626
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-08/AD-D-08--320--op-05--v1.svg",
+      "sha256": "53f253e283e78cf7207acb69044b778b979fc3ca0a75a460c4f96a78a1f57c5e",
+      "bytes": 3826
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-08/AD-D-08--1440--op-05--v1.svg",
+      "sha256": "f692b486957ad1a18310ad40a9eff2c41179ec3334efb8cd480897a9daa70cb9",
+      "bytes": 4926
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-08/AD-D-08--320--op-06--v1.svg",
+      "sha256": "cf274a05bf299ba1c5265d80bebe31df3074fbdca9d5e62c0e1c2df6e7ead9c2",
+      "bytes": 4010
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-08/AD-D-08--1440--op-06--v1.svg",
+      "sha256": "2e823e1ce6b873abf4c37f81c3c2c4f8e89fe40b58b9687f9c13a0c6ccba50eb",
+      "bytes": 5006
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-08/AD-D-08--320--op-07--v1.svg",
+      "sha256": "08d8db588158bb1b4ad770844f424cef3e817338ea378f804a8e1855d84f9ac8",
+      "bytes": 3978
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-08/AD-D-08--1440--op-07--v1.svg",
+      "sha256": "69fb2f4e45250d46e9a642608dc27ed683f2394235dcefe4e7207a4e7843e588",
+      "bytes": 4974
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-08/AD-D-08--320--conflict--v1.svg",
+      "sha256": "6bd74163fe70db7b4e3e45784957e35bd83032ea7ab66e11b03e01e38a13f032",
+      "bytes": 4292
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-08/AD-D-08--1440--conflict--v1.svg",
+      "sha256": "c749f7b09947de3db2fd33f719b50ed1bfe74187a6f05b2c6a61daf272db37c2",
+      "bytes": 5080
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-08/AD-D-08--320--denied--v1.svg",
+      "sha256": "e7b9009ceab57be020c0e00235115dac7ae5b1527addd49d0e783ea4c918d563",
+      "bytes": 3776
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-08/AD-D-08--1440--denied--v1.svg",
+      "sha256": "9135b8f3cb5637d50a949943f91cbd12d377f49cda7926fcbf252eaa54b421df",
+      "bytes": 4770
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-08/AD-D-08--320--op-03-confirm--v1.svg",
+      "sha256": "a56057e9f56970ff93e35e3257e0e0f574026c00a6f2d1783d0bedee483c991b",
+      "bytes": 4235
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-08/AD-D-08--1440--op-03-confirm--v1.svg",
+      "sha256": "08c2e9a8ebf4839766788239a1e90cef0f2b89ab84463da71a956e3b206e45f2",
+      "bytes": 5234
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-08/AD-D-08--320--loading--v1.svg",
+      "sha256": "cf533de1109a347933f8834a6de62ccf4dff49695d6338a7680883d83a2978da",
+      "bytes": 3110
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-08/AD-D-08--1440--loading--v1.svg",
+      "sha256": "23592536c9549e2ec3af7105bc070ae95aa224401b26c0432e8d3d8c8859d82d",
+      "bytes": 4415
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-08/AD-D-08--320--empty--v1.svg",
+      "sha256": "65298b0c7110e2cd93fa4c1ed2f0b23cc807b404d85f34514950fd6d7694776e",
+      "bytes": 3467
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-08/AD-D-08--1440--empty--v1.svg",
+      "sha256": "86dcd8c354c4f866f4b523af6a6fe2438065613be7106e3e9717465e2e03b068",
+      "bytes": 4670
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-08/AD-D-08--320--success--v1.svg",
+      "sha256": "3bca8d84954fb1e1df6992ede3cb7405162e7a85a0b1fc5767c0b5ddabdf4178",
+      "bytes": 3916
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-08/AD-D-08--1440--success--v1.svg",
+      "sha256": "77f09c8ec11429b902733f7adb83167d3e8762e7b87056450e50d1db8db61bdd",
+      "bytes": 4806
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-08/traceability.json",
+      "sha256": "e195fe0d442aeb5503110674bd1bff4573c7166ede68df6fdd94bf8b883325bb",
+      "bytes": 32930
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-08/README.md",
+      "sha256": "2f56fb58c39cc99c9844e38a77ff2e3b1f5ef3e833e6f9132a6ca0f08e466e36",
+      "bytes": 23201
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-09/AD-D-09--320--overview--v1.svg",
+      "sha256": "41a52d8bd4d7512058943d243ca9e489572f8f3a129335516426ddc413af6f91",
+      "bytes": 3800
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-09/AD-D-09--360--overview--v1.svg",
+      "sha256": "939388d7904652c9e50bb2717fba9329d56537ec875d9f6edc20f25ad0b5a6e0",
+      "bytes": 3695
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-09/AD-D-09--600--overview--v1.svg",
+      "sha256": "add1596e2007fee19366e28b7e219d321f190f6c8fe6c6aed7c8edc486b3c018",
+      "bytes": 3277
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-09/AD-D-09--840--overview--v1.svg",
+      "sha256": "203ecf81fa6a29b1313805549c895cdd833fbced23652afabbdd4ce9f358405d",
+      "bytes": 5071
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-09/AD-D-09--1200--overview--v1.svg",
+      "sha256": "3f4f9a14f83ef55e33f3b33bb7e7828a9bc167d14759bda387b1e2be06a62c35",
+      "bytes": 4774
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-09/AD-D-09--1440--overview--v1.svg",
+      "sha256": "0ac571360bcdd73a58fa11f7f3dcdfb900dd96e6cb8fe036061be453c38fb979",
+      "bytes": 4794
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-09/AD-D-09--320--op-01--v1.svg",
+      "sha256": "769683a6ea3bea77672dc91deb1407b698d444ae7627659982a19486babe359f",
+      "bytes": 5060
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-09/AD-D-09--1440--op-01--v1.svg",
+      "sha256": "4637bae0753a32f084a2537d1dabc15dcc411550f0671096e8db9ae7db4a619d",
+      "bytes": 7814
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-09/AD-D-09--320--op-02--v1.svg",
+      "sha256": "7211611ce81a98314c8db162042206f8b71cd0f5d2548183c22edda1c6476999",
+      "bytes": 3850
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-09/AD-D-09--1440--op-02--v1.svg",
+      "sha256": "fcae998420eaf88b2ac79819295c05b4c98ceef48e1d3dac88eacf47abe2399e",
+      "bytes": 4844
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-09/AD-D-09--320--op-03--v1.svg",
+      "sha256": "9b927ea3c51afe88b71a526993a8d940e910a02b7ea8637a3711e0a5e2085928",
+      "bytes": 4807
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-09/AD-D-09--1440--op-03--v1.svg",
+      "sha256": "756f1159dcd876a07df0ed3e37f66af30bf4dedf8538b28e0d892879059897a3",
+      "bytes": 6017
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-09/AD-D-09--320--op-04--v1.svg",
+      "sha256": "a90cd71acdbae06ea18ba4a5500f178775efe0bb2a71074d4e1f7ca68ee2d98d",
+      "bytes": 3592
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-09/AD-D-09--1440--op-04--v1.svg",
+      "sha256": "f40f6c08dbede3162edb27948583537cd0d7a20c69df7663319dec7c603cf17d",
+      "bytes": 4795
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-09/AD-D-09--320--op-05--v1.svg",
+      "sha256": "b087c14f842b8ab5ae910eb66de49eaac3dfbdf0aaa8839184db5784d6687673",
+      "bytes": 4075
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-09/AD-D-09--1440--op-05--v1.svg",
+      "sha256": "d74ad34cdc785ccc1afbff6f91954245e97266e0d00dc4ecebeb649f605620c7",
+      "bytes": 5071
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-09/AD-D-09--320--op-06--v1.svg",
+      "sha256": "ac24daaf612a2bff038974b0a7531b8976d8519e959e128efe0bc457ad0f4276",
+      "bytes": 3540
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-09/AD-D-09--1440--op-06--v1.svg",
+      "sha256": "bd36577331b24fcf4ac4c50228e08ada32a923867718e9198a4478a364df70f6",
+      "bytes": 4743
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-09/AD-D-09--320--op-07--v1.svg",
+      "sha256": "3981d9fbe6e86efdd26b47e097be743f33d1e07fe71f3cec4bab0d52a788b6f7",
+      "bytes": 4135
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-09/AD-D-09--1440--op-07--v1.svg",
+      "sha256": "d62a921238772023dc5050f8771f8d049152562887cb6e3f1d5e3828678c0760",
+      "bytes": 5131
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-09/AD-D-09--320--op-08--v1.svg",
+      "sha256": "fa634d20f46487fe3a676f8dccf6fd9ceb8842ff60aae328f2aef8b2a8573e95",
+      "bytes": 3536
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-09/AD-D-09--1440--op-08--v1.svg",
+      "sha256": "80365763a9a6d39a9d7efb98729a4696928b7b031a9b4aad8c209b52d5a7bc92",
+      "bytes": 4739
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-09/AD-D-09--320--op-09--v1.svg",
+      "sha256": "08ab43e7ba77a2a68b532967d4102b5655b19edcdd758e853ef339fe5439ddb4",
+      "bytes": 3868
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-09/AD-D-09--1440--op-09--v1.svg",
+      "sha256": "9d72c89580d56bae8d76ffba70ab0134109bfe03a08c37477c31b29259c13653",
+      "bytes": 4863
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-09/AD-D-09--320--conflict--v1.svg",
+      "sha256": "0c4f6afdacdeec2476b133c40e492363346ba568985aa643cef9117417e57801",
+      "bytes": 4329
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-09/AD-D-09--1440--conflict--v1.svg",
+      "sha256": "c4441360ec4c9555528fe43d9343505651e9f26ec1acd5d5ba478eef708c452a",
+      "bytes": 5117
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-09/AD-D-09--320--denied--v1.svg",
+      "sha256": "6eafa3a3ef4799a8b2302284967ae1bbcbbfd1a4e8d172d6dfa600e2c18a23b5",
+      "bytes": 3813
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-09/AD-D-09--1440--denied--v1.svg",
+      "sha256": "1574eb03bbbc115c0adcbbc5aa69236cb54cbf045533441e9704ae7414092d4d",
+      "bytes": 4807
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-09/AD-D-09--320--op-03-confirm--v1.svg",
+      "sha256": "bbfdf06dbf4eab1962619297904db153ed8f21bbda236603ed6fc0cf5511c21c",
+      "bytes": 4324
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-09/AD-D-09--1440--op-03-confirm--v1.svg",
+      "sha256": "c0d4fca5e2fe8479f88b099e271381d98b8cc0320c1aa9d043477feca313af00",
+      "bytes": 5323
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-09/AD-D-09--320--loading--v1.svg",
+      "sha256": "834bc5f01e53a1284b127dce6c1ea51ae1953beae28e1c7c1566a8aa71595fe0",
+      "bytes": 3143
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-09/AD-D-09--1440--loading--v1.svg",
+      "sha256": "4a4f8762c103bfc6b1e067e4fab8f9b75134bd7f03c45ea4b6cd0410a5bdfdc9",
+      "bytes": 4448
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-09/AD-D-09--320--empty--v1.svg",
+      "sha256": "04654814bf6ef1f6e56fcb43966576b096545d243ed792187f4b924ba9c2381a",
+      "bytes": 3500
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-09/AD-D-09--1440--empty--v1.svg",
+      "sha256": "a1babb1056652b8beb4362e107fc365116068665c060fa1a6c13f7fee20ba7d5",
+      "bytes": 4703
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-09/AD-D-09--320--success--v1.svg",
+      "sha256": "cbba1139b15a626ac3b4568ba485c758190ff9bd52904c5c3e8695de5cb0c702",
+      "bytes": 3949
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-09/AD-D-09--1440--success--v1.svg",
+      "sha256": "6ea1d35d30511524fd81c97269b37c77bb9994272f5e648d27e74631fa505906",
+      "bytes": 4839
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-09/traceability.json",
+      "sha256": "fab63c0a3c03d148a51657702b4270c0ac689794048a26c0df5fdac71a089e25",
+      "bytes": 44681
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-09/README.md",
+      "sha256": "d57da3a974b12da6fd603a6d653200da5b9c3c4879800aa7a1fcd5f7cd64bb47",
+      "bytes": 32271
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-10/AD-D-10--320--overview--v1.svg",
+      "sha256": "5e204c95367f23b00e42587c198b1b878746b22c0d898ca19df01f57a5455920",
+      "bytes": 3596
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-10/AD-D-10--360--overview--v1.svg",
+      "sha256": "c6b852d62663d01aad42b5965a0e3da77071872f2ec50f022f65e794d5e65305",
+      "bytes": 3491
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-10/AD-D-10--600--overview--v1.svg",
+      "sha256": "26e7497b84c2d2a4ae348148a79da1af3ef81c03903fb41ee9c1e0c02775776b",
+      "bytes": 3177
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-10/AD-D-10--840--overview--v1.svg",
+      "sha256": "5bc67e26934142a661146995ed5f42de5d5127000623b5317a3c269d5f9e7542",
+      "bytes": 4971
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-10/AD-D-10--1200--overview--v1.svg",
+      "sha256": "b0aba41b388f8321b677bc7daa77f170b16b07a2e4aa682a8f72f7840b104338",
+      "bytes": 4674
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-10/AD-D-10--1440--overview--v1.svg",
+      "sha256": "18c640b86adbc67a890577d8ab6e70b963b6db301d3726adfe3ded7b192a43a5",
+      "bytes": 4694
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-10/AD-D-10--320--op-01--v1.svg",
+      "sha256": "5c3420ee46ae4a9070b3af025c91499aacf8b349ce5d3670087f1e101c8e6290",
+      "bytes": 4856
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-10/AD-D-10--1440--op-01--v1.svg",
+      "sha256": "23387a01e934eca9ddfda196df0418e81102af4b62ce04a1e87a28074f80994f",
+      "bytes": 7725
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-10/AD-D-10--320--op-02--v1.svg",
+      "sha256": "e736de220bc6c58d76cf3ed0d30c70fdd365db76beb6d68032dc9af60d27e1a8",
+      "bytes": 4704
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-10/AD-D-10--1440--op-02--v1.svg",
+      "sha256": "7d104df74cf6ef0214bbe4e5364162396f4fc39adee180c6599b6fbf6097ff69",
+      "bytes": 5914
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-10/AD-D-10--320--op-03--v1.svg",
+      "sha256": "1d745e5ddcd0f7cc562dd907e9ad36939af2d1e8f5bd9aebcb29d2b4d268b196",
+      "bytes": 3448
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-10/AD-D-10--1440--op-03--v1.svg",
+      "sha256": "f8c5ebdad2b071a098028a34962d228d8e329d4a4a14023658469af840ceebf4",
+      "bytes": 4651
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-10/AD-D-10--320--op-04--v1.svg",
+      "sha256": "e9ecc39f14c8d4c4a6021b221375e58f703664923dc80d48e9440cc6e65ffa30",
+      "bytes": 3436
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-10/AD-D-10--1440--op-04--v1.svg",
+      "sha256": "0fd8788a068ece4d8485b30dab204db4f484e9db3fe488e971ef3c327226380a",
+      "bytes": 4639
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-10/AD-D-10--320--op-05--v1.svg",
+      "sha256": "a07eec9cb5b379b8222e8f4fab090e71a0b57dc5ebfb5d3dd089a68c86787842",
+      "bytes": 3464
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-10/AD-D-10--1440--op-05--v1.svg",
+      "sha256": "bf319e6cf2fe7525a30ce267d6f4c7b61ffefa10cf06c0f404b9128695d4f362",
+      "bytes": 4667
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-10/AD-D-10--320--op-06--v1.svg",
+      "sha256": "4706d2f7ab942fcc8b41bede4ef399cd6c065e5179edce239469f5638530b074",
+      "bytes": 3659
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-10/AD-D-10--1440--op-06--v1.svg",
+      "sha256": "d4a3d54ee50433f2c63d5e2bd244161ed8c37d689eb922fe212145b14a732e2e",
+      "bytes": 4865
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-10/AD-D-10--320--conflict--v1.svg",
+      "sha256": "74c2bfbf9ba68c94351e4f20c4d64246a2e7a86f20990ce6a6cb84f4cad420b6",
+      "bytes": 4255
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-10/AD-D-10--1440--conflict--v1.svg",
+      "sha256": "28da88e3f7f8b995ccd5ef2d697488571f39a3301d0084af110999afd235ea4b",
+      "bytes": 5043
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-10/AD-D-10--320--denied--v1.svg",
+      "sha256": "238897227b14715c7223c535d562db6f13b0938cefaa8a66e337f0410a0657b2",
+      "bytes": 3739
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-10/AD-D-10--1440--denied--v1.svg",
+      "sha256": "8d472037ea2152359ea8953b29f1f9a8f9ce7d641e0583144051cfeff2569ec8",
+      "bytes": 4733
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-10/AD-D-10--320--op-02-confirm--v1.svg",
+      "sha256": "51ee67a9e4e207fb3a418bcc098f616b2273159fd465d8fd7d14089d1f5c5fc2",
+      "bytes": 4224
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-10/AD-D-10--1440--op-02-confirm--v1.svg",
+      "sha256": "5e3855a594122d407c2d49ec55eb19d664b5ab587baf80107b626577abce35db",
+      "bytes": 5223
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-10/AD-D-10--320--loading--v1.svg",
+      "sha256": "10d8a8bb8503e3875194cb7de71326555ce296f083668b584f8c20be9a85cb58",
+      "bytes": 3081
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-10/AD-D-10--1440--loading--v1.svg",
+      "sha256": "98d7b421540f4e663b88d8d2a9741dcdf94e3bf736aedb5c406f584de5af733a",
+      "bytes": 4386
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-10/AD-D-10--320--empty--v1.svg",
+      "sha256": "92f3c0a541afe614560933ae2789d36416d4be2610c045eb0a920d3a83be0038",
+      "bytes": 3438
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-10/AD-D-10--1440--empty--v1.svg",
+      "sha256": "453e64c3148ccb26f2ef4deffb1349b9635356489d03c5eee2a42eb4227e678a",
+      "bytes": 4641
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-10/AD-D-10--320--success--v1.svg",
+      "sha256": "bfb82aa1d81e31a91d9f4bb9d81d5088a3baf64d71b031c63b9e2dcba9d4560a",
+      "bytes": 3887
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-10/AD-D-10--1440--success--v1.svg",
+      "sha256": "98da23391b269852955928d41e79571db5389ddd574676a5dd01c00e6e3805ab",
+      "bytes": 4777
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-10/traceability.json",
+      "sha256": "b8feb99b313b4a21e87d14de8a7350e243aff5f711db2ef449d6d6bcada72316",
+      "bytes": 35029
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-10/README.md",
+      "sha256": "69e88cf784b80dbd527c64f3ebf725bbcf35101221f1900802ad88cc2c4324f7",
+      "bytes": 25660
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-11/AD-D-11--320--overview--v1.svg",
+      "sha256": "7a6bba6348193a4b4510e3d652a24752f53bde2c12c2b241084ec145db96ca65",
+      "bytes": 3587
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-11/AD-D-11--360--overview--v1.svg",
+      "sha256": "463fb2ae616f575ec2a5fb375e8a287634cc6934a25b4aa3b781cc4fd472f41e",
+      "bytes": 3482
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-11/AD-D-11--600--overview--v1.svg",
+      "sha256": "e0e8e2535ab1a82c1ce5700ba25dc6e409b7a587aab3da5ce8ef8201a08cafe8",
+      "bytes": 3168
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-11/AD-D-11--840--overview--v1.svg",
+      "sha256": "785debfacf4a5d52dcd1a97886e2b668429c5f323b269b8f74be181079422008",
+      "bytes": 4962
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-11/AD-D-11--1200--overview--v1.svg",
+      "sha256": "baf287668e87f5766e094605c9f1569ac4fe434284b969c1c8e3dc9010f7bd6d",
+      "bytes": 4665
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-11/AD-D-11--1440--overview--v1.svg",
+      "sha256": "02276b3e75c78e40a693c5dce6ac8427cdb19922ccd0584e755323f684b0789c",
+      "bytes": 4685
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-11/AD-D-11--320--op-01--v1.svg",
+      "sha256": "e3537cc05831a5d2bebf70b794281873be643cc7824eb43a19e169c1cda54070",
+      "bytes": 4951
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-11/AD-D-11--1440--op-01--v1.svg",
+      "sha256": "5cfa0bea39fe17ff857a640719a58dfade5004517e476de5ea85fbe3b05dee97",
+      "bytes": 7712
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-11/AD-D-11--320--op-02--v1.svg",
+      "sha256": "c0e605b2a818522d20b5c4f5666727384829727594bb2f09c89abed2ee513cdb",
+      "bytes": 2846
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-11/AD-D-11--1440--op-02--v1.svg",
+      "sha256": "6187476d268c48503999755202f30ba53ba43216bf2cfbdbf7d8186238770020",
+      "bytes": 4362
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-11/AD-D-11--320--op-03--v1.svg",
+      "sha256": "82052f175078d83b967a1febd96474c6211991da2c80d7f7dd48d4169a7e9f51",
+      "bytes": 3878
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-11/AD-D-11--1440--op-03--v1.svg",
+      "sha256": "0321abe835094b6055feec7a6f8d0bc4d8dd24006ea36472eb0b6a92bf96ddd9",
+      "bytes": 5295
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-11/AD-D-11--320--conflict--v1.svg",
+      "sha256": "9187fabb202f6b8ea2769d24744d0aaca18d27533e154920046ccdc37a9c693d",
+      "bytes": 4238
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-11/AD-D-11--1440--conflict--v1.svg",
+      "sha256": "e45bc2f449816f5479454f9be3041bb383b2af072559306f0d7c45a02c33935d",
+      "bytes": 5026
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-11/AD-D-11--320--denied--v1.svg",
+      "sha256": "f822cd1d802925d01f98f896cbf3714cdf181fc3fdad860ddd0b0570bc80aea3",
+      "bytes": 3722
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-11/AD-D-11--1440--denied--v1.svg",
+      "sha256": "abff82bcb1b20f1bc32d299a7c33bc6d4f25834cc52ed0710ebed48c840e391a",
+      "bytes": 4716
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-11/AD-D-11--320--op-02-confirm--v1.svg",
+      "sha256": "247d6eeab8dfc0923852a5750f1ffbc3e174ccdc34ce006c9569030d62043fe7",
+      "bytes": 4233
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-11/AD-D-11--1440--op-02-confirm--v1.svg",
+      "sha256": "b47b3cd951bded09ecd1a82d7fbcb3008dee9b636ed44c33ff0c4c3810a8039a",
+      "bytes": 5232
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-11/AD-D-11--320--op-03-confirm--v1.svg",
+      "sha256": "1925df092502cf711c631c82443dc41b999ae89e995f0c177af394a376c3ba77",
+      "bytes": 4215
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-11/AD-D-11--1440--op-03-confirm--v1.svg",
+      "sha256": "b42c0756d2218101d53855a75ac4348c4911032c49c2f9ec4bbb22586df32be8",
+      "bytes": 5214
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-11/AD-D-11--320--loading--v1.svg",
+      "sha256": "d249aa2b28ffdbdee27d6dac4317fd5cd5612f6f86a51994c5c2b7f2a7d99f51",
+      "bytes": 3048
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-11/AD-D-11--1440--loading--v1.svg",
+      "sha256": "200bf818019d149faa05242e0a5409e9cd19d72023add8f2cb3b031aa90936b0",
+      "bytes": 4353
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-11/AD-D-11--320--empty--v1.svg",
+      "sha256": "83fa61fd9d09684693c02ed7da8c311cc99738f93cc2ada2f793d18531d3c711",
+      "bytes": 3405
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-11/AD-D-11--1440--empty--v1.svg",
+      "sha256": "a534ee3798e8fa7c772edf11fd66228ecd3ac73d065eab86fb501208e564b000",
+      "bytes": 4608
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-11/AD-D-11--320--success--v1.svg",
+      "sha256": "869cea208ef3ead94f1bdaa1d7052febe0eb0cc7d7386a87c35428bcc589a7e3",
+      "bytes": 3854
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-11/AD-D-11--1440--success--v1.svg",
+      "sha256": "c6f6bb0f73d04660565055f7d01e3bb7b0c548a4c2dbed3ede4cc0fb0159bbc0",
+      "bytes": 4744
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-11/traceability.json",
+      "sha256": "b7cf21f5737e6c068e9e4cb98ac0fc3add4003b5ce9c245e871fed38db3056df",
+      "bytes": 27519
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-11/README.md",
+      "sha256": "2190b9fa5e1cab6d317fe2d1ba2a57cf1a5349b46670bca284b1333f557e6070",
+      "bytes": 20889
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-12/AD-D-12--320--overview--v1.svg",
+      "sha256": "4a1669aaf9cb2abac8cc4c053d6182c6b638de0f1b731c887e483d78fdb8a041",
+      "bytes": 3639
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-12/AD-D-12--360--overview--v1.svg",
+      "sha256": "46681d099eb88b9e2c1a8bd0d3fd2ea64797bc43315e3673f658afac8b777932",
+      "bytes": 3430
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-12/AD-D-12--600--overview--v1.svg",
+      "sha256": "b37c298c5b3a2eecd699e3d290bf7325399d74f34d863b2a0a3d7dcda8a3ce08",
+      "bytes": 3116
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-12/AD-D-12--840--overview--v1.svg",
+      "sha256": "b5b0286e399cc8ae9b722262985137e9c600d473ea35005118b42f9a1b87135b",
+      "bytes": 4910
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-12/AD-D-12--1200--overview--v1.svg",
+      "sha256": "f8e5bf9b30869f5569d5cd816efd08f6921829b67695a5cf872dd843f1078f54",
+      "bytes": 4613
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-12/AD-D-12--1440--overview--v1.svg",
+      "sha256": "11c37a62a9a9602ce572a5848f6cc8b37da54c6f099c14dcb1324fb031c971e4",
+      "bytes": 4633
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-12/AD-D-12--320--op-01--v1.svg",
+      "sha256": "40c3b85c224424ef8da13714789a20dd193a0425fc3c5790455be7a494993bbd",
+      "bytes": 4795
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-12/AD-D-12--1440--op-01--v1.svg",
+      "sha256": "65f6cae32a1970f71fa52dd700ffbc391e179c2e50ed5f98c6f2e0ebc9df04c5",
+      "bytes": 7671
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-12/AD-D-12--320--op-02--v1.svg",
+      "sha256": "868907b32e2a6cf8cc16747337008ad245dc97451f4ad4eb878ba3f2b75f2123",
+      "bytes": 3689
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-12/AD-D-12--1440--op-02--v1.svg",
+      "sha256": "39df429f738127fac737a894fb391db7ae58c059c95a843008526cb141a2a984",
+      "bytes": 4683
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-12/AD-D-12--320--op-03--v1.svg",
+      "sha256": "3ce7f93b45aa1fc0e8bf1f6d91cd7a85bf3fdb101b5aa44f1efb90b536cd155f",
+      "bytes": 5509
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-12/AD-D-12--1440--op-03--v1.svg",
+      "sha256": "c25b797711bd969518118cec257779d01588b82d501d058a95047e2671fbd45c",
+      "bytes": 6728
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-12/AD-D-12--320--op-04--v1.svg",
+      "sha256": "60cfbbba1e3a6bc401b66e408311f7861058679286646a5d7ebb9e459d8f0072",
+      "bytes": 5492
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-12/AD-D-12--1440--op-04--v1.svg",
+      "sha256": "34a0d1f6ffdfa9ca8a9282f62a95047bcbd6d3f07dbf152730a1d1d3da034b44",
+      "bytes": 6711
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-12/AD-D-12--320--op-05--v1.svg",
+      "sha256": "24025351d20e2cae848eaed723bb181a277b30693941bc2e5bc077d909b6f597",
+      "bytes": 3919
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-12/AD-D-12--1440--op-05--v1.svg",
+      "sha256": "14d84661f3870b78b23c681f200e9138e739a945583140981cac12c35cdb4221",
+      "bytes": 4915
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-12/AD-D-12--320--op-06--v1.svg",
+      "sha256": "c0d5f43a994641537fb50b8153aaac50f3d1253dd8aaebcbd8efbe5abf5f7ed1",
+      "bytes": 3943
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-12/AD-D-12--1440--op-06--v1.svg",
+      "sha256": "f33cd211f4af18634fb87cf429298cf348ac530bedee79e5384118e6e61b5700",
+      "bytes": 4939
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-12/AD-D-12--320--conflict--v1.svg",
+      "sha256": "a10f41a7d29cc82a7e7c9c4bb50b49792c1aae559c2372846ac8f1141e136088",
+      "bytes": 4338
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-12/AD-D-12--1440--conflict--v1.svg",
+      "sha256": "4ddf2fb5e4b74ac884d1d41dbb4adf7402d9f7f53d658a13a7721cbeef70cb1c",
+      "bytes": 5022
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-12/AD-D-12--320--denied--v1.svg",
+      "sha256": "136c52795cf20698b4d3c6f02ac24653cf0a3edd97419c38cbef83137ff345de",
+      "bytes": 3822
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-12/AD-D-12--1440--denied--v1.svg",
+      "sha256": "fb202f75efc42e84de6a9c4bb86f3ab4c871f36b19cf1bca40792cc19f54d2c8",
+      "bytes": 4712
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-12/AD-D-12--320--op-03-confirm--v1.svg",
+      "sha256": "9d14312370fa61b4678cd630afd02ddce47733e5429c89506f8615c0507828f2",
+      "bytes": 4285
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-12/AD-D-12--1440--op-03-confirm--v1.svg",
+      "sha256": "508e2ba7aa974b27f530eca75025cfe7a2444a60284b4ab70d4020575bd2a179",
+      "bytes": 5180
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-12/AD-D-12--320--op-04-confirm--v1.svg",
+      "sha256": "7f5a75de239e35b166e830306e39c073d77d00d366d51c10d05fedeb18c0bd3c",
+      "bytes": 4267
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-12/AD-D-12--1440--op-04-confirm--v1.svg",
+      "sha256": "59404a2ac142e43a3854c0dddc9f6ceb04f197d8a958c94842905e2ca2237c50",
+      "bytes": 5162
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-12/AD-D-12--320--loading--v1.svg",
+      "sha256": "a98f14dd4971ed90c6e39aa29d8ff9d3a1b3ab21a502b37b93d447248e0c6440",
+      "bytes": 3031
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-12/AD-D-12--1440--loading--v1.svg",
+      "sha256": "59e257fbe5d1a01f3b500fe1440a71e6a8003a95fbf76c16b8cf12b3db438171",
+      "bytes": 4336
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-12/AD-D-12--320--empty--v1.svg",
+      "sha256": "a6703ef4856cb0d0a1ec5da5cfc3eb273eddd563844707ac7ee9ed84f40c23f1",
+      "bytes": 3388
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-12/AD-D-12--1440--empty--v1.svg",
+      "sha256": "9d10d638a3b0e9ebe1c2f1c0bff3ac6dbfb7a6ce940ae6eaf475e4207e178a26",
+      "bytes": 4591
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-12/AD-D-12--320--success--v1.svg",
+      "sha256": "3c72cf0b5fec530ce25b807619c10fc28b8f5d30abee95bf31d454bc459fc4b9",
+      "bytes": 3837
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-12/AD-D-12--1440--success--v1.svg",
+      "sha256": "015790355c6ce51193e9c70dadd66bc4f92848407b50076da142e58c1ded21fc",
+      "bytes": 4727
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-12/traceability.json",
+      "sha256": "6ce73d2ebd4033a35f2f2ccea5048214b2f3347e112e6b483ff10a0147048474",
+      "bytes": 29449
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-12/README.md",
+      "sha256": "54e265789a932cc54de50c6cd4af9f03d8e4820653c630331befa7ed23d251b6",
+      "bytes": 20114
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-13/AD-D-13--320--overview--v1.svg",
+      "sha256": "66759267b5316790b54c858ec1f637b9556fdd9411d6469b374dc2c8473d7325",
+      "bytes": 3547
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-13/AD-D-13--360--overview--v1.svg",
+      "sha256": "34dd2b1e5005683335e1223c9c2ad81a914616669c8664f049e8deb3c7c3546a",
+      "bytes": 3442
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-13/AD-D-13--600--overview--v1.svg",
+      "sha256": "5d4fcb9016784d7284ff04b25e41b4a548e41ca305542b311bdde67d88e3d5c7",
+      "bytes": 3128
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-13/AD-D-13--840--overview--v1.svg",
+      "sha256": "6eda29af31d2ebcd3bac811759b685e9994b286c8e7f1fbedec9026ab1cd6db2",
+      "bytes": 4922
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-13/AD-D-13--1200--overview--v1.svg",
+      "sha256": "d158ed9bbf05d873172a1244134839dd08f9a0f8d23526e6adcc4df1197cd0f8",
+      "bytes": 4625
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-13/AD-D-13--1440--overview--v1.svg",
+      "sha256": "f855ad102e6a21206ae8ad38b6626fe554055359cd3bc73dcfe04bcd9411b572",
+      "bytes": 4645
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-13/AD-D-13--320--op-01--v1.svg",
+      "sha256": "a89bca01f12bebd5052038db3d2206c4593240e6a7641fc708feda442345c7d6",
+      "bytes": 4700
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-13/AD-D-13--1440--op-01--v1.svg",
+      "sha256": "e7f20c72f298953a4dfd2c84b5980eeecfafdf56a011a4b8a9dea10ea7255df4",
+      "bytes": 7673
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-13/AD-D-13--320--op-02--v1.svg",
+      "sha256": "52cf9e398415b995419d560e373f5ac6eb8154e05e001e0ac8e3343ceadc0ee8",
+      "bytes": 3597
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-13/AD-D-13--1440--op-02--v1.svg",
+      "sha256": "e34ec6b2cedd1fad08b7012b0f19df9237905c5335893b188d8481cbf3b54083",
+      "bytes": 4695
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-13/AD-D-13--320--op-03--v1.svg",
+      "sha256": "0781d04464d7d4fec6484e18dc84dd4111fc715605619a429cd0ee0ace47972d",
+      "bytes": 2978
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-13/AD-D-13--1440--op-03--v1.svg",
+      "sha256": "4c2f07bb15baff6edb950c72783279daa3378bcb6c36e7ef0821a43135ac9f51",
+      "bytes": 4601
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-13/AD-D-13--320--op-04--v1.svg",
+      "sha256": "63e9845e9a3320b150cc36f6d6e6f4e9af824ed15e617fb338023edacc1da871",
+      "bytes": 4534
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-13/AD-D-13--1440--op-04--v1.svg",
+      "sha256": "0654e24a0d343db67238077e1b227cec351d0051e00f100bb02239c40381bc70",
+      "bytes": 5849
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-13/AD-D-13--320--op-05--v1.svg",
+      "sha256": "31afac22d757935b4283ac8959db0143f4f1bea660b7122ec46b34e1e31263a7",
+      "bytes": 4159
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-13/AD-D-13--1440--op-05--v1.svg",
+      "sha256": "70c273028ff9c46731c1d34cdce973de971df2579bfc8c5783d01ea40ad2f3bd",
+      "bytes": 5157
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-13/AD-D-13--320--op-06--v1.svg",
+      "sha256": "b939862f7b903a6da7ff70e46d0e0bfdaf2c59106fa9f3eee5bcb858fa728c6b",
+      "bytes": 4434
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-13/AD-D-13--1440--op-06--v1.svg",
+      "sha256": "d36aa60bb8d8205d1a06c9f0bde56576b4969f0e94701775a1eabab9a2125a33",
+      "bytes": 5435
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-13/AD-D-13--320--op-07--v1.svg",
+      "sha256": "93d65ce8d38c731c5e6c5a211e726bd46047e707d7bbdedf8b4a94c1353a1e6c",
+      "bytes": 4799
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-13/AD-D-13--1440--op-07--v1.svg",
+      "sha256": "fe5a72a05d2eed9608e4075a7de12ed451f6f9253ac7509006867ce776bb68d0",
+      "bytes": 5693
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-13/AD-D-13--320--op-08--v1.svg",
+      "sha256": "baef0ae6a734cc09d76f769e430e37179ac2b156e7e1ca951aa249cef4a90563",
+      "bytes": 3975
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-13/AD-D-13--1440--op-08--v1.svg",
+      "sha256": "54d8c30142264f5bb7a25543f90545d974666b79ec5515b5f211c556b077f305",
+      "bytes": 4971
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-13/AD-D-13--320--conflict--v1.svg",
+      "sha256": "db7e3a34b4f11f2693ffe730db16cf3b181d8c0a0523007febb4e85148b3a0ae",
+      "bytes": 4254
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-13/AD-D-13--1440--conflict--v1.svg",
+      "sha256": "bdd2ada506b353d9f02dbc40cbd248202e88ce6ac8213975f9414d09f06f979e",
+      "bytes": 5042
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-13/AD-D-13--320--denied--v1.svg",
+      "sha256": "85d6d67270896e4ed92ada78a44fff82f18b00975d28d8dabc24441628808212",
+      "bytes": 3738
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-13/AD-D-13--1440--denied--v1.svg",
+      "sha256": "89ed3b403f01acd1fb2dcef1a1dedf75f9407b6db74d2531d8303838fe1e9e21",
+      "bytes": 4732
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-13/AD-D-13--320--op-03-confirm--v1.svg",
+      "sha256": "c7e33c627828f331fddcceffe4644badc1238d7ba45644f5c7ae6bf08f1e2995",
+      "bytes": 4193
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-13/AD-D-13--1440--op-03-confirm--v1.svg",
+      "sha256": "65e8f64326a4468fd745f26a6f9586a14f79d0b767af6dd79ba6b4db9a5cd494",
+      "bytes": 5192
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-13/AD-D-13--320--op-04-confirm--v1.svg",
+      "sha256": "bf4b2d033f91c4bf5f44f535e00fcf5d94349acb915e27ece625e99de0c5ee16",
+      "bytes": 4175
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-13/AD-D-13--1440--op-04-confirm--v1.svg",
+      "sha256": "378e8dcd3b6995d85a74ec7c79bdbd493e52920e309712e4ca32b78aaa83c9d4",
+      "bytes": 5174
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-13/AD-D-13--320--loading--v1.svg",
+      "sha256": "fc1e265a2043aeaee76a0ce7051802e47be431f77f648633f6d308823e85221d",
+      "bytes": 3072
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-13/AD-D-13--1440--loading--v1.svg",
+      "sha256": "ee6072342073a80b8e3a82975ea8c4ea54a987de602dea56f1b2cf3856803ed2",
+      "bytes": 4377
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-13/AD-D-13--320--empty--v1.svg",
+      "sha256": "32cd5779ca9bb8010c2b87ae5fc51705016953a535119c044d4b3883f247747b",
+      "bytes": 3429
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-13/AD-D-13--1440--empty--v1.svg",
+      "sha256": "558289054de51879c208e888b565e714e9c6412c060078c5fd879429ae8e4917",
+      "bytes": 4632
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-13/AD-D-13--320--success--v1.svg",
+      "sha256": "67def83348ff56799888df63bd72572c1716b2bebde44fff957fded4076b8018",
+      "bytes": 3878
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-13/AD-D-13--1440--success--v1.svg",
+      "sha256": "c019d3e4b968ad33f7b3da5ec57aeafe78695b8fa2fdc3850e4ce3fc5814a41a",
+      "bytes": 4768
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-13/traceability.json",
+      "sha256": "361f4a559c34a6a52525c86a45797191db7c16616131cfa59a3709fea0278cbc",
+      "bytes": 32829
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-13/README.md",
+      "sha256": "501ecc3ebbe95e245c0dab3d5ace19e537c3db395caa2d99acd4b70642f31a86",
+      "bytes": 21650
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-14/AD-D-14--320--overview--v1.svg",
+      "sha256": "3645bb0ae37bac60319f6907b73939ccb4c4ee4d99cc349aaf4a41bdadfc844c",
+      "bytes": 3700
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-14/AD-D-14--360--overview--v1.svg",
+      "sha256": "e0f6104612ec9f7e2363135c4c292ac4ebe993774ac3f8d6a69876b0475e1b39",
+      "bytes": 3491
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-14/AD-D-14--600--overview--v1.svg",
+      "sha256": "ac6e519d94ad1bf591196aece2209a201cfce52166e1bee0bd67a0d3b3816a16",
+      "bytes": 3177
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-14/AD-D-14--840--overview--v1.svg",
+      "sha256": "3c6c6abe5683c6a416c3c7e4620b77decb2018a2df0e27c0d33d885c0b97898f",
+      "bytes": 4971
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-14/AD-D-14--1200--overview--v1.svg",
+      "sha256": "19e2ee22146c5b851317d666f39c5365907e8890b391a5a8c3dd91aa498884f3",
+      "bytes": 4674
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-14/AD-D-14--1440--overview--v1.svg",
+      "sha256": "2c3e0adad6098c6641c6502b71eadb49995276050c66107bee3421ae6672eaa7",
+      "bytes": 4694
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-14/AD-D-14--320--op-01--v1.svg",
+      "sha256": "454cfdb68eff3ac5ebbaedf6b9b5c026d616b36f9a20d5bea3a6c455a32f1475",
+      "bytes": 4856
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-14/AD-D-14--1440--op-01--v1.svg",
+      "sha256": "f0b96f2b8e30b365fdb52db9399bfcf9d194a6fc27f52635674c6a69dcd619bc",
+      "bytes": 7731
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-14/AD-D-14--320--op-02--v1.svg",
+      "sha256": "c89313ad1890b0cf7b419e035d227a87ba165e6e7a90aaf878e736847172f4c3",
+      "bytes": 3750
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-14/AD-D-14--1440--op-02--v1.svg",
+      "sha256": "53e4763cf17580f41bd7b672f61a64d8b5c994f579a1032c7a204b9db8948249",
+      "bytes": 4744
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-14/AD-D-14--320--op-03--v1.svg",
+      "sha256": "bad09dd4af6b3b50cfdbf2627c87f984ea55a2a14ff91b4e3b983c98868e0422",
+      "bytes": 3001
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-14/AD-D-14--1440--op-03--v1.svg",
+      "sha256": "911dd7f89bc9fb304c037761833b955b8a4d00308c0609ad7a4c7914408b82d4",
+      "bytes": 4624
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-14/AD-D-14--320--op-04--v1.svg",
+      "sha256": "03661032b44b2f5f19bd5e38215bd457c700d38b6f857a2c53a08540695cb5a5",
+      "bytes": 5571
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-14/AD-D-14--1440--op-04--v1.svg",
+      "sha256": "f03f276238f1d9f5f4fb3d05302727e0a3c37a6a95d991c0c78b73c77d1f8af0",
+      "bytes": 6790
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-14/AD-D-14--320--op-05--v1.svg",
+      "sha256": "1562dbd1eefbba8e91b199171ed141dd50ae1e6c93318e44e4ea986b68c05ae3",
+      "bytes": 4312
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-14/AD-D-14--1440--op-05--v1.svg",
+      "sha256": "7ce736a20b0715bf4b0b00ffd8d6fed471c1e268fb2e0899dc107f98541e63df",
+      "bytes": 5206
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-14/AD-D-14--320--op-06--v1.svg",
+      "sha256": "d8323b85d3c52f6203cf1d75f80ce587cfc342f627dd9156c53961ee38263d4e",
+      "bytes": 4590
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-14/AD-D-14--1440--op-06--v1.svg",
+      "sha256": "7a60aaee14ce320f9999c888d21b662a888733b258e4b4d8ae7a9542c18abcf3",
+      "bytes": 5484
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-14/AD-D-14--320--op-07--v1.svg",
+      "sha256": "e0a417fe407417eb4b64fa292e92305c45e5b93e4a6a21846b7ff63b4768f4d3",
+      "bytes": 4768
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-14/AD-D-14--1440--op-07--v1.svg",
+      "sha256": "2c93bb10f57bb02b8f5caa247917d50644ed6e4da13505ac88ad4872416d639c",
+      "bytes": 5557
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-14/AD-D-14--320--op-08--v1.svg",
+      "sha256": "d40d382a6ca9e693953bc06051fdf8f1782e8964f64e2c8613ad74d2f983fa98",
+      "bytes": 3288
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-14/AD-D-14--1440--op-08--v1.svg",
+      "sha256": "e0d079d2303017163f09581a0784fd9da50ba0e2cd76b2ab91bb997480deae91",
+      "bytes": 4596
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-14/AD-D-14--320--op-09--v1.svg",
+      "sha256": "d235745207cb9a5b9466567cfe73050c828017bc12d7f9183601d327c98ed1b4",
+      "bytes": 4128
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-14/AD-D-14--1440--op-09--v1.svg",
+      "sha256": "716fb98f19125aa27896f84a431e089cd0ef0aa6a46a88dc3b1d4c7f7213f3ce",
+      "bytes": 5020
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-14/AD-D-14--320--conflict--v1.svg",
+      "sha256": "d865a12dceb59c8b2ea306fa87ddae335bbc78271a3166936fa8552e2780102b",
+      "bytes": 4415
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-14/AD-D-14--1440--conflict--v1.svg",
+      "sha256": "a9b37511902fec83643fa6ba7665e1c97afe1ef4d678c1cd755a389330a499fe",
+      "bytes": 5099
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-14/AD-D-14--320--denied--v1.svg",
+      "sha256": "56377f256cdf676e1f254304bed93dedd4a6e77b019edbc87fc213af0bc8cc88",
+      "bytes": 3899
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-14/AD-D-14--1440--denied--v1.svg",
+      "sha256": "274c67170e2b39b255bf5d663b297db16503568877fb50a1ca50f27a2fb6f1d0",
+      "bytes": 4789
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-14/AD-D-14--320--op-03-confirm--v1.svg",
+      "sha256": "2a5294909cd2b928048068a2f31cf460394bb238d992c1d53155fb2d3b40a581",
+      "bytes": 4346
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-14/AD-D-14--1440--op-03-confirm--v1.svg",
+      "sha256": "92aee4daccb3157e1e32b0e6ae6f40c39554ebc265310a695c6a30d1ab93230e",
+      "bytes": 5241
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-14/AD-D-14--320--op-04-confirm--v1.svg",
+      "sha256": "b8babeca82977a8019d82fc973a3b253bbcb1a05b623bc349631e8f1ea143224",
+      "bytes": 4328
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-14/AD-D-14--1440--op-04-confirm--v1.svg",
+      "sha256": "2b7a8fd1d8faf1d8e53dcea07ba426c6c4c02e6e9283ed23641bd0a8c00f6905",
+      "bytes": 5223
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-14/AD-D-14--320--op-08-confirm--v1.svg",
+      "sha256": "a37d9951b42a7eb7180861ace24a4809c0fc9bc7cab5f966422dd6dfebc1bbe2",
+      "bytes": 3288
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-14/AD-D-14--1440--op-08-confirm--v1.svg",
+      "sha256": "4222bd1c7ae1f490e6ab5f859f40fa426b29dbf7ec129ba87c65249896eb40a2",
+      "bytes": 4596
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-14/AD-D-14--320--loading--v1.svg",
+      "sha256": "6573d32eafe43d06220247ac1bebd71817649ba67e2ba28f35a7f5a3bea709c4",
+      "bytes": 3103
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-14/AD-D-14--1440--loading--v1.svg",
+      "sha256": "01f51bdc2c0a92a95eb1ef2750ac81e70daa12dee1552baa09fa2b46308cf7a3",
+      "bytes": 4408
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-14/AD-D-14--320--empty--v1.svg",
+      "sha256": "5ecc5fa5a367d44fb5cb9dacc0e5becacbb0f54f2825c2c7beae8f760691cbed",
+      "bytes": 3460
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-14/AD-D-14--1440--empty--v1.svg",
+      "sha256": "e54dd2e3c0aa4a04b02be93f130fdf2ddaafc6785c60eadcc16bedc3019fa448",
+      "bytes": 4663
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-14/AD-D-14--320--success--v1.svg",
+      "sha256": "5fc804dae900399ebf4bda7fcab342480be6badf17ed8559a40ba37a7cf7a675",
+      "bytes": 3909
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-14/AD-D-14--1440--success--v1.svg",
+      "sha256": "efd6389bc380065e338b47a334b31322b646ffd0872c03ee6ebe028e1f7b5c1d",
+      "bytes": 4799
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-14/traceability.json",
+      "sha256": "71258dcf0256fd19309f566b7cc282759311f8afbb57c7c1e62be75adb6fbca1",
+      "bytes": 35192
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-14/README.md",
+      "sha256": "dcfa2682b01db673fe031d2416efabb0eb3feb3000498a5bb74ac44cd624e706",
+      "bytes": 22878
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-15/AD-D-15--320--overview--v1.svg",
+      "sha256": "a59c8eb601ab203fa68cf0ef30c43a2e4e3149bad752d43a31f7fc1b4025d8dc",
+      "bytes": 3632
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-15/AD-D-15--360--overview--v1.svg",
+      "sha256": "146a9dbfaa865c3b84bf56e65157a09f5f3bcd2f37433fc3c64d07681555d398",
+      "bytes": 3527
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-15/AD-D-15--600--overview--v1.svg",
+      "sha256": "f49818fe9272d446eab6023d67ce2acfacae73e7191f861bd3d0c7b40d69fbf3",
+      "bytes": 3213
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-15/AD-D-15--840--overview--v1.svg",
+      "sha256": "3cffdc29b28adf96b148dcbcd9ad52db8f20c118b88b6d2a08ead1e346169a89",
+      "bytes": 5007
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-15/AD-D-15--1200--overview--v1.svg",
+      "sha256": "1ccf5074d71a1feb42cd0e259cfbdabb36d7eae5ccff8461970c8c3b96bbab7e",
+      "bytes": 4710
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-15/AD-D-15--1440--overview--v1.svg",
+      "sha256": "899ff53560c78ad92e02b91683b713cf0a775902b0571f1441a607d751647965",
+      "bytes": 4730
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-15/AD-D-15--320--op-01--v1.svg",
+      "sha256": "06e722d6bd6e6849e9b60f954dd0864ad36bd0187640364bedfc7b944fbabf6f",
+      "bytes": 4996
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-15/AD-D-15--1440--op-01--v1.svg",
+      "sha256": "1f1b7ee14f689e7a80ee43b7b022b1df8c944f12cc09d077959c18599030b977",
+      "bytes": 7752
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-15/AD-D-15--320--op-02--v1.svg",
+      "sha256": "cb74fa86b82c523bd728681122bfcd7c45798c85cb64614825806a33d517d40a",
+      "bytes": 3786
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-15/AD-D-15--1440--op-02--v1.svg",
+      "sha256": "ab29868322454045318307b9a9dda842f5151594c1e14dbd2f6a4f360499f6a6",
+      "bytes": 4780
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-15/AD-D-15--320--op-03--v1.svg",
+      "sha256": "79d1425ebdd0d3c9538574e446fba79f5853eb7f7d0d5f3239ba85adf814d66e",
+      "bytes": 2894
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-15/AD-D-15--1440--op-03--v1.svg",
+      "sha256": "5eee5e0a70e26795c3a0e9772975403d8c6276b750f9bde2e0bd5f59e9a65ca4",
+      "bytes": 4410
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-15/AD-D-15--320--op-04--v1.svg",
+      "sha256": "f2a26ed49703dbcc55d5c6371e8f8ba430cbc1bc16062c85d9484a0507aa263d",
+      "bytes": 5505
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-15/AD-D-15--1440--op-04--v1.svg",
+      "sha256": "93ee21f9af19a1695cb4a661e1f0891a815e08fb75bc69a6eddb6de1c7ab2941",
+      "bytes": 6829
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-15/AD-D-15--320--op-05--v1.svg",
+      "sha256": "783fff1259e03c8ac9660c13d1605d68c3c8d6be008ee5c901faf3071ce6165f",
+      "bytes": 4934
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-15/AD-D-15--1440--op-05--v1.svg",
+      "sha256": "09e01361e93e2de567bfce8522c0da22468958a4e427c2eae95bd96f6b8702a1",
+      "bytes": 5618
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-15/AD-D-15--320--op-06--v1.svg",
+      "sha256": "ac574c6b077c38be2ae23f4a3b60eb15bff712cca53ba3ae3125b14ba9c51ab9",
+      "bytes": 5579
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-15/AD-D-15--1440--op-06--v1.svg",
+      "sha256": "884e287514cfc3f078681c8fb421085f27e460aad09ef55227d696e13f9bc815",
+      "bytes": 6158
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-15/AD-D-15--320--op-07--v1.svg",
+      "sha256": "28a63c1d97318ee296ea69dcfd007a9a2e16c6cf6a20ff9b543e8635ac61ab88",
+      "bytes": 4060
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-15/AD-D-15--1440--op-07--v1.svg",
+      "sha256": "ee72affbf8984023770823811176348bd7edac25299571eb5755d0741229bd9a",
+      "bytes": 5056
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-15/AD-D-15--320--conflict--v1.svg",
+      "sha256": "be3f4a3233c23b81902b49c89c0e2c2b476c4dadd98e55bdb8336349f181b9be",
+      "bytes": 4309
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-15/AD-D-15--1440--conflict--v1.svg",
+      "sha256": "092addb876e7f9189d89ac81b14b0d8b1cd52228a46b54b2e1755f295cab32e2",
+      "bytes": 5097
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-15/AD-D-15--320--denied--v1.svg",
+      "sha256": "93ae75c3d71d27d13037dddced2994a83c44739eb1dc98c67946a28088082aff",
+      "bytes": 3793
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-15/AD-D-15--1440--denied--v1.svg",
+      "sha256": "2538204b4d95e706a7610445b08bf6dbf3412ef939b095fb4eac84d40bb8593c",
+      "bytes": 4787
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-15/AD-D-15--320--op-03-confirm--v1.svg",
+      "sha256": "c29a47f0c6a8c65ea664c032ea6b7a629478a8dfe75b7a5dcaa3b89d22d7e679",
+      "bytes": 4278
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-15/AD-D-15--1440--op-03-confirm--v1.svg",
+      "sha256": "57e98ac2f7fa7a17d9c9a944c95cc47b0ecf9fcd3ce4024374a96fe0d562dbf5",
+      "bytes": 5277
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-15/AD-D-15--320--op-04-confirm--v1.svg",
+      "sha256": "af449ece70ea795411a1a23c08040fe164f6c3821d6297dde57a226f35a1f661",
+      "bytes": 4260
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-15/AD-D-15--1440--op-04-confirm--v1.svg",
+      "sha256": "f8b02e1ed4878fbfc341c65b6403d728f7abfa2373e6284920076b98ba24c49a",
+      "bytes": 5259
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-15/AD-D-15--320--loading--v1.svg",
+      "sha256": "0733eb3ebd0d0ba7dcf738ae91ad5b3b22f66754c5df1d19d5edb62a6a3b1490",
+      "bytes": 3126
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-15/AD-D-15--1440--loading--v1.svg",
+      "sha256": "bbd630e35d2267055e43caefb262f37c50d43ee74056f07f9c3006b234df2547",
+      "bytes": 4431
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-15/AD-D-15--320--empty--v1.svg",
+      "sha256": "2c34ebac61a87f6e8beafadf3b1f0cb6b7c177fd04ead983805d92bb6c8fb908",
+      "bytes": 3483
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-15/AD-D-15--1440--empty--v1.svg",
+      "sha256": "503913694cd41534a32a23aed19057623d2e1f64cdc5696b6a76da4ea3f48b36",
+      "bytes": 4686
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-15/AD-D-15--320--success--v1.svg",
+      "sha256": "6c3de4ff9d09774783350d16a286604764ba5fa74c4ef77f015f388693dd154b",
+      "bytes": 3932
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-15/AD-D-15--1440--success--v1.svg",
+      "sha256": "9e1d4acd83194fd6517033edcfcfe672313f3c1eb5e1901cfb7f1e9ef377a0ab",
+      "bytes": 4822
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-15/traceability.json",
+      "sha256": "74f209143c394bfadabd4f24c577539d8967a52be01b8970a05b33b286884ce3",
+      "bytes": 38214
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-15/README.md",
+      "sha256": "f57c3bfd6545b82e72f9aa6a3c5f4b552aef64a1c1b96a727efe0e6ce12ff74b",
+      "bytes": 27483
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-16/AD-D-16--320--overview--v1.svg",
+      "sha256": "90763bfde438f7e6da3c704417b2fc875deefcbe5d0b314da27676db91068c59",
+      "bytes": 3768
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-16/AD-D-16--360--overview--v1.svg",
+      "sha256": "e889a10fd8cf83d24762dc994acee387cf209ee6518767e69f623412e8b16147",
+      "bytes": 3559
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-16/AD-D-16--600--overview--v1.svg",
+      "sha256": "7ed1262fe0ec2ce0174b583704c962f6356ac9e17574fcf9ea81bfa7c9067ef6",
+      "bytes": 3245
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-16/AD-D-16--840--overview--v1.svg",
+      "sha256": "0bb7c952bfba9ac6229ee4b082248de644efc11b88b660eb9a8a99afe66237d7",
+      "bytes": 5039
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-16/AD-D-16--1200--overview--v1.svg",
+      "sha256": "87f1751006f27ac684947205443779dde00366ceae77c56dcc8220e2aa181e01",
+      "bytes": 4742
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-16/AD-D-16--1440--overview--v1.svg",
+      "sha256": "3432cdf425d75f54abaf49d04a1afa09af2b7ad5a94f110c05d986ed1a417d29",
+      "bytes": 4762
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-16/AD-D-16--320--op-01--v1.svg",
+      "sha256": "e194faec9be043e9a7330f342e8c47d87eb9b624e6c19a10e91be7e0b90b8299",
+      "bytes": 5028
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-16/AD-D-16--1440--op-01--v1.svg",
+      "sha256": "8120d02a5df039ed47313647ca19b3f4dca763d184bdd586860d181852ac27e8",
+      "bytes": 7791
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-16/AD-D-16--320--op-02--v1.svg",
+      "sha256": "d9bc08d88612fc6fb1b587ddf19570e00fd293bea110a028a84d0b72f82c534a",
+      "bytes": 3922
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-16/AD-D-16--1440--op-02--v1.svg",
+      "sha256": "9ad03f22a515be34d55cc6f179da1ee1e825bfeab0db8d22fb527f8ebc4a1d24",
+      "bytes": 4812
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-16/AD-D-16--320--op-03--v1.svg",
+      "sha256": "e1a48a306a88cdca2313fa6b075ce42860deb1958128b2a3c76723a4e3b577c5",
+      "bytes": 4885
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-16/AD-D-16--1440--op-03--v1.svg",
+      "sha256": "9fca73adc2bf1c5f464f4212877b76fd68573185da5738bf4037a12279a98eb0",
+      "bytes": 5990
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-16/AD-D-16--320--op-04--v1.svg",
+      "sha256": "aacd8835fe5bddf7b5ed3541c14cfde5bc1a3ce24cc0acfb916bbe3aeb7b65d3",
+      "bytes": 5102
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-16/AD-D-16--1440--op-04--v1.svg",
+      "sha256": "0114ba395f796da323ed02f0b8a6c0643b4508a8e22e2a7eb2165ce6da94ca2b",
+      "bytes": 5682
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-16/AD-D-16--320--op-05--v1.svg",
+      "sha256": "7aa513556f55cb57f709fd06bce5b0b5dfbc0b755cfb39a2615a9fbbad4dae40",
+      "bytes": 3561
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-16/AD-D-16--1440--op-05--v1.svg",
+      "sha256": "1f3bc2916deba1b5bf464ff11fe4ca3d81ed3d1abcd5a8e8e355b825afdd4485",
+      "bytes": 4871
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-16/AD-D-16--320--conflict--v1.svg",
+      "sha256": "953e5b2ab037524c352c286648a2f162c69ce7deb791ba7c8450c13ef1ef6c75",
+      "bytes": 4437
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-16/AD-D-16--1440--conflict--v1.svg",
+      "sha256": "3cf319d1d64d097f245457aaaefb292efb5b092a2334300e0e6d4530e71b76c9",
+      "bytes": 5121
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-16/AD-D-16--320--denied--v1.svg",
+      "sha256": "3ef612348e48d579a11d2a9bd6afb2ddf3953584531b1fe7c891d51ce9171207",
+      "bytes": 3921
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-16/AD-D-16--1440--denied--v1.svg",
+      "sha256": "444fbb7897e9755933c4b8bbf2d260b86dccbdd6d87568e0a1561006eb606d22",
+      "bytes": 4811
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-16/AD-D-16--320--op-03-confirm--v1.svg",
+      "sha256": "5ca62573bf6f7db89fbf018cbc7f8ff4d8e3a6ce7894c309d96f9160f9ebda2b",
+      "bytes": 4396
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-16/AD-D-16--1440--op-03-confirm--v1.svg",
+      "sha256": "c6373e130389d96af0eb678d457df85055bcc81f66f1e6e59ad5095247c8dcd1",
+      "bytes": 5291
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-16/AD-D-16--320--op-05-result--v1.svg",
+      "sha256": "37595095800dee117347cb89da55c7fbfcf7505c72e6147908e54401b9a391f9",
+      "bytes": 4550
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-16/AD-D-16--1440--op-05-result--v1.svg",
+      "sha256": "4c0372fc481606222d54f2a2d9f27e497e5086d77be836778cf233f7618495c7",
+      "bytes": 5341
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-16/AD-D-16--320--loading--v1.svg",
+      "sha256": "e2f785d200b90ea6501ad6925f31a7cf6082a4ed001de19ed31435071534bbd1",
+      "bytes": 3129
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-16/AD-D-16--1440--loading--v1.svg",
+      "sha256": "d387958f344e41c80dc9dbf2e13974a4727b8dbc019959dc2c9e1d5217db93c4",
+      "bytes": 4434
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-16/AD-D-16--320--empty--v1.svg",
+      "sha256": "cc76cb5cfb3ab1b0a85c41cd0a086c534e8e526a0ae2fc753c7a7e32ae5484c4",
+      "bytes": 3486
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-16/AD-D-16--1440--empty--v1.svg",
+      "sha256": "e55e4a2effdae87a038e4d54a55ec95553db5a885fba0fd7559ca71ace67ebe8",
+      "bytes": 4689
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-16/AD-D-16--320--success--v1.svg",
+      "sha256": "0c4804e45ca68b9c187e9af14c0d22e05acdd91e599905eedaddb3a9e2c71bae",
+      "bytes": 3935
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-16/AD-D-16--1440--success--v1.svg",
+      "sha256": "4942d6376b33a818df5a82a896c4337d602e3b47a9376915da7610b68fa230b0",
+      "bytes": 4825
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-16/traceability.json",
+      "sha256": "f33bdd4e92d082098f55d3a21d1ad0e03ed55de3b65e6b21e8391937d3622cd7",
+      "bytes": 37046
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-16/README.md",
+      "sha256": "a4deeb5dcba8af356598bd888b89d9c2c41e0af4feffa7870c9020a8d4839d0f",
+      "bytes": 28115
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-17/AD-D-17--320--overview--v1.svg",
+      "sha256": "7af22555e37c9c7a649e7cf9cee75bdfcebf435620f19435fe637363e593d08b",
+      "bytes": 3693
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-17/AD-D-17--360--overview--v1.svg",
+      "sha256": "6d5935ff08da2f2fc5d7c5aff70961a2ba7ed2ef42922a2641fad9d2db6c75c4",
+      "bytes": 3484
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-17/AD-D-17--600--overview--v1.svg",
+      "sha256": "dbfc386e72e6cbc5cdfd797d1270d0d35b8981153a46e923fe69477b5caa535b",
+      "bytes": 3170
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-17/AD-D-17--840--overview--v1.svg",
+      "sha256": "3ea712dffb3f80904c2e1ae90076e6bd2953a16da5fa3031d2f631a5bc78ba43",
+      "bytes": 4964
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-17/AD-D-17--1200--overview--v1.svg",
+      "sha256": "578c38907be1412a6b2eee901e5fb7c29e3d69eee681653f3b2d116da54942f4",
+      "bytes": 4667
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-17/AD-D-17--1440--overview--v1.svg",
+      "sha256": "51c0263a309cd24609f4af31ebd2061c7e143fa1eaa44227bb60aee137c99c9f",
+      "bytes": 4687
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-17/AD-D-17--320--op-01--v1.svg",
+      "sha256": "abf4e382b64cfd556cae32c720cb8431dedf914e754867f1a67a613aaa30c92b",
+      "bytes": 4953
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-17/AD-D-17--1440--op-01--v1.svg",
+      "sha256": "23eb229514de12587b52d5ea45fe9d0775cb2fb35bdeff72bf50fead3d52dde9",
+      "bytes": 7722
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-17/AD-D-17--320--op-02--v1.svg",
+      "sha256": "9ca24f25fd21e9bb682c64b036e36e9f10e0ed3978472c71ef58c6ee6fe94d0e",
+      "bytes": 5003
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-17/AD-D-17--1440--op-02--v1.svg",
+      "sha256": "d3740fc9ee10275211d36e27b8ecefed577b743c3c40c5c3f7207ad782e02d9b",
+      "bytes": 6216
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-17/AD-D-17--320--op-03--v1.svg",
+      "sha256": "4e9e7ac2a8704bb4f8083cc9667f7881329f8e2a37bf25e96ea857ba392892d2",
+      "bytes": 4583
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-17/AD-D-17--1440--op-03--v1.svg",
+      "sha256": "a7a8ce0724980411d564aa9c045ebd04b74764c1618e6416494d2ddb4ac79453",
+      "bytes": 5477
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-17/AD-D-17--320--op-04--v1.svg",
+      "sha256": "3c3a4ea8a3c99e7ddf1098909e2c90ec52308c5abd9b998b3f52ff0f9ca2a7a5",
+      "bytes": 4635
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-17/AD-D-17--1440--op-04--v1.svg",
+      "sha256": "ab9daa00a5d7075efbd0905477f46ec67a1df0759ace52c6971e5c06835e4e03",
+      "bytes": 5529
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-17/AD-D-17--320--op-05--v1.svg",
+      "sha256": "fd45722dc6351b5c3311d4a87c5731cadfef8ab5b6a028a2b9fa84c44ab2b975",
+      "bytes": 3989
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-17/AD-D-17--1440--op-05--v1.svg",
+      "sha256": "23ba3d16c6935843663c82d8fb99cd3a14971f71ff4fa6aeaf5649390c36c0fb",
+      "bytes": 4985
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-17/AD-D-17--320--conflict--v1.svg",
+      "sha256": "a10199d670c9eb1d7d756ce91352e58cfe02e82773d8111cfd528cf0a189ea32",
+      "bytes": 4230
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-17/AD-D-17--1440--conflict--v1.svg",
+      "sha256": "26c516af7d28d060bfe703160135112b741bb5a479029ed413b661a793f642ef",
+      "bytes": 5018
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-17/AD-D-17--320--denied--v1.svg",
+      "sha256": "40b3f4ffd3c94b6746227f0ccb18f7f23eddab06a1a11272344cd6e629979d56",
+      "bytes": 3714
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-17/AD-D-17--1440--denied--v1.svg",
+      "sha256": "b88d82c6287cb4000daf16dd6cef5150cd51d28aa907255a74bf29155d400be5",
+      "bytes": 4708
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-17/AD-D-17--320--op-02-confirm--v1.svg",
+      "sha256": "fcff63b35d1d18badd794e2625e0789eae21ada329ec334ccdaa5dfd37b2196a",
+      "bytes": 4217
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-17/AD-D-17--1440--op-02-confirm--v1.svg",
+      "sha256": "705bfb22c8cf96defcc2bed1bf1485c0b2fb89e29a6050bbb9df27e864b6440b",
+      "bytes": 5216
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-17/AD-D-17--320--loading--v1.svg",
+      "sha256": "856d6636b17487304f88f74f9b8c0f3665de9fbd327f4775912868fe7373363e",
+      "bytes": 3054
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-17/AD-D-17--1440--loading--v1.svg",
+      "sha256": "e98de3089bf7794c564037b48d96939fe13097ccdc2eec52caaa324dce30a814",
+      "bytes": 4359
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-17/AD-D-17--320--empty--v1.svg",
+      "sha256": "b493878c811094a4b191d0e7f80db1fc144157827d3d7a457e98c4c6da409fce",
+      "bytes": 3411
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-17/AD-D-17--1440--empty--v1.svg",
+      "sha256": "4177c44957b28981d6ee642d7075e239811c7ef56bf8d48f760bfb8b08b508d6",
+      "bytes": 4614
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-17/AD-D-17--320--success--v1.svg",
+      "sha256": "14d0b86a0929172ac2caa5c1816449e389651148f6e19ead6c8e559cc8a97f33",
+      "bytes": 3860
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-17/AD-D-17--1440--success--v1.svg",
+      "sha256": "98067173af3c22a0b0082ad55e492d4c03e7fec2e6615905d0fd0e5e6b854828",
+      "bytes": 4750
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-17/traceability.json",
+      "sha256": "b48d55c64783a2480e8d4e46ec53c8ba723818cc21ae835c2b512edf5e4b928a",
+      "bytes": 32672
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-17/README.md",
+      "sha256": "8a4607f9d43bc2cc8b6a057f1c80ee2e695a56f2120f00bfbfce13810eed0067",
+      "bytes": 24069
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-18/AD-D-18--320--overview--v1.svg",
+      "sha256": "1565cd5de7f365264dc99af72f1a09d168a1f087579d1f8b7ff54beed4007ead",
+      "bytes": 3711
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-18/AD-D-18--360--overview--v1.svg",
+      "sha256": "d7d10e9b8760b4345c3a5733a7aaa4f2d3384cd9246228690db10ceb0110b3c5",
+      "bytes": 3502
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-18/AD-D-18--600--overview--v1.svg",
+      "sha256": "99229911631cb8a79282ee4f6177dac5785b98167f93f524176f5e573f051c56",
+      "bytes": 3188
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-18/AD-D-18--840--overview--v1.svg",
+      "sha256": "264bd7fcb83ad499d39fdcad2ad55713458844aa2d9ccabb7e83124be42c120f",
+      "bytes": 4982
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-18/AD-D-18--1200--overview--v1.svg",
+      "sha256": "9e5167e5f55f97f674df08ae18ff9f31063327d511ef67126c3f3a1044c88e99",
+      "bytes": 4685
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-18/AD-D-18--1440--overview--v1.svg",
+      "sha256": "848f9716b059964bcd93956efe22caa15d30675208cb16eb109ab8e500f4f683",
+      "bytes": 4705
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-18/AD-D-18--320--op-01--v1.svg",
+      "sha256": "cd6c49439c0d2c206007f318fb3a9b91d060b42606db8a58d61c1bd5a4b6c91a",
+      "bytes": 4867
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-18/AD-D-18--1440--op-01--v1.svg",
+      "sha256": "ffad94daa2473f8b2cf90b508032a585c940330776ef60e23eefc8875e9624a3",
+      "bytes": 7731
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-18/AD-D-18--320--op-02--v1.svg",
+      "sha256": "91bd2f94f59b8614c2ec0af60c9c04ca96dfee46b5a776e666509e7251110a88",
+      "bytes": 3761
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-18/AD-D-18--1440--op-02--v1.svg",
+      "sha256": "6768bb610d7b14426889daaa9a336ef1b8853f88fff1e67b4dd81a801008133e",
+      "bytes": 4755
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-18/AD-D-18--320--op-03--v1.svg",
+      "sha256": "c31efb9b1d10036bec507d786510ead7181071fd7993be12c2134db981fd5f5f",
+      "bytes": 5283
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-18/AD-D-18--1440--op-03--v1.svg",
+      "sha256": "927e95e7996841b91a1482fb20ed1f3ce6b8ef069393bd545d4e9782e6c8ea7f",
+      "bytes": 6499
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-18/AD-D-18--320--op-04--v1.svg",
+      "sha256": "8b537e59a5fe62b137380cf29e631537be9f4c8873ae8fb0f980a8cc76232264",
+      "bytes": 4323
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-18/AD-D-18--1440--op-04--v1.svg",
+      "sha256": "d76cecb476abd981b4e8370dcf5f1408c7ee1801f06b1ff8c6e41396329f8b49",
+      "bytes": 5217
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-18/AD-D-18--320--op-05--v1.svg",
+      "sha256": "a9d2254b245fbedc8170017c5265cc72b376e73d7ab87f90fded4f9aca5927c1",
+      "bytes": 4007
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-18/AD-D-18--1440--op-05--v1.svg",
+      "sha256": "673473b8d8f63797c91b58236e6541fac6d551787cda29380db08a2018299489",
+      "bytes": 5003
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-18/AD-D-18--320--op-06--v1.svg",
+      "sha256": "8135a871b775185d63cea4e7784cbb1e2ef53f1e4d27cbe78e8981f9c3ab672f",
+      "bytes": 4881
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-18/AD-D-18--1440--op-06--v1.svg",
+      "sha256": "4d616db668febf739dff36038c5b82c1a8c66971144fb6041e9ebb3e79d043cb",
+      "bytes": 5565
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-18/AD-D-18--320--conflict--v1.svg",
+      "sha256": "397a7d61fa272d4170b261440729700393a57baab4ec9807974e44a30064c576",
+      "bytes": 4422
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-18/AD-D-18--1440--conflict--v1.svg",
+      "sha256": "a1ef43dec4afbe542398abbd0e17f659079f6de2fed06a5e9e8dc9caa00fa5c7",
+      "bytes": 5106
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-18/AD-D-18--320--denied--v1.svg",
+      "sha256": "36404e18b687fd4d51ed9c8f75d69e04964de306a06d99b8ede8d8771d46108c",
+      "bytes": 3906
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-18/AD-D-18--1440--denied--v1.svg",
+      "sha256": "b9a4e4a042b96424110d75c3ec2acf69ae6f514526439db58e8e4555051dd67a",
+      "bytes": 4796
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-18/AD-D-18--320--op-03-confirm--v1.svg",
+      "sha256": "d66fadfb79ebe3e2a016a7f3f23739c8fa3d27346b6b731ae1f9c6209f9fe745",
+      "bytes": 4339
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-18/AD-D-18--1440--op-03-confirm--v1.svg",
+      "sha256": "c26c674daa875ce4fafe0bf226fefeeba4bb6ecb974687f2ebaf08bc5af92364",
+      "bytes": 5234
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-18/AD-D-18--320--loading--v1.svg",
+      "sha256": "832e8cc932b5c18653283b9fcf4573aa62b57cbf9826d1a472e3c95491dd561b",
+      "bytes": 3112
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-18/AD-D-18--1440--loading--v1.svg",
+      "sha256": "75911bbc67dfe64b793620ac2df15c675bd37d38908f02b7f73e83393ef0072a",
+      "bytes": 4417
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-18/AD-D-18--320--empty--v1.svg",
+      "sha256": "5baee6c16147b2df57da596e06e7b20cd17a4ea6a1eb63e43d3b01e108f3c56c",
+      "bytes": 3469
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-18/AD-D-18--1440--empty--v1.svg",
+      "sha256": "e3f082da54a686edbd1bc6bfa5981409d1693a66f82babe1f81b248c8c74bdf5",
+      "bytes": 4672
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-18/AD-D-18--320--success--v1.svg",
+      "sha256": "759f1ada8dafa989ac33b8036f44fb5bb6a1b05cfd5e117b8f8171703ec19ec0",
+      "bytes": 3918
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-18/AD-D-18--1440--success--v1.svg",
+      "sha256": "07961deceaac4289e1d5994685055512739e6e743237bea3e66b5c8c93f45bd6",
+      "bytes": 4808
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-18/traceability.json",
+      "sha256": "d3c9871e6e094a0268fe3a0985d62299bb62a236157c893185fd5873f169e825",
+      "bytes": 32274
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-18/README.md",
+      "sha256": "50da0eaa1bcd204c732fbc047076fae64c92ef31bedd94a1a8692f455e35f364",
+      "bytes": 23276
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-19/AD-D-19--320--overview--v1.svg",
+      "sha256": "c4707473735dc7b9e8eb0da9b0acf2643ac828cbfe14a2b1042af0d2d2555871",
+      "bytes": 3694
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-19/AD-D-19--360--overview--v1.svg",
+      "sha256": "123edd9c9d1b87ef147cf4c18c05fefc3517e2cc37055276631f8e957bead001",
+      "bytes": 3485
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-19/AD-D-19--600--overview--v1.svg",
+      "sha256": "370b2605d336179cfb8bc9efcf6b715314f9f78c24b98d671e8b62d383976e3c",
+      "bytes": 3171
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-19/AD-D-19--840--overview--v1.svg",
+      "sha256": "c43af3a605663bd51d160f8a78a0a94d4d4d647acb1a40ddb8ce0d01aa84c7a5",
+      "bytes": 4965
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-19/AD-D-19--1200--overview--v1.svg",
+      "sha256": "98baad20b03713a74890ac8ee8a276ad18e4c61faa3ff2b72d36a9aaccc92692",
+      "bytes": 4668
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-19/AD-D-19--1440--overview--v1.svg",
+      "sha256": "594d0b41e6c131b3b01678bd58ab2af4755274e7c738cf6aae391d6b62d4d9f8",
+      "bytes": 4688
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-19/AD-D-19--320--op-01--v1.svg",
+      "sha256": "43536b4609b2e5b77306f982ea7d46302dc059af4913b983dc508c72a5533ade",
+      "bytes": 3197
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-19/AD-D-19--1440--op-01--v1.svg",
+      "sha256": "57ee7e3c04169e5e05fb4340b51857642f98e5927699b93fbd5120759854b37b",
+      "bytes": 4398
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-19/AD-D-19--320--op-02--v1.svg",
+      "sha256": "c5e919666690ed49eb8f979e55581f2de6d615af75bbd4ebc048e6adbc70633a",
+      "bytes": 3751
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-19/AD-D-19--1440--op-02--v1.svg",
+      "sha256": "718f4c4c0a9f71fef07cb9bd0adcb62e2a12a1b1c956fb829f34c751b076d1d6",
+      "bytes": 5064
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-19/AD-D-19--320--op-03--v1.svg",
+      "sha256": "8abc0a1c1d5516c7b0a89ab6658a5a626bbc3ef33e9be327fa4fae79a75e70ca",
+      "bytes": 4230
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-19/AD-D-19--1440--op-03--v1.svg",
+      "sha256": "db9827c67f2f660c760bb17d73583bd6dc57d7a0d93ec13e33742092c3e48c45",
+      "bytes": 5333
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-19/AD-D-19--320--op-04--v1.svg",
+      "sha256": "3a592951cb248fc01400df90f112a5fae824ce8bffd37014de7f90a003b3abcc",
+      "bytes": 5771
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-19/AD-D-19--1440--op-04--v1.svg",
+      "sha256": "4b97ede465320a472b0c7c5824053e2a0baefb7f52e716980e70cc741e2e3986",
+      "bytes": 6352
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-19/AD-D-19--320--conflict--v1.svg",
+      "sha256": "b7086cfcbac66501845ea817f19db06362f5b9eb53a643375121308dc6e6c3df",
+      "bytes": 4229
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-19/AD-D-19--1440--conflict--v1.svg",
+      "sha256": "85a3c06ed603d373d437e97fe24bf738586b5c7c84d67e23e90c60c693a3328b",
+      "bytes": 5017
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-19/AD-D-19--320--denied--v1.svg",
+      "sha256": "80c670cdfe46fcad54996dafe34f5f35f6eb29edaa510a44e06e2d973d8f8b43",
+      "bytes": 3713
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-19/AD-D-19--1440--denied--v1.svg",
+      "sha256": "537393700396be210c16d563857f95f7819d759218e7482db9a26c63ee753bd3",
+      "bytes": 4707
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-19/AD-D-19--320--op-03-confirm--v1.svg",
+      "sha256": "7baaef0e6537adc4c3f2b4b85168f1904138dc1bf124eccad735a03277a09835",
+      "bytes": 4218
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-19/AD-D-19--1440--op-03-confirm--v1.svg",
+      "sha256": "badc7a4d9c52972f5f2bd7505ea8dff99f53931c3f0ddcfd2ea08db43eedfe44",
+      "bytes": 5217
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-19/AD-D-19--320--loading--v1.svg",
+      "sha256": "11e92c11aca9f40460c508fe215c55a452f42cbbb5f37ff1cba409b6d5f60bbe",
+      "bytes": 3065
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-19/AD-D-19--1440--loading--v1.svg",
+      "sha256": "59a05052fad0655706978dd1ed0ed8fd9de50508ae0e59b7e076351cd3de7401",
+      "bytes": 4370
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-19/AD-D-19--320--empty--v1.svg",
+      "sha256": "92d409f4d78a7bdb94dc22d843623739a4971f5ae0ea04121e53bd7cbbb3828e",
+      "bytes": 3422
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-19/AD-D-19--1440--empty--v1.svg",
+      "sha256": "834e27a2b1aeb4801e76553f0a2cfb7abe45183800a695725facd5930050c5ea",
+      "bytes": 4625
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-19/AD-D-19--320--success--v1.svg",
+      "sha256": "45fe0b3b5f17685ae55a1528ff69ff41c0415819310263bf0da848342c2939b4",
+      "bytes": 3871
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-19/AD-D-19--1440--success--v1.svg",
+      "sha256": "74b32d66f62bbd2dc4b70dd2c0494662ffb4c9382d279696099e573df0dbe27b",
+      "bytes": 4761
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-19/traceability.json",
+      "sha256": "e0bbb60893574c13c742c51be08f99762a8ef63353790561a40fa6b9b2e1a1f8",
+      "bytes": 29396
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-19/README.md",
+      "sha256": "ba7e4c50686167db13d73ec31e8b7018f6a41e1746b43b19c79086d52c3276af",
+      "bytes": 22298
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-20/AD-D-20--320--overview--v1.svg",
+      "sha256": "04c932030d699ba7aaaa7c4bde1f9b523eb461d38fc38dffff713276563a6a56",
+      "bytes": 3649
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-20/AD-D-20--360--overview--v1.svg",
+      "sha256": "6091b73bcd17258e700094cbbf151543a674a9edb77aa926d6b1aae5d4a250f6",
+      "bytes": 3544
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-20/AD-D-20--600--overview--v1.svg",
+      "sha256": "48af0a475b3e45ce2f3585967ad5feec41e959670515147bf3dfd00678229343",
+      "bytes": 3230
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-20/AD-D-20--840--overview--v1.svg",
+      "sha256": "c4384256ec66992e226ed2fb580288608bdac0f0225b11a523fad01fb3851115",
+      "bytes": 5024
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-20/AD-D-20--1200--overview--v1.svg",
+      "sha256": "3517db855d900824263a55f0fe0882abcd1d7c9b67d707662d105b0996576149",
+      "bytes": 4727
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-20/AD-D-20--1440--overview--v1.svg",
+      "sha256": "a6f86a6a725330ecd872eab2e5ccc0de989c3dd224a03ec547123f4199f741a8",
+      "bytes": 4747
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-20/AD-D-20--320--op-01--v1.svg",
+      "sha256": "57f1e69607e8186f8f864936c7ccffad021c097a304c4e09cadfca0610429aba",
+      "bytes": 6004
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-20/AD-D-20--1440--op-01--v1.svg",
+      "sha256": "eef55f054a6c15b61297c395cda04e2b602f05b60adafadfa9851691972fed66",
+      "bytes": 6269
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-20/AD-D-20--320--op-02--v1.svg",
+      "sha256": "f4d39923b3bbc6d302f669ea2b666986f149c71f5489538458398d3738926679",
+      "bytes": 5479
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-20/AD-D-20--1440--op-02--v1.svg",
+      "sha256": "e0f3cfe88dc6980def44f63699ca43feee819f253eb6a8d60fa2bf03ebd980b5",
+      "bytes": 6375
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-20/AD-D-20--320--conflict--v1.svg",
+      "sha256": "1abf09a0e65ef137c014720e4af722be910e34e8bf175fc48114b855bdf706ff",
+      "bytes": 4296
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-20/AD-D-20--1440--conflict--v1.svg",
+      "sha256": "8917d347aba167f806fed67286af5054589af048c6707a6edb51638d2d9eefec",
+      "bytes": 5084
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-20/AD-D-20--320--denied--v1.svg",
+      "sha256": "b78ff1e3d971aa7a271ae720de49391f741b17c8827f642c6ddf70047d65e532",
+      "bytes": 3780
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-20/AD-D-20--1440--denied--v1.svg",
+      "sha256": "d4a37993c772d61ed225d4ddf7104aea700d994a4dded5a0d3a9c9207c455c28",
+      "bytes": 4774
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-20/AD-D-20--320--op-02-result--v1.svg",
+      "sha256": "18e05c317e71518594f409ec33f352f81ef6e55930a7ea4cd81c757af052cdbf",
+      "bytes": 4431
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-20/AD-D-20--1440--op-02-result--v1.svg",
+      "sha256": "53734a12c4f7ec0f23c5c38d2d617d5919087576025f3c773444e7879c79a6f3",
+      "bytes": 5326
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-20/AD-D-20--320--loading--v1.svg",
+      "sha256": "7d1dff4ca67debca417a3a3a1060b854e217397c80ac6960eec8c18933b8f2b8",
+      "bytes": 3116
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-20/AD-D-20--1440--loading--v1.svg",
+      "sha256": "7898737f69d700f456ccf875030426bdf46764f9e17668681a40a7f1d238c3e0",
+      "bytes": 4421
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-20/AD-D-20--320--empty--v1.svg",
+      "sha256": "51342cd3419524be9c15db02b606f38a3724411b03a6911350c2464e7798688b",
+      "bytes": 3473
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-20/AD-D-20--1440--empty--v1.svg",
+      "sha256": "cb6c68a4b54bb334a66196199806581c82870b54fd69a0a01d9bd91c6816b30c",
+      "bytes": 4676
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-20/AD-D-20--320--success--v1.svg",
+      "sha256": "d9ba8b4172b8dc6ba7c723b1ef85d22287438a24aa3e68f06ea9a5c0917e4986",
+      "bytes": 3922
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-20/AD-D-20--1440--success--v1.svg",
+      "sha256": "2fcc46a7d6e91f61b4f325c25449940f032fa75d532351bc795b565c3d5b80e2",
+      "bytes": 4812
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-20/traceability.json",
+      "sha256": "e7f474959c82f6b37722a45a4e0b0f29327b87c549a3da851b085f901880cfbc",
+      "bytes": 27740
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-20/README.md",
+      "sha256": "733cc491aeaf0ff8729dac2f29a5c0698bb54103ed6d95193fd8bf563a9b57a2",
+      "bytes": 22626
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-21/AD-D-21--320--overview--v1.svg",
+      "sha256": "db49ab49a676eebb467b197680b53de7297fda0d2ca563fc6b26afff7f6c449b",
+      "bytes": 3616
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-21/AD-D-21--360--overview--v1.svg",
+      "sha256": "0b3ed1e80595c958243a5e9a7759545e6c4bd2e3a0b49335a878511ace4fc3ae",
+      "bytes": 3511
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-21/AD-D-21--600--overview--v1.svg",
+      "sha256": "e77136be98329498f30f6b9b3eb4f4d7be019890b57312617b45fa575757f14d",
+      "bytes": 3197
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-21/AD-D-21--840--overview--v1.svg",
+      "sha256": "5157858afa1b8b9cdca7e82182dbb39885907464e8ab3fb4ff30906dca245c42",
+      "bytes": 4991
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-21/AD-D-21--1200--overview--v1.svg",
+      "sha256": "c26b0b91d790b47c2531f1d8da89cc1c067e861022b812d426c3edbbddc3bfd1",
+      "bytes": 4694
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-21/AD-D-21--1440--overview--v1.svg",
+      "sha256": "2311c05636e19b2021fbdb7c5a464c0e813553203e0f78b6ba85c03a6b8ff3bf",
+      "bytes": 4714
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-21/AD-D-21--320--op-01--v1.svg",
+      "sha256": "149b932e64bc2a4e958ae86eb7a199d14f111a730d8e735d2e3dc7c51cddde7f",
+      "bytes": 5971
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-21/AD-D-21--1440--op-01--v1.svg",
+      "sha256": "e8138d02470a54753a41dd65dc975d572174856aa2e57e614297d2b7cd9b4f79",
+      "bytes": 6236
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-21/AD-D-21--320--op-02--v1.svg",
+      "sha256": "301a26a35ef857a1453e7b0f072c1a93d261b2730cbaad7576814ddb34113490",
+      "bytes": 5138
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-21/AD-D-21--1440--op-02--v1.svg",
+      "sha256": "5b3be611c5692aaa272618b0fff7911687319777a76eda5642794f63109904cf",
+      "bytes": 6033
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-21/AD-D-21--320--conflict--v1.svg",
+      "sha256": "5d4922998298b0bb5449a6a25e979976d3d31afd382512e1933df46b28dab572",
+      "bytes": 4267
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-21/AD-D-21--1440--conflict--v1.svg",
+      "sha256": "963ab456429d0875c4e45302a6fdfe1ad7b1ce6bf0590e6ab0707169686ee5e9",
+      "bytes": 5055
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-21/AD-D-21--320--denied--v1.svg",
+      "sha256": "c155d337766e5fac319d5e0db7664978064513bd9647c03e87eafc6b518da9b1",
+      "bytes": 3751
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-21/AD-D-21--1440--denied--v1.svg",
+      "sha256": "17424faa2375b1b92630f7ead537c8e4b706dc42b5fc8f25e61c1b80ef983080",
+      "bytes": 4745
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-21/AD-D-21--320--op-02-result--v1.svg",
+      "sha256": "89d82fc644adbca6a3899c0ed654a8806d87a831a1a6d26c5e436ec5ae489a9f",
+      "bytes": 4398
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-21/AD-D-21--1440--op-02-result--v1.svg",
+      "sha256": "1aea25f11161be0a30d162f62db200278b9de9ba49a66934fda2c1be82ab6ea2",
+      "bytes": 5293
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-21/AD-D-21--320--loading--v1.svg",
+      "sha256": "ac3f9a62509d50fa03e857756684efcf18ff805ae340f19468623a7a277bc93b",
+      "bytes": 3088
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-21/AD-D-21--1440--loading--v1.svg",
+      "sha256": "39a2219cb0e5663c4b334f2561d924ba010bf3edcac0a637773b72af7becafee",
+      "bytes": 4393
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-21/AD-D-21--320--empty--v1.svg",
+      "sha256": "ed80b8ddf4b32d1e97db7651eded0f165ba6464ea53e1718a2f08369868046e5",
+      "bytes": 3445
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-21/AD-D-21--1440--empty--v1.svg",
+      "sha256": "2c3d420658a91b98ba87d0d1a5f6e47b0151cfcf4f174e3dc44fdacd80bc27cb",
+      "bytes": 4648
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-21/AD-D-21--320--success--v1.svg",
+      "sha256": "1017009d314bfe6fe3abd2b141f64cc1505117d5cf67a63c6ded655f8d6beaf3",
+      "bytes": 3894
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-21/AD-D-21--1440--success--v1.svg",
+      "sha256": "c7c1ed4abf9c2e131a9437e299d1050f790039164ad897edbceb671fbfe6eba9",
+      "bytes": 4784
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-21/traceability.json",
+      "sha256": "0323673a6b88ec28d7e4b18e454a9fcb5dd0404afb1b441ca096f6fed0cb4d24",
+      "bytes": 26435
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-21/README.md",
+      "sha256": "436c4529ab44994d3faa59ede2d39162fb0d1f36e86d0688aab4a77a9130731f",
+      "bytes": 21348
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/README.md",
+      "sha256": "fc08e1153fd7044be0b07402c16949241300cc77e430c844e33897e618347ee2",
+      "bytes": 530
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/gallery.html",
+      "sha256": "9fb738eca31885affa88b56141fe52a908778c3f400cf44387f4435b58e22c0d",
+      "bytes": 229785
+    }
+  ]
+}

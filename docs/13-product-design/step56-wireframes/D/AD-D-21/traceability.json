@@ -1,0 +1,385 @@
+{
+  "id": "AD-D-21",
+  "task": "AT-D-21",
+  "journeys": [
+    "AJ-02"
+  ],
+  "actors": [
+    "approver",
+    "staff"
+  ],
+  "domains": [
+    "excel"
+  ],
+  "operations": [
+    "POST /admin/excel/pricing/apply",
+    "POST /admin/excel/pricing/preview"
+  ],
+  "operationViews": [
+    {
+      "operation": "POST /admin/excel/pricing/apply",
+      "view": "op-01",
+      "permissionClaims": {
+        "runtime": [
+          "excel.apply"
+        ],
+        "openapi": "excel.apply"
+      },
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "stepUp": true,
+      "idempotencyScope": "excel.pricing.apply",
+      "recovery": "EXPLICIT_SAME_KEY_SAME_PAYLOAD_AFTER_STATUS_CHECK",
+      "versionRequired": false,
+      "confirmation": "SAFE_CANCEL_FIRST"
+    },
+    {
+      "operation": "POST /admin/excel/pricing/preview",
+      "view": "op-02",
+      "permissionClaims": {
+        "runtime": [
+          "excel.view"
+        ],
+        "openapi": "excel.view"
+      },
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "stepUp": false,
+      "idempotencyScope": null,
+      "recovery": "READ_OR_MANUAL_NO_RETRY",
+      "versionRequired": false,
+      "confirmation": "REVIEW_BEFORE_MUTATION",
+      "resultView": "op-02-result"
+    }
+  ],
+  "blockedOperations": [],
+  "facets": [
+    "entry-and-context",
+    "permission-aware-read-or-explicit-unavailable",
+    "detail-and-history-or-no-read-explanation",
+    "allowed-action-review-or-read-only",
+    "authoritative-outcome-and-recovery"
+  ],
+  "states": [
+    {
+      "id": "applied",
+      "view": "success",
+      "behavior": "Use the actual command response and available authorized reads; display only returned status/count/reference. Import creation is not apply; generic state is conditional on source operation. Pricing XLSX requires prices sheet sku/price_toman, unique SKU/variant and nonnegative integer Toman. Recomputed hash and in-transaction current price id/amount check; fresh profit guard on decreases. Step-Up and excel.pricing.apply idempotency; separate from catalog apply. Server permission and owner policy remain authoritative; inherited source gaps are NO_ACTION. UI review never grants permission."
+    },
+    {
+      "id": "approval-required",
+      "view": "overview",
+      "behavior": "Conditional: no new lifecycle, approval, partial-success or audit-read endpoint is created. Pricing XLSX requires prices sheet sku/price_toman, unique SKU/variant and nonnegative integer Toman. Recomputed hash and in-transaction current price id/amount check; fresh profit guard on decreases. Step-Up and excel.pricing.apply idempotency; separate from catalog apply."
+    },
+    {
+      "id": "audit-reference",
+      "view": "overview",
+      "behavior": "Conditional: no new lifecycle, approval, partial-success or audit-read endpoint is created. Pricing XLSX requires prices sheet sku/price_toman, unique SKU/variant and nonnegative integer Toman. Recomputed hash and in-transaction current price id/amount check; fresh profit guard on decreases. Step-Up and excel.pricing.apply idempotency; separate from catalog apply."
+    },
+    {
+      "id": "authoritative-success",
+      "view": "success",
+      "behavior": "Use the actual command response and available authorized reads; display only returned status/count/reference. Import creation is not apply; generic state is conditional on source operation. Pricing XLSX requires prices sheet sku/price_toman, unique SKU/variant and nonnegative integer Toman. Recomputed hash and in-transaction current price id/amount check; fresh profit guard on decreases. Step-Up and excel.pricing.apply idempotency; separate from catalog apply. Server permission and owner policy remain authoritative; inherited source gaps are NO_ACTION. UI review never grants permission."
+    },
+    {
+      "id": "blocked-by-lifecycle",
+      "view": "denied",
+      "behavior": "Block unsafe action, disclose no out-of-scope counts, retain safe input and focus linked error summary. Pricing XLSX requires prices sheet sku/price_toman, unique SKU/variant and nonnegative integer Toman. Recomputed hash and in-transaction current price id/amount check; fresh profit guard on decreases. Step-Up and excel.pricing.apply idempotency; separate from catalog apply."
+    },
+    {
+      "id": "cancelled",
+      "view": "overview",
+      "behavior": "Conditional: no new lifecycle, approval, partial-success or audit-read endpoint is created. Pricing XLSX requires prices sheet sku/price_toman, unique SKU/variant and nonnegative integer Toman. Recomputed hash and in-transaction current price id/amount check; fresh profit guard on decreases. Step-Up and excel.pricing.apply idempotency; separate from catalog apply."
+    },
+    {
+      "id": "destructive-action-confirmation",
+      "view": "op-01",
+      "behavior": "Conditional: no new lifecycle, approval, partial-success or audit-read endpoint is created. Pricing XLSX requires prices sheet sku/price_toman, unique SKU/variant and nonnegative integer Toman. Recomputed hash and in-transaction current price id/amount check; fresh profit guard on decreases. Step-Up and excel.pricing.apply idempotency; separate from catalog apply."
+    },
+    {
+      "id": "disabled",
+      "view": "denied",
+      "behavior": "Block unsafe action, disclose no out-of-scope counts, retain safe input and focus linked error summary. Pricing XLSX requires prices sheet sku/price_toman, unique SKU/variant and nonnegative integer Toman. Recomputed hash and in-transaction current price id/amount check; fresh profit guard on decreases. Step-Up and excel.pricing.apply idempotency; separate from catalog apply."
+    },
+    {
+      "id": "draft",
+      "view": "overview",
+      "behavior": "Conditional: no new lifecycle, approval, partial-success or audit-read endpoint is created. Pricing XLSX requires prices sheet sku/price_toman, unique SKU/variant and nonnegative integer Toman. Recomputed hash and in-transaction current price id/amount check; fresh profit guard on decreases. Step-Up and excel.pricing.apply idempotency; separate from catalog apply."
+    },
+    {
+      "id": "empty-filtered",
+      "view": "empty",
+      "behavior": "Differentiate empty authorized response from local filter and denied access; clearing local filters never claims full-population completeness. Only controller-supported filters; collection limits are not full inventory counts. Local filter labels must say loaded rows. No invented server pagination, audit-read or missing detail/status endpoint."
+    },
+    {
+      "id": "empty-first-use",
+      "view": "empty",
+      "behavior": "Differentiate empty authorized response from local filter and denied access; clearing local filters never claims full-population completeness. Only controller-supported filters; collection limits are not full inventory counts. Local filter labels must say loaded rows. No invented server pagination, audit-read or missing detail/status endpoint."
+    },
+    {
+      "id": "expired",
+      "view": "conflict",
+      "behavior": "Preserve input; read authoritative status where supported, otherwise manual follow-up. Never automatic mutation retry or stale overwrite. Pricing XLSX requires prices sheet sku/price_toman, unique SKU/variant and nonnegative integer Toman. Recomputed hash and in-transaction current price id/amount check; fresh profit guard on decreases. Step-Up and excel.pricing.apply idempotency; separate from catalog apply."
+    },
+    {
+      "id": "idempotent-replay",
+      "view": "overview",
+      "behavior": "Only an explicitly idempotent traced command may reuse the same key with the unchanged payload after status review. No new-key or automatic retry. Other operations require read or manual follow-up. Pricing XLSX requires prices sheet sku/price_toman, unique SKU/variant and nonnegative integer Toman. Recomputed hash and in-transaction current price id/amount check; fresh profit guard on decreases. Step-Up and excel.pricing.apply idempotency; separate from catalog apply. Server permission and owner policy remain authoritative; inherited source gaps are NO_ACTION. UI review never grants permission."
+    },
+    {
+      "id": "impact-changed",
+      "view": "conflict",
+      "behavior": "Preserve input; read authoritative status where supported, otherwise manual follow-up. Never automatic mutation retry or stale overwrite. Pricing XLSX requires prices sheet sku/price_toman, unique SKU/variant and nonnegative integer Toman. Recomputed hash and in-transaction current price id/amount check; fresh profit guard on decreases. Step-Up and excel.pricing.apply idempotency; separate from catalog apply."
+    },
+    {
+      "id": "initial-loading",
+      "view": "loading",
+      "behavior": "Announce busy state politely, retain focus, prevent double submission and label retained data stale. Do not present an unconfirmed mutation as success. Pricing XLSX requires prices sheet sku/price_toman, unique SKU/variant and nonnegative integer Toman. Recomputed hash and in-transaction current price id/amount check; fresh profit guard on decreases. Step-Up and excel.pricing.apply idempotency; separate from catalog apply. Server permission and owner policy remain authoritative; inherited source gaps are NO_ACTION. UI review never grants permission."
+    },
+    {
+      "id": "irreversible-outcome",
+      "view": "overview",
+      "behavior": "Conditional: no new lifecycle, approval, partial-success or audit-read endpoint is created. Pricing XLSX requires prices sheet sku/price_toman, unique SKU/variant and nonnegative integer Toman. Recomputed hash and in-transaction current price id/amount check; fresh profit guard on decreases. Step-Up and excel.pricing.apply idempotency; separate from catalog apply."
+    },
+    {
+      "id": "manual-review",
+      "view": "overview",
+      "behavior": "Conditional: no new lifecycle, approval, partial-success or audit-read endpoint is created. Pricing XLSX requires prices sheet sku/price_toman, unique SKU/variant and nonnegative integer Toman. Recomputed hash and in-transaction current price id/amount check; fresh profit guard on decreases. Step-Up and excel.pricing.apply idempotency; separate from catalog apply."
+    },
+    {
+      "id": "no-results",
+      "view": "empty",
+      "behavior": "Differentiate empty authorized response from local filter and denied access; clearing local filters never claims full-population completeness. Only controller-supported filters; collection limits are not full inventory counts. Local filter labels must say loaded rows. No invented server pagination, audit-read or missing detail/status endpoint."
+    },
+    {
+      "id": "offline",
+      "view": "conflict",
+      "behavior": "Preserve input; read authoritative status where supported, otherwise manual follow-up. Never automatic mutation retry or stale overwrite. Pricing XLSX requires prices sheet sku/price_toman, unique SKU/variant and nonnegative integer Toman. Recomputed hash and in-transaction current price id/amount check; fresh profit guard on decreases. Step-Up and excel.pricing.apply idempotency; separate from catalog apply."
+    },
+    {
+      "id": "partial-success",
+      "view": "overview",
+      "behavior": "Conditional: no new lifecycle, approval, partial-success or audit-read endpoint is created. Pricing XLSX requires prices sheet sku/price_toman, unique SKU/variant and nonnegative integer Toman. Recomputed hash and in-transaction current price id/amount check; fresh profit guard on decreases. Step-Up and excel.pricing.apply idempotency; separate from catalog apply."
+    },
+    {
+      "id": "permission-denied",
+      "view": "denied",
+      "behavior": "Block unsafe action, disclose no out-of-scope counts, retain safe input and focus linked error summary. Pricing XLSX requires prices sheet sku/price_toman, unique SKU/variant and nonnegative integer Toman. Recomputed hash and in-transaction current price id/amount check; fresh profit guard on decreases. Step-Up and excel.pricing.apply idempotency; separate from catalog apply."
+    },
+    {
+      "id": "preview",
+      "view": "op-02-result",
+      "behavior": "Conditional: no new lifecycle, approval, partial-success or audit-read endpoint is created. Pricing XLSX requires prices sheet sku/price_toman, unique SKU/variant and nonnegative integer Toman. Recomputed hash and in-transaction current price id/amount check; fresh profit guard on decreases. Step-Up and excel.pricing.apply idempotency; separate from catalog apply."
+    },
+    {
+      "id": "preview-expired",
+      "view": "conflict",
+      "behavior": "Preserve input; read authoritative status where supported, otherwise manual follow-up. Never automatic mutation retry or stale overwrite. Pricing XLSX requires prices sheet sku/price_toman, unique SKU/variant and nonnegative integer Toman. Recomputed hash and in-transaction current price id/amount check; fresh profit guard on decreases. Step-Up and excel.pricing.apply idempotency; separate from catalog apply."
+    },
+    {
+      "id": "progressive-loading",
+      "view": "loading",
+      "behavior": "Announce busy state politely, retain focus, prevent double submission and label retained data stale. Do not present an unconfirmed mutation as success. Pricing XLSX requires prices sheet sku/price_toman, unique SKU/variant and nonnegative integer Toman. Recomputed hash and in-transaction current price id/amount check; fresh profit guard on decreases. Step-Up and excel.pricing.apply idempotency; separate from catalog apply. Server permission and owner policy remain authoritative; inherited source gaps are NO_ACTION. UI review never grants permission."
+    },
+    {
+      "id": "provider-unavailable",
+      "view": "denied",
+      "behavior": "Block unsafe action, disclose no out-of-scope counts, retain safe input and focus linked error summary. Pricing XLSX requires prices sheet sku/price_toman, unique SKU/variant and nonnegative integer Toman. Recomputed hash and in-transaction current price id/amount check; fresh profit guard on decreases. Step-Up and excel.pricing.apply idempotency; separate from catalog apply."
+    },
+    {
+      "id": "read-only",
+      "view": "overview",
+      "behavior": "Conditional: no new lifecycle, approval, partial-success or audit-read endpoint is created. Pricing XLSX requires prices sheet sku/price_toman, unique SKU/variant and nonnegative integer Toman. Recomputed hash and in-transaction current price id/amount check; fresh profit guard on decreases. Step-Up and excel.pricing.apply idempotency; separate from catalog apply."
+    },
+    {
+      "id": "refresh-loading",
+      "view": "loading",
+      "behavior": "Announce busy state politely, retain focus, prevent double submission and label retained data stale. Do not present an unconfirmed mutation as success. Pricing XLSX requires prices sheet sku/price_toman, unique SKU/variant and nonnegative integer Toman. Recomputed hash and in-transaction current price id/amount check; fresh profit guard on decreases. Step-Up and excel.pricing.apply idempotency; separate from catalog apply. Server permission and owner policy remain authoritative; inherited source gaps are NO_ACTION. UI review never grants permission."
+    },
+    {
+      "id": "rejected",
+      "view": "denied",
+      "behavior": "Block unsafe action, disclose no out-of-scope counts, retain safe input and focus linked error summary. Pricing XLSX requires prices sheet sku/price_toman, unique SKU/variant and nonnegative integer Toman. Recomputed hash and in-transaction current price id/amount check; fresh profit guard on decreases. Step-Up and excel.pricing.apply idempotency; separate from catalog apply."
+    },
+    {
+      "id": "safe-retry",
+      "view": "overview",
+      "behavior": "Conditional: no new lifecycle, approval, partial-success or audit-read endpoint is created. Pricing XLSX requires prices sheet sku/price_toman, unique SKU/variant and nonnegative integer Toman. Recomputed hash and in-transaction current price id/amount check; fresh profit guard on decreases. Step-Up and excel.pricing.apply idempotency; separate from catalog apply."
+    },
+    {
+      "id": "scope-filtered",
+      "view": "overview",
+      "behavior": "Conditional: no new lifecycle, approval, partial-success or audit-read endpoint is created. Pricing XLSX requires prices sheet sku/price_toman, unique SKU/variant and nonnegative integer Toman. Recomputed hash and in-transaction current price id/amount check; fresh profit guard on decreases. Step-Up and excel.pricing.apply idempotency; separate from catalog apply."
+    },
+    {
+      "id": "server-error",
+      "view": "denied",
+      "behavior": "Block unsafe action, disclose no out-of-scope counts, retain safe input and focus linked error summary. Pricing XLSX requires prices sheet sku/price_toman, unique SKU/variant and nonnegative integer Toman. Recomputed hash and in-transaction current price id/amount check; fresh profit guard on decreases. Step-Up and excel.pricing.apply idempotency; separate from catalog apply."
+    },
+    {
+      "id": "session-expired",
+      "view": "denied",
+      "behavior": "Block unsafe action, disclose no out-of-scope counts, retain safe input and focus linked error summary. Pricing XLSX requires prices sheet sku/price_toman, unique SKU/variant and nonnegative integer Toman. Recomputed hash and in-transaction current price id/amount check; fresh profit guard on decreases. Step-Up and excel.pricing.apply idempotency; separate from catalog apply."
+    },
+    {
+      "id": "stale-data",
+      "view": "conflict",
+      "behavior": "Preserve input; read authoritative status where supported, otherwise manual follow-up. Never automatic mutation retry or stale overwrite. Pricing XLSX requires prices sheet sku/price_toman, unique SKU/variant and nonnegative integer Toman. Recomputed hash and in-transaction current price id/amount check; fresh profit guard on decreases. Step-Up and excel.pricing.apply idempotency; separate from catalog apply."
+    },
+    {
+      "id": "status-check",
+      "view": "overview",
+      "behavior": "Conditional: no new lifecycle, approval, partial-success or audit-read endpoint is created. Pricing XLSX requires prices sheet sku/price_toman, unique SKU/variant and nonnegative integer Toman. Recomputed hash and in-transaction current price id/amount check; fresh profit guard on decreases. Step-Up and excel.pricing.apply idempotency; separate from catalog apply."
+    },
+    {
+      "id": "step-up-required",
+      "view": "overview",
+      "behavior": "Invoke inherited B secure Step-Up only for the traced operations that require it; retain safe draft, return to review and never expose token values. Pricing XLSX requires prices sheet sku/price_toman, unique SKU/variant and nonnegative integer Toman. Recomputed hash and in-transaction current price id/amount check; fresh profit guard on decreases. Step-Up and excel.pricing.apply idempotency; separate from catalog apply. Server permission and owner policy remain authoritative; inherited source gaps are NO_ACTION. UI review never grants permission."
+    },
+    {
+      "id": "submitting",
+      "view": "loading",
+      "behavior": "Announce busy state politely, retain focus, prevent double submission and label retained data stale. Do not present an unconfirmed mutation as success. Pricing XLSX requires prices sheet sku/price_toman, unique SKU/variant and nonnegative integer Toman. Recomputed hash and in-transaction current price id/amount check; fresh profit guard on decreases. Step-Up and excel.pricing.apply idempotency; separate from catalog apply. Server permission and owner policy remain authoritative; inherited source gaps are NO_ACTION. UI review never grants permission."
+    },
+    {
+      "id": "terminal-success",
+      "view": "success",
+      "behavior": "Use the actual command response and available authorized reads; display only returned status/count/reference. Import creation is not apply; generic state is conditional on source operation. Pricing XLSX requires prices sheet sku/price_toman, unique SKU/variant and nonnegative integer Toman. Recomputed hash and in-transaction current price id/amount check; fresh profit guard on decreases. Step-Up and excel.pricing.apply idempotency; separate from catalog apply. Server permission and owner policy remain authoritative; inherited source gaps are NO_ACTION. UI review never grants permission."
+    },
+    {
+      "id": "timeout",
+      "view": "conflict",
+      "behavior": "Preserve input; read authoritative status where supported, otherwise manual follow-up. Never automatic mutation retry or stale overwrite. Pricing XLSX requires prices sheet sku/price_toman, unique SKU/variant and nonnegative integer Toman. Recomputed hash and in-transaction current price id/amount check; fresh profit guard on decreases. Step-Up and excel.pricing.apply idempotency; separate from catalog apply."
+    },
+    {
+      "id": "unauthenticated",
+      "view": "denied",
+      "behavior": "Block unsafe action, disclose no out-of-scope counts, retain safe input and focus linked error summary. Pricing XLSX requires prices sheet sku/price_toman, unique SKU/variant and nonnegative integer Toman. Recomputed hash and in-transaction current price id/amount check; fresh profit guard on decreases. Step-Up and excel.pricing.apply idempotency; separate from catalog apply."
+    },
+    {
+      "id": "unknown-result",
+      "view": "conflict",
+      "behavior": "Preserve input; read authoritative status where supported, otherwise manual follow-up. Never automatic mutation retry or stale overwrite. Pricing XLSX requires prices sheet sku/price_toman, unique SKU/variant and nonnegative integer Toman. Recomputed hash and in-transaction current price id/amount check; fresh profit guard on decreases. Step-Up and excel.pricing.apply idempotency; separate from catalog apply."
+    },
+    {
+      "id": "validation-error",
+      "view": "denied",
+      "behavior": "Block unsafe action, disclose no out-of-scope counts, retain safe input and focus linked error summary. Pricing XLSX requires prices sheet sku/price_toman, unique SKU/variant and nonnegative integer Toman. Recomputed hash and in-transaction current price id/amount check; fresh profit guard on decreases. Step-Up and excel.pricing.apply idempotency; separate from catalog apply."
+    },
+    {
+      "id": "version-conflict",
+      "view": "conflict",
+      "behavior": "Preserve input; read authoritative status where supported, otherwise manual follow-up. Never automatic mutation retry or stale overwrite. Pricing XLSX requires prices sheet sku/price_toman, unique SKU/variant and nonnegative integer Toman. Recomputed hash and in-transaction current price id/amount check; fresh profit guard on decreases. Step-Up and excel.pricing.apply idempotency; separate from catalog apply."
+    }
+  ],
+  "frames": [
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-21/AD-D-21--320--overview--v1.svg",
+      "view": "overview",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-21/AD-D-21--360--overview--v1.svg",
+      "view": "overview",
+      "width": 360
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-21/AD-D-21--600--overview--v1.svg",
+      "view": "overview",
+      "width": 600
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-21/AD-D-21--840--overview--v1.svg",
+      "view": "overview",
+      "width": 840
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-21/AD-D-21--1200--overview--v1.svg",
+      "view": "overview",
+      "width": 1200
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-21/AD-D-21--1440--overview--v1.svg",
+      "view": "overview",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-21/AD-D-21--320--op-01--v1.svg",
+      "view": "op-01",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-21/AD-D-21--1440--op-01--v1.svg",
+      "view": "op-01",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-21/AD-D-21--320--op-02--v1.svg",
+      "view": "op-02",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-21/AD-D-21--1440--op-02--v1.svg",
+      "view": "op-02",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-21/AD-D-21--320--conflict--v1.svg",
+      "view": "conflict",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-21/AD-D-21--1440--conflict--v1.svg",
+      "view": "conflict",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-21/AD-D-21--320--denied--v1.svg",
+      "view": "denied",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-21/AD-D-21--1440--denied--v1.svg",
+      "view": "denied",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-21/AD-D-21--320--op-02-result--v1.svg",
+      "view": "op-02-result",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-21/AD-D-21--1440--op-02-result--v1.svg",
+      "view": "op-02-result",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-21/AD-D-21--320--loading--v1.svg",
+      "view": "loading",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-21/AD-D-21--1440--loading--v1.svg",
+      "view": "loading",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-21/AD-D-21--320--empty--v1.svg",
+      "view": "empty",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-21/AD-D-21--1440--empty--v1.svg",
+      "view": "empty",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-21/AD-D-21--320--success--v1.svg",
+      "view": "success",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/D/AD-D-21/AD-D-21--1440--success--v1.svg",
+      "view": "success",
+      "width": 1440
+    }
+  ]
+}

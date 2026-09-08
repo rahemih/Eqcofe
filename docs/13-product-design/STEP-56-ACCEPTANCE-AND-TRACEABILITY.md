@@ -1,6 +1,6 @@
 # Step 56 — Acceptance and Traceability
 
-**56-A: FOUNDATION ACCEPTANCE PASS; canonical CI/merge/post-merge verification required. 56-B: design gate complete, canonical transport required; 56-C: design gate complete, transport required; D–H: NOT_STARTED.**
+**56-A: FOUNDATION ACCEPTANCE PASS; canonical CI/merge/post-merge verification required. 56-B: design gate complete, canonical transport required; 56-C: design gate complete, transport required;56-D: design gate complete, transport required; E–H: NOT_STARTED.**
 
 ## Acceptance matrix
 
@@ -56,3 +56,7 @@ The foundation contract remains the immutable A closure snapshot. B contract `st
 ## C progression
 
 C contract and `STEP-56-C-CATALOG-MEDIA.md` record 8/46 scope,114 frames/133 artifacts and source-specific restrictions. A/B remain immutable snapshots. Current Roadmap controls progression; D–H not started. Canonical transport must pass; stop after C.
+
+## D progression
+
+D contract `step56-pricing-inventory-wireframes.json` and history/specification `STEP-56-D-PRICING-INVENTORY.md` supply21/112 scope,624 frames/669 artifacts and989 state dispositions. Source limits remain explicit; no runtime readiness claim. A/B/C are immutable snapshots. Current Roadmap controls progression; E–H NOT_STARTED. Exact-head CI/merge/post-merge must pass. Stop after D.
