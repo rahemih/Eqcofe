@@ -1,0 +1,877 @@
+{
+  "id": "AD-F-06",
+  "task": "AT-F-06",
+  "journeys": [
+    "AJ-08"
+  ],
+  "actors": [
+    "approver",
+    "staff"
+  ],
+  "domains": [
+    "content"
+  ],
+  "operations": [
+    "GET /admin/content/articles",
+    "GET /admin/content/articles/{id}",
+    "GET /admin/content/articles/{id}/versions",
+    "GET /admin/content/articles/{id}/versions/{version}",
+    "GET /admin/content/articles/operations/summary",
+    "PATCH /admin/content/articles/{id}",
+    "POST /admin/content/articles",
+    "POST /admin/content/articles/{id}/approve",
+    "POST /admin/content/articles/{id}/archive",
+    "POST /admin/content/articles/{id}/publish",
+    "POST /admin/content/articles/{id}/schedule",
+    "POST /admin/content/articles/{id}/submit-review",
+    "POST /admin/content/articles/{id}/unpublish",
+    "POST /admin/content/articles/{id}/versions/{version}/restore"
+  ],
+  "operationViews": [
+    {
+      "operation": "GET /admin/content/articles",
+      "view": "op-01",
+      "permissionClaims": {
+        "runtime": [
+          "content.view"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "stepUp": false,
+      "idempotencyScope": null,
+      "versionRequired": false,
+      "bodyExpectedVersion": false,
+      "executionEnabled": true,
+      "recovery": "READ_OR_MANUAL_NO_RETRY",
+      "fields": [],
+      "guard": null,
+      "readPresentation": "شناسهٔ مقاله، وضعیت، نسخهٔ جاری و نسخهٔ منتشرشده جدا؛ متن مقاله فقط نمایش امن و غیرقابل‌اجرا. فهرست: وضعیت و جست‌وجوی حداکثر ۲۰۰ نویسه، سقف پاسخ ۲۰۰ رکورد."
+    },
+    {
+      "operation": "GET /admin/content/articles/{id}",
+      "view": "op-02",
+      "permissionClaims": {
+        "runtime": [
+          "content.view"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "stepUp": false,
+      "idempotencyScope": null,
+      "versionRequired": false,
+      "bodyExpectedVersion": false,
+      "executionEnabled": true,
+      "recovery": "READ_OR_MANUAL_NO_RETRY",
+      "fields": [],
+      "guard": null,
+      "readPresentation": "شناسهٔ مقاله، وضعیت، نسخهٔ جاری و نسخهٔ منتشرشده جدا؛ متن مقاله فقط نمایش امن و غیرقابل‌اجرا. فهرست: وضعیت و جست‌وجوی حداکثر ۲۰۰ نویسه، سقف پاسخ ۲۰۰ رکورد."
+    },
+    {
+      "operation": "GET /admin/content/articles/{id}/versions",
+      "view": "op-03",
+      "permissionClaims": {
+        "runtime": [
+          "content.view"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "stepUp": false,
+      "idempotencyScope": null,
+      "versionRequired": false,
+      "bodyExpectedVersion": false,
+      "executionEnabled": true,
+      "recovery": "READ_OR_MANUAL_NO_RETRY",
+      "fields": [],
+      "guard": null,
+      "readPresentation": "شماره و شناسهٔ نسخهٔ محتوا، عنوان، اسلاگ و متن امن؛ نسخهٔ انتخابی با نسخهٔ جاری و منتشرشده مقایسه شود. بازیابی، نسخهٔ تازه می‌سازد."
+    },
+    {
+      "operation": "GET /admin/content/articles/{id}/versions/{version}",
+      "view": "op-04",
+      "permissionClaims": {
+        "runtime": [
+          "content.view"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "stepUp": false,
+      "idempotencyScope": null,
+      "versionRequired": false,
+      "bodyExpectedVersion": false,
+      "executionEnabled": true,
+      "recovery": "READ_OR_MANUAL_NO_RETRY",
+      "fields": [],
+      "guard": null,
+      "readPresentation": "شماره و شناسهٔ نسخهٔ محتوا، عنوان، اسلاگ و متن امن؛ نسخهٔ انتخابی با نسخهٔ جاری و منتشرشده مقایسه شود. بازیابی، نسخهٔ تازه می‌سازد."
+    },
+    {
+      "operation": "GET /admin/content/articles/operations/summary",
+      "view": "op-05",
+      "permissionClaims": {
+        "runtime": [
+          "content.view"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "stepUp": false,
+      "idempotencyScope": null,
+      "versionRequired": false,
+      "bodyExpectedVersion": false,
+      "executionEnabled": true,
+      "recovery": "READ_OR_MANUAL_NO_RETRY",
+      "fields": [],
+      "guard": null,
+      "readPresentation": "خلاصهٔ شمارش و تأخیر عملیاتی فقط از پاسخ این مسیر؛ نتیجهٔ زمان‌بندی یا صف، موفقیت انتشار یا تحویل را تضمین نمی‌کند."
+    },
+    {
+      "operation": "PATCH /admin/content/articles/{id}",
+      "view": "op-06",
+      "permissionClaims": {
+        "runtime": [
+          "content.edit"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "stepUp": false,
+      "idempotencyScope": "content.article.edit",
+      "versionRequired": false,
+      "bodyExpectedVersion": false,
+      "executionEnabled": true,
+      "recovery": "EXPLICIT_SAME_KEY_SAME_PAYLOAD_AFTER_STATUS_CHECK",
+      "fields": [
+        "عنوان فارسی — الزامی، حداکثر ۳۰۰ نویسه",
+        "اسلاگ لاتین — حداکثر ۱۸۰ نویسه",
+        "متن مقاله — حداکثر ۱۰۰۰۰۰ نویسه",
+        "عنوان سئو — اختیاری، حداکثر ۳۰۰ نویسه",
+        "توضیحات متا — اختیاری، حداکثر ۵۰۰ نویسه"
+      ],
+      "guard": "حداقل یک فیلد مجاز؛ آرشیوشده، تأییدشده و زمان‌بندی‌شده قفل‌اند. ذخیره نسخهٔ تازه است و نسخهٔ منتشرشده را جایگزین نمی‌کند؛ بازنویسی کهنه از سمت مشتری تضمین نشده است.",
+      "confirmation": "SAFE_CANCEL_FIRST",
+      "resultView": "success",
+      "confirmationView": "op-06-confirm"
+    },
+    {
+      "operation": "POST /admin/content/articles",
+      "view": "op-07",
+      "permissionClaims": {
+        "runtime": [
+          "content.edit"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "stepUp": false,
+      "idempotencyScope": "content.article.create",
+      "versionRequired": false,
+      "bodyExpectedVersion": false,
+      "executionEnabled": true,
+      "recovery": "EXPLICIT_SAME_KEY_SAME_PAYLOAD_AFTER_STATUS_CHECK",
+      "fields": [
+        "عنوان فارسی — الزامی، حداکثر ۳۰۰ نویسه",
+        "اسلاگ لاتین — حداکثر ۱۸۰ نویسه",
+        "متن مقاله — حداکثر ۱۰۰۰۰۰ نویسه",
+        "عنوان سئو — اختیاری، حداکثر ۳۰۰ نویسه",
+        "توضیحات متا — اختیاری، حداکثر ۵۰۰ نویسه"
+      ],
+      "guard": "ایجاد پیش‌نویس؛ متن می‌تواند هنوز کامل نباشد. اسلاگ خالی در ایجاد توسط سرور ساخته می‌شود.",
+      "confirmation": "SAFE_CANCEL_FIRST",
+      "resultView": "success",
+      "confirmationView": "op-07-confirm"
+    },
+    {
+      "operation": "POST /admin/content/articles/{id}/approve",
+      "view": "op-08",
+      "permissionClaims": {
+        "runtime": [
+          "content.review"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "stepUp": true,
+      "idempotencyScope": "content.article.approve",
+      "versionRequired": false,
+      "bodyExpectedVersion": false,
+      "executionEnabled": true,
+      "recovery": "EXPLICIT_SAME_KEY_SAME_PAYLOAD_AFTER_STATUS_CHECK",
+      "fields": [
+        "توضیح اختیاری — حداکثر ۲۰۰۰ نویسه"
+      ],
+      "guard": "فقط در حال بررسی؛ این تأیید هنوز انتشار نیست.",
+      "confirmation": "SAFE_CANCEL_FIRST",
+      "resultView": "success",
+      "confirmationView": "op-08-confirm"
+    },
+    {
+      "operation": "POST /admin/content/articles/{id}/archive",
+      "view": "op-09",
+      "permissionClaims": {
+        "runtime": [
+          "content.archive_restore"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "stepUp": true,
+      "idempotencyScope": "content.article.archive",
+      "versionRequired": false,
+      "bodyExpectedVersion": false,
+      "executionEnabled": true,
+      "recovery": "EXPLICIT_SAME_KEY_SAME_PAYLOAD_AFTER_STATUS_CHECK",
+      "fields": [
+        "دلیل آرشیو — ۲ تا ۱۰۰۰ نویسه"
+      ],
+      "guard": "از وضعیت غیرآرشیو؛ اقدام حساس است و مسیر بازیابی نسخه، آرشیو را باز نمی‌کند.",
+      "confirmation": "SAFE_CANCEL_FIRST",
+      "resultView": "success",
+      "confirmationView": "op-09-confirm"
+    },
+    {
+      "operation": "POST /admin/content/articles/{id}/publish",
+      "view": "op-10",
+      "permissionClaims": {
+        "runtime": [
+          "content.publish"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "stepUp": true,
+      "idempotencyScope": "content.article.publish",
+      "versionRequired": false,
+      "bodyExpectedVersion": false,
+      "executionEnabled": true,
+      "recovery": "EXPLICIT_SAME_KEY_SAME_PAYLOAD_AFTER_STATUS_CHECK",
+      "fields": [],
+      "guard": "فقط تأییدشده یا زمان‌بندی‌شده؛ نسخه و اسلاگ قابل انتشار مرور شوند.",
+      "confirmation": "SAFE_CANCEL_FIRST",
+      "resultView": "success"
+    },
+    {
+      "operation": "POST /admin/content/articles/{id}/schedule",
+      "view": "op-11",
+      "permissionClaims": {
+        "runtime": [
+          "content.publish"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "stepUp": true,
+      "idempotencyScope": "content.article.schedule",
+      "versionRequired": false,
+      "bodyExpectedVersion": false,
+      "executionEnabled": true,
+      "recovery": "EXPLICIT_SAME_KEY_SAME_PAYLOAD_AFTER_STATUS_CHECK",
+      "fields": [
+        "زمان انتشار همراه منطقهٔ زمانی"
+      ],
+      "guard": "فقط تأییدشده؛ زمان باید آینده باشد. زمان‌بندی، تضمین انتشار موفق نیست.",
+      "confirmation": "SAFE_CANCEL_FIRST",
+      "resultView": "success",
+      "confirmationView": "op-11-confirm"
+    },
+    {
+      "operation": "POST /admin/content/articles/{id}/submit-review",
+      "view": "op-12",
+      "permissionClaims": {
+        "runtime": [
+          "content.review"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "stepUp": false,
+      "idempotencyScope": "content.article.submit_review",
+      "versionRequired": false,
+      "bodyExpectedVersion": false,
+      "executionEnabled": true,
+      "recovery": "EXPLICIT_SAME_KEY_SAME_PAYLOAD_AFTER_STATUS_CHECK",
+      "fields": [
+        "توضیح اختیاری — حداکثر ۲۰۰۰ نویسه"
+      ],
+      "guard": "فقط پیش‌نویس یا لغو انتشارشده؛ عنوان، اسلاگ و متن باید کامل باشند.",
+      "confirmation": "SAFE_CANCEL_FIRST",
+      "resultView": "success",
+      "confirmationView": "op-12-confirm"
+    },
+    {
+      "operation": "POST /admin/content/articles/{id}/unpublish",
+      "view": "op-13",
+      "permissionClaims": {
+        "runtime": [
+          "content.publish"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "stepUp": true,
+      "idempotencyScope": "content.article.unpublish",
+      "versionRequired": false,
+      "bodyExpectedVersion": false,
+      "executionEnabled": true,
+      "recovery": "EXPLICIT_SAME_KEY_SAME_PAYLOAD_AFTER_STATUS_CHECK",
+      "fields": [],
+      "guard": "فقط منتشرشده؛ مقاله از دسترس عمومی خارج می‌شود.",
+      "confirmation": "SAFE_CANCEL_FIRST",
+      "resultView": "success"
+    },
+    {
+      "operation": "POST /admin/content/articles/{id}/versions/{version}/restore",
+      "view": "op-14",
+      "permissionClaims": {
+        "runtime": [
+          "content.archive_restore"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "stepUp": true,
+      "idempotencyScope": "content.article.version.restore",
+      "versionRequired": false,
+      "bodyExpectedVersion": false,
+      "executionEnabled": true,
+      "recovery": "EXPLICIT_SAME_KEY_SAME_PAYLOAD_AFTER_STATUS_CHECK",
+      "fields": [
+        "دلیل اختیاری — حداکثر ۱۰۰۰ نویسه"
+      ],
+      "guard": "آرشیوشده، تأییدشده و زمان‌بندی‌شده ممنوع؛ نسخهٔ انتخابی به نسخهٔ تازه کپی می‌شود و منتشر نمی‌شود.",
+      "confirmation": "SAFE_CANCEL_FIRST",
+      "resultView": "success",
+      "confirmationView": "op-14-confirm"
+    }
+  ],
+  "blockedOperations": [],
+  "facets": [
+    "entry-and-context",
+    "permission-aware-read-or-explicit-unavailable",
+    "detail-and-history-or-no-read-explanation",
+    "allowed-action-review-or-read-only",
+    "authoritative-outcome-and-recovery"
+  ],
+  "states": [
+    {
+      "id": "approval-required",
+      "view": "overview",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "approved",
+      "view": "overview",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "archived",
+      "view": "overview",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "audit-reference",
+      "view": "overview",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "authoritative-success",
+      "view": "success",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "blocked-by-lifecycle",
+      "view": "denied",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "cancelled",
+      "view": "overview",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "destructive-action-confirmation",
+      "view": "overview",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "disabled",
+      "view": "denied",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "draft",
+      "view": "overview",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "empty-filtered",
+      "view": "empty",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "empty-first-use",
+      "view": "empty",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "idempotent-replay",
+      "view": "overview",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "impact-changed",
+      "view": "overview",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "initial-loading",
+      "view": "loading",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "irreversible-outcome",
+      "view": "overview",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "manual-review",
+      "view": "overview",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "no-results",
+      "view": "empty",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "offline",
+      "view": "conflict",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "partial-success",
+      "view": "overview",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "paused",
+      "view": "overview",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "permission-denied",
+      "view": "denied",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "preview",
+      "view": "overview",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "preview-expired",
+      "view": "denied",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "progressive-loading",
+      "view": "loading",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "provider-unavailable",
+      "view": "denied",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "published-or-active",
+      "view": "overview",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "read-only",
+      "view": "overview",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "refresh-loading",
+      "view": "loading",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "safe-retry",
+      "view": "overview",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "scheduled",
+      "view": "overview",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "scope-filtered",
+      "view": "overview",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "server-error",
+      "view": "denied",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "session-expired",
+      "view": "denied",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "stale-data",
+      "view": "conflict",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "status-check",
+      "view": "overview",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "step-up-required",
+      "view": "overview",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "submitted",
+      "view": "overview",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "submitting",
+      "view": "loading",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "terminal-success",
+      "view": "success",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "timeout",
+      "view": "conflict",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "unauthenticated",
+      "view": "overview",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "unknown-result",
+      "view": "conflict",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "validation-error",
+      "view": "denied",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "version-conflict",
+      "view": "conflict",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    }
+  ],
+  "frames": [
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-06/AD-F-06--320--overview--v1.svg",
+      "view": "overview",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-06/AD-F-06--360--overview--v1.svg",
+      "view": "overview",
+      "width": 360
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-06/AD-F-06--600--overview--v1.svg",
+      "view": "overview",
+      "width": 600
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-06/AD-F-06--840--overview--v1.svg",
+      "view": "overview",
+      "width": 840
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-06/AD-F-06--1200--overview--v1.svg",
+      "view": "overview",
+      "width": 1200
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-06/AD-F-06--1440--overview--v1.svg",
+      "view": "overview",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-06/AD-F-06--320--op-01--v1.svg",
+      "view": "op-01",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-06/AD-F-06--1440--op-01--v1.svg",
+      "view": "op-01",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-06/AD-F-06--320--op-02--v1.svg",
+      "view": "op-02",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-06/AD-F-06--1440--op-02--v1.svg",
+      "view": "op-02",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-06/AD-F-06--320--op-03--v1.svg",
+      "view": "op-03",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-06/AD-F-06--1440--op-03--v1.svg",
+      "view": "op-03",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-06/AD-F-06--320--op-04--v1.svg",
+      "view": "op-04",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-06/AD-F-06--1440--op-04--v1.svg",
+      "view": "op-04",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-06/AD-F-06--320--op-05--v1.svg",
+      "view": "op-05",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-06/AD-F-06--1440--op-05--v1.svg",
+      "view": "op-05",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-06/AD-F-06--320--op-06-confirm--v1.svg",
+      "view": "op-06-confirm",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-06/AD-F-06--1440--op-06-confirm--v1.svg",
+      "view": "op-06-confirm",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-06/AD-F-06--320--op-06--v1.svg",
+      "view": "op-06",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-06/AD-F-06--1440--op-06--v1.svg",
+      "view": "op-06",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-06/AD-F-06--320--op-07-confirm--v1.svg",
+      "view": "op-07-confirm",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-06/AD-F-06--1440--op-07-confirm--v1.svg",
+      "view": "op-07-confirm",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-06/AD-F-06--320--op-07--v1.svg",
+      "view": "op-07",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-06/AD-F-06--1440--op-07--v1.svg",
+      "view": "op-07",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-06/AD-F-06--320--op-08-confirm--v1.svg",
+      "view": "op-08-confirm",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-06/AD-F-06--1440--op-08-confirm--v1.svg",
+      "view": "op-08-confirm",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-06/AD-F-06--320--op-08--v1.svg",
+      "view": "op-08",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-06/AD-F-06--1440--op-08--v1.svg",
+      "view": "op-08",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-06/AD-F-06--320--op-09-confirm--v1.svg",
+      "view": "op-09-confirm",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-06/AD-F-06--1440--op-09-confirm--v1.svg",
+      "view": "op-09-confirm",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-06/AD-F-06--320--op-09--v1.svg",
+      "view": "op-09",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-06/AD-F-06--1440--op-09--v1.svg",
+      "view": "op-09",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-06/AD-F-06--320--op-10--v1.svg",
+      "view": "op-10",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-06/AD-F-06--1440--op-10--v1.svg",
+      "view": "op-10",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-06/AD-F-06--320--op-11-confirm--v1.svg",
+      "view": "op-11-confirm",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-06/AD-F-06--1440--op-11-confirm--v1.svg",
+      "view": "op-11-confirm",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-06/AD-F-06--320--op-11--v1.svg",
+      "view": "op-11",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-06/AD-F-06--1440--op-11--v1.svg",
+      "view": "op-11",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-06/AD-F-06--320--op-12-confirm--v1.svg",
+      "view": "op-12-confirm",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-06/AD-F-06--1440--op-12-confirm--v1.svg",
+      "view": "op-12-confirm",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-06/AD-F-06--320--op-12--v1.svg",
+      "view": "op-12",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-06/AD-F-06--1440--op-12--v1.svg",
+      "view": "op-12",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-06/AD-F-06--320--op-13--v1.svg",
+      "view": "op-13",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-06/AD-F-06--1440--op-13--v1.svg",
+      "view": "op-13",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-06/AD-F-06--320--op-14-confirm--v1.svg",
+      "view": "op-14-confirm",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-06/AD-F-06--1440--op-14-confirm--v1.svg",
+      "view": "op-14-confirm",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-06/AD-F-06--320--op-14--v1.svg",
+      "view": "op-14",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-06/AD-F-06--1440--op-14--v1.svg",
+      "view": "op-14",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-06/AD-F-06--320--conflict--v1.svg",
+      "view": "conflict",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-06/AD-F-06--1440--conflict--v1.svg",
+      "view": "conflict",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-06/AD-F-06--320--denied--v1.svg",
+      "view": "denied",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-06/AD-F-06--1440--denied--v1.svg",
+      "view": "denied",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-06/AD-F-06--320--loading--v1.svg",
+      "view": "loading",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-06/AD-F-06--1440--loading--v1.svg",
+      "view": "loading",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-06/AD-F-06--320--empty--v1.svg",
+      "view": "empty",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-06/AD-F-06--1440--empty--v1.svg",
+      "view": "empty",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-06/AD-F-06--320--success--v1.svg",
+      "view": "success",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-06/AD-F-06--1440--success--v1.svg",
+      "view": "success",
+      "width": 1440
+    }
+  ]
+}

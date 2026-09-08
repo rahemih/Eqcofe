@@ -1,0 +1,818 @@
+{
+  "id": "AD-F-07",
+  "task": "AT-F-07",
+  "journeys": [
+    "AJ-08"
+  ],
+  "actors": [
+    "approver",
+    "staff"
+  ],
+  "domains": [
+    "marketing"
+  ],
+  "operations": [
+    "GET /admin/marketing/campaigns",
+    "GET /admin/marketing/campaigns/{id}",
+    "PATCH /admin/marketing/campaigns/{id}",
+    "POST /admin/marketing/campaigns",
+    "POST /admin/marketing/campaigns/{id}/activate",
+    "POST /admin/marketing/campaigns/{id}/approve",
+    "POST /admin/marketing/campaigns/{id}/archive",
+    "POST /admin/marketing/campaigns/{id}/cancel",
+    "POST /admin/marketing/campaigns/{id}/end",
+    "POST /admin/marketing/campaigns/{id}/pause",
+    "POST /admin/marketing/campaigns/{id}/preview",
+    "POST /admin/marketing/campaigns/{id}/reschedule",
+    "POST /admin/marketing/campaigns/{id}/resume",
+    "POST /admin/marketing/campaigns/{id}/schedule",
+    "POST /admin/marketing/campaigns/{id}/submit-review"
+  ],
+  "operationViews": [
+    {
+      "operation": "GET /admin/marketing/campaigns",
+      "view": "op-01",
+      "permissionClaims": {
+        "runtime": [
+          "marketing.view"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "stepUp": false,
+      "idempotencyScope": null,
+      "versionRequired": false,
+      "bodyExpectedVersion": false,
+      "executionEnabled": true,
+      "recovery": "READ_OR_MANUAL_NO_RETRY",
+      "fields": [],
+      "guard": null,
+      "readPresentation": "نام، وضعیت، شروع، پایان و نسخهٔ کمپین؛ فیلتر وضعیت پشتیبانی می‌شود. سایر اقدامات فقط مطابق نگاشت مجازند."
+    },
+    {
+      "operation": "GET /admin/marketing/campaigns/{id}",
+      "view": "op-02",
+      "permissionClaims": {
+        "runtime": [
+          "marketing.view"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "stepUp": false,
+      "idempotencyScope": null,
+      "versionRequired": false,
+      "bodyExpectedVersion": false,
+      "executionEnabled": true,
+      "recovery": "READ_OR_MANUAL_NO_RETRY",
+      "fields": [],
+      "guard": null,
+      "readPresentation": "نام، وضعیت، شروع، پایان و نسخهٔ کمپین؛ فیلتر وضعیت پشتیبانی می‌شود. سایر اقدامات فقط مطابق نگاشت مجازند."
+    },
+    {
+      "operation": "PATCH /admin/marketing/campaigns/{id}",
+      "view": "op-03",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "stepUp": null,
+      "idempotencyScope": null,
+      "versionRequired": false,
+      "bodyExpectedVersion": false,
+      "executionEnabled": false,
+      "recovery": "NO_ACTION",
+      "fields": [],
+      "guard": null
+    },
+    {
+      "operation": "POST /admin/marketing/campaigns",
+      "view": "op-04",
+      "permissionClaims": {
+        "runtime": [
+          "marketing.manage"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "stepUp": false,
+      "idempotencyScope": "marketing.campaign.create",
+      "versionRequired": false,
+      "bodyExpectedVersion": false,
+      "executionEnabled": true,
+      "recovery": "EXPLICIT_SAME_KEY_SAME_PAYLOAD_AFTER_STATUS_CHECK",
+      "fields": [
+        "نام کمپین",
+        "توضیح اختیاری — حداکثر ۲۰۰۰ نویسه",
+        "شروع همراه منطقهٔ زمانی",
+        "پایان همراه منطقهٔ زمانی"
+      ],
+      "guard": "شروع قبل از پایان؛ نتیجه پیش‌نویس است. فعال‌سازی در این سطح غیرفعال می‌ماند.",
+      "confirmation": "SAFE_CANCEL_FIRST",
+      "resultView": "success",
+      "confirmationView": "op-04-confirm"
+    },
+    {
+      "operation": "POST /admin/marketing/campaigns/{id}/activate",
+      "view": "op-05",
+      "permissionClaims": {
+        "runtime": [
+          "marketing.activate"
+        ],
+        "openapi": "marketing.campaign.activate"
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "stepUp": true,
+      "idempotencyScope": "marketing.campaign.activate",
+      "versionRequired": false,
+      "bodyExpectedVersion": false,
+      "executionEnabled": false,
+      "recovery": "NO_ACTION",
+      "fields": [],
+      "guard": null
+    },
+    {
+      "operation": "POST /admin/marketing/campaigns/{id}/approve",
+      "view": "op-06",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "stepUp": null,
+      "idempotencyScope": null,
+      "versionRequired": false,
+      "bodyExpectedVersion": false,
+      "executionEnabled": false,
+      "recovery": "NO_ACTION",
+      "fields": [],
+      "guard": null
+    },
+    {
+      "operation": "POST /admin/marketing/campaigns/{id}/archive",
+      "view": "op-07",
+      "permissionClaims": {
+        "runtime": [
+          "marketing.activate"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "stepUp": true,
+      "idempotencyScope": "marketing.campaign.archive",
+      "versionRequired": false,
+      "bodyExpectedVersion": false,
+      "executionEnabled": false,
+      "recovery": "NO_ACTION",
+      "fields": [],
+      "guard": null
+    },
+    {
+      "operation": "POST /admin/marketing/campaigns/{id}/cancel",
+      "view": "op-08",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "stepUp": null,
+      "idempotencyScope": null,
+      "versionRequired": false,
+      "bodyExpectedVersion": false,
+      "executionEnabled": false,
+      "recovery": "NO_ACTION",
+      "fields": [],
+      "guard": null
+    },
+    {
+      "operation": "POST /admin/marketing/campaigns/{id}/end",
+      "view": "op-09",
+      "permissionClaims": {
+        "runtime": [
+          "marketing.activate"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "stepUp": true,
+      "idempotencyScope": "marketing.campaign.end",
+      "versionRequired": false,
+      "bodyExpectedVersion": false,
+      "executionEnabled": false,
+      "recovery": "NO_ACTION",
+      "fields": [],
+      "guard": null
+    },
+    {
+      "operation": "POST /admin/marketing/campaigns/{id}/pause",
+      "view": "op-10",
+      "permissionClaims": {
+        "runtime": [
+          "marketing.activate"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "stepUp": true,
+      "idempotencyScope": "marketing.campaign.pause",
+      "versionRequired": false,
+      "bodyExpectedVersion": true,
+      "executionEnabled": true,
+      "recovery": "EXPLICIT_SAME_KEY_SAME_PAYLOAD_AFTER_STATUS_CHECK",
+      "fields": [
+        "نسخهٔ جاری رکورد — همراه درخواست"
+      ],
+      "guard": "فقط فعال؛ نسخهٔ پاسخ جاری لازم است. تعارض نسخه بازخوانی و مرور دوباره می‌خواهد؛ ادامهٔ کمپین اینجا غیرفعال است.",
+      "confirmation": "SAFE_CANCEL_FIRST",
+      "resultView": "success",
+      "confirmationView": "op-10-confirm"
+    },
+    {
+      "operation": "POST /admin/marketing/campaigns/{id}/preview",
+      "view": "op-11",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "stepUp": null,
+      "idempotencyScope": null,
+      "versionRequired": false,
+      "bodyExpectedVersion": false,
+      "executionEnabled": false,
+      "recovery": "NO_ACTION",
+      "fields": [],
+      "guard": null
+    },
+    {
+      "operation": "POST /admin/marketing/campaigns/{id}/reschedule",
+      "view": "op-12",
+      "permissionClaims": {
+        "runtime": [
+          "marketing.manage"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "stepUp": false,
+      "idempotencyScope": "marketing.campaign.reschedule",
+      "versionRequired": false,
+      "bodyExpectedVersion": false,
+      "executionEnabled": false,
+      "recovery": "NO_ACTION",
+      "fields": [],
+      "guard": null
+    },
+    {
+      "operation": "POST /admin/marketing/campaigns/{id}/resume",
+      "view": "op-13",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "stepUp": null,
+      "idempotencyScope": null,
+      "versionRequired": false,
+      "bodyExpectedVersion": false,
+      "executionEnabled": false,
+      "recovery": "NO_ACTION",
+      "fields": [],
+      "guard": null
+    },
+    {
+      "operation": "POST /admin/marketing/campaigns/{id}/schedule",
+      "view": "op-14",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "stepUp": null,
+      "idempotencyScope": null,
+      "versionRequired": false,
+      "bodyExpectedVersion": false,
+      "executionEnabled": false,
+      "recovery": "NO_ACTION",
+      "fields": [],
+      "guard": null
+    },
+    {
+      "operation": "POST /admin/marketing/campaigns/{id}/submit-review",
+      "view": "op-15",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "stepUp": null,
+      "idempotencyScope": null,
+      "versionRequired": false,
+      "bodyExpectedVersion": false,
+      "executionEnabled": false,
+      "recovery": "NO_ACTION",
+      "fields": [],
+      "guard": null
+    }
+  ],
+  "blockedOperations": [
+    "PATCH /admin/marketing/campaigns/{id}",
+    "POST /admin/marketing/campaigns/{id}/activate",
+    "POST /admin/marketing/campaigns/{id}/approve",
+    "POST /admin/marketing/campaigns/{id}/archive",
+    "POST /admin/marketing/campaigns/{id}/cancel",
+    "POST /admin/marketing/campaigns/{id}/end",
+    "POST /admin/marketing/campaigns/{id}/preview",
+    "POST /admin/marketing/campaigns/{id}/reschedule",
+    "POST /admin/marketing/campaigns/{id}/resume",
+    "POST /admin/marketing/campaigns/{id}/schedule",
+    "POST /admin/marketing/campaigns/{id}/submit-review"
+  ],
+  "facets": [
+    "entry-and-context",
+    "permission-aware-read-or-explicit-unavailable",
+    "detail-and-history-or-no-read-explanation",
+    "allowed-action-review-or-read-only",
+    "authoritative-outcome-and-recovery"
+  ],
+  "states": [
+    {
+      "id": "approval-required",
+      "view": "overview",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "approved",
+      "view": "overview",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "archived",
+      "view": "overview",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "audit-reference",
+      "view": "overview",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "authoritative-success",
+      "view": "success",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "blocked-by-lifecycle",
+      "view": "denied",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "cancelled",
+      "view": "overview",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "destructive-action-confirmation",
+      "view": "overview",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "disabled",
+      "view": "denied",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "draft",
+      "view": "overview",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "empty-filtered",
+      "view": "empty",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "empty-first-use",
+      "view": "empty",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "idempotent-replay",
+      "view": "overview",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "impact-changed",
+      "view": "overview",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "initial-loading",
+      "view": "loading",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "irreversible-outcome",
+      "view": "overview",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "manual-review",
+      "view": "overview",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "no-results",
+      "view": "empty",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "offline",
+      "view": "conflict",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "partial-success",
+      "view": "overview",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "paused",
+      "view": "overview",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "permission-denied",
+      "view": "denied",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "preview",
+      "view": "overview",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "preview-expired",
+      "view": "denied",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "progressive-loading",
+      "view": "loading",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "provider-unavailable",
+      "view": "denied",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "published-or-active",
+      "view": "overview",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "read-only",
+      "view": "overview",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "refresh-loading",
+      "view": "loading",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "safe-retry",
+      "view": "overview",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "scheduled",
+      "view": "overview",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "scope-filtered",
+      "view": "overview",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "server-error",
+      "view": "denied",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "session-expired",
+      "view": "denied",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "stale-data",
+      "view": "conflict",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "status-check",
+      "view": "overview",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "step-up-required",
+      "view": "overview",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "submitted",
+      "view": "overview",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "submitting",
+      "view": "loading",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "terminal-success",
+      "view": "success",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "timeout",
+      "view": "conflict",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "unauthenticated",
+      "view": "overview",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "unknown-result",
+      "view": "conflict",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "validation-error",
+      "view": "denied",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "version-conflict",
+      "view": "conflict",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    }
+  ],
+  "frames": [
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-07/AD-F-07--320--overview--v1.svg",
+      "view": "overview",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-07/AD-F-07--360--overview--v1.svg",
+      "view": "overview",
+      "width": 360
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-07/AD-F-07--600--overview--v1.svg",
+      "view": "overview",
+      "width": 600
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-07/AD-F-07--840--overview--v1.svg",
+      "view": "overview",
+      "width": 840
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-07/AD-F-07--1200--overview--v1.svg",
+      "view": "overview",
+      "width": 1200
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-07/AD-F-07--1440--overview--v1.svg",
+      "view": "overview",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-07/AD-F-07--320--op-01--v1.svg",
+      "view": "op-01",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-07/AD-F-07--1440--op-01--v1.svg",
+      "view": "op-01",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-07/AD-F-07--320--op-02--v1.svg",
+      "view": "op-02",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-07/AD-F-07--1440--op-02--v1.svg",
+      "view": "op-02",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-07/AD-F-07--320--op-03--v1.svg",
+      "view": "op-03",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-07/AD-F-07--1440--op-03--v1.svg",
+      "view": "op-03",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-07/AD-F-07--320--op-04-confirm--v1.svg",
+      "view": "op-04-confirm",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-07/AD-F-07--1440--op-04-confirm--v1.svg",
+      "view": "op-04-confirm",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-07/AD-F-07--320--op-04--v1.svg",
+      "view": "op-04",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-07/AD-F-07--1440--op-04--v1.svg",
+      "view": "op-04",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-07/AD-F-07--320--op-05--v1.svg",
+      "view": "op-05",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-07/AD-F-07--1440--op-05--v1.svg",
+      "view": "op-05",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-07/AD-F-07--320--op-06--v1.svg",
+      "view": "op-06",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-07/AD-F-07--1440--op-06--v1.svg",
+      "view": "op-06",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-07/AD-F-07--320--op-07--v1.svg",
+      "view": "op-07",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-07/AD-F-07--1440--op-07--v1.svg",
+      "view": "op-07",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-07/AD-F-07--320--op-08--v1.svg",
+      "view": "op-08",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-07/AD-F-07--1440--op-08--v1.svg",
+      "view": "op-08",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-07/AD-F-07--320--op-09--v1.svg",
+      "view": "op-09",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-07/AD-F-07--1440--op-09--v1.svg",
+      "view": "op-09",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-07/AD-F-07--320--op-10-confirm--v1.svg",
+      "view": "op-10-confirm",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-07/AD-F-07--1440--op-10-confirm--v1.svg",
+      "view": "op-10-confirm",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-07/AD-F-07--320--op-10--v1.svg",
+      "view": "op-10",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-07/AD-F-07--1440--op-10--v1.svg",
+      "view": "op-10",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-07/AD-F-07--320--op-11--v1.svg",
+      "view": "op-11",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-07/AD-F-07--1440--op-11--v1.svg",
+      "view": "op-11",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-07/AD-F-07--320--op-12--v1.svg",
+      "view": "op-12",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-07/AD-F-07--1440--op-12--v1.svg",
+      "view": "op-12",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-07/AD-F-07--320--op-13--v1.svg",
+      "view": "op-13",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-07/AD-F-07--1440--op-13--v1.svg",
+      "view": "op-13",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-07/AD-F-07--320--op-14--v1.svg",
+      "view": "op-14",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-07/AD-F-07--1440--op-14--v1.svg",
+      "view": "op-14",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-07/AD-F-07--320--op-15--v1.svg",
+      "view": "op-15",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-07/AD-F-07--1440--op-15--v1.svg",
+      "view": "op-15",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-07/AD-F-07--320--conflict--v1.svg",
+      "view": "conflict",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-07/AD-F-07--1440--conflict--v1.svg",
+      "view": "conflict",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-07/AD-F-07--320--denied--v1.svg",
+      "view": "denied",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-07/AD-F-07--1440--denied--v1.svg",
+      "view": "denied",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-07/AD-F-07--320--loading--v1.svg",
+      "view": "loading",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-07/AD-F-07--1440--loading--v1.svg",
+      "view": "loading",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-07/AD-F-07--320--empty--v1.svg",
+      "view": "empty",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-07/AD-F-07--1440--empty--v1.svg",
+      "view": "empty",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-07/AD-F-07--320--success--v1.svg",
+      "view": "success",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-07/AD-F-07--1440--success--v1.svg",
+      "view": "success",
+      "width": 1440
+    }
+  ]
+}
