@@ -1,0 +1,513 @@
+{
+  "id": "AD-E-06",
+  "task": "AT-E-06",
+  "journeys": [
+    "AJ-04",
+    "AJ-12"
+  ],
+  "actors": [
+    "approver",
+    "operator",
+    "staff"
+  ],
+  "domains": [
+    "cart"
+  ],
+  "operations": [
+    "GET /admin/shipping-methods",
+    "PATCH /admin/shipping-methods/{id}",
+    "POST /admin/shipping-methods"
+  ],
+  "operationViews": [
+    {
+      "operation": "GET /admin/shipping-methods",
+      "view": "op-01",
+      "permissionClaims": {
+        "runtime": [
+          "checkout.shipping.view"
+        ],
+        "openapi": "checkout.shipping.view"
+      },
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "stepUp": false,
+      "idempotencyScope": null,
+      "versionRequired": false,
+      "recovery": "READ_OR_MANUAL_NO_RETRY",
+      "executionEnabled": true,
+      "fields": []
+    },
+    {
+      "operation": "PATCH /admin/shipping-methods/{id}",
+      "view": "op-02",
+      "permissionClaims": {
+        "runtime": [
+          "checkout.shipping.manage"
+        ],
+        "openapi": "checkout.shipping.manage"
+      },
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "stepUp": false,
+      "idempotencyScope": null,
+      "versionRequired": true,
+      "recovery": "READ_OR_MANUAL_NO_RETRY",
+      "executionEnabled": true,
+      "fields": [
+        "نام فارسی — حداقل ۲ نویسه",
+        "هزینه — تومان صحیح نامنفی",
+        "فعال یا غیرفعال"
+      ],
+      "confirmationView": "op-02-confirm",
+      "confirmation": "SAFE_CANCEL_FIRST",
+      "resultView": "success",
+      "guard": "نسخهٔ جاری لازم است؛ تعارض نسخه بازخوانی و مرور دوباره می‌خواهد. کد قابل ویرایش نیست."
+    },
+    {
+      "operation": "POST /admin/shipping-methods",
+      "view": "op-03",
+      "permissionClaims": {
+        "runtime": [
+          "checkout.shipping.manage"
+        ],
+        "openapi": "checkout.shipping.manage"
+      },
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "stepUp": false,
+      "idempotencyScope": null,
+      "versionRequired": false,
+      "recovery": "READ_OR_MANUAL_NO_RETRY",
+      "executionEnabled": true,
+      "fields": [
+        "کد روش حمل — حروف کوچک، رقم، خط تیره یا زیرخط",
+        "نام فارسی — حداقل ۲ نویسه",
+        "هزینه — تومان صحیح نامنفی",
+        "فعال یا غیرفعال"
+      ],
+      "confirmationView": "op-03-confirm",
+      "confirmation": "SAFE_CANCEL_FIRST",
+      "resultView": "success",
+      "guard": "کد ۲ تا ۵۰ نویسه؛ نام فارسی حداقل ۲ نویسه؛ هزینه صحیح نامنفی و فعال به‌صورت پیش‌فرض."
+    }
+  ],
+  "blockedOperations": [],
+  "facets": [
+    "entry-and-context",
+    "permission-aware-read-or-explicit-unavailable",
+    "detail-and-history-or-no-read-explanation",
+    "allowed-action-review-or-read-only",
+    "authoritative-outcome-and-recovery"
+  ],
+  "states": [
+    {
+      "id": "active",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create validates lowercase code, Persian name and nonnegative integer Toman fee; active defaults true. PATCH If-Match permits name/fee/active, not code. No delete, Step-Up or idempotency decorator is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "allocation-needed",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create validates lowercase code, Persian name and nonnegative integer Toman fee; active defaults true. PATCH If-Match permits name/fee/active, not code. No delete, Step-Up or idempotency decorator is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "applied",
+      "view": "success",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create validates lowercase code, Persian name and nonnegative integer Toman fee; active defaults true. PATCH If-Match permits name/fee/active, not code. No delete, Step-Up or idempotency decorator is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "approval-required",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create validates lowercase code, Persian name and nonnegative integer Toman fee; active defaults true. PATCH If-Match permits name/fee/active, not code. No delete, Step-Up or idempotency decorator is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "approved",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create validates lowercase code, Persian name and nonnegative integer Toman fee; active defaults true. PATCH If-Match permits name/fee/active, not code. No delete, Step-Up or idempotency decorator is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "audit-reference",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create validates lowercase code, Persian name and nonnegative integer Toman fee; active defaults true. PATCH If-Match permits name/fee/active, not code. No delete, Step-Up or idempotency decorator is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "authoritative-success",
+      "view": "success",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create validates lowercase code, Persian name and nonnegative integer Toman fee; active defaults true. PATCH If-Match permits name/fee/active, not code. No delete, Step-Up or idempotency decorator is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "blocked",
+      "view": "denied",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create validates lowercase code, Persian name and nonnegative integer Toman fee; active defaults true. PATCH If-Match permits name/fee/active, not code. No delete, Step-Up or idempotency decorator is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "blocked-by-lifecycle",
+      "view": "denied",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create validates lowercase code, Persian name and nonnegative integer Toman fee; active defaults true. PATCH If-Match permits name/fee/active, not code. No delete, Step-Up or idempotency decorator is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "cancelled",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create validates lowercase code, Persian name and nonnegative integer Toman fee; active defaults true. PATCH If-Match permits name/fee/active, not code. No delete, Step-Up or idempotency decorator is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "change-requested",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create validates lowercase code, Persian name and nonnegative integer Toman fee; active defaults true. PATCH If-Match permits name/fee/active, not code. No delete, Step-Up or idempotency decorator is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "completed",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create validates lowercase code, Persian name and nonnegative integer Toman fee; active defaults true. PATCH If-Match permits name/fee/active, not code. No delete, Step-Up or idempotency decorator is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "confirmed",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create validates lowercase code, Persian name and nonnegative integer Toman fee; active defaults true. PATCH If-Match permits name/fee/active, not code. No delete, Step-Up or idempotency decorator is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "dead-letter",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create validates lowercase code, Persian name and nonnegative integer Toman fee; active defaults true. PATCH If-Match permits name/fee/active, not code. No delete, Step-Up or idempotency decorator is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "delivery-failed",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create validates lowercase code, Persian name and nonnegative integer Toman fee; active defaults true. PATCH If-Match permits name/fee/active, not code. No delete, Step-Up or idempotency decorator is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "destructive-action-confirmation",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create validates lowercase code, Persian name and nonnegative integer Toman fee; active defaults true. PATCH If-Match permits name/fee/active, not code. No delete, Step-Up or idempotency decorator is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "disabled",
+      "view": "denied",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create validates lowercase code, Persian name and nonnegative integer Toman fee; active defaults true. PATCH If-Match permits name/fee/active, not code. No delete, Step-Up or idempotency decorator is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "empty-filtered",
+      "view": "empty",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create validates lowercase code, Persian name and nonnegative integer Toman fee; active defaults true. PATCH If-Match permits name/fee/active, not code. No delete, Step-Up or idempotency decorator is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "empty-first-use",
+      "view": "empty",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create validates lowercase code, Persian name and nonnegative integer Toman fee; active defaults true. PATCH If-Match permits name/fee/active, not code. No delete, Step-Up or idempotency decorator is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "handed-over",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create validates lowercase code, Persian name and nonnegative integer Toman fee; active defaults true. PATCH If-Match permits name/fee/active, not code. No delete, Step-Up or idempotency decorator is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "idempotent-replay",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create validates lowercase code, Persian name and nonnegative integer Toman fee; active defaults true. PATCH If-Match permits name/fee/active, not code. No delete, Step-Up or idempotency decorator is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "impact-changed",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create validates lowercase code, Persian name and nonnegative integer Toman fee; active defaults true. PATCH If-Match permits name/fee/active, not code. No delete, Step-Up or idempotency decorator is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "initial-loading",
+      "view": "loading",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create validates lowercase code, Persian name and nonnegative integer Toman fee; active defaults true. PATCH If-Match permits name/fee/active, not code. No delete, Step-Up or idempotency decorator is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "irreversible-outcome",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create validates lowercase code, Persian name and nonnegative integer Toman fee; active defaults true. PATCH If-Match permits name/fee/active, not code. No delete, Step-Up or idempotency decorator is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "maintenance",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create validates lowercase code, Persian name and nonnegative integer Toman fee; active defaults true. PATCH If-Match permits name/fee/active, not code. No delete, Step-Up or idempotency decorator is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "manual-review",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create validates lowercase code, Persian name and nonnegative integer Toman fee; active defaults true. PATCH If-Match permits name/fee/active, not code. No delete, Step-Up or idempotency decorator is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "new",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create validates lowercase code, Persian name and nonnegative integer Toman fee; active defaults true. PATCH If-Match permits name/fee/active, not code. No delete, Step-Up or idempotency decorator is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "no-results",
+      "view": "empty",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create validates lowercase code, Persian name and nonnegative integer Toman fee; active defaults true. PATCH If-Match permits name/fee/active, not code. No delete, Step-Up or idempotency decorator is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "offline",
+      "view": "conflict",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create validates lowercase code, Persian name and nonnegative integer Toman fee; active defaults true. PATCH If-Match permits name/fee/active, not code. No delete, Step-Up or idempotency decorator is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "partial-success",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create validates lowercase code, Persian name and nonnegative integer Toman fee; active defaults true. PATCH If-Match permits name/fee/active, not code. No delete, Step-Up or idempotency decorator is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "payment-pending",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create validates lowercase code, Persian name and nonnegative integer Toman fee; active defaults true. PATCH If-Match permits name/fee/active, not code. No delete, Step-Up or idempotency decorator is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "permission-denied",
+      "view": "denied",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create validates lowercase code, Persian name and nonnegative integer Toman fee; active defaults true. PATCH If-Match permits name/fee/active, not code. No delete, Step-Up or idempotency decorator is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "picking",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create validates lowercase code, Persian name and nonnegative integer Toman fee; active defaults true. PATCH If-Match permits name/fee/active, not code. No delete, Step-Up or idempotency decorator is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "preview-expired",
+      "view": "denied",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create validates lowercase code, Persian name and nonnegative integer Toman fee; active defaults true. PATCH If-Match permits name/fee/active, not code. No delete, Step-Up or idempotency decorator is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "progressive-loading",
+      "view": "loading",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create validates lowercase code, Persian name and nonnegative integer Toman fee; active defaults true. PATCH If-Match permits name/fee/active, not code. No delete, Step-Up or idempotency decorator is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "provider-unavailable",
+      "view": "denied",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create validates lowercase code, Persian name and nonnegative integer Toman fee; active defaults true. PATCH If-Match permits name/fee/active, not code. No delete, Step-Up or idempotency decorator is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "read-only",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create validates lowercase code, Persian name and nonnegative integer Toman fee; active defaults true. PATCH If-Match permits name/fee/active, not code. No delete, Step-Up or idempotency decorator is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "ready",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create validates lowercase code, Persian name and nonnegative integer Toman fee; active defaults true. PATCH If-Match permits name/fee/active, not code. No delete, Step-Up or idempotency decorator is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "refresh-loading",
+      "view": "loading",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create validates lowercase code, Persian name and nonnegative integer Toman fee; active defaults true. PATCH If-Match permits name/fee/active, not code. No delete, Step-Up or idempotency decorator is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "retry-step-up",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create validates lowercase code, Persian name and nonnegative integer Toman fee; active defaults true. PATCH If-Match permits name/fee/active, not code. No delete, Step-Up or idempotency decorator is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "safe-retry",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create validates lowercase code, Persian name and nonnegative integer Toman fee; active defaults true. PATCH If-Match permits name/fee/active, not code. No delete, Step-Up or idempotency decorator is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "scope-filtered",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create validates lowercase code, Persian name and nonnegative integer Toman fee; active defaults true. PATCH If-Match permits name/fee/active, not code. No delete, Step-Up or idempotency decorator is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "server-error",
+      "view": "denied",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create validates lowercase code, Persian name and nonnegative integer Toman fee; active defaults true. PATCH If-Match permits name/fee/active, not code. No delete, Step-Up or idempotency decorator is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "session-expired",
+      "view": "denied",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create validates lowercase code, Persian name and nonnegative integer Toman fee; active defaults true. PATCH If-Match permits name/fee/active, not code. No delete, Step-Up or idempotency decorator is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "stale-data",
+      "view": "conflict",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create validates lowercase code, Persian name and nonnegative integer Toman fee; active defaults true. PATCH If-Match permits name/fee/active, not code. No delete, Step-Up or idempotency decorator is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "standby",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create validates lowercase code, Persian name and nonnegative integer Toman fee; active defaults true. PATCH If-Match permits name/fee/active, not code. No delete, Step-Up or idempotency decorator is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "status-check",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create validates lowercase code, Persian name and nonnegative integer Toman fee; active defaults true. PATCH If-Match permits name/fee/active, not code. No delete, Step-Up or idempotency decorator is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "step-up-required",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create validates lowercase code, Persian name and nonnegative integer Toman fee; active defaults true. PATCH If-Match permits name/fee/active, not code. No delete, Step-Up or idempotency decorator is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "submitting",
+      "view": "loading",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create validates lowercase code, Persian name and nonnegative integer Toman fee; active defaults true. PATCH If-Match permits name/fee/active, not code. No delete, Step-Up or idempotency decorator is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "terminal-success",
+      "view": "success",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create validates lowercase code, Persian name and nonnegative integer Toman fee; active defaults true. PATCH If-Match permits name/fee/active, not code. No delete, Step-Up or idempotency decorator is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "timeout",
+      "view": "conflict",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create validates lowercase code, Persian name and nonnegative integer Toman fee; active defaults true. PATCH If-Match permits name/fee/active, not code. No delete, Step-Up or idempotency decorator is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "unauthenticated",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create validates lowercase code, Persian name and nonnegative integer Toman fee; active defaults true. PATCH If-Match permits name/fee/active, not code. No delete, Step-Up or idempotency decorator is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "unhealthy",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create validates lowercase code, Persian name and nonnegative integer Toman fee; active defaults true. PATCH If-Match permits name/fee/active, not code. No delete, Step-Up or idempotency decorator is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "unknown-result",
+      "view": "conflict",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create validates lowercase code, Persian name and nonnegative integer Toman fee; active defaults true. PATCH If-Match permits name/fee/active, not code. No delete, Step-Up or idempotency decorator is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "validation-error",
+      "view": "denied",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create validates lowercase code, Persian name and nonnegative integer Toman fee; active defaults true. PATCH If-Match permits name/fee/active, not code. No delete, Step-Up or idempotency decorator is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "version-conflict",
+      "view": "conflict",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create validates lowercase code, Persian name and nonnegative integer Toman fee; active defaults true. PATCH If-Match permits name/fee/active, not code. No delete, Step-Up or idempotency decorator is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    }
+  ],
+  "frames": [
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-06/AD-E-06--320--overview--v1.svg",
+      "view": "overview",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-06/AD-E-06--360--overview--v1.svg",
+      "view": "overview",
+      "width": 360
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-06/AD-E-06--600--overview--v1.svg",
+      "view": "overview",
+      "width": 600
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-06/AD-E-06--840--overview--v1.svg",
+      "view": "overview",
+      "width": 840
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-06/AD-E-06--1200--overview--v1.svg",
+      "view": "overview",
+      "width": 1200
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-06/AD-E-06--1440--overview--v1.svg",
+      "view": "overview",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-06/AD-E-06--320--op-01--v1.svg",
+      "view": "op-01",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-06/AD-E-06--1440--op-01--v1.svg",
+      "view": "op-01",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-06/AD-E-06--320--op-02-confirm--v1.svg",
+      "view": "op-02-confirm",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-06/AD-E-06--1440--op-02-confirm--v1.svg",
+      "view": "op-02-confirm",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-06/AD-E-06--320--op-02--v1.svg",
+      "view": "op-02",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-06/AD-E-06--1440--op-02--v1.svg",
+      "view": "op-02",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-06/AD-E-06--320--op-03-confirm--v1.svg",
+      "view": "op-03-confirm",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-06/AD-E-06--1440--op-03-confirm--v1.svg",
+      "view": "op-03-confirm",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-06/AD-E-06--320--op-03--v1.svg",
+      "view": "op-03",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-06/AD-E-06--1440--op-03--v1.svg",
+      "view": "op-03",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-06/AD-E-06--320--conflict--v1.svg",
+      "view": "conflict",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-06/AD-E-06--1440--conflict--v1.svg",
+      "view": "conflict",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-06/AD-E-06--320--denied--v1.svg",
+      "view": "denied",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-06/AD-E-06--1440--denied--v1.svg",
+      "view": "denied",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-06/AD-E-06--320--loading--v1.svg",
+      "view": "loading",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-06/AD-E-06--1440--loading--v1.svg",
+      "view": "loading",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-06/AD-E-06--320--empty--v1.svg",
+      "view": "empty",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-06/AD-E-06--1440--empty--v1.svg",
+      "view": "empty",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-06/AD-E-06--320--success--v1.svg",
+      "view": "success",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-06/AD-E-06--1440--success--v1.svg",
+      "view": "success",
+      "width": 1440
+    }
+  ]
+}

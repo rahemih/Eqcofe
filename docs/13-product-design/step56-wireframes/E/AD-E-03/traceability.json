@@ -1,0 +1,628 @@
+{
+  "id": "AD-E-03",
+  "task": "AT-E-03",
+  "journeys": [
+    "AJ-05"
+  ],
+  "actors": [
+    "approver",
+    "staff"
+  ],
+  "domains": [
+    "payments"
+  ],
+  "operations": [
+    "GET /admin/refunds",
+    "GET /admin/refunds/{id}",
+    "POST /admin/refunds",
+    "POST /admin/refunds/{id}/approve",
+    "POST /admin/refunds/{id}/cancel",
+    "POST /admin/refunds/{id}/process",
+    "POST /admin/refunds/{id}/reconcile",
+    "POST /admin/refunds/{id}/reject",
+    "POST /admin/refunds/{id}/retry"
+  ],
+  "operationViews": [
+    {
+      "operation": "GET /admin/refunds",
+      "view": "op-01",
+      "permissionClaims": {
+        "runtime": [
+          "refund.view"
+        ],
+        "openapi": "refund.view"
+      },
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "stepUp": false,
+      "idempotencyScope": null,
+      "versionRequired": false,
+      "recovery": "READ_OR_MANUAL_NO_RETRY",
+      "executionEnabled": true,
+      "fields": []
+    },
+    {
+      "operation": "GET /admin/refunds/{id}",
+      "view": "op-02",
+      "permissionClaims": {
+        "runtime": [
+          "refund.view"
+        ],
+        "openapi": "refund.view"
+      },
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "stepUp": false,
+      "idempotencyScope": null,
+      "versionRequired": false,
+      "recovery": "READ_OR_MANUAL_NO_RETRY",
+      "executionEnabled": true,
+      "fields": []
+    },
+    {
+      "operation": "POST /admin/refunds",
+      "view": "op-03",
+      "permissionClaims": {
+        "runtime": [
+          "refund.create"
+        ],
+        "openapi": "refund.create"
+      },
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "stepUp": true,
+      "idempotencyScope": "refund.create",
+      "versionRequired": false,
+      "recovery": "EXPLICIT_SAME_KEY_SAME_PAYLOAD_AFTER_STATUS_CHECK",
+      "executionEnabled": true,
+      "fields": [
+        "شناسهٔ پرداخت",
+        "مبلغ بازپرداخت — تومان صحیح مثبت",
+        "دلیل درخواست — الزامی، حداکثر ۲۰۰ نویسه"
+      ],
+      "confirmationView": "op-03-confirm",
+      "confirmation": "SAFE_CANCEL_FIRST",
+      "resultView": "success",
+      "guard": "پرداخت مبنا باید پرداخت‌شده، دیررس دریافت‌شده یا نیازمند بازپرداخت باشد؛ سقف قابل بازپرداخت دوباره بررسی می‌شود."
+    },
+    {
+      "operation": "POST /admin/refunds/{id}/approve",
+      "view": "op-04",
+      "permissionClaims": {
+        "runtime": [
+          "refund.approve"
+        ],
+        "openapi": "refund.approve"
+      },
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "stepUp": true,
+      "idempotencyScope": "refund.approve",
+      "versionRequired": false,
+      "recovery": "EXPLICIT_SAME_KEY_SAME_PAYLOAD_AFTER_STATUS_CHECK",
+      "executionEnabled": true,
+      "fields": [],
+      "confirmation": "SAFE_CANCEL_FIRST",
+      "resultView": "success",
+      "guard": "فقط درخواست ثبت‌شده؛ ایجادکننده نمی‌تواند تأییدکننده باشد."
+    },
+    {
+      "operation": "POST /admin/refunds/{id}/cancel",
+      "view": "op-05",
+      "permissionClaims": {
+        "runtime": [
+          "refund.cancel"
+        ],
+        "openapi": "refund.cancel"
+      },
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "stepUp": true,
+      "idempotencyScope": "refund.cancel",
+      "versionRequired": false,
+      "recovery": "EXPLICIT_SAME_KEY_SAME_PAYLOAD_AFTER_STATUS_CHECK",
+      "executionEnabled": true,
+      "fields": [],
+      "confirmation": "SAFE_CANCEL_FIRST",
+      "resultView": "success",
+      "guard": "فقط درخواست ثبت‌شده، تأییدشده یا ناموفق؛ در حال پردازش و نامشخص قابل لغو نیستند."
+    },
+    {
+      "operation": "POST /admin/refunds/{id}/process",
+      "view": "op-06",
+      "permissionClaims": {
+        "runtime": [
+          "refund.process"
+        ],
+        "openapi": "refund.process"
+      },
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "stepUp": true,
+      "idempotencyScope": "refund.process",
+      "versionRequired": false,
+      "recovery": "EXPLICIT_SAME_KEY_SAME_PAYLOAD_AFTER_STATUS_CHECK",
+      "executionEnabled": true,
+      "fields": [],
+      "confirmation": "SAFE_CANCEL_FIRST",
+      "resultView": "success",
+      "guard": "فقط تأییدشده؛ پس از شروع تماس با ارائه‌دهنده، نتیجه ممکن است نامشخص بماند."
+    },
+    {
+      "operation": "POST /admin/refunds/{id}/reconcile",
+      "view": "op-07",
+      "permissionClaims": {
+        "runtime": [
+          "refund.process"
+        ],
+        "openapi": "refund.process"
+      },
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "stepUp": true,
+      "idempotencyScope": "refund.reconcile",
+      "versionRequired": false,
+      "recovery": "EXPLICIT_SAME_KEY_SAME_PAYLOAD_AFTER_STATUS_CHECK",
+      "executionEnabled": true,
+      "fields": [],
+      "confirmation": "SAFE_CANCEL_FIRST",
+      "resultView": "success",
+      "guard": "فقط در حال پردازش یا نامشخص؛ نبود پشتیبانی ارائه‌دهنده پیگیری دستی می‌خواهد."
+    },
+    {
+      "operation": "POST /admin/refunds/{id}/reject",
+      "view": "op-08",
+      "permissionClaims": {
+        "runtime": [
+          "refund.reject"
+        ],
+        "openapi": "refund.reject"
+      },
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "stepUp": true,
+      "idempotencyScope": "refund.reject",
+      "versionRequired": false,
+      "recovery": "EXPLICIT_SAME_KEY_SAME_PAYLOAD_AFTER_STATUS_CHECK",
+      "executionEnabled": true,
+      "fields": [],
+      "confirmation": "SAFE_CANCEL_FIRST",
+      "resultView": "success",
+      "guard": "فقط درخواست ثبت‌شده؛ این مسیر ورودی دلیل ندارد."
+    },
+    {
+      "operation": "POST /admin/refunds/{id}/retry",
+      "view": "op-09",
+      "permissionClaims": {
+        "runtime": [
+          "refund.process"
+        ],
+        "openapi": "refund.process"
+      },
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "stepUp": true,
+      "idempotencyScope": "refund.retry",
+      "versionRequired": false,
+      "recovery": "EXPLICIT_SAME_KEY_SAME_PAYLOAD_AFTER_STATUS_CHECK",
+      "executionEnabled": true,
+      "fields": [],
+      "confirmation": "SAFE_CANCEL_FIRST",
+      "resultView": "success",
+      "guard": "فقط ناموفق؛ نتیجهٔ نامشخص را تکرار نکنید و ابتدا تطبیق دهید."
+    }
+  ],
+  "blockedOperations": [],
+  "facets": [
+    "entry-and-context",
+    "permission-aware-read-or-explicit-unavailable",
+    "detail-and-history-or-no-read-explanation",
+    "allowed-action-review-or-read-only",
+    "authoritative-outcome-and-recovery"
+  ],
+  "states": [
+    {
+      "id": "approval-required",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create requires eligible settled payment, positive integer Toman and reason_code. Cap is checked at create/process. Creator cannot approve own refund. Retry only failed; reconcile processing/unknown; cancel requested/approved/failed only. All refund mutations require Step-Up and scoped idempotency; provider support is not guaranteed. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "approved",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create requires eligible settled payment, positive integer Toman and reason_code. Cap is checked at create/process. Creator cannot approve own refund. Retry only failed; reconcile processing/unknown; cancel requested/approved/failed only. All refund mutations require Step-Up and scoped idempotency; provider support is not guaranteed. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "audit-reference",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create requires eligible settled payment, positive integer Toman and reason_code. Cap is checked at create/process. Creator cannot approve own refund. Retry only failed; reconcile processing/unknown; cancel requested/approved/failed only. All refund mutations require Step-Up and scoped idempotency; provider support is not guaranteed. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "authoritative-success",
+      "view": "success",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create requires eligible settled payment, positive integer Toman and reason_code. Cap is checked at create/process. Creator cannot approve own refund. Retry only failed; reconcile processing/unknown; cancel requested/approved/failed only. All refund mutations require Step-Up and scoped idempotency; provider support is not guaranteed. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "blocked-by-lifecycle",
+      "view": "denied",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create requires eligible settled payment, positive integer Toman and reason_code. Cap is checked at create/process. Creator cannot approve own refund. Retry only failed; reconcile processing/unknown; cancel requested/approved/failed only. All refund mutations require Step-Up and scoped idempotency; provider support is not guaranteed. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "cancelled",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create requires eligible settled payment, positive integer Toman and reason_code. Cap is checked at create/process. Creator cannot approve own refund. Retry only failed; reconcile processing/unknown; cancel requested/approved/failed only. All refund mutations require Step-Up and scoped idempotency; provider support is not guaranteed. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "completed",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create requires eligible settled payment, positive integer Toman and reason_code. Cap is checked at create/process. Creator cannot approve own refund. Retry only failed; reconcile processing/unknown; cancel requested/approved/failed only. All refund mutations require Step-Up and scoped idempotency; provider support is not guaranteed. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "destructive-action-confirmation",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create requires eligible settled payment, positive integer Toman and reason_code. Cap is checked at create/process. Creator cannot approve own refund. Retry only failed; reconcile processing/unknown; cancel requested/approved/failed only. All refund mutations require Step-Up and scoped idempotency; provider support is not guaranteed. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "disabled",
+      "view": "denied",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create requires eligible settled payment, positive integer Toman and reason_code. Cap is checked at create/process. Creator cannot approve own refund. Retry only failed; reconcile processing/unknown; cancel requested/approved/failed only. All refund mutations require Step-Up and scoped idempotency; provider support is not guaranteed. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "empty-filtered",
+      "view": "empty",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create requires eligible settled payment, positive integer Toman and reason_code. Cap is checked at create/process. Creator cannot approve own refund. Retry only failed; reconcile processing/unknown; cancel requested/approved/failed only. All refund mutations require Step-Up and scoped idempotency; provider support is not guaranteed. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "empty-first-use",
+      "view": "empty",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create requires eligible settled payment, positive integer Toman and reason_code. Cap is checked at create/process. Creator cannot approve own refund. Retry only failed; reconcile processing/unknown; cancel requested/approved/failed only. All refund mutations require Step-Up and scoped idempotency; provider support is not guaranteed. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "failed",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create requires eligible settled payment, positive integer Toman and reason_code. Cap is checked at create/process. Creator cannot approve own refund. Retry only failed; reconcile processing/unknown; cancel requested/approved/failed only. All refund mutations require Step-Up and scoped idempotency; provider support is not guaranteed. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "idempotent-replay",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create requires eligible settled payment, positive integer Toman and reason_code. Cap is checked at create/process. Creator cannot approve own refund. Retry only failed; reconcile processing/unknown; cancel requested/approved/failed only. All refund mutations require Step-Up and scoped idempotency; provider support is not guaranteed. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "impact-changed",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create requires eligible settled payment, positive integer Toman and reason_code. Cap is checked at create/process. Creator cannot approve own refund. Retry only failed; reconcile processing/unknown; cancel requested/approved/failed only. All refund mutations require Step-Up and scoped idempotency; provider support is not guaranteed. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "initial-loading",
+      "view": "loading",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create requires eligible settled payment, positive integer Toman and reason_code. Cap is checked at create/process. Creator cannot approve own refund. Retry only failed; reconcile processing/unknown; cancel requested/approved/failed only. All refund mutations require Step-Up and scoped idempotency; provider support is not guaranteed. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "irreversible-outcome",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create requires eligible settled payment, positive integer Toman and reason_code. Cap is checked at create/process. Creator cannot approve own refund. Retry only failed; reconcile processing/unknown; cancel requested/approved/failed only. All refund mutations require Step-Up and scoped idempotency; provider support is not guaranteed. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "manual-review",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create requires eligible settled payment, positive integer Toman and reason_code. Cap is checked at create/process. Creator cannot approve own refund. Retry only failed; reconcile processing/unknown; cancel requested/approved/failed only. All refund mutations require Step-Up and scoped idempotency; provider support is not guaranteed. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "no-results",
+      "view": "empty",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create requires eligible settled payment, positive integer Toman and reason_code. Cap is checked at create/process. Creator cannot approve own refund. Retry only failed; reconcile processing/unknown; cancel requested/approved/failed only. All refund mutations require Step-Up and scoped idempotency; provider support is not guaranteed. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "offline",
+      "view": "conflict",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create requires eligible settled payment, positive integer Toman and reason_code. Cap is checked at create/process. Creator cannot approve own refund. Retry only failed; reconcile processing/unknown; cancel requested/approved/failed only. All refund mutations require Step-Up and scoped idempotency; provider support is not guaranteed. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "partial-success",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create requires eligible settled payment, positive integer Toman and reason_code. Cap is checked at create/process. Creator cannot approve own refund. Retry only failed; reconcile processing/unknown; cancel requested/approved/failed only. All refund mutations require Step-Up and scoped idempotency; provider support is not guaranteed. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "pending",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create requires eligible settled payment, positive integer Toman and reason_code. Cap is checked at create/process. Creator cannot approve own refund. Retry only failed; reconcile processing/unknown; cancel requested/approved/failed only. All refund mutations require Step-Up and scoped idempotency; provider support is not guaranteed. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "permission-denied",
+      "view": "denied",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create requires eligible settled payment, positive integer Toman and reason_code. Cap is checked at create/process. Creator cannot approve own refund. Retry only failed; reconcile processing/unknown; cancel requested/approved/failed only. All refund mutations require Step-Up and scoped idempotency; provider support is not guaranteed. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "preview-expired",
+      "view": "denied",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create requires eligible settled payment, positive integer Toman and reason_code. Cap is checked at create/process. Creator cannot approve own refund. Retry only failed; reconcile processing/unknown; cancel requested/approved/failed only. All refund mutations require Step-Up and scoped idempotency; provider support is not guaranteed. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "processing",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create requires eligible settled payment, positive integer Toman and reason_code. Cap is checked at create/process. Creator cannot approve own refund. Retry only failed; reconcile processing/unknown; cancel requested/approved/failed only. All refund mutations require Step-Up and scoped idempotency; provider support is not guaranteed. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "progressive-loading",
+      "view": "loading",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create requires eligible settled payment, positive integer Toman and reason_code. Cap is checked at create/process. Creator cannot approve own refund. Retry only failed; reconcile processing/unknown; cancel requested/approved/failed only. All refund mutations require Step-Up and scoped idempotency; provider support is not guaranteed. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "provider-unavailable",
+      "view": "denied",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create requires eligible settled payment, positive integer Toman and reason_code. Cap is checked at create/process. Creator cannot approve own refund. Retry only failed; reconcile processing/unknown; cancel requested/approved/failed only. All refund mutations require Step-Up and scoped idempotency; provider support is not guaranteed. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "read-only",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create requires eligible settled payment, positive integer Toman and reason_code. Cap is checked at create/process. Creator cannot approve own refund. Retry only failed; reconcile processing/unknown; cancel requested/approved/failed only. All refund mutations require Step-Up and scoped idempotency; provider support is not guaranteed. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "reconcile-required",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create requires eligible settled payment, positive integer Toman and reason_code. Cap is checked at create/process. Creator cannot approve own refund. Retry only failed; reconcile processing/unknown; cancel requested/approved/failed only. All refund mutations require Step-Up and scoped idempotency; provider support is not guaranteed. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "refresh-loading",
+      "view": "loading",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create requires eligible settled payment, positive integer Toman and reason_code. Cap is checked at create/process. Creator cannot approve own refund. Retry only failed; reconcile processing/unknown; cancel requested/approved/failed only. All refund mutations require Step-Up and scoped idempotency; provider support is not guaranteed. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "refund-requested",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create requires eligible settled payment, positive integer Toman and reason_code. Cap is checked at create/process. Creator cannot approve own refund. Retry only failed; reconcile processing/unknown; cancel requested/approved/failed only. All refund mutations require Step-Up and scoped idempotency; provider support is not guaranteed. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "retryable",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create requires eligible settled payment, positive integer Toman and reason_code. Cap is checked at create/process. Creator cannot approve own refund. Retry only failed; reconcile processing/unknown; cancel requested/approved/failed only. All refund mutations require Step-Up and scoped idempotency; provider support is not guaranteed. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "safe-retry",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create requires eligible settled payment, positive integer Toman and reason_code. Cap is checked at create/process. Creator cannot approve own refund. Retry only failed; reconcile processing/unknown; cancel requested/approved/failed only. All refund mutations require Step-Up and scoped idempotency; provider support is not guaranteed. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "scope-filtered",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create requires eligible settled payment, positive integer Toman and reason_code. Cap is checked at create/process. Creator cannot approve own refund. Retry only failed; reconcile processing/unknown; cancel requested/approved/failed only. All refund mutations require Step-Up and scoped idempotency; provider support is not guaranteed. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "server-error",
+      "view": "denied",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create requires eligible settled payment, positive integer Toman and reason_code. Cap is checked at create/process. Creator cannot approve own refund. Retry only failed; reconcile processing/unknown; cancel requested/approved/failed only. All refund mutations require Step-Up and scoped idempotency; provider support is not guaranteed. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "session-expired",
+      "view": "denied",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create requires eligible settled payment, positive integer Toman and reason_code. Cap is checked at create/process. Creator cannot approve own refund. Retry only failed; reconcile processing/unknown; cancel requested/approved/failed only. All refund mutations require Step-Up and scoped idempotency; provider support is not guaranteed. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "stale-data",
+      "view": "conflict",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create requires eligible settled payment, positive integer Toman and reason_code. Cap is checked at create/process. Creator cannot approve own refund. Retry only failed; reconcile processing/unknown; cancel requested/approved/failed only. All refund mutations require Step-Up and scoped idempotency; provider support is not guaranteed. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "status-check",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create requires eligible settled payment, positive integer Toman and reason_code. Cap is checked at create/process. Creator cannot approve own refund. Retry only failed; reconcile processing/unknown; cancel requested/approved/failed only. All refund mutations require Step-Up and scoped idempotency; provider support is not guaranteed. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "step-up-required",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create requires eligible settled payment, positive integer Toman and reason_code. Cap is checked at create/process. Creator cannot approve own refund. Retry only failed; reconcile processing/unknown; cancel requested/approved/failed only. All refund mutations require Step-Up and scoped idempotency; provider support is not guaranteed. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "submitting",
+      "view": "loading",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create requires eligible settled payment, positive integer Toman and reason_code. Cap is checked at create/process. Creator cannot approve own refund. Retry only failed; reconcile processing/unknown; cancel requested/approved/failed only. All refund mutations require Step-Up and scoped idempotency; provider support is not guaranteed. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "terminal-success",
+      "view": "success",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create requires eligible settled payment, positive integer Toman and reason_code. Cap is checked at create/process. Creator cannot approve own refund. Retry only failed; reconcile processing/unknown; cancel requested/approved/failed only. All refund mutations require Step-Up and scoped idempotency; provider support is not guaranteed. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "timeout",
+      "view": "conflict",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create requires eligible settled payment, positive integer Toman and reason_code. Cap is checked at create/process. Creator cannot approve own refund. Retry only failed; reconcile processing/unknown; cancel requested/approved/failed only. All refund mutations require Step-Up and scoped idempotency; provider support is not guaranteed. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "unauthenticated",
+      "view": "overview",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create requires eligible settled payment, positive integer Toman and reason_code. Cap is checked at create/process. Creator cannot approve own refund. Retry only failed; reconcile processing/unknown; cancel requested/approved/failed only. All refund mutations require Step-Up and scoped idempotency; provider support is not guaranteed. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "unknown",
+      "view": "conflict",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create requires eligible settled payment, positive integer Toman and reason_code. Cap is checked at create/process. Creator cannot approve own refund. Retry only failed; reconcile processing/unknown; cancel requested/approved/failed only. All refund mutations require Step-Up and scoped idempotency; provider support is not guaranteed. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "unknown-result",
+      "view": "conflict",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create requires eligible settled payment, positive integer Toman and reason_code. Cap is checked at create/process. Creator cannot approve own refund. Retry only failed; reconcile processing/unknown; cancel requested/approved/failed only. All refund mutations require Step-Up and scoped idempotency; provider support is not guaranteed. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "validation-error",
+      "view": "denied",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create requires eligible settled payment, positive integer Toman and reason_code. Cap is checked at create/process. Creator cannot approve own refund. Retry only failed; reconcile processing/unknown; cancel requested/approved/failed only. All refund mutations require Step-Up and scoped idempotency; provider support is not guaranteed. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "version-conflict",
+      "view": "conflict",
+      "behavior": "Conditional on traced lifecycle: preserve safe input, focus linked errors, announce only authoritative outcome and never automatically retry a mutation. Create requires eligible settled payment, positive integer Toman and reason_code. Cap is checked at create/process. Creator cannot approve own refund. Retry only failed; reconcile processing/unknown; cancel requested/approved/failed only. All refund mutations require Step-Up and scoped idempotency; provider support is not guaranteed. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    }
+  ],
+  "frames": [
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-03/AD-E-03--320--overview--v1.svg",
+      "view": "overview",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-03/AD-E-03--360--overview--v1.svg",
+      "view": "overview",
+      "width": 360
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-03/AD-E-03--600--overview--v1.svg",
+      "view": "overview",
+      "width": 600
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-03/AD-E-03--840--overview--v1.svg",
+      "view": "overview",
+      "width": 840
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-03/AD-E-03--1200--overview--v1.svg",
+      "view": "overview",
+      "width": 1200
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-03/AD-E-03--1440--overview--v1.svg",
+      "view": "overview",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-03/AD-E-03--320--op-01--v1.svg",
+      "view": "op-01",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-03/AD-E-03--1440--op-01--v1.svg",
+      "view": "op-01",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-03/AD-E-03--320--op-02--v1.svg",
+      "view": "op-02",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-03/AD-E-03--1440--op-02--v1.svg",
+      "view": "op-02",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-03/AD-E-03--320--op-03-confirm--v1.svg",
+      "view": "op-03-confirm",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-03/AD-E-03--1440--op-03-confirm--v1.svg",
+      "view": "op-03-confirm",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-03/AD-E-03--320--op-03--v1.svg",
+      "view": "op-03",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-03/AD-E-03--1440--op-03--v1.svg",
+      "view": "op-03",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-03/AD-E-03--320--op-04--v1.svg",
+      "view": "op-04",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-03/AD-E-03--1440--op-04--v1.svg",
+      "view": "op-04",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-03/AD-E-03--320--op-05--v1.svg",
+      "view": "op-05",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-03/AD-E-03--1440--op-05--v1.svg",
+      "view": "op-05",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-03/AD-E-03--320--op-06--v1.svg",
+      "view": "op-06",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-03/AD-E-03--1440--op-06--v1.svg",
+      "view": "op-06",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-03/AD-E-03--320--op-07--v1.svg",
+      "view": "op-07",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-03/AD-E-03--1440--op-07--v1.svg",
+      "view": "op-07",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-03/AD-E-03--320--op-08--v1.svg",
+      "view": "op-08",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-03/AD-E-03--1440--op-08--v1.svg",
+      "view": "op-08",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-03/AD-E-03--320--op-09--v1.svg",
+      "view": "op-09",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-03/AD-E-03--1440--op-09--v1.svg",
+      "view": "op-09",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-03/AD-E-03--320--conflict--v1.svg",
+      "view": "conflict",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-03/AD-E-03--1440--conflict--v1.svg",
+      "view": "conflict",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-03/AD-E-03--320--denied--v1.svg",
+      "view": "denied",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-03/AD-E-03--1440--denied--v1.svg",
+      "view": "denied",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-03/AD-E-03--320--loading--v1.svg",
+      "view": "loading",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-03/AD-E-03--1440--loading--v1.svg",
+      "view": "loading",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-03/AD-E-03--320--empty--v1.svg",
+      "view": "empty",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-03/AD-E-03--1440--empty--v1.svg",
+      "view": "empty",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-03/AD-E-03--320--success--v1.svg",
+      "view": "success",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-03/AD-E-03--1440--success--v1.svg",
+      "view": "success",
+      "width": 1440
+    }
+  ]
+}

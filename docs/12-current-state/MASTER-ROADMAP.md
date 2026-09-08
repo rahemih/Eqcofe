@@ -1,12 +1,12 @@
 # EQCOFE — Complete Master Execution Roadmap
 
-**Roadmap version:** 3.44 — Step-56-D Pricing, Inventory and Procurement
+**Roadmap version:** 3.45 — Step-56-E Orders, Payments and After-Sales
 **Effective date:** 2026-09-07
 **Canonical repository:** `rahemih/Eqcofe`  
 **Canonical branch:** `main`  
 **Verified Step-44 code baseline:** `b239dfe825b615f36caf2e26cc7abc80c70d349c`
 
-> This is the canonical end-to-end execution map for EQCOFE. Phase A (Steps 1–28) is now `CLOSED / FINAL GATE PASS` by current canonical verification. For historical Steps 1–27, the exact original step labels/closure lineage are not independently proven by recovered Git evidence and remain `Historical Attribution: UNVERIFIED`; Step 28 remains `Historical Attribution: PARTIAL`. Current-baseline verification must not be cited as recovered historical provenance. Steps 29–55 retain their existing canonical status. Step 55 is CLOSED / FINAL GATE PASS; Step 56-A foundation is complete and Step 56-B is complete; Step 56-C is complete; Step 56-D is complete; Step 56-E is next, not started.
+> This is the canonical end-to-end execution map for EQCOFE. Phase A (Steps 1–28) is now `CLOSED / FINAL GATE PASS` by current canonical verification. For historical Steps 1–27, the exact original step labels/closure lineage are not independently proven by recovered Git evidence and remain `Historical Attribution: UNVERIFIED`; Step 28 remains `Historical Attribution: PARTIAL`. Current-baseline verification must not be cited as recovered historical provenance. Steps 29–55 retain their existing canonical status. Step 55 is CLOSED / FINAL GATE PASS; Step 56-A foundation is complete and Step 56-B is complete; Step 56-C is complete; Step 56-D is complete; Step 56-E is complete; Step 56-F is next, not started.
 
 ## Status legend
 - `RECONSTRUCTED-HISTORY`: normalized historical description; exact historical step attribution is not proven.
@@ -290,8 +290,9 @@ Design admin navigation, dashboards, tables, bulk operations, editors, audit/err
 - **56-B — Admin IA & Shell: COMPLETE / GATE PASS.**
 - **56-C — Catalog & Media: COMPLETE / GATE PASS.**
 - **56-D — Pricing, Inventory & Procurement: COMPLETE / GATE PASS.**
-- **56-E — Orders, Payments & After-Sales: NEXT / NOT_STARTED.**
-- **56-E–H: NOT_STARTED.**
+- **56-E — Orders, Payments & After-Sales: COMPLETE / GATE PASS.**
+- **56-F — Customers, Wholesale, Marketing & Content: NEXT / NOT_STARTED.**
+- **56-F–H: NOT_STARTED.**
 
 A freezes 3 personas, 12 inherited admin journeys, 97 task/surface obligations, 28 modules and 532 source-traced operations. It retains 136 pinned sources and immutable starting-state snapshots, Persian RTL/Step-54 accessibility/responsive rules, exact permission claims and mandatory NO_ACTION restrictions. All four open implementation evidence sets remain visible: 156 contract-only routes, 151 missing permission declarations, 25 controller-only routes, and 5 explicit permission conflicts. These are not runtime fixes or removed design obligations. H must audit all 97 obligations and preserved restrictions; executable release requires canonical reconciliation. No page wireframe or runtime/API/migration/dependency/permission/business-rule change occurs in A. Repository artifacts are canonical; Figma is optional. Evidence and CI lineage: `docs/11-step-history/STEP-56-A-ADMIN-UX-FOUNDATION.md` and PR #154. Canonical acceptance becomes effective through the verified PR merge and post-merge CI.
 
@@ -429,8 +430,8 @@ Evolve architecture, integrations and product capabilities based on production e
 - **Last fully closed step:** Step 55 — Storefront Wireframes.
 - **Phase A:** CLOSED / FINAL GATE PASS — Steps 1–28 are COMPLETE / VERIFIED BY CURRENT CANONICAL BASELINE; historical attribution remains UNVERIFIED for Steps 1–27 and PARTIAL for Step 28.
 - **Step 49 closure:** CLOSED / FINAL GATE PASS after A11 audit.
-- **Active step:** NONE — 56-D finished; 56-E has not started.
-- **Next approved step:** Step 56-E — Orders, Payments & After-Sales — NOT_STARTED.
+- **Active step:** NONE — 56-E finished; 56-F has not started.
+- **Next approved step:** Step 56-F — Customers, Wholesale, Marketing & Content — NOT_STARTED.
 - **Backend feature-completion horizon:** Step 52.
 - **UI/UX design begins:** Step 53.
 - **Storefront implementation begins:** Step 58.
@@ -449,6 +450,10 @@ B covers all seven shell obligations, eight navigation groups, 23 variants, 74 R
 
 C: 8 surfaces, 46 operations, 41 variants, 114 frames, 133 artifacts. `step56-catalog-media-wireframes.json` and `STEP-56-C-CATALOG-MEDIA.md` preserve source limitations and all A restrictions; A/B contracts are immutable closure snapshots. No runtime changes. D–H not started. Final-head CI/merge/post-merge evidence is required for canonical completion.
 
-## Step 56-D canonical evidence
+## Step 56-D closure snapshot
 
 D:21 surfaces/112 operations/270 variants/624 RTL frames/669 deterministic artifacts/989 state rows/74 pinned sources. Contract `step56-pricing-inventory-wireframes.json`; history `STEP-56-D-PRICING-INVENTORY.md`. Source-specific limitations and all A NO_ACTION sets remain explicit. A/B/C are immutable closure snapshots. No runtime changes. E–H NOT_STARTED. Completion requires exact-head CI, verified merge and post-merge CI; immutable transport evidence is in the PR and execution report.
+
+## Step 56-E canonical evidence
+
+E:11 surfaces/74 operations/162 variants/368 RTL frames/393 artifacts/95 sources.26 operations remain NO_ACTION. Contract `step56-commerce-operations-wireframes.json`; history `STEP-56-E-COMMERCE-OPERATIONS.md`. No runtime readiness claim. F–H NOT_STARTED. Completion requires exact-head CI, expected-head merge and post-merge CI; transport evidence in PR/execution report.

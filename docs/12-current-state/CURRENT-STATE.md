@@ -25,7 +25,11 @@
 - This current-state closure does not claim recovered historical provenance for Steps 01–27.
 - Historical execution snapshot at Phase A closure: Active step `NONE — Step 55 is closed`; next approved step `Step 56 — Admin UX Architecture & Wireframes`. The current Step 56 position is recorded below.
 
-## Current Step 56-D position
+## Current Step 56-E position
+
+**56-E COMPLETE / GATE PASS**, effective after exact-head CI, merge and post-merge checks. Active NONE; next56-F NOT_STARTED; F–H NOT_STARTED.11 surfaces/74 operations/162 variants/368 frames/393 artifacts/95 pinned sources.26 operations remain NO_ACTION. Payment/fulfillment/after-sales constraints and runtime limitations remain explicit. Contract `step56-commerce-operations-wireframes.json`, history `STEP-56-E-COMMERCE-OPERATIONS.md`. A–D snapshots immutable.
+
+## Step 56-D closure snapshot
 
 **56-D COMPLETE / GATE PASS**, effective after exact-head CI, merge and post-merge checks. Active NONE; next56-E NOT_STARTED; E–H NOT_STARTED.21 surfaces/112 operations/270 variants/624 frames/669 artifacts/989 state rows/74 pinned sources. Pricing, inventory, procurement and Excel source constraints remain explicit; runtime readiness is not certified. Contract `step56-pricing-inventory-wireframes.json`, history `STEP-56-D-PRICING-INVENTORY.md`. A/B/C snapshots remain immutable.
 
@@ -486,7 +490,7 @@ Verify job: `97170521019` — PASS
 - Dark theme is explicitly deferred: it is not a Roadmap requirement and the current Figma plan permits one mode per collection.
 
 ## Next safe action
-Start **Step 56-E — Orders, Payments & After-Sales** only under a later instruction after verifying D transport evidence. 56-E is NOT_STARTED.
+Start **Step 56-F — Customers, Wholesale, Marketing & Content** only under a later instruction after verifying E transport evidence. 56-F is NOT_STARTED.
 
 ## Step 52 active closure state
 - **A1 — Canonical Handoff & Scope Freeze — COMPLETE / FINAL GATE PASS**

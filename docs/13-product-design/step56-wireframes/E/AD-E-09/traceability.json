@@ -1,0 +1,529 @@
+{
+  "id": "AD-E-09",
+  "task": "AT-E-09",
+  "journeys": [
+    "AJ-04"
+  ],
+  "actors": [
+    "staff"
+  ],
+  "domains": [
+    "pos"
+  ],
+  "operations": [
+    "GET /admin/pos/registers",
+    "GET /admin/pos/shifts/current",
+    "GET /admin/pos/stores",
+    "POST /admin/pos/shifts/{id}/begin-closing",
+    "POST /admin/pos/shifts/{id}/close",
+    "POST /admin/pos/shifts/{id}/reconcile",
+    "POST /admin/pos/shifts/open"
+  ],
+  "operationViews": [
+    {
+      "operation": "GET /admin/pos/registers",
+      "view": "op-01",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "stepUp": null,
+      "idempotencyScope": null,
+      "versionRequired": false,
+      "recovery": "NO_ACTION",
+      "executionEnabled": false,
+      "fields": []
+    },
+    {
+      "operation": "GET /admin/pos/shifts/current",
+      "view": "op-02",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "stepUp": null,
+      "idempotencyScope": null,
+      "versionRequired": false,
+      "recovery": "NO_ACTION",
+      "executionEnabled": false,
+      "fields": []
+    },
+    {
+      "operation": "GET /admin/pos/stores",
+      "view": "op-03",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "stepUp": null,
+      "idempotencyScope": null,
+      "versionRequired": false,
+      "recovery": "NO_ACTION",
+      "executionEnabled": false,
+      "fields": []
+    },
+    {
+      "operation": "POST /admin/pos/shifts/{id}/begin-closing",
+      "view": "op-04",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "stepUp": null,
+      "idempotencyScope": null,
+      "versionRequired": false,
+      "recovery": "NO_ACTION",
+      "executionEnabled": false,
+      "fields": []
+    },
+    {
+      "operation": "POST /admin/pos/shifts/{id}/close",
+      "view": "op-05",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "stepUp": null,
+      "idempotencyScope": null,
+      "versionRequired": false,
+      "recovery": "NO_ACTION",
+      "executionEnabled": false,
+      "fields": []
+    },
+    {
+      "operation": "POST /admin/pos/shifts/{id}/reconcile",
+      "view": "op-06",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "stepUp": null,
+      "idempotencyScope": null,
+      "versionRequired": false,
+      "recovery": "NO_ACTION",
+      "executionEnabled": false,
+      "fields": []
+    },
+    {
+      "operation": "POST /admin/pos/shifts/open",
+      "view": "op-07",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "stepUp": null,
+      "idempotencyScope": null,
+      "versionRequired": false,
+      "recovery": "NO_ACTION",
+      "executionEnabled": false,
+      "fields": []
+    }
+  ],
+  "blockedOperations": [
+    "GET /admin/pos/registers",
+    "GET /admin/pos/shifts/current",
+    "GET /admin/pos/stores",
+    "POST /admin/pos/shifts/{id}/begin-closing",
+    "POST /admin/pos/shifts/{id}/close",
+    "POST /admin/pos/shifts/{id}/reconcile",
+    "POST /admin/pos/shifts/open"
+  ],
+  "facets": [
+    "entry-and-context",
+    "permission-aware-read-or-explicit-unavailable",
+    "detail-and-history-or-no-read-explanation",
+    "allowed-action-review-or-read-only",
+    "authoritative-outcome-and-recovery"
+  ],
+  "states": [
+    {
+      "id": "allocation-needed",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "approval-required",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "audit-reference",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "authoritative-success",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "blocked",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "blocked-by-lifecycle",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "cancelled",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "completed",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "confirmed",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "destructive-action-confirmation",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "disabled",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "empty-filtered",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "empty-first-use",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "handed-over",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "idempotent-replay",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "impact-changed",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "initial-loading",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "irreversible-outcome",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "manual-review",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "new",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "no-results",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "offline",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "partial-success",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "payment-pending",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "permission-denied",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "picking",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "preview-expired",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "progressive-loading",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "provider-unavailable",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "read-only",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "ready",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "refresh-loading",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "safe-retry",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "scope-filtered",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "server-error",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "session-expired",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "stale-data",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "status-check",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "step-up-required",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "submitting",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "terminal-success",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "timeout",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "unauthenticated",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "unknown-result",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "validation-error",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    },
+    {
+      "id": "version-conflict",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+    }
+  ],
+  "frames": [
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-09/AD-E-09--320--overview--v1.svg",
+      "view": "overview",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-09/AD-E-09--360--overview--v1.svg",
+      "view": "overview",
+      "width": 360
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-09/AD-E-09--600--overview--v1.svg",
+      "view": "overview",
+      "width": 600
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-09/AD-E-09--840--overview--v1.svg",
+      "view": "overview",
+      "width": 840
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-09/AD-E-09--1200--overview--v1.svg",
+      "view": "overview",
+      "width": 1200
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-09/AD-E-09--1440--overview--v1.svg",
+      "view": "overview",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-09/AD-E-09--320--op-01--v1.svg",
+      "view": "op-01",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-09/AD-E-09--1440--op-01--v1.svg",
+      "view": "op-01",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-09/AD-E-09--320--op-02--v1.svg",
+      "view": "op-02",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-09/AD-E-09--1440--op-02--v1.svg",
+      "view": "op-02",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-09/AD-E-09--320--op-03--v1.svg",
+      "view": "op-03",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-09/AD-E-09--1440--op-03--v1.svg",
+      "view": "op-03",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-09/AD-E-09--320--op-04--v1.svg",
+      "view": "op-04",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-09/AD-E-09--1440--op-04--v1.svg",
+      "view": "op-04",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-09/AD-E-09--320--op-05--v1.svg",
+      "view": "op-05",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-09/AD-E-09--1440--op-05--v1.svg",
+      "view": "op-05",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-09/AD-E-09--320--op-06--v1.svg",
+      "view": "op-06",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-09/AD-E-09--1440--op-06--v1.svg",
+      "view": "op-06",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-09/AD-E-09--320--op-07--v1.svg",
+      "view": "op-07",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-09/AD-E-09--1440--op-07--v1.svg",
+      "view": "op-07",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-09/AD-E-09--320--conflict--v1.svg",
+      "view": "conflict",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-09/AD-E-09--1440--conflict--v1.svg",
+      "view": "conflict",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-09/AD-E-09--320--denied--v1.svg",
+      "view": "denied",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-09/AD-E-09--1440--denied--v1.svg",
+      "view": "denied",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-09/AD-E-09--320--loading--v1.svg",
+      "view": "loading",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-09/AD-E-09--1440--loading--v1.svg",
+      "view": "loading",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-09/AD-E-09--320--empty--v1.svg",
+      "view": "empty",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-09/AD-E-09--1440--empty--v1.svg",
+      "view": "empty",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-09/AD-E-09--320--success--v1.svg",
+      "view": "success",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-09/AD-E-09--1440--success--v1.svg",
+      "view": "success",
+      "width": 1440
+    }
+  ]
+}
