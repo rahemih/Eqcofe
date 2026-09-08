@@ -64,3 +64,7 @@ D contract `step56-pricing-inventory-wireframes.json` and history/specification 
 ## E progression
 
 E design gate complete, transport required. Contract `step56-commerce-operations-wireframes.json` and history/specification `STEP-56-E-COMMERCE-OPERATIONS.md` supply11/74 scope,368 frames/393 artifacts.26 operations retain NO_ACTION. Exact authority, visible lifecycle guards and all inherited states traced. A–D snapshots immutable; current Roadmap controls progression. F–H NOT_STARTED. Stop after E.
+
+## F progression
+
+F design gate complete, transport required. `step56-customers-growth-wireframes.json` and `STEP-56-F-CUSTOMERS-GROWTH.md`:16 surfaces/100 operations/488 frames/523 artifacts,65 NO_ACTION. All inherited authority/states preserved. A–E immutable snapshots; current Roadmap controls progression. G–H NOT_STARTED. Stop after F.

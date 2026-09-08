@@ -1,0 +1,518 @@
+{
+  "id": "AD-F-03",
+  "task": "AT-F-03",
+  "journeys": [
+    "AJ-08"
+  ],
+  "actors": [
+    "approver",
+    "staff"
+  ],
+  "domains": [
+    "loyalty"
+  ],
+  "operations": [
+    "GET /admin/loyalty/accounts/{customer_id}",
+    "GET /admin/loyalty/customers/{customerId}/balance",
+    "GET /admin/loyalty/customers/{customerId}/history",
+    "POST /admin/loyalty/adjustments",
+    "POST /admin/loyalty/customers/{customerId}/adjust",
+    "POST /admin/loyalty/customers/{customerId}/entries/{entryId}/reverse"
+  ],
+  "operationViews": [
+    {
+      "operation": "GET /admin/loyalty/accounts/{customer_id}",
+      "view": "op-01",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "stepUp": null,
+      "idempotencyScope": null,
+      "versionRequired": false,
+      "bodyExpectedVersion": false,
+      "executionEnabled": false,
+      "recovery": "NO_ACTION",
+      "fields": [],
+      "guard": null
+    },
+    {
+      "operation": "GET /admin/loyalty/customers/{customerId}/balance",
+      "view": "op-02",
+      "permissionClaims": {
+        "runtime": [
+          "loyalty.view"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "stepUp": false,
+      "idempotencyScope": null,
+      "versionRequired": false,
+      "bodyExpectedVersion": false,
+      "executionEnabled": false,
+      "recovery": "NO_ACTION",
+      "fields": [],
+      "guard": null
+    },
+    {
+      "operation": "GET /admin/loyalty/customers/{customerId}/history",
+      "view": "op-03",
+      "permissionClaims": {
+        "runtime": [
+          "loyalty.view"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "stepUp": false,
+      "idempotencyScope": null,
+      "versionRequired": false,
+      "bodyExpectedVersion": false,
+      "executionEnabled": false,
+      "recovery": "NO_ACTION",
+      "fields": [],
+      "guard": null
+    },
+    {
+      "operation": "POST /admin/loyalty/adjustments",
+      "view": "op-04",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "stepUp": null,
+      "idempotencyScope": null,
+      "versionRequired": false,
+      "bodyExpectedVersion": false,
+      "executionEnabled": false,
+      "recovery": "NO_ACTION",
+      "fields": [],
+      "guard": null
+    },
+    {
+      "operation": "POST /admin/loyalty/customers/{customerId}/adjust",
+      "view": "op-05",
+      "permissionClaims": {
+        "runtime": [
+          "loyalty.adjust"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "stepUp": true,
+      "idempotencyScope": "loyalty.points.adjust",
+      "versionRequired": false,
+      "bodyExpectedVersion": false,
+      "executionEnabled": false,
+      "recovery": "NO_ACTION",
+      "fields": [],
+      "guard": null
+    },
+    {
+      "operation": "POST /admin/loyalty/customers/{customerId}/entries/{entryId}/reverse",
+      "view": "op-06",
+      "permissionClaims": {
+        "runtime": [
+          "loyalty.adjust"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "stepUp": true,
+      "idempotencyScope": "loyalty.points.reverse",
+      "versionRequired": false,
+      "bodyExpectedVersion": false,
+      "executionEnabled": false,
+      "recovery": "NO_ACTION",
+      "fields": [],
+      "guard": null
+    }
+  ],
+  "blockedOperations": [
+    "GET /admin/loyalty/accounts/{customer_id}",
+    "GET /admin/loyalty/customers/{customerId}/balance",
+    "GET /admin/loyalty/customers/{customerId}/history",
+    "POST /admin/loyalty/adjustments",
+    "POST /admin/loyalty/customers/{customerId}/adjust",
+    "POST /admin/loyalty/customers/{customerId}/entries/{entryId}/reverse"
+  ],
+  "facets": [
+    "entry-and-context",
+    "permission-aware-read-or-explicit-unavailable",
+    "detail-and-history-or-no-read-explanation",
+    "allowed-action-review-or-read-only",
+    "authoritative-outcome-and-recovery"
+  ],
+  "states": [
+    {
+      "id": "approval-required",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states conceptual; no read, write or successful outcome is authorized until canonical source reconciliation."
+    },
+    {
+      "id": "approved",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states conceptual; no read, write or successful outcome is authorized until canonical source reconciliation."
+    },
+    {
+      "id": "archived",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states conceptual; no read, write or successful outcome is authorized until canonical source reconciliation."
+    },
+    {
+      "id": "audit-reference",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states conceptual; no read, write or successful outcome is authorized until canonical source reconciliation."
+    },
+    {
+      "id": "authoritative-success",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states conceptual; no read, write or successful outcome is authorized until canonical source reconciliation."
+    },
+    {
+      "id": "blocked-by-lifecycle",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states conceptual; no read, write or successful outcome is authorized until canonical source reconciliation."
+    },
+    {
+      "id": "cancelled",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states conceptual; no read, write or successful outcome is authorized until canonical source reconciliation."
+    },
+    {
+      "id": "destructive-action-confirmation",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states conceptual; no read, write or successful outcome is authorized until canonical source reconciliation."
+    },
+    {
+      "id": "disabled",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states conceptual; no read, write or successful outcome is authorized until canonical source reconciliation."
+    },
+    {
+      "id": "draft",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states conceptual; no read, write or successful outcome is authorized until canonical source reconciliation."
+    },
+    {
+      "id": "empty-filtered",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states conceptual; no read, write or successful outcome is authorized until canonical source reconciliation."
+    },
+    {
+      "id": "empty-first-use",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states conceptual; no read, write or successful outcome is authorized until canonical source reconciliation."
+    },
+    {
+      "id": "idempotent-replay",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states conceptual; no read, write or successful outcome is authorized until canonical source reconciliation."
+    },
+    {
+      "id": "impact-changed",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states conceptual; no read, write or successful outcome is authorized until canonical source reconciliation."
+    },
+    {
+      "id": "initial-loading",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states conceptual; no read, write or successful outcome is authorized until canonical source reconciliation."
+    },
+    {
+      "id": "irreversible-outcome",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states conceptual; no read, write or successful outcome is authorized until canonical source reconciliation."
+    },
+    {
+      "id": "manual-review",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states conceptual; no read, write or successful outcome is authorized until canonical source reconciliation."
+    },
+    {
+      "id": "no-results",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states conceptual; no read, write or successful outcome is authorized until canonical source reconciliation."
+    },
+    {
+      "id": "offline",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states conceptual; no read, write or successful outcome is authorized until canonical source reconciliation."
+    },
+    {
+      "id": "partial-success",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states conceptual; no read, write or successful outcome is authorized until canonical source reconciliation."
+    },
+    {
+      "id": "paused",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states conceptual; no read, write or successful outcome is authorized until canonical source reconciliation."
+    },
+    {
+      "id": "permission-denied",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states conceptual; no read, write or successful outcome is authorized until canonical source reconciliation."
+    },
+    {
+      "id": "preview",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states conceptual; no read, write or successful outcome is authorized until canonical source reconciliation."
+    },
+    {
+      "id": "preview-expired",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states conceptual; no read, write or successful outcome is authorized until canonical source reconciliation."
+    },
+    {
+      "id": "progressive-loading",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states conceptual; no read, write or successful outcome is authorized until canonical source reconciliation."
+    },
+    {
+      "id": "provider-unavailable",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states conceptual; no read, write or successful outcome is authorized until canonical source reconciliation."
+    },
+    {
+      "id": "published-or-active",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states conceptual; no read, write or successful outcome is authorized until canonical source reconciliation."
+    },
+    {
+      "id": "read-only",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states conceptual; no read, write or successful outcome is authorized until canonical source reconciliation."
+    },
+    {
+      "id": "refresh-loading",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states conceptual; no read, write or successful outcome is authorized until canonical source reconciliation."
+    },
+    {
+      "id": "safe-retry",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states conceptual; no read, write or successful outcome is authorized until canonical source reconciliation."
+    },
+    {
+      "id": "scheduled",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states conceptual; no read, write or successful outcome is authorized until canonical source reconciliation."
+    },
+    {
+      "id": "scope-filtered",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states conceptual; no read, write or successful outcome is authorized until canonical source reconciliation."
+    },
+    {
+      "id": "server-error",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states conceptual; no read, write or successful outcome is authorized until canonical source reconciliation."
+    },
+    {
+      "id": "session-expired",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states conceptual; no read, write or successful outcome is authorized until canonical source reconciliation."
+    },
+    {
+      "id": "stale-data",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states conceptual; no read, write or successful outcome is authorized until canonical source reconciliation."
+    },
+    {
+      "id": "status-check",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states conceptual; no read, write or successful outcome is authorized until canonical source reconciliation."
+    },
+    {
+      "id": "step-up-required",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states conceptual; no read, write or successful outcome is authorized until canonical source reconciliation."
+    },
+    {
+      "id": "submitted",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states conceptual; no read, write or successful outcome is authorized until canonical source reconciliation."
+    },
+    {
+      "id": "submitting",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states conceptual; no read, write or successful outcome is authorized until canonical source reconciliation."
+    },
+    {
+      "id": "terminal-success",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states conceptual; no read, write or successful outcome is authorized until canonical source reconciliation."
+    },
+    {
+      "id": "timeout",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states conceptual; no read, write or successful outcome is authorized until canonical source reconciliation."
+    },
+    {
+      "id": "unauthenticated",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states conceptual; no read, write or successful outcome is authorized until canonical source reconciliation."
+    },
+    {
+      "id": "unknown-result",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states conceptual; no read, write or successful outcome is authorized until canonical source reconciliation."
+    },
+    {
+      "id": "validation-error",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states conceptual; no read, write or successful outcome is authorized until canonical source reconciliation."
+    },
+    {
+      "id": "version-conflict",
+      "view": "denied",
+      "behavior": "NO_ACTION: all states conceptual; no read, write or successful outcome is authorized until canonical source reconciliation."
+    }
+  ],
+  "frames": [
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-03/AD-F-03--320--overview--v1.svg",
+      "view": "overview",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-03/AD-F-03--360--overview--v1.svg",
+      "view": "overview",
+      "width": 360
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-03/AD-F-03--600--overview--v1.svg",
+      "view": "overview",
+      "width": 600
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-03/AD-F-03--840--overview--v1.svg",
+      "view": "overview",
+      "width": 840
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-03/AD-F-03--1200--overview--v1.svg",
+      "view": "overview",
+      "width": 1200
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-03/AD-F-03--1440--overview--v1.svg",
+      "view": "overview",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-03/AD-F-03--320--op-01--v1.svg",
+      "view": "op-01",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-03/AD-F-03--1440--op-01--v1.svg",
+      "view": "op-01",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-03/AD-F-03--320--op-02--v1.svg",
+      "view": "op-02",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-03/AD-F-03--1440--op-02--v1.svg",
+      "view": "op-02",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-03/AD-F-03--320--op-03--v1.svg",
+      "view": "op-03",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-03/AD-F-03--1440--op-03--v1.svg",
+      "view": "op-03",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-03/AD-F-03--320--op-04--v1.svg",
+      "view": "op-04",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-03/AD-F-03--1440--op-04--v1.svg",
+      "view": "op-04",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-03/AD-F-03--320--op-05--v1.svg",
+      "view": "op-05",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-03/AD-F-03--1440--op-05--v1.svg",
+      "view": "op-05",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-03/AD-F-03--320--op-06--v1.svg",
+      "view": "op-06",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-03/AD-F-03--1440--op-06--v1.svg",
+      "view": "op-06",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-03/AD-F-03--320--conflict--v1.svg",
+      "view": "conflict",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-03/AD-F-03--1440--conflict--v1.svg",
+      "view": "conflict",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-03/AD-F-03--320--denied--v1.svg",
+      "view": "denied",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-03/AD-F-03--1440--denied--v1.svg",
+      "view": "denied",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-03/AD-F-03--320--loading--v1.svg",
+      "view": "loading",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-03/AD-F-03--1440--loading--v1.svg",
+      "view": "loading",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-03/AD-F-03--320--empty--v1.svg",
+      "view": "empty",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-03/AD-F-03--1440--empty--v1.svg",
+      "view": "empty",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-03/AD-F-03--320--success--v1.svg",
+      "view": "success",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/F/AD-F-03/AD-F-03--1440--success--v1.svg",
+      "view": "success",
+      "width": 1440
+    }
+  ]
+}
