@@ -1,6 +1,6 @@
 # Step 56 — Acceptance and Traceability
 
-**56-A: FOUNDATION ACCEPTANCE PASS; canonical CI/merge/post-merge verification required. 56-B: design gate complete, canonical transport required; 56-C: design gate complete, transport required;56-D: design gate complete, transport required; E–H: NOT_STARTED.**
+**Step56 A–H: DESIGN ACCEPTANCE PASS / FINAL GATE PASS; canonical closure effective after H exact-head CI, merge and post-merge verification. Step57 NEXT / NOT_STARTED. Runtime release remains blocked by inherited implementation evidence.**
 
 ## Acceptance matrix
 
@@ -72,3 +72,7 @@ F design gate complete, transport required. `step56-customers-growth-wireframes.
 ## G progression
 
 G design gate complete, transport required. `step56-management-security-wireframes.json` and `STEP-56-G-MANAGEMENT-SECURITY.md`: actors=3, journeys=4, domains=9, permissions=33, surfaces=34, operations=185, blocked=94, supported=91, states=1571, views=434, frames=1004, artifacts=1075, sources=90. All inherited authority/states retained. A–F immutable snapshots; current Roadmap controls progression. H NOT_STARTED. Stop after G.
+
+## H final union audit
+
+actors=3, journeys=12, domains=28, surfaces=97, operations=532, blocked=186, supported=346, states=4472, views=1142, screenJourneyLinks=111, frames=2672, artifacts=2884. All12 journeys and13 cross-domain handoffs traced; one owner per operation, valid state/view targets, all six manifests verified.186 NO_ACTION and overlapping gap sets156/151/25/5 preserved. `STEP-56-H-FINAL-AUDIT.md` and `step56-final-audit.json` are final design evidence. Earlier progression sections are immutable historical snapshots. Step57 NOT_STARTED.

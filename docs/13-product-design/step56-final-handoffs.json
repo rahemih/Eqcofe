@@ -1,0 +1,240 @@
+[
+  {
+    "id": "catalog-media",
+    "surfaces": [
+      "AD-C-01",
+      "AD-C-02",
+      "AD-C-04",
+      "AD-C-07"
+    ],
+    "context": [
+      "product_id",
+      "variant_id",
+      "media id/version"
+    ],
+    "restriction": "Publication must reread current product/variant/media lifecycle and permission; media review is not product publication, and a shared confirmation is not an extra endpoint.",
+    "recovery": "Return to originating entity and focus the triggering control; retain safe unsaved fields only.",
+    "navigation": "DESIGN_SURFACE_REFERENCE_NOT_RUNTIME_URL",
+    "permission": "RECHECK_DESTINATION_INDEPENDENTLY"
+  },
+  {
+    "id": "pricing-excel",
+    "surfaces": [
+      "AD-D-03",
+      "AD-D-04",
+      "AD-D-19",
+      "AD-D-20",
+      "AD-D-21"
+    ],
+    "context": [
+      "preview/job id",
+      "hash/version",
+      "scope and expected impact"
+    ],
+    "restriction": "Apply only the exact supported preview/hash/version protocol; raw workbook payload must never appear in logs, URL or audit UI. Informational previews do not become apply tokens.",
+    "recovery": "On stale hash/version reread and explicitly preview again; never automatically retry an apply.",
+    "navigation": "DESIGN_SURFACE_REFERENCE_NOT_RUNTIME_URL",
+    "permission": "RECHECK_DESTINATION_INDEPENDENTLY"
+  },
+  {
+    "id": "procurement-inventory-finance",
+    "surfaces": [
+      "AD-D-14",
+      "AD-D-15",
+      "AD-D-16",
+      "AD-D-06",
+      "AD-G-04"
+    ],
+    "context": [
+      "purchase order/receipt id",
+      "warehouse and variant",
+      "FIFO/cost references"
+    ],
+    "restriction": "Receipts, stock layers and financial cost records retain owner lineage and integer Toman. Link to separately authorized reads; do not create a second stock or cost mutation from navigation.",
+    "recovery": "Unknown receipt/reversal result requires authorized status review; keep original and compensating references distinct.",
+    "navigation": "DESIGN_SURFACE_REFERENCE_NOT_RUNTIME_URL",
+    "permission": "RECHECK_DESTINATION_INDEPENDENTLY"
+  },
+  {
+    "id": "order-payment",
+    "surfaces": [
+      "AD-E-01",
+      "AD-E-02",
+      "AD-E-03"
+    ],
+    "context": [
+      "order id",
+      "payment/refund id",
+      "attempt and authoritative status"
+    ],
+    "restriction": "Admin order surface remains NO_ACTION. Payment/refund may be entered independently only with valid identifiers and its own permission; guest tokens/customer routes cannot bridge the blocked source.",
+    "recovery": "Unknown provider outcome requires explicit supported reconciliation; no fake success or automatic charge/refund retry.",
+    "navigation": "DESIGN_SURFACE_REFERENCE_NOT_RUNTIME_URL",
+    "permission": "RECHECK_DESTINATION_INDEPENDENTLY"
+  },
+  {
+    "id": "order-shipment",
+    "surfaces": [
+      "AD-E-01",
+      "AD-E-04",
+      "AD-E-05",
+      "AD-D-10"
+    ],
+    "context": [
+      "order/allocation id",
+      "warehouse and pick reference",
+      "shipment id and immutable destination"
+    ],
+    "restriction": "Blocked order reads do not unlock allocation or shipment actions. Each destination needs its own authority and lifecycle; allocation/consumption and dispatch remain separate owner effects.",
+    "recovery": "Preserve entity context without guessing identifiers; resolve current owner status before a repeated command.",
+    "navigation": "DESIGN_SURFACE_REFERENCE_NOT_RUNTIME_URL",
+    "permission": "RECHECK_DESTINATION_INDEPENDENTLY"
+  },
+  {
+    "id": "after-sales",
+    "surfaces": [
+      "AD-E-07",
+      "AD-E-08",
+      "AD-D-06",
+      "AD-E-03"
+    ],
+    "context": [
+      "return/claim id",
+      "inspection/resolution id",
+      "inventory/refund reference"
+    ],
+    "restriction": "Resolution uses owner-supported outcomes and immutable inspection evidence; a return or warranty decision does not imply successful stock receipt or refund. No extra settlement or retry endpoint.",
+    "recovery": "Return to the case with server outcome and separate inventory/refund status; unknown side effects require manual review.",
+    "navigation": "DESIGN_SURFACE_REFERENCE_NOT_RUNTIME_URL",
+    "permission": "RECHECK_DESTINATION_INDEPENDENTLY"
+  },
+  {
+    "id": "wholesale-pricing",
+    "surfaces": [
+      "AD-F-01",
+      "AD-F-02",
+      "AD-D-01"
+    ],
+    "context": [
+      "customer id",
+      "application id/status",
+      "authoritative customer type"
+    ],
+    "restriction": "Customer admin reads remain blocked; wholesale review uses its independently permitted application evidence. Approval is under_review only and source-owned promotion, never UI self-promotion or invented discounts.",
+    "recovery": "Keep application id and terminal response; reread supported application view before moving to separately authorized pricing.",
+    "navigation": "DESIGN_SURFACE_REFERENCE_NOT_RUNTIME_URL",
+    "permission": "RECHECK_DESTINATION_INDEPENDENTLY"
+  },
+  {
+    "id": "pos-owner-truth",
+    "surfaces": [
+      "AD-E-09",
+      "AD-E-10",
+      "AD-E-11",
+      "AD-C-02",
+      "AD-D-06"
+    ],
+    "context": [
+      "store/register/session",
+      "variant id",
+      "offline command id and sale snapshot"
+    ],
+    "restriction": "POS uses owner stock/pricing and immutable sale snapshots; offline enqueue is not accepted sale. No parallel stock ledger, rewritten terminal receipt or blind command replay.",
+    "recovery": "Reconcile each supported offline command by its original identity; separate rejected/unknown/accepted outcomes.",
+    "navigation": "DESIGN_SURFACE_REFERENCE_NOT_RUNTIME_URL",
+    "permission": "RECHECK_DESTINATION_INDEPENDENTLY"
+  },
+  {
+    "id": "ai-content",
+    "surfaces": [
+      "AD-F-13",
+      "AD-F-15",
+      "AD-F-06"
+    ],
+    "context": [
+      "job/source/draft reference",
+      "article id",
+      "current and published versions"
+    ],
+    "restriction": "AI surfaces remain NO_ACTION, so no generated draft or automatic article handoff can be executed. Article editing uses its own authorized input, and edit/restore never silently replaces published truth.",
+    "recovery": "Keep conceptual source review separate from executable article commands; return safely with no fabricated AI result.",
+    "navigation": "DESIGN_SURFACE_REFERENCE_NOT_RUNTIME_URL",
+    "permission": "RECHECK_DESTINATION_INDEPENDENTLY"
+  },
+  {
+    "id": "finance-exports",
+    "surfaces": [
+      "AD-G-05",
+      "AD-G-07",
+      "AD-G-08",
+      "AD-G-10"
+    ],
+    "context": [
+      "order/profit/distribution id",
+      "report/export id",
+      "format and data watermark"
+    ],
+    "restriction": "Final profit/distribution is not payout. Finance JSON-envelope export does not inherit analytics owner binding, private headers or CSV formula safety; download permission and Step-Up are independently enforced.",
+    "recovery": "Unknown export result needs status review; never automatically open, send or substitute another user’s analytic export.",
+    "navigation": "DESIGN_SURFACE_REFERENCE_NOT_RUNTIME_URL",
+    "permission": "RECHECK_DESTINATION_INDEPENDENTLY"
+  },
+  {
+    "id": "staff-scope-session",
+    "surfaces": [
+      "AD-B-02",
+      "AD-B-07",
+      "AD-G-16",
+      "AD-G-17",
+      "AD-G-21"
+    ],
+    "context": [
+      "staff id distinct from account id",
+      "session id",
+      "current roles/scopes/version"
+    ],
+    "restriction": "RBAC writes stay NO_ACTION; staff role/scope replacement uses exact If-Match/Step-Up and revokes sessions. Empty scope is global for that type; IAM account lock does not inherit last-superadmin staff protections.",
+    "recovery": "Restore safe focus after confirmation cancellation; after session revocation use supported sign-in and reread permissions, never persist enrollment secrets.",
+    "navigation": "DESIGN_SURFACE_REFERENCE_NOT_RUNTIME_URL",
+    "permission": "RECHECK_DESTINATION_INDEPENDENTLY"
+  },
+  {
+    "id": "configuration-provider-notification",
+    "surfaces": [
+      "AD-G-12",
+      "AD-G-13",
+      "AD-G-14",
+      "AD-G-15",
+      "AD-F-11",
+      "AD-F-12"
+    ],
+    "context": [
+      "configuration key and scope",
+      "change request id",
+      "notification/template id/version"
+    ],
+    "restriction": "Provider switching remains NO_ACTION. Configuration preview is advisory, approve is not apply, rollback is first-two key history across scopes. Notification retry is eligible sms/email requeue, not delivered success.",
+    "recovery": "Reread each independently authorized owner; no cascade retry, promised scheduled worker or persisted feature-preview targets.",
+    "navigation": "DESIGN_SURFACE_REFERENCE_NOT_RUNTIME_URL",
+    "permission": "RECHECK_DESTINATION_INDEPENDENTLY"
+  },
+  {
+    "id": "operations-recovery",
+    "surfaces": [
+      "AD-G-24",
+      "AD-G-26",
+      "AD-G-27",
+      "AD-G-29",
+      "AD-G-30"
+    ],
+    "context": [
+      "conceptual job/event id",
+      "owner domain",
+      "observed failure context"
+    ],
+    "restriction": "These operations surfaces remain NO_ACTION including reads; no retry/restore/repair success or cross-domain execution is enabled by completing H. Release requires canonical source and permission reconciliation.",
+    "recovery": "Unavailable explanation and safe exit only; do not route through internal, customer or direct database workarounds.",
+    "navigation": "DESIGN_SURFACE_REFERENCE_NOT_RUNTIME_URL",
+    "permission": "RECHECK_DESTINATION_INDEPENDENTLY"
+  }
+]
