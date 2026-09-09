@@ -1,0 +1,531 @@
+{
+  "id": "AD-G-03",
+  "task": "AT-G-03",
+  "journeys": [
+    "AJ-09"
+  ],
+  "actors": [
+    "approver",
+    "staff"
+  ],
+  "domains": [
+    "finance"
+  ],
+  "operations": [
+    "GET /admin/finance/accounts",
+    "GET /admin/finance/accounts/{id}",
+    "PATCH /admin/finance/accounts/{id}",
+    "POST /admin/finance/accounts",
+    "POST /admin/finance/accounts/{id}/deactivate"
+  ],
+  "operationViews": [
+    {
+      "operation": "GET /admin/finance/accounts",
+      "view": "op-01",
+      "permissionClaims": {
+        "runtime": [
+          "finance.view"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "stepUp": false,
+      "idempotencyScope": null,
+      "versionRequired": false,
+      "bodyExpectedVersion": false,
+      "executionEnabled": true,
+      "recovery": "READ_OR_MANUAL_NO_RETRY",
+      "fields": [],
+      "guard": null
+    },
+    {
+      "operation": "GET /admin/finance/accounts/{id}",
+      "view": "op-02",
+      "permissionClaims": {
+        "runtime": [
+          "finance.view"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "stepUp": false,
+      "idempotencyScope": null,
+      "versionRequired": false,
+      "bodyExpectedVersion": false,
+      "executionEnabled": true,
+      "recovery": "READ_OR_MANUAL_NO_RETRY",
+      "fields": [],
+      "guard": null
+    },
+    {
+      "operation": "PATCH /admin/finance/accounts/{id}",
+      "view": "op-03",
+      "permissionClaims": {
+        "runtime": [
+          "finance.accounts.manage"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "stepUp": false,
+      "idempotencyScope": "finance.account.update",
+      "versionRequired": false,
+      "bodyExpectedVersion": false,
+      "executionEnabled": true,
+      "recovery": "EXPLICIT_SAME_KEY_SAME_PAYLOAD_AFTER_STATUS_CHECK",
+      "fields": [
+        "نام فارسی",
+        "حساب والد",
+        "قابل ثبت بودن",
+        "فعال بودن"
+      ],
+      "guard": "حداقل یک تغییر؛ کد، نوع و ماهیت ثابت‌اند. والد خود حساب ممنوع؛ بررسی چرخهٔ عمیق تضمین نشده است.",
+      "confirmation": "SAFE_CANCEL_FIRST",
+      "resultView": "success",
+      "confirmationView": "op-03-confirm"
+    },
+    {
+      "operation": "POST /admin/finance/accounts",
+      "view": "op-04",
+      "permissionClaims": {
+        "runtime": [
+          "finance.accounts.manage"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "stepUp": false,
+      "idempotencyScope": "finance.account.create",
+      "versionRequired": false,
+      "bodyExpectedVersion": false,
+      "executionEnabled": true,
+      "recovery": "EXPLICIT_SAME_KEY_SAME_PAYLOAD_AFTER_STATUS_CHECK",
+      "fields": [
+        "کد حساب — حداکثر ۴۰ نویسه",
+        "نام فارسی — حداکثر ۲۰۰ نویسه",
+        "نوع حساب",
+        "ماهیت بدهکار یا بستانکار",
+        "حساب والد — اختیاری",
+        "کلید سیستمی — اختیاری",
+        "قابل ثبت بودن"
+      ],
+      "guard": "نوع از دارایی، بدهی، حقوق مالکانه، درآمد، هزینه، کاهندهٔ دارایی یا درآمد؛ حساب والد باید موجود باشد.",
+      "confirmation": "SAFE_CANCEL_FIRST",
+      "resultView": "success",
+      "confirmationView": "op-04-confirm"
+    },
+    {
+      "operation": "POST /admin/finance/accounts/{id}/deactivate",
+      "view": "op-05",
+      "permissionClaims": {
+        "runtime": [
+          "finance.accounts.manage"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "stepUp": true,
+      "idempotencyScope": "finance.account.deactivate",
+      "versionRequired": false,
+      "bodyExpectedVersion": false,
+      "executionEnabled": true,
+      "recovery": "EXPLICIT_SAME_KEY_SAME_PAYLOAD_AFTER_STATUS_CHECK",
+      "fields": [],
+      "guard": "حساب غیرفعال می‌شود؛ مجوز و پیامد ثبت اسناد را مرور کنید.",
+      "confirmation": "SAFE_CANCEL_FIRST",
+      "resultView": "success"
+    }
+  ],
+  "blockedOperations": [],
+  "facets": [
+    "entry-and-context",
+    "permission-aware-read-or-explicit-unavailable",
+    "detail-and-history-or-no-read-explanation",
+    "allowed-action-review-or-read-only",
+    "authoritative-outcome-and-recovery"
+  ],
+  "states": [
+    {
+      "id": "approval-required",
+      "view": "overview",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "audit-reference",
+      "view": "overview",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "authoritative-success",
+      "view": "success",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "blocked-by-lifecycle",
+      "view": "denied",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "cancelled",
+      "view": "overview",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "destructive-action-confirmation",
+      "view": "overview",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "disabled",
+      "view": "denied",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "empty",
+      "view": "empty",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "empty-filtered",
+      "view": "empty",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "empty-first-use",
+      "view": "empty",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "export-expired",
+      "view": "denied",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "export-ready",
+      "view": "overview",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "export-running",
+      "view": "overview",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "finalized",
+      "view": "overview",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "idempotent-replay",
+      "view": "overview",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "impact-changed",
+      "view": "overview",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "initial-loading",
+      "view": "loading",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "irreversible-outcome",
+      "view": "overview",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "loading",
+      "view": "loading",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "manual-review",
+      "view": "overview",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "no-results",
+      "view": "empty",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "offline",
+      "view": "conflict",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "partial-success",
+      "view": "overview",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "permission-denied",
+      "view": "denied",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "posted",
+      "view": "overview",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "preview",
+      "view": "overview",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "preview-expired",
+      "view": "denied",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "progressive-loading",
+      "view": "loading",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "provider-unavailable",
+      "view": "denied",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "read-only",
+      "view": "overview",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "refresh-loading",
+      "view": "loading",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "reversed",
+      "view": "overview",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "safe-retry",
+      "view": "overview",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "scope-filtered",
+      "view": "overview",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "server-error",
+      "view": "denied",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "session-expired",
+      "view": "denied",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "stale-data",
+      "view": "conflict",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "status-check",
+      "view": "overview",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "step-up-required",
+      "view": "overview",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "submitting",
+      "view": "loading",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "terminal-success",
+      "view": "success",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "timeout",
+      "view": "conflict",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "unauthenticated",
+      "view": "overview",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "unknown-result",
+      "view": "conflict",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "validation-error",
+      "view": "denied",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "version-conflict",
+      "view": "conflict",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    }
+  ],
+  "frames": [
+    {
+      "path": "docs/13-product-design/step56-wireframes/G/AD-G-03/AD-G-03--320--overview--v1.svg",
+      "view": "overview",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/G/AD-G-03/AD-G-03--360--overview--v1.svg",
+      "view": "overview",
+      "width": 360
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/G/AD-G-03/AD-G-03--600--overview--v1.svg",
+      "view": "overview",
+      "width": 600
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/G/AD-G-03/AD-G-03--840--overview--v1.svg",
+      "view": "overview",
+      "width": 840
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/G/AD-G-03/AD-G-03--1200--overview--v1.svg",
+      "view": "overview",
+      "width": 1200
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/G/AD-G-03/AD-G-03--1440--overview--v1.svg",
+      "view": "overview",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/G/AD-G-03/AD-G-03--320--op-01--v1.svg",
+      "view": "op-01",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/G/AD-G-03/AD-G-03--1440--op-01--v1.svg",
+      "view": "op-01",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/G/AD-G-03/AD-G-03--320--op-02--v1.svg",
+      "view": "op-02",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/G/AD-G-03/AD-G-03--1440--op-02--v1.svg",
+      "view": "op-02",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/G/AD-G-03/AD-G-03--320--op-03-confirm--v1.svg",
+      "view": "op-03-confirm",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/G/AD-G-03/AD-G-03--1440--op-03-confirm--v1.svg",
+      "view": "op-03-confirm",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/G/AD-G-03/AD-G-03--320--op-03--v1.svg",
+      "view": "op-03",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/G/AD-G-03/AD-G-03--1440--op-03--v1.svg",
+      "view": "op-03",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/G/AD-G-03/AD-G-03--320--op-04-confirm--v1.svg",
+      "view": "op-04-confirm",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/G/AD-G-03/AD-G-03--1440--op-04-confirm--v1.svg",
+      "view": "op-04-confirm",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/G/AD-G-03/AD-G-03--320--op-04--v1.svg",
+      "view": "op-04",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/G/AD-G-03/AD-G-03--1440--op-04--v1.svg",
+      "view": "op-04",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/G/AD-G-03/AD-G-03--320--op-05--v1.svg",
+      "view": "op-05",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/G/AD-G-03/AD-G-03--1440--op-05--v1.svg",
+      "view": "op-05",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/G/AD-G-03/AD-G-03--320--conflict--v1.svg",
+      "view": "conflict",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/G/AD-G-03/AD-G-03--1440--conflict--v1.svg",
+      "view": "conflict",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/G/AD-G-03/AD-G-03--320--denied--v1.svg",
+      "view": "denied",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/G/AD-G-03/AD-G-03--1440--denied--v1.svg",
+      "view": "denied",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/G/AD-G-03/AD-G-03--320--loading--v1.svg",
+      "view": "loading",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/G/AD-G-03/AD-G-03--1440--loading--v1.svg",
+      "view": "loading",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/G/AD-G-03/AD-G-03--320--empty--v1.svg",
+      "view": "empty",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/G/AD-G-03/AD-G-03--1440--empty--v1.svg",
+      "view": "empty",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/G/AD-G-03/AD-G-03--320--success--v1.svg",
+      "view": "success",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/G/AD-G-03/AD-G-03--1440--success--v1.svg",
+      "view": "success",
+      "width": 1440
+    }
+  ]
+}
