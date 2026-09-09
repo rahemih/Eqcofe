@@ -68,3 +68,7 @@ E design gate complete, transport required. Contract `step56-commerce-operations
 ## F progression
 
 F design gate complete, transport required. `step56-customers-growth-wireframes.json` and `STEP-56-F-CUSTOMERS-GROWTH.md`:16 surfaces/100 operations/488 frames/523 artifacts,65 NO_ACTION. All inherited authority/states preserved. A–E immutable snapshots; current Roadmap controls progression. G–H NOT_STARTED. Stop after F.
+
+## G progression
+
+G design gate complete, transport required. `step56-management-security-wireframes.json` and `STEP-56-G-MANAGEMENT-SECURITY.md`: actors=3, journeys=4, domains=9, permissions=33, surfaces=34, operations=185, blocked=94, supported=91, states=1571, views=434, frames=1004, artifacts=1075, sources=90. All inherited authority/states retained. A–F immutable snapshots; current Roadmap controls progression. H NOT_STARTED. Stop after G.

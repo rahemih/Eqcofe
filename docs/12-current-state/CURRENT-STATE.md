@@ -25,7 +25,11 @@
 - This current-state closure does not claim recovered historical provenance for Steps 01–27.
 - Historical execution snapshot at Phase A closure: Active step `NONE — Step 55 is closed`; next approved step `Step 56 — Admin UX Architecture & Wireframes`. The current Step 56 position is recorded below.
 
-## Current Step 56-F position
+## Current Step 56-G position
+
+**56-G COMPLETE / GATE PASS**, effective after exact-head Canonical CI/Phase A, merge and post-merge checks. Active NONE; next56-H NOT_STARTED. actors=3, journeys=4, domains=9, permissions=33, surfaces=34, operations=185, blocked=94, supported=91, states=1571, views=434, frames=1004, artifacts=1075, sources=90. Contract `step56-management-security-wireframes.json`, history `STEP-56-G-MANAGEMENT-SECURITY.md`. A–F snapshots immutable; runtime readiness not certified.
+
+## Step 56-F closure snapshot
 
 **56-F COMPLETE / GATE PASS**, effective after exact-head CI, merge and post-merge checks. Active NONE; next56-G NOT_STARTED; G–H NOT_STARTED.16 surfaces/100 operations/212 variants/488 frames/523 artifacts/112 sources;65 operations NO_ACTION. Contract `step56-customers-growth-wireframes.json`, history `STEP-56-F-CUSTOMERS-GROWTH.md`. A–E snapshots immutable; runtime readiness not certified.
 
@@ -494,7 +498,7 @@ Verify job: `97170521019` — PASS
 - Dark theme is explicitly deferred: it is not a Roadmap requirement and the current Figma plan permits one mode per collection.
 
 ## Next safe action
-Start **Step 56-G — Finance, Analytics, Configuration & Security** only under a later instruction after verifying F transport evidence. 56-G is NOT_STARTED.
+Start **Step 56-H — Full Admin Audit & Canonical Closure** only under a later instruction after verifying G transport evidence. 56-H is NOT_STARTED.
 
 ## Step 52 active closure state
 - **A1 — Canonical Handoff & Scope Freeze — COMPLETE / FINAL GATE PASS**

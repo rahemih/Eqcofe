@@ -1,0 +1,713 @@
+{
+  "id": "AD-G-17",
+  "task": "AT-G-17",
+  "journeys": [
+    "AJ-10"
+  ],
+  "actors": [
+    "approver",
+    "operator"
+  ],
+  "domains": [
+    "admin"
+  ],
+  "operations": [
+    "GET /admin/staff",
+    "GET /admin/staff/{id}",
+    "PATCH /admin/staff/{id}",
+    "POST /admin/staff",
+    "POST /admin/staff/{id}/disable",
+    "POST /admin/staff/{id}/enable",
+    "POST /admin/staff/{id}/fido/reset-enrollment",
+    "PUT /admin/staff/{id}/roles",
+    "PUT /admin/staff/{id}/scopes"
+  ],
+  "operationViews": [
+    {
+      "operation": "GET /admin/staff",
+      "view": "op-01",
+      "permissionClaims": {
+        "runtime": [
+          "staff.view"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "stepUp": false,
+      "idempotencyScope": null,
+      "versionRequired": false,
+      "bodyExpectedVersion": false,
+      "executionEnabled": true,
+      "recovery": "READ_OR_MANUAL_NO_RETRY",
+      "fields": [],
+      "guard": null
+    },
+    {
+      "operation": "GET /admin/staff/{id}",
+      "view": "op-02",
+      "permissionClaims": {
+        "runtime": [
+          "staff.view"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "stepUp": false,
+      "idempotencyScope": null,
+      "versionRequired": false,
+      "bodyExpectedVersion": false,
+      "executionEnabled": true,
+      "recovery": "READ_OR_MANUAL_NO_RETRY",
+      "fields": [],
+      "guard": null
+    },
+    {
+      "operation": "PATCH /admin/staff/{id}",
+      "view": "op-03",
+      "permissionClaims": {
+        "runtime": [
+          "staff.manage"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "stepUp": false,
+      "idempotencyScope": null,
+      "versionRequired": true,
+      "bodyExpectedVersion": false,
+      "executionEnabled": true,
+      "recovery": "READ_OR_MANUAL_NO_RETRY",
+      "fields": [
+        "نام",
+        "نام خانوادگی",
+        "کد کارمندی",
+        "دلیل — اختیاری"
+      ],
+      "guard": "نسخهٔ جاری لازم است؛ ایمیل، موبایل، رمز، نقش و دامنه از این ویرایش تغییر نمی‌کنند.",
+      "confirmation": "SAFE_CANCEL_FIRST",
+      "resultView": "success",
+      "confirmationView": "op-03-confirm"
+    },
+    {
+      "operation": "POST /admin/staff",
+      "view": "op-04",
+      "permissionClaims": {
+        "runtime": [
+          "staff.manage"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "stepUp": true,
+      "idempotencyScope": null,
+      "versionRequired": false,
+      "bodyExpectedVersion": false,
+      "executionEnabled": true,
+      "recovery": "READ_OR_MANUAL_NO_RETRY",
+      "fields": [
+        "نام",
+        "نام خانوادگی",
+        "ایمیل یا موبایل — حداقل یکی",
+        "رمز عبور مطابق سیاست جاری",
+        "کد کارمندی — اختیاری",
+        "دلیل — اختیاری"
+      ],
+      "guard": "رمز راه‌اندازی کلید فقط از پاسخ موفق و با مهلت ۲۴ ساعت؛ ذخیره یا ارسال خودکار نشود. نقش و دامنه بعداً مستقل مرور می‌شوند.",
+      "confirmation": "SAFE_CANCEL_FIRST",
+      "resultView": "staff-enrollment-result",
+      "confirmationView": "op-04-confirm"
+    },
+    {
+      "operation": "POST /admin/staff/{id}/disable",
+      "view": "op-05",
+      "permissionClaims": {
+        "runtime": [
+          "staff.manage"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "stepUp": true,
+      "idempotencyScope": null,
+      "versionRequired": true,
+      "bodyExpectedVersion": false,
+      "executionEnabled": true,
+      "recovery": "READ_OR_MANUAL_NO_RETRY",
+      "fields": [
+        "دلیل — اختیاری"
+      ],
+      "guard": "نسخهٔ جاری؛ پروفایل غیرفعال و نشست‌ها باطل می‌شوند؛ آخرین مدیرکل محافظت دارد.",
+      "confirmation": "SAFE_CANCEL_FIRST",
+      "resultView": "success",
+      "confirmationView": "op-05-confirm"
+    },
+    {
+      "operation": "POST /admin/staff/{id}/enable",
+      "view": "op-06",
+      "permissionClaims": {
+        "runtime": [
+          "staff.manage"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "stepUp": true,
+      "idempotencyScope": null,
+      "versionRequired": true,
+      "bodyExpectedVersion": false,
+      "executionEnabled": true,
+      "recovery": "READ_OR_MANUAL_NO_RETRY",
+      "fields": [
+        "دلیل — اختیاری"
+      ],
+      "guard": "نسخهٔ جاری؛ فعال‌سازی پروفایل لزوماً قفل حساب را باز نمی‌کند.",
+      "confirmation": "SAFE_CANCEL_FIRST",
+      "resultView": "success",
+      "confirmationView": "op-06-confirm"
+    },
+    {
+      "operation": "POST /admin/staff/{id}/fido/reset-enrollment",
+      "view": "op-07",
+      "permissionClaims": {
+        "runtime": [
+          "security.fido.recover"
+        ],
+        "openapi": "security.fido.recover"
+      },
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "stepUp": true,
+      "idempotencyScope": null,
+      "versionRequired": true,
+      "bodyExpectedVersion": false,
+      "executionEnabled": true,
+      "recovery": "READ_OR_MANUAL_NO_RETRY",
+      "fields": [],
+      "guard": "نسخهٔ جاری؛ تمام کلیدها و نشست‌های قبلی باطل می‌شوند. رمز راه‌اندازی جدید ۳۰ دقیقه اعتبار دارد؛ فقط پس از پاسخ موفق و بدون ذخیرهٔ عمومی نمایش یابد.",
+      "confirmation": "SAFE_CANCEL_FIRST",
+      "resultView": "reset-enrollment-result"
+    },
+    {
+      "operation": "PUT /admin/staff/{id}/roles",
+      "view": "op-08",
+      "permissionClaims": {
+        "runtime": [
+          "rbac.manage"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "stepUp": true,
+      "idempotencyScope": null,
+      "versionRequired": true,
+      "bodyExpectedVersion": false,
+      "executionEnabled": true,
+      "recovery": "READ_OR_MANUAL_NO_RETRY",
+      "fields": [
+        "نقش‌های فعال — مجموعهٔ کامل جایگزین",
+        "دلیل — اختیاری"
+      ],
+      "guard": "نسخهٔ جاری؛ جایگزینی کامل است و نشست‌ها باطل می‌شوند. حذف نقش آخرین مدیرکل محافظت دارد؛ تضمین همزمانی سراسری ادعا نمی‌شود.",
+      "confirmation": "SAFE_CANCEL_FIRST",
+      "resultView": "success",
+      "confirmationView": "op-08-confirm"
+    },
+    {
+      "operation": "PUT /admin/staff/{id}/scopes",
+      "view": "op-09",
+      "permissionClaims": {
+        "runtime": [
+          "rbac.manage"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "stepUp": true,
+      "idempotencyScope": null,
+      "versionRequired": true,
+      "bodyExpectedVersion": false,
+      "executionEnabled": true,
+      "recovery": "READ_OR_MANUAL_NO_RETRY",
+      "fields": [
+        "دامنه‌های انبار یا فروشگاه حضوری — مجموعهٔ کامل",
+        "شناسهٔ هر دامنه",
+        "دلیل — اختیاری"
+      ],
+      "guard": "نسخهٔ جاری؛ جایگزینی نشست‌ها را باطل می‌کند. خالی‌بودن یک نوع دامنه به معنی دسترسی سراسری آن نوع است، نه بی‌دسترسی.",
+      "confirmation": "SAFE_CANCEL_FIRST",
+      "resultView": "success",
+      "confirmationView": "op-09-confirm"
+    }
+  ],
+  "blockedOperations": [],
+  "facets": [
+    "entry-and-context",
+    "permission-aware-read-or-explicit-unavailable",
+    "detail-and-history-or-no-read-explanation",
+    "allowed-action-review-or-read-only",
+    "authoritative-outcome-and-recovery"
+  ],
+  "states": [
+    {
+      "id": "approval-required",
+      "view": "overview",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "approved",
+      "view": "overview",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "audit-reference",
+      "view": "overview",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "authoritative-success",
+      "view": "success",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "blocked-by-lifecycle",
+      "view": "denied",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "cancelled",
+      "view": "overview",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "destructive-action-confirmation",
+      "view": "overview",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "disabled",
+      "view": "denied",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "empty-filtered",
+      "view": "empty",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "empty-first-use",
+      "view": "empty",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "idempotent-replay",
+      "view": "overview",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "impact-changed",
+      "view": "overview",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "initial-loading",
+      "view": "loading",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "irreversible-outcome",
+      "view": "overview",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "manual-review",
+      "view": "overview",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "no-results",
+      "view": "empty",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "offline",
+      "view": "conflict",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "partial-success",
+      "view": "overview",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "pending-approval",
+      "view": "overview",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "permission-denied",
+      "view": "denied",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "permission-hidden",
+      "view": "overview",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "preview-expired",
+      "view": "denied",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "progressive-loading",
+      "view": "loading",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "provider-unavailable",
+      "view": "denied",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "read-only",
+      "view": "overview",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "refresh-loading",
+      "view": "loading",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "rejected",
+      "view": "overview",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "safe-retry",
+      "view": "overview",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "scope-filtered",
+      "view": "overview",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "server-error",
+      "view": "denied",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "session-expired",
+      "view": "denied",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "session-revoked",
+      "view": "overview",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "stale-data",
+      "view": "conflict",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "status-check",
+      "view": "overview",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "step-up-required",
+      "view": "overview",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "submitting",
+      "view": "loading",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "terminal-success",
+      "view": "success",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "timeout",
+      "view": "conflict",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "unauthenticated",
+      "view": "overview",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "unknown-result",
+      "view": "conflict",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "validation-error",
+      "view": "denied",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    },
+    {
+      "id": "version-conflict",
+      "view": "conflict",
+      "behavior": "Conditional on traced operation: blocked operations always use their unavailable view. Preserve safe input, focus errors, label stale data, never automatically retry; only server outcome is authoritative."
+    }
+  ],
+  "frames": [
+    {
+      "path": "docs/13-product-design/step56-wireframes/G/AD-G-17/AD-G-17--320--overview--v1.svg",
+      "view": "overview",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/G/AD-G-17/AD-G-17--360--overview--v1.svg",
+      "view": "overview",
+      "width": 360
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/G/AD-G-17/AD-G-17--600--overview--v1.svg",
+      "view": "overview",
+      "width": 600
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/G/AD-G-17/AD-G-17--840--overview--v1.svg",
+      "view": "overview",
+      "width": 840
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/G/AD-G-17/AD-G-17--1200--overview--v1.svg",
+      "view": "overview",
+      "width": 1200
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/G/AD-G-17/AD-G-17--1440--overview--v1.svg",
+      "view": "overview",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/G/AD-G-17/AD-G-17--320--op-01--v1.svg",
+      "view": "op-01",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/G/AD-G-17/AD-G-17--1440--op-01--v1.svg",
+      "view": "op-01",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/G/AD-G-17/AD-G-17--320--op-02--v1.svg",
+      "view": "op-02",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/G/AD-G-17/AD-G-17--1440--op-02--v1.svg",
+      "view": "op-02",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/G/AD-G-17/AD-G-17--320--op-03-confirm--v1.svg",
+      "view": "op-03-confirm",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/G/AD-G-17/AD-G-17--1440--op-03-confirm--v1.svg",
+      "view": "op-03-confirm",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/G/AD-G-17/AD-G-17--320--op-03--v1.svg",
+      "view": "op-03",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/G/AD-G-17/AD-G-17--1440--op-03--v1.svg",
+      "view": "op-03",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/G/AD-G-17/AD-G-17--320--op-04-confirm--v1.svg",
+      "view": "op-04-confirm",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/G/AD-G-17/AD-G-17--1440--op-04-confirm--v1.svg",
+      "view": "op-04-confirm",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/G/AD-G-17/AD-G-17--320--op-04--v1.svg",
+      "view": "op-04",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/G/AD-G-17/AD-G-17--1440--op-04--v1.svg",
+      "view": "op-04",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/G/AD-G-17/AD-G-17--320--op-05-confirm--v1.svg",
+      "view": "op-05-confirm",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/G/AD-G-17/AD-G-17--1440--op-05-confirm--v1.svg",
+      "view": "op-05-confirm",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/G/AD-G-17/AD-G-17--320--op-05--v1.svg",
+      "view": "op-05",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/G/AD-G-17/AD-G-17--1440--op-05--v1.svg",
+      "view": "op-05",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/G/AD-G-17/AD-G-17--320--op-06-confirm--v1.svg",
+      "view": "op-06-confirm",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/G/AD-G-17/AD-G-17--1440--op-06-confirm--v1.svg",
+      "view": "op-06-confirm",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/G/AD-G-17/AD-G-17--320--op-06--v1.svg",
+      "view": "op-06",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/G/AD-G-17/AD-G-17--1440--op-06--v1.svg",
+      "view": "op-06",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/G/AD-G-17/AD-G-17--320--op-07--v1.svg",
+      "view": "op-07",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/G/AD-G-17/AD-G-17--1440--op-07--v1.svg",
+      "view": "op-07",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/G/AD-G-17/AD-G-17--320--op-08-confirm--v1.svg",
+      "view": "op-08-confirm",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/G/AD-G-17/AD-G-17--1440--op-08-confirm--v1.svg",
+      "view": "op-08-confirm",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/G/AD-G-17/AD-G-17--320--op-08--v1.svg",
+      "view": "op-08",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/G/AD-G-17/AD-G-17--1440--op-08--v1.svg",
+      "view": "op-08",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/G/AD-G-17/AD-G-17--320--op-09-confirm--v1.svg",
+      "view": "op-09-confirm",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/G/AD-G-17/AD-G-17--1440--op-09-confirm--v1.svg",
+      "view": "op-09-confirm",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/G/AD-G-17/AD-G-17--320--op-09--v1.svg",
+      "view": "op-09",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/G/AD-G-17/AD-G-17--1440--op-09--v1.svg",
+      "view": "op-09",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/G/AD-G-17/AD-G-17--320--conflict--v1.svg",
+      "view": "conflict",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/G/AD-G-17/AD-G-17--1440--conflict--v1.svg",
+      "view": "conflict",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/G/AD-G-17/AD-G-17--320--denied--v1.svg",
+      "view": "denied",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/G/AD-G-17/AD-G-17--1440--denied--v1.svg",
+      "view": "denied",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/G/AD-G-17/AD-G-17--320--loading--v1.svg",
+      "view": "loading",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/G/AD-G-17/AD-G-17--1440--loading--v1.svg",
+      "view": "loading",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/G/AD-G-17/AD-G-17--320--empty--v1.svg",
+      "view": "empty",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/G/AD-G-17/AD-G-17--1440--empty--v1.svg",
+      "view": "empty",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/G/AD-G-17/AD-G-17--320--success--v1.svg",
+      "view": "success",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/G/AD-G-17/AD-G-17--1440--success--v1.svg",
+      "view": "success",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/G/AD-G-17/AD-G-17--320--staff-enrollment-result--v1.svg",
+      "view": "staff-enrollment-result",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/G/AD-G-17/AD-G-17--1440--staff-enrollment-result--v1.svg",
+      "view": "staff-enrollment-result",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/G/AD-G-17/AD-G-17--320--reset-enrollment-result--v1.svg",
+      "view": "reset-enrollment-result",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/G/AD-G-17/AD-G-17--1440--reset-enrollment-result--v1.svg",
+      "view": "reset-enrollment-result",
+      "width": 1440
+    }
+  ]
+}
