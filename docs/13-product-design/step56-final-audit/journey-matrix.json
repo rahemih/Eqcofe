@@ -1,0 +1,785 @@
+[
+  {
+    "id": "AJ-01",
+    "title": "کاتالوگ، Variant و رسانه تا انتشار",
+    "entry": "کالا و قیمت",
+    "intendedSuccess": "محصول قابل فروش با Variant و رسانه تأییدشده",
+    "surfaces": [
+      "AD-B-06",
+      "AD-C-01",
+      "AD-C-02",
+      "AD-C-03",
+      "AD-C-04",
+      "AD-C-05",
+      "AD-C-06",
+      "AD-C-07",
+      "AD-C-08",
+      "AD-D-19",
+      "AD-D-20"
+    ],
+    "steps": [
+      {
+        "operation": "GET /admin/products",
+        "owner": "AD-C-01",
+        "view": "AD-C-01/list",
+        "blocked": false
+      },
+      {
+        "operation": "POST /admin/products",
+        "owner": "AD-C-01",
+        "view": "AD-C-01/edit",
+        "blocked": false
+      },
+      {
+        "operation": "PATCH /admin/products/{id}",
+        "owner": "AD-C-01",
+        "view": "AD-C-01/edit",
+        "blocked": false
+      },
+      {
+        "operation": "POST /admin/products/{id}/publish",
+        "owner": "AD-C-01",
+        "view": "AD-C-01/publish",
+        "blocked": false
+      },
+      {
+        "operation": "POST /admin/products/{id}/stop-sales",
+        "owner": "AD-C-01",
+        "view": "AD-C-01/sales",
+        "blocked": false
+      },
+      {
+        "operation": "POST /admin/products/{id}/archive",
+        "owner": "AD-C-01",
+        "view": "AD-C-01/archive",
+        "blocked": false
+      }
+    ],
+    "designVerdict": "PASS",
+    "execution": "SUBJECT_TO_SERVER_POLICY_NOT_RUNTIME_CERTIFIED"
+  },
+  {
+    "id": "AJ-02",
+    "title": "قیمت‌گذاری و ارز با Preview-before-Apply",
+    "entry": "قیمت و ارز",
+    "intendedSuccess": "اعمال کنترل‌شده روی Snapshot پیش‌نمایش معتبر",
+    "surfaces": [
+      "AD-D-01",
+      "AD-D-02",
+      "AD-D-03",
+      "AD-D-04",
+      "AD-D-05",
+      "AD-D-19",
+      "AD-D-21"
+    ],
+    "steps": [
+      {
+        "operation": "POST /admin/pricing/bulk/preview",
+        "owner": "AD-D-03",
+        "view": "AD-D-03/op-03",
+        "blocked": false
+      },
+      {
+        "operation": "POST /admin/pricing/bulk/apply",
+        "owner": "AD-D-03",
+        "view": "AD-D-03/op-02",
+        "blocked": false
+      },
+      {
+        "operation": "POST /admin/pricing/currency/impact-preview",
+        "owner": "AD-D-04",
+        "view": "AD-D-04/op-08",
+        "blocked": false
+      },
+      {
+        "operation": "POST /admin/pricing/currency/apply",
+        "owner": "AD-D-04",
+        "view": "AD-D-04/op-07",
+        "blocked": false
+      }
+    ],
+    "designVerdict": "PASS",
+    "execution": "SUBJECT_TO_SERVER_POLICY_NOT_RUNTIME_CERTIFIED"
+  },
+  {
+    "id": "AJ-03",
+    "title": "موجودی و تأمین تا دریافت کالا",
+    "entry": "موجودی و تأمین",
+    "intendedSuccess": "دریافت/انتقال ثبت‌شده با FIFO و تاریخچه معتبر",
+    "surfaces": [
+      "AD-D-06",
+      "AD-D-07",
+      "AD-D-08",
+      "AD-D-09",
+      "AD-D-10",
+      "AD-D-11",
+      "AD-D-12",
+      "AD-D-13",
+      "AD-D-14",
+      "AD-D-15",
+      "AD-D-16",
+      "AD-D-17",
+      "AD-D-18"
+    ],
+    "steps": [
+      {
+        "operation": "GET /admin/inventory",
+        "owner": "AD-D-06",
+        "view": "AD-D-06/op-01",
+        "blocked": false
+      },
+      {
+        "operation": "GET /admin/inventory/{variant_id}/movements",
+        "owner": "AD-D-06",
+        "view": "AD-D-06/op-05",
+        "blocked": false
+      },
+      {
+        "operation": "POST /admin/inventory/transfers",
+        "owner": "AD-D-08",
+        "view": "AD-D-08/op-03",
+        "blocked": false
+      },
+      {
+        "operation": "POST /admin/procurement/purchase-requests",
+        "owner": "AD-D-13",
+        "view": "AD-D-13/op-04",
+        "blocked": false
+      },
+      {
+        "operation": "POST /admin/procurement/purchase-orders",
+        "owner": "AD-D-14",
+        "view": "AD-D-14/op-04",
+        "blocked": false
+      },
+      {
+        "operation": "POST /admin/procurement/goods-receipts",
+        "owner": "AD-D-15",
+        "view": "AD-D-15/op-04",
+        "blocked": false
+      }
+    ],
+    "designVerdict": "PASS",
+    "execution": "SUBJECT_TO_SERVER_POLICY_NOT_RUNTIME_CERTIFIED"
+  },
+  {
+    "id": "AJ-04",
+    "title": "سفارش تا آماده‌سازی و ارسال",
+    "entry": "فروش و سفارش",
+    "intendedSuccess": "تکمیل Actionهای مجاز سفارش و تحویل به حمل",
+    "surfaces": [
+      "AD-D-09",
+      "AD-D-10",
+      "AD-E-01",
+      "AD-E-04",
+      "AD-E-05",
+      "AD-E-06",
+      "AD-E-09",
+      "AD-E-10",
+      "AD-E-11"
+    ],
+    "steps": [
+      {
+        "operation": "GET /admin/orders",
+        "owner": "AD-E-01",
+        "view": "AD-E-01/op-01",
+        "blocked": true
+      },
+      {
+        "operation": "GET /admin/orders/{id}",
+        "owner": "AD-E-01",
+        "view": "AD-E-01/op-02",
+        "blocked": true
+      },
+      {
+        "operation": "GET /admin/orders/{id}/allowed-actions",
+        "owner": "AD-E-01",
+        "view": "AD-E-01/op-03",
+        "blocked": true
+      },
+      {
+        "operation": "POST /admin/orders/{id}/confirm",
+        "owner": "AD-E-01",
+        "view": "AD-E-01/op-07",
+        "blocked": true
+      },
+      {
+        "operation": "POST /admin/fulfillment/orders/{order_id}/allocate",
+        "owner": "AD-E-04",
+        "view": "AD-E-04/op-05",
+        "blocked": false
+      },
+      {
+        "operation": "POST /admin/fulfillment/orders/{order_id}/start-preparation",
+        "owner": "AD-E-04",
+        "view": "AD-E-04/op-06",
+        "blocked": false
+      },
+      {
+        "operation": "POST /admin/shipments",
+        "owner": "AD-E-05",
+        "view": "AD-E-05/op-03",
+        "blocked": false
+      },
+      {
+        "operation": "POST /admin/shipments/{id}/mark-ready",
+        "owner": "AD-E-05",
+        "view": "AD-E-05/op-06",
+        "blocked": false
+      },
+      {
+        "operation": "POST /admin/shipments/{id}/handover",
+        "owner": "AD-E-05",
+        "view": "AD-E-05/op-05",
+        "blocked": false
+      }
+    ],
+    "designVerdict": "PASS",
+    "execution": "RESTRICTED_BY_NO_ACTION"
+  },
+  {
+    "id": "AJ-05",
+    "title": "بررسی پرداخت و بازپرداخت",
+    "entry": "پرداخت‌ها و بازپرداخت‌ها",
+    "intendedSuccess": "نتیجه reconciled یا Refund terminal با Audit",
+    "surfaces": [
+      "AD-D-09",
+      "AD-E-02",
+      "AD-E-03",
+      "AD-E-10"
+    ],
+    "steps": [
+      {
+        "operation": "GET /admin/payments",
+        "owner": "AD-E-02",
+        "view": "AD-E-02/op-01",
+        "blocked": false
+      },
+      {
+        "operation": "GET /admin/payments/{id}/attempts",
+        "owner": "AD-E-02",
+        "view": "AD-E-02/op-03",
+        "blocked": false
+      },
+      {
+        "operation": "POST /admin/payments/{id}/reconcile",
+        "owner": "AD-E-02",
+        "view": "AD-E-02/op-04",
+        "blocked": false
+      },
+      {
+        "operation": "GET /admin/refunds",
+        "owner": "AD-E-03",
+        "view": "AD-E-03/op-01",
+        "blocked": false
+      },
+      {
+        "operation": "POST /admin/refunds/{id}/approve",
+        "owner": "AD-E-03",
+        "view": "AD-E-03/op-04",
+        "blocked": false
+      },
+      {
+        "operation": "POST /admin/refunds/{id}/process",
+        "owner": "AD-E-03",
+        "view": "AD-E-03/op-06",
+        "blocked": false
+      },
+      {
+        "operation": "POST /admin/refunds/{id}/reconcile",
+        "owner": "AD-E-03",
+        "view": "AD-E-03/op-07",
+        "blocked": false
+      }
+    ],
+    "designVerdict": "PASS",
+    "execution": "SUBJECT_TO_SERVER_POLICY_NOT_RUNTIME_CERTIFIED"
+  },
+  {
+    "id": "AJ-06",
+    "title": "رسیدگی به مرجوعی و گارانتی",
+    "entry": "مشتریان و خدمات پس از فروش",
+    "intendedSuccess": "Resolution معتبر بدون بازنویسی تصمیم terminal",
+    "surfaces": [
+      "AD-E-07",
+      "AD-E-08"
+    ],
+    "steps": [
+      {
+        "operation": "GET /admin/returns",
+        "owner": "AD-E-07",
+        "view": "AD-E-07/op-01",
+        "blocked": false
+      },
+      {
+        "operation": "POST /admin/returns/{id}/start-review",
+        "owner": "AD-E-07",
+        "view": "AD-E-07/op-09",
+        "blocked": false
+      },
+      {
+        "operation": "POST /admin/returns/{id}/approve",
+        "owner": "AD-E-07",
+        "view": "AD-E-07/op-04",
+        "blocked": false
+      },
+      {
+        "operation": "POST /admin/returns/{id}/resolve",
+        "owner": "AD-E-07",
+        "view": "AD-E-07/op-07",
+        "blocked": false
+      },
+      {
+        "operation": "GET /admin/warranty/claims",
+        "owner": "AD-E-08",
+        "view": "AD-E-08/op-01",
+        "blocked": false
+      },
+      {
+        "operation": "POST /admin/warranty/claims/{id}/start-review",
+        "owner": "AD-E-08",
+        "view": "AD-E-08/op-10",
+        "blocked": false
+      },
+      {
+        "operation": "POST /admin/warranty/claims/{id}/approve",
+        "owner": "AD-E-08",
+        "view": "AD-E-08/op-04",
+        "blocked": false
+      },
+      {
+        "operation": "POST /admin/warranty/claims/{id}/resolve",
+        "owner": "AD-E-08",
+        "view": "AD-E-08/op-08",
+        "blocked": false
+      },
+      {
+        "operation": "POST /admin/warranty/claims/{id}/close",
+        "owner": "AD-E-08",
+        "view": "AD-E-08/op-05",
+        "blocked": false
+      }
+    ],
+    "designVerdict": "PASS",
+    "execution": "SUBJECT_TO_SERVER_POLICY_NOT_RUNTIME_CERTIFIED"
+  },
+  {
+    "id": "AJ-07",
+    "title": "بررسی درخواست عمده",
+    "entry": "مشتریان و عمده‌فروشی",
+    "intendedSuccess": "تصمیم terminal تأیید یا رد با اثر authoritative روی نوع مشتری",
+    "surfaces": [
+      "AD-F-01",
+      "AD-F-02"
+    ],
+    "steps": [
+      {
+        "operation": "GET /admin/wholesale/applications",
+        "owner": "AD-F-02",
+        "view": "AD-F-02/op-01",
+        "blocked": false
+      },
+      {
+        "operation": "GET /admin/wholesale/applications/{id}",
+        "owner": "AD-F-02",
+        "view": "AD-F-02/op-02",
+        "blocked": false
+      },
+      {
+        "operation": "POST /admin/wholesale/applications/{id}/start-review",
+        "owner": "AD-F-02",
+        "view": "AD-F-02/op-05",
+        "blocked": false
+      },
+      {
+        "operation": "POST /admin/wholesale/applications/{id}/approve",
+        "owner": "AD-F-02",
+        "view": "AD-F-02/op-03",
+        "blocked": false
+      },
+      {
+        "operation": "POST /admin/wholesale/applications/{id}/reject",
+        "owner": "AD-F-02",
+        "view": "AD-F-02/op-04",
+        "blocked": false
+      }
+    ],
+    "designVerdict": "PASS",
+    "execution": "SUBJECT_TO_SERVER_POLICY_NOT_RUNTIME_CERTIFIED"
+  },
+  {
+    "id": "AJ-08",
+    "title": "محتوا، کمپین و انتشار کنترل‌شده",
+    "entry": "بازاریابی و محتوا",
+    "intendedSuccess": "نسخه یا کمپین approved و زمان‌بندی/منتشرشده",
+    "surfaces": [
+      "AD-F-03",
+      "AD-F-04",
+      "AD-F-05",
+      "AD-F-06",
+      "AD-F-07",
+      "AD-F-08",
+      "AD-F-09",
+      "AD-F-10",
+      "AD-F-13",
+      "AD-F-14",
+      "AD-F-15",
+      "AD-F-16"
+    ],
+    "steps": [
+      {
+        "operation": "GET /admin/content/articles",
+        "owner": "AD-F-06",
+        "view": "AD-F-06/op-01",
+        "blocked": false
+      },
+      {
+        "operation": "POST /admin/content/articles",
+        "owner": "AD-F-06",
+        "view": "AD-F-06/op-07",
+        "blocked": false
+      },
+      {
+        "operation": "POST /admin/content/articles/{id}/submit-review",
+        "owner": "AD-F-06",
+        "view": "AD-F-06/op-12",
+        "blocked": false
+      },
+      {
+        "operation": "POST /admin/content/articles/{id}/approve",
+        "owner": "AD-F-06",
+        "view": "AD-F-06/op-08",
+        "blocked": false
+      },
+      {
+        "operation": "POST /admin/content/articles/{id}/publish",
+        "owner": "AD-F-06",
+        "view": "AD-F-06/op-10",
+        "blocked": false
+      },
+      {
+        "operation": "GET /admin/marketing/campaigns",
+        "owner": "AD-F-07",
+        "view": "AD-F-07/op-01",
+        "blocked": false
+      },
+      {
+        "operation": "POST /admin/marketing/campaigns/{id}/preview",
+        "owner": "AD-F-07",
+        "view": "AD-F-07/op-11",
+        "blocked": true
+      },
+      {
+        "operation": "POST /admin/marketing/campaigns/{id}/approve",
+        "owner": "AD-F-07",
+        "view": "AD-F-07/op-06",
+        "blocked": true
+      },
+      {
+        "operation": "POST /admin/marketing/campaigns/{id}/schedule",
+        "owner": "AD-F-07",
+        "view": "AD-F-07/op-14",
+        "blocked": true
+      }
+    ],
+    "designVerdict": "PASS",
+    "execution": "RESTRICTED_BY_NO_ACTION"
+  },
+  {
+    "id": "AJ-09",
+    "title": "مالی، سود، گزارش و Export",
+    "entry": "مالی و گزارش‌ها",
+    "intendedSuccess": "گزارش bounded یا تصمیم مالی posted/finalized با Audit",
+    "surfaces": [
+      "AD-D-15",
+      "AD-D-16",
+      "AD-D-17",
+      "AD-G-01",
+      "AD-G-02",
+      "AD-G-03",
+      "AD-G-04",
+      "AD-G-05",
+      "AD-G-06",
+      "AD-G-07",
+      "AD-G-08",
+      "AD-G-09",
+      "AD-G-10",
+      "AD-G-11"
+    ],
+    "steps": [
+      {
+        "operation": "GET /admin/finance/dashboard",
+        "owner": "AD-G-01",
+        "view": "AD-G-01/op-01",
+        "blocked": false
+      },
+      {
+        "operation": "GET /admin/finance/journals",
+        "owner": "AD-G-02",
+        "view": "AD-G-02/op-01",
+        "blocked": false
+      },
+      {
+        "operation": "POST /admin/finance/journals/{id}/post",
+        "owner": "AD-G-02",
+        "view": "AD-G-02/op-04",
+        "blocked": false
+      },
+      {
+        "operation": "GET /admin/finance/profit",
+        "owner": "AD-G-05",
+        "view": "AD-G-05/op-03",
+        "blocked": false
+      },
+      {
+        "operation": "POST /admin/finance/profit-rules/{id}/preview",
+        "owner": "AD-G-06",
+        "view": "AD-G-06/op-07",
+        "blocked": true
+      },
+      {
+        "operation": "GET /admin/reports",
+        "owner": "AD-G-08",
+        "view": "AD-G-08/op-03",
+        "blocked": false
+      },
+      {
+        "operation": "POST /admin/reports/run",
+        "owner": "AD-G-08",
+        "view": "AD-G-08/op-07",
+        "blocked": false
+      },
+      {
+        "operation": "GET /admin/reports/jobs/{id}",
+        "owner": "AD-G-08",
+        "view": "AD-G-08/op-04",
+        "blocked": false
+      }
+    ],
+    "designVerdict": "PASS",
+    "execution": "RESTRICTED_BY_NO_ACTION"
+  },
+  {
+    "id": "AJ-10",
+    "title": "Staff، RBAC، Scope و Approval",
+    "entry": "تنظیمات و کنترل",
+    "intendedSuccess": "دسترسی حداقلی و تغییر حساس step-up/audited",
+    "surfaces": [
+      "AD-B-01",
+      "AD-B-02",
+      "AD-B-04",
+      "AD-B-05",
+      "AD-B-07",
+      "AD-G-16",
+      "AD-G-17",
+      "AD-G-18",
+      "AD-G-21"
+    ],
+    "steps": [
+      {
+        "operation": "GET /admin/me/permissions",
+        "owner": "AD-B-02",
+        "view": "AD-B-02/identity",
+        "blocked": false
+      },
+      {
+        "operation": "GET /admin/me/scopes",
+        "owner": "AD-B-02",
+        "view": "AD-B-02/scope",
+        "blocked": false
+      },
+      {
+        "operation": "GET /admin/rbac/roles",
+        "owner": "AD-G-16",
+        "view": "AD-G-16/op-02",
+        "blocked": false
+      },
+      {
+        "operation": "PUT /admin/rbac/roles/{id}/permissions",
+        "owner": "AD-G-16",
+        "view": "AD-G-16/op-06",
+        "blocked": true
+      },
+      {
+        "operation": "GET /admin/staff",
+        "owner": "AD-G-17",
+        "view": "AD-G-17/op-01",
+        "blocked": false
+      },
+      {
+        "operation": "PUT /admin/staff/{id}/roles",
+        "owner": "AD-G-17",
+        "view": "AD-G-17/op-08",
+        "blocked": false
+      },
+      {
+        "operation": "PUT /admin/staff/{id}/scopes",
+        "owner": "AD-G-17",
+        "view": "AD-G-17/op-09",
+        "blocked": false
+      },
+      {
+        "operation": "GET /admin/approvals",
+        "owner": "AD-G-18",
+        "view": "AD-G-18/op-01",
+        "blocked": true
+      },
+      {
+        "operation": "POST /admin/approvals/{id}/approve",
+        "owner": "AD-G-18",
+        "view": "AD-G-18/op-03",
+        "blocked": true
+      }
+    ],
+    "designVerdict": "PASS",
+    "execution": "RESTRICTED_BY_NO_ACTION"
+  },
+  {
+    "id": "AJ-11",
+    "title": "امنیت، عملیات و بازیابی",
+    "entry": "امنیت و عملیات",
+    "intendedSuccess": "Finding/Alert/Job قابل مشاهده و اقدام بازیابی کنترل‌شده",
+    "surfaces": [
+      "AD-B-03",
+      "AD-E-11",
+      "AD-F-13",
+      "AD-F-16",
+      "AD-G-19",
+      "AD-G-20",
+      "AD-G-21",
+      "AD-G-22",
+      "AD-G-23",
+      "AD-G-24",
+      "AD-G-25",
+      "AD-G-26",
+      "AD-G-27",
+      "AD-G-28",
+      "AD-G-29",
+      "AD-G-30",
+      "AD-G-31",
+      "AD-G-32",
+      "AD-G-33",
+      "AD-G-34"
+    ],
+    "steps": [
+      {
+        "operation": "GET /admin/security/dashboard",
+        "owner": "AD-G-19",
+        "view": "AD-G-19/op-01",
+        "blocked": true
+      },
+      {
+        "operation": "GET /admin/security/incidents",
+        "owner": "AD-G-20",
+        "view": "AD-G-20/op-01",
+        "blocked": true
+      },
+      {
+        "operation": "POST /admin/security/incidents/{id}/start-investigation",
+        "owner": "AD-G-20",
+        "view": "AD-G-20/op-08",
+        "blocked": true
+      },
+      {
+        "operation": "GET /admin/operations/dashboard",
+        "owner": "AD-G-24",
+        "view": "AD-G-24/op-02",
+        "blocked": true
+      },
+      {
+        "operation": "GET /admin/operations/alerts",
+        "owner": "AD-G-25",
+        "view": "AD-G-25/op-01",
+        "blocked": true
+      },
+      {
+        "operation": "GET /admin/operations/queues",
+        "owner": "AD-G-26",
+        "view": "AD-G-26/op-02",
+        "blocked": true
+      },
+      {
+        "operation": "POST /admin/operations/jobs/{id}/retry",
+        "owner": "AD-G-26",
+        "view": "AD-G-26/op-05",
+        "blocked": true
+      },
+      {
+        "operation": "POST /admin/operations/backups/{id}/restore-preview",
+        "owner": "AD-G-27",
+        "view": "AD-G-27/op-04",
+        "blocked": true
+      }
+    ],
+    "designVerdict": "PASS",
+    "execution": "RESTRICTED_BY_NO_ACTION"
+  },
+  {
+    "id": "AJ-12",
+    "title": "Provider، تنظیمات و Notification Delivery",
+    "entry": "تنظیمات و کنترل",
+    "intendedSuccess": "تغییر provider/config با preview/approval و وضعیت delivery شفاف",
+    "surfaces": [
+      "AD-E-06",
+      "AD-F-11",
+      "AD-F-12",
+      "AD-G-11",
+      "AD-G-12",
+      "AD-G-13",
+      "AD-G-14",
+      "AD-G-15"
+    ],
+    "steps": [
+      {
+        "operation": "GET /admin/integrations/providers",
+        "owner": "AD-G-15",
+        "view": "AD-G-15/op-01",
+        "blocked": true
+      },
+      {
+        "operation": "POST /admin/integrations/providers/{id}/health-check",
+        "owner": "AD-G-15",
+        "view": "AD-G-15/op-06",
+        "blocked": true
+      },
+      {
+        "operation": "POST /admin/integrations/{type}/switch-provider",
+        "owner": "AD-G-15",
+        "view": "AD-G-15/op-03",
+        "blocked": true
+      },
+      {
+        "operation": "GET /admin/configuration",
+        "owner": "AD-G-12",
+        "view": "AD-G-12/op-01",
+        "blocked": false
+      },
+      {
+        "operation": "POST /admin/configuration/{key}/preview",
+        "owner": "AD-G-12",
+        "view": "AD-G-12/op-05",
+        "blocked": false
+      },
+      {
+        "operation": "POST /admin/configuration/{key}/change-requests",
+        "owner": "AD-G-12",
+        "view": "AD-G-12/op-04",
+        "blocked": false
+      },
+      {
+        "operation": "GET /admin/notifications",
+        "owner": "AD-F-11",
+        "view": "AD-F-11/op-01",
+        "blocked": false
+      },
+      {
+        "operation": "POST /admin/notifications/{id}/retry",
+        "owner": "AD-F-11",
+        "view": "AD-F-11/op-04",
+        "blocked": false
+      }
+    ],
+    "designVerdict": "PASS",
+    "execution": "RESTRICTED_BY_NO_ACTION"
+  }
+]

@@ -1,0 +1,3898 @@
+{
+  "status": "BLOCKED_BY_OPEN_IMPLEMENTATION_EVIDENCE",
+  "gaps": [
+    {
+      "id": "GAP-01",
+      "severity": "IMPLEMENTATION_RELEASE_BLOCKER",
+      "reason": "156 assembled Admin OpenAPI operations have no matching source controller route; contract existence does not prove executable admin capability.",
+      "operations": [
+        "GET /admin/ai/jobs",
+        "GET /admin/ai/jobs/{id}",
+        "GET /admin/ai/knowledge",
+        "GET /admin/ai/knowledge/{id}",
+        "GET /admin/ai/research/{id}",
+        "GET /admin/ai/research/{id}/sources",
+        "GET /admin/approvals",
+        "GET /admin/approvals/{id}",
+        "GET /admin/customers",
+        "GET /admin/customers/{id}",
+        "GET /admin/customers/{id}/loyalty",
+        "GET /admin/customers/{id}/orders",
+        "GET /admin/customers/{id}/timeline",
+        "GET /admin/dashboard",
+        "GET /admin/data-quality",
+        "GET /admin/data-quality/issues",
+        "GET /admin/data-quality/issues/{id}",
+        "GET /admin/data/catalog",
+        "GET /admin/data/catalog/{entity}",
+        "GET /admin/data/deletion-requests",
+        "GET /admin/data/deletion-requests/{id}",
+        "GET /admin/data/lineage/{entity}",
+        "GET /admin/data/reconciliation",
+        "GET /admin/data/reconciliation/runs/{id}",
+        "GET /admin/data/retention-policies",
+        "GET /admin/integrations/providers",
+        "GET /admin/integrations/providers/{id}",
+        "GET /admin/loyalty/accounts/{customer_id}",
+        "GET /admin/loyalty/tiers",
+        "GET /admin/marketing/coupons/{id}/redemptions",
+        "GET /admin/marketing/segments",
+        "GET /admin/marketing/segments/{id}",
+        "GET /admin/operations/alerts",
+        "GET /admin/operations/alerts/{id}",
+        "GET /admin/operations/backups",
+        "GET /admin/operations/backups/{id}",
+        "GET /admin/operations/capacity",
+        "GET /admin/operations/dashboard",
+        "GET /admin/operations/deployments",
+        "GET /admin/operations/deployments/{id}",
+        "GET /admin/operations/events/consumers",
+        "GET /admin/operations/events/consumers/{consumer}",
+        "GET /admin/operations/events/dead-letter",
+        "GET /admin/operations/events/dead-letter/{id}",
+        "GET /admin/operations/events/outbox",
+        "GET /admin/operations/events/outbox/{id}",
+        "GET /admin/operations/jobs/{id}",
+        "GET /admin/operations/manual-reviews",
+        "GET /admin/operations/manual-reviews/{id}",
+        "GET /admin/operations/processes",
+        "GET /admin/operations/processes/{id}",
+        "GET /admin/operations/processes/{id}/steps",
+        "GET /admin/operations/queues",
+        "GET /admin/operations/queues/{name}",
+        "GET /admin/operations/services",
+        "GET /admin/operations/services/{service}/health",
+        "GET /admin/operations/slos",
+        "GET /admin/operations/slos/{id}",
+        "GET /admin/orders",
+        "GET /admin/orders/{id}",
+        "GET /admin/orders/{id}/allowed-actions",
+        "GET /admin/orders/{id}/timeline",
+        "GET /admin/pos/registers",
+        "GET /admin/pos/shifts/current",
+        "GET /admin/pos/stores",
+        "GET /admin/reviews",
+        "GET /admin/reviews/{id}",
+        "GET /admin/security/dashboard",
+        "GET /admin/security/events",
+        "GET /admin/security/events/{id}",
+        "GET /admin/security/incidents",
+        "GET /admin/security/incidents/{id}",
+        "GET /admin/security/secrets",
+        "GET /admin/security/vulnerabilities",
+        "GET /admin/security/vulnerabilities/{id}",
+        "PATCH /admin/data/retention-policies/{id}",
+        "PATCH /admin/loyalty/tiers/{id}",
+        "PATCH /admin/marketing/campaigns/{id}",
+        "PATCH /admin/marketing/coupons/{id}",
+        "PATCH /admin/marketing/segments/{id}",
+        "POST /admin/ai/articles/{draft_id}/create-article",
+        "POST /admin/ai/articles/{draft_id}/fact-check",
+        "POST /admin/ai/articles/generate",
+        "POST /admin/ai/jobs",
+        "POST /admin/ai/jobs/{id}/cancel",
+        "POST /admin/ai/jobs/{id}/retry",
+        "POST /admin/ai/knowledge",
+        "POST /admin/ai/knowledge/{id}/approve",
+        "POST /admin/ai/knowledge/{id}/archive",
+        "POST /admin/ai/knowledge/{id}/reindex",
+        "POST /admin/ai/research",
+        "POST /admin/ai/research/{id}/approve",
+        "POST /admin/ai/research/{id}/reject",
+        "POST /admin/approvals/{id}/approve",
+        "POST /admin/approvals/{id}/cancel",
+        "POST /admin/approvals/{id}/reject",
+        "POST /admin/data-quality/issues/{id}/accept-risk",
+        "POST /admin/data-quality/issues/{id}/plan-repair",
+        "POST /admin/data-quality/issues/{id}/resolve",
+        "POST /admin/data-quality/issues/{id}/start-investigation",
+        "POST /admin/data/deletion-requests",
+        "POST /admin/data/deletion-requests/{id}/approve",
+        "POST /admin/data/deletion-requests/{id}/cancel",
+        "POST /admin/data/reconciliation/run",
+        "POST /admin/integrations/{type}/switch-provider",
+        "POST /admin/integrations/providers/{id}/activate",
+        "POST /admin/integrations/providers/{id}/disable",
+        "POST /admin/integrations/providers/{id}/health-check",
+        "POST /admin/integrations/providers/{id}/maintenance",
+        "POST /admin/integrations/providers/{id}/standby",
+        "POST /admin/loyalty/adjustments",
+        "POST /admin/loyalty/tiers",
+        "POST /admin/marketing/campaigns/{id}/approve",
+        "POST /admin/marketing/campaigns/{id}/cancel",
+        "POST /admin/marketing/campaigns/{id}/preview",
+        "POST /admin/marketing/campaigns/{id}/resume",
+        "POST /admin/marketing/campaigns/{id}/schedule",
+        "POST /admin/marketing/campaigns/{id}/submit-review",
+        "POST /admin/marketing/coupons/{id}/activate",
+        "POST /admin/marketing/coupons/{id}/deactivate",
+        "POST /admin/marketing/segments",
+        "POST /admin/marketing/segments/{id}/preview",
+        "POST /admin/operations/alerts/{id}/acknowledge",
+        "POST /admin/operations/alerts/{id}/resolve",
+        "POST /admin/operations/alerts/{id}/suppress",
+        "POST /admin/operations/backups/{id}/restore",
+        "POST /admin/operations/backups/{id}/restore-preview",
+        "POST /admin/operations/events/dead-letter/{id}/redrive",
+        "POST /admin/operations/events/replay/apply",
+        "POST /admin/operations/events/replay/preview",
+        "POST /admin/operations/jobs/{id}/cancel",
+        "POST /admin/operations/jobs/{id}/retry",
+        "POST /admin/operations/manual-reviews/{id}/assign",
+        "POST /admin/operations/manual-reviews/{id}/dismiss",
+        "POST /admin/operations/manual-reviews/{id}/resolve",
+        "POST /admin/orders/{id}/cancel",
+        "POST /admin/orders/{id}/complete",
+        "POST /admin/orders/{id}/confirm",
+        "POST /admin/pos/orders",
+        "POST /admin/pos/shifts/{id}/begin-closing",
+        "POST /admin/pos/shifts/{id}/close",
+        "POST /admin/pos/shifts/{id}/reconcile",
+        "POST /admin/pos/shifts/open",
+        "POST /admin/reviews/{id}/approve",
+        "POST /admin/reviews/{id}/hide",
+        "POST /admin/reviews/{id}/reject",
+        "POST /admin/security/incidents",
+        "POST /admin/security/incidents/{id}/acknowledge",
+        "POST /admin/security/incidents/{id}/close",
+        "POST /admin/security/incidents/{id}/contain",
+        "POST /admin/security/incidents/{id}/resolve",
+        "POST /admin/security/incidents/{id}/start-investigation",
+        "POST /admin/security/incidents/{id}/start-recovery",
+        "POST /admin/security/secrets/{id}/rotate",
+        "POST /admin/security/vulnerabilities/{id}/accept-risk",
+        "POST /admin/security/vulnerabilities/{id}/resolve"
+      ],
+      "requiredResolution": "Separate authorized canonical API/runtime reconciliation; do not implement backend in 56-A.",
+      "affectedScreens": [
+        "AD-B-03",
+        "AD-E-01",
+        "AD-E-09",
+        "AD-E-10",
+        "AD-F-01",
+        "AD-F-03",
+        "AD-F-04",
+        "AD-F-05",
+        "AD-F-07",
+        "AD-F-08",
+        "AD-F-10",
+        "AD-F-13",
+        "AD-F-14",
+        "AD-F-15",
+        "AD-F-16",
+        "AD-G-15",
+        "AD-G-18",
+        "AD-G-19",
+        "AD-G-20",
+        "AD-G-22",
+        "AD-G-23",
+        "AD-G-24",
+        "AD-G-25",
+        "AD-G-26",
+        "AD-G-27",
+        "AD-G-28",
+        "AD-G-29",
+        "AD-G-30",
+        "AD-G-31",
+        "AD-G-32",
+        "AD-G-33",
+        "AD-G-34"
+      ],
+      "responsibleDomains": [
+        "admin",
+        "ai",
+        "catalog",
+        "customer",
+        "integrations",
+        "loyalty",
+        "marketing",
+        "operations",
+        "orders",
+        "pos",
+        "security"
+      ],
+      "foundationDisposition": {
+        "status": "RETAINED_DESIGN_OBLIGATION_NO_ACTION",
+        "allowed": "Concept-only unavailable, disabled, permission-denied and recovery design; preserve both source evidence and uncertainty.",
+        "prohibited": "No executable success, resolved permission, runtime availability or launch-readiness claim.",
+        "designAuditGate": "56-H",
+        "executionReleasePrerequisite": "Separate authorized canonical API/runtime reconciliation; do not implement backend in 56-A.",
+        "scopeRemoved": false
+      }
+    },
+    {
+      "id": "GAP-02",
+      "severity": "IMPLEMENTATION_RELEASE_BLOCKER",
+      "reason": "151 contract-only operations have no explicit permission key in OpenAPI or matching runtime controller. Complete permission boundary cannot be frozen as verified.",
+      "operations": [
+        "GET /admin/ai/jobs",
+        "GET /admin/ai/jobs/{id}",
+        "GET /admin/ai/knowledge",
+        "GET /admin/ai/knowledge/{id}",
+        "GET /admin/ai/research/{id}",
+        "GET /admin/ai/research/{id}/sources",
+        "GET /admin/approvals",
+        "GET /admin/approvals/{id}",
+        "GET /admin/customers",
+        "GET /admin/customers/{id}",
+        "GET /admin/customers/{id}/loyalty",
+        "GET /admin/customers/{id}/orders",
+        "GET /admin/customers/{id}/timeline",
+        "GET /admin/dashboard",
+        "GET /admin/data-quality",
+        "GET /admin/data-quality/issues",
+        "GET /admin/data-quality/issues/{id}",
+        "GET /admin/data/catalog",
+        "GET /admin/data/catalog/{entity}",
+        "GET /admin/data/deletion-requests",
+        "GET /admin/data/deletion-requests/{id}",
+        "GET /admin/data/lineage/{entity}",
+        "GET /admin/data/reconciliation",
+        "GET /admin/data/reconciliation/runs/{id}",
+        "GET /admin/data/retention-policies",
+        "GET /admin/integrations/providers",
+        "GET /admin/integrations/providers/{id}",
+        "GET /admin/loyalty/accounts/{customer_id}",
+        "GET /admin/loyalty/tiers",
+        "GET /admin/marketing/coupons/{id}/redemptions",
+        "GET /admin/marketing/segments",
+        "GET /admin/marketing/segments/{id}",
+        "GET /admin/operations/alerts",
+        "GET /admin/operations/alerts/{id}",
+        "GET /admin/operations/backups",
+        "GET /admin/operations/backups/{id}",
+        "GET /admin/operations/capacity",
+        "GET /admin/operations/dashboard",
+        "GET /admin/operations/deployments",
+        "GET /admin/operations/deployments/{id}",
+        "GET /admin/operations/events/consumers",
+        "GET /admin/operations/events/consumers/{consumer}",
+        "GET /admin/operations/events/dead-letter",
+        "GET /admin/operations/events/dead-letter/{id}",
+        "GET /admin/operations/events/outbox",
+        "GET /admin/operations/events/outbox/{id}",
+        "GET /admin/operations/jobs/{id}",
+        "GET /admin/operations/manual-reviews",
+        "GET /admin/operations/manual-reviews/{id}",
+        "GET /admin/operations/processes",
+        "GET /admin/operations/processes/{id}",
+        "GET /admin/operations/processes/{id}/steps",
+        "GET /admin/operations/queues",
+        "GET /admin/operations/queues/{name}",
+        "GET /admin/operations/services",
+        "GET /admin/operations/services/{service}/health",
+        "GET /admin/operations/slos",
+        "GET /admin/operations/slos/{id}",
+        "GET /admin/orders",
+        "GET /admin/orders/{id}",
+        "GET /admin/orders/{id}/allowed-actions",
+        "GET /admin/orders/{id}/timeline",
+        "GET /admin/pos/registers",
+        "GET /admin/pos/shifts/current",
+        "GET /admin/pos/stores",
+        "GET /admin/reviews",
+        "GET /admin/reviews/{id}",
+        "GET /admin/security/dashboard",
+        "GET /admin/security/events",
+        "GET /admin/security/events/{id}",
+        "GET /admin/security/incidents",
+        "GET /admin/security/incidents/{id}",
+        "GET /admin/security/secrets",
+        "GET /admin/security/vulnerabilities",
+        "GET /admin/security/vulnerabilities/{id}",
+        "PATCH /admin/data/retention-policies/{id}",
+        "PATCH /admin/loyalty/tiers/{id}",
+        "PATCH /admin/marketing/campaigns/{id}",
+        "PATCH /admin/marketing/coupons/{id}",
+        "PATCH /admin/marketing/segments/{id}",
+        "POST /admin/ai/articles/{draft_id}/create-article",
+        "POST /admin/ai/articles/{draft_id}/fact-check",
+        "POST /admin/ai/articles/generate",
+        "POST /admin/ai/jobs",
+        "POST /admin/ai/jobs/{id}/cancel",
+        "POST /admin/ai/jobs/{id}/retry",
+        "POST /admin/ai/knowledge",
+        "POST /admin/ai/knowledge/{id}/approve",
+        "POST /admin/ai/knowledge/{id}/archive",
+        "POST /admin/ai/knowledge/{id}/reindex",
+        "POST /admin/ai/research",
+        "POST /admin/ai/research/{id}/approve",
+        "POST /admin/ai/research/{id}/reject",
+        "POST /admin/approvals/{id}/approve",
+        "POST /admin/approvals/{id}/cancel",
+        "POST /admin/approvals/{id}/reject",
+        "POST /admin/data-quality/issues/{id}/accept-risk",
+        "POST /admin/data-quality/issues/{id}/plan-repair",
+        "POST /admin/data-quality/issues/{id}/resolve",
+        "POST /admin/data-quality/issues/{id}/start-investigation",
+        "POST /admin/data/deletion-requests",
+        "POST /admin/data/deletion-requests/{id}/approve",
+        "POST /admin/data/deletion-requests/{id}/cancel",
+        "POST /admin/data/reconciliation/run",
+        "POST /admin/integrations/{type}/switch-provider",
+        "POST /admin/integrations/providers/{id}/activate",
+        "POST /admin/integrations/providers/{id}/disable",
+        "POST /admin/integrations/providers/{id}/health-check",
+        "POST /admin/integrations/providers/{id}/maintenance",
+        "POST /admin/integrations/providers/{id}/standby",
+        "POST /admin/loyalty/adjustments",
+        "POST /admin/loyalty/tiers",
+        "POST /admin/marketing/campaigns/{id}/approve",
+        "POST /admin/marketing/campaigns/{id}/cancel",
+        "POST /admin/marketing/campaigns/{id}/preview",
+        "POST /admin/marketing/campaigns/{id}/resume",
+        "POST /admin/marketing/campaigns/{id}/schedule",
+        "POST /admin/marketing/campaigns/{id}/submit-review",
+        "POST /admin/marketing/coupons/{id}/activate",
+        "POST /admin/marketing/coupons/{id}/deactivate",
+        "POST /admin/marketing/segments",
+        "POST /admin/marketing/segments/{id}/preview",
+        "POST /admin/operations/alerts/{id}/acknowledge",
+        "POST /admin/operations/alerts/{id}/resolve",
+        "POST /admin/operations/alerts/{id}/suppress",
+        "POST /admin/operations/events/dead-letter/{id}/redrive",
+        "POST /admin/operations/events/replay/apply",
+        "POST /admin/operations/jobs/{id}/cancel",
+        "POST /admin/operations/jobs/{id}/retry",
+        "POST /admin/operations/manual-reviews/{id}/assign",
+        "POST /admin/operations/manual-reviews/{id}/dismiss",
+        "POST /admin/operations/manual-reviews/{id}/resolve",
+        "POST /admin/orders/{id}/complete",
+        "POST /admin/orders/{id}/confirm",
+        "POST /admin/pos/orders",
+        "POST /admin/pos/shifts/{id}/begin-closing",
+        "POST /admin/pos/shifts/{id}/close",
+        "POST /admin/pos/shifts/{id}/reconcile",
+        "POST /admin/pos/shifts/open",
+        "POST /admin/reviews/{id}/approve",
+        "POST /admin/reviews/{id}/hide",
+        "POST /admin/reviews/{id}/reject",
+        "POST /admin/security/incidents",
+        "POST /admin/security/incidents/{id}/acknowledge",
+        "POST /admin/security/incidents/{id}/close",
+        "POST /admin/security/incidents/{id}/contain",
+        "POST /admin/security/incidents/{id}/resolve",
+        "POST /admin/security/incidents/{id}/start-investigation",
+        "POST /admin/security/incidents/{id}/start-recovery",
+        "POST /admin/security/vulnerabilities/{id}/accept-risk",
+        "POST /admin/security/vulnerabilities/{id}/resolve"
+      ],
+      "requiredResolution": "Owner-approved canonical permission evidence; never invent permission names or persona grants.",
+      "affectedScreens": [
+        "AD-B-03",
+        "AD-E-01",
+        "AD-E-09",
+        "AD-E-10",
+        "AD-F-01",
+        "AD-F-03",
+        "AD-F-04",
+        "AD-F-05",
+        "AD-F-07",
+        "AD-F-08",
+        "AD-F-10",
+        "AD-F-13",
+        "AD-F-14",
+        "AD-F-15",
+        "AD-F-16",
+        "AD-G-15",
+        "AD-G-18",
+        "AD-G-19",
+        "AD-G-20",
+        "AD-G-22",
+        "AD-G-23",
+        "AD-G-24",
+        "AD-G-25",
+        "AD-G-26",
+        "AD-G-27",
+        "AD-G-28",
+        "AD-G-29",
+        "AD-G-30",
+        "AD-G-31",
+        "AD-G-32",
+        "AD-G-33",
+        "AD-G-34"
+      ],
+      "responsibleDomains": [
+        "admin",
+        "ai",
+        "catalog",
+        "customer",
+        "integrations",
+        "loyalty",
+        "marketing",
+        "operations",
+        "orders",
+        "pos",
+        "security"
+      ],
+      "foundationDisposition": {
+        "status": "RETAINED_DESIGN_OBLIGATION_NO_ACTION",
+        "allowed": "Concept-only unavailable, disabled, permission-denied and recovery design; preserve both source evidence and uncertainty.",
+        "prohibited": "No executable success, resolved permission, runtime availability or launch-readiness claim.",
+        "designAuditGate": "56-H",
+        "executionReleasePrerequisite": "Owner-approved canonical permission evidence; never invent permission names or persona grants.",
+        "scopeRemoved": false
+      }
+    },
+    {
+      "id": "GAP-03",
+      "severity": "IMPLEMENTATION_RELEASE_BLOCKER",
+      "reason": "25 implemented admin controller operations are outside assembled OpenAPI; POS has a separate supplemental contract for some of them.",
+      "operations": [
+        "GET /admin/loyalty/customers/{customerId}/balance",
+        "GET /admin/loyalty/customers/{customerId}/history",
+        "GET /admin/marketing/promotions",
+        "GET /admin/marketing/redemptions",
+        "GET /admin/pos/reconciliation/{clientCommandId}",
+        "GET /admin/pos/reconciliation/failed",
+        "GET /admin/pos/scan",
+        "POST /admin/loyalty/customers/{customerId}/adjust",
+        "POST /admin/loyalty/customers/{customerId}/entries/{entryId}/reverse",
+        "POST /admin/marketing/campaigns/{id}/archive",
+        "POST /admin/marketing/campaigns/{id}/end",
+        "POST /admin/marketing/campaigns/{id}/reschedule",
+        "POST /admin/marketing/coupons/{id}/disable",
+        "POST /admin/marketing/coupons/{id}/enable",
+        "POST /admin/marketing/promotions",
+        "POST /admin/marketing/promotions/{id}/disable",
+        "POST /admin/marketing/promotions/{id}/enable",
+        "POST /admin/pos/offline/commands",
+        "POST /admin/pos/offline/commands/{clientCommandId}/sync",
+        "POST /admin/pos/reconciliation/{clientCommandId}/abandon",
+        "POST /admin/pos/reconciliation/{clientCommandId}/retry",
+        "POST /admin/pos/sales",
+        "POST /admin/pos/sales/{id}/commit",
+        "POST /admin/pos/sales/{id}/lines",
+        "POST /admin/pos/sales/{id}/price"
+      ],
+      "requiredResolution": "Separate authorized contract reconciliation; preserve existing source truth and do not silently add overlay/API changes in A.",
+      "affectedScreens": [
+        "AD-E-10",
+        "AD-E-11",
+        "AD-F-03",
+        "AD-F-07",
+        "AD-F-08",
+        "AD-F-09"
+      ],
+      "responsibleDomains": [
+        "loyalty",
+        "marketing",
+        "pos"
+      ],
+      "foundationDisposition": {
+        "status": "RETAINED_DESIGN_OBLIGATION_NO_ACTION",
+        "allowed": "Concept-only unavailable, disabled, permission-denied and recovery design; preserve both source evidence and uncertainty.",
+        "prohibited": "No executable success, resolved permission, runtime availability or launch-readiness claim.",
+        "designAuditGate": "56-H",
+        "executionReleasePrerequisite": "Separate authorized contract reconciliation; preserve existing source truth and do not silently add overlay/API changes in A.",
+        "scopeRemoved": false
+      }
+    },
+    {
+      "id": "GAP-04",
+      "severity": "IMPLEMENTATION_RELEASE_BLOCKER",
+      "reason": "Five source controller permission declarations conflict with explicit OpenAPI permission keys. Both claims are preserved; neither is represented as reconciled authority.",
+      "operations": [
+        "PATCH /admin/rbac/roles/{id}",
+        "POST /admin/finance/profit-rules/{id}/preview",
+        "POST /admin/marketing/campaigns/{id}/activate",
+        "POST /admin/rbac/roles",
+        "PUT /admin/rbac/roles/{id}/permissions"
+      ],
+      "requiredResolution": "Separate authorized canonical permission-contract reconciliation; no action permitted from conflicted design evidence.",
+      "affectedScreens": [
+        "AD-F-07",
+        "AD-G-06",
+        "AD-G-16"
+      ],
+      "responsibleDomains": [
+        "admin",
+        "finance",
+        "marketing"
+      ],
+      "foundationDisposition": {
+        "status": "RETAINED_DESIGN_OBLIGATION_NO_ACTION",
+        "allowed": "Concept-only unavailable, disabled, permission-denied and recovery design; preserve both source evidence and uncertainty.",
+        "prohibited": "No executable success, resolved permission, runtime availability or launch-readiness claim.",
+        "designAuditGate": "56-H",
+        "executionReleasePrerequisite": "Separate authorized canonical permission-contract reconciliation; no action permitted from conflicted design evidence.",
+        "scopeRemoved": false
+      }
+    }
+  ],
+  "blockedOperations": [
+    {
+      "operation": "GET /admin/dashboard",
+      "owner": "AD-B-03",
+      "gate": "B",
+      "view": "AD-B-03/unavailable",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "GET /admin/orders",
+      "owner": "AD-E-01",
+      "gate": "E",
+      "view": "AD-E-01/op-01",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "GET /admin/orders/{id}",
+      "owner": "AD-E-01",
+      "gate": "E",
+      "view": "AD-E-01/op-02",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "GET /admin/orders/{id}/allowed-actions",
+      "owner": "AD-E-01",
+      "gate": "E",
+      "view": "AD-E-01/op-03",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "GET /admin/orders/{id}/timeline",
+      "owner": "AD-E-01",
+      "gate": "E",
+      "view": "AD-E-01/op-04",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "POST /admin/orders/{id}/cancel",
+      "owner": "AD-E-01",
+      "gate": "E",
+      "view": "AD-E-01/op-05",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": "orders.cancel"
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01"
+      ]
+    },
+    {
+      "operation": "POST /admin/orders/{id}/complete",
+      "owner": "AD-E-01",
+      "gate": "E",
+      "view": "AD-E-01/op-06",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "POST /admin/orders/{id}/confirm",
+      "owner": "AD-E-01",
+      "gate": "E",
+      "view": "AD-E-01/op-07",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "GET /admin/pos/registers",
+      "owner": "AD-E-09",
+      "gate": "E",
+      "view": "AD-E-09/op-01",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "GET /admin/pos/shifts/current",
+      "owner": "AD-E-09",
+      "gate": "E",
+      "view": "AD-E-09/op-02",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "GET /admin/pos/stores",
+      "owner": "AD-E-09",
+      "gate": "E",
+      "view": "AD-E-09/op-03",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "POST /admin/pos/shifts/{id}/begin-closing",
+      "owner": "AD-E-09",
+      "gate": "E",
+      "view": "AD-E-09/op-04",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "POST /admin/pos/shifts/{id}/close",
+      "owner": "AD-E-09",
+      "gate": "E",
+      "view": "AD-E-09/op-05",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "POST /admin/pos/shifts/{id}/reconcile",
+      "owner": "AD-E-09",
+      "gate": "E",
+      "view": "AD-E-09/op-06",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "POST /admin/pos/shifts/open",
+      "owner": "AD-E-09",
+      "gate": "E",
+      "view": "AD-E-09/op-07",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "GET /admin/pos/scan",
+      "owner": "AD-E-10",
+      "gate": "E",
+      "view": "AD-E-10/op-01",
+      "permissionClaims": {
+        "runtime": [
+          "pos.view"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": false,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-03"
+      ]
+    },
+    {
+      "operation": "POST /admin/pos/orders",
+      "owner": "AD-E-10",
+      "gate": "E",
+      "view": "AD-E-10/op-02",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "POST /admin/pos/sales",
+      "owner": "AD-E-10",
+      "gate": "E",
+      "view": "AD-E-10/op-03",
+      "permissionClaims": {
+        "runtime": [
+          "pos.sell"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": false,
+      "idempotencyScope": "pos.sale.create",
+      "gapIds": [
+        "GAP-03"
+      ]
+    },
+    {
+      "operation": "POST /admin/pos/sales/{id}/commit",
+      "owner": "AD-E-10",
+      "gate": "E",
+      "view": "AD-E-10/op-04",
+      "permissionClaims": {
+        "runtime": [
+          "pos.sell"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": false,
+      "idempotencyScope": "pos.sale.commit",
+      "gapIds": [
+        "GAP-03"
+      ]
+    },
+    {
+      "operation": "POST /admin/pos/sales/{id}/lines",
+      "owner": "AD-E-10",
+      "gate": "E",
+      "view": "AD-E-10/op-05",
+      "permissionClaims": {
+        "runtime": [
+          "pos.sell"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": false,
+      "idempotencyScope": "pos.sale.line.add",
+      "gapIds": [
+        "GAP-03"
+      ]
+    },
+    {
+      "operation": "POST /admin/pos/sales/{id}/price",
+      "owner": "AD-E-10",
+      "gate": "E",
+      "view": "AD-E-10/op-06",
+      "permissionClaims": {
+        "runtime": [
+          "pos.sell"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": false,
+      "idempotencyScope": "pos.sale.price",
+      "gapIds": [
+        "GAP-03"
+      ]
+    },
+    {
+      "operation": "GET /admin/pos/reconciliation/{clientCommandId}",
+      "owner": "AD-E-11",
+      "gate": "E",
+      "view": "AD-E-11/op-01",
+      "permissionClaims": {
+        "runtime": [
+          "pos.reconcile"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": false,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-03"
+      ]
+    },
+    {
+      "operation": "GET /admin/pos/reconciliation/failed",
+      "owner": "AD-E-11",
+      "gate": "E",
+      "view": "AD-E-11/op-02",
+      "permissionClaims": {
+        "runtime": [
+          "pos.reconcile"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": false,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-03"
+      ]
+    },
+    {
+      "operation": "POST /admin/pos/offline/commands",
+      "owner": "AD-E-11",
+      "gate": "E",
+      "view": "AD-E-11/op-03",
+      "permissionClaims": {
+        "runtime": [
+          "pos.sell"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": false,
+      "idempotencyScope": "pos.offline.capture",
+      "gapIds": [
+        "GAP-03"
+      ]
+    },
+    {
+      "operation": "POST /admin/pos/offline/commands/{clientCommandId}/sync",
+      "owner": "AD-E-11",
+      "gate": "E",
+      "view": "AD-E-11/op-04",
+      "permissionClaims": {
+        "runtime": [
+          "pos.sell"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": false,
+      "idempotencyScope": "pos.offline.sync",
+      "gapIds": [
+        "GAP-03"
+      ]
+    },
+    {
+      "operation": "POST /admin/pos/reconciliation/{clientCommandId}/abandon",
+      "owner": "AD-E-11",
+      "gate": "E",
+      "view": "AD-E-11/op-05",
+      "permissionClaims": {
+        "runtime": [
+          "pos.reconcile"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": true,
+      "idempotencyScope": "pos.reconciliation.admin.abandon",
+      "gapIds": [
+        "GAP-03"
+      ]
+    },
+    {
+      "operation": "POST /admin/pos/reconciliation/{clientCommandId}/retry",
+      "owner": "AD-E-11",
+      "gate": "E",
+      "view": "AD-E-11/op-06",
+      "permissionClaims": {
+        "runtime": [
+          "pos.reconcile"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": true,
+      "idempotencyScope": "pos.reconciliation.admin.retry",
+      "gapIds": [
+        "GAP-03"
+      ]
+    },
+    {
+      "operation": "GET /admin/customers",
+      "owner": "AD-F-01",
+      "gate": "F",
+      "view": "AD-F-01/op-01",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "GET /admin/customers/{id}",
+      "owner": "AD-F-01",
+      "gate": "F",
+      "view": "AD-F-01/op-02",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "GET /admin/customers/{id}/loyalty",
+      "owner": "AD-F-01",
+      "gate": "F",
+      "view": "AD-F-01/op-03",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "GET /admin/customers/{id}/orders",
+      "owner": "AD-F-01",
+      "gate": "F",
+      "view": "AD-F-01/op-04",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "GET /admin/customers/{id}/timeline",
+      "owner": "AD-F-01",
+      "gate": "F",
+      "view": "AD-F-01/op-05",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "GET /admin/loyalty/accounts/{customer_id}",
+      "owner": "AD-F-03",
+      "gate": "F",
+      "view": "AD-F-03/op-01",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "GET /admin/loyalty/customers/{customerId}/balance",
+      "owner": "AD-F-03",
+      "gate": "F",
+      "view": "AD-F-03/op-02",
+      "permissionClaims": {
+        "runtime": [
+          "loyalty.view"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": false,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-03"
+      ]
+    },
+    {
+      "operation": "GET /admin/loyalty/customers/{customerId}/history",
+      "owner": "AD-F-03",
+      "gate": "F",
+      "view": "AD-F-03/op-03",
+      "permissionClaims": {
+        "runtime": [
+          "loyalty.view"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": false,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-03"
+      ]
+    },
+    {
+      "operation": "POST /admin/loyalty/adjustments",
+      "owner": "AD-F-03",
+      "gate": "F",
+      "view": "AD-F-03/op-04",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "POST /admin/loyalty/customers/{customerId}/adjust",
+      "owner": "AD-F-03",
+      "gate": "F",
+      "view": "AD-F-03/op-05",
+      "permissionClaims": {
+        "runtime": [
+          "loyalty.adjust"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": true,
+      "idempotencyScope": "loyalty.points.adjust",
+      "gapIds": [
+        "GAP-03"
+      ]
+    },
+    {
+      "operation": "POST /admin/loyalty/customers/{customerId}/entries/{entryId}/reverse",
+      "owner": "AD-F-03",
+      "gate": "F",
+      "view": "AD-F-03/op-06",
+      "permissionClaims": {
+        "runtime": [
+          "loyalty.adjust"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": true,
+      "idempotencyScope": "loyalty.points.reverse",
+      "gapIds": [
+        "GAP-03"
+      ]
+    },
+    {
+      "operation": "GET /admin/loyalty/tiers",
+      "owner": "AD-F-04",
+      "gate": "F",
+      "view": "AD-F-04/op-01",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "PATCH /admin/loyalty/tiers/{id}",
+      "owner": "AD-F-04",
+      "gate": "F",
+      "view": "AD-F-04/op-02",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "POST /admin/loyalty/tiers",
+      "owner": "AD-F-04",
+      "gate": "F",
+      "view": "AD-F-04/op-03",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "GET /admin/reviews",
+      "owner": "AD-F-05",
+      "gate": "F",
+      "view": "AD-F-05/op-01",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "GET /admin/reviews/{id}",
+      "owner": "AD-F-05",
+      "gate": "F",
+      "view": "AD-F-05/op-02",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "POST /admin/reviews/{id}/approve",
+      "owner": "AD-F-05",
+      "gate": "F",
+      "view": "AD-F-05/op-03",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "POST /admin/reviews/{id}/hide",
+      "owner": "AD-F-05",
+      "gate": "F",
+      "view": "AD-F-05/op-04",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "POST /admin/reviews/{id}/reject",
+      "owner": "AD-F-05",
+      "gate": "F",
+      "view": "AD-F-05/op-05",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "PATCH /admin/marketing/campaigns/{id}",
+      "owner": "AD-F-07",
+      "gate": "F",
+      "view": "AD-F-07/op-03",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "POST /admin/marketing/campaigns/{id}/activate",
+      "owner": "AD-F-07",
+      "gate": "F",
+      "view": "AD-F-07/op-05",
+      "permissionClaims": {
+        "runtime": [
+          "marketing.activate"
+        ],
+        "openapi": "marketing.campaign.activate"
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": true,
+      "idempotencyScope": "marketing.campaign.activate",
+      "gapIds": [
+        "GAP-04"
+      ]
+    },
+    {
+      "operation": "POST /admin/marketing/campaigns/{id}/approve",
+      "owner": "AD-F-07",
+      "gate": "F",
+      "view": "AD-F-07/op-06",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "POST /admin/marketing/campaigns/{id}/archive",
+      "owner": "AD-F-07",
+      "gate": "F",
+      "view": "AD-F-07/op-07",
+      "permissionClaims": {
+        "runtime": [
+          "marketing.activate"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": true,
+      "idempotencyScope": "marketing.campaign.archive",
+      "gapIds": [
+        "GAP-03"
+      ]
+    },
+    {
+      "operation": "POST /admin/marketing/campaigns/{id}/cancel",
+      "owner": "AD-F-07",
+      "gate": "F",
+      "view": "AD-F-07/op-08",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "POST /admin/marketing/campaigns/{id}/end",
+      "owner": "AD-F-07",
+      "gate": "F",
+      "view": "AD-F-07/op-09",
+      "permissionClaims": {
+        "runtime": [
+          "marketing.activate"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": true,
+      "idempotencyScope": "marketing.campaign.end",
+      "gapIds": [
+        "GAP-03"
+      ]
+    },
+    {
+      "operation": "POST /admin/marketing/campaigns/{id}/preview",
+      "owner": "AD-F-07",
+      "gate": "F",
+      "view": "AD-F-07/op-11",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "POST /admin/marketing/campaigns/{id}/reschedule",
+      "owner": "AD-F-07",
+      "gate": "F",
+      "view": "AD-F-07/op-12",
+      "permissionClaims": {
+        "runtime": [
+          "marketing.manage"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": false,
+      "idempotencyScope": "marketing.campaign.reschedule",
+      "gapIds": [
+        "GAP-03"
+      ]
+    },
+    {
+      "operation": "POST /admin/marketing/campaigns/{id}/resume",
+      "owner": "AD-F-07",
+      "gate": "F",
+      "view": "AD-F-07/op-13",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "POST /admin/marketing/campaigns/{id}/schedule",
+      "owner": "AD-F-07",
+      "gate": "F",
+      "view": "AD-F-07/op-14",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "POST /admin/marketing/campaigns/{id}/submit-review",
+      "owner": "AD-F-07",
+      "gate": "F",
+      "view": "AD-F-07/op-15",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "GET /admin/marketing/coupons/{id}/redemptions",
+      "owner": "AD-F-08",
+      "gate": "F",
+      "view": "AD-F-08/op-02",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "GET /admin/marketing/redemptions",
+      "owner": "AD-F-08",
+      "gate": "F",
+      "view": "AD-F-08/op-03",
+      "permissionClaims": {
+        "runtime": [
+          "marketing.redemption.view"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": false,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-03"
+      ]
+    },
+    {
+      "operation": "PATCH /admin/marketing/coupons/{id}",
+      "owner": "AD-F-08",
+      "gate": "F",
+      "view": "AD-F-08/op-04",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "POST /admin/marketing/coupons/{id}/activate",
+      "owner": "AD-F-08",
+      "gate": "F",
+      "view": "AD-F-08/op-06",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "POST /admin/marketing/coupons/{id}/deactivate",
+      "owner": "AD-F-08",
+      "gate": "F",
+      "view": "AD-F-08/op-07",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "POST /admin/marketing/coupons/{id}/disable",
+      "owner": "AD-F-08",
+      "gate": "F",
+      "view": "AD-F-08/op-08",
+      "permissionClaims": {
+        "runtime": [
+          "marketing.activate"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": true,
+      "idempotencyScope": "marketing.coupon.disable",
+      "gapIds": [
+        "GAP-03"
+      ]
+    },
+    {
+      "operation": "POST /admin/marketing/coupons/{id}/enable",
+      "owner": "AD-F-08",
+      "gate": "F",
+      "view": "AD-F-08/op-09",
+      "permissionClaims": {
+        "runtime": [
+          "marketing.activate"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": true,
+      "idempotencyScope": "marketing.coupon.enable",
+      "gapIds": [
+        "GAP-03"
+      ]
+    },
+    {
+      "operation": "GET /admin/marketing/promotions",
+      "owner": "AD-F-09",
+      "gate": "F",
+      "view": "AD-F-09/op-01",
+      "permissionClaims": {
+        "runtime": [
+          "marketing.view"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": false,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-03"
+      ]
+    },
+    {
+      "operation": "POST /admin/marketing/promotions",
+      "owner": "AD-F-09",
+      "gate": "F",
+      "view": "AD-F-09/op-02",
+      "permissionClaims": {
+        "runtime": [
+          "marketing.manage"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": false,
+      "idempotencyScope": "marketing.promotion.create",
+      "gapIds": [
+        "GAP-03"
+      ]
+    },
+    {
+      "operation": "POST /admin/marketing/promotions/{id}/disable",
+      "owner": "AD-F-09",
+      "gate": "F",
+      "view": "AD-F-09/op-03",
+      "permissionClaims": {
+        "runtime": [
+          "marketing.activate"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": true,
+      "idempotencyScope": "marketing.promotion.disable",
+      "gapIds": [
+        "GAP-03"
+      ]
+    },
+    {
+      "operation": "POST /admin/marketing/promotions/{id}/enable",
+      "owner": "AD-F-09",
+      "gate": "F",
+      "view": "AD-F-09/op-04",
+      "permissionClaims": {
+        "runtime": [
+          "marketing.activate"
+        ],
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": true,
+      "idempotencyScope": "marketing.promotion.enable",
+      "gapIds": [
+        "GAP-03"
+      ]
+    },
+    {
+      "operation": "GET /admin/marketing/segments",
+      "owner": "AD-F-10",
+      "gate": "F",
+      "view": "AD-F-10/op-01",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "GET /admin/marketing/segments/{id}",
+      "owner": "AD-F-10",
+      "gate": "F",
+      "view": "AD-F-10/op-02",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "PATCH /admin/marketing/segments/{id}",
+      "owner": "AD-F-10",
+      "gate": "F",
+      "view": "AD-F-10/op-03",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "POST /admin/marketing/segments",
+      "owner": "AD-F-10",
+      "gate": "F",
+      "view": "AD-F-10/op-04",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "POST /admin/marketing/segments/{id}/preview",
+      "owner": "AD-F-10",
+      "gate": "F",
+      "view": "AD-F-10/op-05",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "GET /admin/ai/jobs",
+      "owner": "AD-F-13",
+      "gate": "F",
+      "view": "AD-F-13/op-01",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "GET /admin/ai/jobs/{id}",
+      "owner": "AD-F-13",
+      "gate": "F",
+      "view": "AD-F-13/op-02",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "POST /admin/ai/jobs",
+      "owner": "AD-F-13",
+      "gate": "F",
+      "view": "AD-F-13/op-03",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "POST /admin/ai/jobs/{id}/cancel",
+      "owner": "AD-F-13",
+      "gate": "F",
+      "view": "AD-F-13/op-04",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "POST /admin/ai/jobs/{id}/retry",
+      "owner": "AD-F-13",
+      "gate": "F",
+      "view": "AD-F-13/op-05",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "GET /admin/ai/research/{id}",
+      "owner": "AD-F-14",
+      "gate": "F",
+      "view": "AD-F-14/op-01",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "GET /admin/ai/research/{id}/sources",
+      "owner": "AD-F-14",
+      "gate": "F",
+      "view": "AD-F-14/op-02",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "POST /admin/ai/research",
+      "owner": "AD-F-14",
+      "gate": "F",
+      "view": "AD-F-14/op-03",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "POST /admin/ai/research/{id}/approve",
+      "owner": "AD-F-14",
+      "gate": "F",
+      "view": "AD-F-14/op-04",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "POST /admin/ai/research/{id}/reject",
+      "owner": "AD-F-14",
+      "gate": "F",
+      "view": "AD-F-14/op-05",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "POST /admin/ai/articles/{draft_id}/create-article",
+      "owner": "AD-F-15",
+      "gate": "F",
+      "view": "AD-F-15/op-01",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "POST /admin/ai/articles/{draft_id}/fact-check",
+      "owner": "AD-F-15",
+      "gate": "F",
+      "view": "AD-F-15/op-02",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "POST /admin/ai/articles/generate",
+      "owner": "AD-F-15",
+      "gate": "F",
+      "view": "AD-F-15/op-03",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "GET /admin/ai/knowledge",
+      "owner": "AD-F-16",
+      "gate": "F",
+      "view": "AD-F-16/op-01",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "GET /admin/ai/knowledge/{id}",
+      "owner": "AD-F-16",
+      "gate": "F",
+      "view": "AD-F-16/op-02",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "POST /admin/ai/knowledge",
+      "owner": "AD-F-16",
+      "gate": "F",
+      "view": "AD-F-16/op-03",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "POST /admin/ai/knowledge/{id}/approve",
+      "owner": "AD-F-16",
+      "gate": "F",
+      "view": "AD-F-16/op-04",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "POST /admin/ai/knowledge/{id}/archive",
+      "owner": "AD-F-16",
+      "gate": "F",
+      "view": "AD-F-16/op-05",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "POST /admin/ai/knowledge/{id}/reindex",
+      "owner": "AD-F-16",
+      "gate": "F",
+      "view": "AD-F-16/op-06",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "POST /admin/finance/profit-rules/{id}/preview",
+      "owner": "AD-G-06",
+      "gate": "G",
+      "view": "AD-G-06/op-07",
+      "permissionClaims": {
+        "runtime": [
+          "finance.view"
+        ],
+        "openapi": "finance.profit_rule.view"
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": false,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-04"
+      ]
+    },
+    {
+      "operation": "GET /admin/integrations/providers",
+      "owner": "AD-G-15",
+      "gate": "G",
+      "view": "AD-G-15/op-01",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "GET /admin/integrations/providers/{id}",
+      "owner": "AD-G-15",
+      "gate": "G",
+      "view": "AD-G-15/op-02",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "POST /admin/integrations/{type}/switch-provider",
+      "owner": "AD-G-15",
+      "gate": "G",
+      "view": "AD-G-15/op-03",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "POST /admin/integrations/providers/{id}/activate",
+      "owner": "AD-G-15",
+      "gate": "G",
+      "view": "AD-G-15/op-04",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "POST /admin/integrations/providers/{id}/disable",
+      "owner": "AD-G-15",
+      "gate": "G",
+      "view": "AD-G-15/op-05",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "POST /admin/integrations/providers/{id}/health-check",
+      "owner": "AD-G-15",
+      "gate": "G",
+      "view": "AD-G-15/op-06",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "POST /admin/integrations/providers/{id}/maintenance",
+      "owner": "AD-G-15",
+      "gate": "G",
+      "view": "AD-G-15/op-07",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "POST /admin/integrations/providers/{id}/standby",
+      "owner": "AD-G-15",
+      "gate": "G",
+      "view": "AD-G-15/op-08",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "PATCH /admin/rbac/roles/{id}",
+      "owner": "AD-G-16",
+      "gate": "G",
+      "view": "AD-G-16/op-04",
+      "permissionClaims": {
+        "runtime": [
+          "rbac.manage"
+        ],
+        "openapi": "rbac.roles.manage"
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": true,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-04"
+      ]
+    },
+    {
+      "operation": "POST /admin/rbac/roles",
+      "owner": "AD-G-16",
+      "gate": "G",
+      "view": "AD-G-16/op-05",
+      "permissionClaims": {
+        "runtime": [
+          "rbac.manage"
+        ],
+        "openapi": "rbac.roles.manage"
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": true,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-04"
+      ]
+    },
+    {
+      "operation": "PUT /admin/rbac/roles/{id}/permissions",
+      "owner": "AD-G-16",
+      "gate": "G",
+      "view": "AD-G-16/op-06",
+      "permissionClaims": {
+        "runtime": [
+          "rbac.manage"
+        ],
+        "openapi": "rbac.permissions.manage"
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": true,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-04"
+      ]
+    },
+    {
+      "operation": "GET /admin/approvals",
+      "owner": "AD-G-18",
+      "gate": "G",
+      "view": "AD-G-18/op-01",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "GET /admin/approvals/{id}",
+      "owner": "AD-G-18",
+      "gate": "G",
+      "view": "AD-G-18/op-02",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "POST /admin/approvals/{id}/approve",
+      "owner": "AD-G-18",
+      "gate": "G",
+      "view": "AD-G-18/op-03",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "POST /admin/approvals/{id}/cancel",
+      "owner": "AD-G-18",
+      "gate": "G",
+      "view": "AD-G-18/op-04",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "POST /admin/approvals/{id}/reject",
+      "owner": "AD-G-18",
+      "gate": "G",
+      "view": "AD-G-18/op-05",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "GET /admin/security/dashboard",
+      "owner": "AD-G-19",
+      "gate": "G",
+      "view": "AD-G-19/op-01",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "GET /admin/security/events",
+      "owner": "AD-G-19",
+      "gate": "G",
+      "view": "AD-G-19/op-02",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "GET /admin/security/events/{id}",
+      "owner": "AD-G-19",
+      "gate": "G",
+      "view": "AD-G-19/op-03",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "GET /admin/security/incidents",
+      "owner": "AD-G-20",
+      "gate": "G",
+      "view": "AD-G-20/op-01",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "GET /admin/security/incidents/{id}",
+      "owner": "AD-G-20",
+      "gate": "G",
+      "view": "AD-G-20/op-02",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "POST /admin/security/incidents",
+      "owner": "AD-G-20",
+      "gate": "G",
+      "view": "AD-G-20/op-03",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "POST /admin/security/incidents/{id}/acknowledge",
+      "owner": "AD-G-20",
+      "gate": "G",
+      "view": "AD-G-20/op-04",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "POST /admin/security/incidents/{id}/close",
+      "owner": "AD-G-20",
+      "gate": "G",
+      "view": "AD-G-20/op-05",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "POST /admin/security/incidents/{id}/contain",
+      "owner": "AD-G-20",
+      "gate": "G",
+      "view": "AD-G-20/op-06",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "POST /admin/security/incidents/{id}/resolve",
+      "owner": "AD-G-20",
+      "gate": "G",
+      "view": "AD-G-20/op-07",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "POST /admin/security/incidents/{id}/start-investigation",
+      "owner": "AD-G-20",
+      "gate": "G",
+      "view": "AD-G-20/op-08",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "POST /admin/security/incidents/{id}/start-recovery",
+      "owner": "AD-G-20",
+      "gate": "G",
+      "view": "AD-G-20/op-09",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "GET /admin/security/secrets",
+      "owner": "AD-G-22",
+      "gate": "G",
+      "view": "AD-G-22/op-01",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "POST /admin/security/secrets/{id}/rotate",
+      "owner": "AD-G-22",
+      "gate": "G",
+      "view": "AD-G-22/op-02",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": "security.secrets.rotate"
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01"
+      ]
+    },
+    {
+      "operation": "GET /admin/security/vulnerabilities",
+      "owner": "AD-G-23",
+      "gate": "G",
+      "view": "AD-G-23/op-01",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "GET /admin/security/vulnerabilities/{id}",
+      "owner": "AD-G-23",
+      "gate": "G",
+      "view": "AD-G-23/op-02",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "POST /admin/security/vulnerabilities/{id}/accept-risk",
+      "owner": "AD-G-23",
+      "gate": "G",
+      "view": "AD-G-23/op-03",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "POST /admin/security/vulnerabilities/{id}/resolve",
+      "owner": "AD-G-23",
+      "gate": "G",
+      "view": "AD-G-23/op-04",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "GET /admin/operations/capacity",
+      "owner": "AD-G-24",
+      "gate": "G",
+      "view": "AD-G-24/op-01",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "GET /admin/operations/dashboard",
+      "owner": "AD-G-24",
+      "gate": "G",
+      "view": "AD-G-24/op-02",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "GET /admin/operations/services",
+      "owner": "AD-G-24",
+      "gate": "G",
+      "view": "AD-G-24/op-03",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "GET /admin/operations/services/{service}/health",
+      "owner": "AD-G-24",
+      "gate": "G",
+      "view": "AD-G-24/op-04",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "GET /admin/operations/slos",
+      "owner": "AD-G-24",
+      "gate": "G",
+      "view": "AD-G-24/op-05",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "GET /admin/operations/slos/{id}",
+      "owner": "AD-G-24",
+      "gate": "G",
+      "view": "AD-G-24/op-06",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "GET /admin/operations/alerts",
+      "owner": "AD-G-25",
+      "gate": "G",
+      "view": "AD-G-25/op-01",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "GET /admin/operations/alerts/{id}",
+      "owner": "AD-G-25",
+      "gate": "G",
+      "view": "AD-G-25/op-02",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "POST /admin/operations/alerts/{id}/acknowledge",
+      "owner": "AD-G-25",
+      "gate": "G",
+      "view": "AD-G-25/op-03",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "POST /admin/operations/alerts/{id}/resolve",
+      "owner": "AD-G-25",
+      "gate": "G",
+      "view": "AD-G-25/op-04",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "POST /admin/operations/alerts/{id}/suppress",
+      "owner": "AD-G-25",
+      "gate": "G",
+      "view": "AD-G-25/op-05",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "GET /admin/operations/jobs/{id}",
+      "owner": "AD-G-26",
+      "gate": "G",
+      "view": "AD-G-26/op-01",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "GET /admin/operations/queues",
+      "owner": "AD-G-26",
+      "gate": "G",
+      "view": "AD-G-26/op-02",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "GET /admin/operations/queues/{name}",
+      "owner": "AD-G-26",
+      "gate": "G",
+      "view": "AD-G-26/op-03",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "POST /admin/operations/jobs/{id}/cancel",
+      "owner": "AD-G-26",
+      "gate": "G",
+      "view": "AD-G-26/op-04",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "POST /admin/operations/jobs/{id}/retry",
+      "owner": "AD-G-26",
+      "gate": "G",
+      "view": "AD-G-26/op-05",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "GET /admin/operations/backups",
+      "owner": "AD-G-27",
+      "gate": "G",
+      "view": "AD-G-27/op-01",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "GET /admin/operations/backups/{id}",
+      "owner": "AD-G-27",
+      "gate": "G",
+      "view": "AD-G-27/op-02",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "POST /admin/operations/backups/{id}/restore",
+      "owner": "AD-G-27",
+      "gate": "G",
+      "view": "AD-G-27/op-03",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": "operations.backup.restore"
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01"
+      ]
+    },
+    {
+      "operation": "POST /admin/operations/backups/{id}/restore-preview",
+      "owner": "AD-G-27",
+      "gate": "G",
+      "view": "AD-G-27/op-04",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": "operations.backup.restore"
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01"
+      ]
+    },
+    {
+      "operation": "GET /admin/operations/deployments",
+      "owner": "AD-G-28",
+      "gate": "G",
+      "view": "AD-G-28/op-01",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "GET /admin/operations/deployments/{id}",
+      "owner": "AD-G-28",
+      "gate": "G",
+      "view": "AD-G-28/op-02",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "GET /admin/operations/events/consumers",
+      "owner": "AD-G-29",
+      "gate": "G",
+      "view": "AD-G-29/op-01",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "GET /admin/operations/events/consumers/{consumer}",
+      "owner": "AD-G-29",
+      "gate": "G",
+      "view": "AD-G-29/op-02",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "GET /admin/operations/events/dead-letter",
+      "owner": "AD-G-29",
+      "gate": "G",
+      "view": "AD-G-29/op-03",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "GET /admin/operations/events/dead-letter/{id}",
+      "owner": "AD-G-29",
+      "gate": "G",
+      "view": "AD-G-29/op-04",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "GET /admin/operations/events/outbox",
+      "owner": "AD-G-29",
+      "gate": "G",
+      "view": "AD-G-29/op-05",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "GET /admin/operations/events/outbox/{id}",
+      "owner": "AD-G-29",
+      "gate": "G",
+      "view": "AD-G-29/op-06",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "POST /admin/operations/events/dead-letter/{id}/redrive",
+      "owner": "AD-G-29",
+      "gate": "G",
+      "view": "AD-G-29/op-07",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "POST /admin/operations/events/replay/apply",
+      "owner": "AD-G-29",
+      "gate": "G",
+      "view": "AD-G-29/op-08",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "POST /admin/operations/events/replay/preview",
+      "owner": "AD-G-29",
+      "gate": "G",
+      "view": "AD-G-29/op-09",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": "operations.events.replay"
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01"
+      ]
+    },
+    {
+      "operation": "GET /admin/operations/manual-reviews",
+      "owner": "AD-G-30",
+      "gate": "G",
+      "view": "AD-G-30/op-01",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "GET /admin/operations/manual-reviews/{id}",
+      "owner": "AD-G-30",
+      "gate": "G",
+      "view": "AD-G-30/op-02",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "GET /admin/operations/processes",
+      "owner": "AD-G-30",
+      "gate": "G",
+      "view": "AD-G-30/op-03",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "GET /admin/operations/processes/{id}",
+      "owner": "AD-G-30",
+      "gate": "G",
+      "view": "AD-G-30/op-04",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "GET /admin/operations/processes/{id}/steps",
+      "owner": "AD-G-30",
+      "gate": "G",
+      "view": "AD-G-30/op-05",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "POST /admin/operations/manual-reviews/{id}/assign",
+      "owner": "AD-G-30",
+      "gate": "G",
+      "view": "AD-G-30/op-06",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "POST /admin/operations/manual-reviews/{id}/dismiss",
+      "owner": "AD-G-30",
+      "gate": "G",
+      "view": "AD-G-30/op-07",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "POST /admin/operations/manual-reviews/{id}/resolve",
+      "owner": "AD-G-30",
+      "gate": "G",
+      "view": "AD-G-30/op-08",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "GET /admin/data-quality",
+      "owner": "AD-G-31",
+      "gate": "G",
+      "view": "AD-G-31/op-01",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "GET /admin/data-quality/issues",
+      "owner": "AD-G-31",
+      "gate": "G",
+      "view": "AD-G-31/op-02",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "GET /admin/data-quality/issues/{id}",
+      "owner": "AD-G-31",
+      "gate": "G",
+      "view": "AD-G-31/op-03",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "POST /admin/data-quality/issues/{id}/accept-risk",
+      "owner": "AD-G-31",
+      "gate": "G",
+      "view": "AD-G-31/op-04",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "POST /admin/data-quality/issues/{id}/plan-repair",
+      "owner": "AD-G-31",
+      "gate": "G",
+      "view": "AD-G-31/op-05",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "POST /admin/data-quality/issues/{id}/resolve",
+      "owner": "AD-G-31",
+      "gate": "G",
+      "view": "AD-G-31/op-06",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "POST /admin/data-quality/issues/{id}/start-investigation",
+      "owner": "AD-G-31",
+      "gate": "G",
+      "view": "AD-G-31/op-07",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "GET /admin/data/catalog",
+      "owner": "AD-G-32",
+      "gate": "G",
+      "view": "AD-G-32/op-01",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "GET /admin/data/catalog/{entity}",
+      "owner": "AD-G-32",
+      "gate": "G",
+      "view": "AD-G-32/op-02",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "GET /admin/data/lineage/{entity}",
+      "owner": "AD-G-32",
+      "gate": "G",
+      "view": "AD-G-32/op-03",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "GET /admin/data/deletion-requests",
+      "owner": "AD-G-33",
+      "gate": "G",
+      "view": "AD-G-33/op-01",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "GET /admin/data/deletion-requests/{id}",
+      "owner": "AD-G-33",
+      "gate": "G",
+      "view": "AD-G-33/op-02",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "GET /admin/data/retention-policies",
+      "owner": "AD-G-33",
+      "gate": "G",
+      "view": "AD-G-33/op-03",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "PATCH /admin/data/retention-policies/{id}",
+      "owner": "AD-G-33",
+      "gate": "G",
+      "view": "AD-G-33/op-04",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "POST /admin/data/deletion-requests",
+      "owner": "AD-G-33",
+      "gate": "G",
+      "view": "AD-G-33/op-05",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "POST /admin/data/deletion-requests/{id}/approve",
+      "owner": "AD-G-33",
+      "gate": "G",
+      "view": "AD-G-33/op-06",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "POST /admin/data/deletion-requests/{id}/cancel",
+      "owner": "AD-G-33",
+      "gate": "G",
+      "view": "AD-G-33/op-07",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "GET /admin/data/reconciliation",
+      "owner": "AD-G-34",
+      "gate": "G",
+      "view": "AD-G-34/op-01",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "GET /admin/data/reconciliation/runs/{id}",
+      "owner": "AD-G-34",
+      "gate": "G",
+      "view": "AD-G-34/op-02",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    },
+    {
+      "operation": "POST /admin/data/reconciliation/run",
+      "owner": "AD-G-34",
+      "gate": "G",
+      "view": "AD-G-34/op-03",
+      "permissionClaims": {
+        "runtime": null,
+        "openapi": null
+      },
+      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "blocked": true,
+      "stepUp": null,
+      "idempotencyScope": null,
+      "gapIds": [
+        "GAP-01",
+        "GAP-02"
+      ]
+    }
+  ]
+}

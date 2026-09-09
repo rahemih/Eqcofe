@@ -1,0 +1,5539 @@
+[
+  {
+    "id": "AD-B-01",
+    "gate": "B",
+    "task": "AT-B-01",
+    "actors": [
+      "approver",
+      "operator",
+      "staff"
+    ],
+    "journeys": [
+      "AJ-10"
+    ],
+    "domains": [
+      "identity"
+    ],
+    "permissions": [],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "GET /admin/auth/fido/credentials",
+      "GET /admin/auth/session",
+      "POST /admin/auth/fido/challenge",
+      "POST /admin/auth/fido/credentials/{id}/revoke",
+      "POST /admin/auth/fido/credentials/register/challenge",
+      "POST /admin/auth/fido/credentials/register/verify",
+      "POST /admin/auth/fido/verify",
+      "POST /admin/auth/login",
+      "POST /admin/auth/logout",
+      "POST /admin/auth/step-up/challenge",
+      "POST /admin/auth/step-up/verify"
+    ],
+    "states": 42,
+    "views": [
+      "login",
+      "key",
+      "enrollment",
+      "credentials",
+      "auth-error"
+    ],
+    "focus": {
+      "entry": "Main heading; login uses username after heading announcement.",
+      "dialog": "Safe cancel/close receives initial focus; Tab stays within modal, Escape cancels; close restores launcher.",
+      "error": "Focus error summary with linked field errors; asynchronous status announced without stealing focus.",
+      "navigation": "DOM order: skip link, header, navigation, breadcrumb, main heading, content, outcome. RTL does not reverse focus."
+    },
+    "blockedOperations": []
+  },
+  {
+    "id": "AD-B-02",
+    "gate": "B",
+    "task": "AT-B-02",
+    "actors": [
+      "approver",
+      "operator",
+      "staff"
+    ],
+    "journeys": [
+      "AJ-10"
+    ],
+    "domains": [
+      "identity"
+    ],
+    "permissions": [],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "GET /admin/me",
+      "GET /admin/me/permissions",
+      "GET /admin/me/scopes"
+    ],
+    "states": 42,
+    "views": [
+      "identity",
+      "scope",
+      "revoked"
+    ],
+    "focus": {
+      "entry": "Main heading; login uses username after heading announcement.",
+      "dialog": "Safe cancel/close receives initial focus; Tab stays within modal, Escape cancels; close restores launcher.",
+      "error": "Focus error summary with linked field errors; asynchronous status announced without stealing focus.",
+      "navigation": "DOM order: skip link, header, navigation, breadcrumb, main heading, content, outcome. RTL does not reverse focus."
+    },
+    "blockedOperations": []
+  },
+  {
+    "id": "AD-B-03",
+    "gate": "B",
+    "task": "AT-B-03",
+    "actors": [
+      "approver",
+      "operator",
+      "staff"
+    ],
+    "journeys": [
+      "AJ-11"
+    ],
+    "domains": [
+      "operations"
+    ],
+    "permissions": [],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "GET /admin/dashboard"
+    ],
+    "states": 46,
+    "views": [
+      "unavailable",
+      "destinations"
+    ],
+    "focus": {
+      "entry": "Main heading; login uses username after heading announcement.",
+      "dialog": "Safe cancel/close receives initial focus; Tab stays within modal, Escape cancels; close restores launcher.",
+      "error": "Focus error summary with linked field errors; asynchronous status announced without stealing focus.",
+      "navigation": "DOM order: skip link, header, navigation, breadcrumb, main heading, content, outcome. RTL does not reverse focus."
+    },
+    "blockedOperations": [
+      "GET /admin/dashboard"
+    ]
+  },
+  {
+    "id": "AD-B-04",
+    "gate": "B",
+    "task": "AT-B-04",
+    "actors": [
+      "approver",
+      "operator",
+      "staff"
+    ],
+    "journeys": [
+      "AJ-10"
+    ],
+    "domains": [
+      "admin"
+    ],
+    "permissions": [],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [],
+    "states": 42,
+    "views": [
+      "shell",
+      "drawer",
+      "denied"
+    ],
+    "focus": {
+      "entry": "Main heading; login uses username after heading announcement.",
+      "dialog": "Safe cancel/close receives initial focus; Tab stays within modal, Escape cancels; close restores launcher.",
+      "error": "Focus error summary with linked field errors; asynchronous status announced without stealing focus.",
+      "navigation": "DOM order: skip link, header, navigation, breadcrumb, main heading, content, outcome. RTL does not reverse focus."
+    },
+    "blockedOperations": []
+  },
+  {
+    "id": "AD-B-05",
+    "gate": "B",
+    "task": "AT-B-05",
+    "actors": [
+      "approver",
+      "operator",
+      "staff"
+    ],
+    "journeys": [
+      "AJ-10"
+    ],
+    "domains": [
+      "admin"
+    ],
+    "permissions": [],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [],
+    "states": 42,
+    "views": [
+      "search",
+      "no-results"
+    ],
+    "focus": {
+      "entry": "Main heading; login uses username after heading announcement.",
+      "dialog": "Safe cancel/close receives initial focus; Tab stays within modal, Escape cancels; close restores launcher.",
+      "error": "Focus error summary with linked field errors; asynchronous status announced without stealing focus.",
+      "navigation": "DOM order: skip link, header, navigation, breadcrumb, main heading, content, outcome. RTL does not reverse focus."
+    },
+    "blockedOperations": []
+  },
+  {
+    "id": "AD-B-06",
+    "gate": "B",
+    "task": "AT-B-06",
+    "actors": [
+      "approver",
+      "operator",
+      "staff"
+    ],
+    "journeys": [
+      "AJ-01"
+    ],
+    "domains": [
+      "admin"
+    ],
+    "permissions": [],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [],
+    "states": 43,
+    "views": [
+      "table",
+      "detail",
+      "form",
+      "conflict"
+    ],
+    "focus": {
+      "entry": "Main heading; login uses username after heading announcement.",
+      "dialog": "Safe cancel/close receives initial focus; Tab stays within modal, Escape cancels; close restores launcher.",
+      "error": "Focus error summary with linked field errors; asynchronous status announced without stealing focus.",
+      "navigation": "DOM order: skip link, header, navigation, breadcrumb, main heading, content, outcome. RTL does not reverse focus."
+    },
+    "blockedOperations": []
+  },
+  {
+    "id": "AD-B-07",
+    "gate": "B",
+    "task": "AT-B-07",
+    "actors": [
+      "approver",
+      "operator",
+      "staff"
+    ],
+    "journeys": [
+      "AJ-10"
+    ],
+    "domains": [
+      "admin"
+    ],
+    "permissions": [],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [],
+    "states": 42,
+    "views": [
+      "confirmation",
+      "step-up",
+      "unknown",
+      "outcome"
+    ],
+    "focus": {
+      "entry": "Main heading; login uses username after heading announcement.",
+      "dialog": "Safe cancel/close receives initial focus; Tab stays within modal, Escape cancels; close restores launcher.",
+      "error": "Focus error summary with linked field errors; asynchronous status announced without stealing focus.",
+      "navigation": "DOM order: skip link, header, navigation, breadcrumb, main heading, content, outcome. RTL does not reverse focus."
+    },
+    "blockedOperations": []
+  },
+  {
+    "id": "AD-C-01",
+    "gate": "C",
+    "task": "AT-C-01",
+    "actors": [
+      "approver",
+      "staff"
+    ],
+    "journeys": [
+      "AJ-01"
+    ],
+    "domains": [
+      "catalog"
+    ],
+    "permissions": [
+      "products.archive",
+      "products.create",
+      "products.manage",
+      "products.publish",
+      "products.sales.manage",
+      "products.view"
+    ],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "GET /admin/products",
+      "GET /admin/products/{id}",
+      "PATCH /admin/products/{id}",
+      "POST /admin/products",
+      "POST /admin/products/{id}/archive",
+      "POST /admin/products/{id}/publish",
+      "POST /admin/products/{id}/resume-sales",
+      "POST /admin/products/{id}/stop-sales",
+      "POST /admin/products/{id}/unarchive"
+    ],
+    "states": 43,
+    "views": [
+      "list",
+      "detail",
+      "edit",
+      "publish",
+      "archive",
+      "restore",
+      "conflict",
+      "sales"
+    ],
+    "focus": {
+      "entry": "Main heading after authorized navigation.",
+      "dialog": "Safe cancel first; Tab stays in modal, Escape closes and restores launcher.",
+      "error": "Focus linked error summary after form failure; polite status announcements without focus theft.",
+      "navigation": "Inherit B logical RTL order; media move buttons preserve focused item and announce position."
+    },
+    "blockedOperations": []
+  },
+  {
+    "id": "AD-C-02",
+    "gate": "C",
+    "task": "AT-C-02",
+    "actors": [
+      "approver",
+      "staff"
+    ],
+    "journeys": [
+      "AJ-01"
+    ],
+    "domains": [
+      "catalog"
+    ],
+    "permissions": [
+      "products.manage",
+      "products.sales.manage",
+      "products.view"
+    ],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "GET /admin/products/{product_id}/variants",
+      "PATCH /admin/variants/{id}",
+      "POST /admin/products/{product_id}/variants",
+      "POST /admin/variants/{id}/resume-sales",
+      "POST /admin/variants/{id}/stop-sales"
+    ],
+    "states": 43,
+    "views": [
+      "list",
+      "edit",
+      "sales",
+      "conflict"
+    ],
+    "focus": {
+      "entry": "Main heading after authorized navigation.",
+      "dialog": "Safe cancel first; Tab stays in modal, Escape closes and restores launcher.",
+      "error": "Focus linked error summary after form failure; polite status announcements without focus theft.",
+      "navigation": "Inherit B logical RTL order; media move buttons preserve focused item and announce position."
+    },
+    "blockedOperations": []
+  },
+  {
+    "id": "AD-C-03",
+    "gate": "C",
+    "task": "AT-C-03",
+    "actors": [
+      "approver",
+      "staff"
+    ],
+    "journeys": [
+      "AJ-01"
+    ],
+    "domains": [
+      "catalog"
+    ],
+    "permissions": [
+      "attributes.manage",
+      "products.manage"
+    ],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "GET /admin/attributes",
+      "GET /admin/attributes/{id}/values",
+      "GET /admin/products/{product_id}/attributes",
+      "GET /admin/variants/{id}/attributes",
+      "PATCH /admin/attribute-values/{id}",
+      "PATCH /admin/attributes/{id}",
+      "POST /admin/attributes",
+      "POST /admin/attributes/{id}/values",
+      "PUT /admin/products/{product_id}/attributes",
+      "PUT /admin/variants/{id}/attributes"
+    ],
+    "states": 43,
+    "views": [
+      "list",
+      "definition",
+      "value",
+      "assign",
+      "mismatch"
+    ],
+    "focus": {
+      "entry": "Main heading after authorized navigation.",
+      "dialog": "Safe cancel first; Tab stays in modal, Escape closes and restores launcher.",
+      "error": "Focus linked error summary after form failure; polite status announcements without focus theft.",
+      "navigation": "Inherit B logical RTL order; media move buttons preserve focused item and announce position."
+    },
+    "blockedOperations": []
+  },
+  {
+    "id": "AD-C-04",
+    "gate": "C",
+    "task": "AT-C-04",
+    "actors": [
+      "approver",
+      "staff"
+    ],
+    "journeys": [
+      "AJ-01"
+    ],
+    "domains": [
+      "catalog"
+    ],
+    "permissions": [
+      "products.manage"
+    ],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "DELETE /admin/products/{product_id}/media/{media_id}",
+      "GET /admin/products/{product_id}/media",
+      "POST /admin/products/{product_id}/media",
+      "POST /admin/products/{product_id}/media/reorder"
+    ],
+    "states": 43,
+    "views": [
+      "gallery",
+      "attach",
+      "reorder",
+      "detach"
+    ],
+    "focus": {
+      "entry": "Main heading after authorized navigation.",
+      "dialog": "Safe cancel first; Tab stays in modal, Escape closes and restores launcher.",
+      "error": "Focus linked error summary after form failure; polite status announcements without focus theft.",
+      "navigation": "Inherit B logical RTL order; media move buttons preserve focused item and announce position."
+    },
+    "blockedOperations": []
+  },
+  {
+    "id": "AD-C-05",
+    "gate": "C",
+    "task": "AT-C-05",
+    "actors": [
+      "approver",
+      "staff"
+    ],
+    "journeys": [
+      "AJ-01"
+    ],
+    "domains": [
+      "catalog"
+    ],
+    "permissions": [
+      "brands.manage"
+    ],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "GET /admin/brands",
+      "PATCH /admin/brands/{id}",
+      "POST /admin/brands",
+      "POST /admin/brands/{id}/resume-sales",
+      "POST /admin/brands/{id}/stop-sales"
+    ],
+    "states": 43,
+    "views": [
+      "list",
+      "edit",
+      "sales",
+      "conflict"
+    ],
+    "focus": {
+      "entry": "Main heading after authorized navigation.",
+      "dialog": "Safe cancel first; Tab stays in modal, Escape closes and restores launcher.",
+      "error": "Focus linked error summary after form failure; polite status announcements without focus theft.",
+      "navigation": "Inherit B logical RTL order; media move buttons preserve focused item and announce position."
+    },
+    "blockedOperations": []
+  },
+  {
+    "id": "AD-C-06",
+    "gate": "C",
+    "task": "AT-C-06",
+    "actors": [
+      "approver",
+      "staff"
+    ],
+    "journeys": [
+      "AJ-01"
+    ],
+    "domains": [
+      "catalog"
+    ],
+    "permissions": [
+      "categories.manage"
+    ],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "GET /admin/categories",
+      "PATCH /admin/categories/{id}",
+      "POST /admin/categories",
+      "POST /admin/categories/{id}/resume-sales",
+      "POST /admin/categories/{id}/stop-sales"
+    ],
+    "states": 43,
+    "views": [
+      "tree",
+      "edit",
+      "cycle",
+      "sales"
+    ],
+    "focus": {
+      "entry": "Main heading after authorized navigation.",
+      "dialog": "Safe cancel first; Tab stays in modal, Escape closes and restores launcher.",
+      "error": "Focus linked error summary after form failure; polite status announcements without focus theft.",
+      "navigation": "Inherit B logical RTL order; media move buttons preserve focused item and announce position."
+    },
+    "blockedOperations": []
+  },
+  {
+    "id": "AD-C-07",
+    "gate": "C",
+    "task": "AT-C-07",
+    "actors": [
+      "approver",
+      "staff"
+    ],
+    "journeys": [
+      "AJ-01"
+    ],
+    "domains": [
+      "catalog"
+    ],
+    "permissions": [
+      "media.manage"
+    ],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "DELETE /admin/media/{id}",
+      "GET /admin/media/{id}",
+      "POST /admin/media/{id}/approve",
+      "POST /admin/media/{id}/complete",
+      "POST /admin/media/{id}/reject",
+      "POST /admin/media/upload-request"
+    ],
+    "states": 43,
+    "views": [
+      "upload",
+      "processing",
+      "review",
+      "reject",
+      "delete",
+      "unavailable",
+      "in-use"
+    ],
+    "focus": {
+      "entry": "Main heading after authorized navigation.",
+      "dialog": "Safe cancel first; Tab stays in modal, Escape closes and restores launcher.",
+      "error": "Focus linked error summary after form failure; polite status announcements without focus theft.",
+      "navigation": "Inherit B logical RTL order; media move buttons preserve focused item and announce position."
+    },
+    "blockedOperations": []
+  },
+  {
+    "id": "AD-C-08",
+    "gate": "C",
+    "task": "AT-C-08",
+    "actors": [
+      "approver",
+      "staff"
+    ],
+    "journeys": [
+      "AJ-01"
+    ],
+    "domains": [
+      "catalog"
+    ],
+    "permissions": [
+      "sales_control.manage"
+    ],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "POST /admin/sales-control/apply",
+      "POST /admin/sales-control/preview"
+    ],
+    "states": 43,
+    "views": [
+      "scope",
+      "preview",
+      "apply",
+      "expired",
+      "unknown"
+    ],
+    "focus": {
+      "entry": "Main heading after authorized navigation.",
+      "dialog": "Safe cancel first; Tab stays in modal, Escape closes and restores launcher.",
+      "error": "Focus linked error summary after form failure; polite status announcements without focus theft.",
+      "navigation": "Inherit B logical RTL order; media move buttons preserve focused item and announce position."
+    },
+    "blockedOperations": []
+  },
+  {
+    "id": "AD-D-01",
+    "gate": "D",
+    "task": "AT-D-01",
+    "actors": [
+      "approver",
+      "staff"
+    ],
+    "journeys": [
+      "AJ-02"
+    ],
+    "domains": [
+      "pricing"
+    ],
+    "permissions": [
+      "pricing.manage",
+      "pricing.view"
+    ],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "GET /admin/pricing/base-prices",
+      "POST /admin/pricing/base-prices",
+      "POST /admin/pricing/base-prices/preview",
+      "POST /admin/variants/{variant_id}/prices"
+    ],
+    "states": 42,
+    "views": [
+      "overview",
+      "op-01",
+      "op-02",
+      "op-03",
+      "op-04",
+      "conflict",
+      "denied",
+      "op-02-confirm",
+      "op-03-result",
+      "op-04-confirm",
+      "loading",
+      "empty",
+      "success"
+    ],
+    "focus": {
+      "entry": "Focus page heading; RTL logical reading, LTR isolate SKU/codes/versions. Tables use labelled card equivalents at compact widths.",
+      "dialog": "Initial focus safe cancel; trap Tab within modal, Escape cancels and restores trigger. Step-Up follows B secure-auth pattern.",
+      "error": "Focus linked error summary after failed submission, with inline descriptions; retain input and do not move focus on every blur.",
+      "navigation": "Keyboard reaches every task and field;44px touch targets, no drag-only control, no fixed footer obscuring focus; polite authoritative result announcement."
+    },
+    "blockedOperations": []
+  },
+  {
+    "id": "AD-D-02",
+    "gate": "D",
+    "task": "AT-D-02",
+    "actors": [
+      "approver",
+      "staff"
+    ],
+    "journeys": [
+      "AJ-02"
+    ],
+    "domains": [
+      "pricing"
+    ],
+    "permissions": [
+      "pricing.manage",
+      "pricing.view"
+    ],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "GET /admin/pricing/rules",
+      "GET /admin/pricing/rules/{id}",
+      "PATCH /admin/pricing/rules/{id}",
+      "POST /admin/pricing/rules",
+      "POST /admin/pricing/rules/{id}/activate",
+      "POST /admin/pricing/rules/{id}/deactivate"
+    ],
+    "states": 42,
+    "views": [
+      "overview",
+      "op-01",
+      "op-02",
+      "op-03",
+      "op-04",
+      "op-05",
+      "op-06",
+      "conflict",
+      "denied",
+      "op-03-confirm",
+      "op-04-confirm",
+      "loading",
+      "empty",
+      "success"
+    ],
+    "focus": {
+      "entry": "Focus page heading; RTL logical reading, LTR isolate SKU/codes/versions. Tables use labelled card equivalents at compact widths.",
+      "dialog": "Initial focus safe cancel; trap Tab within modal, Escape cancels and restores trigger. Step-Up follows B secure-auth pattern.",
+      "error": "Focus linked error summary after failed submission, with inline descriptions; retain input and do not move focus on every blur.",
+      "navigation": "Keyboard reaches every task and field;44px touch targets, no drag-only control, no fixed footer obscuring focus; polite authoritative result announcement."
+    },
+    "blockedOperations": []
+  },
+  {
+    "id": "AD-D-03",
+    "gate": "D",
+    "task": "AT-D-03",
+    "actors": [
+      "approver",
+      "staff"
+    ],
+    "journeys": [
+      "AJ-02"
+    ],
+    "domains": [
+      "pricing"
+    ],
+    "permissions": [
+      "pricing.bulk.manage",
+      "pricing.view"
+    ],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "GET /admin/pricing/bulk/{operation_id}",
+      "POST /admin/pricing/bulk/apply",
+      "POST /admin/pricing/bulk/preview"
+    ],
+    "states": 42,
+    "views": [
+      "overview",
+      "op-01",
+      "op-02",
+      "op-03",
+      "conflict",
+      "denied",
+      "op-03-result",
+      "loading",
+      "empty",
+      "success"
+    ],
+    "focus": {
+      "entry": "Focus page heading; RTL logical reading, LTR isolate SKU/codes/versions. Tables use labelled card equivalents at compact widths.",
+      "dialog": "Initial focus safe cancel; trap Tab within modal, Escape cancels and restores trigger. Step-Up follows B secure-auth pattern.",
+      "error": "Focus linked error summary after failed submission, with inline descriptions; retain input and do not move focus on every blur.",
+      "navigation": "Keyboard reaches every task and field;44px touch targets, no drag-only control, no fixed footer obscuring focus; polite authoritative result announcement."
+    },
+    "blockedOperations": []
+  },
+  {
+    "id": "AD-D-04",
+    "gate": "D",
+    "task": "AT-D-04",
+    "actors": [
+      "approver",
+      "staff"
+    ],
+    "journeys": [
+      "AJ-02"
+    ],
+    "domains": [
+      "pricing"
+    ],
+    "permissions": [
+      "pricing.currency.manage",
+      "pricing.view"
+    ],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "GET /admin/pricing/currency-rates",
+      "GET /admin/pricing/currency-rates/current",
+      "POST /admin/pricing/currency-rates/{id}/reject",
+      "POST /admin/pricing/currency-rates/{id}/select",
+      "POST /admin/pricing/currency-rates/refresh",
+      "POST /admin/pricing/currency-rates/register",
+      "POST /admin/pricing/currency/apply",
+      "POST /admin/pricing/currency/impact-preview"
+    ],
+    "states": 42,
+    "views": [
+      "overview",
+      "op-01",
+      "op-02",
+      "op-03",
+      "op-04",
+      "op-05",
+      "op-06",
+      "op-07",
+      "op-08",
+      "conflict",
+      "denied",
+      "op-06-confirm",
+      "op-08-result",
+      "loading",
+      "empty",
+      "success"
+    ],
+    "focus": {
+      "entry": "Focus page heading; RTL logical reading, LTR isolate SKU/codes/versions. Tables use labelled card equivalents at compact widths.",
+      "dialog": "Initial focus safe cancel; trap Tab within modal, Escape cancels and restores trigger. Step-Up follows B secure-auth pattern.",
+      "error": "Focus linked error summary after failed submission, with inline descriptions; retain input and do not move focus on every blur.",
+      "navigation": "Keyboard reaches every task and field;44px touch targets, no drag-only control, no fixed footer obscuring focus; polite authoritative result announcement."
+    },
+    "blockedOperations": []
+  },
+  {
+    "id": "AD-D-05",
+    "gate": "D",
+    "task": "AT-D-05",
+    "actors": [
+      "approver",
+      "staff"
+    ],
+    "journeys": [
+      "AJ-02"
+    ],
+    "domains": [
+      "pricing"
+    ],
+    "permissions": [
+      "pricing.currency.manage",
+      "pricing.view"
+    ],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "GET /admin/pricing/currency-rules",
+      "GET /admin/pricing/currency-rules/{id}",
+      "PATCH /admin/pricing/currency-rules/{id}",
+      "POST /admin/pricing/currency-rules",
+      "POST /admin/pricing/currency-rules/{id}/activate",
+      "POST /admin/pricing/currency-rules/{id}/deactivate"
+    ],
+    "states": 42,
+    "views": [
+      "overview",
+      "op-01",
+      "op-02",
+      "op-03",
+      "op-04",
+      "op-05",
+      "op-06",
+      "conflict",
+      "denied",
+      "op-03-confirm",
+      "op-04-confirm",
+      "loading",
+      "empty",
+      "success"
+    ],
+    "focus": {
+      "entry": "Focus page heading; RTL logical reading, LTR isolate SKU/codes/versions. Tables use labelled card equivalents at compact widths.",
+      "dialog": "Initial focus safe cancel; trap Tab within modal, Escape cancels and restores trigger. Step-Up follows B secure-auth pattern.",
+      "error": "Focus linked error summary after failed submission, with inline descriptions; retain input and do not move focus on every blur.",
+      "navigation": "Keyboard reaches every task and field;44px touch targets, no drag-only control, no fixed footer obscuring focus; polite authoritative result announcement."
+    },
+    "blockedOperations": []
+  },
+  {
+    "id": "AD-D-06",
+    "gate": "D",
+    "task": "AT-D-06",
+    "actors": [
+      "approver",
+      "staff"
+    ],
+    "journeys": [
+      "AJ-03"
+    ],
+    "domains": [
+      "inventory"
+    ],
+    "permissions": [
+      "inventory.view"
+    ],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "GET /admin/inventory",
+      "GET /admin/inventory/{variant_id}",
+      "GET /admin/inventory/{variant_id}/cost-basis",
+      "GET /admin/inventory/{variant_id}/cost-layers",
+      "GET /admin/inventory/{variant_id}/movements"
+    ],
+    "states": 46,
+    "views": [
+      "overview",
+      "op-01",
+      "op-02",
+      "op-03",
+      "op-04",
+      "op-05",
+      "conflict",
+      "denied",
+      "loading",
+      "empty",
+      "success"
+    ],
+    "focus": {
+      "entry": "Focus page heading; RTL logical reading, LTR isolate SKU/codes/versions. Tables use labelled card equivalents at compact widths.",
+      "dialog": "Initial focus safe cancel; trap Tab within modal, Escape cancels and restores trigger. Step-Up follows B secure-auth pattern.",
+      "error": "Focus linked error summary after failed submission, with inline descriptions; retain input and do not move focus on every blur.",
+      "navigation": "Keyboard reaches every task and field;44px touch targets, no drag-only control, no fixed footer obscuring focus; polite authoritative result announcement."
+    },
+    "blockedOperations": []
+  },
+  {
+    "id": "AD-D-07",
+    "gate": "D",
+    "task": "AT-D-07",
+    "actors": [
+      "approver",
+      "staff"
+    ],
+    "journeys": [
+      "AJ-03"
+    ],
+    "domains": [
+      "inventory"
+    ],
+    "permissions": [
+      "inventory.adjust"
+    ],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "POST /admin/inventory/adjustments"
+    ],
+    "states": 46,
+    "views": [
+      "overview",
+      "op-01",
+      "conflict",
+      "denied",
+      "op-01-confirm",
+      "loading",
+      "empty",
+      "success"
+    ],
+    "focus": {
+      "entry": "Focus page heading; RTL logical reading, LTR isolate SKU/codes/versions. Tables use labelled card equivalents at compact widths.",
+      "dialog": "Initial focus safe cancel; trap Tab within modal, Escape cancels and restores trigger. Step-Up follows B secure-auth pattern.",
+      "error": "Focus linked error summary after failed submission, with inline descriptions; retain input and do not move focus on every blur.",
+      "navigation": "Keyboard reaches every task and field;44px touch targets, no drag-only control, no fixed footer obscuring focus; polite authoritative result announcement."
+    },
+    "blockedOperations": []
+  },
+  {
+    "id": "AD-D-08",
+    "gate": "D",
+    "task": "AT-D-08",
+    "actors": [
+      "approver",
+      "staff"
+    ],
+    "journeys": [
+      "AJ-03"
+    ],
+    "domains": [
+      "inventory"
+    ],
+    "permissions": [
+      "inventory.transfer",
+      "inventory.view"
+    ],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "GET /admin/inventory/transfers",
+      "GET /admin/inventory/transfers/{id}",
+      "POST /admin/inventory/transfers",
+      "POST /admin/inventory/transfers/{id}/approve",
+      "POST /admin/inventory/transfers/{id}/cancel",
+      "POST /admin/inventory/transfers/{id}/receive",
+      "POST /admin/inventory/transfers/{id}/ship"
+    ],
+    "states": 46,
+    "views": [
+      "overview",
+      "op-01",
+      "op-02",
+      "op-03",
+      "op-04",
+      "op-05",
+      "op-06",
+      "op-07",
+      "conflict",
+      "denied",
+      "op-03-confirm",
+      "loading",
+      "empty",
+      "success"
+    ],
+    "focus": {
+      "entry": "Focus page heading; RTL logical reading, LTR isolate SKU/codes/versions. Tables use labelled card equivalents at compact widths.",
+      "dialog": "Initial focus safe cancel; trap Tab within modal, Escape cancels and restores trigger. Step-Up follows B secure-auth pattern.",
+      "error": "Focus linked error summary after failed submission, with inline descriptions; retain input and do not move focus on every blur.",
+      "navigation": "Keyboard reaches every task and field;44px touch targets, no drag-only control, no fixed footer obscuring focus; polite authoritative result announcement."
+    },
+    "blockedOperations": []
+  },
+  {
+    "id": "AD-D-09",
+    "gate": "D",
+    "task": "AT-D-09",
+    "actors": [
+      "approver",
+      "staff"
+    ],
+    "journeys": [
+      "AJ-03",
+      "AJ-04",
+      "AJ-05"
+    ],
+    "domains": [
+      "inventory"
+    ],
+    "permissions": [
+      "inventory.reserve",
+      "inventory.view"
+    ],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "GET /admin/inventory/reservations",
+      "GET /admin/inventory/reservations/{id}",
+      "POST /admin/inventory/reservations",
+      "POST /admin/inventory/reservations/{id}/begin-payment",
+      "POST /admin/inventory/reservations/{id}/convert",
+      "POST /admin/inventory/reservations/{id}/expire",
+      "POST /admin/inventory/reservations/{id}/late-payment-review",
+      "POST /admin/inventory/reservations/{id}/release",
+      "POST /admin/inventory/reservations/{id}/release-commitment"
+    ],
+    "states": 62,
+    "views": [
+      "overview",
+      "op-01",
+      "op-02",
+      "op-03",
+      "op-04",
+      "op-05",
+      "op-06",
+      "op-07",
+      "op-08",
+      "op-09",
+      "conflict",
+      "denied",
+      "op-03-confirm",
+      "loading",
+      "empty",
+      "success"
+    ],
+    "focus": {
+      "entry": "Focus page heading; RTL logical reading, LTR isolate SKU/codes/versions. Tables use labelled card equivalents at compact widths.",
+      "dialog": "Initial focus safe cancel; trap Tab within modal, Escape cancels and restores trigger. Step-Up follows B secure-auth pattern.",
+      "error": "Focus linked error summary after failed submission, with inline descriptions; retain input and do not move focus on every blur.",
+      "navigation": "Keyboard reaches every task and field;44px touch targets, no drag-only control, no fixed footer obscuring focus; polite authoritative result announcement."
+    },
+    "blockedOperations": []
+  },
+  {
+    "id": "AD-D-10",
+    "gate": "D",
+    "task": "AT-D-10",
+    "actors": [
+      "approver",
+      "staff"
+    ],
+    "journeys": [
+      "AJ-03",
+      "AJ-04"
+    ],
+    "domains": [
+      "inventory"
+    ],
+    "permissions": [
+      "inventory.allocate",
+      "inventory.consume",
+      "inventory.view"
+    ],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "GET /admin/inventory/allocations",
+      "POST /admin/inventory/allocations",
+      "POST /admin/inventory/allocations/{id}/pick",
+      "POST /admin/inventory/allocations/{id}/release",
+      "POST /admin/inventory/allocations/{id}/unpick",
+      "POST /admin/inventory/consume-sale"
+    ],
+    "states": 55,
+    "views": [
+      "overview",
+      "op-01",
+      "op-02",
+      "op-03",
+      "op-04",
+      "op-05",
+      "op-06",
+      "conflict",
+      "denied",
+      "op-02-confirm",
+      "loading",
+      "empty",
+      "success"
+    ],
+    "focus": {
+      "entry": "Focus page heading; RTL logical reading, LTR isolate SKU/codes/versions. Tables use labelled card equivalents at compact widths.",
+      "dialog": "Initial focus safe cancel; trap Tab within modal, Escape cancels and restores trigger. Step-Up follows B secure-auth pattern.",
+      "error": "Focus linked error summary after failed submission, with inline descriptions; retain input and do not move focus on every blur.",
+      "navigation": "Keyboard reaches every task and field;44px touch targets, no drag-only control, no fixed footer obscuring focus; polite authoritative result announcement."
+    },
+    "blockedOperations": []
+  },
+  {
+    "id": "AD-D-11",
+    "gate": "D",
+    "task": "AT-D-11",
+    "actors": [
+      "approver",
+      "staff"
+    ],
+    "journeys": [
+      "AJ-03"
+    ],
+    "domains": [
+      "inventory"
+    ],
+    "permissions": [
+      "inventory.view",
+      "inventory.warehouse.manage"
+    ],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "GET /admin/inventory/warehouses",
+      "PATCH /admin/inventory/warehouses/{id}/protection",
+      "POST /admin/inventory/warehouses"
+    ],
+    "states": 46,
+    "views": [
+      "overview",
+      "op-01",
+      "op-02",
+      "op-03",
+      "conflict",
+      "denied",
+      "op-02-confirm",
+      "op-03-confirm",
+      "loading",
+      "empty",
+      "success"
+    ],
+    "focus": {
+      "entry": "Focus page heading; RTL logical reading, LTR isolate SKU/codes/versions. Tables use labelled card equivalents at compact widths.",
+      "dialog": "Initial focus safe cancel; trap Tab within modal, Escape cancels and restores trigger. Step-Up follows B secure-auth pattern.",
+      "error": "Focus linked error summary after failed submission, with inline descriptions; retain input and do not move focus on every blur.",
+      "navigation": "Keyboard reaches every task and field;44px touch targets, no drag-only control, no fixed footer obscuring focus; polite authoritative result announcement."
+    },
+    "blockedOperations": []
+  },
+  {
+    "id": "AD-D-12",
+    "gate": "D",
+    "task": "AT-D-12",
+    "actors": [
+      "approver",
+      "staff"
+    ],
+    "journeys": [
+      "AJ-03"
+    ],
+    "domains": [
+      "procurement"
+    ],
+    "permissions": [
+      "procurement.supplier.manage",
+      "procurement.view"
+    ],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "GET /admin/procurement/suppliers",
+      "GET /admin/procurement/suppliers/{id}",
+      "PATCH /admin/procurement/suppliers/{id}",
+      "POST /admin/procurement/suppliers",
+      "POST /admin/procurement/suppliers/{id}/activate",
+      "POST /admin/procurement/suppliers/{id}/deactivate"
+    ],
+    "states": 46,
+    "views": [
+      "overview",
+      "op-01",
+      "op-02",
+      "op-03",
+      "op-04",
+      "op-05",
+      "op-06",
+      "conflict",
+      "denied",
+      "op-03-confirm",
+      "op-04-confirm",
+      "loading",
+      "empty",
+      "success"
+    ],
+    "focus": {
+      "entry": "Focus page heading; RTL logical reading, LTR isolate SKU/codes/versions. Tables use labelled card equivalents at compact widths.",
+      "dialog": "Initial focus safe cancel; trap Tab within modal, Escape cancels and restores trigger. Step-Up follows B secure-auth pattern.",
+      "error": "Focus linked error summary after failed submission, with inline descriptions; retain input and do not move focus on every blur.",
+      "navigation": "Keyboard reaches every task and field;44px touch targets, no drag-only control, no fixed footer obscuring focus; polite authoritative result announcement."
+    },
+    "blockedOperations": []
+  },
+  {
+    "id": "AD-D-13",
+    "gate": "D",
+    "task": "AT-D-13",
+    "actors": [
+      "approver",
+      "staff"
+    ],
+    "journeys": [
+      "AJ-03"
+    ],
+    "domains": [
+      "procurement"
+    ],
+    "permissions": [
+      "procurement.request.approve",
+      "procurement.request.manage",
+      "procurement.view"
+    ],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "GET /admin/procurement/purchase-requests",
+      "GET /admin/procurement/purchase-requests/{id}",
+      "PATCH /admin/procurement/purchase-requests/{id}",
+      "POST /admin/procurement/purchase-requests",
+      "POST /admin/procurement/purchase-requests/{id}/approve",
+      "POST /admin/procurement/purchase-requests/{id}/cancel",
+      "POST /admin/procurement/purchase-requests/{id}/reject",
+      "POST /admin/procurement/purchase-requests/{id}/submit"
+    ],
+    "states": 46,
+    "views": [
+      "overview",
+      "op-01",
+      "op-02",
+      "op-03",
+      "op-04",
+      "op-05",
+      "op-06",
+      "op-07",
+      "op-08",
+      "conflict",
+      "denied",
+      "op-03-confirm",
+      "op-04-confirm",
+      "loading",
+      "empty",
+      "success"
+    ],
+    "focus": {
+      "entry": "Focus page heading; RTL logical reading, LTR isolate SKU/codes/versions. Tables use labelled card equivalents at compact widths.",
+      "dialog": "Initial focus safe cancel; trap Tab within modal, Escape cancels and restores trigger. Step-Up follows B secure-auth pattern.",
+      "error": "Focus linked error summary after failed submission, with inline descriptions; retain input and do not move focus on every blur.",
+      "navigation": "Keyboard reaches every task and field;44px touch targets, no drag-only control, no fixed footer obscuring focus; polite authoritative result announcement."
+    },
+    "blockedOperations": []
+  },
+  {
+    "id": "AD-D-14",
+    "gate": "D",
+    "task": "AT-D-14",
+    "actors": [
+      "approver",
+      "staff"
+    ],
+    "journeys": [
+      "AJ-03"
+    ],
+    "domains": [
+      "procurement"
+    ],
+    "permissions": [
+      "procurement.po.approve",
+      "procurement.po.manage",
+      "procurement.view"
+    ],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "GET /admin/procurement/purchase-orders",
+      "GET /admin/procurement/purchase-orders/{id}",
+      "PATCH /admin/procurement/purchase-orders/{id}",
+      "POST /admin/procurement/purchase-orders",
+      "POST /admin/procurement/purchase-orders/{id}/approve",
+      "POST /admin/procurement/purchase-orders/{id}/cancel",
+      "POST /admin/procurement/purchase-orders/{id}/close",
+      "POST /admin/procurement/purchase-orders/{id}/send",
+      "POST /admin/procurement/purchase-orders/{id}/submit"
+    ],
+    "states": 46,
+    "views": [
+      "overview",
+      "op-01",
+      "op-02",
+      "op-03",
+      "op-04",
+      "op-05",
+      "op-06",
+      "op-07",
+      "op-08",
+      "op-09",
+      "conflict",
+      "denied",
+      "op-03-confirm",
+      "op-04-confirm",
+      "op-08-confirm",
+      "loading",
+      "empty",
+      "success"
+    ],
+    "focus": {
+      "entry": "Focus page heading; RTL logical reading, LTR isolate SKU/codes/versions. Tables use labelled card equivalents at compact widths.",
+      "dialog": "Initial focus safe cancel; trap Tab within modal, Escape cancels and restores trigger. Step-Up follows B secure-auth pattern.",
+      "error": "Focus linked error summary after failed submission, with inline descriptions; retain input and do not move focus on every blur.",
+      "navigation": "Keyboard reaches every task and field;44px touch targets, no drag-only control, no fixed footer obscuring focus; polite authoritative result announcement."
+    },
+    "blockedOperations": []
+  },
+  {
+    "id": "AD-D-15",
+    "gate": "D",
+    "task": "AT-D-15",
+    "actors": [
+      "approver",
+      "staff"
+    ],
+    "journeys": [
+      "AJ-03",
+      "AJ-09"
+    ],
+    "domains": [
+      "procurement"
+    ],
+    "permissions": [
+      "procurement.receipt.manage",
+      "procurement.receipt.post",
+      "procurement.receipt.reverse",
+      "procurement.view"
+    ],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "GET /admin/procurement/goods-receipts",
+      "GET /admin/procurement/goods-receipts/{id}",
+      "PATCH /admin/procurement/goods-receipts/{id}",
+      "POST /admin/procurement/goods-receipts",
+      "POST /admin/procurement/goods-receipts/{id}/post",
+      "POST /admin/procurement/goods-receipts/{id}/reverse",
+      "POST /admin/procurement/goods-receipts/{id}/submit"
+    ],
+    "states": 54,
+    "views": [
+      "overview",
+      "op-01",
+      "op-02",
+      "op-03",
+      "op-04",
+      "op-05",
+      "op-06",
+      "op-07",
+      "conflict",
+      "denied",
+      "op-03-confirm",
+      "op-04-confirm",
+      "loading",
+      "empty",
+      "success"
+    ],
+    "focus": {
+      "entry": "Focus page heading; RTL logical reading, LTR isolate SKU/codes/versions. Tables use labelled card equivalents at compact widths.",
+      "dialog": "Initial focus safe cancel; trap Tab within modal, Escape cancels and restores trigger. Step-Up follows B secure-auth pattern.",
+      "error": "Focus linked error summary after failed submission, with inline descriptions; retain input and do not move focus on every blur.",
+      "navigation": "Keyboard reaches every task and field;44px touch targets, no drag-only control, no fixed footer obscuring focus; polite authoritative result announcement."
+    },
+    "blockedOperations": []
+  },
+  {
+    "id": "AD-D-16",
+    "gate": "D",
+    "task": "AT-D-16",
+    "actors": [
+      "approver",
+      "staff"
+    ],
+    "journeys": [
+      "AJ-03",
+      "AJ-09"
+    ],
+    "domains": [
+      "procurement"
+    ],
+    "permissions": [
+      "procurement.landed_cost.manage",
+      "procurement.view"
+    ],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "GET /admin/procurement/landed-costs",
+      "GET /admin/procurement/landed-costs/{id}",
+      "POST /admin/procurement/landed-costs",
+      "POST /admin/procurement/landed-costs/{id}/finalize",
+      "POST /admin/procurement/landed-costs/{id}/preview-allocation"
+    ],
+    "states": 54,
+    "views": [
+      "overview",
+      "op-01",
+      "op-02",
+      "op-03",
+      "op-04",
+      "op-05",
+      "conflict",
+      "denied",
+      "op-03-confirm",
+      "op-05-result",
+      "loading",
+      "empty",
+      "success"
+    ],
+    "focus": {
+      "entry": "Focus page heading; RTL logical reading, LTR isolate SKU/codes/versions. Tables use labelled card equivalents at compact widths.",
+      "dialog": "Initial focus safe cancel; trap Tab within modal, Escape cancels and restores trigger. Step-Up follows B secure-auth pattern.",
+      "error": "Focus linked error summary after failed submission, with inline descriptions; retain input and do not move focus on every blur.",
+      "navigation": "Keyboard reaches every task and field;44px touch targets, no drag-only control, no fixed footer obscuring focus; polite authoritative result announcement."
+    },
+    "blockedOperations": []
+  },
+  {
+    "id": "AD-D-17",
+    "gate": "D",
+    "task": "AT-D-17",
+    "actors": [
+      "approver",
+      "staff"
+    ],
+    "journeys": [
+      "AJ-03",
+      "AJ-09"
+    ],
+    "domains": [
+      "procurement"
+    ],
+    "permissions": [
+      "procurement.invoice.manage",
+      "procurement.view"
+    ],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "GET /admin/procurement/supplier-invoices",
+      "POST /admin/procurement/supplier-invoices",
+      "POST /admin/procurement/supplier-invoices/{id}/cancel",
+      "POST /admin/procurement/supplier-invoices/{id}/dispute",
+      "POST /admin/procurement/supplier-invoices/{id}/match"
+    ],
+    "states": 54,
+    "views": [
+      "overview",
+      "op-01",
+      "op-02",
+      "op-03",
+      "op-04",
+      "op-05",
+      "conflict",
+      "denied",
+      "op-02-confirm",
+      "loading",
+      "empty",
+      "success"
+    ],
+    "focus": {
+      "entry": "Focus page heading; RTL logical reading, LTR isolate SKU/codes/versions. Tables use labelled card equivalents at compact widths.",
+      "dialog": "Initial focus safe cancel; trap Tab within modal, Escape cancels and restores trigger. Step-Up follows B secure-auth pattern.",
+      "error": "Focus linked error summary after failed submission, with inline descriptions; retain input and do not move focus on every blur.",
+      "navigation": "Keyboard reaches every task and field;44px touch targets, no drag-only control, no fixed footer obscuring focus; polite authoritative result announcement."
+    },
+    "blockedOperations": []
+  },
+  {
+    "id": "AD-D-18",
+    "gate": "D",
+    "task": "AT-D-18",
+    "actors": [
+      "approver",
+      "staff"
+    ],
+    "journeys": [
+      "AJ-03"
+    ],
+    "domains": [
+      "procurement"
+    ],
+    "permissions": [
+      "procurement.return.manage",
+      "procurement.view"
+    ],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "GET /admin/procurement/purchase-returns",
+      "GET /admin/procurement/purchase-returns/{id}",
+      "POST /admin/procurement/purchase-returns",
+      "POST /admin/procurement/purchase-returns/{id}/approve",
+      "POST /admin/procurement/purchase-returns/{id}/complete",
+      "POST /admin/procurement/purchase-returns/{id}/ship"
+    ],
+    "states": 46,
+    "views": [
+      "overview",
+      "op-01",
+      "op-02",
+      "op-03",
+      "op-04",
+      "op-05",
+      "op-06",
+      "conflict",
+      "denied",
+      "op-03-confirm",
+      "loading",
+      "empty",
+      "success"
+    ],
+    "focus": {
+      "entry": "Focus page heading; RTL logical reading, LTR isolate SKU/codes/versions. Tables use labelled card equivalents at compact widths.",
+      "dialog": "Initial focus safe cancel; trap Tab within modal, Escape cancels and restores trigger. Step-Up follows B secure-auth pattern.",
+      "error": "Focus linked error summary after failed submission, with inline descriptions; retain input and do not move focus on every blur.",
+      "navigation": "Keyboard reaches every task and field;44px touch targets, no drag-only control, no fixed footer obscuring focus; polite authoritative result announcement."
+    },
+    "blockedOperations": []
+  },
+  {
+    "id": "AD-D-19",
+    "gate": "D",
+    "task": "AT-D-19",
+    "actors": [
+      "approver",
+      "staff"
+    ],
+    "journeys": [
+      "AJ-01",
+      "AJ-02"
+    ],
+    "domains": [
+      "excel"
+    ],
+    "permissions": [
+      "excel.import",
+      "excel.recover",
+      "excel.view"
+    ],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "GET /admin/excel/exports/template",
+      "POST /admin/excel/dry-run",
+      "POST /admin/excel/imports",
+      "POST /admin/excel/imports/{id}/recover"
+    ],
+    "states": 47,
+    "views": [
+      "overview",
+      "op-01",
+      "op-02",
+      "op-03",
+      "op-04",
+      "conflict",
+      "denied",
+      "op-03-confirm",
+      "loading",
+      "empty",
+      "success"
+    ],
+    "focus": {
+      "entry": "Focus page heading; RTL logical reading, LTR isolate SKU/codes/versions. Tables use labelled card equivalents at compact widths.",
+      "dialog": "Initial focus safe cancel; trap Tab within modal, Escape cancels and restores trigger. Step-Up follows B secure-auth pattern.",
+      "error": "Focus linked error summary after failed submission, with inline descriptions; retain input and do not move focus on every blur.",
+      "navigation": "Keyboard reaches every task and field;44px touch targets, no drag-only control, no fixed footer obscuring focus; polite authoritative result announcement."
+    },
+    "blockedOperations": []
+  },
+  {
+    "id": "AD-D-20",
+    "gate": "D",
+    "task": "AT-D-20",
+    "actors": [
+      "approver",
+      "staff"
+    ],
+    "journeys": [
+      "AJ-01"
+    ],
+    "domains": [
+      "excel"
+    ],
+    "permissions": [
+      "excel.apply",
+      "excel.view"
+    ],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "POST /admin/excel/catalog/apply",
+      "POST /admin/excel/catalog/preview"
+    ],
+    "states": 43,
+    "views": [
+      "overview",
+      "op-01",
+      "op-02",
+      "conflict",
+      "denied",
+      "op-02-result",
+      "loading",
+      "empty",
+      "success"
+    ],
+    "focus": {
+      "entry": "Focus page heading; RTL logical reading, LTR isolate SKU/codes/versions. Tables use labelled card equivalents at compact widths.",
+      "dialog": "Initial focus safe cancel; trap Tab within modal, Escape cancels and restores trigger. Step-Up follows B secure-auth pattern.",
+      "error": "Focus linked error summary after failed submission, with inline descriptions; retain input and do not move focus on every blur.",
+      "navigation": "Keyboard reaches every task and field;44px touch targets, no drag-only control, no fixed footer obscuring focus; polite authoritative result announcement."
+    },
+    "blockedOperations": []
+  },
+  {
+    "id": "AD-D-21",
+    "gate": "D",
+    "task": "AT-D-21",
+    "actors": [
+      "approver",
+      "staff"
+    ],
+    "journeys": [
+      "AJ-02"
+    ],
+    "domains": [
+      "excel"
+    ],
+    "permissions": [
+      "excel.apply",
+      "excel.view"
+    ],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "POST /admin/excel/pricing/apply",
+      "POST /admin/excel/pricing/preview"
+    ],
+    "states": 42,
+    "views": [
+      "overview",
+      "op-01",
+      "op-02",
+      "conflict",
+      "denied",
+      "op-02-result",
+      "loading",
+      "empty",
+      "success"
+    ],
+    "focus": {
+      "entry": "Focus page heading; RTL logical reading, LTR isolate SKU/codes/versions. Tables use labelled card equivalents at compact widths.",
+      "dialog": "Initial focus safe cancel; trap Tab within modal, Escape cancels and restores trigger. Step-Up follows B secure-auth pattern.",
+      "error": "Focus linked error summary after failed submission, with inline descriptions; retain input and do not move focus on every blur.",
+      "navigation": "Keyboard reaches every task and field;44px touch targets, no drag-only control, no fixed footer obscuring focus; polite authoritative result announcement."
+    },
+    "blockedOperations": []
+  },
+  {
+    "id": "AD-E-01",
+    "gate": "E",
+    "task": "AT-E-01",
+    "actors": [
+      "staff"
+    ],
+    "journeys": [
+      "AJ-04"
+    ],
+    "domains": [
+      "orders"
+    ],
+    "permissions": [
+      "orders.cancel"
+    ],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "GET /admin/orders",
+      "GET /admin/orders/{id}",
+      "GET /admin/orders/{id}/allowed-actions",
+      "GET /admin/orders/{id}/timeline",
+      "POST /admin/orders/{id}/cancel",
+      "POST /admin/orders/{id}/complete",
+      "POST /admin/orders/{id}/confirm"
+    ],
+    "states": 46,
+    "views": [
+      "overview",
+      "op-01",
+      "op-02",
+      "op-03",
+      "op-04",
+      "op-05",
+      "op-06",
+      "op-07",
+      "conflict",
+      "denied",
+      "loading",
+      "empty",
+      "success"
+    ],
+    "focus": {
+      "entry": "Focus heading; logical RTL order and LTR-isolated identifiers and references; no data disclosure outside permission.",
+      "dialog": "Initial focus safe cancel; Tab trapped in modal, Escape restores trigger. Step-Up inherits secure B behavior and returns to review.",
+      "error": "After failed submit focus linked error summary and inline description; retain safe input; asynchronous refresh never steals focus.",
+      "navigation": "Keyboard alternatives for every action, labelled compact cards and44px minimum touch targets; no fixed action obscures focus. Polite result announcement."
+    },
+    "blockedOperations": [
+      "GET /admin/orders",
+      "GET /admin/orders/{id}",
+      "GET /admin/orders/{id}/allowed-actions",
+      "GET /admin/orders/{id}/timeline",
+      "POST /admin/orders/{id}/cancel",
+      "POST /admin/orders/{id}/complete",
+      "POST /admin/orders/{id}/confirm"
+    ]
+  },
+  {
+    "id": "AD-E-02",
+    "gate": "E",
+    "task": "AT-E-02",
+    "actors": [
+      "approver",
+      "staff"
+    ],
+    "journeys": [
+      "AJ-05"
+    ],
+    "domains": [
+      "payments"
+    ],
+    "permissions": [
+      "payments.reconcile",
+      "payments.view"
+    ],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "GET /admin/payments",
+      "GET /admin/payments/{id}",
+      "GET /admin/payments/{id}/attempts",
+      "POST /admin/payments/{id}/reconcile"
+    ],
+    "states": 46,
+    "views": [
+      "overview",
+      "op-01",
+      "op-02",
+      "op-03",
+      "op-04",
+      "conflict",
+      "denied",
+      "loading",
+      "empty",
+      "success"
+    ],
+    "focus": {
+      "entry": "Focus heading; logical RTL order and LTR-isolated identifiers and references; no data disclosure outside permission.",
+      "dialog": "Initial focus safe cancel; Tab trapped in modal, Escape restores trigger. Step-Up inherits secure B behavior and returns to review.",
+      "error": "After failed submit focus linked error summary and inline description; retain safe input; asynchronous refresh never steals focus.",
+      "navigation": "Keyboard alternatives for every action, labelled compact cards and44px minimum touch targets; no fixed action obscures focus. Polite result announcement."
+    },
+    "blockedOperations": []
+  },
+  {
+    "id": "AD-E-03",
+    "gate": "E",
+    "task": "AT-E-03",
+    "actors": [
+      "approver",
+      "staff"
+    ],
+    "journeys": [
+      "AJ-05"
+    ],
+    "domains": [
+      "payments"
+    ],
+    "permissions": [
+      "refund.approve",
+      "refund.cancel",
+      "refund.create",
+      "refund.process",
+      "refund.reject",
+      "refund.view"
+    ],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "GET /admin/refunds",
+      "GET /admin/refunds/{id}",
+      "POST /admin/refunds",
+      "POST /admin/refunds/{id}/approve",
+      "POST /admin/refunds/{id}/cancel",
+      "POST /admin/refunds/{id}/process",
+      "POST /admin/refunds/{id}/reconcile",
+      "POST /admin/refunds/{id}/reject",
+      "POST /admin/refunds/{id}/retry"
+    ],
+    "states": 46,
+    "views": [
+      "overview",
+      "op-01",
+      "op-02",
+      "op-03-confirm",
+      "op-03",
+      "op-04",
+      "op-05",
+      "op-06",
+      "op-07",
+      "op-08",
+      "op-09",
+      "conflict",
+      "denied",
+      "loading",
+      "empty",
+      "success"
+    ],
+    "focus": {
+      "entry": "Focus heading; logical RTL order and LTR-isolated identifiers and references; no data disclosure outside permission.",
+      "dialog": "Initial focus safe cancel; Tab trapped in modal, Escape restores trigger. Step-Up inherits secure B behavior and returns to review.",
+      "error": "After failed submit focus linked error summary and inline description; retain safe input; asynchronous refresh never steals focus.",
+      "navigation": "Keyboard alternatives for every action, labelled compact cards and44px minimum touch targets; no fixed action obscures focus. Polite result announcement."
+    },
+    "blockedOperations": []
+  },
+  {
+    "id": "AD-E-04",
+    "gate": "E",
+    "task": "AT-E-04",
+    "actors": [
+      "staff"
+    ],
+    "journeys": [
+      "AJ-04"
+    ],
+    "domains": [
+      "fulfillment"
+    ],
+    "permissions": [
+      "fulfillment.allocate",
+      "fulfillment.pick",
+      "fulfillment.view"
+    ],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "GET /admin/fulfillment/orders",
+      "GET /admin/fulfillment/orders/{order_id}",
+      "POST /admin/fulfillment/allocations/{id}/pick",
+      "POST /admin/fulfillment/allocations/{id}/unpick",
+      "POST /admin/fulfillment/orders/{order_id}/allocate",
+      "POST /admin/fulfillment/orders/{order_id}/start-preparation"
+    ],
+    "states": 46,
+    "views": [
+      "overview",
+      "op-01",
+      "op-02",
+      "op-03-confirm",
+      "op-03",
+      "op-04-confirm",
+      "op-04",
+      "op-05-confirm",
+      "op-05",
+      "op-06-confirm",
+      "op-06",
+      "conflict",
+      "denied",
+      "loading",
+      "empty",
+      "success"
+    ],
+    "focus": {
+      "entry": "Focus heading; logical RTL order and LTR-isolated identifiers and references; no data disclosure outside permission.",
+      "dialog": "Initial focus safe cancel; Tab trapped in modal, Escape restores trigger. Step-Up inherits secure B behavior and returns to review.",
+      "error": "After failed submit focus linked error summary and inline description; retain safe input; asynchronous refresh never steals focus.",
+      "navigation": "Keyboard alternatives for every action, labelled compact cards and44px minimum touch targets; no fixed action obscures focus. Polite result announcement."
+    },
+    "blockedOperations": []
+  },
+  {
+    "id": "AD-E-05",
+    "gate": "E",
+    "task": "AT-E-05",
+    "actors": [
+      "staff"
+    ],
+    "journeys": [
+      "AJ-04"
+    ],
+    "domains": [
+      "fulfillment"
+    ],
+    "permissions": [
+      "fulfillment.shipment.manage",
+      "fulfillment.tracking.manage",
+      "fulfillment.view"
+    ],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "GET /admin/shipments",
+      "GET /admin/shipments/{id}",
+      "POST /admin/shipments",
+      "POST /admin/shipments/{id}/cancel",
+      "POST /admin/shipments/{id}/handover",
+      "POST /admin/shipments/{id}/mark-ready",
+      "POST /admin/shipments/{id}/refresh-tracking"
+    ],
+    "states": 46,
+    "views": [
+      "overview",
+      "op-01",
+      "op-02",
+      "op-03-confirm",
+      "op-03",
+      "op-04-confirm",
+      "op-04",
+      "op-05",
+      "op-06",
+      "op-07",
+      "conflict",
+      "denied",
+      "loading",
+      "empty",
+      "success"
+    ],
+    "focus": {
+      "entry": "Focus heading; logical RTL order and LTR-isolated identifiers and references; no data disclosure outside permission.",
+      "dialog": "Initial focus safe cancel; Tab trapped in modal, Escape restores trigger. Step-Up inherits secure B behavior and returns to review.",
+      "error": "After failed submit focus linked error summary and inline description; retain safe input; asynchronous refresh never steals focus.",
+      "navigation": "Keyboard alternatives for every action, labelled compact cards and44px minimum touch targets; no fixed action obscures focus. Polite result announcement."
+    },
+    "blockedOperations": []
+  },
+  {
+    "id": "AD-E-06",
+    "gate": "E",
+    "task": "AT-E-06",
+    "actors": [
+      "approver",
+      "operator",
+      "staff"
+    ],
+    "journeys": [
+      "AJ-04",
+      "AJ-12"
+    ],
+    "domains": [
+      "cart"
+    ],
+    "permissions": [
+      "checkout.shipping.manage",
+      "checkout.shipping.view"
+    ],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "GET /admin/shipping-methods",
+      "PATCH /admin/shipping-methods/{id}",
+      "POST /admin/shipping-methods"
+    ],
+    "states": 56,
+    "views": [
+      "overview",
+      "op-01",
+      "op-02-confirm",
+      "op-02",
+      "op-03-confirm",
+      "op-03",
+      "conflict",
+      "denied",
+      "loading",
+      "empty",
+      "success"
+    ],
+    "focus": {
+      "entry": "Focus heading; logical RTL order and LTR-isolated identifiers and references; no data disclosure outside permission.",
+      "dialog": "Initial focus safe cancel; Tab trapped in modal, Escape restores trigger. Step-Up inherits secure B behavior and returns to review.",
+      "error": "After failed submit focus linked error summary and inline description; retain safe input; asynchronous refresh never steals focus.",
+      "navigation": "Keyboard alternatives for every action, labelled compact cards and44px minimum touch targets; no fixed action obscures focus. Polite result announcement."
+    },
+    "blockedOperations": []
+  },
+  {
+    "id": "AD-E-07",
+    "gate": "E",
+    "task": "AT-E-07",
+    "actors": [
+      "approver",
+      "staff"
+    ],
+    "journeys": [
+      "AJ-06"
+    ],
+    "domains": [
+      "returns"
+    ],
+    "permissions": [
+      "returns.inspect",
+      "returns.receive",
+      "returns.resolve",
+      "returns.review",
+      "returns.view"
+    ],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "GET /admin/returns",
+      "GET /admin/returns/{id}",
+      "GET /admin/returns/{id}/timeline",
+      "POST /admin/returns/{id}/approve",
+      "POST /admin/returns/{id}/receive",
+      "POST /admin/returns/{id}/reject",
+      "POST /admin/returns/{id}/resolve",
+      "POST /admin/returns/{id}/start-inspection",
+      "POST /admin/returns/{id}/start-review"
+    ],
+    "states": 45,
+    "views": [
+      "overview",
+      "op-01",
+      "op-02",
+      "op-03",
+      "op-04-confirm",
+      "op-04",
+      "op-05-confirm",
+      "op-05",
+      "op-06-confirm",
+      "op-06",
+      "op-07-confirm",
+      "op-07",
+      "op-08-confirm",
+      "op-08",
+      "op-09-confirm",
+      "op-09",
+      "conflict",
+      "denied",
+      "loading",
+      "empty",
+      "success"
+    ],
+    "focus": {
+      "entry": "Focus heading; logical RTL order and LTR-isolated identifiers and references; no data disclosure outside permission.",
+      "dialog": "Initial focus safe cancel; Tab trapped in modal, Escape restores trigger. Step-Up inherits secure B behavior and returns to review.",
+      "error": "After failed submit focus linked error summary and inline description; retain safe input; asynchronous refresh never steals focus.",
+      "navigation": "Keyboard alternatives for every action, labelled compact cards and44px minimum touch targets; no fixed action obscures focus. Polite result announcement."
+    },
+    "blockedOperations": []
+  },
+  {
+    "id": "AD-E-08",
+    "gate": "E",
+    "task": "AT-E-08",
+    "actors": [
+      "approver",
+      "staff"
+    ],
+    "journeys": [
+      "AJ-06"
+    ],
+    "domains": [
+      "warranty"
+    ],
+    "permissions": [
+      "warranty.receive",
+      "warranty.repair",
+      "warranty.resolve",
+      "warranty.review",
+      "warranty.view"
+    ],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "GET /admin/warranty/claims",
+      "GET /admin/warranty/claims/{id}",
+      "GET /admin/warranty/claims/{id}/timeline",
+      "POST /admin/warranty/claims/{id}/approve",
+      "POST /admin/warranty/claims/{id}/close",
+      "POST /admin/warranty/claims/{id}/receive",
+      "POST /admin/warranty/claims/{id}/reject",
+      "POST /admin/warranty/claims/{id}/resolve",
+      "POST /admin/warranty/claims/{id}/start-repair",
+      "POST /admin/warranty/claims/{id}/start-review"
+    ],
+    "states": 45,
+    "views": [
+      "overview",
+      "op-01",
+      "op-02",
+      "op-03",
+      "op-04-confirm",
+      "op-04",
+      "op-05-confirm",
+      "op-05",
+      "op-06-confirm",
+      "op-06",
+      "op-07-confirm",
+      "op-07",
+      "op-08-confirm",
+      "op-08",
+      "op-09-confirm",
+      "op-09",
+      "op-10-confirm",
+      "op-10",
+      "conflict",
+      "denied",
+      "loading",
+      "empty",
+      "success"
+    ],
+    "focus": {
+      "entry": "Focus heading; logical RTL order and LTR-isolated identifiers and references; no data disclosure outside permission.",
+      "dialog": "Initial focus safe cancel; Tab trapped in modal, Escape restores trigger. Step-Up inherits secure B behavior and returns to review.",
+      "error": "After failed submit focus linked error summary and inline description; retain safe input; asynchronous refresh never steals focus.",
+      "navigation": "Keyboard alternatives for every action, labelled compact cards and44px minimum touch targets; no fixed action obscures focus. Polite result announcement."
+    },
+    "blockedOperations": []
+  },
+  {
+    "id": "AD-E-09",
+    "gate": "E",
+    "task": "AT-E-09",
+    "actors": [
+      "staff"
+    ],
+    "journeys": [
+      "AJ-04"
+    ],
+    "domains": [
+      "pos"
+    ],
+    "permissions": [],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "GET /admin/pos/registers",
+      "GET /admin/pos/shifts/current",
+      "GET /admin/pos/stores",
+      "POST /admin/pos/shifts/{id}/begin-closing",
+      "POST /admin/pos/shifts/{id}/close",
+      "POST /admin/pos/shifts/{id}/reconcile",
+      "POST /admin/pos/shifts/open"
+    ],
+    "states": 46,
+    "views": [
+      "overview",
+      "op-01",
+      "op-02",
+      "op-03",
+      "op-04",
+      "op-05",
+      "op-06",
+      "op-07",
+      "conflict",
+      "denied",
+      "loading",
+      "empty",
+      "success"
+    ],
+    "focus": {
+      "entry": "Focus heading; logical RTL order and LTR-isolated identifiers and references; no data disclosure outside permission.",
+      "dialog": "Initial focus safe cancel; Tab trapped in modal, Escape restores trigger. Step-Up inherits secure B behavior and returns to review.",
+      "error": "After failed submit focus linked error summary and inline description; retain safe input; asynchronous refresh never steals focus.",
+      "navigation": "Keyboard alternatives for every action, labelled compact cards and44px minimum touch targets; no fixed action obscures focus. Polite result announcement."
+    },
+    "blockedOperations": [
+      "GET /admin/pos/registers",
+      "GET /admin/pos/shifts/current",
+      "GET /admin/pos/stores",
+      "POST /admin/pos/shifts/{id}/begin-closing",
+      "POST /admin/pos/shifts/{id}/close",
+      "POST /admin/pos/shifts/{id}/reconcile",
+      "POST /admin/pos/shifts/open"
+    ]
+  },
+  {
+    "id": "AD-E-10",
+    "gate": "E",
+    "task": "AT-E-10",
+    "actors": [
+      "approver",
+      "staff"
+    ],
+    "journeys": [
+      "AJ-04",
+      "AJ-05"
+    ],
+    "domains": [
+      "pos"
+    ],
+    "permissions": [
+      "pos.sell",
+      "pos.view"
+    ],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "GET /admin/pos/scan",
+      "POST /admin/pos/orders",
+      "POST /admin/pos/sales",
+      "POST /admin/pos/sales/{id}/commit",
+      "POST /admin/pos/sales/{id}/lines",
+      "POST /admin/pos/sales/{id}/price"
+    ],
+    "states": 54,
+    "views": [
+      "overview",
+      "op-01",
+      "op-02",
+      "op-03",
+      "op-04",
+      "op-05",
+      "op-06",
+      "conflict",
+      "denied",
+      "loading",
+      "empty",
+      "success"
+    ],
+    "focus": {
+      "entry": "Focus heading; logical RTL order and LTR-isolated identifiers and references; no data disclosure outside permission.",
+      "dialog": "Initial focus safe cancel; Tab trapped in modal, Escape restores trigger. Step-Up inherits secure B behavior and returns to review.",
+      "error": "After failed submit focus linked error summary and inline description; retain safe input; asynchronous refresh never steals focus.",
+      "navigation": "Keyboard alternatives for every action, labelled compact cards and44px minimum touch targets; no fixed action obscures focus. Polite result announcement."
+    },
+    "blockedOperations": [
+      "GET /admin/pos/scan",
+      "POST /admin/pos/orders",
+      "POST /admin/pos/sales",
+      "POST /admin/pos/sales/{id}/commit",
+      "POST /admin/pos/sales/{id}/lines",
+      "POST /admin/pos/sales/{id}/price"
+    ]
+  },
+  {
+    "id": "AD-E-11",
+    "gate": "E",
+    "task": "AT-E-11",
+    "actors": [
+      "approver",
+      "operator",
+      "staff"
+    ],
+    "journeys": [
+      "AJ-04",
+      "AJ-11"
+    ],
+    "domains": [
+      "pos"
+    ],
+    "permissions": [
+      "pos.reconcile",
+      "pos.sell"
+    ],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "GET /admin/pos/reconciliation/{clientCommandId}",
+      "GET /admin/pos/reconciliation/failed",
+      "POST /admin/pos/offline/commands",
+      "POST /admin/pos/offline/commands/{clientCommandId}/sync",
+      "POST /admin/pos/reconciliation/{clientCommandId}/abandon",
+      "POST /admin/pos/reconciliation/{clientCommandId}/retry"
+    ],
+    "states": 55,
+    "views": [
+      "overview",
+      "op-01",
+      "op-02",
+      "op-03",
+      "op-04",
+      "op-05",
+      "op-06",
+      "conflict",
+      "denied",
+      "loading",
+      "empty",
+      "success"
+    ],
+    "focus": {
+      "entry": "Focus heading; logical RTL order and LTR-isolated identifiers and references; no data disclosure outside permission.",
+      "dialog": "Initial focus safe cancel; Tab trapped in modal, Escape restores trigger. Step-Up inherits secure B behavior and returns to review.",
+      "error": "After failed submit focus linked error summary and inline description; retain safe input; asynchronous refresh never steals focus.",
+      "navigation": "Keyboard alternatives for every action, labelled compact cards and44px minimum touch targets; no fixed action obscures focus. Polite result announcement."
+    },
+    "blockedOperations": [
+      "GET /admin/pos/reconciliation/{clientCommandId}",
+      "GET /admin/pos/reconciliation/failed",
+      "POST /admin/pos/offline/commands",
+      "POST /admin/pos/offline/commands/{clientCommandId}/sync",
+      "POST /admin/pos/reconciliation/{clientCommandId}/abandon",
+      "POST /admin/pos/reconciliation/{clientCommandId}/retry"
+    ]
+  },
+  {
+    "id": "AD-F-01",
+    "gate": "F",
+    "task": "AT-F-01",
+    "actors": [
+      "approver",
+      "staff"
+    ],
+    "journeys": [
+      "AJ-07"
+    ],
+    "domains": [
+      "customer"
+    ],
+    "permissions": [],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "GET /admin/customers",
+      "GET /admin/customers/{id}",
+      "GET /admin/customers/{id}/loyalty",
+      "GET /admin/customers/{id}/orders",
+      "GET /admin/customers/{id}/timeline"
+    ],
+    "states": 43,
+    "views": [
+      "overview",
+      "op-01",
+      "op-02",
+      "op-03",
+      "op-04",
+      "op-05",
+      "conflict",
+      "denied",
+      "loading",
+      "empty",
+      "success"
+    ],
+    "focus": {
+      "entry": "Focus heading; logical RTL order and LTR-isolated identifiers and references; no data disclosure outside permission.",
+      "dialog": "Initial focus safe cancel; Tab trapped in modal, Escape restores trigger. Step-Up inherits secure B behavior and returns to review.",
+      "error": "After failed submit focus linked error summary and inline description; retain safe input; asynchronous refresh never steals focus.",
+      "navigation": "Keyboard alternatives for every action, labelled compact cards and44px minimum touch targets; no fixed action obscures focus. Polite result announcement."
+    },
+    "blockedOperations": [
+      "GET /admin/customers",
+      "GET /admin/customers/{id}",
+      "GET /admin/customers/{id}/loyalty",
+      "GET /admin/customers/{id}/orders",
+      "GET /admin/customers/{id}/timeline"
+    ]
+  },
+  {
+    "id": "AD-F-02",
+    "gate": "F",
+    "task": "AT-F-02",
+    "actors": [
+      "approver",
+      "staff"
+    ],
+    "journeys": [
+      "AJ-07"
+    ],
+    "domains": [
+      "customer"
+    ],
+    "permissions": [
+      "customer.wholesale.decide",
+      "customer.wholesale.review",
+      "customer.wholesale.view"
+    ],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "GET /admin/wholesale/applications",
+      "GET /admin/wholesale/applications/{id}",
+      "POST /admin/wholesale/applications/{id}/approve",
+      "POST /admin/wholesale/applications/{id}/reject",
+      "POST /admin/wholesale/applications/{id}/start-review"
+    ],
+    "states": 43,
+    "views": [
+      "overview",
+      "op-01",
+      "op-02",
+      "op-03-confirm",
+      "op-03",
+      "op-04-confirm",
+      "op-04",
+      "op-05-confirm",
+      "op-05",
+      "conflict",
+      "denied",
+      "loading",
+      "empty",
+      "success"
+    ],
+    "focus": {
+      "entry": "Focus heading; logical RTL order and LTR-isolated identifiers and references; no data disclosure outside permission.",
+      "dialog": "Initial focus safe cancel; Tab trapped in modal, Escape restores trigger. Step-Up inherits secure B behavior and returns to review.",
+      "error": "After failed submit focus linked error summary and inline description; retain safe input; asynchronous refresh never steals focus.",
+      "navigation": "Keyboard alternatives for every action, labelled compact cards and44px minimum touch targets; no fixed action obscures focus. Polite result announcement."
+    },
+    "blockedOperations": []
+  },
+  {
+    "id": "AD-F-03",
+    "gate": "F",
+    "task": "AT-F-03",
+    "actors": [
+      "approver",
+      "staff"
+    ],
+    "journeys": [
+      "AJ-08"
+    ],
+    "domains": [
+      "loyalty"
+    ],
+    "permissions": [
+      "loyalty.adjust",
+      "loyalty.view"
+    ],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "GET /admin/loyalty/accounts/{customer_id}",
+      "GET /admin/loyalty/customers/{customerId}/balance",
+      "GET /admin/loyalty/customers/{customerId}/history",
+      "POST /admin/loyalty/adjustments",
+      "POST /admin/loyalty/customers/{customerId}/adjust",
+      "POST /admin/loyalty/customers/{customerId}/entries/{entryId}/reverse"
+    ],
+    "states": 45,
+    "views": [
+      "overview",
+      "op-01",
+      "op-02",
+      "op-03",
+      "op-04",
+      "op-05",
+      "op-06",
+      "conflict",
+      "denied",
+      "loading",
+      "empty",
+      "success"
+    ],
+    "focus": {
+      "entry": "Focus heading; logical RTL order and LTR-isolated identifiers and references; no data disclosure outside permission.",
+      "dialog": "Initial focus safe cancel; Tab trapped in modal, Escape restores trigger. Step-Up inherits secure B behavior and returns to review.",
+      "error": "After failed submit focus linked error summary and inline description; retain safe input; asynchronous refresh never steals focus.",
+      "navigation": "Keyboard alternatives for every action, labelled compact cards and44px minimum touch targets; no fixed action obscures focus. Polite result announcement."
+    },
+    "blockedOperations": [
+      "GET /admin/loyalty/accounts/{customer_id}",
+      "GET /admin/loyalty/customers/{customerId}/balance",
+      "GET /admin/loyalty/customers/{customerId}/history",
+      "POST /admin/loyalty/adjustments",
+      "POST /admin/loyalty/customers/{customerId}/adjust",
+      "POST /admin/loyalty/customers/{customerId}/entries/{entryId}/reverse"
+    ]
+  },
+  {
+    "id": "AD-F-04",
+    "gate": "F",
+    "task": "AT-F-04",
+    "actors": [
+      "approver",
+      "staff"
+    ],
+    "journeys": [
+      "AJ-08"
+    ],
+    "domains": [
+      "loyalty"
+    ],
+    "permissions": [],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "GET /admin/loyalty/tiers",
+      "PATCH /admin/loyalty/tiers/{id}",
+      "POST /admin/loyalty/tiers"
+    ],
+    "states": 45,
+    "views": [
+      "overview",
+      "op-01",
+      "op-02",
+      "op-03",
+      "conflict",
+      "denied",
+      "loading",
+      "empty",
+      "success"
+    ],
+    "focus": {
+      "entry": "Focus heading; logical RTL order and LTR-isolated identifiers and references; no data disclosure outside permission.",
+      "dialog": "Initial focus safe cancel; Tab trapped in modal, Escape restores trigger. Step-Up inherits secure B behavior and returns to review.",
+      "error": "After failed submit focus linked error summary and inline description; retain safe input; asynchronous refresh never steals focus.",
+      "navigation": "Keyboard alternatives for every action, labelled compact cards and44px minimum touch targets; no fixed action obscures focus. Polite result announcement."
+    },
+    "blockedOperations": [
+      "GET /admin/loyalty/tiers",
+      "PATCH /admin/loyalty/tiers/{id}",
+      "POST /admin/loyalty/tiers"
+    ]
+  },
+  {
+    "id": "AD-F-05",
+    "gate": "F",
+    "task": "AT-F-05",
+    "actors": [
+      "approver",
+      "staff"
+    ],
+    "journeys": [
+      "AJ-08"
+    ],
+    "domains": [
+      "catalog"
+    ],
+    "permissions": [],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "GET /admin/reviews",
+      "GET /admin/reviews/{id}",
+      "POST /admin/reviews/{id}/approve",
+      "POST /admin/reviews/{id}/hide",
+      "POST /admin/reviews/{id}/reject"
+    ],
+    "states": 45,
+    "views": [
+      "overview",
+      "op-01",
+      "op-02",
+      "op-03",
+      "op-04",
+      "op-05",
+      "conflict",
+      "denied",
+      "loading",
+      "empty",
+      "success"
+    ],
+    "focus": {
+      "entry": "Focus heading; logical RTL order and LTR-isolated identifiers and references; no data disclosure outside permission.",
+      "dialog": "Initial focus safe cancel; Tab trapped in modal, Escape restores trigger. Step-Up inherits secure B behavior and returns to review.",
+      "error": "After failed submit focus linked error summary and inline description; retain safe input; asynchronous refresh never steals focus.",
+      "navigation": "Keyboard alternatives for every action, labelled compact cards and44px minimum touch targets; no fixed action obscures focus. Polite result announcement."
+    },
+    "blockedOperations": [
+      "GET /admin/reviews",
+      "GET /admin/reviews/{id}",
+      "POST /admin/reviews/{id}/approve",
+      "POST /admin/reviews/{id}/hide",
+      "POST /admin/reviews/{id}/reject"
+    ]
+  },
+  {
+    "id": "AD-F-06",
+    "gate": "F",
+    "task": "AT-F-06",
+    "actors": [
+      "approver",
+      "staff"
+    ],
+    "journeys": [
+      "AJ-08"
+    ],
+    "domains": [
+      "content"
+    ],
+    "permissions": [
+      "content.archive_restore",
+      "content.edit",
+      "content.publish",
+      "content.review",
+      "content.view"
+    ],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "GET /admin/content/articles",
+      "GET /admin/content/articles/{id}",
+      "GET /admin/content/articles/{id}/versions",
+      "GET /admin/content/articles/{id}/versions/{version}",
+      "GET /admin/content/articles/operations/summary",
+      "PATCH /admin/content/articles/{id}",
+      "POST /admin/content/articles",
+      "POST /admin/content/articles/{id}/approve",
+      "POST /admin/content/articles/{id}/archive",
+      "POST /admin/content/articles/{id}/publish",
+      "POST /admin/content/articles/{id}/schedule",
+      "POST /admin/content/articles/{id}/submit-review",
+      "POST /admin/content/articles/{id}/unpublish",
+      "POST /admin/content/articles/{id}/versions/{version}/restore"
+    ],
+    "states": 45,
+    "views": [
+      "overview",
+      "op-01",
+      "op-02",
+      "op-03",
+      "op-04",
+      "op-05",
+      "op-06-confirm",
+      "op-06",
+      "op-07-confirm",
+      "op-07",
+      "op-08-confirm",
+      "op-08",
+      "op-09-confirm",
+      "op-09",
+      "op-10",
+      "op-11-confirm",
+      "op-11",
+      "op-12-confirm",
+      "op-12",
+      "op-13",
+      "op-14-confirm",
+      "op-14",
+      "conflict",
+      "denied",
+      "loading",
+      "empty",
+      "success"
+    ],
+    "focus": {
+      "entry": "Focus heading; logical RTL order and LTR-isolated identifiers and references; no data disclosure outside permission.",
+      "dialog": "Initial focus safe cancel; Tab trapped in modal, Escape restores trigger. Step-Up inherits secure B behavior and returns to review.",
+      "error": "After failed submit focus linked error summary and inline description; retain safe input; asynchronous refresh never steals focus.",
+      "navigation": "Keyboard alternatives for every action, labelled compact cards and44px minimum touch targets; no fixed action obscures focus. Polite result announcement."
+    },
+    "blockedOperations": []
+  },
+  {
+    "id": "AD-F-07",
+    "gate": "F",
+    "task": "AT-F-07",
+    "actors": [
+      "approver",
+      "staff"
+    ],
+    "journeys": [
+      "AJ-08"
+    ],
+    "domains": [
+      "marketing"
+    ],
+    "permissions": [
+      "marketing.activate",
+      "marketing.manage",
+      "marketing.view"
+    ],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "GET /admin/marketing/campaigns",
+      "GET /admin/marketing/campaigns/{id}",
+      "PATCH /admin/marketing/campaigns/{id}",
+      "POST /admin/marketing/campaigns",
+      "POST /admin/marketing/campaigns/{id}/activate",
+      "POST /admin/marketing/campaigns/{id}/approve",
+      "POST /admin/marketing/campaigns/{id}/archive",
+      "POST /admin/marketing/campaigns/{id}/cancel",
+      "POST /admin/marketing/campaigns/{id}/end",
+      "POST /admin/marketing/campaigns/{id}/pause",
+      "POST /admin/marketing/campaigns/{id}/preview",
+      "POST /admin/marketing/campaigns/{id}/reschedule",
+      "POST /admin/marketing/campaigns/{id}/resume",
+      "POST /admin/marketing/campaigns/{id}/schedule",
+      "POST /admin/marketing/campaigns/{id}/submit-review"
+    ],
+    "states": 45,
+    "views": [
+      "overview",
+      "op-01",
+      "op-02",
+      "op-03",
+      "op-04-confirm",
+      "op-04",
+      "op-05",
+      "op-06",
+      "op-07",
+      "op-08",
+      "op-09",
+      "op-10-confirm",
+      "op-10",
+      "op-11",
+      "op-12",
+      "op-13",
+      "op-14",
+      "op-15",
+      "conflict",
+      "denied",
+      "loading",
+      "empty",
+      "success"
+    ],
+    "focus": {
+      "entry": "Focus heading; logical RTL order and LTR-isolated identifiers and references; no data disclosure outside permission.",
+      "dialog": "Initial focus safe cancel; Tab trapped in modal, Escape restores trigger. Step-Up inherits secure B behavior and returns to review.",
+      "error": "After failed submit focus linked error summary and inline description; retain safe input; asynchronous refresh never steals focus.",
+      "navigation": "Keyboard alternatives for every action, labelled compact cards and44px minimum touch targets; no fixed action obscures focus. Polite result announcement."
+    },
+    "blockedOperations": [
+      "PATCH /admin/marketing/campaigns/{id}",
+      "POST /admin/marketing/campaigns/{id}/activate",
+      "POST /admin/marketing/campaigns/{id}/approve",
+      "POST /admin/marketing/campaigns/{id}/archive",
+      "POST /admin/marketing/campaigns/{id}/cancel",
+      "POST /admin/marketing/campaigns/{id}/end",
+      "POST /admin/marketing/campaigns/{id}/preview",
+      "POST /admin/marketing/campaigns/{id}/reschedule",
+      "POST /admin/marketing/campaigns/{id}/resume",
+      "POST /admin/marketing/campaigns/{id}/schedule",
+      "POST /admin/marketing/campaigns/{id}/submit-review"
+    ]
+  },
+  {
+    "id": "AD-F-08",
+    "gate": "F",
+    "task": "AT-F-08",
+    "actors": [
+      "approver",
+      "staff"
+    ],
+    "journeys": [
+      "AJ-08"
+    ],
+    "domains": [
+      "marketing"
+    ],
+    "permissions": [
+      "marketing.activate",
+      "marketing.manage",
+      "marketing.redemption.view",
+      "marketing.view"
+    ],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "GET /admin/marketing/coupons",
+      "GET /admin/marketing/coupons/{id}/redemptions",
+      "GET /admin/marketing/redemptions",
+      "PATCH /admin/marketing/coupons/{id}",
+      "POST /admin/marketing/coupons",
+      "POST /admin/marketing/coupons/{id}/activate",
+      "POST /admin/marketing/coupons/{id}/deactivate",
+      "POST /admin/marketing/coupons/{id}/disable",
+      "POST /admin/marketing/coupons/{id}/enable"
+    ],
+    "states": 45,
+    "views": [
+      "overview",
+      "op-01",
+      "op-02",
+      "op-03",
+      "op-04",
+      "op-05-confirm",
+      "op-05",
+      "op-06",
+      "op-07",
+      "op-08",
+      "op-09",
+      "conflict",
+      "denied",
+      "loading",
+      "empty",
+      "success"
+    ],
+    "focus": {
+      "entry": "Focus heading; logical RTL order and LTR-isolated identifiers and references; no data disclosure outside permission.",
+      "dialog": "Initial focus safe cancel; Tab trapped in modal, Escape restores trigger. Step-Up inherits secure B behavior and returns to review.",
+      "error": "After failed submit focus linked error summary and inline description; retain safe input; asynchronous refresh never steals focus.",
+      "navigation": "Keyboard alternatives for every action, labelled compact cards and44px minimum touch targets; no fixed action obscures focus. Polite result announcement."
+    },
+    "blockedOperations": [
+      "GET /admin/marketing/coupons/{id}/redemptions",
+      "GET /admin/marketing/redemptions",
+      "PATCH /admin/marketing/coupons/{id}",
+      "POST /admin/marketing/coupons/{id}/activate",
+      "POST /admin/marketing/coupons/{id}/deactivate",
+      "POST /admin/marketing/coupons/{id}/disable",
+      "POST /admin/marketing/coupons/{id}/enable"
+    ]
+  },
+  {
+    "id": "AD-F-09",
+    "gate": "F",
+    "task": "AT-F-09",
+    "actors": [
+      "approver",
+      "staff"
+    ],
+    "journeys": [
+      "AJ-08"
+    ],
+    "domains": [
+      "marketing"
+    ],
+    "permissions": [
+      "marketing.activate",
+      "marketing.manage",
+      "marketing.view"
+    ],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "GET /admin/marketing/promotions",
+      "POST /admin/marketing/promotions",
+      "POST /admin/marketing/promotions/{id}/disable",
+      "POST /admin/marketing/promotions/{id}/enable"
+    ],
+    "states": 45,
+    "views": [
+      "overview",
+      "op-01",
+      "op-02",
+      "op-03",
+      "op-04",
+      "conflict",
+      "denied",
+      "loading",
+      "empty",
+      "success"
+    ],
+    "focus": {
+      "entry": "Focus heading; logical RTL order and LTR-isolated identifiers and references; no data disclosure outside permission.",
+      "dialog": "Initial focus safe cancel; Tab trapped in modal, Escape restores trigger. Step-Up inherits secure B behavior and returns to review.",
+      "error": "After failed submit focus linked error summary and inline description; retain safe input; asynchronous refresh never steals focus.",
+      "navigation": "Keyboard alternatives for every action, labelled compact cards and44px minimum touch targets; no fixed action obscures focus. Polite result announcement."
+    },
+    "blockedOperations": [
+      "GET /admin/marketing/promotions",
+      "POST /admin/marketing/promotions",
+      "POST /admin/marketing/promotions/{id}/disable",
+      "POST /admin/marketing/promotions/{id}/enable"
+    ]
+  },
+  {
+    "id": "AD-F-10",
+    "gate": "F",
+    "task": "AT-F-10",
+    "actors": [
+      "approver",
+      "staff"
+    ],
+    "journeys": [
+      "AJ-08"
+    ],
+    "domains": [
+      "marketing"
+    ],
+    "permissions": [],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "GET /admin/marketing/segments",
+      "GET /admin/marketing/segments/{id}",
+      "PATCH /admin/marketing/segments/{id}",
+      "POST /admin/marketing/segments",
+      "POST /admin/marketing/segments/{id}/preview"
+    ],
+    "states": 45,
+    "views": [
+      "overview",
+      "op-01",
+      "op-02",
+      "op-03",
+      "op-04",
+      "op-05",
+      "conflict",
+      "denied",
+      "loading",
+      "empty",
+      "success"
+    ],
+    "focus": {
+      "entry": "Focus heading; logical RTL order and LTR-isolated identifiers and references; no data disclosure outside permission.",
+      "dialog": "Initial focus safe cancel; Tab trapped in modal, Escape restores trigger. Step-Up inherits secure B behavior and returns to review.",
+      "error": "After failed submit focus linked error summary and inline description; retain safe input; asynchronous refresh never steals focus.",
+      "navigation": "Keyboard alternatives for every action, labelled compact cards and44px minimum touch targets; no fixed action obscures focus. Polite result announcement."
+    },
+    "blockedOperations": [
+      "GET /admin/marketing/segments",
+      "GET /admin/marketing/segments/{id}",
+      "PATCH /admin/marketing/segments/{id}",
+      "POST /admin/marketing/segments",
+      "POST /admin/marketing/segments/{id}/preview"
+    ]
+  },
+  {
+    "id": "AD-F-11",
+    "gate": "F",
+    "task": "AT-F-11",
+    "actors": [
+      "approver",
+      "operator"
+    ],
+    "journeys": [
+      "AJ-12"
+    ],
+    "domains": [
+      "notifications"
+    ],
+    "permissions": [
+      "notifications.retry",
+      "notifications.view"
+    ],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "GET /admin/notifications",
+      "GET /admin/notifications/{id}",
+      "GET /admin/notifications/operations/summary",
+      "POST /admin/notifications/{id}/retry"
+    ],
+    "states": 47,
+    "views": [
+      "overview",
+      "op-01",
+      "op-02",
+      "op-03",
+      "op-04",
+      "conflict",
+      "denied",
+      "loading",
+      "empty",
+      "success"
+    ],
+    "focus": {
+      "entry": "Focus heading; logical RTL order and LTR-isolated identifiers and references; no data disclosure outside permission.",
+      "dialog": "Initial focus safe cancel; Tab trapped in modal, Escape restores trigger. Step-Up inherits secure B behavior and returns to review.",
+      "error": "After failed submit focus linked error summary and inline description; retain safe input; asynchronous refresh never steals focus.",
+      "navigation": "Keyboard alternatives for every action, labelled compact cards and44px minimum touch targets; no fixed action obscures focus. Polite result announcement."
+    },
+    "blockedOperations": []
+  },
+  {
+    "id": "AD-F-12",
+    "gate": "F",
+    "task": "AT-F-12",
+    "actors": [
+      "approver",
+      "operator"
+    ],
+    "journeys": [
+      "AJ-12"
+    ],
+    "domains": [
+      "notifications"
+    ],
+    "permissions": [
+      "notifications.templates.manage",
+      "notifications.templates.view"
+    ],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "GET /admin/notifications/templates",
+      "PATCH /admin/notifications/templates/{id}",
+      "POST /admin/notifications/templates",
+      "POST /admin/notifications/templates/{id}/activate",
+      "POST /admin/notifications/templates/{id}/preview",
+      "POST /admin/notifications/templates/{id}/retire"
+    ],
+    "states": 47,
+    "views": [
+      "overview",
+      "op-01",
+      "op-02-confirm",
+      "op-02",
+      "op-03-confirm",
+      "op-03",
+      "op-04",
+      "op-05",
+      "op-06",
+      "conflict",
+      "denied",
+      "loading",
+      "empty",
+      "success",
+      "preview-result"
+    ],
+    "focus": {
+      "entry": "Focus heading; logical RTL order and LTR-isolated identifiers and references; no data disclosure outside permission.",
+      "dialog": "Initial focus safe cancel; Tab trapped in modal, Escape restores trigger. Step-Up inherits secure B behavior and returns to review.",
+      "error": "After failed submit focus linked error summary and inline description; retain safe input; asynchronous refresh never steals focus.",
+      "navigation": "Keyboard alternatives for every action, labelled compact cards and44px minimum touch targets; no fixed action obscures focus. Polite result announcement."
+    },
+    "blockedOperations": []
+  },
+  {
+    "id": "AD-F-13",
+    "gate": "F",
+    "task": "AT-F-13",
+    "actors": [
+      "approver",
+      "operator",
+      "staff"
+    ],
+    "journeys": [
+      "AJ-08",
+      "AJ-11"
+    ],
+    "domains": [
+      "ai"
+    ],
+    "permissions": [],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "GET /admin/ai/jobs",
+      "GET /admin/ai/jobs/{id}",
+      "POST /admin/ai/jobs",
+      "POST /admin/ai/jobs/{id}/cancel",
+      "POST /admin/ai/jobs/{id}/retry"
+    ],
+    "states": 54,
+    "views": [
+      "overview",
+      "op-01",
+      "op-02",
+      "op-03",
+      "op-04",
+      "op-05",
+      "conflict",
+      "denied",
+      "loading",
+      "empty",
+      "success"
+    ],
+    "focus": {
+      "entry": "Focus heading; logical RTL order and LTR-isolated identifiers and references; no data disclosure outside permission.",
+      "dialog": "Initial focus safe cancel; Tab trapped in modal, Escape restores trigger. Step-Up inherits secure B behavior and returns to review.",
+      "error": "After failed submit focus linked error summary and inline description; retain safe input; asynchronous refresh never steals focus.",
+      "navigation": "Keyboard alternatives for every action, labelled compact cards and44px minimum touch targets; no fixed action obscures focus. Polite result announcement."
+    },
+    "blockedOperations": [
+      "GET /admin/ai/jobs",
+      "GET /admin/ai/jobs/{id}",
+      "POST /admin/ai/jobs",
+      "POST /admin/ai/jobs/{id}/cancel",
+      "POST /admin/ai/jobs/{id}/retry"
+    ]
+  },
+  {
+    "id": "AD-F-14",
+    "gate": "F",
+    "task": "AT-F-14",
+    "actors": [
+      "approver",
+      "staff"
+    ],
+    "journeys": [
+      "AJ-08"
+    ],
+    "domains": [
+      "ai"
+    ],
+    "permissions": [],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "GET /admin/ai/research/{id}",
+      "GET /admin/ai/research/{id}/sources",
+      "POST /admin/ai/research",
+      "POST /admin/ai/research/{id}/approve",
+      "POST /admin/ai/research/{id}/reject"
+    ],
+    "states": 45,
+    "views": [
+      "overview",
+      "op-01",
+      "op-02",
+      "op-03",
+      "op-04",
+      "op-05",
+      "conflict",
+      "denied",
+      "loading",
+      "empty",
+      "success"
+    ],
+    "focus": {
+      "entry": "Focus heading; logical RTL order and LTR-isolated identifiers and references; no data disclosure outside permission.",
+      "dialog": "Initial focus safe cancel; Tab trapped in modal, Escape restores trigger. Step-Up inherits secure B behavior and returns to review.",
+      "error": "After failed submit focus linked error summary and inline description; retain safe input; asynchronous refresh never steals focus.",
+      "navigation": "Keyboard alternatives for every action, labelled compact cards and44px minimum touch targets; no fixed action obscures focus. Polite result announcement."
+    },
+    "blockedOperations": [
+      "GET /admin/ai/research/{id}",
+      "GET /admin/ai/research/{id}/sources",
+      "POST /admin/ai/research",
+      "POST /admin/ai/research/{id}/approve",
+      "POST /admin/ai/research/{id}/reject"
+    ]
+  },
+  {
+    "id": "AD-F-15",
+    "gate": "F",
+    "task": "AT-F-15",
+    "actors": [
+      "approver",
+      "staff"
+    ],
+    "journeys": [
+      "AJ-08"
+    ],
+    "domains": [
+      "ai"
+    ],
+    "permissions": [],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "POST /admin/ai/articles/{draft_id}/create-article",
+      "POST /admin/ai/articles/{draft_id}/fact-check",
+      "POST /admin/ai/articles/generate"
+    ],
+    "states": 45,
+    "views": [
+      "overview",
+      "op-01",
+      "op-02",
+      "op-03",
+      "conflict",
+      "denied",
+      "loading",
+      "empty",
+      "success"
+    ],
+    "focus": {
+      "entry": "Focus heading; logical RTL order and LTR-isolated identifiers and references; no data disclosure outside permission.",
+      "dialog": "Initial focus safe cancel; Tab trapped in modal, Escape restores trigger. Step-Up inherits secure B behavior and returns to review.",
+      "error": "After failed submit focus linked error summary and inline description; retain safe input; asynchronous refresh never steals focus.",
+      "navigation": "Keyboard alternatives for every action, labelled compact cards and44px minimum touch targets; no fixed action obscures focus. Polite result announcement."
+    },
+    "blockedOperations": [
+      "POST /admin/ai/articles/{draft_id}/create-article",
+      "POST /admin/ai/articles/{draft_id}/fact-check",
+      "POST /admin/ai/articles/generate"
+    ]
+  },
+  {
+    "id": "AD-F-16",
+    "gate": "F",
+    "task": "AT-F-16",
+    "actors": [
+      "approver",
+      "operator",
+      "staff"
+    ],
+    "journeys": [
+      "AJ-08",
+      "AJ-11"
+    ],
+    "domains": [
+      "ai"
+    ],
+    "permissions": [],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "GET /admin/ai/knowledge",
+      "GET /admin/ai/knowledge/{id}",
+      "POST /admin/ai/knowledge",
+      "POST /admin/ai/knowledge/{id}/approve",
+      "POST /admin/ai/knowledge/{id}/archive",
+      "POST /admin/ai/knowledge/{id}/reindex"
+    ],
+    "states": 54,
+    "views": [
+      "overview",
+      "op-01",
+      "op-02",
+      "op-03",
+      "op-04",
+      "op-05",
+      "op-06",
+      "conflict",
+      "denied",
+      "loading",
+      "empty",
+      "success"
+    ],
+    "focus": {
+      "entry": "Focus heading; logical RTL order and LTR-isolated identifiers and references; no data disclosure outside permission.",
+      "dialog": "Initial focus safe cancel; Tab trapped in modal, Escape restores trigger. Step-Up inherits secure B behavior and returns to review.",
+      "error": "After failed submit focus linked error summary and inline description; retain safe input; asynchronous refresh never steals focus.",
+      "navigation": "Keyboard alternatives for every action, labelled compact cards and44px minimum touch targets; no fixed action obscures focus. Polite result announcement."
+    },
+    "blockedOperations": [
+      "GET /admin/ai/knowledge",
+      "GET /admin/ai/knowledge/{id}",
+      "POST /admin/ai/knowledge",
+      "POST /admin/ai/knowledge/{id}/approve",
+      "POST /admin/ai/knowledge/{id}/archive",
+      "POST /admin/ai/knowledge/{id}/reindex"
+    ]
+  },
+  {
+    "id": "AD-G-01",
+    "gate": "G",
+    "task": "AT-G-01",
+    "actors": [
+      "approver",
+      "staff"
+    ],
+    "journeys": [
+      "AJ-09"
+    ],
+    "domains": [
+      "finance"
+    ],
+    "permissions": [
+      "finance.view"
+    ],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "GET /admin/finance/dashboard"
+    ],
+    "states": 46,
+    "views": [
+      "overview",
+      "op-01",
+      "conflict",
+      "denied",
+      "loading",
+      "empty",
+      "success"
+    ],
+    "focus": {
+      "entry": "Focus heading; logical RTL order and LTR-isolated identifiers and references; no data disclosure outside permission.",
+      "dialog": "Initial focus safe cancel; Tab trapped in modal, Escape restores trigger. Step-Up inherits secure B behavior and returns to review.",
+      "error": "After failed submit focus linked error summary and inline description; retain safe input; asynchronous refresh never steals focus.",
+      "navigation": "Keyboard alternatives for every action, labelled compact cards and44px minimum touch targets; no fixed action obscures focus. Polite result announcement."
+    },
+    "blockedOperations": []
+  },
+  {
+    "id": "AD-G-02",
+    "gate": "G",
+    "task": "AT-G-02",
+    "actors": [
+      "approver",
+      "staff"
+    ],
+    "journeys": [
+      "AJ-09"
+    ],
+    "domains": [
+      "finance"
+    ],
+    "permissions": [
+      "finance.journal.create",
+      "finance.journal.post",
+      "finance.journal.reverse",
+      "finance.view"
+    ],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "GET /admin/finance/journals",
+      "GET /admin/finance/journals/{id}",
+      "POST /admin/finance/journals",
+      "POST /admin/finance/journals/{id}/post",
+      "POST /admin/finance/journals/{id}/reverse"
+    ],
+    "states": 46,
+    "views": [
+      "overview",
+      "op-01",
+      "op-02",
+      "op-03-confirm",
+      "op-03",
+      "op-04-confirm",
+      "op-04",
+      "op-05-confirm",
+      "op-05",
+      "conflict",
+      "denied",
+      "loading",
+      "empty",
+      "success"
+    ],
+    "focus": {
+      "entry": "Focus heading; logical RTL order and LTR-isolated identifiers and references; no data disclosure outside permission.",
+      "dialog": "Initial focus safe cancel; Tab trapped in modal, Escape restores trigger. Step-Up inherits secure B behavior and returns to review.",
+      "error": "After failed submit focus linked error summary and inline description; retain safe input; asynchronous refresh never steals focus.",
+      "navigation": "Keyboard alternatives for every action, labelled compact cards and44px minimum touch targets; no fixed action obscures focus. Polite result announcement."
+    },
+    "blockedOperations": []
+  },
+  {
+    "id": "AD-G-03",
+    "gate": "G",
+    "task": "AT-G-03",
+    "actors": [
+      "approver",
+      "staff"
+    ],
+    "journeys": [
+      "AJ-09"
+    ],
+    "domains": [
+      "finance"
+    ],
+    "permissions": [
+      "finance.accounts.manage",
+      "finance.view"
+    ],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "GET /admin/finance/accounts",
+      "GET /admin/finance/accounts/{id}",
+      "PATCH /admin/finance/accounts/{id}",
+      "POST /admin/finance/accounts",
+      "POST /admin/finance/accounts/{id}/deactivate"
+    ],
+    "states": 46,
+    "views": [
+      "overview",
+      "op-01",
+      "op-02",
+      "op-03-confirm",
+      "op-03",
+      "op-04-confirm",
+      "op-04",
+      "op-05",
+      "conflict",
+      "denied",
+      "loading",
+      "empty",
+      "success"
+    ],
+    "focus": {
+      "entry": "Focus heading; logical RTL order and LTR-isolated identifiers and references; no data disclosure outside permission.",
+      "dialog": "Initial focus safe cancel; Tab trapped in modal, Escape restores trigger. Step-Up inherits secure B behavior and returns to review.",
+      "error": "After failed submit focus linked error summary and inline description; retain safe input; asynchronous refresh never steals focus.",
+      "navigation": "Keyboard alternatives for every action, labelled compact cards and44px minimum touch targets; no fixed action obscures focus. Polite result announcement."
+    },
+    "blockedOperations": []
+  },
+  {
+    "id": "AD-G-04",
+    "gate": "G",
+    "task": "AT-G-04",
+    "actors": [
+      "approver",
+      "staff"
+    ],
+    "journeys": [
+      "AJ-09"
+    ],
+    "domains": [
+      "finance"
+    ],
+    "permissions": [
+      "finance.cost.finalize",
+      "finance.cost.manage",
+      "finance.cost.reverse",
+      "finance.view"
+    ],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "GET /admin/finance/costs",
+      "GET /admin/finance/costs/{id}",
+      "POST /admin/finance/costs",
+      "POST /admin/finance/costs/{id}/finalize",
+      "POST /admin/finance/costs/{id}/reverse"
+    ],
+    "states": 46,
+    "views": [
+      "overview",
+      "op-01",
+      "op-02",
+      "op-03-confirm",
+      "op-03",
+      "op-04-confirm",
+      "op-04",
+      "op-05-confirm",
+      "op-05",
+      "conflict",
+      "denied",
+      "loading",
+      "empty",
+      "success"
+    ],
+    "focus": {
+      "entry": "Focus heading; logical RTL order and LTR-isolated identifiers and references; no data disclosure outside permission.",
+      "dialog": "Initial focus safe cancel; Tab trapped in modal, Escape restores trigger. Step-Up inherits secure B behavior and returns to review.",
+      "error": "After failed submit focus linked error summary and inline description; retain safe input; asynchronous refresh never steals focus.",
+      "navigation": "Keyboard alternatives for every action, labelled compact cards and44px minimum touch targets; no fixed action obscures focus. Polite result announcement."
+    },
+    "blockedOperations": []
+  },
+  {
+    "id": "AD-G-05",
+    "gate": "G",
+    "task": "AT-G-05",
+    "actors": [
+      "approver",
+      "staff"
+    ],
+    "journeys": [
+      "AJ-09"
+    ],
+    "domains": [
+      "finance"
+    ],
+    "permissions": [
+      "finance.profit.finalize",
+      "finance.profit.recalculate",
+      "finance.view"
+    ],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "GET /admin/finance/orders/{order_id}/profit",
+      "GET /admin/finance/orders/{order_id}/profit/history",
+      "GET /admin/finance/profit",
+      "POST /admin/finance/orders/{order_id}/profit/finalize",
+      "POST /admin/finance/orders/{order_id}/profit/recalculate",
+      "POST /admin/finance/orders/{order_id}/profit/reverse"
+    ],
+    "states": 46,
+    "views": [
+      "overview",
+      "op-01",
+      "op-02",
+      "op-03",
+      "op-04-confirm",
+      "op-04",
+      "op-05-confirm",
+      "op-05",
+      "op-06-confirm",
+      "op-06",
+      "conflict",
+      "denied",
+      "loading",
+      "empty",
+      "success"
+    ],
+    "focus": {
+      "entry": "Focus heading; logical RTL order and LTR-isolated identifiers and references; no data disclosure outside permission.",
+      "dialog": "Initial focus safe cancel; Tab trapped in modal, Escape restores trigger. Step-Up inherits secure B behavior and returns to review.",
+      "error": "After failed submit focus linked error summary and inline description; retain safe input; asynchronous refresh never steals focus.",
+      "navigation": "Keyboard alternatives for every action, labelled compact cards and44px minimum touch targets; no fixed action obscures focus. Polite result announcement."
+    },
+    "blockedOperations": []
+  },
+  {
+    "id": "AD-G-06",
+    "gate": "G",
+    "task": "AT-G-06",
+    "actors": [
+      "approver",
+      "staff"
+    ],
+    "journeys": [
+      "AJ-09"
+    ],
+    "domains": [
+      "finance"
+    ],
+    "permissions": [
+      "finance.profit_rule.manage",
+      "finance.view"
+    ],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "GET /admin/finance/profit-rules",
+      "GET /admin/finance/profit-rules/{id}",
+      "PATCH /admin/finance/profit-rules/{id}",
+      "POST /admin/finance/profit-rules",
+      "POST /admin/finance/profit-rules/{id}/activate",
+      "POST /admin/finance/profit-rules/{id}/expire",
+      "POST /admin/finance/profit-rules/{id}/preview"
+    ],
+    "states": 46,
+    "views": [
+      "overview",
+      "op-01",
+      "op-02",
+      "op-03-confirm",
+      "op-03",
+      "op-04-confirm",
+      "op-04",
+      "op-05-confirm",
+      "op-05",
+      "op-06-confirm",
+      "op-06",
+      "op-07",
+      "conflict",
+      "denied",
+      "loading",
+      "empty",
+      "success"
+    ],
+    "focus": {
+      "entry": "Focus heading; logical RTL order and LTR-isolated identifiers and references; no data disclosure outside permission.",
+      "dialog": "Initial focus safe cancel; Tab trapped in modal, Escape restores trigger. Step-Up inherits secure B behavior and returns to review.",
+      "error": "After failed submit focus linked error summary and inline description; retain safe input; asynchronous refresh never steals focus.",
+      "navigation": "Keyboard alternatives for every action, labelled compact cards and44px minimum touch targets; no fixed action obscures focus. Polite result announcement."
+    },
+    "blockedOperations": [
+      "POST /admin/finance/profit-rules/{id}/preview"
+    ]
+  },
+  {
+    "id": "AD-G-07",
+    "gate": "G",
+    "task": "AT-G-07",
+    "actors": [
+      "approver",
+      "staff"
+    ],
+    "journeys": [
+      "AJ-09"
+    ],
+    "domains": [
+      "finance"
+    ],
+    "permissions": [
+      "finance.view"
+    ],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "GET /admin/finance/profit-distributions",
+      "GET /admin/finance/profit-distributions/{id}"
+    ],
+    "states": 46,
+    "views": [
+      "overview",
+      "op-01",
+      "op-02",
+      "conflict",
+      "denied",
+      "loading",
+      "empty",
+      "success"
+    ],
+    "focus": {
+      "entry": "Focus heading; logical RTL order and LTR-isolated identifiers and references; no data disclosure outside permission.",
+      "dialog": "Initial focus safe cancel; Tab trapped in modal, Escape restores trigger. Step-Up inherits secure B behavior and returns to review.",
+      "error": "After failed submit focus linked error summary and inline description; retain safe input; asynchronous refresh never steals focus.",
+      "navigation": "Keyboard alternatives for every action, labelled compact cards and44px minimum touch targets; no fixed action obscures focus. Polite result announcement."
+    },
+    "blockedOperations": []
+  },
+  {
+    "id": "AD-G-08",
+    "gate": "G",
+    "task": "AT-G-08",
+    "actors": [
+      "approver",
+      "staff"
+    ],
+    "journeys": [
+      "AJ-09"
+    ],
+    "domains": [
+      "finance"
+    ],
+    "permissions": [
+      "finance.export",
+      "finance.report.run",
+      "finance.view"
+    ],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "GET /admin/exports/{id}",
+      "GET /admin/exports/{id}/download",
+      "GET /admin/reports",
+      "GET /admin/reports/jobs/{id}",
+      "POST /admin/exports",
+      "POST /admin/reports/jobs/{id}/cancel",
+      "POST /admin/reports/run"
+    ],
+    "states": 46,
+    "views": [
+      "overview",
+      "op-01",
+      "op-02",
+      "op-03",
+      "op-04",
+      "op-05-confirm",
+      "op-05",
+      "op-06-confirm",
+      "op-06",
+      "op-07-confirm",
+      "op-07",
+      "conflict",
+      "denied",
+      "loading",
+      "empty",
+      "success"
+    ],
+    "focus": {
+      "entry": "Focus heading; logical RTL order and LTR-isolated identifiers and references; no data disclosure outside permission.",
+      "dialog": "Initial focus safe cancel; Tab trapped in modal, Escape restores trigger. Step-Up inherits secure B behavior and returns to review.",
+      "error": "After failed submit focus linked error summary and inline description; retain safe input; asynchronous refresh never steals focus.",
+      "navigation": "Keyboard alternatives for every action, labelled compact cards and44px minimum touch targets; no fixed action obscures focus. Polite result announcement."
+    },
+    "blockedOperations": []
+  },
+  {
+    "id": "AD-G-09",
+    "gate": "G",
+    "task": "AT-G-09",
+    "actors": [
+      "approver",
+      "staff"
+    ],
+    "journeys": [
+      "AJ-09"
+    ],
+    "domains": [
+      "analytics"
+    ],
+    "permissions": [
+      "analytics.view"
+    ],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "GET /admin/analytics/customers",
+      "GET /admin/analytics/inventory",
+      "GET /admin/analytics/operations",
+      "GET /admin/analytics/profit",
+      "GET /admin/analytics/sales-revenue",
+      "GET /admin/analytics/wholesale-applications"
+    ],
+    "states": 46,
+    "views": [
+      "overview",
+      "op-01",
+      "op-02",
+      "op-03",
+      "op-04",
+      "op-05",
+      "op-06",
+      "conflict",
+      "denied",
+      "loading",
+      "empty",
+      "success"
+    ],
+    "focus": {
+      "entry": "Focus heading; logical RTL order and LTR-isolated identifiers and references; no data disclosure outside permission.",
+      "dialog": "Initial focus safe cancel; Tab trapped in modal, Escape restores trigger. Step-Up inherits secure B behavior and returns to review.",
+      "error": "After failed submit focus linked error summary and inline description; retain safe input; asynchronous refresh never steals focus.",
+      "navigation": "Keyboard alternatives for every action, labelled compact cards and44px minimum touch targets; no fixed action obscures focus. Polite result announcement."
+    },
+    "blockedOperations": []
+  },
+  {
+    "id": "AD-G-10",
+    "gate": "G",
+    "task": "AT-G-10",
+    "actors": [
+      "approver",
+      "staff"
+    ],
+    "journeys": [
+      "AJ-09"
+    ],
+    "domains": [
+      "analytics"
+    ],
+    "permissions": [
+      "analytics.export.create",
+      "analytics.export.download",
+      "analytics.export.view"
+    ],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "GET /admin/analytics/exports",
+      "GET /admin/analytics/exports/{id}",
+      "GET /admin/analytics/exports/{id}/download",
+      "POST /admin/analytics/exports"
+    ],
+    "states": 46,
+    "views": [
+      "overview",
+      "op-01",
+      "op-02",
+      "op-03",
+      "op-04-confirm",
+      "op-04",
+      "conflict",
+      "denied",
+      "loading",
+      "empty",
+      "success"
+    ],
+    "focus": {
+      "entry": "Focus heading; logical RTL order and LTR-isolated identifiers and references; no data disclosure outside permission.",
+      "dialog": "Initial focus safe cancel; Tab trapped in modal, Escape restores trigger. Step-Up inherits secure B behavior and returns to review.",
+      "error": "After failed submit focus linked error summary and inline description; retain safe input; asynchronous refresh never steals focus.",
+      "navigation": "Keyboard alternatives for every action, labelled compact cards and44px minimum touch targets; no fixed action obscures focus. Polite result announcement."
+    },
+    "blockedOperations": []
+  },
+  {
+    "id": "AD-G-11",
+    "gate": "G",
+    "task": "AT-G-11",
+    "actors": [
+      "approver",
+      "operator",
+      "staff"
+    ],
+    "journeys": [
+      "AJ-09",
+      "AJ-12"
+    ],
+    "domains": [
+      "tax"
+    ],
+    "permissions": [
+      "tax.manage",
+      "tax.view"
+    ],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "GET /admin/tax/rules",
+      "PATCH /admin/tax/rules/{id}",
+      "POST /admin/tax/rules",
+      "POST /admin/tax/rules/{id}/activate",
+      "POST /admin/tax/rules/{id}/expire"
+    ],
+    "states": 56,
+    "views": [
+      "overview",
+      "op-01",
+      "op-02-confirm",
+      "op-02",
+      "op-03-confirm",
+      "op-03",
+      "op-04",
+      "op-05",
+      "conflict",
+      "denied",
+      "loading",
+      "empty",
+      "success"
+    ],
+    "focus": {
+      "entry": "Focus heading; logical RTL order and LTR-isolated identifiers and references; no data disclosure outside permission.",
+      "dialog": "Initial focus safe cancel; Tab trapped in modal, Escape restores trigger. Step-Up inherits secure B behavior and returns to review.",
+      "error": "After failed submit focus linked error summary and inline description; retain safe input; asynchronous refresh never steals focus.",
+      "navigation": "Keyboard alternatives for every action, labelled compact cards and44px minimum touch targets; no fixed action obscures focus. Polite result announcement."
+    },
+    "blockedOperations": []
+  },
+  {
+    "id": "AD-G-12",
+    "gate": "G",
+    "task": "AT-G-12",
+    "actors": [
+      "approver",
+      "operator"
+    ],
+    "journeys": [
+      "AJ-12"
+    ],
+    "domains": [
+      "configuration"
+    ],
+    "permissions": [
+      "configuration.apply",
+      "configuration.edit",
+      "configuration.view"
+    ],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "GET /admin/configuration",
+      "GET /admin/configuration/{key}",
+      "PATCH /admin/configuration/{key}",
+      "POST /admin/configuration/{key}/change-requests",
+      "POST /admin/configuration/{key}/preview",
+      "POST /admin/configuration/{key}/rollback"
+    ],
+    "states": 47,
+    "views": [
+      "overview",
+      "op-01",
+      "op-02",
+      "op-03-confirm",
+      "op-03",
+      "op-04-confirm",
+      "op-04",
+      "op-05",
+      "op-06-confirm",
+      "op-06",
+      "conflict",
+      "denied",
+      "loading",
+      "empty",
+      "success",
+      "preview-result"
+    ],
+    "focus": {
+      "entry": "Focus heading; logical RTL order and LTR-isolated identifiers and references; no data disclosure outside permission.",
+      "dialog": "Initial focus safe cancel; Tab trapped in modal, Escape restores trigger. Step-Up inherits secure B behavior and returns to review.",
+      "error": "After failed submit focus linked error summary and inline description; retain safe input; asynchronous refresh never steals focus.",
+      "navigation": "Keyboard alternatives for every action, labelled compact cards and44px minimum touch targets; no fixed action obscures focus. Polite result announcement."
+    },
+    "blockedOperations": []
+  },
+  {
+    "id": "AD-G-13",
+    "gate": "G",
+    "task": "AT-G-13",
+    "actors": [
+      "approver",
+      "operator"
+    ],
+    "journeys": [
+      "AJ-12"
+    ],
+    "domains": [
+      "configuration"
+    ],
+    "permissions": [
+      "configuration.apply",
+      "configuration.edit",
+      "configuration.review"
+    ],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "GET /admin/configuration/change-requests",
+      "GET /admin/configuration/change-requests/{id}",
+      "POST /admin/configuration/change-requests/{id}/apply",
+      "POST /admin/configuration/change-requests/{id}/approve",
+      "POST /admin/configuration/change-requests/{id}/cancel",
+      "POST /admin/configuration/change-requests/{id}/reject"
+    ],
+    "states": 47,
+    "views": [
+      "overview",
+      "op-01",
+      "op-02",
+      "op-03-confirm",
+      "op-03",
+      "op-04-confirm",
+      "op-04",
+      "op-05-confirm",
+      "op-05",
+      "op-06-confirm",
+      "op-06",
+      "conflict",
+      "denied",
+      "loading",
+      "empty",
+      "success"
+    ],
+    "focus": {
+      "entry": "Focus heading; logical RTL order and LTR-isolated identifiers and references; no data disclosure outside permission.",
+      "dialog": "Initial focus safe cancel; Tab trapped in modal, Escape restores trigger. Step-Up inherits secure B behavior and returns to review.",
+      "error": "After failed submit focus linked error summary and inline description; retain safe input; asynchronous refresh never steals focus.",
+      "navigation": "Keyboard alternatives for every action, labelled compact cards and44px minimum touch targets; no fixed action obscures focus. Polite result announcement."
+    },
+    "blockedOperations": []
+  },
+  {
+    "id": "AD-G-14",
+    "gate": "G",
+    "task": "AT-G-14",
+    "actors": [
+      "approver",
+      "operator"
+    ],
+    "journeys": [
+      "AJ-12"
+    ],
+    "domains": [
+      "configuration"
+    ],
+    "permissions": [
+      "configuration.feature_flags.manage",
+      "configuration.view"
+    ],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "GET /admin/feature-flags",
+      "GET /admin/feature-flags/{key}",
+      "PATCH /admin/feature-flags/{key}",
+      "POST /admin/feature-flags",
+      "POST /admin/feature-flags/{key}/disable",
+      "POST /admin/feature-flags/{key}/emergency-disable",
+      "POST /admin/feature-flags/{key}/enable",
+      "POST /admin/feature-flags/{key}/preview",
+      "POST /admin/feature-flags/{key}/retire",
+      "POST /admin/feature-flags/{key}/rollout"
+    ],
+    "states": 47,
+    "views": [
+      "overview",
+      "op-01",
+      "op-02",
+      "op-03-confirm",
+      "op-03",
+      "op-04-confirm",
+      "op-04",
+      "op-05",
+      "op-06",
+      "op-07",
+      "op-08",
+      "op-09",
+      "op-10-confirm",
+      "op-10",
+      "conflict",
+      "denied",
+      "loading",
+      "empty",
+      "success",
+      "preview-result"
+    ],
+    "focus": {
+      "entry": "Focus heading; logical RTL order and LTR-isolated identifiers and references; no data disclosure outside permission.",
+      "dialog": "Initial focus safe cancel; Tab trapped in modal, Escape restores trigger. Step-Up inherits secure B behavior and returns to review.",
+      "error": "After failed submit focus linked error summary and inline description; retain safe input; asynchronous refresh never steals focus.",
+      "navigation": "Keyboard alternatives for every action, labelled compact cards and44px minimum touch targets; no fixed action obscures focus. Polite result announcement."
+    },
+    "blockedOperations": []
+  },
+  {
+    "id": "AD-G-15",
+    "gate": "G",
+    "task": "AT-G-15",
+    "actors": [
+      "approver",
+      "operator"
+    ],
+    "journeys": [
+      "AJ-12"
+    ],
+    "domains": [
+      "integrations"
+    ],
+    "permissions": [],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "GET /admin/integrations/providers",
+      "GET /admin/integrations/providers/{id}",
+      "POST /admin/integrations/{type}/switch-provider",
+      "POST /admin/integrations/providers/{id}/activate",
+      "POST /admin/integrations/providers/{id}/disable",
+      "POST /admin/integrations/providers/{id}/health-check",
+      "POST /admin/integrations/providers/{id}/maintenance",
+      "POST /admin/integrations/providers/{id}/standby"
+    ],
+    "states": 47,
+    "views": [
+      "overview",
+      "op-01",
+      "op-02",
+      "op-03",
+      "op-04",
+      "op-05",
+      "op-06",
+      "op-07",
+      "op-08",
+      "conflict",
+      "denied",
+      "loading",
+      "empty",
+      "success"
+    ],
+    "focus": {
+      "entry": "Focus heading; logical RTL order and LTR-isolated identifiers and references; no data disclosure outside permission.",
+      "dialog": "Initial focus safe cancel; Tab trapped in modal, Escape restores trigger. Step-Up inherits secure B behavior and returns to review.",
+      "error": "After failed submit focus linked error summary and inline description; retain safe input; asynchronous refresh never steals focus.",
+      "navigation": "Keyboard alternatives for every action, labelled compact cards and44px minimum touch targets; no fixed action obscures focus. Polite result announcement."
+    },
+    "blockedOperations": [
+      "GET /admin/integrations/providers",
+      "GET /admin/integrations/providers/{id}",
+      "POST /admin/integrations/{type}/switch-provider",
+      "POST /admin/integrations/providers/{id}/activate",
+      "POST /admin/integrations/providers/{id}/disable",
+      "POST /admin/integrations/providers/{id}/health-check",
+      "POST /admin/integrations/providers/{id}/maintenance",
+      "POST /admin/integrations/providers/{id}/standby"
+    ]
+  },
+  {
+    "id": "AD-G-16",
+    "gate": "G",
+    "task": "AT-G-16",
+    "actors": [
+      "approver",
+      "operator"
+    ],
+    "journeys": [
+      "AJ-10"
+    ],
+    "domains": [
+      "admin"
+    ],
+    "permissions": [
+      "rbac.manage",
+      "rbac.view"
+    ],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "GET /admin/rbac/permissions",
+      "GET /admin/rbac/roles",
+      "GET /admin/rbac/roles/{id}",
+      "PATCH /admin/rbac/roles/{id}",
+      "POST /admin/rbac/roles",
+      "PUT /admin/rbac/roles/{id}/permissions"
+    ],
+    "states": 42,
+    "views": [
+      "overview",
+      "op-01",
+      "op-02",
+      "op-03",
+      "op-04",
+      "op-05",
+      "op-06",
+      "conflict",
+      "denied",
+      "loading",
+      "empty",
+      "success"
+    ],
+    "focus": {
+      "entry": "Focus heading; logical RTL order and LTR-isolated identifiers and references; no data disclosure outside permission.",
+      "dialog": "Initial focus safe cancel; Tab trapped in modal, Escape restores trigger. Step-Up inherits secure B behavior and returns to review.",
+      "error": "After failed submit focus linked error summary and inline description; retain safe input; asynchronous refresh never steals focus.",
+      "navigation": "Keyboard alternatives for every action, labelled compact cards and44px minimum touch targets; no fixed action obscures focus. Polite result announcement."
+    },
+    "blockedOperations": [
+      "PATCH /admin/rbac/roles/{id}",
+      "POST /admin/rbac/roles",
+      "PUT /admin/rbac/roles/{id}/permissions"
+    ]
+  },
+  {
+    "id": "AD-G-17",
+    "gate": "G",
+    "task": "AT-G-17",
+    "actors": [
+      "approver",
+      "operator"
+    ],
+    "journeys": [
+      "AJ-10"
+    ],
+    "domains": [
+      "admin"
+    ],
+    "permissions": [
+      "rbac.manage",
+      "security.fido.recover",
+      "staff.manage",
+      "staff.view"
+    ],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "GET /admin/staff",
+      "GET /admin/staff/{id}",
+      "PATCH /admin/staff/{id}",
+      "POST /admin/staff",
+      "POST /admin/staff/{id}/disable",
+      "POST /admin/staff/{id}/enable",
+      "POST /admin/staff/{id}/fido/reset-enrollment",
+      "PUT /admin/staff/{id}/roles",
+      "PUT /admin/staff/{id}/scopes"
+    ],
+    "states": 42,
+    "views": [
+      "overview",
+      "op-01",
+      "op-02",
+      "op-03-confirm",
+      "op-03",
+      "op-04-confirm",
+      "op-04",
+      "op-05-confirm",
+      "op-05",
+      "op-06-confirm",
+      "op-06",
+      "op-07",
+      "op-08-confirm",
+      "op-08",
+      "op-09-confirm",
+      "op-09",
+      "conflict",
+      "denied",
+      "loading",
+      "empty",
+      "success",
+      "staff-enrollment-result",
+      "reset-enrollment-result"
+    ],
+    "focus": {
+      "entry": "Focus heading; logical RTL order and LTR-isolated identifiers and references; no data disclosure outside permission.",
+      "dialog": "Initial focus safe cancel; Tab trapped in modal, Escape restores trigger. Step-Up inherits secure B behavior and returns to review.",
+      "error": "After failed submit focus linked error summary and inline description; retain safe input; asynchronous refresh never steals focus.",
+      "navigation": "Keyboard alternatives for every action, labelled compact cards and44px minimum touch targets; no fixed action obscures focus. Polite result announcement."
+    },
+    "blockedOperations": []
+  },
+  {
+    "id": "AD-G-18",
+    "gate": "G",
+    "task": "AT-G-18",
+    "actors": [
+      "approver",
+      "operator"
+    ],
+    "journeys": [
+      "AJ-10"
+    ],
+    "domains": [
+      "admin"
+    ],
+    "permissions": [],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "GET /admin/approvals",
+      "GET /admin/approvals/{id}",
+      "POST /admin/approvals/{id}/approve",
+      "POST /admin/approvals/{id}/cancel",
+      "POST /admin/approvals/{id}/reject"
+    ],
+    "states": 42,
+    "views": [
+      "overview",
+      "op-01",
+      "op-02",
+      "op-03",
+      "op-04",
+      "op-05",
+      "conflict",
+      "denied",
+      "loading",
+      "empty",
+      "success"
+    ],
+    "focus": {
+      "entry": "Focus heading; logical RTL order and LTR-isolated identifiers and references; no data disclosure outside permission.",
+      "dialog": "Initial focus safe cancel; Tab trapped in modal, Escape restores trigger. Step-Up inherits secure B behavior and returns to review.",
+      "error": "After failed submit focus linked error summary and inline description; retain safe input; asynchronous refresh never steals focus.",
+      "navigation": "Keyboard alternatives for every action, labelled compact cards and44px minimum touch targets; no fixed action obscures focus. Polite result announcement."
+    },
+    "blockedOperations": [
+      "GET /admin/approvals",
+      "GET /admin/approvals/{id}",
+      "POST /admin/approvals/{id}/approve",
+      "POST /admin/approvals/{id}/cancel",
+      "POST /admin/approvals/{id}/reject"
+    ]
+  },
+  {
+    "id": "AD-G-19",
+    "gate": "G",
+    "task": "AT-G-19",
+    "actors": [
+      "approver",
+      "operator"
+    ],
+    "journeys": [
+      "AJ-11"
+    ],
+    "domains": [
+      "security"
+    ],
+    "permissions": [],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "GET /admin/security/dashboard",
+      "GET /admin/security/events",
+      "GET /admin/security/events/{id}"
+    ],
+    "states": 46,
+    "views": [
+      "overview",
+      "op-01",
+      "op-02",
+      "op-03",
+      "conflict",
+      "denied",
+      "loading",
+      "empty",
+      "success"
+    ],
+    "focus": {
+      "entry": "Focus heading; logical RTL order and LTR-isolated identifiers and references; no data disclosure outside permission.",
+      "dialog": "Initial focus safe cancel; Tab trapped in modal, Escape restores trigger. Step-Up inherits secure B behavior and returns to review.",
+      "error": "After failed submit focus linked error summary and inline description; retain safe input; asynchronous refresh never steals focus.",
+      "navigation": "Keyboard alternatives for every action, labelled compact cards and44px minimum touch targets; no fixed action obscures focus. Polite result announcement."
+    },
+    "blockedOperations": [
+      "GET /admin/security/dashboard",
+      "GET /admin/security/events",
+      "GET /admin/security/events/{id}"
+    ]
+  },
+  {
+    "id": "AD-G-20",
+    "gate": "G",
+    "task": "AT-G-20",
+    "actors": [
+      "approver",
+      "operator"
+    ],
+    "journeys": [
+      "AJ-11"
+    ],
+    "domains": [
+      "security"
+    ],
+    "permissions": [],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "GET /admin/security/incidents",
+      "GET /admin/security/incidents/{id}",
+      "POST /admin/security/incidents",
+      "POST /admin/security/incidents/{id}/acknowledge",
+      "POST /admin/security/incidents/{id}/close",
+      "POST /admin/security/incidents/{id}/contain",
+      "POST /admin/security/incidents/{id}/resolve",
+      "POST /admin/security/incidents/{id}/start-investigation",
+      "POST /admin/security/incidents/{id}/start-recovery"
+    ],
+    "states": 46,
+    "views": [
+      "overview",
+      "op-01",
+      "op-02",
+      "op-03",
+      "op-04",
+      "op-05",
+      "op-06",
+      "op-07",
+      "op-08",
+      "op-09",
+      "conflict",
+      "denied",
+      "loading",
+      "empty",
+      "success"
+    ],
+    "focus": {
+      "entry": "Focus heading; logical RTL order and LTR-isolated identifiers and references; no data disclosure outside permission.",
+      "dialog": "Initial focus safe cancel; Tab trapped in modal, Escape restores trigger. Step-Up inherits secure B behavior and returns to review.",
+      "error": "After failed submit focus linked error summary and inline description; retain safe input; asynchronous refresh never steals focus.",
+      "navigation": "Keyboard alternatives for every action, labelled compact cards and44px minimum touch targets; no fixed action obscures focus. Polite result announcement."
+    },
+    "blockedOperations": [
+      "GET /admin/security/incidents",
+      "GET /admin/security/incidents/{id}",
+      "POST /admin/security/incidents",
+      "POST /admin/security/incidents/{id}/acknowledge",
+      "POST /admin/security/incidents/{id}/close",
+      "POST /admin/security/incidents/{id}/contain",
+      "POST /admin/security/incidents/{id}/resolve",
+      "POST /admin/security/incidents/{id}/start-investigation",
+      "POST /admin/security/incidents/{id}/start-recovery"
+    ]
+  },
+  {
+    "id": "AD-G-21",
+    "gate": "G",
+    "task": "AT-G-21",
+    "actors": [
+      "approver",
+      "operator"
+    ],
+    "journeys": [
+      "AJ-10",
+      "AJ-11"
+    ],
+    "domains": [
+      "identity"
+    ],
+    "permissions": [
+      "security.sessions.manage"
+    ],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "GET /admin/security/sessions",
+      "POST /admin/security/sessions/{id}/revoke",
+      "POST /admin/security/users/{id}/lock",
+      "POST /admin/security/users/{id}/revoke-sessions",
+      "POST /admin/security/users/{id}/unlock"
+    ],
+    "states": 51,
+    "views": [
+      "overview",
+      "op-01",
+      "op-02-confirm",
+      "op-02",
+      "op-03-confirm",
+      "op-03",
+      "op-04-confirm",
+      "op-04",
+      "op-05-confirm",
+      "op-05",
+      "conflict",
+      "denied",
+      "loading",
+      "empty",
+      "success"
+    ],
+    "focus": {
+      "entry": "Focus heading; logical RTL order and LTR-isolated identifiers and references; no data disclosure outside permission.",
+      "dialog": "Initial focus safe cancel; Tab trapped in modal, Escape restores trigger. Step-Up inherits secure B behavior and returns to review.",
+      "error": "After failed submit focus linked error summary and inline description; retain safe input; asynchronous refresh never steals focus.",
+      "navigation": "Keyboard alternatives for every action, labelled compact cards and44px minimum touch targets; no fixed action obscures focus. Polite result announcement."
+    },
+    "blockedOperations": []
+  },
+  {
+    "id": "AD-G-22",
+    "gate": "G",
+    "task": "AT-G-22",
+    "actors": [
+      "approver",
+      "operator"
+    ],
+    "journeys": [
+      "AJ-11"
+    ],
+    "domains": [
+      "security"
+    ],
+    "permissions": [
+      "security.secrets.rotate"
+    ],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "GET /admin/security/secrets",
+      "POST /admin/security/secrets/{id}/rotate"
+    ],
+    "states": 46,
+    "views": [
+      "overview",
+      "op-01",
+      "op-02",
+      "conflict",
+      "denied",
+      "loading",
+      "empty",
+      "success"
+    ],
+    "focus": {
+      "entry": "Focus heading; logical RTL order and LTR-isolated identifiers and references; no data disclosure outside permission.",
+      "dialog": "Initial focus safe cancel; Tab trapped in modal, Escape restores trigger. Step-Up inherits secure B behavior and returns to review.",
+      "error": "After failed submit focus linked error summary and inline description; retain safe input; asynchronous refresh never steals focus.",
+      "navigation": "Keyboard alternatives for every action, labelled compact cards and44px minimum touch targets; no fixed action obscures focus. Polite result announcement."
+    },
+    "blockedOperations": [
+      "GET /admin/security/secrets",
+      "POST /admin/security/secrets/{id}/rotate"
+    ]
+  },
+  {
+    "id": "AD-G-23",
+    "gate": "G",
+    "task": "AT-G-23",
+    "actors": [
+      "approver",
+      "operator"
+    ],
+    "journeys": [
+      "AJ-11"
+    ],
+    "domains": [
+      "security"
+    ],
+    "permissions": [],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "GET /admin/security/vulnerabilities",
+      "GET /admin/security/vulnerabilities/{id}",
+      "POST /admin/security/vulnerabilities/{id}/accept-risk",
+      "POST /admin/security/vulnerabilities/{id}/resolve"
+    ],
+    "states": 46,
+    "views": [
+      "overview",
+      "op-01",
+      "op-02",
+      "op-03",
+      "op-04",
+      "conflict",
+      "denied",
+      "loading",
+      "empty",
+      "success"
+    ],
+    "focus": {
+      "entry": "Focus heading; logical RTL order and LTR-isolated identifiers and references; no data disclosure outside permission.",
+      "dialog": "Initial focus safe cancel; Tab trapped in modal, Escape restores trigger. Step-Up inherits secure B behavior and returns to review.",
+      "error": "After failed submit focus linked error summary and inline description; retain safe input; asynchronous refresh never steals focus.",
+      "navigation": "Keyboard alternatives for every action, labelled compact cards and44px minimum touch targets; no fixed action obscures focus. Polite result announcement."
+    },
+    "blockedOperations": [
+      "GET /admin/security/vulnerabilities",
+      "GET /admin/security/vulnerabilities/{id}",
+      "POST /admin/security/vulnerabilities/{id}/accept-risk",
+      "POST /admin/security/vulnerabilities/{id}/resolve"
+    ]
+  },
+  {
+    "id": "AD-G-24",
+    "gate": "G",
+    "task": "AT-G-24",
+    "actors": [
+      "approver",
+      "operator"
+    ],
+    "journeys": [
+      "AJ-11"
+    ],
+    "domains": [
+      "operations"
+    ],
+    "permissions": [],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "GET /admin/operations/capacity",
+      "GET /admin/operations/dashboard",
+      "GET /admin/operations/services",
+      "GET /admin/operations/services/{service}/health",
+      "GET /admin/operations/slos",
+      "GET /admin/operations/slos/{id}"
+    ],
+    "states": 46,
+    "views": [
+      "overview",
+      "op-01",
+      "op-02",
+      "op-03",
+      "op-04",
+      "op-05",
+      "op-06",
+      "conflict",
+      "denied",
+      "loading",
+      "empty",
+      "success"
+    ],
+    "focus": {
+      "entry": "Focus heading; logical RTL order and LTR-isolated identifiers and references; no data disclosure outside permission.",
+      "dialog": "Initial focus safe cancel; Tab trapped in modal, Escape restores trigger. Step-Up inherits secure B behavior and returns to review.",
+      "error": "After failed submit focus linked error summary and inline description; retain safe input; asynchronous refresh never steals focus.",
+      "navigation": "Keyboard alternatives for every action, labelled compact cards and44px minimum touch targets; no fixed action obscures focus. Polite result announcement."
+    },
+    "blockedOperations": [
+      "GET /admin/operations/capacity",
+      "GET /admin/operations/dashboard",
+      "GET /admin/operations/services",
+      "GET /admin/operations/services/{service}/health",
+      "GET /admin/operations/slos",
+      "GET /admin/operations/slos/{id}"
+    ]
+  },
+  {
+    "id": "AD-G-25",
+    "gate": "G",
+    "task": "AT-G-25",
+    "actors": [
+      "approver",
+      "operator"
+    ],
+    "journeys": [
+      "AJ-11"
+    ],
+    "domains": [
+      "operations"
+    ],
+    "permissions": [],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "GET /admin/operations/alerts",
+      "GET /admin/operations/alerts/{id}",
+      "POST /admin/operations/alerts/{id}/acknowledge",
+      "POST /admin/operations/alerts/{id}/resolve",
+      "POST /admin/operations/alerts/{id}/suppress"
+    ],
+    "states": 46,
+    "views": [
+      "overview",
+      "op-01",
+      "op-02",
+      "op-03",
+      "op-04",
+      "op-05",
+      "conflict",
+      "denied",
+      "loading",
+      "empty",
+      "success"
+    ],
+    "focus": {
+      "entry": "Focus heading; logical RTL order and LTR-isolated identifiers and references; no data disclosure outside permission.",
+      "dialog": "Initial focus safe cancel; Tab trapped in modal, Escape restores trigger. Step-Up inherits secure B behavior and returns to review.",
+      "error": "After failed submit focus linked error summary and inline description; retain safe input; asynchronous refresh never steals focus.",
+      "navigation": "Keyboard alternatives for every action, labelled compact cards and44px minimum touch targets; no fixed action obscures focus. Polite result announcement."
+    },
+    "blockedOperations": [
+      "GET /admin/operations/alerts",
+      "GET /admin/operations/alerts/{id}",
+      "POST /admin/operations/alerts/{id}/acknowledge",
+      "POST /admin/operations/alerts/{id}/resolve",
+      "POST /admin/operations/alerts/{id}/suppress"
+    ]
+  },
+  {
+    "id": "AD-G-26",
+    "gate": "G",
+    "task": "AT-G-26",
+    "actors": [
+      "approver",
+      "operator"
+    ],
+    "journeys": [
+      "AJ-11"
+    ],
+    "domains": [
+      "operations"
+    ],
+    "permissions": [],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "GET /admin/operations/jobs/{id}",
+      "GET /admin/operations/queues",
+      "GET /admin/operations/queues/{name}",
+      "POST /admin/operations/jobs/{id}/cancel",
+      "POST /admin/operations/jobs/{id}/retry"
+    ],
+    "states": 46,
+    "views": [
+      "overview",
+      "op-01",
+      "op-02",
+      "op-03",
+      "op-04",
+      "op-05",
+      "conflict",
+      "denied",
+      "loading",
+      "empty",
+      "success"
+    ],
+    "focus": {
+      "entry": "Focus heading; logical RTL order and LTR-isolated identifiers and references; no data disclosure outside permission.",
+      "dialog": "Initial focus safe cancel; Tab trapped in modal, Escape restores trigger. Step-Up inherits secure B behavior and returns to review.",
+      "error": "After failed submit focus linked error summary and inline description; retain safe input; asynchronous refresh never steals focus.",
+      "navigation": "Keyboard alternatives for every action, labelled compact cards and44px minimum touch targets; no fixed action obscures focus. Polite result announcement."
+    },
+    "blockedOperations": [
+      "GET /admin/operations/jobs/{id}",
+      "GET /admin/operations/queues",
+      "GET /admin/operations/queues/{name}",
+      "POST /admin/operations/jobs/{id}/cancel",
+      "POST /admin/operations/jobs/{id}/retry"
+    ]
+  },
+  {
+    "id": "AD-G-27",
+    "gate": "G",
+    "task": "AT-G-27",
+    "actors": [
+      "approver",
+      "operator"
+    ],
+    "journeys": [
+      "AJ-11"
+    ],
+    "domains": [
+      "operations"
+    ],
+    "permissions": [
+      "operations.backup.restore"
+    ],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "GET /admin/operations/backups",
+      "GET /admin/operations/backups/{id}",
+      "POST /admin/operations/backups/{id}/restore",
+      "POST /admin/operations/backups/{id}/restore-preview"
+    ],
+    "states": 46,
+    "views": [
+      "overview",
+      "op-01",
+      "op-02",
+      "op-03",
+      "op-04",
+      "conflict",
+      "denied",
+      "loading",
+      "empty",
+      "success"
+    ],
+    "focus": {
+      "entry": "Focus heading; logical RTL order and LTR-isolated identifiers and references; no data disclosure outside permission.",
+      "dialog": "Initial focus safe cancel; Tab trapped in modal, Escape restores trigger. Step-Up inherits secure B behavior and returns to review.",
+      "error": "After failed submit focus linked error summary and inline description; retain safe input; asynchronous refresh never steals focus.",
+      "navigation": "Keyboard alternatives for every action, labelled compact cards and44px minimum touch targets; no fixed action obscures focus. Polite result announcement."
+    },
+    "blockedOperations": [
+      "GET /admin/operations/backups",
+      "GET /admin/operations/backups/{id}",
+      "POST /admin/operations/backups/{id}/restore",
+      "POST /admin/operations/backups/{id}/restore-preview"
+    ]
+  },
+  {
+    "id": "AD-G-28",
+    "gate": "G",
+    "task": "AT-G-28",
+    "actors": [
+      "approver",
+      "operator"
+    ],
+    "journeys": [
+      "AJ-11"
+    ],
+    "domains": [
+      "operations"
+    ],
+    "permissions": [],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "GET /admin/operations/deployments",
+      "GET /admin/operations/deployments/{id}"
+    ],
+    "states": 46,
+    "views": [
+      "overview",
+      "op-01",
+      "op-02",
+      "conflict",
+      "denied",
+      "loading",
+      "empty",
+      "success"
+    ],
+    "focus": {
+      "entry": "Focus heading; logical RTL order and LTR-isolated identifiers and references; no data disclosure outside permission.",
+      "dialog": "Initial focus safe cancel; Tab trapped in modal, Escape restores trigger. Step-Up inherits secure B behavior and returns to review.",
+      "error": "After failed submit focus linked error summary and inline description; retain safe input; asynchronous refresh never steals focus.",
+      "navigation": "Keyboard alternatives for every action, labelled compact cards and44px minimum touch targets; no fixed action obscures focus. Polite result announcement."
+    },
+    "blockedOperations": [
+      "GET /admin/operations/deployments",
+      "GET /admin/operations/deployments/{id}"
+    ]
+  },
+  {
+    "id": "AD-G-29",
+    "gate": "G",
+    "task": "AT-G-29",
+    "actors": [
+      "approver",
+      "operator"
+    ],
+    "journeys": [
+      "AJ-11"
+    ],
+    "domains": [
+      "operations"
+    ],
+    "permissions": [
+      "operations.events.replay"
+    ],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "GET /admin/operations/events/consumers",
+      "GET /admin/operations/events/consumers/{consumer}",
+      "GET /admin/operations/events/dead-letter",
+      "GET /admin/operations/events/dead-letter/{id}",
+      "GET /admin/operations/events/outbox",
+      "GET /admin/operations/events/outbox/{id}",
+      "POST /admin/operations/events/dead-letter/{id}/redrive",
+      "POST /admin/operations/events/replay/apply",
+      "POST /admin/operations/events/replay/preview"
+    ],
+    "states": 46,
+    "views": [
+      "overview",
+      "op-01",
+      "op-02",
+      "op-03",
+      "op-04",
+      "op-05",
+      "op-06",
+      "op-07",
+      "op-08",
+      "op-09",
+      "conflict",
+      "denied",
+      "loading",
+      "empty",
+      "success"
+    ],
+    "focus": {
+      "entry": "Focus heading; logical RTL order and LTR-isolated identifiers and references; no data disclosure outside permission.",
+      "dialog": "Initial focus safe cancel; Tab trapped in modal, Escape restores trigger. Step-Up inherits secure B behavior and returns to review.",
+      "error": "After failed submit focus linked error summary and inline description; retain safe input; asynchronous refresh never steals focus.",
+      "navigation": "Keyboard alternatives for every action, labelled compact cards and44px minimum touch targets; no fixed action obscures focus. Polite result announcement."
+    },
+    "blockedOperations": [
+      "GET /admin/operations/events/consumers",
+      "GET /admin/operations/events/consumers/{consumer}",
+      "GET /admin/operations/events/dead-letter",
+      "GET /admin/operations/events/dead-letter/{id}",
+      "GET /admin/operations/events/outbox",
+      "GET /admin/operations/events/outbox/{id}",
+      "POST /admin/operations/events/dead-letter/{id}/redrive",
+      "POST /admin/operations/events/replay/apply",
+      "POST /admin/operations/events/replay/preview"
+    ]
+  },
+  {
+    "id": "AD-G-30",
+    "gate": "G",
+    "task": "AT-G-30",
+    "actors": [
+      "approver",
+      "operator"
+    ],
+    "journeys": [
+      "AJ-11"
+    ],
+    "domains": [
+      "operations"
+    ],
+    "permissions": [],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "GET /admin/operations/manual-reviews",
+      "GET /admin/operations/manual-reviews/{id}",
+      "GET /admin/operations/processes",
+      "GET /admin/operations/processes/{id}",
+      "GET /admin/operations/processes/{id}/steps",
+      "POST /admin/operations/manual-reviews/{id}/assign",
+      "POST /admin/operations/manual-reviews/{id}/dismiss",
+      "POST /admin/operations/manual-reviews/{id}/resolve"
+    ],
+    "states": 46,
+    "views": [
+      "overview",
+      "op-01",
+      "op-02",
+      "op-03",
+      "op-04",
+      "op-05",
+      "op-06",
+      "op-07",
+      "op-08",
+      "conflict",
+      "denied",
+      "loading",
+      "empty",
+      "success"
+    ],
+    "focus": {
+      "entry": "Focus heading; logical RTL order and LTR-isolated identifiers and references; no data disclosure outside permission.",
+      "dialog": "Initial focus safe cancel; Tab trapped in modal, Escape restores trigger. Step-Up inherits secure B behavior and returns to review.",
+      "error": "After failed submit focus linked error summary and inline description; retain safe input; asynchronous refresh never steals focus.",
+      "navigation": "Keyboard alternatives for every action, labelled compact cards and44px minimum touch targets; no fixed action obscures focus. Polite result announcement."
+    },
+    "blockedOperations": [
+      "GET /admin/operations/manual-reviews",
+      "GET /admin/operations/manual-reviews/{id}",
+      "GET /admin/operations/processes",
+      "GET /admin/operations/processes/{id}",
+      "GET /admin/operations/processes/{id}/steps",
+      "POST /admin/operations/manual-reviews/{id}/assign",
+      "POST /admin/operations/manual-reviews/{id}/dismiss",
+      "POST /admin/operations/manual-reviews/{id}/resolve"
+    ]
+  },
+  {
+    "id": "AD-G-31",
+    "gate": "G",
+    "task": "AT-G-31",
+    "actors": [
+      "approver",
+      "operator"
+    ],
+    "journeys": [
+      "AJ-11"
+    ],
+    "domains": [
+      "operations"
+    ],
+    "permissions": [],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "GET /admin/data-quality",
+      "GET /admin/data-quality/issues",
+      "GET /admin/data-quality/issues/{id}",
+      "POST /admin/data-quality/issues/{id}/accept-risk",
+      "POST /admin/data-quality/issues/{id}/plan-repair",
+      "POST /admin/data-quality/issues/{id}/resolve",
+      "POST /admin/data-quality/issues/{id}/start-investigation"
+    ],
+    "states": 46,
+    "views": [
+      "overview",
+      "op-01",
+      "op-02",
+      "op-03",
+      "op-04",
+      "op-05",
+      "op-06",
+      "op-07",
+      "conflict",
+      "denied",
+      "loading",
+      "empty",
+      "success"
+    ],
+    "focus": {
+      "entry": "Focus heading; logical RTL order and LTR-isolated identifiers and references; no data disclosure outside permission.",
+      "dialog": "Initial focus safe cancel; Tab trapped in modal, Escape restores trigger. Step-Up inherits secure B behavior and returns to review.",
+      "error": "After failed submit focus linked error summary and inline description; retain safe input; asynchronous refresh never steals focus.",
+      "navigation": "Keyboard alternatives for every action, labelled compact cards and44px minimum touch targets; no fixed action obscures focus. Polite result announcement."
+    },
+    "blockedOperations": [
+      "GET /admin/data-quality",
+      "GET /admin/data-quality/issues",
+      "GET /admin/data-quality/issues/{id}",
+      "POST /admin/data-quality/issues/{id}/accept-risk",
+      "POST /admin/data-quality/issues/{id}/plan-repair",
+      "POST /admin/data-quality/issues/{id}/resolve",
+      "POST /admin/data-quality/issues/{id}/start-investigation"
+    ]
+  },
+  {
+    "id": "AD-G-32",
+    "gate": "G",
+    "task": "AT-G-32",
+    "actors": [
+      "approver",
+      "operator"
+    ],
+    "journeys": [
+      "AJ-11"
+    ],
+    "domains": [
+      "operations"
+    ],
+    "permissions": [],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "GET /admin/data/catalog",
+      "GET /admin/data/catalog/{entity}",
+      "GET /admin/data/lineage/{entity}"
+    ],
+    "states": 46,
+    "views": [
+      "overview",
+      "op-01",
+      "op-02",
+      "op-03",
+      "conflict",
+      "denied",
+      "loading",
+      "empty",
+      "success"
+    ],
+    "focus": {
+      "entry": "Focus heading; logical RTL order and LTR-isolated identifiers and references; no data disclosure outside permission.",
+      "dialog": "Initial focus safe cancel; Tab trapped in modal, Escape restores trigger. Step-Up inherits secure B behavior and returns to review.",
+      "error": "After failed submit focus linked error summary and inline description; retain safe input; asynchronous refresh never steals focus.",
+      "navigation": "Keyboard alternatives for every action, labelled compact cards and44px minimum touch targets; no fixed action obscures focus. Polite result announcement."
+    },
+    "blockedOperations": [
+      "GET /admin/data/catalog",
+      "GET /admin/data/catalog/{entity}",
+      "GET /admin/data/lineage/{entity}"
+    ]
+  },
+  {
+    "id": "AD-G-33",
+    "gate": "G",
+    "task": "AT-G-33",
+    "actors": [
+      "approver",
+      "operator"
+    ],
+    "journeys": [
+      "AJ-11"
+    ],
+    "domains": [
+      "operations"
+    ],
+    "permissions": [],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "GET /admin/data/deletion-requests",
+      "GET /admin/data/deletion-requests/{id}",
+      "GET /admin/data/retention-policies",
+      "PATCH /admin/data/retention-policies/{id}",
+      "POST /admin/data/deletion-requests",
+      "POST /admin/data/deletion-requests/{id}/approve",
+      "POST /admin/data/deletion-requests/{id}/cancel"
+    ],
+    "states": 46,
+    "views": [
+      "overview",
+      "op-01",
+      "op-02",
+      "op-03",
+      "op-04",
+      "op-05",
+      "op-06",
+      "op-07",
+      "conflict",
+      "denied",
+      "loading",
+      "empty",
+      "success"
+    ],
+    "focus": {
+      "entry": "Focus heading; logical RTL order and LTR-isolated identifiers and references; no data disclosure outside permission.",
+      "dialog": "Initial focus safe cancel; Tab trapped in modal, Escape restores trigger. Step-Up inherits secure B behavior and returns to review.",
+      "error": "After failed submit focus linked error summary and inline description; retain safe input; asynchronous refresh never steals focus.",
+      "navigation": "Keyboard alternatives for every action, labelled compact cards and44px minimum touch targets; no fixed action obscures focus. Polite result announcement."
+    },
+    "blockedOperations": [
+      "GET /admin/data/deletion-requests",
+      "GET /admin/data/deletion-requests/{id}",
+      "GET /admin/data/retention-policies",
+      "PATCH /admin/data/retention-policies/{id}",
+      "POST /admin/data/deletion-requests",
+      "POST /admin/data/deletion-requests/{id}/approve",
+      "POST /admin/data/deletion-requests/{id}/cancel"
+    ]
+  },
+  {
+    "id": "AD-G-34",
+    "gate": "G",
+    "task": "AT-G-34",
+    "actors": [
+      "approver",
+      "operator"
+    ],
+    "journeys": [
+      "AJ-11"
+    ],
+    "domains": [
+      "operations"
+    ],
+    "permissions": [],
+    "facets": [
+      "entry-and-context",
+      "permission-aware-read-or-explicit-unavailable",
+      "detail-and-history-or-no-read-explanation",
+      "allowed-action-review-or-read-only",
+      "authoritative-outcome-and-recovery"
+    ],
+    "operations": [
+      "GET /admin/data/reconciliation",
+      "GET /admin/data/reconciliation/runs/{id}",
+      "POST /admin/data/reconciliation/run"
+    ],
+    "states": 46,
+    "views": [
+      "overview",
+      "op-01",
+      "op-02",
+      "op-03",
+      "conflict",
+      "denied",
+      "loading",
+      "empty",
+      "success"
+    ],
+    "focus": {
+      "entry": "Focus heading; logical RTL order and LTR-isolated identifiers and references; no data disclosure outside permission.",
+      "dialog": "Initial focus safe cancel; Tab trapped in modal, Escape restores trigger. Step-Up inherits secure B behavior and returns to review.",
+      "error": "After failed submit focus linked error summary and inline description; retain safe input; asynchronous refresh never steals focus.",
+      "navigation": "Keyboard alternatives for every action, labelled compact cards and44px minimum touch targets; no fixed action obscures focus. Polite result announcement."
+    },
+    "blockedOperations": [
+      "GET /admin/data/reconciliation",
+      "GET /admin/data/reconciliation/runs/{id}",
+      "POST /admin/data/reconciliation/run"
+    ]
+  }
+]
