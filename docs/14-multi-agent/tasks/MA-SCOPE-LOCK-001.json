@@ -1,0 +1,123 @@
+{
+  "schema_version": "2.2",
+  "task_id": "MA-SCOPE-LOCK-001",
+  "title": "Implement deterministic Scope / Lock Controller",
+  "description": "Implement frozen multi-agent Item 3: deterministic write-scope validation, lock acquisition/release, overlap conflict detection, and terminal-state lock release.",
+  "risk": "MEDIUM",
+  "risk_floor": "LOW",
+  "risk_rationale": {
+    "chosen": "MEDIUM",
+    "why_medium": [
+      "This controller becomes a repository-governance enforcement primitive for future task dispatch and write isolation.",
+      "A defect can incorrectly allow or block future task writes even though it does not mutate commerce, financial, auth, migration, or production business state.",
+      "The implementation is deterministic, additive, locally reversible, and isolated to the multi-agent governance surface."
+    ],
+    "why_not_high": [
+      "No payment, pricing, inventory, authentication, authorization, finance, irreversible database migration, destructive production operation, or security-policy mutation is performed.",
+      "No protected-main rule, GitHub ruleset, or merge policy is changed by this task.",
+      "Rollback is a normal revert of three isolated files."
+    ]
+  },
+  "owner": "BACKEND",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "36fa6122ff187841f85ccc777a0562be81ee16c8"
+  },
+  "scope": {
+    "read": [
+      "docs/14-multi-agent/**",
+      "scripts/multi-agent/**",
+      "test/multi-agent/**",
+      "package.json"
+    ],
+    "write": [
+      "docs/14-multi-agent/tasks/MA-SCOPE-LOCK-001.json",
+      "scripts/multi-agent/scope-lock-controller.mjs",
+      "test/multi-agent/scope-lock-controller.test.mjs"
+    ],
+    "forbidden": [
+      "README.md",
+      "package.json",
+      ".github/**",
+      "src/modules/payment/**",
+      "src/modules/pricing/**",
+      "src/modules/inventory/**",
+      "src/modules/auth/**",
+      "database/migrations/**",
+      "contracts/http/openapi.yaml",
+      "docs/13-product-design/**",
+      "docs/14-multi-agent/GOVERNANCE.md",
+      "docs/14-multi-agent/incidents/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "BOOTSTRAP-ITEM3-SCOPE-LOCK-001"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 25000,
+    "soft_alert": 35000,
+    "hard_cap": 70000
+  },
+  "max_repair_cycles": 2,
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Repository paths and supported scope patterns are normalized deterministically and fail closed on absolute paths, traversal, invalid glob syntax, or empty values.",
+      "verification": "node --test test/multi-agent/scope-lock-controller.test.mjs",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Changed paths outside declared write scope or inside forbidden scope are deterministically rejected, with forbidden scope taking precedence.",
+      "verification": "node --test test/multi-agent/scope-lock-controller.test.mjs",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Lock acquisition detects exact, prefix, and nested-scope conflicts and rejects duplicate lock IDs.",
+      "verification": "node --test test/multi-agent/scope-lock-controller.test.mjs",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Only the owning task may release a lock and release is allowed only for terminal MERGED or ABORTED state.",
+      "verification": "node --test test/multi-agent/scope-lock-controller.test.mjs",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Active-lock snapshots are deterministic and sorted; no wall-clock value is required for deterministic tests because timestamps can be injected.",
+      "verification": "node --test test/multi-agent/scope-lock-controller.test.mjs",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Existing multi-agent verification automatically includes Item 3 tests without modifying package.json, and the full canonical verification remains green.",
+      "verification": "pnpm multi-agent:verify && pnpm verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "PR diff contains only the three declared write-scope files and no forbidden path.",
+      "verification": "pr_diff_review",
+      "mandatory": true
+    }
+  ],
+  "bootstrap": {
+    "exception": true,
+    "reason": "The Scope / Lock Controller cannot govern its own first implementation before it exists canonically.",
+    "manual_lock": {
+      "lock_id": "BOOTSTRAP-ITEM3-SCOPE-LOCK-001",
+      "status": "ACTIVE_UNTIL_ITEM3_PR_TERMINAL",
+      "owner": "MA-SCOPE-LOCK-001",
+      "scope": [
+        "docs/14-multi-agent/tasks/MA-SCOPE-LOCK-001.json",
+        "scripts/multi-agent/scope-lock-controller.mjs",
+        "test/multi-agent/scope-lock-controller.test.mjs"
+      ],
+      "rule": "No concurrent task may mutate these exact paths until the Item 3 PR is merged or aborted. This exception creates no precedent after Item 3 becomes canonical."
+    }
+  }
+}
