@@ -17,7 +17,7 @@
     "why_not_high": [
       "Spec v3.1 does not classify additive CI wiring alone as a protected HIGH domain.",
       "The change does not alter business or financial truth and does not perform an irreversible mutation.",
-      "The current external branch-protection drift is handled as an independent blocking governance condition, not by silently inflating task risk."
+      "The external branch-protection drift is handled as an independent governance condition rather than silently inflating task risk."
     ]
   },
   "owner": "BACKEND",
@@ -53,7 +53,9 @@
       "docs/13-product-design/**"
     ]
   },
-  "requested_lock_ids": ["BOOTSTRAP-MANUAL-LOCK-MA-001"],
+  "requested_lock_ids": [
+    "BOOTSTRAP-MANUAL-LOCK-MA-001"
+  ],
   "human_gate_required": false,
   "token_budget": {
     "expected_max": 25000,
@@ -98,7 +100,10 @@
     "reason": "Scope/Lock Controller, deterministic Verification Policy, and Protection Drift Monitor do not exist at the start of the first implementation task.",
     "service_dependency": {
       "type": "SEQUENCING",
-      "order": ["PROJECT_MAP_BUILDER", "WORKFLOW_STATE_CONTROLLER"],
+      "order": [
+        "PROJECT_MAP_BUILDER",
+        "WORKFLOW_STATE_CONTROLLER"
+      ],
       "note": "The services are not direct code dependencies. They are intentionally delivered in one bootstrap task because a fresh Project Map is a prerequisite to future dispatch, while Workflow/State control is the next required deterministic enforcement layer before normal task orchestration can start."
     },
     "rollback_semantics": {
@@ -143,14 +148,45 @@
       "implemented_in_this_task": false,
       "planned_stage": "Frozen implementation order item 6 — Merge Policy / protection validation",
       "pre_merge_until_then": "Manual GitHub protection/status evidence plus CI status must be checked; NOT_VERIFIED never equals PASS.",
-      "observed_at_utc": "2026-09-14T08:01:40Z",
-      "observed_state": "FAIL",
-      "evidence": {
-        "main_protected": false,
-        "protection_enabled": false,
-        "repository_rulesets": 0
+      "initial_observation": {
+        "observed_at_utc": "2026-09-14T08:01:40Z",
+        "observed_state": "FAIL",
+        "evidence": {
+          "main_protected": false,
+          "legacy_protection_enabled": false,
+          "repository_rulesets": 0
+        }
       },
-      "merge_effect": "BLOCKED until required main protection is enabled and reverified. Owner attestation must not be fabricated; GitHub evidence must show protection active before merge eligibility."
+      "remediation": {
+        "status": "VERIFIED",
+        "main_protected": true,
+        "ruleset_id": 23278861,
+        "ruleset_name": "main",
+        "ruleset_enforcement": "active",
+        "target_ref": "refs/heads/main",
+        "bypass_actors": 0,
+        "current_user_can_bypass": "never",
+        "pull_request_required": true,
+        "required_approving_review_count": 0,
+        "strict_required_status_checks_policy": true,
+        "required_status_checks": [
+          {
+            "context": "Canonical CI",
+            "source": "GitHub Actions",
+            "integration_id": 15368
+          },
+          {
+            "context": "Phase A Verification",
+            "source": "GitHub Actions",
+            "integration_id": 15368
+          }
+        ],
+        "deletion_protection": true,
+        "non_fast_forward_protection": true,
+        "legacy_protection_note": "The branch endpoint may report legacy protection.enabled=false while main.protected=true. The active repository Ruleset API is the authoritative current protection mechanism."
+      },
+      "incident": "docs/14-multi-agent/incidents/MA-PROTECTION-DRIFT-001.md",
+      "merge_effect": "Protection requirement AC-005 is verified. Merge remains blocked until final exact-head CI passes and independent Layer 2 Review 3 passes."
     }
   }
 }
