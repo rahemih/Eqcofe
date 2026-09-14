@@ -1,8 +1,19 @@
 const TERMINAL_STATES = new Set(['MERGED', 'ABORTED']);
+const READ_ONLY_AGENT_ROLES = new Set(['REVIEWER', 'QA', 'REVIEWER_QA']);
 
 function assertString(value, code) {
   if (typeof value !== 'string' || value.trim() === '') throw new Error(code);
   return value.trim();
+}
+
+function freezeClone(value) {
+  const clone = structuredClone(value);
+  const freeze = (entry) => {
+    if (!entry || typeof entry !== 'object' || Object.isFrozen(entry)) return entry;
+    for (const child of Object.values(entry)) freeze(child);
+    return Object.freeze(entry);
+  };
+  return freeze(clone);
 }
 
 export function normalizeRepoPath(value) {
@@ -56,6 +67,14 @@ function normalizePatterns(patterns, code) {
   return [...new Set(patterns.map(normalizeScopePattern))].sort();
 }
 
+function normalizeAgentRole(value) {
+  const role = assertString(value, 'LOCK_OWNER_REQUIRED')
+    .toUpperCase()
+    .replace(/[+\s/-]+/g, '_');
+  if (READ_ONLY_AGENT_ROLES.has(role)) throw new Error(`LOCK_OWNER_READ_ONLY:${role}`);
+  return role;
+}
+
 export function validateChangedPaths({ changed_paths, write, forbidden = [] }) {
   if (!Array.isArray(changed_paths)) throw new Error('INVALID_CHANGED_PATHS');
   const normalizedWrite = normalizePatterns(write, 'WRITE_SCOPE_REQUIRED');
@@ -79,10 +98,21 @@ function normalizeLockInput(lock) {
   if (!lock || typeof lock !== 'object') throw new Error('INVALID_LOCK');
   const lock_id = assertString(lock.lock_id, 'LOCK_ID_REQUIRED');
   const task_id = assertString(lock.task_id, 'TASK_ID_REQUIRED');
-  const scopes = normalizePatterns(lock.scopes, 'LOCK_SCOPE_REQUIRED');
-  return { lock_id, task_id, scopes };
+  const owner = normalizeAgentRole(lock.owner);
+  const paths = normalizePatterns(lock.paths, 'LOCK_PATHS_REQUIRED');
+  return { lock_id, task_id, owner, paths };
 }
 
+/**
+ * Deterministic in-memory write-lock controller.
+ *
+ * Lock lifecycle invariants:
+ * - locks have no TTL and no automatic timeout;
+ * - HUMAN_PENDING, STALE, and every other non-terminal state keep the lock ACTIVE;
+ * - only explicit release by the owning task/agent after MERGED or ABORTED removes an active lock;
+ * - REVIEWER and QA roles are read-only and cannot acquire write locks;
+ * - snapshots/conflict views are deep-cloned and recursively frozen read-only views.
+ */
 export class ScopeLockController {
   #locks = new Map();
 
@@ -90,11 +120,11 @@ export class ScopeLockController {
     const normalized = normalizeLockInput(lock);
     if (this.#locks.has(normalized.lock_id)) throw new Error(`LOCK_ALREADY_EXISTS:${normalized.lock_id}`);
 
-    for (const existing of this.snapshot()) {
-      for (const requestedScope of normalized.scopes) {
-        for (const existingScope of existing.scopes) {
-          if (scopePatternsOverlap(requestedScope, existingScope)) {
-            throw new Error(`LOCK_CONFLICT:${existing.lock_id}:${existing.task_id}:${existingScope}<->${requestedScope}`);
+    for (const existing of this.#locks.values()) {
+      for (const requestedPath of normalized.paths) {
+        for (const existingPath of existing.paths) {
+          if (scopePatternsOverlap(requestedPath, existingPath)) {
+            throw new Error(`LOCK_CONFLICT:${existing.lock_id}:${existing.task_id}:${existingPath}<->${requestedPath}`);
           }
         }
       }
@@ -102,48 +132,62 @@ export class ScopeLockController {
 
     const record = {
       ...normalized,
-      acquired_at: context.now ?? new Date().toISOString(),
+      status: 'ACTIVE',
+      created_at: context.now ?? new Date().toISOString(),
     };
     this.#locks.set(record.lock_id, record);
-    return structuredClone(record);
+    return freezeClone(record);
   }
 
-  release({ lock_id, task_id, terminal_state }, context = {}) {
+  release({ lock_id, task_id, owner, terminal_state }, context = {}) {
     const id = assertString(lock_id, 'LOCK_ID_REQUIRED');
-    const owner = assertString(task_id, 'TASK_ID_REQUIRED');
+    const task = assertString(task_id, 'TASK_ID_REQUIRED');
+    const agent = assertString(owner, 'LOCK_OWNER_REQUIRED')
+      .toUpperCase()
+      .replace(/[+\s/-]+/g, '_');
     const existing = this.#locks.get(id);
     if (!existing) throw new Error(`LOCK_NOT_FOUND:${id}`);
-    if (existing.task_id !== owner) throw new Error(`LOCK_OWNER_MISMATCH:${id}`);
+    if (existing.task_id !== task || existing.owner !== agent) throw new Error(`LOCK_OWNER_MISMATCH:${id}`);
     if (!TERMINAL_STATES.has(terminal_state)) throw new Error('LOCK_RELEASE_REQUIRES_TERMINAL_STATE');
 
     this.#locks.delete(id);
-    return {
-      ...structuredClone(existing),
+    return freezeClone({
+      ...existing,
+      status: 'RELEASED',
       released_at: context.now ?? new Date().toISOString(),
       terminal_state,
-    };
+    });
   }
 
-  conflicts(scopes) {
-    const requested = normalizePatterns(scopes, 'LOCK_SCOPE_REQUIRED');
+  conflicts(paths) {
+    const requested = normalizePatterns(paths, 'LOCK_PATHS_REQUIRED');
     const conflicts = [];
-    for (const existing of this.snapshot()) {
+    for (const existing of this.#locks.values()) {
       const overlaps = [];
-      for (const requestedScope of requested) {
-        for (const existingScope of existing.scopes) {
-          if (scopePatternsOverlap(requestedScope, existingScope)) {
-            overlaps.push({ existing_scope: existingScope, requested_scope: requestedScope });
+      for (const requestedPath of requested) {
+        for (const existingPath of existing.paths) {
+          if (scopePatternsOverlap(requestedPath, existingPath)) {
+            overlaps.push({ existing_path: existingPath, requested_path: requestedPath });
           }
         }
       }
-      if (overlaps.length) conflicts.push({ lock_id: existing.lock_id, task_id: existing.task_id, overlaps });
+      if (overlaps.length) {
+        conflicts.push({
+          lock_id: existing.lock_id,
+          task_id: existing.task_id,
+          owner: existing.owner,
+          overlaps,
+        });
+      }
     }
-    return conflicts;
+    conflicts.sort((a, b) => a.lock_id.localeCompare(b.lock_id));
+    return freezeClone(conflicts);
   }
 
   snapshot() {
-    return [...this.#locks.values()]
+    const snapshot = [...this.#locks.values()]
       .map((lock) => structuredClone(lock))
       .sort((a, b) => a.lock_id.localeCompare(b.lock_id));
+    return freezeClone(snapshot);
   }
 }
