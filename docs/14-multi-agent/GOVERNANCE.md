@@ -23,8 +23,27 @@ Implementation is authorized only through scoped branches and pull requests. No 
 | F-1 | Expand `spec-validate.sh` coverage to all states, transitions, schemas and invariants. | Enhancement | Medium |
 | F-2 | Add the final v3.1 review to the specification remediation register. | Documentation | Low |
 | F-3 | Complete the evidence-backed root-cause investigation for `MA-PROTECTION-DRIFT-001` using the five-step investigation plan in the incident record. | Governance / Incident Investigation | High |
+| F-4 | Wire Merge Policy Controller enforcement into a GitHub-required CI status check so HIGH-risk Human Gate cannot be bypassed by static GitHub approval settings. Must be complete before the first HIGH-risk task. | Governance / Merge Enforcement | High |
 
-These follow-ups are non-blocking for V1 implementation except that F-3 defers only the root-cause investigation. The missing branch protection itself remains a blocking prerequisite for PR #164 merge.
+These follow-ups are non-blocking for PR #164 except that F-3 defers only the root-cause investigation; the missing branch protection itself remains a blocking prerequisite for PR #164 merge. F-4 is not required for PR #164 because this bootstrap task is MEDIUM and has no Human Gate, but F-4 is a hard prerequisite before the first HIGH-risk task.
+
+## Approval model clarification
+
+GitHub required-approval count is static and cannot vary by EQCOFE task risk. Therefore V1 uses the following split of responsibilities:
+
+- GitHub required approvals: `0`.
+- LOW / MEDIUM / HIGH review: Reviewer / QA pipeline according to task policy.
+- HIGH Human Gate: enforced by the EQCOFE Merge Policy Controller using artifact-bound human approval state.
+- Merge execution: deterministic protected-main infrastructure only.
+
+This model is valid only if Merge Policy Controller enforcement is itself included in a GitHub-required status check before the first HIGH-risk task. Until implementation item 6 is complete, no HIGH-risk task may become merge-eligible.
+
+Accepted wiring options for F-4:
+
+1. `Canonical CI` contains a mandatory `merge-policy-validate` step and that workflow remains a required status check; or
+2. a dedicated `Merge Policy Validation` status check is added to GitHub required checks.
+
+For PR #164, required GitHub checks remain `Canonical CI` and `Phase A Verification`. This PR does not exercise HIGH-risk Human Gate enforcement.
 
 ## Frozen implementation order
 
