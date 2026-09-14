@@ -5,6 +5,21 @@
   "description": "Bootstrap the first deterministic multi-agent foundation after Spec v3.1 freeze: Project Map Builder, Workflow/State Controller, invariant tests, governance evidence, and canonical verification integration.",
   "risk": "MEDIUM",
   "risk_floor": "LOW",
+  "risk_rationale": {
+    "chosen": "MEDIUM",
+    "considered_high": true,
+    "why_medium": [
+      "The pnpm verify change is additive: a new gate is inserted and no existing gate is removed or weakened.",
+      "No protected commerce domain, migration, OpenAPI contract, authorization, pricing, payment, inventory, finance, or destructive behavior is changed.",
+      "The implementation is isolated to the multi-agent bootstrap/governance surface and package verification wiring.",
+      "Rollback is straightforward: revert the additive package verification wiring and associated bootstrap files in a dedicated rollback task."
+    ],
+    "why_not_high": [
+      "Spec v3.1 does not classify additive CI wiring alone as a protected HIGH domain.",
+      "The change does not alter business or financial truth and does not perform an irreversible mutation.",
+      "The current external branch-protection drift is handled as an independent blocking governance condition, not by silently inflating task risk."
+    ]
+  },
   "owner": "BACKEND",
   "canonical": {
     "repository": "rahemih/Eqcofe",
@@ -41,7 +56,7 @@
   "requested_lock_ids": ["BOOTSTRAP-MANUAL-LOCK-MA-001"],
   "human_gate_required": false,
   "token_budget": {
-    "expected_max": 35000,
+    "expected_max": 25000,
     "soft_alert": 35000,
     "hard_cap": 70000
   },
@@ -70,6 +85,12 @@
       "description": "No forbidden sensitive-domain, migration, OpenAPI, or Step 57 product-design files are changed.",
       "verification": "pr_diff_review",
       "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Required main-branch protection is active before merge eligibility is declared.",
+      "verification": "github_branch_protection_evidence",
+      "mandatory": true
     }
   ],
   "bootstrap": {
@@ -79,6 +100,11 @@
       "type": "SEQUENCING",
       "order": ["PROJECT_MAP_BUILDER", "WORKFLOW_STATE_CONTROLLER"],
       "note": "The services are not direct code dependencies. They are intentionally delivered in one bootstrap task because a fresh Project Map is a prerequisite to future dispatch, while Workflow/State control is the next required deterministic enforcement layer before normal task orchestration can start."
+    },
+    "rollback_semantics": {
+      "project_map_builder_revert": "A rollback task must validate Workflow/State Controller behavior against the resulting map availability and compatibility. If safe independent operation cannot be proven, both services must be reverted in the same rollback task.",
+      "workflow_controller_revert": "Project Map Builder may remain if independent validation passes because Workflow/State Controller does not own map generation.",
+      "rule": "Every rollback uses a new task_id and explicitly names the service or services being reverted."
     },
     "manual_lock": {
       "lock_id": "BOOTSTRAP-MANUAL-LOCK-MA-001",
@@ -105,12 +131,26 @@
         "pnpm verify"
       ],
       "lint": "NOT_CONFIGURED_IN_CANONICAL_PACKAGE; not invented as a bootstrap requirement",
+      "self_referential_ci": {
+        "rule": "The PR tests its own additive multi-agent verification gate.",
+        "on_failure": "CI=FAIL; merge forbidden; repair within the same PR; retry_count increments; exact new head must be reverified.",
+        "retry_policy": "MEDIUM max 2 repair cycles."
+      },
+      "gate_order_rationale": "multi-agent:verify is placed before build because it is a lightweight deterministic repository/governance check that can fail earlier than TypeScript build, while all pre-existing gates remain intact.",
       "replacement_end": "Deterministic Verification Policy becomes authoritative after its implementation task is merged."
     },
     "protection_drift_monitor": {
       "implemented_in_this_task": false,
       "planned_stage": "Frozen implementation order item 6 — Merge Policy / protection validation",
-      "pre_merge_until_then": "Manual GitHub protection/status evidence plus CI status must be checked; NOT_VERIFIED never equals PASS."
+      "pre_merge_until_then": "Manual GitHub protection/status evidence plus CI status must be checked; NOT_VERIFIED never equals PASS.",
+      "observed_at_utc": "2026-09-14T08:01:40Z",
+      "observed_state": "FAIL",
+      "evidence": {
+        "main_protected": false,
+        "protection_enabled": false,
+        "repository_rulesets": 0
+      },
+      "merge_effect": "BLOCKED until required main protection is enabled and reverified. Owner attestation must not be fabricated; GitHub evidence must show protection active before merge eligibility."
     }
   }
 }
