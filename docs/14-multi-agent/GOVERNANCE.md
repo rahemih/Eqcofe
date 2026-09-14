@@ -22,8 +22,9 @@ Implementation is authorized only through scoped branches and pull requests. No 
 | --- | --- | --- | --- |
 | F-1 | Expand `spec-validate.sh` coverage to all states, transitions, schemas and invariants. | Enhancement | Medium |
 | F-2 | Add the final v3.1 review to the specification remediation register. | Documentation | Low |
+| F-3 | Complete the evidence-backed root-cause investigation for `MA-PROTECTION-DRIFT-001` using the five-step investigation plan in the incident record. | Governance / Incident Investigation | High |
 
-These follow-ups are non-blocking for V1 implementation.
+These follow-ups are non-blocking for V1 implementation except that F-3 defers only the root-cause investigation. The missing branch protection itself remains a blocking prerequisite for PR #164 merge.
 
 ## Frozen implementation order
 
@@ -106,6 +107,8 @@ Therefore the protection check is currently **FAIL**, not merely `NOT_VERIFIED`.
 
 ### Protection Drift incident record
 
+Canonical incident file: `docs/14-multi-agent/incidents/MA-PROTECTION-DRIFT-001.md`.
+
 - Incident ID: `MA-PROTECTION-DRIFT-001`
 - Discovered at: `2026-09-14T08:01:40Z`
 - Discovered during: PR #164 bootstrap review
@@ -118,7 +121,10 @@ Therefore the protection check is currently **FAIL**, not merely `NOT_VERIFIED`.
 - Required Owner action: enable V1 branch protection/rules for `main` and provide real GitHub configuration evidence.
 - Temporary control until implementation item 6: manual GitHub configuration verification before merge; missing/failed protection remains blocking.
 - Permanent follow-up: Protection Drift Monitor / Merge Policy protection validation MUST be implemented before the first HIGH-risk task.
-- Closure condition: GitHub re-read confirms required protection active and exact-head CI + independent Review 3 pass.
+- Root-cause investigation: deferred to V1.1 follow-up F-3 after safe PR #164 merge; deferral does not defer remediation of the active protection failure.
+- Closure condition for immediate merge blocker: GitHub re-read confirms required protection active and exact-head CI + independent Review 3 pass.
+
+The incident file contains the five-step investigation plan covering GitHub Audit Log, repository settings history, migration/restore records, initial repository setup evidence, and administrative access review. The final investigation must produce an evidence-backed timeline, confirmed root cause or `UNRESOLVED`, corrective/preventive actions, residual risk, and reviewer disposition.
 
 ### `pnpm verify` integration and order
 
