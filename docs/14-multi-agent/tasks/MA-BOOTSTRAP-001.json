@@ -1,0 +1,116 @@
+{
+  "schema_version": "2.2",
+  "task_id": "MA-BOOTSTRAP-001",
+  "title": "Bootstrap deterministic multi-agent foundation",
+  "description": "Bootstrap the first deterministic multi-agent foundation after Spec v3.1 freeze: Project Map Builder, Workflow/State Controller, invariant tests, governance evidence, and canonical verification integration.",
+  "risk": "MEDIUM",
+  "risk_floor": "LOW",
+  "owner": "BACKEND",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "01f0fa033af07c5ba5189b2c85ebfe51b095cdba"
+  },
+  "scope": {
+    "read": [
+      "package.json",
+      "docs/12-current-state/**",
+      "docs/14-multi-agent/**",
+      "scripts/**",
+      "test/**",
+      "src/**",
+      "database/**",
+      "contracts/**"
+    ],
+    "write": [
+      "docs/14-multi-agent/**",
+      "scripts/multi-agent/**",
+      "test/multi-agent/**",
+      "package.json"
+    ],
+    "forbidden": [
+      "src/modules/payment/**",
+      "src/modules/pricing/**",
+      "src/modules/inventory/**",
+      "src/modules/auth/**",
+      "database/migrations/**",
+      "contracts/http/openapi.yaml",
+      "docs/13-product-design/**"
+    ]
+  },
+  "requested_lock_ids": ["BOOTSTRAP-MANUAL-LOCK-MA-001"],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 35000,
+    "soft_alert": 35000,
+    "hard_cap": 70000
+  },
+  "max_repair_cycles": 2,
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Project Map Builder deterministically generates .eqcofe/project-map.json from repository state.",
+      "verification": "pnpm multi-agent:map",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Workflow Controller enforces frozen state transitions and terminal immutability invariants.",
+      "verification": "pnpm multi-agent:test",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Multi-agent foundation gate is included in canonical pnpm verify without removing existing verification gates.",
+      "verification": "pnpm verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "No forbidden sensitive-domain, migration, OpenAPI, or Step 57 product-design files are changed.",
+      "verification": "pr_diff_review",
+      "mandatory": true
+    }
+  ],
+  "bootstrap": {
+    "exception": true,
+    "reason": "Scope/Lock Controller, deterministic Verification Policy, and Protection Drift Monitor do not exist at the start of the first implementation task.",
+    "service_dependency": {
+      "type": "SEQUENCING",
+      "order": ["PROJECT_MAP_BUILDER", "WORKFLOW_STATE_CONTROLLER"],
+      "note": "The services are not direct code dependencies. They are intentionally delivered in one bootstrap task because a fresh Project Map is a prerequisite to future dispatch, while Workflow/State control is the next required deterministic enforcement layer before normal task orchestration can start."
+    },
+    "manual_lock": {
+      "lock_id": "BOOTSTRAP-MANUAL-LOCK-MA-001",
+      "status": "ACTIVE_UNTIL_PR_TERMINAL",
+      "scope": [
+        "docs/14-multi-agent/**",
+        "scripts/multi-agent/**",
+        "test/multi-agent/**",
+        "package.json"
+      ],
+      "owner": "MA-BOOTSTRAP-001",
+      "rule": "No overlapping bootstrap implementation may modify this write scope until PR #164 is merged or aborted."
+    },
+    "verification_policy": {
+      "mode": "MANUAL_BOOTSTRAP_MINIMUM",
+      "required": [
+        "pnpm multi-agent:verify",
+        "pnpm contract:validate",
+        "pnpm design:validate",
+        "pnpm arch:check",
+        "pnpm policy:check",
+        "pnpm build",
+        "pnpm test",
+        "pnpm verify"
+      ],
+      "lint": "NOT_CONFIGURED_IN_CANONICAL_PACKAGE; not invented as a bootstrap requirement",
+      "replacement_end": "Deterministic Verification Policy becomes authoritative after its implementation task is merged."
+    },
+    "protection_drift_monitor": {
+      "implemented_in_this_task": false,
+      "planned_stage": "Frozen implementation order item 6 — Merge Policy / protection validation",
+      "pre_merge_until_then": "Manual GitHub protection/status evidence plus CI status must be checked; NOT_VERIFIED never equals PASS."
+    }
+  }
+}
