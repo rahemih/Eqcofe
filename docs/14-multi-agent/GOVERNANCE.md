@@ -25,7 +25,7 @@ Implementation is authorized only through scoped branches and pull requests. No 
 | F-3 | Complete the evidence-backed root-cause investigation for `MA-PROTECTION-DRIFT-001` using the five-step investigation plan in the incident record. | Governance / Incident Investigation | High |
 | F-4 | Wire Merge Policy Controller enforcement into a GitHub-required CI status check so HIGH-risk Human Gate cannot be bypassed by static GitHub approval settings. Must be complete before the first HIGH-risk task. | Governance / Merge Enforcement | High |
 
-These follow-ups are non-blocking for PR #164 except that F-3 defers only the root-cause investigation; the missing branch protection itself remains a blocking prerequisite for PR #164 merge. F-4 is not required for PR #164 because this bootstrap task is MEDIUM and has no Human Gate, but F-4 is a hard prerequisite before the first HIGH-risk task.
+These follow-ups are non-blocking for PR #164. F-3 now concerns root-cause investigation only; the missing branch protection itself has been remediated and independently verified. F-4 is not required for PR #164 because this bootstrap task is MEDIUM and has no Human Gate, but F-4 is a hard prerequisite before the first HIGH-risk task.
 
 ## Approval model clarification
 
@@ -73,7 +73,7 @@ PR #164 intentionally contains both the Project Map Builder and Workflow / State
 - effective risk: `MEDIUM`.
 - Human Gate: `NOT REQUIRED`.
 
-`HIGH` was explicitly considered and rejected for this task because the CI modification is additive only, no existing gate is removed or weakened, no sensitive commerce/business/financial domain is modified, no irreversible mutation exists, and the change has a simple dedicated revert path. The separate absence of branch protection is treated as a blocking external protection-drift condition rather than silently changing task risk.
+`HIGH` was explicitly considered and rejected for this task because the CI modification is additive only, no existing gate is removed or weakened, no sensitive commerce/business/financial domain is modified, no irreversible mutation exists, and the change has a simple dedicated revert path.
 
 ### Manual Lock Bootstrap Exception
 
@@ -112,38 +112,63 @@ PR #164 intentionally tests the new `multi-agent:verify` gate using the same PR 
 
 If Project Map Builder must be reverted after merge, the rollback task must revalidate Workflow / State Controller against the resulting map availability/compatibility. If safe independent operation cannot be proven, both services are reverted together in that new rollback task. If only Workflow / State Controller is reverted, Project Map Builder may remain only after independent validation. Every rollback requires a new task ID and explicitly identifies affected services.
 
-### Protection Drift Bootstrap Exception — ACTIVE BLOCKER
+### Protection Drift Bootstrap Exception — PROTECTION REMEDIATED / REVIEW 3 PENDING
 
 Protection Drift Monitor is not implemented in PR #164. It remains scheduled in frozen implementation order item 6: **Merge Policy / protection validation**.
 
-Direct GitHub evidence observed at `2026-09-14T08:01:40Z` shows:
+Initial direct GitHub evidence observed at `2026-09-14T08:01:40Z` showed:
 
 - `main.protected = false`
 - `main.protection.enabled = false`
 - repository rulesets = `[]`
 
-Therefore the protection check is currently **FAIL**, not merely `NOT_VERIFIED`. This is a real protection-drift blocker under Spec v3.1. PR #164 MUST NOT be declared merge-eligible until required `main` protection is enabled and GitHub evidence is rechecked successfully. No Owner attestation is invented or substituted for GitHub configuration evidence.
+That initial result was correctly treated as a real Protection Drift blocker. The Project Owner then enabled an active repository ruleset for `main`, and direct GitHub re-read verified remediation.
+
+Current protection evidence:
+
+- `main.protected = true`
+- ruleset id: `23278861`
+- ruleset name: `main`
+- target: `refs/heads/main`
+- enforcement: `active`
+- bypass actors: none
+- current user bypass: `never`
+- deletion protection: enabled
+- non-fast-forward / force-push protection: enabled
+- pull request required
+- GitHub required approvals: `0`
+- strict required status checks: enabled
+- required check: `Canonical CI` from GitHub Actions
+- required check: `Phase A Verification` from GitHub Actions
+
+The branch endpoint may still report `protection.enabled=false` for the legacy branch-protection object. That field is not the authoritative mechanism for the current repository configuration. The authoritative evidence is `main.protected=true` together with the active Ruleset API configuration above.
 
 ### Protection Drift incident record
 
 Canonical incident file: `docs/14-multi-agent/incidents/MA-PROTECTION-DRIFT-001.md`.
 
 - Incident ID: `MA-PROTECTION-DRIFT-001`
-- Discovered at: `2026-09-14T08:01:40Z`
-- Discovered during: PR #164 bootstrap review
-- Discovered by: Executor / governance verification
-- Status: `OPEN / BLOCKING`
-- Affected branch: `main`
-- Evidence: `main.protected=false`, `main.protection.enabled=false`, repository rulesets `[]`
+- Status: `OPEN / RCA_PENDING — PROTECTION REMEDIATED`
 - Root cause status: `UNKNOWN — INVESTIGATION REQUIRED`
-- Root-cause candidates are recorded only as hypotheses: protection may never have been configured, may have been disabled later, or may have been lost during repository migration/recreation. No candidate is accepted without evidence.
-- Required Owner action: enable V1 branch protection/rules for `main` and provide real GitHub configuration evidence.
+- Root-cause candidates remain hypotheses only.
+- Required Owner protection action: `COMPLETED / VERIFIED`
 - Temporary control until implementation item 6: manual GitHub configuration verification before merge; missing/failed protection remains blocking.
 - Permanent follow-up: Protection Drift Monitor / Merge Policy protection validation MUST be implemented before the first HIGH-risk task.
-- Root-cause investigation: deferred to V1.1 follow-up F-3 after safe PR #164 merge; deferral does not defer remediation of the active protection failure.
-- Closure condition for immediate merge blocker: GitHub re-read confirms required protection active and exact-head CI + independent Review 3 pass.
+- Root-cause investigation: deferred to V1.1 follow-up F-3 after safe PR #164 merge.
 
 The incident file contains the five-step investigation plan covering GitHub Audit Log, repository settings history, migration/restore records, initial repository setup evidence, and administrative access review. The final investigation must produce an evidence-backed timeline, confirmed root cause or `UNRESOLVED`, corrective/preventive actions, residual risk, and reviewer disposition.
+
+### Exact-head CI evidence before final governance synchronization
+
+For exact head `715550b77fb9c1f1e846a308fe288796470392f3`:
+
+- Canonical CI run `34821795304`: `SUCCESS`
+  - job `103904805413`: `SUCCESS`
+  - `pnpm verify`: `SUCCESS`
+- Phase A Verification run `34821795446`: `SUCCESS`
+  - job `103904806074`: `SUCCESS`
+
+These results prove that head only. Because this governance synchronization itself changes the PR head, the final head must pass both required workflows again before Review 3 / merge eligibility.
 
 ### `pnpm verify` integration and order
 
@@ -159,4 +184,4 @@ between policy verification and build. It is placed before build because the det
 
 ### Bootstrap Task Contract token budget correction
 
-The MEDIUM Task Contract now uses `expected_max=25000`, `soft_alert=35000`, `hard_cap=70000`. This preserves a real warning interval and avoids the previously rejected `expected_max == soft_alert` ambiguity.
+The MEDIUM Task Contract uses `expected_max=25000`, `soft_alert=35000`, `hard_cap=70000`. This preserves a real warning interval and avoids the previously rejected `expected_max == soft_alert` ambiguity.
