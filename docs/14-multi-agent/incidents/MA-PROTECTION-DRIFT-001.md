@@ -1,6 +1,6 @@
 # MA-PROTECTION-DRIFT-001 — Branch Protection Drift
 
-**Status:** OPEN / BLOCKING  
+**Status:** OPEN / RCA_PENDING — PROTECTION REMEDIATED  
 **Severity:** Governance / Merge Protection  
 **Affected branch:** `main`  
 **Discovered during:** PR #164 Bootstrap Review  
@@ -11,13 +11,15 @@
 
 During bootstrap verification for PR #164, direct GitHub evidence showed that the canonical `main` branch did not have required protection enabled.
 
-Observed evidence:
+Initial observed evidence:
 
 - `main.protected = false`
 - `main.protection.enabled = false`
 - repository rulesets = `[]`
 
-This is a real Protection Drift condition under the frozen EQCOFE Multi-Agent System Spec v3.1. PR #164 is not merge-eligible while this condition remains unresolved.
+This was a real Protection Drift condition under the frozen EQCOFE Multi-Agent System Spec v3.1. Merge eligibility was denied immediately and no bypass was accepted.
+
+The Project Owner subsequently enabled a repository ruleset for `main`. Direct GitHub re-read now confirms that the protection failure itself is remediated. The incident remains open only for V1.1 root-cause investigation and final reviewer disposition.
 
 ## Timeline
 
@@ -27,12 +29,14 @@ This is a real Protection Drift condition under the frozen EQCOFE Multi-Agent Sy
 4. Direct GitHub read at `2026-09-14T08:01:40Z` returned `main.protected=false`, `main.protection.enabled=false`, and no repository rulesets.
 5. Merge eligibility was immediately denied. No bypass or substitute Owner attestation was accepted.
 6. Incident `MA-PROTECTION-DRIFT-001` was opened and marked blocking.
+7. Project Owner configured an active branch ruleset for `main`.
+8. GitHub re-read confirmed `main.protected=true` and repository ruleset `main` id `23278861` with `enforcement=active` targeting `refs/heads/main`.
+9. Ruleset details confirmed pull-request enforcement, approvals `0`, strict required status checks, deletion protection, non-fast-forward protection, empty bypass list, and required GitHub Actions checks `Canonical CI` and `Phase A Verification`.
+10. The immediate protection failure was marked remediated. Root cause remains unknown and deferred to V1.1 follow-up F-3.
 
 ## Evidence
 
-Current canonical evidence source is GitHub branch/ruleset configuration, not conversation claims.
-
-Evidence observed:
+### Initial failure evidence
 
 ```text
 main.protected          = false
@@ -40,7 +44,27 @@ main.protection.enabled = false
 repository rulesets     = []
 ```
 
-The exact GitHub re-read used for closure must be captured after Owner remediation.
+### Remediation evidence
+
+Direct GitHub Ruleset evidence now shows:
+
+```text
+main.protected                    = true
+ruleset.id                        = 23278861
+ruleset.name                      = main
+ruleset.enforcement               = active
+ruleset.target                    = refs/heads/main
+bypass_actors                     = []
+current_user_can_bypass           = never
+required_approving_review_count   = 0
+strict_required_status_checks     = true
+required_check[0]                 = Canonical CI / GitHub Actions
+required_check[1]                 = Phase A Verification / GitHub Actions
+deletion protection               = enabled
+non-fast-forward protection       = enabled
+```
+
+The branch endpoint may still report `protection.enabled=false` for the legacy branch-protection object. That field is not the authoritative protection mechanism for this repository now. The authoritative current evidence is `main.protected=true` plus the active repository Ruleset API configuration above.
 
 ## Root Cause
 
@@ -95,19 +119,19 @@ The final investigation update to this file must include:
 
 If evidence remains insufficient, the correct result is `ROOT CAUSE UNRESOLVED`, not a guessed cause.
 
-## Immediate Corrective Action — Required Before PR #164 Merge
+## Immediate Corrective Action — COMPLETED
 
-Project Owner must enable required V1 protection for `main` and provide verifiable GitHub configuration evidence.
+The Project Owner enabled required V1 protection for `main`, and direct GitHub Ruleset evidence verified the configuration.
 
-Minimum controls:
+Verified controls:
 
 - Pull request required before merge
 - Required status checks: `Canonical CI` and `Phase A Verification`
 - Branch must be up to date before merge
-- No bypass of required controls
-- Force pushes denied
+- No bypass actors
+- Force pushes denied through non-fast-forward protection
 - Branch deletion denied
-- Direct push to `main` denied or restricted to deterministic merge authority
+- Required approvals fixed at `0` for the GitHub layer
 
 Signed commits, deployment gates, and branch locking are not required for V1.
 
@@ -128,16 +152,16 @@ The monitor must detect missing or weakened required protections and fail closed
 
 ## Deferred Follow-up
 
-**V1.1 Follow-up:** Perform the five-step root-cause investigation after PR #164 merge.
+**V1.1 Follow-up F-3:** Perform the five-step root-cause investigation after PR #164 merge.
 
-Deferral applies only to root-cause investigation. It does **not** defer remediation of the missing branch protection, which remains a blocking prerequisite for PR #164 merge.
+Deferral applies only to root-cause investigation. The missing-protection failure itself has been remediated and independently verified.
 
 ## Closure Criteria
 
-This incident's immediate merge blocker may be marked remediated only when:
+The immediate protection blocker is remediated. PR #164 may only become merge-eligible when the remaining gates are also satisfied:
 
-1. GitHub re-read confirms required `main` protection is active.
-2. Exact-head CI for PR #164 passes after the final governance/incident changes.
-3. Independent Layer 2 Review 3 passes.
+1. Required `main` protection remains active on final re-read. **PASS**
+2. Exact-head CI for PR #164 passes after the final governance/incident synchronization. **PENDING until final head completes CI**
+3. Independent Layer 2 Review 3 passes. **PENDING**
 
 The incident itself remains open for V1.1 root-cause investigation until the investigation output is completed and reviewed.
