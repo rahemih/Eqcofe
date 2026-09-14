@@ -1,6 +1,7 @@
 import React,{lazy,Suspense} from 'react';
 import {createRoot} from 'react-dom/client';
 import {App} from './App.jsx';
+import './design-tokens.css';
 import './styles.css';
 const Review=lazy(()=>import('./Review.jsx').then(m=>({default:m.Review})));
 const Flows=lazy(()=>import('./Flows.jsx').then(m=>({default:m.Flows})));

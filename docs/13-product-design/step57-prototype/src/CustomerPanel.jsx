@@ -1,3 +1,5 @@
+import {CustomerProfile} from './CustomerProfile.jsx';
+import {AddressBook} from './AddressBook.jsx';
 import {useRef,useState} from 'react';
 const forms={
  'SF-E-02':{title:'اطلاعات حساب',fields:['نام نمایشی'],action:'مرور تغییرات نمونه'},
@@ -7,6 +9,8 @@ const forms={
 export function CustomerPanel({id}){
  const [values,setValues]=useState({}),[phase,setPhase]=useState('edit'),[error,setError]=useState('');const errorRef=useRef(null);const form=forms[id];
  function submit(e){e.preventDefault();if(form.fields.some(f=>!values[f]?.trim())){setError('لطفاً همهٔ فیلدهای فرم را تکمیل کنید.');requestAnimationFrame(()=>errorRef.current?.focus());return;}setError('');setPhase('review');}
+ if(id==='SF-E-02')return <CustomerProfile/>;
+ if(id==='SF-E-03')return <AddressBook/>;
  if(form)return <section className="store-task"><h2>{form.title}</h2>{error&&<p ref={errorRef} role="alert" tabIndex={-1} className="flow-error">{error}</p>}{phase==='edit'?<form className="customer-form" onSubmit={submit} noValidate>{form.fields.map(f=><label key={f}>{f}{f.includes('شرح')||f.includes('کامل')?<textarea value={values[f]||''} onChange={e=>setValues({...values,[f]:e.target.value})} maxLength={1000}/>:<input value={values[f]||''} onChange={e=>setValues({...values,[f]:e.target.value})} maxLength={120}/>}</label>)}<button className="primary">{form.action}</button></form>:phase==='review'?<><h3>بازبینی اطلاعات</h3><dl>{form.fields.map(f=><div key={f}><dt>{f}</dt><dd className="preserve-lines">{values[f]}</dd></div>)}</dl><button onClick={()=>setPhase('edit')}>اصلاح اطلاعات</button><button className="primary" onClick={()=>setPhase('done')}>ثبت در نمونه</button></>:<><p role="status">اطلاعات در نمونه ثبت شد؛ پیام یا تغییری به سامانهٔ واقعی ارسال نشد.</p><button onClick={()=>setPhase('edit')}>بازگشت به فرم</button></>}</section>;
  if(id==='SF-E-04'||id==='SF-E-05')return <section className="store-task"><span className="eyebrow">سفارش نمایشی EQ-1001</span><h2>آسیاب دستی حرفه‌ای</h2><span className="success-tag">سفارش نمونه</span><dl className="order-facts"><div><dt>تعداد</dt><dd>۱</dd></div><div><dt>مبلغ کالای نمونه</dt><dd>۴٬۸۹۰٬۰۰۰ تومان</dd></div><div><dt>وضعیت</dt><dd>اطلاعات نمایشی برای بررسی طرح</dd></div></dl>{id==='SF-E-04'?<a className="purchase-link" href="/store?id=SF-E-05">مشاهدهٔ جزئیات</a>:<div className="review-links"><a href="/store?id=SF-E-11">درخواست مرجوعی</a><a href="/store?id=SF-E-12">درخواست گارانتی</a><button disabled>فاکتور واقعی در نمونه موجود نیست</button></div>}</section>;
  if(id==='SF-E-09')return <section className="store-task"><span className="success-tag">در انتظار بررسی — نمونه</span><h2>درخواست همکاری عمده</h2><p>ارسال درخواست به معنی فعال‌شدن عضویت عمده نیست. نتیجه پس از بررسی اعلام می‌شود.</p><ol className="timeline"><li>ارسال درخواست نمونه</li><li>در انتظار بررسی</li></ol><a href="/store?id=SF-E-01">بازگشت به حساب</a></section>;
