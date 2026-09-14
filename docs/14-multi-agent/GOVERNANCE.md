@@ -104,6 +104,22 @@ Direct GitHub evidence observed at `2026-09-14T08:01:40Z` shows:
 
 Therefore the protection check is currently **FAIL**, not merely `NOT_VERIFIED`. This is a real protection-drift blocker under Spec v3.1. PR #164 MUST NOT be declared merge-eligible until required `main` protection is enabled and GitHub evidence is rechecked successfully. No Owner attestation is invented or substituted for GitHub configuration evidence.
 
+### Protection Drift incident record
+
+- Incident ID: `MA-PROTECTION-DRIFT-001`
+- Discovered at: `2026-09-14T08:01:40Z`
+- Discovered during: PR #164 bootstrap review
+- Discovered by: Executor / governance verification
+- Status: `OPEN / BLOCKING`
+- Affected branch: `main`
+- Evidence: `main.protected=false`, `main.protection.enabled=false`, repository rulesets `[]`
+- Root cause status: `UNKNOWN — INVESTIGATION REQUIRED`
+- Root-cause candidates are recorded only as hypotheses: protection may never have been configured, may have been disabled later, or may have been lost during repository migration/recreation. No candidate is accepted without evidence.
+- Required Owner action: enable V1 branch protection/rules for `main` and provide real GitHub configuration evidence.
+- Temporary control until implementation item 6: manual GitHub configuration verification before merge; missing/failed protection remains blocking.
+- Permanent follow-up: Protection Drift Monitor / Merge Policy protection validation MUST be implemented before the first HIGH-risk task.
+- Closure condition: GitHub re-read confirms required protection active and exact-head CI + independent Review 3 pass.
+
 ### `pnpm verify` integration and order
 
 Before PR #164, canonical `pnpm verify` ran:
