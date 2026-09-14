@@ -88,3 +88,5 @@ The default sample environment is fail-closed for live payment/provider behavior
 ## Provenance and historical accuracy
 
 No fake historical Git commits are manufactured in this repository. Earlier decisions/steps are documented from recoverable artifacts, code, tests, Git evidence, Google Drive and project context. Anything not sufficiently recoverable is explicitly marked `UNVERIFIED` or `PARTIAL`.
+
+

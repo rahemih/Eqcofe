@@ -5,9 +5,7 @@
   "description": "EQCOFE modular-monolith backend and canonical product-design contracts",
   "license": "UNLICENSED",
   "packageManager": "pnpm@11.21.0",
-  "engines": {
-    "node": ">=24.18.1 <25"
-  },
+  "engines": { "node": ">=24.18.1 <25" },
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
     "clean": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\"",
@@ -25,8 +23,11 @@
     "contract:types": "openapi-typescript contracts/http/openapi.yaml -o src/generated/openapi.ts",
     "arch:check": "node scripts/check-architecture.mjs",
     "policy:check": "node scripts/check-project-policies.mjs",
+    "multi-agent:map": "node scripts/multi-agent/project-map.mjs",
+    "multi-agent:test": "node --test test/multi-agent/*.test.mjs",
+    "multi-agent:verify": "pnpm multi-agent:map && pnpm multi-agent:test",
     "test": "node scripts/run-tests.mjs",
-    "verify": "pnpm contract:validate && pnpm design:validate && pnpm arch:check && pnpm policy:check && pnpm build && pnpm test",
+    "verify": "pnpm contract:validate && pnpm design:validate && pnpm arch:check && pnpm policy:check && pnpm multi-agent:verify && pnpm build && pnpm test",
     "bootstrap:admin": "node scripts/bootstrap-admin.mjs"
   },
   "dependencies": {
