@@ -46,12 +46,14 @@ Task Contract: `docs/14-multi-agent/tasks/MA-BOOTSTRAP-001.json`.
 
 PR #164 intentionally contains both the Project Map Builder and Workflow / State Controller as one bootstrap task. They are not direct code dependencies; they form a sequencing dependency in the first implementation slice. A fresh repository-derived Project Map is required before future dispatch can trust repository context, and the Workflow / State Controller is the next deterministic enforcement layer required before normal orchestration begins. Splitting them would not reduce sensitive-domain risk and would duplicate bootstrap-only manual controls.
 
-### Risk classification
+### Risk classification and rationale
 
 - deterministic risk floor: `LOW` — the changed multi-agent/governance paths are not protected commerce sensitive zones.
-- Manager escalation: `MEDIUM` — `package.json` changes add a new global `pnpm verify` gate, so failure can affect repository-wide CI/verification behavior.
+- Manager escalation: `MEDIUM` — `package.json` adds a repository-wide verification gate, so a defect can affect canonical CI behavior.
 - effective risk: `MEDIUM`.
-- Human Gate: `NOT REQUIRED` — no payment, pricing, inventory, auth, financial, migration, destructive, or other frozen protected-domain rule is changed.
+- Human Gate: `NOT REQUIRED`.
+
+`HIGH` was explicitly considered and rejected for this task because the CI modification is additive only, no existing gate is removed or weakened, no sensitive commerce/business/financial domain is modified, no irreversible mutation exists, and the change has a simple dedicated revert path. The separate absence of branch protection is treated as a blocking external protection-drift condition rather than silently changing task risk.
 
 ### Manual Lock Bootstrap Exception
 
@@ -82,15 +84,27 @@ The deterministic Verification Policy does not yet exist. PR #164 therefore uses
 
 The current canonical package has no dedicated `lint` script, so bootstrap governance MUST NOT fabricate a lint PASS. Lint remains `NOT_CONFIGURED` until a canonical lint gate is explicitly introduced.
 
-After the Risk Classifier + deterministic Verification Policy implementation is merged, that policy becomes authoritative for future task check selection.
+### Self-referential CI handling
 
-### Protection Drift Bootstrap Exception
+PR #164 intentionally tests the new `multi-agent:verify` gate using the same PR that introduces it. If the gate fails, CI is FAIL, merge remains forbidden, the repair occurs in the same PR, `retry_count` increments, and the new exact head must be reverified. The MEDIUM retry policy permits at most two repair cycles.
 
-Protection Drift Monitor is not implemented in PR #164. It is scheduled in frozen implementation order item 6: **Merge Policy / protection validation**.
+### Sequential bootstrap rollback semantics
 
-Until then, pre-merge protection/status evidence and CI must be checked manually from GitHub. Missing evidence remains `NOT_VERIFIED`, never `PASS`, and merge is forbidden until required evidence is available.
+If Project Map Builder must be reverted after merge, the rollback task must revalidate Workflow / State Controller against the resulting map availability/compatibility. If safe independent operation cannot be proven, both services are reverted together in that new rollback task. If only Workflow / State Controller is reverted, Project Map Builder may remain only after independent validation. Every rollback requires a new task ID and explicitly identifies affected services.
 
-### `pnpm verify` integration
+### Protection Drift Bootstrap Exception — ACTIVE BLOCKER
+
+Protection Drift Monitor is not implemented in PR #164. It remains scheduled in frozen implementation order item 6: **Merge Policy / protection validation**.
+
+Direct GitHub evidence observed at `2026-09-14T08:01:40Z` shows:
+
+- `main.protected = false`
+- `main.protection.enabled = false`
+- repository rulesets = `[]`
+
+Therefore the protection check is currently **FAIL**, not merely `NOT_VERIFIED`. This is a real protection-drift blocker under Spec v3.1. PR #164 MUST NOT be declared merge-eligible until required `main` protection is enabled and GitHub evidence is rechecked successfully. No Owner attestation is invented or substituted for GitHub configuration evidence.
+
+### `pnpm verify` integration and order
 
 Before PR #164, canonical `pnpm verify` ran:
 
@@ -100,4 +114,8 @@ PR #164 adds:
 
 `multi-agent:verify`
 
-between policy verification and build. `multi-agent:verify` currently executes the deterministic Project Map generation and multi-agent invariant tests. Existing gates are retained; none are removed.
+between policy verification and build. It is placed before build because the deterministic Project Map + workflow invariant checks are lightweight and can fail earlier than the TypeScript build. Existing gates remain intact; none are removed.
+
+### Bootstrap Task Contract token budget correction
+
+The MEDIUM Task Contract now uses `expected_max=25000`, `soft_alert=35000`, `hard_cap=70000`. This preserves a real warning interval and avoids the previously rejected `expected_max == soft_alert` ambiguity.
