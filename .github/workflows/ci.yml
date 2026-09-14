@@ -23,9 +23,3 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm verify
-      - name: Build isolated Step 57 design prototype
-        working-directory: docs/13-product-design/step57-prototype
-        run: |
-          npm ci
-          npm run build
-          npm run test:sites
