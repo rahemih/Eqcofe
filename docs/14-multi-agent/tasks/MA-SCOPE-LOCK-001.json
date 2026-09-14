@@ -2,7 +2,7 @@
   "schema_version": "2.2",
   "task_id": "MA-SCOPE-LOCK-001",
   "title": "Implement deterministic Scope / Lock Controller",
-  "description": "Implement frozen multi-agent Item 3: deterministic write-scope validation, lock acquisition/release, overlap conflict detection, and terminal-state lock release.",
+  "description": "Implement frozen multi-agent Item 3: deterministic write-scope validation, role-aware lock acquisition/release, overlap conflict detection, no-timeout active locks, read-only reviewer/QA enforcement, and terminal-state lock release.",
   "risk": "MEDIUM",
   "risk_floor": "LOW",
   "risk_rationale": {
@@ -61,6 +61,35 @@
     "hard_cap": 70000
   },
   "max_repair_cycles": 2,
+  "lock_contract": {
+    "required_fields": [
+      "lock_id",
+      "task_id",
+      "owner",
+      "paths",
+      "status",
+      "created_at"
+    ],
+    "statuses": [
+      "ACTIVE",
+      "RELEASED"
+    ],
+    "release_terminal_states": [
+      "MERGED",
+      "ABORTED"
+    ],
+    "automatic_timeout": false,
+    "non_releasing_states": [
+      "HUMAN_PENDING",
+      "STALE"
+    ],
+    "read_only_roles": [
+      "REVIEWER",
+      "QA",
+      "REVIEWER_QA"
+    ],
+    "snapshot_semantics": "Deep-cloned and recursively frozen read-only view; attempted caller mutation fails and cannot mutate controller state."
+  },
   "acceptance_criteria": [
     {
       "id": "AC-001",
@@ -76,30 +105,42 @@
     },
     {
       "id": "AC-003",
-      "description": "Lock acquisition detects exact, prefix, and nested-scope conflicts and rejects duplicate lock IDs.",
+      "description": "Active lock records contain unique lock_id, task_id, owner, normalized paths, ACTIVE status and created_at; acquisition detects exact, prefix and nested-path conflicts and rejects duplicate lock IDs.",
       "verification": "node --test test/multi-agent/scope-lock-controller.test.mjs",
       "mandatory": true
     },
     {
       "id": "AC-004",
-      "description": "Only the owning task may release a lock and release is allowed only for terminal MERGED or ABORTED state.",
+      "description": "Only the owning task and agent may release a lock; release returns RELEASED status plus released_at and is allowed only for terminal MERGED or ABORTED state.",
       "verification": "node --test test/multi-agent/scope-lock-controller.test.mjs",
       "mandatory": true
     },
     {
       "id": "AC-005",
-      "description": "Active-lock snapshots are deterministic and sorted; no wall-clock value is required for deterministic tests because timestamps can be injected.",
+      "description": "Locks have no TTL or automatic timeout. HUMAN_PENDING, STALE and every other non-terminal state preserve ACTIVE lock ownership until explicit terminal release.",
       "verification": "node --test test/multi-agent/scope-lock-controller.test.mjs",
       "mandatory": true
     },
     {
       "id": "AC-006",
+      "description": "REVIEWER, QA and combined REVIEWER_QA roles are read-only and cannot acquire write locks.",
+      "verification": "node --test test/multi-agent/scope-lock-controller.test.mjs",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "Active-lock snapshots and conflict views are deterministic, sorted where applicable, deep-cloned and recursively frozen so callers cannot mutate controller state through returned data.",
+      "verification": "node --test test/multi-agent/scope-lock-controller.test.mjs",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
       "description": "Existing multi-agent verification automatically includes Item 3 tests without modifying package.json, and the full canonical verification remains green.",
       "verification": "pnpm multi-agent:verify && pnpm verify",
       "mandatory": true
     },
     {
-      "id": "AC-007",
+      "id": "AC-009",
       "description": "PR diff contains only the three declared write-scope files and no forbidden path.",
       "verification": "pr_diff_review",
       "mandatory": true
