@@ -31,6 +31,53 @@ test('max risk rule is deterministic and can only select the highest input', () 
   assert.equal(maxRisk('HIGH', 'LOW', 'MEDIUM'), 'HIGH');
 });
 
+test('Q-1 payment path triggers HIGH floor regardless of lower manager input', () => {
+  const result = classifyRisk({
+    changed_paths: ['src/modules/payment/refund.ts'],
+    sensitive_zones: sensitiveZones,
+    manager_risk: 'LOW',
+  });
+  assert.equal(result.deterministic_floor, 'HIGH');
+  assert.equal(result.effective_risk, 'HIGH');
+  assert.equal(result.human_gate_required, true);
+  assert.equal(result.matched_zones[0].path, 'src/modules/payment/**');
+});
+
+test('Q-2 multiple sensitive zones yield the maximum deterministic floor', () => {
+  const result = deterministicRiskFloor({
+    changed_paths: [
+      'src/modules/payment/refund.ts',
+      'src/modules/cart/items.ts',
+    ],
+    sensitive_zones: [
+      ...sensitiveZones,
+      { path: 'src/modules/cart/**', minimum_risk: 'MEDIUM', reason: 'cart_mutation' },
+    ],
+  });
+  assert.equal(result.floor, 'HIGH');
+  assert.deepEqual(result.matched_zones.map((zone) => zone.minimum_risk).sort(), ['HIGH', 'MEDIUM']);
+});
+
+test('Q-3 manager downgrade below deterministic floor is rejected and logged', () => {
+  const result = classifyRisk({
+    changed_paths: ['src/modules/payment/refund.ts'],
+    sensitive_zones: sensitiveZones,
+    manager_risk: 'MEDIUM',
+  });
+  assert.equal(result.deterministic_floor, 'HIGH');
+  assert.equal(result.manager_risk, 'MEDIUM');
+  assert.equal(result.effective_risk, 'HIGH');
+  assert.equal(result.rejected_downgrade, true);
+  assert.deepEqual(result.governance_events, [{
+    type: 'MANAGER_DOWNGRADE_REJECTED',
+    attempted_risk: 'MEDIUM',
+    minimum_risk: 'HIGH',
+    effective_risk: 'HIGH',
+  }]);
+  assert.equal(Object.isFrozen(result.governance_events), true);
+  assert.equal(Object.isFrozen(result.governance_events[0]), true);
+});
+
 test('deterministic floor is LOW when no sensitive zone matches', () => {
   const result = deterministicRiskFloor({
     changed_paths: ['scripts/multi-agent/risk-verification-policy.mjs'],
@@ -71,6 +118,7 @@ test('manager cannot lower deterministic floor', () => {
   assert.equal(result.deterministic_floor, 'HIGH');
   assert.equal(result.manager_risk, 'LOW');
   assert.equal(result.effective_risk, 'HIGH');
+  assert.equal(result.rejected_downgrade, true);
   assert.equal(result.human_gate_required, true);
 });
 
@@ -82,6 +130,8 @@ test('manager may escalate above deterministic floor', () => {
   });
   assert.equal(result.deterministic_floor, 'LOW');
   assert.equal(result.effective_risk, 'MEDIUM');
+  assert.equal(result.rejected_downgrade, false);
+  assert.deepEqual(result.governance_events, []);
   assert.equal(result.human_gate_required, false);
 });
 
@@ -165,4 +215,5 @@ test('classification evidence is defensively frozen', () => {
   assert.equal(Object.isFrozen(result.matched_zones), true);
   assert.equal(Object.isFrozen(result.matched_zones[0]), true);
   assert.equal(Object.isFrozen(result.matched_zones[0].matched_paths), true);
+  assert.equal(Object.isFrozen(result.governance_events), true);
 });
