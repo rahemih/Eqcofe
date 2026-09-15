@@ -65,11 +65,14 @@ jobs:
           const input=page.locator('input[type=file]');
           if(await input.count()!==1)throw new Error('Expected exactly one upload input');
           if(await input.getAttribute('accept')!=='image/jpeg,image/png,image/webp,video/mp4')throw new Error('Upload accept contract drift');
-          await input.setInputFiles({name:'step57-sample.png',mimeType:'image/png',buffer:Buffer.from([137,80,78,71,13,10,26,10])});
+          const chooserPromise=page.waitForEvent('filechooser');
+          await page.getByRole('button',{name:'انتخاب فایل نمونه'}).click();
+          const chooser=await chooserPromise;
+          await chooser.setFiles({name:'step57-sample.png',mimeType:'image/png',buffer:Buffer.from([137,80,78,71,13,10,26,10])});
           await page.getByText('فایل فقط انتخاب شده؛ بارگذاری و انتشار انجام نشده است.').waitFor({state:'visible'});
           if(external.length)throw new Error('File selection emitted external request: '+external.join(', '));
           await browser.close();
-          console.log('Step57 file-selection interaction PASS; no upload request emitted');
+          console.log('Step57 file-picker button PASS; chooser opened, selection stayed local and no upload request emitted');
           NODE
           mkdir -p preview-evidence
           capture() {
