@@ -21,7 +21,7 @@
       ".eqcofe/project-map.json"
     ],
     "write": [
-      ".github/workflows/ci.yml",
+      ".github/workflows/merge-policy.yml",
       "docs/14-multi-agent/incidents/MA-POSTMERGE-DRIFT-001.md",
       "docs/14-multi-agent/PROCESS-IMPROVEMENTS.md",
       "docs/14-multi-agent/tasks/MA-MERGE-POLICY-001.json",
@@ -31,6 +31,7 @@
     "forbidden": [
       "README.md",
       "package.json",
+      ".github/workflows/ci.yml",
       "docs/14-multi-agent/GOVERNANCE.md",
       "src/modules/payment/**",
       "src/modules/pricing/**",
@@ -56,7 +57,7 @@
       "id": "MERGE_GOVERNANCE_CONTROL_HIGH",
       "risk": "HIGH",
       "paths": [
-        ".github/workflows/ci.yml",
+        ".github/workflows/merge-policy.yml",
         "scripts/multi-agent/merge-policy-controller.mjs"
       ]
     }
@@ -122,8 +123,8 @@
     },
     {
       "id": "AC-004",
-      "description": "F-4 is satisfied by a mandatory merge-policy validation step inside the GitHub-required verify job on pull requests; HIGH Human Gate therefore cannot be bypassed by GitHub's static approval count.",
-      "verification": "github_required_ci_exact_head_evidence",
+      "description": "F-4 is satisfied by a dedicated GitHub-required status check named merge-policy; HIGH Human Gate therefore cannot be bypassed by GitHub's static approval count.",
+      "verification": "github_required_merge_policy_check_exact_head_evidence",
       "mandatory": true
     },
     {
@@ -159,7 +160,7 @@
   ],
   "bootstrap_constraint": {
     "self_enforcement_gap": true,
-    "rule": "Item 6 must enforce its policy inside required CI on its own exact artifact before merge. Because the deterministic workflow_dispatch merge executor does not exist on canonical main until this task merges, the final merge of Item 6 itself uses one explicit and final bootstrap exception only after exact-artifact Review PASS, Verification PASS, Security PASS, Owner Human Approval, active protection evidence and zero scope violations.",
+    "rule": "Item 6 must execute its dedicated merge-policy check on its own exact artifact and that check must be added to the protected-main required contexts before the task becomes merge-eligible. Because the deterministic workflow_dispatch merge executor does not exist on canonical main until this task merges, the final merge of Item 6 itself uses one explicit and final bootstrap exception only after exact-artifact Review PASS, Verification PASS, Security PASS, Owner Human Approval, active protection evidence, merge-policy required-check enforcement and zero scope violations.",
     "last_bootstrap_merge": true,
     "expires_after_item6_merge": true,
     "no_precedent": true
