@@ -11,7 +11,7 @@ on:
 jobs:
   prototype:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 120
     steps:
       - uses: actions/checkout@v5.1.0
         with:
@@ -54,6 +54,7 @@ jobs:
             exit 1
           fi
           STEP57_BASE_URL=http://127.0.0.1:4173 node scripts/exhaustive-browser-audit.mjs
+          STEP57_BASE_URL=http://127.0.0.1:4173 node scripts/final-completeness-audit.mjs
           node --input-type=module <<'NODE'
           import {chromium} from 'playwright';
           const browser=await chromium.launch({headless:true});
