@@ -14,7 +14,7 @@ import {
 } from './risk-verification-policy.mjs';
 
 export const GATE_PROTOCOL = 'EQCOFE_GATE_V1';
-export const REQUIRED_BASE_CHECKS = Object.freeze(['verify', 'phase-a']);
+export const REQUIRED_PROTECTION_CHECKS = Object.freeze(['verify', 'phase-a', 'merge-policy']);
 const GATE_TYPES = new Set(['REVIEW', 'SECURITY', 'HUMAN', 'LOCK']);
 
 function deepFreeze(value) {
@@ -203,7 +203,7 @@ export function evaluateMergePolicy({
   if (!protection || protection.passed !== true) blockers.push('PROTECTION_NOT_VERIFIED');
 
   if (require_required_ci) {
-    const checks = protection?.required_checks?.length ? protection.required_checks : REQUIRED_BASE_CHECKS;
+    const checks = protection?.required_checks?.length ? protection.required_checks : REQUIRED_PROTECTION_CHECKS;
     for (const check of checks) {
       if (normalizeStatus(required_ci[check]) !== 'PASS') blockers.push(`REQUIRED_CI_NOT_PASS:${check}`);
     }
@@ -224,7 +224,7 @@ export function evaluateMergePolicy({
   });
 }
 
-export function validateProtectionSnapshot(snapshot, { branch = 'main', required_checks = REQUIRED_BASE_CHECKS } = {}) {
+export function validateProtectionSnapshot(snapshot, { branch = 'main', required_checks = REQUIRED_PROTECTION_CHECKS } = {}) {
   assertObject(snapshot, 'PROTECTION_SNAPSHOT_REQUIRED');
   const blockers = [];
   if (snapshot.branch_protected !== true) blockers.push('MAIN_NOT_PROTECTED');
@@ -342,6 +342,14 @@ export function buildGitArtifactBinding({ base_sha, head_sha = gitHead() }) {
   return buildArtifactBinding({ changes, commit_sha: head_sha });
 }
 
+export function artifactScopePaths(artifact) {
+  const manifest = assertArray(artifact?.manifest, 'ARTIFACT_MANIFEST_REQUIRED');
+  return uniqueSorted(manifest.flatMap((entry) => [
+    entry.normalized_repository_relative_path,
+    ...(entry.operation === 'RENAME' && entry.from_path ? [entry.from_path] : []),
+  ]));
+}
+
 function loadJson(path, code) {
   try {
     return JSON.parse(readFileSync(path, 'utf8'));
@@ -390,7 +398,7 @@ async function commonPrContext({ repository, pr, token, api_url }) {
   const artifact = buildGitArtifactBinding({ base_sha: pr.base.sha, head_sha: headSha });
   const comments = await fetchAllComments({ repository, pr_number: pr.number, token, api_url });
   const evidence = parseGateEvidence(comments, { task_id: contract.task_id, artifact_hash: artifact.artifact_hash });
-  const protection = await validateLiveProtection({ repository, branch: pr.base.ref, token, api_url, required_checks: REQUIRED_BASE_CHECKS });
+  const protection = await validateLiveProtection({ repository, branch: pr.base.ref, token, api_url, required_checks: REQUIRED_PROTECTION_CHECKS });
   const projectMap = loadProjectMap();
   if (projectMap.repository_sha !== headSha) throw new Error(`PROJECT_MAP_HEAD_MISMATCH:${projectMap.repository_sha}:${headSha}`);
   return { contractPath, contract, artifact, evidence, protection, projectMap, headSha };
@@ -408,14 +416,14 @@ async function runCiPr() {
   const context = await commonPrContext({ repository, pr, token, api_url });
   const result = evaluateMergePolicy({
     task_contract: context.contract,
-    changed_paths: context.artifact.manifest.map((entry) => entry.normalized_repository_relative_path),
+    changed_paths: artifactScopePaths(context.artifact),
     artifact_binding: context.artifact,
     project_map: context.projectMap,
     gate_evidence: context.evidence,
     protection: context.protection,
     require_required_ci: false,
   });
-  console.log(JSON.stringify({ mode: 'CI_PR', contract_path: context.contractPath, ...result }, null, 2));
+  console.log(JSON.stringify({ mode: 'CI_PR', contract_path: context.contractPath, protection: context.protection, stale_evidence: context.evidence.stale.length, ...result }, null, 2));
   if (!result.merge_eligible) process.exitCode = 1;
 }
 
@@ -423,7 +431,7 @@ async function runProtectionLive() {
   const repository = assertString(process.env.GITHUB_REPOSITORY, 'GITHUB_REPOSITORY_REQUIRED');
   const token = process.env.GITHUB_TOKEN;
   const api_url = process.env.GITHUB_API_URL ?? 'https://api.github.com';
-  const result = await validateLiveProtection({ repository, branch: 'main', token, api_url, required_checks: REQUIRED_BASE_CHECKS });
+  const result = await validateLiveProtection({ repository, branch: 'main', token, api_url, required_checks: REQUIRED_PROTECTION_CHECKS });
   console.log(JSON.stringify({ mode: 'PROTECTION_LIVE', ...result }, null, 2));
   if (!result.passed) process.exitCode = 1;
 }
@@ -442,13 +450,13 @@ async function runMergePr(prNumberInput) {
   const requiredCi = await fetchRequiredCi({
     repository,
     sha: context.headSha,
-    checks: context.protection.required_checks.length ? context.protection.required_checks : REQUIRED_BASE_CHECKS,
+    checks: context.protection.required_checks.length ? context.protection.required_checks : REQUIRED_PROTECTION_CHECKS,
     token,
     api_url,
   });
   const result = evaluateMergePolicy({
     task_contract: context.contract,
-    changed_paths: context.artifact.manifest.map((entry) => entry.normalized_repository_relative_path),
+    changed_paths: artifactScopePaths(context.artifact),
     artifact_binding: context.artifact,
     project_map: context.projectMap,
     gate_evidence: context.evidence,
