@@ -3,7 +3,7 @@ import {createHash} from 'node:crypto';
 const base='docs/13-product-design/step57-prototype';
 const contract=JSON.parse(readFileSync('docs/13-product-design/step57-high-fidelity-contract.json','utf8'));
 const keys=['id','title','area','journeys','layout','task','primaryAction','content','views','states','blockedOperations','operationViews'];
-const screens=contract.screens.map(s=>Object.fromEntries(keys.filter(k=>s[k]!==undefined).map(k=>[k,k==='operationViews'?s[k].map(o=>({operation:o.operation,view:o.view,executionAuthority:o.executionAuthority})):s[k]])));
+const screens=contract.screens.map(s=>Object.fromEntries(keys.filter(k=>s[k]!==undefined&&!(k==='states'&&s.area==='admin')).map(k=>[k,k==='operationViews'?s[k].map(o=>({operation:o.operation,view:o.view,executionAuthority:o.executionAuthority})):s[k]])));
 const check=process.argv.includes('--check');
 function artifact(path,value){const text=JSON.stringify(value)+'\n';if(check){if(readFileSync(path,'utf8')!==text)throw Error('Prototype drift: '+path);}else writeFileSync(path,text);}
 artifact(base+'/src/coverage.json',{screens});
