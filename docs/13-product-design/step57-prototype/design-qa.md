@@ -18,6 +18,7 @@ Review date: 2026-09-14. Selected visual direction: image 2.
 | Wholesale | PASS | Explicit fictional prices/minimum; below-minimum block; repricing acknowledgement; totals/context preserved into checkout |
 | Media/category | PASS, bounded | Keyboard ordering, one primary item, tree selection/collapse, six-width overflow check |
 | Critical journeys | PASS, sample paths | OTP/cart merge, checkout, uncertain payment recovery, return, warranty, wholesale application; no real API calls |
+| Support | PASS | Masked sample contact, sensitive-data warning, optional order/case reference; empty reference permits review |
 | Prototype build | PASS | Latest build completed; four static-serving/packaging tests passed |
 | Repository verification | PASS | Integrated main verification: 906 tests, zero failures, plus multi-agent verification |
 | Evidence integrity | PASS | 18 focused foundation tests including mutation rejection |
@@ -26,7 +27,7 @@ Review date: 2026-09-14. Selected visual direction: image 2.
 
 - Default-route checks are not complete visual or accessibility approval of 134 surfaces, 1142 inherited admin views or 4472 states.
 - Domain-specific generic admin scaffolding still requires full acceptance review.
-- Media pointer behavior immediately after viewport changes needs a clean-viewport check; file-transfer behavior is intentionally unavailable.
+- Clean-viewport pointer navigation and subcategory selection passed on 2026-09-14; actual file transfer remains intentionally unavailable.
 - Contrast inspection was scoped to checkout cart; no global WCAG conformance claim is made.
 - Browser screenshots were inspected inline; no repository screenshot files are claimed.
 - Earlier browser logs include development-server disconnects. No blanket zero-console-error claim is made.
