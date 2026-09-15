@@ -11,7 +11,11 @@ const sourceById=new Map(contract.screens.map(screen=>[screen.id,screen]));
 const screens=coverage.screens.map(screen=>{
   const source=sourceById.get(screen.id);
   if(!source)throw new Error(`Missing Step57 source screen: ${screen.id}`);
-  return {...screen,states:Array.isArray(source.states)?source.states:[]};
+  const states=Array.isArray(source.states)?source.states.map((state,index)=>({
+    ...state,
+    title:String(state?.title||state?.id||`State ${index+1}`),
+  })):[];
+  return {...screen,states};
 });
 const adminStates=screens.filter(screen=>screen.area==='admin').reduce((sum,screen)=>sum+screen.states.length,0);
 const storefrontStates=screens.filter(screen=>screen.area==='storefront').reduce((sum,screen)=>sum+screen.states.length,0);
