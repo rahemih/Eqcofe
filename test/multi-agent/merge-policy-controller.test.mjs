@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
+  artifactScopePaths,
   evaluateMergePolicy,
   formatGateEvidence,
   parseGateEvidence,
@@ -42,7 +43,7 @@ function evidence(overrides = {}) {
 }
 
 function protection(overrides = {}) {
-  return { passed: true, blockers: [], required_checks: ['phase-a', 'verify'], ruleset_id: 1, ...overrides };
+  return { passed: true, blockers: [], required_checks: ['merge-policy', 'phase-a', 'verify'], ruleset_id: 1, ...overrides };
 }
 
 function policyInput(overrides = {}) {
@@ -53,7 +54,7 @@ function policyInput(overrides = {}) {
     project_map: { sensitive_zones: [] },
     gate_evidence: evidence(),
     protection: protection(),
-    required_ci: { verify: 'PASS', 'phase-a': 'PASS' },
+    required_ci: { verify: 'PASS', 'phase-a': 'PASS', 'merge-policy': 'PASS' },
     ...overrides,
   };
 }
@@ -74,7 +75,7 @@ function rulesetSnapshot(mutator = (value) => value) {
         type: 'required_status_checks',
         parameters: {
           strict_required_status_checks_policy: true,
-          required_status_checks: [{ context: 'verify' }, { context: 'phase-a' }],
+          required_status_checks: [{ context: 'verify' }, { context: 'phase-a' }, { context: 'merge-policy' }],
         },
       },
     ],
@@ -126,6 +127,18 @@ test('out-of-scope and forbidden mutations fail closed', () => {
   assert.ok(forbidden.blockers.some((item) => item.includes('FORBIDDEN_SCOPE')));
 });
 
+test('RENAME scope validation includes both source and destination paths', () => {
+  const paths = artifactScopePaths({ manifest: [{
+    operation: 'RENAME',
+    from_path: 'outside.txt',
+    normalized_repository_relative_path: 'a.txt',
+    content_sha256: HASH,
+  }] });
+  assert.deepEqual(paths, ['a.txt', 'outside.txt']);
+  const result = evaluateMergePolicy(policyInput({ changed_paths: paths }));
+  assert.ok(result.blockers.some((item) => item.includes('OUT_OF_SCOPE')));
+});
+
 test('lock must be ACTIVE, task-bound, requested and cover exact write scope', () => {
   const result = evaluateMergePolicy(policyInput({
     gate_evidence: evidence({ current: { LOCK: {
@@ -140,10 +153,10 @@ test('lock must be ACTIVE, task-bound, requested and cover exact write scope', (
   assert.ok(result.blockers.includes('LOCK_SCOPE_MISMATCH'));
 });
 
-test('required CI is revalidated before actual merge eligibility', () => {
-  const result = evaluateMergePolicy(policyInput({ required_ci: { verify: 'PASS', 'phase-a': 'NOT_EXECUTED' } }));
+test('all three required CI contexts are revalidated before actual merge eligibility', () => {
+  const result = evaluateMergePolicy(policyInput({ required_ci: { verify: 'PASS', 'phase-a': 'PASS', 'merge-policy': 'NOT_EXECUTED' } }));
   assert.equal(result.merge_eligible, false);
-  assert.ok(result.blockers.includes('REQUIRED_CI_NOT_PASS:phase-a'));
+  assert.ok(result.blockers.includes('REQUIRED_CI_NOT_PASS:merge-policy'));
 });
 
 test('CI policy-gate mode can defer self-referential required-CI revalidation only', () => {
@@ -160,10 +173,10 @@ test('contract risk cannot be below deterministic declared risk floor', () => {
   assert.ok(result.blockers.includes('HUMAN_GATE_REQUIRED_BY_RISK'));
 });
 
-test('protection validator accepts active no-bypass strict main ruleset', () => {
+test('protection validator accepts active no-bypass strict main ruleset with all three required checks', () => {
   const result = validateProtectionSnapshot(rulesetSnapshot());
   assert.equal(result.passed, true);
-  assert.deepEqual(result.required_checks, ['phase-a', 'verify']);
+  assert.deepEqual(result.required_checks, ['merge-policy', 'phase-a', 'verify']);
 });
 
 test('protection validator fails closed on bypass actor', () => {
@@ -178,11 +191,11 @@ test('protection validator fails closed when strict checks or exact required con
   const result = validateProtectionSnapshot(rulesetSnapshot((ruleset) => {
     const rule = ruleset.rules.find((entry) => entry.type === 'required_status_checks');
     rule.parameters.strict_required_status_checks_policy = false;
-    rule.parameters.required_status_checks = [{ context: 'verify' }];
+    rule.parameters.required_status_checks = [{ context: 'verify' }, { context: 'phase-a' }];
     return ruleset;
   }));
   assert.ok(result.blockers.includes('STRICT_STATUS_CHECKS_REQUIRED'));
-  assert.ok(result.blockers.includes('REQUIRED_STATUS_CONTEXT_MISSING:phase-a'));
+  assert.ok(result.blockers.includes('REQUIRED_STATUS_CONTEXT_MISSING:merge-policy'));
 });
 
 test('protection validator rejects ambiguous active rulesets', () => {
