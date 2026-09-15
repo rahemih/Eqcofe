@@ -11,6 +11,7 @@ on:
       - 'contracts/**'
       - 'database/**'
       - 'docs/11-step-history/**'
+      - 'docs/14-multi-agent/**'
       - 'scripts/**'
       - 'src/**'
       - 'test/**'

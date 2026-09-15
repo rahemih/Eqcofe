@@ -1,0 +1,115 @@
+{
+  "schema_version": "2.2",
+  "task_id": "MA-PHASE-A-DOCS-PATH-001",
+  "title": "Run Phase A verification for multi-agent governance documentation PRs",
+  "description": "Add docs/14-multi-agent/** to the Phase A Verification pull_request path filter so the protected required phase-a status is produced for governance-only multi-agent PRs instead of remaining pending forever.",
+  "risk": "MEDIUM",
+  "risk_floor": "LOW",
+  "owner": "BACKEND",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "6df69308082698e6fbd0ae802b1e24fce3d3f866"
+  },
+  "scope": {
+    "read": [
+      ".github/workflows/phase-a-verification.yml",
+      "docs/14-multi-agent/GOVERNANCE.md",
+      "docs/14-multi-agent/PROCESS-IMPROVEMENTS.md"
+    ],
+    "write": [
+      ".github/workflows/phase-a-verification.yml",
+      "docs/14-multi-agent/tasks/MA-PHASE-A-DOCS-PATH-001.json"
+    ],
+    "forbidden": [
+      ".github/workflows/ci.yml",
+      ".github/workflows/merge-policy.yml",
+      "scripts/**",
+      "test/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "src/**",
+      "database/**",
+      "contracts/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-MA-PHASE-A-DOCS-PATH-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 12000,
+    "soft_alert": 35000,
+    "hard_cap": 70000
+  },
+  "max_repair_cycles": 2,
+  "task_risk_rules": [],
+  "dependencies": [
+    {
+      "item": 6,
+      "name": "Merge Policy / protection validation",
+      "required_state": "MERGED_CANONICAL",
+      "observed_state": "MERGED_CANONICAL",
+      "merge_sha": "6df69308082698e6fbd0ae802b1e24fce3d3f866",
+      "blocking": false
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "MEDIUM-risk task evidence is artifact-bound. REVIEW and LOCK evidence must reference the exact current artifact hash and be relayed through the trusted repository-owner transport."
+  },
+  "protection_source": {
+    "required_contexts": [
+      "verify",
+      "phase-a",
+      "merge-policy"
+    ],
+    "required_integration": "GitHub Actions",
+    "required_integration_id": 15368
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "The Phase A Verification pull_request path filter includes docs/14-multi-agent/** in addition to all existing paths; no existing trigger path is removed or weakened.",
+      "verification": "workflow_diff_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "A pull request changing this task's workflow file receives an exact-head phase-a check and the phase-a job completes successfully.",
+      "verification": "github_phase_a_exact_head_evidence",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Canonical CI and merge-policy execute on the exact PR head; merge-policy remains fail-closed until valid REVIEW and LOCK evidence exist.",
+      "verification": "github_required_check_evidence",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Only the Phase A workflow path filter and this Task Contract are modified; no runtime code, product behavior, database, contracts, package metadata, or other required workflow is changed.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "This additive change does not create or revive any bootstrap exception and must merge only through the canonical Merge Policy Controller path.",
+      "verification": "merge_policy_execution_evidence",
+      "mandatory": true
+    }
+  ],
+  "process_improvement_links": [
+    "P-2"
+  ],
+  "incident_links": [
+    "MA-SCOPE-SLIP-POSTITEM6-001"
+  ]
+}
