@@ -12,87 +12,54 @@
     "base_sha": "766904585dc601e36eec12c126e141efc4f6dc0a"
   },
   "scope": {
-    "read": [
-      "docs/11-step-history/**",
-      "docs/12-current-state/**",
-      "docs/13-product-design/**",
-      "docs/14-multi-agent/**"
-    ],
+    "read": ["docs/11-step-history/**", "docs/12-current-state/**", "docs/13-product-design/**", "docs/14-multi-agent/**"],
     "write": [
       "docs/11-step-history/STEP-57-FINAL-CANONICAL-CLOSURE.md",
       "docs/12-current-state/CURRENT-STATE.md",
       "docs/12-current-state/MASTER-ROADMAP.md",
       "docs/14-multi-agent/tasks/EQCOFE-STEP57-STATE-SYNC-001.json"
     ],
-    "forbidden": [
-      ".github/**",
-      "package.json",
-      "src/**",
-      "database/**",
-      "contracts/**",
-      "docs/13-product-design/**",
-      "scripts/**",
-      "test/**"
-    ]
+    "forbidden": [".github/**", "package.json", "src/**", "database/**", "contracts/**", "docs/13-product-design/**", "scripts/**", "test/**"]
   },
-  "requested_lock_ids": [
-    "LOCK-EQCOFE-STEP57-STATE-SYNC-001-01"
-  ],
+  "requested_lock_ids": ["LOCK-EQCOFE-STEP57-STATE-SYNC-001-01"],
   "human_gate_required": false,
-  "task_risk_rules": [
-    {
-      "id": "STEP57_CANONICAL_STATE_DOCS_MEDIUM",
-      "risk": "MEDIUM",
-      "paths": [
-        "docs/11-step-history/STEP-57-FINAL-CANONICAL-CLOSURE.md",
-        "docs/12-current-state/CURRENT-STATE.md",
-        "docs/12-current-state/MASTER-ROADMAP.md",
-        "docs/14-multi-agent/tasks/EQCOFE-STEP57-STATE-SYNC-001.json"
-      ]
-    }
-  ],
-  "dependencies": [
-    {
-      "item": 57,
-      "name": "High-Fidelity UI & Prototype Approval baseline",
-      "required_state": "MERGED_CANONICAL_POSTMERGE_VERIFIED",
-      "observed_state": "MERGED_CANONICAL_POSTMERGE_VERIFICATION_RUNNING",
-      "merge_sha": "766904585dc601e36eec12c126e141efc4f6dc0a",
-      "blocking": true
-    }
-  ],
+  "task_risk_rules": [{
+    "id": "STEP57_CANONICAL_STATE_DOCS_MEDIUM",
+    "risk": "MEDIUM",
+    "paths": [
+      "docs/11-step-history/STEP-57-FINAL-CANONICAL-CLOSURE.md",
+      "docs/12-current-state/CURRENT-STATE.md",
+      "docs/12-current-state/MASTER-ROADMAP.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP57-STATE-SYNC-001.json"
+    ]
+  }],
+  "dependencies": [{
+    "item": 57,
+    "name": "High-Fidelity UI & Prototype Approval baseline",
+    "required_state": "MERGED_CANONICAL_POSTMERGE_VERIFIED",
+    "observed_state": "MERGED_CANONICAL_POSTMERGE_VERIFIED",
+    "merge_sha": "766904585dc601e36eec12c126e141efc4f6dc0a",
+    "blocking": false
+  }],
+  "evidence": {
+    "implementation_pr": 163,
+    "implementation_exact_head": "796c4de7bb0b7945950d084d82204be4ed7107b5",
+    "implementation_artifact_hash": "e985ae75aa6262948a4ff78e05b8bc88e45ac9490d89d828d1d8084e040e4e91",
+    "merge_sha": "766904585dc601e36eec12c126e141efc4f6dc0a",
+    "postmerge_canonical_ci_run": 34970052573,
+    "postmerge_phase_a_run": 34970052561,
+    "postmerge_step57_prototype_run": 34970052572,
+    "postmerge_step57_prototype_conclusion": "SUCCESS"
+  },
   "acceptance_criteria": [
-    {
-      "id": "AC-001",
-      "description": "Step 57 final closure is recorded only after PR #163 exact-head gates, merge and post-merge Canonical CI, Phase A Verification and Step 57 Prototype Verification all pass on the merged baseline.",
-      "verification": "canonical_evidence_review",
-      "mandatory": true
-    },
-    {
-      "id": "AC-002",
-      "description": "MASTER-ROADMAP and CURRENT-STATE mark Step 57 CLOSED / FINAL GATE PASS and Step 58 NEXT / NOT_STARTED without starting Step 58 implementation.",
-      "verification": "canonical_state_diff_review",
-      "mandatory": true
-    },
-    {
-      "id": "AC-003",
-      "description": "The closure explicitly freezes behavior, traceability, responsive/accessibility and safety contracts while leaving visual composition, imagery, styling and presentation replaceable in later redesign work.",
-      "verification": "redesign_seam_review",
-      "mandatory": true
-    },
-    {
-      "id": "AC-004",
-      "description": "The state-sync change is documentation-only and introduces no runtime, API, database, permission, dependency, business-rule, Step 58 or visual implementation mutation.",
-      "verification": "exact_scope_diff_review",
-      "mandatory": true
-    }
+    {"id":"AC-001","description":"Step 57 final closure is recorded only after PR #163 exact-head gates, merge and post-merge Canonical CI, Phase A Verification and Step 57 Prototype Verification all pass on the merged baseline.","verification":"canonical_evidence_review","mandatory":true},
+    {"id":"AC-002","description":"MASTER-ROADMAP and CURRENT-STATE mark Step 57 CLOSED / FINAL GATE PASS and Step 58 NEXT / NOT_STARTED without starting Step 58 implementation.","verification":"canonical_state_diff_review","mandatory":true},
+    {"id":"AC-003","description":"The closure explicitly freezes behavior, traceability, responsive/accessibility and safety contracts while leaving visual composition, imagery, styling and presentation replaceable in later redesign work.","verification":"redesign_seam_review","mandatory":true},
+    {"id":"AC-004","description":"The state-sync change is documentation-only and introduces no runtime, API, database, permission, dependency, business-rule, Step 58 or visual implementation mutation.","verification":"exact_scope_diff_review","mandatory":true}
   ],
   "external_gate_evidence": {
     "protocol": "EQCOFE_GATE_V1",
-    "artifact_bound_gates": [
-      "REVIEW",
-      "LOCK"
-    ],
+    "artifact_bound_gates": ["REVIEW", "LOCK"],
     "trusted_github_transport_login": "rahemih"
   }
 }
