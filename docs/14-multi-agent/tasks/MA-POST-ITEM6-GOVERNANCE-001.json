@@ -1,0 +1,126 @@
+{
+  "schema_version": "2.2",
+  "task_id": "MA-POST-ITEM6-GOVERNANCE-001",
+  "title": "Post-Item6 governance milestone and pre-pilot verification registration",
+  "description": "Record the canonical closure of Item 6 and the permanent end of bootstrap exceptions, register the Owner-required Pre-Pilot Verification Gate, and record mandatory Item 7 process hardening after repeated scope-slip incidents, without changing the frozen implementation numbering or starting Item 7 implementation.",
+  "risk": "MEDIUM",
+  "risk_floor": "LOW",
+  "owner": "BACKEND",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "90c5fe9ffa35ee5bb6d162df9ec9583d2efab4f0"
+  },
+  "scope": {
+    "read": [
+      "docs/14-multi-agent/GOVERNANCE.md",
+      "docs/14-multi-agent/PROCESS-IMPROVEMENTS.md",
+      "docs/14-multi-agent/tasks/MA-MERGE-POLICY-001.json",
+      ".github/workflows/merge-policy.yml"
+    ],
+    "write": [
+      "docs/14-multi-agent/GOVERNANCE.md",
+      "docs/14-multi-agent/PROCESS-IMPROVEMENTS.md",
+      "docs/14-multi-agent/incidents/MA-SCOPE-SLIP-POSTITEM6-001.md",
+      "docs/14-multi-agent/tasks/MA-POST-ITEM6-GOVERNANCE-001.json"
+    ],
+    "forbidden": [
+      ".github/workflows/**",
+      "scripts/**",
+      "test/**",
+      "package.json",
+      "src/**",
+      "database/**",
+      "contracts/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-MA-POST-ITEM6-GOVERNANCE-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 15000,
+    "soft_alert": 35000,
+    "hard_cap": 70000
+  },
+  "max_repair_cycles": 2,
+  "task_risk_rules": [],
+  "dependencies": [
+    {
+      "item": 6,
+      "name": "Merge Policy / protection validation",
+      "required_state": "MERGED_CANONICAL",
+      "observed_state": "MERGED_CANONICAL",
+      "merge_sha": "6df69308082698e6fbd0ae802b1e24fce3d3f866",
+      "blocking": false
+    },
+    {
+      "name": "Post-merge verification remediation",
+      "required_state": "MERGED_CANONICAL",
+      "observed_state": "MERGED_CANONICAL",
+      "merge_sha": "90c5fe9ffa35ee5bb6d162df9ec9583d2efab4f0",
+      "blocking": false
+    }
+  ],
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Governance records Item 6 as canonically closed and records that bootstrap exceptions are permanently closed after PR #166.",
+      "verification": "documentation_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "The frozen implementation order remains unchanged: Item 7 is Token Telemetry and Docs Automation, Item 8 is Pilot tasks LOW→MEDIUM→HIGH, Item 9 is Calibration, and Item 10 is V1 Production Gate.",
+      "verification": "documentation_diff_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "An Owner-required Pre-Pilot Verification Gate is registered as a prerequisite before the first Item 8 pilot, without renumbering or amending the frozen architecture/specification.",
+      "verification": "documentation_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "The Pre-Pilot Verification Gate covers controller/unit regression, cross-controller integration, deterministic LOW/HIGH dry-runs without LLM execution, and negative fail-closed scenarios including lock conflict, risk downgrade, artifact mutation, unauthorized evidence, external-head PR, and spoofed check identity.",
+      "verification": "documentation_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "No Item 7 implementation is started and no code, workflow, product, database, or current-state files are modified by this documentation-only task.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "The accidental out-of-scope marker commit created during preparation is removed from branch history before PR creation and is documented in a dedicated post-mortem incident record with corrective/preventive actions.",
+      "verification": "branch_history_and_incident_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "Repeated scope-slip incidents are escalated into mandatory Process Hardening: Item 7 cannot close until automated fail-closed scope validation prevents unauthorized mutation/commit paths and the scope-safe recovery playbook is canonical.",
+      "verification": "documentation_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "The artifact is rebuilt on canonical main at 90c5fe9ffa35ee5bb6d162df9ec9583d2efab4f0 after proving no overlap between intervening canonical changes and this task's four write paths; all pre-rebase artifact evidence is stale.",
+      "verification": "base_revalidation_and_scope_review",
+      "mandatory": true
+    }
+  ],
+  "process_improvement_links": [
+    "P-1",
+    "P-3",
+    "P-4"
+  ],
+  "incident_links": [
+    "MA-SCOPE-SLIP-POSTITEM6-001",
+    "MA-POSTMERGE-VERIFY-SUPPRESSED-001"
+  ]
+}
