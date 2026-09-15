@@ -57,11 +57,27 @@ jobs:
   merge:
     if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 30
     permissions:
       contents: write
       pull-requests: write
       issues: read
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: eqcofe_phase_a
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd="pg_isready -U postgres -d eqcofe_phase_a"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=10
+    env:
+      DATABASE_URL: postgresql://postgres:postgres@127.0.0.1:5432/eqcofe_phase_a
     steps:
       - uses: actions/checkout@v5.1.0
         with:
@@ -76,3 +92,30 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: node scripts/multi-agent/merge-policy-controller.mjs --merge-pr '${{ inputs.pr_number }}'
+      - name: resolve-exact-merge-sha
+        id: merged
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ inputs.pr_number }}
+        run: |
+          set -euo pipefail
+          read -r merged merge_sha < <(gh api "repos/${GITHUB_REPOSITORY}/pulls/${PR_NUMBER}" --jq '[.merged, .merge_commit_sha] | @tsv')
+          test "$merged" = "true"
+          [[ "$merge_sha" =~ ^[0-9a-f]{40}$ ]]
+          echo "merge_sha=$merge_sha" >> "$GITHUB_OUTPUT"
+      - name: checkout-exact-merge-sha
+        uses: actions/checkout@v5.1.0
+        with:
+          ref: ${{ steps.merged.outputs.merge_sha }}
+          fetch-depth: 0
+      - name: verify-exact-merge-checkout
+        run: test "$(git rev-parse HEAD)" = "${{ steps.merged.outputs.merge_sha }}"
+      - uses: pnpm/action-setup@v6.0.10
+        with:
+          version: 11.21.0
+      - name: install-postmerge-dependencies
+        run: pnpm install --frozen-lockfile
+      - name: postmerge-canonical-verify
+        run: pnpm verify
+      - name: postmerge-phase-a-verify
+        run: node scripts/verify-phase-a.mjs
