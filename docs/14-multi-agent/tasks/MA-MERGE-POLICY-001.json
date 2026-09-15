@@ -2,7 +2,7 @@
   "schema_version": "2.2",
   "task_id": "MA-MERGE-POLICY-001",
   "title": "Merge Policy Controller and protection validation",
-  "description": "Implement frozen implementation-order Item 6: deterministic merge eligibility, protected-main validation, artifact-bound HIGH-risk Human Gate enforcement, required CI enforcement, hourly protection-drift validation, and deterministic post-bootstrap merge execution.",
+  "description": "Implement frozen implementation-order Item 6: deterministic merge eligibility, protected-main validation, artifact-bound HIGH-risk Human Gate enforcement, trusted gate-evidence transport, required CI enforcement, hourly protection-drift validation, and deterministic post-bootstrap merge execution.",
   "risk": "HIGH",
   "risk_floor": "HIGH",
   "owner": "BACKEND",
@@ -100,7 +100,17 @@
       "HUMAN",
       "LOCK"
     ],
-    "rule": "Gate evidence is stored outside repository artifact bytes as structured PR comments and must reference the exact current artifact_hash. HUMAN evidence must be authored by the configured Project Owner login."
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Gate evidence is stored outside repository artifact bytes as structured PR comments and must reference the exact current artifact_hash. For V1, only comments authored by the trusted repository-owner transport login are accepted as gate evidence; independent Reviewer/Security decisions may be relayed through that trusted transport. HUMAN evidence additionally requires an explicit Project Owner decision. Unauthorized matching comments are ignored and recorded as unauthorized evidence."
+  },
+  "protection_source": {
+    "required_contexts": [
+      "verify",
+      "phase-a",
+      "merge-policy"
+    ],
+    "required_integration": "GitHub Actions",
+    "required_integration_id": 15368
   },
   "acceptance_criteria": [
     {
@@ -111,25 +121,25 @@
     },
     {
       "id": "AC-002",
-      "description": "HIGH-risk merge eligibility fails closed unless Human Approval is valid and bound to the exact current artifact hash.",
+      "description": "HIGH-risk merge eligibility fails closed unless Human Approval is valid, authored by the trusted Project Owner transport login, and bound to the exact current artifact hash.",
       "verification": "node --test test/multi-agent/merge-policy-controller.test.mjs",
       "mandatory": true
     },
     {
       "id": "AC-003",
-      "description": "Protection validation fails closed if active main protection, no-bypass policy, deletion/non-fast-forward protection, pull-request enforcement, strict required checks, or exact required GitHub Actions contexts cannot be verified.",
+      "description": "Protection validation fails closed if active main protection, no-bypass policy, deletion/non-fast-forward protection, pull-request enforcement, strict required checks, exact required GitHub Actions contexts, or their GitHub Actions integration identity cannot be verified.",
       "verification": "node --test test/multi-agent/merge-policy-controller.test.mjs",
       "mandatory": true
     },
     {
       "id": "AC-004",
-      "description": "F-4 is satisfied by a dedicated GitHub-required status check named merge-policy; HIGH Human Gate therefore cannot be bypassed by GitHub's static approval count.",
+      "description": "F-4 is satisfied by a dedicated GitHub-required status check named merge-policy in addition to verify and phase-a; HIGH Human Gate therefore cannot be bypassed by GitHub's static approval count.",
       "verification": "github_required_merge_policy_check_exact_head_evidence",
       "mandatory": true
     },
     {
       "id": "AC-005",
-      "description": "Any out-of-scope changed path fails closed; documentation and semantically trivial changes are not exempt.",
+      "description": "Any out-of-scope changed path fails closed; documentation and semantically trivial changes are not exempt, and RENAME validates both source and destination.",
       "verification": "scope_controller_integration_tests",
       "mandatory": true
     },
@@ -155,6 +165,12 @@
       "id": "AC-009",
       "description": "No forbidden path is modified by the implementation PR and existing verification gates are not removed or weakened.",
       "verification": "deterministic_scope_and_workflow_diff_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-010",
+      "description": "PR trust boundary is fail-closed: external head repositories are rejected, Task Contract path is constrained to the canonical task directory and task id, canonical repository/base bindings must match the live PR, the HIGH approver must equal the trusted repository owner, and structured gate evidence from untrusted PR commenters cannot satisfy any gate.",
+      "verification": "node --test test/multi-agent/merge-policy-controller.test.mjs",
       "mandatory": true
     }
   ],
