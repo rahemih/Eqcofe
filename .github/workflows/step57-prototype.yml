@@ -11,7 +11,7 @@ on:
 jobs:
   prototype:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 35
     steps:
       - uses: actions/checkout@v5.1.0
       - uses: actions/setup-node@v6.5.0
@@ -25,10 +25,11 @@ jobs:
           npm ci
           npm run build
           npm run test:sites
-      - name: Capture exact-head visual review evidence
+      - name: Exhaustive browser, interaction, responsive and accessibility audit
         working-directory: docs/13-product-design/step57-prototype
         run: |
-          npx --yes playwright@1.55.0 install --with-deps chromium
+          npm install --no-save --package-lock=false playwright@1.55.0 axe-core@4.10.3
+          npx playwright install --with-deps chromium
           npm run preview -- --host 127.0.0.1 --port 4173 > /tmp/eqcofe-step57-vite.log 2>&1 &
           SERVER_PID=$!
           trap 'kill "$SERVER_PID" 2>/dev/null || true' EXIT
@@ -44,12 +45,13 @@ jobs:
             cat /tmp/eqcofe-step57-vite.log
             exit 1
           fi
+          STEP57_BASE_URL=http://127.0.0.1:4173 node scripts/exhaustive-browser-audit.mjs
           mkdir -p preview-evidence
           capture() {
             name="$1"
             width="$2"
             url="$3"
-            npx --yes playwright@1.55.0 screenshot --browser chromium --viewport-size "${width},1200" --wait-for-timeout 1500 --full-page "$url" "preview-evidence/${name}-${width}.png"
+            npx playwright screenshot --browser chromium --viewport-size "${width},1200" --wait-for-timeout 1200 --full-page "$url" "preview-evidence/${name}-${width}.png"
           }
           for width in 320 360 600 840 1200 1440; do
             capture storefront "$width" "http://127.0.0.1:4173/"
@@ -62,10 +64,13 @@ jobs:
           done
           capture review 1440 "http://127.0.0.1:4173/review"
           capture flows 1440 "http://127.0.0.1:4173/flows"
-      - name: Upload exact-head visual review evidence
+      - name: Upload Step 57 exhaustive QA evidence
+        if: always()
         uses: actions/upload-artifact@v4.6.2
         with:
-          name: step57-exact-head-preview
-          path: docs/13-product-design/step57-prototype/preview-evidence/*.png
-          if-no-files-found: error
+          name: step57-exhaustive-qa-evidence
+          path: |
+            docs/13-product-design/step57-prototype/qa-evidence/**
+            docs/13-product-design/step57-prototype/preview-evidence/*.png
+          if-no-files-found: warn
           retention-days: 7
