@@ -57,12 +57,21 @@ export function deterministicRiskFloor({ changed_paths, sensitive_zones = [] }) 
 export function classifyRisk({ changed_paths, sensitive_zones = [], manager_risk = 'LOW' }) {
   const manager = normalizeRisk(manager_risk);
   const deterministic = deterministicRiskFloor({ changed_paths, sensitive_zones });
+  const rejected_downgrade = RISK_ORDER[manager] < RISK_ORDER[deterministic.floor];
   const effective_risk = maxRisk(deterministic.floor, manager);
+  const governance_events = rejected_downgrade ? [{
+    type: 'MANAGER_DOWNGRADE_REJECTED',
+    attempted_risk: manager,
+    minimum_risk: deterministic.floor,
+    effective_risk,
+  }] : [];
 
   return deepFreeze({
     deterministic_floor: deterministic.floor,
     manager_risk: manager,
     effective_risk,
+    rejected_downgrade,
+    governance_events,
     human_gate_required: effective_risk === 'HIGH',
     matched_zones: deterministic.matched_zones,
   });
