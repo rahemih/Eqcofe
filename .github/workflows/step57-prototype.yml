@@ -25,3 +25,47 @@ jobs:
           npm ci
           npm run build
           npm run test:sites
+      - name: Capture exact-head visual review evidence
+        working-directory: docs/13-product-design/step57-prototype
+        run: |
+          npx --yes playwright@1.55.0 install --with-deps chromium
+          npm run preview -- --host 127.0.0.1 --port 4173 > /tmp/eqcofe-step57-vite.log 2>&1 &
+          SERVER_PID=$!
+          trap 'kill "$SERVER_PID" 2>/dev/null || true' EXIT
+          ready=0
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent --show-error http://127.0.0.1:4173/ >/dev/null; then
+              ready=1
+              break
+            fi
+            sleep 1
+          done
+          if [ "$ready" -ne 1 ]; then
+            cat /tmp/eqcofe-step57-vite.log
+            exit 1
+          fi
+          mkdir -p preview-evidence
+          capture() {
+            name="$1"
+            width="$2"
+            url="$3"
+            npx --yes playwright@1.55.0 screenshot --browser chromium --viewport-size "${width},1200" --full-page "$url" "preview-evidence/${name}-${width}.png"
+          }
+          for width in 320 360 600 840 1200 1440; do
+            capture storefront "$width" "http://127.0.0.1:4173/"
+            capture product "$width" "http://127.0.0.1:4173/store?id=SF-C-01"
+            capture admin-catalog "$width" "http://127.0.0.1:4173/admin?id=AD-C-01"
+            capture admin-pricing "$width" "http://127.0.0.1:4173/admin?id=AD-D-01"
+            capture admin-commerce "$width" "http://127.0.0.1:4173/admin?id=AD-E-01"
+            capture admin-growth "$width" "http://127.0.0.1:4173/admin?id=AD-F-01"
+            capture admin-management "$width" "http://127.0.0.1:4173/admin?id=AD-G-01"
+          done
+          capture review 1440 "http://127.0.0.1:4173/review"
+          capture flows 1440 "http://127.0.0.1:4173/flows"
+      - name: Upload exact-head visual review evidence
+        uses: actions/upload-artifact@v4.6.2
+        with:
+          name: step57-exact-head-preview
+          path: docs/13-product-design/step57-prototype/preview-evidence/*.png
+          if-no-files-found: error
+          retention-days: 7
