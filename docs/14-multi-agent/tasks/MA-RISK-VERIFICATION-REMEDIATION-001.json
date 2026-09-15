@@ -1,0 +1,92 @@
+{
+  "schema_version": "2.2",
+  "task_id": "MA-RISK-VERIFICATION-REMEDIATION-001",
+  "title": "Remediate Item 4 deterministic risk and verification-policy Spec drift",
+  "description": "Close post-merge Spec v3.1 gaps discovered while preparing Item 5: deterministic task-risk detection/detected_risk output and five-source Verification Policy minimum checks with Reviewer/QA add-only semantics.",
+  "risk": "MEDIUM",
+  "risk_floor": "LOW",
+  "owner": "BACKEND",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "fd85968adbe45441b154eed402f16c24c6a7e2bd"
+  },
+  "incident_reason": "Post-merge direct Spec v3.1 re-read found Item 4 implemented risk-level gates but not the full deterministic task-risk detection output or all §12 minimum-check sources.",
+  "scope": {
+    "read": [
+      "docs/14-multi-agent/**",
+      "scripts/multi-agent/**",
+      "test/multi-agent/**"
+    ],
+    "write": [
+      "docs/14-multi-agent/tasks/MA-RISK-VERIFICATION-REMEDIATION-001.json",
+      "scripts/multi-agent/risk-verification-policy.mjs",
+      "test/multi-agent/risk-verification-policy.test.mjs"
+    ],
+    "forbidden": [
+      "README.md",
+      "package.json",
+      ".github/**",
+      "src/modules/payment/**",
+      "src/modules/pricing/**",
+      "src/modules/inventory/**",
+      "src/modules/auth/**",
+      "database/migrations/**",
+      "contracts/http/openapi.yaml",
+      "docs/14-multi-agent/GOVERNANCE.md",
+      "docs/14-multi-agent/incidents/**"
+    ]
+  },
+  "requested_lock_ids": ["ITEM4-REMEDIATION-001"],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 25000,
+    "soft_alert": 35000,
+    "hard_cap": 70000
+  },
+  "max_repair_cycles": 2,
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Risk Classifier accepts changed/requested paths, Project Map sensitive zones and deterministic task-risk rules with no LLM contribution to deterministic calculations.",
+      "verification": "node --test test/multi-agent/risk-verification-policy.test.mjs",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Classifier outputs risk_floor and detected_risk, computes pre-manager risk as MAX(detected_risk,risk_floor), then permits Manager only to keep or escalate.",
+      "verification": "node --test test/multi-agent/risk-verification-policy.test.mjs",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Verification Policy deterministically derives minimum applicable checks from risk level, changed file types, changed modules, sensitive zones and mandatory Task Contract acceptance criteria.",
+      "verification": "node --test test/multi-agent/risk-verification-policy.test.mjs",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Reviewer/QA additions are additive; deterministic required checks cannot be removed, and disagreement over non-required removal is surfaced for Manager decision with deterministic evidence.",
+      "verification": "node --test test/multi-agent/risk-verification-policy.test.mjs",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "NOT_EXECUTED never satisfies any deterministic or reviewer-added required check.",
+      "verification": "node --test test/multi-agent/risk-verification-policy.test.mjs",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Existing Item 4 behavior and Q-1/Q-2/Q-3 regressions remain green.",
+      "verification": "pnpm multi-agent:verify && pnpm verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "PR changes exactly the three remediation write-scope files and no forbidden path.",
+      "verification": "pr_diff_review",
+      "mandatory": true
+    }
+  ]
+}
