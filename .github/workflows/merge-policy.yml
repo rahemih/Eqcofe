@@ -1,0 +1,78 @@
+name: Merge Policy Enforcement
+
+permissions:
+  contents: read
+
+on:
+  pull_request:
+  schedule:
+    - cron: '17 * * * *'
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: 'Pull request number to merge through deterministic Merge Policy Controller'
+        required: true
+        type: number
+
+jobs:
+  merge-policy:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      pull-requests: read
+      issues: read
+    steps:
+      - uses: actions/checkout@v5.1.0
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+      - uses: actions/setup-node@v6.5.0
+        with:
+          node-version: 24.18.1
+      - name: generate-current-project-map
+        run: node scripts/multi-agent/project-map.mjs
+      - name: deterministic-merge-policy-validation
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: node scripts/multi-agent/merge-policy-controller.mjs --ci-pr
+
+  protection-drift:
+    if: github.event_name == 'schedule'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v5.1.0
+      - uses: actions/setup-node@v6.5.0
+        with:
+          node-version: 24.18.1
+      - name: hourly-protection-drift-check
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: node scripts/multi-agent/merge-policy-controller.mjs --protection-live
+
+  merge:
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: read
+    steps:
+      - uses: actions/checkout@v5.1.0
+        with:
+          ref: refs/pull/${{ inputs.pr_number }}/head
+          fetch-depth: 0
+      - uses: actions/setup-node@v6.5.0
+        with:
+          node-version: 24.18.1
+      - name: generate-current-project-map
+        run: node scripts/multi-agent/project-map.mjs
+      - name: deterministic-merge-policy-execution
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: node scripts/multi-agent/merge-policy-controller.mjs --merge-pr '${{ inputs.pr_number }}'
