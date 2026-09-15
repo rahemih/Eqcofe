@@ -1,0 +1,141 @@
+{
+  "schema_version": "2.2",
+  "task_id": "MA-POSTMERGE-VERIFY-001",
+  "title": "Deterministic exact-SHA post-merge verification",
+  "description": "Remediate the first canonical merge regression where a merge performed by GitHub Actions with GITHUB_TOKEN does not emit recursive push-triggered Canonical CI / Phase A runs. The merge executor must bind post-merge verification to the exact merge commit SHA returned by the merged pull request and run canonical verification plus Phase A directly in the same workflow run.",
+  "risk": "HIGH",
+  "risk_floor": "HIGH",
+  "owner": "BACKEND",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "deb78949fc289ce5d530f99ed2f6da62a89785f5"
+  },
+  "scope": {
+    "read": [
+      ".github/workflows/ci.yml",
+      ".github/workflows/phase-a-verification.yml",
+      ".github/workflows/merge-policy.yml",
+      "docs/14-multi-agent/**",
+      "scripts/multi-agent/**",
+      "test/multi-agent/**"
+    ],
+    "write": [
+      ".github/workflows/merge-policy.yml",
+      "docs/14-multi-agent/incidents/MA-POSTMERGE-VERIFY-SUPPRESSED-001.md",
+      "docs/14-multi-agent/tasks/MA-POSTMERGE-VERIFY-001.json",
+      "test/multi-agent/merge-policy-workflow.test.mjs"
+    ],
+    "forbidden": [
+      "README.md",
+      "package.json",
+      ".github/workflows/ci.yml",
+      ".github/workflows/phase-a-verification.yml",
+      "scripts/multi-agent/merge-policy-controller.mjs",
+      "docs/14-multi-agent/GOVERNANCE.md",
+      "src/modules/payment/**",
+      "src/modules/pricing/**",
+      "src/modules/inventory/**",
+      "src/modules/auth/**",
+      "database/migrations/**",
+      "contracts/http/openapi.yaml",
+      "docs/13-product-design/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-MA-POSTMERGE-VERIFY-001-01"
+  ],
+  "human_gate_required": true,
+  "token_budget": {
+    "expected_max": 22000,
+    "soft_alert": 30000,
+    "hard_cap": 60000
+  },
+  "max_repair_cycles": 1,
+  "task_risk_rules": [
+    {
+      "id": "MERGE_EXECUTOR_POSTMERGE_HIGH",
+      "risk": "HIGH",
+      "paths": [
+        ".github/workflows/merge-policy.yml"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": 6,
+      "name": "Merge Policy Controller",
+      "required_state": "MERGED_CANONICAL",
+      "observed_state": "MERGED_CANONICAL",
+      "merge_sha": "6df69308082698e6fbd0ae802b1e24fce3d3f866",
+      "blocking": false
+    },
+    {
+      "item": "FIRST_CANONICAL_MERGE",
+      "name": "PR #172 canonical merge",
+      "required_state": "MERGED_CANONICAL",
+      "observed_state": "MERGED_CANONICAL",
+      "merge_sha": "deb78949fc289ce5d530f99ed2f6da62a89785f5",
+      "blocking": false
+    }
+  ],
+  "authorized_human_approver": {
+    "role": "PROJECT_OWNER",
+    "github_login": "rahemih"
+  },
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "SECURITY",
+      "HUMAN",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "All structured gate evidence must bind to the exact current artifact hash. HIGH requires independent Review PASS, Security PASS, explicit Project Owner Human Approval, and ACTIVE lock evidence before merge eligibility."
+  },
+  "protection_source": {
+    "required_contexts": [
+      "verify",
+      "phase-a",
+      "merge-policy"
+    ],
+    "required_integration": "GitHub Actions",
+    "required_integration_id": 15368
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "The deterministic merge executor resolves the exact merge_commit_sha from the merged PR after the merge API succeeds and rejects missing, unmerged, or malformed SHA state.",
+      "verification": "node --test test/multi-agent/merge-policy-workflow.test.mjs",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Post-merge verification checks out the exact resolved merge SHA, verifies the checkout binding, and never relies on a moving main reference for test execution.",
+      "verification": "node --test test/multi-agent/merge-policy-workflow.test.mjs",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "The same merge workflow runs full pnpm verify and Phase A verification against the exact merged commit with PostgreSQL available.",
+      "verification": "workflow_contract_test_and_full_ci",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "No Ruleset relaxation, no direct-main mutation, and no change to Canonical CI or Phase A verifier semantics is introduced.",
+      "verification": "exact_scope_diff_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "The observed first-canonical-merge regression is recorded with exact run and merge evidence and remains fail-visible until this remediation is canonical and exercised by a later canonical merge.",
+      "verification": "incident_record_review",
+      "mandatory": true
+    }
+  ],
+  "incident_links": [
+    "MA-POSTMERGE-VERIFY-SUPPRESSED-001"
+  ]
+}
