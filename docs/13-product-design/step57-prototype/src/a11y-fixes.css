@@ -1,0 +1,7 @@
+.shop-nav a{min-width:44px;justify-content:center;padding-inline:8px}
+.large-product-media a{display:inline-flex;align-items:center;min-height:44px;padding-block:8px}
+.store-product-card label:has(input[type=checkbox]){display:flex;align-items:center;min-height:44px;padding-block:8px}
+.product-media-unavailable figcaption{color:var(--eq-neutral-600)}
+.surface-header a{display:inline-flex;align-items:center;min-height:44px;padding-inline:4px}
+.media-pattern input[type=file]{position:absolute;width:0;height:0;padding:0;margin:0;overflow:hidden;clip:rect(0,0,0,0);clip-path:inset(50%);white-space:nowrap;border:0}
+.media-pattern label:has(input[type=file]){display:flex;align-items:center;min-height:44px;min-width:44px;padding:8px 12px;border:1px solid var(--eq-neutral-300);border-radius:8px;cursor:pointer;width:max-content;max-width:100%}

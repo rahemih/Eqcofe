@@ -1,0 +1,105 @@
+name: Step 57 Prototype Verification
+
+permissions:
+  contents: read
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  prototype:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v5.1.0
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          fetch-depth: 0
+      - uses: actions/setup-node@v6.5.0
+        with:
+          node-version: 24.18.1
+      - name: Check source projection and artifact manifest
+        run: |
+          node scripts/generate-step57-prototype.mjs
+          git diff --exit-code -- docs/13-product-design/step57-prototype/src/coverage.json docs/13-product-design/step57-prototype/src/design-tokens.css docs/13-product-design/step57-prototype/manifest.json
+          node scripts/generate-step57-prototype.mjs --check
+      - name: Build and test isolated review prototype
+        working-directory: docs/13-product-design/step57-prototype
+        run: |
+          npm ci
+          npm run build
+          npm run test:sites
+      - name: Exhaustive browser, interaction, responsive and accessibility audit
+        working-directory: docs/13-product-design/step57-prototype
+        run: |
+          npm install --no-save --package-lock=false playwright@1.55.0 axe-core@4.10.3
+          npx playwright install --with-deps chromium
+          node ../../../scripts/prepare-step57-full-qa-projection.mjs
+          npm run build
+          npm run preview -- --host 127.0.0.1 --port 4173 > /tmp/eqcofe-step57-vite.log 2>&1 &
+          SERVER_PID=$!
+          trap 'kill "$SERVER_PID" 2>/dev/null || true' EXIT
+          ready=0
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent --show-error http://127.0.0.1:4173/ >/dev/null; then
+              ready=1
+              break
+            fi
+            sleep 1
+          done
+          if [ "$ready" -ne 1 ]; then
+            cat /tmp/eqcofe-step57-vite.log
+            exit 1
+          fi
+          STEP57_BASE_URL=http://127.0.0.1:4173 node scripts/exhaustive-browser-audit.mjs
+          STEP57_BASE_URL=http://127.0.0.1:4173 node scripts/final-completeness-audit.mjs
+          node --input-type=module <<'NODE'
+          import {chromium} from 'playwright';
+          const browser=await chromium.launch({headless:true});
+          const page=await browser.newPage({locale:'fa-IR'});
+          const external=[];
+          page.on('request',request=>{const u=new URL(request.url());if(u.origin!=='http://127.0.0.1:4173'&&!['data:','blob:'].includes(u.protocol))external.push(request.url());});
+          await page.goto('http://127.0.0.1:4173/admin?id=AD-C-07&view=upload');
+          await page.locator('h1').waitFor({state:'visible'});
+          const input=page.locator('input[type=file]');
+          if(await input.count()!==1)throw new Error('Expected exactly one upload input');
+          if(await input.getAttribute('accept')!=='image/jpeg,image/png,image/webp,video/mp4')throw new Error('Upload accept contract drift');
+          const chooserPromise=page.waitForEvent('filechooser');
+          await page.getByRole('button',{name:'انتخاب فایل نمونه'}).click();
+          const chooser=await chooserPromise;
+          await chooser.setFiles({name:'step57-sample.png',mimeType:'image/png',buffer:Buffer.from([137,80,78,71,13,10,26,10])});
+          await page.getByText('فایل فقط انتخاب شده؛ بارگذاری و انتشار انجام نشده است.').waitFor({state:'visible'});
+          if(external.length)throw new Error('File selection emitted external request: '+external.join(', '));
+          await browser.close();
+          console.log('Step57 file-picker button PASS; chooser opened, selection stayed local and no upload request emitted');
+          NODE
+          mkdir -p preview-evidence
+          capture() {
+            name="$1"
+            width="$2"
+            url="$3"
+            npx playwright screenshot --browser chromium --viewport-size "${width},1200" --wait-for-timeout 1200 --full-page "$url" "preview-evidence/${name}-${width}.png"
+          }
+          for width in 320 360 600 840 1200 1440; do
+            capture storefront "$width" "http://127.0.0.1:4173/"
+            capture product "$width" "http://127.0.0.1:4173/store?id=SF-C-01"
+            capture admin-catalog "$width" "http://127.0.0.1:4173/admin?id=AD-C-01"
+            capture admin-pricing "$width" "http://127.0.0.1:4173/admin?id=AD-D-01"
+            capture admin-commerce "$width" "http://127.0.0.1:4173/admin?id=AD-E-01"
+            capture admin-growth "$width" "http://127.0.0.1:4173/admin?id=AD-F-01"
+            capture admin-management "$width" "http://127.0.0.1:4173/admin?id=AD-G-01"
+          done
+          capture review 1440 "http://127.0.0.1:4173/review"
+          capture flows 1440 "http://127.0.0.1:4173/flows"
+      - name: Upload Step 57 exhaustive QA evidence
+        if: always()
+        uses: actions/upload-artifact@v4.6.2
+        with:
+          name: step57-exhaustive-qa-evidence
+          path: |
+            docs/13-product-design/step57-prototype/qa-evidence/**
+            docs/13-product-design/step57-prototype/preview-evidence/*.png
+          if-no-files-found: warn
+          retention-days: 7

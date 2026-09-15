@@ -1,0 +1,143 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP57-HIFI-001",
+  "title": "Step 57 high-fidelity UI and prototype acceptance",
+  "description": "Complete Step 57 high-fidelity storefront and admin prototype acceptance against the canonical Step 54 design system and Step 55/56 UX contracts, including deterministic browser QA, accessibility, responsive behavior, safe NO_ACTION handling, and final approval evidence. Step 58 remains out of scope.",
+  "risk": "HIGH",
+  "risk_floor": "HIGH",
+  "owner": "PRODUCT_DESIGN",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "0b67ff8929e8976a0c4ae27c86dcb048567ff4da"
+  },
+  "scope": {
+    "read": [
+      "docs/12-current-state/**",
+      "docs/13-product-design/**",
+      "docs/14-multi-agent/**",
+      "scripts/multi-agent/**",
+      ".eqcofe/project-map.json"
+    ],
+    "write": [
+      ".github/workflows/step57-prototype.yml",
+      "docs/13-product-design/**",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP57-HIFI-001.json",
+      "package.json",
+      "scripts/generate-step57-foundation.mjs",
+      "scripts/generate-step57-prototype.mjs",
+      "scripts/prepare-step57-exhaustive-qa.mjs",
+      "scripts/prepare-step57-full-qa-projection.mjs",
+      "scripts/validate-step57-acceptance.mjs",
+      "scripts/validate-step57-foundation.mjs",
+      "test/design-system/step57-foundation.spec.ts"
+    ],
+    "forbidden": [
+      ".github/workflows/ci.yml",
+      ".github/workflows/merge-policy.yml",
+      "docs/14-multi-agent/GOVERNANCE.md",
+      "scripts/multi-agent/**",
+      "test/multi-agent/**",
+      "src/modules/payment/**",
+      "src/modules/pricing/**",
+      "src/modules/inventory/**",
+      "src/modules/auth/**",
+      "database/migrations/**",
+      "contracts/http/openapi.yaml"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP57-HIFI-001-01"
+  ],
+  "human_gate_required": true,
+  "authorized_human_approver": {
+    "role": "PROJECT_OWNER",
+    "github_login": "rahemih"
+  },
+  "task_risk_rules": [
+    {
+      "id": "STEP57_WORKFLOW_HIGH",
+      "risk": "HIGH",
+      "paths": [
+        ".github/workflows/step57-prototype.yml"
+      ]
+    },
+    {
+      "id": "STEP57_ROOT_PACKAGE_HIGH",
+      "risk": "HIGH",
+      "paths": [
+        "package.json"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": 54,
+      "name": "RTL Design System and Accessibility Foundation",
+      "required_state": "CLOSED_FINAL_GATE_PASS",
+      "observed_state": "CLOSED_FINAL_GATE_PASS",
+      "blocking": false
+    },
+    {
+      "item": 55,
+      "name": "Storefront Wireframes",
+      "required_state": "CLOSED_FINAL_GATE_PASS",
+      "observed_state": "CLOSED_FINAL_GATE_PASS",
+      "blocking": false
+    },
+    {
+      "item": 56,
+      "name": "Admin UX Architecture and Wireframes",
+      "required_state": "CLOSED_FINAL_GATE_PASS",
+      "observed_state": "CLOSED_FINAL_GATE_PASS",
+      "blocking": false
+    }
+  ],
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "All 134 Step 57 surfaces remain traceable: 37 storefront and 97 admin.",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "The exhaustive Chromium audit covers canonical widths 320, 360, 600, 840, 1200 and 1440, browser errors, internal navigation, accessibility checks, keyboard/focus behavior and interaction exercises.",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "All 1142 inherited admin views and 4472 inherited admin states are represented in deterministic QA coverage without enabling real mutations.",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "All inherited NO_ACTION operations remain visibly unavailable or disabled and cannot be represented as successful executable actions.",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Persian RTL, integer Toman, no Wallet, no brown palette, Step 54 tokens, safe critical-action semantics and WCAG 2.2 AA-oriented contracts are preserved.",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Canonical CI, Phase A Verification, Step 57 Prototype Verification and Merge Policy run on the exact final artifact; merge remains blocked until artifact-bound Review, Security, Lock and Project Owner Human Approval evidence are valid.",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "Step 58 implementation does not start within this task.",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "SECURITY",
+      "HUMAN",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih"
+  }
+}
