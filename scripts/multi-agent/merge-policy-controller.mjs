@@ -3,6 +3,7 @@ import { execFileSync } from 'node:child_process';
 import { pathToFileURL } from 'node:url';
 import { buildArtifactBinding } from './artifact-hash-generator.mjs';
 import {
+  normalizeRepoPath,
   normalizeScopePattern,
   validateChangedPaths,
 } from './scope-lock-controller.mjs';
@@ -15,6 +16,8 @@ import {
 
 export const GATE_PROTOCOL = 'EQCOFE_GATE_V1';
 export const REQUIRED_PROTECTION_CHECKS = Object.freeze(['verify', 'phase-a', 'merge-policy']);
+export const GITHUB_ACTIONS_INTEGRATION_ID = 15368;
+export const TASK_CONTRACT_ROOT = 'docs/14-multi-agent/tasks/';
 const GATE_TYPES = new Set(['REVIEW', 'SECURITY', 'HUMAN', 'LOCK']);
 
 function deepFreeze(value) {
@@ -42,6 +45,10 @@ function normalizeStatus(value) {
   return typeof value === 'string' ? value.trim().toUpperCase() : '';
 }
 
+function normalizeLogin(value) {
+  return assertString(value, 'GITHUB_LOGIN_REQUIRED').toLowerCase();
+}
+
 function uniqueSorted(values) {
   return [...new Set(values)].sort();
 }
@@ -61,6 +68,14 @@ function normalizeContract(contract) {
   normalizeRisk(contract.risk);
   normalizeRisk(contract.risk_floor);
   if (typeof contract.human_gate_required !== 'boolean') throw new Error('TASK_HUMAN_GATE_REQUIRED');
+  assertObject(contract.canonical, 'TASK_CANONICAL_REQUIRED');
+  assertString(contract.canonical.repository, 'TASK_CANONICAL_REPOSITORY_REQUIRED');
+  assertString(contract.canonical.branch, 'TASK_CANONICAL_BRANCH_REQUIRED');
+  assertString(contract.canonical.base_sha, 'TASK_CANONICAL_BASE_SHA_REQUIRED');
+  if (contract.human_gate_required) {
+    assertObject(contract.authorized_human_approver, 'TASK_HUMAN_APPROVER_REQUIRED');
+    assertString(contract.authorized_human_approver.github_login, 'TASK_HUMAN_APPROVER_LOGIN_REQUIRED');
+  }
   return contract;
 }
 
@@ -69,12 +84,14 @@ export function formatGateEvidence(payload) {
   return `<!-- ${GATE_PROTOCOL} ${JSON.stringify(normalized)} -->`;
 }
 
-export function parseGateEvidence(comments, { task_id, artifact_hash }) {
+export function parseGateEvidence(comments, { task_id, artifact_hash, trusted_author_login = null }) {
   const taskId = assertString(task_id, 'TASK_ID_REQUIRED');
   const artifactHash = assertString(artifact_hash, 'ARTIFACT_HASH_REQUIRED');
+  const trustedAuthor = trusted_author_login === null ? null : normalizeLogin(trusted_author_login);
   const current = {};
   const stale = [];
   const malformed = [];
+  const unauthorized = [];
   const pattern = new RegExp(`<!--\\s*${GATE_PROTOCOL}\\s+({[\\s\\S]*?})\\s*-->`, 'g');
 
   for (const comment of assertArray(comments, 'COMMENTS_REQUIRED')) {
@@ -102,6 +119,13 @@ export function parseGateEvidence(comments, { task_id, artifact_hash }) {
         comment_id: comment?.id ?? null,
         created_at: comment?.created_at ?? null,
       };
+      if (trustedAuthor !== null) {
+        const author = typeof record.author_login === 'string' ? record.author_login.toLowerCase() : '';
+        if (author !== trustedAuthor) {
+          unauthorized.push({ ...record, reason: 'UNTRUSTED_GATE_AUTHOR' });
+          continue;
+        }
+      }
       if (payload.artifact_hash !== artifactHash) {
         stale.push(record);
         continue;
@@ -111,7 +135,7 @@ export function parseGateEvidence(comments, { task_id, artifact_hash }) {
     }
   }
 
-  return deepFreeze({ current, stale, malformed });
+  return deepFreeze({ current, stale, malformed, unauthorized });
 }
 
 function gatePass(record, expectedStatus) {
@@ -193,7 +217,8 @@ export function evaluateMergePolicy({
   if (humanRequired) {
     if (!gatePass(evidence.HUMAN, 'APPROVED')) blockers.push('HUMAN_APPROVAL_MISSING');
     const authorizedLogin = contract.authorized_human_approver?.github_login;
-    if (gatePass(evidence.HUMAN, 'APPROVED') && authorizedLogin && evidence.HUMAN.author_login !== authorizedLogin) {
+    if (gatePass(evidence.HUMAN, 'APPROVED') && authorizedLogin
+      && normalizeLogin(evidence.HUMAN.author_login) !== normalizeLogin(authorizedLogin)) {
       blockers.push('HUMAN_APPROVER_UNAUTHORIZED');
     }
   }
@@ -224,7 +249,11 @@ export function evaluateMergePolicy({
   });
 }
 
-export function validateProtectionSnapshot(snapshot, { branch = 'main', required_checks = REQUIRED_PROTECTION_CHECKS } = {}) {
+export function validateProtectionSnapshot(snapshot, {
+  branch = 'main',
+  required_checks = REQUIRED_PROTECTION_CHECKS,
+  required_integration_id = GITHUB_ACTIONS_INTEGRATION_ID,
+} = {}) {
   assertObject(snapshot, 'PROTECTION_SNAPSHOT_REQUIRED');
   const blockers = [];
   if (snapshot.branch_protected !== true) blockers.push('MAIN_NOT_PROTECTED');
@@ -257,9 +286,17 @@ export function validateProtectionSnapshot(snapshot, { branch = 'main', required
     if (!statusRule) blockers.push('REQUIRED_STATUS_CHECK_RULE_MISSING');
     else {
       if (statusRule.parameters?.strict_required_status_checks_policy !== true) blockers.push('STRICT_STATUS_CHECKS_REQUIRED');
-      observedChecks = uniqueSorted((statusRule.parameters?.required_status_checks ?? []).map((item) => item.context));
+      const items = statusRule.parameters?.required_status_checks ?? [];
+      observedChecks = uniqueSorted(items.map((item) => item.context));
       for (const context of required_checks) {
-        if (!observedChecks.includes(context)) blockers.push(`REQUIRED_STATUS_CONTEXT_MISSING:${context}`);
+        const matches = items.filter((item) => item.context === context);
+        if (matches.length === 0) {
+          blockers.push(`REQUIRED_STATUS_CONTEXT_MISSING:${context}`);
+          continue;
+        }
+        if (!matches.some((item) => Number(item.integration_id) === Number(required_integration_id))) {
+          blockers.push(`REQUIRED_STATUS_CONTEXT_WRONG_INTEGRATION:${context}`);
+        }
       }
     }
   }
@@ -268,6 +305,7 @@ export function validateProtectionSnapshot(snapshot, { branch = 'main', required
     passed: blockers.length === 0,
     blockers: uniqueSorted(blockers),
     required_checks: observedChecks,
+    required_integration_id,
     ruleset_id: ruleset?.id ?? null,
   });
 }
@@ -358,11 +396,52 @@ function loadJson(path, code) {
   }
 }
 
-function taskContractPathFromBody(body) {
+export function taskContractPathFromBody(body) {
   const text = typeof body === 'string' ? body : '';
   const match = text.match(/Task Contract:\s*`([^`]+)`/i);
   if (!match) throw new Error('PR_TASK_CONTRACT_PATH_MISSING');
-  return match[1];
+  const normalized = normalizeRepoPath(match[1]);
+  if (!normalized.startsWith(TASK_CONTRACT_ROOT) || !normalized.endsWith('.json')) {
+    throw new Error('PR_TASK_CONTRACT_PATH_FORBIDDEN');
+  }
+  const relative = normalized.slice(TASK_CONTRACT_ROOT.length);
+  if (!relative || relative.includes('/') || !/^[A-Za-z0-9._-]+\.json$/.test(relative)) {
+    throw new Error('PR_TASK_CONTRACT_PATH_FORBIDDEN');
+  }
+  return normalized;
+}
+
+export function validatePrTrustBoundary(pr, repository) {
+  const expected = assertString(repository, 'GITHUB_REPOSITORY_REQUIRED').toLowerCase();
+  const headRepo = assertString(pr?.head?.repo?.full_name, 'PR_HEAD_REPOSITORY_REQUIRED').toLowerCase();
+  const baseRepo = assertString(pr?.base?.repo?.full_name, 'PR_BASE_REPOSITORY_REQUIRED').toLowerCase();
+  if (headRepo !== expected) throw new Error(`EXTERNAL_HEAD_REPOSITORY_FORBIDDEN:${headRepo}`);
+  if (baseRepo !== expected) throw new Error(`UNEXPECTED_BASE_REPOSITORY:${baseRepo}`);
+  return true;
+}
+
+export function validateTaskContractAuthority({ contract, contract_path, repository, base_branch, base_sha, trusted_owner_login }) {
+  const normalized = normalizeContract(contract);
+  const repo = assertString(repository, 'GITHUB_REPOSITORY_REQUIRED');
+  const branch = assertString(base_branch, 'BASE_BRANCH_REQUIRED');
+  const baseSha = assertString(base_sha, 'BASE_SHA_REQUIRED');
+  const ownerLogin = normalizeLogin(trusted_owner_login);
+  const contractPath = normalizeRepoPath(contract_path);
+  const expectedPath = `${TASK_CONTRACT_ROOT}${normalized.task_id}.json`;
+
+  if (contractPath !== expectedPath) throw new Error(`TASK_CONTRACT_PATH_TASK_ID_MISMATCH:${contractPath}`);
+  if (normalized.canonical.repository.toLowerCase() !== repo.toLowerCase()) throw new Error('TASK_CANONICAL_REPOSITORY_MISMATCH');
+  if (normalized.canonical.branch !== branch) throw new Error('TASK_CANONICAL_BRANCH_MISMATCH');
+  if (normalized.canonical.base_sha !== baseSha) throw new Error('TASK_CANONICAL_BASE_SHA_MISMATCH');
+  if (normalized.human_gate_required) {
+    if (normalizeStatus(normalized.authorized_human_approver?.role) !== 'PROJECT_OWNER') {
+      throw new Error('TASK_HUMAN_APPROVER_ROLE_INVALID');
+    }
+    if (normalizeLogin(normalized.authorized_human_approver.github_login) !== ownerLogin) {
+      throw new Error('TASK_HUMAN_APPROVER_NOT_TRUSTED_OWNER');
+    }
+  }
+  return true;
 }
 
 async function fetchAllComments({ repository, pr_number, token, api_url }) {
@@ -379,7 +458,9 @@ async function fetchRequiredCi({ repository, sha, checks, token, api_url }) {
   const payload = await githubRequest(`${api_url}/repos/${repository}/commits/${sha}/check-runs?per_page=100`, { token });
   const statuses = {};
   for (const name of checks) {
-    const candidates = (payload.check_runs ?? []).filter((run) => run.name === name).sort((a, b) => b.id - a.id);
+    const candidates = (payload.check_runs ?? [])
+      .filter((run) => run.name === name && Number(run.app?.id) === GITHUB_ACTIONS_INTEGRATION_ID)
+      .sort((a, b) => b.id - a.id);
     const latest = candidates[0];
     statuses[name] = latest?.status === 'completed' && latest?.conclusion === 'success' ? 'PASS' : 'NOT_EXECUTED';
   }
@@ -391,17 +472,38 @@ function loadProjectMap() {
 }
 
 async function commonPrContext({ repository, pr, token, api_url }) {
+  validatePrTrustBoundary(pr, repository);
   const headSha = pr.head.sha;
   if (gitHead() !== headSha) throw new Error(`CHECKOUT_HEAD_MISMATCH:${gitHead()}:${headSha}`);
   const contractPath = taskContractPathFromBody(pr.body);
   const contract = loadJson(contractPath, 'TASK_CONTRACT_INVALID');
+  const trustedOwnerLogin = repository.split('/')[0];
+  validateTaskContractAuthority({
+    contract,
+    contract_path: contractPath,
+    repository,
+    base_branch: pr.base.ref,
+    base_sha: pr.base.sha,
+    trusted_owner_login: trustedOwnerLogin,
+  });
   const artifact = buildGitArtifactBinding({ base_sha: pr.base.sha, head_sha: headSha });
   const comments = await fetchAllComments({ repository, pr_number: pr.number, token, api_url });
-  const evidence = parseGateEvidence(comments, { task_id: contract.task_id, artifact_hash: artifact.artifact_hash });
-  const protection = await validateLiveProtection({ repository, branch: pr.base.ref, token, api_url, required_checks: REQUIRED_PROTECTION_CHECKS });
+  const evidence = parseGateEvidence(comments, {
+    task_id: contract.task_id,
+    artifact_hash: artifact.artifact_hash,
+    trusted_author_login: trustedOwnerLogin,
+  });
+  const protection = await validateLiveProtection({
+    repository,
+    branch: pr.base.ref,
+    token,
+    api_url,
+    required_checks: REQUIRED_PROTECTION_CHECKS,
+    required_integration_id: GITHUB_ACTIONS_INTEGRATION_ID,
+  });
   const projectMap = loadProjectMap();
   if (projectMap.repository_sha !== headSha) throw new Error(`PROJECT_MAP_HEAD_MISMATCH:${projectMap.repository_sha}:${headSha}`);
-  return { contractPath, contract, artifact, evidence, protection, projectMap, headSha };
+  return { contractPath, contract, artifact, evidence, protection, projectMap, headSha, trustedOwnerLogin };
 }
 
 async function runCiPr() {
@@ -423,7 +525,15 @@ async function runCiPr() {
     protection: context.protection,
     require_required_ci: false,
   });
-  console.log(JSON.stringify({ mode: 'CI_PR', contract_path: context.contractPath, protection: context.protection, stale_evidence: context.evidence.stale.length, ...result }, null, 2));
+  console.log(JSON.stringify({
+    mode: 'CI_PR',
+    contract_path: context.contractPath,
+    trusted_gate_author: context.trustedOwnerLogin,
+    protection: context.protection,
+    stale_evidence: context.evidence.stale.length,
+    unauthorized_evidence: context.evidence.unauthorized.length,
+    ...result,
+  }, null, 2));
   if (!result.merge_eligible) process.exitCode = 1;
 }
 
@@ -431,7 +541,14 @@ async function runProtectionLive() {
   const repository = assertString(process.env.GITHUB_REPOSITORY, 'GITHUB_REPOSITORY_REQUIRED');
   const token = process.env.GITHUB_TOKEN;
   const api_url = process.env.GITHUB_API_URL ?? 'https://api.github.com';
-  const result = await validateLiveProtection({ repository, branch: 'main', token, api_url, required_checks: REQUIRED_PROTECTION_CHECKS });
+  const result = await validateLiveProtection({
+    repository,
+    branch: 'main',
+    token,
+    api_url,
+    required_checks: REQUIRED_PROTECTION_CHECKS,
+    required_integration_id: GITHUB_ACTIONS_INTEGRATION_ID,
+  });
   console.log(JSON.stringify({ mode: 'PROTECTION_LIVE', ...result }, null, 2));
   if (!result.passed) process.exitCode = 1;
 }
@@ -464,7 +581,14 @@ async function runMergePr(prNumberInput) {
     required_ci: requiredCi,
     require_required_ci: true,
   });
-  console.log(JSON.stringify({ mode: 'MERGE_EXECUTION', contract_path: context.contractPath, required_ci: requiredCi, ...result }, null, 2));
+  console.log(JSON.stringify({
+    mode: 'MERGE_EXECUTION',
+    contract_path: context.contractPath,
+    trusted_gate_author: context.trustedOwnerLogin,
+    unauthorized_evidence: context.evidence.unauthorized.length,
+    required_ci: requiredCi,
+    ...result,
+  }, null, 2));
   if (!result.merge_eligible) throw new Error(`MERGE_POLICY_DENIED:${result.blockers.join(',')}`);
 
   const merged = await githubRequest(`${api_url}/repos/${repository}/pulls/${prNumber}/merge`, {
