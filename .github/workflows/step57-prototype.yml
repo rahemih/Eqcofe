@@ -18,7 +18,10 @@ jobs:
         with:
           node-version: 24.18.1
       - name: Check source projection and artifact manifest
-        run: node scripts/generate-step57-prototype.mjs --check
+        run: |
+          node scripts/generate-step57-prototype.mjs
+          git diff --exit-code -- docs/13-product-design/step57-prototype/src/coverage.json docs/13-product-design/step57-prototype/src/design-tokens.css docs/13-product-design/step57-prototype/manifest.json
+          node scripts/generate-step57-prototype.mjs --check
       - name: Build and test isolated review prototype
         working-directory: docs/13-product-design/step57-prototype
         run: |
