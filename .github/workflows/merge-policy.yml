@@ -162,18 +162,16 @@ jobs:
             echo "Existing investigation: $existing"
             exit 0
           fi
-          body="$(cat <<EOF
-incident_state: POST_MERGE_FAILED
-source_workflow: ${GITHUB_WORKFLOW}
-workflow_run: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}
-pull_request: #${PR_NUMBER}
-merge_sha: ${MERGE_SHA}
-verification_result: ${VERIFY_RESULT}
-owner: @${GITHUB_REPOSITORY_OWNER}
-
-The canonical merge has already occurred. Automatic rollback is prohibited. Create a separate governed investigation/remediation task before any rollback or follow-up merge.
-EOF
-)"
+          body="$(printf '%s\n' \
+            'incident_state: POST_MERGE_FAILED' \
+            "source_workflow: ${GITHUB_WORKFLOW}" \
+            "workflow_run: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}" \
+            "pull_request: #${PR_NUMBER}" \
+            "merge_sha: ${MERGE_SHA}" \
+            "verification_result: ${VERIFY_RESULT}" \
+            "owner: @${GITHUB_REPOSITORY_OWNER}" \
+            '' \
+            'The canonical merge has already occurred. Automatic rollback is prohibited. Create a separate governed investigation/remediation task before any rollback or follow-up merge.')"
           gh api --method POST "repos/${GITHUB_REPOSITORY}/issues" \
             -f title="$title" \
             -f body="$body" \
