@@ -38,6 +38,7 @@ export function validateStep57Acceptance(contract) {
     const blockedOperationIds = new Set(admin.flatMap((screen) => screen.blockedOperations || []));
     const adminViews = admin.flatMap((screen) => screen.views || []);
     const adminStates = admin.flatMap((screen) => screen.states || []);
+    const adminViewRefs = new Set(admin.flatMap((screen) => (screen.views || []).map((view) => `${screen.id}/${view.id}`)));
 
     check(operationIds.size === 532, `Expected 532 inherited admin operations, found ${operationIds.size}`);
     check(blockedOperationIds.size === 186, `Expected 186 NO_ACTION operations, found ${blockedOperationIds.size}`);
@@ -52,7 +53,7 @@ export function validateStep57Acceptance(contract) {
 
       for (const mapping of screen.operationViews || []) {
         check((screen.operations || []).includes(mapping.operation), `Operation/view mapping references foreign operation: ${screen.id} ${mapping.operation}`);
-        check(viewIds.has(mapping.view), `Operation/view mapping references missing view: ${screen.id} ${mapping.view}`);
+        check(viewIds.has(mapping.view) || adminViewRefs.has(mapping.view), `Operation/view mapping references missing global view: ${screen.id} ${mapping.view}`);
       }
 
       for (const operation of screen.blockedOperations || []) {
