@@ -9,7 +9,7 @@
   "canonical": {
     "repository": "rahemih/Eqcofe",
     "branch": "main",
-    "base_sha": "deb78949fc289ce5d530f99ed2f6da62a89785f5"
+    "base_sha": "90c5fe9ffa35ee5bb6d162df9ec9583d2efab4f0"
   },
   "scope": {
     "read": [
