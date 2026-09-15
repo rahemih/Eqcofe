@@ -2,7 +2,7 @@
   "schema_version": "2.2",
   "task_id": "MA-POSTMERGE-VERIFY-001",
   "title": "Deterministic exact-SHA post-merge verification",
-  "description": "Remediate the first canonical merge regression where a merge performed by GitHub Actions with GITHUB_TOKEN does not emit recursive push-triggered Canonical CI / Phase A runs. The merge executor must bind post-merge verification to the exact merge commit SHA returned by the merged pull request and run canonical verification plus Phase A directly in the same workflow run.",
+  "description": "Remediate the first canonical merge regression where a merge performed by GitHub Actions with GITHUB_TOKEN does not emit recursive push-triggered Canonical CI / Phase A runs. The merge executor must bind post-merge verification to the exact merge commit SHA returned by the merged pull request, then run canonical verification plus Phase A in a separate least-privilege GitHub-hosted job bound to that immutable SHA.",
   "risk": "HIGH",
   "risk_floor": "HIGH",
   "owner": "BACKEND",
@@ -106,19 +106,19 @@
   "acceptance_criteria": [
     {
       "id": "AC-001",
-      "description": "The deterministic merge executor resolves the exact merge_commit_sha from the merged PR after the merge API succeeds and rejects missing, unmerged, or malformed SHA state.",
+      "description": "The deterministic merge executor resolves the exact merge_commit_sha from the merged PR in the workflow's canonical repository after the merge API succeeds and rejects missing, unmerged, malformed, or non-resolvable canonical commit state.",
       "verification": "node --test test/multi-agent/merge-policy-workflow.test.mjs",
       "mandatory": true
     },
     {
       "id": "AC-002",
-      "description": "Post-merge verification checks out the exact resolved merge SHA, verifies the checkout binding, and never relies on a moving main reference for test execution.",
+      "description": "Post-merge verification checks out the exact resolved merge SHA from github.repository, verifies the checkout binding, persists no Git credentials, and never relies on moving main, PR-head, github.ref, or github.sha for test execution.",
       "verification": "node --test test/multi-agent/merge-policy-workflow.test.mjs",
       "mandatory": true
     },
     {
       "id": "AC-003",
-      "description": "The same merge workflow runs full pnpm verify and Phase A verification against the exact merged commit with PostgreSQL available.",
+      "description": "The post-merge verifier runs full pnpm verify and Phase A verification against the exact merged commit with PostgreSQL available.",
       "verification": "workflow_contract_test_and_full_ci",
       "mandatory": true
     },
@@ -132,6 +132,42 @@
       "id": "AC-005",
       "description": "The observed first-canonical-merge regression is recorded with exact run and merge evidence and remains fail-visible until this remediation is canonical and exercised by a later canonical merge.",
       "verification": "incident_record_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Trust boundary remains canonical-repository-only: the existing Merge Policy Controller rejects external head repositories before merge, and post-merge checkout explicitly uses github.repository plus the canonical PR's resolved merge SHA rather than a fork or PR-head reference.",
+      "verification": "node --test test/multi-agent/merge-policy-controller.test.mjs test/multi-agent/merge-policy-workflow.test.mjs",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "Post-merge code execution is isolated from merge-write credentials by running in a separate GitHub-hosted ubuntu-latest job with contents:read only and persist-credentials:false; no PAT or GitHub App token is introduced. The job is not claimed to be a no-code-execution sandbox: repository verification intentionally executes reviewed canonical code, the workspace is writable, and default GitHub-hosted network access is not restricted by this task.",
+      "verification": "node --test test/multi-agent/merge-policy-workflow.test.mjs",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "If exact-SHA post-merge verification is not successful after merge, the workflow remains failed/visible and a separate issues:write reporter job creates or reuses an Owner-assigned POST_MERGE_FAILED investigation issue. Automatic rollback is prohibited; rollback requires a new governed decision/task.",
+      "verification": "node --test test/multi-agent/merge-policy-workflow.test.mjs",
+      "mandatory": true
+    },
+    {
+      "id": "AC-009",
+      "description": "Race safety is immutable-SHA based: later movement of main cannot retarget an in-flight verification because the verifier consumes only needs.merge.outputs.merge_sha; each later canonical merge receives its own workflow_dispatch execution and exact merge SHA.",
+      "verification": "node --test test/multi-agent/merge-policy-workflow.test.mjs",
+      "mandatory": true
+    },
+    {
+      "id": "AC-010",
+      "description": "Credential scope is least-privilege per job: merge uses only the per-run GitHub Actions GITHUB_TOKEN with contents:write/pull-requests:write; postmerge verification has contents:read only and no persisted Git credentials; failure reporting uses a separate per-run token with issues:write only for incident creation/Owner assignment. No persistent PAT or repository secret is added.",
+      "verification": "node --test test/multi-agent/merge-policy-workflow.test.mjs",
+      "mandatory": true
+    },
+    {
+      "id": "AC-011",
+      "description": "Post-merge verification has a 30-minute job timeout and failure reporting has a 5-minute timeout. Token Telemetry remains NOT_IMPLEMENTED until frozen implementation Item 7; native GitHub Actions timing/log evidence is not mislabeled as Item 7 telemetry.",
+      "verification": "workflow_contract_test_and_governance_order_review",
       "mandatory": true
     }
   ],
