@@ -1,0 +1,140 @@
+{
+  "schema_version": "2.2",
+  "task_id": "MA-RISK-VERIFICATION-001",
+  "title": "Implement deterministic Risk Classifier and Verification Policy",
+  "description": "Implement frozen multi-agent Item 4: deterministic risk floor from Project Map sensitive zones, manager escalation with max-rule semantics, and fail-closed verification requirements by effective risk.",
+  "risk": "MEDIUM",
+  "risk_floor": "LOW",
+  "risk_rationale": {
+    "chosen": "MEDIUM",
+    "why_medium": [
+      "This policy becomes a repository-governance control that determines future task risk and required verification gates.",
+      "A defect could under-classify or over-classify later tasks even though this task does not mutate protected commerce, auth, migration, financial, or production business state.",
+      "The implementation is deterministic, additive, isolated to the multi-agent governance surface, and normally reversible."
+    ],
+    "why_not_high": [
+      "No payment, pricing, inventory, authentication, authorization, finance, irreversible database migration, destructive production operation, security policy, GitHub ruleset, or protected-main setting is changed.",
+      "The changed files are outside all current Project Map HIGH sensitive zones.",
+      "No Human Gate or merge-policy enforcement is implemented or weakened by this task."
+    ]
+  },
+  "owner": "BACKEND",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "63b6e5a235bb13c4fd575e65c0042440c5b6544b"
+  },
+  "dependencies": [
+    {
+      "item": 3,
+      "name": "Scope / Lock Controller",
+      "status": "CANONICAL_CLOSED",
+      "main_sha": "63b6e5a235bb13c4fd575e65c0042440c5b6544b"
+    }
+  ],
+  "scope": {
+    "read": [
+      "docs/14-multi-agent/**",
+      "scripts/multi-agent/**",
+      "test/multi-agent/**",
+      "package.json"
+    ],
+    "write": [
+      "docs/14-multi-agent/tasks/MA-RISK-VERIFICATION-001.json",
+      "scripts/multi-agent/risk-verification-policy.mjs",
+      "test/multi-agent/risk-verification-policy.test.mjs"
+    ],
+    "forbidden": [
+      "README.md",
+      "package.json",
+      ".github/**",
+      "src/modules/payment/**",
+      "src/modules/pricing/**",
+      "src/modules/inventory/**",
+      "src/modules/auth/**",
+      "database/migrations/**",
+      "contracts/http/openapi.yaml",
+      "docs/13-product-design/**",
+      "docs/14-multi-agent/GOVERNANCE.md",
+      "docs/14-multi-agent/incidents/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "ITEM4-RISK-VERIFICATION-001"
+  ],
+  "lock": {
+    "lock_id": "ITEM4-RISK-VERIFICATION-001",
+    "task_id": "MA-RISK-VERIFICATION-001",
+    "owner": "BACKEND",
+    "paths": [
+      "docs/14-multi-agent/tasks/MA-RISK-VERIFICATION-001.json",
+      "scripts/multi-agent/risk-verification-policy.mjs",
+      "test/multi-agent/risk-verification-policy.test.mjs"
+    ],
+    "status": "ACTIVE_UNTIL_PR_TERMINAL",
+    "rule": "No conflicting writer may mutate these paths until this Item 4 PR is merged or aborted."
+  },
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 25000,
+    "soft_alert": 35000,
+    "hard_cap": 70000
+  },
+  "max_repair_cycles": 2,
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Risk values are restricted to LOW, MEDIUM and HIGH and malformed risk input fails closed.",
+      "verification": "node --test test/multi-agent/risk-verification-policy.test.mjs",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Deterministic risk floor is derived only from changed paths and Project Map sensitive-zone minimum risks; no LLM may lower the floor.",
+      "verification": "node --test test/multi-agent/risk-verification-policy.test.mjs",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Effective risk is max(deterministic floor, manager risk), so Manager may escalate but never downgrade below the deterministic floor.",
+      "verification": "node --test test/multi-agent/risk-verification-policy.test.mjs",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Sensitive-zone matches are deterministic, path-normalized, sorted, evidence-bearing and fail closed on malformed zone definitions.",
+      "verification": "node --test test/multi-agent/risk-verification-policy.test.mjs",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Verification policy requires executed verification for LOW, review plus verification for MEDIUM, and review plus verification plus security for HIGH; HIGH separately requires Human Gate.",
+      "verification": "node --test test/multi-agent/risk-verification-policy.test.mjs",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "NOT_EXECUTED is never equivalent to PASS and any required gate not exactly PASS keeps verification blocked.",
+      "verification": "node --test test/multi-agent/risk-verification-policy.test.mjs",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "Policy/classification outputs are defensively frozen so downstream callers cannot mutate decision evidence in place.",
+      "verification": "node --test test/multi-agent/risk-verification-policy.test.mjs",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "Existing multi-agent wildcard test integration includes Item 4 without package.json changes and full canonical verification remains green.",
+      "verification": "pnpm multi-agent:verify && pnpm verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-009",
+      "description": "PR diff contains only the three declared write-scope files and no forbidden path.",
+      "verification": "pr_diff_review",
+      "mandatory": true
+    }
+  ]
+}
