@@ -1,7 +1,10 @@
 import {readFileSync,writeFileSync} from 'node:fs';
+import {dirname,resolve} from 'node:path';
+import {fileURLToPath} from 'node:url';
 
-const contractPath='docs/13-product-design/step57-high-fidelity-contract.json';
-const coveragePath='docs/13-product-design/step57-prototype/src/coverage.json';
+const repoRoot=resolve(dirname(fileURLToPath(import.meta.url)),'..');
+const contractPath=resolve(repoRoot,'docs/13-product-design/step57-high-fidelity-contract.json');
+const coveragePath=resolve(repoRoot,'docs/13-product-design/step57-prototype/src/coverage.json');
 const contract=JSON.parse(readFileSync(contractPath,'utf8').replace(/^\uFEFF/,''));
 const coverage=JSON.parse(readFileSync(coveragePath,'utf8').replace(/^\uFEFF/,''));
 const sourceById=new Map(contract.screens.map(screen=>[screen.id,screen]));
