@@ -185,3 +185,59 @@ between policy verification and build. It is placed before build because the det
 ### Bootstrap Task Contract token budget correction
 
 The MEDIUM Task Contract uses `expected_max=25000`, `soft_alert=35000`, `hard_cap=70000`. This preserves a real warning interval and avoids the previously rejected `expected_max == soft_alert` ambiguity.
+
+## Post-Item6 canonical milestone — 2026-09-15
+
+Item 6 (**Merge Policy / protection validation**) is **CANONICAL CLOSED**.
+
+Canonical evidence:
+
+- PR: `#166`
+- reviewed exact head: `395daaf44a01314ccb5f2db423a51d1ece2b6a8d`
+- reviewed artifact hash: `ff1a4f2366051749cc291ebe28b0bcd41ce22c7fb5950b0e357725cc4163bf13`
+- merge commit / canonical `main`: `6df69308082698e6fbd0ae802b1e24fce3d3f866`
+- Human Gate: `APPROVED`
+- required `merge-policy` check: `PASS` on the approved exact artifact
+- post-merge Canonical CI: `PASS`
+- post-merge Phase A Verification: `PASS`
+- Ruleset `main`: `ACTIVE`, strict status checks enabled, no bypass actors
+- required GitHub Actions contexts: `verify`, `phase-a`, `merge-policy`
+- F-4: `CLOSED`
+
+### Bootstrap exception closure
+
+The final bootstrap merge occurred at PR `#166`. **Bootstrap Exception is now CLOSED permanently for V1.**
+
+From this milestone onward:
+
+- no manual/raw LLM-agent merge to `main` is a canonical path;
+- every future merge must pass the protected-main required checks and Merge Policy Controller;
+- LOW/MEDIUM tasks remain subject to their deterministic risk/review/verification policy;
+- HIGH tasks additionally require exact-artifact Security and Project Owner Human Gate evidence;
+- changing an artifact invalidates artifact-bound evidence and requires fresh verification/review as applicable;
+- no future task may cite the Item 6 bootstrap exception as precedent.
+
+### Frozen order remains unchanged
+
+This milestone does **not** amend Architecture v1 or Specification v3.1 and does not renumber implementation items. The frozen order remains:
+
+- Item 7: **Token Telemetry and Docs Automation**
+- Item 8: **Pilot tasks — LOW → MEDIUM → HIGH**
+- Item 9: **Calibration per risk class**
+- Item 10: **V1 Production Gate**
+
+Item 7 is not started by this documentation synchronization.
+
+### Owner-required Pre-Pilot Verification Gate
+
+Before the first Item 8 Pilot task is allowed to begin, a dedicated **Pre-Pilot Verification Gate** MUST reach PASS. This is a prerequisite gate for Item 8, not a new numbered implementation item and not a specification renumbering.
+
+Minimum required coverage:
+
+1. **Controller/unit regression** — all deterministic Multi-Agent controllers and auxiliary controls introduced through Items 1–7, plus the canonical repository regression suite.
+2. **Cross-controller integration** — at minimum Lock ↔ Workflow, Risk ↔ Project Map, Artifact Binding ↔ Human Gate, and Merge Policy ↔ all required upstream gates.
+3. **End-to-end deterministic dry runs without LLM execution** — one synthetic LOW task through the complete lifecycle and one synthetic HIGH task through Human Gate, with no production mutation.
+4. **Negative/fail-closed scenarios** — lock conflict, attempted risk downgrade, artifact mutation after approval, unauthorized gate evidence, external-head/fork PR, spoofed required-check identity, stale evidence, and protection drift.
+5. **Gate evidence** — exact-head deterministic test evidence, required CI PASS, Reviewer/QA disposition, and zero unresolved blocking findings.
+
+If any mandatory Pre-Pilot check is `FAIL`, `PENDING`, `NOT_EXECUTED`, or otherwise unverified, Item 8 Pilot execution remains forbidden. The first real LOW Pilot is executed only after this gate passes; the Pilot itself is not counted as part of the Pre-Pilot Verification Gate.
