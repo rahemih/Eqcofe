@@ -33,14 +33,14 @@ Make scope validation a deterministic CI gate, not a manual convention.
 ### Minimum acceptance
 
 - CI reads the active Task Contract.
-- CI determines the PR's full changed-file set.
+- CI determines the PR's full changed-file set, including both source and destination paths for RENAME.
 - CI produces PASS/FAIL evidence for exact PR head.
 - FAIL blocks merge eligibility.
 - The check cannot be skipped for LOW, MEDIUM, or HIGH tasks.
 
 ### Sequencing
 
-P-2 depends on implementation of the Scope / Lock Controller and Verification Policy. Item 6 (`MA-MERGE-POLICY-001`) is the active implementation target that wires this check into the required `verify` job.
+P-2 depends on implementation of the Scope / Lock Controller and Verification Policy. Item 6 (`MA-MERGE-POLICY-001`) is the active implementation target. It wires scope validation into the dedicated `merge-policy` job, which must become a protected-main Required Status Check before Item 6 is merge-eligible.
 
 ## P-3 — CI-Stuck Workaround Playbook
 
