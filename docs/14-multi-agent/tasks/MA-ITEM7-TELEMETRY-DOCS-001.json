@@ -2,7 +2,7 @@
   "schema_version": "2.2",
   "task_id": "MA-ITEM7-TELEMETRY-DOCS-001",
   "title": "Item 7 — Token Telemetry, Docs Automation and Scope Validation Hardening",
-  "description": "Implement frozen Multi-Agent V1 Item 7 without renumbering: deterministic provider-neutral Token Telemetry using the Spec v3.1 canonical telemetry path, reproducible Docs Automation with an isolated generated-output namespace, and mandatory Scope Validation Hardening. The scope hardening provides a pre-change validator for authorized agent writes plus a required-CI commit-history backstop that rejects transient out-of-scope or forbidden commits even when later reverted. package.json and required workflows remain untouched because the existing multi-agent test wildcard automatically executes new test files and open PR #163 currently changes package.json.",
+  "description": "Implement frozen Multi-Agent V1 Item 7 without renumbering: deterministic provider-neutral Token Telemetry using the Spec v3.1 canonical telemetry path, reproducible Docs Automation with an isolated generated-output namespace, and mandatory Scope Validation Hardening. The scope hardening provides a pre-change validator for authorized agent writes plus a required-CI commit-history backstop that rejects transient out-of-scope or forbidden commits even when later reverted. package.json and required workflows remain untouched because the existing multi-agent test wildcard automatically executes new test files.",
   "risk": "MEDIUM",
   "risk_floor": "LOW",
   "owner": "BACKEND",
@@ -93,66 +93,44 @@
       "observed_state": "PROVEN",
       "merge_sha": "0b67ff8929e8976a0c4ae27c86dcb048567ff4da",
       "blocking": false
+    },
+    {
+      "item": 57,
+      "name": "Step 57 high-fidelity acceptance baseline",
+      "required_state": "MERGED_CANONICAL",
+      "observed_state": "MERGED_CANONICAL",
+      "merge_sha": "766904585dc601e36eec12c126e141efc4f6dc0a",
+      "blocking": false,
+      "note": "Step 57 merged after Item 7 discovery; Item 7 was rebased before implementation and has no write-scope overlap with Step 57."
     }
   ],
   "external_gate_evidence": {
     "protocol": "EQCOFE_GATE_V1",
-    "artifact_bound_gates": [
-      "REVIEW",
-      "LOCK"
-    ],
+    "artifact_bound_gates": ["REVIEW", "LOCK"],
     "trusted_github_transport_login": "rahemih",
     "rule": "MEDIUM requires exact-artifact independent Review PASS and ACTIVE lock evidence. Security and Project Owner Human Gate are not required unless effective risk escalates to HIGH."
   },
   "protection_source": {
-    "required_contexts": [
-      "verify",
-      "phase-a",
-      "merge-policy"
-    ],
+    "required_contexts": ["verify", "phase-a", "merge-policy"],
     "required_integration": "GitHub Actions",
     "required_integration_id": 15368
   },
   "telemetry_contract": {
     "spec_source": "EQCOFE Multi-Agent Specification v3.1 §18",
     "canonical_storage": ".eqcofe/telemetry/<task_id>.json",
-    "required_measurements": [
-      "input_tokens",
-      "context_tokens_read",
-      "output_tokens",
-      "files_read",
-      "files_written",
-      "model_calls",
-      "retry_count",
-      "verification_calls",
-      "terminal_state",
-      "human_rejected"
-    ],
-    "invariants": [
-      "0 <= context_tokens_read <= input_tokens",
-      "context_tokens_read is a subset of input_tokens and is never added again when computing total model input consumption",
-      "No provider/billing usage is fabricated when explicit usage data is unavailable"
-    ],
+    "required_measurements": ["input_tokens", "context_tokens_read", "output_tokens", "files_read", "files_written", "model_calls", "retry_count", "verification_calls", "terminal_state", "human_rejected"],
+    "invariants": ["0 <= context_tokens_read <= input_tokens", "context_tokens_read is a subset of input_tokens and is never added again when computing total model input consumption", "No provider/billing usage is fabricated when explicit usage data is unavailable"],
     "persistence_rule": "The service resolves the canonical path from task_id and persists telemetry only from explicit reported usage. Item 7 does not fabricate a self-telemetry record merely to populate the directory.",
-    "calibration_rule": "Only MERGED tasks are primary P50/P75/P90 calibration samples. ABORTED and HUMAN_REJECTED telemetry is retained but excluded from the primary sample."
+    "calibration_rule": "Only MERGED tasks that were not human-rejected are primary calibration samples. ABORTED and HUMAN_REJECTED telemetry is retained but excluded from the primary sample."
   },
   "docs_automation_contract": {
     "spec_source": "EQCOFE Multi-Agent Specification v3.1 §19",
     "source_of_truth": "docs/14-multi-agent/tasks/*.json",
     "owned_generated_output": "docs/14-multi-agent/generated/TASK-CATALOG.md",
-    "manual_docs_read_only": [
-      "docs/14-multi-agent/incidents/**",
-      "docs/14-multi-agent/GOVERNANCE.md",
-      "docs/14-multi-agent/PROCESS-IMPROVEMENTS.md",
-      "docs/14-multi-agent/SCOPE-DISCIPLINE.md",
-      "docs/14-multi-agent/TOKEN-TELEMETRY.md"
-    ],
+    "manual_docs_read_only": ["docs/14-multi-agent/incidents/**", "docs/14-multi-agent/GOVERNANCE.md", "docs/14-multi-agent/PROCESS-IMPROVEMENTS.md", "docs/14-multi-agent/SCOPE-DISCIPLINE.md", "docs/14-multi-agent/TOKEN-TELEMETRY.md"],
     "drift_rule": "Check mode compares deterministic expected bytes with the owned generated output and fails on stale output; it never rewrites incident history or task state.",
-    "trigger_semantics": [
-      "POST_MERGE",
-      "SCHEDULED_DRIFT_CHECK",
-      "MANUAL_ON_DEMAND"
-    ]
+    "trigger_semantics": ["POST_MERGE", "SCHEDULED_DRIFT_CHECK", "MANUAL_ON_DEMAND"],
+    "wiring_note": "Item 7 does not add or alter required workflows. Exact-PR and post-merge pnpm verify execute the generated-catalog drift test through the existing multi-agent wildcard. The executable also supports explicit manual/check invocation; adding a dedicated scheduler would require a separately scoped workflow task."
   },
   "live_pr_test_policy": {
     "test": "test/multi-agent/scope-history-ci.test.mjs",
@@ -160,74 +138,29 @@
     "canonical_ci_behavior": "On GitHub pull_request Canonical CI the test must resolve the exact PR base/head, inspect every branch-only commit and PASS. SKIP, NOT_EXECUTED, or missing authoritative event context on the required PR check blocks Item 7 closure.",
     "security_interpretation": "Local SKIP is environment-gated behavior, not a security exception."
   },
+  "implementation_status": {
+    "state": "IMPLEMENTED_ON_BRANCH_PENDING_CANONICAL_CI",
+    "atomic_implementation_files": 12,
+    "local_test_command": "node --test test/multi-agent/*.test.mjs",
+    "local_test_result": {"tests": 23, "passed": 22, "failed": 0, "skipped": 1, "skip_reason": "Only the live pull_request context test is skipped outside GitHub pull_request CI."},
+    "test_breakdown": {"token_telemetry": 8, "docs_automation": 5, "scope_validation": 7, "scope_history_ci": 3},
+    "claim": "Local implementation evidence only. Canonical CI, Phase A, merge-policy, artifact-bound Review/Lock and post-merge verification remain mandatory and unverified until the Item 7 PR executes them."
+  },
   "acceptance_criteria": [
-    {
-      "id": "AC-001",
-      "description": "Token Telemetry implements Spec v3.1 §18, including canonical storage .eqcofe/telemetry/<task_id>.json, the context_tokens_read subset invariant, explicit-source-only usage, and no fabricated billing/provider data.",
-      "verification": "node --test test/multi-agent/token-telemetry.test.mjs",
-      "mandatory": true
-    },
-    {
-      "id": "AC-002",
-      "description": "Token budgets are explicit Task Contract inputs, not automatically derived from risk. The service requires integer 0 < expected_max < soft_alert < hard_cap and reports NORMAL, EXPECTED_EXCEEDED, SOFT_ALERT or HARD_CAP_EXCEEDED deterministically.",
-      "verification": "node --test test/multi-agent/token-telemetry.test.mjs",
-      "mandatory": true
-    },
-    {
-      "id": "AC-003",
-      "description": "Docs Automation reads canonical Task Contracts and owns only docs/14-multi-agent/generated/TASK-CATALOG.md. It must not overwrite incidents, GOVERNANCE.md, or other manually maintained documents; check mode fails on stale generated bytes.",
-      "verification": "node --test test/multi-agent/docs-automation.test.mjs",
-      "mandatory": true
-    },
-    {
-      "id": "AC-004",
-      "description": "Scope Validation reuses canonical validateChangedPaths semantics, validates explicit pre-change paths and git ranges, is rename-aware, and rejects OUT_OF_SCOPE and FORBIDDEN_SCOPE paths with forbidden scope taking precedence.",
-      "verification": "node --test test/multi-agent/scope-validation.test.mjs",
-      "mandatory": true
-    },
-    {
-      "id": "AC-005",
-      "description": "The required verify check executes the live PR scope-history test. A deterministic regression creates an out-of-scope commit and then reverts it; range/history validation must still FAIL. A clean in-scope history must PASS.",
-      "verification": "node --test test/multi-agent/scope-history-ci.test.mjs",
-      "mandatory": true
-    },
-    {
-      "id": "AC-006",
-      "description": "Local execution may SKIP only the live PR-context case. On the exact Item 7 pull_request required Canonical CI, the live scope-history test must execute and PASS; SKIP/NOT_EXECUTED/missing PR context is blocking.",
-      "verification": "github_exact_head_verify_evidence",
-      "mandatory": true
-    },
-    {
-      "id": "AC-007",
-      "description": "Process Hardening documents the two-layer model: authorized agents must run deterministic pre-change validation before repository writes, and required CI independently validates complete branch-only commit history. The documentation must explicitly state the residual boundary that an out-of-band direct API/operator push to an unprotected feature branch cannot be prevented by repository code alone, but is detected and blocked from canonical merge.",
-      "verification": "documentation_and_scope_history_review",
-      "mandatory": true
-    },
-    {
-      "id": "AC-008",
-      "description": "No package.json, lockfile, required workflow, Ruleset, protected-main permission, frozen GOVERNANCE.md, Merge Policy Controller, product runtime, database, API contract, or Step 57 artifact is changed by Item 7.",
-      "verification": "exact_scope_diff_review",
-      "mandatory": true
-    },
-    {
-      "id": "AC-009",
-      "description": "Full canonical pnpm verify, Phase A Verification and required Merge Policy check pass on the exact Item 7 artifact; Item 8 remains forbidden until the separate Pre-Pilot Verification Gate passes after Item 7 canonical closure.",
-      "verification": "exact_head_required_ci_and_postmerge_verification",
-      "mandatory": true
-    }
+    {"id":"AC-001","description":"Token Telemetry implements Spec v3.1 §18, including canonical storage .eqcofe/telemetry/<task_id>.json, the context_tokens_read subset invariant, explicit-source-only usage, and no fabricated billing/provider data.","verification":"node --test test/multi-agent/token-telemetry.test.mjs","mandatory":true},
+    {"id":"AC-002","description":"Token budgets are explicit Task Contract inputs, not automatically derived from risk. The service requires integer 0 < expected_max < soft_alert < hard_cap and reports NORMAL, EXPECTED_EXCEEDED, SOFT_ALERT or HARD_CAP_EXCEEDED deterministically.","verification":"node --test test/multi-agent/token-telemetry.test.mjs","mandatory":true},
+    {"id":"AC-003","description":"Docs Automation reads canonical Task Contracts and owns only docs/14-multi-agent/generated/TASK-CATALOG.md. It must not overwrite incidents, GOVERNANCE.md, or other manually maintained documents; check mode fails on stale generated bytes.","verification":"node --test test/multi-agent/docs-automation.test.mjs","mandatory":true},
+    {"id":"AC-004","description":"Scope Validation reuses canonical validateChangedPaths semantics, validates explicit pre-change paths and git ranges, is rename-aware, and rejects OUT_OF_SCOPE and FORBIDDEN_SCOPE paths with forbidden scope taking precedence.","verification":"node --test test/multi-agent/scope-validation.test.mjs","mandatory":true},
+    {"id":"AC-005","description":"The required verify check executes the live PR scope-history test. A deterministic regression creates an out-of-scope commit and then reverts it; range/history validation must still FAIL. A clean in-scope history must PASS.","verification":"node --test test/multi-agent/scope-history-ci.test.mjs","mandatory":true},
+    {"id":"AC-006","description":"Local execution may SKIP only the live PR-context case. On the exact Item 7 pull_request required Canonical CI, the live scope-history test must execute and PASS; SKIP/NOT_EXECUTED/missing PR context is blocking.","verification":"github_exact_head_verify_evidence","mandatory":true},
+    {"id":"AC-007","description":"Process Hardening documents the two-layer model: authorized agents must run deterministic pre-change validation before repository writes, and required CI independently validates complete branch-only commit history. Documentation explicitly states the residual boundary that an out-of-band direct API/operator push to an unprotected feature branch cannot be prevented by repository code alone, but is detected and blocked from canonical merge.","verification":"documentation_and_scope_history_review","mandatory":true},
+    {"id":"AC-008","description":"No package.json, lockfile, required workflow, Ruleset, protected-main permission, frozen GOVERNANCE.md, Merge Policy Controller, product runtime, database, API contract, or Step 57 artifact is changed by Item 7.","verification":"exact_scope_diff_review","mandatory":true},
+    {"id":"AC-009","description":"Full canonical pnpm verify, Phase A Verification and required Merge Policy check pass on the exact Item 7 artifact; Item 8 remains forbidden until the separate Pre-Pilot Verification Gate passes after Item 7 canonical closure.","verification":"exact_head_required_ci_and_postmerge_verification","mandatory":true}
   ],
   "process_hardening": {
     "trigger": "five operational incidents with three scope slips",
     "mandatory_for_item7_closure": true,
-    "controls": [
-      "canonical scope-rule reuse",
-      "pre-change explicit path validation for authorized agent writes",
-      "git-range and complete branch-only commit-history validation",
-      "required verify fail-closed enforcement",
-      "rename-aware old/new path checks",
-      "scope-safe recovery playbook",
-      "documented residual boundary for out-of-band feature-branch pushes"
-    ],
+    "controls": ["canonical scope-rule reuse", "pre-change explicit path validation for authorized agent writes", "git-range and complete branch-only commit-history validation", "required verify fail-closed enforcement", "rename-aware old/new path checks", "scope-safe recovery playbook", "documented residual boundary for out-of-band feature-branch pushes"],
     "claim_limit": "Item 7 may claim that committed scope slips cannot pass canonical required CI/merge eligibility. It must not claim that GitHub can cryptographically prevent every out-of-band write to an unprotected feature branch."
   }
 }
