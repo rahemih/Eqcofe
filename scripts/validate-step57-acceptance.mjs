@@ -73,6 +73,8 @@ export function validateStep57Acceptance(contract) {
     const storeSource = readFileSync(`${prototypeRoot}/src/StoreSurface.jsx`, 'utf8');
     const surfaceCss = readFileSync(`${prototypeRoot}/src/surface.css`, 'utf8');
 
+    check(adminSource.includes("viewRef=screen.id+'/'+view.id"), 'Prototype no longer normalizes fully qualified local admin view references');
+    check(adminSource.includes("o.view===view.id||o.view===viewRef"), 'Prototype no longer matches qualified operation/view authority to the active view');
     check(adminSource.includes("screen.blockedOperations.includes(o.operation)"), 'Prototype no longer consults per-surface blocked operations');
     check(adminSource.includes("startsWith('NO_ACTION')"), 'Prototype no longer enforces NO_ACTION execution authority');
     check(adminSource.includes('<button disabled>'), 'Unavailable admin action no longer renders disabled control');
