@@ -7,6 +7,7 @@ const Review=lazy(()=>import('./Review.jsx').then(m=>({default:m.Review})));
 const Flows=lazy(()=>import('./Flows.jsx').then(m=>({default:m.Flows})));
 const AdminSurface=lazy(()=>import('./AdminSurface.jsx').then(m=>({default:m.AdminSurface})));
 const StoreSurface=lazy(()=>import('./StoreSurface.jsx').then(m=>({default:m.StoreSurface})));
+const QASurface=lazy(()=>import('./QASurface.jsx').then(m=>({default:m.QASurface})));
 document.title='EQCOFE — نمونهٔ طراحی قدم ۵۷';
 const route=location.pathname;
-createRoot(document.getElementById('root')).render(<React.StrictMode><Suspense fallback={<p role="status" dir="rtl">در حال آماده‌سازی نمونه…</p>}>{route==='/store'?<StoreSurface/>:route==='/admin'?<AdminSurface/>:route==='/review'?<Review/>:route==='/flows'?<Flows/>:<App/>}</Suspense></React.StrictMode>);
+createRoot(document.getElementById('root')).render(<React.StrictMode><Suspense fallback={<p role="status" dir="rtl">در حال آماده‌سازی نمونه…</p>}>{route==='/store'?<StoreSurface/>:route==='/admin'?<AdminSurface/>:route==='/review'?<Review/>:route==='/flows'?<Flows/>:route==='/qa'?<QASurface/>:<App/>}</Suspense></React.StrictMode>);
