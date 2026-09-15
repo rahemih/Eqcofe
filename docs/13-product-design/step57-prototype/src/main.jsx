@@ -3,6 +3,7 @@ import {createRoot} from 'react-dom/client';
 import {App} from './App.jsx';
 import './design-tokens.css';
 import './styles.css';
+import './a11y-fixes.css';
 const Review=lazy(()=>import('./Review.jsx').then(m=>({default:m.Review})));
 const Flows=lazy(()=>import('./Flows.jsx').then(m=>({default:m.Flows})));
 const AdminSurface=lazy(()=>import('./AdminSurface.jsx').then(m=>({default:m.AdminSurface})));
