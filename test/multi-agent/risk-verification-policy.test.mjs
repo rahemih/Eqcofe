@@ -5,8 +5,11 @@ import {
   normalizeRisk,
   maxRisk,
   deterministicRiskFloor,
+  detectTaskRisk,
   classifyRisk,
   verificationPolicyForRisk,
+  deriveVerificationPolicy,
+  evaluateRequiredChecks,
   evaluateVerification,
 } from '../../scripts/multi-agent/risk-verification-policy.mjs';
 
@@ -29,6 +32,40 @@ test('max risk rule is deterministic and can only select the highest input', () 
   assert.equal(maxRisk(), 'LOW');
   assert.equal(maxRisk('LOW', 'MEDIUM'), 'MEDIUM');
   assert.equal(maxRisk('HIGH', 'LOW', 'MEDIUM'), 'HIGH');
+});
+
+test('deterministic task-risk rules produce detected_risk independently of sensitive floor', () => {
+  const detected = detectTaskRisk({
+    changed_paths: ['scripts/multi-agent/tool.mjs'],
+    task_risk_rules: [{ id: 'RULE-GOV', risk: 'MEDIUM', paths: ['scripts/multi-agent/**'] }],
+  });
+  assert.equal(detected.detected_risk, 'MEDIUM');
+  assert.equal(detected.matched_rules[0].id, 'RULE-GOV');
+
+  const classified = classifyRisk({
+    changed_paths: ['scripts/multi-agent/tool.mjs'],
+    sensitive_zones: sensitiveZones,
+    task_risk_rules: [{ id: 'RULE-GOV', risk: 'MEDIUM', paths: ['scripts/multi-agent/**'] }],
+    manager_risk: 'MEDIUM',
+  });
+  assert.equal(classified.risk_floor, 'LOW');
+  assert.equal(classified.detected_risk, 'MEDIUM');
+  assert.equal(classified.deterministic_minimum_risk, 'MEDIUM');
+  assert.equal(classified.effective_risk, 'MEDIUM');
+});
+
+test('classification order uses MAX(detected_risk, risk_floor) before Manager input', () => {
+  const result = classifyRisk({
+    changed_paths: ['src/modules/payment/refund.ts'],
+    sensitive_zones: sensitiveZones,
+    task_risk_rules: [{ id: 'RULE-PAYMENT-DOC', risk: 'MEDIUM', paths: ['src/modules/payment/**'] }],
+    manager_risk: 'LOW',
+  });
+  assert.equal(result.risk_floor, 'HIGH');
+  assert.equal(result.detected_risk, 'MEDIUM');
+  assert.equal(result.deterministic_minimum_risk, 'HIGH');
+  assert.equal(result.effective_risk, 'HIGH');
+  assert.equal(result.rejected_downgrade, true);
 });
 
 test('Q-1 payment path triggers HIGH floor regardless of lower manager input', () => {
@@ -153,6 +190,79 @@ test('verification policy maps LOW MEDIUM HIGH to frozen gate requirements', () 
   assert.equal(high.human_gate_required, true);
   assert.equal(Object.isFrozen(high), true);
   assert.equal(Object.isFrozen(high.required_gates), true);
+});
+
+test('§12 derives deterministic minimum checks from all five required sources', () => {
+  const policy = deriveVerificationPolicy({
+    risk: 'MEDIUM',
+    changed_paths: ['src/modules/payment/refund.ts'],
+    sensitive_zones: sensitiveZones,
+    acceptance_criteria: [
+      { id: 'AC-001', verification: 'integration_test', mandatory: true },
+      { id: 'AC-002', verification: 'optional_demo', mandatory: false },
+    ],
+    verification_rules: [
+      { id: 'VR-TYPE-TS', source: 'FILE_TYPE', match: '.ts', required_checks: ['typecheck'] },
+      { id: 'VR-MODULE-PAYMENT', source: 'MODULE', match: 'payment', required_checks: ['payment_regression'] },
+      { id: 'VR-ZONE-PAYMENT', source: 'SENSITIVE_ZONE', match: 'payment_processing', required_checks: ['security_deep'] },
+    ],
+  });
+
+  assert.deepEqual(policy.deterministic_required_checks, [
+    'integration_test',
+    'payment_regression',
+    'review',
+    'security_deep',
+    'typecheck',
+    'verification',
+  ]);
+  assert.deepEqual(policy.source.changed_file_types, ['.ts']);
+  assert.deepEqual(policy.source.changed_modules, ['payment']);
+  assert.deepEqual(policy.source.sensitive_zones, [{ path: 'src/modules/payment/**', reason: 'payment_processing' }]);
+  assert.deepEqual(policy.source.acceptance_criteria, ['AC-001']);
+  assert.deepEqual(policy.source.matched_verification_rules, ['VR-MODULE-PAYMENT', 'VR-TYPE-TS', 'VR-ZONE-PAYMENT']);
+});
+
+test('Reviewer/QA additions are additive and deterministic required checks cannot be removed', () => {
+  const base = {
+    risk: 'LOW',
+    changed_paths: ['src/modules/example/a.ts'],
+    sensitive_zones: [],
+    acceptance_criteria: [{ id: 'AC-001', verification: 'unit_test', mandatory: true }],
+    verification_rules: [{ id: 'VR-TS', source: 'FILE_TYPE', match: '.ts', required_checks: ['typecheck'] }],
+  };
+  const policy = deriveVerificationPolicy({ ...base, reviewer_additions: ['fuzz_test'] });
+  assert.deepEqual(policy.required_checks, ['fuzz_test', 'typecheck', 'unit_test', 'verification']);
+  assert.deepEqual(policy.reviewer_added_checks, ['fuzz_test']);
+
+  assert.throws(() => deriveVerificationPolicy({
+    ...base,
+    reviewer_removals: ['typecheck'],
+  }), /REVIEWER_CANNOT_REMOVE_DETERMINISTIC_CHECK:typecheck/);
+
+  const disagreement = deriveVerificationPolicy({
+    ...base,
+    reviewer_removals: ['optional_non_required_check'],
+  });
+  assert.deepEqual(disagreement.manager_decisions_required, [{
+    type: 'OPTIONAL_CHECK_REMOVAL_REQUIRES_MANAGER',
+    check: 'optional_non_required_check',
+  }]);
+});
+
+test('NOT_EXECUTED never satisfies any derived required check', () => {
+  const policy = deriveVerificationPolicy({
+    risk: 'LOW',
+    changed_paths: ['a.ts'],
+    acceptance_criteria: [{ id: 'AC-001', verification: 'unit_test', mandatory: true }],
+    verification_rules: [{ id: 'VR-TS', source: 'FILE_TYPE', match: '.ts', required_checks: ['typecheck'] }],
+  });
+  const result = evaluateRequiredChecks({
+    policy,
+    statuses: { verification: 'PASS', unit_test: 'PASS', typecheck: 'NOT_EXECUTED' },
+  });
+  assert.equal(result.verification_passed, false);
+  assert.deepEqual(result.blockers, [{ check: 'typecheck', status: 'NOT_EXECUTED' }]);
 });
 
 test('NOT_EXECUTED is never treated as PASS', () => {
