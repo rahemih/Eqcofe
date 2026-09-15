@@ -4,12 +4,17 @@ import {
   artifactScopePaths,
   evaluateMergePolicy,
   formatGateEvidence,
+  GITHUB_ACTIONS_INTEGRATION_ID,
   parseGateEvidence,
+  taskContractPathFromBody,
+  validatePrTrustBoundary,
   validateProtectionSnapshot,
+  validateTaskContractAuthority,
 } from '../../scripts/multi-agent/merge-policy-controller.mjs';
 
 const HASH = 'a'.repeat(64);
 const OTHER_HASH = 'b'.repeat(64);
+const BASE_SHA = 'c'.repeat(40);
 
 function contract(overrides = {}) {
   return {
@@ -18,6 +23,7 @@ function contract(overrides = {}) {
     risk: 'HIGH',
     risk_floor: 'HIGH',
     owner: 'BACKEND',
+    canonical: { repository: 'owner/repo', branch: 'main', base_sha: BASE_SHA },
     scope: { write: ['a.txt'], forbidden: ['forbidden/**'] },
     requested_lock_ids: ['LOCK-1'],
     human_gate_required: true,
@@ -75,7 +81,11 @@ function rulesetSnapshot(mutator = (value) => value) {
         type: 'required_status_checks',
         parameters: {
           strict_required_status_checks_policy: true,
-          required_status_checks: [{ context: 'verify' }, { context: 'phase-a' }, { context: 'merge-policy' }],
+          required_status_checks: [
+            { context: 'verify', integration_id: GITHUB_ACTIONS_INTEGRATION_ID },
+            { context: 'phase-a', integration_id: GITHUB_ACTIONS_INTEGRATION_ID },
+            { context: 'merge-policy', integration_id: GITHUB_ACTIONS_INTEGRATION_ID },
+          ],
         },
       },
     ],
@@ -173,10 +183,11 @@ test('contract risk cannot be below deterministic declared risk floor', () => {
   assert.ok(result.blockers.includes('HUMAN_GATE_REQUIRED_BY_RISK'));
 });
 
-test('protection validator accepts active no-bypass strict main ruleset with all three required checks', () => {
+test('protection validator accepts active no-bypass strict main ruleset with all three GitHub Actions checks', () => {
   const result = validateProtectionSnapshot(rulesetSnapshot());
   assert.equal(result.passed, true);
   assert.deepEqual(result.required_checks, ['merge-policy', 'phase-a', 'verify']);
+  assert.equal(result.required_integration_id, GITHUB_ACTIONS_INTEGRATION_ID);
 });
 
 test('protection validator fails closed on bypass actor', () => {
@@ -191,11 +202,25 @@ test('protection validator fails closed when strict checks or exact required con
   const result = validateProtectionSnapshot(rulesetSnapshot((ruleset) => {
     const rule = ruleset.rules.find((entry) => entry.type === 'required_status_checks');
     rule.parameters.strict_required_status_checks_policy = false;
-    rule.parameters.required_status_checks = [{ context: 'verify' }, { context: 'phase-a' }];
+    rule.parameters.required_status_checks = [
+      { context: 'verify', integration_id: GITHUB_ACTIONS_INTEGRATION_ID },
+      { context: 'phase-a', integration_id: GITHUB_ACTIONS_INTEGRATION_ID },
+    ];
     return ruleset;
   }));
   assert.ok(result.blockers.includes('STRICT_STATUS_CHECKS_REQUIRED'));
   assert.ok(result.blockers.includes('REQUIRED_STATUS_CONTEXT_MISSING:merge-policy'));
+});
+
+test('protection validator rejects required context from wrong integration source', () => {
+  const result = validateProtectionSnapshot(rulesetSnapshot((ruleset) => {
+    const rule = ruleset.rules.find((entry) => entry.type === 'required_status_checks');
+    rule.parameters.required_status_checks = rule.parameters.required_status_checks.map((item) => (
+      item.context === 'merge-policy' ? { ...item, integration_id: 999999 } : item
+    ));
+    return ruleset;
+  }));
+  assert.ok(result.blockers.includes('REQUIRED_STATUS_CONTEXT_WRONG_INTEGRATION:merge-policy'));
 });
 
 test('protection validator rejects ambiguous active rulesets', () => {
@@ -215,6 +240,21 @@ test('gate evidence parser keeps only exact-artifact evidence and records stale 
   assert.equal(result.stale.length, 1);
 });
 
+test('trusted gate transport ignores matching evidence from unauthorized commenter', () => {
+  const comments = [
+    { id: 1, user: { login: 'attacker' }, body: formatGateEvidence({ gate: 'SECURITY', task_id: 'MA-TEST-001', artifact_hash: HASH, status: 'PASS' }) },
+    { id: 2, user: { login: 'owner' }, body: formatGateEvidence({ gate: 'SECURITY', task_id: 'MA-TEST-001', artifact_hash: HASH, status: 'PASS' }) },
+  ];
+  const result = parseGateEvidence(comments, {
+    task_id: 'MA-TEST-001',
+    artifact_hash: HASH,
+    trusted_author_login: 'owner',
+  });
+  assert.equal(result.current.SECURITY.comment_id, 2);
+  assert.equal(result.unauthorized.length, 1);
+  assert.equal(result.unauthorized[0].author_login, 'attacker');
+});
+
 test('artifact mutation invalidates prior Review, Security, Human and Lock evidence together', () => {
   const comments = ['REVIEW', 'SECURITY', 'HUMAN', 'LOCK'].map((gate, index) => ({
     id: index + 1,
@@ -230,6 +270,59 @@ test('artifact mutation invalidates prior Review, Security, Human and Lock evide
   const result = parseGateEvidence(comments, { task_id: 'MA-TEST-001', artifact_hash: OTHER_HASH });
   assert.deepEqual(result.current, {});
   assert.equal(result.stale.length, 4);
+});
+
+test('task contract path is repository-relative, single-file and bound to task directory', () => {
+  assert.equal(
+    taskContractPathFromBody('Task Contract: `docs/14-multi-agent/tasks/MA-TEST-001.json`'),
+    'docs/14-multi-agent/tasks/MA-TEST-001.json',
+  );
+  assert.throws(
+    () => taskContractPathFromBody('Task Contract: `../../tmp/evil.json`'),
+    /PATH_TRAVERSAL_FORBIDDEN|PR_TASK_CONTRACT_PATH_FORBIDDEN/,
+  );
+  assert.throws(
+    () => taskContractPathFromBody('Task Contract: `docs/14-multi-agent/tasks/nested/evil.json`'),
+    /PR_TASK_CONTRACT_PATH_FORBIDDEN/,
+  );
+});
+
+test('task contract authority is bound to repository, base, task id and trusted Project Owner', () => {
+  assert.equal(validateTaskContractAuthority({
+    contract: contract(),
+    contract_path: 'docs/14-multi-agent/tasks/MA-TEST-001.json',
+    repository: 'owner/repo',
+    base_branch: 'main',
+    base_sha: BASE_SHA,
+    trusted_owner_login: 'owner',
+  }), true);
+  assert.throws(() => validateTaskContractAuthority({
+    contract: contract({ authorized_human_approver: { role: 'PROJECT_OWNER', github_login: 'attacker' } }),
+    contract_path: 'docs/14-multi-agent/tasks/MA-TEST-001.json',
+    repository: 'owner/repo',
+    base_branch: 'main',
+    base_sha: BASE_SHA,
+    trusted_owner_login: 'owner',
+  }), /TASK_HUMAN_APPROVER_NOT_TRUSTED_OWNER/);
+  assert.throws(() => validateTaskContractAuthority({
+    contract: contract(),
+    contract_path: 'docs/14-multi-agent/tasks/OTHER.json',
+    repository: 'owner/repo',
+    base_branch: 'main',
+    base_sha: BASE_SHA,
+    trusted_owner_login: 'owner',
+  }), /TASK_CONTRACT_PATH_TASK_ID_MISMATCH/);
+});
+
+test('external fork head repository is rejected before policy evaluation', () => {
+  assert.equal(validatePrTrustBoundary({
+    head: { repo: { full_name: 'owner/repo' } },
+    base: { repo: { full_name: 'owner/repo' } },
+  }, 'owner/repo'), true);
+  assert.throws(() => validatePrTrustBoundary({
+    head: { repo: { full_name: 'attacker/fork' } },
+    base: { repo: { full_name: 'owner/repo' } },
+  }, 'owner/repo'), /EXTERNAL_HEAD_REPOSITORY_FORBIDDEN/);
 });
 
 test('protection failure always blocks merge even when all other gates pass', () => {
