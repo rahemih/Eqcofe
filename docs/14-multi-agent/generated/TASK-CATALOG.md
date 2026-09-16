@@ -6,6 +6,7 @@
 | Task ID | Title | Risk | Human Gate | Canonical Base | Token Budget (expected/soft/hard) |
 | --- | --- | --- | --- | --- | --- |
 | EQCOFE-STEP57-HIFI-001 | Step 57 high-fidelity UI and prototype acceptance | HIGH | REQUIRED | `0b67ff8929e8976a0c4ae27c86dcb048567ff4da` | N/A (legacy/no budget) |
+| EQCOFE-STEP57-STATE-SYNC-001 | Step 57 final canonical state synchronization | MEDIUM | NOT_REQUIRED | `58291bb8ee6f834d549524380d93c112e653d5ee` | N/A (legacy/no budget) |
 | MA-ARTIFACT-HASH-001 | Implement deterministic Artifact Hash Generator | MEDIUM | NOT_REQUIRED | `86124a4f6a431953b0b28bbd4a359769941101ea` | 25000/35000/70000 |
 | MA-BOOTSTRAP-001 | Bootstrap deterministic multi-agent foundation | MEDIUM | NOT_REQUIRED | `01f0fa033af07c5ba5189b2c85ebfe51b095cdba` | 25000/35000/70000 |
 | MA-ITEM7-TELEMETRY-DOCS-001 | Item 7 — Token Telemetry, Docs Automation and Scope Validation Hardening | MEDIUM | NOT_REQUIRED | `766904585dc601e36eec12c126e141efc4f6dc0a` | 30000/45000/90000 |
@@ -20,4 +21,4 @@
 | MA-RISK-VERIFICATION-REMEDIATION-001 | Remediate Item 4 deterministic risk and verification-policy Spec drift | MEDIUM | NOT_REQUIRED | `fd85968adbe45441b154eed402f16c24c6a7e2bd` | 25000/35000/70000 |
 | MA-SCOPE-LOCK-001 | Implement deterministic Scope / Lock Controller | MEDIUM | NOT_REQUIRED | `36fa6122ff187841f85ccc777a0562be81ee16c8` | 25000/35000/70000 |
 
-Task contracts indexed: **14**.
+Task contracts indexed: **15**.
