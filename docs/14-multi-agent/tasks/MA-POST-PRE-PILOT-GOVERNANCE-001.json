@@ -1,0 +1,110 @@
+{
+  "schema_version": "2.2",
+  "task_id": "MA-POST-PRE-PILOT-GOVERNANCE-001",
+  "title": "Post-Pre-Pilot canonical closure and Item 8 authorization synchronization",
+  "description": "Record the already completed and post-merge-verified Pre-Pilot Verification Gate (P-4) as canonical CLOSED/PASS, preserve the reviewed P-4 implementation artifact, and authorize Item 8 to begin only after this closure synchronization itself completes protected canonical merge and exact-SHA post-merge verification. This task performs governance/documentation synchronization only and does not start any Pilot.",
+  "risk": "MEDIUM",
+  "risk_floor": "LOW",
+  "owner": "BACKEND",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "a6789a506671b8ce5b081313f3e43f446f5b66cc"
+  },
+  "scope": {
+    "read": [
+      "docs/14-multi-agent/GOVERNANCE.md",
+      "docs/14-multi-agent/PROCESS-IMPROVEMENTS.md",
+      "docs/14-multi-agent/ITEM7-CANONICAL-CLOSURE.md",
+      "docs/14-multi-agent/tasks/MA-PRE-PILOT-GATE-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "scripts/multi-agent/pre-pilot-verification.mjs",
+      "test/multi-agent/pre-pilot-verification.test.mjs",
+      ".github/workflows/merge-policy.yml"
+    ],
+    "write": [
+      "docs/14-multi-agent/PRE-PILOT-CANONICAL-CLOSURE.md",
+      "docs/14-multi-agent/PROCESS-IMPROVEMENTS.md",
+      "docs/14-multi-agent/tasks/MA-POST-PRE-PILOT-GOVERNANCE-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/workflows/**",
+      "src/**",
+      "database/**",
+      "contracts/**",
+      "apps/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "scripts/multi-agent/**",
+      "test/multi-agent/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**",
+      "docs/14-multi-agent/GOVERNANCE.md",
+      "docs/14-multi-agent/ITEM7-CANONICAL-CLOSURE.md",
+      "docs/14-multi-agent/tasks/MA-PRE-PILOT-GATE-001.json"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-MA-POST-PRE-PILOT-GOVERNANCE-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 12000,
+    "soft_alert": 25000,
+    "hard_cap": 50000
+  },
+  "max_repair_cycles": 2,
+  "task_risk_rules": [],
+  "dependencies": [
+    {
+      "item": "P-4",
+      "name": "Pre-Pilot Verification Gate implementation and canonical merge",
+      "required_state": "MERGED_AND_POSTMERGE_VERIFIED",
+      "observed_state": "MERGED_AND_POSTMERGE_VERIFIED",
+      "merge_sha": "a6789a506671b8ce5b081313f3e43f446f5b66cc",
+      "blocking": false
+    }
+  ],
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Terminal closure documentation records PR #179 exact reviewed artifact, protected merge SHA, workflow_dispatch merge evidence, exact-SHA post-merge verification, regression results and Phase A/database evidence without rewriting the original P-4 Task Contract.",
+      "verification": "closure_evidence_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "PROCESS-IMPROVEMENTS marks P-4 CLOSED/PASS and records Item 8 as AUTHORIZED / NOT STARTED while preserving the frozen order LOW → MEDIUM → HIGH.",
+      "verification": "process_state_sync_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "The original MA-PRE-PILOT-GATE-001 contract, P-4 harness and P-4 tests remain historical reviewed artifacts and are not mutated by closure synchronization.",
+      "verification": "artifact_preservation_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Generated Task Catalog includes MA-POST-PRE-PILOT-GOVERNANCE-001 and is exact for the branch.",
+      "verification": "node scripts/multi-agent/docs-automation.mjs --check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Exact-head Canonical CI, Phase A Verification, Merge Policy, ACTIVE artifact-bound Lock and independent Review/QA PASS are all green with zero unresolved blockers before canonical merge.",
+      "verification": "exact_head_required_ci_and_gate_evidence",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "P-4 terminal closure and Item 8 authorization become canonical only after this synchronization task merges through protected main and its exact-SHA post-merge verification succeeds; no Pilot is started by this task.",
+      "verification": "postmerge_closure_guard",
+      "mandatory": true
+    }
+  ],
+  "process_improvement_links": [
+    "P-4"
+  ]
+}

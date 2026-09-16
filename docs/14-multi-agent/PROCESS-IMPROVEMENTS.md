@@ -9,7 +9,7 @@ This backlog records governance/process improvements discovered during implement
 | P-1 | Enforce declared write-scope validation before each authorized agent mutation/commit and reject unauthorized committed history before canonical merge. | `MA-POSTMERGE-DRIFT-001`, `MA-SCOPE-SLIP-POSTITEM6-001`, `MA-POSTMERGE-VERIFY-SUPPRESSED-001` | High | CLOSED — PR #175 / Item 7 canonical + post-merge verified | Item 7 closure |
 | P-2 | Add a deterministic scope validation check to the required pre-merge workflow so out-of-scope mutations fail closed. | `MA-POSTMERGE-DRIFT-001` | High | CLOSED — PR #166 / Item 6 | First production pilot merge |
 | P-3 | Publish a CI-stuck workaround playbook containing only scope-safe recovery methods and explicitly forbidding out-of-scope file edits. | `MA-POSTMERGE-DRIFT-001`, repeated scope-slip pattern | Medium | CLOSED — PR #175 / Item 7 canonical + post-merge verified | Item 7 closure |
-| P-4 | Execute a dedicated Pre-Pilot Verification Gate covering deterministic unit/regression, cross-controller integration, LOW/HIGH dry runs, and negative fail-closed scenarios before any real Pilot task. | Project Owner directive after Item 6 closure | High | REGISTERED / NOT EXECUTED | First Item 8 Pilot task |
+| P-4 | Execute a dedicated Pre-Pilot Verification Gate covering deterministic unit/regression, cross-controller integration, LOW/HIGH dry runs, and negative fail-closed scenarios before any real Pilot task. | Project Owner directive after Item 6 closure | High | CLOSED / PASS — PR #179 + exact-SHA post-merge verified; terminal closure synchronized by `MA-POST-PRE-PILOT-GOVERNANCE-001` | First Item 8 Pilot task |
 
 ## P-1 — Per-Mutation / Per-Commit Scope Enforcement
 
@@ -99,6 +99,36 @@ P-4 is a mandatory prerequisite for frozen implementation-order Item 8 (**Pilot 
 - Required CI passes on the exact verification artifact and Reviewer/QA records no unresolved blocking finding.
 - `FAIL`, `PENDING`, `NOT_EXECUTED`, or otherwise unverified mandatory checks prohibit the first Pilot.
 
+### Canonical closure evidence
+
+`P-4` is **CLOSED / PASS** by the following implementation evidence:
+
+- implementation PR `#179`;
+- reviewed exact head `fcb1204092a37bb8a592c514613566684521e578`;
+- artifact hash `2bee1c5d86db54751f060eedcc6d37e28427f7186f431f98ef183b5bf6bfaecb`;
+- final artifact-bound Lock comment `5692917879` — `ACTIVE`;
+- independent Review/QA comment `5692969292` — `PASS`, with its stated access limitation preserved;
+- pre-merge Canonical CI run `35062600585` — `SUCCESS`;
+- pre-merge Phase A Verification run `35062600598` — `SUCCESS`;
+- pre-merge Merge Policy run `35062600559`, attempt `3` — `SUCCESS`;
+- pre-merge Multi-Agent `116/116 PASS`, `0 FAIL`, `0 SKIP`;
+- pre-merge full project `906/906 PASS`, `0 FAIL`, `0 SKIP`;
+- canonical workflow_dispatch run `35063369030` — `SUCCESS`;
+- deterministic merge job `104688270430` — `SUCCESS`;
+- canonical merge commit `a6789a506671b8ce5b081313f3e43f446f5b66cc`;
+- exact-SHA post-merge verification job `104688332019` — `SUCCESS`;
+- post-merge failure reporter `104688332314` — `SKIPPED` as expected;
+- post-merge `pnpm verify` and Phase A — `PASS`;
+- post-merge full project `906/906 PASS`, `0 FAIL`, `0 SKIP`;
+- database verification `65 migrations / 65 checksums`, `0` unvalidated constraints, `0` invalid indexes;
+- Phase A Steps `01–28` — `PASS`.
+
+The sole post-merge Multi-Agent skip is the intentionally `pull_request`-only live scope-history test. It executed on the reviewed exact PR head before merge with `0 SKIP`, so its environment-gated non-PR execution is not treated as missing proof.
+
+The original P-4 Task Contract, harness and tests remain reviewed historical artifacts. Terminal status is recorded in `docs/14-multi-agent/PRE-PILOT-CANONICAL-CLOSURE.md` and `MA-POST-PRE-PILOT-GOVERNANCE-001`.
+
+After this closure synchronization itself completes protected canonical merge and exact-SHA post-merge verification, Item 8 is **AUTHORIZED / NOT STARTED**. Authorization does not execute a Pilot; Item 8 must start separately with the LOW pilot under its own Task Contract and governance gates.
+
 ## Item 7 canonical closure evidence
 
 Item 7 is canonically closed by the following evidence:
@@ -114,8 +144,6 @@ Item 7 is canonically closed by the following evidence:
 - post-merge canonical verification and Phase A — `PASS`.
 
 The original Item 7 Task Contract remains the reviewed implementation artifact snapshot. Terminal status is recorded in `docs/14-multi-agent/ITEM7-CANONICAL-CLOSURE.md` and `MA-POST-ITEM7-GOVERNANCE-001`.
-
-`P-4` remains **REGISTERED / NOT EXECUTED**. Item 8 remains forbidden until the separate Pre-Pilot Verification Gate reaches PASS.
 
 ## Item 7 implementation note
 
