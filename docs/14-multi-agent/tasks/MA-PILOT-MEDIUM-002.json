@@ -1,0 +1,178 @@
+{
+  "schema_version": "2.2",
+  "task_id": "MA-PILOT-MEDIUM-002",
+  "title": "Pilot MEDIUM — Notification worker config fail-safe normalization",
+  "description": "Execute the first successful-candidate Item 8 MEDIUM-risk pilot by hardening notification worker runtime configuration so malformed numeric environment values cannot produce NaN/Infinity timing or batch parameters. The change is bounded to worker runtime normalization plus focused regression evidence and does not touch notification business delivery semantics, payment, pricing, inventory, auth, database, API contracts, dependencies, workflows, telemetry, product design artifacts, or canonical roadmap state.",
+  "risk": "MEDIUM",
+  "risk_floor": "LOW",
+  "risk_rationale": {
+    "chosen": "MEDIUM",
+    "why_medium": [
+      "This task changes production worker runtime behavior rather than tests or documentation only.",
+      "Malformed poll or batch configuration can affect background delivery cadence and workload, so deterministic runtime validation is required.",
+      "The change is small, reversible, side-effect free at the normalization boundary, and outside Project Map HIGH sensitive zones."
+    ],
+    "why_not_high": [
+      "No payment, pricing, inventory reservation, authentication, authorization, finance, migration, destructive operation, workflow, ruleset, secret, or protected-main setting is changed.",
+      "The current Project Map HIGH sensitive zones do not include apps/worker.",
+      "Human and Security gates are not required unless deterministic classification escalates."
+    ]
+  },
+  "owner": "BACKEND",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "ce0ee9382f3b07f3a35d2f1a99601f7857e35869"
+  },
+  "scope": {
+    "read": [
+      "apps/worker/notification-delivery-worker.service.ts",
+      "src/modules/notifications/application/notification-delivery.service.ts",
+      "scripts/multi-agent/project-map.mjs",
+      "scripts/multi-agent/risk-verification-policy.mjs",
+      "docs/14-multi-agent/GOVERNANCE.md",
+      "docs/14-multi-agent/PROCESS-IMPROVEMENTS.md",
+      "docs/14-multi-agent/tasks/MA-PILOT-LOW-001.json"
+    ],
+    "write": [
+      "apps/worker/notification-delivery-worker.service.ts",
+      "test/notification-worker-config-pilot-medium.spec.ts",
+      "docs/14-multi-agent/tasks/MA-PILOT-MEDIUM-002.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "src/modules/payment/**",
+      "src/modules/pricing/**",
+      "src/modules/inventory/**",
+      "src/modules/auth/**",
+      "database/**",
+      "contracts/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      ".eqcofe/telemetry/**",
+      "docs/11-step-history/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**",
+      "docs/14-multi-agent/GOVERNANCE.md",
+      "docs/14-multi-agent/PROCESS-IMPROVEMENTS.md"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-MA-PILOT-MEDIUM-002-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 18000,
+    "soft_alert": 30000,
+    "hard_cap": 60000
+  },
+  "max_repair_cycles": 2,
+  "task_risk_rules": [
+    {
+      "id": "PILOT_MEDIUM_WORKER_RUNTIME_CHANGE",
+      "risk": "MEDIUM",
+      "paths": [
+        "apps/worker/**"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "P-4",
+      "name": "Pre-Pilot Verification Gate",
+      "required_state": "CANONICAL_CLOSED",
+      "observed_state": "CANONICAL_CLOSED",
+      "merge_sha": "58291bb8ee6f834d549524380d93c112e653d5ee",
+      "blocking": false
+    },
+    {
+      "item": "ITEM8_PILOT_LOW",
+      "name": "First real LOW pilot — MA-PILOT-LOW-001",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "ce0ee9382f3b07f3a35d2f1a99601f7857e35869",
+      "workflow_dispatch_run": 35069886248,
+      "postmerge_verify_job": 104708783604,
+      "blocking": false
+    }
+  ],
+  "predecessor_attempt": {
+    "pr": 182,
+    "task_id": "MA-PILOT-MEDIUM-001",
+    "state": "CLOSED_UNMERGED",
+    "reason": "Deterministic Step 56-C source-hash traceability gate exposed hidden product-design provenance scope; the candidate was stopped rather than bypassing or broadening the first MEDIUM pilot."
+  },
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "LOCK",
+      "REVIEW"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "MEDIUM-risk pilot requires exact-artifact ACTIVE LOCK, independent REVIEW PASS and deterministic verification evidence. Security and Human gates are not required unless risk escalates to HIGH."
+  },
+  "protection_source": {
+    "required_contexts": [
+      "verify",
+      "phase-a",
+      "merge-policy"
+    ],
+    "required_integration": "GitHub Actions",
+    "required_integration_id": 15368
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Valid integer notification poll and batch configuration remains accepted, while finite out-of-range integers are clamped to the established safety bounds.",
+      "verification": "notification_worker_config_regression",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Malformed, blank, non-integer, NaN or infinite numeric configuration falls back to deterministic safe defaults and never propagates an invalid numeric value into the worker loop.",
+      "verification": "notification_worker_config_regression",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "The change does not alter NotificationDeliveryService business semantics; only worker configuration normalization is modified.",
+      "verification": "deterministic_scope_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Exact-head canonical verification passes with no regression in the repository test suite.",
+      "verification": "canonical_verify_exact_head",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "The PR changes exactly the four authorized pilot paths and makes no payment, pricing, inventory, auth, database, API contract, dependency, workflow, telemetry, product-design, or canonical-roadmap mutation.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Deterministic task classification is MEDIUM because apps/worker runtime changes match the task risk rule; independent Review and verification are required while Security and Human gates remain not required unless classification escalates.",
+      "verification": "deterministic_risk_classification",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "The pilot merges only through the protected canonical Merge Policy workflow and is followed by exact-SHA post-merge verification before MEDIUM pilot completion is claimed.",
+      "verification": "merge_policy_execution_evidence",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "No token-usage value is invented for LOW or MEDIUM when an authoritative provider/runtime usage record is unavailable; absence of telemetry remains explicit rather than synthetic calibration data.",
+      "verification": "telemetry_provenance_review",
+      "mandatory": true
+    }
+  ],
+  "process_improvement_links": [
+    "ITEM-8-PILOT-MEDIUM"
+  ],
+  "incident_links": []
+}
