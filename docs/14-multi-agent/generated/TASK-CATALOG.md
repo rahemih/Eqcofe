@@ -13,10 +13,11 @@
 | MA-PHASE-A-DOCS-PATH-001 | Run Phase A verification for multi-agent governance documentation PRs | MEDIUM | NOT_REQUIRED | `6df69308082698e6fbd0ae802b1e24fce3d3f866` | 12000/35000/70000 |
 | MA-POST-ITEM6-GOVERNANCE-001 | Post-Item6 governance milestone and pre-pilot verification registration | MEDIUM | NOT_REQUIRED | `90c5fe9ffa35ee5bb6d162df9ec9583d2efab4f0` | 15000/35000/70000 |
 | MA-POST-ITEM7-GOVERNANCE-001 | Post-Item7 canonical closure and pre-pilot handoff synchronization | MEDIUM | NOT_REQUIRED | `584e2fce3fb41439b02e0481b439142f00c6099a` | 12000/25000/50000 |
+| MA-POST-PRE-PILOT-GOVERNANCE-001 | Post-Pre-Pilot canonical closure and Item 8 authorization synchronization | MEDIUM | NOT_REQUIRED | `a6789a506671b8ce5b081313f3e43f446f5b66cc` | 12000/25000/50000 |
 | MA-POSTMERGE-VERIFY-001 | Deterministic exact-SHA post-merge verification | HIGH | REQUIRED | `deb78949fc289ce5d530f99ed2f6da62a89785f5` | 22000/30000/60000 |
 | MA-PRE-PILOT-GATE-001 | Pre-Pilot Verification Gate (P-4) | MEDIUM | NOT_REQUIRED | `e08589a591319feb3d2cc322b141edfb825b9627` | 20000/30000/60000 |
-| MA-RISK-VERIFICATION-001 | Implement deterministic Risk Classifier and Verification Policy | MEDIUM | NOT_REQUIRED | `63b6e5a235bb13c4fd575e65c0042440c5b6544b` | 25000/35000/70000 |
+| MA-RISK-VERIFICATION-001 | Implement deterministic Risk Classifier and Verification Policy | MEDIUM | NOT_REQUIRED | `63b6e5a235bb6d162df9ec9583d2efab4f0` | 25000/35000/70000 |
 | MA-RISK-VERIFICATION-REMEDIATION-001 | Remediate Item 4 deterministic risk and verification-policy Spec drift | MEDIUM | NOT_REQUIRED | `fd85968adbe45441b154eed402f16c24c6a7e2bd` | 25000/35000/70000 |
 | MA-SCOPE-LOCK-001 | Implement deterministic Scope / Lock Controller | MEDIUM | NOT_REQUIRED | `36fa6122ff187841f85ccc777a0562be81ee16c8` | 25000/35000/70000 |
 
-Task contracts indexed: **13**.
+Task contracts indexed: **14**.
