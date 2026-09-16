@@ -1,0 +1,174 @@
+{
+  "schema_version": "2.2",
+  "task_id": "MA-PILOT-MEDIUM-001",
+  "title": "Pilot MEDIUM — Variant inactive sales invariant",
+  "description": "Execute the first real Item 8 MEDIUM-risk pilot by closing a catalog domain invariant gap: an inactive variant must never remain sales-enabled. The change is intentionally bounded to VariantAggregate behavior plus focused regression evidence and does not touch pricing, inventory, payment, auth, database, API contracts, dependencies, workflows, or canonical roadmap state.",
+  "risk": "MEDIUM",
+  "risk_floor": "LOW",
+  "risk_rationale": {
+    "chosen": "MEDIUM",
+    "why_medium": [
+      "This task changes production catalog business logic rather than tests or documentation only.",
+      "The invariant controls whether an inactive product variant can remain marked as sales-enabled, so regression could affect storefront/admin sellability semantics.",
+      "The change is small, reversible, deterministic, and isolated to a non-sensitive Catalog domain aggregate."
+    ],
+    "why_not_high": [
+      "No payment, pricing, inventory, authentication, authorization, finance, irreversible database migration, destructive operation, security policy, GitHub workflow, ruleset, or protected-main setting is changed.",
+      "The production path is outside current Project Map HIGH sensitive zones.",
+      "Human and Security gates are therefore not required unless deterministic classification escalates."
+    ]
+  },
+  "owner": "BACKEND",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "ce0ee9382f3b07f3a35d2f1a99601f7857e35869"
+  },
+  "scope": {
+    "read": [
+      "src/modules/catalog/domain/variant.aggregate.ts",
+      "src/modules/catalog/domain/catalog.types.ts",
+      "test/catalog-domain.spec.ts",
+      "scripts/multi-agent/project-map.mjs",
+      "scripts/multi-agent/risk-verification-policy.mjs",
+      "docs/14-multi-agent/GOVERNANCE.md",
+      "docs/14-multi-agent/PROCESS-IMPROVEMENTS.md",
+      "docs/14-multi-agent/tasks/MA-PILOT-LOW-001.json"
+    ],
+    "write": [
+      "src/modules/catalog/domain/variant.aggregate.ts",
+      "test/catalog-variant-inactive-sales-pilot-medium.spec.ts",
+      "docs/14-multi-agent/tasks/MA-PILOT-MEDIUM-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "src/modules/payment/**",
+      "src/modules/pricing/**",
+      "src/modules/inventory/**",
+      "src/modules/auth/**",
+      "database/**",
+      "contracts/**",
+      "apps/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      ".eqcofe/telemetry/**",
+      "docs/11-step-history/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**",
+      "docs/14-multi-agent/GOVERNANCE.md",
+      "docs/14-multi-agent/PROCESS-IMPROVEMENTS.md"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-MA-PILOT-MEDIUM-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 18000,
+    "soft_alert": 30000,
+    "hard_cap": 60000
+  },
+  "max_repair_cycles": 2,
+  "task_risk_rules": [
+    {
+      "id": "PILOT_MEDIUM_CATALOG_DOMAIN_CHANGE",
+      "risk": "MEDIUM",
+      "paths": [
+        "src/modules/catalog/domain/**"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "P-4",
+      "name": "Pre-Pilot Verification Gate",
+      "required_state": "CANONICAL_CLOSED",
+      "observed_state": "CANONICAL_CLOSED",
+      "merge_sha": "58291bb8ee6f834d549524380d93c112e653d5ee",
+      "blocking": false
+    },
+    {
+      "item": "ITEM8_PILOT_LOW",
+      "name": "First real LOW pilot — MA-PILOT-LOW-001",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "ce0ee9382f3b07f3a35d2f1a99601f7857e35869",
+      "workflow_dispatch_run": 35069886248,
+      "postmerge_verify_job": 104708783604,
+      "blocking": false
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "LOCK",
+      "REVIEW"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "MEDIUM-risk pilot requires exact-artifact ACTIVE LOCK, independent REVIEW PASS and deterministic verification evidence. Security and Human gates are not required unless risk escalates to HIGH."
+  },
+  "protection_source": {
+    "required_contexts": [
+      "verify",
+      "phase-a",
+      "merge-policy"
+    ],
+    "required_integration": "GitHub Actions",
+    "required_integration_id": 15368
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Transitioning a sales-enabled variant to inactive automatically leaves the resulting variant sales-disabled and emits the updated event with sales_enabled=false.",
+      "verification": "catalog_variant_inactive_sales_regression",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "An explicit attempt to keep or enable sales while the resulting variant status is inactive fails closed with VARIANT_INACTIVE and does not mutate state, version, or event history.",
+      "verification": "catalog_variant_inactive_sales_regression",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Reactivating an inactive variant does not silently resume sales; sales may only become enabled when the resulting status is active and the caller explicitly requests it.",
+      "verification": "catalog_variant_inactive_sales_regression",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Exact-head canonical verification passes with no regression in the repository test suite.",
+      "verification": "canonical_verify_exact_head",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "The PR changes exactly the four authorized pilot paths and makes no payment, pricing, inventory, auth, database, API contract, dependency, workflow, telemetry, or canonical roadmap mutation.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Deterministic task classification is MEDIUM because the production catalog domain path matches the task risk rule; independent Review and verification are required while Security and Human gates remain not required unless classification escalates.",
+      "verification": "deterministic_risk_classification",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "The pilot merges only through the protected canonical Merge Policy workflow and is followed by exact-SHA post-merge verification before MEDIUM pilot completion is claimed.",
+      "verification": "merge_policy_execution_evidence",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "No token-usage value is invented for LOW or MEDIUM when an authoritative provider/runtime usage record is unavailable; absence of telemetry remains explicit rather than being converted into synthetic calibration data.",
+      "verification": "telemetry_provenance_review",
+      "mandatory": true
+    }
+  ],
+  "process_improvement_links": [
+    "ITEM-8-PILOT-MEDIUM"
+  ],
+  "incident_links": []
+}
