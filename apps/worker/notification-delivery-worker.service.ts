@@ -4,7 +4,10 @@ import { NotificationDeliveryService } from '../../src/modules/notifications/app
 import { StructuredLogger } from '../../src/platform/observability/structured-logger';
 
 export function normalizeNotificationWorkerInteger(value:unknown,fallback:number,min:number,max:number):number{
- const parsed=typeof value==='string'&&value.trim()===''?Number.NaN:Number(value);
+ if(value===null||value===undefined)return fallback;
+ if(typeof value!=='number'&&typeof value!=='string')return fallback;
+ if(typeof value==='string'&&value.trim()==='')return fallback;
+ const parsed=Number(value);
  if(!Number.isSafeInteger(parsed))return fallback;
  return Math.min(Math.max(parsed,min),max);
 }
