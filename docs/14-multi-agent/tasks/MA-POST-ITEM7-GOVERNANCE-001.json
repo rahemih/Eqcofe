@@ -1,0 +1,140 @@
+{
+  "schema_version": "2.2",
+  "task_id": "MA-POST-ITEM7-GOVERNANCE-001",
+  "title": "Post-Item7 canonical closure and pre-pilot handoff synchronization",
+  "description": "Synchronize canonical Multi-Agent documentation after Item 7 completed protected deterministic merge and exact-SHA post-merge verification. Close the Item 7 process-hardening backlog entries, preserve the reviewed Item 7 Task Contract as historical artifact evidence, regenerate the deterministic task catalog, and record that the Pre-Pilot Verification Gate remains the next mandatory prerequisite before Item 8. This task does not start Item 8 and does not change the frozen implementation numbering.",
+  "risk": "MEDIUM",
+  "risk_floor": "LOW",
+  "owner": "BACKEND",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "584e2fce3fb41439b02e0481b439142f00c6099a"
+  },
+  "scope": {
+    "read": [
+      "docs/14-multi-agent/GOVERNANCE.md",
+      "docs/14-multi-agent/PROCESS-IMPROVEMENTS.md",
+      "docs/14-multi-agent/tasks/MA-ITEM7-TELEMETRY-DOCS-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      ".github/workflows/merge-policy.yml"
+    ],
+    "write": [
+      "docs/14-multi-agent/ITEM7-CANONICAL-CLOSURE.md",
+      "docs/14-multi-agent/PROCESS-IMPROVEMENTS.md",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "docs/14-multi-agent/tasks/MA-POST-ITEM7-GOVERNANCE-001.json"
+    ],
+    "forbidden": [
+      ".github/workflows/**",
+      "scripts/**",
+      "test/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "src/**",
+      "database/**",
+      "contracts/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**",
+      "docs/14-multi-agent/GOVERNANCE.md",
+      "docs/14-multi-agent/tasks/MA-ITEM7-TELEMETRY-DOCS-001.json"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-MA-POST-ITEM7-GOVERNANCE-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 12000,
+    "soft_alert": 25000,
+    "hard_cap": 50000
+  },
+  "max_repair_cycles": 2,
+  "task_risk_rules": [],
+  "dependencies": [
+    {
+      "item": 7,
+      "name": "Token Telemetry, Docs Automation and Scope Validation Hardening",
+      "required_state": "MERGED_CANONICAL",
+      "observed_state": "MERGED_CANONICAL",
+      "merge_sha": "584e2fce3fb41439b02e0481b439142f00c6099a",
+      "blocking": false
+    },
+    {
+      "item": "ITEM7_POST_MERGE_VERIFICATION",
+      "name": "Exact-SHA post-merge verification for PR #175",
+      "required_state": "PROVEN",
+      "observed_state": "PROVEN",
+      "run_id": 35057738409,
+      "job_id": 104671401122,
+      "merge_sha": "584e2fce3fb41439b02e0481b439142f00c6099a",
+      "blocking": false
+    }
+  ],
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "A dedicated closure record binds Item 7 to PR #175, reviewed exact head, artifact hash, canonical merge SHA, workflow_dispatch run, and successful exact-SHA post-merge verification evidence.",
+      "verification": "documentation_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Process backlog entries P-1 and P-3 are marked CLOSED only because Item 7 required CI, independent Review, protected canonical merge and post-merge verification have all completed successfully.",
+      "verification": "documentation_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "The reviewed Item 7 Task Contract MA-ITEM7-TELEMETRY-DOCS-001.json remains byte-preserved by this closure task; terminal closure evidence is stored separately rather than rewriting the reviewed implementation artifact.",
+      "verification": "exact_scope_diff_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "The deterministic generated Task Catalog includes MA-POST-ITEM7-GOVERNANCE-001 and indexes 12 canonical Task Contracts on this branch.",
+      "verification": "node scripts/multi-agent/docs-automation.mjs --check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Frozen implementation numbering remains unchanged and P-4 Pre-Pilot Verification Gate remains REGISTERED / NOT EXECUTED. Item 8 Pilot execution remains forbidden until that separate gate reaches PASS.",
+      "verification": "documentation_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "This closure synchronization changes exactly four declared documentation/task-catalog paths and does not modify workflows, controllers, product runtime, database, API contracts, frozen GOVERNANCE.md, or the reviewed Item 7 Task Contract.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "Exact-head Canonical CI, Phase A Verification, Merge Policy, artifact-bound Review and ACTIVE Lock must pass before this documentation sync can merge canonically.",
+      "verification": "exact_head_required_ci_and_gate_evidence",
+      "mandatory": true
+    }
+  ],
+  "process_improvement_links": [
+    "P-1",
+    "P-3",
+    "P-4"
+  ],
+  "closure_evidence": {
+    "implementation_pr": 175,
+    "reviewed_head": "d311c5a2a338fb4bdb7d9d0ccb1ad60e60a68356",
+    "artifact_hash": "c07ba5295b7b6f6ac11ddee981e206fb27278d4f2b35dfafbffdd1c15d8b6c6e",
+    "merge_sha": "584e2fce3fb41439b02e0481b439142f00c6099a",
+    "workflow_dispatch_run": 35057738409,
+    "merge_job": 104671336183,
+    "postmerge_verify_job": 104671401122,
+    "postmerge_failure_job": 104671839562,
+    "premerge_canonical_ci_run": 34972658953,
+    "premerge_phase_a_run": 34972659102,
+    "premerge_multi_agent": "108/108 PASS, 0 SKIP",
+    "premerge_full_project": "906/906 PASS, 0 SKIP",
+    "postmerge_canonical_verify": "PASS",
+    "postmerge_phase_a": "PASS",
+    "postmerge_live_pr_test_note": "The pull_request-only live history test is intentionally environment-gated outside pull_request events. Its mandatory live execution was already proven on the exact PR head with 0 SKIP before merge."
+  }
+}
