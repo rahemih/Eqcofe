@@ -1,0 +1,145 @@
+{
+  "schema_version": "2.2",
+  "task_id": "MA-PILOT-MEDIUM-001",
+  "title": "Pilot MEDIUM — verified token telemetry readback",
+  "description": "Execute the first real Item 8 MEDIUM-risk pilot by adding deterministic readback and integrity validation for persisted token telemetry records so later calibration can consume only canonical, untampered explicit-usage evidence. The task remains isolated from product runtime, database, API, dependencies and required workflows.",
+  "risk": "MEDIUM",
+  "risk_floor": "LOW",
+  "owner": "BACKEND",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "ce0ee9382f3b07f3a35d2f1a99601f7857e35869"
+  },
+  "scope": {
+    "read": [
+      "scripts/multi-agent/token-telemetry.mjs",
+      "test/multi-agent/token-telemetry.test.mjs",
+      "docs/14-multi-agent/TOKEN-TELEMETRY.md",
+      "docs/14-multi-agent/PROCESS-IMPROVEMENTS.md",
+      "docs/14-multi-agent/tasks/MA-ITEM7-TELEMETRY-DOCS-001.json",
+      "docs/14-multi-agent/tasks/MA-PILOT-LOW-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "write": [
+      "scripts/multi-agent/token-telemetry.mjs",
+      "test/multi-agent/token-telemetry.test.mjs",
+      "docs/14-multi-agent/TOKEN-TELEMETRY.md",
+      "docs/14-multi-agent/tasks/MA-PILOT-MEDIUM-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "src/**",
+      "apps/**",
+      "database/**",
+      "contracts/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "docs/11-step-history/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**",
+      "scripts/multi-agent/merge-policy-controller.mjs",
+      "scripts/multi-agent/scope-lock-controller.mjs",
+      "scripts/multi-agent/risk-verification-policy.mjs"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-MA-PILOT-MEDIUM-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 15000,
+    "soft_alert": 25000,
+    "hard_cap": 50000
+  },
+  "max_repair_cycles": 2,
+  "task_risk_rules": [
+    {
+      "id": "PILOT_MEDIUM_TELEMETRY_READBACK",
+      "risk": "MEDIUM",
+      "paths": [
+        "scripts/multi-agent/token-telemetry.mjs",
+        "test/multi-agent/token-telemetry.test.mjs"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "P-4",
+      "name": "Pre-Pilot Verification Gate",
+      "required_state": "CANONICAL_CLOSED",
+      "observed_state": "CANONICAL_CLOSED",
+      "merge_sha": "58291bb8ee6f834d549524380d93c112e653d5ee",
+      "blocking": false
+    },
+    {
+      "item": "ITEM-8-PILOT-LOW",
+      "name": "First real LOW pilot",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "ce0ee9382f3b07f3a35d2f1a99601f7857e35869",
+      "blocking": false
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "MEDIUM requires exact-artifact independent Review PASS and ACTIVE lock evidence. Security and Project Owner Human Gate are not required unless effective risk escalates to HIGH."
+  },
+  "protection_source": {
+    "required_contexts": [
+      "verify",
+      "phase-a",
+      "merge-policy"
+    ],
+    "required_integration": "GitHub Actions",
+    "required_integration_id": 15368
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "A persisted canonical telemetry record can be read back by task id from .eqcofe/telemetry/<task_id>.json and validates to the same deterministic record produced from its explicit usage events.",
+      "verification": "node --test test/multi-agent/token-telemetry.test.mjs",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Readback fails closed when derived aggregate fields, task binding, storage path, budget status, provenance, terminal state or calibration eligibility are inconsistent with the explicit source events.",
+      "verification": "node --test test/multi-agent/token-telemetry.test.mjs",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Persistence validates record integrity before writing and never accepts fabricated or tampered aggregate telemetry.",
+      "verification": "node --test test/multi-agent/token-telemetry.test.mjs",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "The PR changes exactly the five authorized pilot paths and does not mutate product runtime, API, database, migration, dependencies, workflows, canonical roadmap or risk/merge-policy controllers.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Deterministic classification remains MEDIUM, requiring Review plus Verification with Human Gate NOT REQUIRED; any escalation to HIGH stops this pilot and follows HIGH policy.",
+      "verification": "deterministic_risk_classification",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Exact-head canonical verify, Phase A and Merge Policy pass before protected workflow merge, followed by exact-SHA post-merge verification before MEDIUM completion is claimed.",
+      "verification": "merge_policy_execution_evidence",
+      "mandatory": true
+    }
+  ],
+  "process_improvement_links": [
+    "ITEM-8-PILOT-MEDIUM"
+  ],
+  "incident_links": []
+}
