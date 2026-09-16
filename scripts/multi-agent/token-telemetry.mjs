@@ -1,5 +1,6 @@
-import { mkdir, rename, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, rename, writeFile } from 'node:fs/promises';
 import path from 'node:path';
+import { isDeepStrictEqual } from 'node:util';
 import { fileURLToPath } from 'node:url';
 
 const SOURCE_TYPES = new Set(['PROVIDER_API', 'MODEL_CLIENT', 'MANUAL_REPORTED']);
@@ -114,18 +115,44 @@ export function buildTelemetryRecord({ task_id, token_budget, events }) {
   return Object.freeze(record);
 }
 
+export function validateTelemetryRecord(record, expectedTaskId) {
+  if (!record || typeof record !== 'object' || Array.isArray(record)) fail('INVALID_TELEMETRY_RECORD');
+  const taskId = normalizeTaskId(record.task_id);
+  if (expectedTaskId && taskId !== normalizeTaskId(expectedTaskId)) fail('TELEMETRY_TASK_MISMATCH');
+  const rebuilt = buildTelemetryRecord({
+    task_id: taskId,
+    token_budget: record.token_budget,
+    events: record.events,
+  });
+  if (!isDeepStrictEqual(record, rebuilt)) fail('TELEMETRY_RECORD_INTEGRITY_MISMATCH');
+  return rebuilt;
+}
+
 export async function persistTelemetryRecord(rootDir, record) {
   if (!record || typeof record !== 'object') fail('INVALID_TELEMETRY_RECORD');
   const taskId = normalizeTaskId(record.task_id);
-  if (record.storage_path !== telemetryPath(taskId)) fail('TELEMETRY_STORAGE_PATH_MISMATCH');
-  if (!Array.isArray(record.events) || record.events.length === 0) fail('TELEMETRY_EVENTS_REQUIRED');
+  const validated = validateTelemetryRecord(record, taskId);
   const relative = telemetryPath(taskId);
   const target = path.join(rootDir, ...relative.split('/'));
   await mkdir(path.dirname(target), { recursive: true });
   const temp = `${target}.tmp-${process.pid}`;
-  await writeFile(temp, `${JSON.stringify(record, null, 2)}\n`, 'utf8');
+  await writeFile(temp, `${JSON.stringify(validated, null, 2)}\n`, 'utf8');
   await rename(temp, target);
   return relative;
+}
+
+export async function readTelemetryRecord(rootDir, taskId) {
+  const normalizedTaskId = normalizeTaskId(taskId);
+  const relative = telemetryPath(normalizedTaskId);
+  const target = path.join(rootDir, ...relative.split('/'));
+  let parsed;
+  try {
+    parsed = JSON.parse(await readFile(target, 'utf8'));
+  } catch (error) {
+    if (error instanceof SyntaxError) fail('INVALID_TELEMETRY_JSON');
+    throw error;
+  }
+  return validateTelemetryRecord(parsed, normalizedTaskId);
 }
 
 async function cli(argv) {

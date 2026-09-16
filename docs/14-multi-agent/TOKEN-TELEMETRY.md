@@ -64,6 +64,14 @@ A hard-cap result is fail-visible evidence suitable for orchestration blocking. 
 
 Only tasks whose terminal state is `MERGED` and which were not human-rejected are primary calibration samples. `ABORTED` and human-rejected telemetry remains retained for audit, but is excluded from the primary P50/P75/P90 calibration sample.
 
+## Verified readback
+
+The first real MEDIUM pilot adds deterministic readback for persisted telemetry. `readTelemetryRecord` resolves only the canonical task path and rebuilds the record from its explicit source events and token budget before accepting it. Derived aggregates such as token totals, budget status, provenance, terminal state and calibration eligibility are therefore treated as verifiable outputs rather than trusted input.
+
+`validateTelemetryRecord` fails closed when a stored or in-memory record differs from the deterministic reconstruction. `persistTelemetryRecord` applies the same integrity validation before writing, so callers cannot persist a fabricated aggregate while keeping apparently valid source events.
+
+This readback control does not create missing usage. If no explicit provider, model-client or manually reported usage event exists, there is still no canonical token-usage sample to invent. That absence remains visible for Item 9 calibration instead of being silently filled with an estimate.
+
 ## Persistence and mutation boundary
 
 The telemetry helper writes only the resolved `.eqcofe/telemetry/<task_id>.json` target using an atomic temporary-file replacement. The caller remains responsible for having a Task Contract whose write scope authorizes that telemetry path. Repository code does not bypass Scope/Lock controls merely because the file is telemetry.
