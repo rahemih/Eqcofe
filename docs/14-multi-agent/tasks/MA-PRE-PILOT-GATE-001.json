@@ -1,0 +1,128 @@
+{
+  "schema_version": "2.2",
+  "task_id": "MA-PRE-PILOT-GATE-001",
+  "title": "Pre-Pilot Verification Gate (P-4)",
+  "description": "Implement and execute the dedicated deterministic Pre-Pilot Verification Gate required before Item 8. The gate must prove cross-controller integration, synthetic LOW and HIGH lifecycle dry runs, negative fail-closed behavior, and complete regression without LLM execution or production mutation. Passing implementation tests alone does not authorize Item 8; canonical protected merge, exact-SHA post-merge verification, independent Review/QA disposition, and a separate canonical closure record are required before P-4 can be declared PASS.",
+  "risk": "MEDIUM",
+  "risk_floor": "LOW",
+  "owner": "BACKEND",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "e08589a591319feb3d2cc322b141edfb825b9627"
+  },
+  "scope": {
+    "read": [
+      "docs/14-multi-agent/GOVERNANCE.md",
+      "docs/14-multi-agent/PROCESS-IMPROVEMENTS.md",
+      "docs/14-multi-agent/ITEM7-CANONICAL-CLOSURE.md",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "scripts/multi-agent/**",
+      "test/multi-agent/**",
+      "package.json",
+      ".github/workflows/ci.yml",
+      ".github/workflows/phase-a-verify.yml",
+      ".github/workflows/merge-policy.yml"
+    ],
+    "write": [
+      "scripts/multi-agent/pre-pilot-verification.mjs",
+      "test/multi-agent/pre-pilot-verification.test.mjs",
+      "docs/14-multi-agent/tasks/MA-PRE-PILOT-GATE-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/workflows/**",
+      "src/**",
+      "database/**",
+      "contracts/**",
+      "apps/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**",
+      "docs/14-multi-agent/GOVERNANCE.md",
+      "docs/14-multi-agent/PROCESS-IMPROVEMENTS.md",
+      "docs/14-multi-agent/ITEM7-CANONICAL-CLOSURE.md"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-MA-PRE-PILOT-GATE-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 20000,
+    "soft_alert": 30000,
+    "hard_cap": 60000
+  },
+  "max_repair_cycles": 2,
+  "task_risk_rules": [],
+  "dependencies": [
+    {
+      "item": 7,
+      "name": "Item 7 canonical closure synchronization",
+      "required_state": "CANONICAL_CLOSED",
+      "observed_state": "CANONICAL_CLOSED",
+      "merge_sha": "e08589a591319feb3d2cc322b141edfb825b9627",
+      "blocking": false
+    }
+  ],
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "A dedicated deterministic pre-pilot harness composes only Multi-Agent control modules and performs no product-runtime, database, API, workflow, package or production mutation.",
+      "verification": "pre_pilot_harness_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "All existing Items 1-7 deterministic Multi-Agent tests pass together with the complete canonical repository regression suite.",
+      "verification": "pnpm_verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Cross-controller integration covers Lock ↔ Workflow, Risk ↔ Project Map sensitive zones, Artifact Binding ↔ Human Gate invalidation, and Merge Policy ↔ required upstream gates.",
+      "verification": "pre_pilot_integration_tests",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "A synthetic LOW task completes a complete deterministic lifecycle dry run without LLM execution or production mutation.",
+      "verification": "synthetic_low_dry_run",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "A synthetic HIGH task completes a deterministic lifecycle dry run through exact-artifact Review, Security and Project Owner Human Gate handling without LLM execution or production mutation.",
+      "verification": "synthetic_high_dry_run",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Negative fail-closed coverage proves lock conflict, attempted risk downgrade, artifact mutation after approval, unauthorized gate evidence, external-head/fork rejection, spoofed required-check identity rejection, stale evidence rejection, and protection drift blocking.",
+      "verification": "pre_pilot_negative_matrix",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "Generated Task Catalog is exact for the branch, includes MA-PRE-PILOT-GATE-001, and passes deterministic docs-automation check.",
+      "verification": "node scripts/multi-agent/docs-automation.mjs --check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "Exact-head Canonical CI, Phase A Verification, Merge Policy, artifact-bound independent Review/QA PASS and ACTIVE Lock are all green with zero unresolved blocking findings before canonical merge.",
+      "verification": "exact_head_required_ci_and_gate_evidence",
+      "mandatory": true
+    },
+    {
+      "id": "AC-009",
+      "description": "P-4 remains not-PASS and Item 8 remains forbidden until this task is merged through protected main, exact-SHA post-merge verification succeeds, and a separate canonical closure synchronization records P-4 PASS.",
+      "verification": "postmerge_closure_guard",
+      "mandatory": true
+    }
+  ],
+  "process_improvement_links": [
+    "P-4"
+  ]
+}
