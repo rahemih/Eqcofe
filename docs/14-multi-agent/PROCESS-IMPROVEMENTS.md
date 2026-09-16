@@ -6,9 +6,9 @@ This backlog records governance/process improvements discovered during implement
 
 | ID | Improvement | Source | Priority | Status | Required Before |
 | --- | --- | --- | --- | --- | --- |
-| P-1 | Enforce declared write-scope validation before each authorized agent mutation/commit and reject unauthorized committed history before canonical merge. | `MA-POSTMERGE-DRIFT-001`, `MA-SCOPE-SLIP-POSTITEM6-001`, `MA-POSTMERGE-VERIFY-SUPPRESSED-001` | High | ITEM 7 IMPLEMENTED ON BRANCH / CANONICAL PROOF PENDING | Item 7 closure |
+| P-1 | Enforce declared write-scope validation before each authorized agent mutation/commit and reject unauthorized committed history before canonical merge. | `MA-POSTMERGE-DRIFT-001`, `MA-SCOPE-SLIP-POSTITEM6-001`, `MA-POSTMERGE-VERIFY-SUPPRESSED-001` | High | CLOSED — PR #175 / Item 7 canonical + post-merge verified | Item 7 closure |
 | P-2 | Add a deterministic scope validation check to the required pre-merge workflow so out-of-scope mutations fail closed. | `MA-POSTMERGE-DRIFT-001` | High | CLOSED — PR #166 / Item 6 | First production pilot merge |
-| P-3 | Publish a CI-stuck workaround playbook containing only scope-safe recovery methods and explicitly forbidding out-of-scope file edits. | `MA-POSTMERGE-DRIFT-001`, repeated scope-slip pattern | Medium | ITEM 7 IMPLEMENTED ON BRANCH / CANONICAL PROOF PENDING | Item 7 closure |
+| P-3 | Publish a CI-stuck workaround playbook containing only scope-safe recovery methods and explicitly forbidding out-of-scope file edits. | `MA-POSTMERGE-DRIFT-001`, repeated scope-slip pattern | Medium | CLOSED — PR #175 / Item 7 canonical + post-merge verified | Item 7 closure |
 | P-4 | Execute a dedicated Pre-Pilot Verification Gate covering deterministic unit/regression, cross-controller integration, LOW/HIGH dry runs, and negative fail-closed scenarios before any real Pilot task. | Project Owner directive after Item 6 closure | High | REGISTERED / NOT EXECUTED | First Item 8 Pilot task |
 
 ## P-1 — Per-Mutation / Per-Commit Scope Enforcement
@@ -32,7 +32,9 @@ Every repository mutation associated with a task must be checked against the act
 
 By the post-Item6 / PR #173 remediation period, the program had accumulated five operational incidents, including three scope-slip/operator-mutation incidents. Independent review escalated scope discipline from a manual-process concern to mandatory Item 7 automation.
 
-Item 7 implements a two-layer model: pre-change validation for authorized agent writes and a required-CI complete commit-history backstop. The control intentionally claims **merge prevention**, not physical impossibility of every out-of-band feature-branch push. P-1 becomes CLOSED only after the Item 7 exact artifact passes required CI, independent Review, canonical merge, and post-merge verification.
+Item 7 implements a two-layer model: pre-change validation for authorized agent writes and a required-CI complete commit-history backstop. The control intentionally claims **merge prevention**, not physical impossibility of every out-of-band feature-branch push.
+
+`P-1` is **CLOSED**. PR `#175` passed exact-head required CI and independent Review, merged canonically at `584e2fce3fb41439b02e0481b439142f00c6099a`, and its exact-SHA post-merge verification job `104671401122` completed successfully in workflow_dispatch run `35057738409`.
 
 ## P-2 — Required Pre-Merge Scope Check
 
@@ -73,7 +75,9 @@ Never create a synthetic marker file, temporary workaround file, or unrelated do
 
 If no scope-safe rerun mechanism exists, the task remains blocked until a governance-approved recovery path is defined.
 
-Item 7 publishes the detailed operational form of this playbook in `docs/14-multi-agent/SCOPE-DISCIPLINE.md`. P-3 becomes CLOSED only after Item 7 is canonical and post-merge verification passes.
+Item 7 publishes the detailed operational form of this playbook in `docs/14-multi-agent/SCOPE-DISCIPLINE.md`.
+
+`P-3` is **CLOSED**. PR `#175` merged canonically and its exact-SHA post-merge verification succeeded in run `35057738409`, satisfying the closure condition previously recorded for this process item.
 
 ## P-4 — Pre-Pilot Verification Gate
 
@@ -94,6 +98,24 @@ P-4 is a mandatory prerequisite for frozen implementation-order Item 8 (**Pilot 
 - Negative tests prove fail-closed behavior for lock conflict, attempted risk downgrade, artifact mutation after approval, unauthorized evidence, external-head/fork PR, spoofed required-check identity, stale evidence, and protection drift.
 - Required CI passes on the exact verification artifact and Reviewer/QA records no unresolved blocking finding.
 - `FAIL`, `PENDING`, `NOT_EXECUTED`, or otherwise unverified mandatory checks prohibit the first Pilot.
+
+## Item 7 canonical closure evidence
+
+Item 7 is canonically closed by the following evidence:
+
+- implementation PR `#175`;
+- reviewed exact head `d311c5a2a338fb4bdb7d9d0ccb1ad60e60a68356`;
+- artifact hash `c07ba5295b7b6f6ac11ddee981e206fb27278d4f2b35dfafbffdd1c15d8b6c6e`;
+- canonical merge commit `584e2fce3fb41439b02e0481b439142f00c6099a`;
+- workflow_dispatch merge/post-merge run `35057738409` — `SUCCESS`;
+- exact-SHA post-merge verification job `104671401122` — `SUCCESS`;
+- pre-merge Multi-Agent `108/108 PASS`, `0 SKIP`;
+- pre-merge full project `906/906 PASS`, `0 SKIP`;
+- post-merge canonical verification and Phase A — `PASS`.
+
+The original Item 7 Task Contract remains the reviewed implementation artifact snapshot. Terminal status is recorded in `docs/14-multi-agent/ITEM7-CANONICAL-CLOSURE.md` and `MA-POST-ITEM7-GOVERNANCE-001`.
+
+`P-4` remains **REGISTERED / NOT EXECUTED**. Item 8 remains forbidden until the separate Pre-Pilot Verification Gate reaches PASS.
 
 ## Item 7 implementation note
 
