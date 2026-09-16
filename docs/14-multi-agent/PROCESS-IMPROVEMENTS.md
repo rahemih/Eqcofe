@@ -1,39 +1,38 @@
 # EQCOFE Multi-Agent Process Improvement Backlog
 
-This backlog records governance/process improvements discovered during implementation. Entries are not considered implemented until a dedicated task, verification evidence, and required review gates are complete.
+This backlog records governance/process improvements discovered during implementation. Entries are not considered canonical until the implementing task is merged and its required post-merge verification succeeds.
 
 ## Active Items
 
 | ID | Improvement | Source | Priority | Status | Required Before |
 | --- | --- | --- | --- | --- | --- |
-| P-1 | Enforce declared write-scope validation before each mutation/commit and reject unauthorized paths before they can enter active task branch history. | `MA-POSTMERGE-DRIFT-001`, `MA-SCOPE-SLIP-POSTITEM6-001`, `MA-POSTMERGE-VERIFY-SUPPRESSED-001` | High | MANDATORY ITEM 7 HARDENING / NOT IMPLEMENTED | Item 7 closure |
+| P-1 | Enforce declared write-scope validation before each authorized agent mutation/commit and reject unauthorized committed history before canonical merge. | `MA-POSTMERGE-DRIFT-001`, `MA-SCOPE-SLIP-POSTITEM6-001`, `MA-POSTMERGE-VERIFY-SUPPRESSED-001` | High | ITEM 7 IMPLEMENTED ON BRANCH / CANONICAL PROOF PENDING | Item 7 closure |
 | P-2 | Add a deterministic scope validation check to the required pre-merge workflow so out-of-scope mutations fail closed. | `MA-POSTMERGE-DRIFT-001` | High | CLOSED — PR #166 / Item 6 | First production pilot merge |
-| P-3 | Publish a CI-stuck workaround playbook containing only scope-safe recovery methods and explicitly forbidding out-of-scope file edits. | `MA-POSTMERGE-DRIFT-001`, repeated scope-slip pattern | Medium | OPEN / REQUIRED WITH ITEM 7 HARDENING | Item 7 closure |
+| P-3 | Publish a CI-stuck workaround playbook containing only scope-safe recovery methods and explicitly forbidding out-of-scope file edits. | `MA-POSTMERGE-DRIFT-001`, repeated scope-slip pattern | Medium | ITEM 7 IMPLEMENTED ON BRANCH / CANONICAL PROOF PENDING | Item 7 closure |
 | P-4 | Execute a dedicated Pre-Pilot Verification Gate covering deterministic unit/regression, cross-controller integration, LOW/HIGH dry runs, and negative fail-closed scenarios before any real Pilot task. | Project Owner directive after Item 6 closure | High | REGISTERED / NOT EXECUTED | First Item 8 Pilot task |
 
 ## P-1 — Per-Mutation / Per-Commit Scope Enforcement
 
 ### Goal
 
-Every repository mutation associated with a task must be checked against the active Task Contract write scope before it can become accepted task history. Final-diff validation remains mandatory but is not sufficient by itself to prevent transient out-of-scope branch mutations.
+Every repository mutation associated with a task must be checked against the active Task Contract write scope before it becomes accepted canonical history. Final-diff validation remains mandatory but is not sufficient by itself to detect transient out-of-scope commits that are later reverted.
 
 ### Minimum acceptance
 
-- The active Task Contract is resolved before any repository write operation.
+- The active Task Contract is resolved before an authorized agent repository write.
 - The intended path is normalized and checked against declared `scope.write` and `scope.forbidden` before mutation.
 - Forbidden patterns always win over allowed write patterns.
-- An unauthorized path is rejected before a commit can be created or attached to the task branch.
-- Exact changed paths for each produced commit are rechecked after commit creation; any mismatch fails closed and prevents further task progress.
-- CI still validates the PR's complete changed-file set, including source and destination paths for rename operations.
+- Exact changed paths for every branch-only commit are independently rechecked in required PR CI.
+- CI validates source and destination paths for rename/copy operations.
 - Documentation-only, CI-retrigger, marker, and semantically trivial changes are not exempt.
-- Artifact-bound Review, Security, Human Gate, and Lock evidence becomes stale after any artifact mutation.
-- The automation has deterministic tests for an unauthorized temporary file, a rename crossing scope, and a forbidden path that also matches a broad allowed glob.
+- Artifact-bound Review, Security, Human Gate, and Lock evidence becomes stale after artifact mutation according to the existing Merge Policy.
+- Regression coverage includes an unauthorized temporary file followed by a reverting commit, a rename crossing scope, and a forbidden path that also matches broad allowed scope.
 
 ### Repeated-scope-slip escalation — mandatory Item 7 hardening
 
-By the post-Item6 / PR #173 remediation period, the program had accumulated five operational incidents, including three scope-slip/operator-mutation incidents. Independent review therefore escalated scope discipline from a manual-process concern to a mandatory automation requirement.
+By the post-Item6 / PR #173 remediation period, the program had accumulated five operational incidents, including three scope-slip/operator-mutation incidents. Independent review escalated scope discipline from a manual-process concern to mandatory Item 7 automation.
 
-Item 7 (**Token Telemetry and Docs Automation**) MUST NOT close until P-1 is implemented and verified as an automated fail-closed control. This is a subtask/prerequisite inside the existing frozen Item 7; it does not create a new numbered implementation item and does not renumber Specification v3.1.
+Item 7 implements a two-layer model: pre-change validation for authorized agent writes and a required-CI complete commit-history backstop. The control intentionally claims **merge prevention**, not physical impossibility of every out-of-band feature-branch push. P-1 becomes CLOSED only after the Item 7 exact artifact passes required CI, independent Review, canonical merge, and post-merge verification.
 
 ## P-2 — Required Pre-Merge Scope Check
 
@@ -53,7 +52,7 @@ Make final PR scope validation a deterministic CI gate, not a manual convention.
 
 P-2 depended on implementation of the Scope / Lock Controller and Verification Policy. Item 6 (`MA-MERGE-POLICY-001`) implemented the required pre-merge scope validation in the protected `merge-policy` check and became canonical in PR `#166` at merge commit `6df69308082698e6fbd0ae802b1e24fce3d3f866`. P-2 is therefore closed.
 
-P-2 does not replace P-1: P-2 validates the final PR artifact, while P-1 prevents unauthorized transient branch mutations before they can become task history.
+P-2 does not replace P-1: P-2 validates the final PR artifact, while P-1 adds authorized pre-change validation plus complete branch-history detection for transient committed violations.
 
 ## P-3 — CI-Stuck Workaround Playbook
 
@@ -74,6 +73,8 @@ Never create a synthetic marker file, temporary workaround file, or unrelated do
 
 If no scope-safe rerun mechanism exists, the task remains blocked until a governance-approved recovery path is defined.
 
+Item 7 publishes the detailed operational form of this playbook in `docs/14-multi-agent/SCOPE-DISCIPLINE.md`. P-3 becomes CLOSED only after Item 7 is canonical and post-merge verification passes.
+
 ## P-4 — Pre-Pilot Verification Gate
 
 ### Goal
@@ -93,3 +94,7 @@ P-4 is a mandatory prerequisite for frozen implementation-order Item 8 (**Pilot 
 - Negative tests prove fail-closed behavior for lock conflict, attempted risk downgrade, artifact mutation after approval, unauthorized evidence, external-head/fork PR, spoofed required-check identity, stale evidence, and protection drift.
 - Required CI passes on the exact verification artifact and Reviewer/QA records no unresolved blocking finding.
 - `FAIL`, `PENDING`, `NOT_EXECUTED`, or otherwise unverified mandatory checks prohibit the first Pilot.
+
+## Item 7 implementation note
+
+Item 7 also adds provider-neutral Token Telemetry and deterministic Docs Automation. Docs generation owns only `docs/14-multi-agent/generated/TASK-CATALOG.md`; incident history and frozen governance documentation remain manually controlled. The existing `multi-agent:test` wildcard is intentionally reused, so Item 7 does not modify `package.json` or required workflow files.
