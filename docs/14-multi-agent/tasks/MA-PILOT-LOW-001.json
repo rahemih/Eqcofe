@@ -1,0 +1,121 @@
+{
+  "schema_version": "2.2",
+  "task_id": "MA-PILOT-LOW-001",
+  "title": "Pilot LOW — DomainEventCollector regression coverage",
+  "description": "Execute the first real Item 8 LOW-risk pilot by adding focused regression coverage for the shared DomainEventCollector FIFO/drain behavior without modifying production runtime code.",
+  "risk": "LOW",
+  "risk_floor": "LOW",
+  "owner": "BACKEND",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "f560a46d802da7668c7fb8ef79e7f55887f8f321"
+  },
+  "scope": {
+    "read": [
+      "src/shared/kernel/domain-event.ts",
+      "scripts/run-tests.mjs",
+      "scripts/multi-agent/project-map.mjs",
+      "scripts/multi-agent/risk-verification-policy.mjs",
+      "docs/14-multi-agent/GOVERNANCE.md",
+      "docs/14-multi-agent/PROCESS-IMPROVEMENTS.md"
+    ],
+    "write": [
+      "test/domain-event-collector-pilot-low.spec.ts",
+      "docs/14-multi-agent/tasks/MA-PILOT-LOW-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "src/**",
+      "apps/**",
+      "database/**",
+      "contracts/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "docs/11-step-history/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-MA-PILOT-LOW-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 8000,
+    "soft_alert": 12000,
+    "hard_cap": 25000
+  },
+  "max_repair_cycles": 2,
+  "task_risk_rules": [],
+  "dependencies": [
+    {
+      "item": "P-4",
+      "name": "Pre-Pilot Verification Gate",
+      "required_state": "CANONICAL_CLOSED",
+      "observed_state": "CANONICAL_CLOSED",
+      "merge_sha": "58291bb8ee6f834d549524380d93c112e653d5ee",
+      "blocking": false
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "LOW-risk pilot requires exact-artifact ACTIVE LOCK and deterministic verification evidence; Reviewer/Security/Human gates are not required unless risk is escalated."
+  },
+  "protection_source": {
+    "required_contexts": [
+      "verify",
+      "phase-a",
+      "merge-policy"
+    ],
+    "required_integration": "GitHub Actions",
+    "required_integration_id": 15368
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Regression coverage proves DomainEventCollector returns recorded events in FIFO order.",
+      "verification": "domain_event_collector_regression_test",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Regression coverage proves pullEvents drains the collector and that events recorded after a drain are returned independently.",
+      "verification": "domain_event_collector_regression_test",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Exact-head canonical verification passes with no regression in the repository test suite.",
+      "verification": "canonical_verify_exact_head",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "The PR changes exactly the three authorized pilot paths and makes no production runtime, API, database, migration, dependency, workflow, or canonical roadmap mutation.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Deterministic classification remains LOW with Human Gate NOT REQUIRED; if classification escalates, the task must stop and follow the higher-risk policy.",
+      "verification": "deterministic_risk_classification",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "The pilot merges only through the protected canonical Merge Policy workflow and is followed by exact-SHA post-merge verification before LOW pilot completion is claimed.",
+      "verification": "merge_policy_execution_evidence",
+      "mandatory": true
+    }
+  ],
+  "process_improvement_links": [
+    "ITEM-8-PILOT-LOW"
+  ],
+  "incident_links": []
+}
