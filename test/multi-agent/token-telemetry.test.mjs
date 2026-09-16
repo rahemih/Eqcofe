@@ -1,11 +1,12 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtemp, readFile } from 'node:fs/promises';
+import { mkdtemp, readFile, writeFile } from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
 import {
   buildTelemetryRecord, evaluateBudget, normalizeTaskId, normalizeUsageEvent,
-  persistTelemetryRecord, telemetryPath, validateTokenBudget,
+  persistTelemetryRecord, readTelemetryRecord, telemetryPath, validateTelemetryRecord,
+  validateTokenBudget,
 } from '../../scripts/multi-agent/token-telemetry.mjs';
 
 const budget={expected_max:100,soft_alert:150,hard_cap:200};
@@ -75,4 +76,44 @@ test('record persistence uses canonical path and refuses fabricated empty teleme
   const stored=JSON.parse(await readFile(path.join(root,...relative.split('/')),'utf8'));
   assert.equal(stored.task_id,'TASK-1');
   assert.equal(stored.provenance.explicit_usage_only,true);
+});
+
+test('verified readback returns the canonical deterministic telemetry record',async()=>{
+  const root=await mkdtemp(path.join(os.tmpdir(),'eqcofe-telemetry-readback-'));
+  const record=buildTelemetryRecord({
+    task_id:'TASK-1',
+    token_budget:budget,
+    events:[{...baseEvent,terminal_state:'MERGED'}],
+  });
+  await persistTelemetryRecord(root,record);
+  const loaded=await readTelemetryRecord(root,'TASK-1');
+  assert.deepEqual(loaded,record);
+  assert.equal(loaded.calibration_primary_sample,true);
+});
+
+test('telemetry integrity validation fails closed on tampered derived aggregates',async()=>{
+  const root=await mkdtemp(path.join(os.tmpdir(),'eqcofe-telemetry-tamper-'));
+  const record=buildTelemetryRecord({task_id:'TASK-1',token_budget:budget,events:[baseEvent]});
+  const tampered={...record,measurements:{...record.measurements,total_model_tokens:999}};
+  assert.throws(()=>validateTelemetryRecord(tampered,'TASK-1'),/TELEMETRY_RECORD_INTEGRITY_MISMATCH/);
+  await assert.rejects(()=>persistTelemetryRecord(root,tampered),/TELEMETRY_RECORD_INTEGRITY_MISMATCH/);
+
+  const relative=telemetryPath('TASK-1');
+  const target=path.join(root,...relative.split('/'));
+  await persistTelemetryRecord(root,record);
+  await writeFile(target,`${JSON.stringify(tampered,null,2)}\n`,'utf8');
+  await assert.rejects(()=>readTelemetryRecord(root,'TASK-1'),/TELEMETRY_RECORD_INTEGRITY_MISMATCH/);
+});
+
+test('verified readback rejects invalid JSON and task-id mismatch',async()=>{
+  const root=await mkdtemp(path.join(os.tmpdir(),'eqcofe-telemetry-invalid-'));
+  const relative=telemetryPath('TASK-1');
+  const target=path.join(root,...relative.split('/'));
+  await persistTelemetryRecord(root,buildTelemetryRecord({task_id:'TASK-1',token_budget:budget,events:[baseEvent]}));
+  await writeFile(target,'{not-json}\n','utf8');
+  await assert.rejects(()=>readTelemetryRecord(root,'TASK-1'),/INVALID_TELEMETRY_JSON/);
+
+  const mismatched=buildTelemetryRecord({task_id:'TASK-2',token_budget:budget,events:[{...baseEvent,task_id:'TASK-2'}]});
+  await writeFile(target,`${JSON.stringify(mismatched,null,2)}\n`,'utf8');
+  await assert.rejects(()=>readTelemetryRecord(root,'TASK-1'),/TELEMETRY_TASK_MISMATCH/);
 });
