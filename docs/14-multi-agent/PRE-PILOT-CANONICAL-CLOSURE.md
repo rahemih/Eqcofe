@@ -52,6 +52,16 @@ Synthetic HIGH uses structured exact-artifact gate evidence fixtures and real wo
 
 No-production-mutation is bounded by the P-4 Task Contract scope, the exact four-file PR diff, and the isolation test that rejects filesystem/child-process/product-runtime/database/network access from the P-4 harness.
 
+## Independent closure review limitation
+
+Auditor Note:
+- Review for PR `#180` was conducted without direct GitHub access.
+- Basis: internal consistency, pattern match with PR `#178`, and chain of custody via reported SHAs.
+- Primary verification: exact-head CI plus deterministic Merge Policy enforcement.
+- Auditor review: supplementary consistency check.
+
+Any mutation after that review invalidates its artifact binding. Therefore the final independent Review/QA accepted for canonical merge must be re-issued against the exact post-note HEAD and artifact hash.
+
 ## Process-improvement closure
 
 `P-4` — Pre-Pilot Verification Gate — is **CLOSED / PASS** by PR `#179` plus successful exact-SHA post-merge verification. The separate closure synchronization containing this record must itself complete protected canonical merge and exact-SHA post-merge verification before that terminal status and Item 8 authorization become canonical.
