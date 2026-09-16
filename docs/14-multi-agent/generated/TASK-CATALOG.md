@@ -21,6 +21,6 @@
 | MA-PRE-PILOT-GATE-001 | Pre-Pilot Verification Gate (P-4) | MEDIUM | NOT_REQUIRED | `e08589a591319feb3d2cc322b141edfb825b9627` | 20000/30000/60000 |
 | MA-RISK-VERIFICATION-001 | Implement deterministic Risk Classifier and Verification Policy | MEDIUM | NOT_REQUIRED | `63b6e5a235bb13c4fd575e65c0042440c5b6544b` | 25000/35000/70000 |
 | MA-RISK-VERIFICATION-REMEDIATION-001 | Remediate Item 4 deterministic risk and verification-policy Spec drift | MEDIUM | NOT_REQUIRED | `fd85968adbe45441b154eed402f16c24c6a7e2bd` | 25000/35000/70000 |
-| MA-SCOPE-LOCK-001 | Implement deterministic Scope / Lock Controller | MEDIUM | NOT_REQUIRED | `36fa6122c246449e7e77ea0d7f632d6d27e7938c9` | 25000/35000/70000 |
+| MA-SCOPE-LOCK-001 | Implement deterministic Scope / Lock Controller | MEDIUM | NOT_REQUIRED | `36fa6122ff187841f85ccc777a0562be81ee16c8` | 25000/35000/70000 |
 
 Task contracts indexed: **17**.
