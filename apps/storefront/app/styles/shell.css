@@ -35,8 +35,7 @@ a:hover {
   color: var(--eq-color-action-primary-hover);
 }
 
-a:focus-visible,
-button:focus-visible {
+:is(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
   outline: var(--eq-border-focus) solid var(--eq-color-action-focus);
   outline-offset: var(--eq-spacing-0-5);
 }
@@ -290,10 +289,12 @@ a {
   list-style: none;
 }
 
+.breadcrumbs a,
 .site-footer a {
   display: inline-flex;
   align-items: center;
   min-block-size: var(--eq-size-touch-min);
+  min-inline-size: var(--eq-size-touch-min);
 }
 
 .site-footer__copyright {
