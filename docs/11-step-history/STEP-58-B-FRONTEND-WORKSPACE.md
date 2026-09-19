@@ -106,3 +106,15 @@ Stage B فقط بعد از تمام موارد زیر Canonical بسته می‌
 ## Gate verdict before transport
 
 `IMPLEMENTATION READY / CANONICAL GATE PENDING`
+
+
+## Canonical CI remediation
+
+اولین Canonical CI روی PR نهایی، frozen install را PASS کرد اما در `pnpm policy:check` شکست خورد. علت، Frontend source نبود: تابع legacy `filesUnder('apps')` به‌صورت recursive وارد `apps/storefront/node_modules` می‌شد و declarationهای vendor مربوط به Node/Vite/ESLint را به‌اشتباه به‌عنوان source پروژه بررسی می‌کرد.
+
+Remediation محدود Stage B:
+
+- `scripts/check-project-policies.mjs` اکنون directory با نام `node_modules` را در هر عمق نادیده می‌گیرد.
+- تمام sourceهای واقعی زیر `src` و `apps` همچنان با همان ruleهای Toman / no-wallet / config-boundary بررسی می‌شوند.
+- هیچ policy rule حذف یا ضعیف نشده است.
+- تغییر global pnpm linker به `hoisted` عمداً رد شد تا strict isolated dependency layout حفظ شود.
