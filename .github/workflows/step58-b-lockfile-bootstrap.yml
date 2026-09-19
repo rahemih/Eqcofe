@@ -1,7 +1,7 @@
 name: Step 58-B Lockfile Bootstrap
 
 permissions:
-  contents: read
+  contents: write
 
 on:
   push:
@@ -31,6 +31,17 @@ jobs:
         run: pnpm --filter @eqcofe/storefront static-quality
       - name: Build storefront
         run: pnpm --filter @eqcofe/storefront build
+      - name: Materialize verified lockfile on bootstrap branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add pnpm-lock.yaml
+          if git diff --cached --quiet; then
+            echo "lockfile already materialized"
+          else
+            git commit -m "chore(step58-b): materialize verified bootstrap lockfile"
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
       - uses: actions/upload-artifact@v4
         with:
           name: step58-b-pnpm-lock
