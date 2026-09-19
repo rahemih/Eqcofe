@@ -34,8 +34,8 @@ type RuntimeInput = {
 const DEFAULT_TIMEOUT_MS = 10_000;
 
 export function createApiClient(config: ApiClientConfig): ApiClient {
-  const baseUrl = normalizeBaseUrl(config.baseUrl);
-  const defaultTimeoutMs = normalizeTimeout(config.timeoutMs ?? DEFAULT_TIMEOUT_MS);
+  const baseUrl = normalizeApiBaseUrl(config.baseUrl);
+  const defaultTimeoutMs = normalizeApiTimeout(config.timeoutMs ?? DEFAULT_TIMEOUT_MS);
   const fetchImpl = config.fetchImpl ?? fetch;
 
   return {
@@ -46,7 +46,7 @@ export function createApiClient(config: ApiClientConfig): ApiClient {
     ): Promise<ApiSuccessResult<M, P>> {
       const runtime = input as RuntimeInput;
       const url = buildUrl(baseUrl, path, runtime.pathParams, runtime.query);
-      const timeoutMs = normalizeTimeout(runtime.timeoutMs ?? defaultTimeoutMs);
+      const timeoutMs = normalizeApiTimeout(runtime.timeoutMs ?? defaultTimeoutMs);
       const safeRetry = isSafeRetryMethod(method);
       const maxAttempts = safeRetry ? SERVER_DATA_POLICY.safeRetry.maxAttempts : 1;
 
@@ -151,7 +151,7 @@ export function createApiClient(config: ApiClientConfig): ApiClient {
   };
 }
 
-function normalizeBaseUrl(value: string): string {
+export function normalizeApiBaseUrl(value: string): string {
   const trimmed = value.trim();
   if (!trimmed) {
     throw new ApiClientError({
@@ -187,7 +187,7 @@ function normalizeBaseUrl(value: string): string {
   return url.toString().replace(/\/+$/, "");
 }
 
-function normalizeTimeout(value: number): number {
+export function normalizeApiTimeout(value: number): number {
   if (!Number.isFinite(value) || value < 100 || value > 60_000) {
     throw new ApiClientError({
       kind: "configuration",
