@@ -15,6 +15,7 @@
 | MA-ARTIFACT-HASH-001 | Implement deterministic Artifact Hash Generator | MEDIUM | NOT_REQUIRED | `86124a4f6a431953b0b28bbd4a359769941101ea` | 25000/35000/70000 |
 | MA-BOOTSTRAP-001 | Bootstrap deterministic multi-agent foundation | MEDIUM | NOT_REQUIRED | `01f0fa033af07c5ba5189b2c85ebfe51b095cdba` | 25000/35000/70000 |
 | MA-ITEM7-TELEMETRY-DOCS-001 | Item 7 — Token Telemetry, Docs Automation and Scope Validation Hardening | MEDIUM | NOT_REQUIRED | `766904585dc601e36eec12c126e141efc4f6dc0a` | 30000/45000/90000 |
+| MA-ITEM9-CALIBRATION-A-001 | Item 9 Calibration — Stage A canonical evidence and sample sufficiency baseline | MEDIUM | NOT_REQUIRED | `020a7e39c953749af1e75331202143164572f166` | 15000/25000/50000 |
 | MA-MERGE-POLICY-001 | Merge Policy Controller and protection validation | HIGH | REQUIRED | `3fbf6737562602af2ea7cdf2d326267efb443f34` | 50000/60000/120000 |
 | MA-PHASE-A-DOCS-PATH-001 | Run Phase A verification for multi-agent governance documentation PRs | MEDIUM | NOT_REQUIRED | `6df69308082698e6fbd0ae802b1e24fce3d3f866` | 12000/35000/70000 |
 | MA-PILOT-HIGH-001 | Pilot HIGH — fail-closed Price Rule update validation | HIGH | REQUIRED | `51252043799ee5f8a3fa427d668f66b7c60bebad` | 18000/30000/60000 |
@@ -29,4 +30,4 @@
 | MA-RISK-VERIFICATION-REMEDIATION-001 | Remediate Item 4 deterministic risk and verification-policy Spec drift | MEDIUM | NOT_REQUIRED | `fd85968adbe45441b154eed402f16c24c6a7e2bd` | 25000/35000/70000 |
 | MA-SCOPE-LOCK-001 | Implement deterministic Scope / Lock Controller | MEDIUM | NOT_REQUIRED | `36fa6122ff187841f85ccc777a0562be81ee16c8` | 25000/35000/70000 |
 
-Task contracts indexed: **23**.
+Task contracts indexed: **24**.

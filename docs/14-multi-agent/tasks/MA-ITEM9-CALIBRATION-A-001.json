@@ -1,0 +1,153 @@
+{
+  "schema_version": "2.2",
+  "task_id": "MA-ITEM9-CALIBRATION-A-001",
+  "title": "Item 9 Calibration — Stage A canonical evidence and sample sufficiency baseline",
+  "description": "Start Item 9 by establishing an auditable per-risk-class calibration baseline after the canonical LOW, MEDIUM and HIGH pilots. This stage inventories only canonical explicit telemetry, records insufficient-data states without estimation, preserves current risk/gate/budget policy when evidence is insufficient, and freezes the staged path for deterministic calibration work.",
+  "risk": "MEDIUM",
+  "risk_floor": "LOW",
+  "owner": "BACKEND",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "020a7e39c953749af1e75331202143164572f166"
+  },
+  "scope": {
+    "read": [
+      "docs/14-multi-agent/GOVERNANCE.md",
+      "docs/14-multi-agent/TOKEN-TELEMETRY.md",
+      "docs/14-multi-agent/PROCESS-IMPROVEMENTS.md",
+      "docs/14-multi-agent/tasks/MA-PILOT-LOW-001.json",
+      "docs/14-multi-agent/tasks/MA-PILOT-MEDIUM-001.json",
+      "docs/14-multi-agent/tasks/MA-PILOT-HIGH-001.json",
+      "scripts/multi-agent/token-telemetry.mjs",
+      "scripts/multi-agent/risk-verification-policy.mjs",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "write": [
+      "docs/14-multi-agent/ITEM9-CALIBRATION.md",
+      "docs/14-multi-agent/tasks/MA-ITEM9-CALIBRATION-A-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      ".eqcofe/**",
+      "src/**",
+      "apps/**",
+      "database/**",
+      "contracts/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "docs/11-step-history/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**",
+      "scripts/multi-agent/**",
+      "test/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-MA-ITEM9-CALIBRATION-A-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 15000,
+    "soft_alert": 25000,
+    "hard_cap": 50000
+  },
+  "max_repair_cycles": 2,
+  "task_risk_rules": [
+    {
+      "id": "ITEM9_CALIBRATION_BASELINE",
+      "risk": "MEDIUM",
+      "paths": [
+        "docs/14-multi-agent/ITEM9-CALIBRATION.md",
+        "docs/14-multi-agent/tasks/MA-ITEM9-CALIBRATION-A-001.json"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "ITEM-8-PILOT-LOW",
+      "name": "First real LOW pilot",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "ce0ee9382f3b07f3a35d2f1a99601f7857e35869",
+      "blocking": false
+    },
+    {
+      "item": "ITEM-8-PILOT-MEDIUM",
+      "name": "First real MEDIUM pilot",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "4cfdf4a075e8838c35b5dd2b14836fdbd5b2ad34",
+      "blocking": false
+    },
+    {
+      "item": "ITEM-8-PILOT-HIGH",
+      "name": "First real HIGH pilot",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "be5c819a414b96fa5ba2f4ba1927831c76be20da",
+      "blocking": false
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Item 9 Stage A is MEDIUM and requires exact-artifact Review PASS plus ACTIVE lock evidence. Security and Project Owner Human Gate are not required unless effective risk escalates."
+  },
+  "protection_source": {
+    "required_contexts": [
+      "verify",
+      "phase-a",
+      "merge-policy"
+    ],
+    "required_integration": "GitHub Actions",
+    "required_integration_id": 15368
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Stage A records the canonical LOW, MEDIUM and HIGH pilot completion evidence and does not start until all three pilots are canonically complete.",
+      "verification": "item9_pilot_dependency_audit",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Calibration inventory uses explicit canonical telemetry only. Missing .eqcofe/telemetry evidence is reported as missing and never replaced with estimates or synthetic usage.",
+      "verification": "item9_telemetry_provenance_audit",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "LOW, MEDIUM and HIGH each receive an explicit sample-sufficiency disposition. With zero canonical primary samples, numeric token-budget calibration remains INSUFFICIENT_CANONICAL_TELEMETRY.",
+      "verification": "item9_risk_class_sample_matrix",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Stage A makes no risk-policy, verification-gate, token-budget, retry-limit, runtime, API, database, migration, dependency or workflow mutation.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "The Item 9 document freezes the staged execution path A through D and requires later numerical recommendations to be deterministic, evidence-backed and fail closed when sample sufficiency is unmet.",
+      "verification": "item9_stage_plan_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Exact-head Canonical CI, Phase A and Merge Policy pass before protected workflow merge, followed by exact-SHA post-merge verification before Stage A is called canonically complete.",
+      "verification": "merge_policy_execution_evidence",
+      "mandatory": true
+    }
+  ],
+  "process_improvement_links": [
+    "ITEM-9-CALIBRATION"
+  ],
+  "incident_links": []
+}
