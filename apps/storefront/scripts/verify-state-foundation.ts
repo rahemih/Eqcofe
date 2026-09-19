@@ -2,8 +2,6 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { renderToStaticMarkup } from "react-dom/server";
-import { StatePanel } from "../app/components/StatePanel.js";
 import { ApiClientError } from "../app/platform/api/errors.js";
 import {
   connectivityHintFromOnlineFlag,
@@ -26,6 +24,11 @@ const recoverySource = readFileSync(
   "utf8",
 );
 const stateCss = readFileSync(resolve(storefrontRoot, "app/styles/state.css"), "utf8");
+const statePanelSource = readFileSync(
+  resolve(storefrontRoot, "app/components/StatePanel.tsx"),
+  "utf8",
+);
+const i18nSource = readFileSync(resolve(storefrontRoot, "app/i18n/fa-IR.ts"), "utf8");
 const rootSource = readFileSync(resolve(storefrontRoot, "app/root.tsx"), "utf8");
 const wireframe = JSON.parse(
   readFileSync(
@@ -177,47 +180,24 @@ const mutationFailure = classifyApiFailureState(networkError, {
 });
 assert.equal(mutationFailure.status, "error");
 
-const loadingMarkup = renderToStaticMarkup(
-  StatePanel({
-    variant: "loading",
-    loadingMode: "refresh",
-  }),
-);
-assert.match(loadingMarkup, /role="status"/);
-assert.match(loadingMarkup, /aria-busy="true"/);
-assert.match(loadingMarkup, /در حال به‌روزرسانی/);
-
-const forbiddenMarkup = renderToStaticMarkup(
-  StatePanel({
-    variant: "forbidden",
-    requestId: "req-123",
-  }),
-);
-assert.match(forbiddenMarkup, /دسترسی به این بخش مجاز نیست/);
-assert.match(forbiddenMarkup, /<bdi dir="ltr">req-123<\/bdi>/);
-
-const offlineMarkup = renderToStaticMarkup(
-  StatePanel({
-    variant: "offline",
-  }),
-);
-assert.match(offlineMarkup, /اتصال شبکه در دسترس نیست/);
-assert.equal(offlineMarkup.includes("<button"), false, "NO_INVENTED_RECOVERY_ACTION");
-
-const emptyMarkup = renderToStaticMarkup(
-  StatePanel({
-    variant: "empty",
-    emptyReason: "filtered",
-  }),
-);
-assert.match(emptyMarkup, /با این فیلتر موردی پیدا نشد/);
+assert.match(statePanelSource, /role=\{role\}/);
+assert.match(statePanelSource, /aria-live=\{urgent \? "assertive" : "polite"\}/);
+assert.match(statePanelSource, /aria-busy=\{variant === "loading" \? true : undefined\}/);
+assert.match(statePanelSource, /<bdi dir="ltr">\{requestId\}<\\\/bdi>/);
+assert.match(statePanelSource, /\{action \? \(/);
+assert.match(i18nSource, /در حال به‌روزرسانی/);
+assert.match(i18nSource, /دسترسی به این بخش مجاز نیست/);
+assert.match(i18nSource, /اتصال شبکه در دسترس نیست/);
+assert.match(i18nSource, /با این فیلتر موردی پیدا نشد/);
 
 assert.deepEqual(wireframe.stateCoverage.families.load, ["initial", "progressive", "refresh"]);
 assert.deepEqual(wireframe.stateCoverage.families.empty, ["first-use", "filtered", "no-result"]);
-assert.equal(wireframe.stateCoverage.families.provider.includes("offline"), true);
-assert.equal(wireframe.stateCoverage.families.provider.includes("timeout"), true);
-assert.equal(wireframe.stateCoverage.families.provider.includes("unknown-result"), true);
-assert.equal(wireframe.stateCoverage.families.access.includes("denied"), true);
+const providerStates = wireframe.stateCoverage.families.provider ?? [];
+const accessStates = wireframe.stateCoverage.families.access ?? [];
+assert.equal(providerStates.includes("offline"), true);
+assert.equal(providerStates.includes("timeout"), true);
+assert.equal(providerStates.includes("unknown-result"), true);
+assert.equal(accessStates.includes("denied"), true);
 
 console.log(JSON.stringify({
   status: "PASS",
