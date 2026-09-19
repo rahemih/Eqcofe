@@ -4,11 +4,11 @@ import { getMessages } from "../i18n";
 
 const destinations = [
   { to: "/", labelKey: "home", end: true },
-  { to: "/search", labelKey: "shop" },
-  { to: "/compare", labelKey: "compare" },
-  { to: "/articles", labelKey: "articles" },
-  { to: "/cart", labelKey: "cart" },
-  { to: "/account", labelKey: "account" },
+  { to: "/search", labelKey: "shop", end: false },
+  { to: "/compare", labelKey: "compare", end: false },
+  { to: "/articles", labelKey: "articles", end: false },
+  { to: "/cart", labelKey: "cart", end: false },
+  { to: "/account", labelKey: "account", end: false },
 ] as const;
 
 export function PrimaryNavigation() {
