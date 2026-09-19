@@ -178,3 +178,5 @@ Remediation:
 No storefront runtime, product feature, backend/OpenAPI/database, Stage H or Step59 implementation is added by this remediation.
 
 - PR remediation metadata includes the canonical Task Contract reference so live scope-history validation executes against the declared Stage 58-G contract.
+
+- The remediation PR carries the canonical `Task Contract:` PR-body marker required by live scope-history validation.
