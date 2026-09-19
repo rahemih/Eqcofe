@@ -18,6 +18,7 @@ console.log(JSON.stringify({ status: 'PASS', policy_set: 'toman-no-wallet-config
 function filesUnder(dir) {
   const out = [];
   for (const name of readdirSync(dir)) {
+    if (name === 'node_modules') continue;
     const path = join(dir, name);
     if (statSync(path).isDirectory()) out.push(...filesUnder(path));
     else out.push(path.replaceAll('\\', '/'));
