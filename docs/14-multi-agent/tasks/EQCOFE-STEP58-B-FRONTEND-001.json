@@ -41,14 +41,14 @@
       "apps/storefront/README.md",
       "docs/11-step-history/STEP-58-B-FRONTEND-WORKSPACE.md",
       "docs/14-multi-agent/generated/TASK-CATALOG.md",
-      "docs/14-multi-agent/tasks/EQCOFE-STEP58-B-FRONTEND-001.json"
+      "docs/14-multi-agent/tasks/EQCOFE-STEP58-B-FRONTEND-001.json",
+      "scripts/check-project-policies.mjs"
     ],
     "forbidden": [
       ".github/**",
       "contracts/**",
       "database/**",
       "src/**",
-      "scripts/**",
       "test/**",
       "apps/api/**",
       "apps/worker/**",
@@ -76,7 +76,8 @@
         "apps/storefront/**",
         "docs/11-step-history/STEP-58-B-FRONTEND-WORKSPACE.md",
         "docs/14-multi-agent/generated/TASK-CATALOG.md",
-        "docs/14-multi-agent/tasks/EQCOFE-STEP58-B-FRONTEND-001.json"
+        "docs/14-multi-agent/tasks/EQCOFE-STEP58-B-FRONTEND-001.json",
+        "scripts/check-project-policies.mjs"
       ]
     }
   ],
@@ -100,7 +101,12 @@
     ],
     "verified_lock_artifact": 10578366454,
     "verified_lock_artifact_digest": "sha256:cdff6679b4a40bbc7453c92f2f32e96e6f73ff08b41ba59bcc4b91ef20695252",
-    "linear_issue": "HOS-14"
+    "linear_issue": "HOS-14",
+    "canonical_ci_initial_failure": {
+      "run_id": 35424329224,
+      "cause": "project policy scanner recursively traversed apps/storefront/node_modules and treated vendor declarations as source",
+      "remediation": "exclude node_modules directory names from filesUnder recursion without excluding any src/apps source path"
+    }
   },
   "acceptance_criteria": [
     {
@@ -117,7 +123,7 @@
     },
     {
       "id": "AC-003",
-      "description": "Canonical root pnpm verify executes frontend verification while preserving the existing backend verification chain.",
+      "description": "Canonical root pnpm verify executes frontend verification while preserving the existing backend verification chain, and the project-policy scanner excludes vendored node_modules while continuing to scan source under src/apps.",
       "verification": "canonical_verify_integration",
       "mandatory": true
     },
