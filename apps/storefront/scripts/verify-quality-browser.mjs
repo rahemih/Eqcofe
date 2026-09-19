@@ -1,8 +1,13 @@
 import { spawn } from "node:child_process";
+import { createRequire } from "node:module";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import axe from "axe-core";
-import { chromium } from "playwright";
+
+const qaRoot = process.env.EQCOFE_BROWSER_QA_ROOT;
+if (!qaRoot) throw new Error("EQCOFE_BROWSER_QA_ROOT_REQUIRED");
+const qaRequire = createRequire(resolve(qaRoot, "package.json"));
+const axe = qaRequire("axe-core");
+const { chromium } = qaRequire("playwright");
 
 const scriptDir = dirname(fileURLToPath(import.meta.url));
 const storefrontRoot = resolve(scriptDir, "..");
