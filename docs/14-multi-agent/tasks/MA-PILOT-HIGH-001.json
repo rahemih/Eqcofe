@@ -1,0 +1,190 @@
+{
+  "schema_version": "2.2",
+  "task_id": "MA-PILOT-HIGH-001",
+  "title": "Pilot HIGH — fail-closed Price Rule update validation",
+  "description": "Execute the first real Item 8 HIGH-risk pilot by closing the validation gap in PriceRuleService.update so an existing pricing rule cannot be mutated into an invalid financial state through partial updates. Product behavior changes are limited to one pricing application service plus one dedicated regression test. Existing Step 56/57 design provenance files are updated only where canonical source-hash/manifest pinning transitively requires synchronization; no UI behavior, API, database, migration, dependency or workflow semantics change.",
+  "risk": "HIGH",
+  "risk_floor": "HIGH",
+  "owner": "BACKEND",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "51252043799ee5f8a3fa427d668f66b7c60bebad"
+  },
+  "scope": {
+    "read": [
+      "src/modules/pricing/application/price-rule.service.ts",
+      "src/modules/pricing/infrastructure/pricing.repository.ts",
+      "src/modules/pricing/domain/pricing-engine.ts",
+      "test/pricing-engine.spec.ts",
+      "docs/14-multi-agent/GOVERNANCE.md",
+      "docs/14-multi-agent/SCOPE-DISCIPLINE.md",
+      "docs/14-multi-agent/tasks/MA-PILOT-MEDIUM-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "scripts/validate-step56-pricing-inventory.mjs",
+      "docs/13-product-design/step56-pricing-inventory-wireframes.json",
+      "scripts/generate-step56-pricing-inventory.mjs",
+      "scripts/validate-step56-commerce-operations.mjs",
+      "scripts/generate-step56-commerce-operations.mjs",
+      "scripts/validate-step56-customers-growth.mjs",
+      "scripts/generate-step56-customers-growth.mjs",
+      "scripts/validate-step56-management-security.mjs",
+      "scripts/generate-step56-management-security.mjs",
+      "scripts/step56-final-audit.mjs",
+      "scripts/generate-step56-final-audit.mjs",
+      "scripts/validate-step56-final-audit.mjs",
+      "scripts/generate-step57-foundation.mjs",
+      "scripts/validate-step57-foundation.mjs"
+    ],
+    "write": [
+      "src/modules/pricing/application/price-rule.service.ts",
+      "test/pricing-price-rule-update-validation.spec.ts",
+      "docs/14-multi-agent/tasks/MA-PILOT-HIGH-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "docs/13-product-design/step56-pricing-inventory-wireframes.json",
+      "docs/13-product-design/step56-wireframes/D/manifest.json",
+      "docs/13-product-design/step56-commerce-operations-wireframes.json",
+      "docs/13-product-design/step56-wireframes/E/manifest.json",
+      "docs/13-product-design/step56-customers-growth-wireframes.json",
+      "docs/13-product-design/step56-wireframes/F/manifest.json",
+      "docs/13-product-design/step56-management-security-wireframes.json",
+      "docs/13-product-design/step56-wireframes/G/manifest.json",
+      "docs/13-product-design/step56-final-audit.json",
+      "docs/13-product-design/step56-final-audit/manifest.json",
+      "docs/13-product-design/step57-high-fidelity-contract.json"
+    ],
+    "forbidden": [
+      ".github/**",
+      "apps/**",
+      "database/**",
+      "contracts/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "src/modules/payment/**",
+      "src/modules/inventory/**",
+      "src/modules/auth/**",
+      "src/modules/cart/**",
+      "src/modules/customer/**",
+      "src/modules/pricing/infrastructure/**",
+      "src/modules/pricing/domain/**",
+      "src/modules/pricing/presentation/**",
+      "src/modules/pricing/pricing.module.ts",
+      "docs/11-step-history/**",
+      "docs/12-current-state/**",
+      "scripts/multi-agent/**",
+      "test/multi-agent/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-MA-PILOT-HIGH-001-01"
+  ],
+  "human_gate_required": true,
+  "token_budget": {
+    "expected_max": 18000,
+    "soft_alert": 30000,
+    "hard_cap": 60000
+  },
+  "max_repair_cycles": 1,
+  "task_risk_rules": [
+    {
+      "id": "PILOT_HIGH_PRICING_RULE_UPDATE",
+      "risk": "HIGH",
+      "paths": [
+        "src/modules/pricing/application/price-rule.service.ts",
+        "test/pricing-price-rule-update-validation.spec.ts"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "P-4",
+      "name": "Pre-Pilot Verification Gate",
+      "required_state": "CANONICAL_CLOSED",
+      "observed_state": "CANONICAL_CLOSED",
+      "merge_sha": "58291bb8ee6f834d549524380d93c112e653d5ee",
+      "blocking": false
+    },
+    {
+      "item": "ITEM-8-PILOT-LOW",
+      "name": "First real LOW pilot",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "ce0ee9382f3b07f3a35d2f1a99601f7857e35869",
+      "blocking": false
+    },
+    {
+      "item": "ITEM-8-PILOT-MEDIUM",
+      "name": "First real MEDIUM pilot",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "4cfdf4a075e8838c35b5dd2b14836fdbd5b2ad34",
+      "blocking": false
+    }
+  ],
+  "authorized_human_approver": {
+    "role": "PROJECT_OWNER",
+    "github_login": "rahemih"
+  },
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "SECURITY",
+      "HUMAN",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "HIGH requires exact-artifact independent Review PASS, Security PASS, explicit Project Owner Human Approval and ACTIVE lock evidence. Any artifact mutation invalidates prior artifact-bound evidence."
+  },
+  "protection_source": {
+    "required_contexts": [
+      "verify",
+      "phase-a",
+      "merge-policy"
+    ],
+    "required_integration": "GitHub Actions",
+    "required_integration_id": 15368
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "PriceRuleService.update fails closed before persistence when a percentage rule update would set value_numeric above 100.",
+      "verification": "node --test test/pricing-price-rule-update-validation.spec.ts",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "PriceRuleService.update fails closed before persistence for negative value_numeric and for invalid quantity bounds, including clearing min_quantity from a quantity_discount rule.",
+      "verification": "node --test test/pricing-price-rule-update-validation.spec.ts",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Valid partial rule updates continue through repository persistence and audit without changing value_type or rule_type semantics, and repository optimistic-version enforcement remains authoritative.",
+      "verification": "node --test test/pricing-price-rule-update-validation.spec.ts",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "The PR changes exactly the fifteen authorized pilot paths: two product/test paths, Task Contract/catalog, and only the transitive Step 56/57 source-hash/manifest provenance files required by canonical design validation. No UI behavior, API contracts, database, migrations, dependencies, workflows or unrelated product modules are mutated.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Deterministic classification remains HIGH and therefore requires independent Review, Verification, Security, exact-artifact Human Gate and ACTIVE lock evidence before merge eligibility.",
+      "verification": "deterministic_risk_classification",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Exact-head Canonical CI, Phase A and Merge Policy pass before protected workflow merge, followed by exact-SHA post-merge verification before HIGH completion is claimed.",
+      "verification": "merge_policy_execution_evidence",
+      "mandatory": true
+    }
+  ],
+  "process_improvement_links": [
+    "ITEM-8-PILOT-HIGH"
+  ],
+  "incident_links": []
+}

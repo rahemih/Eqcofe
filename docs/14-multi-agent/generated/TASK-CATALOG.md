@@ -16,6 +16,7 @@
 | MA-ITEM7-TELEMETRY-DOCS-001 | Item 7 — Token Telemetry, Docs Automation and Scope Validation Hardening | MEDIUM | NOT_REQUIRED | `766904585dc601e36eec12c126e141efc4f6dc0a` | 30000/45000/90000 |
 | MA-MERGE-POLICY-001 | Merge Policy Controller and protection validation | HIGH | REQUIRED | `3fbf6737562602af2ea7cdf2d326267efb443f34` | 50000/60000/120000 |
 | MA-PHASE-A-DOCS-PATH-001 | Run Phase A verification for multi-agent governance documentation PRs | MEDIUM | NOT_REQUIRED | `6df69308082698e6fbd0ae802b1e24fce3d3f866` | 12000/35000/70000 |
+| MA-PILOT-HIGH-001 | Pilot HIGH — fail-closed Price Rule update validation | HIGH | REQUIRED | `51252043799ee5f8a3fa427d668f66b7c60bebad` | 18000/30000/60000 |
 | MA-PILOT-LOW-001 | Pilot LOW — DomainEventCollector regression coverage | LOW | NOT_REQUIRED | `f560a46d802da7668c7fb8ef79e7f55887f8f321` | 8000/12000/25000 |
 | MA-PILOT-MEDIUM-001 | Pilot MEDIUM — verified token telemetry readback | MEDIUM | NOT_REQUIRED | `ce0ee9382f3b07f3a35d2f1a99601f7857e35869` | 15000/25000/50000 |
 | MA-POST-ITEM6-GOVERNANCE-001 | Post-Item6 governance milestone and pre-pilot verification registration | MEDIUM | NOT_REQUIRED | `90c5fe9ffa35ee5bb6d162df9ec9583d2efab4f0` | 15000/35000/70000 |
@@ -27,4 +28,4 @@
 | MA-RISK-VERIFICATION-REMEDIATION-001 | Remediate Item 4 deterministic risk and verification-policy Spec drift | MEDIUM | NOT_REQUIRED | `fd85968adbe45441b154eed402f16c24c6a7e2bd` | 25000/35000/70000 |
 | MA-SCOPE-LOCK-001 | Implement deterministic Scope / Lock Controller | MEDIUM | NOT_REQUIRED | `36fa6122ff187841f85ccc777a0562be81ee16c8` | 25000/35000/70000 |
 
-Task contracts indexed: **21**.
+Task contracts indexed: **22**.
