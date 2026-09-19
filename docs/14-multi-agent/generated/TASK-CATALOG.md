@@ -13,7 +13,7 @@
 | EQCOFE-STEP58-D-API-DATA-001 | Step 58-D API client and server data foundation | MEDIUM | NOT_REQUIRED | `d1e3f41d49e7a7d70c5c1e94c8e7bc9b1fa6d3c6` | 32000/48000/96000 |
 | EQCOFE-STEP58-E-AUTH-001 | Step 58-E auth session and security boundary | HIGH | REQUIRED | `be5c819a414b96fa5ba2f4ba1927831c76be20da` | 36000/54000/108000 |
 | EQCOFE-STEP58-F-STATE-001 | Step 58-F state errors loading and offline recovery foundation | MEDIUM | NOT_REQUIRED | `5db790c74f601c23819df943beffbff7f106f9d3` | 32000/48000/96000 |
-| EQCOFE-STEP58-G-QUALITY-001 | Step 58-G testing accessibility responsive and quality gates | HIGH | REQUIRED | `00a1bd3498f4e044cabdbbabceb2dd57f2d5e3d2` | 38000/56000/112000 |
+| EQCOFE-STEP58-G-QUALITY-001 | Step 58-G testing accessibility responsive and quality gates | HIGH | REQUIRED | `fc601866f21c3e5efc8067ddc00e8898f3c42848` | 38000/56000/112000 |
 | MA-ARTIFACT-HASH-001 | Implement deterministic Artifact Hash Generator | MEDIUM | NOT_REQUIRED | `86124a4f6a431953b0b28bbd4a359769941101ea` | 25000/35000/70000 |
 | MA-BOOTSTRAP-001 | Bootstrap deterministic multi-agent foundation | MEDIUM | NOT_REQUIRED | `01f0fa033af07c5ba5189b2c85ebfe51b095cdba` | 25000/35000/70000 |
 | MA-ITEM7-TELEMETRY-DOCS-001 | Item 7 — Token Telemetry, Docs Automation and Scope Validation Hardening | MEDIUM | NOT_REQUIRED | `766904585dc601e36eec12c126e141efc4f6dc0a` | 30000/45000/90000 |
