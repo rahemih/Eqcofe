@@ -9,7 +9,7 @@
   "canonical": {
     "repository": "rahemih/Eqcofe",
     "branch": "main",
-    "base_sha": "00a1bd3498f4e044cabdbbabceb2dd57f2d5e3d2"
+    "base_sha": "fc601866f21c3e5efc8067ddc00e8898f3c42848"
   },
   "scope": {
     "read": [
@@ -103,7 +103,15 @@
     "initial_stage_g_pr": 197,
     "reconciled_stage_g_base": "00a1bd3498f4e044cabdbbabceb2dd57f2d5e3d2",
     "reconciled_stage_g_base_source_pr": 196,
-    "drift_reason": "Protected PR #196 advanced main before Stage 58-G Human approval registration; all prior artifact-bound gates are stale."
+    "drift_reason": "Protected PR #196 advanced main before Stage 58-G Human approval registration; all prior artifact-bound gates are stale.",
+    "stage_g_primary_pr": 198,
+    "stage_g_primary_merge": "fc601866f21c3e5efc8067ddc00e8898f3c42848",
+    "primary_merge_policy_run": 35444452375,
+    "postmerge_browser_trigger_gap": {
+      "observed": true,
+      "cause": "The protected merge was performed by github-actions[bot] using GITHUB_TOKEN; GitHub suppresses workflow chaining from GITHUB_TOKEN-created pushes, so the push-triggered browser-quality workflow did not run on the exact merge SHA.",
+      "remediation": "Add workflow_dispatch to Step 58 Storefront Quality and require an explicit run on main after the remediation merge before Stage G closure."
+    }
   },
   "acceptance_criteria": [
     {
@@ -150,7 +158,7 @@
     },
     {
       "id": "AC-008",
-      "description": "HIGH-risk closure requires exact-artifact REVIEW, SECURITY, HUMAN and LOCK evidence; canonical verify/phase-a/merge-policy; browser-quality PASS on exact PR head; protected merge; exact-SHA postmerge verify/Phase-A; and browser-quality PASS on merged main.",
+      "description": "HIGH-risk closure requires exact-artifact REVIEW, SECURITY, HUMAN and LOCK evidence; canonical verify/phase-a/merge-policy; browser-quality PASS on exact PR head; protected merge; exact-SHA postmerge verify/Phase-A; and an explicit workflow_dispatch Browser Quality PASS on the final merged main SHA.",
       "verification": "high_risk_quality_canonical_transport",
       "mandatory": true
     }
@@ -164,7 +172,7 @@
       "LOCK"
     ],
     "trusted_github_transport_login": "rahemih",
-    "rule": "Stage G is HIGH risk because it introduces CI quality enforcement. Stage H and Step59 remain forbidden until both canonical and browser postmerge evidence pass."
+    "rule": "Stage G is HIGH risk because it introduces CI quality enforcement. Stage H and Step59 remain forbidden until canonical postmerge verification and explicit browser-quality workflow_dispatch on final main both pass."
   },
   "process_improvement_links": [],
   "incident_links": []
