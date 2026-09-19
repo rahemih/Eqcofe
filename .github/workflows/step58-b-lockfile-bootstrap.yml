@@ -1,0 +1,39 @@
+name: Step 58-B Lockfile Bootstrap
+
+permissions:
+  contents: read
+
+on:
+  push:
+    branches:
+      - step58/b-lockfile-bootstrap
+
+jobs:
+  bootstrap:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v5.1.0
+      - uses: pnpm/action-setup@v6.0.10
+        with:
+          version: 11.21.0
+      - uses: actions/setup-node@v6.5.0
+        with:
+          node-version: 24.18.1
+          cache: pnpm
+      - name: Generate lockfile
+        run: pnpm install --lockfile-only --no-frozen-lockfile
+      - name: Verify frozen install
+        run: pnpm install --frozen-lockfile
+      - name: Type-check storefront
+        run: pnpm --filter @eqcofe/storefront typecheck
+      - name: Static quality storefront
+        run: pnpm --filter @eqcofe/storefront static-quality
+      - name: Build storefront
+        run: pnpm --filter @eqcofe/storefront build
+      - uses: actions/upload-artifact@v4
+        with:
+          name: step58-b-pnpm-lock
+          path: pnpm-lock.yaml
+          if-no-files-found: error
+          retention-days: 1
