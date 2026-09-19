@@ -1,3 +1,34 @@
-import type { RouteConfig } from "@react-router/dev/routes";
+import { index, route, type RouteConfig } from "@react-router/dev/routes";
 
-export default [] satisfies RouteConfig;
+export default [
+  index("./routes/home.tsx"),
+  route("category/:slug", "./routes/category.tsx"),
+  route("search", "./routes/search.tsx"),
+  route("product/:slug", "./routes/product.tsx"),
+  route("compare", "./routes/compare.tsx"),
+  route("cart", "./routes/cart.tsx"),
+  route("checkout/identity", "./routes/checkout-identity.tsx"),
+  route("checkout/address", "./routes/checkout-address.tsx"),
+  route("checkout/delivery", "./routes/checkout-delivery.tsx"),
+  route("checkout/review", "./routes/checkout-review.tsx"),
+  route("payment/return", "./routes/payment-return.tsx"),
+  route("order/:orderNumber/outcome", "./routes/order-outcome.tsx"),
+  route("account", "./routes/account.tsx"),
+  route("account/profile", "./routes/account-profile.tsx"),
+  route("account/addresses", "./routes/account-addresses.tsx"),
+  route("account/orders", "./routes/account-orders.tsx"),
+  route("account/orders/:orderNumber", "./routes/account-order-detail.tsx"),
+  route("account/tools", "./routes/account-tools.tsx"),
+  route("wholesale", "./routes/wholesale.tsx"),
+  route("account/wholesale/apply", "./routes/wholesale-apply.tsx"),
+  route("account/wholesale", "./routes/account-wholesale.tsx"),
+  route("account/returns/:returnNumber?", "./routes/account-return.tsx"),
+  route("account/warranty/:claimNumber?", "./routes/account-warranty.tsx"),
+  route("articles", "./routes/articles.tsx"),
+  route("articles/:slug", "./routes/article-detail.tsx"),
+  route("about", "./routes/about.tsx"),
+  route("contact", "./routes/contact.tsx"),
+  route("faq", "./routes/faq.tsx"),
+  route("policies/terms", "./routes/terms.tsx"),
+  route("policies/returns-warranty", "./routes/returns-warranty.tsx"),
+] satisfies RouteConfig;
