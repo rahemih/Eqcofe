@@ -1,0 +1,154 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP58-D-API-DATA-001",
+  "title": "Step 58-D API client and server data foundation",
+  "description": "Implement only the storefront API/server-data foundation using the existing generated OpenAPI contract as type authority: typed path/method inputs and successful responses, server-only configuration boundary, structured errors, fail-closed no-store baseline, safe GET/HEAD retry and deterministic runtime verification. Do not implement auth/session, business feature loaders, mutation orchestration, backend contract changes, Admin frontend or Step 59.",
+  "risk": "MEDIUM",
+  "risk_floor": "MEDIUM",
+  "owner": "PRODUCT_DESIGN",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "d1e3f41d49e7a7d70c5c1e94c8e7bc9b1fa6d3c6"
+  },
+  "scope": {
+    "read": [
+      "apps/storefront/**",
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "docs/11-step-history/**",
+      "docs/12-current-state/**",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "apps/storefront/package.json",
+      "apps/storefront/.env.example",
+      "apps/storefront/README.md",
+      "apps/storefront/app/platform/api/**",
+      "apps/storefront/app/platform/config/api.server.ts",
+      "apps/storefront/scripts/verify-api-foundation.ts",
+      "docs/11-step-history/STEP-58-D-API-SERVER-DATA.md",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP58-D-API-DATA-001.json"
+    ],
+    "forbidden": [
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      ".github/**",
+      "contracts/**",
+      "database/**",
+      "src/**",
+      "scripts/**",
+      "test/**",
+      "apps/api/**",
+      "apps/worker/**",
+      "apps/scheduler/**",
+      "docs/13-product-design/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP58-D-API-DATA-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 32000,
+    "soft_alert": 48000,
+    "hard_cap": 96000
+  },
+  "task_risk_rules": [
+    {
+      "id": "STEP58_D_API_DATA_MEDIUM",
+      "risk": "MEDIUM",
+      "paths": [
+        "apps/storefront/package.json",
+        "apps/storefront/.env.example",
+        "apps/storefront/README.md",
+        "apps/storefront/app/platform/api/**",
+        "apps/storefront/app/platform/config/api.server.ts",
+        "apps/storefront/scripts/verify-api-foundation.ts",
+        "docs/11-step-history/STEP-58-D-API-SERVER-DATA.md",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP58-D-API-DATA-001.json"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": 58,
+      "name": "Stage 58-C application shell routing RTL and i18n",
+      "required_state": "CLOSED_CANONICAL_PASS",
+      "observed_state": "CLOSED_CANONICAL_PASS",
+      "merge_sha": "d1e3f41d49e7a7d70c5c1e94c8e7bc9b1fa6d3c6",
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "stage_c_pr": 188,
+    "stage_c_merge": "d1e3f41d49e7a7d70c5c1e94c8e7bc9b1fa6d3c6",
+    "linear_issue": "HOS-14",
+    "contract_source": "contracts/http/openapi.yaml",
+    "generated_type_source": "src/generated/openapi.ts"
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Storefront API request/response types derive directly from src/generated/openapi.ts generated from the canonical OpenAPI contract; no handwritten duplicate business DTO authority is introduced.",
+      "verification": "openapi_generated_type_authority",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Server API base URL and timeout are read only through the canonical platform config boundary, with no hard-coded deployment URL, credentials, token or browser-public VITE secret path.",
+      "verification": "server_config_boundary",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Typed transport encodes path/query/header/body inputs, returns structured successful response metadata, and normalizes canonical error envelopes without persisting raw error bodies.",
+      "verification": "typed_transport_and_error_model",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Server-data baseline is no-store with stale-on-error disabled and no global cache; cache semantics for business features remain explicit future work.",
+      "verification": "server_data_cache_policy",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Automatic retry is limited to GET/HEAD for network/timeout or 502/503/504 with maximum two attempts; mutations are never automatically retried.",
+      "verification": "safe_retry_policy",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Deterministic runtime verification proves typed query, UTF-8 path encoding, structured errors, safe GET retry, mutation no-retry and invalid configuration failure while existing shell and repository verification remain green.",
+      "verification": "api_foundation_runtime_verification",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "Stage D introduces no auth/session policy, no customer feature loader, no backend/API/database mutation, no Admin frontend and no Step59 implementation.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "Canonical closure requires exact-head verify/phase-a/merge-policy, artifact-bound REVIEW/LOCK, protected merge and exact-SHA postmerge verification before Stage E can start.",
+      "verification": "canonical_transport_and_postmerge_evidence",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Stage D is MEDIUM risk. Stage E and Step59 remain forbidden until protected transport and exact-SHA postmerge verification are green."
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}
