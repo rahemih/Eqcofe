@@ -5,7 +5,9 @@
   "description": "EQCOFE modular-monolith backend and canonical product-design contracts",
   "license": "UNLICENSED",
   "packageManager": "pnpm@11.21.0",
-  "engines": { "node": ">=24.18.1 <25" },
+  "engines": {
+    "node": ">=24.18.1 <25"
+  },
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
     "clean": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\"",
@@ -27,8 +29,13 @@
     "multi-agent:test": "node --test test/multi-agent/*.test.mjs",
     "multi-agent:verify": "pnpm multi-agent:map && pnpm multi-agent:test",
     "test": "node scripts/run-tests.mjs",
-    "verify": "pnpm contract:validate && pnpm design:validate && pnpm arch:check && pnpm policy:check && pnpm multi-agent:verify && pnpm build && pnpm test",
-    "bootstrap:admin": "node scripts/bootstrap-admin.mjs"
+    "verify": "pnpm contract:validate && pnpm design:validate && pnpm arch:check && pnpm policy:check && pnpm multi-agent:verify && pnpm frontend:verify && pnpm build && pnpm test",
+    "bootstrap:admin": "node scripts/bootstrap-admin.mjs",
+    "frontend:dev": "pnpm --filter @eqcofe/storefront dev",
+    "frontend:build": "pnpm --filter @eqcofe/storefront build",
+    "frontend:typecheck": "pnpm --filter @eqcofe/storefront typecheck",
+    "frontend:static-quality": "pnpm --filter @eqcofe/storefront static-quality",
+    "frontend:verify": "pnpm --filter @eqcofe/storefront verify"
   },
   "dependencies": {
     "@fastify/helmet": "13.1.0",
