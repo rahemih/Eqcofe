@@ -1,3 +1,4 @@
+import React from "react";
 import { faIR } from "../i18n/fa-IR.js";
 import type { EmptyReason, LoadingMode } from "../platform/state/surface-state.js";
 
