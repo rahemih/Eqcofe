@@ -183,7 +183,7 @@ assert.equal(mutationFailure.status, "error");
 assert.match(statePanelSource, /role=\{role\}/);
 assert.match(statePanelSource, /aria-live=\{urgent \? "assertive" : "polite"\}/);
 assert.match(statePanelSource, /aria-busy=\{variant === "loading" \? true : undefined\}/);
-assert.match(statePanelSource, /<bdi dir="ltr">\{requestId\}<\\\/bdi>/);
+assert.equal(statePanelSource.includes('<bdi dir="ltr">{requestId}</bdi>'), true);
 assert.match(statePanelSource, /\{action \? \(/);
 assert.match(i18nSource, /در حال به‌روزرسانی/);
 assert.match(i18nSource, /دسترسی به این بخش مجاز نیست/);
