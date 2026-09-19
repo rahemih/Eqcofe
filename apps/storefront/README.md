@@ -52,3 +52,12 @@ Stage 58-B bootstraps only the storefront build workspace.
 - `StatePanel` provides Persian, RTL/logical, accessible Loading/Empty/Error/Forbidden/Offline/Recovery presentation with 44px action targets. No action is invented when the caller has not supplied one.
 - Stage 58-F does not implement product/cart/checkout/account state, global business cache, optimistic updates, offline mutation queues, service workers or Step 59.
 
+## Stage 58-G testing, accessibility, responsive and quality gates
+
+- `quality:static` is part of normal storefront `verify`. It validates all 32 SSR route examples plus source/CSS quality constraints: Persian RTL root, viewport meta, landmark/heading baseline, unique IDs, ARIA-controls targets, accessible interactive names, image alt contract, keyboard-safe source order, no positive tabindex/autofocus/non-semantic click target, logical RTL CSS, no clipping/nowrap truncation hazards, canonical breakpoints, 3px focus ring, 44px target token and reduced-motion reset.
+- A dedicated `Step 58 Storefront Quality` GitHub Actions workflow performs browser-level checks with pinned free/open-source Playwright 1.55.0 and axe-core 4.10.3. No paid provider or hosted browser service is used.
+- Browser quality covers Chromium keyboard skip-link/focus transfer, compact navigation disclosure, visible focus ring, target measurement, 320/360/600/840/1200/1440 widths, horizontal reflow, prescribed text-spacing stress, long Persian copy, reduced-motion runtime and automated WCAG-tagged axe checks on representative routes at compact and expanded widths.
+- The 400% reflow automated proxy uses a 320 CSS-pixel viewport, corresponding to 1280px content at 400% reflow. This is a quality gate, not a WCAG conformance claim.
+- The quick-access container is now a labeled `nav` landmark; focus styling covers standard controls and programmatic focus targets; Breadcrumb/Footer links have explicit 44×44 minimum targets.
+- Stage 58-G does not implement customer features, business state, backend contracts or Step 59.
+
