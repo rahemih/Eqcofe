@@ -1,4 +1,4 @@
-import { faIR } from "./fa-IR";
+import { faIR } from "./fa-IR.js";
 
 export const DEFAULT_LOCALE = "fa-IR" as const;
 export const SUPPORTED_LOCALES = [DEFAULT_LOCALE] as const;
