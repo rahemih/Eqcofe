@@ -21,3 +21,14 @@ Stage 58-B bootstraps only the storefront build workspace.
 - All actual Step 55 route intents are registered only as placeholders. No API, Auth, pricing, inventory, payment result, cart logic or customer feature authority exists in Stage 58-C.
 - Stage 58-D owns API/data foundations; Stage 58-E owns Auth/session; Steps 59–66 replace the placeholders with feature implementations.
 
+## Stage 58-D API and server-data foundation
+
+- The canonical API type authority remains `src/generated/openapi.ts`, generated from `contracts/http/openapi.yaml`; the storefront does not copy or redefine request/response DTOs.
+- Server API configuration is read only from `app/platform/config/api.server.ts`, preserving the repository config boundary.
+- `EQCOFE_API_BASE_URL` is required at server runtime. No localhost, production host, credential, token, or vendor endpoint is hard-coded.
+- Requests are JSON-first, typed by OpenAPI path/method, encode path/query inputs, return structured status/request-id metadata, and normalize canonical error envelopes without storing raw response bodies.
+- Server-data caching is fail-closed at `no-store` in this foundation. Feature-specific cache semantics must be explicitly introduced later rather than inferred here.
+- Automatic retry is limited to GET/HEAD, at most two attempts, and only network/timeout failures or HTTP 502/503/504. Mutations are never retried automatically, even when a future endpoint supports idempotency keys.
+- Stage 58-D does not inject credentials, session state, or authorization headers. Stage 58-E owns that security boundary.
+- No storefront route consumes live business data yet; Steps 59–66 may adopt this foundation after Step 58 closes.
+
