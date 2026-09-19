@@ -1,4 +1,5 @@
 import type { ApiClientConfig } from "../api/request.js";
+import { normalizeApiBaseUrl, normalizeApiTimeout } from "../api/request.js";
 import { ApiClientError } from "../api/errors.js";
 
 const DEFAULT_API_TIMEOUT_MS = 10_000;
@@ -15,8 +16,8 @@ export function readServerApiConfig(env: NodeJS.ProcessEnv = process.env): ApiCl
 
   const timeoutMs = readTimeout(env.EQCOFE_API_TIMEOUT_MS);
   return {
-    baseUrl,
-    timeoutMs,
+    baseUrl: normalizeApiBaseUrl(baseUrl),
+    timeoutMs: normalizeApiTimeout(timeoutMs),
   };
 }
 
