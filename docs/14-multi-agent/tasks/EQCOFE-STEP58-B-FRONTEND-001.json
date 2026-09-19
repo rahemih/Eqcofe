@@ -1,0 +1,154 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP58-B-FRONTEND-001",
+  "title": "Step 58-B frontend workspace and build foundation",
+  "description": "Create only the production storefront workspace/build foundation: exact-pinned React Router Framework Mode on Vite with TypeScript and SSR, deterministic pnpm workspace/lockfile, real type-check/static-quality/build scripts, environment secrecy boundary, and root canonical verification integration. Do not implement Stage C shell/RTL/i18n, customer features, API/auth/business authority, Admin frontend, backend mutations or Step 59.",
+  "risk": "MEDIUM",
+  "risk_floor": "MEDIUM",
+  "owner": "PRODUCT_DESIGN",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "a81fe76943698c0f77022f8a4c379eb7b8529425"
+  },
+  "scope": {
+    "read": [
+      "package.json",
+      "pnpm-workspace.yaml",
+      "pnpm-lock.yaml",
+      ".node-version",
+      ".gitignore",
+      ".github/workflows/**",
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "docs/11-step-history/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "package.json",
+      "pnpm-workspace.yaml",
+      "pnpm-lock.yaml",
+      "apps/storefront/package.json",
+      "apps/storefront/react-router.config.ts",
+      "apps/storefront/vite.config.ts",
+      "apps/storefront/tsconfig.json",
+      "apps/storefront/eslint.config.mjs",
+      "apps/storefront/.env.example",
+      "apps/storefront/app/routes.ts",
+      "apps/storefront/app/root.tsx",
+      "apps/storefront/README.md",
+      "docs/11-step-history/STEP-58-B-FRONTEND-WORKSPACE.md",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP58-B-FRONTEND-001.json"
+    ],
+    "forbidden": [
+      ".github/**",
+      "contracts/**",
+      "database/**",
+      "src/**",
+      "scripts/**",
+      "test/**",
+      "apps/api/**",
+      "apps/worker/**",
+      "apps/scheduler/**",
+      "docs/13-product-design/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP58-B-FRONTEND-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 30000,
+    "soft_alert": 45000,
+    "hard_cap": 90000
+  },
+  "task_risk_rules": [
+    {
+      "id": "STEP58_B_FRONTEND_FOUNDATION_MEDIUM",
+      "risk": "MEDIUM",
+      "paths": [
+        "package.json",
+        "pnpm-workspace.yaml",
+        "pnpm-lock.yaml",
+        "apps/storefront/**",
+        "docs/11-step-history/STEP-58-B-FRONTEND-WORKSPACE.md",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP58-B-FRONTEND-001.json"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": 58,
+      "name": "Stage 58-A canonical handoff and frontend scope freeze",
+      "required_state": "CLOSED_CANONICAL_PASS",
+      "observed_state": "CLOSED_CANONICAL_PASS",
+      "merge_sha": "a81fe76943698c0f77022f8a4c379eb7b8529425",
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "stage_a_pr": 185,
+    "stage_a_merge": "a81fe76943698c0f77022f8a4c379eb7b8529425",
+    "bootstrap_runs": [
+      35424022470,
+      35424062217,
+      35424142023
+    ],
+    "verified_lock_artifact": 10578366454,
+    "verified_lock_artifact_digest": "sha256:cdff6679b4a40bbc7453c92f2f32e96e6f73ff08b41ba59bcc4b91ef20695252",
+    "linear_issue": "HOS-14"
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Storefront workspace uses exact-pinned React Router Framework Mode on Vite, React, TypeScript and SSR compatible with canonical Node 24.18.1 and pnpm 11.21.0, with free/open-source dependencies only.",
+      "verification": "frontend_dependency_and_workspace_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Clean frozen install plus storefront typecheck, configured ESLint static-quality and SSR build pass; lockfile is pnpm-generated rather than manually invented.",
+      "verification": "frontend_install_typecheck_lint_build",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Canonical root pnpm verify executes frontend verification while preserving the existing backend verification chain.",
+      "verification": "canonical_verify_integration",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Stage B has no customer/commercial route or page, no Stage C RTL/i18n shell, no API client/auth/session/business authority, no Admin frontend, no backend/API/database/migration mutation and no Step 59 implementation.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Server/public environment boundary is documented; VITE_* is browser-visible and no secret, credential, token or authoritative business configuration is committed.",
+      "verification": "frontend_environment_boundary_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Canonical completion requires exact-head verify, phase-a and merge-policy PASS, artifact-bound REVIEW and ACTIVE LOCK for MEDIUM risk, protected merge, and exact-SHA post-merge verification before Stage C can start.",
+      "verification": "canonical_transport_and_postmerge_evidence",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Stage B is MEDIUM risk. No direct-main write or raw merge is canonical. Stage C and Step 59 remain forbidden until Stage B protected transport and exact-SHA post-merge verification are green."
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}
