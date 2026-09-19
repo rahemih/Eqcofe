@@ -19,10 +19,10 @@ export function AppShell() {
 
           <Link className="header-search" to="/search">{messages.header.search}</Link>
 
-          <div className="header-actions" aria-label="دسترسی سریع">
+          <nav className="header-actions" aria-label="دسترسی سریع">
             <Link to="/cart">{messages.header.cart}</Link>
             <Link to="/account">{messages.header.account}</Link>
-          </div>
+          </nav>
         </div>
 
         <PrimaryNavigation />
