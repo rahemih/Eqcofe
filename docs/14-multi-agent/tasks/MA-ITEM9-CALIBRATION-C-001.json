@@ -1,0 +1,235 @@
+{
+  "schema_version": "2.2",
+  "task_id": "MA-ITEM9-CALIBRATION-C-001",
+  "title": "Item 9 Calibration — Stage C risk-class recommendations",
+  "description": "Implement deterministic, advisory-only Item 9 Stage C recommendations from Stage B calibration output. Insufficient canonical evidence produces no numeric token or retry/repair recommendation. Sufficient canonical token evidence may produce a deterministic advisory token-budget candidate, but never auto-applies policy, never relaxes risk/gates, and always requires a separate governance task for policy mutation.",
+  "risk": "MEDIUM",
+  "risk_floor": "LOW",
+  "risk_rationale": {
+    "chosen": "MEDIUM",
+    "why_medium": [
+      "This stage interprets governance telemetry and can influence later policy review if recommendations are accepted.",
+      "A defect could create misleading recommendations even though the stage is explicitly non-applying and cannot mutate runtime or governance policy.",
+      "The implementation is additive and isolated to multi-agent scripts, tests, Task Contract, Item 9 documentation and generated Task Catalog."
+    ],
+    "why_not_high": [
+      "No risk floor, Review/Security/Human Gate, retry policy, token budget, merge policy, workflow, runtime, API, database, migration, auth, payment, pricing or inventory behavior is changed.",
+      "All recommendations are advisory and any future policy mutation requires a separate governed task."
+    ]
+  },
+  "owner": "BACKEND",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "e79d7397d54545a8c3620961df4cc0df666ff9d5"
+  },
+  "dependencies": [
+    {
+      "item": "ITEM-9-STAGE-B",
+      "name": "Item 9 Stage B deterministic calibration engine",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "e79d7397d54545a8c3620961df4cc0df666ff9d5",
+      "protected_merge_run": 35437490690,
+      "blocking": false
+    }
+  ],
+  "scope": {
+    "read": [
+      "docs/14-multi-agent/GOVERNANCE.md",
+      "docs/14-multi-agent/TOKEN-TELEMETRY.md",
+      "docs/14-multi-agent/ITEM9-CALIBRATION.md",
+      "docs/14-multi-agent/tasks/MA-ITEM9-CALIBRATION-B-001.json",
+      "scripts/multi-agent/calibration-engine.mjs",
+      "test/multi-agent/calibration-engine.test.mjs",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "write": [
+      "scripts/multi-agent/calibration-recommendations.mjs",
+      "test/multi-agent/calibration-recommendations.test.mjs",
+      "docs/14-multi-agent/ITEM9-CALIBRATION.md",
+      "docs/14-multi-agent/tasks/MA-ITEM9-CALIBRATION-C-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      ".eqcofe/**",
+      "src/**",
+      "apps/**",
+      "database/**",
+      "contracts/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "docs/11-step-history/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**",
+      "scripts/multi-agent/calibration-engine.mjs",
+      "test/multi-agent/calibration-engine.test.mjs"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-MA-ITEM9-CALIBRATION-C-001-01"
+  ],
+  "lock": {
+    "lock_id": "LOCK-MA-ITEM9-CALIBRATION-C-001-01",
+    "task_id": "MA-ITEM9-CALIBRATION-C-001",
+    "owner": "BACKEND",
+    "paths": [
+      "scripts/multi-agent/calibration-recommendations.mjs",
+      "test/multi-agent/calibration-recommendations.test.mjs",
+      "docs/14-multi-agent/ITEM9-CALIBRATION.md",
+      "docs/14-multi-agent/tasks/MA-ITEM9-CALIBRATION-C-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "status": "ACTIVE_UNTIL_PR_TERMINAL",
+    "rule": "No conflicting writer may mutate these paths until the Stage C PR is merged or aborted."
+  },
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 25000,
+    "soft_alert": 35000,
+    "hard_cap": 70000
+  },
+  "max_repair_cycles": 2,
+  "recommendation_policy": {
+    "automatic_apply": false,
+    "policy_mutation_allowed": false,
+    "separate_governance_task_required": true,
+    "insufficient_evidence": "NO_NUMERIC_RECOMMENDATION",
+    "sufficient_token_candidate": "expected=P75; soft=max(P90,expected+1); hard=max(MAX+1,soft+1)",
+    "retry_repair_rule": "No numeric recommendation until retry/repair distribution is explicitly present in canonical calibration evidence.",
+    "risk_and_gate_rule": "NO_CHANGE; Stage C cannot relax risk floors or verification gates."
+  },
+  "current_canonical_disposition": {
+    "canonical_telemetry_paths": 0,
+    "LOW": {
+      "primary_samples": 0,
+      "minimum": 10,
+      "token_budget": "NO_NUMERIC_RECOMMENDATION",
+      "retry_repair": "NO_NUMERIC_RECOMMENDATION",
+      "risk_and_gates": "NO_CHANGE"
+    },
+    "MEDIUM": {
+      "primary_samples": 0,
+      "minimum": 10,
+      "token_budget": "NO_NUMERIC_RECOMMENDATION",
+      "retry_repair": "NO_NUMERIC_RECOMMENDATION",
+      "risk_and_gates": "NO_CHANGE"
+    },
+    "HIGH": {
+      "primary_samples": 0,
+      "minimum": 10,
+      "token_budget": "NO_NUMERIC_RECOMMENDATION",
+      "retry_repair": "NO_NUMERIC_RECOMMENDATION",
+      "risk_and_gates": "NO_CHANGE"
+    }
+  },
+  "task_risk_rules": [
+    {
+      "id": "ITEM9_CALIBRATION_RECOMMENDATIONS",
+      "risk": "MEDIUM",
+      "paths": [
+        "scripts/multi-agent/calibration-recommendations.mjs",
+        "test/multi-agent/calibration-recommendations.test.mjs",
+        "docs/14-multi-agent/ITEM9-CALIBRATION.md",
+        "docs/14-multi-agent/tasks/MA-ITEM9-CALIBRATION-C-001.json"
+      ]
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Stage C is MEDIUM and requires exact-artifact Review PASS plus ACTIVE lock evidence. Security and Project Owner Human Gate are not required unless deterministic risk escalates."
+  },
+  "protection_source": {
+    "required_contexts": [
+      "verify",
+      "phase-a",
+      "merge-policy"
+    ],
+    "required_integration": "GitHub Actions",
+    "required_integration_id": 15368
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Stage C accepts only Stage B-shaped canonical-readback calibration reports with policy_mutation_allowed=false.",
+      "verification": "node --test test/multi-agent/calibration-recommendations.test.mjs",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "INSUFFICIENT_CANONICAL_TELEMETRY emits no numeric token-budget recommendation and reports the exact sample gap.",
+      "verification": "node --test test/multi-agent/calibration-recommendations.test.mjs",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Sufficient canonical token evidence may emit only an advisory candidate using deterministic P75/P90/MAX derivation with strict positive ordering.",
+      "verification": "node --test test/multi-agent/calibration-recommendations.test.mjs",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Retry/repair receives no fabricated numeric recommendation because Stage B does not expose a canonical retry/repair distribution.",
+      "verification": "node --test test/multi-agent/calibration-recommendations.test.mjs",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Risk floors and Review/Security/Human/Merge gates are always NO_CHANGE in Stage C and any future mutation requires a separate governance task.",
+      "verification": "node --test test/multi-agent/calibration-recommendations.test.mjs",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Process-friction recommendations are derived only from visible sample gap, missing telemetry and excluded-sample counts; anecdotal pilot behavior does not become a numeric calibration input.",
+      "verification": "node --test test/multi-agent/calibration-recommendations.test.mjs",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "Invalid quantile order, inconsistent sufficiency status, noncanonical source or mutating calibration report fails closed.",
+      "verification": "node --test test/multi-agent/calibration-recommendations.test.mjs",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "Current canonical repository evidence remains zero committed telemetry paths, so LOW/MEDIUM/HIGH each receive NO_NUMERIC_RECOMMENDATION and NO_CHANGE for risk/gates.",
+      "verification": "canonical_tree_and_item9_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-009",
+      "description": "Stage C is advisory-only: automatic_apply=false and policy_mutation_allowed=false in all output.",
+      "verification": "node --test test/multi-agent/calibration-recommendations.test.mjs",
+      "mandatory": true
+    },
+    {
+      "id": "AC-010",
+      "description": "Existing wildcard multi-agent tests include Stage C without package.json or workflow mutation; full canonical verification remains green.",
+      "verification": "pnpm multi-agent:verify && pnpm verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-011",
+      "description": "PR diff is limited to the five declared Stage C write-scope paths.",
+      "verification": "deterministic_scope_check_and_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-012",
+      "description": "Protected merge and exact-SHA post-merge canonical plus Phase A verification must pass before Stage C is canonically complete.",
+      "verification": "merge_policy_execution_evidence",
+      "mandatory": true
+    }
+  ],
+  "process_improvement_links": [
+    "ITEM-9-CALIBRATION"
+  ],
+  "incident_links": []
+}
