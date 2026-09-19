@@ -159,3 +159,32 @@ Closure requires:
 ## Gate verdict before transport
 
 `IMPLEMENTATION READY / HIGH-RISK QUALITY GATES PENDING`
+
+
+## Post-merge closure transport remediation
+
+PR #198 با protected Merge Policy ادغام شد:
+
+- reviewed head: `d653b8f3270214cc9419e80015a2a36bdd1e5577`
+- artifact hash: `9bd131bf49e65af808119d64b26aad26ee66fe539c4fabbf953b1777d6b640bf`
+- protected merge run: `35444452375`
+- canonical merge SHA: `fc601866f21c3e5efc8067ddc00e8898f3c42848`
+- exact-SHA postmerge canonical verify: PASS
+- exact-SHA postmerge Phase A: PASS
+- multi-agent: 141 / 141 PASS
+- full regression: 913 / 913 PASS
+- Phase A PostgreSQL integrity: PASS
+- Phase A Steps 01–28: PASS
+
+اما requirement شماره 15 هنوز اثبات نشده است: `Step 58 Storefront Quality` روی merged `main` اجرا نشد. علت transport این است که protected merge توسط GitHub Actions / `GITHUB_TOKEN` انجام شد و push حاصل، workflow دیگری را به‌صورت خودکار زنجیره‌ای اجرا نکرد.
+
+Remediation task:
+`EQCOFE-STEP58-G-POSTMERGE-BROWSER-001`
+
+این remediation فقط trigger `workflow_dispatch` را به همان Browser Quality workflow اضافه می‌کند. Job، permissions، Playwright/axe pinning، browser assertions و product/runtime behavior تغییر نمی‌کنند.
+
+Stage 58-G تا زمانی که remediation به‌صورت protected merge شود و سپس `Step 58 Storefront Quality` با workflow_dispatch روی exact merged `main` PASS نکند، همچنان:
+
+`MERGED / POSTMERGE BROWSER EVIDENCE PENDING`
+
+Stage H و Step 59 تا آن زمان NOT_STARTED باقی می‌مانند.
