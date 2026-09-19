@@ -5,6 +5,7 @@ export type ApiClientErrorKind =
   | "network"
   | "timeout"
   | "aborted"
+  | "security"
   | "http";
 
 export type ApiClientErrorDetails = {
