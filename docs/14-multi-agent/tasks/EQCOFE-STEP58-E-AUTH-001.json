@@ -1,0 +1,154 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP58-E-AUTH-001",
+  "title": "Step 58-E auth session and security boundary",
+  "description": "Implement only the backend-compatible storefront customer auth/session security boundary: server-only HttpOnly customer-session cookie forwarding and validated Set-Cookie relay, backend-authoritative session probe, protected-route state representation, sensitive response-header filtering and deterministic security verification. Do not implement login/account feature UI, client permission authority, admin auth, backend/OpenAPI/database mutations, Stage F or Step 59.",
+  "risk": "HIGH",
+  "risk_floor": "HIGH",
+  "owner": "BACKEND",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "51252043799ee5f8a3fa427d668f66b7c60bebad"
+  },
+  "scope": {
+    "read": [
+      "apps/storefront/**",
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "src/modules/identity/**",
+      "src/platform/auth/**",
+      "docs/11-step-history/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "apps/storefront/package.json",
+      "apps/storefront/README.md",
+      "apps/storefront/app/platform/api/request.ts",
+      "apps/storefront/app/platform/api/errors.ts",
+      "apps/storefront/app/platform/auth/**",
+      "apps/storefront/scripts/verify-auth-boundary.ts",
+      "docs/11-step-history/STEP-58-E-AUTH-SESSION-SECURITY.md",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP58-E-AUTH-001.json"
+    ],
+    "forbidden": [
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      ".github/**",
+      "contracts/**",
+      "database/**",
+      "src/**",
+      "scripts/**",
+      "test/**",
+      "apps/api/**",
+      "apps/worker/**",
+      "apps/scheduler/**",
+      "docs/13-product-design/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP58-E-AUTH-001-01"
+  ],
+  "human_gate_required": true,
+  "token_budget": {
+    "expected_max": 36000,
+    "soft_alert": 54000,
+    "hard_cap": 108000
+  },
+  "max_repair_cycles": 3,
+  "task_risk_rules": [
+    {
+      "id": "STEP58_E_AUTH_SESSION_HIGH",
+      "risk": "HIGH",
+      "paths": [
+        "apps/storefront/app/platform/api/request.ts",
+        "apps/storefront/app/platform/api/errors.ts",
+        "apps/storefront/app/platform/auth/**",
+        "apps/storefront/scripts/verify-auth-boundary.ts"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": 58,
+      "name": "Stage 58-D API client and server data foundation",
+      "required_state": "CLOSED_CANONICAL_PASS",
+      "observed_state": "CLOSED_CANONICAL_PASS",
+      "merge_sha": "51252043799ee5f8a3fa427d668f66b7c60bebad",
+      "blocking": false
+    }
+  ],
+  "authorized_human_approver": {
+    "role": "PROJECT_OWNER",
+    "github_login": "rahemih"
+  },
+  "evidence": {
+    "stage_d_pr": 189,
+    "stage_d_merge": "51252043799ee5f8a3fa427d668f66b7c60bebad",
+    "linear_issue": "HOS-14",
+    "customer_security_scheme": "customerSession cookie eqcofe_session",
+    "backend_auth_controller": "src/modules/identity/presentation/auth.controller.ts",
+    "backend_session_resolver": "src/modules/identity/infrastructure/session-actor-resolver.ts"
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Customer session semantics are derived from the current backend/OpenAPI: HttpOnly customerSession cookie eqcofe_session or secure __Host-eqcofe_session, with backend session resolution remaining authoritative.",
+      "verification": "backend_auth_contract_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Browser code never reads or stores the session token; customer session forwarding is server-only and forwards only the allowed customer session cookie, never unrelated/admin cookies or invented Bearer authorization.",
+      "verification": "customer_session_cookie_boundary",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Backend Set-Cookie is filtered from generic API metadata and may be relayed only through a server-only validator enforcing customer cookie name, HttpOnly, Path=/, SameSite=Lax, host-only semantics and Secure for __Host-.",
+      "verification": "set_cookie_relay_policy",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Backend-authoritative session probe represents authenticated, unauthenticated, expired, forbidden and recovery outcomes without parsing tokens or inventing customer permissions.",
+      "verification": "session_probe_and_protected_state",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Deterministic runtime verification proves cookie isolation, 401 expiry, 403 forbidden, recovery, OTP Set-Cookie capture, logout clearing-cookie capture and security-attribute rejection while shell/API/repository verification remains green.",
+      "verification": "auth_boundary_runtime_verification",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "No login/account feature UI, admin auth frontend, client permission authority, refresh flow absent from contract, invented CSRF mechanism, backend/OpenAPI/database mutation, Stage F or Step59 implementation enters Stage E.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "HIGH-risk canonical closure requires exact-artifact REVIEW, SECURITY, HUMAN and LOCK evidence plus verify/phase-a/merge-policy, protected merge and exact-SHA postmerge verification.",
+      "verification": "high_risk_canonical_transport",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "SECURITY",
+      "HUMAN",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Stage E is HIGH risk. HUMAN evidence requires an explicit Project Owner decision on the exact artifact hash. Stage F and Step59 remain forbidden until protected transport and exact-SHA postmerge verification are green."
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}

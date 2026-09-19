@@ -32,3 +32,12 @@ Stage 58-B bootstraps only the storefront build workspace.
 - Stage 58-D does not inject credentials, session state, or authorization headers. Stage 58-E owns that security boundary.
 - No storefront route consumes live business data yet; Steps 59–66 may adopt this foundation after Step 58 closes.
 
+## Stage 58-E auth/session security boundary
+
+- Customer authentication authority remains the backend. The OpenAPI `customerSession` scheme is an HttpOnly cookie named `eqcofe_session`; secure deployments may use the backend's `__Host-eqcofe_session` variant.
+- Storefront browser code never reads or stores the session token. There is no localStorage/sessionStorage/document.cookie auth state and no invented Bearer/JWT customer flow.
+- Server-side session transport forwards only the customer session cookie; unrelated cookies and admin session cookies are not proxied to customer API requests.
+- Backend `Set-Cookie` is never exposed through general API response metadata. A dedicated server-only bridge validates customer-session cookie name, HttpOnly, Path=/, SameSite=Lax, host-only policy, and Secure for `__Host-` before any future relay.
+- `/auth/session` is the backend-authoritative session probe. The frontend represents only authenticated, unauthenticated, expired, forbidden and recovery states; it does not derive permissions or authorize business actions.
+- Stage 58-E does not implement login/account UI, route feature loaders, admin auth, CSRF schemes not present in contract, or Step 59 features.
+

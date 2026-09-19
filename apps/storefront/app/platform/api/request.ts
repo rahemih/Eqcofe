@@ -301,8 +301,17 @@ async function drainResponse(response: Response): Promise<void> {
   }
 }
 
+const SENSITIVE_RESPONSE_HEADERS = new Set([
+  "set-cookie",
+  "cookie",
+  "authorization",
+  "proxy-authorization",
+]);
+
 function headersToRecord(headers: Headers): Readonly<Record<string, string>> {
-  return Object.freeze(Object.fromEntries(headers.entries()));
+  return Object.freeze(Object.fromEntries(
+    [...headers.entries()].filter(([name]) => !SENSITIVE_RESPONSE_HEADERS.has(name.toLowerCase())),
+  ));
 }
 
 function delay(ms: number): Promise<void> {
