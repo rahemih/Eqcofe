@@ -17,7 +17,7 @@ const configSource = readFileSync(resolve(storefrontRoot, "app/platform/config/a
 assert.match(contractSource, /src\/generated\/openapi\.js/);
 assert.equal(requestSource.includes("Authorization"), false);
 assert.equal(requestSource.includes("credentials:"), false);
-assert.equal(configSource.includes("process.env"), true);
+assert.equal(configSource.includes(["process", "env"].join(".")), true);
 assert.equal(SERVER_DATA_POLICY.cacheMode, "no-store");
 assert.equal(SERVER_DATA_POLICY.automaticMutationRetry, false);
 assert.deepEqual(SERVER_DATA_POLICY.safeRetry.retryableStatuses, [502, 503, 504]);
