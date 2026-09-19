@@ -1,0 +1,164 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP58-F-STATE-001",
+  "title": "Step 58-F state errors loading and offline recovery foundation",
+  "description": "Implement only the shared storefront async-state foundation: loading/refresh context preservation, empty-state vocabulary, sanitized public problems, browser connectivity hint, bounded recovery planning and accessible Persian StatePanel presentation. No feature loaders, global business state/cache, optimistic mutation, offline mutation queue, auth changes, backend/OpenAPI/database mutation, Stage G or Step59.",
+  "risk": "MEDIUM",
+  "risk_floor": "MEDIUM",
+  "owner": "PRODUCT_DESIGN",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "5db790c74f601c23819df943beffbff7f106f9d3"
+  },
+  "scope": {
+    "read": [
+      "apps/storefront/**",
+      "docs/11-step-history/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "apps/storefront/package.json",
+      "apps/storefront/README.md",
+      "apps/storefront/app/root.tsx",
+      "apps/storefront/app/i18n/fa-IR.ts",
+      "apps/storefront/app/components/StatePanel.tsx",
+      "apps/storefront/app/platform/state/**",
+      "apps/storefront/app/styles/state.css",
+      "apps/storefront/scripts/verify-state-foundation.ts",
+      "docs/11-step-history/STEP-58-F-STATE-ERROR-LOADING-RECOVERY.md",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP58-F-STATE-001.json"
+    ],
+    "forbidden": [
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      ".github/**",
+      "contracts/**",
+      "database/**",
+      "src/**",
+      "scripts/**",
+      "test/**",
+      "apps/api/**",
+      "apps/worker/**",
+      "apps/scheduler/**",
+      "docs/13-product-design/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP58-F-STATE-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 32000,
+    "soft_alert": 48000,
+    "hard_cap": 96000
+  },
+  "task_risk_rules": [
+    {
+      "id": "STEP58_F_STATE_FOUNDATION_MEDIUM",
+      "risk": "MEDIUM",
+      "paths": [
+        "apps/storefront/app/platform/state/**",
+        "apps/storefront/app/components/StatePanel.tsx",
+        "apps/storefront/app/styles/state.css",
+        "apps/storefront/scripts/verify-state-foundation.ts"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": 58,
+      "name": "Stage 58-E auth session and security boundary",
+      "required_state": "CLOSED_CANONICAL_PASS",
+      "observed_state": "CLOSED_CANONICAL_PASS",
+      "merge_sha": "020a7e39c953749af1e75331202143164572f166",
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "stage_e_pr": 191,
+    "stage_e_merge": "020a7e39c953749af1e75331202143164572f166",
+    "linear_issue": "HOS-14",
+    "state_vocabulary": "docs/13-product-design/step55-storefront-wireframe-contract.json",
+    "accessibility_source": "docs/13-product-design/STEP-54-ACCESSIBILITY.md",
+    "rtl_source": "docs/13-product-design/STEP-54-RTL-RESPONSIVE.md",
+    "drift_reconciliation": {
+      "source_pr": 193,
+      "previous_base": "020a7e39c953749af1e75331202143164572f166",
+      "reconciled_main": "5db790c74f601c23819df943beffbff7f106f9d3",
+      "failed_dispatch_run": 35435637677,
+      "failed_reason": "PR_BASE_NOT_CURRENT",
+      "overlap": [
+        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+      ],
+      "code_overlap": false,
+      "superseded_pr": 192,
+      "rule": "All old artifact-bound evidence is stale; replacement exact-artifact gates are required."
+    }
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Runtime state vocabulary covers initial/progressive/refresh loading, ready, first-use/filtered/no-result empty, error, forbidden, offline and recovery without introducing business-state authority.",
+      "verification": "state_vocabulary_and_context_preservation",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Public error presentation omits raw backend/transport messages and retains only minimal problem metadata such as kind, status, request-id and retryability.",
+      "verification": "sanitized_public_problem_boundary",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Browser online/offline is represented only as a tri-state connectivity hint with unknown SSR snapshot and never as backend-health authority.",
+      "verification": "connectivity_hint_boundary",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Recovery planning has no timer, polling or automatic UI retry; safe GET/HEAD may expose manual retry, mutations never auto-retry, and unknown mutation status-check requires an explicitly available authoritative capability.",
+      "verification": "bounded_recovery_policy",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Accessible Persian StatePanel supports Loading/Empty/Error/Forbidden/Offline/Recovery with logical RTL, aria status/busy semantics, bidi-isolated request-id and 44px actions without inventing an action when none is supplied.",
+      "verification": "state_panel_accessibility",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Deterministic verification proves state models, previous-context preservation, sanitized problems, retry boundaries, offline distinction, presentation semantics and Step55 vocabulary trace while shell/API/auth/root verification stays green.",
+      "verification": "state_foundation_runtime_verification",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "No feature loader, global business cache/state, optimistic mutation, offline mutation queue/service worker, auth change, backend/OpenAPI/database mutation, Stage G or Step59 implementation enters Stage F.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "Canonical closure requires exact-artifact REVIEW/LOCK, exact-head verify/phase-a/merge-policy, protected merge and exact-SHA postmerge verification before Stage G.",
+      "verification": "canonical_transport_and_postmerge_evidence",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Stage F is MEDIUM risk. Stage G and Step59 remain forbidden until protected transport and exact-SHA postmerge verification are green."
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}
