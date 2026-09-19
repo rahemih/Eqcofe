@@ -4,8 +4,8 @@
 
 - Item 9: **IN PROGRESS**
 - Stage A — Evidence & Sample Sufficiency Baseline: **CANONICAL COMPLETE**
-- Stage B — Deterministic Calibration Engine: **IMPLEMENTED / PENDING CANONICAL MERGE**
-- Stage C — Risk-Class Recommendations: **NOT_STARTED**
+- Stage B — Deterministic Calibration Engine: **CANONICAL COMPLETE**
+- Stage C — Risk-Class Recommendations: **IMPLEMENTED / PENDING CANONICAL MERGE**
 - Stage D — Final Verification & Canonical Closure: **NOT_STARTED**
 
 ## Closure قطعی Stage A
@@ -16,14 +16,23 @@ Stage A با PR #193 از مسیر protected Merge Policy ادغام شد.
 - Stage A artifact hash: `5dda5b0583df7c85c09a6f6e9af43f7ef07f1e1e10cd29a53cedc82392684504`
 - Canonical merge SHA: `5db790c74f601c23819df943beffbff7f106f9d3`
 - Protected merge run: `35435491785`
-- merge job: PASS
-- resolved exact merge SHA: PASS
+- exact-SHA post-merge verification: PASS
+- full runtime regression: 913 / 913 PASS
+
+## Closure قطعی Stage B
+
+Stage B با PR #195 از مسیر protected Merge Policy ادغام شد.
+
+- reviewed head: `0271ee2ad2ef3e123f71a216e813d28552a3a255`
+- artifact hash: `04cbc77de47e77730aabc99594d8514d25c7769dc5d594c02da94163ffee06d8`
+- Protected merge run: `35437490690`
+- Canonical merge SHA: `e79d7397d54545a8c3620961df4cc0df666ff9d5`
 - exact-SHA checkout: PASS
 - postmerge canonical verify: PASS
 - postmerge Phase A verify: PASS
+- multi-agent tests: 131 / 131 PASS
 - full runtime regression: 913 / 913 PASS
-
-دو workflow_dispatch بعدی پس از بسته‌شدن PR #193 شکست خوردند؛ آن‌ها اجرای تکراری روی PR ادغام‌شده بودند و جایگزین evidence اجرای موفق بالا نیستند.
+- Phase A database integrity and Steps 01–28: PASS
 
 ## پیش‌شرط‌های Canonical
 
@@ -33,13 +42,9 @@ Stage A با PR #193 از مسیر protected Merge Policy ادغام شد.
 | MEDIUM | `MA-PILOT-MEDIUM-001` | CANONICAL COMPLETE | `4cfdf4a075e8838c35b5dd2b14836fdbd5b2ad34` |
 | HIGH | `MA-PILOT-HIGH-001` | CANONICAL COMPLETE | `be5c819a414b96fa5ba2f4ba1927831c76be20da` |
 
-## قاعده‌ی داده
-
-مرجع `TOKEN-TELEMETRY.md` فقط usage صریح با provenance معتبر را مجاز می‌داند. داده‌ی مفقود نباید estimate، synthetic event یا provider-authoritative جعلی شود.
-
-در baseline Stage A مسیر `.eqcofe/telemetry/` وجود نداشت. بنابراین برای سه Pilot، canonical primary sample برابر صفر بود و نبود telemetry به معنی zero usage نیست.
-
 ## Stage A — Sample Sufficiency Baseline
+
+مرجع `TOKEN-TELEMETRY.md` فقط usage صریح با provenance معتبر را مجاز می‌داند. داده‌ی مفقود estimate یا zero usage فرض نمی‌شود.
 
 | Risk | Pilot budget (expected / soft / hard) | Canonical telemetry | Primary samples | Disposition |
 | --- | ---: | --- | ---: | --- |
@@ -51,55 +56,85 @@ Stage A با PR #193 از مسیر protected Merge Policy ادغام شد.
 
 ## Stage B — Deterministic Calibration Engine
 
-Task: `MA-ITEM9-CALIBRATION-B-001`
+Stage B موتور canonical-readback را اضافه کرد:
 
-Canonical base این Stage:
-`735c69f6e2eac30f5fa1c1c4012e709e15972451`
+- مسیر production-level فقط `calibrateCanonicalRiskClasses` است؛
+- هر Task فقط از `.eqcofe/telemetry/<task_id>.json` و با `readTelemetryRecord` خوانده می‌شود؛
+- فقط `ENOENT` به missing telemetry تبدیل می‌شود؛
+- invalid JSON، provenance نامعتبر، task mismatch، token-budget mismatch و tampered aggregate fail closed هستند؛
+- فقط `MERGED` و non-human-rejected primary sample است؛
+- duplicate task id رد می‌شود؛
+- کمتر از 10 primary sample در هر کلاس => `INSUFFICIENT_CANONICAL_TELEMETRY` و `token_quantiles=null`;
+- از 10 sample به بالا => nearest-rank min/P50/P75/P90/max؛
+- `policy_mutation_allowed=false`.
 
-Stage B یک موتور deterministic و library-driven اضافه می‌کند که:
+حداقل 10 sample یک **operational floor محافظه‌کارانه** است و ادعای confidence آماری نیست.
 
-- evidence را بر اساس risk متصل به Task Contract به LOW / MEDIUM / HIGH گروه‌بندی می‌کند؛
-- مسیر اصلی `calibrateCanonicalRiskClasses` هر Task را فقط از `.eqcofe/telemetry/<task_id>.json` و از طریق `readTelemetryRecord` می‌خواند؛\n- هر Telemetry Record را با `validateTelemetryRecord` بازسازی و integrity آن را بررسی می‌کند؛
-- provenance نامعتبر، aggregate دستکاری‌شده، task mismatch و token-budget mismatch را fail closed می‌کند؛
-- فقط `terminal_state = MERGED` و `human_rejected = false` را primary sample می‌پذیرد؛
-- فقط خطای `ENOENT` را به `MISSING_TELEMETRY` تبدیل می‌کند؛ JSON نامعتبر، task-id نامعتبر، provenance نامعتبر و tamper همگی fail closed باقی می‌مانند؛\n- missing telemetry را `MISSING_TELEMETRY` ثبت می‌کند و هرگز آن را zero usage فرض نمی‌کند؛
-- duplicate task id را رد می‌کند تا sample count قابل بادکردن نباشد؛
-- خروجی‌ها را defensively frozen می‌کند؛
-- `policy_mutation_allowed = false` برمی‌گرداند.
+## Stage C — Risk-Class Recommendations
 
-### حداقل Sample Sufficiency
+Task: `MA-ITEM9-CALIBRATION-C-001`
 
-Specification/Governance عدد آماده‌ای برای minimum sample size تعریف نکرده بود. Stage B بنابراین یک rule محافظه‌کارانه و deterministic ثبت می‌کند:
+Canonical base:
+`e79d7397d54545a8c3620961df4cc0df666ff9d5`
 
-`MIN_PRIMARY_SAMPLES_PER_RISK = 10`
+Stage C یک Recommendation Engine جدا از Stage B اضافه می‌کند. این موتور **advisory-only** است:
 
-این عدد **ادعای اعتبار آماری یا confidence interval نیست**. یک operational floor است تا یک Pilot یا چند anecdote کم‌تعداد نتوانند P50/P75/P90 تولید کنند.
+- `automatic_apply=false`
+- `policy_mutation_allowed=false`
+- هر policy change نیازمند Task حاکمیتی جداگانه است.
+- Stage C هرگز Risk Class، Risk Floor، Review، Security، Human Gate یا Merge Policy را کاهش نمی‌دهد.
 
-قاعده:
+### وضعیت واقعی داده در baseline Stage C
 
-- اگر primary samples هر کلاس < 10 باشد:
-  - disposition = `INSUFFICIENT_CANONICAL_TELEMETRY`
-  - `token_quantiles = null`
-- اگر primary samples هر کلاس >= 10 باشد:
-  - disposition = `SUFFICIENT_CANONICAL_TELEMETRY`
-  - quantile method = `NEAREST_RANK`
-  - فقط min / P50 / P75 / P90 / max تولید می‌شود.
+در canonical tree روی `e79d7397d54545a8c3620961df4cc0df666ff9d5` هیچ مسیر commit‌شده‌ای زیر `.eqcofe/telemetry/` وجود ندارد.
 
-Stage B هیچ budget، risk floor، retry limit، Review/Security/Human Gate، required CI یا Merge Policy را تغییر نمی‌دهد.
+بنابراین وضعیت واقعی فعلی:
 
-### Canonical Readback Boundary\n\nوجود یک object معتبر در حافظه برای Calibration کافی نیست. مسیر production-level Stage B فقط `calibrateCanonicalRiskClasses` است؛ این entrypoint ابتدا canonical file را با `readTelemetryRecord` می‌خواند و سپس validation و grouping را انجام می‌دهد. بنابراین یک record ساخته‌شده در حافظه، حتی اگر integrity-valid باشد، بدون canonical readback وارد statistics نمی‌شود.\n\n## Stage B Negative Guarantees
+| Risk | Primary samples | Minimum | Token-budget recommendation | Retry/repair recommendation | Risk/Gates |
+| --- | ---: | ---: | --- | --- | --- |
+| LOW | 0 | 10 | NO_NUMERIC_RECOMMENDATION | NO_NUMERIC_RECOMMENDATION | NO_CHANGE |
+| MEDIUM | 0 | 10 | NO_NUMERIC_RECOMMENDATION | NO_NUMERIC_RECOMMENDATION | NO_CHANGE |
+| HIGH | 0 | 10 | NO_NUMERIC_RECOMMENDATION | NO_NUMERIC_RECOMMENDATION | NO_CHANGE |
 
-- non-canonical in-memory telemetry => not eligible for statistics\n- missing telemetry != zero usage
-- invalid provenance => FAIL
-- tampered aggregate => FAIL
-- task mismatch => FAIL
-- token-budget mismatch => FAIL
-- duplicate task => FAIL
-- human rejected => excluded from primary
-- terminal state other than MERGED => excluded from primary
-- insufficient sample size => no quantiles
-- one successful pilot => insufficient
-- numeric output != policy change
+نتیجه فعلی Item 9 هیچ مجوزی برای تغییر budget یا policy ایجاد نمی‌کند.
+
+### Token Budget Recommendation Rule
+
+اگر یک کلاس هنوز `INSUFFICIENT_CANONICAL_TELEMETRY` باشد:
+
+- هیچ عددی پیشنهاد نمی‌شود؛
+- sample gap گزارش می‌شود؛
+- مسیر پیشنهادی فقط جمع‌آوری canonical primary samples است.
+
+اگر یک کلاس به `SUFFICIENT_CANONICAL_TELEMETRY` برسد، Stage C می‌تواند فقط یک candidate مشورتی بسازد:
+
+- `expected_max = P75`
+- `soft_alert = max(P90, expected_max + 1)`
+- `hard_cap = max(MAX + 1, soft_alert + 1)`
+
+این candidate خودکار اعمال نمی‌شود و حتی با evidence کافی نیز برای تغییر policy به Task جداگانه نیاز دارد.
+
+### Retry / Repair Recommendation Rule
+
+Stage B در خروجی calibration فعلی distribution مستقل retry/repair منتشر نمی‌کند. بنابراین Stage C حق ساخت عدد مصنوعی برای retry یا repair ندارد.
+
+نتیجه:
+
+`NO_NUMERIC_RECOMMENDATION / RETRY_REPAIR_DISTRIBUTION_NOT_IN_CALIBRATION_REPORT`
+
+برای عددی شدن این بخش، ابتدا باید telemetry و calibration canonical مربوط به retry/repair به‌صورت صریح طراحی و اثبات شود.
+
+### Process Friction Recommendations
+
+فقط سیگنال‌های قابل مشاهده مجاز هستند:
+
+- sample gap > 0 => `COLLECT_CANONICAL_PRIMARY_SAMPLES`
+- missing telemetry > 0 => `CAPTURE_EXPLICIT_TELEMETRY`
+- excluded samples > 0 => `REVIEW_EXCLUSION_CAUSES`
+- evidence کافی => `REVIEW_TOKEN_CANDIDATE_IN_SEPARATE_GOVERNANCE_TASK`
+- همیشه => `KEEP_EXISTING_RISK_AND_GATE_POLICY`
+
+Anecdoteهای Pilot به numeric calibration تبدیل نمی‌شوند.
 
 ## مسیر فریز‌شده‌ی Item 9
 
@@ -107,13 +142,13 @@ Stage B هیچ budget، risk floor، retry limit، Review/Security/Human Gate، 
 **CANONICAL COMPLETE**
 
 ### Stage B — Deterministic Calibration Engine
-**IMPLEMENTED / PENDING CANONICAL MERGE**
+**CANONICAL COMPLETE**
 
 ### Stage C — Risk-Class Recommendations
-فقط بعد از canonical closure Stage B شروع می‌شود. Recommendation باید evidence-backed باشد و هیچ policy change را خودکار اعمال نمی‌کند.
+**IMPLEMENTED / PENDING CANONICAL MERGE**
 
 ### Stage D — Final Verification & Canonical Closure
-Regression کامل، drift check، Review نهایی، protected merge و exact-SHA post-merge verification.
+بعد از closure واقعی Stage C: regression کامل، drift check، نهایی‌سازی evidence، Review، protected merge و exact-SHA post-merge verification.
 
 Item 10 فقط بعد از Closure واقعی Stage D مجاز است.
 
@@ -125,6 +160,7 @@ Item 10 فقط بعد از Closure واقعی Stage D مجاز است.
 - pilot budget != calibrated budget
 - operational anecdote != quantitative sample
 - one pilot != sufficient calibration
-- no risk downgrade from a single successful pilot
-- هیچ Calibration حق کاهش حساسیت Pricing/Auth/Payment/Inventory/Migration را بدون evidence مستقل و task حاکمیتی جداگانه ندارد.
-- Item 9 هیچ bypass برای Scope/Lock/Review/Security/Human/Merge Policy ایجاد نمی‌کند.
+- sufficient telemetry != automatic policy mutation
+- retry metric unavailable != guessed retry recommendation
+- Stage C cannot relax risk or verification gates
+- هر تغییر واقعی policy نیازمند Task مستقل و governance کامل است.
