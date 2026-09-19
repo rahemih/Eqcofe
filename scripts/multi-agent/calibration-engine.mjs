@@ -1,5 +1,9 @@
 import { isDeepStrictEqual } from 'node:util';
-import { validateTelemetryRecord, validateTokenBudget } from './token-telemetry.mjs';
+import {
+  readTelemetryRecord,
+  validateTelemetryRecord,
+  validateTokenBudget,
+} from './token-telemetry.mjs';
 
 export const CALIBRATION_RISK_CLASSES = Object.freeze(['LOW', 'MEDIUM', 'HIGH']);
 export const MIN_PRIMARY_SAMPLES_PER_RISK = 10;
@@ -45,6 +49,7 @@ export function validateCalibrationBinding(binding) {
       risk: contract.risk,
       token_budget: contract.token_budget,
       telemetry_state: 'MISSING',
+      canonical_readback: false,
       primary_sample: false,
       exclusion_reason: 'MISSING_TELEMETRY',
       total_model_tokens: null,
@@ -67,10 +72,34 @@ export function validateCalibrationBinding(binding) {
     risk: contract.risk,
     token_budget: contract.token_budget,
     telemetry_state: 'VERIFIED',
+    canonical_readback: binding.canonical_readback === true,
     primary_sample: expectedPrimary,
     exclusion_reason: expectedPrimary ? null : exclusionReason(record),
     total_model_tokens: total,
     provider_authoritative: record.provenance.provider_authoritative === true,
+  });
+}
+
+export async function loadCanonicalCalibrationBinding(rootDir, taskContract) {
+  const root = nonEmpty(rootDir, 'CALIBRATION_ROOT_REQUIRED');
+  const contract = normalizeTaskContract(taskContract);
+  let record;
+  try {
+    record = await readTelemetryRecord(root, contract.task_id);
+  } catch (error) {
+    if (error?.code === 'ENOENT') {
+      return validateCalibrationBinding({
+        task_contract: contract,
+        telemetry_record: null,
+        canonical_readback: false,
+      });
+    }
+    throw error;
+  }
+  return validateCalibrationBinding({
+    task_contract: contract,
+    telemetry_record: record,
+    canonical_readback: true,
   });
 }
 
@@ -102,6 +131,8 @@ function countReasons(bindings) {
 
 function reportForRisk(risk, bindings) {
   const inClass = bindings.filter((binding) => binding.risk === risk).sort((a, b) => a.task_id.localeCompare(b.task_id));
+  const canonical = inClass.filter((binding) => binding.telemetry_state !== 'VERIFIED' || binding.canonical_readback === true);
+  if (canonical.length !== inClass.length) fail('NON_CANONICAL_TELEMETRY_SOURCE');
   const primary = inClass.filter((binding) => binding.primary_sample);
   const sufficient = primary.length >= MIN_PRIMARY_SAMPLES_PER_RISK;
   return deepFreeze({
@@ -120,22 +151,19 @@ function reportForRisk(risk, bindings) {
   });
 }
 
-export function calibrateRiskClasses(bindings = []) {
-  if (!Array.isArray(bindings)) fail('CALIBRATION_BINDINGS_REQUIRED');
-  const normalized = bindings.map(validateCalibrationBinding);
+function calibrateVerifiedBindings(bindings) {
   const seen = new Set();
-  for (const binding of normalized) {
+  for (const binding of bindings) {
     if (seen.has(binding.task_id)) fail(`DUPLICATE_CALIBRATION_TASK:${binding.task_id}`);
     seen.add(binding.task_id);
   }
-
   const classes = Object.fromEntries(
-    CALIBRATION_RISK_CLASSES.map((risk) => [risk, reportForRisk(risk, normalized)]),
+    CALIBRATION_RISK_CLASSES.map((risk) => [risk, reportForRisk(risk, bindings)]),
   );
-
   return deepFreeze({
     schema_version: '1.0',
     disposition_rule: 'PER_RISK_CLASS',
+    source_rule: 'CANONICAL_TELEMETRY_READBACK_ONLY',
     sample_sufficiency: {
       minimum_primary_samples_per_risk: MIN_PRIMARY_SAMPLES_PER_RISK,
       rule_basis: 'CONSERVATIVE_OPERATIONAL_FLOOR_NOT_STATISTICAL_CONFIDENCE',
@@ -144,4 +172,13 @@ export function calibrateRiskClasses(bindings = []) {
     policy_mutation_allowed: false,
     classes,
   });
+}
+
+export async function calibrateCanonicalRiskClasses({ root_dir, task_contracts }) {
+  const root = nonEmpty(root_dir, 'CALIBRATION_ROOT_REQUIRED');
+  if (!Array.isArray(task_contracts)) fail('CALIBRATION_TASK_CONTRACTS_REQUIRED');
+  const contracts = task_contracts.map(normalizeTaskContract).sort((a, b) => a.task_id.localeCompare(b.task_id));
+  const bindings = [];
+  for (const contract of contracts) bindings.push(await loadCanonicalCalibrationBinding(root, contract));
+  return calibrateVerifiedBindings(bindings);
 }

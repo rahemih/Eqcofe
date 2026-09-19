@@ -1,10 +1,17 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { buildTelemetryRecord } from '../../scripts/multi-agent/token-telemetry.mjs';
+import { mkdtemp, mkdir, writeFile } from 'node:fs/promises';
+import os from 'node:os';
+import path from 'node:path';
+import {
+  buildTelemetryRecord,
+  persistTelemetryRecord,
+  telemetryPath,
+} from '../../scripts/multi-agent/token-telemetry.mjs';
 import {
   CALIBRATION_RISK_CLASSES,
   MIN_PRIMARY_SAMPLES_PER_RISK,
-  calibrateRiskClasses,
+  calibrateCanonicalRiskClasses,
   validateCalibrationBinding,
 } from '../../scripts/multi-agent/calibration-engine.mjs';
 
@@ -43,11 +50,21 @@ function telemetry(task_id, total, options = {}) {
   });
 }
 
-function binding(task_id, risk, total, options = {}) {
-  return {
-    task_contract: taskContract(task_id, risk, options.contract_budget ?? budget),
-    telemetry_record: options.missing ? null : telemetry(task_id, total, options),
-  };
+async function root() {
+  return mkdtemp(path.join(os.tmpdir(), 'eqcofe-calibration-'));
+}
+
+async function store(rootDir, task_id, total, options = {}) {
+  const record = telemetry(task_id, total, options);
+  await persistTelemetryRecord(rootDir, record);
+  return record;
+}
+
+async function overwriteCanonical(rootDir, taskId, value) {
+  const relative = telemetryPath(taskId);
+  const target = path.join(rootDir, ...relative.split('/'));
+  await mkdir(path.dirname(target), { recursive: true });
+  await writeFile(target, `${JSON.stringify(value, null, 2)}\n`, 'utf8');
 }
 
 test('risk classes and minimum primary sample floor are frozen and deterministic', () => {
@@ -56,31 +73,47 @@ test('risk classes and minimum primary sample floor are frozen and deterministic
   assert.equal(Object.isFrozen(CALIBRATION_RISK_CLASSES), true);
 });
 
-test('missing telemetry is explicit and never converted into zero usage', () => {
-  const report = calibrateRiskClasses([
-    binding('LOW-MISSING', 'LOW', 0, { missing: true }),
-    binding('MEDIUM-MISSING', 'MEDIUM', 0, { missing: true }),
-    binding('HIGH-MISSING', 'HIGH', 0, { missing: true }),
-  ]);
+test('missing canonical telemetry is explicit and never converted into zero usage', async () => {
+  const rootDir = await root();
+  const report = await calibrateCanonicalRiskClasses({
+    root_dir: rootDir,
+    task_contracts: [
+      taskContract('LOW-MISSING', 'LOW'),
+      taskContract('MEDIUM-MISSING', 'MEDIUM'),
+      taskContract('HIGH-MISSING', 'HIGH'),
+    ],
+  });
   for (const risk of CALIBRATION_RISK_CLASSES) {
     assert.equal(report.classes[risk].disposition, 'INSUFFICIENT_CANONICAL_TELEMETRY');
     assert.equal(report.classes[risk].primary_sample_count, 0);
     assert.equal(report.classes[risk].missing_telemetry_count, 1);
     assert.equal(report.classes[risk].token_quantiles, null);
   }
+  assert.equal(report.source_rule, 'CANONICAL_TELEMETRY_READBACK_ONLY');
   assert.equal(report.policy_mutation_allowed, false);
 });
 
-test('one successful pilot remains insufficient and cannot emit percentile statistics', () => {
-  const report = calibrateRiskClasses([binding('LOW-ONE', 'LOW', 400)]);
+test('one canonical successful pilot remains insufficient and cannot emit percentile statistics', async () => {
+  const rootDir = await root();
+  await store(rootDir, 'LOW-ONE', 400);
+  const report = await calibrateCanonicalRiskClasses({
+    root_dir: rootDir,
+    task_contracts: [taskContract('LOW-ONE', 'LOW')],
+  });
   assert.equal(report.classes.LOW.primary_sample_count, 1);
   assert.equal(report.classes.LOW.disposition, 'INSUFFICIENT_CANONICAL_TELEMETRY');
   assert.equal(report.classes.LOW.token_quantiles, null);
 });
 
-test('exactly ten primary samples unlock deterministic nearest-rank quantiles only for that risk class', () => {
-  const samples = Array.from({ length: 10 }, (_, index) => binding(`LOW-${index + 1}`, 'LOW', (index + 1) * 10));
-  const report = calibrateRiskClasses(samples);
+test('exactly ten canonical primary samples unlock deterministic nearest-rank quantiles only for that risk class', async () => {
+  const rootDir = await root();
+  const contracts = [];
+  for (let index = 0; index < 10; index += 1) {
+    const taskId = `LOW-${index + 1}`;
+    contracts.push(taskContract(taskId, 'LOW'));
+    await store(rootDir, taskId, (index + 1) * 10);
+  }
+  const report = await calibrateCanonicalRiskClasses({ root_dir: rootDir, task_contracts: contracts });
   assert.equal(report.classes.LOW.disposition, 'SUFFICIENT_CANONICAL_TELEMETRY');
   assert.equal(report.classes.LOW.primary_sample_count, 10);
   assert.deepEqual(report.classes.LOW.token_quantiles, {
@@ -95,60 +128,101 @@ test('exactly ten primary samples unlock deterministic nearest-rank quantiles on
   assert.equal(report.classes.HIGH.disposition, 'INSUFFICIENT_CANONICAL_TELEMETRY');
 });
 
-test('human-rejected and non-merged records are retained as evidence but excluded from primary samples', () => {
-  const report = calibrateRiskClasses([
-    binding('MED-REJECTED', 'MEDIUM', 300, { human_rejected: true }),
-    binding('MED-ABORTED', 'MEDIUM', 350, { terminal_state: 'ABORTED' }),
-  ]);
+test('human-rejected and non-merged canonical records remain visible but excluded from primary samples', async () => {
+  const rootDir = await root();
+  await store(rootDir, 'MED-REJECTED', 300, { human_rejected: true });
+  await store(rootDir, 'MED-ABORTED', 350, { terminal_state: 'ABORTED' });
+  const report = await calibrateCanonicalRiskClasses({
+    root_dir: rootDir,
+    task_contracts: [taskContract('MED-REJECTED', 'MEDIUM'), taskContract('MED-ABORTED', 'MEDIUM')],
+  });
   assert.equal(report.classes.MEDIUM.primary_sample_count, 0);
   assert.equal(report.classes.MEDIUM.excluded_sample_count, 2);
   assert.deepEqual(report.classes.MEDIUM.exclusion_reasons, {
     HUMAN_REJECTED: 1,
     TERMINAL_STATE_NOT_MERGED: 1,
   });
-  assert.equal(report.classes.MEDIUM.token_quantiles, null);
 });
 
-test('tampered aggregate fails closed instead of becoming a calibration sample', () => {
+test('tampered aggregate stored at canonical path fails closed instead of becoming a sample', async () => {
+  const rootDir = await root();
   const record = telemetry('LOW-TAMPER', 400);
-  const tampered = { ...record, measurements: { ...record.measurements, total_model_tokens: 1 } };
-  assert.throws(() => validateCalibrationBinding({
-    task_contract: taskContract('LOW-TAMPER', 'LOW'),
-    telemetry_record: tampered,
+  await overwriteCanonical(rootDir, 'LOW-TAMPER', {
+    ...record,
+    measurements: { ...record.measurements, total_model_tokens: 1 },
+  });
+  await assert.rejects(() => calibrateCanonicalRiskClasses({
+    root_dir: rootDir,
+    task_contracts: [taskContract('LOW-TAMPER', 'LOW')],
   }), /TELEMETRY_RECORD_INTEGRITY_MISMATCH/);
 });
 
-test('invalid provenance fails closed through canonical telemetry validation', () => {
+test('invalid provenance stored at canonical path fails closed', async () => {
+  const rootDir = await root();
   const record = telemetry('LOW-SOURCE', 400);
-  const tampered = { ...record, events: record.events.map((event) => ({ ...event, source: 'SYNTHETIC' })) };
-  assert.throws(() => validateCalibrationBinding({
-    task_contract: taskContract('LOW-SOURCE', 'LOW'),
-    telemetry_record: tampered,
+  await overwriteCanonical(rootDir, 'LOW-SOURCE', {
+    ...record,
+    events: record.events.map((event) => ({ ...event, source: 'SYNTHETIC' })),
+  });
+  await assert.rejects(() => calibrateCanonicalRiskClasses({
+    root_dir: rootDir,
+    task_contracts: [taskContract('LOW-SOURCE', 'LOW')],
   }), /INVALID_TELEMETRY_SOURCE/);
 });
 
-test('task binding mismatch and token-budget mismatch both fail closed', () => {
-  assert.throws(() => validateCalibrationBinding({
-    task_contract: taskContract('TASK-A', 'LOW'),
-    telemetry_record: telemetry('TASK-B', 300),
+test('canonical task binding mismatch and token-budget mismatch both fail closed', async () => {
+  const rootDir = await root();
+  await overwriteCanonical(rootDir, 'TASK-A', telemetry('TASK-B', 300));
+  await assert.rejects(() => calibrateCanonicalRiskClasses({
+    root_dir: rootDir,
+    task_contracts: [taskContract('TASK-A', 'LOW')],
   }), /TELEMETRY_TASK_MISMATCH/);
 
+  const budgetRoot = await root();
+  await store(budgetRoot, 'TASK-BUDGET', 300);
   const alternateBudget = { expected_max: 1100, soft_alert: 2100, hard_cap: 5100 };
-  assert.throws(() => validateCalibrationBinding({
-    task_contract: taskContract('TASK-BUDGET', 'LOW', alternateBudget),
-    telemetry_record: telemetry('TASK-BUDGET', 300),
+  await assert.rejects(() => calibrateCanonicalRiskClasses({
+    root_dir: budgetRoot,
+    task_contracts: [taskContract('TASK-BUDGET', 'LOW', alternateBudget)],
   }), /CALIBRATION_TOKEN_BUDGET_MISMATCH/);
 });
 
-test('duplicate task ids cannot inflate sample count', () => {
-  const sample = binding('LOW-DUP', 'LOW', 250);
-  assert.throws(() => calibrateRiskClasses([sample, sample]), /DUPLICATE_CALIBRATION_TASK:LOW-DUP/);
+test('duplicate task contracts cannot inflate canonical sample count', async () => {
+  const rootDir = await root();
+  await store(rootDir, 'LOW-DUP', 250);
+  await assert.rejects(() => calibrateCanonicalRiskClasses({
+    root_dir: rootDir,
+    task_contracts: [taskContract('LOW-DUP', 'LOW'), taskContract('LOW-DUP', 'LOW')],
+  }), /DUPLICATE_CALIBRATION_TASK:LOW-DUP/);
 });
 
-test('reports are defensively frozen and cannot be mutated into recommendations', () => {
-  const report = calibrateRiskClasses([binding('HIGH-ONE', 'HIGH', 700)]);
+test('noncanonical in-memory verified telemetry cannot enter statistics', () => {
+  const record = telemetry('HIGH-MEMORY', 700);
+  const binding = validateCalibrationBinding({
+    task_contract: taskContract('HIGH-MEMORY', 'HIGH'),
+    telemetry_record: record,
+  });
+  assert.equal(binding.telemetry_state, 'VERIFIED');
+  assert.equal(binding.canonical_readback, false);
+});
+
+test('canonical report is defensively frozen and cannot be mutated into recommendations', async () => {
+  const rootDir = await root();
+  await store(rootDir, 'HIGH-ONE', 700);
+  const report = await calibrateCanonicalRiskClasses({
+    root_dir: rootDir,
+    task_contracts: [taskContract('HIGH-ONE', 'HIGH')],
+  });
   assert.equal(Object.isFrozen(report), true);
   assert.equal(Object.isFrozen(report.classes.HIGH), true);
   assert.equal(report.policy_mutation_allowed, false);
   assert.throws(() => { report.classes.HIGH.disposition = 'SUFFICIENT_CANONICAL_TELEMETRY'; }, TypeError);
+});
+
+test('malformed task ids are not downgraded to missing telemetry', async () => {
+  const rootDir = await root();
+  await assert.rejects(() => calibrateCanonicalRiskClasses({
+    root_dir: rootDir,
+    task_contracts: [taskContract('../BAD', 'LOW')],
+  }), /INVALID_TASK_ID/);
 });

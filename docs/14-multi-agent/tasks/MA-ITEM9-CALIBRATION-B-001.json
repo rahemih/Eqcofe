@@ -135,7 +135,13 @@
     },
     {
       "id": "AC-002",
-      "description": "Only canonical telemetry records that pass deterministic readback integrity and explicit provenance validation may become calibration evidence.",
+      "description": "Only telemetry loaded from canonical .eqcofe/telemetry/<task_id>.json via verified readback may enter the calibration engine; invalid JSON, invalid provenance, task mismatch and tampered aggregates fail closed.",
+      "verification": "node --test test/multi-agent/calibration-engine.test.mjs",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002A",
+      "description": "A missing canonical telemetry file is converted only to explicit MISSING_TELEMETRY evidence; malformed task IDs and every non-ENOENT read failure propagate as blockers rather than being treated as missing.",
       "verification": "node --test test/multi-agent/calibration-engine.test.mjs",
       "mandatory": true
     },
@@ -197,5 +203,13 @@
   "process_improvement_links": [
     "ITEM-9-CALIBRATION"
   ],
-  "incident_links": []
+  "incident_links": [],
+  "canonical_loading_rule": {
+    "entrypoint": "calibrateCanonicalRiskClasses",
+    "storage": ".eqcofe/telemetry/<task_id>.json",
+    "reader": "readTelemetryRecord",
+    "missing_file_behavior": "MISSING_TELEMETRY",
+    "invalid_or_tampered_behavior": "FAIL_CLOSED",
+    "rule": "Calibration statistics may only be produced from records loaded through canonical telemetry readback. In-memory records can be integrity-validated for unit-level checks but are not a canonical calibration source."
+  }
 }

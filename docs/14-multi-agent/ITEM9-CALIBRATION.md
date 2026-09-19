@@ -59,10 +59,10 @@ Canonical base این Stage:
 Stage B یک موتور deterministic و library-driven اضافه می‌کند که:
 
 - evidence را بر اساس risk متصل به Task Contract به LOW / MEDIUM / HIGH گروه‌بندی می‌کند؛
-- هر Telemetry Record را با `validateTelemetryRecord` بازسازی و integrity آن را بررسی می‌کند؛
+- مسیر اصلی `calibrateCanonicalRiskClasses` هر Task را فقط از `.eqcofe/telemetry/<task_id>.json` و از طریق `readTelemetryRecord` می‌خواند؛\n- هر Telemetry Record را با `validateTelemetryRecord` بازسازی و integrity آن را بررسی می‌کند؛
 - provenance نامعتبر، aggregate دستکاری‌شده، task mismatch و token-budget mismatch را fail closed می‌کند؛
 - فقط `terminal_state = MERGED` و `human_rejected = false` را primary sample می‌پذیرد؛
-- missing telemetry را `MISSING_TELEMETRY` ثبت می‌کند و هرگز آن را zero usage فرض نمی‌کند؛
+- فقط خطای `ENOENT` را به `MISSING_TELEMETRY` تبدیل می‌کند؛ JSON نامعتبر، task-id نامعتبر، provenance نامعتبر و tamper همگی fail closed باقی می‌مانند؛\n- missing telemetry را `MISSING_TELEMETRY` ثبت می‌کند و هرگز آن را zero usage فرض نمی‌کند؛
 - duplicate task id را رد می‌کند تا sample count قابل بادکردن نباشد؛
 - خروجی‌ها را defensively frozen می‌کند؛
 - `policy_mutation_allowed = false` برمی‌گرداند.
@@ -87,9 +87,9 @@ Specification/Governance عدد آماده‌ای برای minimum sample size �
 
 Stage B هیچ budget، risk floor، retry limit، Review/Security/Human Gate، required CI یا Merge Policy را تغییر نمی‌دهد.
 
-## Stage B Negative Guarantees
+### Canonical Readback Boundary\n\nوجود یک object معتبر در حافظه برای Calibration کافی نیست. مسیر production-level Stage B فقط `calibrateCanonicalRiskClasses` است؛ این entrypoint ابتدا canonical file را با `readTelemetryRecord` می‌خواند و سپس validation و grouping را انجام می‌دهد. بنابراین یک record ساخته‌شده در حافظه، حتی اگر integrity-valid باشد، بدون canonical readback وارد statistics نمی‌شود.\n\n## Stage B Negative Guarantees
 
-- missing telemetry != zero usage
+- non-canonical in-memory telemetry => not eligible for statistics\n- missing telemetry != zero usage
 - invalid provenance => FAIL
 - tampered aggregate => FAIL
 - task mismatch => FAIL
