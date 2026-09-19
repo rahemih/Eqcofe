@@ -3,6 +3,7 @@ import { AppShell } from "./shell/AppShell";
 import { DEFAULT_LOCALE, getMessages } from "./i18n";
 import "./styles/tokens.css";
 import "./styles/shell.css";
+import "./styles/state.css";
 
 export default function Root() {
   const messages = getMessages();
