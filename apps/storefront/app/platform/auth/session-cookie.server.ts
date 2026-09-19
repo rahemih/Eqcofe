@@ -56,7 +56,7 @@ export function extractCustomerSessionCookieHeader(
 }
 
 export function sanitizeCustomerSessionSetCookie(raw: string): string {
-  if (/[\r\n]/.test(raw)) {
+  if (raw.includes("\r") || raw.includes("\n")) {
     throw securityError("SESSION_SET_COOKIE_INVALID", "Session Set-Cookie contains control characters.");
   }
 
@@ -169,7 +169,13 @@ function getSetCookieHeaders(headers: Headers): readonly string[] {
 }
 
 function isSafeCookieValue(value: string): boolean {
-  return !/[\x00-\x20\x7f;,]/.test(value);
+  for (const character of value) {
+    const code = character.charCodeAt(0);
+    if (code <= 0x20 || code === 0x7f || character === ";" || character === ",") {
+      return false;
+    }
+  }
+  return true;
 }
 
 function securityError(code: string, message: string): ApiClientError {
