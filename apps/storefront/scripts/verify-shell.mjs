@@ -100,10 +100,8 @@ async function waitForServer() {
 
 function request(pathname) {
   return new Promise((resolvePromise, rejectPromise) => {
-    const req = http.get({
-      hostname: "127.0.0.1",
-      port,
-      path: pathname,
+    const url = new URL(pathname, `http://127.0.0.1:${port}`);
+    const req = http.get(url, {
       headers: { accept: "text/html" },
     }, (res) => {
       let body = "";
