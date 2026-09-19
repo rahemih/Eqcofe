@@ -1,5 +1,13 @@
 export type ConnectivityHint = "unknown" | "online" | "offline";
 
+type BrowserRuntime = typeof globalThis & {
+  navigator?: {
+    onLine?: boolean;
+  };
+  addEventListener?: (type: "online" | "offline", listener: () => void) => void;
+  removeEventListener?: (type: "online" | "offline", listener: () => void) => void;
+};
+
 export function connectivityHintFromOnlineFlag(
   online: boolean | undefined,
 ): ConnectivityHint {
@@ -8,20 +16,21 @@ export function connectivityHintFromOnlineFlag(
 }
 
 export function readBrowserConnectivityHint(): ConnectivityHint {
-  if (typeof navigator === "undefined") return "unknown";
-  return connectivityHintFromOnlineFlag(navigator.onLine);
+  const runtime = globalThis as BrowserRuntime;
+  return connectivityHintFromOnlineFlag(runtime.navigator?.onLine);
 }
 
 export function subscribeBrowserConnectivityHint(
   listener: () => void,
 ): () => void {
-  if (typeof window === "undefined") return () => undefined;
+  const runtime = globalThis as BrowserRuntime;
+  if (!runtime.addEventListener || !runtime.removeEventListener) return () => undefined;
 
-  window.addEventListener("online", listener);
-  window.addEventListener("offline", listener);
+  runtime.addEventListener("online", listener);
+  runtime.addEventListener("offline", listener);
 
   return () => {
-    window.removeEventListener("online", listener);
-    window.removeEventListener("offline", listener);
+    runtime.removeEventListener?.("online", listener);
+    runtime.removeEventListener?.("offline", listener);
   };
 }
