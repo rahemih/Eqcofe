@@ -1,0 +1,171 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP58-G-QUALITY-001",
+  "title": "Step 58-G testing accessibility responsive and quality gates",
+  "description": "Implement only the storefront quality-gate layer: static/SSR accessibility and responsive guards, real Chromium keyboard/focus/target/reflow/reduced-motion checks, automated WCAG-tagged axe audit, and minimal remediation of foundation semantics/target/focus coverage. No customer feature implementation, business logic, backend/OpenAPI/database change, Stage H closure or Step59.",
+  "risk": "HIGH",
+  "risk_floor": "HIGH",
+  "owner": "PRODUCT_DESIGN",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "00a1bd3498f4e044cabdbbabceb2dd57f2d5e3d2"
+  },
+  "scope": {
+    "read": [
+      "apps/storefront/**",
+      "docs/11-step-history/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**",
+      "docs/14-multi-agent/**",
+      ".github/workflows/**"
+    ],
+    "write": [
+      ".github/workflows/step58-storefront-quality.yml",
+      "apps/storefront/package.json",
+      "apps/storefront/README.md",
+      "apps/storefront/app/shell/AppShell.tsx",
+      "apps/storefront/app/styles/shell.css",
+      "apps/storefront/scripts/verify-quality-static.mjs",
+      "apps/storefront/scripts/verify-quality-browser.mjs",
+      "docs/11-step-history/STEP-58-G-QUALITY-GATES.md",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP58-G-QUALITY-001.json"
+    ],
+    "forbidden": [
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "contracts/**",
+      "database/**",
+      "src/**",
+      "scripts/**",
+      "test/**",
+      "apps/api/**",
+      "apps/worker/**",
+      "apps/scheduler/**",
+      "docs/13-product-design/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP58-G-QUALITY-001-01"
+  ],
+  "human_gate_required": true,
+  "token_budget": {
+    "expected_max": 38000,
+    "soft_alert": 56000,
+    "hard_cap": 112000
+  },
+  "max_repair_cycles": 4,
+  "task_risk_rules": [
+    {
+      "id": "STEP58_G_CI_WORKFLOW_HIGH",
+      "risk": "HIGH",
+      "paths": [
+        ".github/workflows/step58-storefront-quality.yml"
+      ]
+    },
+    {
+      "id": "STEP58_G_STOREFRONT_QUALITY_MEDIUM",
+      "risk": "MEDIUM",
+      "paths": [
+        "apps/storefront/package.json",
+        "apps/storefront/app/shell/AppShell.tsx",
+        "apps/storefront/app/styles/shell.css",
+        "apps/storefront/scripts/verify-quality-static.mjs",
+        "apps/storefront/scripts/verify-quality-browser.mjs"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": 58,
+      "name": "Stage 58-F state errors loading and offline recovery foundation",
+      "required_state": "CLOSED_CANONICAL_PASS",
+      "observed_state": "CLOSED_CANONICAL_PASS",
+      "merge_sha": "735c69f6e2eac30f5fa1c1c4012e709e15972451",
+      "blocking": false
+    }
+  ],
+  "authorized_human_approver": {
+    "role": "PROJECT_OWNER",
+    "github_login": "rahemih"
+  },
+  "evidence": {
+    "stage_f_pr": 194,
+    "stage_f_merge": "735c69f6e2eac30f5fa1c1c4012e709e15972451",
+    "post_stage_f_main": "e79d7397d54545a8c3620961df4cc0df666ff9d5",
+    "post_stage_f_main_source_pr": 195,
+    "linear_issue": "HOS-14",
+    "accessibility_source": "docs/13-product-design/STEP-54-ACCESSIBILITY.md",
+    "responsive_source": "docs/13-product-design/STEP-54-RTL-RESPONSIVE.md",
+    "prior_browser_pattern": ".github/workflows/step57-prototype.yml",
+    "initial_stage_g_base": "e79d7397d54545a8c3620961df4cc0df666ff9d5",
+    "initial_stage_g_pr": 197,
+    "reconciled_stage_g_base": "00a1bd3498f4e044cabdbbabceb2dd57f2d5e3d2",
+    "reconciled_stage_g_base_source_pr": 196,
+    "drift_reason": "Protected PR #196 advanced main before Stage 58-G Human approval registration; all prior artifact-bound gates are stale."
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Static/source quality gate rejects positive tabindex, autofocus, non-semantic click targets, focus suppression, physical RTL layout, reflow clipping/truncation hazards and design-token drift while tracing the Step54 accessibility/responsive contract.",
+      "verification": "static_accessibility_quality_gate",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "All 32 placeholder route examples pass deterministic SSR semantic checks for Persian RTL document, viewport, main/H1 baseline, skip-link order, unique IDs, valid aria-controls, accessible interactive names and image alt contract.",
+      "verification": "ssr_semantic_route_gate",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Real Chromium gate verifies keyboard skip-link/focus transfer, compact disclosure, visible focus >=3px, 44x44 visible interactive targets, RTL runtime and no horizontal overflow across 320/360/600/840/1200/1440 widths.",
+      "verification": "browser_keyboard_responsive_gate",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Browser gate verifies prescribed text-spacing/long-Persian stress, reduced-motion runtime and 320 CSS-pixel reflow proxy for 1280px at 400 percent without claiming full product WCAG conformance.",
+      "verification": "browser_reflow_text_motion_gate",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Pinned free/open-source Playwright and axe-core audit representative compact/expanded routes and report zero WCAG-tagged axe violations; workflow has contents-read permissions and no paid/external provider.",
+      "verification": "browser_axe_supply_chain_gate",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Minimal remediation makes quick access a named nav landmark, broadens visible focus coverage to standard controls/programmatic targets, and guarantees Breadcrumb/Footer interactive targets use the 44px token.",
+      "verification": "foundation_a11y_remediation",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "No feature UI/business state/backend/OpenAPI/database/visual redesign/StageH/Step59 work enters Stage G.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "HIGH-risk closure requires exact-artifact REVIEW, SECURITY, HUMAN and LOCK evidence; canonical verify/phase-a/merge-policy; browser-quality PASS on exact PR head; protected merge; exact-SHA postmerge verify/Phase-A; and browser-quality PASS on merged main.",
+      "verification": "high_risk_quality_canonical_transport",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "SECURITY",
+      "HUMAN",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Stage G is HIGH risk because it introduces CI quality enforcement. Stage H and Step59 remain forbidden until both canonical and browser postmerge evidence pass."
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}
