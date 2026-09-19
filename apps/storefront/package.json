@@ -12,10 +12,11 @@
     "start": "react-router-serve ./build/server/index.js",
     "typecheck": "react-router typegen && tsc --noEmit",
     "static-quality": "eslint app vite.config.ts react-router.config.ts",
-    "verify": "pnpm typecheck && pnpm static-quality && pnpm build && pnpm shell:verify && pnpm api:verify && pnpm auth:verify",
+    "verify": "pnpm typecheck && pnpm static-quality && pnpm build && pnpm shell:verify && pnpm api:verify && pnpm auth:verify && pnpm state:verify",
     "shell:verify": "node ./scripts/verify-shell.mjs",
     "api:verify": "pnpm --dir ../.. exec tsx apps/storefront/scripts/verify-api-foundation.ts",
-    "auth:verify": "pnpm --dir ../.. exec tsx apps/storefront/scripts/verify-auth-boundary.ts"
+    "auth:verify": "pnpm --dir ../.. exec tsx apps/storefront/scripts/verify-auth-boundary.ts",
+    "state:verify": "pnpm --dir ../.. exec tsx apps/storefront/scripts/verify-state-foundation.ts"
   },
   "dependencies": {
     "@react-router/node": "8.4.0",

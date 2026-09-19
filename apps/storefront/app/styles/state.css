@@ -1,0 +1,80 @@
+.state-panel {
+  display: grid;
+  gap: var(--eq-spacing-3);
+  max-inline-size: 720px;
+  padding: var(--eq-spacing-5);
+  border: var(--eq-border-hairline) solid var(--eq-color-border-default);
+  border-inline-start-width: var(--eq-border-strong);
+  border-radius: var(--eq-radius-lg);
+  background: var(--eq-color-bg-surface);
+  box-shadow: var(--eq-effect-elevation-1);
+}
+
+.state-panel[data-state="loading"] {
+  border-inline-start-color: var(--eq-color-status-info);
+}
+
+.state-panel[data-state="empty"] {
+  border-inline-start-color: var(--eq-color-border-strong);
+}
+
+.state-panel[data-state="error"],
+.state-panel[data-state="forbidden"] {
+  border-inline-start-color: var(--eq-color-status-danger);
+}
+
+.state-panel[data-state="offline"],
+.state-panel[data-state="recovery"] {
+  border-inline-start-color: var(--eq-color-status-warning);
+}
+
+.state-panel__title,
+.state-panel__message,
+.state-panel__request-id {
+  margin: 0;
+}
+
+.state-panel__title {
+  font-size: var(--eq-type-title-large-font-size);
+  line-height: var(--eq-type-title-large-line-height);
+}
+
+.state-panel__message {
+  max-inline-size: 68ch;
+  color: var(--eq-color-text-secondary);
+}
+
+.state-panel__request-id {
+  color: var(--eq-color-text-muted);
+  font-size: var(--eq-type-body-small-font-size);
+  line-height: var(--eq-type-body-small-line-height);
+}
+
+.state-panel__request-id bdi {
+  unicode-bidi: isolate;
+}
+
+.state-panel__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--eq-spacing-2);
+  margin-block-start: var(--eq-spacing-1);
+}
+
+.state-panel__actions button {
+  min-block-size: var(--eq-size-touch-min);
+  min-inline-size: var(--eq-size-touch-min);
+  padding-inline: var(--eq-spacing-4);
+  border: var(--eq-border-hairline) solid var(--eq-color-action-primary);
+  border-radius: var(--eq-radius-md);
+  background: var(--eq-color-bg-surface);
+  color: var(--eq-color-action-primary);
+  font: inherit;
+  font-weight: var(--eq-type-label-large-font-weight);
+  cursor: pointer;
+}
+
+.state-panel__actions button:hover {
+  color: var(--eq-color-action-primary-hover);
+  border-color: var(--eq-color-action-primary-hover);
+}

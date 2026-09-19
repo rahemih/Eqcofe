@@ -41,3 +41,14 @@ Stage 58-B bootstraps only the storefront build workspace.
 - `/auth/session` is the backend-authoritative session probe. The frontend represents only authenticated, unauthenticated, expired, forbidden and recovery states; it does not derive permissions or authorize business actions.
 - Stage 58-E does not implement login/account UI, route feature loaders, admin auth, CSRF schemes not present in contract, or Step 59 features.
 
+## Stage 58-F state/error/loading/offline-recovery foundation
+
+- Shared async state primitives distinguish initial/progressive/refresh loading, ready data, first-use/filtered/no-result empty states, generic errors, Forbidden, browser-offline hint and bounded recovery.
+- Refresh/offline/recovery states may preserve previously verified data instead of blanking the screen.
+- API errors are converted to a public problem shape that omits raw backend/transport messages; request-id may be shown as a bidi-isolated support reference.
+- Browser `navigator.onLine` is only a connectivity hint. It never proves backend availability and does not replace an API result.
+- Recovery planning never runs timers, polling or automatic UI retries. Safe GET/HEAD failures may expose a user-triggered retry; mutations are not retried by this foundation.
+- An unknown mutation result may offer an authoritative status-check action only when the calling feature explicitly proves that such a capability exists. Otherwise recovery is fail-closed.
+- `StatePanel` provides Persian, RTL/logical, accessible Loading/Empty/Error/Forbidden/Offline/Recovery presentation with 44px action targets. No action is invented when the caller has not supplied one.
+- Stage 58-F does not implement product/cart/checkout/account state, global business cache, optimistic updates, offline mutation queues, service workers or Step 59.
+
