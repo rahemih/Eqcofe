@@ -159,3 +159,20 @@ Closure requires:
 ## Gate verdict before transport
 
 `IMPLEMENTATION READY / HIGH-RISK QUALITY GATES PENDING`
+
+
+## Post-merge browser-quality trigger remediation
+
+PR #198 merged canonically at `fc601866f21c3e5efc8067ddc00e8898f3c42848` and protected Merge Policy Run #195 completed with merge + exact-SHA postmerge `pnpm verify` + Phase-A PASS.
+
+However, the dedicated `Step 58 Storefront Quality` workflow did not start from the merge push. This is an expected GitHub Actions anti-recursion behavior when the push is created by a workflow using `GITHUB_TOKEN`: a workflow-created push does not trigger another workflow chain.
+
+Stage G therefore remains open. The closure rule is not weakened.
+
+Remediation:
+- add `workflow_dispatch` to `.github/workflows/step58-storefront-quality.yml`;
+- canonically merge this remediation through the same HIGH-risk policy;
+- explicitly dispatch Browser Quality against final `main`;
+- require PASS on that exact final main SHA before declaring Stage G closed.
+
+No storefront runtime, product feature, backend/OpenAPI/database, Stage H or Step59 implementation is added by this remediation.
