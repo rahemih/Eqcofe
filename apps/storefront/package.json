@@ -12,7 +12,8 @@
     "start": "react-router-serve ./build/server/index.js",
     "typecheck": "react-router typegen && tsc --noEmit",
     "static-quality": "eslint app vite.config.ts react-router.config.ts",
-    "verify": "pnpm typecheck && pnpm static-quality && pnpm build"
+    "verify": "pnpm typecheck && pnpm static-quality && pnpm build && pnpm shell:verify",
+    "shell:verify": "node ./scripts/verify-shell.mjs"
   },
   "dependencies": {
     "@react-router/node": "8.4.0",
