@@ -1,0 +1,215 @@
+{
+  "schema_version": "2.2",
+  "task_id": "MA-ITEM9-CALIBRATION-B-001",
+  "title": "Item 9 Calibration — Stage B deterministic calibration engine",
+  "description": "Implement the deterministic Item 9 Stage B calibration engine. The engine binds canonical explicit telemetry to Task Contracts, groups primary samples by LOW/MEDIUM/HIGH, validates provenance/integrity/task binding/token budget/calibration eligibility, fails closed on missing or insufficient evidence, and emits no numeric quantiles until a conservative per-risk operational sample floor is met. It does not modify budgets or governance policy.",
+  "risk": "MEDIUM",
+  "risk_floor": "LOW",
+  "risk_rationale": {
+    "chosen": "MEDIUM",
+    "why_medium": [
+      "This code becomes governance-supporting calibration logic used to interpret canonical telemetry.",
+      "A defect could produce misleading calibration statistics even though the stage cannot mutate policy or production business state.",
+      "The implementation is additive and isolated to multi-agent governance scripts/tests/docs."
+    ],
+    "why_not_high": [
+      "No payment, pricing, inventory, authentication, authorization, migration, database, production runtime, GitHub ruleset, workflow, Human Gate, Security Gate, or merge-policy behavior is changed.",
+      "The engine explicitly sets policy_mutation_allowed=false and Stage C remains the only recommendation stage."
+    ]
+  },
+  "owner": "BACKEND",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "735c69f6e2eac30f5fa1c1c4012e709e15972451"
+  },
+  "dependencies": [
+    {
+      "item": "ITEM-9-STAGE-A",
+      "name": "Item 9 Stage A evidence and sample sufficiency baseline",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "5db790c74f601c23819df943beffbff7f106f9d3",
+      "protected_merge_run": 35435491785,
+      "blocking": false
+    }
+  ],
+  "scope": {
+    "read": [
+      "docs/14-multi-agent/GOVERNANCE.md",
+      "docs/14-multi-agent/TOKEN-TELEMETRY.md",
+      "docs/14-multi-agent/ITEM9-CALIBRATION.md",
+      "docs/14-multi-agent/tasks/*.json",
+      "scripts/multi-agent/token-telemetry.mjs",
+      "scripts/multi-agent/docs-automation.mjs",
+      "scripts/multi-agent/risk-verification-policy.mjs",
+      "test/multi-agent/token-telemetry.test.mjs"
+    ],
+    "write": [
+      "scripts/multi-agent/calibration-engine.mjs",
+      "test/multi-agent/calibration-engine.test.mjs",
+      "docs/14-multi-agent/ITEM9-CALIBRATION.md",
+      "docs/14-multi-agent/tasks/MA-ITEM9-CALIBRATION-B-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      ".eqcofe/**",
+      "src/**",
+      "apps/**",
+      "database/**",
+      "contracts/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "docs/11-step-history/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-MA-ITEM9-CALIBRATION-B-001-01"
+  ],
+  "lock": {
+    "lock_id": "LOCK-MA-ITEM9-CALIBRATION-B-001-01",
+    "task_id": "MA-ITEM9-CALIBRATION-B-001",
+    "owner": "BACKEND",
+    "paths": [
+      "scripts/multi-agent/calibration-engine.mjs",
+      "test/multi-agent/calibration-engine.test.mjs",
+      "docs/14-multi-agent/ITEM9-CALIBRATION.md",
+      "docs/14-multi-agent/tasks/MA-ITEM9-CALIBRATION-B-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "status": "ACTIVE_UNTIL_PR_TERMINAL",
+    "rule": "No conflicting writer may mutate these paths until the Stage B PR is merged or aborted."
+  },
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 25000,
+    "soft_alert": 35000,
+    "hard_cap": 70000
+  },
+  "max_repair_cycles": 2,
+  "sample_sufficiency_rule": {
+    "minimum_primary_samples_per_risk": 10,
+    "quantile_method": "NEAREST_RANK",
+    "statistics_emitted_only_when_sufficient": true,
+    "basis": "Conservative operational floor only; not a claim of inferential statistical confidence. It prevents a single pilot or a tiny anecdotal sample from enabling P50/P75/P90 output. Stage C may use the output only as evidence and still cannot directly mutate policy."
+  },
+  "task_risk_rules": [
+    {
+      "id": "ITEM9_CALIBRATION_ENGINE",
+      "risk": "MEDIUM",
+      "paths": [
+        "scripts/multi-agent/calibration-engine.mjs",
+        "test/multi-agent/calibration-engine.test.mjs",
+        "docs/14-multi-agent/ITEM9-CALIBRATION.md",
+        "docs/14-multi-agent/tasks/MA-ITEM9-CALIBRATION-B-001.json"
+      ]
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Stage B is MEDIUM and requires exact-artifact Review PASS plus ACTIVE lock evidence. Security and Project Owner Human Gate are not required unless deterministic risk escalates."
+  },
+  "protection_source": {
+    "required_contexts": [
+      "verify",
+      "phase-a",
+      "merge-policy"
+    ],
+    "required_integration": "GitHub Actions",
+    "required_integration_id": 15368
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Engine groups calibration evidence independently into LOW, MEDIUM and HIGH using the bound Task Contract risk.",
+      "verification": "node --test test/multi-agent/calibration-engine.test.mjs",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Only telemetry loaded from canonical .eqcofe/telemetry/<task_id>.json via verified readback may enter the calibration engine; invalid JSON, invalid provenance, task mismatch and tampered aggregates fail closed.",
+      "verification": "node --test test/multi-agent/calibration-engine.test.mjs",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002A",
+      "description": "A missing canonical telemetry file is converted only to explicit MISSING_TELEMETRY evidence; malformed task IDs and every non-ENOENT read failure propagate as blockers rather than being treated as missing.",
+      "verification": "node --test test/multi-agent/calibration-engine.test.mjs",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Task ID and token budget must match the bound Task Contract; mismatch fails closed.",
+      "verification": "node --test test/multi-agent/calibration-engine.test.mjs",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Only MERGED and non-human-rejected records are primary samples; human-rejected or non-merged records remain visible but excluded.",
+      "verification": "node --test test/multi-agent/calibration-engine.test.mjs",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Missing telemetry is represented as missing evidence and is never converted into zero usage.",
+      "verification": "node --test test/multi-agent/calibration-engine.test.mjs",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Fewer than 10 primary samples in a risk class returns INSUFFICIENT_CANONICAL_TELEMETRY and emits no P50/P75/P90.",
+      "verification": "node --test test/multi-agent/calibration-engine.test.mjs",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "At 10 or more primary samples, deterministic nearest-rank token quantiles may be emitted for that class without changing any budget or policy.",
+      "verification": "node --test test/multi-agent/calibration-engine.test.mjs",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "Duplicate task IDs cannot inflate sample count and tampered aggregates or invalid provenance fail closed.",
+      "verification": "node --test test/multi-agent/calibration-engine.test.mjs",
+      "mandatory": true
+    },
+    {
+      "id": "AC-009",
+      "description": "Existing wildcard multi-agent tests include Stage B with no package.json or workflow mutation; full canonical verification must remain green.",
+      "verification": "pnpm multi-agent:verify && pnpm verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-010",
+      "description": "PR diff is limited to the five declared write-scope files and Stage B makes no recommendation or policy mutation.",
+      "verification": "deterministic_scope_check_and_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-011",
+      "description": "Protected merge and exact-SHA post-merge canonical plus Phase A verification must pass before Stage B is canonically complete.",
+      "verification": "merge_policy_execution_evidence",
+      "mandatory": true
+    }
+  ],
+  "process_improvement_links": [
+    "ITEM-9-CALIBRATION"
+  ],
+  "incident_links": [],
+  "canonical_loading_rule": {
+    "entrypoint": "calibrateCanonicalRiskClasses",
+    "storage": ".eqcofe/telemetry/<task_id>.json",
+    "reader": "readTelemetryRecord",
+    "missing_file_behavior": "MISSING_TELEMETRY",
+    "invalid_or_tampered_behavior": "FAIL_CLOSED",
+    "rule": "Calibration statistics may only be produced from records loaded through canonical telemetry readback. In-memory records can be integrity-validated for unit-level checks but are not a canonical calibration source."
+  }
+}
