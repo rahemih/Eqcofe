@@ -1,0 +1,168 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP59-F-HOME-STATE-001",
+  "title": "Step 59-F Home states accessibility and responsive hardening",
+  "description": "Close the Home state-presentation gap on top of the existing Step-58 async-state foundation. Map the authoritative Home GET /products AsyncSurfaceState to accessible Home-specific loading, empty, recovery, error, forbidden and offline presentations without changing backend authority or auto-retrying. Preserve previous authoritative product data when a state explicitly carries previous data, expose request identifiers with bidi-safe StatePanel semantics, keep retry as an explicit user action only when bounded and safe, provide a stable alternative search entry without implementing Step 60, and harden Home cards/state actions for long Persian text, RTL logical layout, touch targets and 400% reflow. Do not modify the shared StatePanel foundation, backend/API/OpenAPI/database, downstream routes or business rules.",
+  "risk": "MEDIUM",
+  "risk_floor": "MEDIUM",
+  "owner": "PRODUCT_DESIGN",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "de453f004cb910b88eea2ef28a3ae4b97e0b9ec2"
+  },
+  "scope": {
+    "read": [
+      "apps/storefront/**",
+      "docs/11-step-history/STEP-59-E-HOME-MERCHANDISING.md",
+      "docs/13-product-design/**",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "apps/storefront/app/features/home/home-product-state.ts",
+      "apps/storefront/app/features/home/HomeProductState.tsx",
+      "apps/storefront/app/routes/home.tsx",
+      "apps/storefront/app/i18n/fa-IR.ts",
+      "apps/storefront/app/styles/home.css",
+      "apps/storefront/package.json",
+      "apps/storefront/scripts/verify-step59-home-states.ts",
+      "docs/11-step-history/STEP-59-F-HOME-STATES-ACCESSIBILITY.md",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP59-F-HOME-STATE-001.json"
+    ],
+    "forbidden": [
+      ".github/**",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "src/**",
+      "database/**",
+      "contracts/**",
+      "test/**",
+      "apps/storefront/app/platform/**",
+      "apps/storefront/app/components/StatePanel.tsx",
+      "apps/storefront/app/styles/state.css",
+      "apps/storefront/app/routes/search.tsx",
+      "apps/storefront/app/routes/category.tsx",
+      "apps/storefront/app/routes/product.tsx",
+      "apps/storefront/app/routes/articles.tsx",
+      "apps/storefront/app/routes/wholesale.tsx",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP59-F-HOME-STATE-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 32000,
+    "soft_alert": 48000,
+    "hard_cap": 96000
+  },
+  "task_risk_rules": [
+    {
+      "id": "STEP59_F_HOME_STATE_MEDIUM",
+      "risk": "MEDIUM",
+      "paths": [
+        "apps/storefront/app/features/home/home-product-state.ts",
+        "apps/storefront/app/features/home/HomeProductState.tsx",
+        "apps/storefront/app/routes/home.tsx",
+        "apps/storefront/app/i18n/fa-IR.ts",
+        "apps/storefront/app/styles/home.css",
+        "apps/storefront/package.json",
+        "apps/storefront/scripts/verify-step59-home-states.ts",
+        "docs/11-step-history/STEP-59-F-HOME-STATES-ACCESSIBILITY.md",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP59-F-HOME-STATE-001.json"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "59-E",
+      "name": "Home merchandising and promotional surfaces",
+      "required_state": "CLOSED_CANONICAL_PASS",
+      "observed_state": "CLOSED_CANONICAL_PASS",
+      "merge_sha": "814cb7e56d927716f3c101771fa9b56b511181e8",
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "stage_e_merge": "814cb7e56d927716f3c101771fa9b56b511181e8",
+    "home_design_screen": "SF-B-01",
+    "state_foundation": "AsyncSurfaceState + StatePanel from Step 58",
+    "required_home_states": [
+      "loading",
+      "empty",
+      "recovery",
+      "error",
+      "forbidden",
+      "offline"
+    ],
+    "previous_authoritative_data_policy": "PRESERVE_WHEN_EXPLICITLY_PRESENT",
+    "retry_policy": "EXPLICIT_USER_ACTION_ONLY_NO_AUTOMATIC_RETRY",
+    "step60_search_destination": "/search",
+    "shared_state_panel_mutation": "FORBIDDEN",
+    "required_widths": [
+      320,
+      360,
+      600,
+      840,
+      1200,
+      1440
+    ],
+    "zoom_percent": 400,
+    "minimum_target_px": 44,
+    "reconciled_after_agent_phase_a_merge": true,
+    "reconciled_main_base": "de453f004cb910b88eea2ef28a3ae4b97e0b9ec2"
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Every non-ready AsyncSurfaceState has an accessible Home-specific StatePanel presentation; ready renders no redundant status panel.",
+      "verification": "pnpm --dir apps/storefront home-state:verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Previous authoritative product data is preserved only when explicitly present in loading/error/forbidden/offline/recovery states; no synthetic data is invented.",
+      "verification": "pnpm --dir apps/storefront home-state:verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Recovery/error request identifiers flow through StatePanel bidi-safe semantics; urgent error/forbidden states use alert semantics while ordinary loading/empty/recovery/offline states remain polite status announcements.",
+      "verification": "pnpm --dir apps/storefront home-state:verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Retry remains explicit/manual and only appears for bounded retryable Home states; no automatic retry loop, mutation or client business authority is introduced. /search remains a Step-60 handoff only.",
+      "verification": "pnpm --dir apps/storefront home-state:verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Home state/actions/cards use logical RTL CSS, long-text wrapping, minimum 44px interactive targets and responsive/reflow-safe grids across the canonical widths; no brown, row-reverse or physical left/right layout is introduced.",
+      "verification": "pnpm --dir apps/storefront home-state:verify && Storefront Browser Quality",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Root pnpm verify, exact-head Canonical CI, Phase A, Storefront Browser Quality, deterministic review, exact-artifact lock, protected merge and exact-SHA postmerge verification pass before Stage 59-G starts.",
+      "verification": "canonical_transport_and_postmerge_evidence",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Stage 59-F is MEDIUM risk. Direct-main write/raw merge are prohibited. Stage 59-G remains blocked until protected transport and exact-SHA postmerge verification are green."
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}
