@@ -8,16 +8,19 @@
 - Default/canonical branch: `main`
 - Historical repository: `rahemih/digikala-clone` — historical/recovery evidence only; not canonical application source.
 
-## Current Step57 final position
+## Current Step58 final position
 
-**Step 57 — High-Fidelity UI & Prototype Approval — CLOSED / FINAL GATE PASS.** Active step NONE; Step58 NEXT / NOT_STARTED.
+**Step 58 — Frontend Application Foundation — CLOSED / FINAL GATE PASS**, subject to Step 58-H exact-head governed transport and post-merge closure checks. Active step NONE; Step59 NEXT / NOT_STARTED.
 
-- Implementation PR `#163`; exact implementation head `796c4de7bb0b7945950d084d82204be4ed7107b5`; artifact hash `e985ae75aa6262948a4ff78e05b8bc88e45ac9490d89d828d1d8084e040e4e91`; merge/main `766904585dc601e36eec12c126e141efc4f6dc0a`.
-- Exact-head Step 57 Prototype Verification `34966548874` PASS.
-- Post-merge Canonical CI `34970052573` PASS; Phase A Verification `34970052561` PASS; Step 57 Prototype Verification `34970052572` PASS, including exhaustive browser/interaction/responsive/accessibility audit and evidence upload.
-- Accepted baseline: 134 traceable surfaces (37 Storefront + 97 Admin), inherited journeys/views/states, Persian RTL, responsive/accessibility contracts, critical-action safety and `NO_ACTION` restrictions.
-- The baseline freezes functionality, interaction semantics, route/surface traceability, responsive/accessibility and safety contracts. Visual composition, homepage merchandising, header/hero presentation, imagery, cards, spacing, typography treatment, component skins and Admin visual density remain intentionally replaceable for later redesign and beautification.
-- No Step58 implementation has started. Closure history: `docs/11-step-history/STEP-57-FINAL-CANONICAL-CLOSURE.md`.
+- H starting canonical main: `8ba4aaca3ebae0afa8552d509f0ba3decb229d3b`.
+- Stages 58-A through 58-G have protected-merge lineage and canonical closure evidence.
+- Stage 58-G terminal merged-main Browser Quality run `35490356922`: PASS on exact SHA `8ba4aaca3ebae0afa8552d509f0ba3decb229d3b`.
+- Browser evidence: axe WCAG-tagged violations 0; widths 320/360/600/840/1200/1440 PASS; focus >=3px PASS; 44x44 targets PASS; no horizontal overflow; reduced-motion PASS; RTL PASS; 400% reflow proxy PASS.
+- Integrated foundation covers workspace/build, routing/shell, fa-IR RTL/i18n, API/server-data boundary, auth/session/security boundary, loading/error/offline recovery, and static/SSR/browser quality gates.
+- Backend/API remains authoritative for authentication, authorization, pricing, discount, inventory, payment, profit and business transitions.
+- Currency remains Toman; Wallet remains absent; brown brand/UI palette remains prohibited.
+- Step 59 implementation has not started.
+- Closure history: `docs/11-step-history/STEP-58-H-FINAL-CANONICAL-CLOSURE.md`.
 
 ## Phase A canonical closure
 
@@ -147,6 +150,7 @@ Seven B obligations / 23 variants / 74 low-fidelity RTL frames / 91 deterministi
 - **Step 55 — Storefront Wireframes — CLOSED / FINAL GATE PASS**
 - **Step 56 — Admin UX Architecture & Wireframes — CLOSED / FINAL GATE PASS**
 - **Step 57 — High-Fidelity UI & Prototype Approval — CLOSED / FINAL GATE PASS**
+- **Step 58 — Frontend Application Foundation — CLOSED / FINAL GATE PASS**
 
 Detailed closure evidence remains immutable in `docs/11-step-history/` and merged PR/CI history.
 
@@ -516,7 +520,7 @@ Verify job: `97170521019` — PASS
 - Dark theme is explicitly deferred: it is not a Roadmap requirement and the current Figma plan permits one mode per collection.
 
 ## Next safe action
-Start **Step 58 — Frontend Application Foundation** only under a later instruction. Step58 is NEXT / NOT_STARTED. Detailed visual redesign/beautification may proceed as design work against the accepted Step57 contracts, but Step58 production implementation has not started.
+Start **Step 59 — Home, Navigation & Discovery** only under a later instruction after Step 58-H canonical transport and post-merge closure gates are complete. Step59 is NEXT / NOT_STARTED; no Step59 feature implementation is included in Step58-H.
 
 ## Step 52 active closure state
 - **A1 — Canonical Handoff & Scope Freeze — COMPLETE / FINAL GATE PASS**

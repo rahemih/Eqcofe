@@ -1,0 +1,184 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP58-H-CLOSURE-001",
+  "title": "Step 58-H full verification and canonical closure",
+  "description": "Perform the final Step 58 closure only: verify canonical evidence for Stages A-G on the integrated main baseline, reconcile stale current-state and roadmap documents, record the final frontend-foundation closure, and advance Step 59 to NEXT / NOT_STARTED without implementing any Step 59 feature or mutating storefront runtime, backend, API, database, dependencies, permissions, pricing, inventory, payment, or business authority.",
+  "risk": "MEDIUM",
+  "risk_floor": "MEDIUM",
+  "owner": "PRODUCT_DESIGN",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "8ba4aaca3ebae0afa8552d509f0ba3decb229d3b"
+  },
+  "scope": {
+    "read": [
+      "apps/storefront/**",
+      "docs/11-step-history/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**",
+      "docs/14-multi-agent/**",
+      ".github/workflows/**",
+      "package.json"
+    ],
+    "write": [
+      "docs/11-step-history/STEP-58-G-QUALITY-GATES.md",
+      "docs/11-step-history/STEP-58-H-FINAL-CANONICAL-CLOSURE.md",
+      "docs/12-current-state/CURRENT-STATE.md",
+      "docs/12-current-state/MASTER-ROADMAP.md",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP58-H-CLOSURE-001.json"
+    ],
+    "forbidden": [
+      ".github/**",
+      "apps/**",
+      "src/**",
+      "database/**",
+      "contracts/**",
+      "scripts/**",
+      "test/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "docs/13-product-design/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP58-H-CLOSURE-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 22000,
+    "soft_alert": 32000,
+    "hard_cap": 64000
+  },
+  "max_repair_cycles": 3,
+  "task_risk_rules": [
+    {
+      "id": "STEP58_H_CANONICAL_STATE_DOCS_MEDIUM",
+      "risk": "MEDIUM",
+      "paths": [
+        "docs/11-step-history/STEP-58-G-QUALITY-GATES.md",
+        "docs/11-step-history/STEP-58-H-FINAL-CANONICAL-CLOSURE.md",
+        "docs/12-current-state/CURRENT-STATE.md",
+        "docs/12-current-state/MASTER-ROADMAP.md",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP58-H-CLOSURE-001.json"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "STEP58_G",
+      "name": "Step 58-G testing accessibility responsive and quality gates",
+      "required_state": "CLOSED_CANONICAL_PASS",
+      "observed_state": "CLOSED_CANONICAL_PASS",
+      "merge_sha": "8ba4aaca3ebae0afa8552d509f0ba3decb229d3b",
+      "browser_quality_run": 35490356922,
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "linear_issue": "HOS-14",
+    "stage_a": {
+      "pr": 185,
+      "merge_sha": "a81fe76943698c0f77022f8a4c379eb7b8529425",
+      "protected_merge_run": 35423005768
+    },
+    "stage_b": {
+      "pr": 187,
+      "merge_sha": "b3259c922e5b1d8003c243883955d9aaa0be83d9",
+      "protected_merge_run": 35424659661
+    },
+    "stage_c": {
+      "pr": 188,
+      "merge_sha": "d1e3f41d49e7a7d70c5c1e94c8e7bc9b1fa6d3c6",
+      "protected_merge_run": 35427139740
+    },
+    "stage_d": {
+      "pr": 189,
+      "merge_sha": "51252043799ee5f8a3fa427d668f66b7c60bebad",
+      "protected_merge_run": 35430122674
+    },
+    "stage_e": {
+      "pr": 191,
+      "merge_sha": "020a7e39c953749af1e75331202143164572f166",
+      "protected_merge_run": 35434513172
+    },
+    "stage_f": {
+      "pr": 194,
+      "merge_sha": "735c69f6e2eac30f5fa1c1c4012e709e15972451",
+      "protected_merge_run": 35436099202
+    },
+    "stage_g_implementation": {
+      "pr": 198,
+      "merge_sha": "fc601866f21c3e5efc8067ddc00e8898f3c42848",
+      "protected_merge_run": 35444452375
+    },
+    "stage_g_transport": {
+      "pr": 199,
+      "merge_sha": "8ba4aaca3ebae0afa8552d509f0ba3decb229d3b",
+      "protected_merge_run": 35489702142
+    },
+    "integrated_main_pre_h": "8ba4aaca3ebae0afa8552d509f0ba3decb229d3b",
+    "integrated_postmerge_verify_run": 35489702142,
+    "terminal_browser_quality_run": 35490356922,
+    "terminal_browser_quality_job": 106024122980,
+    "axe_wcag_tagged_violations": 0
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Stages 58-A through 58-G have traceable protected-merge evidence and their integrated implementations are present in the exact H baseline.",
+      "verification": "canonical_stage_evidence_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Exact pre-H canonical main passes postmerge root pnpm verify, Phase-A verification, storefront auth/API/state/static quality, and terminal browser-quality on the exact current main SHA.",
+      "verification": "integrated_main_verification",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "CURRENT-STATE and MASTER-ROADMAP are reconciled from stale Step57/Step58-not-started text to Step58 CLOSED / FINAL GATE PASS and Step59 NEXT / NOT_STARTED, without rewriting immutable historical snapshots.",
+      "verification": "canonical_state_diff_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Step 58-G history records the terminal merged-main browser gate PASS and no longer presents the stage as pending.",
+      "verification": "stage_g_history_reconciliation",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "The H artifact is documentation/governance-only and contains no storefront runtime, backend/API/database/dependency/permission/business-rule or Step59 implementation mutation.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Exact-head H closure must pass Canonical CI, Phase A, deterministic documentation-only scope review, and artifact-bound REVIEW/LOCK evidence. Browser Quality is inherited from the exact pre-H main because H changes no browser/runtime path.",
+      "verification": "exact_head_closure_gates",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "Final Step58 closure becomes canonical only after protected merge, exact-SHA postmerge pnpm verify + Phase-A PASS, current main equals the merge SHA, and the H diff remains documentation/governance-only. The terminal Browser Quality evidence remains Run 35490356922 on the unchanged Storefront tree.",
+      "verification": "protected_merge_postmerge_closure",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "MEDIUM documentation/governance closure. Human approval is not required. Terminal browser evidence is inherited from exact pre-H main because H mutates no runtime/browser path; Step59 implementation remains forbidden until H transport and postmerge gates pass."
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}
