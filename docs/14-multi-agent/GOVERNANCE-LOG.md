@@ -133,3 +133,5 @@ or explicitly authorizes governed creation.
 - Effective risk: HIGH.
 - Human Gate: REQUIRED only after exact-head CI/Review/Security/Lock reaches HUMAN_PENDING.
 - Direct/manual merge: PROHIBITED.
+
+- Amendment PR: `#232`
