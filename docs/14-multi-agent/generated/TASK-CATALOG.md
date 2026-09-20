@@ -47,8 +47,9 @@
 | MA-RISK-VERIFICATION-001 | Implement deterministic Risk Classifier and Verification Policy | MEDIUM | NOT_REQUIRED | `63b6e5a235bb13c4fd575e65c0042440c5b6544b` | 25000/35000/70000 |
 | MA-RISK-VERIFICATION-REMEDIATION-001 | Remediate Item 4 deterministic risk and verification-policy Spec drift | MEDIUM | NOT_REQUIRED | `fd85968adbe45441b154eed402f16c24c6a7e2bd` | 25000/35000/70000 |
 | MA-SCOPE-LOCK-001 | Implement deterministic Scope / Lock Controller | MEDIUM | NOT_REQUIRED | `36fa6122ff187841f85ccc777a0562be81ee16c8` | 25000/35000/70000 |
+| MA-V1-ACC-FAILCLOSED-5C-R2-V16-001 | V1.6 Acceptance Test 5C R2 — fresh isolated scope violation | LOW | NOT_REQUIRED | `61dac96e99ff30282f137d7b76f1006918199683` | 8000/12000/25000 |
 | MA-V1-ACC-HIGH-001 | V1 Acceptance HIGH — pricing rule non-finite numeric validation hardening | HIGH | REQUIRED | `383d7ae9cc12ef9c05e1a70c211e2dacfd729ab7` | 18000/30000/60000 |
 | MA-V1-ACC-LOW-001 | V1 Acceptance LOW R2 — MoneyToman boundary regression | LOW | NOT_REQUIRED | `65d97e6343ade1b5d97e2e737f66a9b474fcd945` | 8000/12000/25000 |
 | MA-V1-ACC-MEDIUM-001 | V1 Acceptance MEDIUM R2 — telemetry terminal-state conflict hardening | MEDIUM | NOT_REQUIRED | `9017e0f25e9571568ed9acf4ca3ca977ce9e78f0` | 15000/25000/50000 |
 
-Task contracts indexed: **45**.
+Task contracts indexed: **46**.
