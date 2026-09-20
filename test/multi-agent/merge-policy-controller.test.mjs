@@ -2,10 +2,13 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
   artifactScopePaths,
+  DETERMINISTIC_REVIEW_CHECK,
   evaluateMergePolicy,
   formatGateEvidence,
   GITHUB_ACTIONS_INTEGRATION_ID,
   parseGateEvidence,
+  resolveTrustedCheckEvidence,
+  TRUSTED_REVIEW_TRANSPORT,
   taskContractPathFromBody,
   validatePrTrustBoundary,
   validateProtectionSnapshot,
@@ -36,7 +39,6 @@ function contract(overrides = {}) {
 function evidence(overrides = {}) {
   return {
     current: {
-      REVIEW: { gate: 'REVIEW', status: 'PASS', artifact_hash: HASH, task_id: 'MA-TEST-001' },
       SECURITY: { gate: 'SECURITY', status: 'PASS', artifact_hash: HASH, task_id: 'MA-TEST-001' },
       HUMAN: { gate: 'HUMAN', status: 'APPROVED', artifact_hash: HASH, task_id: 'MA-TEST-001', author_login: 'owner' },
       LOCK: {
@@ -45,6 +47,18 @@ function evidence(overrides = {}) {
       },
       ...(overrides.current ?? {}),
     },
+  };
+}
+
+function reviewEvidence(overrides = {}) {
+  return {
+    status: 'PASS',
+    transport: TRUSTED_REVIEW_TRANSPORT,
+    check_name: DETERMINISTIC_REVIEW_CHECK,
+    integration_id: GITHUB_ACTIONS_INTEGRATION_ID,
+    check_run_id: 9001,
+    artifact_hash: HASH,
+    ...overrides,
   };
 }
 
@@ -59,6 +73,7 @@ function policyInput(overrides = {}) {
     artifact_binding: { artifact_hash: HASH, commit_sha: 'head' },
     project_map: { sensitive_zones: [] },
     gate_evidence: evidence(),
+    review_evidence: reviewEvidence(),
     protection: protection(),
     required_ci: { verify: 'PASS', 'phase-a': 'PASS', 'merge-policy': 'PASS' },
     ...overrides,
@@ -123,11 +138,53 @@ test('HIGH task requires artifact-bound Security PASS', () => {
   assert.ok(result.blockers.includes('SECURITY_PASS_MISSING'));
 });
 
-test('Reviewer PASS is mandatory for HIGH task', () => {
-  const input = policyInput();
-  delete input.gate_evidence.current.REVIEW;
-  const result = evaluateMergePolicy(input);
+test('provider-bound deterministic Review PASS is mandatory for HIGH task', () => {
+  const result = evaluateMergePolicy(policyInput({ review_evidence: null }));
   assert.ok(result.blockers.includes('REVIEW_PASS_MISSING'));
+});
+
+test('Executor REVIEW comment is rejected as unauthorized self-review evidence', () => {
+  const comments = [{
+    id: 77,
+    user: { login: 'owner' },
+    body: formatGateEvidence({
+      gate: 'REVIEW',
+      task_id: 'MA-TEST-001',
+      artifact_hash: HASH,
+      status: 'PASS',
+    }),
+  }];
+  const parsed = parseGateEvidence(comments, {
+    task_id: 'MA-TEST-001',
+    artifact_hash: HASH,
+    trusted_author_login: 'owner',
+  });
+  assert.equal(parsed.current.REVIEW, undefined);
+  assert.equal(parsed.unauthorized.length, 1);
+  assert.equal(parsed.unauthorized[0].reason, 'UNAUTHORIZED_REVIEW_EVIDENCE');
+  const result = evaluateMergePolicy(policyInput({
+    gate_evidence: { ...evidence(), unauthorized: parsed.unauthorized },
+    review_evidence: null,
+  }));
+  assert.ok(result.blockers.includes('UNAUTHORIZED_REVIEW_EVIDENCE'));
+  assert.ok(result.blockers.includes('REVIEW_PASS_MISSING'));
+});
+
+test('Primary Review rejects wrong transport, wrong integration and stale artifact binding', () => {
+  const wrongTransport = evaluateMergePolicy(policyInput({
+    review_evidence: reviewEvidence({ transport: 'PR_COMMENT' }),
+  }));
+  assert.ok(wrongTransport.blockers.includes('UNAUTHORIZED_REVIEW_EVIDENCE'));
+
+  const wrongIntegration = evaluateMergePolicy(policyInput({
+    review_evidence: reviewEvidence({ integration_id: 999999 }),
+  }));
+  assert.ok(wrongIntegration.blockers.includes('UNAUTHORIZED_REVIEW_EVIDENCE'));
+
+  const staleArtifact = evaluateMergePolicy(policyInput({
+    review_evidence: reviewEvidence({ artifact_hash: OTHER_HASH }),
+  }));
+  assert.ok(staleArtifact.blockers.includes('REVIEW_ARTIFACT_MISMATCH'));
 });
 
 test('out-of-scope and forbidden mutations fail closed', () => {
@@ -230,13 +287,13 @@ test('protection validator rejects ambiguous active rulesets', () => {
   assert.ok(result.blockers.includes('PROTECTION_RULESET_AMBIGUOUS:2'));
 });
 
-test('gate evidence parser keeps only exact-artifact evidence and records stale evidence', () => {
+test('gate evidence parser keeps only exact-artifact non-Review evidence and records stale evidence', () => {
   const comments = [
-    { id: 1, user: { login: 'reviewer' }, body: formatGateEvidence({ gate: 'REVIEW', task_id: 'MA-TEST-001', artifact_hash: OTHER_HASH, status: 'PASS' }) },
-    { id: 2, user: { login: 'reviewer' }, body: formatGateEvidence({ gate: 'REVIEW', task_id: 'MA-TEST-001', artifact_hash: HASH, status: 'PASS' }) },
+    { id: 1, user: { login: 'reviewer' }, body: formatGateEvidence({ gate: 'SECURITY', task_id: 'MA-TEST-001', artifact_hash: OTHER_HASH, status: 'PASS' }) },
+    { id: 2, user: { login: 'reviewer' }, body: formatGateEvidence({ gate: 'SECURITY', task_id: 'MA-TEST-001', artifact_hash: HASH, status: 'PASS' }) },
   ];
   const result = parseGateEvidence(comments, { task_id: 'MA-TEST-001', artifact_hash: HASH });
-  assert.equal(result.current.REVIEW.comment_id, 2);
+  assert.equal(result.current.SECURITY.comment_id, 2);
   assert.equal(result.stale.length, 1);
 });
 
@@ -255,8 +312,8 @@ test('trusted gate transport ignores matching evidence from unauthorized comment
   assert.equal(result.unauthorized[0].author_login, 'attacker');
 });
 
-test('artifact mutation invalidates prior Review, Security, Human and Lock evidence together', () => {
-  const comments = ['REVIEW', 'SECURITY', 'HUMAN', 'LOCK'].map((gate, index) => ({
+test('artifact mutation invalidates prior Security, Human and Lock comment evidence together', () => {
+  const comments = ['SECURITY', 'HUMAN', 'LOCK'].map((gate, index) => ({
     id: index + 1,
     user: { login: gate === 'HUMAN' ? 'owner' : 'system' },
     body: formatGateEvidence({
@@ -269,7 +326,36 @@ test('artifact mutation invalidates prior Review, Security, Human and Lock evide
   }));
   const result = parseGateEvidence(comments, { task_id: 'MA-TEST-001', artifact_hash: OTHER_HASH });
   assert.deepEqual(result.current, {});
-  assert.equal(result.stale.length, 4);
+  assert.equal(result.stale.length, 3);
+});
+
+test('trusted check resolver rejects same-name verification from wrong integration identity', () => {
+  const evidence = resolveTrustedCheckEvidence([
+    { id: 10, name: 'verify', status: 'completed', conclusion: 'success', app: { id: 999999 } },
+  ], { name: 'verify', integration_id: GITHUB_ACTIONS_INTEGRATION_ID });
+  assert.equal(evidence.status, 'NOT_EXECUTED');
+  assert.equal(evidence.unauthorized.length, 1);
+  assert.equal(evidence.unauthorized[0].reason, 'UNAUTHORIZED_VERIFICATION_EVIDENCE');
+
+  const result = evaluateMergePolicy(policyInput({
+    required_ci: { verify: 'NOT_EXECUTED', 'phase-a': 'PASS', 'merge-policy': 'PASS' },
+    unauthorized_verification_evidence: evidence.unauthorized,
+  }));
+  assert.ok(result.blockers.includes('UNAUTHORIZED_VERIFICATION_EVIDENCE:verify'));
+  assert.ok(result.blockers.includes('REQUIRED_CI_NOT_PASS:verify'));
+});
+
+test('trusted check resolver accepts exact GitHub Actions integration and preserves failure semantics', () => {
+  const pass = resolveTrustedCheckEvidence([
+    { id: 20, name: DETERMINISTIC_REVIEW_CHECK, status: 'completed', conclusion: 'success', app: { id: GITHUB_ACTIONS_INTEGRATION_ID } },
+  ], { name: DETERMINISTIC_REVIEW_CHECK });
+  assert.equal(pass.status, 'PASS');
+  assert.equal(pass.check_run_id, 20);
+
+  const fail = resolveTrustedCheckEvidence([
+    { id: 21, name: 'verify', status: 'completed', conclusion: 'failure', app: { id: GITHUB_ACTIONS_INTEGRATION_ID } },
+  ], { name: 'verify' });
+  assert.equal(fail.status, 'FAIL');
 });
 
 test('task contract path is repository-relative, single-file and bound to task directory', () => {
