@@ -26,6 +26,7 @@
 | EQCOFE-STEP59-C-HOME-DATA-001 | Step 59-C Home authoritative data loader foundation | MEDIUM | NOT_REQUIRED | `c7acd425643cfde4f9d736216e29b83323db178e` | 28000/42000/84000 |
 | EQCOFE-STEP59-D-DISCOVERY-001 | Step 59-D Home category and brand discovery | MEDIUM | NOT_REQUIRED | `175fb3f7e110eff98b9574dc9db5984e5e77ae7b` | 30000/45000/90000 |
 | EQCOFE-STEP59-E-MERCHANDISING-001 | Step 59-E Home merchandising and promotional surfaces | MEDIUM | NOT_REQUIRED | `4ef4027c1bf761a9d6abade15eec89f2dbee7e00` | 32000/48000/96000 |
+| MA-AGENT-BASE-CONTRACT-001 | Phase B — Base Agent Contract and Prompt Core | LOW | NOT_REQUIRED | `de453f004cb910b88eea2ef28a3ae4b97e0b9ec2` | 12000/18000/35000 |
 | MA-AGENT-PHASE-A-REGISTRY-001 | Phase A — Canonical Agent Registry | LOW | NOT_REQUIRED | `814cb7e56d927716f3c101771fa9b56b511181e8` | 8000/12000/25000 |
 | MA-ARTIFACT-HASH-001 | Implement deterministic Artifact Hash Generator | MEDIUM | NOT_REQUIRED | `86124a4f6a431953b0b28bbd4a359769941101ea` | 25000/35000/70000 |
 | MA-BOOTSTRAP-001 | Bootstrap deterministic multi-agent foundation | MEDIUM | NOT_REQUIRED | `01f0fa033af07c5ba5189b2c85ebfe51b095cdba` | 25000/35000/70000 |
@@ -58,4 +59,4 @@
 | MA-V1-ACC-MEDIUM-001 | V1 Acceptance MEDIUM R2 — telemetry terminal-state conflict hardening | MEDIUM | NOT_REQUIRED | `9017e0f25e9571568ed9acf4ca3ca977ce9e78f0` | 15000/25000/50000 |
 | MA-V1-ACCEPTANCE-CLOSURE-V16-R2-001 | V1.6 Phase 3 canonical acceptance closure R2 | HIGH | REQUIRED | `d7d235f5f240b8bea44bc607afa812b2f5bb12d4` | 30000/50000/90000 |
 
-Task contracts indexed: **52**.
+Task contracts indexed: **53**.
