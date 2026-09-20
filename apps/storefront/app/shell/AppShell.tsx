@@ -2,6 +2,7 @@ import { Link, Outlet } from "react-router";
 import { getMessages } from "../i18n";
 import { Breadcrumbs } from "./Breadcrumbs";
 import { PrimaryNavigation } from "./PrimaryNavigation";
+import { SearchEntry } from "./SearchEntry";
 
 export function AppShell() {
   const messages = getMessages();
@@ -11,17 +12,23 @@ export function AppShell() {
       <a className="skip-link" href="#main-content">{messages.skipToContent}</a>
 
       <header className="site-header">
+        <div className="utility-bar">
+          <div className="utility-bar__inner eq-container">
+            <p>{messages.header.utilityMessage}</p>
+          </div>
+        </div>
+
         <div className="site-header__inner eq-container">
           <Link className="wordmark-slot" to="/" aria-label={messages.nav.home}>
             <span className="wordmark-slot__name">{messages.brandName}</span>
             <span className="wordmark-slot__subtitle">{messages.brandSubtitle}</span>
           </Link>
 
-          <Link className="header-search" to="/search">{messages.header.search}</Link>
+          <SearchEntry />
 
           <nav className="header-actions" aria-label="دسترسی سریع">
-            <Link to="/cart">{messages.header.cart}</Link>
             <Link to="/account">{messages.header.account}</Link>
+            <Link to="/cart">{messages.header.cart}</Link>
           </nav>
         </div>
 
