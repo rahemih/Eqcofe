@@ -1,33 +1,34 @@
 {
   "schema_version": "2.2",
   "task_id": "MA-V1-ACC-LOW-001",
-  "title": "V1 Acceptance LOW — DomainEventCollector isolation regression",
-  "description": "Stage C Test 1 legitimate bounded regression/safety improvement. Add focused regression coverage proving DomainEventCollector instances remain isolated and that mutating a previously pulled batch cannot reintroduce or contaminate later recorded events. No production runtime code changes are permitted.",
+  "title": "V1 Acceptance LOW R2 — MoneyToman boundary regression",
+  "description": "Stage C Test 1 restart after Phase 0 became valid. This is a fresh legitimate bounded regression/safety improvement for MoneyToman safe-integer boundaries. It does not reuse PR #218 artifact-bound evidence and does not mutate production runtime code.",
   "mission_binding": {
     "mission_version": "V1.5",
     "mission_hash": "7b29943c936592b63ae76a67359a0cae1b3dd99b2323f1811bc7b2e3d03317a1",
     "stage": "C",
     "test": "TEST_1_LOW"
   },
+  "workstream_id": "AGENT-BUILD-A",
   "risk": "LOW",
   "risk_floor": "LOW",
   "owner": "BACKEND",
   "canonical": {
     "repository": "rahemih/Eqcofe",
     "branch": "main",
-    "base_sha": "7f4e09f2b0f79ee20697dfe9c81874447b0798ea"
+    "base_sha": "65d97e6343ade1b5d97e2e737f66a9b474fcd945"
   },
   "scope": {
     "read": [
-      "src/shared/kernel/domain-event.ts",
-      "test/domain-event-collector-pilot-low.spec.ts",
+      "src/shared/kernel/money-toman.ts",
+      "test/money-toman-v1-acceptance-low-r2.spec.ts",
       "scripts/run-tests.mjs",
       "scripts/multi-agent/project-map.mjs",
       "scripts/multi-agent/risk-verification-policy.mjs",
       "docs/14-multi-agent/missions/EQCOFE-MULTI-AGENT-V1.5-EXECUTION-MISSION.md"
     ],
     "write": [
-      "test/domain-event-collector-v1-acceptance-low.spec.ts",
+      "test/money-toman-v1-acceptance-low-r2.spec.ts",
       "docs/14-multi-agent/tasks/MA-V1-ACC-LOW-001.json",
       "docs/14-multi-agent/generated/TASK-CATALOG.md"
     ],
@@ -47,7 +48,7 @@
     ]
   },
   "requested_lock_ids": [
-    "LOCK-MA-V1-ACC-LOW-001-01"
+    "LOCK-MA-V1-ACC-LOW-001-R2-01"
   ],
   "human_gate_required": false,
   "token_budget": {
@@ -70,11 +71,12 @@
   ],
   "external_gate_evidence": {
     "protocol": "EQCOFE_GATE_V1",
+    "workstream_id": "AGENT-BUILD-A",
     "artifact_bound_gates": [
       "LOCK"
     ],
     "trusted_github_transport_login": "rahemih",
-    "rule": "Stage C Test 1 must remain deterministically LOW. It requires exact-artifact ACTIVE LOCK plus provider-bound Verification and protected merge/post-merge evidence. If effective risk escalates, Test 1 fails closed and a different legitimate LOW task must be selected."
+    "rule": "Stage C Test 1 R2 must remain deterministically LOW. PR #218 and its artifact-bound evidence are historical only and MUST NOT be reused. This fresh artifact requires exact-artifact ACTIVE LOCK plus provider-bound Verification and protected merge/post-merge evidence."
   },
   "protection_source": {
     "ruleset_id": 23278861,
@@ -89,37 +91,37 @@
   "acceptance_criteria": [
     {
       "id": "AC-001",
-      "description": "Two independent DomainEventCollector instances never leak recorded events across instance boundaries.",
-      "verification": "domain_event_collector_v1_acceptance_low_regression",
+      "description": "MoneyToman accepts exactly Number.MAX_SAFE_INTEGER without precision loss.",
+      "verification": "money_toman_v1_acceptance_low_r2_regression",
       "mandatory": true
     },
     {
       "id": "AC-002",
-      "description": "Mutating the array returned by pullEvents after a drain cannot reintroduce or contaminate events subsequently recorded by the collector.",
-      "verification": "domain_event_collector_v1_acceptance_low_regression",
+      "description": "Unsafe numeric inputs, fractional values and negative amounts fail closed.",
+      "verification": "money_toman_v1_acceptance_low_r2_regression",
       "mandatory": true
     },
     {
       "id": "AC-003",
-      "description": "The task changes only the three authorized paths and contains no production runtime, workflow, dependency, database, API or canonical roadmap mutation.",
-      "verification": "deterministic_scope_check",
+      "description": "Addition and integer multiplication cannot overflow the JavaScript safe-integer ceiling, and subtraction cannot cross below zero.",
+      "verification": "money_toman_v1_acceptance_low_r2_regression",
       "mandatory": true
     },
     {
       "id": "AC-004",
+      "description": "The task changes exactly the three authorized paths and contains no production runtime, workflow, dependency, database, API, roadmap or product-design mutation.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
       "description": "Deterministic classification remains LOW with Human Gate not required; classification is not forced or downgraded.",
       "verification": "deterministic_risk_classification",
       "mandatory": true
     },
     {
-      "id": "AC-005",
-      "description": "Exact-head verify, Phase A and merge-policy checks pass before protected merge.",
-      "verification": "provider_bound_premerge_checks",
-      "mandatory": true
-    },
-    {
       "id": "AC-006",
-      "description": "Success is claimed only after protected Merge Policy workflow merge and exact-SHA post-merge PASS on the resulting canonical main SHA.",
+      "description": "Exact-head verify, Phase A and merge-policy must pass before protected workflow_dispatch merge, followed by exact-SHA postmerge verification before Test 1 completion is claimed.",
       "verification": "protected_merge_and_exact_sha_postmerge",
       "mandatory": true
     }
