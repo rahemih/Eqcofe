@@ -1,7 +1,9 @@
 import { data, useLoaderData } from "react-router";
-import { RoutePlaceholder } from "../components/RoutePlaceholder";
+import { HomeDiscovery } from "../features/home/HomeDiscovery";
 import { loadHomeRouteData } from "../features/home/home-data.server";
+import { getMessages } from "../i18n";
 import { appendCustomerSessionSetCookies } from "../platform/auth/session-cookie.server";
+import "../styles/home.css";
 
 export const handle = {
   breadcrumb: "خانه",
@@ -16,15 +18,19 @@ export async function loader({ request }: { request: Request }) {
 
 export default function HomeRoute() {
   const loaderData = useLoaderData<typeof loader>();
+  const messages = getMessages();
 
   return (
-    <div data-home-products-state={loaderData.productPreview.status}>
-      <RoutePlaceholder
-        screenId="SF-B-01"
-        title="خانه"
-        targetStep={59}
-        routeIntent="/"
-      />
+    <div className="home-page" data-home-products-state={loaderData.productPreview.status}>
+      <section className="home-intro" aria-labelledby="home-title">
+        <p className="home-intro__eyebrow">{messages.home.eyebrow}</p>
+        <h1 id="home-title">{messages.home.title}</h1>
+        <p className="home-intro__body">{messages.home.introBody}</p>
+      </section>
+
+      {loaderData.productPreview.status === "ready" ? (
+        <HomeDiscovery products={loaderData.productPreview.data} />
+      ) : null}
     </div>
   );
 }
