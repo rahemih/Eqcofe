@@ -107,16 +107,69 @@ a {
   line-height: var(--eq-type-caption-line-height);
 }
 
-.header-search {
-  grid-column: 1 / -1;
-  display: inline-flex;
+.utility-bar {
+  border-block-end: var(--eq-border-hairline) solid var(--eq-color-border-default);
+  background: var(--eq-color-bg-subtle);
+}
+
+.utility-bar__inner {
+  display: flex;
   align-items: center;
   min-block-size: var(--eq-size-touch-min);
-  padding-inline: var(--eq-spacing-4);
+}
+
+.utility-bar p {
+  margin: 0;
+  color: var(--eq-color-text-secondary);
+  font-size: var(--eq-type-body-small-font-size);
+}
+
+.header-search {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--eq-spacing-2);
+  align-items: end;
+  padding: var(--eq-spacing-2);
   border: var(--eq-border-hairline) solid var(--eq-color-border-default);
   border-radius: var(--eq-radius-lg);
   background: var(--eq-color-bg-subtle);
-  text-decoration: none;
+}
+
+.header-search__label {
+  grid-column: 1 / -1;
+  color: var(--eq-color-text-secondary);
+  font-size: var(--eq-type-label-medium-font-size);
+  font-weight: var(--eq-type-label-medium-font-weight);
+}
+
+.header-search__input {
+  min-inline-size: 0;
+  min-block-size: var(--eq-size-touch-min);
+  padding-block: var(--eq-spacing-2);
+  padding-inline: var(--eq-spacing-3);
+  border: var(--eq-border-hairline) solid var(--eq-color-border-strong);
+  border-radius: var(--eq-radius-md);
+  background: var(--eq-color-bg-surface);
+  color: var(--eq-color-text-primary);
+  font: inherit;
+}
+
+.header-search__submit {
+  min-inline-size: var(--eq-size-touch-min);
+  min-block-size: var(--eq-size-touch-min);
+  padding-inline: var(--eq-spacing-4);
+  border: var(--eq-border-hairline) solid var(--eq-color-action-primary);
+  border-radius: var(--eq-radius-md);
+  background: var(--eq-color-action-primary);
+  color: var(--eq-color-text-inverse);
+  font: inherit;
+  font-weight: var(--eq-type-label-large-font-weight);
+  cursor: pointer;
+}
+
+.header-search__submit:hover {
+  background: var(--eq-color-action-primary-hover);
 }
 
 .header-actions {
