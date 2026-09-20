@@ -1,0 +1,138 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-FRONTEND-CONSTITUTION-DRAFT-001",
+  "title": "Refresh Frontend Constitution Draft after Step 58 canonical foundation",
+  "description": "Replace stale PR #160 with a governance-compliant, non-enforcing Frontend Constitution Draft aligned to the current canonical Step 58 Storefront foundation. Documentation only; no runtime, dependency, workflow, API, authentication, roadmap or Step 59 implementation mutation.",
+  "risk": "MEDIUM",
+  "risk_floor": "MEDIUM",
+  "owner": "PRODUCT_DESIGN",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "d6ccf594acc3997c31d8c8ec4afd817249650a95"
+  },
+  "scope": {
+    "read": [
+      "apps/storefront/package.json",
+      "docs/11-step-history/STEP-58-*.md",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "docs/FRONTEND-CONSTITUTION-DRAFT.md",
+      "docs/14-multi-agent/tasks/EQCOFE-FRONTEND-CONSTITUTION-DRAFT-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "apps/**",
+      "src/**",
+      "database/**",
+      "contracts/**",
+      "scripts/**",
+      "test/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-FRONTEND-CONSTITUTION-DRAFT-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 18000,
+    "soft_alert": 28000,
+    "hard_cap": 56000
+  },
+  "max_repair_cycles": 2,
+  "task_risk_rules": [
+    {
+      "id": "FRONTEND_CONSTITUTION_DOC_REFRESH_MEDIUM",
+      "risk": "MEDIUM",
+      "paths": [
+        "docs/FRONTEND-CONSTITUTION-DRAFT.md",
+        "docs/14-multi-agent/tasks/EQCOFE-FRONTEND-CONSTITUTION-DRAFT-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "STEP58_FINAL_CLOSURE",
+      "name": "Step 58 Frontend Application Foundation final canonical closure",
+      "required_state": "MERGED_POSTMERGE_VERIFIED",
+      "observed_state": "MERGED_POSTMERGE_VERIFIED",
+      "merge_sha": "8f17364fc7c27dc30de5845c1af467b1215d1351",
+      "protected_merge_run": 35490799957,
+      "blocking": false
+    },
+    {
+      "item": "DEPENDENCY_SERIALIZATION_CLEANUP",
+      "name": "Serialized dependency cleanup through PR #208",
+      "required_state": "MERGED_POSTMERGE_VERIFIED",
+      "observed_state": "MERGED_POSTMERGE_VERIFIED",
+      "merge_sha": "d6ccf594acc3997c31d8c8ec4afd817249650a95",
+      "protected_merge_run": 35494084743,
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "superseded_pr": 160,
+    "superseded_head": "77e5407e0db78c964b3cb3d5713890cb64bffd84",
+    "roadmap_version": "3.50 — Step-58 Final Canonical Closure",
+    "storefront_path": "apps/storefront",
+    "storefront_framework_baseline": {
+      "react": "19.3.0",
+      "react_router": "8.4.0",
+      "vite": "8.3.0"
+    },
+    "next_step": "Step 59 — NEXT / NOT_STARTED"
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "The draft identifies Step 58 as CLOSED / FINAL CANONICAL PASS, Step 59 as NEXT / NOT_STARTED, and describes the existing Storefront foundation instead of claiming frontend implementation/framework selection is still pending.",
+      "verification": "canonical_state_content_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "The draft preserves server-authoritative business/security boundaries and accurately records current Storefront framework and verification facts without changing runtime behavior.",
+      "verification": "frontend_boundary_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "The document remains DRAFT / NON-ENFORCING; activation or stricter enforcement requires a separate governed change.",
+      "verification": "non_enforcement_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Only the three declared documentation/governance paths change; no runtime, dependency, workflow, API, database, auth implementation, Roadmap, Current State or Step 59 mutation.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Exact-head Canonical CI, Phase A, REVIEW, LOCK and Merge Policy must pass before protected merge; postmerge verification remains mandatory.",
+      "verification": "governed_docs_transport",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "MEDIUM documentation-only constitution refresh. Human approval is not required. Step 59 remains NOT_STARTED."
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}
