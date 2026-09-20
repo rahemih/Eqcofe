@@ -6,7 +6,7 @@
 **Canonical branch:** `main`  
 **Verified Step-44 code baseline:** `b239dfe825b615f36caf2e26cc7abc80c70d349c`
 
-> This is the canonical end-to-end execution map for EQCOFE. Phase A (Steps 1–28) is now `CLOSED / FINAL GATE PASS` by current canonical verification. For historical Steps 1–27, the exact original step labels/closure lineage are not independently proven by recovered Git evidence and remain `Historical Attribution: UNVERIFIED`; Step 28 remains `Historical Attribution: PARTIAL`. Current-baseline verification must not be cited as recovered historical provenance. Steps 29–56 retain their existing canonical status. Step 55 is CLOSED / FINAL GATE PASS; Step 56-A foundation is complete and Step 56-B is complete; Step 56-C is complete; Step 56-D is complete; Step 56-E is complete; Step 56-F is complete; Step 56-G is complete; Step 56-H is complete; Step 56 is CLOSED / FINAL GATE PASS; Step 57 is CLOSED / FINAL GATE PASS; Step 58 is next, not started.
+> This is the canonical end-to-end execution map for EQCOFE. Phase A (Steps 1–28) is now `CLOSED / FINAL GATE PASS` by current canonical verification. For historical Steps 1–27, the exact original step labels/closure lineage are not independently proven by recovered Git evidence and remain `Historical Attribution: UNVERIFIED`; Step 28 remains `Historical Attribution: PARTIAL`. Current-baseline verification must not be cited as recovered historical provenance. Steps 29–56 retain their existing canonical status. Step 55 is CLOSED / FINAL GATE PASS; Step 56-A foundation is complete and Step 56-B is complete; Step 56-C is complete; Step 56-D is complete; Step 56-E is complete; Step 56-F is complete; Step 56-G is complete; Step 56-H is complete; Step 56 is CLOSED / FINAL GATE PASS; Step 57 is CLOSED / FINAL GATE PASS; Step 58 is CLOSED / FINAL GATE PASS subject to Step 58-H governed transport; Step 59 is next, not started.
 
 ## Status legend
 - `RECONSTRUCTED-HISTORY`: normalized historical description; exact historical step attribution is not proven.
@@ -307,10 +307,10 @@ The frozen baseline is behavioral and contractual: journeys, route/surface trace
 
 # PHASE E — Storefront Frontend
 
-## Step 58 — Frontend Application Foundation — `NEXT / NOT_STARTED`
-Set up the production frontend shell, routing, RTL/i18n, generated API client, auth/session handling, state/data strategy, error boundaries and test infrastructure.
+## Step 58 — Frontend Application Foundation — `CLOSED / FINAL GATE PASS`
+Production Storefront foundation is established and canonically verified: workspace/build, routing/shell, Persian RTL/i18n, API/server-data boundary, auth/session/security boundary, loading/error/offline recovery, and static/SSR/browser quality gates. Final closure history: `docs/11-step-history/STEP-58-H-FINAL-CANONICAL-CLOSURE.md`.
 
-## Step 59 — Home, Navigation & Discovery — `PLANNED`
+## Step 59 — Home, Navigation & Discovery — `NEXT / NOT_STARTED`
 Implement homepage, responsive header/navigation, promotional surfaces, categories/brands, search entry points and core discovery interactions.
 
 ## Step 60 — Search, Category, Filters & Listing — `PLANNED`
@@ -433,11 +433,11 @@ Evolve architecture, integrations and product capabilities based on production e
 
 # Current Position
 
-- **Last fully closed step:** Step 57 — High-Fidelity UI & Prototype Approval.
+- **Last fully closed step:** Step 58 — Frontend Application Foundation.
 - **Phase A:** CLOSED / FINAL GATE PASS — Steps 1–28 are COMPLETE / VERIFIED BY CURRENT CANONICAL BASELINE; historical attribution remains UNVERIFIED for Steps 1–27 and PARTIAL for Step 28.
 - **Step 49 closure:** CLOSED / FINAL GATE PASS after A11 audit.
-- **Active step:** NONE — Step57 closed; Step58 has not started.
-- **Next approved step:** Step 58 — Frontend Application Foundation — NOT_STARTED.
+- **Active step:** NONE — Step58 closure is completing governed H transport; Step59 has not started.
+- **Next approved step:** Step 59 — Home, Navigation & Discovery — NEXT / NOT_STARTED.
 - **Backend feature-completion horizon:** Step 52.
 - **UI/UX design begins:** Step 53.
 - **Storefront implementation begins:** Step 58.
@@ -478,4 +478,8 @@ A–H complete, effective after H exact-head and post-merge CI. actors=3, journe
 
 ## Step57 final canonical evidence
 
-PR `#163` exact head `796c4de7bb0b7945950d084d82204be4ed7107b5` produced artifact hash `e985ae75aa6262948a4ff78e05b8bc88e45ac9490d89d828d1d8084e040e4e91`, passed exact-head gates and merged at `766904585dc601e36eec12c126e141efc4f6dc0a`. Post-merge Canonical CI `34970052573`, Phase A Verification `34970052561`, and Step 57 Prototype Verification `34970052572` all PASS. The accepted design baseline freezes functionality, interaction semantics, route/surface traceability, responsive/accessibility and safety/NO_ACTION contracts, while visual composition, imagery, styling and commercial presentation remain intentionally replaceable. Closure history: `docs/11-step-history/STEP-57-FINAL-CANONICAL-CLOSURE.md`. Step58 remains NEXT / NOT_STARTED.
+PR `#163` exact head `796c4de7bb0b7945950d084d82204be4ed7107b5` produced artifact hash `e985ae75aa6262948a4ff78e05b8bc88e45ac9490d89d828d1d8084e040e4e91`, passed exact-head gates and merged at `766904585dc601e36eec12c126e141efc4f6dc0a`. Post-merge Canonical CI `34970052573`, Phase A Verification `34970052561`, and Step 57 Prototype Verification `34970052572` all PASS. The accepted design baseline freezes functionality, interaction semantics, route/surface traceability, responsive/accessibility and safety/NO_ACTION contracts, while visual composition, imagery, styling and commercial presentation remain intentionally replaceable. Closure history: `docs/11-step-history/STEP-57-FINAL-CANONICAL-CLOSURE.md`.
+
+## Step58 final canonical evidence
+
+Stages A–G are canonically closed through protected PRs #185, #187, #188, #189, #191, #194, #198 and #199. The integrated pre-H main is `8ba4aaca3ebae0afa8552d509f0ba3decb229d3b`. PR #199 protected Merge Policy Run `35489702142` passed exact checkout, dependency install, root `pnpm verify` and Phase-A verification. Terminal merged-main `Step 58 Storefront Quality` workflow_dispatch Run `35490356922` passed on the same exact SHA with zero WCAG-tagged axe violations, all six canonical widths, focus >=3px, 44x44 targets, no horizontal overflow, reduced-motion, RTL and reflow gates. Step58-H reconciles CURRENT-STATE/MASTER-ROADMAP and records final closure without runtime or Step59 implementation mutation. Step59 remains NEXT / NOT_STARTED.
