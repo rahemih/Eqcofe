@@ -1,0 +1,309 @@
+{
+  "schema_version": "2.2",
+  "task_id": "MA-ITEM10-PRODUCTION-GATE-001",
+  "title": "Item 10 — V1 Production Gate under Mission V1.5",
+  "description": "Execute Mission V1.5 Stage B B2-B6. Establish the Item 10 Task Contract before implementation, prove deterministic HIGH risk, verify all 20 B4 minimum coverage domains using repository-backed deterministic evidence, preserve the B5 quantitative calibration deferral, and reach B6 only through protected merge plus exact-SHA post-merge canonical and Phase A verification.",
+  "risk": "HIGH",
+  "risk_floor": "MEDIUM",
+  "risk_rationale": {
+    "chosen": "HIGH",
+    "why_high": [
+      "Item 10 is the V1 Production Gate and its result controls whether the multi-agent system may advance into V1 Operational Acceptance.",
+      "A false PASS could incorrectly certify trust, security, branch protection, evidence provenance, authority separation, Human Gate or fail-closed behavior.",
+      "The task adds deterministic governance verification under scripts/multi-agent/** and test/multi-agent/**, which are enforcement-sensitive governance surfaces."
+    ],
+    "why_not_lower": [
+      "Documentation-only classification is insufficient because executable production-gate verification is being added.",
+      "The production-gate verifier evaluates controls that govern protected merge eligibility and release trust."
+    ]
+  },
+  "owner": "BACKEND",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "b33cc615fa46b22b931766905ec13f726d2dbe62"
+  },
+  "scope": {
+    "read": [
+      "docs/14-multi-agent/missions/EQCOFE-MULTI-AGENT-V1.5-EXECUTION-MISSION.md",
+      "docs/14-multi-agent/ITEM10-SPEC-DISCOVERY-V1.5.md",
+      "docs/14-multi-agent/GOVERNANCE.md",
+      "docs/14-multi-agent/ITEM9-CANONICAL-CLOSURE.md",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "docs/03-architecture/EQCOFE-ARCHITECTURE.md",
+      "scripts/check-architecture.mjs",
+      "scripts/multi-agent/**",
+      "test/multi-agent/**",
+      ".github/workflows/ci.yml",
+      ".github/workflows/merge-policy.yml",
+      ".github/workflows/phase-a-verification.yml"
+    ],
+    "write": [
+      "docs/14-multi-agent/ITEM10-PRODUCTION-GATE.md",
+      "docs/14-multi-agent/GOVERNANCE-LOG.md",
+      "docs/14-multi-agent/tasks/MA-ITEM10-PRODUCTION-GATE-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "scripts/multi-agent/item10-production-gate.mjs",
+      "test/multi-agent/item10-production-gate.test.mjs"
+    ],
+    "forbidden": [
+      "docs/14-multi-agent/missions/**",
+      ".github/**",
+      "scripts/multi-agent/artifact-hash-generator.mjs",
+      "scripts/multi-agent/calibration-engine.mjs",
+      "scripts/multi-agent/calibration-recommendations.mjs",
+      "scripts/multi-agent/docs-automation.mjs",
+      "scripts/multi-agent/merge-policy-controller.mjs",
+      "scripts/multi-agent/pre-pilot-verification.mjs",
+      "scripts/multi-agent/project-map.mjs",
+      "scripts/multi-agent/risk-verification-policy.mjs",
+      "scripts/multi-agent/scope-lock-controller.mjs",
+      "scripts/multi-agent/scope-validation.mjs",
+      "scripts/multi-agent/token-telemetry.mjs",
+      "scripts/multi-agent/workflow-controller.mjs",
+      "src/**",
+      "apps/**",
+      "database/**",
+      "contracts/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "docs/11-step-history/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-MA-ITEM10-PRODUCTION-GATE-001-01"
+  ],
+  "human_gate_required": true,
+  "authorized_human_approver": {
+    "role": "PROJECT_OWNER",
+    "github_login": "rahemih"
+  },
+  "token_budget": {
+    "expected_max": 40000,
+    "soft_alert": 65000,
+    "hard_cap": 120000
+  },
+  "max_repair_cycles": 2,
+  "task_risk_rules": [
+    {
+      "id": "ITEM10_PRODUCTION_GATE_HIGH",
+      "risk": "HIGH",
+      "paths": [
+        "scripts/multi-agent/item10-production-gate.mjs",
+        "test/multi-agent/item10-production-gate.test.mjs",
+        "docs/14-multi-agent/ITEM10-PRODUCTION-GATE.md",
+        "docs/14-multi-agent/GOVERNANCE-LOG.md",
+        "docs/14-multi-agent/tasks/MA-ITEM10-PRODUCTION-GATE-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "MISSION-V1.5",
+      "name": "Mission V1.5 canonical amendment",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "be09ad0b110cf5a60170ce5440f38622c613493c",
+      "protected_merge_run": 35496160591,
+      "postmerge_verify_job": 106039412536,
+      "blocking": false
+    },
+    {
+      "item": "ITEM10-B1",
+      "name": "Mission V1.5 Item 10 canonical specification discovery",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "b33cc615fa46b22b931766905ec13f726d2dbe62",
+      "protected_merge_run": 35497207994,
+      "postmerge_verify_job": 106042329138,
+      "blocking": false
+    },
+    {
+      "item": "ITEM-9",
+      "name": "Item 9 calibration closure",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "quantitative_calibration": "DEFERRED_TO_V1_1",
+      "blocking": false
+    }
+  ],
+  "mission_binding": {
+    "mission_version": "V1.5",
+    "mission_hash": "7b29943c936592b63ae76a67359a0cae1b3dd99b2323f1811bc7b2e3d03317a1",
+    "stage": "B",
+    "item": "10",
+    "b4_minimum_coverage": [
+      "Architecture",
+      "Workflow lifecycle",
+      "Full State Machine",
+      "Scope",
+      "Lock",
+      "Risk",
+      "Artifact binding",
+      "Evidence provenance",
+      "Authority separation",
+      "CI",
+      "Security",
+      "Human Gate",
+      "Merge Policy",
+      "Branch Protection",
+      "Bypass actors",
+      "Trusted integration identity",
+      "Token governance",
+      "Docs automation",
+      "Post-Merge",
+      "Fail-Closed behavior"
+    ],
+    "b5_token_governance": "VERIFIED",
+    "b5_quantitative_calibration": "DEFERRED_TO_V1_1"
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "B2 Task Contract exists as the first Item 10 branch commit before executable Item 10 implementation changes.",
+      "verification": "commit_history_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "B3 deterministic classification resolves effective risk HIGH and Human Gate REQUIRED; no manager or reviewer downgrade is accepted.",
+      "verification": "risk_classifier_and_merge_policy",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Architecture coverage is backed by canonical architecture checks and the Item 10 verifier rejects missing architecture evidence.",
+      "verification": "item10_production_gate_test",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Workflow lifecycle and Full State Machine are verified exhaustively across every canonical state pair, including all legal transitions, illegal transitions, rejection routes, Human Gate rules, approval invalidation and terminal immutability.",
+      "verification": "item10_production_gate_test",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Scope and Lock coverage proves declared write-scope enforcement, forbidden precedence, history validation, overlap conflicts, read-only reviewer roles, exact task/owner/scope binding, and terminal-only release.",
+      "verification": "existing_multi_agent_tests_plus_item10_gate",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Risk coverage proves deterministic maximum-risk behavior, sensitive floors, anti-downgrade enforcement, HIGH verification gates and Human Gate requirement.",
+      "verification": "existing_multi_agent_tests_plus_item10_gate",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "Artifact binding coverage proves exact-byte hashing, operation/path binding and invalidation of artifact-bound Review/Security/Human/Lock evidence after mutation.",
+      "verification": "existing_multi_agent_tests_plus_item10_gate",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "Evidence provenance rejects stale evidence and unauthorized transport/commenter evidence and requires exact task/artifact binding.",
+      "verification": "existing_multi_agent_tests_plus_item10_gate",
+      "mandatory": true
+    },
+    {
+      "id": "AC-009",
+      "description": "Authority separation proves Reviewer/QA cannot acquire writer locks, Reviewer cannot remove deterministic checks, trusted Project Owner is the only HIGH Human approver, and self-referential gate bypass is not accepted.",
+      "verification": "existing_multi_agent_tests_plus_item10_gate",
+      "mandatory": true
+    },
+    {
+      "id": "AC-010",
+      "description": "CI coverage proves Canonical CI and Phase A are required and NOT_EXECUTED/FAIL never satisfy verification.",
+      "verification": "ci_and_policy_tests",
+      "mandatory": true
+    },
+    {
+      "id": "AC-011",
+      "description": "Security and Human Gate coverage proves HIGH requires Security PASS and exact-artifact Owner approval before merge eligibility.",
+      "verification": "merge_policy_and_pre_pilot_tests",
+      "mandatory": true
+    },
+    {
+      "id": "AC-012",
+      "description": "Merge Policy coverage proves merge eligibility requires complete upstream evidence and protected workflow transport; direct/manual main merge remains prohibited.",
+      "verification": "merge_policy_tests_and_live_gate",
+      "mandatory": true
+    },
+    {
+      "id": "AC-013",
+      "description": "Branch Protection, bypass actors and trusted integration identity are verified against live ruleset 23278861 with strict required checks verify/phase-a/merge-policy, zero bypass actors and GitHub Actions integration 15368.",
+      "verification": "live_protection_revalidation",
+      "mandatory": true
+    },
+    {
+      "id": "AC-014",
+      "description": "Token governance is VERIFIED while quantitative calibration remains DEFERRED_TO_V1_1; synthetic, invented or estimated calibration telemetry is rejected.",
+      "verification": "token_and_calibration_tests",
+      "mandatory": true
+    },
+    {
+      "id": "AC-015",
+      "description": "Docs automation uses the canonical task catalog generator semantics; generated catalog is exact and stale bytes fail closed.",
+      "verification": "docs_automation_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-016",
+      "description": "Post-Merge coverage proves exact merge SHA checkout, credential-free read-only verification, canonical pnpm verify plus Phase A, TOCTOU resistance and fail-visible no-auto-rollback behavior.",
+      "verification": "merge_policy_workflow_tests_and_postmerge_run",
+      "mandatory": true
+    },
+    {
+      "id": "AC-017",
+      "description": "Fail-Closed behavior is demonstrated for undefined state transitions, scope violations, lock conflicts, risk downgrade, stale/unauthorized evidence, wrong integration identity, protection drift, missing gates and post-merge failure visibility.",
+      "verification": "item10_production_gate_test",
+      "mandatory": true
+    },
+    {
+      "id": "AC-018",
+      "description": "All 20 Mission V1.5 B4 minimum coverage domains are represented in a deterministic evidence matrix with no PENDING/NOT_EXECUTED/UNVERIFIED domain at Item 10 exit.",
+      "verification": "item10_coverage_matrix",
+      "mandatory": true
+    },
+    {
+      "id": "AC-019",
+      "description": "Exact-head Canonical CI and Phase A PASS, artifact-bound REVIEW/SECURITY/ACTIVE LOCK, then HUMAN_PENDING and exact-artifact Owner approval are required before Merge Policy can become merge-eligible.",
+      "verification": "governed_high_transport",
+      "mandatory": true
+    },
+    {
+      "id": "AC-020",
+      "description": "B6 may declare ITEM_10=CANONICAL_COMPLETE only after protected merge and exact-SHA post-merge canonical + Phase A verification PASS on the resulting merge SHA.",
+      "verification": "postmerge_terminal_closure",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "SECURITY",
+      "LOCK",
+      "HUMAN"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "HIGH Item 10 Production Gate. REVIEW, SECURITY, ACTIVE LOCK and exact-artifact PROJECT_OWNER HUMAN approval are mandatory. Any artifact mutation invalidates all artifact-bound evidence."
+  },
+  "protection_source": {
+    "ruleset_id": 23278861,
+    "required_contexts": [
+      "verify",
+      "phase-a",
+      "merge-policy"
+    ],
+    "required_integration": "GitHub Actions",
+    "required_integration_id": 15368,
+    "strict_required_status_checks_policy": true,
+    "bypass_actors_required": 0
+  }
+}
