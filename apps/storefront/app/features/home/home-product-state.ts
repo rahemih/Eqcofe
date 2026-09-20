@@ -1,10 +1,11 @@
-import type { StatePanelVariant } from "../../components/StatePanel.js";
 import { faIR } from "../../i18n/fa-IR.js";
 import type { AsyncSurfaceState } from "../../platform/state/surface-state.js";
 import type { HomeProductList } from "./home-data.server.js";
 
+export type HomeStatePanelVariant = "loading" | "empty" | "error" | "forbidden" | "offline" | "recovery";
+
 export type HomeProductStatePresentation = {
-  variant: StatePanelVariant;
+  variant: HomeStatePanelVariant;
   title: string;
   message: string;
   requestId: string | null;
