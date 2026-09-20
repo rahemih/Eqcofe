@@ -21,6 +21,7 @@
 | MA-ITEM9-CALIBRATION-A-001 | Item 9 Calibration — Stage A canonical evidence and sample sufficiency baseline | MEDIUM | NOT_REQUIRED | `020a7e39c953749af1e75331202143164572f166` | 15000/25000/50000 |
 | MA-ITEM9-CALIBRATION-B-001 | Item 9 Calibration — Stage B deterministic calibration engine | MEDIUM | NOT_REQUIRED | `735c69f6e2eac30f5fa1c1c4012e709e15972451` | 25000/35000/70000 |
 | MA-ITEM9-CALIBRATION-C-001 | Item 9 Calibration — Stage C risk-class recommendations | MEDIUM | NOT_REQUIRED | `e79d7397d54545a8c3620961df4cc0df666ff9d5` | 25000/35000/70000 |
+| MA-ITEM9-CALIBRATION-FINAL-CLOSURE-001 | Item 9 Calibration — final canonical closure and Item 10 authorization | MEDIUM | NOT_REQUIRED | `8ba4aaca3ebae0afa8552d509f0ba3decb229d3b` | 12000/25000/50000 |
 | MA-MERGE-POLICY-001 | Merge Policy Controller and protection validation | HIGH | REQUIRED | `3fbf6737562602af2ea7cdf2d326267efb443f34` | 50000/60000/120000 |
 | MA-PHASE-A-DOCS-PATH-001 | Run Phase A verification for multi-agent governance documentation PRs | MEDIUM | NOT_REQUIRED | `6df69308082698e6fbd0ae802b1e24fce3d3f866` | 12000/35000/70000 |
 | MA-PILOT-HIGH-001 | Pilot HIGH — fail-closed Price Rule update validation | HIGH | REQUIRED | `51252043799ee5f8a3fa427d668f66b7c60bebad` | 18000/30000/60000 |
@@ -35,4 +36,4 @@
 | MA-RISK-VERIFICATION-REMEDIATION-001 | Remediate Item 4 deterministic risk and verification-policy Spec drift | MEDIUM | NOT_REQUIRED | `fd85968adbe45441b154eed402f16c24c6a7e2bd` | 25000/35000/70000 |
 | MA-SCOPE-LOCK-001 | Implement deterministic Scope / Lock Controller | MEDIUM | NOT_REQUIRED | `36fa6122ff187841f85ccc777a0562be81ee16c8` | 25000/35000/70000 |
 
-Task contracts indexed: **29**.
+Task contracts indexed: **30**.
