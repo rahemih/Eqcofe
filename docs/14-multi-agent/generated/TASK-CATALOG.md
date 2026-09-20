@@ -23,6 +23,7 @@
 | EQCOFE-STEP58-H-FINAL-STATE-SYNC-001 | Step 58-H final canonical state synchronization | MEDIUM | NOT_REQUIRED | `8f17364fc7c27dc30de5845c1af467b1215d1351` | 12000/20000/40000 |
 | EQCOFE-STEP59-A-HANDOFF-001 | Step 59-A canonical handoff, live guard and discovery scope freeze | MEDIUM | NOT_REQUIRED | `61dac96e99ff30282f137d7b76f1006918199683` | 18000/30000/60000 |
 | EQCOFE-STEP59-B-NAVIGATION-001 | Step 59-B header responsive navigation and search entry | MEDIUM | NOT_REQUIRED | `8ec202061152b0d941ab0e71100dab87fdde6bc5` | 28000/42000/84000 |
+| EQCOFE-STEP59-C-HOME-DATA-001 | Step 59-C Home authoritative data loader foundation | MEDIUM | NOT_REQUIRED | `c7acd425643cfde4f9d736216e29b83323db178e` | 28000/42000/84000 |
 | MA-ARTIFACT-HASH-001 | Implement deterministic Artifact Hash Generator | MEDIUM | NOT_REQUIRED | `86124a4f6a431953b0b28bbd4a359769941101ea` | 25000/35000/70000 |
 | MA-BOOTSTRAP-001 | Bootstrap deterministic multi-agent foundation | MEDIUM | NOT_REQUIRED | `01f0fa033af07c5ba5189b2c85ebfe51b095cdba` | 25000/35000/70000 |
 | MA-ITEM10-PRODUCTION-GATE-001 | Item 10 — V1 Production Gate | HIGH | REQUIRED | `b4c8f01715e0f1367fa6d96db2c4262c02a0b205` | N/A (legacy/no budget) |
@@ -54,4 +55,4 @@
 | MA-V1-ACC-MEDIUM-001 | V1 Acceptance MEDIUM R2 — telemetry terminal-state conflict hardening | MEDIUM | NOT_REQUIRED | `9017e0f25e9571568ed9acf4ca3ca977ce9e78f0` | 15000/25000/50000 |
 | MA-V1-ACCEPTANCE-CLOSURE-V16-R2-001 | V1.6 Phase 3 canonical acceptance closure R2 | HIGH | REQUIRED | `d7d235f5f240b8bea44bc607afa812b2f5bb12d4` | 30000/50000/90000 |
 
-Task contracts indexed: **48**.
+Task contracts indexed: **49**.
