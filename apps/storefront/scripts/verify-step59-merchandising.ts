@@ -91,10 +91,11 @@ assert.match(componentSource, /to="\/articles"/);
 assert.match(componentSource, /to="\/wholesale"/);
 assert.match(homeRouteSource, /<HomeMerchandising/);
 
+assert(projectionSource.includes(" تومان"), "STEP59_E_TOMAN_SUFFIX_MISSING");
+
 for (const phrase of [
   "محصول‌هایی برای شروع",
   "رسانه محصول",
-  "تومان",
   "موجود",
   "ناموجود",
   "فروش این محصول فعلاً متوقف است",
