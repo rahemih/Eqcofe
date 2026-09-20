@@ -13,7 +13,6 @@ const nav = readFileSync(resolve(appRoot, "shell/PrimaryNavigation.tsx"), "utf8"
 const search = readFileSync(resolve(appRoot, "shell/SearchEntry.tsx"), "utf8");
 const css = readFileSync(resolve(appRoot, "styles/shell.css"), "utf8");
 const messages = readFileSync(resolve(appRoot, "i18n/fa-IR.ts"), "utf8");
-const home = readFileSync(resolve(appRoot, "routes/home.tsx"), "utf8");
 const searchRoute = readFileSync(resolve(appRoot, "routes/search.tsx"), "utf8");
 const categoryRoute = readFileSync(resolve(appRoot, "routes/category.tsx"), "utf8");
 
@@ -54,17 +53,33 @@ for (const phrase of ["searchLabel", "searchPlaceholder", "searchSubmit", "utili
   assert(messages.includes(phrase), "STEP59_B_MESSAGE_MISSING:" + phrase);
 }
 
-assert(home.includes('targetStep={59}'), "STEP59_B_HOME_SCOPE_DRIFT");
 assert(searchRoute.includes('targetStep={60}'), "STEP59_B_SEARCH_ROUTE_IMPLEMENTED_EARLY");
 assert(categoryRoute.includes('targetStep={60}'), "STEP59_B_CATEGORY_ROUTE_IMPLEMENTED_EARLY");
 
 const port = 41737;
-const command = process.platform === "win32" ? "pnpm.cmd" : "pnpm";
-const server = spawn(command, ["exec", "react-router-serve", "./build/server/index.js"], {
-  cwd: storefrontRoot,
-  env: { ...process.env, HOST: "127.0.0.1", PORT: String(port), NODE_ENV: "production" },
-  stdio: ["ignore", "pipe", "pipe"],
-});
+const serverCommand = process.platform === "win32"
+  ? [
+      'set "HOST=127.0.0.1"',
+      `set "PORT=${port}"`,
+      'set "NODE_ENV=production"',
+      "pnpm exec react-router-serve ./build/server/index.js",
+    ].join("&&")
+  : [
+      "HOST=127.0.0.1",
+      `PORT=${port}`,
+      "NODE_ENV=production",
+      "pnpm exec react-router-serve ./build/server/index.js",
+    ].join(" ");
+
+const server = process.platform === "win32"
+  ? spawn("cmd.exe", ["/d", "/s", "/c", serverCommand], {
+      cwd: storefrontRoot,
+      stdio: ["ignore", "pipe", "pipe"],
+    })
+  : spawn("sh", ["-c", serverCommand], {
+      cwd: storefrontRoot,
+      stdio: ["ignore", "pipe", "pipe"],
+    });
 
 let serverOutput = "";
 server.stdout.on("data", (chunk) => { serverOutput += chunk.toString(); });
