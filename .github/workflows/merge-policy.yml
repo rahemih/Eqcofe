@@ -15,12 +15,34 @@ on:
         type: number
 
 jobs:
-  merge-policy:
+  deterministic-review:
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
       contents: read
+      pull-requests: read
+    steps:
+      - uses: actions/checkout@v5.1.0
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+      - uses: actions/setup-node@v6.5.0
+        with:
+          node-version: 24.18.1
+      - name: generate-current-project-map
+        run: node scripts/multi-agent/project-map.mjs
+      - name: deterministic-primary-review
+        run: node scripts/multi-agent/merge-policy-controller.mjs --deterministic-review
+
+  merge-policy:
+    needs: deterministic-review
+    if: ${{ always() && github.event_name == 'pull_request' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      checks: read
       pull-requests: read
       issues: read
     steps:
@@ -60,6 +82,7 @@ jobs:
     timeout-minutes: 10
     permissions:
       contents: write
+      checks: read
       pull-requests: write
       issues: read
     outputs:
