@@ -1,0 +1,163 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP59-E-MERCHANDISING-001",
+  "title": "Step 59-E Home merchandising and promotional surfaces",
+  "description": "Implement bounded Home merchandising on top of the authoritative Stage-59-C GET /products loader and Stage-59-D discovery surface. Preserve backend response order, render at most six valid product cards with server-authoritative current_toman and availability only, use neutral media placeholders instead of invented assets, link product cards only to the existing Step-61 /product/:slug placeholder, add a Buying Guide entry to the existing /articles Step-66 placeholder, and add a wholesale CTA to the existing /wholesale Step-65 placeholder without inventing wholesale eligibility, prices or discounts. Do not implement a first-purchase festival because no canonical main Product Vision/Business Rules evidence currently supports that campaign. Do not add client ranking, recommendation scoring, fake discounts, fake stock counts, campaign percentages, new APIs, backend rules, listing/filter behavior or downstream route implementations.",
+  "risk": "MEDIUM",
+  "risk_floor": "MEDIUM",
+  "owner": "PRODUCT_DESIGN",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "4ef4027c1bf761a9d6abade15eec89f2dbee7e00"
+  },
+  "scope": {
+    "read": [
+      "apps/storefront/**",
+      "src/generated/openapi.ts",
+      "src/modules/catalog/**",
+      "docs/01-product-vision/EQCOFE-PRODUCT-VISION.md",
+      "docs/02-business-rules/EQCOFE-BUSINESS-RULES.md",
+      "docs/11-step-history/STEP-59-D-HOME-DISCOVERY.md",
+      "docs/13-product-design/**",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "apps/storefront/app/features/home/home-merchandising.ts",
+      "apps/storefront/app/features/home/HomeMerchandising.tsx",
+      "apps/storefront/app/routes/home.tsx",
+      "apps/storefront/app/i18n/fa-IR.ts",
+      "apps/storefront/app/styles/home.css",
+      "apps/storefront/package.json",
+      "apps/storefront/scripts/verify-step59-merchandising.ts",
+      "docs/11-step-history/STEP-59-E-HOME-MERCHANDISING.md",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP59-E-MERCHANDISING-001.json"
+    ],
+    "forbidden": [
+      ".github/**",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "src/**",
+      "database/**",
+      "contracts/**",
+      "test/**",
+      "apps/storefront/app/platform/**",
+      "apps/storefront/app/routes/search.tsx",
+      "apps/storefront/app/routes/category.tsx",
+      "apps/storefront/app/routes/product.tsx",
+      "apps/storefront/app/routes/articles.tsx",
+      "apps/storefront/app/routes/wholesale.tsx",
+      "docs/01-product-vision/**",
+      "docs/02-business-rules/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP59-E-MERCHANDISING-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 32000,
+    "soft_alert": 48000,
+    "hard_cap": 96000
+  },
+  "task_risk_rules": [
+    {
+      "id": "STEP59_E_HOME_MERCHANDISING_MEDIUM",
+      "risk": "MEDIUM",
+      "paths": [
+        "apps/storefront/app/features/home/home-merchandising.ts",
+        "apps/storefront/app/features/home/HomeMerchandising.tsx",
+        "apps/storefront/app/routes/home.tsx",
+        "apps/storefront/app/i18n/fa-IR.ts",
+        "apps/storefront/app/styles/home.css",
+        "apps/storefront/package.json",
+        "apps/storefront/scripts/verify-step59-merchandising.ts",
+        "docs/11-step-history/STEP-59-E-HOME-MERCHANDISING.md",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP59-E-MERCHANDISING-001.json"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "59-D",
+      "name": "Home category and brand discovery",
+      "required_state": "CLOSED_CANONICAL_PASS",
+      "observed_state": "CLOSED_CANONICAL_PASS",
+      "merge_sha": "4ef4027c1bf761a9d6abade15eec89f2dbee7e00",
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "stage_d_merge": "4ef4027c1bf761a9d6abade15eec89f2dbee7e00",
+    "home_design_screen": "SF-B-01",
+    "home_content_priority": [
+      "جست‌وجو",
+      "دسته‌های اصلی",
+      "محصول‌های منتخب",
+      "راهنمای خرید"
+    ],
+    "product_data_source": "GET /products via Stage-59-C server loader",
+    "product_ordering": "PRESERVE_AUTHORITATIVE_RESPONSE_ORDER",
+    "product_limit": 6,
+    "product_destination": "/product/:slug",
+    "buying_guide_destination": "/articles",
+    "wholesale_destination": "/wholesale",
+    "product_vision_wholesale_supported": true,
+    "business_rules_wholesale_approval_authoritative": true,
+    "first_purchase_campaign_canonical_evidence": false,
+    "first_purchase_campaign_surface": "NOT_IMPLEMENTED"
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Home merchandising uses only valid products from the existing GET /products ready state, preserves response order, applies no client ranking/recommendation, and caps the surface at six cards.",
+      "verification": "pnpm --dir apps/storefront merchandising:verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Each rendered card uses backend-provided name, current_toman and availability only; Toman is explicit, no fake stock count/discount/wholesale price is introduced, and neutral text media placeholders replace invented imagery.",
+      "verification": "pnpm --dir apps/storefront merchandising:verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Product cards link only to existing /product/:slug; Product Detail remains Step 61 placeholder.",
+      "verification": "pnpm --dir apps/storefront merchandising:verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Home exposes Buying Guide entry to /articles and wholesale CTA to /wholesale without implementing those downstream Step-66/65 routes or claiming unverified campaign/wholesale pricing.",
+      "verification": "pnpm --dir apps/storefront merchandising:verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "No first-purchase promotion, campaign percentage, wallet, brown styling, new API, backend mutation or downstream listing/product/content/wholesale implementation is added.",
+      "verification": "pnpm --dir apps/storefront merchandising:verify && deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Root pnpm verify, exact-head Canonical CI, Phase A, Storefront Browser Quality, deterministic review, active exact-artifact lock, protected merge and exact-SHA postmerge verification pass before Stage 59-F starts.",
+      "verification": "canonical_transport_and_postmerge_evidence",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Stage 59-E is MEDIUM risk. Direct-main write/raw merge are prohibited. Stage 59-F remains blocked until protected transport and exact-SHA postmerge verification are green."
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}
