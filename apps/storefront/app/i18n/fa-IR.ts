@@ -11,6 +11,10 @@ export const faIR = {
   breadcrumbLabel: "مسیر صفحه",
   header: {
     search: "جست‌وجو",
+    searchLabel: "جست‌وجوی تجهیزات قهوه",
+    searchPlaceholder: "نام محصول، برند یا ابزار را بنویسید",
+    searchSubmit: "جست‌وجو",
+    utilityMessage: "تجهیزات قهوه برای خانه و کافه",
     cart: "سبد خرید",
     account: "حساب کاربری",
   },
