@@ -92,3 +92,24 @@ or explicitly authorizes governed creation.
 - P2 exact-artifact binding: retained and strengthened with exact Review artifact/head binding.
 - Human Approval remains separate and cannot substitute for Review, Verification or Security.
 - Item 10 remains `BLOCKED` until this remediation is canonically merged and Item 10 restarts from the remediated base.
+
+
+## 2026-09-20T08:50:13Z — Item 10 restarted after canonical provenance remediation
+
+- Task: `MA-ITEM10-PRODUCTION-GATE-001`
+- Restart baseline: `b4c8f01715e0f1367fa6d96db2c4262c02a0b205`
+- Mission: `V1.5 / CANONICAL / FROZEN`
+- B1: `CANONICAL_COMPLETE`
+- prior Item 10 PR #214: `ABORTED / CLOSED_UNMERGED / NO TERMINAL EVIDENCE REUSE`
+- provenance remediation PR #216: `CANONICAL_COMPLETE`
+- closed finding: `PROVENANCE_CAPABILITY_INCOMPLETE_P1_P3`
+- B2 restart: `CONTRACT_CONSTRUCTED / PENDING_EXACT_HEAD_VERIFICATION`
+- effective risk: `HIGH`
+- Human Gate: `REQUIRED`
+- Primary Review: provider-bound to exact-head `verify + phase-a` GitHub Actions facts, integration `15368`
+- Executor REVIEW/VERIFICATION comments: unauthorized by canonical remediation
+- lock ID: `LOCK-MA-ITEM10-PRODUCTION-GATE-001-R2-01`
+- B4 coverage target: `20 / 20`
+- total mandatory AC target: `25`
+- quantitative token calibration: `DEFERRED_TO_V1_1`
+- generator execution surface gap remains recorded; no fake local generator execution claim
