@@ -1,0 +1,73 @@
+{
+  "schema_version": "2.2",
+  "task_id": "MA-V1-ACC-FAILCLOSED-5C-R2-V16-001",
+  "title": "V1.6 Acceptance Test 5C R2 — fresh isolated scope violation",
+  "description": "TEST_ONLY negative artifact. Fresh Mission V1.6 execution of Test 5C R2: exactly one undeclared inert fixture is injected on an isolated branch to exercise the real scope backstop; never merge or dispatch.",
+  "mission_binding": {
+    "mission_version": "V1.6",
+    "mission_hash": "b01ee3d1f02dc4b80d1780db26d2a5cc8163698fc2f6a5544bc8b707d425380e",
+    "stage": "C",
+    "test": "TEST_5C_R2"
+  },
+  "workstream_id": "AGENT-BUILD-A",
+  "test_mode": true,
+  "mode": "TEST_ONLY",
+  "risk": "LOW",
+  "risk_floor": "LOW",
+  "owner": "BACKEND",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "61dac96e99ff30282f137d7b76f1006918199683"
+  },
+  "scope": {
+    "read": [
+      "scripts/multi-agent/**"
+    ],
+    "write": [
+      "docs/14-multi-agent/tasks/MA-V1-ACC-FAILCLOSED-5C-R2-V16-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "test/multi-agent/v1-acceptance-scope-violation-r2-v16.test.mjs"
+    ],
+    "forbidden": [
+      "src/**",
+      "apps/**",
+      ".github/**",
+      "scripts/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "database/**",
+      "contracts/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-MA-V1-ACC-FAILCLOSED-5C-R2-V16-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 8000,
+    "soft_alert": 12000,
+    "hard_cap": 25000
+  },
+  "max_repair_cycles": 0,
+  "task_risk_rules": [],
+  "negative_test": {
+    "fixture": "test/fixtures/v1-acceptance-scope-violation-r2-v16/undeclared.txt",
+    "expected_blocker": "SCOPE:OUT_OF_SCOPE:test/fixtures/v1-acceptance-scope-violation-r2-v16/undeclared.txt",
+    "workflow_dispatch": "PROHIBITED",
+    "merge": "PROHIBITED",
+    "terminal_state": "ABORTED"
+  },
+  "acceptance_criteria": [
+    {"id":"AC-001","description":"Canonical controller imported without reimplementation","mandatory":true,"verification":"canonical_scope_harness"},
+    {"id":"AC-002","description":"Declared paths accepted","mandatory":true,"verification":"canonical_scope_harness"},
+    {"id":"AC-003","description":"Undeclared fixture rejected exactly","mandatory":true,"verification":"canonical_scope_harness"},
+    {"id":"AC-004","description":"Real PR Merge Policy records exact SCOPE:OUT_OF_SCOPE blocker","mandatory":true,"verification":"real_pr_provider_evidence"},
+    {"id":"AC-005","description":"merge_eligible=false","mandatory":true,"verification":"real_pr_provider_evidence"},
+    {"id":"AC-006","description":"No production/workflow/ruleset mutation","mandatory":true,"verification":"real_pr_provider_evidence"},
+    {"id":"AC-007","description":"Never merge","mandatory":true,"verification":"real_pr_provider_evidence"},
+    {"id":"AC-008","description":"Never workflow_dispatch","mandatory":true,"verification":"real_pr_provider_evidence"},
+    {"id":"AC-009","description":"Close unmerged after evidence","mandatory":true,"verification":"real_pr_provider_evidence"},
+    {"id":"AC-010","description":"Release lock ABORTED","mandatory":true,"verification":"real_pr_provider_evidence"}
+  ]
+}
