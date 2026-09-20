@@ -198,11 +198,11 @@ export function verifyFullStateMachine() {
 
 export function verifyScopeAndLock() {
   invariant(
-    validateChangedPaths({
+    JSON.stringify(validateChangedPaths({
       changed_paths: ['scripts/multi-agent/item10-production-gate.mjs'],
       write: ['scripts/multi-agent/item10-production-gate.mjs'],
       forbidden: [],
-    }) === true,
+    })) === JSON.stringify(['scripts/multi-agent/item10-production-gate.mjs']),
     'ITEM10_SCOPE_VALID_PATH_REJECTED',
   );
   mustThrow(
@@ -423,7 +423,11 @@ export async function verifyRepositoryStaticEvidence(rootDir = process.cwd()) {
   }
   invariant(mission.includes('ITEM_10 = CANONICAL_COMPLETE'), 'ITEM10_B6_EXIT_MISSING');
   invariant(b1.includes('ITEM10_SPEC=RESOLVED'), 'ITEM10_B1_NOT_RESOLVED');
-  invariant(item9.includes('DEFERRED_TO_V1_1'), 'ITEM10_CALIBRATION_DEFERRAL_MISSING');
+  invariant(b1.includes('DEFERRED_TO_V1_1'), 'ITEM10_CALIBRATION_DEFERRAL_TOKEN_MISSING');
+  invariant(
+    /V1\.1/i.test(item9) && /quantitative/i.test(item9) && /defer/i.test(item9),
+    'ITEM10_CALIBRATION_DEFERRAL_SOURCE_MISSING',
+  );
 
   invariant(architecture.trim().length > 0, 'ITEM10_ARCHITECTURE_MISSING');
   invariant(pkg.scripts?.['arch:check'] === 'node scripts/check-architecture.mjs', 'ITEM10_ARCH_CHECK_DRIFT');
