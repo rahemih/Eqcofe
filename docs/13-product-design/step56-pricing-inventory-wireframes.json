@@ -1034,7 +1034,7 @@
     },
     {
       "path": "src/modules/pricing/application/price-rule.service.ts",
-      "sha256": "e5a93a134cf4cb004c135c92446b7e8fe4ae4ddc8c45933ea6cda63970abfb8d"
+      "sha256": "4351a02b6c4715a0b36b810fd63b47eb8bdcf69274421ba57d8cfc39b356e3ac"
     },
     {
       "path": "src/modules/pricing/application/pricing-import-apply.service.ts",

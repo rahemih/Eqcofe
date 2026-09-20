@@ -47,6 +47,20 @@ test('update rejects negative rule value before persistence and audit',async()=>
   assert.equal(h.calls.audits,0);
 });
 
+test('update rejects malformed non-numeric rule value before persistence and audit',async()=>{
+  const h=harness();
+  await assert.rejects(()=>h.service.update(RULE_ID,{value_numeric:'not-a-number'},7),/مقدار قانون قیمت معتبر نیست/);
+  assert.equal(h.calls.updates.length,0);
+  assert.equal(h.calls.audits,0);
+});
+
+test('update rejects non-finite rule value before persistence and audit',async()=>{
+  const h=harness();
+  await assert.rejects(()=>h.service.update(RULE_ID,{value_numeric:Number.POSITIVE_INFINITY},7),/مقدار قانون قیمت معتبر نیست/);
+  assert.equal(h.calls.updates.length,0);
+  assert.equal(h.calls.audits,0);
+});
+
 test('update cannot clear minimum quantity from quantity discount',async()=>{
   const h=harness();
   await assert.rejects(()=>h.service.update(RULE_ID,{min_quantity:null},7),/قانون تخفیف تعدادی باید حداقل تعداد داشته باشد/);
