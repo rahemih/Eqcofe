@@ -78,3 +78,18 @@ or explicitly authorizes governed creation.
 - B5 quantitative calibration: `DEFERRED_TO_V1_1`
 - Verdict: `ITEM10_SPEC=RESOLVED`
 - Item 10 implementation remains `NOT_STARTED` until this B1 record is canonical and B2/B3 are completed.
+
+
+## 2026-09-20T08:02:45Z — Item 10 B4 provenance/authority remediation started
+
+- Task: `MA-PROVENANCE-AUTHORITY-REMEDIATION-001`
+- Canonical base: `b33cc615fa46b22b931766905ec13f726d2dbe62`
+- Trigger: Item 10 PR #214 / finding comment `5748513958`
+- Finding: `PROVENANCE_CAPABILITY_INCOMPLETE_P1_P3`
+- Item 10 PR #214: `ABORTED / CLOSED_UNMERGED`
+- Item 10 lock: released terminal `ABORTED`
+- Remediation risk: `HIGH`
+- Primary Review target transport: GitHub Actions check `deterministic-review`, integration `15368`
+- REVIEW comments after remediation: `UNAUTHORIZED_REVIEW_EVIDENCE`
+- same-name verification check from wrong integration: `UNAUTHORIZED_VERIFICATION_EVIDENCE`
+- Item 10 / Stage C remain blocked until remediation is canonical and Item 10 restarts.
