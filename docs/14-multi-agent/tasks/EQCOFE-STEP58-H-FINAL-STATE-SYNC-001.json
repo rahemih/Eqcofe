@@ -1,0 +1,131 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP58-H-FINAL-STATE-SYNC-001",
+  "title": "Step 58-H final canonical state synchronization",
+  "description": "Close the remaining post-merge canonical documentation drift after PR #201 by updating current-state metadata and live roadmap wording to the verified Step 58 final state, recording PR #201 postmerge evidence, and preserving Step 59 as NEXT / NOT_STARTED. Documentation/governance only; no runtime or feature implementation.",
+  "risk": "MEDIUM",
+  "risk_floor": "MEDIUM",
+  "owner": "PRODUCT_DESIGN",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "8f17364fc7c27dc30de5845c1af467b1215d1351"
+  },
+  "scope": {
+    "read": [
+      "docs/11-step-history/**",
+      "docs/12-current-state/**",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "docs/11-step-history/STEP-58-H-FINAL-CANONICAL-CLOSURE.md",
+      "docs/12-current-state/CURRENT-STATE.md",
+      "docs/12-current-state/MASTER-ROADMAP.md",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP58-H-FINAL-STATE-SYNC-001.json"
+    ],
+    "forbidden": [
+      ".github/**",
+      "apps/**",
+      "src/**",
+      "database/**",
+      "contracts/**",
+      "scripts/**",
+      "test/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "docs/13-product-design/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP58-H-FINAL-STATE-SYNC-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 12000,
+    "soft_alert": 20000,
+    "hard_cap": 40000
+  },
+  "max_repair_cycles": 2,
+  "task_risk_rules": [
+    {
+      "id": "STEP58_H_FINAL_STATE_SYNC_MEDIUM",
+      "risk": "MEDIUM",
+      "paths": [
+        "docs/11-step-history/STEP-58-H-FINAL-CANONICAL-CLOSURE.md",
+        "docs/12-current-state/CURRENT-STATE.md",
+        "docs/12-current-state/MASTER-ROADMAP.md",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP58-H-FINAL-STATE-SYNC-001.json"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "STEP58_H_PR201",
+      "name": "Step 58-H final canonical closure transport",
+      "required_state": "MERGED_POSTMERGE_VERIFIED",
+      "observed_state": "MERGED_POSTMERGE_VERIFIED",
+      "merge_sha": "8f17364fc7c27dc30de5845c1af467b1215d1351",
+      "protected_merge_run": 35490799957,
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "pr": 201,
+    "exact_head": "d7b4e512f2f2a52bc24fa979642d46abe60b3c1e",
+    "artifact_hash": "9a6f90a32513a427f11b6380284205f3f831c332f5a7645cdb1c3dd0e923e5b7",
+    "merge_sha": "8f17364fc7c27dc30de5845c1af467b1215d1351",
+    "protected_merge_run": 35490799957,
+    "postmerge_verify_job": 106025295505,
+    "postmerge_canonical_verify": "PASS",
+    "postmerge_phase_a_verify": "PASS",
+    "postmerge_failure": "SKIPPED",
+    "terminal_browser_quality_run": 35490356922,
+    "linear_issue": "HOS-14"
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "CURRENT-STATE trusted date and live Step58 position match verified postmerge reality: Step58 CLOSED / FINAL CANONICAL PASS; active NONE; Step59 NEXT / NOT_STARTED.",
+      "verification": "current_state_metadata_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "MASTER-ROADMAP version/effective date, banner, Step58 section and Current Position no longer contain transitional Step58-H wording and identify Step59 as NEXT / NOT_STARTED.",
+      "verification": "roadmap_state_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Step58-H history records PR #201 exact merge SHA and protected postmerge verification PASS.",
+      "verification": "closure_history_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Only the five declared documentation/governance paths change; no runtime, API, database, dependency, permission, business-rule or Step59 implementation mutation.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Exact-head Canonical CI, Phase A, REVIEW, LOCK and Merge Policy pass; protected merge and postmerge verification are required before HOS-14 is Done.",
+      "verification": "governed_state_sync_transport",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "MEDIUM docs-only canonical state sync. Human approval is not required. Step59 remains NOT_STARTED."
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}
