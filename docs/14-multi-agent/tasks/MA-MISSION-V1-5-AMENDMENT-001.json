@@ -1,0 +1,248 @@
+{
+  "schema_version": "2.2",
+  "task_id": "MA-MISSION-V1-5-AMENDMENT-001",
+  "title": "Mission V1.5 full execution mission amendment and canonical re-registration",
+  "description": "Create a new byte-frozen V1.5 Mission from the Owner-provided full V1.4 final candidate because V1.4 is already canonically frozen. Register the new exact Mission hash, create the mandatory V1.4-to-V1.5 compatibility proof and amendments registry, preserve V1.4 bytes, require fresh HIGH-risk gates and Owner artifact-bound amendment sign-off, regenerate the Task Catalog, and prohibit Item 10 continuation until this amendment becomes canonical.",
+  "risk": "HIGH",
+  "risk_floor": "MEDIUM",
+  "risk_rationale": {
+    "chosen": "HIGH",
+    "why_high": [
+      "This task changes the canonical Mission specification that governs trusted transport, evidence, authority, merge eligibility, Item 10 and V1 operational acceptance.",
+      "The new Mission explicitly requires Owner sign-off for amendments and defines security/Human/TOCTOU invariants used for future production-trust decisions.",
+      "Incorrect amendment provenance or compatibility reuse could authorize invalid evidence across Mission versions."
+    ],
+    "why_not_lower": [
+      "Documentation-only file type does not reduce governance impact; the Mission is an authority-defining artifact.",
+      "The Task Contract deterministically raises mission/amendment paths to HIGH through an explicit task risk rule."
+    ]
+  },
+  "owner": "BACKEND",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "ce571c420cf42e10bc4f069028c7dfd757e8c1e9"
+  },
+  "scope": {
+    "read": [
+      "docs/14-multi-agent/missions/EQCOFE-MULTI-AGENT-V1.4-EXECUTION-MISSION.md",
+      "docs/14-multi-agent/missions/REGISTRY.md",
+      "docs/14-multi-agent/GOVERNANCE-LOG.md",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "scripts/multi-agent/artifact-hash-generator.mjs",
+      "scripts/multi-agent/merge-policy-controller.mjs",
+      "scripts/multi-agent/risk-verification-policy.mjs",
+      "scripts/multi-agent/workflow-controller.mjs",
+      ".github/workflows/merge-policy.yml"
+    ],
+    "write": [
+      "docs/14-multi-agent/missions/EQCOFE-MULTI-AGENT-V1.5-EXECUTION-MISSION.md",
+      "docs/14-multi-agent/missions/EQCOFE-MULTI-AGENT-V1.4-TO-V1.5-COMPATIBILITY-PROOF.md",
+      "docs/14-multi-agent/missions/AMENDMENTS-REGISTRY.md",
+      "docs/14-multi-agent/missions/REGISTRY.md",
+      "docs/14-multi-agent/GOVERNANCE-LOG.md",
+      "docs/14-multi-agent/tasks/MA-MISSION-V1-5-AMENDMENT-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      "docs/14-multi-agent/missions/EQCOFE-MULTI-AGENT-V1.4-EXECUTION-MISSION.md",
+      ".github/**",
+      "scripts/**",
+      "test/**",
+      "src/**",
+      "apps/**",
+      "database/**",
+      "contracts/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "docs/11-step-history/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**",
+      "docs/14-multi-agent/GOVERNANCE.md"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-MA-MISSION-V1-5-AMENDMENT-001-01"
+  ],
+  "human_gate_required": true,
+  "authorized_human_approver": {
+    "github_login": "rahemih",
+    "role": "PROJECT_OWNER"
+  },
+  "token_budget": {
+    "expected_max": 30000,
+    "soft_alert": 50000,
+    "hard_cap": 90000
+  },
+  "max_repair_cycles": 2,
+  "task_risk_rules": [
+    {
+      "id": "MISSION_AMENDMENT_HIGH",
+      "risk": "HIGH",
+      "paths": [
+        "docs/14-multi-agent/missions/**",
+        "docs/14-multi-agent/GOVERNANCE-LOG.md"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "MISSION-V1.4",
+      "name": "Mission V1.4 canonical registration and exact-SHA post-merge closure",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "ce571c420cf42e10bc4f069028c7dfd757e8c1e9",
+      "protected_merge_run": 35495349796,
+      "blocking": false
+    },
+    {
+      "item": "DEPENDENCY-CLEANUP",
+      "name": "Serialized #205/#207/#208 dependency cleanup",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "d6ccf594acc3997c31d8c8ec4afd817249650a95",
+      "blocking": false
+    }
+  ],
+  "mission_amendment": {
+    "amendment_id": "MISSION-AMENDMENT-V1.4-TO-V1.5-001",
+    "from_version": "V1.4",
+    "to_version": "V1.5",
+    "old_mission_hash": "5bb55bd0c83df9b3c196b29e9d0109dc1ff8a327c4c45d0f86cf7f5fe20cf5ad",
+    "new_mission_hash": "7b29943c936592b63ae76a67359a0cae1b3dd99b2323f1811bc7b2e3d03317a1",
+    "source_candidate_sha256": "3475a12f4c44a7d19db34308ba2049a8fe5bc1d6cd08e31051a7be66e9c2eae3",
+    "mission_file": "docs/14-multi-agent/missions/EQCOFE-MULTI-AGENT-V1.5-EXECUTION-MISSION.md",
+    "compatibility_proof": "docs/14-multi-agent/missions/EQCOFE-MULTI-AGENT-V1.4-TO-V1.5-COMPATIBILITY-PROOF.md",
+    "amendments_registry": "docs/14-multi-agent/missions/AMENDMENTS-REGISTRY.md",
+    "registered_utc": "2026-09-20T07:01:00Z",
+    "mission_spec_status": "FROZEN_ON_CANONICAL_COMPLETION",
+    "owner_signoff": "REQUIRED_EXTERNAL_ARTIFACT_BOUND_HUMAN_GATE"
+  },
+  "trust_model_resolution": {
+    "required_checks": [
+      "verify",
+      "phase-a",
+      "merge-policy"
+    ],
+    "required_integration": "GitHub Actions",
+    "required_integration_id": 15368,
+    "ruleset_id": 23278861,
+    "ruleset_name": "main",
+    "ruleset_ref": "refs/heads/main",
+    "expected_bypass_actors": 0,
+    "trusted_gate_protocol": "EQCOFE_GATE_V1",
+    "trusted_gate_author_login": "rahemih",
+    "human_gate_transport": "ARTIFACT_BOUND_PR_COMMENT_BY_AUTHORIZED_OWNER",
+    "merge_workflow": "Merge Policy Enforcement",
+    "merge_workflow_file": ".github/workflows/merge-policy.yml",
+    "canonical_merge_transport": "workflow_dispatch:pr_number",
+    "direct_manual_main_merge": "PROHIBITED"
+  },
+  "evidence_reuse": {
+    "acceptance_tests": "NONE",
+    "stage_a_history": "COMPATIBILITY_PROOF_REQUIRED_AND_LIMITED_TO_IMMUTABLE_PROVIDER_FACTS",
+    "predecessor_registration": "PROVENANCE_ONLY"
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "The predecessor V1.4 Mission file remains byte-preserved and unmodified.",
+      "verification": "exact_scope_diff_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "The V1.5 Mission contains the full Owner-provided 43-section final candidate with only the mandatory version advance V1.4→V1.5 and top Mission Status set to FROZEN.",
+      "verification": "source_hash_and_transformation_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "The source candidate SHA-256 is 3475a12f4c44a7d19db34308ba2049a8fe5bc1d6cd08e31051a7be66e9c2eae3 and the exact V1.5 Mission SHA-256 is 7b29943c936592b63ae76a67359a0cae1b3dd99b2323f1811bc7b2e3d03317a1; the Mission does not embed its own hash.",
+      "verification": "mission_hash_verification",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "REGISTRY.md registers V1.5 with seconds-precision UTC, exact file name, exact hash and frozen-on-canonical-completion semantics while preserving V1.4 history.",
+      "verification": "registry_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "AMENDMENTS-REGISTRY.md and the V1.4→V1.5 Compatibility Proof exist and explicitly reject acceptance-test evidence reuse.",
+      "verification": "compatibility_proof_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Tests 1–7 are all marked AFFECTED and MUST run under V1.5; only immutable Stage A provider facts may be historically referenced.",
+      "verification": "compatibility_impact_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "The generated Task Catalog includes MA-MISSION-V1-5-AMENDMENT-001 and indexes 38 Task Contracts exactly.",
+      "verification": "node scripts/multi-agent/docs-automation.mjs --check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "Effective risk is HIGH and deterministic task risk rules prevent downgrade below HIGH for the mission/amendment paths.",
+      "verification": "deterministic_risk_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-009",
+      "description": "Exact-head Canonical CI, Phase A, artifact-bound Review, Security and ACTIVE Lock all pass before HUMAN_PENDING.",
+      "verification": "pre_human_gate_validation",
+      "mandatory": true
+    },
+    {
+      "id": "AC-010",
+      "description": "Owner Amendment Sign-off occurs only in HUMAN_PENDING and binds exact Task ID, Head SHA, Artifact Hash and verified owner login rahemih.",
+      "verification": "artifact_bound_human_gate",
+      "mandatory": true
+    },
+    {
+      "id": "AC-011",
+      "description": "After Human approval, TOCTOU revalidation proves head/base/hash/CI/Review/Security/Lock/Protection/Human binding are still valid and Merge Policy has zero blockers.",
+      "verification": "post_human_toctou_merge_policy",
+      "mandatory": true
+    },
+    {
+      "id": "AC-012",
+      "description": "V1.5 becomes canonical FROZEN only after protected workflow merge and exact-SHA post-merge canonical plus Phase A verification pass.",
+      "verification": "postmerge_amendment_guard",
+      "mandatory": true
+    },
+    {
+      "id": "AC-013",
+      "description": "Item 10 implementation remains blocked until V1.5 is canonical and B1 resolves an executable canonical Item 10 specification.",
+      "verification": "stage_b_fail_closed_handoff",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "SECURITY",
+      "HUMAN",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "HIGH Mission amendment requires exact-artifact REVIEW PASS, SECURITY PASS, ACTIVE LOCK and authorized Owner HUMAN APPROVED. Any mutation stales all artifact-bound gates."
+  },
+  "protection_source": {
+    "required_contexts": [
+      "verify",
+      "phase-a",
+      "merge-policy"
+    ],
+    "required_integration": "GitHub Actions",
+    "required_integration_id": 15368,
+    "ruleset_id": 23278861
+  }
+}
