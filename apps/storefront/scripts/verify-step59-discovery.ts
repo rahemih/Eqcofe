@@ -153,19 +153,34 @@ await new Promise<void>((resolvePromise, rejectPromise) => {
 const address = apiServer.address();
 assert.ok(address && typeof address === "object");
 const storefrontPort = 41739;
-const command = process.platform === "win32" ? "pnpm.cmd" : "pnpm";
-const server = spawn(command, ["exec", "react-router-serve", "./build/server/index.js"], {
-  cwd: storefrontRoot,
-  env: {
-    ...process.env,
-    HOST: "127.0.0.1",
-    PORT: String(storefrontPort),
-    NODE_ENV: "production",
-    EQCOFE_API_BASE_URL: `http://127.0.0.1:${address.port}`,
-    EQCOFE_API_TIMEOUT_MS: "2500",
-  },
-  stdio: ["ignore", "pipe", "pipe"],
-});
+const apiBaseUrl = `http://127.0.0.1:${address.port}`;
+const serverCommand = process.platform === "win32"
+  ? [
+      'set "HOST=127.0.0.1"',
+      `set "PORT=${storefrontPort}"`,
+      'set "NODE_ENV=production"',
+      `set "EQCOFE_API_BASE_URL=${apiBaseUrl}"`,
+      'set "EQCOFE_API_TIMEOUT_MS=2500"',
+      "pnpm exec react-router-serve ./build/server/index.js",
+    ].join("&&")
+  : [
+      "HOST=127.0.0.1",
+      `PORT=${storefrontPort}`,
+      "NODE_ENV=production",
+      `EQCOFE_API_BASE_URL=${apiBaseUrl}`,
+      "EQCOFE_API_TIMEOUT_MS=2500",
+      "pnpm exec react-router-serve ./build/server/index.js",
+    ].join(" ");
+
+const server = process.platform === "win32"
+  ? spawn("cmd.exe", ["/d", "/s", "/c", serverCommand], {
+      cwd: storefrontRoot,
+      stdio: ["ignore", "pipe", "pipe"],
+    })
+  : spawn("sh", ["-c", serverCommand], {
+      cwd: storefrontRoot,
+      stdio: ["ignore", "pipe", "pipe"],
+    });
 
 let serverOutput = "";
 server.stdout.on("data", (chunk) => { serverOutput += chunk.toString(); });
