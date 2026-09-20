@@ -78,3 +78,26 @@ or explicitly authorizes governed creation.
 - B5 quantitative calibration: `DEFERRED_TO_V1_1`
 - Verdict: `ITEM10_SPEC=RESOLVED`
 - Item 10 implementation remains `NOT_STARTED` until this B1 record is canonical and B2/B3 are completed.
+
+
+## 2026-09-20T07:45:16Z — Mission V1.5 Stage B B2 Item 10 Task Contract started
+
+- Task: `MA-ITEM10-PRODUCTION-GATE-001`
+- Canonical baseline: `b33cc615fa46b22b931766905ec13f726d2dbe62`
+- Mission: `V1.5 / CANONICAL / FROZEN`
+- Mission hash: `7b29943c936592b63ae76a67359a0cae1b3dd99b2323f1811bc7b2e3d03317a1`
+- B1: `CANONICAL_COMPLETE` via PR #213
+- B2 state: `CONTRACT_CONSTRUCTED / PENDING_EXACT_HEAD_EVIDENCE`
+- Task Contract schema: `2.2`
+- Item 10 mode: `VERIFICATION_ONLY`
+- mandatory B4 coverage: `20 / 20 AC mapped`
+- deterministic risk preview: `HIGH`
+- HIGH basis: `ITEM10_PRODUCTION_GATE_HIGH` task-risk rule on the exact Item 10 governance write scope
+- Human Gate: `REQUIRED`
+- Scope/Lock: four governed write paths only; runtime/controller/workflow/test/product mutation forbidden
+- remediation rule: any discovered implementation defect blocks Item 10 and requires a separate governed remediation task
+- canonical Section 12 evidence minimum fields: `15 named fields`; Advisor count `22` is not substituted for canonical source text
+- quantitative token calibration: `DEFERRED_TO_V1_1`
+- numeric calibrated task budget: `NOT_CLAIMED`
+- generated catalog target after this contract: `40`
+- B3/B4/B5/B6: not yet complete
