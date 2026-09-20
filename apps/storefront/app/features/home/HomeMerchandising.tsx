@@ -8,9 +8,9 @@ import {
   type HomeMerchandisingProduct,
 } from "./home-merchandising";
 
-export function HomeMerchandising({ products }: { products: HomeProductList }) {
+export function HomeMerchandising({ products }: { products: HomeProductList | null }) {
   const messages = getMessages();
-  const items = deriveHomeMerchandising(products);
+  const items = products ? deriveHomeMerchandising(products) : [];
 
   return (
     <>
@@ -37,9 +37,11 @@ export function HomeMerchandising({ products }: { products: HomeProductList }) {
                     <p className="home-product-card__availability">
                       {availabilityLabel(product)}
                     </p>
-                    <Link to={productMerchandisingHref(product)}>
+                    <Link
+                      to={productMerchandisingHref(product)}
+                      aria-label={`${messages.home.productAction} — ${product.name}`}
+                    >
                       {messages.home.productAction}
-                      <span className="sr-only"> — {product.name}</span>
                     </Link>
                   </div>
                 </article>
