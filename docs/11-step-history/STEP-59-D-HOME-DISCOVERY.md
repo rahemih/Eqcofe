@@ -77,3 +77,7 @@ STEP_59_E = BLOCKED
 DIRECT_TAXONOMY_LIST_API = BLOCKED_BY_OPENAPI_TYPING
 STEP_60 = NOT_STARTED
 ```
+
+## Inherited regression maintenance
+
+Stage 59-D intentionally graduates Home from the placeholder state that Stage 59-B originally protected. The inherited `verify-step59-navigation.mjs` therefore removes only the obsolete `targetStep={59}` Home-placeholder assertion. Its Step-60 guards for Search and Category remain unchanged. Because this verifier is now modified, its child-process launch is also migrated away from direct `process.env` access to the repository-approved server configuration boundary pattern.
