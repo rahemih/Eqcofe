@@ -91,7 +91,9 @@ export function buildTelemetryRecord({ task_id, token_budget, events }) {
   for (const event of normalizedEvents) for (const field of COUNT_FIELDS) totals[field] += event[field];
   const total_model_tokens = totals.input_tokens + totals.output_tokens;
   const terminalEvents = normalizedEvents.filter((event) => event.terminal_state);
-  const terminal_state = terminalEvents.at(-1)?.terminal_state ?? null;
+  const terminalStates = [...new Set(terminalEvents.map((event) => event.terminal_state))];
+  if (terminalStates.length > 1) fail('CONFLICTING_TERMINAL_STATES');
+  const terminal_state = terminalStates[0] ?? null;
   const human_rejected = normalizedEvents.some((event) => event.human_rejected);
   const agents = [...new Set(normalizedEvents.map((event) => event.agent_id))].sort();
   const sources = [...new Set(normalizedEvents.map((event) => event.source))].sort();
