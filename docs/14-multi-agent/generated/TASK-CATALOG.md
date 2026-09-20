@@ -52,5 +52,6 @@
 | MA-V1-ACC-HIGH-001 | V1 Acceptance HIGH — pricing rule non-finite numeric validation hardening | HIGH | REQUIRED | `383d7ae9cc12ef9c05e1a70c211e2dacfd729ab7` | 18000/30000/60000 |
 | MA-V1-ACC-LOW-001 | V1 Acceptance LOW R2 — MoneyToman boundary regression | LOW | NOT_REQUIRED | `65d97e6343ade1b5d97e2e737f66a9b474fcd945` | 8000/12000/25000 |
 | MA-V1-ACC-MEDIUM-001 | V1 Acceptance MEDIUM R2 — telemetry terminal-state conflict hardening | MEDIUM | NOT_REQUIRED | `9017e0f25e9571568ed9acf4ca3ca977ce9e78f0` | 15000/25000/50000 |
+| MA-V1-ACCEPTANCE-CLOSURE-V16-R2-001 | V1.6 Phase 3 canonical acceptance closure R2 | HIGH | REQUIRED | `d7d235f5f240b8bea44bc607afa812b2f5bb12d4` | 30000/50000/90000 |
 
-Task contracts indexed: **47**.
+Task contracts indexed: **48**.

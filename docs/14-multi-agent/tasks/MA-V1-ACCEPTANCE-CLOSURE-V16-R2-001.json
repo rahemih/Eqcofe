@@ -1,0 +1,149 @@
+{
+  "schema_version": "2.2",
+  "task_id": "MA-V1-ACCEPTANCE-CLOSURE-V16-R2-001",
+  "title": "V1.6 Phase 3 canonical acceptance closure R2",
+  "description": "Fresh R2 closure attempt after PR #235 was aborted fail-closed due TOCTOU drift. Create the Mission V1.6 Static Closure Record and Final Evidence Matrix from canonical main d7d235f5f240b8bea44bc607afa812b2f5bb12d4, then require protected merge, exact-SHA post-merge verification, final live revalidation, and an immutable Terminal Provider Seal.",
+  "mission_binding": {
+    "mission_version": "V1.6",
+    "mission_hash": "b01ee3d1f02dc4b80d1780db26d2a5cc8163698fc2f6a5544bc8b707d425380e",
+    "stage": "C",
+    "phase": "PHASE_3",
+    "test": "CANONICAL_CLOSURE_R2"
+  },
+  "workstream_id": "AGENT-BUILD-A",
+  "test_mode": false,
+  "mode": "PRODUCTION_GOVERNANCE",
+  "risk": "HIGH",
+  "risk_floor": "HIGH",
+  "owner": "BACKEND",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "d7d235f5f240b8bea44bc607afa812b2f5bb12d4"
+  },
+  "scope": {
+    "read": [
+      "docs/14-multi-agent/**",
+      ".github/workflows/merge-policy.yml",
+      "scripts/multi-agent/**"
+    ],
+    "write": [
+      "docs/14-multi-agent/tasks/MA-V1-ACCEPTANCE-CLOSURE-V16-R2-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "docs/14-multi-agent/missions/EQCOFE-MULTI-AGENT-V1.6-ACCEPTANCE-CLOSURE.md",
+      "docs/14-multi-agent/missions/EQCOFE-MULTI-AGENT-V1.6-FINAL-EVIDENCE-MATRIX.md"
+    ],
+    "forbidden": [
+      "src/**",
+      "apps/**",
+      ".github/**",
+      "scripts/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "database/**",
+      "contracts/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-MA-V1-ACCEPTANCE-CLOSURE-V16-R2-001-01"
+  ],
+  "human_gate_required": true,
+  "token_budget": {
+    "expected_max": 30000,
+    "soft_alert": 50000,
+    "hard_cap": 90000
+  },
+  "max_repair_cycles": 2,
+  "task_risk_rules": [],
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "PR #235 is historical ABORTED evidence only and no stale base/head/artifact evidence is reused",
+      "mandatory": true,
+      "verification": "provider_history"
+    },
+    {
+      "id": "AC-002",
+      "description": "Static Closure Record contains only pre-merge knowable Section 32.1 facts and no guessed terminal identifiers",
+      "mandatory": true,
+      "verification": "repository_review"
+    },
+    {
+      "id": "AC-003",
+      "description": "Final Evidence Matrix records Section 33 columns and immutable provider evidence for Tests 1 through 7, including fresh V1.6 Test 5C R2",
+      "mandatory": true,
+      "verification": "repository_review"
+    },
+    {
+      "id": "AC-004",
+      "description": "Fresh Phase 0 and Phase 3 residual-state checks pass against the exact R2 canonical base",
+      "mandatory": true,
+      "verification": "live_provider_evidence"
+    },
+    {
+      "id": "AC-005",
+      "description": "No runtime, workflow, ruleset, dependency, database, API, product, or protection mutation occurs",
+      "mandatory": true,
+      "verification": "artifact_scope"
+    },
+    {
+      "id": "AC-006",
+      "description": "Effective risk remains HIGH and Owner Human Gate is required for the exact final R2 closure artifact",
+      "mandatory": true,
+      "verification": "merge_policy"
+    },
+    {
+      "id": "AC-007",
+      "description": "Closure merges only through protected workflow_dispatch after exact-artifact gates and TOCTOU revalidation",
+      "mandatory": true,
+      "verification": "protected_merge"
+    },
+    {
+      "id": "AC-008",
+      "description": "Exact Closure Merge SHA passes post-merge canonical verification and Phase A verification",
+      "mandatory": true,
+      "verification": "postmerge_verify"
+    },
+    {
+      "id": "AC-009",
+      "description": "Final live revalidation passes within 60 minutes of final acceptance declaration",
+      "mandatory": true,
+      "verification": "live_provider_evidence"
+    },
+    {
+      "id": "AC-010",
+      "description": "Terminal Provider Seal is bound to exact Closure Task, PR, Head, Merge SHA, post-merge run and job",
+      "mandatory": true,
+      "verification": "terminal_provider_seal"
+    }
+  ],
+  "authorized_human_approver": {
+    "github_login": "rahemih",
+    "role": "PROJECT_OWNER"
+  },
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "SECURITY",
+      "HUMAN",
+      "LOCK"
+    ],
+    "provider_bound_gates": [
+      "REVIEW",
+      "VERIFICATION"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "trusted_github_actions_integration_id": 15368,
+    "rule": "HIGH closure requires provider-bound deterministic Review/Verification, exact-artifact SECURITY/HUMAN/LOCK, live protection, protected merge and exact-SHA post-merge. Executor REVIEW/VERIFICATION comments are unauthorized."
+  },
+  "protection_source": {
+    "required_contexts": [
+      "verify",
+      "phase-a",
+      "merge-policy"
+    ],
+    "required_integration": "GitHub Actions",
+    "required_integration_id": 15368,
+    "ruleset_id": 23278861
+  }
+}
