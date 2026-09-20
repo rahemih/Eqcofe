@@ -1,0 +1,132 @@
+{
+  "schema_version": "2.2",
+  "task_id": "MA-V1-ACC-FAILCLOSED-5D-001",
+  "title": "V1 Acceptance Test 5D — exhaustive workflow state-machine coverage",
+  "description": "Stage C Phase 1 negative/control Test 5D. A deterministic test-only harness imports the canonical Workflow Controller, evaluates every ordered pair in the canonical state set, proves every transition outside T_allowed is rejected with INVALID_TRANSITION, records a detailed per-pair evidence matrix, and proves one complete valid LOW lifecycle reaches MERGED. The test-only artifact must close unmerged and must not create Production evidence.",
+  "mission_binding": {
+    "mission_version": "V1.5",
+    "mission_hash": "7b29943c936592b63ae76a67359a0cae1b3dd99b2323f1811bc7b2e3d03317a1",
+    "stage": "C",
+    "phase": "PHASE_1_CORE_ACCEPTANCE",
+    "test": "TEST_5D_FULL_STATE_MACHINE_COVERAGE"
+  },
+  "test_evidence": {
+    "test_mode": true,
+    "namespace": "v1-acceptance/test5d-state-machine",
+    "production_reuse_prohibited": true,
+    "merge_to_main_prohibited": true,
+    "expected_negative_outcome": "ALL_ILLEGAL_TRANSITIONS_REJECTED",
+    "expected_positive_control": "VALID_LIFECYCLE_ACCEPTED",
+    "expected_outcome": "BLOCKED_AS_EXPECTED_PLUS_VALID_LIFECYCLE_ACCEPTED"
+  },
+  "workstream_id": "AGENT-BUILD-B",
+  "risk": "LOW",
+  "risk_floor": "LOW",
+  "owner": "BACKEND",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "9017e0f25e9571568ed9acf4ca3ca977ce9e78f0"
+  },
+  "scope": {
+    "read": [
+      "docs/14-multi-agent/missions/EQCOFE-MULTI-AGENT-V1.5-EXECUTION-MISSION.md",
+      "scripts/multi-agent/workflow-controller.mjs",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "write": [
+      "test/multi-agent/v1-acceptance-state-machine-coverage.test.mjs",
+      "docs/14-multi-agent/tasks/MA-V1-ACC-FAILCLOSED-5D-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "src/**",
+      "apps/**",
+      "database/**",
+      "contracts/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "docs/11-step-history/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**",
+      "scripts/multi-agent/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-MA-V1-ACC-FAILCLOSED-5D-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 10000,
+    "soft_alert": 15000,
+    "hard_cap": 30000
+  },
+  "max_repair_cycles": 0,
+  "task_risk_rules": [],
+  "dependencies": [
+    {
+      "item": "STAGE-C-TEST-5C",
+      "name": "V1 Acceptance Test 5C Scope Violation",
+      "required_state": "PASS_BLOCKED_AS_EXPECTED",
+      "observed_state": "PASS_BLOCKED_AS_EXPECTED",
+      "evidence_pr": 219,
+      "evidence_comment": 5749669246,
+      "blocking": false
+    },
+    {
+      "item": "STAGE-C-TEST-1-R2",
+      "name": "V1 Acceptance Test 1 LOW R2",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "evidence_pr": 224,
+      "evidence_merge_sha": "9017e0f25e9571568ed9acf4ca3ca977ce9e78f0",
+      "blocking": false
+    }
+  ],
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "The harness imports STATES, canTransition and transition from the canonical Workflow Controller and does not reimplement the state machine.",
+      "verification": "source_inspection",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "All ordered pairs over the canonical state set are evaluated exactly once.",
+      "verification": "deterministic_test_output",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Every pair not in T_allowed is rejected with the exact INVALID_TRANSITION:<from>-><to> evidence.",
+      "verification": "detailed_matrix_and_assertions",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "The detailed matrix records FROM, TO, EXPECTED=REJECTED, ACTUAL=BLOCKED_AS_EXPECTED and exact error evidence for every illegal transition.",
+      "verification": "provider_log_matrix",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "One complete valid LOW lifecycle is accepted from CREATED through MERGED.",
+      "verification": "deterministic_positive_control",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "No illegal transition is accepted and the canonical baseline resolves to 20 states, 34 allowed transitions and 366 illegal ordered pairs.",
+      "verification": "deterministic_counts",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "The test-only PR closes unmerged, its Lock is terminally released as ABORTED, and no test evidence is reusable for Production eligibility.",
+      "verification": "terminal_pr_lock_and_isolation",
+      "mandatory": true
+    }
+  ]
+}
