@@ -53,11 +53,12 @@ test('P-4 synthetic HIGH completes exact-artifact Review Security Human Gate lif
   assert.equal(result.lock_final_status, 'RELEASED');
 });
 
-test('P-4 Artifact Binding ↔ Human Gate invalidates all prior artifact-bound evidence', () => {
+test('P-4 Artifact Binding invalidates deterministic Review plus Security Human and Lock evidence', () => {
   const result = runArtifactHumanGateIntegration();
   assert.notEqual(result.original_hash, result.mutated_hash);
   assert.equal(result.current_gate_count_after_mutation, 0);
-  assert.equal(result.stale_gate_count_after_mutation, 4);
+  assert.equal(result.stale_gate_count_after_mutation, 3);
+  assert.equal(result.deterministic_review_invalidated, true);
   assert.equal(result.workflow_state_after_mutation, 'HUMAN_PENDING');
 });
 
@@ -77,6 +78,8 @@ test('P-4 negative matrix proves every frozen fail-closed scenario', () => {
     'lock_conflict',
     'protection_drift_blocked',
     'risk_downgrade_rejected',
+    'self_review_rejected',
+    'self_verification_rejected',
     'spoofed_required_check_rejected',
     'stale_evidence_rejected',
     'unauthorized_evidence_rejected',
