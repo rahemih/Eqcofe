@@ -1,7 +1,7 @@
 # EQCOFE Current State
 
 ## Trusted state date
-**2026-09-15**
+**2026-09-20**
 
 ## Official repository
 - Repository: `rahemih/Eqcofe`
@@ -10,9 +10,10 @@
 
 ## Current Step58 final position
 
-**Step 58 — Frontend Application Foundation — CLOSED / FINAL GATE PASS**, subject to Step 58-H exact-head governed transport and post-merge closure checks. Active step NONE; Step59 NEXT / NOT_STARTED.
+**Step 58 — Frontend Application Foundation — CLOSED / FINAL CANONICAL PASS.** Active step NONE; Step59 NEXT / NOT_STARTED.
 
 - H starting canonical main: `8ba4aaca3ebae0afa8552d509f0ba3decb229d3b`.
+- Final Step 58-H PR `#201` merged through protected Merge Policy Run `35490799957` at exact SHA `8f17364fc7c27dc30de5845c1af467b1215d1351`; postmerge `pnpm verify` and Phase-A both PASS.
 - Stages 58-A through 58-G have protected-merge lineage and canonical closure evidence.
 - Stage 58-G terminal merged-main Browser Quality run `35490356922`: PASS on exact SHA `8ba4aaca3ebae0afa8552d509f0ba3decb229d3b`.
 - Browser evidence: axe WCAG-tagged violations 0; widths 320/360/600/840/1200/1440 PASS; focus >=3px PASS; 44x44 targets PASS; no horizontal overflow; reduced-motion PASS; RTL PASS; 400% reflow proxy PASS.
