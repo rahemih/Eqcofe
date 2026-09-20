@@ -92,3 +92,19 @@ or explicitly authorizes governed creation.
 - P2 exact-artifact binding: retained and strengthened with exact Review artifact/head binding.
 - Human Approval remains separate and cannot substitute for Review, Verification or Security.
 - Item 10 remains `BLOCKED` until this remediation is canonically merged and Item 10 restarts from the remediated base.
+
+## 2026-09-20 — Item 10 restart after canonical provenance remediation
+
+- Task: `MA-ITEM10-PRODUCTION-GATE-001`
+- Canonical restart base: `b4c8f01715e0f1367fa6d96db2c4262c02a0b205`
+- Provenance remediation PR #216: `CANONICAL_COMPLETE`
+- Protected merge run #247 / `35500317788`: `PASS`
+- Post-merge verify job `106050868593`: `PASS`
+- B2 Task Contract first branch commit: `6fa9676b1210843c2ceb3a7bb8492a69aa707c3e`
+- B3 expected effective risk: `HIGH`
+- B4 minimum domains: `20`
+- P1/P2/P3/P4 baseline: `PASS`
+- B5 Token Governance: `VERIFIED_REQUIRED`
+- B5 Quantitative Calibration: `DEFERRED_TO_V1_1`
+- B6: `PENDING_PROTECTED_MERGE_AND_EXACT_SHA_POSTMERGE`
+- Stage C: `BLOCKED` until B6 terminal completion.
