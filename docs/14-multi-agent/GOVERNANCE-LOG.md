@@ -113,3 +113,25 @@ or explicitly authorizes governed creation.
 - total mandatory AC target: `25`
 - quantitative token calibration: `DEFERRED_TO_V1_1`
 - generator execution surface gap remains recorded; no fake local generator execution claim
+
+
+## 2026-09-20T13:39:23Z — Mission V1.6 closure self-reference remediation registration
+
+- Task: `MA-MISSION-V1-6-CLOSURE-SELFREF-001`
+- Workstream: `AGENT-BUILD-A`
+- Canonical base: `e261ad3461b00e77b477280f45826a85e7725960`
+- Root-cause issue: `#231`
+- Predecessor Mission: `V1.5`
+- Predecessor hash: `7b29943c936592b63ae76a67359a0cae1b3dd99b2323f1811bc7b2e3d03317a1`
+- New Mission: `V1.6`
+- New Mission SHA-256: `b01ee3d1f02dc4b80d1780db26d2a5cc8163698fc2f6a5544bc8b707d425380e`
+- Reason: V1.5 Section 32 required the Closure Record to contain its own final Head SHA, Merge SHA and post-merge identifiers before those facts could exist, while prohibiting post-merge direct modification.
+- Remediation: two-part closure record: pre-merge Static Closure Record + post-merge immutable Terminal Provider Seal.
+- V1.5 bytes: PRESERVED.
+- Tests 1–7: UNAFFECTED only through registered compatibility proof.
+- Phase 3 / Final Live Revalidation: FRESH EXECUTION REQUIRED after V1.6 canonicalization.
+- Effective risk: HIGH.
+- Human Gate: REQUIRED only after exact-head CI/Review/Security/Lock reaches HUMAN_PENDING.
+- Direct/manual merge: PROHIBITED.
+
+- Amendment PR: `#232`

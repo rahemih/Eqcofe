@@ -1,0 +1,275 @@
+{
+  "schema_version": "2.2",
+  "task_id": "MA-MISSION-V1-6-CLOSURE-SELFREF-001",
+  "title": "Mission V1.6 closure self-reference remediation and canonical re-registration",
+  "description": "Resolve the V1.5 Phase 3 Acceptance Closure self-reference discovered in Issue #231 by creating a byte-frozen V1.6 Mission with a two-part closure record: a pre-merge Static Closure Record plus a post-merge immutable Terminal Provider Seal. Preserve V1.5 bytes, register the new exact Mission hash, provide a V1.5-to-V1.6 compatibility proof allowing reuse only of unaffected immutable Tests 1-7 evidence, require HIGH-risk fresh provider gates and exact-artifact Owner sign-off, and keep Phase 3 blocked until the amendment becomes canonical.",
+  "risk": "HIGH",
+  "risk_floor": "MEDIUM",
+  "risk_rationale": {
+    "chosen": "HIGH",
+    "why_high": [
+      "This task changes the frozen Mission specification that governs the final V1 operational acceptance and Production Trusted declaration.",
+      "Incorrect closure semantics could permit guessed terminal identifiers, Fake PASS, or a non-canonical Acceptance Record.",
+      "Mission/amendment paths are deterministically elevated to HIGH."
+    ],
+    "why_not_lower": [
+      "The mutation is governance-authority defining even though it is documentation-only.",
+      "Owner Human Gate and Security remain mandatory for a Mission amendment."
+    ]
+  },
+  "owner": "BACKEND",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "e261ad3461b00e77b477280f45826a85e7725960"
+  },
+  "scope": {
+    "read": [
+      "docs/14-multi-agent/missions/EQCOFE-MULTI-AGENT-V1.5-EXECUTION-MISSION.md",
+      "docs/14-multi-agent/missions/REGISTRY.md",
+      "docs/14-multi-agent/missions/AMENDMENTS-REGISTRY.md",
+      "docs/14-multi-agent/GOVERNANCE-LOG.md",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "docs/14-multi-agent/tasks/**",
+      "scripts/multi-agent/**",
+      ".github/workflows/**"
+    ],
+    "write": [
+      "docs/14-multi-agent/missions/EQCOFE-MULTI-AGENT-V1.6-EXECUTION-MISSION.md",
+      "docs/14-multi-agent/missions/EQCOFE-MULTI-AGENT-V1.5-TO-V1.6-COMPATIBILITY-PROOF.md",
+      "docs/14-multi-agent/missions/AMENDMENTS-REGISTRY.md",
+      "docs/14-multi-agent/missions/REGISTRY.md",
+      "docs/14-multi-agent/GOVERNANCE-LOG.md",
+      "docs/14-multi-agent/tasks/MA-MISSION-V1-6-CLOSURE-SELFREF-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      "docs/14-multi-agent/missions/EQCOFE-MULTI-AGENT-V1.5-EXECUTION-MISSION.md",
+      ".github/**",
+      "scripts/**",
+      "test/**",
+      "src/**",
+      "apps/**",
+      "database/**",
+      "contracts/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "docs/11-step-history/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**",
+      "docs/14-multi-agent/GOVERNANCE.md"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-MA-MISSION-V1-6-CLOSURE-SELFREF-001-01"
+  ],
+  "human_gate_required": true,
+  "authorized_human_approver": {
+    "github_login": "rahemih",
+    "role": "PROJECT_OWNER"
+  },
+  "token_budget": {
+    "expected_max": 30000,
+    "soft_alert": 50000,
+    "hard_cap": 90000
+  },
+  "max_repair_cycles": 2,
+  "task_risk_rules": [
+    {
+      "id": "MISSION_V1_6_CLOSURE_AMENDMENT_HIGH",
+      "risk": "HIGH",
+      "paths": [
+        "docs/14-multi-agent/missions/**",
+        "docs/14-multi-agent/GOVERNANCE-LOG.md"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "MISSION-V1.5",
+      "name": "Mission V1.5 canonical/frozen",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "mission_hash": "7b29943c936592b63ae76a67359a0cae1b3dd99b2323f1811bc7b2e3d03317a1",
+      "blocking": false
+    },
+    {
+      "item": "STAGE-C-PHASE-1",
+      "name": "V1.5 Phase 1 acceptance",
+      "required_state": "PASS",
+      "observed_state": "PASS",
+      "evidence": "PR #225 comment 5749717825 + PR #229 fresh Test 5C R2",
+      "blocking": false
+    },
+    {
+      "item": "STAGE-C-PHASE-2",
+      "name": "V1.5 Phase 2 acceptance",
+      "required_state": "PASS",
+      "observed_state": "PASS",
+      "evidence": "PR #228 comment 5750005585 + PR #230 fresh Test 6",
+      "blocking": false
+    },
+    {
+      "item": "ISSUE-231",
+      "name": "Phase 3 closure self-reference blocker",
+      "required_state": "RECORDED",
+      "observed_state": "RECORDED",
+      "blocking": false
+    }
+  ],
+  "mission_amendment": {
+    "amendment_id": "MISSION-AMENDMENT-V1.5-TO-V1.6-001",
+    "from_version": "V1.5",
+    "to_version": "V1.6",
+    "old_mission_hash": "7b29943c936592b63ae76a67359a0cae1b3dd99b2323f1811bc7b2e3d03317a1",
+    "new_mission_hash": "b01ee3d1f02dc4b80d1780db26d2a5cc8163698fc2f6a5544bc8b707d425380e",
+    "mission_file": "docs/14-multi-agent/missions/EQCOFE-MULTI-AGENT-V1.6-EXECUTION-MISSION.md",
+    "compatibility_proof": "docs/14-multi-agent/missions/EQCOFE-MULTI-AGENT-V1.5-TO-V1.6-COMPATIBILITY-PROOF.md",
+    "amendments_registry": "docs/14-multi-agent/missions/AMENDMENTS-REGISTRY.md",
+    "registered_utc": "2026-09-20T13:39:23Z",
+    "mission_spec_status": "FROZEN_ON_CANONICAL_COMPLETION",
+    "owner_signoff": "REQUIRED_EXTERNAL_ARTIFACT_BOUND_HUMAN_GATE",
+    "blocker_issue": 231
+  },
+  "compatibility": {
+    "tests_1_7": "UNAFFECTED_REUSE_ALLOWED_ONLY_BY_REGISTERED_COMPATIBILITY_PROOF",
+    "phase_3": "AFFECTED_RERUN_REQUIRED",
+    "final_live_revalidation": "RERUN_REQUIRED",
+    "production_code_changes": 0,
+    "controller_changes": 0,
+    "workflow_changes": 0,
+    "protection_changes": 0
+  },
+  "trust_model_resolution": {
+    "required_checks": [
+      "verify",
+      "phase-a",
+      "merge-policy"
+    ],
+    "required_integration": "GitHub Actions",
+    "required_integration_id": 15368,
+    "ruleset_id": 23278861,
+    "ruleset_name": "main",
+    "ruleset_ref": "refs/heads/main",
+    "expected_bypass_actors": 0,
+    "trusted_gate_protocol": "EQCOFE_GATE_V1",
+    "trusted_gate_author_login": "rahemih",
+    "human_gate_transport": "ARTIFACT_BOUND_PR_COMMENT_BY_AUTHORIZED_OWNER",
+    "merge_workflow": "Merge Policy Enforcement",
+    "merge_workflow_file": ".github/workflows/merge-policy.yml",
+    "canonical_merge_transport": "workflow_dispatch:pr_number",
+    "direct_manual_main_merge": "PROHIBITED"
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "The canonical V1.5 Mission file remains byte-preserved and its SHA-256 remains exactly 7b29943c936592b63ae76a67359a0cae1b3dd99b2323f1811bc7b2e3d03317a1.",
+      "verification": "predecessor_mission_hash_verification",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "The V1.6 Mission SHA-256 is exactly b01ee3d1f02dc4b80d1780db26d2a5cc8163698fc2f6a5544bc8b707d425380e over exact UTF-8 LF bytes and the Mission does not embed its own hash.",
+      "verification": "mission_hash_verification",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "V1.6 changes current-version references and Section 32 closure semantics only; no Acceptance Test, controller, workflow, product runtime, protection, risk, or merge semantics are weakened.",
+      "verification": "mission_semantic_diff_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Section 32 defines a pre-merge Static Closure Record plus a post-merge Terminal Provider Seal and prohibits guessed/self-embedded terminal provider identifiers.",
+      "verification": "closure_self_reference_remediation_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "The V1.5-to-V1.6 Compatibility Proof marks Tests 1-7 UNAFFECTED, Phase 3 AFFECTED, and binds every reused test result to immutable provider evidence.",
+      "verification": "compatibility_proof_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "REGISTRY.md and AMENDMENTS-REGISTRY.md register V1.6 and preserve V1.4/V1.5 history.",
+      "verification": "registry_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "The generated Task Catalog includes MA-MISSION-V1-6-CLOSURE-SELFREF-001 and indexes 45 Task Contracts exactly.",
+      "verification": "node scripts/multi-agent/docs-automation.mjs --check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "Effective risk is HIGH and no downgrade below HIGH is accepted for the Mission amendment paths.",
+      "verification": "deterministic_risk_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-009",
+      "description": "Exact-head Canonical CI and Phase A pass and deterministic Primary Review is provider-derived from GitHub Actions integration 15368.",
+      "verification": "provider_review_validation",
+      "mandatory": true
+    },
+    {
+      "id": "AC-010",
+      "description": "Exact-artifact Security PASS and ACTIVE Lock are present before HUMAN_PENDING.",
+      "verification": "pre_human_security_lock_validation",
+      "mandatory": true
+    },
+    {
+      "id": "AC-011",
+      "description": "Owner amendment sign-off occurs only in HUMAN_PENDING and binds exact Task ID, Head SHA, Artifact Hash, and verified owner rahemih.",
+      "verification": "artifact_bound_human_gate",
+      "mandatory": true
+    },
+    {
+      "id": "AC-012",
+      "description": "Post-Human TOCTOU and Merge Policy revalidate exact head/base/hash/CI/Review/Security/Lock/Protection/Human with zero blockers.",
+      "verification": "post_human_toctou_merge_policy",
+      "mandatory": true
+    },
+    {
+      "id": "AC-013",
+      "description": "V1.6 becomes canonical FROZEN only after protected merge and exact-SHA post-merge canonical plus Phase A verification pass.",
+      "verification": "postmerge_amendment_guard",
+      "mandatory": true
+    },
+    {
+      "id": "AC-014",
+      "description": "Phase 3 remains blocked until V1.6 is canonical, then must restart with a fresh residual-state check and final live revalidation.",
+      "verification": "phase3_fail_closed_handoff",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "SECURITY",
+      "HUMAN",
+      "LOCK"
+    ],
+    "provider_bound_gates": [
+      "REVIEW",
+      "VERIFICATION"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "trusted_github_actions_integration_id": 15368,
+    "rule": "HIGH Mission amendment requires provider-bound deterministic Review/Verification, exact-artifact SECURITY/HUMAN/LOCK, live protection, protected merge and exact-SHA post-merge. Executor REVIEW/VERIFICATION comments are unauthorized."
+  },
+  "protection_source": {
+    "required_contexts": [
+      "verify",
+      "phase-a",
+      "merge-policy"
+    ],
+    "required_integration": "GitHub Actions",
+    "required_integration_id": 15368,
+    "ruleset_id": 23278861
+  }
+}
