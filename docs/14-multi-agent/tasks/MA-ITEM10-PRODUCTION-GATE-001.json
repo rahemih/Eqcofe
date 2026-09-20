@@ -1,0 +1,472 @@
+{
+  "schema_version": "2.2",
+  "task_id": "MA-ITEM10-PRODUCTION-GATE-001",
+  "title": "Item 10 — V1 Production Gate",
+  "description": "Restart Mission V1.5 Stage B Item 10 from the remediated canonical base. Execute Item 10 as a verification-only production gate: confirm deterministic HIGH risk, verify all 20 B4 coverage domains with canonical evidence, preserve the B5 quantitative-calibration deferral, and permit B6 closure only after protected merge and exact-SHA post-merge verification. Any new implementation defect fails closed and requires a separate governed remediation task.",
+  "mission_binding": {
+    "mission_version": "V1.5",
+    "mission_hash": "7b29943c936592b63ae76a67359a0cae1b3dd99b2323f1811bc7b2e3d03317a1",
+    "mission_file": "docs/14-multi-agent/missions/EQCOFE-MULTI-AGENT-V1.5-EXECUTION-MISSION.md",
+    "mission_status": "CANONICAL_FROZEN",
+    "stage": "B",
+    "b1_state": "CANONICAL_COMPLETE",
+    "b1_record": "docs/14-multi-agent/ITEM10-SPEC-DISCOVERY-V1.5.md"
+  },
+  "risk": "HIGH",
+  "risk_floor": "MEDIUM",
+  "risk_rationale": {
+    "chosen": "HIGH",
+    "deterministic_basis": [
+      "Item 10 is the V1 Production Gate and controls whether Stage C may begin.",
+      "The task-specific HIGH rule covers all Item 10 governance write paths.",
+      "A false PASS could incorrectly certify trust, protection, evidence provenance, authority separation, Security/Human Gate or post-merge integrity."
+    ],
+    "why_not_lower": [
+      "Verification-only scope does not reduce the consequence of a false production-gate PASS.",
+      "Mission V1.5 requires deterministic escalation rather than downgrade when trust-boundary evidence is ambiguous."
+    ]
+  },
+  "owner": "BACKEND",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "b4c8f01715e0f1367fa6d96db2c4262c02a0b205"
+  },
+  "scope": {
+    "read": [
+      "docs/14-multi-agent/missions/EQCOFE-MULTI-AGENT-V1.5-EXECUTION-MISSION.md",
+      "docs/14-multi-agent/ITEM10-SPEC-DISCOVERY-V1.5.md",
+      "docs/14-multi-agent/ITEM10-PROVENANCE-REMEDIATION.md",
+      "docs/14-multi-agent/GOVERNANCE.md",
+      "docs/14-multi-agent/ITEM9-CANONICAL-CLOSURE.md",
+      "docs/14-multi-agent/PROCESS-IMPROVEMENTS.md",
+      "docs/14-multi-agent/tasks/**",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "scripts/multi-agent/**",
+      "test/multi-agent/**",
+      ".github/workflows/**",
+      "docs/12-current-state/MASTER-ROADMAP.md",
+      "docs/12-current-state/CURRENT-STATE.md"
+    ],
+    "write": [
+      "docs/14-multi-agent/ITEM10-V1-PRODUCTION-GATE.md",
+      "docs/14-multi-agent/GOVERNANCE-LOG.md",
+      "docs/14-multi-agent/tasks/MA-ITEM10-PRODUCTION-GATE-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      "docs/14-multi-agent/missions/**",
+      ".github/**",
+      "scripts/**",
+      "test/**",
+      "src/**",
+      "apps/**",
+      "database/**",
+      "contracts/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "docs/11-step-history/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-MA-ITEM10-PRODUCTION-GATE-001-01"
+  ],
+  "human_gate_required": true,
+  "authorized_human_approver": {
+    "github_login": "rahemih",
+    "role": "PROJECT_OWNER"
+  },
+  "token_budget": {
+    "expected_max": 30000,
+    "soft_alert": 50000,
+    "hard_cap": 90000
+  },
+  "max_repair_cycles": 2,
+  "task_risk_rules": [
+    {
+      "id": "ITEM10_PRODUCTION_GATE_HIGH",
+      "risk": "HIGH",
+      "paths": [
+        "docs/14-multi-agent/ITEM10-V1-PRODUCTION-GATE.md",
+        "docs/14-multi-agent/GOVERNANCE-LOG.md",
+        "docs/14-multi-agent/tasks/MA-ITEM10-PRODUCTION-GATE-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "MISSION-V1.5",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "be09ad0b110cf5a60170ce5440f38622c613493c",
+      "blocking": false
+    },
+    {
+      "item": "ITEM10-B1",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "b33cc615fa46b22b931766905ec13f726d2dbe62",
+      "protected_merge_run": 35497207994,
+      "postmerge_verify_job": 106042329138,
+      "blocking": false
+    },
+    {
+      "item": "ITEM10-PROVENANCE-REMEDIATION",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "b4c8f01715e0f1367fa6d96db2c4262c02a0b205",
+      "protected_merge_run": 35500317788,
+      "postmerge_verify_job": 106050868593,
+      "blocking": false
+    },
+    {
+      "item": "ITEM-9",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "quantitative_calibration": "DEFERRED_TO_V1_1",
+      "blocking": false
+    }
+  ],
+  "b2_contract": {
+    "state": "CONSTRUCTED_PENDING_PR_EVIDENCE",
+    "contract_schema": "2.2",
+    "gate_mode": "VERIFICATION_ONLY",
+    "remediation_policy": "SEPARATE_GOVERNED_TASK_AND_ITEM10_RESTART",
+    "mandatory_coverage_count": 20
+  },
+  "coverage_matrix": [
+    {
+      "number": 1,
+      "domain": "Architecture integrity",
+      "acceptance_criterion": "AC-001",
+      "verification": "architecture_integrity_verification"
+    },
+    {
+      "number": 2,
+      "domain": "Workflow lifecycle",
+      "acceptance_criterion": "AC-002",
+      "verification": "workflow_lifecycle_verification"
+    },
+    {
+      "number": 3,
+      "domain": "Full State Machine",
+      "acceptance_criterion": "AC-003",
+      "verification": "full_state_machine_verification"
+    },
+    {
+      "number": 4,
+      "domain": "Scope enforcement",
+      "acceptance_criterion": "AC-004",
+      "verification": "scope_enforcement_verification"
+    },
+    {
+      "number": 5,
+      "domain": "Lock acquisition/conflict/release",
+      "acceptance_criterion": "AC-005",
+      "verification": "lock_lifecycle_verification"
+    },
+    {
+      "number": 6,
+      "domain": "Risk classification (deterministic)",
+      "acceptance_criterion": "AC-006",
+      "verification": "deterministic_risk_verification"
+    },
+    {
+      "number": 7,
+      "domain": "Artifact binding",
+      "acceptance_criterion": "AC-007",
+      "verification": "artifact_binding_verification"
+    },
+    {
+      "number": 8,
+      "domain": "Evidence provenance (P1-P4)",
+      "acceptance_criterion": "AC-008",
+      "verification": "evidence_provenance_p1_p4_verification"
+    },
+    {
+      "number": 9,
+      "domain": "Authority separation",
+      "acceptance_criterion": "AC-009",
+      "verification": "authority_separation_verification"
+    },
+    {
+      "number": 10,
+      "domain": "CI enforcement",
+      "acceptance_criterion": "AC-010",
+      "verification": "ci_enforcement_verification"
+    },
+    {
+      "number": 11,
+      "domain": "Security Gate enforcement",
+      "acceptance_criterion": "AC-011",
+      "verification": "security_gate_verification"
+    },
+    {
+      "number": 12,
+      "domain": "Human Gate enforcement",
+      "acceptance_criterion": "AC-012",
+      "verification": "human_gate_verification"
+    },
+    {
+      "number": 13,
+      "domain": "Merge Policy enforcement",
+      "acceptance_criterion": "AC-013",
+      "verification": "merge_policy_verification"
+    },
+    {
+      "number": 14,
+      "domain": "Branch Protection validation",
+      "acceptance_criterion": "AC-014",
+      "verification": "branch_protection_verification"
+    },
+    {
+      "number": 15,
+      "domain": "Bypass actors verification",
+      "acceptance_criterion": "AC-015",
+      "verification": "bypass_actor_verification"
+    },
+    {
+      "number": 16,
+      "domain": "Trusted integration identity",
+      "acceptance_criterion": "AC-016",
+      "verification": "trusted_integration_verification"
+    },
+    {
+      "number": 17,
+      "domain": "Token governance",
+      "acceptance_criterion": "AC-017",
+      "verification": "token_governance_verification"
+    },
+    {
+      "number": 18,
+      "domain": "Docs automation",
+      "acceptance_criterion": "AC-018",
+      "verification": "docs_automation_verification"
+    },
+    {
+      "number": 19,
+      "domain": "Post-Merge verification",
+      "acceptance_criterion": "AC-019",
+      "verification": "postmerge_exact_sha_verification"
+    },
+    {
+      "number": 20,
+      "domain": "Fail-Closed behavior",
+      "acceptance_criterion": "AC-020",
+      "verification": "fail_closed_verification"
+    }
+  ],
+  "provenance_requirements": {
+    "P1": "Executor Evidence and Deterministic Review Evidence are distinct authorities.",
+    "P2": "Evidence is bound to exact Artifact Hash/head.",
+    "P3": "Executor REVIEW comment is rejected as UNAUTHORIZED_REVIEW_EVIDENCE.",
+    "P4": "Executor VERIFICATION comment is rejected as UNAUTHORIZED_VERIFICATION_EVIDENCE; verification authority is provider facts."
+  },
+  "token_governance": {
+    "governance": "VERIFIED_REQUIRED",
+    "quantitative_calibration": "DEFERRED_TO_V1_1",
+    "prohibited": [
+      "SYNTHETIC_TELEMETRY",
+      "INVENTED_TELEMETRY",
+      "ESTIMATED_CALIBRATED_BUDGET",
+      "FAKE_ZERO_USAGE_INFERENCE"
+    ]
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Architecture integrity is deterministically verified from canonical architecture checks.",
+      "verification": "architecture_integrity_verification",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Workflow lifecycle is deterministically verified from the canonical Workflow Controller and tests.",
+      "verification": "workflow_lifecycle_verification",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Full State Machine is verified against the canonical state/transition implementation, including illegal-transition fail-closed behavior.",
+      "verification": "full_state_machine_verification",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Scope enforcement verifies declared write scope, forbidden precedence and history validation.",
+      "verification": "scope_enforcement_verification",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Lock acquisition, overlap conflict, owner rules and terminal release are verified.",
+      "verification": "lock_lifecycle_verification",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Deterministic risk classification resolves effective HIGH with no downgrade.",
+      "verification": "deterministic_risk_verification",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "Artifact binding verifies exact-byte/path/operation binding and mutation invalidation.",
+      "verification": "artifact_binding_verification",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "Evidence provenance P1-P4 is machine-verifiably complete on the remediated canonical base.",
+      "verification": "evidence_provenance_p1_p4_verification",
+      "mandatory": true
+    },
+    {
+      "id": "AC-009",
+      "description": "Authority separation proves deterministic Primary Review is provider-derived and comment self-review/self-verification are rejected.",
+      "verification": "authority_separation_verification",
+      "mandatory": true
+    },
+    {
+      "id": "AC-010",
+      "description": "Canonical CI and Phase A are required provider verification; NOT_EXECUTED/FAIL cannot satisfy Review/Verification.",
+      "verification": "ci_enforcement_verification",
+      "mandatory": true
+    },
+    {
+      "id": "AC-011",
+      "description": "HIGH Security Gate requires exact-artifact SECURITY PASS.",
+      "verification": "security_gate_verification",
+      "mandatory": true
+    },
+    {
+      "id": "AC-012",
+      "description": "HIGH Human Gate requires exact-artifact authorized Project Owner approval after HUMAN_PENDING.",
+      "verification": "human_gate_verification",
+      "mandatory": true
+    },
+    {
+      "id": "AC-013",
+      "description": "Merge Policy requires complete upstream deterministic evidence and protected transport.",
+      "verification": "merge_policy_verification",
+      "mandatory": true
+    },
+    {
+      "id": "AC-014",
+      "description": "Live branch protection is active, strict and matches required contexts.",
+      "verification": "branch_protection_verification",
+      "mandatory": true
+    },
+    {
+      "id": "AC-015",
+      "description": "Live protection has zero bypass actors.",
+      "verification": "bypass_actor_verification",
+      "mandatory": true
+    },
+    {
+      "id": "AC-016",
+      "description": "Required status checks are bound to trusted GitHub Actions integration id 15368.",
+      "verification": "trusted_integration_verification",
+      "mandatory": true
+    },
+    {
+      "id": "AC-017",
+      "description": "Token governance is verified while quantitative calibration remains DEFERRED_TO_V1_1.",
+      "verification": "token_governance_verification",
+      "mandatory": true
+    },
+    {
+      "id": "AC-018",
+      "description": "Docs automation generator/check remains exact and stale generated bytes fail closed.",
+      "verification": "docs_automation_verification",
+      "mandatory": true
+    },
+    {
+      "id": "AC-019",
+      "description": "Protected merge resolves exact merge SHA and post-merge canonical verify + Phase A must PASS.",
+      "verification": "postmerge_exact_sha_verification",
+      "mandatory": true
+    },
+    {
+      "id": "AC-020",
+      "description": "Undefined state, scope, lock, risk, provenance, integration, protection and missing-gate conditions fail closed.",
+      "verification": "fail_closed_verification",
+      "mandatory": true
+    },
+    {
+      "id": "AC-021",
+      "description": "Mission V1.5, B1 and provenance remediation dependencies are canonical at this exact base; closed PR #214 evidence is not reused.",
+      "verification": "canonical_dependency_chain_verification",
+      "mandatory": true
+    },
+    {
+      "id": "AC-022",
+      "description": "Item 10 remains verification-only; a new implementation defect blocks and requires separate remediation.",
+      "verification": "verification_only_scope_guard",
+      "mandatory": true
+    },
+    {
+      "id": "AC-023",
+      "description": "Primary Review source is deterministic exact-head verify+phase-a provider facts; REVIEW comments are not valid authority.",
+      "verification": "deterministic_review_authority_verification",
+      "mandatory": true
+    },
+    {
+      "id": "AC-024",
+      "description": "B5 preserves quantitative calibration deferral and rejects synthetic/invented/estimated calibration.",
+      "verification": "token_calibration_boundary_verification",
+      "mandatory": true
+    },
+    {
+      "id": "AC-025",
+      "description": "B6 CANONICAL_COMPLETE requires Task Contract, Risk, Scope, Lock, Primary Review, Verification, CI, Security, Human, Protection, Merge Policy, Protected Merge and exact-SHA Post-Merge PASS.",
+      "verification": "item10_b6_terminal_gate_verification",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "SECURITY",
+      "HUMAN",
+      "LOCK"
+    ],
+    "primary_review_source": "DETERMINISTIC_PROVIDER_FACTS",
+    "deterministic_review_checks": [
+      "verify",
+      "phase-a"
+    ],
+    "trusted_integration_id": 15368,
+    "trusted_github_transport_login": "rahemih",
+    "rule": "REVIEW/VERIFICATION comments cannot satisfy Primary Review/Verification. HIGH Item 10 requires exact-artifact SECURITY, ACTIVE LOCK and authorized Owner HUMAN approval after HUMAN_PENDING."
+  },
+  "protection_source": {
+    "required_contexts": [
+      "verify",
+      "phase-a",
+      "merge-policy"
+    ],
+    "required_integration": "GitHub Actions",
+    "required_integration_id": 15368,
+    "ruleset_id": 23278861
+  },
+  "b6_exit_requirements": [
+    "Task Contract = SATISFIED",
+    "Risk = VALID",
+    "Scope = PASS",
+    "Lock = VALID",
+    "Primary Review = PASS",
+    "Verification = PASS",
+    "CI = PASS",
+    "Security = PASS",
+    "Human Gate = PASS",
+    "Protection = PASS",
+    "Merge Policy = PASS",
+    "Protected Merge = PASS",
+    "Exact-SHA Post-Merge = PASS"
+  ]
+}
