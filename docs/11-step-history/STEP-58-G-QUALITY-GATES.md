@@ -188,3 +188,27 @@ Stage 58-G تا زمانی که remediation به‌صورت protected merge شو
 `MERGED / POSTMERGE BROWSER EVIDENCE PENDING`
 
 Stage H و Step 59 تا آن زمان NOT_STARTED باقی می‌مانند.
+
+
+## Terminal canonical closure
+
+Post-merge browser evidence is now complete.
+
+- PR #199 protected merge SHA / exact current main at closure: `8ba4aaca3ebae0afa8552d509f0ba3decb229d3b`
+- Protected Merge Policy workflow_dispatch Run #208 / `35489702142`: PASS
+- exact canonical merge checkout: PASS
+- postmerge dependency install: PASS
+- postmerge root `pnpm verify`: PASS
+- postmerge Phase-A: PASS
+- terminal `Step 58 Storefront Quality` workflow_dispatch Run #10 / `35490356922`: PASS
+- browser-quality job `106024122980`: PASS
+- axe WCAG-tagged violations: 0
+- responsive widths 320 / 360 / 600 / 840 / 1200 / 1440: PASS
+- visible focus >=3px: PASS
+- 44x44 visible targets: PASS
+- no horizontal overflow: PASS
+- reduced-motion runtime: PASS
+- RTL runtime: PASS
+- 400% reflow proxy: PASS
+
+Therefore Stage 58-G is **CLOSED / CANONICAL PASS**. Stage 58-H may start. Step 59 remains NOT_STARTED.
