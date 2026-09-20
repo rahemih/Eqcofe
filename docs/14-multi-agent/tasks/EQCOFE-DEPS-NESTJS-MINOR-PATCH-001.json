@@ -1,0 +1,143 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-DEPS-NESTJS-MINOR-PATCH-001",
+  "title": "Governed NestJS minor/patch dependency refresh replacing Dependabot PR #145",
+  "description": "Rebuild the exact NestJS minor/patch dependency group from Dependabot PR #145 on current canonical main under EQCOFE governance. Only package.json, pnpm-lock.yaml, this Task Contract and generated Task Catalog may change. No product source, workflow, migration, API, auth, deployment, Roadmap or canonical current-state mutation is authorized.",
+  "risk": "HIGH",
+  "risk_floor": "HIGH",
+  "owner": "BACKEND",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "a51f2ebe088febb866d36de6e5fc38f001786026"
+  },
+  "scope": {
+    "read": [
+      "package.json",
+      "pnpm-lock.yaml",
+      "docs/14-multi-agent/**",
+      "src/**",
+      "apps/api/**"
+    ],
+    "write": [
+      "package.json",
+      "pnpm-lock.yaml",
+      "docs/14-multi-agent/tasks/EQCOFE-DEPS-NESTJS-MINOR-PATCH-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "apps/**",
+      "src/**",
+      "database/**",
+      "contracts/**",
+      "scripts/**",
+      "test/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**",
+      "pnpm-workspace.yaml"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-DEPS-NESTJS-MINOR-PATCH-001-01"
+  ],
+  "human_gate_required": true,
+  "token_budget": {
+    "expected_max": 20000,
+    "soft_alert": 32000,
+    "hard_cap": 64000
+  },
+  "max_repair_cycles": 3,
+  "task_risk_rules": [
+    {
+      "id": "NESTJS_DEPENDENCY_MINOR_PATCH_HIGH",
+      "risk": "HIGH",
+      "paths": [
+        "package.json",
+        "pnpm-lock.yaml"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "STEP58_FINAL_CANONICAL",
+      "name": "Step 58 final canonical closure and later Item 9 governance closure",
+      "required_state": "MERGED_POSTMERGE_VERIFIED",
+      "observed_state": "MERGED_POSTMERGE_VERIFIED",
+      "merge_sha": "a51f2ebe088febb866d36de6e5fc38f001786026",
+      "blocking": false
+    }
+  ],
+  "authorized_human_approver": {
+    "role": "PROJECT_OWNER",
+    "github_login": "rahemih"
+  },
+  "evidence": {
+    "source_dependabot_pr": 145,
+    "source_head": "d15af35f740a9f8b4a169cebd5510e751fa69982",
+    "source_merge_base": "fc601866f21c3e5efc8067ddc00e8898f3c42848",
+    "baseline_equivalence": {
+      "package_json_unchanged_from_source_base_to_current_main": true,
+      "pnpm_lock_unchanged_from_source_base_to_current_main": true
+    },
+    "versions": {
+      "@nestjs/bullmq": "11.0.4 -> 11.0.5",
+      "@nestjs/common": "11.1.29 -> 11.2.5",
+      "@nestjs/core": "11.1.29 -> 11.2.5",
+      "@nestjs/platform-fastify": "11.1.29 -> 11.2.5",
+      "@nestjs/swagger": "11.4.6 -> 11.4.7",
+      "@nestjs/testing": "11.1.29 -> 11.2.5"
+    }
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "The replacement reproduces only the six NestJS minor/patch updates from Dependabot PR #145 on current canonical main.",
+      "verification": "dependency_diff_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Frozen install and lockfile supply-chain checks pass on the exact artifact.",
+      "verification": "frozen_install_and_lock_policy",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Canonical CI and Phase A pass on the exact replacement head, including backend build, API/contracts and regression tests.",
+      "verification": "exact_head_ci",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Compatibility-sensitive NestJS/Fastify behavior is regression-tested without modifying runtime source to make the dependency bump pass.",
+      "verification": "framework_regression_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "No product source, workflow, API contract, database, migration, deployment, Roadmap, current-state or product-design mutation enters this task.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "HIGH-risk dependency transport requires exact-artifact REVIEW, SECURITY, HUMAN and LOCK evidence plus required status checks before protected merge. This task itself does not authorize merge.",
+      "verification": "high_risk_dependency_transport",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "SECURITY",
+      "HUMAN",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "HIGH-risk framework dependency refresh. Human approval on the exact artifact is mandatory. No automatic merge."
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}
