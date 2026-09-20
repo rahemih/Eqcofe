@@ -1,0 +1,131 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP59-B-NAVIGATION-001",
+  "title": "Step 59-B header responsive navigation and search entry",
+  "description": "Productionize the Storefront header/navigation/search-entry surface only. Replace the header search link with an accessible GET search form, align quick-action keyboard order with the frozen discovery contract, harden compact navigation disclosure/Escape behavior, preserve responsive/RTL/accessibility invariants, and add dedicated deterministic Stage-B verification. Do not implement Home merchandising, category/brand discovery data, search suggestions/results, listing/filter/sort/pagination, product, compare/wishlist behavior, cart/checkout behavior, backend/API authority, or new dependencies.",
+  "risk": "MEDIUM",
+  "risk_floor": "MEDIUM",
+  "owner": "PRODUCT_DESIGN",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "8ec202061152b0d941ab0e71100dab87fdde6bc5"
+  },
+  "scope": {
+    "read": [
+      "apps/storefront/**",
+      "docs/11-step-history/STEP-59-A-CANONICAL-HANDOFF.md",
+      "docs/13-product-design/**",
+      "docs/14-multi-agent/**",
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts"
+    ],
+    "write": [
+      "apps/storefront/app/i18n/fa-IR.ts",
+      "apps/storefront/app/shell/AppShell.tsx",
+      "apps/storefront/app/shell/PrimaryNavigation.tsx",
+      "apps/storefront/app/shell/SearchEntry.tsx",
+      "apps/storefront/app/styles/shell.css",
+      "apps/storefront/package.json",
+      "apps/storefront/scripts/verify-step59-navigation.mjs",
+      "docs/11-step-history/STEP-59-B-HEADER-NAVIGATION.md",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP59-B-NAVIGATION-001.json"
+    ],
+    "forbidden": [
+      ".github/**",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "src/**",
+      "database/**",
+      "contracts/**",
+      "test/**",
+      "apps/storefront/app/routes/home.tsx",
+      "apps/storefront/app/routes/search.tsx",
+      "apps/storefront/app/routes/category.tsx",
+      "apps/storefront/app/platform/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP59-B-NAVIGATION-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 28000,
+    "soft_alert": 42000,
+    "hard_cap": 84000
+  },
+  "task_risk_rules": [
+    {
+      "id": "STEP59_B_STOREFRONT_NAVIGATION_MEDIUM",
+      "risk": "MEDIUM",
+      "paths": [
+        "apps/storefront/app/i18n/fa-IR.ts",
+        "apps/storefront/app/shell/AppShell.tsx",
+        "apps/storefront/app/shell/PrimaryNavigation.tsx",
+        "apps/storefront/app/shell/SearchEntry.tsx",
+        "apps/storefront/app/styles/shell.css",
+        "apps/storefront/package.json",
+        "apps/storefront/scripts/verify-step59-navigation.mjs",
+        "docs/11-step-history/STEP-59-B-HEADER-NAVIGATION.md",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP59-B-NAVIGATION-001.json"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "59-A",
+      "name": "Canonical handoff and discovery scope freeze",
+      "required_state": "CLOSED_CANONICAL_PASS",
+      "observed_state": "CLOSED_CANONICAL_PASS",
+      "merge_sha": "8ec202061152b0d941ab0e71100dab87fdde6bc5",
+      "blocking": false
+    }
+  ],
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "The header exposes a semantic GET search form that submits only q to /search; the Step-60 search route remains a placeholder and no search-results/suggestions API behavior is implemented.",
+      "verification": "pnpm --dir apps/storefront navigation:verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Compact primary navigation preserves aria-expanded/aria-controls, closes after navigation, supports Escape close with focus return to the toggle, and does not invent positive tabindex or autofocus behavior.",
+      "verification": "pnpm --dir apps/storefront navigation:verify && pnpm --dir apps/storefront quality:static",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Header keyboard source order is skip-link, Home/wordmark, search, account, cart, primary navigation, then breadcrumbs/main; all interactive controls retain the 44px target and visible-focus contracts.",
+      "verification": "pnpm --dir apps/storefront navigation:verify && pnpm --dir apps/storefront quality:static",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Responsive Header/Nav/Search CSS remains logical-RTL, no brown, no clipping/nowrap/row-reverse, and continues to support canonical 320/360/600/840/1200/1440 behavior without introducing a new dependency.",
+      "verification": "pnpm --dir apps/storefront verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Full root pnpm verify, exact-head Canonical CI, Phase A, deterministic review, active exact-artifact lock, protected Merge Policy merge and exact-SHA postmerge verification pass before Stage 59-C starts.",
+      "verification": "canonical_transport_and_postmerge_evidence",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Stage 59-B is MEDIUM risk. No direct-main write or raw merge is canonical. Stage 59-C remains forbidden until protected transport and exact-SHA post-merge verification are green."
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}
