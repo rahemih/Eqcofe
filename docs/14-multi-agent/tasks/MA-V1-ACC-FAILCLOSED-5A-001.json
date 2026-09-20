@@ -1,0 +1,109 @@
+{
+  "schema_version": "2.2",
+  "task_id": "MA-V1-ACC-FAILCLOSED-5A-001",
+  "title": "V1 Acceptance Test 5A — intentional broken-test fail-closed harness",
+  "description": "Stage C Phase 1 negative/control Test 5A. An isolated test-only artifact intentionally introduces one deterministic failing test so GitHub Verification must fail and merge must remain blocked. The artifact is prohibited from merging to main and exists only to prove fail-closed behavior.",
+  "mission_binding": {
+    "mission_version": "V1.5",
+    "mission_hash": "7b29943c936592b63ae76a67359a0cae1b3dd99b2323f1811bc7b2e3d03317a1",
+    "stage": "C",
+    "phase": "PHASE_1_CORE_ACCEPTANCE",
+    "test": "TEST_5A_BROKEN_TEST"
+  },
+  "test_evidence": {
+    "test_mode": true,
+    "namespace": "v1-acceptance/test5a-broken-test",
+    "production_reuse_prohibited": true,
+    "merge_to_main_prohibited": true,
+    "expected_verification": "FAIL",
+    "expected_merge": "BLOCKED",
+    "expected_outcome": "BLOCKED_AS_EXPECTED"
+  },
+  "workstream_id": "AGENT-BUILD-B",
+  "risk": "LOW",
+  "risk_floor": "LOW",
+  "owner": "BACKEND",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "65d97e6343ade1b5d97e2e737f66a9b474fcd945"
+  },
+  "scope": {
+    "read": [
+      "docs/14-multi-agent/missions/EQCOFE-MULTI-AGENT-V1.5-EXECUTION-MISSION.md",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "write": [
+      "test/multi-agent/v1-acceptance-broken-test.test.mjs",
+      "docs/14-multi-agent/tasks/MA-V1-ACC-FAILCLOSED-5A-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "src/**",
+      "apps/**",
+      "database/**",
+      "contracts/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "docs/11-step-history/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**",
+      "scripts/multi-agent/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-MA-V1-ACC-FAILCLOSED-5A-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 8000,
+    "soft_alert": 12000,
+    "hard_cap": 25000
+  },
+  "max_repair_cycles": 0,
+  "task_risk_rules": [],
+  "dependencies": [
+    {
+      "item": "STAGE-C-TEST-4",
+      "name": "V1 Acceptance Test 4 Lock",
+      "required_state": "PASS_BLOCKED_AS_EXPECTED",
+      "observed_state": "PASS_BLOCKED_AS_EXPECTED",
+      "evidence_pr": 221,
+      "blocking": false
+    }
+  ],
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "The isolated harness contains exactly one intentional deterministic failure labeled Test 5A broken verification fixture.",
+      "verification": "canonical_ci_log",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "GitHub Actions verify concludes failure on the exact head artifact.",
+      "verification": "provider_check_conclusion",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Merge Policy remains merge_eligible=false and no merge job executes.",
+      "verification": "merge_policy_evidence",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "The test-only PR closes unmerged; canonical main remains unchanged.",
+      "verification": "terminal_pr_and_main_state",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "No test evidence is reused as Production approval/review/security evidence.",
+      "verification": "evidence_isolation",
+      "mandatory": true
+    }
+  ]
+}
