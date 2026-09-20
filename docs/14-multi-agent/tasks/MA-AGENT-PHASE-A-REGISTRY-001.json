@@ -1,0 +1,159 @@
+{
+  "schema_version": "2.2",
+  "task_id": "MA-AGENT-PHASE-A-REGISTRY-001",
+  "title": "Phase A — Canonical Agent Registry",
+  "description": "Register the EQCOFE Agent Layer Phase A operational specialization registry for A0 through A10 without changing or weakening Multi-Agent V1.6 authority, review, verification, security, human-gate, scope, lock, risk or merge semantics.",
+  "risk": "LOW",
+  "risk_floor": "LOW",
+  "risk_rationale": {
+    "chosen": "LOW",
+    "why_low": [
+      "The task is documentation-only and writes only the new Agent Layer registry, its own Task Contract, and the generated Task Catalog.",
+      "No Project Map HIGH sensitive zone is touched.",
+      "No controller, workflow, protection, product runtime, API, database, migration, pricing, inventory, auth, payment or financial behavior is changed.",
+      "The registry explicitly preserves the existing V1.6 authority model rather than redefining it."
+    ],
+    "escalation_condition": "If deterministic classification or provider state raises risk above LOW, stop and follow the higher-risk policy; no downgrade is permitted."
+  },
+  "owner": "BACKEND",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "814cb7e56d927716f3c101771fa9b56b511181e8"
+  },
+  "scope": {
+    "read": [
+      "docs/14-multi-agent/GOVERNANCE.md",
+      "docs/14-multi-agent/missions/EQCOFE-MULTI-AGENT-V1.6-EXECUTION-MISSION.md",
+      "docs/14-multi-agent/missions/EQCOFE-MULTI-AGENT-V1.6-ACCEPTANCE-CLOSURE.md",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "docs/14-multi-agent/tasks/**",
+      "scripts/multi-agent/docs-automation.mjs",
+      "scripts/multi-agent/project-map.mjs",
+      "scripts/multi-agent/risk-verification-policy.mjs"
+    ],
+    "write": [
+      "docs/14-multi-agent/agents/PHASE-A-AGENT-REGISTRY.md",
+      "docs/14-multi-agent/tasks/MA-AGENT-PHASE-A-REGISTRY-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "scripts/**",
+      "test/**",
+      "src/**",
+      "apps/**",
+      "database/**",
+      "contracts/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "docs/11-step-history/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**",
+      "docs/14-multi-agent/GOVERNANCE.md",
+      "docs/14-multi-agent/GOVERNANCE-LOG.md",
+      "docs/14-multi-agent/missions/**",
+      "docs/14-multi-agent/incidents/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-MA-AGENT-PHASE-A-REGISTRY-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 8000,
+    "soft_alert": 12000,
+    "hard_cap": 25000
+  },
+  "max_repair_cycles": 2,
+  "task_risk_rules": [],
+  "dependencies": [
+    {
+      "item": "MULTI-AGENT-V1.6",
+      "name": "Canonical V1.6 governance and authority model",
+      "required_state": "CANONICAL",
+      "observed_state": "CANONICAL",
+      "blocking": false
+    },
+    {
+      "item": "STEP59-E-LOCK",
+      "name": "Prior TASK-CATALOG writer lock",
+      "required_state": "RELEASED",
+      "observed_state": "RELEASED",
+      "evidence": "PR #240 comment 5750985338",
+      "blocking": false
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "LOW-risk Agent Registry task requires exact-artifact ACTIVE LOCK plus deterministic verification; Review/Security/Human gates are not independently required unless deterministic risk escalates."
+  },
+  "protection_source": {
+    "required_contexts": [
+      "verify",
+      "phase-a",
+      "merge-policy"
+    ],
+    "required_integration": "GitHub Actions",
+    "required_integration_id": 15368
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "PHASE-A-AGENT-REGISTRY.md defines exactly A0 through A10 with the approved canonical role names and high-level responsibilities.",
+      "verification": "agent_registry_content_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "The registry states that the Agent Layer is operational specialization only and does not replace or weaken V1.6 governance or authority separation.",
+      "verification": "authority_invariant_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "The common output contract includes CLAIMED_CANONICAL_PASS = NO and agent outputs are explicitly non-canonical for Review, Verification and Security Gate authority.",
+      "verification": "agent_output_contract_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Deterministic classification remains LOW with Human Gate NOT REQUIRED; any higher deterministic result blocks LOW execution and requires higher-risk policy.",
+      "verification": "deterministic_risk_classification",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Task Catalog is generated consistently from Task Contracts and docs automation check passes.",
+      "verification": "node scripts/multi-agent/docs-automation.mjs --check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "The PR changes exactly the three authorized write-scope files and no forbidden path.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "Exact-head required Canonical CI, Phase A and Merge Policy checks pass for the exact artifact.",
+      "verification": "provider_exact_head_checks",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "The task reaches canonical completion only through protected Merge Policy transport followed by exact-SHA post-merge verification and terminal Lock release.",
+      "verification": "protected_merge_and_postmerge_evidence",
+      "mandatory": true
+    }
+  ],
+  "process_improvement_links": [
+    "AGENT-LAYER-PHASE-A"
+  ],
+  "incident_links": []
+}
