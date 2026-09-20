@@ -1,0 +1,141 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP59-C-HOME-DATA-001",
+  "title": "Step 59-C Home authoritative data loader foundation",
+  "description": "Implement the server-only Home data boundary for the existing GET /products contract. Preserve the customer session cookie bridge so backend-authoritative retail/wholesale price context can flow without browser token authority; classify safe GET failures through the existing AsyncSurfaceState/recovery foundation; propagate validated Set-Cookie values; wire the Home route loader without implementing Home merchandising or Step-60 search/category listing behavior. Because the current OpenAPI responses for /categories and /brands have no typed JSON content, do not invent category/brand payloads or models in this Stage.",
+  "risk": "MEDIUM",
+  "risk_floor": "MEDIUM",
+  "owner": "PRODUCT_DESIGN",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "c7acd425643cfde4f9d736216e29b83323db178e"
+  },
+  "scope": {
+    "read": [
+      "apps/storefront/**",
+      "src/generated/openapi.ts",
+      "contracts/http/openapi.yaml",
+      "docs/11-step-history/STEP-59-A-CANONICAL-HANDOFF.md",
+      "docs/11-step-history/STEP-59-B-HEADER-NAVIGATION.md",
+      "docs/13-product-design/**",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "apps/storefront/app/features/home/home-data.server.ts",
+      "apps/storefront/app/routes/home.tsx",
+      "apps/storefront/package.json",
+      "apps/storefront/scripts/verify-step59-home-data.ts",
+      "docs/11-step-history/STEP-59-C-HOME-DATA-LOADER.md",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP59-C-HOME-DATA-001.json"
+    ],
+    "forbidden": [
+      ".github/**",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "src/**",
+      "database/**",
+      "contracts/**",
+      "test/**",
+      "apps/storefront/app/routes/search.tsx",
+      "apps/storefront/app/routes/category.tsx",
+      "apps/storefront/app/platform/api/**",
+      "apps/storefront/app/platform/auth/**",
+      "apps/storefront/app/platform/state/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP59-C-HOME-DATA-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 28000,
+    "soft_alert": 42000,
+    "hard_cap": 84000
+  },
+  "task_risk_rules": [
+    {
+      "id": "STEP59_C_HOME_SERVER_DATA_MEDIUM",
+      "risk": "MEDIUM",
+      "paths": [
+        "apps/storefront/app/features/home/home-data.server.ts",
+        "apps/storefront/app/routes/home.tsx",
+        "apps/storefront/package.json",
+        "apps/storefront/scripts/verify-step59-home-data.ts",
+        "docs/11-step-history/STEP-59-C-HOME-DATA-LOADER.md",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP59-C-HOME-DATA-001.json"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "59-B",
+      "name": "Header, responsive navigation and search entry",
+      "required_state": "CLOSED_CANONICAL_PASS",
+      "observed_state": "CLOSED_CANONICAL_PASS",
+      "merge_sha": "d7d235f5f240b8bea44bc607afa812b2f5bb12d4",
+      "blocking": false
+    },
+    {
+      "item": "MISSION-V1.6",
+      "name": "Phase 3 canonical acceptance closure R2",
+      "required_state": "TERMINAL_MERGED_POSTMERGE_PASS_LOCK_RELEASED",
+      "observed_state": "TERMINAL_MERGED_POSTMERGE_PASS_LOCK_RELEASED",
+      "merge_sha": "c7acd425643cfde4f9d736216e29b83323db178e",
+      "blocking": false
+    }
+  ],
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Home server data uses the generated OpenAPI type for GET /products and does not define a parallel authoritative ProductCard/price/inventory DTO.",
+      "verification": "pnpm --dir apps/storefront home-data:verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Home product loading uses the existing customer session cookie bridge, strips unrelated/admin/browser authorization authority, captures only validated customer Set-Cookie values, and never exposes credentials to client code.",
+      "verification": "pnpm --dir apps/storefront home-data:verify && pnpm --dir apps/storefront auth:verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "GET failures are mapped through the existing AsyncSurfaceState/recovery policy; empty product responses become first-use empty state; no automatic mutation retry, new polling, raw backend error message, or client-side business authority is introduced.",
+      "verification": "pnpm --dir apps/storefront home-data:verify && pnpm --dir apps/storefront state:verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "The Home route owns a server loader and consumes loader data while preserving one-H1/SSR quality. This Stage does not render product merchandising, category/brand discovery, search results, filters, sorting, pagination, product detail, cart or checkout behavior.",
+      "verification": "pnpm --dir apps/storefront verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "No category/brand response model is invented while /categories and /brands remain content-less in the generated OpenAPI contract; no backend/API/contract/database/dependency/lockfile change occurs.",
+      "verification": "pnpm --dir apps/storefront home-data:verify && deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Full root pnpm verify, exact-head Canonical CI, Phase A, Storefront Browser Quality, deterministic review, active exact-artifact lock, protected merge and exact-SHA postmerge verification pass before Stage 59-D starts.",
+      "verification": "canonical_transport_and_postmerge_evidence",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Stage 59-C is MEDIUM risk. Direct-main write/raw merge are prohibited. Stage 59-D remains blocked until protected transport and exact-SHA postmerge verification are green."
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}
