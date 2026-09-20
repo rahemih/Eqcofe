@@ -44,3 +44,19 @@ Mission V1.4 freezes fail-closed Item 10 Spec Discovery. A sequencing label such
 If canonical discovery returns no executable specification, `ITEM10_SPEC=MISSING`
 and Item 10 implementation remains blocked until the Owner provides the specification
 or explicitly authorizes governed creation.
+
+## 2026-09-20 — Mission V1.4 Stage B B1 Item 10 Spec Discovery
+
+- Task: `MA-ITEM10-SPEC-DISCOVERY-001`
+- B1 base: `ce571c420cf42e10bc4f069028c7dfd757e8c1e9`
+- Mission registration dependency: PR #210 / protected merge run `35495349796` / post-merge PASS
+- Canonical discovery roots: `docs/14-multi-agent/**`, `docs/12-current-state/**`
+- Canonical files scanned in those roots: **64**
+- Canonical Task Contracts scanned: **37**
+- Executable Item 10 specification found: **NO**
+- Exact 18 mandatory Item 10 coverage definitions found: **0 / 18**
+- Result: `ITEM10_SPEC=MISSING`
+- Stage B: `BLOCKED`
+- Item 10 implementation: `FORBIDDEN`
+- No requirements were guessed, reconstructed from memory or invented.
+- Unblock boundary: Owner must provide an authoritative executable Item 10 specification or explicitly authorize governed creation of the missing specification as a separate task.
