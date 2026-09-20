@@ -1,0 +1,131 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-DEPS-DEV-MINOR-PATCH-001",
+  "title": "Governed development dependency refresh replacing Dependabot PR #165",
+  "description": "Rebuild the exact development dependency minor/patch set from Dependabot PR #165 on current canonical main under EQCOFE governance. Only package manifests/lockfile, this Task Contract and generated Task Catalog may change. No product source, workflow, migration, API, auth, deployment, Roadmap or canonical current-state mutation is authorized.",
+  "risk": "MEDIUM",
+  "risk_floor": "MEDIUM",
+  "owner": "BACKEND",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "a51f2ebe088febb866d36de6e5fc38f001786026"
+  },
+  "scope": {
+    "read": [
+      "package.json",
+      "pnpm-lock.yaml",
+      "apps/storefront/package.json",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "package.json",
+      "pnpm-lock.yaml",
+      "apps/storefront/package.json",
+      "docs/14-multi-agent/tasks/EQCOFE-DEPS-DEV-MINOR-PATCH-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "apps/storefront/app/**",
+      "apps/storefront/scripts/**",
+      "src/**",
+      "database/**",
+      "contracts/**",
+      "scripts/**",
+      "test/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**",
+      "pnpm-workspace.yaml"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-DEPS-DEV-MINOR-PATCH-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 15000,
+    "soft_alert": 25000,
+    "hard_cap": 50000
+  },
+  "max_repair_cycles": 2,
+  "task_risk_rules": [
+    {
+      "id": "DEV_DEPENDENCY_REFRESH_MEDIUM",
+      "risk": "MEDIUM",
+      "paths": [
+        "package.json",
+        "pnpm-lock.yaml",
+        "apps/storefront/package.json"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "STEP58_FINAL_CANONICAL",
+      "name": "Step 58 final canonical closure and later Item 9 governance closure",
+      "required_state": "MERGED_POSTMERGE_VERIFIED",
+      "observed_state": "MERGED_POSTMERGE_VERIFIED",
+      "merge_sha": "a51f2ebe088febb866d36de6e5fc38f001786026",
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "source_dependabot_pr": 165,
+    "source_head": "4059dc9e69106ffa0e9f04d2c27176f6f4a977ae",
+    "source_merge_base": "fc601866f21c3e5efc8067ddc00e8898f3c42848",
+    "baseline_equivalence": {
+      "package_json_unchanged_from_source_base_to_current_main": true,
+      "pnpm_lock_unchanged_from_source_base_to_current_main": true,
+      "storefront_package_json_unchanged_from_source_base_to_current_main": true
+    },
+    "versions": {
+      "@types/node": "24.13.3 -> 24.13.5",
+      "@types/pg": "8.21.0 -> 8.23.1",
+      "tsx": "4.23.12 -> 4.23.13"
+    }
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "The replacement reproduces only the three development dependency updates from Dependabot PR #165 on current canonical main.",
+      "verification": "dependency_diff_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Frozen install and lockfile supply-chain checks pass on the exact artifact.",
+      "verification": "frozen_install_and_lock_policy",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Canonical CI, Phase A and applicable Storefront quality checks pass on the exact replacement head.",
+      "verification": "exact_head_ci",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "No application source, backend source, workflow, API, migration, deployment, Roadmap, current-state or product-design mutation enters this task.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "MEDIUM-risk transport requires exact-artifact REVIEW and LOCK evidence plus required status checks. This task itself does not authorize merge.",
+      "verification": "medium_risk_dependency_transport",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "MEDIUM-risk development dependency refresh. No automatic merge; owner retains final merge decision."
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}
