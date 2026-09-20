@@ -2,7 +2,7 @@
   "schema_version": "2.2",
   "task_id": "EQCOFE-STEP59-D-DISCOVERY-001",
   "title": "Step 59-D Home category and brand discovery",
-  "description": "Implement production Home discovery entry surfaces from the authoritative GET /products data already loaded by Stage 59-C. Build only a presentation projection from validated id/slug/name_fa fields inside ProductCard primary_category and brand objects, deduplicate without inventing ranking, route categories to the existing /category/:slug Step-60 placeholder, and route brands through the existing /search?q= entry using the brand Persian name. Do not call /categories or /brands while their generated OpenAPI response bodies remain untyped; do not invent a Brand page, taxonomy DTO, ranking/recommendation algorithm, listing behavior, filters, pagination, product cards, promotions, or backend/API changes.",
+  "description": "Implement production Home discovery entry surfaces from the authoritative GET /products data already loaded by Stage 59-C. Build only a presentation projection from validated id/slug/name_fa fields inside ProductCard primary_category and brand objects, deduplicate without inventing ranking, route categories to the existing /category/:slug Step-60 placeholder, and route brands through the existing /search?q= entry using the brand Persian name. Do not call /categories or /brands while their generated OpenAPI response bodies remain untyped; do not invent a Brand page, taxonomy DTO, ranking/recommendation algorithm, listing behavior, filters, pagination, product cards, promotions, or backend/API changes. Stage 59-D also maintains the inherited Stage-59-B navigation verifier only to remove its now-obsolete Home-placeholder assertion and bring its test-process environment launch under the existing server-config policy; all Step-60 search/category placeholder assertions remain enforced.",
   "risk": "MEDIUM",
   "risk_floor": "MEDIUM",
   "owner": "PRODUCT_DESIGN",
@@ -29,6 +29,7 @@
       "apps/storefront/app/styles/home.css",
       "apps/storefront/package.json",
       "apps/storefront/scripts/verify-step59-discovery.ts",
+      "apps/storefront/scripts/verify-step59-navigation.mjs",
       "docs/11-step-history/STEP-59-D-HOME-DISCOVERY.md",
       "docs/14-multi-agent/generated/TASK-CATALOG.md",
       "docs/14-multi-agent/tasks/EQCOFE-STEP59-D-DISCOVERY-001.json"
@@ -69,6 +70,7 @@
         "apps/storefront/app/styles/home.css",
         "apps/storefront/package.json",
         "apps/storefront/scripts/verify-step59-discovery.ts",
+        "apps/storefront/scripts/verify-step59-navigation.mjs",
         "docs/11-step-history/STEP-59-D-HOME-DISCOVERY.md",
         "docs/14-multi-agent/generated/TASK-CATALOG.md",
         "docs/14-multi-agent/tasks/EQCOFE-STEP59-D-DISCOVERY-001.json"
@@ -92,7 +94,8 @@
     "brand_destination": "/search?q=<brand-name>",
     "public_backend_taxonomy_endpoints_exist": true,
     "generated_openapi_taxonomy_list_response_typed": false,
-    "direct_taxonomy_endpoint_consumption": "FORBIDDEN_UNTIL_CONTRACT_TYPED"
+    "direct_taxonomy_endpoint_consumption": "FORBIDDEN_UNTIL_CONTRACT_TYPED",
+    "inherited_stage_b_navigation_verifier_maintenance": "HOME_PLACEHOLDER_ASSERTION_REMOVED_STEP60_ASSERTIONS_PRESERVED_CONFIG_POLICY_HARDENED"
   },
   "acceptance_criteria": [
     {
@@ -121,7 +124,7 @@
     },
     {
       "id": "AC-005",
-      "description": "Home now owns one production H1 and accessible responsive discovery sections while Step-60 category/search routes remain placeholders; product merchandising, promotions and complete state UX remain reserved for later Step-59 stages.",
+      "description": "Home now owns one production H1 and accessible responsive discovery sections while Step-60 category/search routes remain placeholders; product merchandising, promotions and complete state UX remain reserved for later Step-59 stages. The inherited Stage-59-B navigation verifier is updated narrowly so it no longer requires Home to remain a placeholder, while its Step-60 search/category non-implementation assertions remain unchanged.",
       "verification": "pnpm --dir apps/storefront verify",
       "mandatory": true
     },
