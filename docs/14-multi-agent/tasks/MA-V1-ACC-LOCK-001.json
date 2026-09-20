@@ -1,0 +1,128 @@
+{
+  "schema_version": "2.2",
+  "task_id": "MA-V1-ACC-LOCK-001",
+  "title": "V1 Acceptance Test 4 — deterministic lock-conflict harness",
+  "description": "Stage C Phase 1 negative/control Test 4. Isolated deterministic test harness proving exact overlap, prefix overlap, nested overlap, normalized collision, traversal rejection, foreign release rejection, and valid terminal release without mutating production protection or product runtime. Test evidence is isolated and this PR must close unmerged after evidence capture.",
+  "mission_binding": {
+    "mission_version": "V1.5",
+    "mission_hash": "7b29943c936592b63ae76a67359a0cae1b3dd99b2323f1811bc7b2e3d03317a1",
+    "stage": "C",
+    "phase": "PHASE_1_CORE_ACCEPTANCE",
+    "test": "TEST_4_LOCK"
+  },
+  "test_evidence": {
+    "test_mode": true,
+    "namespace": "v1-acceptance/test4-lock",
+    "production_reuse_prohibited": true,
+    "merge_to_main_prohibited": true,
+    "expected_outcome": "BLOCKED_AS_EXPECTED"
+  },
+  "workstream_id": "AGENT-BUILD-B",
+  "risk": "LOW",
+  "risk_floor": "LOW",
+  "owner": "BACKEND",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "65d97e6343ade1b5d97e2e737f66a9b474fcd945"
+  },
+  "scope": {
+    "read": [
+      "scripts/multi-agent/scope-lock-controller.mjs",
+      "test/multi-agent/scope-lock-controller.test.mjs",
+      "docs/14-multi-agent/missions/EQCOFE-MULTI-AGENT-V1.5-EXECUTION-MISSION.md",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "write": [
+      "test/multi-agent/v1-acceptance-lock-conflict.test.mjs",
+      "docs/14-multi-agent/tasks/MA-V1-ACC-LOCK-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "src/**",
+      "apps/**",
+      "database/**",
+      "contracts/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "docs/11-step-history/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**",
+      "scripts/multi-agent/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-MA-V1-ACC-LOCK-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 8000,
+    "soft_alert": 12000,
+    "hard_cap": 25000
+  },
+  "max_repair_cycles": 1,
+  "task_risk_rules": [],
+  "dependencies": [
+    {
+      "item": "STAGE-C-TEST-2",
+      "name": "V1 Acceptance Test 2 MEDIUM",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "65d97e6343ade1b5d97e2e737f66a9b474fcd945",
+      "protected_merge_run": 35507230858,
+      "blocking": false
+    }
+  ],
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Exact-path overlap is rejected with LOCK_CONFLICT.",
+      "verification": "node --test test/multi-agent/v1-acceptance-lock-conflict.test.mjs",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Recursive prefix overlap is rejected with LOCK_CONFLICT.",
+      "verification": "node --test test/multi-agent/v1-acceptance-lock-conflict.test.mjs",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Nested recursive overlap is rejected with LOCK_CONFLICT.",
+      "verification": "node --test test/multi-agent/v1-acceptance-lock-conflict.test.mjs",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Semantically identical paths after slash/dot normalization collide and are rejected.",
+      "verification": "node --test test/multi-agent/v1-acceptance-lock-conflict.test.mjs",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Traversal paths are rejected before lock acquisition.",
+      "verification": "node --test test/multi-agent/v1-acceptance-lock-conflict.test.mjs",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Foreign task or owner cannot release an active lock.",
+      "verification": "node --test test/multi-agent/v1-acceptance-lock-conflict.test.mjs",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "Owning task/agent can explicitly release after valid terminal MERGED state.",
+      "verification": "node --test test/multi-agent/v1-acceptance-lock-conflict.test.mjs",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "Test evidence remains isolated; PR closes unmerged and never creates production merge eligibility.",
+      "verification": "terminal_pr_state_and_evidence_namespace",
+      "mandatory": true
+    }
+  ]
+}
