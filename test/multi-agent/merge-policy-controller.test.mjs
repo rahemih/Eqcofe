@@ -2,6 +2,9 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
   artifactScopePaths,
+  buildDeterministicReviewEvidence,
+  buildTrustedProviderCheckEvidence,
+  DETERMINISTIC_REVIEW_CHECKS,
   evaluateMergePolicy,
   formatGateEvidence,
   GITHUB_ACTIONS_INTEGRATION_ID,
@@ -36,7 +39,6 @@ function contract(overrides = {}) {
 function evidence(overrides = {}) {
   return {
     current: {
-      REVIEW: { gate: 'REVIEW', status: 'PASS', artifact_hash: HASH, task_id: 'MA-TEST-001' },
       SECURITY: { gate: 'SECURITY', status: 'PASS', artifact_hash: HASH, task_id: 'MA-TEST-001' },
       HUMAN: { gate: 'HUMAN', status: 'APPROVED', artifact_hash: HASH, task_id: 'MA-TEST-001', author_login: 'owner' },
       LOCK: {
@@ -45,7 +47,34 @@ function evidence(overrides = {}) {
       },
       ...(overrides.current ?? {}),
     },
+    stale: overrides.stale ?? [],
+    malformed: overrides.malformed ?? [],
+    unauthorized: overrides.unauthorized ?? [],
   };
+}
+
+function providerChecks(overrides = {}) {
+  const headSha = overrides.head_sha ?? 'head';
+  const appId = overrides.integration_id ?? GITHUB_ACTIONS_INTEGRATION_ID;
+  const runs = overrides.check_runs ?? [
+    { id: 10, name: 'verify', status: 'completed', conclusion: 'success', head_sha: headSha, app: { id: appId } },
+    { id: 11, name: 'phase-a', status: 'completed', conclusion: 'success', head_sha: headSha, app: { id: appId } },
+  ];
+  return buildTrustedProviderCheckEvidence({
+    check_runs: runs,
+    checks: overrides.checks ?? DETERMINISTIC_REVIEW_CHECKS,
+    head_sha: headSha,
+    required_integration_id: overrides.required_integration_id ?? GITHUB_ACTIONS_INTEGRATION_ID,
+  });
+}
+
+function deterministicReview(overrides = {}) {
+  const review = buildDeterministicReviewEvidence({
+    provider_checks: overrides.provider_checks ?? providerChecks(),
+    artifact_hash: overrides.artifact_hash ?? HASH,
+    head_sha: overrides.head_sha ?? 'head',
+  });
+  return { ...review, ...(overrides.record ?? {}) };
 }
 
 function protection(overrides = {}) {
@@ -59,6 +88,7 @@ function policyInput(overrides = {}) {
     artifact_binding: { artifact_hash: HASH, commit_sha: 'head' },
     project_map: { sensitive_zones: [] },
     gate_evidence: evidence(),
+    deterministic_review: deterministicReview(),
     protection: protection(),
     required_ci: { verify: 'PASS', 'phase-a': 'PASS', 'merge-policy': 'PASS' },
     ...overrides,
@@ -123,9 +153,9 @@ test('HIGH task requires artifact-bound Security PASS', () => {
   assert.ok(result.blockers.includes('SECURITY_PASS_MISSING'));
 });
 
-test('Reviewer PASS is mandatory for HIGH task', () => {
+test('Deterministic Review PASS is mandatory for HIGH task', () => {
   const input = policyInput();
-  delete input.gate_evidence.current.REVIEW;
+  delete input.deterministic_review;
   const result = evaluateMergePolicy(input);
   assert.ok(result.blockers.includes('REVIEW_PASS_MISSING'));
 });
@@ -230,14 +260,96 @@ test('protection validator rejects ambiguous active rulesets', () => {
   assert.ok(result.blockers.includes('PROTECTION_RULESET_AMBIGUOUS:2'));
 });
 
-test('gate evidence parser keeps only exact-artifact evidence and records stale evidence', () => {
+test('gate evidence parser keeps only exact-artifact Security evidence and records stale evidence', () => {
   const comments = [
-    { id: 1, user: { login: 'reviewer' }, body: formatGateEvidence({ gate: 'REVIEW', task_id: 'MA-TEST-001', artifact_hash: OTHER_HASH, status: 'PASS' }) },
-    { id: 2, user: { login: 'reviewer' }, body: formatGateEvidence({ gate: 'REVIEW', task_id: 'MA-TEST-001', artifact_hash: HASH, status: 'PASS' }) },
+    { id: 1, user: { login: 'reviewer' }, body: formatGateEvidence({ gate: 'SECURITY', task_id: 'MA-TEST-001', artifact_hash: OTHER_HASH, status: 'PASS' }) },
+    { id: 2, user: { login: 'reviewer' }, body: formatGateEvidence({ gate: 'SECURITY', task_id: 'MA-TEST-001', artifact_hash: HASH, status: 'PASS' }) },
   ];
   const result = parseGateEvidence(comments, { task_id: 'MA-TEST-001', artifact_hash: HASH });
-  assert.equal(result.current.REVIEW.comment_id, 2);
+  assert.equal(result.current.SECURITY.comment_id, 2);
   assert.equal(result.stale.length, 1);
+});
+
+test('Executor REVIEW and VERIFICATION comments are explicitly rejected as unauthorized evidence', () => {
+  const comments = [
+    { id: 1, user: { login: 'owner', type: 'User' }, body: formatGateEvidence({ gate: 'REVIEW', task_id: 'MA-TEST-001', artifact_hash: HASH, status: 'PASS' }) },
+    { id: 2, user: { login: 'owner', type: 'User' }, body: formatGateEvidence({ gate: 'VERIFICATION', task_id: 'MA-TEST-001', artifact_hash: HASH, status: 'PASS' }) },
+  ];
+  const parsed = parseGateEvidence(comments, {
+    task_id: 'MA-TEST-001',
+    artifact_hash: HASH,
+    trusted_author_login: 'owner',
+  });
+  assert.equal(parsed.current.REVIEW, undefined);
+  assert.equal(parsed.current.VERIFICATION, undefined);
+  assert.deepEqual(
+    parsed.unauthorized.map((record) => record.reason).sort(),
+    ['UNAUTHORIZED_REVIEW_EVIDENCE', 'UNAUTHORIZED_VERIFICATION_EVIDENCE'],
+  );
+
+  const result = evaluateMergePolicy(policyInput({
+    gate_evidence: evidence({ unauthorized: parsed.unauthorized }),
+  }));
+  assert.ok(result.blockers.includes('UNAUTHORIZED_REVIEW_EVIDENCE'));
+  assert.ok(result.blockers.includes('UNAUTHORIZED_VERIFICATION_EVIDENCE'));
+  assert.equal(result.merge_eligible, false);
+});
+
+test('trusted provider checks require exact head and GitHub Actions integration identity', () => {
+  const runs = [
+    { id: 20, name: 'verify', status: 'completed', conclusion: 'success', head_sha: 'head', app: { id: GITHUB_ACTIONS_INTEGRATION_ID } },
+    { id: 21, name: 'phase-a', status: 'completed', conclusion: 'success', head_sha: 'head', app: { id: GITHUB_ACTIONS_INTEGRATION_ID } },
+    { id: 30, name: 'verify', status: 'completed', conclusion: 'success', head_sha: 'head', app: { id: 999999 } },
+    { id: 31, name: 'phase-a', status: 'completed', conclusion: 'success', head_sha: 'other-head', app: { id: GITHUB_ACTIONS_INTEGRATION_ID } },
+  ];
+  const provider = buildTrustedProviderCheckEvidence({
+    check_runs: runs,
+    checks: DETERMINISTIC_REVIEW_CHECKS,
+    head_sha: 'head',
+  });
+  assert.deepEqual(provider.statuses, { 'phase-a': 'PASS', verify: 'PASS' });
+  assert.equal(provider.facts.verify.check_run_id, 20);
+  assert.equal(provider.facts['phase-a'].check_run_id, 21);
+  assert.equal(provider.integration_id, GITHUB_ACTIONS_INTEGRATION_ID);
+});
+
+test('deterministic review is exact-artifact/exact-head bound and fails closed on missing provider PASS', () => {
+  const missingPhaseA = providerChecks({
+    check_runs: [
+      { id: 10, name: 'verify', status: 'completed', conclusion: 'success', head_sha: 'head', app: { id: GITHUB_ACTIONS_INTEGRATION_ID } },
+    ],
+  });
+  const pending = buildDeterministicReviewEvidence({
+    provider_checks: missingPhaseA,
+    artifact_hash: HASH,
+    head_sha: 'head',
+  });
+  assert.equal(pending.status, 'NOT_EXECUTED');
+  assert.deepEqual(pending.missing_checks, ['phase-a']);
+
+  const noReview = evaluateMergePolicy(policyInput({ deterministic_review: pending }));
+  assert.ok(noReview.blockers.includes('REVIEW_PASS_MISSING'));
+
+  const wrongArtifact = evaluateMergePolicy(policyInput({
+    deterministic_review: deterministicReview({ artifact_hash: OTHER_HASH }),
+  }));
+  assert.ok(wrongArtifact.blockers.includes('REVIEW_ARTIFACT_MISMATCH'));
+
+  const wrongHead = evaluateMergePolicy(policyInput({
+    deterministic_review: deterministicReview({ record: { head_sha: 'other-head' } }),
+  }));
+  assert.ok(wrongHead.blockers.includes('REVIEW_HEAD_MISMATCH'));
+});
+
+test('Human Approval cannot substitute for deterministic Review or Security', () => {
+  const input = policyInput();
+  delete input.deterministic_review;
+  delete input.gate_evidence.current.SECURITY;
+  assert.equal(input.gate_evidence.current.HUMAN.status, 'APPROVED');
+  const result = evaluateMergePolicy(input);
+  assert.ok(result.blockers.includes('REVIEW_PASS_MISSING'));
+  assert.ok(result.blockers.includes('SECURITY_PASS_MISSING'));
+  assert.equal(result.merge_eligible, false);
 });
 
 test('trusted gate transport ignores matching evidence from unauthorized commenter', () => {
@@ -255,8 +367,8 @@ test('trusted gate transport ignores matching evidence from unauthorized comment
   assert.equal(result.unauthorized[0].author_login, 'attacker');
 });
 
-test('artifact mutation invalidates prior Review, Security, Human and Lock evidence together', () => {
-  const comments = ['REVIEW', 'SECURITY', 'HUMAN', 'LOCK'].map((gate, index) => ({
+test('artifact mutation invalidates Security, Human and Lock comment evidence together', () => {
+  const comments = ['SECURITY', 'HUMAN', 'LOCK'].map((gate, index) => ({
     id: index + 1,
     user: { login: gate === 'HUMAN' ? 'owner' : 'system' },
     body: formatGateEvidence({
@@ -269,7 +381,7 @@ test('artifact mutation invalidates prior Review, Security, Human and Lock evide
   }));
   const result = parseGateEvidence(comments, { task_id: 'MA-TEST-001', artifact_hash: OTHER_HASH });
   assert.deepEqual(result.current, {});
-  assert.equal(result.stale.length, 4);
+  assert.equal(result.stale.length, 3);
 });
 
 test('task contract path is repository-relative, single-file and bound to task directory', () => {
