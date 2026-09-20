@@ -16,9 +16,14 @@ import {
 
 export const GATE_PROTOCOL = 'EQCOFE_GATE_V1';
 export const REQUIRED_PROTECTION_CHECKS = Object.freeze(['verify', 'phase-a', 'merge-policy']);
+export const DETERMINISTIC_REVIEW_CHECKS = Object.freeze(['verify', 'phase-a']);
 export const GITHUB_ACTIONS_INTEGRATION_ID = 15368;
 export const TASK_CONTRACT_ROOT = 'docs/14-multi-agent/tasks/';
-const GATE_TYPES = new Set(['REVIEW', 'SECURITY', 'HUMAN', 'LOCK']);
+const COMMENT_GATE_TYPES = new Set(['REVIEW', 'VERIFICATION', 'SECURITY', 'HUMAN', 'LOCK']);
+const EXECUTOR_FORBIDDEN_COMMENT_GATES = new Map([
+  ['REVIEW', 'UNAUTHORIZED_REVIEW_EVIDENCE'],
+  ['VERIFICATION', 'UNAUTHORIZED_VERIFICATION_EVIDENCE'],
+]);
 
 function deepFreeze(value) {
   if (!value || typeof value !== 'object' || Object.isFrozen(value)) return value;
@@ -111,14 +116,19 @@ export function parseGateEvidence(comments, { task_id, artifact_hash, trusted_au
         continue;
       }
       const gate = normalizeStatus(payload.gate);
-      if (!GATE_TYPES.has(gate) || payload.task_id !== taskId) continue;
+      if (!COMMENT_GATE_TYPES.has(gate) || payload.task_id !== taskId) continue;
       const record = {
         ...payload,
         gate,
         author_login: comment?.user?.login ?? null,
+        author_type: comment?.user?.type ?? null,
         comment_id: comment?.id ?? null,
         created_at: comment?.created_at ?? null,
       };
+      if (EXECUTOR_FORBIDDEN_COMMENT_GATES.has(gate)) {
+        unauthorized.push({ ...record, reason: EXECUTOR_FORBIDDEN_COMMENT_GATES.get(gate) });
+        continue;
+      }
       if (trustedAuthor !== null) {
         const author = typeof record.author_login === 'string' ? record.author_login.toLowerCase() : '';
         if (author !== trustedAuthor) {
@@ -136,6 +146,85 @@ export function parseGateEvidence(comments, { task_id, artifact_hash, trusted_au
   }
 
   return deepFreeze({ current, stale, malformed, unauthorized });
+}
+
+function normalizeProviderCheckResult(run) {
+  if (!run || run.status !== 'completed') return 'NOT_EXECUTED';
+  const conclusion = normalizeStatus(run.conclusion);
+  if (conclusion === 'SUCCESS') return 'PASS';
+  if (['FAILURE', 'TIMED_OUT', 'STARTUP_FAILURE'].includes(conclusion)) return 'FAIL';
+  if (conclusion === 'CANCELLED') return 'NOT_EXECUTED';
+  if (conclusion === 'ACTION_REQUIRED') return 'BLOCKED';
+  if (['SKIPPED', 'NEUTRAL'].includes(conclusion)) return 'N/A';
+  return 'BLOCKED';
+}
+
+export function buildTrustedProviderCheckEvidence({
+  check_runs,
+  checks = REQUIRED_PROTECTION_CHECKS,
+  head_sha,
+  required_integration_id = GITHUB_ACTIONS_INTEGRATION_ID,
+}) {
+  const runs = assertArray(check_runs, 'CHECK_RUNS_REQUIRED');
+  const names = uniqueSorted(assertArray(checks, 'CHECK_NAMES_REQUIRED').map((name) => assertString(name, 'CHECK_NAME_REQUIRED')));
+  const headSha = assertString(head_sha, 'CHECK_HEAD_SHA_REQUIRED');
+  const integrationId = Number(required_integration_id);
+  if (!Number.isInteger(integrationId) || integrationId < 1) throw new Error('CHECK_INTEGRATION_ID_INVALID');
+
+  const statuses = {};
+  const facts = {};
+  for (const name of names) {
+    const candidates = runs
+      .filter((run) => (
+        run?.name === name
+        && Number(run?.app?.id) === integrationId
+        && run?.head_sha === headSha
+      ))
+      .sort((a, b) => Number(b?.id ?? 0) - Number(a?.id ?? 0));
+    const latest = candidates[0] ?? null;
+    statuses[name] = normalizeProviderCheckResult(latest);
+    facts[name] = latest ? {
+      check_run_id: latest.id ?? null,
+      name,
+      raw_status: latest.status ?? null,
+      raw_conclusion: latest.conclusion ?? null,
+      normalized_result: statuses[name],
+      integration_id: Number(latest.app?.id),
+      head_sha: latest.head_sha,
+    } : null;
+  }
+  return deepFreeze({
+    source: 'GITHUB_CHECK_RUN_PROVIDER_FACTS',
+    head_sha: headSha,
+    integration_id: integrationId,
+    statuses,
+    facts,
+  });
+}
+
+export function buildDeterministicReviewEvidence({ provider_checks, artifact_hash, head_sha }) {
+  const provider = assertObject(provider_checks, 'PROVIDER_CHECK_EVIDENCE_REQUIRED');
+  const artifactHash = assertString(artifact_hash, 'ARTIFACT_HASH_REQUIRED');
+  const headSha = assertString(head_sha, 'REVIEW_HEAD_SHA_REQUIRED');
+  if (provider.head_sha !== headSha) throw new Error('DETERMINISTIC_REVIEW_HEAD_MISMATCH');
+  if (Number(provider.integration_id) !== GITHUB_ACTIONS_INTEGRATION_ID) {
+    throw new Error('DETERMINISTIC_REVIEW_INTEGRATION_MISMATCH');
+  }
+
+  const statuses = assertObject(provider.statuses, 'PROVIDER_CHECK_STATUSES_REQUIRED');
+  const missing = DETERMINISTIC_REVIEW_CHECKS.filter((name) => normalizeStatus(statuses[name]) !== 'PASS');
+  return deepFreeze({
+    gate: 'REVIEW',
+    status: missing.length === 0 ? 'PASS' : 'NOT_EXECUTED',
+    authority: 'CI_DETERMINISTIC',
+    transport: 'GITHUB_ACTIONS_CHECK_RUNS',
+    integration_id: GITHUB_ACTIONS_INTEGRATION_ID,
+    required_checks: [...DETERMINISTIC_REVIEW_CHECKS],
+    provider_results: Object.fromEntries(DETERMINISTIC_REVIEW_CHECKS.map((name) => [name, statuses[name] ?? 'NOT_EXECUTED'])),
+    artifact_hash: artifactHash,
+    head_sha: headSha,
+    missing_checks: missing,
+  });
 }
 
 function gatePass(record, expectedStatus) {
@@ -166,6 +255,7 @@ export function evaluateMergePolicy({
   artifact_binding,
   project_map = { sensitive_zones: [] },
   gate_evidence = { current: {} },
+  deterministic_review = null,
   protection,
   required_ci = {},
   require_required_ci = true,
@@ -210,7 +300,27 @@ export function evaluateMergePolicy({
   }
 
   const evidence = gate_evidence?.current ?? {};
-  if (riskPolicy.reviewer_required && !gatePass(evidence.REVIEW, 'PASS')) blockers.push('REVIEW_PASS_MISSING');
+  const unauthorizedEvidence = Array.isArray(gate_evidence?.unauthorized) ? gate_evidence.unauthorized : [];
+  if (unauthorizedEvidence.some((record) => record.reason === 'UNAUTHORIZED_REVIEW_EVIDENCE')) {
+    blockers.push('UNAUTHORIZED_REVIEW_EVIDENCE');
+  }
+  if (unauthorizedEvidence.some((record) => record.reason === 'UNAUTHORIZED_VERIFICATION_EVIDENCE')) {
+    blockers.push('UNAUTHORIZED_VERIFICATION_EVIDENCE');
+  }
+
+  if (riskPolicy.reviewer_required) {
+    if (!deterministic_review || normalizeStatus(deterministic_review.status) !== 'PASS') {
+      blockers.push('REVIEW_PASS_MISSING');
+    } else {
+      if (deterministic_review.authority !== 'CI_DETERMINISTIC') blockers.push('REVIEW_AUTHORITY_INVALID');
+      if (deterministic_review.transport !== 'GITHUB_ACTIONS_CHECK_RUNS') blockers.push('REVIEW_TRANSPORT_INVALID');
+      if (Number(deterministic_review.integration_id) !== GITHUB_ACTIONS_INTEGRATION_ID) blockers.push('REVIEW_INTEGRATION_INVALID');
+      if (deterministic_review.artifact_hash !== artifactHash) blockers.push('REVIEW_ARTIFACT_MISMATCH');
+      if (artifact.commit_sha && deterministic_review.head_sha !== artifact.commit_sha) blockers.push('REVIEW_HEAD_MISMATCH');
+      const reviewChecks = uniqueSorted(assertArray(deterministic_review.required_checks, 'REVIEW_REQUIRED_CHECKS_REQUIRED'));
+      if (JSON.stringify(reviewChecks) !== JSON.stringify([...DETERMINISTIC_REVIEW_CHECKS].sort())) blockers.push('REVIEW_CHECK_SET_INVALID');
+    }
+  }
   if (effectiveRisk === 'HIGH' && !gatePass(evidence.SECURITY, 'PASS')) blockers.push('SECURITY_PASS_MISSING');
 
   const humanRequired = contract.human_gate_required === true || riskPolicy.human_gate_required;
@@ -242,6 +352,7 @@ export function evaluateMergePolicy({
     risk: classification,
     changed_paths: normalizedChangedPaths,
     human_gate_required: humanRequired,
+    deterministic_review: deterministic_review ?? null,
     required_ci_checked: require_required_ci,
     protection_passed: protection?.passed === true,
     blockers: uniqueBlockers,
@@ -454,17 +565,14 @@ async function fetchAllComments({ repository, pr_number, token, api_url }) {
   return comments;
 }
 
-async function fetchRequiredCi({ repository, sha, checks, token, api_url }) {
+async function fetchProviderChecks({ repository, sha, checks, token, api_url }) {
   const payload = await githubRequest(`${api_url}/repos/${repository}/commits/${sha}/check-runs?per_page=100`, { token });
-  const statuses = {};
-  for (const name of checks) {
-    const candidates = (payload.check_runs ?? [])
-      .filter((run) => run.name === name && Number(run.app?.id) === GITHUB_ACTIONS_INTEGRATION_ID)
-      .sort((a, b) => b.id - a.id);
-    const latest = candidates[0];
-    statuses[name] = latest?.status === 'completed' && latest?.conclusion === 'success' ? 'PASS' : 'NOT_EXECUTED';
-  }
-  return statuses;
+  return buildTrustedProviderCheckEvidence({
+    check_runs: payload.check_runs ?? [],
+    checks,
+    head_sha: sha,
+    required_integration_id: GITHUB_ACTIONS_INTEGRATION_ID,
+  });
 }
 
 function loadProjectMap() {
@@ -516,12 +624,25 @@ async function runCiPr() {
   if (!prNumber) throw new Error('PULL_REQUEST_EVENT_REQUIRED');
   const pr = await githubRequest(`${api_url}/repos/${repository}/pulls/${prNumber}`, { token });
   const context = await commonPrContext({ repository, pr, token, api_url });
+  const providerChecks = await fetchProviderChecks({
+    repository,
+    sha: context.headSha,
+    checks: DETERMINISTIC_REVIEW_CHECKS,
+    token,
+    api_url,
+  });
+  const deterministicReview = buildDeterministicReviewEvidence({
+    provider_checks: providerChecks,
+    artifact_hash: context.artifact.artifact_hash,
+    head_sha: context.headSha,
+  });
   const result = evaluateMergePolicy({
     task_contract: context.contract,
     changed_paths: artifactScopePaths(context.artifact),
     artifact_binding: context.artifact,
     project_map: context.projectMap,
     gate_evidence: context.evidence,
+    deterministic_review: deterministicReview,
     protection: context.protection,
     require_required_ci: false,
   });
@@ -530,6 +651,7 @@ async function runCiPr() {
     contract_path: context.contractPath,
     trusted_gate_author: context.trustedOwnerLogin,
     protection: context.protection,
+    deterministic_review: deterministicReview,
     stale_evidence: context.evidence.stale.length,
     unauthorized_evidence: context.evidence.unauthorized.length,
     ...result,
@@ -564,12 +686,18 @@ async function runMergePr(prNumberInput) {
   const context = await commonPrContext({ repository, pr, token, api_url });
   const baseBranch = await githubRequest(`${api_url}/repos/${repository}/branches/${encodeURIComponent(pr.base.ref)}`, { token });
   if (baseBranch.commit?.sha !== pr.base.sha) throw new Error('PR_BASE_NOT_CURRENT');
-  const requiredCi = await fetchRequiredCi({
+  const providerChecks = await fetchProviderChecks({
     repository,
     sha: context.headSha,
     checks: context.protection.required_checks.length ? context.protection.required_checks : REQUIRED_PROTECTION_CHECKS,
     token,
     api_url,
+  });
+  const requiredCi = providerChecks.statuses;
+  const deterministicReview = buildDeterministicReviewEvidence({
+    provider_checks: providerChecks,
+    artifact_hash: context.artifact.artifact_hash,
+    head_sha: context.headSha,
   });
   const result = evaluateMergePolicy({
     task_contract: context.contract,
@@ -577,6 +705,7 @@ async function runMergePr(prNumberInput) {
     artifact_binding: context.artifact,
     project_map: context.projectMap,
     gate_evidence: context.evidence,
+    deterministic_review: deterministicReview,
     protection: context.protection,
     required_ci: requiredCi,
     require_required_ci: true,
@@ -586,6 +715,7 @@ async function runMergePr(prNumberInput) {
     contract_path: context.contractPath,
     trusted_gate_author: context.trustedOwnerLogin,
     unauthorized_evidence: context.evidence.unauthorized.length,
+    deterministic_review: deterministicReview,
     required_ci: requiredCi,
     ...result,
   }, null, 2));

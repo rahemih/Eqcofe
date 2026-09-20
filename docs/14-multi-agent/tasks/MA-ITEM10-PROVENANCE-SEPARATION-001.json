@@ -1,0 +1,245 @@
+{
+  "schema_version": "2.2",
+  "task_id": "MA-ITEM10-PROVENANCE-SEPARATION-001",
+  "title": "Remediate Item 10 provenance and authority separation",
+  "description": "Implement Mission V1.5 provenance capabilities P1/P3/P4 after Item 10 B4 fail-closed finding. Primary Review must be provider-derived from exact-head GitHub Actions verify + phase-a facts, Executor-authored REVIEW evidence must be rejected, Executor-authored VERIFICATION evidence must be rejected, and Human Approval must remain separate from Review/Verification/Security. Preserve all existing protection, artifact-binding, Security, Human and Lock controls.",
+  "risk": "HIGH",
+  "risk_floor": "HIGH",
+  "risk_rationale": {
+    "chosen": "HIGH",
+    "why_high": [
+      "This task modifies the Merge Policy Controller, which directly governs merge eligibility.",
+      "The remediation changes trust-boundary and evidence-authority semantics required by frozen Mission V1.5.",
+      "A defect could permit self-review/self-verification or incorrectly block legitimate protected merges."
+    ]
+  },
+  "owner": "BACKEND",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "b33cc615fa46b22b931766905ec13f726d2dbe62"
+  },
+  "scope": {
+    "read": [
+      "docs/14-multi-agent/missions/EQCOFE-MULTI-AGENT-V1.5-EXECUTION-MISSION.md",
+      "scripts/multi-agent/merge-policy-controller.mjs",
+      "test/multi-agent/merge-policy-controller.test.mjs",
+      ".github/workflows/merge-policy.yml",
+      ".github/workflows/ci.yml",
+      ".github/workflows/phase-a-verification.yml",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "scripts/multi-agent/pre-pilot-verification.mjs",
+      "test/multi-agent/pre-pilot-verification.test.mjs"
+    ],
+    "write": [
+      "scripts/multi-agent/merge-policy-controller.mjs",
+      "test/multi-agent/merge-policy-controller.test.mjs",
+      "docs/14-multi-agent/ITEM10-PROVENANCE-REMEDIATION.md",
+      "docs/14-multi-agent/GOVERNANCE-LOG.md",
+      "docs/14-multi-agent/tasks/MA-ITEM10-PROVENANCE-SEPARATION-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "scripts/multi-agent/pre-pilot-verification.mjs",
+      "test/multi-agent/pre-pilot-verification.test.mjs"
+    ],
+    "forbidden": [
+      ".github/**",
+      "scripts/multi-agent/artifact-hash-generator.mjs",
+      "scripts/multi-agent/risk-verification-policy.mjs",
+      "scripts/multi-agent/scope-lock-controller.mjs",
+      "scripts/multi-agent/scope-validation.mjs",
+      "scripts/multi-agent/token-telemetry.mjs",
+      "scripts/multi-agent/workflow-controller.mjs",
+      "src/**",
+      "apps/**",
+      "database/**",
+      "contracts/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "docs/14-multi-agent/missions/**",
+      "docs/11-step-history/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-MA-ITEM10-PROVENANCE-SEPARATION-001-01"
+  ],
+  "human_gate_required": true,
+  "authorized_human_approver": {
+    "role": "PROJECT_OWNER",
+    "github_login": "rahemih"
+  },
+  "token_budget": {
+    "expected_max": 32000,
+    "soft_alert": 50000,
+    "hard_cap": 90000
+  },
+  "max_repair_cycles": 2,
+  "task_risk_rules": [
+    {
+      "id": "MERGE_POLICY_TRUST_BOUNDARY_HIGH",
+      "risk": "HIGH",
+      "paths": [
+        "scripts/multi-agent/merge-policy-controller.mjs",
+        "test/multi-agent/merge-policy-controller.test.mjs",
+        "docs/14-multi-agent/ITEM10-PROVENANCE-REMEDIATION.md",
+        "docs/14-multi-agent/GOVERNANCE-LOG.md",
+        "docs/14-multi-agent/tasks/MA-ITEM10-PROVENANCE-SEPARATION-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md",
+        "scripts/multi-agent/pre-pilot-verification.mjs",
+        "test/multi-agent/pre-pilot-verification.test.mjs"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "MISSION-V1.5",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "be09ad0b110cf5a60170ce5440f38622c613493c",
+      "blocking": false
+    },
+    {
+      "item": "ITEM10-B1",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "b33cc615fa46b22b931766905ec13f726d2dbe62",
+      "blocking": false
+    },
+    {
+      "item": "ITEM10-B4-FINDING",
+      "required_state": "BLOCKED_REMEDIATION_REQUIRED",
+      "observed_state": "BLOCKED_REMEDIATION_REQUIRED",
+      "source_pr": 214,
+      "source_artifact_hash": "6a56c77b69563720b7d89988210bc7b4b0649c9465c98671b628a0d7b047094d",
+      "blocking": false
+    }
+  ],
+  "remediation": {
+    "root_cause": "Current gate-comment trust authenticates repository-owner transport but does not distinguish Executor-authored REVIEW from Deterministic Review authority. REVIEW comment can therefore substitute for independent Primary Review.",
+    "p1": "Primary Review becomes machine-derived from exact-head GitHub Actions provider facts, not Executor comment evidence.",
+    "p2": "Existing exact artifact binding remains mandatory.",
+    "p3": "Any comment-carried REVIEW attempt is classified UNAUTHORIZED_REVIEW_EVIDENCE and cannot satisfy Review.",
+    "p4": "Any comment-carried VERIFICATION attempt is classified UNAUTHORIZED_VERIFICATION_EVIDENCE; verification authority remains exact-head GitHub Actions provider facts.",
+    "deterministic_review_checks": [
+      "verify",
+      "phase-a"
+    ],
+    "trusted_integration_id": 15368,
+    "rule": "merge-policy itself is not used to derive Primary Review, avoiding self-referential review."
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Task Contract is committed before controller/test implementation.",
+      "verification": "commit_history_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Primary Review PASS is derived only from exact-head verify + phase-a GitHub Actions check facts with integration id 15368.",
+      "verification": "merge_policy_controller_tests",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Executor/comment REVIEW PASS attempts are recorded as UNAUTHORIZED_REVIEW_EVIDENCE, never current REVIEW, and block merge.",
+      "verification": "merge_policy_controller_tests",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Executor/comment VERIFICATION PASS attempts are recorded as UNAUTHORIZED_VERIFICATION_EVIDENCE and cannot substitute for provider verification.",
+      "verification": "merge_policy_controller_tests",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Deterministic Review remains exact-artifact and exact-head bound.",
+      "verification": "merge_policy_controller_tests",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "A failed/not-executed verify or phase-a provider check prevents deterministic Review PASS.",
+      "verification": "merge_policy_controller_tests",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "Wrong integration identity cannot produce provider PASS because check retrieval remains integration-id filtered.",
+      "verification": "existing_and_new_merge_policy_tests",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "Human Approval remains owner-only and cannot satisfy Review, Verification or Security.",
+      "verification": "merge_policy_controller_tests",
+      "mandatory": true
+    },
+    {
+      "id": "AC-009",
+      "description": "Existing Security, Human, Lock, Scope, Risk, protection, stale-evidence and exact-artifact controls remain non-regressed.",
+      "verification": "pnpm_multi_agent_test_and_full_verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-009A",
+      "description": "Legacy P-4 pre-pilot integration harness is migrated to provider-derived Review semantics and remains deterministic PASS without weakening any negative scenario.",
+      "verification": "pre_pilot_verification_tests",
+      "mandatory": true
+    },
+    {
+      "id": "AC-010",
+      "description": "PR-mode Merge Policy may wait/fail closed until verify + phase-a provider facts are PASS, without relying on merge-policy itself for Primary Review.",
+      "verification": "controller_integration_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-011",
+      "description": "Merge execution revalidates verify, phase-a and merge-policy required checks and independently rebuilds deterministic Review from verify + phase-a.",
+      "verification": "merge_policy_controller_tests",
+      "mandatory": true
+    },
+    {
+      "id": "AC-012",
+      "description": "P1, P2, P3 and P4 are documented as machine-verifiably PASS only after exact-head CI, Phase A and controller tests pass.",
+      "verification": "remediation_evidence_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-013",
+      "description": "Exact-head deterministic Primary Review, SECURITY, ACTIVE LOCK and Owner HUMAN approval are required for this HIGH remediation artifact before protected merge.",
+      "verification": "governed_high_transport",
+      "mandatory": true
+    },
+    {
+      "id": "AC-014",
+      "description": "Protected merge and exact-SHA post-merge pnpm verify + Phase A must PASS before remediation becomes canonical.",
+      "verification": "postmerge_terminal_verification",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "SECURITY",
+      "LOCK",
+      "HUMAN"
+    ],
+    "primary_review_source": "DETERMINISTIC_PROVIDER_FACTS",
+    "trusted_github_transport_login": "rahemih",
+    "rule": "REVIEW comments are not valid Primary Review evidence after this remediation. Primary Review is derived by the controller from exact-head verify + phase-a provider facts."
+  },
+  "protection_source": {
+    "ruleset_id": 23278861,
+    "required_contexts": [
+      "verify",
+      "phase-a",
+      "merge-policy"
+    ],
+    "required_integration": "GitHub Actions",
+    "required_integration_id": 15368
+  }
+}
