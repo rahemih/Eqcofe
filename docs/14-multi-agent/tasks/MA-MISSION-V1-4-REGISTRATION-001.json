@@ -151,7 +151,7 @@
     },
     {
       "id": "AC-007",
-      "description": "The generated Task Catalog includes MA-MISSION-V1-4-REGISTRATION-001 and indexes 36 Task Contracts exactly.",
+      "description": "The generated Task Catalog includes MA-MISSION-V1-4-REGISTRATION-001 and indexes 37 Task Contracts exactly.",
       "verification": "node scripts/multi-agent/docs-automation.mjs --check",
       "mandatory": true
     },
