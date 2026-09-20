@@ -1,0 +1,248 @@
+{
+  "schema_version": "2.2",
+  "task_id": "MA-ITEM9-CALIBRATION-FINAL-CLOSURE-001",
+  "title": "Item 9 Calibration — final canonical closure and Item 10 authorization",
+  "description": "Synchronize terminal Item 9 calibration evidence after Stages A, B and C completed protected canonical merge and exact-SHA post-merge verification. Record the evidence-limited final calibration disposition without fabricating telemetry or mutating policy, preserve reviewed implementation artifacts, regenerate the task catalog, defer quantitative recalibration to V1.1 until canonical evidence is sufficient, and authorize Item 10 only after this closure task itself completes protected merge and exact-SHA post-merge verification.",
+  "risk": "MEDIUM",
+  "risk_floor": "LOW",
+  "risk_rationale": {
+    "chosen": "MEDIUM",
+    "why_medium": [
+      "This task changes canonical governance state and authorizes the next frozen implementation item once terminal verification completes.",
+      "It writes the generated Task Catalog and authoritative Item 9 closure documentation, so an incorrect closure could create governance drift.",
+      "The task is documentation/governance-only and does not mutate runtime, workflows, controllers, databases, APIs, dependencies or calibration policy."
+    ],
+    "why_not_high": [
+      "No workflow, ruleset, merge-policy controller, security boundary, runtime, database, auth, payment, pricing or inventory behavior is changed.",
+      "No Human Gate is required by the canonical documentation-closure pattern unless deterministic classification escalates."
+    ]
+  },
+  "owner": "BACKEND",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "b802ad9ddaf47366ab8229c530ce066b803bc16f"
+  },
+  "scope": {
+    "read": [
+      "docs/14-multi-agent/GOVERNANCE.md",
+      "docs/14-multi-agent/PROCESS-IMPROVEMENTS.md",
+      "docs/14-multi-agent/ITEM9-CALIBRATION.md",
+      "docs/14-multi-agent/tasks/MA-ITEM9-CALIBRATION-A-001.json",
+      "docs/14-multi-agent/tasks/MA-ITEM9-CALIBRATION-B-001.json",
+      "docs/14-multi-agent/tasks/MA-ITEM9-CALIBRATION-C-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "scripts/multi-agent/calibration-engine.mjs",
+      "scripts/multi-agent/calibration-recommendations.mjs",
+      "test/multi-agent/calibration-engine.test.mjs",
+      "test/multi-agent/calibration-recommendations.test.mjs"
+    ],
+    "write": [
+      "docs/14-multi-agent/ITEM9-CANONICAL-CLOSURE.md",
+      "docs/14-multi-agent/ITEM9-CALIBRATION.md",
+      "docs/14-multi-agent/PROCESS-IMPROVEMENTS.md",
+      "docs/14-multi-agent/tasks/MA-ITEM9-CALIBRATION-FINAL-CLOSURE-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      ".eqcofe/**",
+      "src/**",
+      "apps/**",
+      "database/**",
+      "contracts/**",
+      "scripts/**",
+      "test/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "docs/11-step-history/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**",
+      "docs/14-multi-agent/GOVERNANCE.md",
+      "docs/14-multi-agent/tasks/MA-ITEM9-CALIBRATION-A-001.json",
+      "docs/14-multi-agent/tasks/MA-ITEM9-CALIBRATION-B-001.json",
+      "docs/14-multi-agent/tasks/MA-ITEM9-CALIBRATION-C-001.json"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-MA-ITEM9-CALIBRATION-FINAL-CLOSURE-001-01"
+  ],
+  "lock": {
+    "lock_id": "LOCK-MA-ITEM9-CALIBRATION-FINAL-CLOSURE-001-01",
+    "task_id": "MA-ITEM9-CALIBRATION-FINAL-CLOSURE-001",
+    "owner": "BACKEND",
+    "paths": [
+      "docs/14-multi-agent/ITEM9-CANONICAL-CLOSURE.md",
+      "docs/14-multi-agent/ITEM9-CALIBRATION.md",
+      "docs/14-multi-agent/PROCESS-IMPROVEMENTS.md",
+      "docs/14-multi-agent/tasks/MA-ITEM9-CALIBRATION-FINAL-CLOSURE-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "status": "ACTIVE_UNTIL_PR_TERMINAL",
+    "rule": "No conflicting writer may mutate these paths until the Stage D PR is merged or aborted."
+  },
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 12000,
+    "soft_alert": 25000,
+    "hard_cap": 50000
+  },
+  "max_repair_cycles": 2,
+  "task_risk_rules": [],
+  "dependencies": [
+    {
+      "item": "ITEM-9-STAGE-A",
+      "name": "Item 9 Stage A evidence and sample sufficiency baseline",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "5db790c74f601c23819df943beffbff7f106f9d3",
+      "protected_merge_run": 35435491785,
+      "blocking": false
+    },
+    {
+      "item": "ITEM-9-STAGE-B",
+      "name": "Item 9 Stage B deterministic calibration engine",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "e79d7397d54545a8c3620961df4cc0df666ff9d5",
+      "protected_merge_run": 35437490690,
+      "blocking": false
+    },
+    {
+      "item": "ITEM-9-STAGE-C",
+      "name": "Item 9 Stage C risk-class recommendations",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "00a1bd3498f4e044cabdbbabceb2dd57f2d5e3d2",
+      "protected_merge_run": 35438559717,
+      "blocking": false
+    },
+    {
+      "item": "STEP-58-H",
+      "name": "Step 58-H full verification and canonical closure",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "8f17364fc7c27dc30de5845c1af467b1215d1351",
+      "protected_merge_run": 35490799957,
+      "blocking": false
+    },
+    {
+      "item": "STEP-58-H-FINAL-STATE-SYNC",
+      "name": "Step 58-H final canonical state synchronization",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "b802ad9ddaf47366ab8229c530ce066b803bc16f",
+      "protected_merge_run": 35491272186,
+      "blocking": false
+    }
+  ],
+  "final_calibration_disposition": {
+    "canonical_telemetry_paths": 0,
+    "minimum_primary_samples_per_risk": 10,
+    "LOW": {
+      "primary_samples": 0,
+      "token_budget": "NO_NUMERIC_RECOMMENDATION",
+      "retry_repair": "NO_NUMERIC_RECOMMENDATION",
+      "risk_and_gates": "NO_CHANGE"
+    },
+    "MEDIUM": {
+      "primary_samples": 0,
+      "token_budget": "NO_NUMERIC_RECOMMENDATION",
+      "retry_repair": "NO_NUMERIC_RECOMMENDATION",
+      "risk_and_gates": "NO_CHANGE"
+    },
+    "HIGH": {
+      "primary_samples": 0,
+      "token_budget": "NO_NUMERIC_RECOMMENDATION",
+      "retry_repair": "NO_NUMERIC_RECOMMENDATION",
+      "risk_and_gates": "NO_CHANGE"
+    },
+    "policy_mutation_allowed": false,
+    "quantitative_recalibration_follow_up": "V1.1"
+  },
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "MEDIUM canonical closure requires exact-artifact Review PASS plus ACTIVE Lock. Security and Project Owner Human Gate are not required unless deterministic risk escalates."
+  },
+  "protection_source": {
+    "required_contexts": [
+      "verify",
+      "phase-a",
+      "merge-policy"
+    ],
+    "required_integration": "GitHub Actions",
+    "required_integration_id": 15368
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "A dedicated Item 9 closure record binds Stages A, B and C to their canonical PRs, reviewed artifacts, protected merge runs and exact-SHA post-merge evidence without rewriting the reviewed implementation Task Contracts.",
+      "verification": "closure_evidence_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Current canonical repository evidence contains zero committed telemetry paths under .eqcofe/telemetry/, so LOW/MEDIUM/HIGH remain 0 of 10 primary samples with no numeric token or retry/repair recommendation and no risk/gate change.",
+      "verification": "canonical_tree_and_calibration_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Missing telemetry remains missing rather than zero or estimated usage; no Pilot budget is reclassified as a calibrated budget and policy_mutation_allowed remains false.",
+      "verification": "documentation_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Quantitative Calibration V2/recalibration is deferred to V1.1 until canonical evidence is sufficient; this closure makes no numeric policy mutation.",
+      "verification": "owner_direction_and_closure_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Original Stage A/B/C Task Contracts, calibration scripts and tests remain byte-preserved by Stage D.",
+      "verification": "exact_scope_diff_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Generated Task Catalog includes MA-ITEM9-CALIBRATION-FINAL-CLOSURE-001 and indexes 32 Task Contracts exactly.",
+      "verification": "node scripts/multi-agent/docs-automation.mjs --check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "PROCESS-IMPROVEMENTS records Item 9 terminal closure semantics and Item 10 as AUTHORIZED / NOT STARTED only after this closure synchronization becomes canonical.",
+      "verification": "process_state_sync_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "Stage D changes exactly the five declared documentation/governance paths and no workflow, controller, runtime, database, API, dependency, product-design or current-state path.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-009",
+      "description": "Exact-head Canonical CI, Phase A Verification, Merge Policy, artifact-bound Review PASS and ACTIVE Lock all pass before protected canonical merge.",
+      "verification": "exact_head_required_ci_and_gate_evidence",
+      "mandatory": true
+    },
+    {
+      "id": "AC-010",
+      "description": "Item 9 is CANONICAL COMPLETE and Item 10 becomes AUTHORIZED / NOT STARTED only after protected merge and exact-SHA post-merge canonical plus Phase A verification pass.",
+      "verification": "postmerge_closure_guard",
+      "mandatory": true
+    }
+  ],
+  "process_improvement_links": [
+    "ITEM-9-CALIBRATION"
+  ],
+  "incident_links": []
+}

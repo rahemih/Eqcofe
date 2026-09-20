@@ -2,11 +2,11 @@
 
 ## وضعیت
 
-- Item 9: **IN PROGRESS**
+- Item 9: **FINAL CLOSURE IN PROGRESS**
 - Stage A — Evidence & Sample Sufficiency Baseline: **CANONICAL COMPLETE**
 - Stage B — Deterministic Calibration Engine: **CANONICAL COMPLETE**
-- Stage C — Risk-Class Recommendations: **IMPLEMENTED / PENDING CANONICAL MERGE**
-- Stage D — Final Verification & Canonical Closure: **NOT_STARTED**
+- Stage C — Risk-Class Recommendations: **CANONICAL COMPLETE**
+- Stage D — Final Verification & Canonical Closure: **IMPLEMENTED / PENDING CANONICAL MERGE**
 
 ## Closure قطعی Stage A
 
@@ -34,6 +34,21 @@ Stage B با PR #195 از مسیر protected Merge Policy ادغام شد.
 - full runtime regression: 913 / 913 PASS
 - Phase A database integrity and Steps 01–28: PASS
 
+## Closure قطعی Stage C
+
+Stage C با PR #196 از مسیر protected Merge Policy ادغام شد.
+
+- reviewed head: `a7d7b53b3c5b375b53d0701af060e6cea3a0963f`
+- artifact hash: `168fb7be9e61ff9499083dc1e375796392a3439e44085827070dfad93dfa82d4`
+- Protected merge run: `35438559717`
+- Canonical merge SHA: `00a1bd3498f4e044cabdbbabceb2dd57f2d5e3d2`
+- exact-SHA checkout: PASS
+- postmerge canonical verify: PASS
+- postmerge Phase A verify: PASS
+- multi-agent tests: 141 / 141 PASS
+- full runtime regression: 913 / 913 PASS
+- Phase A PostgreSQL integrity and Steps 01–28: PASS
+
 ## پیش‌شرط‌های Canonical
 
 | Risk Class | Pilot | Canonical state | Merge SHA |
@@ -58,7 +73,7 @@ Stage B با PR #195 از مسیر protected Merge Policy ادغام شد.
 
 Stage B موتور canonical-readback را اضافه کرد:
 
-- مسیر production-level فقط `calibrateCanonicalRiskClasses` است؛
+- production-level entrypoint فقط `calibrateCanonicalRiskClasses` است؛
 - هر Task فقط از `.eqcofe/telemetry/<task_id>.json` و با `readTelemetryRecord` خوانده می‌شود؛
 - فقط `ENOENT` به missing telemetry تبدیل می‌شود؛
 - invalid JSON، provenance نامعتبر، task mismatch، token-budget mismatch و tampered aggregate fail closed هستند؛
@@ -68,27 +83,20 @@ Stage B موتور canonical-readback را اضافه کرد:
 - از 10 sample به بالا => nearest-rank min/P50/P75/P90/max؛
 - `policy_mutation_allowed=false`.
 
-حداقل 10 sample یک **operational floor محافظه‌کارانه** است و ادعای confidence آماری نیست.
+حداقل 10 sample یک operational floor محافظه‌کارانه است و ادعای confidence آماری نیست.
 
 ## Stage C — Risk-Class Recommendations
 
 Task: `MA-ITEM9-CALIBRATION-C-001`
 
-Canonical base:
-`e79d7397d54545a8c3620961df4cc0df666ff9d5`
-
-Stage C یک Recommendation Engine جدا از Stage B اضافه می‌کند. این موتور **advisory-only** است:
+Stage C advisory-only است:
 
 - `automatic_apply=false`
 - `policy_mutation_allowed=false`
-- هر policy change نیازمند Task حاکمیتی جداگانه است.
-- Stage C هرگز Risk Class، Risk Floor، Review، Security، Human Gate یا Merge Policy را کاهش نمی‌دهد.
+- هر policy change نیازمند Task حاکمیتی جداگانه است
+- Risk Class، Risk Floor، Review، Security، Human Gate و Merge Policy را کاهش نمی‌دهد
 
-### وضعیت واقعی داده در baseline Stage C
-
-در canonical tree روی `e79d7397d54545a8c3620961df4cc0df666ff9d5` هیچ مسیر commit‌شده‌ای زیر `.eqcofe/telemetry/` وجود ندارد.
-
-بنابراین وضعیت واقعی فعلی:
+وضعیت canonical فعلی همچنان هیچ مسیر commit‌شده‌ای زیر `.eqcofe/telemetry/` ندارد.
 
 | Risk | Primary samples | Minimum | Token-budget recommendation | Retry/repair recommendation | Risk/Gates |
 | --- | ---: | ---: | --- | --- | --- |
@@ -96,61 +104,54 @@ Stage C یک Recommendation Engine جدا از Stage B اضافه می‌کند.
 | MEDIUM | 0 | 10 | NO_NUMERIC_RECOMMENDATION | NO_NUMERIC_RECOMMENDATION | NO_CHANGE |
 | HIGH | 0 | 10 | NO_NUMERIC_RECOMMENDATION | NO_NUMERIC_RECOMMENDATION | NO_CHANGE |
 
-نتیجه فعلی Item 9 هیچ مجوزی برای تغییر budget یا policy ایجاد نمی‌کند.
+اگر بعداً evidence کافی فراهم شود، Stage C فقط candidate مشورتی token budget را با قاعده‌ی deterministic خود می‌سازد؛ اعمال policy همچنان Task مستقل می‌خواهد.
 
-### Token Budget Recommendation Rule
+Stage B هنوز distribution مستقل retry/repair منتشر نمی‌کند؛ بنابراین ساخت عدد retry/repair ممنوع است.
 
-اگر یک کلاس هنوز `INSUFFICIENT_CANONICAL_TELEMETRY` باشد:
+## Stage D — Final Verification & Canonical Closure
 
-- هیچ عددی پیشنهاد نمی‌شود؛
-- sample gap گزارش می‌شود؛
-- مسیر پیشنهادی فقط جمع‌آوری canonical primary samples است.
+Task:
+`MA-ITEM9-CALIBRATION-FINAL-CLOSURE-001`
 
-اگر یک کلاس به `SUFFICIENT_CANONICAL_TELEMETRY` برسد، Stage C می‌تواند فقط یک candidate مشورتی بسازد:
+Canonical base:
+`b802ad9ddaf47366ab8229c530ce066b803bc16f`
 
-- `expected_max = P75`
-- `soft_alert = max(P90, expected_max + 1)`
-- `hard_cap = max(MAX + 1, soft_alert + 1)`
+Stage D فقط governance/documentation synchronization است و implementationهای Stage A/B/C را تغییر نمی‌دهد.
 
-این candidate خودکار اعمال نمی‌شود و حتی با evidence کافی نیز برای تغییر policy به Task جداگانه نیاز دارد.
+Write scope دقیق:
 
-### Retry / Repair Recommendation Rule
+- `docs/14-multi-agent/ITEM9-CANONICAL-CLOSURE.md`
+- `docs/14-multi-agent/ITEM9-CALIBRATION.md`
+- `docs/14-multi-agent/PROCESS-IMPROVEMENTS.md`
+- `docs/14-multi-agent/tasks/MA-ITEM9-CALIBRATION-FINAL-CLOSURE-001.json`
+- `docs/14-multi-agent/generated/TASK-CATALOG.md`
 
-Stage B در خروجی calibration فعلی distribution مستقل retry/repair منتشر نمی‌کند. بنابراین Stage C حق ساخت عدد مصنوعی برای retry یا repair ندارد.
+Stage D باید قبل از merge:
 
-نتیجه:
+- Canonical CI PASS
+- Phase A PASS
+- current Multi-Agent suite PASS
+- current full-project regression PASS
+- artifact-bound REVIEW PASS
+- artifact-bound ACTIVE LOCK
+- Merge Policy PASS
+- exact five-path scope PASS
 
-`NO_NUMERIC_RECOMMENDATION / RETRY_REPAIR_DISTRIBUTION_NOT_IN_CALIBRATION_REPORT`
+و بعد از protected merge:
 
-برای عددی شدن این بخش، ابتدا باید telemetry و calibration canonical مربوط به retry/repair به‌صورت صریح طراحی و اثبات شود.
+- exact-SHA postmerge canonical verify PASS
+- exact-SHA postmerge Phase A PASS
 
-### Process Friction Recommendations
+فقط بعد از آن:
 
-فقط سیگنال‌های قابل مشاهده مجاز هستند:
+- Item 9 = **CANONICAL COMPLETE**
+- Item 10 = **AUTHORIZED / NOT STARTED**
 
-- sample gap > 0 => `COLLECT_CANONICAL_PRIMARY_SAMPLES`
-- missing telemetry > 0 => `CAPTURE_EXPLICIT_TELEMETRY`
-- excluded samples > 0 => `REVIEW_EXCLUSION_CAUSES`
-- evidence کافی => `REVIEW_TOKEN_CANDIDATE_IN_SEPARATE_GOVERNANCE_TASK`
-- همیشه => `KEEP_EXISTING_RISK_AND_GATE_POLICY`
+## Calibration follow-up
 
-Anecdoteهای Pilot به numeric calibration تبدیل نمی‌شوند.
+به‌دلیل نبود canonical primary telemetry کافی، هیچ numeric calibration policy در V1 اعمال نمی‌شود.
 
-## مسیر فریز‌شده‌ی Item 9
-
-### Stage A — Evidence & Sample Sufficiency Baseline
-**CANONICAL COMPLETE**
-
-### Stage B — Deterministic Calibration Engine
-**CANONICAL COMPLETE**
-
-### Stage C — Risk-Class Recommendations
-**IMPLEMENTED / PENDING CANONICAL MERGE**
-
-### Stage D — Final Verification & Canonical Closure
-بعد از closure واقعی Stage C: regression کامل، drift check، نهایی‌سازی evidence، Review، protected merge و exact-SHA post-merge verification.
-
-Item 10 فقط بعد از Closure واقعی Stage D مجاز است.
+Quantitative Calibration V2 / recalibration به V1.1 موکول می‌شود و فقط با evidence واقعی و کافی می‌تواند پیشنهاد عددی بدهد. Missing usage هرگز zero یا estimate فرض نمی‌شود.
 
 ## Guardrails
 
@@ -162,5 +163,6 @@ Item 10 فقط بعد از Closure واقعی Stage D مجاز است.
 - one pilot != sufficient calibration
 - sufficient telemetry != automatic policy mutation
 - retry metric unavailable != guessed retry recommendation
-- Stage C cannot relax risk or verification gates
-- هر تغییر واقعی policy نیازمند Task مستقل و governance کامل است.
+- calibration cannot relax risk or verification gates
+- هر تغییر واقعی policy نیازمند Task مستقل و governance کامل است
+- Item 10 authorization != Item 10 execution

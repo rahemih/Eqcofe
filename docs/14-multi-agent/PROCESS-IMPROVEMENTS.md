@@ -148,3 +148,38 @@ The original Item 7 Task Contract remains the reviewed implementation artifact s
 ## Item 7 implementation note
 
 Item 7 also adds provider-neutral Token Telemetry and deterministic Docs Automation. Docs generation owns only `docs/14-multi-agent/generated/TASK-CATALOG.md`; incident history and frozen governance documentation remain manually controlled. The existing `multi-agent:test` wildcard is intentionally reused, so Item 7 does not modify `package.json` or required workflow files.
+
+
+## Item 9 canonical closure synchronization
+
+Item 9 Stage A, B and C are already canonically merged and exact-SHA post-merge verified. Stage D is the separate governance/documentation closure task `MA-ITEM9-CALIBRATION-FINAL-CLOSURE-001`.
+
+Canonical implementation evidence:
+
+- Stage A: PR `#193`, merge `5db790c74f601c23819df943beffbff7f106f9d3`, protected run `35435491785`;
+- Stage B: PR `#195`, merge `e79d7397d54545a8c3620961df4cc0df666ff9d5`, protected run `35437490690`;
+- Stage C: PR `#196`, merge `00a1bd3498f4e044cabdbbabceb2dd57f2d5e3d2`, protected run `35438559717`;
+- current Stage D baseline: `b802ad9ddaf47366ab8229c530ce066b803bc16f`;
+- Step 58-H transport closure: PR `#201`, protected run `35490799957`, merge `8f17364fc7c27dc30de5845c1af467b1215d1351`;
+- Step 58-H final state synchronization: PR `#202`, protected run `35491272186`, merge `b802ad9ddaf47366ab8229c530ce066b803bc16f`;
+- canonical committed telemetry paths under `.eqcofe/telemetry/`: `0`.
+
+Final calibration disposition remains evidence-limited:
+
+- LOW / MEDIUM / HIGH primary samples: `0 / 10`;
+- token-budget recommendation: `NO_NUMERIC_RECOMMENDATION`;
+- retry/repair recommendation: `NO_NUMERIC_RECOMMENDATION`;
+- risk/gates: `NO_CHANGE`;
+- automatic policy mutation: forbidden.
+
+The absence of telemetry is not interpreted as zero usage. Pilot budgets are not calibrated budgets.
+
+Project Owner direction: quantitative Calibration V2 / recalibration is deferred to V1.1 until canonical evidence is sufficient. This does not weaken current V1 gates and does not permit estimated telemetry.
+
+Item 9 terminal status and Item 10 authorization become canonical only after the Stage D synchronization itself completes protected merge and exact-SHA post-merge canonical + Phase A verification.
+
+After that terminal closure:
+
+- Item 9: `CANONICAL COMPLETE`;
+- Item 10 — V1 Production Gate: `AUTHORIZED / NOT STARTED`;
+- Item 10 must start separately under its own Task Contract and governance gates.
