@@ -1,0 +1,502 @@
+{
+  "schema_version": "2.2",
+  "task_id": "MA-ITEM10-PRODUCTION-GATE-001",
+  "title": "Item 10 — V1 Production Gate",
+  "description": "Execute Mission V1.5 Stage B Item 10 as a verification-only production gate. Construct and maintain the canonical evidence packet for all 20 B4 coverage domains, confirm deterministic B3 risk, enforce B5 token-calibration boundaries, and permit B6 canonical closure only after all required governance, protected merge and exact-SHA post-merge evidence passes. Any implementation defect discovered by the gate must fail closed and be remediated in a separate governed task.",
+  "mission_binding": {
+    "mission_version": "V1.5",
+    "mission_hash": "7b29943c936592b63ae76a67359a0cae1b3dd99b2323f1811bc7b2e3d03317a1",
+    "mission_file": "docs/14-multi-agent/missions/EQCOFE-MULTI-AGENT-V1.5-EXECUTION-MISSION.md",
+    "mission_status": "CANONICAL_FROZEN",
+    "stage": "B",
+    "b1_state": "CANONICAL_COMPLETE",
+    "b1_record": "docs/14-multi-agent/ITEM10-SPEC-DISCOVERY-V1.5.md"
+  },
+  "risk": "HIGH",
+  "risk_floor": "MEDIUM",
+  "risk_rationale": {
+    "chosen": "HIGH",
+    "deterministic_basis": [
+      "Canonical Project Map sensitive zones match auth/payment only, so the documentation write paths do not inherit a HIGH sensitive-zone floor.",
+      "The Item 10 task-specific risk rule deterministically raises any mutation of the four Item 10 governance artifact paths to HIGH because this task controls whether the Multi-Agent system may be declared V1 Production Gate complete.",
+      "The deterministic classifier computes effective risk as MAX(sensitive-zone floor, task-detected risk, Manager risk)."
+    ],
+    "why_not_lower": [
+      "A false PASS at Item 10 can incorrectly authorize Stage C and undermine trust-boundary, Security/Human Gate and merge-policy guarantees.",
+      "Mission V1.5 requires escalation rather than downgrade when risk is ambiguous."
+    ]
+  },
+  "owner": "BACKEND",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "b33cc615fa46b22b931766905ec13f726d2dbe62"
+  },
+  "scope": {
+    "read": [
+      "docs/14-multi-agent/missions/EQCOFE-MULTI-AGENT-V1.5-EXECUTION-MISSION.md",
+      "docs/14-multi-agent/ITEM10-SPEC-DISCOVERY-V1.5.md",
+      "docs/14-multi-agent/GOVERNANCE.md",
+      "docs/14-multi-agent/ITEM7-CANONICAL-CLOSURE.md",
+      "docs/14-multi-agent/PRE-PILOT-CANONICAL-CLOSURE.md",
+      "docs/14-multi-agent/ITEM9-CANONICAL-CLOSURE.md",
+      "docs/14-multi-agent/PROCESS-IMPROVEMENTS.md",
+      "docs/14-multi-agent/tasks/**",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "scripts/multi-agent/**",
+      "test/multi-agent/**",
+      ".github/workflows/**",
+      "docs/12-current-state/MASTER-ROADMAP.md",
+      "docs/12-current-state/CURRENT-STATE.md"
+    ],
+    "write": [
+      "docs/14-multi-agent/ITEM10-V1-PRODUCTION-GATE.md",
+      "docs/14-multi-agent/GOVERNANCE-LOG.md",
+      "docs/14-multi-agent/tasks/MA-ITEM10-PRODUCTION-GATE-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      "docs/14-multi-agent/missions/**",
+      ".github/**",
+      "scripts/**",
+      "test/**",
+      "src/**",
+      "apps/**",
+      "database/**",
+      "contracts/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "docs/11-step-history/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-MA-ITEM10-PRODUCTION-GATE-001-01"
+  ],
+  "human_gate_required": true,
+  "authorized_human_approver": {
+    "github_login": "rahemih",
+    "role": "PROJECT_OWNER"
+  },
+  "max_repair_cycles": 2,
+  "task_risk_rules": [
+    {
+      "id": "ITEM10_PRODUCTION_GATE_HIGH",
+      "risk": "HIGH",
+      "paths": [
+        "docs/14-multi-agent/ITEM10-V1-PRODUCTION-GATE.md",
+        "docs/14-multi-agent/GOVERNANCE-LOG.md",
+        "docs/14-multi-agent/tasks/MA-ITEM10-PRODUCTION-GATE-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "MISSION-V1.5",
+      "name": "Mission V1.5 canonical/frozen amendment",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "be09ad0b110cf5a60170ce5440f38622c613493c",
+      "blocking": false
+    },
+    {
+      "item": "ITEM10-B1",
+      "name": "Mission V1.5 Item 10 Spec Discovery",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "b33cc615fa46b22b931766905ec13f726d2dbe62",
+      "protected_merge_run": 35497207994,
+      "postmerge_verify_job": 106042329138,
+      "blocking": false
+    },
+    {
+      "item": "ITEM-9",
+      "name": "Item 9 canonical calibration closure",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "quantitative_calibration": "DEFERRED_TO_V1_1",
+      "blocking": false
+    }
+  ],
+  "b2_contract": {
+    "state": "CONSTRUCTED_PENDING_PR_EVIDENCE",
+    "contract_schema": "2.2",
+    "generated_catalog_policy": "CANONICAL_GENERATOR_OUTPUT_REQUIRED",
+    "gate_mode": "VERIFICATION_ONLY",
+    "remediation_policy": "SEPARATE_GOVERNED_TASK_AND_ITEM10_RESTART",
+    "mandatory_coverage_count": 20
+  },
+  "deterministic_risk_preview": {
+    "changed_paths": [
+      "docs/14-multi-agent/ITEM10-V1-PRODUCTION-GATE.md",
+      "docs/14-multi-agent/GOVERNANCE-LOG.md",
+      "docs/14-multi-agent/tasks/MA-ITEM10-PRODUCTION-GATE-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "project_map_sensitive_zone_matches": [],
+    "deterministic_floor": "LOW",
+    "matched_task_risk_rule": "ITEM10_PRODUCTION_GATE_HIGH",
+    "detected_risk": "HIGH",
+    "manager_risk": "HIGH",
+    "deterministic_minimum_risk": "HIGH",
+    "effective_risk": "HIGH",
+    "rejected_downgrade": false,
+    "human_gate_required": true,
+    "b3_status": "PREVIEW_TO_BE_CONFIRMED"
+  },
+  "coverage_matrix": [
+    {
+      "number": 1,
+      "domain": "Architecture integrity",
+      "acceptance_criterion": "AC-001",
+      "verification": "architecture_integrity_verification"
+    },
+    {
+      "number": 2,
+      "domain": "Workflow lifecycle",
+      "acceptance_criterion": "AC-002",
+      "verification": "workflow_lifecycle_verification"
+    },
+    {
+      "number": 3,
+      "domain": "Full State Machine",
+      "acceptance_criterion": "AC-003",
+      "verification": "full_state_machine_verification"
+    },
+    {
+      "number": 4,
+      "domain": "Scope enforcement",
+      "acceptance_criterion": "AC-004",
+      "verification": "scope_enforcement_verification"
+    },
+    {
+      "number": 5,
+      "domain": "Lock acquisition/conflict/release",
+      "acceptance_criterion": "AC-005",
+      "verification": "lock_lifecycle_verification"
+    },
+    {
+      "number": 6,
+      "domain": "Risk classification (deterministic)",
+      "acceptance_criterion": "AC-006",
+      "verification": "deterministic_risk_verification"
+    },
+    {
+      "number": 7,
+      "domain": "Artifact binding",
+      "acceptance_criterion": "AC-007",
+      "verification": "artifact_binding_verification"
+    },
+    {
+      "number": 8,
+      "domain": "Evidence provenance (P1-P4)",
+      "acceptance_criterion": "AC-008",
+      "verification": "evidence_provenance_p1_p4_verification"
+    },
+    {
+      "number": 9,
+      "domain": "Authority separation",
+      "acceptance_criterion": "AC-009",
+      "verification": "authority_separation_verification"
+    },
+    {
+      "number": 10,
+      "domain": "CI enforcement",
+      "acceptance_criterion": "AC-010",
+      "verification": "ci_enforcement_verification"
+    },
+    {
+      "number": 11,
+      "domain": "Security Gate enforcement",
+      "acceptance_criterion": "AC-011",
+      "verification": "security_gate_verification"
+    },
+    {
+      "number": 12,
+      "domain": "Human Gate enforcement",
+      "acceptance_criterion": "AC-012",
+      "verification": "human_gate_verification"
+    },
+    {
+      "number": 13,
+      "domain": "Merge Policy enforcement",
+      "acceptance_criterion": "AC-013",
+      "verification": "merge_policy_verification"
+    },
+    {
+      "number": 14,
+      "domain": "Branch Protection validation",
+      "acceptance_criterion": "AC-014",
+      "verification": "branch_protection_verification"
+    },
+    {
+      "number": 15,
+      "domain": "Bypass actors verification",
+      "acceptance_criterion": "AC-015",
+      "verification": "bypass_actor_verification"
+    },
+    {
+      "number": 16,
+      "domain": "Trusted integration identity",
+      "acceptance_criterion": "AC-016",
+      "verification": "trusted_integration_verification"
+    },
+    {
+      "number": 17,
+      "domain": "Token governance",
+      "acceptance_criterion": "AC-017",
+      "verification": "token_governance_verification"
+    },
+    {
+      "number": 18,
+      "domain": "Docs automation",
+      "acceptance_criterion": "AC-018",
+      "verification": "docs_automation_verification"
+    },
+    {
+      "number": 19,
+      "domain": "Post-Merge verification",
+      "acceptance_criterion": "AC-019",
+      "verification": "postmerge_exact_sha_verification"
+    },
+    {
+      "number": 20,
+      "domain": "Fail-Closed behavior",
+      "acceptance_criterion": "AC-020",
+      "verification": "fail_closed_verification"
+    }
+  ],
+  "evidence_requirements": {
+    "canonical_source": "Mission V1.5 Section 12",
+    "minimum_field_count": 15,
+    "minimum_fields": [
+      "Task ID",
+      "Mission Version",
+      "Mission Hash",
+      "PR Number",
+      "Base SHA",
+      "Head SHA",
+      "Artifact Hash",
+      "Gate Type",
+      "Raw Result",
+      "Normalized Result",
+      "Actor / Authority",
+      "Transport Identity",
+      "Timestamp",
+      "Workflow Run ID",
+      "Evidence / Comment / Check ID"
+    ],
+    "advisor_message_claimed_count": 22,
+    "resolution": "Canonical named Section 12 fields win; no additional unnamed fields are invented.",
+    "timestamp_standard": "RFC3339 UTC Z suffix seconds precision; no fractional seconds",
+    "result_normalization": "Preserve raw provider result and separately record normalized result per Mission V1.5 Section 14."
+  },
+  "provenance_requirements": {
+    "P1": "Distinguish Executor Evidence from Deterministic Review Evidence",
+    "P2": "Bind evidence to exact Artifact Hash",
+    "P3": "Reject Self-Review substitution",
+    "P4": "Reject Self-Verification substitution"
+  },
+  "token_governance": {
+    "governance": "VERIFIED_REQUIRED",
+    "quantitative_calibration": "DEFERRED_TO_V1_1",
+    "numeric_calibrated_budget": "NOT_CLAIMED",
+    "prohibited": [
+      "SYNTHETIC_TELEMETRY",
+      "INVENTED_TELEMETRY",
+      "ESTIMATED_CALIBRATED_BUDGET",
+      "FAKE_ZERO_USAGE_INFERENCE"
+    ]
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Item 10 machine-verifiably proves Architecture integrity from canonical V1.5 sources without relying on Executor/Advisor/LLM assertion.",
+      "verification": "architecture_integrity_verification",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Item 10 machine-verifiably proves Workflow lifecycle from canonical V1.5 sources without relying on Executor/Advisor/LLM assertion.",
+      "verification": "workflow_lifecycle_verification",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Item 10 machine-verifiably proves Full State Machine from canonical V1.5 sources without relying on Executor/Advisor/LLM assertion.",
+      "verification": "full_state_machine_verification",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Item 10 machine-verifiably proves Scope enforcement from canonical V1.5 sources without relying on Executor/Advisor/LLM assertion.",
+      "verification": "scope_enforcement_verification",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Item 10 machine-verifiably proves Lock acquisition/conflict/release from canonical V1.5 sources without relying on Executor/Advisor/LLM assertion.",
+      "verification": "lock_lifecycle_verification",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Item 10 machine-verifiably proves Risk classification (deterministic) from canonical V1.5 sources without relying on Executor/Advisor/LLM assertion.",
+      "verification": "deterministic_risk_verification",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "Item 10 machine-verifiably proves Artifact binding from canonical V1.5 sources without relying on Executor/Advisor/LLM assertion.",
+      "verification": "artifact_binding_verification",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "Item 10 machine-verifiably proves Evidence provenance (P1-P4) from canonical V1.5 sources without relying on Executor/Advisor/LLM assertion.",
+      "verification": "evidence_provenance_p1_p4_verification",
+      "mandatory": true
+    },
+    {
+      "id": "AC-009",
+      "description": "Item 10 machine-verifiably proves Authority separation from canonical V1.5 sources without relying on Executor/Advisor/LLM assertion.",
+      "verification": "authority_separation_verification",
+      "mandatory": true
+    },
+    {
+      "id": "AC-010",
+      "description": "Item 10 machine-verifiably proves CI enforcement from canonical V1.5 sources without relying on Executor/Advisor/LLM assertion.",
+      "verification": "ci_enforcement_verification",
+      "mandatory": true
+    },
+    {
+      "id": "AC-011",
+      "description": "Item 10 machine-verifiably proves Security Gate enforcement from canonical V1.5 sources without relying on Executor/Advisor/LLM assertion.",
+      "verification": "security_gate_verification",
+      "mandatory": true
+    },
+    {
+      "id": "AC-012",
+      "description": "Item 10 machine-verifiably proves Human Gate enforcement from canonical V1.5 sources without relying on Executor/Advisor/LLM assertion.",
+      "verification": "human_gate_verification",
+      "mandatory": true
+    },
+    {
+      "id": "AC-013",
+      "description": "Item 10 machine-verifiably proves Merge Policy enforcement from canonical V1.5 sources without relying on Executor/Advisor/LLM assertion.",
+      "verification": "merge_policy_verification",
+      "mandatory": true
+    },
+    {
+      "id": "AC-014",
+      "description": "Item 10 machine-verifiably proves Branch Protection validation from canonical V1.5 sources without relying on Executor/Advisor/LLM assertion.",
+      "verification": "branch_protection_verification",
+      "mandatory": true
+    },
+    {
+      "id": "AC-015",
+      "description": "Item 10 machine-verifiably proves Bypass actors verification from canonical V1.5 sources without relying on Executor/Advisor/LLM assertion.",
+      "verification": "bypass_actor_verification",
+      "mandatory": true
+    },
+    {
+      "id": "AC-016",
+      "description": "Item 10 machine-verifiably proves Trusted integration identity from canonical V1.5 sources without relying on Executor/Advisor/LLM assertion.",
+      "verification": "trusted_integration_verification",
+      "mandatory": true
+    },
+    {
+      "id": "AC-017",
+      "description": "Item 10 machine-verifiably proves Token governance from canonical V1.5 sources without relying on Executor/Advisor/LLM assertion.",
+      "verification": "token_governance_verification",
+      "mandatory": true
+    },
+    {
+      "id": "AC-018",
+      "description": "Item 10 machine-verifiably proves Docs automation from canonical V1.5 sources without relying on Executor/Advisor/LLM assertion.",
+      "verification": "docs_automation_verification",
+      "mandatory": true
+    },
+    {
+      "id": "AC-019",
+      "description": "Item 10 machine-verifiably proves Post-Merge verification from canonical V1.5 sources without relying on Executor/Advisor/LLM assertion.",
+      "verification": "postmerge_exact_sha_verification",
+      "mandatory": true
+    },
+    {
+      "id": "AC-020",
+      "description": "Item 10 machine-verifiably proves Fail-Closed behavior from canonical V1.5 sources without relying on Executor/Advisor/LLM assertion.",
+      "verification": "fail_closed_verification",
+      "mandatory": true
+    },
+    {
+      "id": "AC-021",
+      "description": "Mission V1.5 and B1 are canonical dependencies at the exact Item 10 base; PR #211/V1.4 B1 evidence is not reused.",
+      "verification": "canonical_dependency_chain_verification",
+      "mandatory": true
+    },
+    {
+      "id": "AC-022",
+      "description": "The Item 10 gate is verification-only. Any discovered product/controller/workflow defect blocks Item 10 and requires a separately governed remediation task before restart.",
+      "verification": "verification_only_scope_guard",
+      "mandatory": true
+    },
+    {
+      "id": "AC-023",
+      "description": "Every applicable evidence record contains the 15 named canonical Section 12 minimum fields, uses seconds-precision RFC3339 UTC timestamps, preserves raw provider result, and records normalized result separately.",
+      "verification": "evidence_minimum_fields_verification",
+      "mandatory": true
+    },
+    {
+      "id": "AC-024",
+      "description": "Token Governance is verified while quantitative calibration remains DEFERRED_TO_V1_1; no synthetic, invented or estimated calibrated telemetry/budget is accepted.",
+      "verification": "token_calibration_boundary_verification",
+      "mandatory": true
+    },
+    {
+      "id": "AC-025",
+      "description": "Item 10 reaches CANONICAL_COMPLETE only after Task Contract, Risk, Scope, Lock, Primary Review, Verification, CI, Security, Human Gate, Protection, Merge Policy, Protected Merge and exact-SHA Post-Merge satisfy Mission V1.5 B6.",
+      "verification": "item10_b6_terminal_gate_verification",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "SECURITY",
+      "HUMAN",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "HIGH Item 10 Production Gate requires exact-artifact REVIEW PASS, SECURITY PASS, ACTIVE LOCK and authorized Owner HUMAN APPROVED after HUMAN_PENDING. Any artifact/head mutation stales artifact-bound gates."
+  },
+  "protection_source": {
+    "required_contexts": [
+      "verify",
+      "phase-a",
+      "merge-policy"
+    ],
+    "required_integration": "GitHub Actions",
+    "required_integration_id": 15368,
+    "ruleset_id": 23278861
+  },
+  "b6_exit_requirements": [
+    "Task Contract = SATISFIED",
+    "Risk = VALID",
+    "Scope = PASS",
+    "Lock = VALID",
+    "Primary Review = PASS",
+    "Verification = PASS",
+    "CI = PASS",
+    "Security = PASS / N/A",
+    "Human Gate = PASS / N/A",
+    "Protection = PASS",
+    "Merge Policy = PASS",
+    "Protected Merge = PASS",
+    "Exact-SHA Post-Merge = PASS"
+  ]
+}
