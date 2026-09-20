@@ -2,7 +2,7 @@
   "schema_version": "2.2",
   "task_id": "EQCOFE-STEP59-F-HOME-STATE-001",
   "title": "Step 59-F Home states accessibility and responsive hardening",
-  "description": "Close the Home state-presentation gap on top of the existing Step-58 async-state foundation. Map the authoritative Home GET /products AsyncSurfaceState to accessible Home-specific loading, empty, recovery, error, forbidden and offline presentations without changing backend authority or auto-retrying. Preserve previous authoritative product data when a state explicitly carries previous data, expose request identifiers with bidi-safe StatePanel semantics, keep retry as an explicit user action only when bounded and safe, provide a stable alternative search entry without implementing Step 60, and harden Home cards/state actions for long Persian text, RTL logical layout, touch targets and 400% reflow. Do not modify the shared StatePanel foundation, backend/API/OpenAPI/database, downstream routes or business rules.",
+  "description": "Close the Home state-presentation gap on top of the existing Step-58 async-state foundation. Map the authoritative Home GET /products AsyncSurfaceState to accessible Home-specific loading, empty, recovery, error, forbidden and offline presentations without changing backend authority or auto-retrying. Preserve previous authoritative product data when a state explicitly carries previous data, expose request identifiers with bidi-safe StatePanel semantics, keep retry as an explicit user action only when bounded and safe, provide a stable alternative search entry without implementing Step 60, and harden Home cards/state actions for long Persian text, RTL logical layout, touch targets and 400% reflow. Do not modify the shared StatePanel foundation, backend/API/OpenAPI/database, downstream routes or business rules. Stage 59-F also maintains the inherited Stage-59-D discovery verifier only to replace its obsolete direct-ready-data Home wiring assertion with the new selectHomeProducts presentation boundary; all Step-60 route guards and discovery behavior assertions remain enforced.",
   "risk": "MEDIUM",
   "risk_floor": "MEDIUM",
   "owner": "PRODUCT_DESIGN",
@@ -26,6 +26,7 @@
       "apps/storefront/app/styles/home.css",
       "apps/storefront/package.json",
       "apps/storefront/scripts/verify-step59-home-states.ts",
+      "apps/storefront/scripts/verify-step59-discovery.ts",
       "docs/11-step-history/STEP-59-F-HOME-STATES-ACCESSIBILITY.md",
       "docs/14-multi-agent/generated/TASK-CATALOG.md",
       "docs/14-multi-agent/tasks/EQCOFE-STEP59-F-HOME-STATE-001.json"
@@ -71,6 +72,7 @@
         "apps/storefront/app/styles/home.css",
         "apps/storefront/package.json",
         "apps/storefront/scripts/verify-step59-home-states.ts",
+        "apps/storefront/scripts/verify-step59-discovery.ts",
         "docs/11-step-history/STEP-59-F-HOME-STATES-ACCESSIBILITY.md",
         "docs/14-multi-agent/generated/TASK-CATALOG.md",
         "docs/14-multi-agent/tasks/EQCOFE-STEP59-F-HOME-STATE-001.json"
@@ -114,7 +116,8 @@
     "zoom_percent": 400,
     "minimum_target_px": 44,
     "reconciled_after_agent_phase_a_merge": true,
-    "reconciled_main_base": "de453f004cb910b88eea2ef28a3ae4b97e0b9ec2"
+    "reconciled_main_base": "de453f004cb910b88eea2ef28a3ae4b97e0b9ec2",
+    "inherited_stage_d_discovery_verifier_maintenance": "DIRECT_READY_DATA_ASSERTION_REPLACED_BY_SELECT_HOME_PRODUCTS_BOUNDARY"
   },
   "acceptance_criteria": [
     {
