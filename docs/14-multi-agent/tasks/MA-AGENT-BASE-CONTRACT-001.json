@@ -1,0 +1,188 @@
+{
+  "schema_version": "2.2",
+  "task_id": "MA-AGENT-BASE-CONTRACT-001",
+  "title": "Phase B — Base Agent Contract and Prompt Core",
+  "description": "Create the shared inherited Prompt Core for EQCOFE agents A0 through A10, preserve Multi-Agent V1.6 authority separation, define fail-closed preflight/scope/lock/risk/evidence/TOCTOU/handoff rules, standardize agent output, and prepare the non-canonical Phase C executor ownership boundary model for A2 through A5.",
+  "risk": "LOW",
+  "risk_floor": "LOW",
+  "risk_rationale": {
+    "chosen": "LOW",
+    "why_low": [
+      "The task is documentation-only and touches only the new Base Agent Contract, its own Task Contract and the generated Task Catalog.",
+      "No Project Map HIGH sensitive zone is touched.",
+      "The Base Contract explicitly preserves V1.6 authority and does not mutate controllers, workflows, protection, runtime product code, API, database, pricing, inventory, auth, payment or financial behavior.",
+      "Phase C content in this task is design-only ownership guidance; specialized executor prompts remain subject to later independent canonical tasks."
+    ],
+    "escalation_condition": "If deterministic classification or provider state raises effective risk above LOW, stop and follow the higher-risk policy; no downgrade is permitted."
+  },
+  "owner": "BACKEND",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "66ccb3834b6e8307485c7b4e090be6bf067c9a04"
+  },
+  "scope": {
+    "read": [
+      "docs/14-multi-agent/agents/PHASE-A-AGENT-REGISTRY.md",
+      "docs/14-multi-agent/GOVERNANCE.md",
+      "docs/14-multi-agent/missions/EQCOFE-MULTI-AGENT-V1.6-EXECUTION-MISSION.md",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "docs/14-multi-agent/tasks/**",
+      "scripts/multi-agent/docs-automation.mjs",
+      "scripts/multi-agent/project-map.mjs",
+      "scripts/multi-agent/risk-verification-policy.mjs",
+      "scripts/multi-agent/merge-policy-controller.mjs"
+    ],
+    "write": [
+      "docs/14-multi-agent/agents/PHASE-B-BASE-CONTRACT.md",
+      "docs/14-multi-agent/tasks/MA-AGENT-BASE-CONTRACT-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "scripts/**",
+      "test/**",
+      "src/**",
+      "apps/**",
+      "database/**",
+      "contracts/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "docs/11-step-history/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**",
+      "docs/14-multi-agent/GOVERNANCE.md",
+      "docs/14-multi-agent/GOVERNANCE-LOG.md",
+      "docs/14-multi-agent/missions/**",
+      "docs/14-multi-agent/incidents/**",
+      "docs/14-multi-agent/agents/PHASE-A-AGENT-REGISTRY.md",
+      "docs/14-multi-agent/agents/A0-ORCHESTRATOR.md",
+      "docs/14-multi-agent/agents/A1-SPEC.md",
+      "docs/14-multi-agent/agents/A2-BACKEND.md",
+      "docs/14-multi-agent/agents/A3-FRONTEND.md",
+      "docs/14-multi-agent/agents/A4-ADMIN.md",
+      "docs/14-multi-agent/agents/A5-DATABASE.md",
+      "docs/14-multi-agent/agents/A6-DEVOPS.md",
+      "docs/14-multi-agent/agents/A7-QA.md",
+      "docs/14-multi-agent/agents/A8-SECURITY.md",
+      "docs/14-multi-agent/agents/A9-DESIGN.md",
+      "docs/14-multi-agent/agents/A10-EVIDENCE.md"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-MA-AGENT-BASE-CONTRACT-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 12000,
+    "soft_alert": 18000,
+    "hard_cap": 35000
+  },
+  "max_repair_cycles": 2,
+  "task_risk_rules": [],
+  "dependencies": [
+    {
+      "item": "AGENT-LAYER-PHASE-A",
+      "name": "Canonical Agent Registry",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "de453f004cb910b88eea2ef28a3ae4b97e0b9ec2",
+      "evidence": "PR #241 / Merge Policy run 35522578865 / postmerge job 106109134008 / terminal Lock release comment 5751166028",
+      "blocking": false
+    },
+    {
+      "item": "STEP59-F-SHARED-CATALOG-WRITER",
+      "name": "Prior competing TASK-CATALOG writer",
+      "required_state": "CANONICAL_COMPLETE_AND_LOCK_RELEASED",
+      "observed_state": "CANONICAL_COMPLETE_AND_LOCK_RELEASED",
+      "merge_sha": "66ccb3834b6e8307485c7b4e090be6bf067c9a04",
+      "evidence": "PR #242 / Merge Policy run 35524334331 / postmerge job 106113804152 / terminal Lock release comment 5751293454",
+      "blocking": false
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "LOW-risk Base Agent Contract task requires exact-artifact ACTIVE LOCK and deterministic provider verification. Specialized agent prompts are out of write scope and must be canonicalized later as separate one-contract-per-PR tasks."
+  },
+  "protection_source": {
+    "required_contexts": [
+      "verify",
+      "phase-a",
+      "merge-policy"
+    ],
+    "required_integration": "GitHub Actions",
+    "required_integration_id": 15368
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "The Base Contract contains Identity, Mission, Canonical Sources, Authority Model, Preflight, Scope, Lock, Risk, Evidence, Mutation, Verification, Security, Human Gate, TOCTOU, Failure, Handoff, Output Contract and Forbidden Claims sections.",
+      "verification": "base_contract_required_sections_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "The Base Contract explicitly preserves V1.6 authority separation and forbids agent self-review, self-verification and self-certification of canonical Security or Human Gate authority.",
+      "verification": "authority_invariant_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "The inheritance precedence is explicit and live provider state plus canonical governance outrank specialized prompts and historical narrative.",
+      "verification": "inheritance_precedence_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Shared output format exactly includes CLAIMED_CANONICAL_PASS = NO and all A0-A10 specialized prompts are required to inherit this Base Contract.",
+      "verification": "output_contract_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Fail-closed behavior covers unresolved canonical state, Task Contract mismatch, scope/lock/risk conflicts, drift, stale evidence, authority conflict, missing provider evidence and required gates not PASS.",
+      "verification": "failure_behavior_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Phase C design defines non-overlapping primary ownership boundaries for A2 Backend, A3 Storefront, A4 Admin and A5 Database while keeping cross-owner mutation dependent on explicit Task scope.",
+      "verification": "executor_boundary_design_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "Deterministic classification remains LOW with Human Gate NOT REQUIRED; any higher deterministic result blocks LOW execution and requires higher-risk policy.",
+      "verification": "deterministic_risk_classification",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "Task Catalog is generator-consistent and docs automation check passes.",
+      "verification": "node scripts/multi-agent/docs-automation.mjs --check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-009",
+      "description": "The PR changes exactly the three authorized write-scope files and no forbidden path, including no specialized A0-A10 prompt file.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-010",
+      "description": "Exact-head required provider checks pass and protected Merge Policy transport plus exact-SHA post-merge verification complete before Phase B Core is called canonical.",
+      "verification": "provider_exact_head_and_postmerge_evidence",
+      "mandatory": true
+    }
+  ],
+  "process_improvement_links": [
+    "AGENT-LAYER-PHASE-B",
+    "AGENT-LAYER-PHASE-C-DESIGN"
+  ],
+  "incident_links": []
+}
