@@ -1,0 +1,123 @@
+{
+  "schema_version": "2.2",
+  "task_id": "MA-V1-ACC-FAILCLOSED-5C-R2-001",
+  "title": "V1 Acceptance Test 5C R2 — isolated scope violation",
+  "description": "TEST_ONLY negative artifact. Owner-authorized injection of exactly one undeclared inert fixture on an isolated branch exercises the real scope backstop; never merge or dispatch.",
+  "mission_binding": {
+    "mission_version": "V1.5",
+    "mission_hash": "7b29943c936592b63ae76a67359a0cae1b3dd99b2323f1811bc7b2e3d03317a1",
+    "stage": "C",
+    "test": "TEST_5C_R2"
+  },
+  "workstream_id": "AGENT-BUILD-A",
+  "test_mode": true,
+  "mode": "TEST_ONLY",
+  "risk": "LOW",
+  "risk_floor": "LOW",
+  "owner": "BACKEND",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "e261ad3461b00e77b477280f45826a85e7725960"
+  },
+  "scope": {
+    "read": [
+      "scripts/multi-agent/**"
+    ],
+    "write": [
+      "docs/14-multi-agent/tasks/MA-V1-ACC-FAILCLOSED-5C-R2-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "test/multi-agent/v1-acceptance-scope-violation-r2.test.mjs"
+    ],
+    "forbidden": [
+      "src/**",
+      "apps/**",
+      ".github/**",
+      "scripts/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "database/**",
+      "contracts/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-MA-V1-ACC-FAILCLOSED-5C-R2-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 8000,
+    "soft_alert": 12000,
+    "hard_cap": 25000
+  },
+  "max_repair_cycles": 0,
+  "task_risk_rules": [],
+  "negative_test": {
+    "fixture": "test/fixtures/v1-acceptance-scope-violation-r2/undeclared.txt",
+    "expected_blocker": "SCOPE:OUT_OF_SCOPE:test/fixtures/v1-acceptance-scope-violation-r2/undeclared.txt",
+    "workflow_dispatch": "PROHIBITED",
+    "merge": "PROHIBITED",
+    "terminal_state": "ABORTED"
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Canonical controller imported without reimplementation",
+      "mandatory": true,
+      "verification": "canonical_scope_harness"
+    },
+    {
+      "id": "AC-002",
+      "description": "Declared paths accepted",
+      "mandatory": true,
+      "verification": "canonical_scope_harness"
+    },
+    {
+      "id": "AC-003",
+      "description": "Undeclared fixture rejected exactly",
+      "mandatory": true,
+      "verification": "canonical_scope_harness"
+    },
+    {
+      "id": "AC-004",
+      "description": "Real PR Merge Policy records SCOPE:OUT_OF_SCOPE",
+      "mandatory": true,
+      "verification": "real_pr_provider_evidence"
+    },
+    {
+      "id": "AC-005",
+      "description": "merge_eligible=false",
+      "mandatory": true,
+      "verification": "real_pr_provider_evidence"
+    },
+    {
+      "id": "AC-006",
+      "description": "No production/workflow/ruleset mutation",
+      "mandatory": true,
+      "verification": "real_pr_provider_evidence"
+    },
+    {
+      "id": "AC-007",
+      "description": "Never merge",
+      "mandatory": true,
+      "verification": "real_pr_provider_evidence"
+    },
+    {
+      "id": "AC-008",
+      "description": "Never workflow_dispatch",
+      "mandatory": true,
+      "verification": "real_pr_provider_evidence"
+    },
+    {
+      "id": "AC-009",
+      "description": "Close unmerged after evidence",
+      "mandatory": true,
+      "verification": "real_pr_provider_evidence"
+    },
+    {
+      "id": "AC-010",
+      "description": "Release lock ABORTED",
+      "mandatory": true,
+      "verification": "real_pr_provider_evidence"
+    }
+  ]
+}
