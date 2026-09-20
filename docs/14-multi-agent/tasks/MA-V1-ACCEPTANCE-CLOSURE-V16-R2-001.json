@@ -116,5 +116,34 @@
       "mandatory": true,
       "verification": "terminal_provider_seal"
     }
-  ]
+  ],
+  "authorized_human_approver": {
+    "github_login": "rahemih",
+    "role": "PROJECT_OWNER"
+  },
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "SECURITY",
+      "HUMAN",
+      "LOCK"
+    ],
+    "provider_bound_gates": [
+      "REVIEW",
+      "VERIFICATION"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "trusted_github_actions_integration_id": 15368,
+    "rule": "HIGH closure requires provider-bound deterministic Review/Verification, exact-artifact SECURITY/HUMAN/LOCK, live protection, protected merge and exact-SHA post-merge. Executor REVIEW/VERIFICATION comments are unauthorized."
+  },
+  "protection_source": {
+    "required_contexts": [
+      "verify",
+      "phase-a",
+      "merge-policy"
+    ],
+    "required_integration": "GitHub Actions",
+    "required_integration_id": 15368,
+    "ruleset_id": 23278861
+  }
 }
