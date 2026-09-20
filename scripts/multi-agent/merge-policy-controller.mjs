@@ -17,6 +17,8 @@ import {
 export const GATE_PROTOCOL = 'EQCOFE_GATE_V1';
 export const REQUIRED_PROTECTION_CHECKS = Object.freeze(['verify', 'phase-a', 'merge-policy']);
 export const GITHUB_ACTIONS_INTEGRATION_ID = 15368;
+export const DETERMINISTIC_REVIEW_CHECK = 'deterministic-review';
+export const TRUSTED_REVIEW_TRANSPORT = 'GITHUB_ACTIONS_CHECK_RUN';
 export const TASK_CONTRACT_ROOT = 'docs/14-multi-agent/tasks/';
 const GATE_TYPES = new Set(['REVIEW', 'SECURITY', 'HUMAN', 'LOCK']);
 
@@ -119,6 +121,10 @@ export function parseGateEvidence(comments, { task_id, artifact_hash, trusted_au
         comment_id: comment?.id ?? null,
         created_at: comment?.created_at ?? null,
       };
+      if (gate === 'REVIEW') {
+        unauthorized.push({ ...record, reason: 'UNAUTHORIZED_REVIEW_EVIDENCE' });
+        continue;
+      }
       if (trustedAuthor !== null) {
         const author = typeof record.author_login === 'string' ? record.author_login.toLowerCase() : '';
         if (author !== trustedAuthor) {
@@ -140,6 +146,56 @@ export function parseGateEvidence(comments, { task_id, artifact_hash, trusted_au
 
 function gatePass(record, expectedStatus) {
   return Boolean(record && normalizeStatus(record.status) === expectedStatus);
+}
+
+function normalizeProviderCheckStatus(run) {
+  if (!run || run.status !== 'completed') return 'NOT_EXECUTED';
+  const conclusion = normalizeStatus(run.conclusion);
+  if (conclusion === 'SUCCESS') return 'PASS';
+  if (['FAILURE', 'TIMED_OUT', 'STARTUP_FAILURE'].includes(conclusion)) return 'FAIL';
+  return 'NOT_EXECUTED';
+}
+
+export function resolveTrustedCheckEvidence(check_runs, {
+  name,
+  integration_id = GITHUB_ACTIONS_INTEGRATION_ID,
+} = {}) {
+  const checkName = assertString(name, 'CHECK_NAME_REQUIRED');
+  const runs = assertArray(check_runs, 'CHECK_RUNS_REQUIRED')
+    .filter((run) => run?.name === checkName)
+    .sort((a, b) => Number(b?.id ?? 0) - Number(a?.id ?? 0));
+  const unauthorized = runs
+    .filter((run) => Number(run?.app?.id) !== Number(integration_id))
+    .map((run) => ({
+      check_run_id: run?.id ?? null,
+      name: run?.name ?? null,
+      app_id: run?.app?.id ?? null,
+      status: run?.status ?? null,
+      conclusion: run?.conclusion ?? null,
+      reason: 'UNAUTHORIZED_VERIFICATION_EVIDENCE',
+    }));
+  const trusted = runs.find((run) => Number(run?.app?.id) === Number(integration_id)) ?? null;
+  return deepFreeze({
+    name: checkName,
+    integration_id,
+    status: normalizeProviderCheckStatus(trusted),
+    check_run_id: trusted?.id ?? null,
+    app_id: trusted?.app?.id ?? null,
+    raw_status: trusted?.status ?? null,
+    raw_conclusion: trusted?.conclusion ?? null,
+    unauthorized,
+  });
+}
+
+function validateReviewEvidence(record, artifactHash) {
+  if (!record) return ['REVIEW_PASS_MISSING'];
+  const blockers = [];
+  if (normalizeStatus(record.status) !== 'PASS') blockers.push('REVIEW_PASS_MISSING');
+  if (record.transport !== TRUSTED_REVIEW_TRANSPORT) blockers.push('UNAUTHORIZED_REVIEW_EVIDENCE');
+  if (record.check_name !== DETERMINISTIC_REVIEW_CHECK) blockers.push('UNAUTHORIZED_REVIEW_EVIDENCE');
+  if (Number(record.integration_id) !== Number(GITHUB_ACTIONS_INTEGRATION_ID)) blockers.push('UNAUTHORIZED_REVIEW_EVIDENCE');
+  if (record.artifact_hash !== artifactHash) blockers.push('REVIEW_ARTIFACT_MISMATCH');
+  return uniqueSorted(blockers);
 }
 
 function validateLockEvidence(record, contract, artifactHash) {
@@ -166,6 +222,8 @@ export function evaluateMergePolicy({
   artifact_binding,
   project_map = { sensitive_zones: [] },
   gate_evidence = { current: {} },
+  review_evidence = null,
+  unauthorized_verification_evidence = [],
   protection,
   required_ci = {},
   require_required_ci = true,
@@ -210,7 +268,16 @@ export function evaluateMergePolicy({
   }
 
   const evidence = gate_evidence?.current ?? {};
-  if (riskPolicy.reviewer_required && !gatePass(evidence.REVIEW, 'PASS')) blockers.push('REVIEW_PASS_MISSING');
+  const unauthorizedReviewComments = (gate_evidence?.unauthorized ?? [])
+    .filter((record) => record?.reason === 'UNAUTHORIZED_REVIEW_EVIDENCE');
+  if (riskPolicy.reviewer_required) {
+    blockers.push(...validateReviewEvidence(review_evidence, artifactHash));
+    if (!review_evidence && unauthorizedReviewComments.length > 0) blockers.push('UNAUTHORIZED_REVIEW_EVIDENCE');
+  }
+  for (const record of assertArray(unauthorized_verification_evidence, 'INVALID_UNAUTHORIZED_VERIFICATION_EVIDENCE')) {
+    const name = typeof record?.name === 'string' && record.name.trim() !== '' ? record.name.trim() : 'unknown';
+    blockers.push(`UNAUTHORIZED_VERIFICATION_EVIDENCE:${name}`);
+  }
   if (effectiveRisk === 'HIGH' && !gatePass(evidence.SECURITY, 'PASS')) blockers.push('SECURITY_PASS_MISSING');
 
   const humanRequired = contract.human_gate_required === true || riskPolicy.human_gate_required;
@@ -454,17 +521,41 @@ async function fetchAllComments({ repository, pr_number, token, api_url }) {
   return comments;
 }
 
-async function fetchRequiredCi({ repository, sha, checks, token, api_url }) {
+async function fetchCheckRuns({ repository, sha, token, api_url }) {
   const payload = await githubRequest(`${api_url}/repos/${repository}/commits/${sha}/check-runs?per_page=100`, { token });
+  return payload.check_runs ?? [];
+}
+
+async function fetchRequiredCi({ repository, sha, checks, token, api_url }) {
+  const checkRuns = await fetchCheckRuns({ repository, sha, token, api_url });
   const statuses = {};
+  const unauthorized = [];
   for (const name of checks) {
-    const candidates = (payload.check_runs ?? [])
-      .filter((run) => run.name === name && Number(run.app?.id) === GITHUB_ACTIONS_INTEGRATION_ID)
-      .sort((a, b) => b.id - a.id);
-    const latest = candidates[0];
-    statuses[name] = latest?.status === 'completed' && latest?.conclusion === 'success' ? 'PASS' : 'NOT_EXECUTED';
+    const evidence = resolveTrustedCheckEvidence(checkRuns, {
+      name,
+      integration_id: GITHUB_ACTIONS_INTEGRATION_ID,
+    });
+    statuses[name] = evidence.status;
+    if (evidence.status !== 'PASS') unauthorized.push(...evidence.unauthorized);
   }
-  return statuses;
+  return { statuses, unauthorized };
+}
+
+async function fetchDeterministicReviewEvidence({ repository, sha, artifact_hash, token, api_url }) {
+  const checkRuns = await fetchCheckRuns({ repository, sha, token, api_url });
+  const evidence = resolveTrustedCheckEvidence(checkRuns, {
+    name: DETERMINISTIC_REVIEW_CHECK,
+    integration_id: GITHUB_ACTIONS_INTEGRATION_ID,
+  });
+  return deepFreeze({
+    status: evidence.status,
+    transport: TRUSTED_REVIEW_TRANSPORT,
+    check_name: DETERMINISTIC_REVIEW_CHECK,
+    integration_id: GITHUB_ACTIONS_INTEGRATION_ID,
+    check_run_id: evidence.check_run_id,
+    artifact_hash,
+    unauthorized: evidence.unauthorized,
+  });
 }
 
 function loadProjectMap() {
@@ -493,6 +584,13 @@ async function commonPrContext({ repository, pr, token, api_url }) {
     artifact_hash: artifact.artifact_hash,
     trusted_author_login: trustedOwnerLogin,
   });
+  const reviewEvidence = await fetchDeterministicReviewEvidence({
+    repository,
+    sha: headSha,
+    artifact_hash: artifact.artifact_hash,
+    token,
+    api_url,
+  });
   const protection = await validateLiveProtection({
     repository,
     branch: pr.base.ref,
@@ -503,7 +601,7 @@ async function commonPrContext({ repository, pr, token, api_url }) {
   });
   const projectMap = loadProjectMap();
   if (projectMap.repository_sha !== headSha) throw new Error(`PROJECT_MAP_HEAD_MISMATCH:${projectMap.repository_sha}:${headSha}`);
-  return { contractPath, contract, artifact, evidence, protection, projectMap, headSha, trustedOwnerLogin };
+  return { contractPath, contract, artifact, evidence, reviewEvidence, protection, projectMap, headSha, trustedOwnerLogin };
 }
 
 async function runCiPr() {
@@ -522,6 +620,8 @@ async function runCiPr() {
     artifact_binding: context.artifact,
     project_map: context.projectMap,
     gate_evidence: context.evidence,
+    review_evidence: context.reviewEvidence,
+    unauthorized_verification_evidence: [],
     protection: context.protection,
     require_required_ci: false,
   });
@@ -532,9 +632,74 @@ async function runCiPr() {
     protection: context.protection,
     stale_evidence: context.evidence.stale.length,
     unauthorized_evidence: context.evidence.unauthorized.length,
+    review_evidence: context.reviewEvidence,
     ...result,
   }, null, 2));
   if (!result.merge_eligible) process.exitCode = 1;
+}
+
+async function runDeterministicReviewPr() {
+  const repository = assertString(process.env.GITHUB_REPOSITORY, 'GITHUB_REPOSITORY_REQUIRED');
+  const eventPath = assertString(process.env.GITHUB_EVENT_PATH, 'GITHUB_EVENT_PATH_REQUIRED');
+  const event = loadJson(eventPath, 'GITHUB_EVENT_INVALID');
+  const pr = event.pull_request;
+  if (!pr) throw new Error('PULL_REQUEST_EVENT_REQUIRED');
+  validatePrTrustBoundary(pr, repository);
+  const headSha = pr.head.sha;
+  if (gitHead() !== headSha) throw new Error(`CHECKOUT_HEAD_MISMATCH:${gitHead()}:${headSha}`);
+  const contractPath = taskContractPathFromBody(pr.body);
+  const contract = loadJson(contractPath, 'TASK_CONTRACT_INVALID');
+  const trustedOwnerLogin = repository.split('/')[0];
+  validateTaskContractAuthority({
+    contract,
+    contract_path: contractPath,
+    repository,
+    base_branch: pr.base.ref,
+    base_sha: pr.base.sha,
+    trusted_owner_login: trustedOwnerLogin,
+  });
+  const artifact = buildGitArtifactBinding({ base_sha: pr.base.sha, head_sha: headSha });
+  const changedPaths = artifactScopePaths(artifact);
+  const blockers = [];
+  try {
+    validateChangedPaths({
+      changed_paths: changedPaths,
+      write: contract.scope.write,
+      forbidden: contract.scope.forbidden,
+    });
+  } catch (error) {
+    blockers.push(`SCOPE:${error.message}`);
+  }
+  const projectMap = loadProjectMap();
+  if (projectMap.repository_sha !== headSha) blockers.push(`PROJECT_MAP_HEAD_MISMATCH:${projectMap.repository_sha}:${headSha}`);
+  let classification = null;
+  try {
+    classification = classifyRisk({
+      changed_paths: changedPaths,
+      sensitive_zones: projectMap?.sensitive_zones ?? [],
+      task_risk_rules: contract.task_risk_rules ?? [],
+      manager_risk: contract.risk,
+    });
+    const effectiveRisk = maxRisk(classification.effective_risk, contract.risk_floor);
+    if (maxRisk(contract.risk, contract.risk_floor) !== normalizeRisk(contract.risk)) blockers.push('CONTRACT_RISK_BELOW_FLOOR');
+    const policy = verificationPolicyForRisk(effectiveRisk);
+    if (policy.human_gate_required && contract.human_gate_required !== true) blockers.push('HUMAN_GATE_REQUIRED_BY_RISK');
+  } catch (error) {
+    blockers.push(`RISK:${error.message}`);
+  }
+  const uniqueBlockers = uniqueSorted(blockers);
+  const result = {
+    mode: 'DETERMINISTIC_REVIEW',
+    status: uniqueBlockers.length === 0 ? 'PASS' : 'FAIL',
+    contract_path: contractPath,
+    artifact_hash: artifact.artifact_hash,
+    head_sha: headSha,
+    changed_paths: changedPaths,
+    risk: classification,
+    blockers: uniqueBlockers,
+  };
+  console.log(JSON.stringify(result, null, 2));
+  if (uniqueBlockers.length > 0) process.exitCode = 1;
 }
 
 async function runProtectionLive() {
@@ -577,8 +742,10 @@ async function runMergePr(prNumberInput) {
     artifact_binding: context.artifact,
     project_map: context.projectMap,
     gate_evidence: context.evidence,
+    review_evidence: context.reviewEvidence,
+    unauthorized_verification_evidence: requiredCi.unauthorized,
     protection: context.protection,
-    required_ci: requiredCi,
+    required_ci: requiredCi.statuses,
     require_required_ci: true,
   });
   console.log(JSON.stringify({
@@ -586,7 +753,9 @@ async function runMergePr(prNumberInput) {
     contract_path: context.contractPath,
     trusted_gate_author: context.trustedOwnerLogin,
     unauthorized_evidence: context.evidence.unauthorized.length,
-    required_ci: requiredCi,
+    review_evidence: context.reviewEvidence,
+    unauthorized_verification_evidence: requiredCi.unauthorized,
+    required_ci: requiredCi.statuses,
     ...result,
   }, null, 2));
   if (!result.merge_eligible) throw new Error(`MERGE_POLICY_DENIED:${result.blockers.join(',')}`);
@@ -603,9 +772,10 @@ async function runMergePr(prNumberInput) {
 async function main() {
   const [mode, value] = process.argv.slice(2);
   if (mode === '--ci-pr') return runCiPr();
+  if (mode === '--deterministic-review') return runDeterministicReviewPr();
   if (mode === '--protection-live') return runProtectionLive();
   if (mode === '--merge-pr') return runMergePr(value);
-  throw new Error('USAGE: --ci-pr | --protection-live | --merge-pr <number>');
+  throw new Error('USAGE: --ci-pr | --deterministic-review | --protection-live | --merge-pr <number>');
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
