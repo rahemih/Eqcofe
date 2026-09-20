@@ -84,7 +84,7 @@ This closure is canonical only after the H PR itself completes:
 
 1. exact-head Canonical CI — PASS;
 2. exact-head Phase A Verification — PASS;
-3. exact-head Step 58 Storefront Quality — PASS;
+3. deterministic H diff confirms no Storefront/runtime/browser path changed;
 4. artifact-bound REVIEW — PASS;
 5. artifact-bound LOCK — ACTIVE;
 6. Merge Policy — PASS;
@@ -92,8 +92,9 @@ This closure is canonical only after the H PR itself completes:
 8. exact canonical merge checkout — PASS;
 9. postmerge root `pnpm verify` — PASS;
 10. postmerge Phase-A — PASS;
-11. current `main` equals the exact merge SHA;
-12. merged-main Step 58 Storefront Quality — PASS.
+11. current `main` equals the exact merge SHA.
+
+The terminal Browser Quality proof for the unchanged Storefront tree is pre-H Run `35490356922` on exact main `8ba4aaca3ebae0afa8552d509f0ba3decb229d3b`. H does not modify any path matched by the Browser Quality workflow.
 
 Until all transport requirements pass, Step 59 remains `NOT_STARTED`.
 
