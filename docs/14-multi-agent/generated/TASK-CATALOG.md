@@ -47,5 +47,6 @@
 | MA-RISK-VERIFICATION-REMEDIATION-001 | Remediate Item 4 deterministic risk and verification-policy Spec drift | MEDIUM | NOT_REQUIRED | `fd85968adbe45441b154eed402f16c24c6a7e2bd` | 25000/35000/70000 |
 | MA-SCOPE-LOCK-001 | Implement deterministic Scope / Lock Controller | MEDIUM | NOT_REQUIRED | `36fa6122ff187841f85ccc777a0562be81ee16c8` | 25000/35000/70000 |
 | MA-V1-ACC-LOW-001 | V1 Acceptance LOW — DomainEventCollector isolation regression | LOW | NOT_REQUIRED | `7f4e09f2b0f79ee20697dfe9c81874447b0798ea` | 8000/12000/25000 |
+| MA-V1-ACC-MEDIUM-001 | V1 Acceptance MEDIUM — deterministic Phase 0 preflight validator | MEDIUM | NOT_REQUIRED | `8cb4d84323bba93cf6ae37a73961f0f220efa95c` | 12000/20000/40000 |
 
-Task contracts indexed: **42**.
+Task contracts indexed: **43**.
