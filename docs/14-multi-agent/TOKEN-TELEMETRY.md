@@ -60,6 +60,10 @@ All values are safe non-negative integers. Status is deterministic:
 
 A hard-cap result is fail-visible evidence suitable for orchestration blocking. Item 7 does not silently rewrite the Task Contract budget. Item 9 may later calibrate recommended budgets per risk class from canonical telemetry.
 
+## Terminal-state integrity
+
+When an event declares `terminal_state`, the value must normalize to one of the canonical terminal outcomes: `MERGED` or `ABORTED`. Omitted or `null` terminal state remains valid for non-terminal telemetry events. Workflow/intermediate labels such as `HUMAN_PENDING`, arbitrary failure labels, or invented terminal strings are rejected before record construction and persistence so calibration cannot consume non-canonical lifecycle evidence.
+
 ## Calibration eligibility
 
 Only tasks whose terminal state is `MERGED` and which were not human-rejected are primary calibration samples. `ABORTED` and human-rejected telemetry remains retained for audit, but is excluded from the primary P50/P75/P90 calibration sample.
