@@ -159,13 +159,13 @@
     },
     {
       "id": "AC-006",
-      "description": "Exact-head H closure must pass Canonical CI, Phase A, storefront browser-quality and artifact-bound REVIEW/LOCK evidence before protected merge.",
+      "description": "Exact-head H closure must pass Canonical CI, Phase A, deterministic documentation-only scope review, and artifact-bound REVIEW/LOCK evidence. Browser Quality is inherited from the exact pre-H main because H changes no browser/runtime path.",
       "verification": "exact_head_closure_gates",
       "mandatory": true
     },
     {
       "id": "AC-007",
-      "description": "Final Step58 closure becomes canonical only after protected merge, exact-SHA postmerge pnpm verify + Phase-A PASS, current main equals the merge SHA, and merged-main browser-quality PASS.",
+      "description": "Final Step58 closure becomes canonical only after protected merge, exact-SHA postmerge pnpm verify + Phase-A PASS, current main equals the merge SHA, and the H diff remains documentation/governance-only. The terminal Browser Quality evidence remains Run 35490356922 on the unchanged Storefront tree.",
       "verification": "protected_merge_postmerge_closure",
       "mandatory": true
     }
@@ -177,7 +177,7 @@
       "LOCK"
     ],
     "trusted_github_transport_login": "rahemih",
-    "rule": "MEDIUM documentation/governance closure. Human approval is not required; Step59 implementation remains forbidden until H transport and postmerge gates pass."
+    "rule": "MEDIUM documentation/governance closure. Human approval is not required. Terminal browser evidence is inherited from exact pre-H main because H mutates no runtime/browser path; Step59 implementation remains forbidden until H transport and postmerge gates pass."
   },
   "process_improvement_links": [],
   "incident_links": []
