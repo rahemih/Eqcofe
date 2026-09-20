@@ -1,0 +1,143 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP58-G-POSTMERGE-BROWSER-001",
+  "title": "Step 58-G post-merge browser quality closure transport",
+  "description": "Remediate only the missing merged-main browser-quality evidence path by adding workflow_dispatch to the existing Step 58 Storefront Quality workflow. Preserve all browser checks, permissions, pinned tools and product/runtime behavior. Canonical closure requires protected merge of this transport remediation followed by a workflow_dispatch browser-quality PASS on the exact merged main SHA.",
+  "risk": "HIGH",
+  "risk_floor": "HIGH",
+  "owner": "PRODUCT_DESIGN",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "fc601866f21c3e5efc8067ddc00e8898f3c42848"
+  },
+  "scope": {
+    "read": [
+      ".github/workflows/step58-storefront-quality.yml",
+      "docs/11-step-history/STEP-58-G-QUALITY-GATES.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP58-G-QUALITY-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "write": [
+      ".github/workflows/step58-storefront-quality.yml",
+      "docs/11-step-history/STEP-58-G-QUALITY-GATES.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP58-G-POSTMERGE-BROWSER-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      "apps/**",
+      "src/**",
+      "database/**",
+      "contracts/**",
+      "scripts/**",
+      "test/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP58-G-QUALITY-001.json",
+      ".github/workflows/merge-policy.yml"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP58-G-POSTMERGE-BROWSER-001-01"
+  ],
+  "human_gate_required": true,
+  "token_budget": {
+    "expected_max": 15000,
+    "soft_alert": 25000,
+    "hard_cap": 50000
+  },
+  "max_repair_cycles": 2,
+  "task_risk_rules": [
+    {
+      "id": "STEP58_G_POSTMERGE_BROWSER_WORKFLOW_HIGH",
+      "risk": "HIGH",
+      "paths": [
+        ".github/workflows/step58-storefront-quality.yml"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "STEP58_G_IMPLEMENTATION",
+      "name": "Step 58-G implementation PR #198",
+      "required_state": "MERGED_CANONICAL_POSTMERGE_CORE_PASS",
+      "observed_state": "MERGED_CANONICAL_POSTMERGE_CORE_PASS",
+      "merge_sha": "fc601866f21c3e5efc8067ddc00e8898f3c42848",
+      "protected_merge_run": 35444452375,
+      "postmerge_verify_job": 105900926050,
+      "blocking": false
+    },
+    {
+      "item": "STEP58_G_MERGED_MAIN_BROWSER",
+      "name": "Browser quality PASS on exact merged main",
+      "required_state": "PASS",
+      "observed_state": "NOT_EXECUTED",
+      "reason": "GITHUB_TOKEN_PROTECTED_MERGE_DID_NOT_CHAIN_PUSH_WORKFLOW",
+      "blocking": true
+    }
+  ],
+  "authorized_human_approver": {
+    "role": "PROJECT_OWNER",
+    "github_login": "rahemih"
+  },
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "SECURITY",
+      "HUMAN",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "HIGH because an Actions workflow trigger is modified. Exact-artifact Review, Security, Human and Lock evidence are mandatory."
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "The only workflow behavior change is adding workflow_dispatch; pull_request, push, contents-read permission, pinned Playwright/axe install and browser-quality job semantics remain unchanged.",
+      "verification": "exact_diff_and_security_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "No application/runtime/business/backend/API/database/dependency file changes.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Canonical CI, Phase A and Step 58 Storefront Quality pass on the exact remediation PR head.",
+      "verification": "github_actions_exact_head",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "HIGH-risk REVIEW, SECURITY, HUMAN and LOCK evidence is bound to the exact remediation artifact hash.",
+      "verification": "merge_policy_evidence",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Protected Merge Policy workflow_dispatch merges the remediation and exact-SHA postmerge canonical plus Phase A verification passes.",
+      "verification": "protected_merge_and_postmerge",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "After remediation merge, Step 58 Storefront Quality is manually workflow_dispatch'ed on main and browser-quality passes on the exact current main SHA.",
+      "verification": "merged_main_browser_workflow_dispatch",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "Step 58-G is not called canonical complete until AC-006 passes; Stage H and Step 59 remain NOT_STARTED.",
+      "verification": "closure_review",
+      "mandatory": true
+    }
+  ],
+  "process_improvement_links": [],
+  "incident_links": []
+}
