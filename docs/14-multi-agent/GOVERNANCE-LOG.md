@@ -78,3 +78,17 @@ or explicitly authorizes governed creation.
 - B5 quantitative calibration: `DEFERRED_TO_V1_1`
 - Verdict: `ITEM10_SPEC=RESOLVED`
 - Item 10 implementation remains `NOT_STARTED` until this B1 record is canonical and B2/B3 are completed.
+
+## 2026-09-20 — Item 10 provenance/authority separation remediation
+
+- Task: `MA-ITEM10-PROVENANCE-SEPARATION-001`
+- Canonical base: `b33cc615fa46b22b931766905ec13f726d2dbe62`
+- Source finding: Item 10 PR #214 / `PROVENANCE_CAPABILITY=INCOMPLETE`
+- PR #214: `CLOSED_UNMERGED`
+- Root cause: trusted comment author identity did not distinguish Executor REVIEW from Deterministic Review authority.
+- Remediation: Primary Review derives only from exact-head GitHub Actions `verify` + `phase-a` provider facts (integration `15368`).
+- REVIEW comment attempt: `UNAUTHORIZED_REVIEW_EVIDENCE`
+- VERIFICATION comment attempt: `UNAUTHORIZED_VERIFICATION_EVIDENCE`
+- P2 exact-artifact binding: retained and strengthened with exact Review artifact/head binding.
+- Human Approval remains separate and cannot substitute for Review, Verification or Security.
+- Item 10 remains `BLOCKED` until this remediation is canonically merged and Item 10 restarts from the remediated base.
