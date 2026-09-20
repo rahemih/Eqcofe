@@ -1,0 +1,198 @@
+{
+  "schema_version": "2.2",
+  "task_id": "MA-AGENT-A1-SPEC-001",
+  "title": "A1 — Specification & Research Prompt",
+  "description": "Create the specialized A1 Specification & Research prompt inheriting the canonical Phase B Base Agent Contract. Define read-only-by-default requirements research, canonical source precedence, gap/conflict/dependency analysis, testable acceptance criteria, API/domain/technical research discipline, ambiguity handling and source-traceable handoff without granting product authority or implementation authority.",
+  "risk": "LOW",
+  "risk_floor": "LOW",
+  "risk_rationale": {
+    "chosen": "LOW",
+    "why_low": [
+      "The task is documentation-only and touches only the A1 prompt, its Task Contract and the generated Task Catalog.",
+      "No Project Map HIGH sensitive zone is touched.",
+      "A1 is explicitly read-only by default and cannot invent business rules or perform implementation.",
+      "No runtime code, workflow, controller, protection, API, database, pricing, inventory, auth, payment or financial behavior is mutated."
+    ],
+    "escalation_condition": "If deterministic classification or actual changed paths raise effective risk above LOW, stop and follow the higher-risk policy; downgrade is prohibited."
+  },
+  "owner": "BACKEND",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "120898df57138b301560e7d9b9f1b3f5da03e982"
+  },
+  "scope": {
+    "read": [
+      "docs/14-multi-agent/agents/PHASE-A-AGENT-REGISTRY.md",
+      "docs/14-multi-agent/agents/PHASE-B-BASE-CONTRACT.md",
+      "docs/14-multi-agent/agents/A0-ORCHESTRATOR.md",
+      "docs/14-multi-agent/GOVERNANCE.md",
+      "docs/14-multi-agent/missions/EQCOFE-MULTI-AGENT-V1.6-EXECUTION-MISSION.md",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "docs/14-multi-agent/tasks/**",
+      "docs/12-current-state/**",
+      "docs/11-step-history/**",
+      "scripts/multi-agent/project-map.mjs",
+      "scripts/multi-agent/risk-verification-policy.mjs",
+      "scripts/multi-agent/merge-policy-controller.mjs",
+      "scripts/multi-agent/docs-automation.mjs"
+    ],
+    "write": [
+      "docs/14-multi-agent/agents/A1-SPEC.md",
+      "docs/14-multi-agent/tasks/MA-AGENT-A1-SPEC-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "scripts/**",
+      "test/**",
+      "src/**",
+      "apps/**",
+      "database/**",
+      "contracts/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "docs/11-step-history/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**",
+      "docs/14-multi-agent/GOVERNANCE.md",
+      "docs/14-multi-agent/GOVERNANCE-LOG.md",
+      "docs/14-multi-agent/missions/**",
+      "docs/14-multi-agent/incidents/**",
+      "docs/14-multi-agent/agents/PHASE-A-AGENT-REGISTRY.md",
+      "docs/14-multi-agent/agents/PHASE-B-BASE-CONTRACT.md",
+      "docs/14-multi-agent/agents/A0-ORCHESTRATOR.md",
+      "docs/14-multi-agent/agents/A2-BACKEND.md",
+      "docs/14-multi-agent/agents/A3-FRONTEND.md",
+      "docs/14-multi-agent/agents/A4-ADMIN.md",
+      "docs/14-multi-agent/agents/A5-DATABASE.md",
+      "docs/14-multi-agent/agents/A6-DEVOPS.md",
+      "docs/14-multi-agent/agents/A7-QA.md",
+      "docs/14-multi-agent/agents/A8-SECURITY.md",
+      "docs/14-multi-agent/agents/A9-DESIGN.md",
+      "docs/14-multi-agent/agents/A10-EVIDENCE.md"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-MA-AGENT-A1-SPEC-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 10000,
+    "soft_alert": 16000,
+    "hard_cap": 32000
+  },
+  "max_repair_cycles": 2,
+  "task_risk_rules": [],
+  "dependencies": [
+    {
+      "item": "AGENT-LAYER-PHASE-A",
+      "name": "Canonical Agent Registry",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "de453f004cb910b88eea2ef28a3ae4b97e0b9ec2",
+      "blocking": false
+    },
+    {
+      "item": "AGENT-LAYER-PHASE-B-CORE",
+      "name": "Canonical Base Agent Contract and Prompt Core",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "613878480f1fe6b17ef6ab5fb43bd99dfe6fd7b9",
+      "blocking": false
+    },
+    {
+      "item": "AGENT-A0-ORCHESTRATOR",
+      "name": "Canonical A0 Orchestrator Prompt",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "120898df57138b301560e7d9b9f1b3f5da03e982",
+      "evidence": "PR #245 / Merge Policy run 35526179493 / postmerge job 106118686110 / terminal Lock release comment 5751473264",
+      "blocking": false
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "LOW-risk A1 prompt task requires exact-artifact ACTIVE LOCK and deterministic verification. A1 findings are supplementary research evidence and cannot satisfy Canonical Review/Verification/Security/Human Gate authority."
+  },
+  "protection_source": {
+    "required_contexts": [
+      "verify",
+      "phase-a",
+      "merge-policy"
+    ],
+    "required_integration": "GitHub Actions",
+    "required_integration_id": 15368
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "A1 explicitly inherits PHASE-B-BASE-CONTRACT.md.",
+      "verification": "inheritance_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "A1 contains Role Definition, Authority Boundaries, Read Scope, Write Scope, Forbidden Actions, Output Format and Failure Behavior.",
+      "verification": "specialized_prompt_schema_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "A1 is read-only by default and cannot invent or silently reconcile missing business rules.",
+      "verification": "a1_read_only_and_authority_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "A1 defines canonical source precedence and explicitly distinguishes canonical facts, live facts, historical facts, external research, model inference, gaps and conflicts.",
+      "verification": "a1_source_discipline_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "A1 covers requirement gaps, dependencies, testable acceptance criteria, API/domain research, ambiguity handling and implementation-readiness handoff.",
+      "verification": "a1_research_role_coverage_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "A1 output format preserves CLAIMED_CANONICAL_PASS = NO.",
+      "verification": "output_contract_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "Deterministic classification remains LOW with Human Gate NOT REQUIRED; any higher result blocks LOW execution.",
+      "verification": "deterministic_risk_classification",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "Task Catalog is generator-consistent.",
+      "verification": "node scripts/multi-agent/docs-automation.mjs --check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-009",
+      "description": "The PR changes exactly the three authorized paths and no forbidden path.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-010",
+      "description": "Exact-head checks, protected Merge Policy transport, exact-SHA post-merge verification and terminal Lock release complete before A1 is called canonical.",
+      "verification": "provider_exact_head_and_postmerge_evidence",
+      "mandatory": true
+    }
+  ],
+  "process_improvement_links": [
+    "AGENT-LAYER-A1"
+  ],
+  "incident_links": []
+}
