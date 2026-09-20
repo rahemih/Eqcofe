@@ -34,6 +34,7 @@
 | MA-MERGE-POLICY-001 | Merge Policy Controller and protection validation | HIGH | REQUIRED | `3fbf6737562602af2ea7cdf2d326267efb443f34` | 50000/60000/120000 |
 | MA-MISSION-V1-4-REGISTRATION-001 | Mission V1.4 canonical registration and trust freeze | MEDIUM | NOT_REQUIRED | `e5d2d65cd4edf1fcb73a6a4d65c5e22228b7f1c2` | 15000/25000/50000 |
 | MA-MISSION-V1-5-AMENDMENT-001 | Mission V1.5 full execution mission amendment and canonical re-registration | HIGH | REQUIRED | `ce571c420cf42e10bc4f069028c7dfd757e8c1e9` | 30000/50000/90000 |
+| MA-MISSION-V1-6-CLOSURE-SELFREF-001 | Mission V1.6 closure self-reference remediation and canonical re-registration | HIGH | REQUIRED | `e261ad3461b00e77b477280f45826a85e7725960` | 30000/50000/90000 |
 | MA-PHASE-A-DOCS-PATH-001 | Run Phase A verification for multi-agent governance documentation PRs | MEDIUM | NOT_REQUIRED | `6df69308082698e6fbd0ae802b1e24fce3d3f866` | 12000/35000/70000 |
 | MA-PILOT-HIGH-001 | Pilot HIGH — fail-closed Price Rule update validation | HIGH | REQUIRED | `51252043799ee5f8a3fa427d668f66b7c60bebad` | 18000/30000/60000 |
 | MA-PILOT-LOW-001 | Pilot LOW — DomainEventCollector regression coverage | LOW | NOT_REQUIRED | `f560a46d802da7668c7fb8ef79e7f55887f8f321` | 8000/12000/25000 |
@@ -50,4 +51,4 @@
 | MA-V1-ACC-LOW-001 | V1 Acceptance LOW R2 — MoneyToman boundary regression | LOW | NOT_REQUIRED | `65d97e6343ade1b5d97e2e737f66a9b474fcd945` | 8000/12000/25000 |
 | MA-V1-ACC-MEDIUM-001 | V1 Acceptance MEDIUM R2 — telemetry terminal-state conflict hardening | MEDIUM | NOT_REQUIRED | `9017e0f25e9571568ed9acf4ca3ca977ce9e78f0` | 15000/25000/50000 |
 
-Task contracts indexed: **44**.
+Task contracts indexed: **45**.
