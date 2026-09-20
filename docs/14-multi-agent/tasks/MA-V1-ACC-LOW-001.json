@@ -1,0 +1,127 @@
+{
+  "schema_version": "2.2",
+  "task_id": "MA-V1-ACC-LOW-001",
+  "title": "V1 Acceptance LOW — DomainEventCollector isolation regression",
+  "description": "Stage C Test 1 legitimate bounded regression/safety improvement. Add focused regression coverage proving DomainEventCollector instances remain isolated and that mutating a previously pulled batch cannot reintroduce or contaminate later recorded events. No production runtime code changes are permitted.",
+  "mission_binding": {
+    "mission_version": "V1.5",
+    "mission_hash": "7b29943c936592b63ae76a67359a0cae1b3dd99b2323f1811bc7b2e3d03317a1",
+    "stage": "C",
+    "test": "TEST_1_LOW"
+  },
+  "risk": "LOW",
+  "risk_floor": "LOW",
+  "owner": "BACKEND",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "7f4e09f2b0f79ee20697dfe9c81874447b0798ea"
+  },
+  "scope": {
+    "read": [
+      "src/shared/kernel/domain-event.ts",
+      "test/domain-event-collector-pilot-low.spec.ts",
+      "scripts/run-tests.mjs",
+      "scripts/multi-agent/project-map.mjs",
+      "scripts/multi-agent/risk-verification-policy.mjs",
+      "docs/14-multi-agent/missions/EQCOFE-MULTI-AGENT-V1.5-EXECUTION-MISSION.md"
+    ],
+    "write": [
+      "test/domain-event-collector-v1-acceptance-low.spec.ts",
+      "docs/14-multi-agent/tasks/MA-V1-ACC-LOW-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "src/**",
+      "apps/**",
+      "database/**",
+      "contracts/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "docs/11-step-history/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**",
+      "scripts/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-MA-V1-ACC-LOW-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 8000,
+    "soft_alert": 12000,
+    "hard_cap": 25000
+  },
+  "max_repair_cycles": 2,
+  "task_risk_rules": [],
+  "dependencies": [
+    {
+      "item": "ITEM-10",
+      "name": "V1 Production Gate",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "7f4e09f2b0f79ee20697dfe9c81874447b0798ea",
+      "postmerge_run": 35501264855,
+      "blocking": false
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Stage C Test 1 must remain deterministically LOW. It requires exact-artifact ACTIVE LOCK plus provider-bound Verification and protected merge/post-merge evidence. If effective risk escalates, Test 1 fails closed and a different legitimate LOW task must be selected."
+  },
+  "protection_source": {
+    "ruleset_id": 23278861,
+    "required_contexts": [
+      "verify",
+      "phase-a",
+      "merge-policy"
+    ],
+    "required_integration": "GitHub Actions",
+    "required_integration_id": 15368
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Two independent DomainEventCollector instances never leak recorded events across instance boundaries.",
+      "verification": "domain_event_collector_v1_acceptance_low_regression",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Mutating the array returned by pullEvents after a drain cannot reintroduce or contaminate events subsequently recorded by the collector.",
+      "verification": "domain_event_collector_v1_acceptance_low_regression",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "The task changes only the three authorized paths and contains no production runtime, workflow, dependency, database, API or canonical roadmap mutation.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Deterministic classification remains LOW with Human Gate not required; classification is not forced or downgraded.",
+      "verification": "deterministic_risk_classification",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Exact-head verify, Phase A and merge-policy checks pass before protected merge.",
+      "verification": "provider_bound_premerge_checks",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Success is claimed only after protected Merge Policy workflow merge and exact-SHA post-merge PASS on the resulting canonical main SHA.",
+      "verification": "protected_merge_and_exact_sha_postmerge",
+      "mandatory": true
+    }
+  ]
+}
