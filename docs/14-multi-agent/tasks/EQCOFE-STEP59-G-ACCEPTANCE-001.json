@@ -1,0 +1,201 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP59-G-ACCEPTANCE-001",
+  "title": "Step 59-G full verification and browser acceptance",
+  "description": "Run a final non-feature acceptance layer over Step 59 Home, Navigation and Discovery. Verify that Stage-B through Stage-F deterministic verifiers remain wired into Storefront verify, render a production SSR Home against an authoritative mock GET /products backend, validate navigation/search/discovery/merchandising/handoff behavior as one integrated surface, prove that Step 60/61/65/66 downstream routes remain placeholders, and require the existing Storefront Browser Quality workflow to pass accessibility, keyboard, responsive and 400% reflow gates on the exact PR head. Do not change Home runtime behavior unless a verified acceptance failure requires a separately authorized remediation. Do not update Roadmap or Current State here; canonical state synchronization is reserved for Stage 59-H.",
+  "risk": "MEDIUM",
+  "risk_floor": "MEDIUM",
+  "owner": "PRODUCT_DESIGN",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "66ccb3834b6e8307485c7b4e090be6bf067c9a04"
+  },
+  "scope": {
+    "read": [
+      "apps/storefront/**",
+      "docs/11-step-history/STEP-59-*.md",
+      "docs/12-current-state/CURRENT-STATE.md",
+      "docs/12-current-state/MASTER-ROADMAP.md",
+      "docs/13-product-design/**",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "apps/storefront/package.json",
+      "apps/storefront/scripts/verify-step59-acceptance.ts",
+      "docs/11-step-history/STEP-59-G-FULL-VERIFICATION-BROWSER-ACCEPTANCE.md",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP59-G-ACCEPTANCE-001.json"
+    ],
+    "forbidden": [
+      ".github/**",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "src/**",
+      "database/**",
+      "contracts/**",
+      "test/**",
+      "apps/storefront/app/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP59-G-ACCEPTANCE-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 22000,
+    "soft_alert": 34000,
+    "hard_cap": 68000
+  },
+  "task_risk_rules": [
+    {
+      "id": "STEP59_G_ACCEPTANCE_MEDIUM",
+      "risk": "MEDIUM",
+      "paths": [
+        "apps/storefront/package.json",
+        "apps/storefront/scripts/verify-step59-acceptance.ts",
+        "docs/11-step-history/STEP-59-G-FULL-VERIFICATION-BROWSER-ACCEPTANCE.md",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP59-G-ACCEPTANCE-001.json"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "59-A",
+      "name": "Canonical handoff and scope freeze",
+      "required_state": "CLOSED_CANONICAL_PASS",
+      "observed_state": "CLOSED_CANONICAL_PASS",
+      "merge_sha": "8ec202061152b0d941ab0e71100dab87fdde6bc5",
+      "blocking": false
+    },
+    {
+      "item": "59-B",
+      "name": "Header navigation and search entry",
+      "required_state": "CLOSED_CANONICAL_PASS",
+      "observed_state": "CLOSED_CANONICAL_PASS",
+      "merge_sha": "d7d235f5f240b8bea44bc607afa812b2f5bb12d4",
+      "blocking": false
+    },
+    {
+      "item": "59-C",
+      "name": "Home data loader foundation",
+      "required_state": "CLOSED_CANONICAL_PASS",
+      "observed_state": "CLOSED_CANONICAL_PASS",
+      "merge_sha": "175fb3f7e110eff98b9574dc9db5984e5e77ae7b",
+      "blocking": false
+    },
+    {
+      "item": "59-D",
+      "name": "Home category and brand discovery",
+      "required_state": "CLOSED_CANONICAL_PASS",
+      "observed_state": "CLOSED_CANONICAL_PASS",
+      "merge_sha": "4ef4027c1bf761a9d6abade15eec89f2dbee7e00",
+      "blocking": false
+    },
+    {
+      "item": "59-E",
+      "name": "Home merchandising and promotional surfaces",
+      "required_state": "CLOSED_CANONICAL_PASS",
+      "observed_state": "CLOSED_CANONICAL_PASS",
+      "merge_sha": "814cb7e56d927716f3c101771fa9b56b511181e8",
+      "blocking": false
+    },
+    {
+      "item": "59-F",
+      "name": "Home states accessibility and responsive hardening",
+      "required_state": "CLOSED_CANONICAL_PASS",
+      "observed_state": "CLOSED_CANONICAL_PASS",
+      "merge_sha": "66ccb3834b6e8307485c7b4e090be6bf067c9a04",
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "stage_f_merge": "66ccb3834b6e8307485c7b4e090be6bf067c9a04",
+    "final_acceptance_mode": "NO_NEW_FEATURES",
+    "required_stage_verifiers": [
+      "navigation:verify",
+      "home-data:verify",
+      "discovery:verify",
+      "merchandising:verify",
+      "home-state:verify"
+    ],
+    "browser_acceptance_provider": "Step 58 Storefront Quality / browser-quality",
+    "required_widths": [
+      320,
+      360,
+      600,
+      840,
+      1200,
+      1440
+    ],
+    "reflow_zoom_percent": 400,
+    "downstream_boundaries": {
+      "step60": [
+        "/search",
+        "/category/:slug"
+      ],
+      "step61": [
+        "/product/:slug"
+      ],
+      "step65": [
+        "/wholesale"
+      ],
+      "step66": [
+        "/articles"
+      ]
+    },
+    "roadmap_current_state_sync": "RESERVED_FOR_59_H"
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "All Step59 stage verifiers B-F remain wired into Storefront verify and final step59:acceptance is also wired without removing inherited quality/auth/state gates.",
+      "verification": "pnpm --dir apps/storefront step59:acceptance && pnpm --dir apps/storefront verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Integrated SSR Home with authoritative GET /products renders one H1, search entry, category and brand discovery, six bounded product cards with Toman, buying guide and wholesale handoffs, with no unexpected API calls.",
+      "verification": "pnpm --dir apps/storefront step59:acceptance",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Search/Category remain Step60 placeholders; Product remains Step61 placeholder; Wholesale remains Step65 placeholder; Articles remains Step66 placeholder.",
+      "verification": "pnpm --dir apps/storefront step59:acceptance",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "No new runtime feature, backend/API/OpenAPI/database/dependency/lockfile mutation is introduced by Stage G; any acceptance defect requires separately authorized remediation before closure.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Exact-head Storefront Browser Quality passes accessibility, keyboard navigation, responsive widths and 400% reflow on the same PR head used by Canonical CI and Phase A.",
+      "verification": "Storefront Browser Quality + Canonical CI + Phase A exact-head evidence",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Protected merge and exact-SHA postmerge pnpm verify + Phase A pass before Stage 59-H canonical closure starts.",
+      "verification": "canonical_transport_and_postmerge_evidence",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Stage 59-G is verification-only MEDIUM risk. Direct-main/raw merge are prohibited. Stage 59-H remains blocked until protected merge and exact-SHA postmerge verification pass."
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}
