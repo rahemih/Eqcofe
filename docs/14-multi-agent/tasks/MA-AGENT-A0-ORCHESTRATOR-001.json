@@ -1,0 +1,187 @@
+{
+  "schema_version": "2.2",
+  "task_id": "MA-AGENT-A0-ORCHESTRATOR-001",
+  "title": "A0 — Orchestrator / Engineering Manager Prompt",
+  "description": "Create the specialized A0 Orchestrator prompt inheriting the canonical Phase B Base Agent Contract. Define Owner intake, mission decomposition, dependency planning, agent selection, serial/parallel decisions, scope-conflict prevention, dispatch, state tracking, escalation and Owner reporting without granting implementation-by-default, self-review, self-verification, Security Gate or Human Gate authority.",
+  "risk": "LOW",
+  "risk_floor": "LOW",
+  "risk_rationale": {
+    "chosen": "LOW",
+    "why_low": [
+      "The task is documentation-only and touches only the A0 prompt, its own Task Contract and the generated Task Catalog.",
+      "No Project Map HIGH sensitive zone is touched.",
+      "The prompt narrows A0 to orchestration and explicitly preserves Phase B/V1.6 authority separation.",
+      "No runtime code, workflow, controller, protection, API, database, pricing, inventory, auth, payment or financial behavior is mutated."
+    ],
+    "escalation_condition": "If deterministic classification or actual changed paths raise effective risk above LOW, stop and follow the higher-risk policy; downgrade is prohibited."
+  },
+  "owner": "BACKEND",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "613878480f1fe6b17ef6ab5fb43bd99dfe6fd7b9"
+  },
+  "scope": {
+    "read": [
+      "docs/14-multi-agent/agents/PHASE-A-AGENT-REGISTRY.md",
+      "docs/14-multi-agent/agents/PHASE-B-BASE-CONTRACT.md",
+      "docs/14-multi-agent/GOVERNANCE.md",
+      "docs/14-multi-agent/missions/EQCOFE-MULTI-AGENT-V1.6-EXECUTION-MISSION.md",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "docs/14-multi-agent/tasks/**",
+      "scripts/multi-agent/project-map.mjs",
+      "scripts/multi-agent/risk-verification-policy.mjs",
+      "scripts/multi-agent/merge-policy-controller.mjs",
+      "scripts/multi-agent/docs-automation.mjs"
+    ],
+    "write": [
+      "docs/14-multi-agent/agents/A0-ORCHESTRATOR.md",
+      "docs/14-multi-agent/tasks/MA-AGENT-A0-ORCHESTRATOR-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "scripts/**",
+      "test/**",
+      "src/**",
+      "apps/**",
+      "database/**",
+      "contracts/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "docs/11-step-history/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**",
+      "docs/14-multi-agent/GOVERNANCE.md",
+      "docs/14-multi-agent/GOVERNANCE-LOG.md",
+      "docs/14-multi-agent/missions/**",
+      "docs/14-multi-agent/incidents/**",
+      "docs/14-multi-agent/agents/PHASE-A-AGENT-REGISTRY.md",
+      "docs/14-multi-agent/agents/PHASE-B-BASE-CONTRACT.md",
+      "docs/14-multi-agent/agents/A1-SPEC.md",
+      "docs/14-multi-agent/agents/A2-BACKEND.md",
+      "docs/14-multi-agent/agents/A3-FRONTEND.md",
+      "docs/14-multi-agent/agents/A4-ADMIN.md",
+      "docs/14-multi-agent/agents/A5-DATABASE.md",
+      "docs/14-multi-agent/agents/A6-DEVOPS.md",
+      "docs/14-multi-agent/agents/A7-QA.md",
+      "docs/14-multi-agent/agents/A8-SECURITY.md",
+      "docs/14-multi-agent/agents/A9-DESIGN.md",
+      "docs/14-multi-agent/agents/A10-EVIDENCE.md"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-MA-AGENT-A0-ORCHESTRATOR-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 10000,
+    "soft_alert": 16000,
+    "hard_cap": 32000
+  },
+  "max_repair_cycles": 2,
+  "task_risk_rules": [],
+  "dependencies": [
+    {
+      "item": "AGENT-LAYER-PHASE-A",
+      "name": "Canonical Agent Registry",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "de453f004cb910b88eea2ef28a3ae4b97e0b9ec2",
+      "blocking": false
+    },
+    {
+      "item": "AGENT-LAYER-PHASE-B-CORE",
+      "name": "Canonical Base Agent Contract and Prompt Core",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "613878480f1fe6b17ef6ab5fb43bd99dfe6fd7b9",
+      "evidence": "PR #243 / Merge Policy run 35525092473 / postmerge job 106115799318 / terminal Lock release comment 5751351764",
+      "blocking": false
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "LOW-risk A0 prompt task requires exact-artifact ACTIVE LOCK and deterministic verification. A0 output remains supplementary and cannot satisfy Canonical Review/Verification/Security/Human Gate authority."
+  },
+  "protection_source": {
+    "required_contexts": [
+      "verify",
+      "phase-a",
+      "merge-policy"
+    ],
+    "required_integration": "GitHub Actions",
+    "required_integration_id": 15368
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "A0 explicitly inherits PHASE-B-BASE-CONTRACT.md.",
+      "verification": "inheritance_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "A0 contains the required Role Definition, Authority Boundaries, Read Scope, Write Scope, Forbidden Actions, Output Format and Failure Behavior sections.",
+      "verification": "specialized_prompt_schema_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "A0 covers Owner request intake, mission decomposition, task planning, dependency graph, agent selection, serial/parallel decision, scope conflict detection, dispatch, state tracking, result aggregation, escalation and Owner reporting.",
+      "verification": "a0_role_coverage_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "A0 forbids product implementation by default, self-review, self-verification, self-security approval, Human approval, risk downgrade, governance bypass and direct/manual protected-main merge.",
+      "verification": "a0_forbidden_actions_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "A0 explicitly treats shared Task Catalog mutation as a serialization point and specifies fail-closed behavior for competing writers and TOCTOU drift.",
+      "verification": "a0_conflict_serialization_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "A0 output format preserves CLAIMED_CANONICAL_PASS = NO.",
+      "verification": "output_contract_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "Deterministic classification remains LOW with Human Gate NOT REQUIRED; any higher result blocks LOW execution.",
+      "verification": "deterministic_risk_classification",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "Task Catalog is generator-consistent.",
+      "verification": "node scripts/multi-agent/docs-automation.mjs --check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-009",
+      "description": "The PR changes exactly the three authorized paths and no forbidden path.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-010",
+      "description": "Exact-head checks, protected Merge Policy transport, exact-SHA post-merge verification and terminal Lock release complete before A0 is called canonical.",
+      "verification": "provider_exact_head_and_postmerge_evidence",
+      "mandatory": true
+    }
+  ],
+  "process_improvement_links": [
+    "AGENT-LAYER-A0"
+  ],
+  "incident_links": []
+}
