@@ -63,3 +63,18 @@ or explicitly authorizes governed creation.
 - Acceptance evidence reuse: none; Tests 1-7 must execute under V1.5.
 - Stage A dependency immutable evidence may be compatibility-reused only as documented in the compatibility proof.
 - Direct/manual main merge remains prohibited.
+
+
+## 2026-09-20T07:17:37Z — Mission V1.5 Stage B B1 Item 10 Spec Discovery
+
+- Task: `MA-ITEM10-SPEC-DISCOVERY-V15-001`
+- Canonical baseline: `be09ad0b110cf5a60170ce5440f38622c613493c`
+- Mission: `V1.5 / CANONICAL / FROZEN`
+- Mission hash: `7b29943c936592b63ae76a67359a0cae1b3dd99b2323f1811bc7b2e3d03317a1`
+- Mission amendment PR #212: CANONICAL_COMPLETE
+- PR #211: SUPERSEDED / CLOSED_UNMERGED / historical only
+- Canonical Item 10 spec source: frozen V1.5 Mission, Stage B B1-B6 plus Mission-wide invariants
+- B4 mandatory coverage domains: **20 / 20 defined**
+- B5 quantitative calibration: `DEFERRED_TO_V1_1`
+- Verdict: `ITEM10_SPEC=RESOLVED`
+- Item 10 implementation remains `NOT_STARTED` until this B1 record is canonical and B2/B3 are completed.

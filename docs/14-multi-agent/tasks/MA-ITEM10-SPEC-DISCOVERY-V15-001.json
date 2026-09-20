@@ -1,0 +1,210 @@
+{
+  "schema_version": "2.2",
+  "task_id": "MA-ITEM10-SPEC-DISCOVERY-V15-001",
+  "title": "Mission V1.5 Stage B B1 — resolve canonical Item 10 specification",
+  "description": "Persist the deterministic B1 result from canonical Mission V1.5. Resolve the executable Item 10 specification from the frozen V1.5 Mission Stage B B1-B6 and Mission-wide invariants, record all 20 defined B4 coverage domains, preserve the V1.1 token calibration deferral, supersede the non-canonical V1.4 B1 verdict, and authorize B2 Task Contract creation only after this B1 record becomes canonical.",
+  "risk": "MEDIUM",
+  "risk_floor": "LOW",
+  "risk_rationale": {
+    "chosen": "MEDIUM",
+    "why_medium": [
+      "This governance record determines whether Item 10 may advance from specification discovery into Task Contract construction.",
+      "A false resolved verdict could authorize Item 10 execution from incomplete requirements."
+    ],
+    "why_not_high": [
+      "The task records canonical discovery only and does not mutate runtime, controllers, workflows, rulesets, branch protection, database, auth, commerce logic or production state.",
+      "The result does not waive any HIGH-risk Item 10 gate; B2/B3 must still classify and govern the actual Item 10 task."
+    ]
+  },
+  "owner": "BACKEND",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "be09ad0b110cf5a60170ce5440f38622c613493c"
+  },
+  "scope": {
+    "read": [
+      "docs/14-multi-agent/missions/EQCOFE-MULTI-AGENT-V1.5-EXECUTION-MISSION.md",
+      "docs/14-multi-agent/GOVERNANCE.md",
+      "docs/14-multi-agent/ITEM9-CANONICAL-CLOSURE.md",
+      "docs/14-multi-agent/PROCESS-IMPROVEMENTS.md",
+      "docs/12-current-state/MASTER-ROADMAP.md",
+      "docs/12-current-state/CURRENT-STATE.md"
+    ],
+    "write": [
+      "docs/14-multi-agent/ITEM10-SPEC-DISCOVERY-V1.5.md",
+      "docs/14-multi-agent/GOVERNANCE-LOG.md",
+      "docs/14-multi-agent/tasks/MA-ITEM10-SPEC-DISCOVERY-V15-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      "docs/14-multi-agent/missions/**",
+      ".github/**",
+      "scripts/**",
+      "test/**",
+      "src/**",
+      "apps/**",
+      "database/**",
+      "contracts/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "docs/11-step-history/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-MA-ITEM10-SPEC-DISCOVERY-V15-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 18000,
+    "soft_alert": 30000,
+    "hard_cap": 60000
+  },
+  "max_repair_cycles": 2,
+  "task_risk_rules": [
+    {
+      "id": "ITEM10_V15_SPEC_DISCOVERY_MEDIUM",
+      "risk": "MEDIUM",
+      "paths": [
+        "docs/14-multi-agent/ITEM10-SPEC-DISCOVERY-V1.5.md",
+        "docs/14-multi-agent/GOVERNANCE-LOG.md",
+        "docs/14-multi-agent/tasks/MA-ITEM10-SPEC-DISCOVERY-V15-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "MISSION-V1.5",
+      "name": "Mission V1.5 canonical amendment and exact-SHA post-merge closure",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "be09ad0b110cf5a60170ce5440f38622c613493c",
+      "protected_merge_run": 35496160591,
+      "postmerge_verify_job": 106039412536,
+      "blocking": false
+    },
+    {
+      "item": "ITEM-9",
+      "name": "Item 9 canonical closure",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "blocking": false
+    }
+  ],
+  "discovery": {
+    "spec_state": "RESOLVED",
+    "source": "docs/14-multi-agent/missions/EQCOFE-MULTI-AGENT-V1.5-EXECUTION-MISSION.md#stage-b",
+    "executable_sections": [
+      "B1",
+      "B2",
+      "B3",
+      "B4",
+      "B5",
+      "B6"
+    ],
+    "mandatory_coverage_count": 20,
+    "mandatory_coverage": [
+      "Architecture",
+      "Workflow lifecycle",
+      "Full State Machine",
+      "Scope",
+      "Lock",
+      "Risk",
+      "Artifact binding",
+      "Evidence provenance",
+      "Authority separation",
+      "CI",
+      "Security",
+      "Human Gate",
+      "Merge Policy",
+      "Branch Protection",
+      "Bypass actors",
+      "Trusted integration identity",
+      "Token governance",
+      "Docs automation",
+      "Post-Merge",
+      "Fail-Closed behavior"
+    ],
+    "token_calibration": "DEFERRED_TO_V1_1",
+    "prior_pr_211": "SUPERSEDED_CLOSED_UNMERGED_NOT_CANONICAL"
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Mission V1.5 is verified CANONICAL/FROZEN at the exact base SHA with protected merge and exact-SHA post-merge PASS.",
+      "verification": "mission_v15_dependency_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "B1 resolves the executable Item 10 specification from the frozen Mission V1.5 Stage B B1-B6 and does not rely on narrative chat context.",
+      "verification": "canonical_spec_source_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "All 20 B4 mandatory coverage domains are extracted exactly from the frozen Mission and none are invented or omitted.",
+      "verification": "b4_coverage_exactness_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "B5 preserves Token Governance verification and quantitative calibration DEFERRED_TO_V1_1 with no synthetic or estimated telemetry.",
+      "verification": "token_boundary_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "B6 exit conditions are recorded and no Item 10 CANONICAL_COMPLETE claim is made in B1.",
+      "verification": "b6_terminal_guard_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "PR #211 remains superseded/closed-unmerged and is not reused as canonical B1 evidence.",
+      "verification": "historical_pr_nonreuse_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "Only the four declared documentation/governance paths change.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "Generated Task Catalog contains this task and indexes 39 Task Contracts exactly.",
+      "verification": "node scripts/multi-agent/docs-automation.mjs --check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-009",
+      "description": "Exact-head Canonical CI, Phase A, artifact-bound REVIEW PASS, ACTIVE LOCK and Merge Policy PASS are required before protected merge; exact-SHA postmerge canonical and Phase A verification are required for B1 canonical completion.",
+      "verification": "governed_b1_transport",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "MEDIUM B1 governance task. Security/Human are not required unless deterministic risk escalates."
+  },
+  "protection_source": {
+    "required_contexts": [
+      "verify",
+      "phase-a",
+      "merge-policy"
+    ],
+    "required_integration": "GitHub Actions",
+    "required_integration_id": 15368,
+    "ruleset_id": 23278861
+  }
+}
