@@ -1,5 +1,6 @@
 import { data, useLoaderData } from "react-router";
 import { HomeDiscovery } from "../features/home/HomeDiscovery";
+import { HomeMerchandising } from "../features/home/HomeMerchandising";
 import { loadHomeRouteData } from "../features/home/home-data.server";
 import { getMessages } from "../i18n";
 import { appendCustomerSessionSetCookies } from "../platform/auth/session-cookie.server";
@@ -31,6 +32,14 @@ export default function HomeRoute() {
       {loaderData.productPreview.status === "ready" ? (
         <HomeDiscovery products={loaderData.productPreview.data} />
       ) : null}
+
+      <HomeMerchandising
+        products={
+          loaderData.productPreview.status === "ready"
+            ? loaderData.productPreview.data
+            : null
+        }
+      />
     </div>
   );
 }
