@@ -1,0 +1,193 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP59-H-CLOSURE-001",
+  "title": "Step 59-H final canonical closure and Step 60 handoff",
+  "description": "Close Step 59 after Stages A-G have protected-merged and exact-SHA postmerge verification passed. Terminalize Stage G history, create the final Step-59 closure record, reconcile CURRENT-STATE and MASTER-ROADMAP so Step 59 is CLOSED / FINAL CANONICAL PASS and Step 60 is NEXT / NOT_STARTED, and regenerate the shared task catalog from the latest canonical main that also contains Agent Layer A0. This task is documentation/governance-only: no Storefront runtime, backend, API, OpenAPI, database, dependency, workflow, design artifact or Step-60 feature mutation is permitted.",
+  "risk": "MEDIUM",
+  "risk_floor": "MEDIUM",
+  "owner": "PRODUCT_DESIGN",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "120898df57138b301560e7d9b9f1b3f5da03e982"
+  },
+  "scope": {
+    "read": [
+      "apps/storefront/**",
+      "docs/11-step-history/STEP-59-*.md",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**",
+      "docs/14-multi-agent/**",
+      ".github/workflows/**"
+    ],
+    "write": [
+      "docs/11-step-history/STEP-59-G-FULL-VERIFICATION-BROWSER-ACCEPTANCE.md",
+      "docs/11-step-history/STEP-59-H-FINAL-CANONICAL-CLOSURE.md",
+      "docs/12-current-state/CURRENT-STATE.md",
+      "docs/12-current-state/MASTER-ROADMAP.md",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP59-H-CLOSURE-001.json"
+    ],
+    "forbidden": [
+      ".github/**",
+      "apps/**",
+      "src/**",
+      "database/**",
+      "contracts/**",
+      "test/**",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "package.json",
+      "docs/13-product-design/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP59-H-CLOSURE-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 18000,
+    "soft_alert": 30000,
+    "hard_cap": 60000
+  },
+  "task_risk_rules": [
+    {
+      "id": "STEP59_H_CANONICAL_CLOSURE_MEDIUM",
+      "risk": "MEDIUM",
+      "paths": [
+        "docs/11-step-history/STEP-59-G-FULL-VERIFICATION-BROWSER-ACCEPTANCE.md",
+        "docs/11-step-history/STEP-59-H-FINAL-CANONICAL-CLOSURE.md",
+        "docs/12-current-state/CURRENT-STATE.md",
+        "docs/12-current-state/MASTER-ROADMAP.md",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP59-H-CLOSURE-001.json"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "59-A",
+      "required_state": "CLOSED_CANONICAL_PASS",
+      "observed_state": "CLOSED_CANONICAL_PASS",
+      "merge_sha": "8ec202061152b0d941ab0e71100dab87fdde6bc5",
+      "blocking": false
+    },
+    {
+      "item": "59-B",
+      "required_state": "CLOSED_CANONICAL_PASS",
+      "observed_state": "CLOSED_CANONICAL_PASS",
+      "merge_sha": "d7d235f5f240b8bea44bc607afa812b2f5bb12d4",
+      "blocking": false
+    },
+    {
+      "item": "59-C",
+      "required_state": "CLOSED_CANONICAL_PASS",
+      "observed_state": "CLOSED_CANONICAL_PASS",
+      "merge_sha": "175fb3f7e110eff98b9574dc9db5984e5e77ae7b",
+      "blocking": false
+    },
+    {
+      "item": "59-D",
+      "required_state": "CLOSED_CANONICAL_PASS",
+      "observed_state": "CLOSED_CANONICAL_PASS",
+      "merge_sha": "4ef4027c1bf761a9d6abade15eec89f2dbee7e00",
+      "blocking": false
+    },
+    {
+      "item": "59-E",
+      "required_state": "CLOSED_CANONICAL_PASS",
+      "observed_state": "CLOSED_CANONICAL_PASS",
+      "merge_sha": "814cb7e56d927716f3c101771fa9b56b511181e8",
+      "blocking": false
+    },
+    {
+      "item": "59-F",
+      "required_state": "CLOSED_CANONICAL_PASS",
+      "observed_state": "CLOSED_CANONICAL_PASS",
+      "merge_sha": "66ccb3834b6e8307485c7b4e090be6bf067c9a04",
+      "blocking": false
+    },
+    {
+      "item": "59-G",
+      "required_state": "CLOSED_CANONICAL_PASS",
+      "observed_state": "CLOSED_CANONICAL_PASS",
+      "merge_sha": "f7919991e619d416360e74a542741ef21c70f732",
+      "blocking": false
+    },
+    {
+      "item": "AGENT-A0",
+      "required_state": "TERMINAL_MERGED_POSTMERGE_PASS_LOCK_RELEASED",
+      "observed_state": "TERMINAL_MERGED_POSTMERGE_PASS_LOCK_RELEASED",
+      "merge_sha": "120898df57138b301560e7d9b9f1b3f5da03e982",
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "stage_g_pr": 244,
+    "stage_g_head": "cf3415680ce7c8e28edccad460afad1a65004712",
+    "stage_g_artifact_hash": "39b50d6ef2f0f9313ac91767437024ed1262a1ae3e1bc29c60c543d120e5887c",
+    "stage_g_merge_run": 35525658270,
+    "stage_g_merge_sha": "f7919991e619d416360e74a542741ef21c70f732",
+    "stage_g_postmerge_job": 106117278671,
+    "stage_g_browser_quality_run": 35525409547,
+    "stage_g_browser_quality_job": 106116581108,
+    "intervening_agent_a0_pr": 245,
+    "intervening_agent_a0_merge_sha": "120898df57138b301560e7d9b9f1b3f5da03e982",
+    "intervening_change_scope": [
+      "docs/14-multi-agent/agents/A0-ORCHESTRATOR.md",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "docs/14-multi-agent/tasks/MA-AGENT-A0-ORCHESTRATOR-001.json"
+    ],
+    "runtime_drift_between_59g_and_h_base": "NONE",
+    "next_step_after_closure": "Step 60 — Search, Category, Filters & Listing"
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Step 59-G history records its protected merge, exact merge SHA, postmerge verify and Phase A as terminal PASS.",
+      "verification": "deterministic_document_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "MASTER-ROADMAP version advances to Step-59 Final Canonical Closure, Step 59 becomes CLOSED / FINAL CANONICAL PASS, Step 60 becomes NEXT / NOT_STARTED, and current-position statements no longer claim Step 59 has not started.",
+      "verification": "deterministic_document_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "CURRENT-STATE records Step 59 final canonical evidence and identifies Step 60 as the next approved step while preserving immutable historical Step-58 evidence.",
+      "verification": "deterministic_document_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "The H diff is documentation/governance-only and contains no runtime, workflow, dependency, API, OpenAPI, database, design or Step-60 feature mutation.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Stage-G exact-head Browser Quality remains valid because the only changes between the Stage-G merge and H starting main are the three Agent A0 governance files; no Storefront/runtime path changed.",
+      "verification": "compare_commits + provider_evidence",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Exact-head Canonical CI, Phase A, deterministic review, exact-artifact lock, Merge Policy, protected merge, exact-SHA postmerge root pnpm verify and Phase A all pass before Step 60 is authorized.",
+      "verification": "canonical_transport_and_postmerge_evidence",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Step 59-H is documentation/governance-only MEDIUM risk. Step 60 remains blocked until H itself protected-merges and exact-SHA postmerge verification passes."
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}
