@@ -27,7 +27,9 @@
       ".github/workflows/merge-policy.yml",
       ".github/workflows/ci.yml",
       ".github/workflows/phase-a-verification.yml",
-      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "scripts/multi-agent/pre-pilot-verification.mjs",
+      "test/multi-agent/pre-pilot-verification.test.mjs"
     ],
     "write": [
       "scripts/multi-agent/merge-policy-controller.mjs",
@@ -35,7 +37,9 @@
       "docs/14-multi-agent/ITEM10-PROVENANCE-REMEDIATION.md",
       "docs/14-multi-agent/GOVERNANCE-LOG.md",
       "docs/14-multi-agent/tasks/MA-ITEM10-PROVENANCE-SEPARATION-001.json",
-      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "scripts/multi-agent/pre-pilot-verification.mjs",
+      "test/multi-agent/pre-pilot-verification.test.mjs"
     ],
     "forbidden": [
       ".github/**",
@@ -82,7 +86,9 @@
         "docs/14-multi-agent/ITEM10-PROVENANCE-REMEDIATION.md",
         "docs/14-multi-agent/GOVERNANCE-LOG.md",
         "docs/14-multi-agent/tasks/MA-ITEM10-PROVENANCE-SEPARATION-001.json",
-        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+        "docs/14-multi-agent/generated/TASK-CATALOG.md",
+        "scripts/multi-agent/pre-pilot-verification.mjs",
+        "test/multi-agent/pre-pilot-verification.test.mjs"
       ]
     }
   ],
@@ -179,6 +185,12 @@
       "mandatory": true
     },
     {
+      "id": "AC-009A",
+      "description": "Legacy P-4 pre-pilot integration harness is migrated to provider-derived Review semantics and remains deterministic PASS without weakening any negative scenario.",
+      "verification": "pre_pilot_verification_tests",
+      "mandatory": true
+    },
+    {
       "id": "AC-010",
       "description": "PR-mode Merge Policy may wait/fail closed until verify + phase-a provider facts are PASS, without relying on merge-policy itself for Primary Review.",
       "verification": "controller_integration_review",
@@ -198,7 +210,7 @@
     },
     {
       "id": "AC-013",
-      "description": "Exact-head REVIEW/SECURITY/ACTIVE LOCK and Owner HUMAN approval are required for this HIGH remediation artifact before protected merge.",
+      "description": "Exact-head deterministic Primary Review, SECURITY, ACTIVE LOCK and Owner HUMAN approval are required for this HIGH remediation artifact before protected merge.",
       "verification": "governed_high_transport",
       "mandatory": true
     },
