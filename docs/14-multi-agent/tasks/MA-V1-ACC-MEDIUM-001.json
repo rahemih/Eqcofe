@@ -1,29 +1,28 @@
 {
   "schema_version": "2.2",
   "task_id": "MA-V1-ACC-MEDIUM-001",
-  "title": "V1 Acceptance MEDIUM — telemetry terminal-state validation",
-  "description": "Stage C Test 2 legitimate governance-data integrity improvement. Restrict token telemetry terminal_state values to canonical terminal outcomes so malformed or invented terminal labels cannot enter deterministic calibration records. Preserve existing explicit-usage, integrity, persistence and readback behavior.",
+  "title": "V1 Acceptance MEDIUM R2 — telemetry terminal-state conflict hardening",
+  "description": "Stage C Test 2 R2 legitimate governance-data integrity hardening. Reject contradictory canonical terminal outcomes when the same task telemetry contains both MERGED and ABORTED, while preserving repeated identical terminal outcomes, explicit provenance, deterministic aggregation, persistence and verified readback.",
   "mission_binding": {
     "mission_version": "V1.5",
     "mission_hash": "7b29943c936592b63ae76a67359a0cae1b3dd99b2323f1811bc7b2e3d03317a1",
     "stage": "C",
     "test": "TEST_2_MEDIUM"
   },
-  "workstream_id": "AGENT-BUILD-B",
+  "workstream_id": "AGENT-BUILD-A",
   "risk": "MEDIUM",
   "risk_floor": "LOW",
   "owner": "BACKEND",
   "canonical": {
     "repository": "rahemih/Eqcofe",
     "branch": "main",
-    "base_sha": "8cb4d84323bba93cf6ae37a73961f0f220efa95c"
+    "base_sha": "9017e0f25e9571568ed9acf4ca3ca977ce9e78f0"
   },
   "scope": {
     "read": [
       "scripts/multi-agent/token-telemetry.mjs",
       "test/multi-agent/token-telemetry.test.mjs",
       "docs/14-multi-agent/TOKEN-TELEMETRY.md",
-      "docs/14-multi-agent/tasks/MA-PILOT-MEDIUM-001.json",
       "docs/14-multi-agent/generated/TASK-CATALOG.md",
       "docs/14-multi-agent/missions/EQCOFE-MULTI-AGENT-V1.5-EXECUTION-MISSION.md"
     ],
@@ -52,7 +51,7 @@
     ]
   },
   "requested_lock_ids": [
-    "LOCK-MA-V1-ACC-MEDIUM-001-01"
+    "LOCK-MA-V1-ACC-MEDIUM-001-R2-01"
   ],
   "human_gate_required": false,
   "token_budget": {
@@ -63,7 +62,7 @@
   "max_repair_cycles": 2,
   "task_risk_rules": [
     {
-      "id": "V1_ACC_MEDIUM_TELEMETRY_INTEGRITY",
+      "id": "V1_ACC_MEDIUM_R2_TELEMETRY_TERMINAL_CONFLICT",
       "risk": "MEDIUM",
       "paths": [
         "scripts/multi-agent/token-telemetry.mjs",
@@ -73,24 +72,23 @@
   ],
   "dependencies": [
     {
-      "item": "STAGE-C-TEST-1",
-      "name": "V1 Acceptance Test 1 LOW",
+      "item": "STAGE-C-TEST-1-R2",
+      "name": "V1 Acceptance Test 1 LOW R2",
       "required_state": "CANONICAL_COMPLETE",
       "observed_state": "CANONICAL_COMPLETE",
-      "merge_sha": "8cb4d84323bba93cf6ae37a73961f0f220efa95c",
-      "postmerge_run": 35502102814,
+      "merge_sha": "9017e0f25e9571568ed9acf4ca3ca977ce9e78f0",
+      "postmerge_run": 35509307012,
       "blocking": false
     }
   ],
   "external_gate_evidence": {
     "protocol": "EQCOFE_GATE_V1",
-    "workstream_id": "AGENT-BUILD-B",
+    "workstream_id": "AGENT-BUILD-A",
     "artifact_bound_gates": [
-      "REVIEW",
       "LOCK"
     ],
     "trusted_github_transport_login": "rahemih",
-    "rule": "Stage C Test 2 must classify MEDIUM from the telemetry-governance change itself. It requires independent deterministic Review plus Verification and exact-artifact ACTIVE LOCK. Human Gate is not required unless effective risk escalates to HIGH."
+    "rule": "Stage C Test 2 R2 must classify MEDIUM from the telemetry-governance paths/rule itself. Deterministic Review is provider-derived from GitHub Actions Check Runs only; executor-authored REVIEW/VERIFICATION comment gates are prohibited. Exact-artifact ACTIVE LOCK is required after provider checks pass. Human Gate is not required unless effective risk escalates to HIGH."
   },
   "protection_source": {
     "ruleset_id": 23278861,
@@ -105,37 +103,37 @@
   "acceptance_criteria": [
     {
       "id": "AC-001",
-      "description": "normalizeUsageEvent accepts only canonical terminal outcomes MERGED and ABORTED when terminal_state is present, and continues to allow omission/null for non-terminal telemetry events.",
+      "description": "A telemetry record containing both canonical terminal outcomes MERGED and ABORTED fails closed with CONFLICTING_TERMINAL_STATES independent of event ordering.",
       "verification": "node --test test/multi-agent/token-telemetry.test.mjs",
       "mandatory": true
     },
     {
       "id": "AC-002",
-      "description": "Invented, malformed or non-terminal workflow labels such as HUMAN_PENDING, FAILED_LABEL or arbitrary text are rejected before record construction or persistence.",
+      "description": "Repeated identical canonical terminal outcomes remain valid and deterministic, including normalized case variants, without changing calibration eligibility semantics.",
       "verification": "node --test test/multi-agent/token-telemetry.test.mjs",
       "mandatory": true
     },
     {
       "id": "AC-003",
-      "description": "Canonical MERGED telemetry remains eligible for calibration when not human-rejected, while ABORTED telemetry remains retained but excluded from primary calibration.",
-      "verification": "node --test test/multi-agent/token-telemetry.test.mjs",
+      "description": "Existing terminal-state validation, explicit provenance, budget aggregation, persistence integrity and verified readback behavior remain intact.",
+      "verification": "pnpm verify",
       "mandatory": true
     },
     {
       "id": "AC-004",
-      "description": "The PR changes exactly the five authorized telemetry/governance paths and does not mutate runtime product code, APIs, database, dependencies, workflows, protection or risk controllers.",
+      "description": "The artifact changes exactly the five authorized telemetry/governance paths and does not mutate product runtime, APIs, database, dependencies, workflows, protection or risk/scope/merge controllers.",
       "verification": "deterministic_scope_check",
       "mandatory": true
     },
     {
       "id": "AC-005",
-      "description": "Deterministic classification remains MEDIUM with Review plus Verification and Human Gate not required; any escalation to HIGH fails closed.",
+      "description": "Deterministic classification is MEDIUM from the telemetry task risk rule/changed paths with Human Gate not required; any escalation to HIGH fails closed.",
       "verification": "deterministic_risk_classification",
       "mandatory": true
     },
     {
       "id": "AC-006",
-      "description": "Exact-head verify, Phase A and merge-policy pass before protected workflow_dispatch merge, followed by exact-SHA postmerge verification before Test 2 completion is claimed.",
+      "description": "Fresh exact-head verify, Phase A and merge-policy evidence plus exact-artifact ACTIVE LOCK are required before PRE_DISPATCH_GUARD; protected workflow_dispatch and exact-SHA postmerge verification remain mandatory for completion.",
       "verification": "protected_merge_and_exact_sha_postmerge",
       "mandatory": true
     }
