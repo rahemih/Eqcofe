@@ -79,3 +79,7 @@ STEP_59_F = IN_PROGRESS
 STEP_59_G = BLOCKED
 STEP_60 = NOT_STARTED
 ```
+
+## Inherited Stage-D regression maintenance
+
+Stage 59-F introduces `selectHomeProducts(...)` so Home can preserve explicitly provided authoritative `previous` data during loading/recovery states. The inherited Stage-59-D discovery verifier originally required direct `loaderData.productPreview.data` wiring, which became obsolete. Its assertion was updated only after the Stage-F Task Contract explicitly added the verifier to write scope. Category/Search Step-60 placeholder guards remain unchanged.
