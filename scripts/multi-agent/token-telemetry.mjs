@@ -4,6 +4,7 @@ import { isDeepStrictEqual } from 'node:util';
 import { fileURLToPath } from 'node:url';
 
 const SOURCE_TYPES = new Set(['PROVIDER_API', 'MODEL_CLIENT', 'MANUAL_REPORTED']);
+const TERMINAL_STATES = new Set(['MERGED', 'ABORTED']);
 const COUNT_FIELDS = [
   'input_tokens', 'context_tokens_read', 'output_tokens', 'files_read', 'files_written',
   'model_calls', 'retry_count', 'verification_calls',
@@ -54,7 +55,9 @@ export function normalizeUsageEvent(event, expectedTaskId) {
     if (total !== normalized.input_tokens + normalized.output_tokens) fail('INCONSISTENT_TOTAL_TOKENS');
   }
   if (event.terminal_state !== undefined && event.terminal_state !== null) {
-    normalized.terminal_state = nonEmpty(event.terminal_state, 'INVALID_TERMINAL_STATE').toUpperCase();
+    const terminal_state = nonEmpty(event.terminal_state, 'INVALID_TERMINAL_STATE').toUpperCase();
+    if (!TERMINAL_STATES.has(terminal_state)) fail('INVALID_TERMINAL_STATE');
+    normalized.terminal_state = terminal_state;
   }
   if (event.human_rejected !== undefined && typeof event.human_rejected !== 'boolean') fail('INVALID_HUMAN_REJECTED');
   normalized.human_rejected = event.human_rejected === true;

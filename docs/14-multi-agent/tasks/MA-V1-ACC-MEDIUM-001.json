@@ -1,0 +1,143 @@
+{
+  "schema_version": "2.2",
+  "task_id": "MA-V1-ACC-MEDIUM-001",
+  "title": "V1 Acceptance MEDIUM — telemetry terminal-state validation",
+  "description": "Stage C Test 2 legitimate governance-data integrity improvement. Restrict token telemetry terminal_state values to canonical terminal outcomes so malformed or invented terminal labels cannot enter deterministic calibration records. Preserve existing explicit-usage, integrity, persistence and readback behavior.",
+  "mission_binding": {
+    "mission_version": "V1.5",
+    "mission_hash": "7b29943c936592b63ae76a67359a0cae1b3dd99b2323f1811bc7b2e3d03317a1",
+    "stage": "C",
+    "test": "TEST_2_MEDIUM"
+  },
+  "workstream_id": "AGENT-BUILD-B",
+  "risk": "MEDIUM",
+  "risk_floor": "LOW",
+  "owner": "BACKEND",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "8cb4d84323bba93cf6ae37a73961f0f220efa95c"
+  },
+  "scope": {
+    "read": [
+      "scripts/multi-agent/token-telemetry.mjs",
+      "test/multi-agent/token-telemetry.test.mjs",
+      "docs/14-multi-agent/TOKEN-TELEMETRY.md",
+      "docs/14-multi-agent/tasks/MA-PILOT-MEDIUM-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "docs/14-multi-agent/missions/EQCOFE-MULTI-AGENT-V1.5-EXECUTION-MISSION.md"
+    ],
+    "write": [
+      "scripts/multi-agent/token-telemetry.mjs",
+      "test/multi-agent/token-telemetry.test.mjs",
+      "docs/14-multi-agent/TOKEN-TELEMETRY.md",
+      "docs/14-multi-agent/tasks/MA-V1-ACC-MEDIUM-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "src/**",
+      "apps/**",
+      "database/**",
+      "contracts/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "docs/11-step-history/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**",
+      "scripts/multi-agent/merge-policy-controller.mjs",
+      "scripts/multi-agent/scope-lock-controller.mjs",
+      "scripts/multi-agent/risk-verification-policy.mjs"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-MA-V1-ACC-MEDIUM-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 15000,
+    "soft_alert": 25000,
+    "hard_cap": 50000
+  },
+  "max_repair_cycles": 2,
+  "task_risk_rules": [
+    {
+      "id": "V1_ACC_MEDIUM_TELEMETRY_INTEGRITY",
+      "risk": "MEDIUM",
+      "paths": [
+        "scripts/multi-agent/token-telemetry.mjs",
+        "test/multi-agent/token-telemetry.test.mjs"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "STAGE-C-TEST-1",
+      "name": "V1 Acceptance Test 1 LOW",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "8cb4d84323bba93cf6ae37a73961f0f220efa95c",
+      "postmerge_run": 35502102814,
+      "blocking": false
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "workstream_id": "AGENT-BUILD-B",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Stage C Test 2 must classify MEDIUM from the telemetry-governance change itself. It requires independent deterministic Review plus Verification and exact-artifact ACTIVE LOCK. Human Gate is not required unless effective risk escalates to HIGH."
+  },
+  "protection_source": {
+    "ruleset_id": 23278861,
+    "required_contexts": [
+      "verify",
+      "phase-a",
+      "merge-policy"
+    ],
+    "required_integration": "GitHub Actions",
+    "required_integration_id": 15368
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "normalizeUsageEvent accepts only canonical terminal outcomes MERGED and ABORTED when terminal_state is present, and continues to allow omission/null for non-terminal telemetry events.",
+      "verification": "node --test test/multi-agent/token-telemetry.test.mjs",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Invented, malformed or non-terminal workflow labels such as HUMAN_PENDING, FAILED_LABEL or arbitrary text are rejected before record construction or persistence.",
+      "verification": "node --test test/multi-agent/token-telemetry.test.mjs",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Canonical MERGED telemetry remains eligible for calibration when not human-rejected, while ABORTED telemetry remains retained but excluded from primary calibration.",
+      "verification": "node --test test/multi-agent/token-telemetry.test.mjs",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "The PR changes exactly the five authorized telemetry/governance paths and does not mutate runtime product code, APIs, database, dependencies, workflows, protection or risk controllers.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Deterministic classification remains MEDIUM with Review plus Verification and Human Gate not required; any escalation to HIGH fails closed.",
+      "verification": "deterministic_risk_classification",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Exact-head verify, Phase A and merge-policy pass before protected workflow_dispatch merge, followed by exact-SHA postmerge verification before Test 2 completion is claimed.",
+      "verification": "protected_merge_and_exact_sha_postmerge",
+      "mandatory": true
+    }
+  ]
+}

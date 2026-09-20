@@ -31,6 +31,15 @@ test('usage event enforces explicit source, task binding and context subset inva
   assert.throws(()=>normalizeUsageEvent({...baseEvent,context_tokens_read:61},'TASK-1'),/CONTEXT_TOKENS_EXCEED_INPUT/);
 });
 
+test('usage event accepts only canonical terminal outcomes',()=>{
+  assert.equal(normalizeUsageEvent({...baseEvent,terminal_state:'merged'},'TASK-1').terminal_state,'MERGED');
+  assert.equal(normalizeUsageEvent({...baseEvent,terminal_state:'ABORTED'},'TASK-1').terminal_state,'ABORTED');
+  assert.equal(normalizeUsageEvent({...baseEvent,terminal_state:null},'TASK-1').terminal_state,undefined);
+  assert.throws(()=>normalizeUsageEvent({...baseEvent,terminal_state:'HUMAN_PENDING'},'TASK-1'),/INVALID_TERMINAL_STATE/);
+  assert.throws(()=>normalizeUsageEvent({...baseEvent,terminal_state:'FAILED_LABEL'},'TASK-1'),/INVALID_TERMINAL_STATE/);
+  assert.throws(()=>normalizeUsageEvent({...baseEvent,terminal_state:'   '},'TASK-1'),/INVALID_TERMINAL_STATE/);
+});
+
 test('usage event rejects negative and inconsistent total token counts',()=>{
   assert.throws(()=>normalizeUsageEvent({...baseEvent,output_tokens:-1},'TASK-1'),/INVALID_OUTPUT_TOKENS/);
   assert.throws(()=>normalizeUsageEvent({...baseEvent,total_tokens:999},'TASK-1'),/INCONSISTENT_TOTAL_TOKENS/);
