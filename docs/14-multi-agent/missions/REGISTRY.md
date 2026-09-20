@@ -8,6 +8,7 @@ A mission hash is SHA-256 over the exact UTF-8 bytes of the mission file.
 | V1.4 | EQCOFE-MULTI-AGENT-V1.4-EXECUTION-MISSION.md | `5bb55bd0c83df9b3c196b29e9d0109dc1ff8a327c4c45d0f86cf7f5fe20cf5ad` | `2026-09-20T06:43:09.531Z` | FROZEN |
 
 | V1.5 | EQCOFE-MULTI-AGENT-V1.5-EXECUTION-MISSION.md | `7b29943c936592b63ae76a67359a0cae1b3dd99b2323f1811bc7b2e3d03317a1` | `2026-09-20T07:01:00Z` | FROZEN |
+| V1.6 | EQCOFE-MULTI-AGENT-V1.6-EXECUTION-MISSION.md | `b01ee3d1f02dc4b80d1780db26d2a5cc8163698fc2f6a5544bc8b707d425380e` | `2026-09-20T13:39:23Z` | FROZEN_ON_CANONICAL_COMPLETION |
 
 ## V1.4 registration rule
 
@@ -26,3 +27,15 @@ A mission hash is SHA-256 over the exact UTF-8 bytes of the mission file.
 - MISSION_SPEC_STATUS: `FROZEN` only when this amendment completes required HIGH gates, protected merge, and exact-SHA post-merge verification.
 - V1.4 remains byte-preserved and is superseded for future execution only after V1.5 becomes canonical.
 - Owner amendment sign-off is an external artifact-bound Human Gate and is never self-certified by this registry.
+
+
+## V1.6 closure-protocol amendment registration rule
+
+- Predecessor: `V1.5` / `7b29943c936592b63ae76a67359a0cae1b3dd99b2323f1811bc7b2e3d03317a1`.
+- Mission file: `docs/14-multi-agent/missions/EQCOFE-MULTI-AGENT-V1.6-EXECUTION-MISSION.md`.
+- Mission SHA-256: `b01ee3d1f02dc4b80d1780db26d2a5cc8163698fc2f6a5544bc8b707d425380e` over exact UTF-8 LF bytes; the hash is not embedded in the Mission body.
+- Root-cause record: Issue #231.
+- Semantic change: Section 32 uses a Static Closure Record plus a post-merge Terminal Provider Seal, removing the unsatisfiable self-reference while preserving provider-truth and no-Fake-PASS requirements.
+- Tests 1–7 may be reused only through `EQCOFE-MULTI-AGENT-V1.5-TO-V1.6-COMPATIBILITY-PROOF.md`; Phase 3 and Final Live Revalidation must be fresh.
+- MISSION_SPEC_STATUS: `FROZEN` only after HIGH gates, artifact-bound Owner sign-off, protected merge, and exact-SHA post-merge verification.
+- V1.5 bytes remain preserved and are superseded for future closure execution only after V1.6 becomes canonical.
