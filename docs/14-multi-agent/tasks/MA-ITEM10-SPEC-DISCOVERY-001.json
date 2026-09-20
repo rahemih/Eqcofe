@@ -1,0 +1,172 @@
+{
+  "schema_version": "2.2",
+  "task_id": "MA-ITEM10-SPEC-DISCOVERY-001",
+  "title": "Mission V1.4 Stage B B1 — Item 10 canonical specification discovery",
+  "description": "Persist the deterministic B1 discovery result after canonical Mission V1.4 registration. Search the declared canonical sources for an executable Item 10 / V1 Production Gate specification, record the fail-closed result when none exists, and explicitly block Item 10 Task Contract creation and implementation without inventing the missing 18 mandatory coverage items.",
+  "risk": "MEDIUM",
+  "risk_floor": "LOW",
+  "risk_rationale": {
+    "chosen": "MEDIUM",
+    "why_medium": [
+      "This governance record controls whether Item 10 implementation is allowed to proceed.",
+      "A false positive discovery result could authorize production-gate implementation from invented or incomplete requirements."
+    ],
+    "why_not_high": [
+      "The task is documentation/governance-only and does not mutate runtime, workflows, rulesets, security policy, database or commerce behavior.",
+      "The fail-closed verdict blocks implementation rather than relaxing a production control."
+    ]
+  },
+  "owner": "BACKEND",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "ce571c420cf42e10bc4f069028c7dfd757e8c1e9"
+  },
+  "scope": {
+    "read": [
+      "docs/14-multi-agent/**",
+      "docs/12-current-state/**",
+      ".github/workflows/merge-policy.yml",
+      "scripts/multi-agent/**"
+    ],
+    "write": [
+      "docs/14-multi-agent/ITEM10-SPEC-DISCOVERY.md",
+      "docs/14-multi-agent/GOVERNANCE-LOG.md",
+      "docs/14-multi-agent/tasks/MA-ITEM10-SPEC-DISCOVERY-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "scripts/**",
+      "test/**",
+      "src/**",
+      "apps/**",
+      "database/**",
+      "contracts/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "docs/11-step-history/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**",
+      "docs/14-multi-agent/missions/EQCOFE-MULTI-AGENT-V1.4-EXECUTION-MISSION.md",
+      "docs/14-multi-agent/missions/REGISTRY.md"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-MA-ITEM10-SPEC-DISCOVERY-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 16000,
+    "soft_alert": 26000,
+    "hard_cap": 52000
+  },
+  "max_repair_cycles": 2,
+  "task_risk_rules": [
+    {
+      "id": "ITEM10_SPEC_DISCOVERY_MEDIUM",
+      "risk": "MEDIUM",
+      "paths": [
+        "docs/14-multi-agent/ITEM10-SPEC-DISCOVERY.md",
+        "docs/14-multi-agent/GOVERNANCE-LOG.md",
+        "docs/14-multi-agent/tasks/MA-ITEM10-SPEC-DISCOVERY-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "MISSION-V1.4-REGISTRATION",
+      "name": "Mission V1.4 canonical registration and Trust Model freeze",
+      "required_state": "MERGED_POSTMERGE_VERIFIED",
+      "observed_state": "MERGED_POSTMERGE_VERIFIED",
+      "merge_sha": "ce571c420cf42e10bc4f069028c7dfd757e8c1e9",
+      "protected_merge_run": 35495349796,
+      "postmerge_verify_job": 106037231415,
+      "blocking": false
+    }
+  ],
+  "discovery": {
+    "primary_roots": [
+      "docs/14-multi-agent/**",
+      "docs/12-current-state/**"
+    ],
+    "canonical_files_scanned": 64,
+    "canonical_task_contracts_scanned": 37,
+    "executable_item10_spec_found": false,
+    "item10_spec_state": "MISSING",
+    "stage_b_state": "BLOCKED",
+    "implementation_state": "FORBIDDEN",
+    "mandatory_coverage_count_declared_by_mission": 18,
+    "mandatory_coverage_definitions_found": 0,
+    "rule": "Do not guess, reconstruct from memory, or invent the missing Item 10 coverage definitions."
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "PR #210 Mission V1.4 registration is verified MERGED_POSTMERGE_VERIFIED at the exact B1 base SHA.",
+      "verification": "mission_registration_dependency_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "B1 directly scans all 64 files under docs/14-multi-agent/** and docs/12-current-state/** present at the base, including all 37 canonical Task Contracts.",
+      "verification": "canonical_discovery_inventory_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Canonical findings distinguish Item 10 labels/authorization/sequencing from an executable specification and do not treat labels as implementation requirements.",
+      "verification": "source_semantics_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "No canonical source defines the exact 18 mandatory Item 10 coverage items required by Mission V1.4; the report records ITEM10_SPEC=MISSING and STAGE_B=BLOCKED.",
+      "verification": "item10_spec_presence_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "No Item 10 Task Contract or implementation is created and no missing coverage item/test definition is guessed or invented.",
+      "verification": "fail_closed_non_implementation_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "The report records the only safe unblock paths: Owner provides an authoritative executable spec or explicitly authorizes governed creation of the missing spec as a separate task.",
+      "verification": "owner_decision_boundary_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "Only the four declared documentation/governance paths change; no runtime, workflow, test, dependency, API, database, auth, product-design, Mission-file or current-state mutation occurs.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "Generated Task Catalog contains this task and indexes 38 Task Contracts exactly.",
+      "verification": "node scripts/multi-agent/docs-automation.mjs --check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-009",
+      "description": "Exact-head Canonical CI, Phase A, artifact-bound REVIEW PASS, ACTIVE LOCK and Merge Policy PASS are required before protected merge; exact-SHA postmerge canonical and Phase A verification are required for B1 canonical completion.",
+      "verification": "governed_b1_transport",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "MEDIUM fail-closed discovery task. Human/Security gates are not required unless deterministic risk escalates."
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}
