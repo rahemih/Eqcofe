@@ -5,6 +5,7 @@
 
 | Task ID | Title | Risk | Human Gate | Canonical Base | Token Budget (expected/soft/hard) |
 | --- | --- | --- | --- | --- | --- |
+| EQCOFE-DEPS-RUNTIME-PATCH-001 | Governed runtime patch dependency refresh replacing Dependabot PR #174 | HIGH | REQUIRED | `a51f2ebe088febb866d36de6e5fc38f001786026` | 18000/30000/60000 |
 | EQCOFE-STEP57-HIFI-001 | Step 57 high-fidelity UI and prototype acceptance | HIGH | REQUIRED | `0b67ff8929e8976a0c4ae27c86dcb048567ff4da` | N/A (legacy/no budget) |
 | EQCOFE-STEP57-STATE-SYNC-001 | Step 57 final canonical state synchronization | MEDIUM | NOT_REQUIRED | `58291bb8ee6f834d549524380d93c112e653d5ee` | N/A (legacy/no budget) |
 | EQCOFE-STEP58-A-HANDOFF-001 | Step 58-A canonical handoff and frontend scope freeze | MEDIUM | NOT_REQUIRED | `4cfdf4a075e8838c35b5dd2b14836fdbd5b2ad34` | 18000/30000/60000 |
@@ -38,4 +39,4 @@
 | MA-RISK-VERIFICATION-REMEDIATION-001 | Remediate Item 4 deterministic risk and verification-policy Spec drift | MEDIUM | NOT_REQUIRED | `fd85968adbe45441b154eed402f16c24c6a7e2bd` | 25000/35000/70000 |
 | MA-SCOPE-LOCK-001 | Implement deterministic Scope / Lock Controller | MEDIUM | NOT_REQUIRED | `36fa6122ff187841f85ccc777a0562be81ee16c8` | 25000/35000/70000 |
 
-Task contracts indexed: **32**.
+Task contracts indexed: **33**.
