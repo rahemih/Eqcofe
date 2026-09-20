@@ -17,9 +17,26 @@ function section(start, end = null) {
   return workflow.slice(startIndex, endIndex);
 }
 
+const deterministicReviewJob = section('\n  deterministic-review:\n', '\n  merge-policy:\n');
+const mergePolicyJob = section('\n  merge-policy:\n', '\n  protection-drift:\n');
 const mergeJob = section('\n  merge:\n', '\n  postmerge-verify:\n');
 const postmergeJob = section('\n  postmerge-verify:\n', '\n  postmerge-failure:\n');
 const failureJob = section('\n  postmerge-failure:\n');
+
+test('deterministic review is a provider-bound predecessor of merge-policy', () => {
+  assert.match(deterministicReviewJob, /name: deterministic-primary-review/);
+  assert.match(deterministicReviewJob, /merge-policy-controller\.mjs --deterministic-review/);
+  assert.match(deterministicReviewJob, /ref: \$\{\{ github\.event\.pull_request\.head\.sha \}\}/);
+  assert.doesNotMatch(deterministicReviewJob, /issues: write/);
+  assert.match(mergePolicyJob, /needs: deterministic-review/);
+  assert.match(mergePolicyJob, /always\(\).*github\.event_name == 'pull_request'/);
+  assert.match(mergePolicyJob, /checks: read/);
+  assert.match(mergePolicyJob, /merge-policy-controller\.mjs --ci-pr/);
+});
+
+test('workflow_dispatch merge can revalidate provider-bound review check evidence', () => {
+  assert.match(mergeJob, /checks: read/);
+});
 
 test('merge job resolves the exact merge SHA from the canonical repository', () => {
   assert.match(mergeJob, /gh api "repos\/\$\{GITHUB_REPOSITORY\}\/pulls\/\$\{PR_NUMBER\}"/);
