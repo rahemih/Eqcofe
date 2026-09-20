@@ -1,0 +1,146 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP59-D-DISCOVERY-001",
+  "title": "Step 59-D Home category and brand discovery",
+  "description": "Implement production Home discovery entry surfaces from the authoritative GET /products data already loaded by Stage 59-C. Build only a presentation projection from validated id/slug/name_fa fields inside ProductCard primary_category and brand objects, deduplicate without inventing ranking, route categories to the existing /category/:slug Step-60 placeholder, and route brands through the existing /search?q= entry using the brand Persian name. Do not call /categories or /brands while their generated OpenAPI response bodies remain untyped; do not invent a Brand page, taxonomy DTO, ranking/recommendation algorithm, listing behavior, filters, pagination, product cards, promotions, or backend/API changes.",
+  "risk": "MEDIUM",
+  "risk_floor": "MEDIUM",
+  "owner": "PRODUCT_DESIGN",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "175fb3f7e110eff98b9574dc9db5984e5e77ae7b"
+  },
+  "scope": {
+    "read": [
+      "apps/storefront/**",
+      "src/generated/openapi.ts",
+      "contracts/http/openapi.yaml",
+      "src/modules/catalog/**",
+      "docs/11-step-history/STEP-59-C-HOME-DATA-LOADER.md",
+      "docs/13-product-design/**",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "apps/storefront/app/features/home/home-discovery.ts",
+      "apps/storefront/app/features/home/HomeDiscovery.tsx",
+      "apps/storefront/app/routes/home.tsx",
+      "apps/storefront/app/i18n/fa-IR.ts",
+      "apps/storefront/app/styles/home.css",
+      "apps/storefront/package.json",
+      "apps/storefront/scripts/verify-step59-discovery.ts",
+      "docs/11-step-history/STEP-59-D-HOME-DISCOVERY.md",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP59-D-DISCOVERY-001.json"
+    ],
+    "forbidden": [
+      ".github/**",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "src/**",
+      "database/**",
+      "contracts/**",
+      "test/**",
+      "apps/storefront/app/routes/search.tsx",
+      "apps/storefront/app/routes/category.tsx",
+      "apps/storefront/app/platform/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP59-D-DISCOVERY-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 30000,
+    "soft_alert": 45000,
+    "hard_cap": 90000
+  },
+  "task_risk_rules": [
+    {
+      "id": "STEP59_D_HOME_DISCOVERY_MEDIUM",
+      "risk": "MEDIUM",
+      "paths": [
+        "apps/storefront/app/features/home/home-discovery.ts",
+        "apps/storefront/app/features/home/HomeDiscovery.tsx",
+        "apps/storefront/app/routes/home.tsx",
+        "apps/storefront/app/i18n/fa-IR.ts",
+        "apps/storefront/app/styles/home.css",
+        "apps/storefront/package.json",
+        "apps/storefront/scripts/verify-step59-discovery.ts",
+        "docs/11-step-history/STEP-59-D-HOME-DISCOVERY.md",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP59-D-DISCOVERY-001.json"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "59-C",
+      "name": "Home authoritative data loader foundation",
+      "required_state": "CLOSED_CANONICAL_PASS",
+      "observed_state": "CLOSED_CANONICAL_PASS",
+      "merge_sha": "175fb3f7e110eff98b9574dc9db5984e5e77ae7b",
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "stage_c_merge": "175fb3f7e110eff98b9574dc9db5984e5e77ae7b",
+    "home_design_screen": "SF-B-01",
+    "category_destination": "/category/:slug",
+    "brand_destination": "/search?q=<brand-name>",
+    "public_backend_taxonomy_endpoints_exist": true,
+    "generated_openapi_taxonomy_list_response_typed": false,
+    "direct_taxonomy_endpoint_consumption": "FORBIDDEN_UNTIL_CONTRACT_TYPED"
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Home discovery derives category and brand presentation entries only from the Stage-C GET /products ready data; each accepted reference must have non-empty id, slug and name_fa and malformed/unknown objects are ignored fail-closed.",
+      "verification": "pnpm --dir apps/storefront discovery:verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Category entries link to /category/:slug and brand entries use the existing /search?q=<Persian brand name> entry; no new Brand page or uncontracted brand query parameter is invented.",
+      "verification": "pnpm --dir apps/storefront discovery:verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Deduplication preserves first authoritative occurrence without client ranking, recommendation scoring, fake counts, fake inventory, fake discounts or invented taxonomy ordering.",
+      "verification": "pnpm --dir apps/storefront discovery:verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "No /categories or /brands API call or parallel authoritative taxonomy DTO is introduced while their generated OpenAPI list response bodies remain untyped; backend/API/OpenAPI/database/dependency files remain unchanged.",
+      "verification": "pnpm --dir apps/storefront discovery:verify && deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Home now owns one production H1 and accessible responsive discovery sections while Step-60 category/search routes remain placeholders; product merchandising, promotions and complete state UX remain reserved for later Step-59 stages.",
+      "verification": "pnpm --dir apps/storefront verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Root pnpm verify, exact-head Canonical CI, Phase A, Storefront Browser Quality, deterministic review, active exact-artifact lock, protected merge and exact-SHA postmerge verification pass before Stage 59-E starts.",
+      "verification": "canonical_transport_and_postmerge_evidence",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Stage 59-D is MEDIUM risk. Direct-main write/raw merge are prohibited. Stage 59-E remains blocked until protected transport and exact-SHA postmerge verification are green."
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}
