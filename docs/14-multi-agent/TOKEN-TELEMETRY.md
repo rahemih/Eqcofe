@@ -64,6 +64,8 @@ A hard-cap result is fail-visible evidence suitable for orchestration blocking. 
 
 When an event declares `terminal_state`, the value must normalize to one of the canonical terminal outcomes: `MERGED` or `ABORTED`. Omitted or `null` terminal state remains valid for non-terminal telemetry events. Workflow/intermediate labels such as `HUMAN_PENDING`, arbitrary failure labels, or invented terminal strings are rejected before record construction and persistence so calibration cannot consume non-canonical lifecycle evidence.
 
+A single task may emit the same canonical terminal outcome more than once, for example when independent explicit telemetry sources both report `MERGED`. Repeated identical terminal outcomes remain valid and deterministic. A task may not contain both `MERGED` and `ABORTED` terminal outcomes in the same canonical record. That contradiction fails closed with `CONFLICTING_TERMINAL_STATES` instead of allowing event ordering to silently choose a winner. This prevents contradictory lifecycle evidence from entering persistence or calibration.
+
 ## Calibration eligibility
 
 Only tasks whose terminal state is `MERGED` and which were not human-rejected are primary calibration samples. `ABORTED` and human-rejected telemetry remains retained for audit, but is excluded from the primary P50/P75/P90 calibration sample.

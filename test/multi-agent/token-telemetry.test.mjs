@@ -126,3 +126,55 @@ test('verified readback rejects invalid JSON and task-id mismatch',async()=>{
   await writeFile(target,`${JSON.stringify(mismatched,null,2)}\n`,'utf8');
   await assert.rejects(()=>readTelemetryRecord(root,'TASK-1'),/TELEMETRY_TASK_MISMATCH/);
 });
+
+test('conflicting canonical terminal outcomes fail closed regardless of event order',()=>{
+  const later={...baseEvent,timestamp:'2026-09-15T12:00:01.000Z'};
+  assert.throws(
+    ()=>buildTelemetryRecord({
+      task_id:'TASK-1',
+      token_budget:budget,
+      events:[
+        {...baseEvent,terminal_state:'MERGED'},
+        {...later,terminal_state:'ABORTED'},
+      ],
+    }),
+    /CONFLICTING_TERMINAL_STATES/,
+  );
+  assert.throws(
+    ()=>buildTelemetryRecord({
+      task_id:'TASK-1',
+      token_budget:budget,
+      events:[
+        {...baseEvent,terminal_state:'ABORTED'},
+        {...later,terminal_state:'MERGED'},
+      ],
+    }),
+    /CONFLICTING_TERMINAL_STATES/,
+  );
+});
+
+test('repeated identical terminal outcomes remain deterministic and valid',()=>{
+  const later={...baseEvent,timestamp:'2026-09-15T12:00:01.000Z'};
+  const merged=buildTelemetryRecord({
+    task_id:'TASK-1',
+    token_budget:budget,
+    events:[
+      {...baseEvent,terminal_state:'MERGED'},
+      {...later,terminal_state:'merged'},
+    ],
+  });
+  assert.equal(merged.terminal_state,'MERGED');
+  assert.equal(merged.calibration_primary_sample,true);
+
+  const aborted=buildTelemetryRecord({
+    task_id:'TASK-1',
+    token_budget:budget,
+    events:[
+      {...baseEvent,terminal_state:'ABORTED'},
+      {...later,terminal_state:'aborted'},
+    ],
+  });
+  assert.equal(aborted.terminal_state,'ABORTED');
+  assert.equal(aborted.calibration_primary_sample,false);
+});
+
