@@ -36,7 +36,7 @@ test('V1 Acceptance LOW R2: addition cannot overflow the safe-integer ceiling', 
 });
 
 test('V1 Acceptance LOW R2: multiplication cannot overflow the safe-integer ceiling', () => {
-  const justOverHalf = MoneyToman.from((Number.MAX_SAFE_INTEGER >> 1) + 1);
+  const justOverHalf = MoneyToman.from(Math.floor(Number.MAX_SAFE_INTEGER / 2) + 1);
 
   assert.throws(
     () => justOverHalf.multiplyByInteger(2),
