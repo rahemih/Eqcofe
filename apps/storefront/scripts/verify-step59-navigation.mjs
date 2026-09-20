@@ -57,29 +57,41 @@ assert(searchRoute.includes('targetStep={60}'), "STEP59_B_SEARCH_ROUTE_IMPLEMENT
 assert(categoryRoute.includes('targetStep={60}'), "STEP59_B_CATEGORY_ROUTE_IMPLEMENTED_EARLY");
 
 const port = 41737;
-const serverCommand = process.platform === "win32"
-  ? [
-      'set "HOST=127.0.0.1"',
-      `set "PORT=${port}"`,
-      'set "NODE_ENV=production"',
-      "pnpm exec react-router-serve ./build/server/index.js",
-    ].join("&&")
-  : [
-      "HOST=127.0.0.1",
-      `PORT=${port}`,
-      "NODE_ENV=production",
-      "pnpm exec react-router-serve ./build/server/index.js",
-    ].join(" ");
-
 const server = process.platform === "win32"
-  ? spawn("cmd.exe", ["/d", "/s", "/c", serverCommand], {
-      cwd: storefrontRoot,
-      stdio: ["ignore", "pipe", "pipe"],
-    })
-  : spawn("sh", ["-c", serverCommand], {
-      cwd: storefrontRoot,
-      stdio: ["ignore", "pipe", "pipe"],
-    });
+  ? spawn(
+      "cmd.exe",
+      [
+        "/d",
+        "/s",
+        "/c",
+        [
+          'set "HOST=127.0.0.1"',
+          `set "PORT=${port}"`,
+          'set "NODE_ENV=production"',
+          "pnpm exec react-router-serve ./build/server/index.js",
+        ].join("&&"),
+      ],
+      {
+        cwd: storefrontRoot,
+        stdio: ["ignore", "pipe", "pipe"],
+      },
+    )
+  : spawn(
+      "env",
+      [
+        "HOST=127.0.0.1",
+        `PORT=${port}`,
+        "NODE_ENV=production",
+        "pnpm",
+        "exec",
+        "react-router-serve",
+        "./build/server/index.js",
+      ],
+      {
+        cwd: storefrontRoot,
+        stdio: ["ignore", "pipe", "pipe"],
+      },
+    );
 
 let serverOutput = "";
 server.stdout.on("data", (chunk) => { serverOutput += chunk.toString(); });
