@@ -107,7 +107,8 @@ assert.equal(/rank|score|recommended|recommendation/i.test(projectionSource), fa
 assert.match(homeRouteSource, /<h1 id="home-title">/);
 assert.equal((homeRouteSource.match(/<h1\b/g) ?? []).length, 1, "STEP59_D_HOME_H1_INVALID");
 assert.equal(homeRouteSource.includes("RoutePlaceholder"), false, "STEP59_D_HOME_PLACEHOLDER_STILL_ACTIVE");
-assert.match(homeRouteSource, /<HomeDiscovery products=\{loaderData\.productPreview\.data\}/);
+assert.match(homeRouteSource, /const products = selectHomeProducts\(loaderData\.productPreview\)/);
+assert.match(homeRouteSource, /products \? <HomeDiscovery products=\{products\}/);
 assert.match(categoryRouteSource, /targetStep=\{60\}/);
 assert.match(searchRouteSource, /targetStep=\{60\}/);
 

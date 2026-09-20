@@ -1,6 +1,8 @@
 import { data, useLoaderData } from "react-router";
 import { HomeDiscovery } from "../features/home/HomeDiscovery";
 import { HomeMerchandising } from "../features/home/HomeMerchandising";
+import { HomeProductState } from "../features/home/HomeProductState";
+import { selectHomeProducts } from "../features/home/home-product-state";
 import { loadHomeRouteData } from "../features/home/home-data.server";
 import { getMessages } from "../i18n";
 import { appendCustomerSessionSetCookies } from "../platform/auth/session-cookie.server";
@@ -20,6 +22,7 @@ export async function loader({ request }: { request: Request }) {
 export default function HomeRoute() {
   const loaderData = useLoaderData<typeof loader>();
   const messages = getMessages();
+  const products = selectHomeProducts(loaderData.productPreview);
 
   return (
     <div className="home-page" data-home-products-state={loaderData.productPreview.status}>
@@ -29,17 +32,11 @@ export default function HomeRoute() {
         <p className="home-intro__body">{messages.home.introBody}</p>
       </section>
 
-      {loaderData.productPreview.status === "ready" ? (
-        <HomeDiscovery products={loaderData.productPreview.data} />
-      ) : null}
+      <HomeProductState state={loaderData.productPreview} />
 
-      <HomeMerchandising
-        products={
-          loaderData.productPreview.status === "ready"
-            ? loaderData.productPreview.data
-            : null
-        }
-      />
+      {products ? <HomeDiscovery products={products} /> : null}
+
+      <HomeMerchandising products={products} />
     </div>
   );
 }
