@@ -78,3 +78,18 @@ or explicitly authorizes governed creation.
 - B5 quantitative calibration: `DEFERRED_TO_V1_1`
 - Verdict: `ITEM10_SPEC=RESOLVED`
 - Item 10 implementation remains `NOT_STARTED` until this B1 record is canonical and B2/B3 are completed.
+
+## 2026-09-20 — Mission V1.5 Stage B / Item 10 V1 Production Gate
+
+- Task: `MA-ITEM10-PRODUCTION-GATE-001`
+- Canonical base / B1 merge: `b33cc615fa46b22b931766905ec13f726d2dbe62`
+- B2 Task Contract first branch commit: `025f3b0c2aa2ebb73dd91701f3009da8d3fae5b1`
+- B3 effective risk: `HIGH`
+- Human Gate: `REQUIRED`
+- B4 minimum coverage: `20 / 20` mapped to deterministic evidence
+- Full State Machine: strengthened to exhaustive all-state-pairs verification
+- B5 Token Governance: `VERIFIED`
+- B5 Quantitative Calibration: `DEFERRED_TO_V1_1`
+- Pre-merge state: `PRE_MERGE_VERIFICATION_PENDING_CI`
+- B6: `PENDING_PROTECTED_MERGE_AND_EXACT_SHA_POSTMERGE`
+- Stage C remains blocked until Item 10 reaches terminal canonical completion.
