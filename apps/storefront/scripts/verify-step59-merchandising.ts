@@ -226,8 +226,21 @@ try {
     assert(html.includes(expected), "STEP59_E_RENDERED_CONTENT_MISSING:" + expected);
   }
 
-  assert.equal(html.includes("محصول نامعتبر"), false, "STEP59_E_INVALID_PRODUCT_RENDERED");
-  assert.equal(html.includes("محصول هشت"), false, "STEP59_E_LIMIT_NOT_ENFORCED");
+  assert.equal(
+    html.includes('href="/product/invalid-price"'),
+    false,
+    "STEP59_E_INVALID_PRODUCT_CARD_RENDERED",
+  );
+  assert.equal(
+    html.includes('href="/product/product-8"'),
+    false,
+    "STEP59_E_LIMIT_NOT_ENFORCED",
+  );
+  assert.equal(
+    (html.match(/class="home-product-card"/g) ?? []).length,
+    6,
+    "STEP59_E_RENDERED_CARD_COUNT_INVALID",
+  );
   assert.equal(html.includes("جشنواره"), false, "STEP59_E_UNVERIFIED_CAMPAIGN_RENDERED");
   assert.equal(html.includes("خرید اول"), false, "STEP59_E_FIRST_PURCHASE_RENDERED");
   assert.deepEqual(unexpectedApiPaths, [], "STEP59_E_UNEXPECTED_API_CALLS");
