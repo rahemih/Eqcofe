@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState, type KeyboardEvent } from "react";
 import { NavLink } from "react-router";
 import { getMessages } from "../i18n";
 
@@ -14,10 +14,24 @@ const destinations = [
 export function PrimaryNavigation() {
   const messages = getMessages();
   const [open, setOpen] = useState(false);
+  const toggleRef = useRef<HTMLButtonElement>(null);
+
+  function handleNavigationKeyDown(event: KeyboardEvent<HTMLElement>) {
+    if (event.key === "Escape" && open) {
+      event.preventDefault();
+      setOpen(false);
+      toggleRef.current?.focus();
+    }
+  }
 
   return (
-    <nav className="primary-navigation eq-container" aria-label={messages.navLabel}>
+    <nav
+      className="primary-navigation eq-container"
+      aria-label={messages.navLabel}
+      onKeyDown={handleNavigationKeyDown}
+    >
       <button
+        ref={toggleRef}
         className="nav-toggle"
         type="button"
         aria-expanded={open}
