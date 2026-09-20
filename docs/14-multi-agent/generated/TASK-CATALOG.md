@@ -6,6 +6,7 @@
 | Task ID | Title | Risk | Human Gate | Canonical Base | Token Budget (expected/soft/hard) |
 | --- | --- | --- | --- | --- | --- |
 | EQCOFE-DEPS-DEV-MINOR-PATCH-001 | Governed development dependency refresh replacing Dependabot PR #165 | MEDIUM | NOT_REQUIRED | `a51f2ebe088febb866d36de6e5fc38f001786026` | 15000/25000/50000 |
+| EQCOFE-DEPS-NESTJS-MINOR-PATCH-001 | Governed NestJS minor/patch dependency refresh replacing Dependabot PR #145 | HIGH | REQUIRED | `369ae0c4e1360034040a0891384baa87cd123cbb` | 20000/32000/64000 |
 | EQCOFE-DEPS-RUNTIME-PATCH-001 | Governed runtime patch dependency refresh replacing Dependabot PR #174 | HIGH | REQUIRED | `fe42b0122854fa08e34380928bed546271a8ac6e` | 18000/30000/60000 |
 | EQCOFE-STEP57-HIFI-001 | Step 57 high-fidelity UI and prototype acceptance | HIGH | REQUIRED | `0b67ff8929e8976a0c4ae27c86dcb048567ff4da` | N/A (legacy/no budget) |
 | EQCOFE-STEP57-STATE-SYNC-001 | Step 57 final canonical state synchronization | MEDIUM | NOT_REQUIRED | `58291bb8ee6f834d549524380d93c112e653d5ee` | N/A (legacy/no budget) |
@@ -40,4 +41,4 @@
 | MA-RISK-VERIFICATION-REMEDIATION-001 | Remediate Item 4 deterministic risk and verification-policy Spec drift | MEDIUM | NOT_REQUIRED | `fd85968adbe45441b154eed402f16c24c6a7e2bd` | 25000/35000/70000 |
 | MA-SCOPE-LOCK-001 | Implement deterministic Scope / Lock Controller | MEDIUM | NOT_REQUIRED | `36fa6122ff187841f85ccc777a0562be81ee16c8` | 25000/35000/70000 |
 
-Task contracts indexed: **34**.
+Task contracts indexed: **35**.
