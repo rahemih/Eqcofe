@@ -1,0 +1,134 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-DEPS-RUNTIME-PATCH-001",
+  "title": "Governed runtime patch dependency refresh replacing Dependabot PR #174",
+  "description": "Rebuild the exact low-noise production runtime patch set from Dependabot PR #174 on current canonical main under EQCOFE Task Contract governance. Only package.json, pnpm-lock.yaml, this Task Contract and generated Task Catalog may change. No product source, workflow, migration, API, auth, deployment, Roadmap or canonical current-state mutation is authorized.",
+  "risk": "HIGH",
+  "risk_floor": "HIGH",
+  "owner": "BACKEND",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "a51f2ebe088febb866d36de6e5fc38f001786026"
+  },
+  "scope": {
+    "read": [
+      "package.json",
+      "pnpm-lock.yaml",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "package.json",
+      "pnpm-lock.yaml",
+      "docs/14-multi-agent/tasks/EQCOFE-DEPS-RUNTIME-PATCH-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "apps/**",
+      "src/**",
+      "database/**",
+      "contracts/**",
+      "scripts/**",
+      "test/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**",
+      "pnpm-workspace.yaml"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-DEPS-RUNTIME-PATCH-001-01"
+  ],
+  "human_gate_required": true,
+  "token_budget": {
+    "expected_max": 18000,
+    "soft_alert": 30000,
+    "hard_cap": 60000
+  },
+  "max_repair_cycles": 3,
+  "task_risk_rules": [
+    {
+      "id": "RUNTIME_DEPENDENCY_PATCH_HIGH",
+      "risk": "HIGH",
+      "paths": [
+        "package.json",
+        "pnpm-lock.yaml"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "STEP58_FINAL_CANONICAL",
+      "name": "Step 58 final canonical closure and later Item 9 governance closure",
+      "required_state": "MERGED_POSTMERGE_VERIFIED",
+      "observed_state": "MERGED_POSTMERGE_VERIFIED",
+      "merge_sha": "a51f2ebe088febb866d36de6e5fc38f001786026",
+      "blocking": false
+    }
+  ],
+  "authorized_human_approver": {
+    "role": "PROJECT_OWNER",
+    "github_login": "rahemih"
+  },
+  "evidence": {
+    "source_dependabot_pr": 174,
+    "source_head": "9b413b7815787a3ed05bab93a1a00d6066f385a9",
+    "source_merge_base": "fc601866f21c3e5efc8067ddc00e8898f3c42848",
+    "baseline_equivalence": {
+      "package_json_unchanged_from_source_base_to_current_main": true,
+      "pnpm_lock_unchanged_from_source_base_to_current_main": true
+    },
+    "versions": {
+      "@fastify/helmet": "13.1.0 -> 13.1.1",
+      "bullmq": "5.67.2 -> 5.67.3",
+      "kysely": "0.28.8 -> 0.28.17",
+      "yaml": "2.9.0 -> 2.9.1",
+      "@simplewebauthn/server": "13.3.2 -> 13.3.3"
+    }
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "The replacement reproduces only the five production patch updates from Dependabot PR #174 on current canonical main.",
+      "verification": "dependency_diff_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "pnpm-lock.yaml is exactly the lockfile produced by the source Dependabot update over an unchanged package/lock baseline; frozen install and supply-chain policy checks must pass.",
+      "verification": "frozen_install_and_lock_policy",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Canonical CI and Phase A pass on the exact replacement head, including full pnpm verify, Storefront verification, backend build and regression tests.",
+      "verification": "exact_head_ci",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "No runtime source, API, database, migration, workflow, deployment, Roadmap, current-state or product-design file changes enter this task.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "HIGH-risk dependency transport requires exact-artifact REVIEW, SECURITY, HUMAN and LOCK evidence plus required status checks before protected merge. This task itself does not authorize merge.",
+      "verification": "high_risk_dependency_transport",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "SECURITY",
+      "HUMAN",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "HIGH-risk production dependency refresh. Human approval on the exact artifact is mandatory. No automatic merge."
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}
