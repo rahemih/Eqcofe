@@ -1,3 +1,4 @@
+// Fresh provider-event marker after canonical Task Contract PR metadata binding.
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
