@@ -1,0 +1,190 @@
+{
+  "schema_version": "2.2",
+  "task_id": "MA-MISSION-V1-4-REGISTRATION-001",
+  "title": "Mission V1.4 canonical registration and trust freeze",
+  "description": "Register the byte-frozen EQCOFE Multi-Agent V1.4 Execution Mission, bind its exact SHA-256 in the mission registry, create the governance log entry, freeze the resolved Trust Model identities, regenerate the deterministic Task Catalog, and establish the governed Stage B handoff without starting Item 10 implementation.",
+  "risk": "MEDIUM",
+  "risk_floor": "LOW",
+  "risk_rationale": {
+    "chosen": "MEDIUM",
+    "why_medium": [
+      "This task creates canonical governance artifacts that freeze the mission execution order and trust identities used by later production-gate tasks.",
+      "An incorrect mission hash, registry entry, trust identity, or Stage B handoff could create governance drift even though no product runtime is modified."
+    ],
+    "why_not_high": [
+      "The task is documentation/governance-only and does not mutate runtime code, workflows, rulesets, merge-policy controller behavior, database, auth, payment, pricing, inventory, or production state.",
+      "Human Gate is not required for MEDIUM unless deterministic classification escalates."
+    ]
+  },
+  "owner": "BACKEND",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "d6ccf594acc3997c31d8c8ec4afd817249650a95"
+  },
+  "scope": {
+    "read": [
+      "docs/14-multi-agent/GOVERNANCE.md",
+      "docs/14-multi-agent/ITEM9-CANONICAL-CLOSURE.md",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      ".github/workflows/merge-policy.yml",
+      "scripts/multi-agent/merge-policy-controller.mjs"
+    ],
+    "write": [
+      "docs/14-multi-agent/missions/EQCOFE-MULTI-AGENT-V1.4-EXECUTION-MISSION.md",
+      "docs/14-multi-agent/missions/REGISTRY.md",
+      "docs/14-multi-agent/GOVERNANCE-LOG.md",
+      "docs/14-multi-agent/tasks/MA-MISSION-V1-4-REGISTRATION-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "scripts/**",
+      "test/**",
+      "src/**",
+      "apps/**",
+      "database/**",
+      "contracts/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "docs/11-step-history/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**",
+      "docs/14-multi-agent/GOVERNANCE.md",
+      "docs/14-multi-agent/ITEM9-CANONICAL-CLOSURE.md"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-MA-MISSION-V1-4-REGISTRATION-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 15000,
+    "soft_alert": 25000,
+    "hard_cap": 50000
+  },
+  "max_repair_cycles": 2,
+  "task_risk_rules": [],
+  "dependencies": [
+    {
+      "item": "ITEM-9",
+      "name": "Item 9 canonical closure and Item 10 authorization",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "a51f2ebe088febb866d36de6e5fc38f001786026",
+      "blocking": false
+    },
+    {
+      "item": "DEPENDENCY-CLEANUP",
+      "name": "Serialized dependency cleanup chain #205/#207/#208",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "d6ccf594acc3997c31d8c8ec4afd817249650a95",
+      "blocking": false
+    }
+  ],
+  "mission_registration": {
+    "version": "V1.4",
+    "mission_file": "docs/14-multi-agent/missions/EQCOFE-MULTI-AGENT-V1.4-EXECUTION-MISSION.md",
+    "sha256": "5bb55bd0c83df9b3c196b29e9d0109dc1ff8a327c4c45d0f86cf7f5fe20cf5ad",
+    "registered_utc": "2026-09-20T06:40:59.579Z",
+    "mission_spec_status": "FROZEN",
+    "canonical_effect_requires": "PROTECTED_MERGE_AND_EXACT_SHA_POSTMERGE_PASS"
+  },
+  "trust_model_resolution": {
+    "required_checks": [
+      "verify",
+      "phase-a",
+      "merge-policy"
+    ],
+    "required_integration": "GitHub Actions",
+    "required_integration_id": 15368,
+    "ruleset_id": 23278861,
+    "ruleset_name": "main",
+    "ruleset_ref": "refs/heads/main",
+    "ruleset_enforcement": "active",
+    "trusted_gate_protocol": "EQCOFE_GATE_V1",
+    "trusted_gate_author_login": "rahemih",
+    "human_gate_transport": "ARTIFACT_BOUND_PR_COMMENT_BY_AUTHORIZED_OWNER",
+    "merge_workflow": "Merge Policy Enforcement",
+    "merge_workflow_file": ".github/workflows/merge-policy.yml",
+    "canonical_merge_transport": "workflow_dispatch:pr_number",
+    "direct_manual_main_merge": "PROHIBITED"
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "The V1.4 mission file is present at the declared path with MISSION_SPEC_STATUS=FROZEN and its exact UTF-8 byte SHA-256 equals the Task Contract and registry value.",
+      "verification": "mission_hash_verification",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "REGISTRY.md records V1.4, exact mission filename, exact SHA-256, UTC registration timestamp and FROZEN status.",
+      "verification": "registry_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "GOVERNANCE-LOG.md records Owner authorization, Stage A completion, Trust Model identities and fail-closed Stage B handoff.",
+      "verification": "governance_log_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Trust Model values match live canonical enforcement: checks verify/phase-a/merge-policy, GitHub Actions integration 15368, ruleset 23278861, EQCOFE_GATE_V1 owner-authored evidence and Merge Policy Enforcement workflow_dispatch merge transport.",
+      "verification": "live_trust_model_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "The registration task does not fabricate an Item 10 executable specification or start Item 10 implementation; missing specification remains a blocking B1 outcome.",
+      "verification": "mission_scope_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "The exact write artifact is limited to the five declared governance paths and has no overlap with the only unrelated open PR #160.",
+      "verification": "deterministic_scope_and_lock_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "The generated Task Catalog includes MA-MISSION-V1-4-REGISTRATION-001 and indexes 36 Task Contracts exactly.",
+      "verification": "node scripts/multi-agent/docs-automation.mjs --check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "Exact-head Canonical CI, Phase A, Merge Policy, artifact-bound Review PASS and ACTIVE Lock all pass before protected canonical merge.",
+      "verification": "exact_head_required_ci_and_gate_evidence",
+      "mandatory": true
+    },
+    {
+      "id": "AC-009",
+      "description": "Mission V1.4 canonical registration is complete only after protected workflow merge and exact-SHA post-merge canonical plus Phase A verification pass.",
+      "verification": "postmerge_registration_guard",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "MEDIUM registration requires exact-artifact Review PASS plus ACTIVE Lock; Security and Human Gate are not required unless deterministic risk escalates."
+  },
+  "protection_source": {
+    "required_contexts": [
+      "verify",
+      "phase-a",
+      "merge-policy"
+    ],
+    "required_integration": "GitHub Actions",
+    "required_integration_id": 15368,
+    "ruleset_id": 23278861
+  }
+}
