@@ -1,5 +1,7 @@
 import { buildArtifactBinding } from './artifact-hash-generator.mjs';
 import {
+  buildDeterministicReviewEvidence,
+  buildTrustedProviderCheckEvidence,
   evaluateMergePolicy,
   formatGateEvidence,
   GITHUB_ACTIONS_INTEGRATION_ID,
@@ -93,6 +95,29 @@ function requiredCi(overrides = {}) {
   return { verify: 'PASS', 'phase-a': 'PASS', 'merge-policy': 'PASS', ...overrides };
 }
 
+function providerChecks(headSha, overrides = {}) {
+  const checkRuns = [
+    { id: 1, name: 'verify', status: 'completed', conclusion: 'success', head_sha: headSha, app: { id: GITHUB_ACTIONS_INTEGRATION_ID } },
+    { id: 2, name: 'phase-a', status: 'completed', conclusion: 'success', head_sha: headSha, app: { id: GITHUB_ACTIONS_INTEGRATION_ID } },
+    { id: 3, name: 'merge-policy', status: 'completed', conclusion: 'success', head_sha: headSha, app: { id: GITHUB_ACTIONS_INTEGRATION_ID } },
+    ...(overrides.check_runs ?? []),
+  ];
+  return buildTrustedProviderCheckEvidence({
+    check_runs: checkRuns,
+    checks: overrides.checks ?? ['verify', 'phase-a', 'merge-policy'],
+    head_sha: headSha,
+    required_integration_id: GITHUB_ACTIONS_INTEGRATION_ID,
+  });
+}
+
+function deterministicReview(artifact) {
+  return buildDeterministicReviewEvidence({
+    provider_checks: providerChecks(artifact.commit_sha, { checks: ['verify', 'phase-a'] }),
+    artifact_hash: artifact.artifact_hash,
+    head_sha: artifact.commit_sha,
+  });
+}
+
 function advance(task, states) {
   return states.reduce((current, state) => transition(current, state, {
     now: '2026-09-16T00:00:00Z',
@@ -113,7 +138,6 @@ function parsedEvidence({ taskId, artifactHash, lockId, path, high = false, auth
   ];
   if (high) {
     payloads.unshift(
-      { gate: 'REVIEW', task_id: taskId, artifact_hash: artifactHash, status: 'PASS' },
       { gate: 'SECURITY', task_id: taskId, artifact_hash: artifactHash, status: 'PASS' },
       { gate: 'HUMAN', task_id: taskId, artifact_hash: artifactHash, status: 'APPROVED' },
     );
@@ -258,6 +282,7 @@ export function runSyntheticHighDryRun() {
     artifact_binding: artifact,
     project_map: SYNTHETIC_PROJECT_MAP,
     gate_evidence: evidence.parsed,
+    deterministic_review: deterministicReview(artifact),
     protection: validProtection(),
     required_ci: requiredCi(),
   });
@@ -303,9 +328,11 @@ export function runArtifactHumanGateIntegration() {
   const lockId = 'LOCK-SYNTHETIC-HIGH';
   const original = buildArtifactBinding({
     changes: [{ operation: 'ADD', path: HIGH_PATH, bytes: Buffer.from('artifact-v1', 'utf8') }],
+    commit_sha: 'synthetic-artifact-head-v1',
   });
   const mutated = buildArtifactBinding({
     changes: [{ operation: 'ADD', path: HIGH_PATH, bytes: Buffer.from('artifact-v2', 'utf8') }],
+    commit_sha: 'synthetic-artifact-head-v2',
   });
   const evidence = parsedEvidence({
     taskId,
@@ -319,6 +346,23 @@ export function runArtifactHumanGateIntegration() {
     artifact_hash: mutated.artifact_hash,
     trusted_author_login: OWNER_LOGIN,
   });
+  const originalReview = deterministicReview(original);
+  const mutatedPolicy = evaluateMergePolicy({
+    task_contract: contract({
+      taskId,
+      risk: 'HIGH',
+      path: HIGH_PATH,
+      lockId,
+      humanGateRequired: true,
+    }),
+    changed_paths: [HIGH_PATH],
+    artifact_binding: mutated,
+    project_map: SYNTHETIC_PROJECT_MAP,
+    gate_evidence: reparsed,
+    deterministic_review: originalReview,
+    protection: validProtection(),
+    required_ci: requiredCi(),
+  });
   const approvalRevoked = transition(
     { state: 'HUMAN_APPROVED', human_gate_required: true },
     'HUMAN_PENDING',
@@ -330,6 +374,9 @@ export function runArtifactHumanGateIntegration() {
     mutated_hash: mutated.artifact_hash,
     current_gate_count_after_mutation: Object.keys(reparsed.current).length,
     stale_gate_count_after_mutation: reparsed.stale.length,
+    deterministic_review_invalidated:
+      mutatedPolicy.blockers.includes('REVIEW_ARTIFACT_MISMATCH')
+      && mutatedPolicy.blockers.includes('REVIEW_HEAD_MISMATCH'),
     workflow_state_after_mutation: approvalRevoked.state,
   });
 }
@@ -346,6 +393,7 @@ export function runMergePolicyUpstreamIntegration() {
   });
   const artifact = buildArtifactBinding({
     changes: [{ operation: 'ADD', path: HIGH_PATH, bytes: Buffer.from('upstream-v1', 'utf8') }],
+    commit_sha: 'synthetic-upstream-head',
   });
   const evidence = parsedEvidence({
     taskId,
@@ -361,13 +409,12 @@ export function runMergePolicyUpstreamIntegration() {
     artifact_binding: artifact,
     project_map: SYNTHETIC_PROJECT_MAP,
     gate_evidence: evidence.parsed,
+    deterministic_review: deterministicReview(artifact),
     protection,
     required_ci: requiredCi(),
   };
   const passed = evaluateMergePolicy(base);
-  const missingReview = structuredClone(evidence.parsed);
-  delete missingReview.current.REVIEW;
-  const reviewBlocked = evaluateMergePolicy({ ...base, gate_evidence: missingReview });
+  const reviewBlocked = evaluateMergePolicy({ ...base, deterministic_review: null });
   const ciBlocked = evaluateMergePolicy({ ...base, required_ci: requiredCi({ 'phase-a': 'FAIL' }) });
   const protectionBlocked = evaluateMergePolicy({
     ...base,
@@ -398,8 +445,9 @@ export function runNegativeMatrix() {
   matrix.risk_downgrade_rejected = risk.rejected_downgrade === true && risk.effective_risk === 'HIGH';
 
   const artifact = runArtifactHumanGateIntegration();
-  matrix.artifact_mutation_invalidates_approval = artifact.workflow_state_after_mutation === 'HUMAN_PENDING';
-  matrix.stale_evidence_rejected = artifact.current_gate_count_after_mutation === 0 && artifact.stale_gate_count_after_mutation === 4;
+  matrix.artifact_mutation_invalidates_approval = artifact.workflow_state_after_mutation === 'HUMAN_PENDING'
+    && artifact.deterministic_review_invalidated === true;
+  matrix.stale_evidence_rejected = artifact.current_gate_count_after_mutation === 0 && artifact.stale_gate_count_after_mutation === 3;
 
   const unauthorizedComment = [{
     id: 1,
@@ -417,6 +465,38 @@ export function runNegativeMatrix() {
     trusted_author_login: OWNER_LOGIN,
   });
   matrix.unauthorized_evidence_rejected = Object.keys(unauthorized.current).length === 0 && unauthorized.unauthorized.length === 1;
+
+  const selfAuthorityComments = [
+    {
+      id: 2,
+      user: { login: OWNER_LOGIN },
+      body: formatGateEvidence({
+        gate: 'REVIEW',
+        task_id: 'SELF-AUTHORITY',
+        artifact_hash: 'b'.repeat(64),
+        status: 'PASS',
+      }),
+    },
+    {
+      id: 3,
+      user: { login: OWNER_LOGIN },
+      body: formatGateEvidence({
+        gate: 'VERIFICATION',
+        task_id: 'SELF-AUTHORITY',
+        artifact_hash: 'b'.repeat(64),
+        status: 'PASS',
+      }),
+    },
+  ];
+  const selfAuthority = parseGateEvidence(selfAuthorityComments, {
+    task_id: 'SELF-AUTHORITY',
+    artifact_hash: 'b'.repeat(64),
+    trusted_author_login: OWNER_LOGIN,
+  });
+  matrix.self_review_rejected = selfAuthority.unauthorized.some((item) => item.reason === 'UNAUTHORIZED_REVIEW_EVIDENCE')
+    && selfAuthority.current.REVIEW === undefined;
+  matrix.self_verification_rejected = selfAuthority.unauthorized.some((item) => item.reason === 'UNAUTHORIZED_VERIFICATION_EVIDENCE')
+    && selfAuthority.current.VERIFICATION === undefined;
 
   try {
     validatePrTrustBoundary({
@@ -457,7 +537,8 @@ export function runPrePilotVerificationGate() {
     && riskProjectMap.effective_risk === 'HIGH'
     && riskProjectMap.rejected_downgrade === true
     && artifactHuman.current_gate_count_after_mutation === 0
-    && artifactHuman.stale_gate_count_after_mutation === 4
+    && artifactHuman.stale_gate_count_after_mutation === 3
+    && artifactHuman.deterministic_review_invalidated === true
     && mergePolicyUpstream.all_upstream_pass === true
     && negativePassed;
 
