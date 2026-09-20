@@ -80,4 +80,4 @@ STEP_60 = NOT_STARTED
 
 ## Inherited regression maintenance
 
-Stage 59-D intentionally graduates Home from the placeholder state that Stage 59-B originally protected. The inherited `verify-step59-navigation.mjs` therefore removes only the obsolete `targetStep={59}` Home-placeholder assertion. Its Step-60 guards for Search and Category remain unchanged. Because this verifier is now modified, its child-process launch is also migrated away from direct `process.env` access to the repository-approved server configuration boundary pattern.
+Stage 59-D intentionally graduates Home from the placeholder state that Stage 59-B originally protected. The inherited `verify-step59-navigation.mjs` therefore removes only the obsolete `targetStep={59}` Home-placeholder assertion. Its Step-60 guards for Search and Category remain unchanged. Because this verifier is now modified, its child-process launch is also migrated away from direct `process.env` access. On Linux CI it now uses the direct `env → pnpm` execution path, avoiding a shell-wrapper orphan process while preserving the repository configuration boundary.
