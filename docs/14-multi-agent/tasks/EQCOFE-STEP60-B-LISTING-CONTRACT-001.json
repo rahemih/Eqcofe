@@ -2,7 +2,7 @@
   "schema_version": "2.2",
   "task_id": "EQCOFE-STEP60-B-LISTING-CONTRACT-001",
   "title": "Step 60-B backend and OpenAPI listing contract readiness",
-  "description": "Make the public Search/Category/Listing API contract honest and typed before Storefront implementation. Define successful response schemas and cursor semantics for Search, Category products, Category filters and Search suggestions; remove product-list query parameters that the backend does not yet implement; bind ProductCard to canonical refs; expose authoritative inventory-backed in_stock through the Inventory public port; regenerate OpenAPI types; add deterministic contract/runtime regression tests; and keep advanced interactive filtering/sorting implementation reserved for Stage 60-F.",
+  "description": "Make the public Search/Category/Listing API contract honest and typed before Storefront implementation. Define successful response schemas and cursor semantics for Search, Category products, Brand products, Category filters and Search suggestions; remove product-list query parameters that the backend does not yet implement; bind ProductCard to canonical refs; expose authoritative inventory-backed in_stock through the Inventory public port; regenerate OpenAPI types; add deterministic contract/runtime regression tests; and keep advanced interactive filtering/sorting implementation reserved for Stage 60-F.",
   "risk": "MEDIUM",
   "risk_floor": "MEDIUM",
   "owner": "BACKEND",
@@ -193,7 +193,8 @@
       "A8": "Security — public input bounding, injection/abuse review and adversarial query cases",
       "A10": "Evidence — exact provider facts only; terminal evidence after protected merge"
     },
-    "security_hardening": "A8 exact-head review requires bounded cursor decoding (max 1024 bytes/chars), runtime Slug validation for public category/brand query scopes, and route-specific fail-closed query-key handling so path-owned category/brand scope cannot be silently overridden by undeclared query parameters."
+    "security_hardening": "A8 exact-head review requires bounded cursor decoding (max 1024 bytes/chars), runtime Slug validation for public category/brand query scopes, and route-specific fail-closed query-key handling so path-owned category/brand scope cannot be silently overridden by undeclared query parameters.",
+    "brand_listing_gap": "A1 recovery review found GET /brands/{slug}/products shared the listing backend but still had an untyped 200 response and no declared cursor/limit/category query contract. Stage 60-B includes this endpoint in listing parity; no new business capability is invented."
   },
   "acceptance_criteria": [
     {
@@ -204,7 +205,7 @@
     },
     {
       "id": "AC-002",
-      "description": "Search, Category products, Category filters, Category context and Search suggestions expose explicit successful response schemas in source OpenAPI and generated types.",
+      "description": "Search, Category products, Brand products, Category filters, Category context and Search suggestions expose explicit successful response schemas in source OpenAPI and generated types.",
       "verification": "step60_contract_schema_test",
       "mandatory": true
     },
