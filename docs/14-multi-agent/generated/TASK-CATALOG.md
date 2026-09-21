@@ -37,6 +37,7 @@
 | MA-AGENT-A5-DATABASE-001 | A5 — Database & Data Engineering Prompt | LOW | NOT_REQUIRED | `6331d75a8db73150da869a06e3756d02e6ffa4c4` | 12000/18000/35000 |
 | MA-AGENT-A6-DEVOPS-001 | A6 — DevOps / CI Engineering Prompt | LOW | NOT_REQUIRED | `321b3f5a519ae44817beab503791529d842cf37c` | 12000/18000/35000 |
 | MA-AGENT-A7-QA-001 | A7 — QA & Test Engineering Prompt | LOW | NOT_REQUIRED | `0594ab1db4fac68ff7d2c54819675eff10ab15b1` | 12000/18000/35000 |
+| MA-AGENT-A8-SECURITY-001 | A8 — Security Engineering Prompt | LOW | NOT_REQUIRED | `11e113d550e4adc8146a776eccea3405f6120ee6` | 13000/20000/38000 |
 | MA-AGENT-BASE-CONTRACT-001 | Phase B — Base Agent Contract and Prompt Core | LOW | NOT_REQUIRED | `66ccb3834b6e8307485c7b4e090be6bf067c9a04` | 12000/18000/35000 |
 | MA-AGENT-PHASE-A-REGISTRY-001 | Phase A — Canonical Agent Registry | LOW | NOT_REQUIRED | `814cb7e56d927716f3c101771fa9b56b511181e8` | 8000/12000/25000 |
 | MA-ARTIFACT-HASH-001 | Implement deterministic Artifact Hash Generator | MEDIUM | NOT_REQUIRED | `86124a4f6a431953b0b28bbd4a359769941101ea` | 25000/35000/70000 |
@@ -70,4 +71,4 @@
 | MA-V1-ACC-MEDIUM-001 | V1 Acceptance MEDIUM R2 — telemetry terminal-state conflict hardening | MEDIUM | NOT_REQUIRED | `9017e0f25e9571568ed9acf4ca3ca977ce9e78f0` | 15000/25000/50000 |
 | MA-V1-ACCEPTANCE-CLOSURE-V16-R2-001 | V1.6 Phase 3 canonical acceptance closure R2 | HIGH | REQUIRED | `d7d235f5f240b8bea44bc607afa812b2f5bb12d4` | 30000/50000/90000 |
 
-Task contracts indexed: **64**.
+Task contracts indexed: **65**.
