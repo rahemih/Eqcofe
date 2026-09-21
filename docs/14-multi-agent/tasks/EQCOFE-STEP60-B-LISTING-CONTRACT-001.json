@@ -119,7 +119,8 @@
     "shared_task_catalog_writer_before_write": "NONE",
     "contract_gap": "Search/category/filter/suggestion successful bodies were untyped; /products advertised min_price/max_price/available/sort that CatalogQueryService did not consume; ProductCard in_stock was hard-coded false.",
     "implementation_boundary": "Stage 60-B types and aligns the currently supported contract. Advanced filter and selectable sort behavior remains Stage 60-F.",
-    "design_recovery_sync": "Initial exact-head CI exposed deterministic Step56 recovered-source hash drift for contracts/http/openapi.yaml and src/modules/catalog/catalog.module.ts. Stage 60-B authorizes minimal refresh of those two source SHA256 entries plus the deterministic Step56-A manifest sourceSha256; no Step56 design semantics are changed."
+    "design_recovery_sync": "Pre-PR deterministic verification exposed Step56 recovered-source hash drift for contracts/http/openapi.yaml and src/modules/catalog/catalog.module.ts. Stage 60-B authorizes minimal refresh of those two source SHA256 entries plus the deterministic Step56-A manifest sourceSha256; no Step56 design semantics are changed.",
+    "bounded_availability_debt": "Product-card stock truth uses the canonical Inventory availability port per sellable variant. This is authority-correct but can fan out to multiple bounded reads per card; performance batching is deferred to Step 60-G unless Stage 60 acceptance shows it is required earlier."
   },
   "acceptance_criteria": [
     {
