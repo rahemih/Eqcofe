@@ -60,7 +60,10 @@
       "docs/13-product-design/step56-final-audit/state-matrix.json",
       "docs/13-product-design/step56-final-audit/release-blockers.json",
       "docs/13-product-design/step56-final-audit/README.md",
-      "docs/13-product-design/step56-final-audit/manifest.json"
+      "docs/13-product-design/step56-final-audit/manifest.json",
+      "docs/13-product-design/step57-high-fidelity-contract.json",
+      "docs/13-product-design/step57-prototype/src/coverage.json",
+      "docs/13-product-design/step57-prototype/manifest.json"
     ],
     "forbidden": [
       ".github/**",
@@ -119,7 +122,10 @@
         "docs/13-product-design/step56-final-audit/state-matrix.json",
         "docs/13-product-design/step56-final-audit/release-blockers.json",
         "docs/13-product-design/step56-final-audit/README.md",
-        "docs/13-product-design/step56-final-audit/manifest.json"
+        "docs/13-product-design/step56-final-audit/manifest.json",
+        "docs/13-product-design/step57-high-fidelity-contract.json",
+        "docs/13-product-design/step57-prototype/src/coverage.json",
+        "docs/13-product-design/step57-prototype/manifest.json"
       ]
     }
   ],
@@ -162,7 +168,8 @@
     "design_recovery_sync": "Pre-PR deterministic verification exposed Step56 recovered-source hash drift for contracts/http/openapi.yaml and src/modules/catalog/catalog.module.ts. Stage 60-B authorizes minimal refresh of those two source SHA256 entries plus the deterministic Step56-A manifest sourceSha256; no Step56 design semantics are changed.",
     "bounded_availability_debt": "Product-card stock truth uses the canonical Inventory availability port per sellable variant. This is authority-correct but can fan out to multiple bounded reads per card; performance batching is deferred to Step 60-G unless Stage 60 acceptance shows it is required earlier.",
     "provider_ci_repair": "Exact-head Canonical CI run 35595747553 / job 106320001824 failed closed in validate-step56-admin-shell because historical Step56 B-G provenance hashes transitively pin the intentionally changed OpenAPI/Catalog sources. Repair is limited to source SHA256 propagation, B-G manifest sourceSha256 refresh, and deterministic Step56-H audit regeneration; design semantics and historical transport evidence remain unchanged.",
-    "design_recovery_cascade": "Provider Canonical CI run 35595747553 / job 106320001824 failed closed at validate-step56-admin-shell because the Step56-B contract still pinned the pre-60-B A-contract hash. Stage 60-B therefore authorizes a source-hash-only deterministic cascade through B-G contracts/manifests and H generated audit artifacts. No validator, semantic design field, screen contract, historical baseline, or runtime-release claim may be changed."
+    "design_recovery_cascade": "Provider Canonical CI run 35595747553 / job 106320001824 failed closed at validate-step56-admin-shell because the Step56-B contract still pinned the pre-60-B A-contract hash. Stage 60-B therefore authorizes a source-hash-only deterministic cascade through B-G contracts/manifests and H generated audit artifacts. No validator, semantic design field, screen contract, historical baseline, or runtime-release claim may be changed.",
+    "step57_provenance_cascade": "Provider Canonical CI run 35596659040 failed closed after Step56 B-H all passed because Step57 foundation pins Step56 B-H source hashes. Stage 60-B authorizes deterministic regeneration of the Step57 high-fidelity source-linked contract and, only if generator parity requires it, its prototype coverage/manifest. Step57 reviewStatus and all closure gates remain PENDING; no approval, screen, journey, operation, authority or prototype behavior may be invented."
   },
   "acceptance_criteria": [
     {
@@ -229,6 +236,12 @@
       "id": "AC-009B",
       "description": "All transitively affected Step56 B-G source-hash evidence, B-G manifest sourceSha256 values and Step56-H deterministic audit artifacts are synchronized solely from intentionally changed canonical sources; no wireframe/state/journey/permission/transport semantics or validators are rewritten.",
       "verification": "step56_transitive_provenance_and_h_regeneration",
+      "mandatory": true
+    },
+    {
+      "id": "AC-009C",
+      "description": "Step57 foundation provenance is synchronized deterministically from the hash-only Step56 B-H changes while preserving all 134 surfaces, 24 journeys, operation authority, reviewStatus=PENDING and closure gates=PENDING; prototype outputs change only if canonical generator parity requires it.",
+      "verification": "step57_foundation_provenance_regeneration",
       "mandatory": true
     },
     {
