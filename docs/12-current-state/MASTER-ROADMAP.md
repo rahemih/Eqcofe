@@ -1,12 +1,12 @@
 # EQCOFE — Complete Master Execution Roadmap
 
-**Roadmap version:** 3.50 — Step-58 Final Canonical Closure
+**Roadmap version:** 3.51 — Step-59 Final Canonical Closure
 **Effective date:** 2026-09-20
 **Canonical repository:** `rahemih/Eqcofe`  
 **Canonical branch:** `main`  
 **Verified Step-44 code baseline:** `b239dfe825b615f36caf2e26cc7abc80c70d349c`
 
-> This is the canonical end-to-end execution map for EQCOFE. Phase A (Steps 1–28) is now `CLOSED / FINAL GATE PASS` by current canonical verification. For historical Steps 1–27, the exact original step labels/closure lineage are not independently proven by recovered Git evidence and remain `Historical Attribution: UNVERIFIED`; Step 28 remains `Historical Attribution: PARTIAL`. Current-baseline verification must not be cited as recovered historical provenance. Steps 29–56 retain their existing canonical status. Step 55 is CLOSED / FINAL GATE PASS; Step 56-A foundation is complete and Step 56-B is complete; Step 56-C is complete; Step 56-D is complete; Step 56-E is complete; Step 56-F is complete; Step 56-G is complete; Step 56-H is complete; Step 56 is CLOSED / FINAL GATE PASS; Step 57 is CLOSED / FINAL GATE PASS; Step 58 is CLOSED / FINAL CANONICAL PASS; Step 59 is next, not started.
+> This is the canonical end-to-end execution map for EQCOFE. Phase A (Steps 1–28) is now `CLOSED / FINAL GATE PASS` by current canonical verification. For historical Steps 1–27, the exact original step labels/closure lineage are not independently proven by recovered Git evidence and remain `Historical Attribution: UNVERIFIED`; Step 28 remains `Historical Attribution: PARTIAL`. Current-baseline verification must not be cited as recovered historical provenance. Steps 29–56 retain their existing canonical status. Step 55 is CLOSED / FINAL GATE PASS; Step 56-A foundation is complete and Step 56-B is complete; Step 56-C is complete; Step 56-D is complete; Step 56-E is complete; Step 56-F is complete; Step 56-G is complete; Step 56-H is complete; Step 56 is CLOSED / FINAL GATE PASS; Step 57 is CLOSED / FINAL GATE PASS; Step 58 is CLOSED / FINAL CANONICAL PASS; Step 59 is CLOSED / FINAL CANONICAL PASS; Step 60 is next, not started.
 
 ## Status legend
 - `RECONSTRUCTED-HISTORY`: normalized historical description; exact historical step attribution is not proven.
@@ -310,11 +310,11 @@ The frozen baseline is behavioral and contractual: journeys, route/surface trace
 ## Step 58 — Frontend Application Foundation — `CLOSED / FINAL CANONICAL PASS`
 Production Storefront foundation is established and canonically verified: workspace/build, routing/shell, Persian RTL/i18n, API/server-data boundary, auth/session/security boundary, loading/error/offline recovery, and static/SSR/browser quality gates. Final closure history: `docs/11-step-history/STEP-58-H-FINAL-CANONICAL-CLOSURE.md`.
 
-## Step 59 — Home, Navigation & Discovery — `NEXT / NOT_STARTED`
-Implement homepage, responsive header/navigation, promotional surfaces, categories/brands, search entry points and core discovery interactions.
+## Step 59 — Home, Navigation & Discovery — `CLOSED / FINAL CANONICAL PASS`
+Production Home/Navigation/Discovery is established and canonically verified: responsive Header/navigation, semantic search entry, authoritative server-loaded Home data, category/brand discovery handoffs, bounded Toman merchandising, Buying Guide/Wholesale handoffs, Home loading/empty/recovery/error/offline behavior, Persian RTL/accessibility/responsive hardening, and integrated Browser Acceptance. Final closure history: `docs/11-step-history/STEP-59-H-FINAL-CANONICAL-CLOSURE.md`.
 
-## Step 60 — Search, Category, Filters & Listing — `PLANNED`
-Implement indexed/category listings, filters, sorting, pagination/infinite strategy, empty/loading/error states and SEO-friendly listing behavior.
+## Step 60 — Search, Category, Filters & Listing — `NEXT / NOT_STARTED`
+Implement indexed/category listings, filters, sorting, pagination/infinite strategy, empty/loading/error states and SEO-friendly listing behavior. Step 60 must begin under a fresh live guard and separate task; no Step-60 feature implementation is introduced by Step 59-H.
 
 ## Step 61 — Product Detail & Rich Media — `PLANNED`
 Implement product/variant selection, stock/price states, media gallery, video/3D capability, specifications, related content and add-to-cart behavior.
@@ -433,11 +433,11 @@ Evolve architecture, integrations and product capabilities based on production e
 
 # Current Position
 
-- **Last fully closed step:** Step 58 — Frontend Application Foundation.
+- **Last fully closed step:** Step 59 — Home, Navigation & Discovery.
 - **Phase A:** CLOSED / FINAL GATE PASS — Steps 1–28 are COMPLETE / VERIFIED BY CURRENT CANONICAL BASELINE; historical attribution remains UNVERIFIED for Steps 1–27 and PARTIAL for Step 28.
 - **Step 49 closure:** CLOSED / FINAL GATE PASS after A11 audit.
-- **Active step:** NONE — Step58 is canonically closed; Step59 has not started.
-- **Next approved step:** Step 59 — Home, Navigation & Discovery — NEXT / NOT_STARTED.
+- **Active step:** NONE — Step59 is canonically closed after H transport/postmerge PASS.
+- **Next approved step:** Step 60 — Search, Category, Filters & Listing — NEXT / NOT_STARTED.
 - **Backend feature-completion horizon:** Step 52.
 - **UI/UX design begins:** Step 53.
 - **Storefront implementation begins:** Step 58.
@@ -483,3 +483,7 @@ PR `#163` exact head `796c4de7bb0b7945950d084d82204be4ed7107b5` produced artifac
 ## Step58 final canonical evidence
 
 Stages A–G are canonically closed through protected PRs #185, #187, #188, #189, #191, #194, #198 and #199. Final Stage H PR #201 merged through protected Merge Policy Run `35490799957` at `8f17364fc7c27dc30de5845c1af467b1215d1351`; exact-SHA postmerge `pnpm verify` and Phase-A both PASS. The integrated pre-H main is `8ba4aaca3ebae0afa8552d509f0ba3decb229d3b`. PR #199 protected Merge Policy Run `35489702142` passed exact checkout, dependency install, root `pnpm verify` and Phase-A verification. Terminal merged-main `Step 58 Storefront Quality` workflow_dispatch Run `35490356922` passed on the same exact SHA with zero WCAG-tagged axe violations, all six canonical widths, focus >=3px, 44x44 targets, no horizontal overflow, reduced-motion, RTL and reflow gates. Step58-H reconciles CURRENT-STATE/MASTER-ROADMAP and records final closure without runtime or Step59 implementation mutation. Step59 remains NEXT / NOT_STARTED.
+
+## Step59 final canonical evidence
+
+Stages 59-A through 59-G are canonically closed through protected PRs #234, #236, #238, #239, #240, #242 and #244. Stage 59-G exact head `cf3415680ce7c8e28edccad460afad1a65004712` passed Canonical CI `35525409492`, Phase A Verification `35525409494` and Storefront Browser Quality `35525409547`. Protected Merge Policy Run `35525658270` merged Stage G at `f7919991e619d416360e74a542741ef21c70f732`; postmerge job `106117278671` passed exact-SHA checkout, root `pnpm verify` and Phase A. Intervening Agent A0 PR #245, A1 PR #246, A2 PR #248 and A3 PR #249 changed only nine governance files in total; their protected merges/postmerge verification passed at `120898df57138b301560e7d9b9f1b3f5da03e982`, `b7acc0272d986d1daca72ecf43da476c6b963e3c`, `315a2b2eaf5c762859125cad97a96951461a5348` and `3d906df2250b73e58044c24b642ab5fbbd089a78` respectively, with terminal Locks RELEASED and no Storefront/runtime path changed. Step59-H performs documentation/governance-only closure and hands off to Step 60.

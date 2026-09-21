@@ -74,3 +74,28 @@ STEP_59_H = BLOCKED
 STEP_60 = NOT_STARTED
 ROADMAP_STATE_SYNC = RESERVED_FOR_59_H
 ```
+
+## Final G transport evidence
+
+PR #244 completed the governed Step 59-G transport.
+
+- exact reviewed head: `cf3415680ce7c8e28edccad460afad1a65004712`
+- artifact hash: `39b50d6ef2f0f9313ac91767437024ed1262a1ae3e1bc29c60c543d120e5887c`
+- exact-head Canonical CI run `35525409492`: PASS
+- exact-head Phase A Verification run `35525409494`: PASS
+- exact-head Storefront Browser Quality run `35525409547`: PASS
+- protected Merge Policy workflow_dispatch Run #329 / `35525658270`: PASS
+- exact merge SHA: `f7919991e619d416360e74a542741ef21c70f732`
+- postmerge job `106117278671`: PASS
+- exact canonical merge checkout: PASS
+- postmerge root `pnpm verify`: PASS
+- postmerge Phase A verification: PASS
+- terminal Lock `LOCK-EQCOFE-STEP59-G-ACCEPTANCE-001-01`: RELEASED
+
+After this terminal evidence, Step 59-G is **CLOSED / CANONICAL PASS** and Step 59-H is authorized after a fresh live guard. Roadmap/CURRENT-STATE synchronization remains owned by H.
+
+```text
+STEP_59_G = CLOSED_CANONICAL_PASS
+STEP_59_H = AUTHORIZED_AFTER_FRESH_LIVE_GUARD
+STEP_60 = NOT_STARTED
+```
