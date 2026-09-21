@@ -227,14 +227,8 @@
     },
     {
       "id": "AC-009B",
-      "description": "All transitively affected Step56 B-G source-hash evidence, B-G manifest sourceSha256 values and Step56-H deterministic audit artifacts are synchronized from unchanged semantics after the intentionally changed canonical sources; no wireframe/state/journey/permission/transport semantics are rewritten.",
-      "verification": "step56_transitive_provenance_sync",
-      "mandatory": true
-    },
-    {
-      "id": "AC-009B",
-      "description": "The Step56 B→G source-hash chain and H generated audit outputs are regenerated/synchronized only as a deterministic consequence of intentionally changed recovered sources; semantic design content and validators remain unchanged.",
-      "verification": "step56_hash_evidence_cascade_sync",
+      "description": "All transitively affected Step56 B-G source-hash evidence, B-G manifest sourceSha256 values and Step56-H deterministic audit artifacts are synchronized solely from intentionally changed canonical sources; no wireframe/state/journey/permission/transport semantics or validators are rewritten.",
+      "verification": "step56_transitive_provenance_and_h_regeneration",
       "mandatory": true
     },
     {
