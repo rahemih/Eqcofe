@@ -826,19 +826,19 @@
   "sources": [
     {
       "path": "contracts/http/openapi.yaml",
-      "sha256": "f3bd61b16a8987c5b5004323a7a5c0493942cb9834e812b66c67c869128b9f09"
+      "sha256": "980b91e0880c6a47a723d0c1ada2a6a136b9b485393849d908425b91b6b72b2c"
     },
     {
       "path": "docs/13-product-design/step56-admin-shell-wireframes.json",
-      "sha256": "4e87b146f52495873f07ee59f4a4b9e5827e04ed54ecfa5d75a6fcbcfa2a0433"
+      "sha256": "d8dfb8b0bf224d1a18e24fe67c59684e6d0f89b6d72b31b11beab18fd9b502a7"
     },
     {
       "path": "docs/13-product-design/step56-admin-ux-contract.json",
-      "sha256": "cbc743dbdd1449105c8c2c1193d36040f5a7b4446a012ec985c04b769421732a"
+      "sha256": "9e79729fd06bbd5a3086992fb4f3077775deffb2153addecafdf698ec9502481"
     },
     {
       "path": "docs/13-product-design/step56-commerce-operations-wireframes.json",
-      "sha256": "2e97a9ca21e1e6f8f38057518fcc31ac4f2b2c56143e42b01f11a393d765b614"
+      "sha256": "6c529ea185a2107566f93cad5f47d582994bac8da216933c7fb3d80d3f3b8771"
     },
     {
       "path": "src/modules/ai/ai.module.ts",
@@ -902,7 +902,7 @@
     },
     {
       "path": "src/modules/catalog/application/catalog-query.service.ts",
-      "sha256": "f5b64c353bad2ea50225c70aefbb719df5802f5b3c758dda26aef429ac4869df"
+      "sha256": "bee5e7c49c8c1783c58e650fb86c7ffb9248daa6da0401e51a184c1a18945c03"
     },
     {
       "path": "src/modules/catalog/application/catalog-structure.service.ts",
@@ -946,7 +946,7 @@
     },
     {
       "path": "src/modules/catalog/catalog.module.ts",
-      "sha256": "00169b6af9d708bd55b32fe5fcb51d35e32616c5031d7d2995ff3bb09f821df0"
+      "sha256": "dd7feb86db43784a22677118132157dcd3e5303430c7278a9e1fb75dbbe93d89"
     },
     {
       "path": "src/modules/catalog/domain/catalog.types.ts",
