@@ -838,7 +838,7 @@
     },
     {
       "path": "docs/13-product-design/step56-catalog-media-wireframes.json",
-      "sha256": "9eb12b23bdd0afc03d994628c1a05546bb43efe3aa27cb1c0dc22e5cfb0fe474"
+      "sha256": "2dee403c763ea725e59fe88d75849599ce34b0f55828cf3b0bca754891445a5a"
     },
     {
       "path": "src/modules/catalog/application/catalog-import-apply.service.ts",
@@ -938,7 +938,7 @@
     },
     {
       "path": "src/modules/inventory/application/ports/inventory-availability.service.ts",
-      "sha256": "99d8ebfff56aabedf6ee8cb54b2c2a0af85044681400063c879194cb045cc421"
+      "sha256": "166da5d315f11ee414ecc2c96900ce7256e00fc1ce1435308b632d85637e19e1"
     },
     {
       "path": "src/modules/inventory/application/ports/inventory-cost-basis.service.ts",
@@ -970,7 +970,7 @@
     },
     {
       "path": "src/modules/inventory/application/ports/inventory-public.port.ts",
-      "sha256": "e9588b41a69e6196330593351cf96d44219befdaed47647f7e018c76673ab8c3"
+      "sha256": "66edaf3e1fb14e4ff05f44c3e4a6d215d1a977f532cf17fe7b8e3c1bf46fe3f4"
     },
     {
       "path": "src/modules/inventory/domain/inventory.events.ts",
@@ -982,7 +982,7 @@
     },
     {
       "path": "src/modules/inventory/infrastructure/inventory.repository.ts",
-      "sha256": "e6dc5b078ed035795e848df83cc557868b2bb3ea12e95f550a8fbc2bfe8bfbe1"
+      "sha256": "7da977d8da7a7d726626f18359c2a03806776b19776b4492eed82a52c3a022e9"
     },
     {
       "path": "src/modules/inventory/inventory.module.ts",
