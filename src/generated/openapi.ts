@@ -11,6 +11,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
+        /** @description فهرست عمومی محصولات با ترتیب canonical جدیدترین؛ فیلتر/مرتب‌سازی توسعه‌یافته در Stage 60-F فعال می‌شود. */
         get: operations["listProducts"];
         put?: never;
         post?: never;
@@ -91,6 +92,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
+        /** @description جستجوی عمومی با ترتیب relevance ثابت و cursor pagination. */
         get: operations["search"];
         put?: never;
         post?: never;
@@ -572,6 +574,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
+        /** @description محصولات دسته با ترتیب canonical جدیدترین و cursor pagination. */
         get: operations["getCategoriesSlugProducts"];
         put?: never;
         post?: never;
@@ -620,6 +623,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
+        /** @description محصولات برند با ترتیب canonical جدیدترین و cursor pagination. */
         get: operations["getBrandsSlugProducts"];
         put?: never;
         post?: never;
@@ -8538,7 +8542,6 @@ export interface components {
             suggestions: components["schemas"]["SearchSuggestion"][];
         };
         PublicCategoryResponse: {
-            [key: string]: unknown;
             id: components["schemas"]["EntityId"];
             parent_id?: components["schemas"]["EntityId"] | null;
             name_fa: string;
@@ -8548,6 +8551,8 @@ export interface components {
             sales_enabled: boolean;
             sort_order?: number;
             version?: components["schemas"]["EntityVersion"];
+        } & {
+            [key: string]: unknown;
         };
         CategoryFilterValue: {
             id: components["schemas"]["EntityId"];
@@ -10483,8 +10488,8 @@ export interface operations {
             query?: {
                 cursor?: components["parameters"]["Cursor"];
                 limit?: components["parameters"]["Limit"];
-                category?: string;
-                brand?: string;
+                category?: components["schemas"]["Slug"];
+                brand?: components["schemas"]["Slug"];
             };
             header?: never;
             path?: never;
@@ -11428,11 +11433,11 @@ export interface operations {
             query?: {
                 cursor?: components["parameters"]["Cursor"];
                 limit?: components["parameters"]["Limit"];
-                brand?: string;
+                brand?: components["schemas"]["Slug"];
             };
             header?: never;
             path: {
-                slug: string;
+                slug: components["schemas"]["Slug"];
             };
             cookie?: never;
         };
@@ -11499,11 +11504,11 @@ export interface operations {
             query?: {
                 cursor?: components["parameters"]["Cursor"];
                 limit?: components["parameters"]["Limit"];
-                category?: string;
+                category?: components["schemas"]["Slug"];
             };
             header?: never;
             path: {
-                slug: string;
+                slug: components["schemas"]["Slug"];
             };
             cookie?: never;
         };
@@ -11526,7 +11531,6 @@ export interface operations {
         parameters: {
             query?: {
                 q?: string;
-                /** @default 10 */
                 limit?: number;
             };
             header?: never;
