@@ -12,13 +12,14 @@ import { PosVariantLookupService } from './application/pos-variant-lookup.servic
 import { CatalogImportApplyService } from './application/catalog-import-apply.service';
 import { PosVariantLookupRepository } from './infrastructure/pos-variant-lookup.repository';
 import { PricingModule } from '../pricing/pricing.module';
+import { InventoryModule } from '../inventory/inventory.module';
 import { MEDIA_STORAGE_PORT } from './application/ports/media-storage.port';
 import { ConfiguredMediaStorageAdapter } from './infrastructure/configured-media-storage.adapter';
 import { CATALOG_CUSTOMER_PORT } from './application/ports/catalog-customer.port';
 import { CatalogCustomerAdapter } from './infrastructure/catalog-customer.adapter';
 
 @Module({
-  imports: [PricingModule],
+  imports: [PricingModule, InventoryModule],
   controllers: [CatalogController],
   providers: [
     CatalogRepository,
