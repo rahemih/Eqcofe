@@ -799,7 +799,7 @@
     },
     {
       "path": "src/modules/catalog/infrastructure/catalog.repository.ts",
-      "sha256": "256ecda5ea0522503ee39ff6a5e76eb2b572797a7f5f94fed049d3650cbdc401"
+      "sha256": "708e2e08f621c6b68e628333bbf6e3cb20211ecad9f71a0335f3a00e8af337ff"
     },
     {
       "path": "src/modules/catalog/infrastructure/configured-media-storage.adapter.ts",
