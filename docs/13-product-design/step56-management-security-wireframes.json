@@ -842,7 +842,7 @@
     },
     {
       "path": "docs/13-product-design/step56-customers-growth-wireframes.json",
-      "sha256": "6643fcd4a14398097cf4534d80d89f928dba1c7ef495d8b25d3b28bcf6065e0a"
+      "sha256": "a14abc73f6bd00812b39cb25c2b58b69a0236abba4f715055111517fd607b3e5"
     },
     {
       "path": "src/modules/admin/admin.module.ts",
