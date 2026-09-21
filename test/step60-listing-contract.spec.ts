@@ -59,7 +59,7 @@ test('Step 60-B category filter response normalizes missing value arrays',async(
   assert.deepEqual(result.filters[0].values,[]);
 });
 
-test('Step 60-B OpenAPI exposes typed Search, Category, Filter and Suggestion contracts',()=>{
+test('Step 60-B OpenAPI exposes typed Search, Category, Brand, Filter and Suggestion contracts',()=>{
   const source=readFileSync('contracts/http/openapi.yaml','utf8');
   const generated=readFileSync('src/generated/openapi.ts','utf8');
   assert.match(source,/SearchResponse:/);
@@ -67,6 +67,7 @@ test('Step 60-B OpenAPI exposes typed Search, Category, Filter and Suggestion co
   assert.match(source,/SearchSuggestionsResponse:/);
   assert.match(source,/operationId: getCategoriesSlugProducts[\s\S]*ProductListResponse/);
   assert.match(source,/operationId: getCategoriesSlugFilters[\s\S]*CategoryFiltersResponse/);
+  assert.match(source,/operationId: getBrandsSlugProducts[\s\S]*ProductListResponse/);
   assert.match(source,/operationId: getSearchSuggestions[\s\S]*SearchSuggestionsResponse/);
   const products=source.slice(source.indexOf('  \/products:'),source.indexOf('  \/products\/{slug}:'));
   assert.doesNotMatch(products,/min_price|max_price|available|name: sort/);
