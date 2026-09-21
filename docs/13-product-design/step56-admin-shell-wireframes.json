@@ -29,7 +29,7 @@
   "sources": [
     {
       "path": "docs/13-product-design/step56-admin-ux-contract.json",
-      "sha256": "9e79729fd06bbd5a3086992fb4f3077775deffb2153addecafdf698ec9502481"
+      "sha256": "6baf3cf2e49a0c5fce164b9f40bc0c4ce9d84ee8a28323372beb3a9480b535cb"
     },
     {
       "path": "src/modules/identity/application/admin-auth.service.ts",
