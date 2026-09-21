@@ -14,8 +14,28 @@ export class CatalogQueryService {
 
   async listProducts(q: any) {
     this.assertQueryKeys(q, ['cursor', 'limit', 'category', 'brand']);
+    return this.listProductsScoped(q);
+  }
+
+  async categoryProducts(slug: string, q: any) {
+    this.assertQueryKeys(q, ['cursor', 'limit', 'brand']);
+    const category = this.requiredSlug(slug, 'دسته');
+    await this.category(category);
+    return this.listProductsScoped({ ...q, category });
+  }
+
+  async brandProducts(slug: string, q: any) {
+    this.assertQueryKeys(q, ['cursor', 'limit', 'category']);
+    const brand = this.requiredSlug(slug, 'برند');
+    await this.brand(brand);
+    return this.listProductsScoped({ ...q, brand });
+  }
+
+  private async listProductsScoped(q: any) {
     const limit = this.publicLimit(q.limit, 25, 100);
-    const result = await this.repo.listPublic({ category: q.category, brand: q.brand, limit, cursor: q.cursor });
+    const category = this.optionalSlug(q.category, 'دسته');
+    const brand = this.optionalSlug(q.brand, 'برند');
+    const result = await this.repo.listPublic({ category, brand, limit, cursor: q.cursor });
     const prices = await this.pricing.getProductPrices(result.data.map((item: any) => item.id));
     return {
       items: await this.publicCards(result.data, prices),
@@ -161,6 +181,20 @@ export class CatalogQueryService {
     if (unsupported.length) {
       throw new DomainError('VALIDATION_ERROR', `پارامتر پشتیبانی‌نشده: ${unsupported.sort().join(', ')}`);
     }
+  }
+
+  private optionalSlug(value: unknown, label: string) {
+    if (value === undefined || value === null) return undefined;
+    if (typeof value !== 'string' || value.length < 1 || value.length > 180 || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(value)) {
+      throw new DomainError('VALIDATION_ERROR', `${label} نامعتبر است.`);
+    }
+    return value;
+  }
+
+  private requiredSlug(value: unknown, label: string) {
+    const slug = this.optionalSlug(value, label);
+    if (!slug) throw new DomainError('VALIDATION_ERROR', `${label} نامعتبر است.`);
+    return slug;
   }
 
   private publicLimit(value: unknown, fallback: number, maximum: number) {
