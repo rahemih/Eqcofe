@@ -28,6 +28,7 @@
 | EQCOFE-STEP59-E-MERCHANDISING-001 | Step 59-E Home merchandising and promotional surfaces | MEDIUM | NOT_REQUIRED | `4ef4027c1bf761a9d6abade15eec89f2dbee7e00` | 32000/48000/96000 |
 | EQCOFE-STEP59-F-HOME-STATE-001 | Step 59-F Home states accessibility and responsive hardening | MEDIUM | NOT_REQUIRED | `de453f004cb910b88eea2ef28a3ae4b97e0b9ec2` | 32000/48000/96000 |
 | EQCOFE-STEP59-G-ACCEPTANCE-001 | Step 59-G full verification and browser acceptance | MEDIUM | NOT_REQUIRED | `613878480f1fe6b17ef6ab5fb43bd99dfe6fd7b9` | 22000/34000/68000 |
+| EQCOFE-STEP59-H-CLOSURE-001 | Step 59-H final canonical closure and Step 60 handoff | MEDIUM | NOT_REQUIRED | `3d906df2250b73e58044c24b642ab5fbbd089a78` | 18000/30000/60000 |
 | MA-AGENT-A0-ORCHESTRATOR-001 | A0 — Orchestrator / Engineering Manager Prompt | LOW | NOT_REQUIRED | `f7919991e619d416360e74a542741ef21c70f732` | 10000/16000/32000 |
 | MA-AGENT-A1-SPEC-001 | A1 — Specification & Research Prompt | LOW | NOT_REQUIRED | `120898df57138b301560e7d9b9f1b3f5da03e982` | 10000/16000/32000 |
 | MA-AGENT-A2-BACKEND-001 | A2 — Backend Engineering Prompt | LOW | NOT_REQUIRED | `b7acc0272d986d1daca72ecf43da476c6b963e3c` | 12000/18000/35000 |
@@ -65,4 +66,4 @@
 | MA-V1-ACC-MEDIUM-001 | V1 Acceptance MEDIUM R2 — telemetry terminal-state conflict hardening | MEDIUM | NOT_REQUIRED | `9017e0f25e9571568ed9acf4ca3ca977ce9e78f0` | 15000/25000/50000 |
 | MA-V1-ACCEPTANCE-CLOSURE-V16-R2-001 | V1.6 Phase 3 canonical acceptance closure R2 | HIGH | REQUIRED | `d7d235f5f240b8bea44bc607afa812b2f5bb12d4` | 30000/50000/90000 |
 
-Task contracts indexed: **59**.
+Task contracts indexed: **60**.
