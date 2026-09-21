@@ -7,10 +7,12 @@ function service(overrides:Record<string,unknown>={}){
   const repo:any={
     searchPublic:async()=>({data:[{id:'p1',slug:'tamper',name_fa:'تمپر',brand_id:'b1',brand_name:'برند',brand_slug:'brand',category_id:'c1',category_name:'ابزار',category_slug:'tools',effective_sales_enabled:true}],nextCursor:null,hasMore:false}),
     searchSuggestions:async()=>[{label:'تمپر',kind:'product',slug:'tamper'}],
+    listVariants:async()=>[{id:'v1',status:'active',salesEnabled:true,effectiveSalesEnabled:true}],
     ...overrides,
   };
-  const pricing:any={getProductPrices:async()=>({p1:{amount_toman:1000}})};
-  return new CatalogQueryService(repo,pricing);
+  const pricing:any={getProductPrices:async()=>({p1:{current_toman:1000,old_toman:null,discount_percent:null}})};
+  const inventory:any={getOnlineSellableQuantity:async()=>3};
+  return new CatalogQueryService(repo,pricing,inventory);
 }
 
 test('Step 09 search rejects an empty query and bounds query length',async()=>{
@@ -25,7 +27,8 @@ test('Step 09 search returns priced public read models with cursor pagination',a
   const result=await query.search({q:'  تمپر  ',limit:500,cursor:'cursor'});
   assert.deepEqual(received,{query:'تمپر',limit:100,cursor:'cursor'});
   assert.equal(result.query,'تمپر');
-  assert.equal(result.items[0].price.amount_toman,1000);
+  assert.equal(result.items[0].price.current_toman,1000);
+  assert.equal(result.items[0].availability.in_stock,true);
   assert.deepEqual(result.pagination,{next_cursor:'next',has_more:true});
 });
 
