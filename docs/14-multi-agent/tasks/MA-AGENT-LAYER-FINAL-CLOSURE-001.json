@@ -1,0 +1,222 @@
+{
+  "schema_version": "2.2",
+  "task_id": "MA-AGENT-LAYER-FINAL-CLOSURE-001",
+  "title": "Agent Layer — Final Canonical Closure",
+  "description": "Perform the final A0-A10 Agent Layer audit, governance alignment, provider-backed Evidence Matrix, residual-state check, static canonical closure registration, and protected terminal closure transport without precomputing or fabricating post-merge facts.",
+  "risk": "MEDIUM",
+  "risk_floor": "LOW",
+  "risk_rationale": {
+    "chosen": "MEDIUM",
+    "why_low": [
+      "Changed paths are documentation/governance records only; no runtime, workflow, database, API, product, security-control or dependency mutation is included.",
+      "The static record does not modify existing agent prompts or authority rules."
+    ],
+    "escalation_condition": "Manager escalation to MEDIUM is retained because this task registers final canonical completion for the entire Agent Layer. If deterministic policy raises the minimum above MEDIUM, stop and follow the higher-risk path; risk downgrade is prohibited."
+  },
+  "owner": "BACKEND",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "1efffd50eef7fad71b4deee8aa8e69983f9f29c6"
+  },
+  "scope": {
+    "read": [
+      "docs/14-multi-agent/agents/**",
+      "docs/14-multi-agent/tasks/**",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "docs/14-multi-agent/GOVERNANCE.md",
+      "docs/14-multi-agent/GOVERNANCE-LOG.md",
+      "docs/14-multi-agent/missions/**",
+      "docs/11-step-history/**",
+      "docs/12-current-state/**",
+      ".github/workflows/**",
+      "scripts/multi-agent/**"
+    ],
+    "write": [
+      "docs/14-multi-agent/agents/AGENT-LAYER-CANONICAL-CLOSURE.md",
+      "docs/14-multi-agent/tasks/MA-AGENT-LAYER-FINAL-CLOSURE-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "scripts/**",
+      "test/**",
+      "src/**",
+      "apps/**",
+      "database/**",
+      "contracts/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "docs/11-step-history/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**",
+      "docs/14-multi-agent/GOVERNANCE.md",
+      "docs/14-multi-agent/GOVERNANCE-LOG.md",
+      "docs/14-multi-agent/missions/**",
+      "docs/14-multi-agent/incidents/**",
+      "docs/14-multi-agent/agents/PHASE-A-AGENT-REGISTRY.md",
+      "docs/14-multi-agent/agents/PHASE-B-BASE-CONTRACT.md",
+      "docs/14-multi-agent/agents/A0-ORCHESTRATOR.md",
+      "docs/14-multi-agent/agents/A1-SPEC.md",
+      "docs/14-multi-agent/agents/A2-BACKEND.md",
+      "docs/14-multi-agent/agents/A3-FRONTEND.md",
+      "docs/14-multi-agent/agents/A4-ADMIN.md",
+      "docs/14-multi-agent/agents/A5-DATABASE.md",
+      "docs/14-multi-agent/agents/A6-DEVOPS.md",
+      "docs/14-multi-agent/agents/A7-QA.md",
+      "docs/14-multi-agent/agents/A8-SECURITY.md",
+      "docs/14-multi-agent/agents/A9-DESIGN.md",
+      "docs/14-multi-agent/agents/A10-EVIDENCE.md"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-MA-AGENT-LAYER-FINAL-CLOSURE-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 18000,
+    "soft_alert": 30000,
+    "hard_cap": 60000
+  },
+  "max_repair_cycles": 2,
+  "task_risk_rules": [],
+  "dependencies": [
+    {
+      "item": "PHASE-A-REGISTRY",
+      "name": "Canonical Agent Registry",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "de453f004cb910b88eea2ef28a3ae4b97e0b9ec2",
+      "evidence": "PR #241 / release comment 5751166028",
+      "blocking": false
+    },
+    {
+      "item": "PHASE-B-BASE-CONTRACT",
+      "name": "Base Agent Contract",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "613878480f1fe6b17ef6ab5fb43bd99dfe6fd7b9",
+      "evidence": "PR #243 / release comment 5751351764",
+      "blocking": false
+    },
+    {
+      "item": "A0-A10",
+      "name": "Specialized canonical Agent chain",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "1efffd50eef7fad71b4deee8aa8e69983f9f29c6",
+      "evidence": "Provider-backed PR/merge/postmerge/release matrix in AGENT-LAYER-CANONICAL-CLOSURE.md",
+      "blocking": false
+    },
+    {
+      "item": "STEP-60-B-SHARED-WRITER",
+      "name": "Step 60-B shared TASK-CATALOG writer",
+      "required_state": "NO_ACTIVE_CONFLICT",
+      "observed_state": "NO_ACTIVE_CONFLICT",
+      "evidence": "Fresh pre-closure live guard: Open PRs 0 / Active Locks 0 / no Step 60-B writer",
+      "blocking": false
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Final Agent Layer Closure requires exact-artifact Lock, deterministic Review/Verification, protected merge transport, exact-SHA postmerge verification, terminal Lock release, and a post-merge Terminal Provider Seal. The pre-merge static record must not fabricate its own terminal identifiers."
+  },
+  "protection_source": {
+    "required_contexts": [
+      "verify",
+      "phase-a",
+      "merge-policy"
+    ],
+    "required_integration": "GitHub Actions",
+    "required_integration_id": 15368
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Phase A Registry and Phase B Base Contract are provider-verified canonical complete with terminal Lock release.",
+      "verification": "foundation_provider_evidence_matrix",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "All A0-A10 prompt files and matching Task Contracts exist on canonical main.",
+      "verification": "canonical_file_task_presence_audit",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Every A0-A10 prompt contains the seven required specialized prompt sections, inherits PHASE-B-BASE-CONTRACT.md, and preserves CLAIMED_CANONICAL_PASS = NO.",
+      "verification": "specialized_prompt_structure_audit",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Authority separation, risk non-downgrade, Zero Bypass and Zero Fake PASS remain intact.",
+      "verification": "governance_alignment_audit",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "A0-A10 provider evidence matrix binds canonical PR, Head, Merge, protected Run, postmerge Job and terminal Release evidence.",
+      "verification": "provider_evidence_matrix",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Historical non-canonical failures are identified and are not normalized into PASS.",
+      "verification": "historical_fail_closed_audit",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "Fresh residual state has no unresolved Open PR, ACTIVE Agent Lock, pending Agent Human Gate, or competing Step 60-B TASK-CATALOG writer before closure mutation.",
+      "verification": "fresh_live_residual_guard",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "Task Catalog is generator-consistent after registering this closure task.",
+      "verification": "node scripts/multi-agent/docs-automation.mjs --check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-009",
+      "description": "Closure PR changes exactly the three authorized paths and no forbidden path.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-010",
+      "description": "Static closure record remains PRE_MERGE_CANDIDATE and does not precompute terminal closure identifiers.",
+      "verification": "closure_temporal_boundary_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-011",
+      "description": "Required exact-head CI, Phase A and deterministic Merge Policy pass for the exact closure artifact and Lock.",
+      "verification": "exact_head_required_checks",
+      "mandatory": true
+    },
+    {
+      "id": "AC-012",
+      "description": "Protected workflow_dispatch merge and exact-SHA postmerge verification pass before final AGENT_LAYER = CANONICAL_COMPLETE registration.",
+      "verification": "protected_merge_and_exact_sha_postmerge",
+      "mandatory": true
+    },
+    {
+      "id": "AC-013",
+      "description": "Merged Closure PR receives a Terminal Provider Seal with exact post-merge identifiers and terminal Lock RELEASED.",
+      "verification": "terminal_provider_seal",
+      "mandatory": true
+    }
+  ],
+  "process_improvement_links": [
+    "AGENT-LAYER-FINAL-CLOSURE"
+  ],
+  "incident_links": []
+}
