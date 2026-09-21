@@ -30,7 +30,7 @@
 | EQCOFE-STEP59-G-ACCEPTANCE-001 | Step 59-G full verification and browser acceptance | MEDIUM | NOT_REQUIRED | `613878480f1fe6b17ef6ab5fb43bd99dfe6fd7b9` | 22000/34000/68000 |
 | EQCOFE-STEP59-H-CLOSURE-001 | Step 59-H final canonical closure and Step 60 handoff | MEDIUM | NOT_REQUIRED | `6d1c1381168fc701275961960f9704ed41f33ff0` | 18000/30000/60000 |
 | EQCOFE-STEP60-A-HANDOFF-001 | Step 60-A canonical handoff, live guard and listing scope freeze | MEDIUM | NOT_REQUIRED | `cc7597258baccc3df553444bdc5410bf5491a58a` | 18000/30000/60000 |
-| EQCOFE-STEP60-B-LISTING-CONTRACT-001 | Step 60-B backend and OpenAPI listing contract readiness | MEDIUM | NOT_REQUIRED | `4a9b1e921561eb09b22a44acf2aff05147144b15` | 30000/45000/90000 |
+| EQCOFE-STEP60-B-LISTING-CONTRACT-001 | Step 60-B backend and OpenAPI listing contract readiness | HIGH | REQUIRED | `4a9b1e921561eb09b22a44acf2aff05147144b15` | 30000/45000/90000 |
 | MA-AGENT-A0-ORCHESTRATOR-001 | A0 — Orchestrator / Engineering Manager Prompt | LOW | NOT_REQUIRED | `f7919991e619d416360e74a542741ef21c70f732` | 10000/16000/32000 |
 | MA-AGENT-A1-SPEC-001 | A1 — Specification & Research Prompt | LOW | NOT_REQUIRED | `120898df57138b301560e7d9b9f1b3f5da03e982` | 10000/16000/32000 |
 | MA-AGENT-A10-EVIDENCE-001 | A10 — Evidence & Documentation Prompt | LOW | NOT_REQUIRED | `bdf8fccde4ca40cced48381ad3be2e0461ade535` | 12000/18000/35000 |

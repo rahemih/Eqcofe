@@ -6,10 +6,14 @@
 - Step 60-A: `CANONICAL_COMPLETE`
 - Agent Layer A0–A10: `CANONICAL_COMPLETE`
 - Step 60-B PR: `#261`
-- Risk: `MEDIUM`
-- Human Gate: `NOT_REQUIRED`
+- Risk: `HIGH` — required by the unchanged Inventory sensitive-zone classifier.
+- Human Gate: `REQUIRED` — explicit Project Owner approval of the final exact artifact.
 - Current lifecycle state: `REPAIR_COMPLETE_CANDIDATE / EXACT_HEAD_VERIFICATION_PENDING`
 - No Step 60-C mutation is authorized before 60-B protected merge, exact-SHA postmerge verification and terminal Lock release.
+
+## Risk declaration alignment
+
+Merge Policy run `35641866958` classified exact head `432302fc42573dd86202edfe874c1f8dc65720fe` as HIGH because the authorized scope includes Inventory public-port/service/repository changes. The prior MEDIUM declaration and disabled Human Gate were inconsistent with that provider result. The Task Contract and generated Task Catalog now require the existing HIGH-risk Security and Human gates. This correction preserves write/forbidden scope and does not change runtime code, controllers, workflows or historical design evidence. No Human Approval is claimed by this amendment.
 
 ## Agent ownership
 

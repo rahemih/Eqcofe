@@ -3,8 +3,8 @@
   "task_id": "EQCOFE-STEP60-B-LISTING-CONTRACT-001",
   "title": "Step 60-B backend and OpenAPI listing contract readiness",
   "description": "Make the public Search/Category/Listing API contract honest and typed before Storefront implementation. Define successful response schemas and cursor semantics for Search, Category products, Brand products, Category filters and Search suggestions; remove product-list query parameters that the backend does not yet implement; bind ProductCard to canonical refs; expose authoritative inventory-backed in_stock through the Inventory public port; regenerate OpenAPI types; add deterministic contract/runtime regression tests; and keep advanced interactive filtering/sorting implementation reserved for Stage 60-F.",
-  "risk": "MEDIUM",
-  "risk_floor": "MEDIUM",
+  "risk": "HIGH",
+  "risk_floor": "HIGH",
   "owner": "BACKEND",
   "canonical": {
     "repository": "rahemih/Eqcofe",
@@ -86,7 +86,7 @@
   "requested_lock_ids": [
     "LOCK-EQCOFE-STEP60-B-LISTING-CONTRACT-001-01"
   ],
-  "human_gate_required": false,
+  "human_gate_required": true,
   "token_budget": {
     "expected_max": 30000,
     "soft_alert": 45000,
@@ -95,8 +95,8 @@
   "max_repair_cycles": 3,
   "task_risk_rules": [
     {
-      "id": "STEP60_B_API_CONTRACT_MEDIUM",
-      "risk": "MEDIUM",
+      "id": "STEP60_B_LISTING_INVENTORY_HIGH",
+      "risk": "HIGH",
       "paths": [
         "contracts/http/openapi.yaml",
         "src/generated/openapi.ts",
@@ -195,7 +195,8 @@
     },
     "security_hardening": "A8 exact-head review requires bounded cursor decoding (max 1024 bytes/chars), runtime Slug validation for public category/brand query scopes, and route-specific fail-closed query-key handling so path-owned category/brand scope cannot be silently overridden by undeclared query parameters.",
     "brand_listing_gap": "A1 recovery review found GET /brands/{slug}/products shared the listing backend but still had an untyped 200 response and no declared cursor/limit/category query contract. Stage 60-B includes this endpoint in listing parity; no new business capability is invented.",
-    "a5_data_review": "A5 read-only review found no correctness migration requirement. Existing product/category/brand and stock-balance structures can execute the keyset and batch reads. Additional composite indexes (for general keyset ordering and variant-led stock lookup) are performance candidates for Step 60-G and must be justified by acceptance measurements before any migration."
+    "a5_data_review": "A5 read-only review found no correctness migration requirement. Existing product/category/brand and stock-balance structures can execute the keyset and batch reads. Additional composite indexes (for general keyset ordering and variant-led stock lookup) are performance candidates for Step 60-G and must be justified by acceptance measurements before any migration.",
+    "finalization_risk_alignment": "Exact-head Merge Policy run 35641866958 on 432302fc42573dd86202edfe874c1f8dc65720fe classified the Inventory public-port/service/repository scope as HIGH and rejected the MEDIUM manager classification. This amendment aligns the task declaration with the unchanged Risk Engine: HIGH floor, required Security gate and explicit artifact-bound Project Owner Human Approval. It does not approve the artifact or change write/forbidden scope, controller, workflow, runtime code or historical design semantics."
   },
   "acceptance_criteria": [
     {
@@ -304,14 +305,19 @@
   "external_gate_evidence": {
     "protocol": "EQCOFE_GATE_V1",
     "artifact_bound_gates": [
-      "REVIEW",
+      "SECURITY",
+      "HUMAN",
       "LOCK"
     ],
     "trusted_github_transport_login": "rahemih",
-    "rule": "MEDIUM Stage 60-B requires deterministic Review and Verification, exact-artifact ACTIVE Lock, protected merge transport and exact-SHA postmerge verification. Stage 60-C is forbidden until terminal release."
+    "rule": "HIGH Stage 60-B requires provider-derived deterministic Review and Verification, exact-artifact Security PASS, explicit Project Owner Human Approval, ACTIVE exact-artifact Lock, protected merge transport and exact-SHA postmerge verification. Before Human Approval all technical gates must pass and Merge Policy must be blocked only by HUMAN_APPROVAL_MISSING. Any artifact mutation invalidates artifact-bound evidence. Stage 60-C is forbidden until terminal release."
   },
   "process_improvement_links": [
     "STEP-60-B-CONTRACT-HONESTY"
   ],
-  "incident_links": []
+  "incident_links": [],
+  "authorized_human_approver": {
+    "role": "PROJECT_OWNER",
+    "github_login": "rahemih"
+  }
 }
