@@ -50,7 +50,7 @@
     },
     {
       "path": "docs/13-product-design/step56-customers-growth-wireframes.json",
-      "sha256": "01bddbe4dd6200fc299e3776961221a7d1637d5eedf1c17d79e06da449aac612"
+      "sha256": "4f5119b1dffd4b8405a4635bf8f5ad7afe7a956997ee7a3bb68415134f6a0498"
     },
     {
       "path": "docs/13-product-design/step56-final-handoffs.json",
@@ -62,7 +62,7 @@
     },
     {
       "path": "docs/13-product-design/step56-management-security-wireframes.json",
-      "sha256": "ad31c4b0ddd97c62e2ab10fcd7935a41a7b62378b0e9c13d33afbb91aa8b500a"
+      "sha256": "bf1e26453fd6e164a093bcb873c769e2a1c8c82e1aef2d65371b11f492a8810f"
     },
     {
       "path": "docs/13-product-design/step56-pricing-inventory-wireframes.json",
@@ -86,11 +86,11 @@
     },
     {
       "path": "docs/13-product-design/step56-wireframes/F/manifest.json",
-      "sha256": "254a86e8069258aa6bf3f9f12e17ad9c8272ba7b32bea776970ba2854fb1edec"
+      "sha256": "98f7deebf9db881e2f58dc32affa9fcc3e986ee48b19fc754ef30b4cdc74fd78"
     },
     {
       "path": "docs/13-product-design/step56-wireframes/G/manifest.json",
-      "sha256": "50a9540f6ba83c86236c26004873ce087cd2ccd799a835e1b95448dd6fc54e17"
+      "sha256": "e51a02308670baac7f982ca2c036887a5a8e5c7802d7e081b4f0a27c30efa1cd"
     },
     {
       "path": "scripts/step56-final-audit.mjs",
@@ -402,7 +402,7 @@
     {
       "gate": "F",
       "path": "docs/13-product-design/step56-wireframes/F/manifest.json",
-      "sha256": "254a86e8069258aa6bf3f9f12e17ad9c8272ba7b32bea776970ba2854fb1edec",
+      "sha256": "98f7deebf9db881e2f58dc32affa9fcc3e986ee48b19fc754ef30b4cdc74fd78",
       "surfaces": 16,
       "frames": 488,
       "artifacts": 523,
@@ -430,7 +430,7 @@
     {
       "gate": "G",
       "path": "docs/13-product-design/step56-wireframes/G/manifest.json",
-      "sha256": "50a9540f6ba83c86236c26004873ce087cd2ccd799a835e1b95448dd6fc54e17",
+      "sha256": "e51a02308670baac7f982ca2c036887a5a8e5c7802d7e081b4f0a27c30efa1cd",
       "surfaces": 34,
       "frames": 1004,
       "artifacts": 1075,
