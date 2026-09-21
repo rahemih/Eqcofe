@@ -161,7 +161,8 @@
     "implementation_boundary": "Stage 60-B types and aligns the currently supported contract. Advanced filter and selectable sort behavior remains Stage 60-F.",
     "design_recovery_sync": "Pre-PR deterministic verification exposed Step56 recovered-source hash drift for contracts/http/openapi.yaml and src/modules/catalog/catalog.module.ts. Stage 60-B authorizes minimal refresh of those two source SHA256 entries plus the deterministic Step56-A manifest sourceSha256; no Step56 design semantics are changed.",
     "bounded_availability_debt": "Product-card stock truth uses the canonical Inventory availability port per sellable variant. This is authority-correct but can fan out to multiple bounded reads per card; performance batching is deferred to Step 60-G unless Stage 60 acceptance shows it is required earlier.",
-    "provider_ci_repair": "Exact-head Canonical CI run 35595747553 / job 106320001824 failed closed in validate-step56-admin-shell because historical Step56 B-G provenance hashes transitively pin the intentionally changed OpenAPI/Catalog sources. Repair is limited to source SHA256 propagation, B-G manifest sourceSha256 refresh, and deterministic Step56-H audit regeneration; design semantics and historical transport evidence remain unchanged."
+    "provider_ci_repair": "Exact-head Canonical CI run 35595747553 / job 106320001824 failed closed in validate-step56-admin-shell because historical Step56 B-G provenance hashes transitively pin the intentionally changed OpenAPI/Catalog sources. Repair is limited to source SHA256 propagation, B-G manifest sourceSha256 refresh, and deterministic Step56-H audit regeneration; design semantics and historical transport evidence remain unchanged.",
+    "design_recovery_cascade": "Provider Canonical CI run 35595747553 / job 106320001824 failed closed at validate-step56-admin-shell because the Step56-B contract still pinned the pre-60-B A-contract hash. Stage 60-B therefore authorizes a source-hash-only deterministic cascade through B-G contracts/manifests and H generated audit artifacts. No validator, semantic design field, screen contract, historical baseline, or runtime-release claim may be changed."
   },
   "acceptance_criteria": [
     {
@@ -228,6 +229,12 @@
       "id": "AC-009B",
       "description": "All transitively affected Step56 B-G source-hash evidence, B-G manifest sourceSha256 values and Step56-H deterministic audit artifacts are synchronized from unchanged semantics after the intentionally changed canonical sources; no wireframe/state/journey/permission/transport semantics are rewritten.",
       "verification": "step56_transitive_provenance_sync",
+      "mandatory": true
+    },
+    {
+      "id": "AC-009B",
+      "description": "The Step56 B→G source-hash chain and H generated audit outputs are regenerated/synchronized only as a deterministic consequence of intentionally changed recovered sources; semantic design content and validators remain unchanged.",
+      "verification": "step56_hash_evidence_cascade_sync",
       "mandatory": true
     },
     {
