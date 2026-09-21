@@ -1,4 +1,4 @@
-import { Inject, Injectable, Optional } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { PRICING_PUBLIC_PORT, type PricingPublicPort } from '../../pricing/application/ports/pricing-public.port';
 import { INVENTORY_AVAILABILITY_PORT, type InventoryAvailabilityPort } from '../../inventory/application/ports/inventory-public.port';
 import { DomainError } from '../../../shared/errors/domain-error';
@@ -9,12 +9,12 @@ export class CatalogQueryService {
   constructor(
     private readonly repo: CatalogRepository,
     @Inject(PRICING_PUBLIC_PORT) private readonly pricing: PricingPublicPort,
-    @Optional() @Inject(INVENTORY_AVAILABILITY_PORT) private readonly inventory?: InventoryAvailabilityPort,
+    @Inject(INVENTORY_AVAILABILITY_PORT) private readonly inventory: InventoryAvailabilityPort,
   ) {}
 
   async listProducts(q: any) {
     this.assertQueryKeys(q, ['cursor', 'limit', 'category', 'brand']);
-    const limit = this.limit(q.limit, 25, 100);
+    const limit = this.publicLimit(q.limit, 25, 100);
     const result = await this.repo.listPublic({ category: q.category, brand: q.brand, limit, cursor: q.cursor });
     const prices = await this.pricing.getProductPrices(result.data.map((item: any) => item.id));
     return {
@@ -28,7 +28,7 @@ export class CatalogQueryService {
     const query = String(q.q ?? '').trim();
     if (!query) throw new DomainError('VALIDATION_ERROR', 'عبارت جستجو الزامی است.');
     if (query.length > 200) throw new DomainError('VALIDATION_ERROR', 'عبارت جستجو بیش از حد طولانی است.');
-    const limit = this.limit(q.limit, 25, 100);
+    const limit = this.publicLimit(q.limit, 25, 100);
     const result = await this.repo.searchPublic({ query, limit, cursor: q.cursor });
     const prices = await this.pricing.getProductPrices(result.data.map((item: any) => item.id));
     return {
@@ -43,7 +43,7 @@ export class CatalogQueryService {
     const query = String(q.q ?? '').trim();
     if (!query) return { query, suggestions: [] };
     if (query.length > 200) throw new DomainError('VALIDATION_ERROR', 'عبارت جستجو بیش از حد طولانی است.');
-    const limit = this.limit(q.limit, 10, 20);
+    const limit = this.publicLimit(q.limit, 10, 20);
     return { query, suggestions: await this.repo.searchSuggestions(query, limit) };
   }
 
@@ -129,15 +129,16 @@ export class CatalogQueryService {
   }
 
   private async publicCards(rows: any[], prices: Record<string, any | null>) {
-    return Promise.all(rows.map(async (row: any) => {
+    const productIds = rows.map((row: any) => String(row.id));
+    const variants = await this.repo.listSellableVariantsForProducts(productIds);
+    const quantities = await this.inventory.getOnlineSellableQuantities(variants.map((variant: any) => String(variant.id)));
+    const stockedProductIds = new Set(
+      variants
+        .filter((variant: any) => (quantities[String(variant.id)] ?? 0) > 0)
+        .map((variant: any) => String(variant.product_id)),
+    );
+    return rows.map((row: any) => {
       const price = prices[row.id] ?? null;
-      const variants = this.inventory ? await this.repo.listVariants(row.id) : [];
-      const sellableVariants = variants.filter((variant: any) => (
-        variant.status === 'active' && variant.effectiveSalesEnabled === true
-      ));
-      const quantities = this.inventory
-        ? await Promise.all(sellableVariants.map((variant: any) => this.inventory!.getOnlineSellableQuantity(variant.id)))
-        : [];
       return {
         id: row.id,
         slug: row.slug,
@@ -148,10 +149,10 @@ export class CatalogQueryService {
         price,
         availability: {
           sales_enabled: Boolean(row.effective_sales_enabled) && Boolean(price),
-          in_stock: quantities.some((quantity) => quantity > 0),
+          in_stock: stockedProductIds.has(String(row.id)),
         },
       };
-    }));
+    });
   }
 
   private assertQueryKeys(query: any, allowed: string[]) {
@@ -160,6 +161,15 @@ export class CatalogQueryService {
     if (unsupported.length) {
       throw new DomainError('VALIDATION_ERROR', `پارامتر پشتیبانی‌نشده: ${unsupported.sort().join(', ')}`);
     }
+  }
+
+  private publicLimit(value: unknown, fallback: number, maximum: number) {
+    if (value === undefined || value === null) return fallback;
+    const parsed = Number(value);
+    if (!Number.isSafeInteger(parsed) || parsed < 1 || parsed > maximum) {
+      throw new DomainError('VALIDATION_ERROR', `محدوده باید عدد صحیح بین ۱ تا ${maximum} باشد.`);
+    }
+    return parsed;
   }
 
   private limit(value: unknown, fallback: number, maximum: number) {
