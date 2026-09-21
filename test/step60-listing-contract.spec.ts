@@ -129,3 +129,22 @@ test('Step 60-B repository uses stable composite cursors and fail-closed decoder
   assert.match(source,/p\.created_at = .*p\.id </s);
   assert.match(source,/search_rank,p\.created_at DESC,p\.id DESC/);
 });
+
+test('Step 60-B scoped listing routes reject path-scope overrides and invalid slugs',async()=>{
+  const query=service({
+    categoryBySlug:async(slug:string)=>slug==='tools'?{id:'c1',slug}:null,
+    brandBySlug:async(slug:string)=>slug==='brand'?{id:'b1',slug}:null,
+  });
+  await assert.rejects(()=>query.categoryProducts('tools',{category:'other'}),/پارامتر پشتیبانی‌نشده: category/);
+  await assert.rejects(()=>query.brandProducts('brand',{brand:'other'}),/پارامتر پشتیبانی‌نشده: brand/);
+  await assert.rejects(()=>query.listProducts({category:'TOOLS'}),/دسته نامعتبر است/);
+  await assert.rejects(()=>query.listProducts({brand:'x'.repeat(181)}),/برند نامعتبر است/);
+});
+
+test('Step 60-B cursor input is bounded before base64 decoding',async()=>{
+  const repository=await import('../src/modules/catalog/infrastructure/catalog.repository');
+  assert.throws(()=>repository.decodeListCursor('x'.repeat(1025),undefined,undefined),/نشانگر صفحه نامعتبر/);
+  const openapi=readFileSync('contracts/http/openapi.yaml','utf8');
+  assert.match(openapi,/Cursor:\s+[\s\S]*?minLength: 1\s+[\s\S]*?maxLength: 1024/);
+  assert.match(openapi,/\/brands\/\{slug\}\/products:[\s\S]*?ProductListResponse/);
+});
