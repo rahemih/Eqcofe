@@ -18,7 +18,7 @@ function service(overrides:Record<string,unknown>={},quantity=2){
     listPublic:async()=>({data:[productRow()],nextCursor:null,hasMore:false}),
     searchPublic:async()=>({data:[productRow()],nextCursor:null,hasMore:false}),
     searchSuggestions:async()=>[{label:'تمپر',kind:'product',slug:'tamper'}],
-    listVariants:async()=>[{id:'v1',status:'active',salesEnabled:true,effectiveSalesEnabled:true}],
+    listSellableVariantsForProducts:async()=>[{id:'v1',product_id:'p1'}],
     categoryBySlug:async()=>({id:'c1',name_fa:'ابزار',slug:'tools',status:'active',sales_enabled:true}),
     categoryFilters:async()=>[{id:'a1',key:'material',name_fa:'جنس',data_type:'text',unit:null,is_variant_attribute:false,values:null}],
     ...overrides,
@@ -28,7 +28,7 @@ function service(overrides:Record<string,unknown>={},quantity=2){
     getProductPrice:async()=>({current_toman:125000}),
     getVariantPrice:async()=>({current_toman:125000}),
   };
-  const inventory:any={getOnlineSellableQuantity:async()=>quantity};
+  const inventory:any={getOnlineSellableQuantities:async()=>({v1:quantity})};
   return new CatalogQueryService(repo,pricing,inventory);
 }
 
@@ -43,11 +43,14 @@ test('Step 60-B listing uses authoritative inventory availability and canonical 
   assert.deepEqual(result.pagination,{next_cursor:'next',has_more:true});
 });
 
-test('Step 60-B listing rejects undeclared filters instead of silently ignoring them',async()=>{
+test('Step 60-B listing rejects undeclared filters and invalid explicit limits',async()=>{
   const query=service();
   await assert.rejects(()=>query.listProducts({sort:'price_asc'}),/پارامتر پشتیبانی‌نشده: sort/);
   await assert.rejects(()=>query.listProducts({min_price:1000}),/پارامتر پشتیبانی‌نشده: min_price/);
   await assert.rejects(()=>query.search({q:'تمپر',available:true}),/پارامتر پشتیبانی‌نشده: available/);
+  await assert.rejects(()=>query.listProducts({limit:'abc'}),/محدوده باید عدد صحیح/);
+  await assert.rejects(()=>query.search({q:'تمپر',limit:0}),/محدوده باید عدد صحیح/);
+  await assert.rejects(()=>query.suggestions({q:'تمپر',limit:21}),/محدوده باید عدد صحیح/);
 });
 
 test('Step 60-B category filter response normalizes missing value arrays',async()=>{
@@ -93,4 +96,36 @@ test('Step 60-B generated OpenAPI is byte-for-byte reproducible from canonical s
   }finally{
     rmSync(dir,{recursive:true,force:true});
   }
+});
+
+test('Step 60-B listing availability uses two bounded batch calls and mandatory authority',async()=>{
+  let catalogBatchCalls=0;
+  let inventoryBatchCalls=0;
+  const query=service({
+    listPublic:async()=>({data:[productRow(),{...productRow(),id:'p2',slug:'grinder'}],nextCursor:null,hasMore:false}),
+    listSellableVariantsForProducts:async()=>{catalogBatchCalls++;return[{id:'v1',product_id:'p1'},{id:'v2',product_id:'p2'},{id:'v3',product_id:'p2'}];},
+  });
+  (query as any).inventory.getOnlineSellableQuantities=async()=>{inventoryBatchCalls++;return{v1:2,v2:0,v3:4};};
+  const result=await query.listProducts({});
+  assert.equal(catalogBatchCalls,1);
+  assert.equal(inventoryBatchCalls,1);
+  assert.equal(result.items[0].availability.in_stock,true);
+  assert.equal(result.items[1].availability.in_stock,true);
+  const source=readFileSync('src/modules/catalog/application/catalog-query.service.ts','utf8');
+  assert.doesNotMatch(source,/Optional\(\).*INVENTORY_AVAILABILITY_PORT/s);
+  assert.match(source,/getOnlineSellableQuantities/);
+});
+
+test('Step 60-B repository uses stable composite cursors and fail-closed decoders',async()=>{
+  const repository=await import('../src/modules/catalog/infrastructure/catalog.repository');
+  const list=Buffer.from(JSON.stringify({v:1,kind:'list',category:'tools',brand:null,created_at:'2026-09-21T00:00:00.000Z',id:'11111111-1111-4111-8111-111111111111'})).toString('base64url');
+  assert.equal(repository.decodeListCursor(list,'TOOLS',undefined)?.id,'11111111-1111-4111-8111-111111111111');
+  assert.throws(()=>repository.decodeListCursor('not-json','tools',undefined),/نشانگر صفحه نامعتبر/);
+  assert.throws(()=>repository.decodeListCursor(list,'other',undefined),/با فیلترهای فعلی سازگار نیست/);
+  const search=Buffer.from(JSON.stringify({v:1,kind:'search',query:'تمپر',rank:1,created_at:'2026-09-21T00:00:00.000Z',id:'11111111-1111-4111-8111-111111111111'})).toString('base64url');
+  assert.equal(repository.decodeSearchCursor(search,'تمپر')?.rank,1);
+  assert.throws(()=>repository.decodeSearchCursor(search,'آسیاب'),/با عبارت فعلی سازگار نیست/);
+  const source=readFileSync('src/modules/catalog/infrastructure/catalog.repository.ts','utf8');
+  assert.match(source,/p\.created_at = .*p\.id </s);
+  assert.match(source,/search_rank,p\.created_at DESC,p\.id DESC/);
 });
