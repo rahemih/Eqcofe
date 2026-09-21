@@ -78,7 +78,18 @@ test('Step 60-B generated OpenAPI is byte-for-byte reproducible from canonical s
   const pnpm=process.platform==='win32'?'pnpm.cmd':'pnpm';
   try{
     execFileSync(pnpm,['exec','openapi-typescript','contracts/http/openapi.yaml','-o',output],{stdio:'pipe'});
-    assert.equal(readFileSync('src/generated/openapi.ts','utf8'),readFileSync(output,'utf8'));
+    const actual=readFileSync('src/generated/openapi.ts','utf8');
+    const expected=readFileSync(output,'utf8');
+    if(actual!==expected){
+      const a=actual.split('\\n');
+      const e=expected.split('\\n');
+      const diffs=[] as string[];
+      const max=Math.max(a.length,e.length);
+      for(let i=0;i<max&&diffs.length<120;i++){
+        if(a[i]!==e[i]) diffs.push(`L${i+1} CURRENT=${JSON.stringify(a[i]??'')} EXPECTED=${JSON.stringify(e[i]??'')}`);
+      }
+      assert.fail(`generated OpenAPI drift (first ${diffs.length} differing lines)\\n${diffs.join('\\n')}`);
+    }
   }finally{
     rmSync(dir,{recursive:true,force:true});
   }
