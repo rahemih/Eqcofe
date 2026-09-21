@@ -32,6 +32,7 @@
 | EQCOFE-STEP60-A-HANDOFF-001 | Step 60-A canonical handoff, live guard and listing scope freeze | MEDIUM | NOT_REQUIRED | `cc7597258baccc3df553444bdc5410bf5491a58a` | 18000/30000/60000 |
 | MA-AGENT-A0-ORCHESTRATOR-001 | A0 — Orchestrator / Engineering Manager Prompt | LOW | NOT_REQUIRED | `f7919991e619d416360e74a542741ef21c70f732` | 10000/16000/32000 |
 | MA-AGENT-A1-SPEC-001 | A1 — Specification & Research Prompt | LOW | NOT_REQUIRED | `120898df57138b301560e7d9b9f1b3f5da03e982` | 10000/16000/32000 |
+| MA-AGENT-A10-EVIDENCE-001 | A10 — Evidence & Documentation Prompt | LOW | NOT_REQUIRED | `bdf8fccde4ca40cced48381ad3be2e0461ade535` | 12000/18000/35000 |
 | MA-AGENT-A2-BACKEND-001 | A2 — Backend Engineering Prompt | LOW | NOT_REQUIRED | `b7acc0272d986d1daca72ecf43da476c6b963e3c` | 12000/18000/35000 |
 | MA-AGENT-A3-FRONTEND-001 | A3 — Frontend / Storefront Engineering Prompt | LOW | NOT_REQUIRED | `315a2b2eaf5c762859125cad97a96951461a5348` | 11000/17000/33000 |
 | MA-AGENT-A4-ADMIN-001 | A4 — Admin Panel Engineering Prompt | LOW | NOT_REQUIRED | `3d906df2250b73e58044c24b642ab5fbbd089a78` | 11000/17000/33000 |
@@ -73,4 +74,4 @@
 | MA-V1-ACC-MEDIUM-001 | V1 Acceptance MEDIUM R2 — telemetry terminal-state conflict hardening | MEDIUM | NOT_REQUIRED | `9017e0f25e9571568ed9acf4ca3ca977ce9e78f0` | 15000/25000/50000 |
 | MA-V1-ACCEPTANCE-CLOSURE-V16-R2-001 | V1.6 Phase 3 canonical acceptance closure R2 | HIGH | REQUIRED | `d7d235f5f240b8bea44bc607afa812b2f5bb12d4` | 30000/50000/90000 |
 
-Task contracts indexed: **67**.
+Task contracts indexed: **68**.

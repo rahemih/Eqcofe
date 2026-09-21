@@ -1,0 +1,229 @@
+{
+  "schema_version": "2.2",
+  "task_id": "MA-AGENT-A10-EVIDENCE-001",
+  "title": "A10 — Evidence & Documentation Prompt",
+  "description": "Create the specialized A10 Evidence & Documentation prompt inheriting the canonical Phase B Base Agent Contract. Define provider-backed fact capture, provenance, exact identifiers, Evidence Matrices, decision logs, handoffs, Owner reporting, stale/conflicting evidence handling, and closure-support boundaries while explicitly forbidding invented evidence and authority impersonation.",
+  "risk": "LOW",
+  "risk_floor": "LOW",
+  "risk_rationale": {
+    "chosen": "LOW",
+    "why_low": [
+      "This registration task is documentation-only and changes only the A10 prompt, its Task Contract and generated Task Catalog.",
+      "No application code, workflow, database, test, security control, API, product rule, or runtime configuration is mutated.",
+      "A10 is explicitly documentation/evidence only and cannot grant Review, Verification, Security, or Human Gate authority.",
+      "Final Agent Layer Closure is not claimed by this task and will require an independent Task Contract after A10 becomes canonical."
+    ],
+    "escalation_condition": "If deterministic classification or actual changed paths raise effective risk above LOW, stop and follow the higher-risk policy; downgrade is prohibited."
+  },
+  "owner": "BACKEND",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "bdf8fccde4ca40cced48381ad3be2e0461ade535"
+  },
+  "scope": {
+    "read": [
+      "docs/14-multi-agent/agents/PHASE-A-AGENT-REGISTRY.md",
+      "docs/14-multi-agent/agents/PHASE-B-BASE-CONTRACT.md",
+      "docs/14-multi-agent/agents/A0-ORCHESTRATOR.md",
+      "docs/14-multi-agent/agents/A1-SPEC.md",
+      "docs/14-multi-agent/agents/A2-BACKEND.md",
+      "docs/14-multi-agent/agents/A3-FRONTEND.md",
+      "docs/14-multi-agent/agents/A4-ADMIN.md",
+      "docs/14-multi-agent/agents/A5-DATABASE.md",
+      "docs/14-multi-agent/agents/A6-DEVOPS.md",
+      "docs/14-multi-agent/agents/A7-QA.md",
+      "docs/14-multi-agent/agents/A8-SECURITY.md",
+      "docs/14-multi-agent/agents/A9-DESIGN.md",
+      "docs/14-multi-agent/GOVERNANCE.md",
+      "docs/14-multi-agent/missions/**",
+      "docs/14-multi-agent/tasks/**",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "docs/11-step-history/**",
+      "docs/12-current-state/**",
+      ".github/workflows/**",
+      "scripts/multi-agent/**"
+    ],
+    "write": [
+      "docs/14-multi-agent/agents/A10-EVIDENCE.md",
+      "docs/14-multi-agent/tasks/MA-AGENT-A10-EVIDENCE-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "scripts/**",
+      "test/**",
+      "src/**",
+      "apps/**",
+      "database/**",
+      "contracts/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "docs/11-step-history/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**",
+      "docs/14-multi-agent/GOVERNANCE.md",
+      "docs/14-multi-agent/GOVERNANCE-LOG.md",
+      "docs/14-multi-agent/missions/**",
+      "docs/14-multi-agent/incidents/**",
+      "docs/14-multi-agent/agents/PHASE-A-AGENT-REGISTRY.md",
+      "docs/14-multi-agent/agents/PHASE-B-BASE-CONTRACT.md",
+      "docs/14-multi-agent/agents/A0-ORCHESTRATOR.md",
+      "docs/14-multi-agent/agents/A1-SPEC.md",
+      "docs/14-multi-agent/agents/A2-BACKEND.md",
+      "docs/14-multi-agent/agents/A3-FRONTEND.md",
+      "docs/14-multi-agent/agents/A4-ADMIN.md",
+      "docs/14-multi-agent/agents/A5-DATABASE.md",
+      "docs/14-multi-agent/agents/A6-DEVOPS.md",
+      "docs/14-multi-agent/agents/A7-QA.md",
+      "docs/14-multi-agent/agents/A8-SECURITY.md",
+      "docs/14-multi-agent/agents/A9-DESIGN.md"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-MA-AGENT-A10-EVIDENCE-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 12000,
+    "soft_alert": 18000,
+    "hard_cap": 35000
+  },
+  "max_repair_cycles": 2,
+  "task_risk_rules": [],
+  "dependencies": [
+    {
+      "item": "AGENT-LAYER-PHASE-A",
+      "name": "Canonical Agent Registry",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "blocking": false
+    },
+    {
+      "item": "AGENT-LAYER-PHASE-B-CORE",
+      "name": "Canonical Base Agent Contract and Prompt Core",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "613878480f1fe6b17ef6ab5fb43bd99dfe6fd7b9",
+      "blocking": false
+    },
+    {
+      "item": "AGENT-A9-DESIGN",
+      "name": "Canonical A9 Product Design / UX Prompt",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "cc7597258baccc3df553444bdc5410bf5491a58a",
+      "evidence": "PR #257 / Merge Policy run 35579212520 / postmerge job 106268196318 / release comment 5757784622",
+      "blocking": false
+    },
+    {
+      "item": "STEP-60-A",
+      "name": "Step 60-A canonical handoff and listing scope freeze",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "bdf8fccde4ca40cced48381ad3be2e0461ade535",
+      "evidence": "PR #258 / Merge Policy run 35581254720 / postmerge job 106274512042 / release comment 5758076000",
+      "blocking": false
+    },
+    {
+      "item": "STEP-60-B-SHARED-WRITER",
+      "name": "Step 60-B shared TASK-CATALOG writer",
+      "required_state": "NO_ACTIVE_CONFLICT",
+      "observed_state": "NO_ACTIVE_CONFLICT",
+      "evidence": "Fresh Live Guard on canonical base found no Step 60-B PR, branch, ACTIVE Lock, or shared writer",
+      "blocking": false
+    },
+    {
+      "item": "PRIOR-A10-EVIDENCE",
+      "name": "Earlier pre-Step60-A A10 preparation",
+      "required_state": "STALE_NOT_REUSED",
+      "observed_state": "STALE_NOT_REUSED",
+      "evidence": "Previous branch/evidence was based on cc7597258baccc3df553444bdc5410bf5491a58a and is not reused for gates/Lock/CI",
+      "blocking": false
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "LOW-risk A10 prompt-registration task requires exact-artifact ACTIVE LOCK and deterministic verification. A10 records facts only and never gains Primary Review, Primary Verification, Canonical Security Gate, or Human Gate authority."
+  },
+  "protection_source": {
+    "required_contexts": [
+      "verify",
+      "phase-a",
+      "merge-policy"
+    ],
+    "required_integration": "GitHub Actions",
+    "required_integration_id": 15368
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "A10 explicitly inherits docs/14-multi-agent/agents/PHASE-B-BASE-CONTRACT.md.",
+      "verification": "inheritance_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "A10 contains Role Definition, Authority Boundaries, Read Scope, Write Scope, Forbidden Actions, Output Format and Failure Behavior.",
+      "verification": "seven_section_prompt_schema_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "A10 explicitly states that it records facts only and never invents evidence.",
+      "verification": "evidence_integrity_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "A10 explicitly states it is never Primary Review, Primary Verification, Canonical Security Gate or Human Gate.",
+      "verification": "authority_separation_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "A10 covers exact identifiers, provenance, Evidence Matrix, decision logs, handoffs, Owner reporting, freshness, TOCTOU and conflict handling.",
+      "verification": "a10_role_coverage_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "A10 output format preserves CLAIMED_CANONICAL_PASS = NO.",
+      "verification": "output_contract_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "This prompt-registration task remains LOW with Human Gate NOT REQUIRED; future evidence/closure tasks remain independently classified.",
+      "verification": "deterministic_risk_classification",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "Task Catalog is generator-consistent.",
+      "verification": "node scripts/multi-agent/docs-automation.mjs --check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-009",
+      "description": "The PR changes exactly the three authorized paths and no forbidden path.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-010",
+      "description": "Exact-head checks, protected Merge Policy transport, exact-SHA post-merge verification and terminal Lock release complete before A10 is called canonical.",
+      "verification": "provider_exact_head_and_postmerge_evidence",
+      "mandatory": true
+    }
+  ],
+  "process_improvement_links": [
+    "AGENT-LAYER-A10"
+  ],
+  "incident_links": []
+}
