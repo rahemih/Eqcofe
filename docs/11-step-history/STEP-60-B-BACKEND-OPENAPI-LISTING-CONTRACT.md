@@ -1,87 +1,133 @@
 # Step 60-B — Backend/OpenAPI Listing Contract Readiness
 
-## Status at branch creation
+## Current status
 
 - Canonical base: `4a9b1e921561eb09b22a44acf2aff05147144b15`
 - Step 60-A: `CANONICAL_COMPLETE`
-- A10: `CANONICAL_COMPLETE`
-- Final Agent Layer: `CANONICAL_COMPLETE`
-- Open PRs before write: `0`
-- Active relevant Locks: `0`
-- Competing writer on `docs/14-multi-agent/generated/TASK-CATALOG.md`: `NONE`
+- Agent Layer A0–A10: `CANONICAL_COMPLETE`
+- Step 60-B PR: `#261`
 - Risk: `MEDIUM`
 - Human Gate: `NOT_REQUIRED`
+- Current lifecycle state: `REPAIR_COMPLETE_CANDIDATE / EXACT_HEAD_VERIFICATION_PENDING`
+- No Step 60-C mutation is authorized before 60-B protected merge, exact-SHA postmerge verification and terminal Lock release.
 
-## Problem confirmed by live canonical audit
+## Agent ownership
 
-Stage 60-A recorded that Search/Category discovery endpoints existed but successful response bodies were untyped. The Stage 60-B read-only audit additionally proved contract drift:
+- A0 — Orchestrator: live guard, recovery, serialization and canonical handoff.
+- A1 — Specification & Research: contract/gap/dependency analysis and acceptance criteria.
+- A2 — Backend: public listing/search contract, cursor behavior, Catalog/Inventory public integration and OpenAPI.
+- A5 — Database & Data: read-only query/index review; no migration was authorized because no correctness migration blocker was proven.
+- A3 — Storefront: blocked until Stage 60-C.
+- A7 — QA: negative, cursor, boundary, batching and regression coverage.
+- A8 — Security: public input bounding, fail-closed validation and injection/abuse review.
+- A10 — Evidence: provider-backed facts only; no synthetic PASS.
 
-- `GET /products` advertised `min_price`, `max_price`, `available` and `sort`, while the backend only consumed `category`, `brand`, `cursor` and `limit`.
-- `GET /search` implemented `q`, `cursor` and `limit`, but OpenAPI only described `q` and had no successful response schema.
-- `GET /search/suggestions` implemented query/limit behavior but had no typed request/response contract.
-- Category products and category filters were implemented but their successful response bodies were untyped.
-- Public ProductCard `availability.in_stock` was hard-coded to `false` despite the canonical Inventory public availability port being available.
-- Product prices can legitimately be unavailable; the public card contract therefore needs an explicit nullable price instead of a false non-null guarantee.
+## Problems confirmed by live audit
 
-## Canonical decisions
+Stage 60-A recorded untyped successful response contracts for Search/Category discovery endpoints. Step 60-B recovery additionally proved:
 
-1. Stage 60-B makes the contract truthful for capabilities that already exist.
-2. Advanced selectable sorting and price/availability filtering are **not** faked in this Stage; they remain Stage 60-F implementation scope.
-3. Public listing default order remains backend-owned `newest`; Search remains backend-owned relevance order.
-4. Cursor pagination remains authoritative for public product/search listing.
-5. Search accepts `q + cursor + limit`.
-6. Category products accept path `slug` plus `cursor + limit + brand`.
-7. Search suggestions accept optional `q` and bounded `limit`.
-8. ProductCard reuses canonical `BrandRef`, `CategoryRef`, `MediaRef`, `PriceView` and `AvailabilityView`.
-9. ProductCard price is a required key whose value may be `null` when no sellable authoritative price exists.
-10. `in_stock` is derived from the canonical `INVENTORY_AVAILABILITY_PORT`; Catalog does not import an Inventory repository.
-11. Category filter responses normalize missing SQL aggregate values to an empty array.
-12. Any undeclared query key on the public listing/search boundaries fails closed instead of being silently ignored.
-13. Generated OpenAPI parity is tested by regenerating to a temporary file with `openapi-typescript` and requiring byte-for-byte equality.
+- `GET /products` advertised `min_price`, `max_price`, `available` and `sort` that the backend did not implement.
+- `GET /search` implemented `q + cursor + limit` but OpenAPI described only `q` and had no typed success body.
+- `GET /search/suggestions`, category products and category filters lacked complete typed success contracts.
+- `GET /brands/{slug}/products` used the shared listing backend but had an untyped success body and no cursor/limit/category contract.
+- ProductCard `availability.in_stock` was fabricated as `false`.
+- The original cursor encoded only `created_at` while listing ordered by `created_at DESC, id DESC`; Search additionally ordered by relevance rank. Equal-timestamp boundary rows could therefore be skipped.
+- Explicit invalid public `limit` values silently fell back instead of failing closed.
+- Inventory availability was optional in Catalog wiring and the initial repair used per-product/per-variant reads.
+
+## Canonical decisions implemented in this Stage
+
+1. Source OpenAPI defines typed successful responses for Search, Category products, Brand products, Category filters, Category context and Search suggestions.
+2. False public capabilities are not advertised: advanced selectable sort, min/max price filtering, availability filtering and attribute-value product filtering remain Stage 60-F.
+3. `GET /products` remains backend-owned newest ordering.
+4. Search remains backend-owned relevance ordering.
+5. Listing keyset cursor binds `created_at + id` and the active category/brand scope.
+6. Search keyset cursor binds `rank + created_at + id` and the active search query.
+7. Malformed, mismatched, empty or oversized cursors fail closed; cursor input is bounded before base64 decoding.
+8. Explicit public limits must be safe integers within their endpoint contract. Only an absent limit receives the documented default.
+9. Public category/brand query scopes enforce canonical Slug syntax and length.
+10. Category/brand scoped routes reject attempts to override their path-owned scope with undeclared query keys.
+11. ProductCard uses canonical `BrandRef`, `CategoryRef`, `MediaRef`, nullable authoritative `PriceView` and `AvailabilityView`.
+12. Inventory authority is mandatory for public ProductCard stock truth; missing wiring is not silently converted into `in_stock=false`.
+13. Availability is bounded to one Catalog sellable-variant batch read plus one Inventory availability batch read per public page.
+14. Catalog does not import Inventory repositories; it consumes the public Inventory port.
+15. Category filter responses normalize absent aggregate values to an empty array.
+16. Undeclared public listing/search query keys fail closed.
+17. `src/generated/openapi.ts` is required to be byte-for-byte reproducible from `contracts/http/openapi.yaml` via the canonical `openapi-typescript` generator.
+
+## Database/Data disposition
+
+A5 found no correctness migration requirement for Stage 60-B. Existing structures can execute the repaired queries.
+
+Performance candidates remain for later measured hardening, particularly:
+- a composite public keyset-order index including the tie-breaker id;
+- a variant-led stock-balance lookup index for large inventory datasets.
+
+These are **not** claimed as implemented. Step 60-G may introduce them only if acceptance measurements justify a migration.
+
+## Provenance synchronization
+
+The Step56/57 validators correctly failed closed when intentionally changed runtime/OpenAPI sources made historical source hashes stale. Validators were not weakened or bypassed.
+
+The active Task Contract was expanded before provenance repair. The deterministic cascade was then synchronized through:
+
+```text
+Step56-A recovered-source evidence
+→ Step56-B source hash + manifest
+→ Step56-C source hash + manifest
+→ Step56-D source hash + manifest
+→ Step56-E source hash + manifest
+→ Step56-F source hash + manifest
+→ Step56-G source hash + manifest
+→ Step56-H audit sources/manifests + H manifest
+→ Step57 foundation source hashes
+```
+
+Only provenance/hash facts were changed in those design artifacts. Historical transport evidence, screen/state/journey/permission semantics, design scope, review approvals and runtime-release claims were not rewritten. Step57 remains `IN_PROGRESS` with all closure review fields `PENDING`.
 
 ## Stage boundary
 
-This Stage does **not** implement:
-- Search/Category UI;
+This Stage **does** include the minimum backend correctness changes required for listing readiness:
+- Catalog application/query and repository changes;
+- Catalog public controller routing changes;
+- Inventory public port/service/repository batch-read changes;
+- OpenAPI and generated type changes;
+- tests and provenance evidence synchronization.
+
+This Stage does **not** include:
+- Search/Category Storefront UI;
 - URL-state UI;
-- selectable sort controls;
-- min/max price filtering;
-- availability filtering;
-- attribute-value product filtering;
-- migrations;
-- pricing-rule changes;
-- Inventory module mutation;
+- filter/sort controls;
+- price/availability/attribute filtering implementation;
+- database migrations;
+- Pricing domain/rule changes;
+- Inventory domain or presentation changes;
 - Step 61+ behavior.
 
-Those remain in later Step 60 stages as frozen by 60-A.
+## Verification required before canonical completion
 
-## Definition of Done
+60-B may be declared canonical only after all of the following are provider-backed on one exact Head:
 
-- source OpenAPI and generated types are synchronized;
-- Search/Category/Filters/Suggestions success bodies are typed;
-- false listing parameters are removed from the public contract;
-- unsupported public query keys fail closed;
-- Inventory authority drives ProductCard stock truth;
-- category filter values are normalized;
-- generated-contract parity test passes;
-- all relevant tests and root `pnpm verify` pass;
-- exact changed paths match the Task Contract;
-- MEDIUM deterministic Review + Verification pass;
-- exact-artifact Lock is ACTIVE before protected transport;
-- protected Merge Policy merge passes;
-- exact-SHA postmerge `pnpm verify` and Phase A pass;
-- Lock is terminally `RELEASED`;
-- only then may 60-C start.
+- Canonical CI = PASS;
+- Phase A = PASS;
+- Step57 verification = PASS;
+- Step58 Storefront Quality = PASS;
+- A7 deterministic regression review = PASS;
+- A8 security review, when required by the active scope, has no unresolved blocker;
+- deterministic primary Review = PASS;
+- exact-artifact Lock = ACTIVE;
+- Merge Policy = PASS with blockers `[]`;
+- Fresh PRE_DISPATCH_GUARD = PASS;
+- protected workflow_dispatch merge;
+- exact-SHA postmerge `pnpm verify` = PASS;
+- exact-SHA postmerge Phase A = PASS;
+- A10 terminal evidence recorded;
+- Lock = `RELEASED`.
 
-## Deterministic design-source synchronization
+Until those facts exist:
 
-Pre-PR deterministic verification correctly failed closed in `design:validate` because Step56-A retains SHA256 evidence for recovered sources. The two intentionally changed recovered sources were:
-
-- `contracts/http/openapi.yaml` → `980b91e0880c6a47a723d0c1ada2a6a136b9b485393849d908425b91b6b72b2c`
-- `src/modules/catalog/catalog.module.ts` → `dd7feb86db43784a22677118132157dcd3e5303430c7278a9e1fb75dbbe93d89`
-
-The canonical Step56-A contract was minimally refreshed for only those two source hashes. Its deterministic manifest `sourceSha256` was then synchronized to `9e79729fd06bbd5a3086992fb4f3077775deffb2153addecafdf698ec9502481`. No historical baseline snapshot, screen inventory, design scope, operation ownership, permissions, source gaps or wireframe semantics were rewritten.
-
-## Known bounded implementation debt
-
-The public-card availability projection now uses the canonical Inventory availability port instead of fabricated stock state. It may perform multiple bounded availability reads across sellable variants for each listed product. This is authority-correct and bounded by public listing limits, but it is not the final performance shape. Step 60-G (or an earlier acceptance-driven remediation) must evaluate batching/caching before final Step 60 closure.
+```text
+STEP_60_B = IN_PROGRESS
+CLAIMED_CANONICAL_PASS = NO
+STEP_60_C_MUTATION = PROHIBITED
+```
