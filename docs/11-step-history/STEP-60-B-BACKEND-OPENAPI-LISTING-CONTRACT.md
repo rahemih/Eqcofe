@@ -75,9 +75,13 @@ Those remain in later Step 60 stages as frozen by 60-A.
 
 ## Deterministic design-source synchronization
 
-The first exact-head Canonical CI correctly failed closed in `design:validate` because Step56-A retains SHA256 evidence for recovered sources. The two intentionally changed recovered sources were:
+Pre-PR deterministic verification correctly failed closed in `design:validate` because Step56-A retains SHA256 evidence for recovered sources. The two intentionally changed recovered sources were:
 
 - `contracts/http/openapi.yaml` → `980b91e0880c6a47a723d0c1ada2a6a136b9b485393849d908425b91b6b72b2c`
 - `src/modules/catalog/catalog.module.ts` → `dd7feb86db43784a22677118132157dcd3e5303430c7278a9e1fb75dbbe93d89`
 
 The canonical Step56-A contract was minimally refreshed for only those two source hashes. Its deterministic manifest `sourceSha256` was then synchronized to `9e79729fd06bbd5a3086992fb4f3077775deffb2153addecafdf698ec9502481`. No historical baseline snapshot, screen inventory, design scope, operation ownership, permissions, source gaps or wireframe semantics were rewritten.
+
+## Known bounded implementation debt
+
+The public-card availability projection now uses the canonical Inventory availability port instead of fabricated stock state. It may perform multiple bounded availability reads across sellable variants for each listed product. This is authority-correct and bounded by public listing limits, but it is not the final performance shape. Step 60-G (or an earlier acceptance-driven remediation) must evaluate batching/caching before final Step 60 closure.
