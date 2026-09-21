@@ -40,7 +40,27 @@
       "docs/14-multi-agent/tasks/EQCOFE-STEP60-B-LISTING-CONTRACT-001.json",
       "docs/14-multi-agent/generated/TASK-CATALOG.md",
       "docs/13-product-design/step56-admin-ux-contract.json",
-      "docs/13-product-design/step56-foundation/A/manifest.json"
+      "docs/13-product-design/step56-foundation/A/manifest.json",
+      "docs/13-product-design/step56-admin-shell-wireframes.json",
+      "docs/13-product-design/step56-catalog-media-wireframes.json",
+      "docs/13-product-design/step56-pricing-inventory-wireframes.json",
+      "docs/13-product-design/step56-commerce-operations-wireframes.json",
+      "docs/13-product-design/step56-customers-growth-wireframes.json",
+      "docs/13-product-design/step56-management-security-wireframes.json",
+      "docs/13-product-design/step56-wireframes/B/manifest.json",
+      "docs/13-product-design/step56-wireframes/C/manifest.json",
+      "docs/13-product-design/step56-wireframes/D/manifest.json",
+      "docs/13-product-design/step56-wireframes/E/manifest.json",
+      "docs/13-product-design/step56-wireframes/F/manifest.json",
+      "docs/13-product-design/step56-wireframes/G/manifest.json",
+      "docs/13-product-design/step56-final-audit.json",
+      "docs/13-product-design/step56-final-audit/surface-matrix.json",
+      "docs/13-product-design/step56-final-audit/operation-matrix.json",
+      "docs/13-product-design/step56-final-audit/journey-matrix.json",
+      "docs/13-product-design/step56-final-audit/state-matrix.json",
+      "docs/13-product-design/step56-final-audit/release-blockers.json",
+      "docs/13-product-design/step56-final-audit/README.md",
+      "docs/13-product-design/step56-final-audit/manifest.json"
     ],
     "forbidden": [
       ".github/**",
@@ -79,7 +99,27 @@
         "docs/14-multi-agent/tasks/EQCOFE-STEP60-B-LISTING-CONTRACT-001.json",
         "docs/14-multi-agent/generated/TASK-CATALOG.md",
         "docs/13-product-design/step56-admin-ux-contract.json",
-        "docs/13-product-design/step56-foundation/A/manifest.json"
+        "docs/13-product-design/step56-foundation/A/manifest.json",
+        "docs/13-product-design/step56-admin-shell-wireframes.json",
+        "docs/13-product-design/step56-catalog-media-wireframes.json",
+        "docs/13-product-design/step56-pricing-inventory-wireframes.json",
+        "docs/13-product-design/step56-commerce-operations-wireframes.json",
+        "docs/13-product-design/step56-customers-growth-wireframes.json",
+        "docs/13-product-design/step56-management-security-wireframes.json",
+        "docs/13-product-design/step56-wireframes/B/manifest.json",
+        "docs/13-product-design/step56-wireframes/C/manifest.json",
+        "docs/13-product-design/step56-wireframes/D/manifest.json",
+        "docs/13-product-design/step56-wireframes/E/manifest.json",
+        "docs/13-product-design/step56-wireframes/F/manifest.json",
+        "docs/13-product-design/step56-wireframes/G/manifest.json",
+        "docs/13-product-design/step56-final-audit.json",
+        "docs/13-product-design/step56-final-audit/surface-matrix.json",
+        "docs/13-product-design/step56-final-audit/operation-matrix.json",
+        "docs/13-product-design/step56-final-audit/journey-matrix.json",
+        "docs/13-product-design/step56-final-audit/state-matrix.json",
+        "docs/13-product-design/step56-final-audit/release-blockers.json",
+        "docs/13-product-design/step56-final-audit/README.md",
+        "docs/13-product-design/step56-final-audit/manifest.json"
       ]
     }
   ],
@@ -120,7 +160,8 @@
     "contract_gap": "Search/category/filter/suggestion successful bodies were untyped; /products advertised min_price/max_price/available/sort that CatalogQueryService did not consume; ProductCard in_stock was hard-coded false.",
     "implementation_boundary": "Stage 60-B types and aligns the currently supported contract. Advanced filter and selectable sort behavior remains Stage 60-F.",
     "design_recovery_sync": "Pre-PR deterministic verification exposed Step56 recovered-source hash drift for contracts/http/openapi.yaml and src/modules/catalog/catalog.module.ts. Stage 60-B authorizes minimal refresh of those two source SHA256 entries plus the deterministic Step56-A manifest sourceSha256; no Step56 design semantics are changed.",
-    "bounded_availability_debt": "Product-card stock truth uses the canonical Inventory availability port per sellable variant. This is authority-correct but can fan out to multiple bounded reads per card; performance batching is deferred to Step 60-G unless Stage 60 acceptance shows it is required earlier."
+    "bounded_availability_debt": "Product-card stock truth uses the canonical Inventory availability port per sellable variant. This is authority-correct but can fan out to multiple bounded reads per card; performance batching is deferred to Step 60-G unless Stage 60 acceptance shows it is required earlier.",
+    "provider_ci_repair": "Exact-head Canonical CI run 35595747553 / job 106320001824 failed closed in validate-step56-admin-shell because historical Step56 B-G provenance hashes transitively pin the intentionally changed OpenAPI/Catalog sources. Repair is limited to source SHA256 propagation, B-G manifest sourceSha256 refresh, and deterministic Step56-H audit regeneration; design semantics and historical transport evidence remain unchanged."
   },
   "acceptance_criteria": [
     {
@@ -181,6 +222,12 @@
       "id": "AC-009A",
       "description": "Step56-A recovered-source evidence is deterministically synchronized for the two intentionally changed recovered sources, with no design-scope or historical-baseline rewrite.",
       "verification": "step56_recovered_source_evidence_sync",
+      "mandatory": true
+    },
+    {
+      "id": "AC-009B",
+      "description": "All transitively affected Step56 B-G source-hash evidence, B-G manifest sourceSha256 values and Step56-H deterministic audit artifacts are synchronized from unchanged semantics after the intentionally changed canonical sources; no wireframe/state/journey/permission/transport semantics are rewritten.",
+      "verification": "step56_transitive_provenance_sync",
       "mandatory": true
     },
     {
