@@ -838,7 +838,7 @@
     },
     {
       "path": "docs/13-product-design/step56-commerce-operations-wireframes.json",
-      "sha256": "a6ab3e44e98afeede903236cba47e65f324c206ffc88c78734a613141fc2ba78"
+      "sha256": "9db39c3bc6b74ed850055e94e703e09613e589579aa3b907fb03c6578524a760"
     },
     {
       "path": "src/modules/ai/ai.module.ts",
@@ -970,7 +970,7 @@
     },
     {
       "path": "src/modules/catalog/infrastructure/catalog.repository.ts",
-      "sha256": "b88384374aefbad0dfada33a213423dff050bebefd630ee40c46d49c5ff69f5a"
+      "sha256": "ea3c6b88518c53eb83e5b53c3e4f090c2a90628add875c605aa5ba656978e493"
     },
     {
       "path": "src/modules/catalog/infrastructure/configured-media-storage.adapter.ts",
