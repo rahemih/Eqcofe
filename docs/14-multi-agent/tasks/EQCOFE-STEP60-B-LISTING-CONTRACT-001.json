@@ -67,7 +67,8 @@
       "src/modules/catalog/infrastructure/catalog.repository.ts",
       "src/modules/inventory/application/ports/inventory-public.port.ts",
       "src/modules/inventory/application/ports/inventory-availability.service.ts",
-      "src/modules/inventory/infrastructure/inventory.repository.ts"
+      "src/modules/inventory/infrastructure/inventory.repository.ts",
+      "src/modules/catalog/presentation/catalog.controller.ts"
     ],
     "forbidden": [
       ".github/**",
@@ -134,7 +135,8 @@
         "src/modules/catalog/infrastructure/catalog.repository.ts",
         "src/modules/inventory/application/ports/inventory-public.port.ts",
         "src/modules/inventory/application/ports/inventory-availability.service.ts",
-        "src/modules/inventory/infrastructure/inventory.repository.ts"
+        "src/modules/inventory/infrastructure/inventory.repository.ts",
+        "src/modules/catalog/presentation/catalog.controller.ts"
       ]
     }
   ],
@@ -180,7 +182,18 @@
     "design_recovery_cascade": "Provider Canonical CI run 35595747553 / job 106320001824 failed closed at validate-step56-admin-shell because the Step56-B contract still pinned the pre-60-B A-contract hash. Stage 60-B therefore authorizes a source-hash-only deterministic cascade through B-G contracts/manifests and H generated audit artifacts. No validator, semantic design field, screen contract, historical baseline, or runtime-release claim may be changed.",
     "step57_provenance_cascade": "Provider Canonical CI run 35596659040 failed closed after Step56 B-H all passed because Step57 foundation pins Step56 B-H source hashes. Stage 60-B authorizes deterministic regeneration of the Step57 high-fidelity source-linked contract and, only if generator parity requires it, its prototype coverage/manifest. Step57 reviewStatus and all closure gates remain PENDING; no approval, screen, journey, operation, authority or prototype behavior may be invented.",
     "correctness_repair": "Exact-head audit on 13caf25e24a99c335a756d41953e80ddb44f7eb1 confirmed four unresolved blockers: timestamp-only cursor under composite ordering, optional Inventory authority fallback, per-card/per-variant availability N+1, and silent defaulting of explicitly invalid public limits. Stage 60-B explicitly authorizes only Catalog repository plus Inventory public-port/service/repository changes required to close these blockers. No inventory domain, command, presentation or business-rule change is authorized.",
-    "scope_conflict_repair": "The transient contract expansion accidentally forbade src/modules/inventory/application/** while explicitly authorizing two inventory application/ports files. The broad application forbidden glob is removed before any implementation write; exact write paths plus risk-rule paths remain the allowlist, while inventory domain/presentation and pricing remain forbidden."
+    "scope_conflict_repair": "The transient contract expansion accidentally forbade src/modules/inventory/application/** while explicitly authorizing two inventory application/ports files. The broad application forbidden glob is removed before any implementation write; exact write paths plus risk-rule paths remain the allowlist, while inventory domain/presentation and pricing remain forbidden.",
+    "agent_assignment": {
+      "A0": "Orchestrator — live guard, recovery, serialization and canonical handoff",
+      "A1": "Specification/Gap analysis — public listing contract honesty, acceptance and dependency review",
+      "A2": "Backend — OpenAPI, Catalog query/repository and public availability integration",
+      "A5": "Database/Data — read-only query/index review; no migration authorized unless a proven blocker appears",
+      "A3": "Storefront — blocked until Stage 60-C; no mutation in 60-B",
+      "A7": "QA — cursor, query validation, batching, negative and regression coverage",
+      "A8": "Security — public input bounding, injection/abuse review and adversarial query cases",
+      "A10": "Evidence — exact provider facts only; terminal evidence after protected merge"
+    },
+    "security_hardening": "A8 exact-head review requires bounded cursor decoding (max 1024 bytes/chars), runtime Slug validation for public category/brand query scopes, and route-specific fail-closed query-key handling so path-owned category/brand scope cannot be silently overridden by undeclared query parameters."
   },
   "acceptance_criteria": [
     {
@@ -271,6 +284,12 @@
       "id": "AC-009F",
       "description": "Absent limit may default, but explicitly supplied non-integer, non-positive or above-contract public limits fail closed with canonical validation errors.",
       "verification": "step60_public_query_runtime_validation",
+      "mandatory": true
+    },
+    {
+      "id": "AC-009G",
+      "description": "Public cursor input is length-bounded before decoding; public category/brand query scopes enforce canonical Slug syntax/length; category/brand scoped listing routes reject undeclared attempts to override their path-owned scope.",
+      "verification": "step60_public_input_security_hardening",
       "mandatory": true
     },
     {
