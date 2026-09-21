@@ -144,6 +144,8 @@ test('Step 60-B scoped listing routes reject path-scope overrides and invalid sl
 test('Step 60-B cursor input is bounded before base64 decoding',async()=>{
   const repository=await import('../src/modules/catalog/infrastructure/catalog.repository');
   assert.throws(()=>repository.decodeListCursor('x'.repeat(1025),undefined,undefined),/نشانگر صفحه نامعتبر/);
+  const source=readFileSync('src/modules/catalog/infrastructure/catalog.repository.ts','utf8');
+  assert.match(source,/raw\.length>1024[\s\S]*Buffer\.from\(raw,'base64url'\)/);
   const openapi=readFileSync('contracts/http/openapi.yaml','utf8');
   assert.match(openapi,/Cursor:\s+[\s\S]*?minLength: 1\s+[\s\S]*?maxLength: 1024/);
   assert.match(openapi,/\/brands\/\{slug\}\/products:[\s\S]*?ProductListResponse/);
