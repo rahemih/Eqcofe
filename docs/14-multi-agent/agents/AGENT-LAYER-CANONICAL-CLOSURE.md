@@ -6,7 +6,7 @@
 - Canonical repository: `rahemih/Eqcofe`
 - Canonical branch: `main`
 - Pre-closure main SHA: `1efffd50eef7fad71b4deee8aa8e69983f9f29c6`
-- Closure PR: `PROVIDER_PENDING`
+- Closure PR: `#260`
 - Closure candidate status: `PRE_MERGE_RECORD`
 - Final Agent Layer status before protected closure merge: `NOT_YET_CANONICAL_COMPLETE`
 
