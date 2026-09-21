@@ -23,7 +23,11 @@
       "docs/11-step-history/**",
       "docs/12-current-state/**",
       "docs/14-multi-agent/**",
-      "scripts/multi-agent/**"
+      "scripts/multi-agent/**",
+      "docs/13-product-design/step56-admin-ux-contract.json",
+      "docs/13-product-design/step56-foundation/A/manifest.json",
+      "scripts/generate-step56-admin-foundation.mjs",
+      "scripts/validate-step56-admin-foundation.mjs"
     ],
     "write": [
       "contracts/http/openapi.yaml",
@@ -34,7 +38,9 @@
       "test/step60-listing-contract.spec.ts",
       "docs/11-step-history/STEP-60-B-BACKEND-OPENAPI-LISTING-CONTRACT.md",
       "docs/14-multi-agent/tasks/EQCOFE-STEP60-B-LISTING-CONTRACT-001.json",
-      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "docs/13-product-design/step56-admin-ux-contract.json",
+      "docs/13-product-design/step56-foundation/A/manifest.json"
     ],
     "forbidden": [
       ".github/**",
@@ -45,8 +51,7 @@
       "src/modules/inventory/**",
       "src/modules/pricing/**",
       "apps/**",
-      "docs/12-current-state/**",
-      "docs/13-product-design/**"
+      "docs/12-current-state/**"
     ]
   },
   "requested_lock_ids": [
@@ -72,7 +77,9 @@
         "test/step60-listing-contract.spec.ts",
         "docs/11-step-history/STEP-60-B-BACKEND-OPENAPI-LISTING-CONTRACT.md",
         "docs/14-multi-agent/tasks/EQCOFE-STEP60-B-LISTING-CONTRACT-001.json",
-        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+        "docs/14-multi-agent/generated/TASK-CATALOG.md",
+        "docs/13-product-design/step56-admin-ux-contract.json",
+        "docs/13-product-design/step56-foundation/A/manifest.json"
       ]
     }
   ],
@@ -111,7 +118,8 @@
     "active_relevant_locks_before_write": 0,
     "shared_task_catalog_writer_before_write": "NONE",
     "contract_gap": "Search/category/filter/suggestion successful bodies were untyped; /products advertised min_price/max_price/available/sort that CatalogQueryService did not consume; ProductCard in_stock was hard-coded false.",
-    "implementation_boundary": "Stage 60-B types and aligns the currently supported contract. Advanced filter and selectable sort behavior remains Stage 60-F."
+    "implementation_boundary": "Stage 60-B types and aligns the currently supported contract. Advanced filter and selectable sort behavior remains Stage 60-F.",
+    "design_recovery_sync": "Initial exact-head CI exposed deterministic Step56 recovered-source hash drift for contracts/http/openapi.yaml and src/modules/catalog/catalog.module.ts. Stage 60-B authorizes minimal refresh of those two source SHA256 entries plus the deterministic Step56-A manifest sourceSha256; no Step56 design semantics are changed."
   },
   "acceptance_criteria": [
     {
@@ -166,6 +174,12 @@
       "id": "AC-009",
       "description": "Changed files remain exactly within the authorized Stage 60-B write scope.",
       "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-009A",
+      "description": "Step56-A recovered-source evidence is deterministically synchronized for the two intentionally changed recovered sources, with no design-scope or historical-baseline rewrite.",
+      "verification": "step56_recovered_source_evidence_sync",
       "mandatory": true
     },
     {
