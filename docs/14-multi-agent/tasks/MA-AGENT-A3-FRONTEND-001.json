@@ -1,0 +1,215 @@
+{
+  "schema_version": "2.2",
+  "task_id": "MA-AGENT-A3-FRONTEND-001",
+  "title": "A3 — Frontend / Storefront Engineering Prompt",
+  "description": "Create the specialized A3 Frontend / Storefront Engineering prompt inheriting the canonical Phase B Base Agent Contract. Define scoped storefront implementation authority for apps/storefront, RTL/Persian-first UX, responsive/accessibility behavior, API consumption, server-authoritative trust boundaries, state/error/recovery UX and cross-agent coordination without granting product, backend, review, verification, security or human-gate authority.",
+  "risk": "LOW",
+  "risk_floor": "LOW",
+  "risk_rationale": {
+    "chosen": "LOW",
+    "why_low": [
+      "This task is documentation-only and changes only the A3 prompt, its Task Contract and generated Task Catalog.",
+      "No runtime storefront code is changed by this registration task.",
+      "No backend, database, auth, payment, pricing, inventory, CI or protection behavior is mutated.",
+      "Future A3 implementation tasks remain independently risk-classified by actual changed paths and task rules."
+    ],
+    "escalation_condition": "If deterministic classification or actual changed paths raise effective risk above LOW, stop and follow the higher-risk policy; downgrade is prohibited."
+  },
+  "owner": "PRODUCT_DESIGN",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "315a2b2eaf5c762859125cad97a96951461a5348"
+  },
+  "scope": {
+    "read": [
+      "docs/14-multi-agent/agents/PHASE-A-AGENT-REGISTRY.md",
+      "docs/14-multi-agent/agents/PHASE-B-BASE-CONTRACT.md",
+      "docs/14-multi-agent/agents/A0-ORCHESTRATOR.md",
+      "docs/14-multi-agent/agents/A1-SPEC.md",
+      "docs/14-multi-agent/agents/A2-BACKEND.md",
+      "docs/14-multi-agent/GOVERNANCE.md",
+      "docs/14-multi-agent/missions/EQCOFE-MULTI-AGENT-V1.6-EXECUTION-MISSION.md",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "docs/14-multi-agent/tasks/**",
+      "scripts/multi-agent/project-map.mjs",
+      "scripts/multi-agent/risk-verification-policy.mjs",
+      "scripts/multi-agent/merge-policy-controller.mjs",
+      "scripts/multi-agent/docs-automation.mjs"
+    ],
+    "write": [
+      "docs/14-multi-agent/agents/A3-FRONTEND.md",
+      "docs/14-multi-agent/tasks/MA-AGENT-A3-FRONTEND-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "scripts/**",
+      "test/**",
+      "src/**",
+      "apps/**",
+      "database/**",
+      "contracts/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "docs/11-step-history/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**",
+      "docs/14-multi-agent/GOVERNANCE.md",
+      "docs/14-multi-agent/GOVERNANCE-LOG.md",
+      "docs/14-multi-agent/missions/**",
+      "docs/14-multi-agent/incidents/**",
+      "docs/14-multi-agent/agents/PHASE-A-AGENT-REGISTRY.md",
+      "docs/14-multi-agent/agents/PHASE-B-BASE-CONTRACT.md",
+      "docs/14-multi-agent/agents/A0-ORCHESTRATOR.md",
+      "docs/14-multi-agent/agents/A1-SPEC.md",
+      "docs/14-multi-agent/agents/A2-BACKEND.md",
+      "docs/14-multi-agent/agents/A4-ADMIN.md",
+      "docs/14-multi-agent/agents/A5-DATABASE.md",
+      "docs/14-multi-agent/agents/A6-DEVOPS.md",
+      "docs/14-multi-agent/agents/A7-QA.md",
+      "docs/14-multi-agent/agents/A8-SECURITY.md",
+      "docs/14-multi-agent/agents/A9-DESIGN.md",
+      "docs/14-multi-agent/agents/A10-EVIDENCE.md"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-MA-AGENT-A3-FRONTEND-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 11000,
+    "soft_alert": 17000,
+    "hard_cap": 33000
+  },
+  "max_repair_cycles": 2,
+  "task_risk_rules": [],
+  "dependencies": [
+    {
+      "item": "AGENT-LAYER-PHASE-A",
+      "name": "Canonical Agent Registry",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "de453f004cb910b88eea2ef28a3ae4b97e0b9ec2",
+      "blocking": false
+    },
+    {
+      "item": "AGENT-LAYER-PHASE-B-CORE",
+      "name": "Canonical Base Agent Contract and Prompt Core",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "613878480f1fe6b17ef6ab5fb43bd99dfe6fd7b9",
+      "blocking": false
+    },
+    {
+      "item": "AGENT-A0-ORCHESTRATOR",
+      "name": "Canonical A0 Orchestrator Prompt",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "120898df57138b301560e7d9b9f1b3f5da03e982",
+      "blocking": false
+    },
+    {
+      "item": "AGENT-A1-SPEC",
+      "name": "Canonical A1 Specification & Research Prompt",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "b7acc0272d986d1daca72ecf43da476c6b963e3c",
+      "blocking": false
+    },
+    {
+      "item": "AGENT-A2-BACKEND",
+      "name": "Canonical A2 Backend Engineering Prompt",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "315a2b2eaf5c762859125cad97a96951461a5348",
+      "evidence": "PR #248 / Merge Policy run 35563520502 / postmerge job 106220825753 / terminal Lock release comment 5755712259",
+      "blocking": false
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "LOW-risk A3 prompt-registration task requires exact-artifact ACTIVE LOCK and deterministic verification. Future A3 implementation tasks are independently classified by actual scope and may require higher-risk gates."
+  },
+  "protection_source": {
+    "required_contexts": [
+      "verify",
+      "phase-a",
+      "merge-policy"
+    ],
+    "required_integration": "GitHub Actions",
+    "required_integration_id": 15368
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "A3 explicitly inherits PHASE-B-BASE-CONTRACT.md.",
+      "verification": "inheritance_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "A3 contains Role Definition, Authority Boundaries, Read Scope, Write Scope, Forbidden Actions, Output Format and Failure Behavior.",
+      "verification": "specialized_prompt_schema_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "A3 defines scoped storefront authority centered on apps/storefront and explicitly excludes business-rule, backend, database and admin ownership by default.",
+      "verification": "a3_frontend_role_coverage_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "A3 covers RTL/Persian-first UX, responsive behavior, accessibility, loading/error/empty/recovery states and safe API consumption.",
+      "verification": "a3_storefront_quality_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "A3 preserves server authority for price, inventory, wholesale, orders, payments, permissions and other trust-sensitive state.",
+      "verification": "a3_server_authority_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "A3 output format preserves CLAIMED_CANONICAL_PASS = NO and rejects self-review/self-verification.",
+      "verification": "output_contract_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "Deterministic classification remains LOW with Human Gate NOT REQUIRED; any higher result blocks LOW execution.",
+      "verification": "deterministic_risk_classification",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "Task Catalog is generator-consistent.",
+      "verification": "node scripts/multi-agent/docs-automation.mjs --check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-009",
+      "description": "The PR changes exactly the three authorized paths and no forbidden path.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-010",
+      "description": "Exact-head checks, protected Merge Policy transport, exact-SHA post-merge verification and terminal Lock release complete before A3 is called canonical.",
+      "verification": "provider_exact_head_and_postmerge_evidence",
+      "mandatory": true
+    }
+  ],
+  "process_improvement_links": [
+    "AGENT-LAYER-A3",
+    "AGENT-LAYER-PHASE-C-EXECUTOR"
+  ],
+  "incident_links": []
+}
