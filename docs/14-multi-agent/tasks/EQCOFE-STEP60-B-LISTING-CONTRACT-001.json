@@ -63,7 +63,11 @@
       "docs/13-product-design/step56-final-audit/manifest.json",
       "docs/13-product-design/step57-high-fidelity-contract.json",
       "docs/13-product-design/step57-prototype/src/coverage.json",
-      "docs/13-product-design/step57-prototype/manifest.json"
+      "docs/13-product-design/step57-prototype/manifest.json",
+      "src/modules/catalog/infrastructure/catalog.repository.ts",
+      "src/modules/inventory/application/ports/inventory-public.port.ts",
+      "src/modules/inventory/application/ports/inventory-availability.service.ts",
+      "src/modules/inventory/infrastructure/inventory.repository.ts"
     ],
     "forbidden": [
       ".github/**",
@@ -71,10 +75,12 @@
       "pnpm-lock.yaml",
       "pnpm-workspace.yaml",
       "database/**",
-      "src/modules/inventory/**",
       "src/modules/pricing/**",
       "apps/**",
-      "docs/12-current-state/**"
+      "docs/12-current-state/**",
+      "src/modules/inventory/domain/**",
+      "src/modules/inventory/presentation/**",
+      "src/modules/inventory/application/**"
     ]
   },
   "requested_lock_ids": [
@@ -125,7 +131,11 @@
         "docs/13-product-design/step56-final-audit/manifest.json",
         "docs/13-product-design/step57-high-fidelity-contract.json",
         "docs/13-product-design/step57-prototype/src/coverage.json",
-        "docs/13-product-design/step57-prototype/manifest.json"
+        "docs/13-product-design/step57-prototype/manifest.json",
+        "src/modules/catalog/infrastructure/catalog.repository.ts",
+        "src/modules/inventory/application/ports/inventory-public.port.ts",
+        "src/modules/inventory/application/ports/inventory-availability.service.ts",
+        "src/modules/inventory/infrastructure/inventory.repository.ts"
       ]
     }
   ],
@@ -169,7 +179,8 @@
     "bounded_availability_debt": "Product-card stock truth uses the canonical Inventory availability port per sellable variant. This is authority-correct but can fan out to multiple bounded reads per card; performance batching is deferred to Step 60-G unless Stage 60 acceptance shows it is required earlier.",
     "provider_ci_repair": "Exact-head Canonical CI run 35595747553 / job 106320001824 failed closed in validate-step56-admin-shell because historical Step56 B-G provenance hashes transitively pin the intentionally changed OpenAPI/Catalog sources. Repair is limited to source SHA256 propagation, B-G manifest sourceSha256 refresh, and deterministic Step56-H audit regeneration; design semantics and historical transport evidence remain unchanged.",
     "design_recovery_cascade": "Provider Canonical CI run 35595747553 / job 106320001824 failed closed at validate-step56-admin-shell because the Step56-B contract still pinned the pre-60-B A-contract hash. Stage 60-B therefore authorizes a source-hash-only deterministic cascade through B-G contracts/manifests and H generated audit artifacts. No validator, semantic design field, screen contract, historical baseline, or runtime-release claim may be changed.",
-    "step57_provenance_cascade": "Provider Canonical CI run 35596659040 failed closed after Step56 B-H all passed because Step57 foundation pins Step56 B-H source hashes. Stage 60-B authorizes deterministic regeneration of the Step57 high-fidelity source-linked contract and, only if generator parity requires it, its prototype coverage/manifest. Step57 reviewStatus and all closure gates remain PENDING; no approval, screen, journey, operation, authority or prototype behavior may be invented."
+    "step57_provenance_cascade": "Provider Canonical CI run 35596659040 failed closed after Step56 B-H all passed because Step57 foundation pins Step56 B-H source hashes. Stage 60-B authorizes deterministic regeneration of the Step57 high-fidelity source-linked contract and, only if generator parity requires it, its prototype coverage/manifest. Step57 reviewStatus and all closure gates remain PENDING; no approval, screen, journey, operation, authority or prototype behavior may be invented.",
+    "correctness_repair": "Exact-head audit on 13caf25e24a99c335a756d41953e80ddb44f7eb1 confirmed four unresolved blockers: timestamp-only cursor under composite ordering, optional Inventory authority fallback, per-card/per-variant availability N+1, and silent defaulting of explicitly invalid public limits. Stage 60-B explicitly authorizes only Catalog repository plus Inventory public-port/service/repository changes required to close these blockers. No inventory domain, command, presentation or business-rule change is authorized."
   },
   "acceptance_criteria": [
     {
@@ -242,6 +253,24 @@
       "id": "AC-009C",
       "description": "Step57 foundation provenance is synchronized deterministically from the hash-only Step56 B-H changes while preserving all 134 surfaces, 24 journeys, operation authority, reviewStatus=PENDING and closure gates=PENDING; prototype outputs change only if canonical generator parity requires it.",
       "verification": "step57_foundation_provenance_regeneration",
+      "mandatory": true
+    },
+    {
+      "id": "AC-009D",
+      "description": "Public listing/search pagination uses validated stable keyset cursors containing every ordering key needed for continuation; malformed cursors fail closed and same-timestamp page boundaries cannot skip rows.",
+      "verification": "step60_keyset_cursor_correctness",
+      "mandatory": true
+    },
+    {
+      "id": "AC-009E",
+      "description": "Inventory availability authority is mandatory for public cards and listing availability is fetched with bounded batch calls through the Inventory public port, without Catalog querying Inventory tables.",
+      "verification": "step60_batched_inventory_authority",
+      "mandatory": true
+    },
+    {
+      "id": "AC-009F",
+      "description": "Absent limit may default, but explicitly supplied non-integer, non-positive or above-contract public limits fail closed with canonical validation errors.",
+      "verification": "step60_public_query_runtime_validation",
       "mandatory": true
     },
     {
