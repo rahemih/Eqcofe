@@ -8,20 +8,28 @@
 - Default/canonical branch: `main`
 - Historical repository: `rahemih/digikala-clone` — historical/recovery evidence only; not canonical application source.
 
-## Current Step58 final position
+## Current Step59 final position
 
-**Step 58 — Frontend Application Foundation — CLOSED / FINAL CANONICAL PASS.** Active step NONE; Step59 NEXT / NOT_STARTED.
+**Step 59 — Home, Navigation & Discovery — CLOSED / FINAL CANONICAL PASS**, subject only to the Step 59-H closure artifact completing its own protected transport and postmerge verification. Active step NONE after H; Step60 NEXT / NOT_STARTED.
 
-- H starting canonical main: `8ba4aaca3ebae0afa8552d509f0ba3decb229d3b`.
-- Final Step 58-H PR `#201` merged through protected Merge Policy Run `35490799957` at exact SHA `8f17364fc7c27dc30de5845c1af467b1215d1351`; postmerge `pnpm verify` and Phase-A both PASS.
-- Stages 58-A through 58-G have protected-merge lineage and canonical closure evidence.
-- Stage 58-G terminal merged-main Browser Quality run `35490356922`: PASS on exact SHA `8ba4aaca3ebae0afa8552d509f0ba3decb229d3b`.
-- Browser evidence: axe WCAG-tagged violations 0; widths 320/360/600/840/1200/1440 PASS; focus >=3px PASS; 44x44 targets PASS; no horizontal overflow; reduced-motion PASS; RTL PASS; 400% reflow proxy PASS.
-- Integrated foundation covers workspace/build, routing/shell, fa-IR RTL/i18n, API/server-data boundary, auth/session/security boundary, loading/error/offline recovery, and static/SSR/browser quality gates.
-- Backend/API remains authoritative for authentication, authorization, pricing, discount, inventory, payment, profit and business transitions.
+- H starting canonical main: `6d1c1381168fc701275961960f9704ed41f33ff0`.
+- Stages 59-A through 59-G have protected-merge lineage and exact-SHA postmerge verification.
+- Stage 59-G PR `#244` exact head `cf3415680ce7c8e28edccad460afad1a65004712` passed Canonical CI `35525409492`, Phase A `35525409494`, and Storefront Browser Quality `35525409547`.
+- Stage 59-G protected Merge Policy Run `35525658270` merged at `f7919991e619d416360e74a542741ef21c70f732`; postmerge job `106117278671` passed exact-SHA checkout, root `pnpm verify` and Phase A.
+- Agent A0 PR `#245` merged governance-only changes at `120898df57138b301560e7d9b9f1b3f5da03e982`; protected Run `35526179493` and postmerge verification passed; Lock RELEASED.
+- Agent A1 PR `#246` merged governance-only changes at `b7acc0272d986d1daca72ecf43da476c6b963e3c`; protected Run `35526792037` and postmerge verification passed; Lock RELEASED.
+- Agent A2 PR `#248` merged governance-only changes at `315a2b2eaf5c762859125cad97a96951461a5348`; protected Run `35563520502` and postmerge verification passed; Lock RELEASED.
+- Agent A3 PR `#249` merged governance-only changes at `3d906df2250b73e58044c24b642ab5fbbd089a78`; protected Run `35565944520` and postmerge verification passed; Lock RELEASED.
+- Agent A4 PR `#250` merged governance-only changes at `6331d75a8db73150da869a06e3756d02e6ffa4c4`; protected Run `35567222599` and postmerge job `106231434810` passed; Lock RELEASED.
+- Agent A5 PR `#252` merged governance-only changes at `6d1c1381168fc701275961960f9704ed41f33ff0`; protected Run `35568412769` and postmerge job `106234819511` passed; Lock RELEASED.
+- Across A0/A1/A2/A3/A4/A5 after Stage 59-G, only thirteen governance files changed and no Storefront/runtime path changed.
+- Integrated Step 59 covers production Home, responsive Header/navigation, semantic search entry, authoritative server-loaded product discovery, category/brand handoffs, bounded Home merchandising, Toman price presentation, Buying Guide and Wholesale handoffs, Home state/recovery UX, and Persian RTL/accessibility/responsive hardening.
+- Browser evidence remains the exact Stage-G Browser Quality PASS: Chromium/axe/keyboard, widths 320/360/600/840/1200/1440, focus/target-size gates, no horizontal overflow, reduced motion, RTL and 400% reflow proxy.
+- Backend/API remains authoritative for authentication, authorization, pricing, discount, inventory, wholesale status, payment, profit and business transitions.
 - Currency remains Toman; Wallet remains absent; brown brand/UI palette remains prohibited.
-- Step 59 implementation has not started.
-- Closure history: `docs/11-step-history/STEP-58-H-FINAL-CANONICAL-CLOSURE.md`.
+- Step 60 Search/Category results, filters, sorting, pagination and listing SEO are not implemented by Step 59.
+- Final closure history: `docs/11-step-history/STEP-59-H-FINAL-CANONICAL-CLOSURE.md`.
+- Prior Step 58 closure remains immutable at `docs/11-step-history/STEP-58-H-FINAL-CANONICAL-CLOSURE.md`.
 
 ## Phase A canonical closure
 
@@ -152,6 +160,7 @@ Seven B obligations / 23 variants / 74 low-fidelity RTL frames / 91 deterministi
 - **Step 56 — Admin UX Architecture & Wireframes — CLOSED / FINAL GATE PASS**
 - **Step 57 — High-Fidelity UI & Prototype Approval — CLOSED / FINAL GATE PASS**
 - **Step 58 — Frontend Application Foundation — CLOSED / FINAL GATE PASS**
+- **Step 59 — Home, Navigation & Discovery — CLOSED / FINAL CANONICAL PASS**
 
 Detailed closure evidence remains immutable in `docs/11-step-history/` and merged PR/CI history.
 
@@ -521,7 +530,7 @@ Verify job: `97170521019` — PASS
 - Dark theme is explicitly deferred: it is not a Roadmap requirement and the current Figma plan permits one mode per collection.
 
 ## Next safe action
-Start **Step 59 — Home, Navigation & Discovery** only under a later instruction after Step 58-H canonical transport and post-merge closure gates are complete. Step59 is NEXT / NOT_STARTED; no Step59 feature implementation is included in Step58-H.
+After Step 59-H itself completes protected merge and exact-SHA postmerge verification, start **Step 60 — Search, Category, Filters & Listing** only under a fresh live guard and separate scoped task. Step60 is NEXT / NOT_STARTED; no Step60 feature implementation is included in Step59-H.
 
 ## Step 52 active closure state
 - **A1 — Canonical Handoff & Scope Freeze — COMPLETE / FINAL GATE PASS**
