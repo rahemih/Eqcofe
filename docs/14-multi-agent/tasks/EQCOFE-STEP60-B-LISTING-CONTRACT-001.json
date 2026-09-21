@@ -1,0 +1,191 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP60-B-LISTING-CONTRACT-001",
+  "title": "Step 60-B backend and OpenAPI listing contract readiness",
+  "description": "Make the public Search/Category/Listing API contract honest and typed before Storefront implementation. Define successful response schemas and cursor semantics for Search, Category products, Category filters and Search suggestions; remove product-list query parameters that the backend does not yet implement; bind ProductCard to canonical refs; expose authoritative inventory-backed in_stock through the Inventory public port; regenerate OpenAPI types; add deterministic contract/runtime regression tests; and keep advanced interactive filtering/sorting implementation reserved for Stage 60-F.",
+  "risk": "MEDIUM",
+  "risk_floor": "MEDIUM",
+  "owner": "BACKEND",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "4a9b1e921561eb09b22a44acf2aff05147144b15"
+  },
+  "scope": {
+    "read": [
+      "contracts/http/**",
+      "src/generated/**",
+      "src/modules/catalog/**",
+      "src/modules/inventory/application/ports/**",
+      "src/modules/pricing/application/ports/**",
+      "apps/storefront/**",
+      "test/**",
+      "docs/11-step-history/**",
+      "docs/12-current-state/**",
+      "docs/14-multi-agent/**",
+      "scripts/multi-agent/**"
+    ],
+    "write": [
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "src/modules/catalog/catalog.module.ts",
+      "src/modules/catalog/application/catalog-query.service.ts",
+      "test/catalog-search-step09.spec.ts",
+      "test/step60-listing-contract.spec.ts",
+      "docs/11-step-history/STEP-60-B-BACKEND-OPENAPI-LISTING-CONTRACT.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP60-B-LISTING-CONTRACT-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "database/**",
+      "src/modules/inventory/**",
+      "src/modules/pricing/**",
+      "apps/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP60-B-LISTING-CONTRACT-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 30000,
+    "soft_alert": 45000,
+    "hard_cap": 90000
+  },
+  "max_repair_cycles": 3,
+  "task_risk_rules": [
+    {
+      "id": "STEP60_B_API_CONTRACT_MEDIUM",
+      "risk": "MEDIUM",
+      "paths": [
+        "contracts/http/openapi.yaml",
+        "src/generated/openapi.ts",
+        "src/modules/catalog/catalog.module.ts",
+        "src/modules/catalog/application/catalog-query.service.ts",
+        "test/catalog-search-step09.spec.ts",
+        "test/step60-listing-contract.spec.ts",
+        "docs/11-step-history/STEP-60-B-BACKEND-OPENAPI-LISTING-CONTRACT.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP60-B-LISTING-CONTRACT-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "STEP-60-A",
+      "name": "Canonical Handoff & Contract Freeze",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "bdf8fccde4ca40cced48381ad3be2e0461ade535",
+      "evidence": "PR #258 / protected Run 35581254720 / postmerge job 106274512042 / release comment 5758076000",
+      "blocking": false
+    },
+    {
+      "item": "AGENT-A10-EVIDENCE",
+      "name": "A10 Evidence & Documentation",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "1efffd50eef7fad71b4deee8aa8e69983f9f29c6",
+      "evidence": "PR #259 / protected Run 35590887705 / postmerge job 106304872368 / terminal Lock RELEASED",
+      "blocking": false
+    },
+    {
+      "item": "AGENT-LAYER-FINAL-CLOSURE",
+      "name": "Final Agent Layer canonical closure",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "4a9b1e921561eb09b22a44acf2aff05147144b15",
+      "evidence": "PR #260 / protected Run 35592452095 / postmerge job 106309742535 / terminal provider seal 5759671787",
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "live_guard_main_head": "4a9b1e921561eb09b22a44acf2aff05147144b15",
+    "live_open_prs_before_write": 0,
+    "active_relevant_locks_before_write": 0,
+    "shared_task_catalog_writer_before_write": "NONE",
+    "contract_gap": "Search/category/filter/suggestion successful bodies were untyped; /products advertised min_price/max_price/available/sort that CatalogQueryService did not consume; ProductCard in_stock was hard-coded false.",
+    "implementation_boundary": "Stage 60-B types and aligns the currently supported contract. Advanced filter and selectable sort behavior remains Stage 60-F."
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Fresh live guard proves main exact base, Open PRs zero, relevant Locks released and no competing Task Catalog writer.",
+      "verification": "fresh_live_guard",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Search, Category products, Category filters, Category context and Search suggestions expose explicit successful response schemas in source OpenAPI and generated types.",
+      "verification": "step60_contract_schema_test",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "GET /products no longer advertises min_price, max_price, available or selectable sort before those semantics are implemented; undeclared public listing query keys fail closed instead of being silently ignored.",
+      "verification": "step60_contract_honesty_test",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Search contract includes q plus cursor/limit and keeps backend-owned relevance ordering; category listing includes cursor/limit/brand and keeps backend-owned newest ordering.",
+      "verification": "step60_pagination_semantics_test",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Public ProductCard price is explicitly nullable and availability.in_stock is derived through the canonical Inventory availability port, without cross-module repository access.",
+      "verification": "step60_availability_authority_test",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Category filter values are normalized to arrays and response schemas preserve canonical filter metadata.",
+      "verification": "step60_filter_contract_test",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "src/generated/openapi.ts is byte-for-byte reproducible from contracts/http/openapi.yaml using openapi-typescript 7.13.0.",
+      "verification": "step60_generated_contract_parity",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "Root pnpm verify, build and relevant regression tests pass with no Storefront/runtime UI mutation.",
+      "verification": "verification",
+      "mandatory": true
+    },
+    {
+      "id": "AC-009",
+      "description": "Changed files remain exactly within the authorized Stage 60-B write scope.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-010",
+      "description": "Protected merge transport, exact-SHA postmerge pnpm verify and Phase A pass, then terminal Lock release before 60-C.",
+      "verification": "canonical_transport_and_postmerge_evidence",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "MEDIUM Stage 60-B requires deterministic Review and Verification, exact-artifact ACTIVE Lock, protected merge transport and exact-SHA postmerge verification. Stage 60-C is forbidden until terminal release."
+  },
+  "process_improvement_links": [
+    "STEP-60-B-CONTRACT-HONESTY"
+  ],
+  "incident_links": []
+}
