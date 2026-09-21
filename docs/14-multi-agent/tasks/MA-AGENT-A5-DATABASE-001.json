@@ -1,0 +1,233 @@
+{
+  "schema_version": "2.2",
+  "task_id": "MA-AGENT-A5-DATABASE-001",
+  "title": "A5 — Database & Data Engineering Prompt",
+  "description": "Create the specialized A5 Database & Data Engineering prompt inheriting the canonical Phase B Base Agent Contract. Define scoped PostgreSQL/Kysely persistence authority, migration-sensitive risk behavior, integrity/concurrency/transaction requirements, forward/recovery/rollback-compensation analysis, safe backfills and cross-agent coordination without granting product, application, review, verification, security or human-gate authority.",
+  "risk": "LOW",
+  "risk_floor": "LOW",
+  "risk_rationale": {
+    "chosen": "LOW",
+    "why_low": [
+      "This registration task is documentation-only and changes only the A5 prompt, its Task Contract and generated Task Catalog.",
+      "No database/migrations path is mutated by this task.",
+      "No runtime schema, backend, auth, payment, pricing, inventory, CI or protection behavior is changed.",
+      "Future A5 implementation tasks remain independently classified; database/migrations/** remains migration-sensitive and HIGH where canonical Project Map requires it."
+    ],
+    "escalation_condition": "If deterministic classification or actual changed paths raise effective risk above LOW, stop and follow the higher-risk policy; downgrade is prohibited."
+  },
+  "owner": "BACKEND",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "6331d75a8db73150da869a06e3756d02e6ffa4c4"
+  },
+  "scope": {
+    "read": [
+      "docs/14-multi-agent/agents/PHASE-A-AGENT-REGISTRY.md",
+      "docs/14-multi-agent/agents/PHASE-B-BASE-CONTRACT.md",
+      "docs/14-multi-agent/agents/A0-ORCHESTRATOR.md",
+      "docs/14-multi-agent/agents/A1-SPEC.md",
+      "docs/14-multi-agent/agents/A2-BACKEND.md",
+      "docs/14-multi-agent/agents/A3-FRONTEND.md",
+      "docs/14-multi-agent/agents/A4-ADMIN.md",
+      "docs/14-multi-agent/GOVERNANCE.md",
+      "docs/14-multi-agent/missions/EQCOFE-MULTI-AGENT-V1.6-EXECUTION-MISSION.md",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "docs/14-multi-agent/tasks/**",
+      "scripts/multi-agent/project-map.mjs",
+      "scripts/multi-agent/risk-verification-policy.mjs",
+      "scripts/multi-agent/merge-policy-controller.mjs",
+      "scripts/multi-agent/docs-automation.mjs"
+    ],
+    "write": [
+      "docs/14-multi-agent/agents/A5-DATABASE.md",
+      "docs/14-multi-agent/tasks/MA-AGENT-A5-DATABASE-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "scripts/**",
+      "test/**",
+      "src/**",
+      "apps/**",
+      "database/**",
+      "contracts/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "docs/11-step-history/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**",
+      "docs/14-multi-agent/GOVERNANCE.md",
+      "docs/14-multi-agent/GOVERNANCE-LOG.md",
+      "docs/14-multi-agent/missions/**",
+      "docs/14-multi-agent/incidents/**",
+      "docs/14-multi-agent/agents/PHASE-A-AGENT-REGISTRY.md",
+      "docs/14-multi-agent/agents/PHASE-B-BASE-CONTRACT.md",
+      "docs/14-multi-agent/agents/A0-ORCHESTRATOR.md",
+      "docs/14-multi-agent/agents/A1-SPEC.md",
+      "docs/14-multi-agent/agents/A2-BACKEND.md",
+      "docs/14-multi-agent/agents/A3-FRONTEND.md",
+      "docs/14-multi-agent/agents/A4-ADMIN.md",
+      "docs/14-multi-agent/agents/A6-DEVOPS.md",
+      "docs/14-multi-agent/agents/A7-QA.md",
+      "docs/14-multi-agent/agents/A8-SECURITY.md",
+      "docs/14-multi-agent/agents/A9-DESIGN.md",
+      "docs/14-multi-agent/agents/A10-EVIDENCE.md"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-MA-AGENT-A5-DATABASE-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 12000,
+    "soft_alert": 18000,
+    "hard_cap": 35000
+  },
+  "max_repair_cycles": 2,
+  "task_risk_rules": [],
+  "dependencies": [
+    {
+      "item": "AGENT-LAYER-PHASE-A",
+      "name": "Canonical Agent Registry",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "de453f004cb910b88eea2ef28a3ae4b97e0b9ec2",
+      "blocking": false
+    },
+    {
+      "item": "AGENT-LAYER-PHASE-B-CORE",
+      "name": "Canonical Base Agent Contract and Prompt Core",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "613878480f1fe6b17ef6ab5fb43bd99dfe6fd7b9",
+      "blocking": false
+    },
+    {
+      "item": "AGENT-A0-ORCHESTRATOR",
+      "name": "Canonical A0 Orchestrator Prompt",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "120898df57138b301560e7d9b9f1b3f5da03e982",
+      "blocking": false
+    },
+    {
+      "item": "AGENT-A1-SPEC",
+      "name": "Canonical A1 Specification & Research Prompt",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "b7acc0272d986d1daca72ecf43da476c6b963e3c",
+      "blocking": false
+    },
+    {
+      "item": "AGENT-A2-BACKEND",
+      "name": "Canonical A2 Backend Engineering Prompt",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "315a2b2eaf5c762859125cad97a96951461a5348",
+      "blocking": false
+    },
+    {
+      "item": "AGENT-A3-FRONTEND",
+      "name": "Canonical A3 Frontend / Storefront Prompt",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "3d906df2250b73e58044c24b642ab5fbbd089a78",
+      "blocking": false
+    },
+    {
+      "item": "AGENT-A4-ADMIN",
+      "name": "Canonical A4 Admin Panel Prompt",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "6331d75a8db73150da869a06e3756d02e6ffa4c4",
+      "evidence": "PR #250 / Merge Policy run 35567222599 / postmerge job 106231434810 / terminal Lock release comment 5756220611",
+      "blocking": false
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "LOW-risk A5 prompt-registration task requires exact-artifact ACTIVE LOCK and deterministic verification. Future database/migration implementation tasks are independently classified and must follow HIGH-risk migration gates whenever canonical risk rules require."
+  },
+  "protection_source": {
+    "required_contexts": [
+      "verify",
+      "phase-a",
+      "merge-policy"
+    ],
+    "required_integration": "GitHub Actions",
+    "required_integration_id": 15368
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "A5 explicitly inherits PHASE-B-BASE-CONTRACT.md.",
+      "verification": "inheritance_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "A5 contains Role Definition, Authority Boundaries, Read Scope, Write Scope, Forbidden Actions, Output Format and Failure Behavior.",
+      "verification": "specialized_prompt_schema_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "A5 defines scoped PostgreSQL/Kysely persistence authority without product or backend-application authority expansion.",
+      "verification": "a5_database_role_coverage_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "A5 explicitly requires forward, recovery, integrity, concurrency and rollback/compensation analysis for migrations.",
+      "verification": "a5_migration_safety_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "A5 covers constraints, transactions, concurrency, inventory/order/payment integrity, backfills, archival and money-unit preservation.",
+      "verification": "a5_integrity_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "A5 output format preserves CLAIMED_CANONICAL_PASS = NO and rejects self-review/self-verification.",
+      "verification": "output_contract_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "This prompt-registration task remains LOW with Human Gate NOT REQUIRED; future migration tasks remain subject to deterministic HIGH-risk classification.",
+      "verification": "deterministic_risk_classification",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "Task Catalog is generator-consistent.",
+      "verification": "node scripts/multi-agent/docs-automation.mjs --check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-009",
+      "description": "The PR changes exactly the three authorized paths and no forbidden path.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-010",
+      "description": "Exact-head checks, protected Merge Policy transport, exact-SHA post-merge verification and terminal Lock release complete before A5 is called canonical.",
+      "verification": "provider_exact_head_and_postmerge_evidence",
+      "mandatory": true
+    }
+  ],
+  "process_improvement_links": [
+    "AGENT-LAYER-A5",
+    "AGENT-LAYER-PHASE-C-EXECUTOR"
+  ],
+  "incident_links": []
+}
