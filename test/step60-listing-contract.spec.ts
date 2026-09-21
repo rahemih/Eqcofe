@@ -70,9 +70,9 @@ test('Step 60-B OpenAPI exposes typed Search, Category, Filter and Suggestion co
   assert.match(source,/operationId: getSearchSuggestions[\s\S]*SearchSuggestionsResponse/);
   const products=source.slice(source.indexOf('  \/products:'),source.indexOf('  \/products\/{slug}:'));
   assert.doesNotMatch(products,/min_price|max_price|available|name: sort/);
-  assert.match(generated,/'application\/json": components\["schemas"\]\["SearchResponse"\]/);
-  assert.match(generated,/'application\/json": components\["schemas"\]\["CategoryFiltersResponse"\]/);
-  assert.match(generated,/'application\/json": components\["schemas"\]\["SearchSuggestionsResponse"\]/);
+  assert.match(generated,/"application\/json": components\["schemas"\]\["SearchResponse"\]/);
+  assert.match(generated,/"application\/json": components\["schemas"\]\["CategoryFiltersResponse"\]/);
+  assert.match(generated,/"application\/json": components\["schemas"\]\["SearchSuggestionsResponse"\]/);
 });
 
 test('Step 60-B generated OpenAPI is byte-for-byte reproducible from canonical source',()=>{
