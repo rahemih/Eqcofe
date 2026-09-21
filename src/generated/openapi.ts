@@ -11496,7 +11496,11 @@ export interface operations {
     };
     getBrandsSlugProducts: {
         parameters: {
-            query?: never;
+            query?: {
+                cursor?: components["parameters"]["Cursor"];
+                limit?: components["parameters"]["Limit"];
+                category?: string;
+            };
             header?: never;
             path: {
                 slug: string;
@@ -11505,13 +11509,17 @@ export interface operations {
         };
         requestBody?: never;
         responses: {
-            /** @description عملیات موفق */
+            /** @description محصولات برند */
             200: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["ProductListResponse"];
+                };
             };
+            400: components["responses"]["BadRequest"];
+            404: components["responses"]["NotFound"];
         };
     };
     getSearchSuggestions: {
