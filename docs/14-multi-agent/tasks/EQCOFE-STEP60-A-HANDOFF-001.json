@@ -1,0 +1,156 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP60-A-HANDOFF-001",
+  "title": "Step 60-A canonical handoff, live guard and listing scope freeze",
+  "description": "Documentation/governance-only Stage A for Step 60. Verify the live canonical handoff after Step 59 and post-Step59 Agent Layer governance drift, prove Step 60 runtime implementation is still unstarted, freeze the Search/Category/Filters/Listing boundary against Steps 61-66, register the A-I execution plan and acceptance gates, record authoritative OpenAPI readiness gaps, synchronize project planning, and keep Stage 60-B runtime/API implementation forbidden until protected merge and exact-SHA post-merge verification pass.",
+  "risk": "MEDIUM",
+  "risk_floor": "MEDIUM",
+  "owner": "PRODUCT_DESIGN",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "cc7597258baccc3df553444bdc5410bf5491a58a"
+  },
+  "scope": {
+    "read": [
+      "apps/storefront/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      ".github/workflows/**",
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "docs/11-step-history/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "docs/11-step-history/STEP-60-A-CANONICAL-HANDOFF.md",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP60-A-HANDOFF-001.json"
+    ],
+    "forbidden": [
+      ".github/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "apps/**",
+      "src/**",
+      "database/**",
+      "contracts/**",
+      "scripts/**",
+      "test/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP60-A-HANDOFF-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 18000,
+    "soft_alert": 30000,
+    "hard_cap": 60000
+  },
+  "task_risk_rules": [
+    {
+      "id": "STEP60_A_CANONICAL_SCOPE_FREEZE_MEDIUM",
+      "risk": "MEDIUM",
+      "paths": [
+        "docs/11-step-history/STEP-60-A-CANONICAL-HANDOFF.md",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP60-A-HANDOFF-001.json"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": 59,
+      "name": "Home, Navigation & Discovery final canonical closure",
+      "required_state": "CLOSED_FINAL_CANONICAL_PASS",
+      "observed_state": "CLOSED_FINAL_CANONICAL_PASS",
+      "merge_sha": "321b3f5a519ae44817beab503791529d842cf37c",
+      "evidence": "PR #253 canonical closure lineage; Current State and Roadmap both record Step 59 CLOSED / FINAL CANONICAL PASS.",
+      "blocking": false
+    },
+    {
+      "item": "AGENT-A9-DESIGN",
+      "name": "Latest shared Task Catalog writer before Step 60-A",
+      "required_state": "CANONICAL_COMPLETE_AND_LOCK_RELEASED",
+      "observed_state": "CANONICAL_COMPLETE_AND_LOCK_RELEASED",
+      "merge_sha": "cc7597258baccc3df553444bdc5410bf5491a58a",
+      "evidence": "PR #257 / protected Merge Policy run 35579212520 / postmerge job 106268196318 / terminal Lock release comment 5757784622.",
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "step59_final_pr": 253,
+    "step59_final_merge": "321b3f5a519ae44817beab503791529d842cf37c",
+    "live_guard_main_head": "cc7597258baccc3df553444bdc5410bf5491a58a",
+    "live_open_prs_before_write": 0,
+    "active_relevant_locks_before_write": 0,
+    "latest_shared_writer": "MA-AGENT-A9-DESIGN-001",
+    "latest_shared_writer_state": "CANONICAL_COMPLETE_LOCK_RELEASED",
+    "latest_shared_writer_pr": 257,
+    "latest_shared_writer_merge": "cc7597258baccc3df553444bdc5410bf5491a58a",
+    "a10_branch_before_write": "ABSENT",
+    "linear_issue": "HOS-16",
+    "search_route_blob_sha": "0d20db7014a5676956fc62cf81574455a79fb305",
+    "category_route_blob_sha": "05e9df10ee4e2844c781a9887a0ffd39b1e90a86",
+    "openapi_blob_sha": "de14010511fbd4b7c2c7dc1aef8ccace143da353",
+    "generated_openapi_blob_sha": "9bfb11017156db45c2f593f2781def714c5df8fe",
+    "search_route_state": "STEP60_PLACEHOLDER",
+    "category_route_state": "STEP60_PLACEHOLDER",
+    "contract_readiness": "GET /products has typed ProductListResponse and cursor/filter primitives. GET /search, /categories/{slug}/products, /categories/{slug}/filters and /search/suggestions exist in canonical OpenAPI/generated operations but their successful response bodies are not typed, yielding content?: never; Stage 60-B must resolve these source response-schema gaps before Storefront feature implementation."
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Live main, Step 59 closure evidence, CURRENT-STATE, MASTER-ROADMAP, Open PRs, terminal Locks and post-Step59 Agent Layer drift are inspected; Step 59 remains CLOSED / FINAL CANONICAL PASS and Step 60 runtime implementation is proven unstarted at the Stage A baseline.",
+      "verification": "canonical_handoff_and_live_guard_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "The complete Step 60 A-I plan and exact Search/Category/Filters/Listing IN/OUT boundary are frozen, with Product Detail and later commerce/account/content capabilities reserved for Steps 61-66.",
+      "verification": "step60_scope_freeze_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Current contract readiness is recorded without inventing frontend DTOs: generated OpenAPI remains the type authority, /products provides typed listing/cursor/filter primitives, and unresolved successful response schemas for /search, category products/filters and search suggestions are deferred to Stage 60-B for canonical resolution.",
+      "verification": "openapi_readiness_gap_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Inherited Persian fa-IR RTL, integer Toman, no-Wallet, no-brown, backend authority, generated OpenAPI boundary, accessibility, canonical responsive widths and safe recovery contracts remain binding for all Step 60 runtime stages.",
+      "verification": "inherited_contract_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Stage 60-A changes remain documentation/governance-only and exactly within authorized write paths; no Storefront runtime, dependency, backend, API, database, migration, permission, business-rule or Step 61+ implementation is introduced.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Canonical completion requires exact-head verify, phase-a and merge-policy PASS, artifact-bound REVIEW and ACTIVE LOCK evidence for this MEDIUM task, protected merge, and exact-SHA post-merge pnpm verify plus Phase A before Stage 60-B may start.",
+      "verification": "canonical_transport_and_postmerge_evidence",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Stage 60-A is MEDIUM risk. Direct-main write and raw merge are prohibited. Stage 60-B remains forbidden until 60-A protected transport and exact-SHA post-merge verification are green and the 60-A Lock is terminally RELEASED."
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}
