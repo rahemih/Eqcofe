@@ -683,6 +683,41 @@ components:
       - status
       - sales_enabled
       - version
+    ListingPriceRange:
+      type: object
+      additionalProperties: false
+      required: [min_toman, max_toman]
+      properties:
+        min_toman:
+          $ref: '#/components/schemas/MoneyToman'
+        max_toman:
+          $ref: '#/components/schemas/MoneyToman'
+    ListingAvailabilityFacet:
+      type: object
+      additionalProperties: false
+      required: [in_stock_count, out_of_stock_count]
+      properties:
+        in_stock_count:
+          type: integer
+          minimum: 0
+        out_of_stock_count:
+          type: integer
+          minimum: 0
+    ListingFacets:
+      type: object
+      additionalProperties: false
+      required: [brands, price_range, availability]
+      properties:
+        brands:
+          type: array
+          items:
+            $ref: '#/components/schemas/BrandRef'
+        price_range:
+          oneOf:
+          - $ref: '#/components/schemas/ListingPriceRange'
+          - type: 'null'
+        availability:
+          $ref: '#/components/schemas/ListingAvailabilityFacet'
     ProductListResponse:
       type: object
       additionalProperties: false
@@ -693,9 +728,12 @@ components:
             $ref: '#/components/schemas/ProductCard'
         pagination:
           $ref: '#/components/schemas/CursorPagination'
+        facets:
+          $ref: '#/components/schemas/ListingFacets'
       required:
       - items
       - pagination
+      - facets
     SearchResponse:
       type: object
       additionalProperties: false
@@ -703,6 +741,7 @@ components:
       - query
       - items
       - pagination
+      - facets
       properties:
         query:
           type: string
@@ -712,6 +751,8 @@ components:
             $ref: '#/components/schemas/ProductCard'
         pagination:
           $ref: '#/components/schemas/CursorPagination'
+        facets:
+          $ref: '#/components/schemas/ListingFacets'
     SearchSuggestion:
       type: object
       additionalProperties: false
@@ -6863,6 +6904,39 @@ paths:
         in: query
         schema:
           $ref: '#/components/schemas/Slug'
+      - name: min_price
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/MoneyToman'
+      - name: max_price
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/MoneyToman'
+      - name: available
+        in: query
+        required: false
+        schema:
+          type: boolean
+      - name: sort
+        in: query
+        required: false
+        schema:
+          type: string
+          enum: [newest, price_asc, price_desc]
+          default: newest
+      - name: attribute_value
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          maxItems: 12
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/EntityId'
       responses:
         '200':
           description: موفق
@@ -6944,6 +7018,33 @@ paths:
           maxLength: 200
       - $ref: '#/components/parameters/Cursor'
       - $ref: '#/components/parameters/Limit'
+      - name: brand
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/Slug'
+      - name: min_price
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/MoneyToman'
+      - name: max_price
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/MoneyToman'
+      - name: available
+        in: query
+        required: false
+        schema:
+          type: boolean
+      - name: sort
+        in: query
+        required: false
+        schema:
+          type: string
+          enum: [relevance, newest, price_asc, price_desc]
+          default: relevance
       responses:
         '200':
           description: نتایج جستجو
@@ -7826,6 +7927,39 @@ paths:
         required: false
         schema:
           $ref: '#/components/schemas/Slug'
+      - name: min_price
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/MoneyToman'
+      - name: max_price
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/MoneyToman'
+      - name: available
+        in: query
+        required: false
+        schema:
+          type: boolean
+      - name: sort
+        in: query
+        required: false
+        schema:
+          type: string
+          enum: [newest, price_asc, price_desc]
+          default: newest
+      - name: attribute_value
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          maxItems: 12
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/EntityId'
       responses:
         '200':
           description: محصولات دسته
@@ -7890,6 +8024,28 @@ paths:
         required: false
         schema:
           $ref: '#/components/schemas/Slug'
+      - name: min_price
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/MoneyToman'
+      - name: max_price
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/MoneyToman'
+      - name: available
+        in: query
+        required: false
+        schema:
+          type: boolean
+      - name: sort
+        in: query
+        required: false
+        schema:
+          type: string
+          enum: [newest, price_asc, price_desc]
+          default: newest
       responses:
         '200':
           description: محصولات برند
