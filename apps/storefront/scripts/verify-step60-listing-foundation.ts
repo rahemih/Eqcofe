@@ -27,7 +27,7 @@ assert.doesNotMatch(contractSource, /interface\s+ProductCard|type\s+ProductCard\
 
 const search = parseListingUrlState("?q=%D8%A2%D8%B3%DB%8C%D8%A7%D8%A8&cursor=opaque-token&limit=25", "search");
 assert.deepEqual(search, { q: "آسیاب", cursor: "opaque-token", limit: 25 });
-assert.equal(serializeListingUrlState(search), "q=%D8%A2%D8%B3%DB%8C%D8%A7%D8%A8&cursor=opaque-token&limit=25");
+assert.equal(serializeListingUrlState(search), "q=%D8%A2%D8%B3%DB%8C%D8%A7%D8%A8&limit=25&cursor=opaque-token");
 assert.deepEqual(parseListingUrlState("?cursor=opaque-token&limit=100", "collection"), {
   cursor: "opaque-token",
   limit: 100,
@@ -35,7 +35,7 @@ assert.deepEqual(parseListingUrlState("?cursor=opaque-token&limit=100", "collect
 
 assert.throws(
   () => parseListingUrlState("?sort=price", "collection"),
-  (error: unknown) => error instanceof ListingUrlStateError && error.code === "LISTING_QUERY_KEY_UNSUPPORTED",
+  (error: unknown) => error instanceof ListingUrlStateError && error.code === "LISTING_QUERY_INVALID",
 );
 assert.throws(
   () => parseListingUrlState("?cursor=a&cursor=b", "collection"),
@@ -104,13 +104,15 @@ assert.ok(searchProductionized || searchRoute.includes("targetStep={60}"), "STEP
 assert.ok(categoryProductionized || categoryRoute.includes("targetStep={60}"), "STEP60_C_CATEGORY_HANDOFF_INVALID");
 if (searchProductionized) {
   assert.match(searchRoute, /loader\s*\(/);
-  assert.doesNotMatch(searchRoute, /sort|filter|min_price|max_price|available/i);
+  assert.match(searchRoute, /ListingControls/);
+  assert.match(searchRoute, /ListingPagination/);
 } else {
   assert.doesNotMatch(searchRoute, /loader\s*\(|createCustomerSessionBridge|\.request\(/);
 }
 if (categoryProductionized) {
   assert.match(categoryRoute, /loader\s*\(/);
-  assert.doesNotMatch(categoryRoute, /filter|sort|pagination|brand/i);
+  assert.match(categoryRoute, /ListingControls/);
+  assert.match(categoryRoute, /ListingPagination/);
 } else {
   assert.doesNotMatch(categoryRoute, /loader\s*\(|createCustomerSessionBridge|\.request\(/);
 }
@@ -120,9 +122,9 @@ console.log(JSON.stringify({
   stage: "60-C",
   gate: "shared-listing-foundation",
   generatedContractAuthority: true,
-  urlState: ["q", "cursor", "limit"],
+  urlState: ["q", "cursor", "limit", "brand", "min_price", "max_price", "available", "sort", "attribute_value"],
   cursorSemantics: "opaque-preserve-reset-on-result-set-change",
   routesProductionized: [searchProductionized ? "/search" : null, categoryProductionized ? "/category/:slug" : null].filter(Boolean),
-  advancedFiltersOrSort: false,
+  advancedFiltersOrSort: true,
   newDependencies: 0,
 }, null, 2));

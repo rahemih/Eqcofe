@@ -1,0 +1,234 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP60-F-FILTER-SORT-PAGE-001",
+  "title": "Step 60-F filters sorting and cursor pagination",
+  "description": "Implement authoritative public listing filters, canonical sorting, cursor pagination, removable selections and history-safe URL state for Search and Category. Backend remains authoritative. Pricing and Inventory modules are read-only through their existing public ports; no write to those sensitive modules, no database migration and no frontend-invented pricing/availability semantics. Primary UX follows SF-B-05: availability, brand and Toman price range, plus route-appropriate sort; category-only attribute-value filters may render only from GET /categories/{slug}/filters. Advanced queries are evaluated on a bounded candidate set and fail closed rather than silently truncate. Stage 60-F may update only the CatalogQueryService mock fixture in test/catalog-search-step09.spec.ts so historical Step-09 assertions continue to exercise the same behavior after new read-only candidate/facet dependencies; Step-09 assertions themselves must remain semantically unchanged. Historical Storefront acceptance verifiers from Step59 and 60-C/D/E may be transitioned only where their frozen boundary explicitly prohibited filters/sort/pagination or their API fixtures predate mandatory ListingFacets/category-filter metadata. Their original Search/Category authority, recovery, SSR and later-step boundary assertions remain enforced. Provider Canonical CI #964 proved a historical Step56/57 provenance hash cascade is required after intentional OpenAPI/Catalog source changes. The authorized design files are source-hash/generated-audit reconciliation only; semantic design content is frozen. Governance repair: unsupported wildcard scope patterns were replaced with controller-supported exact paths or terminal /** directory patterns only; this changes no implementation authority. TypeScript repair may update the Step59 home-state fixture only to add the newly mandatory ListingFacets response field; existing Step59 state assertions remain unchanged. Typecheck repair additionally updates only the Step59 Home-state verifier fixture so its historical /products response includes the now-required ListingFacets shape; behavioral assertions remain unchanged.",
+  "risk": "MEDIUM",
+  "risk_floor": "MEDIUM",
+  "owner": "BACKEND",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "70c7695e670239463ce0101a641523623eed8fdd"
+  },
+  "scope": {
+    "read": [
+      "apps/storefront/**",
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "src/modules/catalog/**",
+      "src/modules/pricing/application/ports/**",
+      "src/modules/inventory/application/ports/**",
+      "docs/13-product-design/step55-wireframes/B/SF-B-05/**",
+      "docs/11-step-history/**",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "src/modules/catalog/application/catalog-query.service.ts",
+      "src/modules/catalog/application/public-listing-query.ts",
+      "src/modules/catalog/infrastructure/catalog.repository.ts",
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "test/step60-listing-contract.spec.ts",
+      "test/step60-filter-sort-pagination.spec.ts",
+      "test/catalog-search-step09.spec.ts",
+      "apps/storefront/package.json",
+      "apps/storefront/app/i18n/fa-IR.ts",
+      "apps/storefront/app/features/listing/listing-contract.ts",
+      "apps/storefront/app/features/listing/listing-url-state.ts",
+      "apps/storefront/app/features/listing/ListingControls.tsx",
+      "apps/storefront/app/features/listing/ListingPagination.tsx",
+      "apps/storefront/app/features/search/search-data.server.ts",
+      "apps/storefront/app/features/category/category-data.server.ts",
+      "apps/storefront/app/routes/search.tsx",
+      "apps/storefront/app/routes/category.tsx",
+      "apps/storefront/app/styles/listing-controls.css",
+      "apps/storefront/scripts/verify-step60-filter-sort-pagination.ts",
+      "apps/storefront/scripts/verify-step59-acceptance.ts",
+      "apps/storefront/scripts/verify-step59-home-states.ts",
+      "apps/storefront/scripts/verify-step60-listing-foundation.ts",
+      "apps/storefront/scripts/verify-step60-search-results.ts",
+      "apps/storefront/scripts/verify-step60-category-listing.ts",
+      "docs/11-step-history/STEP-60-F-FILTER-SORT-PAGINATION.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP60-F-FILTER-SORT-PAGE-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "docs/13-product-design/step56-admin-ux-contract.json",
+      "docs/13-product-design/step56-foundation/A/manifest.json",
+      "docs/13-product-design/step56-admin-shell-wireframes.json",
+      "docs/13-product-design/step56-catalog-media-wireframes.json",
+      "docs/13-product-design/step56-pricing-inventory-wireframes.json",
+      "docs/13-product-design/step56-commerce-operations-wireframes.json",
+      "docs/13-product-design/step56-customers-growth-wireframes.json",
+      "docs/13-product-design/step56-management-security-wireframes.json",
+      "docs/13-product-design/step56-wireframes/B/manifest.json",
+      "docs/13-product-design/step56-wireframes/C/manifest.json",
+      "docs/13-product-design/step56-wireframes/D/manifest.json",
+      "docs/13-product-design/step56-wireframes/E/manifest.json",
+      "docs/13-product-design/step56-wireframes/F/manifest.json",
+      "docs/13-product-design/step56-wireframes/G/manifest.json",
+      "docs/13-product-design/step56-final-audit.json",
+      "docs/13-product-design/step56-final-audit/surface-matrix.json",
+      "docs/13-product-design/step56-final-audit/operation-matrix.json",
+      "docs/13-product-design/step56-final-audit/journey-matrix.json",
+      "docs/13-product-design/step56-final-audit/state-matrix.json",
+      "docs/13-product-design/step56-final-audit/release-blockers.json",
+      "docs/13-product-design/step56-final-audit/README.md",
+      "docs/13-product-design/step56-final-audit/manifest.json",
+      "docs/13-product-design/step57-high-fidelity-contract.json",
+      "docs/13-product-design/step57-prototype/src/coverage.json",
+      "docs/13-product-design/step57-prototype/manifest.json"
+    ],
+    "forbidden": [
+      "src/modules/pricing/**",
+      "src/modules/inventory/**",
+      "database/**",
+      ".github/**",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "docs/12-current-state/**",
+      "docs/13-product-design/step54-design-system-contract.json",
+      "docs/13-product-design/step55-account-wholesale-after-sales-wireframes.json",
+      "docs/13-product-design/step55-checkout-payment-wireframes.json",
+      "docs/13-product-design/step55-content-policy-final-audit-wireframes.json",
+      "docs/13-product-design/step55-discovery-wireframes.json",
+      "docs/13-product-design/step55-product-evaluation-wireframes.json",
+      "docs/13-product-design/step55-storefront-wireframe-contract.json",
+      "docs/13-product-design/step55-wireframes/**",
+      "docs/13-product-design/step56-wireframes/A/**",
+      "docs/13-product-design/step56-wireframes/H/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP60-F-FILTER-SORT-PAGE-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 42000,
+    "soft_alert": 65000,
+    "hard_cap": 120000
+  },
+  "max_repair_cycles": 4,
+  "task_risk_rules": [
+    {
+      "id": "STEP60_F_LISTING_FILTERS_MEDIUM",
+      "risk": "MEDIUM",
+      "paths": [
+        "src/modules/catalog/**",
+        "contracts/http/openapi.yaml",
+        "src/generated/openapi.ts",
+        "apps/storefront/**",
+        "docs/11-step-history/STEP-60-F-FILTER-SORT-PAGINATION.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP60-F-FILTER-SORT-PAGE-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md",
+        "test/catalog-search-step09.spec.ts",
+        "apps/storefront/scripts/verify-step59-acceptance.ts",
+        "apps/storefront/scripts/verify-step60-listing-foundation.ts",
+        "apps/storefront/scripts/verify-step60-search-results.ts",
+        "apps/storefront/scripts/verify-step60-category-listing.ts",
+        "test/step60-listing-contract.spec.ts",
+        "test/step60-filter-sort-pagination.spec.ts",
+        "docs/13-product-design/step56-admin-ux-contract.json",
+        "docs/13-product-design/step56-foundation/A/manifest.json",
+        "docs/13-product-design/step56-admin-shell-wireframes.json",
+        "docs/13-product-design/step56-catalog-media-wireframes.json",
+        "docs/13-product-design/step56-pricing-inventory-wireframes.json",
+        "docs/13-product-design/step56-commerce-operations-wireframes.json",
+        "docs/13-product-design/step56-customers-growth-wireframes.json",
+        "docs/13-product-design/step56-management-security-wireframes.json",
+        "docs/13-product-design/step56-wireframes/B/manifest.json",
+        "docs/13-product-design/step56-wireframes/C/manifest.json",
+        "docs/13-product-design/step56-wireframes/D/manifest.json",
+        "docs/13-product-design/step56-wireframes/E/manifest.json",
+        "docs/13-product-design/step56-wireframes/F/manifest.json",
+        "docs/13-product-design/step56-wireframes/G/manifest.json",
+        "docs/13-product-design/step56-final-audit.json",
+        "docs/13-product-design/step56-final-audit/surface-matrix.json",
+        "docs/13-product-design/step56-final-audit/operation-matrix.json",
+        "docs/13-product-design/step56-final-audit/journey-matrix.json",
+        "docs/13-product-design/step56-final-audit/state-matrix.json",
+        "docs/13-product-design/step56-final-audit/release-blockers.json",
+        "docs/13-product-design/step56-final-audit/README.md",
+        "docs/13-product-design/step56-final-audit/manifest.json",
+        "docs/13-product-design/step57-high-fidelity-contract.json",
+        "docs/13-product-design/step57-prototype/src/coverage.json",
+        "docs/13-product-design/step57-prototype/manifest.json",
+        "apps/storefront/scripts/verify-step59-home-states.ts"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "60-E",
+      "required_state": "TERMINAL_MERGED_POSTMERGE_PASS_LOCK_RELEASED",
+      "observed_state": "TERMINAL_MERGED_POSTMERGE_PASS_LOCK_RELEASED",
+      "merge_sha": "70c7695e670239463ce0101a641523623eed8fdd",
+      "terminal_evidence_comment": 5793682430,
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "linear_issue": "HOS-16",
+    "live_guard_main_head": "70c7695e670239463ce0101a641523623eed8fdd",
+    "live_guard_open_prs": 0,
+    "live_guard_competing_writer": "NONE",
+    "predecessor_pr": 264,
+    "predecessor_terminal_comment": 5793682430,
+    "orchestration_owner_agent": "A0",
+    "spec_agent": "A1",
+    "backend_agent": "A2",
+    "frontend_agent": "A3",
+    "qa_agent": "A7",
+    "security_agent": "A8",
+    "evidence_agent": "A10",
+    "design_recovery_cascade": "Canonical CI #964 failed closed because Step56/57 provenance pins the intentionally changed OpenAPI/Catalog sources. Stage 60-F authorizes the same source-hash-only deterministic cascade used canonically in Step 60-B: refresh changed source SHA256 entries, propagate contract/manifest sourceSha256 values through Step56 B-G, regenerate deterministic Step56-H audit artifacts, and refresh Step57 source-linked hashes only as generator parity requires. No validator, screen/journey/operation semantics, reviewStatus, approval, runtime-release claim, Pricing/Inventory source, or historical transport evidence may change."
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Backend/OpenAPI support canonical public listing query keys. Category supports brand, min_price, max_price, available, sort and category-authoritative attribute_value selections; Search supports brand, min_price, max_price, available and route-appropriate sort. Unsupported or malformed values fail closed before result fabrication.",
+      "verification": "step60_filter_contract_tests",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Pricing and stock filtering/sorting use existing PricingPublicPort and InventoryAvailabilityPort batch reads only. No Pricing/Inventory implementation files are changed and Catalog never reimplements effective price or online-sellable formulas.",
+      "verification": "scope_check_and_tests",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Advanced filtering is complete over a bounded candidate set. If the safety bound would be exceeded, the request fails closed; it never silently truncates. Cursor is opaque, <=1024 bytes, bound to query/filter/sort fingerprint and stable ordering keys.",
+      "verification": "step60_filter_cursor_tests",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "SF-B-05 primary controls are implemented: sort, in-stock-only, brand, Toman min/max, apply/clear, removable selections, status summary and history-safe next-page cursor. Applying/removing any result-set dimension resets cursor. Search preserves q; Category preserves slug. Category attribute controls are generated only from authoritative category filter metadata.",
+      "verification": "pnpm --dir apps/storefront filter-sort-pagination:verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Search default remains backend relevance; Category default remains newest. No client-side re-ranking occurs. Toman is integer-only, Wallet is absent, brown remains prohibited and logical RTL/touch-target contracts are preserved.",
+      "verification": "storefront_quality_and_static_checks",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Canonical completion requires exact-head root verify, Phase A, Storefront quality, deterministic Review, exact-artifact Lock, protected merge, exact-SHA postmerge verification and terminal Lock release before 60-G.",
+      "verification": "canonical_transport_and_postmerge_evidence",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Risk is declared MEDIUM because sensitive Pricing/Inventory write paths are explicitly forbidden. Provider risk classification is authoritative; any HIGH classification requires Security + Owner Human Gate before merge."
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}

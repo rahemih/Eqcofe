@@ -95,6 +95,13 @@ const products = {
     };
   }),
   pagination: { next_cursor: null, has_more: false },
+  facets: {
+    filtering_available: true,
+    disabled_reason: null,
+    brands: [{ id: "00000000-0000-4000-8000-000000000011", name_fa: "برند پذیرش", slug: "acceptance-brand-1" }],
+    price_range: { min_toman: 1100000, max_toman: 1700000 },
+    availability: { in_stock_count: 6, out_of_stock_count: 1 },
+  },
 };
 
 const unexpectedApiPaths: string[] = [];
@@ -109,6 +116,7 @@ const apiServer = http.createServer((request, response) => {
       query: url.searchParams.get("q") ?? "",
       items: products.items.slice(0, 1),
       pagination: { next_cursor: null, has_more: false },
+      facets: products.facets,
     });
     return;
   }
@@ -124,10 +132,15 @@ const apiServer = http.createServer((request, response) => {
     });
     return;
   }
+  if (request.method === "GET" && url.pathname === "/categories/acceptance-category-1/filters" && categoryProductionized) {
+    sendJson(response, 200, { category_id: "00000000-0000-4000-8000-000000000031", filters: [] });
+    return;
+  }
   if (request.method === "GET" && url.pathname === "/categories/acceptance-category-1/products" && categoryProductionized) {
     sendJson(response, 200, {
       items: products.items.slice(0, 2),
       pagination: { next_cursor: null, has_more: false },
+      facets: products.facets,
     });
     return;
   }

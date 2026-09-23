@@ -11,11 +11,15 @@ import {
   readyState,
   type AsyncSurfaceState,
 } from "../../platform/state/surface-state.js";
-import type { CategoryListingResponse } from "../listing/listing-contract.js";
+import type {
+  CategoryFiltersResponse,
+  CategoryListingResponse,
+} from "../listing/listing-contract.js";
 import {
   ListingUrlStateError,
   parseListingUrlState,
   serializeListingUrlState,
+  type ListingUrlState,
 } from "../listing/listing-url-state.js";
 
 export type CategoryContextResponse = NonNullable<ApiSuccessData<"get", "/categories/{slug}">>;
@@ -26,11 +30,15 @@ export type CategoryRouteData = {
   category: CategoryContextResponse | null;
   issue: CategoryRouteIssue;
   canonicalSearch: string;
+  urlState: ListingUrlState;
+  listing: CategoryListingResponse | null;
+  categoryFilters: CategoryFiltersResponse | null;
   products: AsyncSurfaceState<CategoryListingResponse>;
   contract: {
     context: "GET /categories/{slug}";
     products: "GET /categories/{slug}/products";
-    query: "cursor/limit";
+    filters: "GET /categories/{slug}/filters";
+    query: "cursor/limit/brand/min_price/max_price/available/sort/attribute_value";
     authority: "backend";
   };
 };
@@ -50,21 +58,19 @@ export async function loadCategoryRouteData(
   slug: string | undefined,
   options: LoadCategoryDataOptions = {},
 ): Promise<CategoryRouteDataResult> {
-  if (!slug) {
-    return localIssue("missing-slug", null);
-  }
+  if (!slug) return localIssue("missing-slug", null);
 
   const url = new URL(request.url);
-  let queryState;
+  let queryState: ListingUrlState;
   try {
     queryState = parseListingUrlState(url.searchParams, "collection");
   } catch (error) {
-    if (error instanceof ListingUrlStateError) {
-      return localIssue("invalid-query", slug);
-    }
+    if (error instanceof ListingUrlStateError) return localIssue("invalid-query", slug);
     throw error;
   }
 
+  if (queryState.sort === "relevance") return localIssue("invalid-query", slug);
+  const categorySort = queryState.sort;
   const canonicalSearch = serializeListingUrlState(queryState);
   let bridge: CustomerSessionBridge | undefined;
 
@@ -73,6 +79,7 @@ export async function loadCategoryRouteData(
     const contextResult = await bridge.client.request("get", "/categories/{slug}", {
       pathParams: { slug },
     });
+    const categoryFilters = await loadCategoryFilters(bridge, slug);
 
     try {
       const productResult = await bridge.client.request("get", "/categories/{slug}/products", {
@@ -80,6 +87,14 @@ export async function loadCategoryRouteData(
         query: {
           ...(queryState.cursor === undefined ? {} : { cursor: queryState.cursor }),
           ...(queryState.limit === undefined ? {} : { limit: queryState.limit }),
+          ...(queryState.brand === undefined ? {} : { brand: queryState.brand }),
+          ...(queryState.minPrice === undefined ? {} : { min_price: queryState.minPrice }),
+          ...(queryState.maxPrice === undefined ? {} : { max_price: queryState.maxPrice }),
+          ...(queryState.available === undefined ? {} : { available: queryState.available }),
+          ...(categorySort === undefined ? {} : { sort: categorySort }),
+          ...(queryState.attributeValueIds?.length
+            ? { attribute_value: queryState.attributeValueIds }
+            : {}),
         },
       });
 
@@ -89,6 +104,9 @@ export async function loadCategoryRouteData(
           category: contextResult.data,
           issue: null,
           canonicalSearch,
+          urlState: queryState,
+          listing: productResult.data,
+          categoryFilters,
           products: productResult.data.items.length === 0
             ? emptyState("no-result")
             : readyState(productResult.data),
@@ -104,6 +122,9 @@ export async function loadCategoryRouteData(
             category: null,
             issue: "not-found",
             canonicalSearch,
+            urlState: queryState,
+            listing: null,
+            categoryFilters: null,
             products: emptyState("no-result"),
             contract: categoryContract(),
           },
@@ -117,6 +138,9 @@ export async function loadCategoryRouteData(
           category: contextResult.data,
           issue: null,
           canonicalSearch,
+          urlState: queryState,
+          listing: null,
+          categoryFilters,
           products: classifyApiFailureState(error, {
             method: "get",
             connectivity: "unknown",
@@ -134,6 +158,9 @@ export async function loadCategoryRouteData(
           category: null,
           issue: "not-found",
           canonicalSearch,
+          urlState: queryState,
+          listing: null,
+          categoryFilters: null,
           products: emptyState("no-result"),
           contract: categoryContract(),
         },
@@ -147,6 +174,9 @@ export async function loadCategoryRouteData(
         category: null,
         issue: null,
         canonicalSearch,
+        urlState: queryState,
+        listing: null,
+        categoryFilters: null,
         products: classifyApiFailureState(error, {
           method: "get",
           connectivity: "unknown",
@@ -155,6 +185,20 @@ export async function loadCategoryRouteData(
       },
       setCookies: bridge?.takeSetCookies() ?? [],
     };
+  }
+}
+
+async function loadCategoryFilters(
+  bridge: CustomerSessionBridge,
+  slug: string,
+): Promise<CategoryFiltersResponse | null> {
+  try {
+    const result = await bridge.client.request("get", "/categories/{slug}/filters", {
+      pathParams: { slug },
+    });
+    return result.data;
+  } catch {
+    return null;
   }
 }
 
@@ -168,6 +212,9 @@ function localIssue(
       category: null,
       issue,
       canonicalSearch: "",
+      urlState: {},
+      listing: null,
+      categoryFilters: null,
       products: emptyState("no-result"),
       contract: categoryContract(),
     },
@@ -185,7 +232,8 @@ function categoryContract(): CategoryRouteData["contract"] {
   return {
     context: "GET /categories/{slug}",
     products: "GET /categories/{slug}/products",
-    query: "cursor/limit",
+    filters: "GET /categories/{slug}/filters",
+    query: "cursor/limit/brand/min_price/max_price/available/sort/attribute_value",
     authority: "backend",
   };
 }

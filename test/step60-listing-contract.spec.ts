@@ -10,13 +10,17 @@ function productRow(){
   return {
     id:'p1',slug:'tamper',name_fa:'تمپر',brand_id:'b1',brand_name:'برند',brand_slug:'brand',
     category_id:'c1',category_name:'ابزار',category_slug:'tools',effective_sales_enabled:true,
+    created_at:'2026-09-23T00:00:00.000Z',
   };
 }
 
 function service(overrides:Record<string,unknown>={},quantity=2){
   const repo:any={
     listPublic:async()=>({data:[productRow()],nextCursor:null,hasMore:false}),
+    listPublicCandidates:async()=>[productRow()],
     searchPublic:async()=>({data:[productRow()],nextCursor:null,hasMore:false}),
+    searchPublicCandidates:async()=>[{...productRow(),search_rank:0}],
+    publicAttributeValues:async()=>[],
     searchSuggestions:async()=>[{label:'تمپر',kind:'product',slug:'tamper'}],
     listSellableVariantsForProducts:async()=>[{id:'v1',product_id:'p1'}],
     categoryBySlug:async()=>({id:'c1',name_fa:'ابزار',slug:'tools',status:'active',sales_enabled:true}),
@@ -43,11 +47,12 @@ test('Step 60-B listing uses authoritative inventory availability and canonical 
   assert.deepEqual(result.pagination,{next_cursor:'next',has_more:true});
 });
 
-test('Step 60-B listing rejects undeclared filters and invalid explicit limits',async()=>{
+test('Step 60-B/60-F listing rejects undeclared keys and malformed advanced values',async()=>{
   const query=service();
-  await assert.rejects(()=>query.listProducts({sort:'price_asc'}),/پارامتر پشتیبانی‌نشده: sort/);
-  await assert.rejects(()=>query.listProducts({min_price:1000}),/پارامتر پشتیبانی‌نشده: min_price/);
-  await assert.rejects(()=>query.search({q:'تمپر',available:true}),/پارامتر پشتیبانی‌نشده: available/);
+  await assert.rejects(()=>query.listProducts({unknown:'x'}),/پارامتر پشتیبانی‌نشده: unknown/);
+  await assert.rejects(()=>query.listProducts({sort:'alphabetical'}),/مرتب‌سازی نامعتبر/);
+  await assert.rejects(()=>query.listProducts({min_price:'12.5'}),/عدد صحیح تومان/);
+  await assert.rejects(()=>query.search({q:'تمپر',available:'maybe'}),/فیلتر موجودی نامعتبر/);
   await assert.rejects(()=>query.listProducts({limit:'abc'}),/محدوده باید عدد صحیح/);
   await assert.rejects(()=>query.search({q:'تمپر',limit:0}),/محدوده باید عدد صحیح/);
   await assert.rejects(()=>query.suggestions({q:'تمپر',limit:21}),/محدوده باید عدد صحیح/);
@@ -70,7 +75,12 @@ test('Step 60-B OpenAPI exposes typed Search, Category, Brand, Filter and Sugges
   assert.match(source,/operationId: getBrandsSlugProducts[\s\S]*ProductListResponse/);
   assert.match(source,/operationId: getSearchSuggestions[\s\S]*SearchSuggestionsResponse/);
   const products=source.slice(source.indexOf('  \/products:'),source.indexOf('  \/products\/{slug}:'));
-  assert.doesNotMatch(products,/min_price|max_price|available|name: sort/);
+  assert.match(products,/name: min_price/);
+  assert.match(products,/name: max_price/);
+  assert.match(products,/name: available/);
+  assert.match(products,/name: sort/);
+  assert.match(products,/name: attribute_value/);
+  assert.match(source,/ListingFacets:/);
   assert.match(generated,/"application\/json": components\["schemas"\]\["SearchResponse"\]/);
   assert.match(generated,/"application\/json": components\["schemas"\]\["CategoryFiltersResponse"\]/);
   assert.match(generated,/"application\/json": components\["schemas"\]\["SearchSuggestionsResponse"\]/);
@@ -85,8 +95,8 @@ test('Step 60-B generated OpenAPI is byte-for-byte reproducible from canonical s
     const actual=readFileSync('src/generated/openapi.ts','utf8');
     const expected=readFileSync(output,'utf8');
     if(actual!==expected){
-      const a=actual.split('\\n');
-      const e=expected.split('\\n');
+      const a=actual.split('\n');
+      const e=expected.split('\n');
       const diffs=[] as string[];
       const max=Math.max(a.length,e.length);
       for(let i=0;i<max&&diffs.length<120;i++){
@@ -104,6 +114,7 @@ test('Step 60-B listing availability uses two bounded batch calls and mandatory 
   let inventoryBatchCalls=0;
   const query=service({
     listPublic:async()=>({data:[productRow(),{...productRow(),id:'p2',slug:'grinder'}],nextCursor:null,hasMore:false}),
+    listPublicCandidates:async()=>[productRow(),{...productRow(),id:'p2',slug:'grinder'}],
     listSellableVariantsForProducts:async()=>{catalogBatchCalls++;return[{id:'v1',product_id:'p1'},{id:'v2',product_id:'p2'},{id:'v3',product_id:'p2'}];},
   });
   (query as any).inventory.getOnlineSellableQuantities=async()=>{inventoryBatchCalls++;return{v1:2,v2:0,v3:4};};

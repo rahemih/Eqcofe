@@ -42,7 +42,7 @@ const ready = await loadSearchRouteData(
 );
 assert.equal(fetchCalls, 1);
 assert.equal(ready.data.queryIssue, null);
-assert.equal(ready.data.canonicalSearch, "q=%D8%A2%D8%B3%DB%8C%D8%A7%D8%A8&cursor=opaque-token&limit=25");
+assert.equal(ready.data.canonicalSearch, "q=%D8%A2%D8%B3%DB%8C%D8%A7%D8%A8&limit=25&cursor=opaque-token");
 assert.equal(ready.data.results.status, "ready");
 assert.equal(selectSearchResults(ready.data.results)?.items.length, 1);
 assert.equal(describeSearchState(ready.data.results, null, ready.data.query), null);
@@ -122,7 +122,10 @@ for (const required of [
   assert.ok(dataSource.includes(required), "STEP60_D_DATA_CONTRACT_MISSING:" + required);
 }
 assert.doesNotMatch(dataSource, /fetch\s*\(/);
-assert.doesNotMatch(dataSource, /sort|available|min_price|max_price|attribute/i);
+for (const token of ["sort", "available", "min_price", "max_price", "brand"]) {
+  assert.ok(dataSource.includes(token), "STEP60_F_SEARCH_QUERY_HANDOFF_MISSING:" + token);
+}
+assert.doesNotMatch(dataSource, /\.sort\s*\(|\.filter\s*\(/);
 
 assert.match(routeSource, /useLoaderData<typeof loader>/);
 assert.match(routeSource, /<ListingGrid products=\{results\.items\}/);
@@ -130,7 +133,8 @@ assert.match(routeSource, /<SearchState/);
 assert.doesNotMatch(routeSource, /RoutePlaceholder|targetStep=\{60\}/);
 assert(categoryProductionized || /targetStep=\{60\}/.test(categoryRoute), "STEP60_D_CATEGORY_HANDOFF_INVALID");
 if (categoryProductionized) {
-  assert.doesNotMatch(categoryRoute, /filter|sort|pagination|brand/i);
+  assert.match(categoryRoute, /ListingControls/);
+  assert.match(categoryRoute, /ListingPagination/);
 }
 
 assert.match(stateComponentSource, /<StatePanel/);
@@ -249,7 +253,7 @@ try {
     boundedSafeReadAttempts: 2,
     sharedListingFoundationReused: true,
     categoryProductionized,
-    advancedFiltersSortPaginationControls: false,
+    advancedFiltersSortPaginationControls: true,
     ssrEvidence: ["missing-query", "ready", "no-result", "recovery"],
   }, null, 2));
 } finally {
@@ -279,6 +283,17 @@ function searchPayload(query: string, count: number) {
       availability: { sales_enabled: true, in_stock: true },
     }],
     pagination: { next_cursor: null, has_more: false },
+    facets: {
+        filtering_available: true,
+        disabled_reason: null,
+        brands: [{
+          id: "00000000-0000-4000-8000-000000000011",
+          name_fa: "برند معتبر",
+          slug: "valid-brand",
+        }],
+        price_range: { min_toman: 100000, max_toman: 2000000 },
+        availability: { in_stock_count: 1, out_of_stock_count: 0 },
+      },
   };
 }
 
