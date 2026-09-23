@@ -706,8 +706,14 @@ components:
     ListingFacets:
       type: object
       additionalProperties: false
-      required: [brands, price_range, availability]
+      required: [filtering_available, disabled_reason, brands, price_range, availability]
       properties:
+        filtering_available:
+          type: boolean
+        disabled_reason:
+          type:
+          - string
+          - 'null'
         brands:
           type: array
           items:
