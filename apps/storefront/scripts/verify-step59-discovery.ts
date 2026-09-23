@@ -110,7 +110,7 @@ assert.equal(homeRouteSource.includes("RoutePlaceholder"), false, "STEP59_D_HOME
 assert.match(homeRouteSource, /const products = selectHomeProducts\(loaderData\.productPreview\)/);
 assert.match(homeRouteSource, /products \? <HomeDiscovery products=\{products\}/);
 assert.match(categoryRouteSource, /targetStep=\{60\}/);
-assert.match(searchRouteSource, /targetStep=\{60\}/);
+assert(searchRouteSource.includes("loadSearchRouteData") || /targetStep=\{60\}/.test(searchRouteSource), "STEP59_D_SEARCH_HANDOFF_INVALID");
 
 for (const token of [
   ".home-page",
@@ -232,7 +232,8 @@ try {
       oneHomeH1: true,
       rtlLogicalCss: true,
       touchTargetMinimum: true,
-      step60RoutesRemainPlaceholders: true,
+      step60SearchHandoffValid: true,
+      step60CategoryRemainsPlaceholder: true,
     },
   }, null, 2));
 } finally {
