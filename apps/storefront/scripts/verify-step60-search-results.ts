@@ -26,7 +26,7 @@ const categoryProductionized = categoryRoute.includes("loadCategoryRouteData") &
 
 let fetchCalls = 0;
 const ready = await loadSearchRouteData(
-  new Request("https://store.example/search?q=%D8%A2%D8%B3%DB%8C%D8%A7%D8%A8&cursor=opaque-token&limit=25"),
+  new Request("https://store.example/search?q=%D8%A2%D8%B3%DB%8C%D8%A7%D8%A8&limit=25&cursor=opaque-token"),
   {
     config: { baseUrl: "https://api.example.test" },
     fetchImpl: async (input) => {
@@ -42,7 +42,7 @@ const ready = await loadSearchRouteData(
 );
 assert.equal(fetchCalls, 1);
 assert.equal(ready.data.queryIssue, null);
-assert.equal(ready.data.canonicalSearch, "q=%D8%A2%D8%B3%DB%8C%D8%A7%D8%A8&cursor=opaque-token&limit=25");
+assert.equal(ready.data.canonicalSearch, "q=%D8%A2%D8%B3%DB%8C%D8%A7%D8%A8&limit=25&cursor=opaque-token");
 assert.equal(ready.data.results.status, "ready");
 assert.equal(selectSearchResults(ready.data.results)?.items.length, 1);
 assert.equal(describeSearchState(ready.data.results, null, ready.data.query), null);
