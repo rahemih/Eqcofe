@@ -94,15 +94,15 @@ export function parseListingUrlState(
   }
 
   const brand = singular(params, "brand");
-  if (brand !== undefined) {
-    if (brand.length < 1 || brand.length > MAX_SLUG_LENGTH || !SLUG.test(brand)) invalid("Brand is invalid.");
+  if (brand !== undefined && brand !== "") {
+    if (brand.length > MAX_SLUG_LENGTH || !SLUG.test(brand)) invalid("Brand is invalid.");
     state.brand = brand;
   }
 
   const minPrice = singular(params, "min_price");
   const maxPrice = singular(params, "max_price");
-  if (minPrice !== undefined) state.minPrice = money(minPrice);
-  if (maxPrice !== undefined) state.maxPrice = money(maxPrice);
+  if (minPrice !== undefined && minPrice !== "") state.minPrice = money(minPrice);
+  if (maxPrice !== undefined && maxPrice !== "") state.maxPrice = money(maxPrice);
   if (state.minPrice !== undefined && state.maxPrice !== undefined && state.minPrice > state.maxPrice) {
     invalid("Price range is invalid.");
   }
