@@ -8522,14 +8522,29 @@ export interface components {
             created_at?: components["schemas"]["Timestamp"];
             updated_at?: components["schemas"]["Timestamp"];
         };
+        ListingPriceRange: {
+            min_toman: components["schemas"]["MoneyToman"];
+            max_toman: components["schemas"]["MoneyToman"];
+        };
+        ListingAvailabilityFacet: {
+            in_stock_count: number;
+            out_of_stock_count: number;
+        };
+        ListingFacets: {
+            brands: components["schemas"]["BrandRef"][];
+            price_range: components["schemas"]["ListingPriceRange"] | null;
+            availability: components["schemas"]["ListingAvailabilityFacet"];
+        };
         ProductListResponse: {
             items: components["schemas"]["ProductCard"][];
             pagination: components["schemas"]["CursorPagination"];
+            facets: components["schemas"]["ListingFacets"];
         };
         SearchResponse: {
             query: string;
             items: components["schemas"]["ProductCard"][];
             pagination: components["schemas"]["CursorPagination"];
+            facets: components["schemas"]["ListingFacets"];
         };
         SearchSuggestion: {
             label: string;
@@ -10490,6 +10505,12 @@ export interface operations {
                 limit?: components["parameters"]["Limit"];
                 category?: components["schemas"]["Slug"];
                 brand?: components["schemas"]["Slug"];
+                min_price?: components["schemas"]["MoneyToman"];
+                max_price?: components["schemas"]["MoneyToman"];
+                available?: boolean;
+                /** @default newest */
+                sort?: "newest" | "price_asc" | "price_desc";
+                attribute_value?: components["schemas"]["EntityId"][];
             };
             header?: never;
             path?: never;
@@ -10597,6 +10618,12 @@ export interface operations {
                 q: string;
                 cursor?: components["parameters"]["Cursor"];
                 limit?: components["parameters"]["Limit"];
+                brand?: components["schemas"]["Slug"];
+                min_price?: components["schemas"]["MoneyToman"];
+                max_price?: components["schemas"]["MoneyToman"];
+                available?: boolean;
+                /** @default relevance */
+                sort?: "relevance" | "newest" | "price_asc" | "price_desc";
             };
             header?: never;
             path?: never;
@@ -11434,6 +11461,12 @@ export interface operations {
                 cursor?: components["parameters"]["Cursor"];
                 limit?: components["parameters"]["Limit"];
                 brand?: components["schemas"]["Slug"];
+                min_price?: components["schemas"]["MoneyToman"];
+                max_price?: components["schemas"]["MoneyToman"];
+                available?: boolean;
+                /** @default newest */
+                sort?: "newest" | "price_asc" | "price_desc";
+                attribute_value?: components["schemas"]["EntityId"][];
             };
             header?: never;
             path: {
@@ -11505,6 +11538,11 @@ export interface operations {
                 cursor?: components["parameters"]["Cursor"];
                 limit?: components["parameters"]["Limit"];
                 category?: components["schemas"]["Slug"];
+                min_price?: components["schemas"]["MoneyToman"];
+                max_price?: components["schemas"]["MoneyToman"];
+                available?: boolean;
+                /** @default newest */
+                sort?: "newest" | "price_asc" | "price_desc";
             };
             header?: never;
             path: {
