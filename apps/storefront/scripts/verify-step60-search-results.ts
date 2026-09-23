@@ -26,7 +26,7 @@ const categoryProductionized = categoryRoute.includes("loadCategoryRouteData") &
 
 let fetchCalls = 0;
 const ready = await loadSearchRouteData(
-  new Request("https://store.example/search?q=%D8%A2%D8%B3%DB%8C%D8%A7%D8%A8&limit=25&cursor=opaque-token"),
+  new Request("https://store.example/search?q=%D8%A2%D8%B3%DB%8C%D8%A7%D8%A8&cursor=opaque-token&limit=25"),
   {
     config: { baseUrl: "https://api.example.test" },
     fetchImpl: async (input) => {
