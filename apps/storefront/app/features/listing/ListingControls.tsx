@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Form, Link } from "react-router";
 import { faIR } from "../../i18n/fa-IR.js";
 import type {
@@ -27,6 +28,7 @@ export function ListingControls({
   categoryFilters?: readonly CategoryFilterDefinition[];
 }) {
   const enabled = facets.filtering_available;
+  const [expanded, setExpanded] = useState(false);
   const selectedAttributes = new Set(state.attributeValueIds ?? []);
   const selectedCount =
     Number(Boolean(state.brand))
@@ -46,6 +48,15 @@ export function ListingControls({
         <p className="listing-controls__status" role="status" aria-live="polite">
           {selectedCount.toLocaleString("fa-IR")} {faIR.listingFilters.selectedSuffix}
         </p>
+        <button
+          type="button"
+          className="listing-controls__toggle"
+          aria-expanded={expanded}
+          aria-controls="listing-filter-panel"
+          onClick={() => setExpanded((open) => !open)}
+        >
+          {expanded ? faIR.listingFilters.close : faIR.listingFilters.open}
+        </button>
       </div>
 
       {!enabled ? (
@@ -54,6 +65,7 @@ export function ListingControls({
         </p>
       ) : null}
 
+      <div id="listing-filter-panel" className="listing-controls__panel" data-expanded={expanded}>
       <Form method="get" action={basePath} className="listing-controls__form">
         {state.q ? <input type="hidden" name="q" value={state.q} /> : null}
         {state.limit ? <input type="hidden" name="limit" value={state.limit} /> : null}
@@ -144,6 +156,7 @@ export function ListingControls({
           <Link to={clearHref}>{faIR.listingFilters.clear}</Link>
         </div>
       </Form>
+      </div>
 
       {selectedCount > 0 ? (
         <nav className="listing-selections" aria-label={faIR.listingFilters.selectionSummary}>

@@ -17,6 +17,7 @@ import type {
 } from "../listing/listing-contract.js";
 import {
   ListingUrlStateError,
+  hasActiveListingFilters,
   parseListingUrlState,
   serializeListingUrlState,
   type ListingUrlState,
@@ -108,7 +109,7 @@ export async function loadCategoryRouteData(
           listing: productResult.data,
           categoryFilters,
           products: productResult.data.items.length === 0
-            ? emptyState("no-result")
+            ? emptyState(hasActiveListingFilters(queryState) ? "filtered" : "no-result")
             : readyState(productResult.data),
           contract: categoryContract(),
         },

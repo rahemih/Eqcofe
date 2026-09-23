@@ -183,6 +183,8 @@ export const faIR = {
   listingFilters: {
     eyebrow: "کنترل فهرست",
     title: "فیلتر و مرتب‌سازی",
+    open: "نمایش فیلترها",
+    close: "بستن فیلترها",
     selectedSuffix: "انتخاب فعال",
     disabledReason: "فیلترهای پیشرفته برای این دامنه فعلاً در دسترس نیستند.",
     sortLabel: "مرتب‌سازی",
