@@ -100,7 +100,7 @@ assert.deepEqual(categoryCalls,[
   "/categories/grinders/filters",
   "/categories/grinders/products",
 ]);
-assert.equal(category.data.categoryFilters?.filters[0].values[0].id,red);
+assert.equal(category.data.categoryFilters?.filters[0]?.values[0]?.id,red);
 assert.equal(category.data.listing?.facets.filtering_available,true);
 
 for(const token of [
