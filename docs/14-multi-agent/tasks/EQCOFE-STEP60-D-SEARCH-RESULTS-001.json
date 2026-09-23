@@ -2,7 +2,7 @@
   "schema_version": "2.2",
   "task_id": "EQCOFE-STEP60-D-SEARCH-RESULTS-001",
   "title": "Step 60-D production Search results",
-  "description": "Productionize only the Storefront /search route on top of the canonical Step 60-C listing foundation: server-side typed GET /search consumption, deterministic q/cursor/limit preservation, missing/invalid-query handling without speculative backend requests, authoritative ProductCard results, no-result state, bounded safe-read recovery, customer-session cookie propagation, Persian RTL presentation and deterministic SSR verification. Do not implement Category listing, advanced filters, selectable sorting, pagination/infinite controls, suggestions, backend/OpenAPI/database changes, Product Detail, Compare/Wishlist, Cart/Checkout, Admin, SEO hardening reserved for 60-G, or new dependencies.",
+  "description": "Productionize only the Storefront /search route on top of the canonical Step 60-C listing foundation: server-side typed GET /search consumption, deterministic q/cursor/limit preservation, missing/invalid-query handling without speculative backend requests, authoritative ProductCard results, no-result state, bounded safe-read recovery, customer-session cookie propagation, Persian RTL presentation and deterministic SSR verification. Do not implement Category listing, advanced filters, selectable sorting, pagination/infinite controls, suggestions, backend/OpenAPI/database changes, Product Detail, Compare/Wishlist, Cart/Checkout, Admin, SEO hardening reserved for 60-G, or new dependencies. The Stage also performs only the minimum compatibility transition in historical Storefront verifiers that previously required /search to remain a Step-60 placeholder; those checks must accept the new 60-D production Search while continuing to require Category and all later-step routes to remain at their frozen boundaries.",
   "risk": "MEDIUM",
   "risk_floor": "MEDIUM",
   "owner": "PRODUCT_DESIGN",
@@ -31,6 +31,10 @@
       "apps/storefront/app/features/search/SearchState.tsx",
       "apps/storefront/app/styles/search.css",
       "apps/storefront/scripts/verify-step60-search-results.ts",
+      "apps/storefront/scripts/verify-step60-listing-foundation.ts",
+      "apps/storefront/scripts/verify-step59-home-states.ts",
+      "apps/storefront/scripts/verify-step59-discovery.ts",
+      "apps/storefront/scripts/verify-step59-acceptance.ts",
       "docs/11-step-history/STEP-60-D-SEARCH-RESULTS.md",
       "docs/14-multi-agent/tasks/EQCOFE-STEP60-D-SEARCH-RESULTS-001.json",
       "docs/14-multi-agent/generated/TASK-CATALOG.md"
@@ -76,7 +80,11 @@
         "apps/storefront/scripts/verify-step60-search-results.ts",
         "docs/11-step-history/STEP-60-D-SEARCH-RESULTS.md",
         "docs/14-multi-agent/tasks/EQCOFE-STEP60-D-SEARCH-RESULTS-001.json",
-        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+        "docs/14-multi-agent/generated/TASK-CATALOG.md",
+        "apps/storefront/scripts/verify-step59-acceptance.ts",
+        "apps/storefront/scripts/verify-step59-discovery.ts",
+        "apps/storefront/scripts/verify-step59-home-states.ts",
+        "apps/storefront/scripts/verify-step60-listing-foundation.ts"
       ]
     }
   ],
@@ -138,7 +146,7 @@
     },
     {
       "id": "AC-005",
-      "description": "Production SSR evidence covers missing-query, ready results, no-result and bounded recovery. Persian RTL copy, logical CSS, minimum touch target and no-brown rule are preserved. Category remains a placeholder and Stage 60-F filter/sort/pagination controls are not implemented early.",
+      "description": "Production SSR evidence covers missing-query, ready results, no-result and bounded recovery. Persian RTL copy, logical CSS, minimum touch target and no-brown rule are preserved. Category remains a placeholder and Stage 60-F filter/sort/pagination controls are not implemented early. Historical Step59/60-C verifiers are transitioned without removing their prior assertions: they may recognize production Search at 60-D while Category and later-step handoffs remain frozen.",
       "verification": "pnpm --dir apps/storefront search-results:verify && Step 58 Storefront Quality",
       "mandatory": true
     },
