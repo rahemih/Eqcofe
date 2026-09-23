@@ -3,6 +3,13 @@ import { PRICING_PUBLIC_PORT, type PricingPublicPort } from '../../pricing/appli
 import { INVENTORY_AVAILABILITY_PORT, type InventoryAvailabilityPort } from '../../inventory/application/ports/inventory-public.port';
 import { DomainError } from '../../../shared/errors/domain-error';
 import { CatalogRepository } from '../infrastructure/catalog.repository';
+import {
+  MAX_PUBLIC_LISTING_CANDIDATES,
+  applyPublicListingQuery,
+  normalizeAttributeGroups,
+  parsePublicListingQuery,
+  type ListingSignals,
+} from './public-listing-query';
 
 @Injectable()
 export class CatalogQueryService {
@@ -13,19 +20,19 @@ export class CatalogQueryService {
   ) {}
 
   async listProducts(q: any) {
-    this.assertQueryKeys(q, ['cursor', 'limit', 'category', 'brand']);
+    this.assertQueryKeys(q, ['cursor', 'limit', 'category', 'brand', 'min_price', 'max_price', 'available', 'sort', 'attribute_value']);
     return this.listProductsScoped(q);
   }
 
   async categoryProducts(slug: string, q: any) {
-    this.assertQueryKeys(q, ['cursor', 'limit', 'brand']);
+    this.assertQueryKeys(q, ['cursor', 'limit', 'brand', 'min_price', 'max_price', 'available', 'sort', 'attribute_value']);
     const category = this.requiredSlug(slug, 'دسته');
     await this.category(category);
     return this.listProductsScoped({ ...q, category });
   }
 
   async brandProducts(slug: string, q: any) {
-    this.assertQueryKeys(q, ['cursor', 'limit', 'category']);
+    this.assertQueryKeys(q, ['cursor', 'limit', 'category', 'min_price', 'max_price', 'available', 'sort']);
     const brand = this.requiredSlug(slug, 'برند');
     await this.brand(brand);
     return this.listProductsScoped({ ...q, brand });
@@ -35,26 +42,71 @@ export class CatalogQueryService {
     const limit = this.publicLimit(q.limit, 25, 100);
     const category = this.optionalSlug(q.category, 'دسته');
     const brand = this.optionalSlug(q.brand, 'برند');
-    const result = await this.repo.listPublic({ category, brand, limit, cursor: q.cursor });
-    const prices = await this.pricing.getProductPrices(result.data.map((item: any) => item.id));
+    const parsed = parsePublicListingQuery(q, {
+      kind: 'list',
+      limit,
+      brand,
+      allowAttributes: Boolean(category),
+    });
+
+    const candidates = await this.repo.listPublicCandidates({
+      category,
+      limit: MAX_PUBLIC_LISTING_CANDIDATES + 1,
+    });
+    this.assertCandidateBound(candidates);
+
+    const signals = await this.listingSignals(candidates);
+    let attributeGroups: string[][] = [];
+    if (parsed.attributeValueIds.length) {
+      if (!category) throw new DomainError('VALIDATION_ERROR', 'فیلتر ویژگی فقط همراه دسته معتبر است.');
+      const metadata = await this.categoryFilters(category);
+      attributeGroups = normalizeAttributeGroups(parsed.attributeValueIds, metadata.filters);
+    }
+
+    const result = applyPublicListingQuery(candidates, signals, parsed, {
+      kind: 'list',
+      category,
+      attributeGroups,
+    });
+
     return {
-      items: await this.publicCards(result.data, prices),
-      pagination: { next_cursor: result.nextCursor, has_more: result.hasMore },
+      items: this.publicCardsFromSignals(result.data, signals),
+      pagination: result.pagination,
+      facets: result.facets,
     };
   }
 
   async search(q: any) {
-    this.assertQueryKeys(q, ['q', 'cursor', 'limit']);
+    this.assertQueryKeys(q, ['q', 'cursor', 'limit', 'brand', 'min_price', 'max_price', 'available', 'sort']);
     const query = String(q.q ?? '').trim();
     if (!query) throw new DomainError('VALIDATION_ERROR', 'عبارت جستجو الزامی است.');
     if (query.length > 200) throw new DomainError('VALIDATION_ERROR', 'عبارت جستجو بیش از حد طولانی است.');
     const limit = this.publicLimit(q.limit, 25, 100);
-    const result = await this.repo.searchPublic({ query, limit, cursor: q.cursor });
-    const prices = await this.pricing.getProductPrices(result.data.map((item: any) => item.id));
+    const brand = this.optionalSlug(q.brand, 'برند');
+    const parsed = parsePublicListingQuery(q, {
+      kind: 'search',
+      limit,
+      brand,
+      allowAttributes: false,
+    });
+
+    const candidates = await this.repo.searchPublicCandidates({
+      query,
+      limit: MAX_PUBLIC_LISTING_CANDIDATES + 1,
+    });
+    this.assertCandidateBound(candidates);
+
+    const signals = await this.listingSignals(candidates);
+    const result = applyPublicListingQuery(candidates, signals, parsed, {
+      kind: 'search',
+      searchQuery: query,
+    });
+
     return {
       query,
-      items: await this.publicCards(result.data, prices),
-      pagination: { next_cursor: result.nextCursor, has_more: result.hasMore },
+      items: this.publicCardsFromSignals(result.data, signals),
+      pagination: result.pagination,
+      facets: result.facets,
     };
   }
 
@@ -148,17 +200,37 @@ export class CatalogQueryService {
     return { primary_category_id: rows[0].primary_category_id, products };
   }
 
-  private async publicCards(rows: any[], prices: Record<string, any | null>) {
+  private async publicCards(rows: any[], prices?: Record<string, any | null>) {
+    const signals = await this.listingSignals(rows, prices);
+    return this.publicCardsFromSignals(rows, signals);
+  }
+
+  private async listingSignals(rows: any[], providedPrices?: Record<string, any | null>): Promise<ListingSignals> {
     const productIds = rows.map((row: any) => String(row.id));
+    const prices = providedPrices ?? await this.pricing.getProductPrices(productIds);
     const variants = await this.repo.listSellableVariantsForProducts(productIds);
-    const quantities = await this.inventory.getOnlineSellableQuantities(variants.map((variant: any) => String(variant.id)));
-    const stockedProductIds = new Set(
+    const quantities = await this.inventory.getOnlineSellableQuantities(
+      variants.map((variant: any) => String(variant.id)),
+    );
+    const stockedProductIds = new Set<string>(
       variants
         .filter((variant: any) => (quantities[String(variant.id)] ?? 0) > 0)
         .map((variant: any) => String(variant.product_id)),
     );
+    const attributeRows = await this.repo.publicAttributeValues(productIds);
+    const attributeValuesByProduct = new Map<string, Set<string>>();
+    for (const row of attributeRows) {
+      const id = String(row.product_id);
+      const set = attributeValuesByProduct.get(id) ?? new Set<string>();
+      set.add(String(row.attribute_value_id));
+      attributeValuesByProduct.set(id, set);
+    }
+    return { prices, stockedProductIds, attributeValuesByProduct };
+  }
+
+  private publicCardsFromSignals(rows: any[], signals: ListingSignals) {
     return rows.map((row: any) => {
-      const price = prices[row.id] ?? null;
+      const price = signals.prices[String(row.id)] ?? null;
       return {
         id: row.id,
         slug: row.slug,
@@ -169,10 +241,19 @@ export class CatalogQueryService {
         price,
         availability: {
           sales_enabled: Boolean(row.effective_sales_enabled) && Boolean(price),
-          in_stock: stockedProductIds.has(String(row.id)),
+          in_stock: signals.stockedProductIds.has(String(row.id)),
         },
       };
     });
+  }
+
+  private assertCandidateBound(rows: any[]) {
+    if (rows.length > MAX_PUBLIC_LISTING_CANDIDATES) {
+      throw new DomainError(
+        'VALIDATION_ERROR',
+        'دامنه فهرست برای فیلتر یا مرتب‌سازی امن بیش از حد بزرگ است؛ محدوده را محدودتر کنید.',
+      );
+    }
   }
 
   private assertQueryKeys(query: any, allowed: string[]) {
