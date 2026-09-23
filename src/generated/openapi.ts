@@ -10510,7 +10510,6 @@ export interface operations {
                 min_price?: components["schemas"]["MoneyToman"];
                 max_price?: components["schemas"]["MoneyToman"];
                 available?: boolean;
-                /** @default newest */
                 sort?: "newest" | "price_asc" | "price_desc";
                 attribute_value?: components["schemas"]["EntityId"][];
             };
@@ -10624,7 +10623,6 @@ export interface operations {
                 min_price?: components["schemas"]["MoneyToman"];
                 max_price?: components["schemas"]["MoneyToman"];
                 available?: boolean;
-                /** @default relevance */
                 sort?: "relevance" | "newest" | "price_asc" | "price_desc";
             };
             header?: never;
@@ -11466,7 +11464,6 @@ export interface operations {
                 min_price?: components["schemas"]["MoneyToman"];
                 max_price?: components["schemas"]["MoneyToman"];
                 available?: boolean;
-                /** @default newest */
                 sort?: "newest" | "price_asc" | "price_desc";
                 attribute_value?: components["schemas"]["EntityId"][];
             };
@@ -11543,7 +11540,6 @@ export interface operations {
                 min_price?: components["schemas"]["MoneyToman"];
                 max_price?: components["schemas"]["MoneyToman"];
                 available?: boolean;
-                /** @default newest */
                 sort?: "newest" | "price_asc" | "price_desc";
             };
             header?: never;
