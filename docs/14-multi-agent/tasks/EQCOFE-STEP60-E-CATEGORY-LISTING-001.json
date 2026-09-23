@@ -1,0 +1,173 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP60-E-CATEGORY-LISTING-001",
+  "title": "Step 60-E production Category listing",
+  "description": "Productionize only /category/:slug on top of the canonical Step 60-C listing foundation and Step 60-D Search: consume generated OpenAPI GET /categories/{slug} context plus GET /categories/{slug}/products, preserve only collection cursor/limit URL state, render authoritative category context and shared ProductCard/List results, handle invalid query/not-found/no-result/bounded recovery, propagate customer-session Set-Cookie, and verify SSR. Explicitly do not consume /categories/{slug}/filters, expose brand filtering, selectable sorting, pagination/infinite controls, or mutate backend/OpenAPI/database/business authority. Perform only the minimum governed compatibility transition in historical Storefront verifiers that still require Category to remain a Step-60 placeholder.",
+  "risk": "MEDIUM",
+  "risk_floor": "MEDIUM",
+  "owner": "PRODUCT_DESIGN",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "d06885c26a77ab3db7f23356ac973db2019164c3"
+  },
+  "scope": {
+    "read": [
+      "apps/storefront/**",
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "docs/11-step-history/STEP-60-A-CANONICAL-HANDOFF.md",
+      "docs/11-step-history/STEP-60-B-BACKEND-OPENAPI-LISTING-CONTRACT.md",
+      "docs/11-step-history/STEP-60-C-SHARED-LISTING-FOUNDATION.md",
+      "docs/11-step-history/STEP-60-D-SEARCH-RESULTS.md",
+      "docs/13-product-design/**",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "apps/storefront/package.json",
+      "apps/storefront/app/i18n/fa-IR.ts",
+      "apps/storefront/app/routes/category.tsx",
+      "apps/storefront/app/features/category/category-data.server.ts",
+      "apps/storefront/app/features/category/category-state.ts",
+      "apps/storefront/app/features/category/CategoryState.tsx",
+      "apps/storefront/app/styles/category.css",
+      "apps/storefront/scripts/verify-step60-category-listing.ts",
+      "apps/storefront/scripts/verify-step59-acceptance.ts",
+      "apps/storefront/scripts/verify-step59-discovery.ts",
+      "apps/storefront/scripts/verify-step59-navigation.mjs",
+      "apps/storefront/scripts/verify-step60-listing-foundation.ts",
+      "docs/11-step-history/STEP-60-E-CATEGORY-LISTING.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP60-E-CATEGORY-LISTING-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "contracts/**",
+      "src/**",
+      "database/**",
+      "test/**",
+      "apps/storefront/app/routes/search.tsx",
+      "apps/storefront/app/features/search/**",
+      "apps/storefront/app/features/listing/**",
+      "apps/storefront/app/platform/api/**",
+      "apps/storefront/app/platform/auth/**",
+      "apps/storefront/app/platform/state/**",
+      "apps/storefront/app/shell/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP60-E-CATEGORY-LISTING-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 30000,
+    "soft_alert": 45000,
+    "hard_cap": 90000
+  },
+  "max_repair_cycles": 3,
+  "task_risk_rules": [
+    {
+      "id": "STEP60_E_STOREFRONT_CATEGORY_LISTING_MEDIUM",
+      "risk": "MEDIUM",
+      "paths": [
+        "apps/storefront/package.json",
+        "apps/storefront/app/i18n/fa-IR.ts",
+        "apps/storefront/app/routes/category.tsx",
+        "apps/storefront/app/features/category/**",
+        "apps/storefront/app/styles/category.css",
+        "apps/storefront/scripts/verify-step60-category-listing.ts",
+        "apps/storefront/scripts/verify-step59-acceptance.ts",
+        "apps/storefront/scripts/verify-step59-discovery.ts",
+        "apps/storefront/scripts/verify-step59-navigation.mjs",
+        "apps/storefront/scripts/verify-step60-listing-foundation.ts",
+        "docs/11-step-history/STEP-60-E-CATEGORY-LISTING.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP60-E-CATEGORY-LISTING-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "60-D",
+      "name": "Production Search results",
+      "required_state": "TERMINAL_MERGED_POSTMERGE_PASS_LOCK_RELEASED",
+      "observed_state": "TERMINAL_MERGED_POSTMERGE_PASS_LOCK_RELEASED",
+      "merge_sha": "d06885c26a77ab3db7f23356ac973db2019164c3",
+      "terminal_evidence_comment": 5793034284,
+      "blocking": false
+    },
+    {
+      "item": "AGENT-LAYER",
+      "name": "A0-A10 canonical agent layer",
+      "required_state": "CANONICAL_COMPLETE_FREEZE_RELEASED",
+      "observed_state": "CANONICAL_COMPLETE_FREEZE_RELEASED",
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "linear_issue": "HOS-16",
+    "live_guard_main_head": "d06885c26a77ab3db7f23356ac973db2019164c3",
+    "live_guard_open_prs": 0,
+    "live_guard_competing_writer": "NONE",
+    "predecessor_pr": 263,
+    "predecessor_terminal_comment": 5793034284,
+    "implementation_owner_agent": "A3",
+    "orchestration_owner_agent": "A0",
+    "qa_agent": "A7",
+    "security_agent": "A8",
+    "evidence_agent": "A10"
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "The /category/:slug loader consumes only generated OpenAPI GET /categories/{slug} context and GET /categories/{slug}/products through the existing customer-session/API bridge. No parallel category/product DTO, direct fetch transport, price/inventory authority, client-side ranking or invented category context is introduced.",
+      "verification": "pnpm --dir apps/storefront category-listing:verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Collection URL state accepts only cursor/limit at this Stage. q, brand, sort, filter and undeclared/duplicate/oversized values fail closed before any Category backend request. Opaque cursor bytes are preserved without decoding.",
+      "verification": "pnpm --dir apps/storefront category-listing:verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "A valid category renders authoritative name/description and shared ListingGrid/ProductCard results in backend order. Zero products renders explicit category no-result. Category 404 renders an explicit not-found state. No /filters request, brand filter UI, selectable sort or pagination control is introduced before 60-F.",
+      "verification": "pnpm --dir apps/storefront category-listing:verify && pnpm --dir apps/storefront typecheck && pnpm --dir apps/storefront static-quality",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Retryable GET failures use only the existing bounded safe-read policy with no polling/unbounded retry. Manual recovery preserves the validated category slug plus cursor/limit URL. Server/session Set-Cookie handling remains delegated to the existing hardened customer-session bridge.",
+      "verification": "pnpm --dir apps/storefront category-listing:verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Production SSR evidence covers ready category, invalid query with zero backend calls, not-found, no-result and bounded recovery. Persian RTL copy, logical CSS, minimum touch target and no-brown rule are preserved. Historical Step59/60-C Category-placeholder assertions are transitioned without weakening Search or later-step boundaries.",
+      "verification": "pnpm --dir apps/storefront category-listing:verify && Step 58 Storefront Quality",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Canonical completion requires exact-head root pnpm verify, Canonical CI, Phase A, Storefront quality, deterministic Review, exact-artifact ACTIVE Lock, protected merge, exact-SHA postmerge verification and terminal Lock release before 60-F begins.",
+      "verification": "canonical_transport_and_postmerge_evidence",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Stage 60-E is MEDIUM risk. Direct-main write/raw merge are prohibited. Stage 60-F remains blocked until protected transport, exact-SHA postmerge verification and terminal Lock release are green."
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}
