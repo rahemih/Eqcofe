@@ -5,7 +5,9 @@ import { CatalogQueryService } from '../src/modules/catalog/application/catalog-
 
 function service(overrides:Record<string,unknown>={}){
   const repo:any={
-    searchPublic:async()=>({data:[{id:'p1',slug:'tamper',name_fa:'تمپر',brand_id:'b1',brand_name:'برند',brand_slug:'brand',category_id:'c1',category_name:'ابزار',category_slug:'tools',effective_sales_enabled:true}],nextCursor:null,hasMore:false}),
+    searchPublic:async()=>({data:[{id:'p1',slug:'tamper',name_fa:'تمپر',brand_id:'b1',brand_name:'برند',brand_slug:'brand',category_id:'c1',category_name:'ابزار',category_slug:'tools',effective_sales_enabled:true,created_at:'2026-09-23T00:00:00.000Z'}],nextCursor:null,hasMore:false}),
+    searchPublicCandidates:async()=>[{id:'p1',slug:'tamper',name_fa:'تمپر',brand_id:'b1',brand_name:'برند',brand_slug:'brand',category_id:'c1',category_name:'ابزار',category_slug:'tools',effective_sales_enabled:true,created_at:'2026-09-23T00:00:00.000Z',search_rank:0}],
+    publicAttributeValues:async()=>[],
     searchSuggestions:async()=>[{label:'تمپر',kind:'product',slug:'tamper'}],
     listSellableVariantsForProducts:async()=>[{id:'v1',product_id:'p1'}],
     ...overrides,
@@ -23,7 +25,7 @@ test('Step 09 search rejects an empty query and bounds query length',async()=>{
 
 test('Step 09 search returns priced public read models with cursor pagination',async()=>{
   let received:any;
-  const query=service({searchPublic:async(opts:any)=>{received=opts;return{data:[{id:'p1',slug:'tamper',name_fa:'تمپر',brand_id:'b1',brand_name:'برند',brand_slug:'brand',category_id:'c1',category_name:'ابزار',category_slug:'tools',effective_sales_enabled:true}],nextCursor:'next',hasMore:true};}});
+  const query=service({searchPublic:async(opts:any)=>{received=opts;return{data:[{id:'p1',slug:'tamper',name_fa:'تمپر',brand_id:'b1',brand_name:'برند',brand_slug:'brand',category_id:'c1',category_name:'ابزار',category_slug:'tools',effective_sales_enabled:true,created_at:'2026-09-23T00:00:00.000Z'}],nextCursor:'next',hasMore:true};}});
   const result=await query.search({q:'  تمپر  ',limit:100,cursor:'cursor'});
   assert.deepEqual(received,{query:'تمپر',limit:100,cursor:'cursor'});
   assert.equal(result.query,'تمپر');
