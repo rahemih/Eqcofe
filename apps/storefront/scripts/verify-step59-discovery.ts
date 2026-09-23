@@ -18,6 +18,7 @@ const projectionSource = readFileSync(resolve(storefrontRoot, "app/features/home
 const componentSource = readFileSync(resolve(storefrontRoot, "app/features/home/HomeDiscovery.tsx"), "utf8");
 const homeRouteSource = readFileSync(resolve(storefrontRoot, "app/routes/home.tsx"), "utf8");
 const categoryRouteSource = readFileSync(resolve(storefrontRoot, "app/routes/category.tsx"), "utf8");
+const categoryProductionized = categoryRouteSource.includes("loadCategoryRouteData") && categoryRouteSource.includes("ListingGrid");
 const searchRouteSource = readFileSync(resolve(storefrontRoot, "app/routes/search.tsx"), "utf8");
 const css = readFileSync(resolve(storefrontRoot, "app/styles/home.css"), "utf8");
 const messages = readFileSync(resolve(storefrontRoot, "app/i18n/fa-IR.ts"), "utf8");
@@ -109,7 +110,7 @@ assert.equal((homeRouteSource.match(/<h1\b/g) ?? []).length, 1, "STEP59_D_HOME_H
 assert.equal(homeRouteSource.includes("RoutePlaceholder"), false, "STEP59_D_HOME_PLACEHOLDER_STILL_ACTIVE");
 assert.match(homeRouteSource, /const products = selectHomeProducts\(loaderData\.productPreview\)/);
 assert.match(homeRouteSource, /products \? <HomeDiscovery products=\{products\}/);
-assert.match(categoryRouteSource, /targetStep=\{60\}/);
+assert(categoryProductionized || /targetStep=\{60\}/.test(categoryRouteSource), "STEP59_D_CATEGORY_HANDOFF_INVALID");
 assert(searchRouteSource.includes("loadSearchRouteData") || /targetStep=\{60\}/.test(searchRouteSource), "STEP59_D_SEARCH_HANDOFF_INVALID");
 
 for (const token of [
@@ -233,7 +234,8 @@ try {
       rtlLogicalCss: true,
       touchTargetMinimum: true,
       step60SearchHandoffValid: true,
-      step60CategoryRemainsPlaceholder: true,
+      step60CategoryHandoffValid: true,
+      step60CategoryImplementation: categoryProductionized ? "PRODUCTIONIZED_60_E" : "PLACEHOLDER",
     },
   }, null, 2));
 } finally {
