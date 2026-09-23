@@ -185,10 +185,13 @@ export function ListingControls({
 
 function SelectionChip({ label, href: to }: { label: string; href: string }) {
   return (
-    <Link className="listing-selection" to={to}>
+    <Link
+      className="listing-selection"
+      to={to}
+      aria-label={`${faIR.listingFilters.removeSelection}: ${label}`}
+    >
       <span>{label}</span>
       <span aria-hidden="true">×</span>
-      <span className="sr-only">{faIR.listingFilters.removeSelection}</span>
     </Link>
   );
 }
