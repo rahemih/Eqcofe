@@ -4,7 +4,9 @@ import {
 } from "../features/category/category-data.server.js";
 import { CategoryState } from "../features/category/CategoryState.js";
 import { selectCategoryProducts } from "../features/category/category-state.js";
+import { ListingControls } from "../features/listing/ListingControls.js";
 import { ListingGrid } from "../features/listing/ListingGrid.js";
+import { ListingPagination } from "../features/listing/ListingPagination.js";
 import { faIR } from "../i18n/fa-IR.js";
 import { appendCustomerSessionSetCookies } from "../platform/auth/session-cookie.server.js";
 import "../styles/category.css";
@@ -29,13 +31,14 @@ export async function loader({
 export default function CategoryRoute() {
   const loaderData = useLoaderData<typeof loader>();
   const products = selectCategoryProducts(loaderData.products);
+  const listing = loaderData.listing;
   const categoryTitle = loaderData.category?.name_fa ?? faIR.category.title;
-  const retryBase = loaderData.slug
+  const basePath = loaderData.slug
     ? `/category/${encodeURIComponent(loaderData.slug)}`
     : "/category";
   const retryHref = loaderData.canonicalSearch
-    ? `${retryBase}?${loaderData.canonicalSearch}`
-    : retryBase;
+    ? `${basePath}?${loaderData.canonicalSearch}`
+    : basePath;
 
   return (
     <div className="category-page" data-category-state={loaderData.products.status}>
@@ -55,8 +58,26 @@ export default function CategoryRoute() {
         retryHref={retryHref}
       />
 
+      {listing && loaderData.category ? (
+        <ListingControls
+          mode="collection"
+          basePath={basePath}
+          state={loaderData.urlState}
+          facets={listing.facets}
+          categoryFilters={loaderData.categoryFilters?.filters ?? []}
+        />
+      ) : null}
+
       {products ? (
         <ListingGrid products={products.items} heading={faIR.category.gridHeading} />
+      ) : null}
+
+      {listing ? (
+        <ListingPagination
+          basePath={basePath}
+          state={loaderData.urlState}
+          pagination={listing.pagination}
+        />
       ) : null}
     </div>
   );
