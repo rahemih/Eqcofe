@@ -6,8 +6,11 @@ import { CatalogRepository } from '../infrastructure/catalog.repository';
 import {
   MAX_PUBLIC_LISTING_CANDIDATES,
   applyPublicListingQuery,
+  buildFacets,
+  hasAdvancedListingQuery,
   normalizeAttributeGroups,
   parsePublicListingQuery,
+  unavailableListingFacets,
   type ListingSignals,
 } from './public-listing-query';
 
@@ -48,27 +51,44 @@ export class CatalogQueryService {
       brand,
       allowAttributes: Boolean(category),
     });
-
+    const advanced = hasAdvancedListingQuery(q, 'list');
     const candidates = await this.repo.listPublicCandidates({
       category,
       limit: MAX_PUBLIC_LISTING_CANDIDATES + 1,
     });
-    this.assertCandidateBound(candidates);
 
-    const signals = await this.listingSignals(candidates);
+    if (candidates.length > MAX_PUBLIC_LISTING_CANDIDATES) {
+      if (advanced) this.assertCandidateBound(candidates);
+      const page = await this.repo.listPublic({ category, brand, limit, cursor: q.cursor });
+      const pageSignals = await this.listingSignals(page.data, undefined, false);
+      return {
+        items: this.publicCardsFromSignals(page.data, pageSignals),
+        pagination: { next_cursor: page.nextCursor, has_more: page.hasMore },
+        facets: unavailableListingFacets('دامنه نتایج برای فیلترهای پیشرفته بیش از حد بزرگ است؛ ابتدا دسته یا جستجو را محدودتر کنید.'),
+      };
+    }
+
+    const signals = await this.listingSignals(candidates, undefined, parsed.attributeValueIds.length > 0);
+    if (!advanced) {
+      const page = await this.repo.listPublic({ category, brand, limit, cursor: q.cursor });
+      return {
+        items: this.publicCardsFromSignals(page.data, signals),
+        pagination: { next_cursor: page.nextCursor, has_more: page.hasMore },
+        facets: buildFacets(candidates, signals),
+      };
+    }
+
     let attributeGroups: string[][] = [];
     if (parsed.attributeValueIds.length) {
       if (!category) throw new DomainError('VALIDATION_ERROR', 'فیلتر ویژگی فقط همراه دسته معتبر است.');
       const metadata = await this.categoryFilters(category);
       attributeGroups = normalizeAttributeGroups(parsed.attributeValueIds, metadata.filters);
     }
-
     const result = applyPublicListingQuery(candidates, signals, parsed, {
       kind: 'list',
       category,
       attributeGroups,
     });
-
     return {
       items: this.publicCardsFromSignals(result.data, signals),
       pagination: result.pagination,
@@ -89,19 +109,39 @@ export class CatalogQueryService {
       brand,
       allowAttributes: false,
     });
-
+    const advanced = hasAdvancedListingQuery(q, 'search');
     const candidates = await this.repo.searchPublicCandidates({
       query,
       limit: MAX_PUBLIC_LISTING_CANDIDATES + 1,
     });
-    this.assertCandidateBound(candidates);
 
-    const signals = await this.listingSignals(candidates);
+    if (candidates.length > MAX_PUBLIC_LISTING_CANDIDATES) {
+      if (advanced) this.assertCandidateBound(candidates);
+      const page = await this.repo.searchPublic({ query, limit, cursor: q.cursor });
+      const pageSignals = await this.listingSignals(page.data, undefined, false);
+      return {
+        query,
+        items: this.publicCardsFromSignals(page.data, pageSignals),
+        pagination: { next_cursor: page.nextCursor, has_more: page.hasMore },
+        facets: unavailableListingFacets('دامنه نتایج جستجو برای فیلترهای پیشرفته بیش از حد بزرگ است؛ عبارت را دقیق‌تر کنید.'),
+      };
+    }
+
+    const signals = await this.listingSignals(candidates, undefined, false);
+    if (!advanced) {
+      const page = await this.repo.searchPublic({ query, limit, cursor: q.cursor });
+      return {
+        query,
+        items: this.publicCardsFromSignals(page.data, signals),
+        pagination: { next_cursor: page.nextCursor, has_more: page.hasMore },
+        facets: buildFacets(candidates, signals),
+      };
+    }
+
     const result = applyPublicListingQuery(candidates, signals, parsed, {
       kind: 'search',
       searchQuery: query,
     });
-
     return {
       query,
       items: this.publicCardsFromSignals(result.data, signals),
@@ -205,7 +245,11 @@ export class CatalogQueryService {
     return this.publicCardsFromSignals(rows, signals);
   }
 
-  private async listingSignals(rows: any[], providedPrices?: Record<string, any | null>): Promise<ListingSignals> {
+  private async listingSignals(
+    rows: any[],
+    providedPrices?: Record<string, any | null>,
+    includeAttributes = true,
+  ): Promise<ListingSignals> {
     const productIds = rows.map((row: any) => String(row.id));
     const prices = providedPrices ?? await this.pricing.getProductPrices(productIds);
     const variants = await this.repo.listSellableVariantsForProducts(productIds);
@@ -217,7 +261,7 @@ export class CatalogQueryService {
         .filter((variant: any) => (quantities[String(variant.id)] ?? 0) > 0)
         .map((variant: any) => String(variant.product_id)),
     );
-    const attributeRows = await this.repo.publicAttributeValues(productIds);
+    const attributeRows = includeAttributes ? await this.repo.publicAttributeValues(productIds) : [];
     const attributeValuesByProduct = new Map<string, Set<string>>();
     for (const row of attributeRows) {
       const id = String(row.product_id);
