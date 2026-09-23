@@ -116,7 +116,7 @@ const empty = await loadCategoryRouteData(
     },
   },
 );
-assert.deepEqual(calls, ["/categories/grinders", "/categories/grinders/products"]);
+assert.deepEqual(calls, ["/categories/grinders", "/categories/grinders/filters", "/categories/grinders/products"]);
 assert.equal(empty.data.products.status, "empty");
 assert.equal(describeCategoryState(empty.data.products, null)?.title, "محصولی در این دسته پیدا نشد");
 
@@ -137,6 +137,7 @@ const recovery = await loadCategoryRouteData(
 );
 assert.deepEqual(calls, [
   "/categories/grinders",
+  "/categories/grinders/filters",
   "/categories/grinders/products",
   "/categories/grinders/products",
 ]);
@@ -274,7 +275,7 @@ try{
   assert.equal(emptyResponse.status,200);
   assert(emptyResponse.body.includes("محصولی در این دسته پیدا نشد"));
   assert.equal((emptyResponse.body.match(/class="listing-card"/g)??[]).length,0);
-  assert.deepEqual(apiRequests,["/categories/grinders","/categories/grinders/products"]);
+  assert.deepEqual(apiRequests,["/categories/grinders","/categories/grinders/filters","/categories/grinders/products"]);
 
   mode="not-found";
   apiRequests=[];
