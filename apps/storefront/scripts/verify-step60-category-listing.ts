@@ -23,7 +23,7 @@ const messages = readFileSync(resolve(storefrontRoot, "app/i18n/fa-IR.ts"), "utf
 
 let calls: string[] = [];
 const ready = await loadCategoryRouteData(
-  new Request("https://store.example/category/grinders?cursor=opaque-token&limit=25"),
+  new Request("https://store.example/category/grinders?limit=25&cursor=opaque-token"),
   "grinders",
   {
     config: { baseUrl: "https://api.example.test" },
@@ -49,7 +49,7 @@ assert.deepEqual(calls.map((value)=>value.split("?")[0]), [
 ]);
 assert.equal(ready.data.issue, null);
 assert.equal(ready.data.category?.name_fa, "آسیاب");
-assert.equal(ready.data.canonicalSearch, "cursor=opaque-token&limit=25");
+assert.equal(ready.data.canonicalSearch, "limit=25&cursor=opaque-token");
 assert.equal(ready.data.products.status, "ready");
 assert.equal(selectCategoryProducts(ready.data.products)?.items.length, 1);
 assert.equal(describeCategoryState(ready.data.products, null), null);
