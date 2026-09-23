@@ -25,7 +25,7 @@ assert.match(contractSource, /ApiSuccessData<"get", "\/search">/);
 assert.match(contractSource, /ApiSuccessData<"get", "\/categories\/\{slug\}\/products">/);
 assert.doesNotMatch(contractSource, /interface\s+ProductCard|type\s+ProductCard\s*=/);
 
-const search = parseListingUrlState("?q=%D8%A2%D8%B3%DB%8C%D8%A7%D8%A8&cursor=opaque-token&limit=25", "search");
+const search = parseListingUrlState("?q=%D8%A2%D8%B3%DB%8C%D8%A7%D8%A8&limit=25&cursor=opaque-token", "search");
 assert.deepEqual(search, { q: "آسیاب", cursor: "opaque-token", limit: 25 });
 assert.equal(serializeListingUrlState(search), "q=%D8%A2%D8%B3%DB%8C%D8%A7%D8%A8&limit=25&cursor=opaque-token");
 assert.deepEqual(parseListingUrlState("?cursor=opaque-token&limit=100", "collection"), {
