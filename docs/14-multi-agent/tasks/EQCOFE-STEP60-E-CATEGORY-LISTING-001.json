@@ -2,7 +2,7 @@
   "schema_version": "2.2",
   "task_id": "EQCOFE-STEP60-E-CATEGORY-LISTING-001",
   "title": "Step 60-E production Category listing",
-  "description": "Productionize only /category/:slug on top of the canonical Step 60-C listing foundation and Step 60-D Search: consume generated OpenAPI GET /categories/{slug} context plus GET /categories/{slug}/products, preserve only collection cursor/limit URL state, render authoritative category context and shared ProductCard/List results, handle invalid query/not-found/no-result/bounded recovery, propagate customer-session Set-Cookie, and verify SSR. Explicitly do not consume /categories/{slug}/filters, expose brand filtering, selectable sorting, pagination/infinite controls, or mutate backend/OpenAPI/database/business authority. Perform only the minimum governed compatibility transition in historical Storefront verifiers that still require Category to remain a Step-60 placeholder.",
+  "description": "Productionize only /category/:slug on top of the canonical Step 60-C listing foundation and Step 60-D Search: consume generated OpenAPI GET /categories/{slug} context plus GET /categories/{slug}/products, preserve only collection cursor/limit URL state, render authoritative category context and shared ProductCard/List results, handle invalid query/not-found/no-result/bounded recovery, propagate customer-session Set-Cookie, and verify SSR. Explicitly do not consume /categories/{slug}/filters, expose brand filtering, selectable sorting, pagination/infinite controls, or mutate backend/OpenAPI/database/business authority. Perform only the minimum governed compatibility transition in historical Storefront verifiers that still require Category to remain a Step-60 placeholder. The Stage also transitions the Step 60-D Search verifier only where it still requires Category to remain a placeholder; Search assertions remain intact and Category production is accepted only when the 60-E loader plus shared ListingGrid are present, while filter/sort/pagination scope remains forbidden.",
   "risk": "MEDIUM",
   "risk_floor": "MEDIUM",
   "owner": "PRODUCT_DESIGN",
@@ -36,6 +36,7 @@
       "apps/storefront/scripts/verify-step59-discovery.ts",
       "apps/storefront/scripts/verify-step59-navigation.mjs",
       "apps/storefront/scripts/verify-step60-listing-foundation.ts",
+      "apps/storefront/scripts/verify-step60-search-results.ts",
       "docs/11-step-history/STEP-60-E-CATEGORY-LISTING.md",
       "docs/14-multi-agent/tasks/EQCOFE-STEP60-E-CATEGORY-LISTING-001.json",
       "docs/14-multi-agent/generated/TASK-CATALOG.md"
@@ -86,7 +87,8 @@
         "apps/storefront/scripts/verify-step60-listing-foundation.ts",
         "docs/11-step-history/STEP-60-E-CATEGORY-LISTING.md",
         "docs/14-multi-agent/tasks/EQCOFE-STEP60-E-CATEGORY-LISTING-001.json",
-        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+        "docs/14-multi-agent/generated/TASK-CATALOG.md",
+        "apps/storefront/scripts/verify-step60-search-results.ts"
       ]
     }
   ],
