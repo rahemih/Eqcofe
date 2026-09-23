@@ -1,5 +1,7 @@
 import { data, useLoaderData } from "react-router";
+import { ListingControls } from "../features/listing/ListingControls.js";
 import { ListingGrid } from "../features/listing/ListingGrid.js";
+import { ListingPagination } from "../features/listing/ListingPagination.js";
 import {
   loadSearchRouteData,
 } from "../features/search/search-data.server.js";
@@ -23,6 +25,7 @@ export async function loader({ request }: { request: Request }) {
 export default function SearchRoute() {
   const loaderData = useLoaderData<typeof loader>();
   const results = selectSearchResults(loaderData.results);
+  const listing = loaderData.listing;
   const retryHref = loaderData.canonicalSearch
     ? `/search?${loaderData.canonicalSearch}`
     : "/search";
@@ -48,8 +51,25 @@ export default function SearchRoute() {
         retryHref={retryHref}
       />
 
+      {listing && loaderData.query ? (
+        <ListingControls
+          mode="search"
+          basePath="/search"
+          state={loaderData.urlState}
+          facets={listing.facets}
+        />
+      ) : null}
+
       {results ? (
         <ListingGrid products={results.items} heading={faIR.search.gridHeading} />
+      ) : null}
+
+      {listing ? (
+        <ListingPagination
+          basePath="/search"
+          state={loaderData.urlState}
+          pagination={listing.pagination}
+        />
       ) : null}
     </div>
   );
