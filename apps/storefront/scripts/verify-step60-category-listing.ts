@@ -23,7 +23,7 @@ const messages = readFileSync(resolve(storefrontRoot, "app/i18n/fa-IR.ts"), "utf
 
 let calls: string[] = [];
 const ready = await loadCategoryRouteData(
-  new Request("https://store.example/category/grinders?limit=25&cursor=opaque-token"),
+  new Request("https://store.example/category/grinders?cursor=opaque-token&limit=25"),
   "grinders",
   {
     config: { baseUrl: "https://api.example.test" },
