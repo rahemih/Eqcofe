@@ -8531,6 +8531,8 @@ export interface components {
             out_of_stock_count: number;
         };
         ListingFacets: {
+            filtering_available: boolean;
+            disabled_reason: string | null;
             brands: components["schemas"]["BrandRef"][];
             price_range: components["schemas"]["ListingPriceRange"] | null;
             availability: components["schemas"]["ListingAvailabilityFacet"];
