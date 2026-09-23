@@ -11,6 +11,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
+        /** @description فهرست عمومی محصولات با ترتیب canonical جدیدترین؛ فیلتر/مرتب‌سازی توسعه‌یافته در Stage 60-F فعال می‌شود. */
         get: operations["listProducts"];
         put?: never;
         post?: never;
@@ -91,6 +92,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
+        /** @description جستجوی عمومی با ترتیب relevance ثابت و cursor pagination. */
         get: operations["search"];
         put?: never;
         post?: never;
@@ -572,6 +574,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
+        /** @description محصولات دسته با ترتیب canonical جدیدترین و cursor pagination. */
         get: operations["getCategoriesSlugProducts"];
         put?: never;
         post?: never;
@@ -620,6 +623,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
+        /** @description محصولات برند با ترتیب canonical جدیدترین و cursor pagination. */
         get: operations["getBrandsSlugProducts"];
         put?: never;
         post?: never;
@@ -8379,24 +8383,11 @@ export interface components {
             id: components["schemas"]["EntityId"];
             slug: string;
             name: string;
-            brand?: {
-                [key: string]: unknown;
-            } | null;
-            primary_category?: {
-                [key: string]: unknown;
-            };
-            primary_image?: {
-                [key: string]: unknown;
-            } | null;
-            price: {
-                current_toman: components["schemas"]["MoneyToman"];
-                old_toman?: components["schemas"]["MoneyToman"] | null;
-                discount_percent?: number | null;
-            };
-            availability: {
-                sales_enabled: boolean;
-                in_stock: boolean;
-            };
+            brand?: components["schemas"]["BrandRef"] | null;
+            primary_category?: components["schemas"]["CategoryRef"];
+            primary_image?: components["schemas"]["MediaRef"] | null;
+            price: components["schemas"]["PriceView"] | null;
+            availability: components["schemas"]["AvailabilityView"];
         };
         CartItemInput: {
             variant_id: components["schemas"]["EntityId"];
@@ -8534,6 +8525,55 @@ export interface components {
         ProductListResponse: {
             items: components["schemas"]["ProductCard"][];
             pagination: components["schemas"]["CursorPagination"];
+        };
+        SearchResponse: {
+            query: string;
+            items: components["schemas"]["ProductCard"][];
+            pagination: components["schemas"]["CursorPagination"];
+        };
+        SearchSuggestion: {
+            label: string;
+            /** @enum {string} */
+            kind: "product" | "brand" | "category";
+            slug: string;
+        };
+        SearchSuggestionsResponse: {
+            query: string;
+            suggestions: components["schemas"]["SearchSuggestion"][];
+        };
+        PublicCategoryResponse: {
+            id: components["schemas"]["EntityId"];
+            parent_id?: components["schemas"]["EntityId"] | null;
+            name_fa: string;
+            slug: string;
+            description?: string | null;
+            status: string;
+            sales_enabled: boolean;
+            sort_order?: number;
+            version?: components["schemas"]["EntityVersion"];
+        } & {
+            [key: string]: unknown;
+        };
+        CategoryFilterValue: {
+            id: components["schemas"]["EntityId"];
+            value_text?: string | null;
+            value_numeric?: number | null;
+            value_boolean?: boolean | null;
+            normalized_value?: string | null;
+            sort_order?: number;
+        };
+        CategoryFilterDefinition: {
+            id: components["schemas"]["EntityId"];
+            key: string;
+            name_fa: string;
+            data_type: string;
+            unit?: string | null;
+            is_variant_attribute: boolean;
+            values: components["schemas"]["CategoryFilterValue"][];
+        };
+        CategoryFiltersResponse: {
+            category_id: components["schemas"]["EntityId"];
+            filters: components["schemas"]["CategoryFilterDefinition"][];
         };
         SalesControlPreviewRequest: {
             /** @enum {string} */
@@ -10448,12 +10488,8 @@ export interface operations {
             query?: {
                 cursor?: components["parameters"]["Cursor"];
                 limit?: components["parameters"]["Limit"];
-                category?: string;
-                brand?: string;
-                min_price?: number;
-                max_price?: number;
-                available?: boolean;
-                sort?: string;
+                category?: components["schemas"]["Slug"];
+                brand?: components["schemas"]["Slug"];
             };
             header?: never;
             path?: never;
@@ -10530,7 +10566,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["PublicCategoryResponse"];
+                };
             };
             404: components["responses"]["NotFound"];
         };
@@ -10557,6 +10595,8 @@ export interface operations {
         parameters: {
             query: {
                 q: string;
+                cursor?: components["parameters"]["Cursor"];
+                limit?: components["parameters"]["Limit"];
             };
             header?: never;
             path?: never;
@@ -10569,8 +10609,11 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["SearchResponse"];
+                };
             };
+            400: components["responses"]["BadRequest"];
         };
     };
     compareProducts: {
@@ -11387,22 +11430,30 @@ export interface operations {
     };
     getCategoriesSlugProducts: {
         parameters: {
-            query?: never;
+            query?: {
+                cursor?: components["parameters"]["Cursor"];
+                limit?: components["parameters"]["Limit"];
+                brand?: components["schemas"]["Slug"];
+            };
             header?: never;
             path: {
-                slug: string;
+                slug: components["schemas"]["Slug"];
             };
             cookie?: never;
         };
         requestBody?: never;
         responses: {
-            /** @description عملیات موفق */
+            /** @description محصولات دسته */
             200: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["ProductListResponse"];
+                };
             };
+            400: components["responses"]["BadRequest"];
+            404: components["responses"]["NotFound"];
         };
     };
     getCategoriesSlugFilters: {
@@ -11416,13 +11467,16 @@ export interface operations {
         };
         requestBody?: never;
         responses: {
-            /** @description عملیات موفق */
+            /** @description فیلترهای مجاز دسته */
             200: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["CategoryFiltersResponse"];
+                };
             };
+            404: components["responses"]["NotFound"];
         };
     };
     getBrandsSlug: {
@@ -11447,40 +11501,54 @@ export interface operations {
     };
     getBrandsSlugProducts: {
         parameters: {
-            query?: never;
+            query?: {
+                cursor?: components["parameters"]["Cursor"];
+                limit?: components["parameters"]["Limit"];
+                category?: components["schemas"]["Slug"];
+            };
             header?: never;
             path: {
-                slug: string;
+                slug: components["schemas"]["Slug"];
             };
             cookie?: never;
         };
         requestBody?: never;
         responses: {
-            /** @description عملیات موفق */
+            /** @description محصولات برند */
             200: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["ProductListResponse"];
+                };
             };
+            400: components["responses"]["BadRequest"];
+            404: components["responses"]["NotFound"];
         };
     };
     getSearchSuggestions: {
         parameters: {
-            query?: never;
+            query?: {
+                q?: string;
+                limit?: number;
+            };
             header?: never;
             path?: never;
             cookie?: never;
         };
         requestBody?: never;
         responses: {
-            /** @description عملیات موفق */
+            /** @description پیشنهادهای جستجو */
             200: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["SearchSuggestionsResponse"];
+                };
             };
+            400: components["responses"]["BadRequest"];
         };
     };
     postCompareValidate: {

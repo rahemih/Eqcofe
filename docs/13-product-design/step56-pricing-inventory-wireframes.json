@@ -826,19 +826,19 @@
   "sources": [
     {
       "path": "contracts/http/openapi.yaml",
-      "sha256": "f3bd61b16a8987c5b5004323a7a5c0493942cb9834e812b66c67c869128b9f09"
+      "sha256": "40159beecaf1221bda7479df4713ff0d70a947b963648d58199f649ebce95fd3"
     },
     {
       "path": "docs/13-product-design/step56-admin-shell-wireframes.json",
-      "sha256": "4e87b146f52495873f07ee59f4a4b9e5827e04ed54ecfa5d75a6fcbcfa2a0433"
+      "sha256": "3002b922cbfd92ec8c1b35ac6c063d407b4e26dc27de5cc9ec8b38d63ebaa142"
     },
     {
       "path": "docs/13-product-design/step56-admin-ux-contract.json",
-      "sha256": "cbc743dbdd1449105c8c2c1193d36040f5a7b4446a012ec985c04b769421732a"
+      "sha256": "6baf3cf2e49a0c5fce164b9f40bc0c4ce9d84ee8a28323372beb3a9480b535cb"
     },
     {
       "path": "docs/13-product-design/step56-catalog-media-wireframes.json",
-      "sha256": "cc68693d1c2a2cef38531617b652178c46434181a2bd5f2ca521559d7659df8d"
+      "sha256": "5e733ea6115f9cd1630bbd4cffbb98c5dccb8695d1e95d213b26aaea9e35fa2c"
     },
     {
       "path": "src/modules/catalog/application/catalog-import-apply.service.ts",
@@ -938,7 +938,7 @@
     },
     {
       "path": "src/modules/inventory/application/ports/inventory-availability.service.ts",
-      "sha256": "99d8ebfff56aabedf6ee8cb54b2c2a0af85044681400063c879194cb045cc421"
+      "sha256": "166da5d315f11ee414ecc2c96900ce7256e00fc1ce1435308b632d85637e19e1"
     },
     {
       "path": "src/modules/inventory/application/ports/inventory-cost-basis.service.ts",
@@ -970,7 +970,7 @@
     },
     {
       "path": "src/modules/inventory/application/ports/inventory-public.port.ts",
-      "sha256": "e9588b41a69e6196330593351cf96d44219befdaed47647f7e018c76673ab8c3"
+      "sha256": "66edaf3e1fb14e4ff05f44c3e4a6d215d1a977f532cf17fe7b8e3c1bf46fe3f4"
     },
     {
       "path": "src/modules/inventory/domain/inventory.events.ts",
@@ -982,7 +982,7 @@
     },
     {
       "path": "src/modules/inventory/infrastructure/inventory.repository.ts",
-      "sha256": "e6dc5b078ed035795e848df83cc557868b2bb3ea12e95f550a8fbc2bfe8bfbe1"
+      "sha256": "7da977d8da7a7d726626f18359c2a03806776b19776b4492eed82a52c3a022e9"
     },
     {
       "path": "src/modules/inventory/inventory.module.ts",

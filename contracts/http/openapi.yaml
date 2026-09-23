@@ -94,6 +94,8 @@ components:
       required: false
       schema:
         type: string
+        minLength: 1
+        maxLength: 1024
     Limit:
       name: limit
       in: query
@@ -252,43 +254,21 @@ components:
         name:
           type: string
         brand:
-          type:
-          - object
-          - 'null'
-          additionalProperties: true
+          anyOf:
+          - $ref: '#/components/schemas/BrandRef'
+          - type: 'null'
         primary_category:
-          type: object
-          additionalProperties: true
+          $ref: '#/components/schemas/CategoryRef'
         primary_image:
-          type:
-          - object
-          - 'null'
-          additionalProperties: true
+          anyOf:
+          - $ref: '#/components/schemas/MediaRef'
+          - type: 'null'
         price:
-          type: object
-          required:
-          - current_toman
-          properties:
-            current_toman:
-              $ref: '#/components/schemas/MoneyToman'
-            old_toman:
-              oneOf:
-              - $ref: '#/components/schemas/MoneyToman'
-              - type: 'null'
-            discount_percent:
-              type:
-              - number
-              - 'null'
+          anyOf:
+          - $ref: '#/components/schemas/PriceView'
+          - type: 'null'
         availability:
-          type: object
-          required:
-          - sales_enabled
-          - in_stock
-          properties:
-            sales_enabled:
-              type: boolean
-            in_stock:
-              type: boolean
+          $ref: '#/components/schemas/AvailabilityView'
     CartItemInput:
       type: object
       required:
@@ -716,6 +696,153 @@ components:
       required:
       - items
       - pagination
+    SearchResponse:
+      type: object
+      additionalProperties: false
+      required:
+      - query
+      - items
+      - pagination
+      properties:
+        query:
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductCard'
+        pagination:
+          $ref: '#/components/schemas/CursorPagination'
+    SearchSuggestion:
+      type: object
+      additionalProperties: false
+      required:
+      - label
+      - kind
+      - slug
+      properties:
+        label:
+          type: string
+        kind:
+          type: string
+          enum:
+          - product
+          - brand
+          - category
+        slug:
+          type: string
+    SearchSuggestionsResponse:
+      type: object
+      additionalProperties: false
+      required:
+      - query
+      - suggestions
+      properties:
+        query:
+          type: string
+        suggestions:
+          type: array
+          items:
+            $ref: '#/components/schemas/SearchSuggestion'
+    PublicCategoryResponse:
+      type: object
+      additionalProperties: true
+      required:
+      - id
+      - name_fa
+      - slug
+      - status
+      - sales_enabled
+      properties:
+        id:
+          $ref: '#/components/schemas/EntityId'
+        parent_id:
+          anyOf:
+          - $ref: '#/components/schemas/EntityId'
+          - type: 'null'
+        name_fa:
+          type: string
+        slug:
+          type: string
+        description:
+          type:
+          - string
+          - 'null'
+        status:
+          type: string
+        sales_enabled:
+          type: boolean
+        sort_order:
+          type: integer
+        version:
+          $ref: '#/components/schemas/EntityVersion'
+    CategoryFilterValue:
+      type: object
+      additionalProperties: false
+      required:
+      - id
+      properties:
+        id:
+          $ref: '#/components/schemas/EntityId'
+        value_text:
+          type:
+          - string
+          - 'null'
+        value_numeric:
+          type:
+          - number
+          - 'null'
+        value_boolean:
+          type:
+          - boolean
+          - 'null'
+        normalized_value:
+          type:
+          - string
+          - 'null'
+        sort_order:
+          type: integer
+    CategoryFilterDefinition:
+      type: object
+      additionalProperties: false
+      required:
+      - id
+      - key
+      - name_fa
+      - data_type
+      - is_variant_attribute
+      - values
+      properties:
+        id:
+          $ref: '#/components/schemas/EntityId'
+        key:
+          type: string
+        name_fa:
+          type: string
+        data_type:
+          type: string
+        unit:
+          type:
+          - string
+          - 'null'
+        is_variant_attribute:
+          type: boolean
+        values:
+          type: array
+          items:
+            $ref: '#/components/schemas/CategoryFilterValue'
+    CategoryFiltersResponse:
+      type: object
+      additionalProperties: false
+      required:
+      - category_id
+      - filters
+      properties:
+        category_id:
+          $ref: '#/components/schemas/EntityId'
+        filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/CategoryFilterDefinition'
     SalesControlPreviewRequest:
       type: object
       additionalProperties: false
@@ -6724,37 +6851,18 @@ paths:
       tags:
       - Catalog
       operationId: listProducts
+      description: فهرست عمومی محصولات با ترتیب canonical جدیدترین؛ فیلتر/مرتب‌سازی توسعه‌یافته در Stage 60-F فعال می‌شود.
       parameters:
       - $ref: '#/components/parameters/Cursor'
       - $ref: '#/components/parameters/Limit'
       - name: category
         in: query
         schema:
-          type: string
+          $ref: '#/components/schemas/Slug'
       - name: brand
         in: query
         schema:
-          type: string
-      - name: min_price
-        in: query
-        schema:
-          type: integer
-          format: int64
-          minimum: 0
-      - name: max_price
-        in: query
-        schema:
-          type: integer
-          format: int64
-          minimum: 0
-      - name: available
-        in: query
-        schema:
-          type: boolean
-      - name: sort
-        in: query
-        schema:
-          type: string
+          $ref: '#/components/schemas/Slug'
       responses:
         '200':
           description: موفق
@@ -6806,6 +6914,10 @@ paths:
       responses:
         '200':
           description: دسته
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicCategoryResponse'
         '404':
           $ref: '#/components/responses/NotFound'
   /brands:
@@ -6821,6 +6933,7 @@ paths:
       tags:
       - Search
       operationId: search
+      description: جستجوی عمومی با ترتیب relevance ثابت و cursor pagination.
       parameters:
       - name: q
         in: query
@@ -6828,9 +6941,18 @@ paths:
         schema:
           type: string
           minLength: 1
+          maxLength: 200
+      - $ref: '#/components/parameters/Cursor'
+      - $ref: '#/components/parameters/Limit'
       responses:
         '200':
           description: نتایج جستجو
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
   /compare:
     post:
       tags:
@@ -7690,29 +7812,51 @@ paths:
       tags:
       - Catalog
       operationId: getCategoriesSlugProducts
-      responses:
-        '200':
-          description: عملیات موفق
+      description: محصولات دسته با ترتیب canonical جدیدترین و cursor pagination.
       parameters:
       - name: slug
         in: path
         required: true
         schema:
-          type: string
+          $ref: '#/components/schemas/Slug'
+      - $ref: '#/components/parameters/Cursor'
+      - $ref: '#/components/parameters/Limit'
+      - name: brand
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/Slug'
+      responses:
+        '200':
+          description: محصولات دسته
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductListResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
   /categories/{slug}/filters:
     get:
       tags:
       - Catalog
       operationId: getCategoriesSlugFilters
-      responses:
-        '200':
-          description: عملیات موفق
       parameters:
       - name: slug
         in: path
         required: true
         schema:
           type: string
+      responses:
+        '200':
+          description: فیلترهای مجاز دسته
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoryFiltersResponse'
+        '404':
+          $ref: '#/components/responses/NotFound'
   /brands/{slug}:
     get:
       tags:
@@ -7732,23 +7876,60 @@ paths:
       tags:
       - Catalog
       operationId: getBrandsSlugProducts
-      responses:
-        '200':
-          description: عملیات موفق
+      description: محصولات برند با ترتیب canonical جدیدترین و cursor pagination.
       parameters:
       - name: slug
         in: path
         required: true
         schema:
-          type: string
+          $ref: '#/components/schemas/Slug'
+      - $ref: '#/components/parameters/Cursor'
+      - $ref: '#/components/parameters/Limit'
+      - name: category
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/Slug'
+      responses:
+        '200':
+          description: محصولات برند
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductListResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
   /search/suggestions:
     get:
       tags:
       - Search
       operationId: getSearchSuggestions
+      parameters:
+      - name: q
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 200
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 20
+          default: 10
       responses:
         '200':
-          description: عملیات موفق
+          description: پیشنهادهای جستجو
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchSuggestionsResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
   /compare/validate:
     post:
       tags:
