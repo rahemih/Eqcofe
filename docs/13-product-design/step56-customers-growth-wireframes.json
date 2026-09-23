@@ -826,19 +826,19 @@
   "sources": [
     {
       "path": "contracts/http/openapi.yaml",
-      "sha256": "40159beecaf1221bda7479df4713ff0d70a947b963648d58199f649ebce95fd3"
+      "sha256": "308684611aebf149cf769fff4b514afe9387732f15a61ec76749f7c9453afb73"
     },
     {
       "path": "docs/13-product-design/step56-admin-shell-wireframes.json",
-      "sha256": "3002b922cbfd92ec8c1b35ac6c063d407b4e26dc27de5cc9ec8b38d63ebaa142"
+      "sha256": "b476f08ff34206aebe3cf327d1641d6dc1fcb0fd7fe1c556020feb1eb42dbe3f"
     },
     {
       "path": "docs/13-product-design/step56-admin-ux-contract.json",
-      "sha256": "6baf3cf2e49a0c5fce164b9f40bc0c4ce9d84ee8a28323372beb3a9480b535cb"
+      "sha256": "1a4120005d6c1b6ec09b6188cd4269481b325478e287abba290424cf34b76d97"
     },
     {
       "path": "docs/13-product-design/step56-commerce-operations-wireframes.json",
-      "sha256": "deb2a4a79f56ea893c6a1cc510f29cebbc141b03deefab012a51ed184390ad25"
+      "sha256": "4c4c1313fa6efcb100db2d254780ace66f5688930ada5149e640649c744c99a2"
     },
     {
       "path": "src/modules/ai/ai.module.ts",
@@ -902,7 +902,7 @@
     },
     {
       "path": "src/modules/catalog/application/catalog-query.service.ts",
-      "sha256": "11560bbc099b344a7e9a55bd74cbcbd6c74975633c7e285aed24684f5d7a6338"
+      "sha256": "7ce7827b19a84de73e852477f28897c39beae5683538d6181664c36de92fb449"
     },
     {
       "path": "src/modules/catalog/application/catalog-structure.service.ts",
@@ -931,6 +931,10 @@
     {
       "path": "src/modules/catalog/application/product-command.service.ts",
       "sha256": "55203f9a7cee86ff9626282a48350a7cb252fd55d18a2e7fc415c521b194ddcc"
+    },
+    {
+      "path": "src/modules/catalog/application/public-listing-query.ts",
+      "sha256": "5d99ed51699e068d769b11662da1a80d35a821cadb760a1b2bf2add3bf94bfca"
     },
     {
       "path": "src/modules/catalog/application/sales-control.service.ts",
@@ -970,7 +974,7 @@
     },
     {
       "path": "src/modules/catalog/infrastructure/catalog.repository.ts",
-      "sha256": "bb91dc6b1c33a846dfdd7249a7055665b14f226c40e602b32ecbf88b3751d60b"
+      "sha256": "c8eca86a44b7c8be3eb16fab0a551746fe2a0c920fea0867e15fc2f919d5088e"
     },
     {
       "path": "src/modules/catalog/infrastructure/configured-media-storage.adapter.ts",
