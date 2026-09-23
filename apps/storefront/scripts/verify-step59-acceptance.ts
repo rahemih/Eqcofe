@@ -14,6 +14,7 @@ const home = readFileSync(resolve(storefrontRoot, "app/routes/home.tsx"), "utf8"
 const search = readFileSync(resolve(storefrontRoot, "app/routes/search.tsx"), "utf8");
 const searchProductionized = search.includes("loadSearchRouteData") && search.includes("<ListingGrid");
 const category = readFileSync(resolve(storefrontRoot, "app/routes/category.tsx"), "utf8");
+const categoryProductionized = category.includes("loadCategoryRouteData") && category.includes("<ListingGrid");
 const product = readFileSync(resolve(storefrontRoot, "app/routes/product.tsx"), "utf8");
 const wholesale = readFileSync(resolve(storefrontRoot, "app/routes/wholesale.tsx"), "utf8");
 const articles = readFileSync(resolve(storefrontRoot, "app/routes/articles.tsx"), "utf8");
@@ -47,7 +48,7 @@ assert.equal((home.match(/<h1\b/g) ?? []).length, 1, "STEP59_G_HOME_H1_INVALID")
 assert.equal(home.includes("RoutePlaceholder"), false, "STEP59_G_HOME_REGRESSED_TO_PLACEHOLDER");
 
 assert(searchProductionized || /targetStep=\{60\}/.test(search), "STEP59_G_SEARCH_HANDOFF_INVALID");
-assert.match(category, /targetStep=\{60\}/);
+assert(categoryProductionized || /targetStep=\{60\}/.test(category), "STEP59_G_CATEGORY_HANDOFF_INVALID");
 assert.match(product, /targetStep=\{61\}/);
 assert.match(wholesale, /targetStep=\{65\}/);
 assert.match(articles, /targetStep=\{66\}/);
@@ -107,6 +108,25 @@ const apiServer = http.createServer((request, response) => {
     sendJson(response, 200, {
       query: url.searchParams.get("q") ?? "",
       items: products.items.slice(0, 1),
+      pagination: { next_cursor: null, has_more: false },
+    });
+    return;
+  }
+  if (request.method === "GET" && url.pathname === "/categories/acceptance-category-1" && categoryProductionized) {
+    sendJson(response, 200, {
+      id: "category-1",
+      parent_id: null,
+      name_fa: "دسته پذیرش 1",
+      slug: "acceptance-category-1",
+      description: "شرح دسته پذیرش",
+      status: "active",
+      sales_enabled: true,
+    });
+    return;
+  }
+  if (request.method === "GET" && url.pathname === "/categories/acceptance-category-1/products" && categoryProductionized) {
+    sendJson(response, 200, {
+      items: products.items.slice(0, 2),
       pagination: { next_cursor: null, has_more: false },
     });
     return;
@@ -191,8 +211,16 @@ try {
     assert(searchDownstream.body.includes("SF-B-03"), "STEP59_G_SEARCH_PLACEHOLDER_LOST");
   }
 
+  const categoryDownstream = await request("/category/acceptance-category-1");
+  assert.equal(categoryDownstream.status, 200, "STEP59_G_DOWNSTREAM_ROUTE_FAILED:/category");
+  if (categoryProductionized) {
+    assert(categoryDownstream.body.includes("دسته پذیرش 1"), "STEP59_G_CATEGORY_60E_CONTEXT_MISSING");
+    assert(categoryDownstream.body.includes("محصول پذیرش 1"), "STEP59_G_CATEGORY_60E_PRODUCT_MISSING");
+  } else {
+    assert(categoryDownstream.body.includes("SF-B-02"), "STEP59_G_CATEGORY_PLACEHOLDER_LOST");
+  }
+
   for (const [path, screenId] of [
-    ["/category/acceptance-category-1", "SF-B-02"],
     ["/product/acceptance-product-1", "SF-C-01"],
     ["/wholesale", "SF-E-07"],
     ["/articles", "SF-F-01"],
@@ -215,7 +243,7 @@ try {
     merchandisingCards: 6,
     priceUnit: "TOMAN",
     downstreamBoundaries: {
-      step60: { search: searchProductionized ? "PRODUCTION_60_D" : "PLACEHOLDER", category: "PLACEHOLDER" },
+      step60: { search: searchProductionized ? "PRODUCTION_60_D" : "PLACEHOLDER", category: categoryProductionized ? "PRODUCTION_60_E" : "PLACEHOLDER" },
       step61: ["product"],
       step65: ["wholesale"],
       step66: ["articles"],

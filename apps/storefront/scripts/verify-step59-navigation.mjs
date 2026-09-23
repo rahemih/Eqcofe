@@ -16,6 +16,7 @@ const messages = readFileSync(resolve(appRoot, "i18n/fa-IR.ts"), "utf8");
 const searchRoute = readFileSync(resolve(appRoot, "routes/search.tsx"), "utf8");
 const searchProductionized = searchRoute.includes("loadSearchRouteData") && searchRoute.includes("ListingGrid");
 const categoryRoute = readFileSync(resolve(appRoot, "routes/category.tsx"), "utf8");
+const categoryProductionized = categoryRoute.includes("loadCategoryRouteData") && categoryRoute.includes("ListingGrid");
 
 assert(shell.includes("<SearchEntry />"), "STEP59_B_SEARCH_ENTRY_NOT_MOUNTED");
 assert(shell.indexOf("<SearchEntry />") < shell.indexOf('className="header-actions"'), "STEP59_B_KEYBOARD_SEARCH_ORDER_INVALID");
@@ -55,7 +56,7 @@ for (const phrase of ["searchLabel", "searchPlaceholder", "searchSubmit", "utili
 }
 
 assert(searchProductionized || searchRoute.includes('targetStep={60}'), "STEP59_B_SEARCH_HANDOFF_INVALID");
-assert(categoryRoute.includes('targetStep={60}'), "STEP59_B_CATEGORY_ROUTE_IMPLEMENTED_EARLY");
+assert(categoryProductionized || categoryRoute.includes('targetStep={60}'), "STEP59_B_CATEGORY_HANDOFF_INVALID");
 
 const port = 41737;
 const server = process.platform === "win32"
@@ -128,6 +129,7 @@ try {
     gate: "header-navigation-search-entry",
     searchTransport: "GET /search?q=",
     searchResultsImplementation: searchProductionized ? "PRODUCTIONIZED_60_D" : "NOT_STARTED_STEP_60",
+    categoryListingImplementation: categoryProductionized ? "PRODUCTIONIZED_60_E" : "NOT_STARTED_STEP_60",
     compactNavigation: {
       ariaDisclosure: true,
       escapeCloseAndFocusReturn: true,

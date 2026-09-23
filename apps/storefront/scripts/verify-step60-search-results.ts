@@ -22,6 +22,7 @@ const stateComponentSource = readFileSync(resolve(storefrontRoot, "app/features/
 const css = readFileSync(resolve(storefrontRoot, "app/styles/search.css"), "utf8");
 const messages = readFileSync(resolve(storefrontRoot, "app/i18n/fa-IR.ts"), "utf8");
 const categoryRoute = readFileSync(resolve(storefrontRoot, "app/routes/category.tsx"), "utf8");
+const categoryProductionized = categoryRoute.includes("loadCategoryRouteData") && categoryRoute.includes("ListingGrid");
 
 let fetchCalls = 0;
 const ready = await loadSearchRouteData(
@@ -127,7 +128,10 @@ assert.match(routeSource, /useLoaderData<typeof loader>/);
 assert.match(routeSource, /<ListingGrid products=\{results\.items\}/);
 assert.match(routeSource, /<SearchState/);
 assert.doesNotMatch(routeSource, /RoutePlaceholder|targetStep=\{60\}/);
-assert.match(categoryRoute, /targetStep=\{60\}/);
+assert(categoryProductionized || /targetStep=\{60\}/.test(categoryRoute), "STEP60_D_CATEGORY_HANDOFF_INVALID");
+if (categoryProductionized) {
+  assert.doesNotMatch(categoryRoute, /filter|sort|pagination|brand/i);
+}
 
 assert.match(stateComponentSource, /<StatePanel/);
 assert.match(stateComponentSource, /reloadDocument/);
@@ -244,7 +248,7 @@ try {
     invalidQueryBackendCalls: 0,
     boundedSafeReadAttempts: 2,
     sharedListingFoundationReused: true,
-    categoryProductionized: false,
+    categoryProductionized,
     advancedFiltersSortPaginationControls: false,
     ssrEvidence: ["missing-query", "ready", "no-result", "recovery"],
   }, null, 2));

@@ -17,6 +17,7 @@ const css = readFileSync(resolve(root, "app/styles/listing.css"), "utf8");
 const searchRoute = readFileSync(resolve(root, "app/routes/search.tsx"), "utf8");
 const searchProductionized = searchRoute.includes("loadSearchRouteData") && searchRoute.includes("ListingGrid");
 const categoryRoute = readFileSync(resolve(root, "app/routes/category.tsx"), "utf8");
+const categoryProductionized = categoryRoute.includes("loadCategoryRouteData") && categoryRoute.includes("ListingGrid");
 
 assert.match(contractSource, /ApiComponents\["schemas"\]\["ProductCard"\]/);
 assert.match(contractSource, /ApiSuccessData<"get", "\/products">/);
@@ -100,14 +101,19 @@ assert.ok(css.includes("--eq-color-border-default"));
 assert.ok(css.includes("--eq-spacing-4"));
 
 assert.ok(searchProductionized || searchRoute.includes("targetStep={60}"), "STEP60_C_SEARCH_HANDOFF_INVALID");
-assert.ok(categoryRoute.includes("targetStep={60}"), "STEP60_C_CATEGORY_ROUTE_IMPLEMENTED_EARLY");
+assert.ok(categoryProductionized || categoryRoute.includes("targetStep={60}"), "STEP60_C_CATEGORY_HANDOFF_INVALID");
 if (searchProductionized) {
   assert.match(searchRoute, /loader\s*\(/);
   assert.doesNotMatch(searchRoute, /sort|filter|min_price|max_price|available/i);
 } else {
   assert.doesNotMatch(searchRoute, /loader\s*\(|createCustomerSessionBridge|\.request\(/);
 }
-assert.doesNotMatch(categoryRoute, /loader\s*\(|createCustomerSessionBridge|\.request\(/);
+if (categoryProductionized) {
+  assert.match(categoryRoute, /loader\s*\(/);
+  assert.doesNotMatch(categoryRoute, /filter|sort|pagination|brand/i);
+} else {
+  assert.doesNotMatch(categoryRoute, /loader\s*\(|createCustomerSessionBridge|\.request\(/);
+}
 
 console.log(JSON.stringify({
   status: "PASS",
@@ -116,7 +122,7 @@ console.log(JSON.stringify({
   generatedContractAuthority: true,
   urlState: ["q", "cursor", "limit"],
   cursorSemantics: "opaque-preserve-reset-on-result-set-change",
-  routesProductionized: searchProductionized ? ["/search"] : [],
+  routesProductionized: [searchProductionized ? "/search" : null, categoryProductionized ? "/category/:slug" : null].filter(Boolean),
   advancedFiltersOrSort: false,
   newDependencies: 0,
 }, null, 2));
