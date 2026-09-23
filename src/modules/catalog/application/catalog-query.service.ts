@@ -309,8 +309,8 @@ export class CatalogQueryService {
   }
 
   private optionalSlug(value: unknown, label: string) {
-    if (value === undefined || value === null) return undefined;
-    if (typeof value !== 'string' || value.length < 1 || value.length > 180 || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(value)) {
+    if (value === undefined || value === null || value === '') return undefined;
+    if (typeof value !== 'string' || value.length > 180 || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(value)) {
       throw new DomainError('VALIDATION_ERROR', `${label} نامعتبر است.`);
     }
     return value;
