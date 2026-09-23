@@ -71,12 +71,12 @@ export async function loadCategoryRouteData(
   try {
     bridge = createCustomerSessionBridge(request, options);
     const contextResult = await bridge.client.request("get", "/categories/{slug}", {
-      path: { slug },
+      pathParams: { slug },
     });
 
     try {
       const productResult = await bridge.client.request("get", "/categories/{slug}/products", {
-        path: { slug },
+        pathParams: { slug },
         query: {
           ...(queryState.cursor === undefined ? {} : { cursor: queryState.cursor }),
           ...(queryState.limit === undefined ? {} : { limit: queryState.limit }),
