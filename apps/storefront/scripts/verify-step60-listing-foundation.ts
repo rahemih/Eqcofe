@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
-import { resolve } from "node:path";
+import { dirname, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 import {
   ListingUrlStateError,
   parseListingUrlState,
@@ -8,7 +9,7 @@ import {
   updateListingUrlState,
 } from "../app/features/listing/listing-url-state.js";
 
-const root = resolve(import.meta.dirname, "..");
+const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const contractSource = readFileSync(resolve(root, "app/features/listing/listing-contract.ts"), "utf8");
 const cardSource = readFileSync(resolve(root, "app/features/listing/ListingProductCard.tsx"), "utf8");
 const gridSource = readFileSync(resolve(root, "app/features/listing/ListingGrid.tsx"), "utf8");
@@ -92,6 +93,10 @@ assert.ok(css.includes("@media (min-width: 600px)"));
 assert.ok(css.includes("@media (min-width: 840px)"));
 assert.ok(css.includes("@media (min-width: 1200px)"));
 assert.ok(css.includes("min-block-size: var(--eq-size-touch-min)"));
+assert.ok(css.includes("--eq-color-bg-subtle"));
+assert.ok(css.includes("--eq-color-bg-surface"));
+assert.ok(css.includes("--eq-color-border-default"));
+assert.ok(css.includes("--eq-spacing-4"));
 
 assert.ok(searchRoute.includes("targetStep={60}"), "STEP60_C_SEARCH_ROUTE_IMPLEMENTED_EARLY");
 assert.ok(categoryRoute.includes("targetStep={60}"), "STEP60_C_CATEGORY_ROUTE_IMPLEMENTED_EARLY");
