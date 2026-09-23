@@ -180,6 +180,13 @@ const apiServer = http.createServer((request, response) => {
     sendJson(response, 200, {
       items: [],
       pagination: { next_cursor: null, has_more: false },
+      facets: {
+        filtering_available: true,
+        disabled_reason: null,
+        brands: [],
+        price_range: null,
+        availability: { in_stock_count: 0, out_of_stock_count: 0 },
+      },
     });
     return;
   }
@@ -314,6 +321,13 @@ function productList(): HomeProductList {
       },
     ],
     pagination: { next_cursor: null, has_more: false },
+    facets: {
+      filtering_available: true,
+      disabled_reason: null,
+      brands: [],
+      price_range: { min_toman: 1250000, max_toman: 1250000 },
+      availability: { in_stock_count: 1, out_of_stock_count: 0 },
+    },
   };
 }
 
