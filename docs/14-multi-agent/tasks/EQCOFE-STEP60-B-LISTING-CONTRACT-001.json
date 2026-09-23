@@ -310,6 +310,21 @@
       "LOCK"
     ],
     "trusted_github_transport_login": "rahemih",
+    "security_provider": {
+      "name": "GitHub CodeQL",
+      "configuration": "GitHub-managed default setup; Extended query suite; JavaScript/TypeScript, Python and GitHub Actions",
+      "evidence_authority": "Provider-generated CodeQL analysis and code-scanning results; agent narrative is supplementary only",
+      "artifact_binding": "Record the current PR head, base, canonical artifact hash, analysis commit/ref, workflow run and check identifiers. A synthetic merge analysis must have exactly the current base and head as parents; otherwise it is stale. A main-only setup scan is not PR evidence.",
+      "pass_requirements": [
+        "All configured CodeQL language analyses complete successfully with no missing analysis, upload failure or coverage error for the current PR.",
+        "The provider CodeQL PR assessment is successful and introduces no unresolved security alert at any severity.",
+        "Baseline alerts are recorded separately with their analysis SHA and reviewed for intersection with changed behavior; an unresolved security blocker in changed or newly reachable behavior blocks PASS even if its alert first appeared on main.",
+        "Existing exact-head public-input, cursor, contract and inventory-authority regressions pass. Their CI results supplement, and do not replace, CodeQL evidence.",
+        "Record the provider version/query provenance, scope, coverage limitations and supporting evidence links before relaying the actual provider result through the trusted EQCOFE_GATE_V1 transport."
+      ],
+      "fail_closed": "Pending, skipped, cancelled, missing, stale or unreadable analyses/alerts are not PASS. Do not dismiss alerts, change failure thresholds, reduce query coverage or modify branch protection to satisfy this gate.",
+      "scope_limit": "This is the security evidence route for the Step 60-B patch; it does not certify that the entire repository or production deployment is free of vulnerabilities. Strix is not a prerequisite."
+    },
     "rule": "HIGH Stage 60-B requires provider-derived deterministic Review and Verification, exact-artifact Security PASS, explicit Project Owner Human Approval, ACTIVE exact-artifact Lock, protected merge transport and exact-SHA postmerge verification. Before Human Approval all technical gates must pass and Merge Policy must be blocked only by HUMAN_APPROVAL_MISSING. Any artifact mutation invalidates artifact-bound evidence. Stage 60-C is forbidden until terminal release."
   },
   "process_improvement_links": [

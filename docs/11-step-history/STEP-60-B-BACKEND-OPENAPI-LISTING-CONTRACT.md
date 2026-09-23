@@ -110,6 +110,12 @@ This Stage does **not** include:
 
 ## Verification required before canonical completion
 
+### Security provider selection
+
+The Owner authorized replacing the unavailable Strix path. The scoped Task Contract now names GitHub-managed CodeQL Extended analysis as the external security evidence source. This adds explicit current-PR provenance, coverage and alert acceptance requirements; it does not weaken the HIGH risk floor, Human Gate, protected merge transport or existing checks. Executor/A8 opinions cannot replace the provider result.
+
+The initial CodeQL setup run `35730979098` analyzed canonical main `4a9b1e921561eb09b22a44acf2aff05147144b15` and produced 15 baseline alerts. It is not an exact-PR Security PASS. Baseline findings remain open for triage; no alert dismissal or repository-wide security assurance is claimed. The fresh PR version must receive its own CodeQL analysis and all existing required verification before finalization.
+
 60-B may be declared canonical only after all of the following are provider-backed on one exact Head:
 
 - Canonical CI = PASS;
