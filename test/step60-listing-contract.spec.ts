@@ -95,8 +95,8 @@ test('Step 60-B generated OpenAPI is byte-for-byte reproducible from canonical s
     const actual=readFileSync('src/generated/openapi.ts','utf8');
     const expected=readFileSync(output,'utf8');
     if(actual!==expected){
-      const a=actual.split('\\n');
-      const e=expected.split('\\n');
+      const a=actual.split('\n');
+      const e=expected.split('\n');
       const diffs=[] as string[];
       const max=Math.max(a.length,e.length);
       for(let i=0;i<max&&diffs.length<120;i++){
