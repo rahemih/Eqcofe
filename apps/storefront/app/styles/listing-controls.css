@@ -120,7 +120,7 @@
 
 .listing-controls__actions button {
   background: var(--eq-color-action-primary);
-  color: var(--eq-color-text-on-primary);
+  color: var(--eq-color-text-inverse);
 }
 
 .listing-controls__actions button:disabled {
