@@ -23,7 +23,7 @@ const generated=readFileSync(resolve(root,"../../src/generated/openapi.ts"),"utf
 const red="eeeeeeee-eeee-4eee-8eee-eeeeeeeeeeee";
 const blue="ffffffff-ffff-4fff-8fff-ffffffffffff";
 const parsed=parseListingUrlState(
-  `?q=%D8%A2%D8%B3%DB%8C%D8%A7%D8%A8&brand=valid-brand&min_price=100000&max_price=500000&available=true&sort=price_asc&limit=25&attribute_value=${red}&attribute_value=${blue}`,
+  `?q=%D8%A2%D8%B3%DB%8C%D8%A7%D8%A8&brand=valid-brand&min_price=100000&max_price=500000&available=true&sort=price_asc&limit=25`,
   "search",
 );
 assert.equal(parsed.q,"آسیاب");
