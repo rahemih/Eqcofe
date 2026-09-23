@@ -31,6 +31,7 @@ const ready = await loadCategoryRouteData(
       const url = new URL(String(input));
       calls.push(url.pathname + url.search);
       if (url.pathname === "/categories/grinders") return jsonResponse(200, categoryPayload());
+      if (url.pathname === "/categories/grinders/filters") return jsonResponse(200, filterPayload());
       if (url.pathname === "/categories/grinders/products") {
         assert.equal(url.searchParams.get("cursor"), "opaque-token");
         assert.equal(url.searchParams.get("limit"), "25");
@@ -43,6 +44,7 @@ const ready = await loadCategoryRouteData(
 );
 assert.deepEqual(calls.map((value)=>value.split("?")[0]), [
   "/categories/grinders",
+  "/categories/grinders/filters",
   "/categories/grinders/products",
 ]);
 assert.equal(ready.data.issue, null);
@@ -54,7 +56,7 @@ assert.equal(describeCategoryState(ready.data.products, null), null);
 
 calls = [];
 const invalid = await loadCategoryRouteData(
-  new Request("https://store.example/category/grinders?brand=acme"),
+  new Request("https://store.example/category/grinders?unsupported=blocked"),
   "grinders",
   {
     config: { baseUrl: "https://api.example.test" },
@@ -109,6 +111,7 @@ const empty = await loadCategoryRouteData(
       const url = new URL(String(input));
       calls.push(url.pathname);
       if (url.pathname === "/categories/grinders") return jsonResponse(200, categoryPayload());
+      if (url.pathname === "/categories/grinders/filters") return jsonResponse(200, filterPayload());
       return jsonResponse(200, productPayload(0));
     },
   },
@@ -127,6 +130,7 @@ const recovery = await loadCategoryRouteData(
       const url = new URL(String(input));
       calls.push(url.pathname);
       if (url.pathname === "/categories/grinders") return jsonResponse(200, categoryPayload());
+      if (url.pathname === "/categories/grinders/filters") return jsonResponse(200, filterPayload());
       return jsonResponse(503, { error: "temporary" }, { "x-request-id": "REQ-60-E-503" });
     },
   },
@@ -152,15 +156,18 @@ for (const token of [
 ]) {
   assert.ok(dataSource.includes(token), "STEP60_E_DATA_CONTRACT_MISSING:" + token);
 }
-assert.doesNotMatch(dataSource, /request\("get", "\/categories\/\{slug\}\/filters"/);
-assert.doesNotMatch(dataSource, /brand\s*:/);
+assert.match(dataSource, /request\("get", "\/categories\/\{slug\}\/filters"/);
+for (const token of ["brand", "min_price", "max_price", "available", "sort", "attribute_value"]) {
+  assert.ok(dataSource.includes(token), "STEP60_F_CATEGORY_QUERY_HANDOFF_MISSING:" + token);
+}
 assert.doesNotMatch(dataSource, /fetch\s*\(/);
 
 assert.match(routeSource, /useLoaderData<typeof loader>/);
 assert.match(routeSource, /<ListingGrid products=\{products\.items\}/);
 assert.match(routeSource, /<CategoryState/);
 assert.doesNotMatch(routeSource, /RoutePlaceholder|targetStep=\{60\}/);
-assert.doesNotMatch(routeSource, /filter|sort|pagination|brand/i);
+assert.match(routeSource, /ListingControls/);
+assert.match(routeSource, /ListingPagination/);
 
 assert.match(stateComponentSource, /<StatePanel/);
 assert.match(stateComponentSource, /reloadDocument/);
@@ -213,6 +220,10 @@ const apiServer=http.createServer((request,response)=>{
     sendJson(response,200,categoryPayload());
     return;
   }
+  if(url.pathname==="/categories/grinders/filters"){
+    sendJson(response,200,filterPayload());
+    return;
+  }
   if(url.pathname==="/categories/grinders/products"){
     if(mode==="recovery"){
       response.setHeader("x-request-id","REQ-60-E-SSR");
@@ -242,7 +253,7 @@ try{
   await waitForStorefront();
 
   apiRequests=[];
-  const invalidResponse=await requestStorefront("/category/grinders?brand=blocked");
+  const invalidResponse=await requestStorefront("/category/grinders?unsupported=blocked");
   assert.equal(invalidResponse.status,200);
   assert(invalidResponse.body.includes("پارامترهای دسته معتبر نیستند"));
   assert.equal(apiRequests.length,0,"STEP60_E_INVALID_QUERY_SSR_MUST_NOT_FETCH");
@@ -255,7 +266,7 @@ try{
   assert(readyResponse.body.includes("دسته معتبر آسیاب"));
   assert(readyResponse.body.includes("محصول معتبر دسته"));
   assert(readyResponse.body.includes("۱٬۲۵۰٬۰۰۰"));
-  assert.deepEqual(apiRequests,["/categories/grinders","/categories/grinders/products"]);
+  assert.deepEqual(apiRequests,["/categories/grinders","/categories/grinders/filters","/categories/grinders/products"]);
 
   mode="empty";
   apiRequests=[];
@@ -281,11 +292,12 @@ try{
   assert(recoveryResponse.body.includes("REQ-60-E-SSR"));
   assert.deepEqual(apiRequests,[
     "/categories/grinders",
+    "/categories/grinders/filters",
     "/categories/grinders/products",
     "/categories/grinders/products",
   ]);
 
-  assert.equal(apiRequests.includes("/categories/grinders/filters"),false);
+  assert.equal(apiRequests.includes("/categories/grinders/filters"),true);
 
   console.log(JSON.stringify({
     status:"PASS",
@@ -297,10 +309,10 @@ try{
     ],
     generatedContractAuthority:true,
     queryState:["cursor","limit"],
-    filtersEndpointCalls:0,
-    brandFilterUi:false,
-    selectableSort:false,
-    paginationControls:false,
+    filtersEndpointCalls:"AUTHORITATIVE",
+    brandFilterUi:true,
+    selectableSort:true,
+    paginationControls:true,
     sharedListingFoundationReused:true,
     ssrEvidence:["invalid-query","ready","no-result","not-found","recovery"],
   },null,2));
@@ -342,6 +354,20 @@ function productPayload(count:number){
       availability:{sales_enabled:true,in_stock:true},
     }],
     pagination:{next_cursor:null,has_more:false},
+    facets:{
+      filtering_available:true,
+      disabled_reason:null,
+      brands:[{id:"00000000-0000-4000-8000-000000000011",name_fa:"برند معتبر",slug:"valid-brand"}],
+      price_range:{min_toman:1250000,max_toman:1250000},
+      availability:{in_stock_count:count,out_of_stock_count:0},
+    },
+  };
+}
+
+function filterPayload(){
+  return {
+    category_id:"00000000-0000-4000-8000-000000000031",
+    filters:[],
   };
 }
 
@@ -382,7 +408,7 @@ function spawnStorefront(port:number,apiBaseUrl:string){
 async function waitForStorefront(){
   for(let attempt=0;attempt<80;attempt+=1){
     try{
-      const response=await requestStorefront("/category/grinders?brand=blocked");
+      const response=await requestStorefront("/category/grinders?unsupported=blocked");
       if(response.status===200)return;
     }catch{}
     await new Promise((resolvePromise)=>setTimeout(resolvePromise,250));
