@@ -14,6 +14,7 @@ const search = readFileSync(resolve(appRoot, "shell/SearchEntry.tsx"), "utf8");
 const css = readFileSync(resolve(appRoot, "styles/shell.css"), "utf8");
 const messages = readFileSync(resolve(appRoot, "i18n/fa-IR.ts"), "utf8");
 const searchRoute = readFileSync(resolve(appRoot, "routes/search.tsx"), "utf8");
+const searchProductionized = searchRoute.includes("loadSearchRouteData") && searchRoute.includes("ListingGrid");
 const categoryRoute = readFileSync(resolve(appRoot, "routes/category.tsx"), "utf8");
 
 assert(shell.includes("<SearchEntry />"), "STEP59_B_SEARCH_ENTRY_NOT_MOUNTED");
@@ -53,7 +54,7 @@ for (const phrase of ["searchLabel", "searchPlaceholder", "searchSubmit", "utili
   assert(messages.includes(phrase), "STEP59_B_MESSAGE_MISSING:" + phrase);
 }
 
-assert(searchRoute.includes('targetStep={60}'), "STEP59_B_SEARCH_ROUTE_IMPLEMENTED_EARLY");
+assert(searchProductionized || searchRoute.includes('targetStep={60}'), "STEP59_B_SEARCH_HANDOFF_INVALID");
 assert(categoryRoute.includes('targetStep={60}'), "STEP59_B_CATEGORY_ROUTE_IMPLEMENTED_EARLY");
 
 const port = 41737;
@@ -111,17 +112,22 @@ try {
   assert(html.indexOf("wordmark-slot") < html.indexOf("header-search"), "STEP59_B_RENDERED_LOGO_SEARCH_ORDER_INVALID");
   assert(html.indexOf("header-search") < html.indexOf("header-actions"), "STEP59_B_RENDERED_SEARCH_ACTIONS_ORDER_INVALID");
 
-  const searchResponse = await request("/search?q=آسیاب");
-  assert(searchResponse.status === 200, "STEP59_B_SEARCH_ENTRY_TARGET_FAILED");
-  assert(searchResponse.body.includes("SF-B-03"), "STEP59_B_SEARCH_PLACEHOLDER_ID_MISSING");
-  assert(searchResponse.body.includes("مرحله"), "STEP59_B_SEARCH_PLACEHOLDER_NOT_PRESERVED");
+  if (searchProductionized) {
+    assert(searchRoute.includes("loadSearchRouteData"), "STEP59_B_SEARCH_60D_LOADER_MISSING");
+    assert(searchRoute.includes("ListingGrid"), "STEP59_B_SEARCH_60D_LISTING_MISSING");
+  } else {
+    const searchResponse = await request("/search?q=آسیاب");
+    assert(searchResponse.status === 200, "STEP59_B_SEARCH_ENTRY_TARGET_FAILED");
+    assert(searchResponse.body.includes("SF-B-03"), "STEP59_B_SEARCH_PLACEHOLDER_ID_MISSING");
+    assert(searchResponse.body.includes("مرحله"), "STEP59_B_SEARCH_PLACEHOLDER_NOT_PRESERVED");
+  }
 
   console.log(JSON.stringify({
     status: "PASS",
     stage: "59-B",
     gate: "header-navigation-search-entry",
     searchTransport: "GET /search?q=",
-    searchResultsImplementation: "NOT_STARTED_STEP_60",
+    searchResultsImplementation: searchProductionized ? "PRODUCTIONIZED_60_D" : "NOT_STARTED_STEP_60",
     compactNavigation: {
       ariaDisclosure: true,
       escapeCloseAndFocusReturn: true,
