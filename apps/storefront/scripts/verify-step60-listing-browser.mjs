@@ -74,6 +74,8 @@ try {
       if (moving) throw new Error(`STEP60_G_REDUCED_MOTION:${width}:${path}:${moving}`);
       const robots = await page.locator('meta[name="robots"]').getAttribute("content");
       if (robots !== (path === "/category/grinders" ? "index,follow" : "noindex,follow")) throw new Error(`STEP60_G_ROBOTS:${path}:${robots}`);
+      if (path === "/category/grinders" && !((await page.title()).startsWith("آسیاب |"))) throw new Error(`STEP60_G_CATEGORY_TITLE:${await page.title()}`);
+      if (path.startsWith("/search") && !((await page.title()).startsWith("جست‌وجوی «آسیاب» |"))) throw new Error(`STEP60_G_SEARCH_TITLE:${await page.title()}`);
       if (width === 320 || width === 1440) {
         await page.addScriptTag({ content: axe.source });
         const violations = await page.evaluate(async () => (await globalThis.axe.run(document)).violations.filter((v) => v.tags.some((tag) => tag.startsWith("wcag"))).map((v) => v.id));

@@ -17,7 +17,7 @@ export const handle = {
   breadcrumb: "جست‌وجو",
 };
 
-export const meta = ({ data: routeData }: { data?: SearchRouteData }) => searchMeta(routeData);
+export const meta = ({ loaderData }: { loaderData?: SearchRouteData }) => searchMeta(loaderData);
 
 export async function loader({ request }: { request: Request }) {
   const result = await loadSearchRouteData(request);

@@ -17,7 +17,7 @@ export const handle = {
   breadcrumb: "دسته‌بندی",
 };
 
-export const meta = ({ data: routeData }: { data?: CategoryRouteData }) => categoryMeta(routeData);
+export const meta = ({ loaderData }: { loaderData?: CategoryRouteData }) => categoryMeta(loaderData);
 
 export async function loader({
   request,
