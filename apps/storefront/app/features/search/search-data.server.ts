@@ -13,6 +13,7 @@ import {
   ListingUrlStateError,
   parseListingUrlState,
   serializeListingUrlState,
+  type ListingUrlState,
 } from "../listing/listing-url-state.js";
 import type { SearchListingResponse } from "../listing/listing-contract.js";
 
@@ -22,11 +23,13 @@ export type SearchRouteData = {
   query: string | null;
   queryIssue: SearchQueryIssue;
   canonicalSearch: string;
+  urlState: ListingUrlState;
+  listing: SearchListingResponse | null;
   results: AsyncSurfaceState<SearchListingResponse>;
   contract: {
     method: "GET";
     path: "/search";
-    query: "q/cursor/limit";
+    query: "q/cursor/limit/brand/min_price/max_price/available/sort";
     authority: "backend";
   };
 };
@@ -47,7 +50,7 @@ export async function loadSearchRouteData(
 ): Promise<SearchRouteDataResult> {
   const url = new URL(request.url);
 
-  let state;
+  let state: ListingUrlState;
   try {
     state = parseListingUrlState(url.searchParams, "search");
   } catch (error) {
@@ -57,6 +60,8 @@ export async function loadSearchRouteData(
           query: null,
           queryIssue: "invalid",
           canonicalSearch: "",
+          urlState: {},
+          listing: null,
           results: emptyState("no-result"),
           contract: searchContract(),
         },
@@ -72,6 +77,8 @@ export async function loadSearchRouteData(
         query: null,
         queryIssue: "missing",
         canonicalSearch: serializeListingUrlState(state),
+        urlState: state,
+        listing: null,
         results: emptyState("first-use"),
         contract: searchContract(),
       },
@@ -89,6 +96,11 @@ export async function loadSearchRouteData(
         q: state.q,
         ...(state.cursor === undefined ? {} : { cursor: state.cursor }),
         ...(state.limit === undefined ? {} : { limit: state.limit }),
+        ...(state.brand === undefined ? {} : { brand: state.brand }),
+        ...(state.minPrice === undefined ? {} : { min_price: state.minPrice }),
+        ...(state.maxPrice === undefined ? {} : { max_price: state.maxPrice }),
+        ...(state.available === undefined ? {} : { available: state.available }),
+        ...(state.sort === undefined ? {} : { sort: state.sort }),
       },
     });
 
@@ -97,6 +109,8 @@ export async function loadSearchRouteData(
         query: result.data.query,
         queryIssue: null,
         canonicalSearch,
+        urlState: state,
+        listing: result.data,
         results: result.data.items.length === 0
           ? emptyState("no-result")
           : readyState(result.data),
@@ -110,6 +124,8 @@ export async function loadSearchRouteData(
         query: state.q,
         queryIssue: null,
         canonicalSearch,
+        urlState: state,
+        listing: null,
         results: classifyApiFailureState(error, {
           method: "get",
           connectivity: "unknown",
@@ -125,7 +141,7 @@ function searchContract(): SearchRouteData["contract"] {
   return {
     method: "GET",
     path: "/search",
-    query: "q/cursor/limit",
+    query: "q/cursor/limit/brand/min_price/max_price/available/sort",
     authority: "backend",
   };
 }
