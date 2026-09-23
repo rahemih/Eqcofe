@@ -85,8 +85,14 @@
       "pnpm-lock.yaml",
       "pnpm-workspace.yaml",
       "docs/12-current-state/**",
-      "docs/13-product-design/step54-*/**",
-      "docs/13-product-design/step55-*/**",
+      "docs/13-product-design/step54-design-system-contract.json",
+      "docs/13-product-design/step55-account-wholesale-after-sales-wireframes.json",
+      "docs/13-product-design/step55-checkout-payment-wireframes.json",
+      "docs/13-product-design/step55-content-policy-final-audit-wireframes.json",
+      "docs/13-product-design/step55-discovery-wireframes.json",
+      "docs/13-product-design/step55-product-evaluation-wireframes.json",
+      "docs/13-product-design/step55-storefront-wireframe-contract.json",
+      "docs/13-product-design/step55-wireframes/**",
       "docs/13-product-design/step56-wireframes/A/**",
       "docs/13-product-design/step56-wireframes/H/**"
     ]
