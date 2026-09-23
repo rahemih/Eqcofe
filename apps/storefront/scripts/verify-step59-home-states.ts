@@ -20,6 +20,7 @@ const homeSource = readFileSync(resolve(storefrontRoot, "app/routes/home.tsx"), 
 const css = readFileSync(resolve(storefrontRoot, "app/styles/home.css"), "utf8");
 const messages = readFileSync(resolve(storefrontRoot, "app/i18n/fa-IR.ts"), "utf8");
 const searchRouteSource = readFileSync(resolve(storefrontRoot, "app/routes/search.tsx"), "utf8");
+const searchProductionized = searchRouteSource.includes("loadSearchRouteData");
 
 const products = productList();
 
@@ -141,8 +142,8 @@ for (const forbiddenSource of [
   );
 }
 
-assert.match(searchRouteSource, /targetStep=\{60\}/);
-assert.match(searchRouteSource, /routeIntent="\/search\?q="/);
+assert(searchProductionized || /targetStep=\{60\}/.test(searchRouteSource), "STEP59_F_SEARCH_HANDOFF_INVALID");
+assert(searchProductionized || /routeIntent="\/search\?q="/.test(searchRouteSource), "STEP59_F_SEARCH_ROUTE_INTENT_MISSING");
 
 for (const requiredCss of [
   ".home-product-state",
@@ -281,7 +282,7 @@ try {
     urgentSemantics: ["error", "forbidden"],
     politeSemantics: ["loading", "empty", "recovery", "offline"],
     ssrEvidence: ["empty", "recovery"],
-    step60SearchImplementation: "NOT_STARTED_HANDOFF_ONLY",
+    step60SearchImplementation: searchProductionized ? "PRODUCTIONIZED_60_D" : "NOT_STARTED_HANDOFF_ONLY",
     responsiveWidths: [320, 360, 600, 840, 1200, 1440],
     reflowZoomPercent: 400,
     minimumTouchTargetPx: 44,
