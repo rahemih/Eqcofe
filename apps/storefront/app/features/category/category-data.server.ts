@@ -69,6 +69,8 @@ export async function loadCategoryRouteData(
     throw error;
   }
 
+  if (queryState.sort === "relevance") return localIssue("invalid-query", slug);
+  const categorySort = queryState.sort;
   const canonicalSearch = serializeListingUrlState(queryState);
   let bridge: CustomerSessionBridge | undefined;
 
@@ -89,7 +91,7 @@ export async function loadCategoryRouteData(
           ...(queryState.minPrice === undefined ? {} : { min_price: queryState.minPrice }),
           ...(queryState.maxPrice === undefined ? {} : { max_price: queryState.maxPrice }),
           ...(queryState.available === undefined ? {} : { available: queryState.available }),
-          ...(queryState.sort === undefined ? {} : { sort: queryState.sort }),
+          ...(categorySort === undefined ? {} : { sort: categorySort }),
           ...(queryState.attributeValueIds?.length
             ? { attribute_value: queryState.attributeValueIds }
             : {}),
