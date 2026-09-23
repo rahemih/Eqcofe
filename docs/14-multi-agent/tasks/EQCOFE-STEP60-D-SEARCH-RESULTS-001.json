@@ -2,7 +2,7 @@
   "schema_version": "2.2",
   "task_id": "EQCOFE-STEP60-D-SEARCH-RESULTS-001",
   "title": "Step 60-D production Search results",
-  "description": "Productionize only the Storefront /search route on top of the canonical Step 60-C listing foundation: server-side typed GET /search consumption, deterministic q/cursor/limit preservation, missing/invalid-query handling without speculative backend requests, authoritative ProductCard results, no-result state, bounded safe-read recovery, customer-session cookie propagation, Persian RTL presentation and deterministic SSR verification. Do not implement Category listing, advanced filters, selectable sorting, pagination/infinite controls, suggestions, backend/OpenAPI/database changes, Product Detail, Compare/Wishlist, Cart/Checkout, Admin, SEO hardening reserved for 60-G, or new dependencies. The Stage also performs only the minimum compatibility transition in historical Storefront verifiers that previously required /search to remain a Step-60 placeholder; those checks must accept the new 60-D production Search while continuing to require Category and all later-step routes to remain at their frozen boundaries.",
+  "description": "Productionize only the Storefront /search route on top of the canonical Step 60-C listing foundation: server-side typed GET /search consumption, deterministic q/cursor/limit preservation, missing/invalid-query handling without speculative backend requests, authoritative ProductCard results, no-result state, bounded safe-read recovery, customer-session cookie propagation, Persian RTL presentation and deterministic SSR verification. Do not implement Category listing, advanced filters, selectable sorting, pagination/infinite controls, suggestions, backend/OpenAPI/database changes, Product Detail, Compare/Wishlist, Cart/Checkout, Admin, SEO hardening reserved for 60-G, or new dependencies. The Stage also performs only the minimum compatibility transition in historical Storefront verifiers that previously required /search to remain a Step-60 placeholder; those checks must accept the new 60-D production Search while continuing to require Category and all later-step routes to remain at their frozen boundaries. The Step59 navigation verifier is likewise transitioned only to recognize the now-authorized 60-D Search implementation while retaining its semantic search-entry and no-direct-client-IO protections.",
   "risk": "MEDIUM",
   "risk_floor": "MEDIUM",
   "owner": "PRODUCT_DESIGN",
@@ -31,6 +31,7 @@
       "apps/storefront/app/features/search/SearchState.tsx",
       "apps/storefront/app/styles/search.css",
       "apps/storefront/scripts/verify-step60-search-results.ts",
+      "apps/storefront/scripts/verify-step59-navigation.mjs",
       "apps/storefront/scripts/verify-step60-listing-foundation.ts",
       "apps/storefront/scripts/verify-step59-home-states.ts",
       "apps/storefront/scripts/verify-step59-discovery.ts",
@@ -84,7 +85,8 @@
         "apps/storefront/scripts/verify-step59-acceptance.ts",
         "apps/storefront/scripts/verify-step59-discovery.ts",
         "apps/storefront/scripts/verify-step59-home-states.ts",
-        "apps/storefront/scripts/verify-step60-listing-foundation.ts"
+        "apps/storefront/scripts/verify-step60-listing-foundation.ts",
+        "apps/storefront/scripts/verify-step59-navigation.mjs"
       ]
     }
   ],
