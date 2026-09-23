@@ -15,6 +15,7 @@ const cardSource = readFileSync(resolve(root, "app/features/listing/ListingProdu
 const gridSource = readFileSync(resolve(root, "app/features/listing/ListingGrid.tsx"), "utf8");
 const css = readFileSync(resolve(root, "app/styles/listing.css"), "utf8");
 const searchRoute = readFileSync(resolve(root, "app/routes/search.tsx"), "utf8");
+const searchProductionized = searchRoute.includes("loadSearchRouteData") && searchRoute.includes("ListingGrid");
 const categoryRoute = readFileSync(resolve(root, "app/routes/category.tsx"), "utf8");
 
 assert.match(contractSource, /ApiComponents\["schemas"\]\["ProductCard"\]/);
@@ -98,9 +99,14 @@ assert.ok(css.includes("--eq-color-bg-surface"));
 assert.ok(css.includes("--eq-color-border-default"));
 assert.ok(css.includes("--eq-spacing-4"));
 
-assert.ok(searchRoute.includes("targetStep={60}"), "STEP60_C_SEARCH_ROUTE_IMPLEMENTED_EARLY");
+assert.ok(searchProductionized || searchRoute.includes("targetStep={60}"), "STEP60_C_SEARCH_HANDOFF_INVALID");
 assert.ok(categoryRoute.includes("targetStep={60}"), "STEP60_C_CATEGORY_ROUTE_IMPLEMENTED_EARLY");
-assert.doesNotMatch(searchRoute, /loader\s*\(|createCustomerSessionBridge|\.request\(/);
+if (searchProductionized) {
+  assert.match(searchRoute, /loader\s*\(/);
+  assert.doesNotMatch(searchRoute, /sort|filter|min_price|max_price|available/i);
+} else {
+  assert.doesNotMatch(searchRoute, /loader\s*\(|createCustomerSessionBridge|\.request\(/);
+}
 assert.doesNotMatch(categoryRoute, /loader\s*\(|createCustomerSessionBridge|\.request\(/);
 
 console.log(JSON.stringify({
@@ -110,7 +116,7 @@ console.log(JSON.stringify({
   generatedContractAuthority: true,
   urlState: ["q", "cursor", "limit"],
   cursorSemantics: "opaque-preserve-reset-on-result-set-change",
-  routesProductionized: [],
+  routesProductionized: searchProductionized ? ["/search"] : [],
   advancedFiltersOrSort: false,
   newDependencies: 0,
 }, null, 2));
