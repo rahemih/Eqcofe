@@ -12,6 +12,7 @@ const repoRoot = resolve(storefrontRoot, "../..");
 const pkg = JSON.parse(readFileSync(resolve(storefrontRoot, "package.json"), "utf8"));
 const home = readFileSync(resolve(storefrontRoot, "app/routes/home.tsx"), "utf8");
 const search = readFileSync(resolve(storefrontRoot, "app/routes/search.tsx"), "utf8");
+const searchProductionized = search.includes("loadSearchRouteData") && search.includes("<ListingGrid");
 const category = readFileSync(resolve(storefrontRoot, "app/routes/category.tsx"), "utf8");
 const product = readFileSync(resolve(storefrontRoot, "app/routes/product.tsx"), "utf8");
 const wholesale = readFileSync(resolve(storefrontRoot, "app/routes/wholesale.tsx"), "utf8");
@@ -45,7 +46,7 @@ assert.match(home, /<h1 id="home-title">/);
 assert.equal((home.match(/<h1\b/g) ?? []).length, 1, "STEP59_G_HOME_H1_INVALID");
 assert.equal(home.includes("RoutePlaceholder"), false, "STEP59_G_HOME_REGRESSED_TO_PLACEHOLDER");
 
-assert.match(search, /targetStep=\{60\}/);
+assert(searchProductionized || /targetStep=\{60\}/.test(search), "STEP59_G_SEARCH_HANDOFF_INVALID");
 assert.match(category, /targetStep=\{60\}/);
 assert.match(product, /targetStep=\{61\}/);
 assert.match(wholesale, /targetStep=\{65\}/);
@@ -100,6 +101,14 @@ const apiServer = http.createServer((request, response) => {
   const url = new URL(request.url ?? "/", "http://127.0.0.1");
   if (request.method === "GET" && url.pathname === "/products") {
     sendJson(response, 200, products);
+    return;
+  }
+  if (request.method === "GET" && url.pathname === "/search" && searchProductionized) {
+    sendJson(response, 200, {
+      query: url.searchParams.get("q") ?? "",
+      items: products.items.slice(0, 1),
+      pagination: { next_cursor: null, has_more: false },
+    });
     return;
   }
   unexpectedApiPaths.push(`${request.method ?? "UNKNOWN"} ${url.pathname}`);
@@ -173,8 +182,16 @@ try {
   assert.equal(html.includes('href="/product/acceptance-product-7"'), false, "STEP59_G_PRODUCT_LIMIT_NOT_ENFORCED");
   assert.deepEqual(unexpectedApiPaths, [], "STEP59_G_UNEXPECTED_API_CALLS");
 
+  const searchDownstream = await request("/search?q=آسیاب");
+  assert.equal(searchDownstream.status, 200, "STEP59_G_DOWNSTREAM_ROUTE_FAILED:/search");
+  if (searchProductionized) {
+    assert(searchDownstream.body.includes("نتایج جست‌وجو"), "STEP59_G_SEARCH_60D_PRODUCTION_HANDOFF_MISSING");
+    assert(searchDownstream.body.includes("محصول پذیرش 1"), "STEP59_G_SEARCH_60D_AUTHORITATIVE_RESULT_MISSING");
+  } else {
+    assert(searchDownstream.body.includes("SF-B-03"), "STEP59_G_SEARCH_PLACEHOLDER_LOST");
+  }
+
   for (const [path, screenId] of [
-    ["/search?q=آسیاب", "SF-B-03"],
     ["/category/acceptance-category-1", "SF-B-02"],
     ["/product/acceptance-product-1", "SF-C-01"],
     ["/wholesale", "SF-E-07"],
@@ -198,7 +215,7 @@ try {
     merchandisingCards: 6,
     priceUnit: "TOMAN",
     downstreamBoundaries: {
-      step60: ["search", "category"],
+      step60: { search: searchProductionized ? "PRODUCTION_60_D" : "PLACEHOLDER", category: "PLACEHOLDER" },
       step61: ["product"],
       step65: ["wholesale"],
       step66: ["articles"],
