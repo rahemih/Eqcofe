@@ -1,0 +1,158 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP60-C-LISTING-FOUNDATION-001",
+  "title": "Step 60-C shared listing foundation",
+  "description": "Implement only the shared Storefront listing foundation required by later Step 60 Search and Category stages: generated-OpenAPI-derived listing/product-card types, deterministic URL query-state parsing/serialization for the currently supported q/cursor/limit contract, opaque cursor preservation/reset rules, shared ProductCard/List presentation primitives, logical RTL/responsive styling, and deterministic Stage-C verification. Do not productionize /search or /category/:slug yet; do not implement advanced filters/sort/pagination controls, backend/API/OpenAPI/database changes, business rules, Product Detail, Compare/Wishlist, Cart/Checkout, Admin, or new dependencies.",
+  "risk": "MEDIUM",
+  "risk_floor": "MEDIUM",
+  "owner": "PRODUCT_DESIGN",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "a8fcb395055dd5e68ef6bc4ec04f6c5c7c063566"
+  },
+  "scope": {
+    "read": [
+      "apps/storefront/**",
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "docs/11-step-history/STEP-60-A-CANONICAL-HANDOFF.md",
+      "docs/11-step-history/STEP-60-B-BACKEND-OPENAPI-LISTING-CONTRACT.md",
+      "docs/13-product-design/**",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "apps/storefront/package.json",
+      "apps/storefront/app/features/listing/listing-contract.ts",
+      "apps/storefront/app/features/listing/listing-url-state.ts",
+      "apps/storefront/app/features/listing/ListingProductCard.tsx",
+      "apps/storefront/app/features/listing/ListingGrid.tsx",
+      "apps/storefront/app/styles/listing.css",
+      "apps/storefront/scripts/verify-step60-listing-foundation.ts",
+      "docs/11-step-history/STEP-60-C-SHARED-LISTING-FOUNDATION.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP60-C-LISTING-FOUNDATION-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "contracts/**",
+      "src/**",
+      "database/**",
+      "test/**",
+      "apps/storefront/app/routes/search.tsx",
+      "apps/storefront/app/routes/category.tsx",
+      "apps/storefront/app/platform/api/**",
+      "apps/storefront/app/platform/auth/**",
+      "apps/storefront/app/platform/state/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP60-C-LISTING-FOUNDATION-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 30000,
+    "soft_alert": 45000,
+    "hard_cap": 90000
+  },
+  "max_repair_cycles": 3,
+  "task_risk_rules": [
+    {
+      "id": "STEP60_C_STOREFRONT_LISTING_FOUNDATION_MEDIUM",
+      "risk": "MEDIUM",
+      "paths": [
+        "apps/storefront/package.json",
+        "apps/storefront/app/features/listing/**",
+        "apps/storefront/app/styles/listing.css",
+        "apps/storefront/scripts/verify-step60-listing-foundation.ts",
+        "docs/11-step-history/STEP-60-C-SHARED-LISTING-FOUNDATION.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP60-C-LISTING-FOUNDATION-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "60-B",
+      "name": "Backend/OpenAPI listing contract readiness",
+      "required_state": "TERMINAL_MERGED_POSTMERGE_PASS_LOCK_RELEASED",
+      "observed_state": "TERMINAL_MERGED_POSTMERGE_PASS_LOCK_RELEASED",
+      "merge_sha": "a8fcb395055dd5e68ef6bc4ec04f6c5c7c063566",
+      "blocking": false
+    },
+    {
+      "item": "AGENT-LAYER",
+      "name": "A0-A10 canonical agent layer",
+      "required_state": "CANONICAL_COMPLETE_FREEZE_RELEASED",
+      "observed_state": "CANONICAL_COMPLETE_FREEZE_RELEASED",
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "linear_issue": "HOS-16",
+    "live_guard_main_head": "a8fcb395055dd5e68ef6bc4ec04f6c5c7c063566",
+    "live_guard_open_prs": 0,
+    "live_guard_competing_writer": "NONE",
+    "predecessor_pr": 261,
+    "predecessor_terminal_comment": 5791993245,
+    "predecessor_freeze_release_comment": 5792067040,
+    "implementation_owner_agent": "A3",
+    "orchestration_owner_agent": "A0",
+    "qa_agent": "A7",
+    "security_agent": "A8",
+    "evidence_agent": "A10"
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Shared listing/product-card types are aliases of generated OpenAPI components and successful responses; no parallel authoritative ProductCard, price, availability, pagination or search DTO is created.",
+      "verification": "pnpm --dir apps/storefront listing-foundation:verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "URL state accepts only the currently supported shared q/cursor/limit dimensions: q is bounded to 200 characters when present, cursor remains opaque and bounded to 1024 characters, limit is an explicit integer 1..100, duplicate or undeclared keys fail closed, and no advanced filter/sort semantics are invented before Stage 60-F.",
+      "verification": "pnpm --dir apps/storefront listing-foundation:verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Serialization is deterministic and cursor state is preserved only while the query dimensions that define the result set remain unchanged; changing q or limit resets cursor rather than reusing stale continuation state.",
+      "verification": "pnpm --dir apps/storefront listing-foundation:verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Shared ProductCard presentation renders only authoritative generated fields for name, image, Toman price and availability; null price/image are represented honestly, no stock/discount/price value is fabricated, and the only commercial handoff is the existing Product Detail route reserved for Step 61.",
+      "verification": "pnpm --dir apps/storefront listing-foundation:verify && pnpm --dir apps/storefront typecheck && pnpm --dir apps/storefront static-quality",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Stage 60-C does not productionize Search or Category routes and does not fetch listing endpoints; /search and /category/:slug remain Step-60 placeholders until 60-D/60-E. No backend/OpenAPI/database/dependency/lockfile/current-state mutation occurs.",
+      "verification": "pnpm --dir apps/storefront listing-foundation:verify && deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Canonical completion requires full root pnpm verify, exact-head Canonical CI, Phase A, applicable Storefront quality checks, deterministic review, exact-artifact ACTIVE Lock, protected merge, exact-SHA postmerge verification and terminal Lock release before Stage 60-D begins.",
+      "verification": "canonical_transport_and_postmerge_evidence",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Stage 60-C is MEDIUM risk. Direct-main write/raw merge are prohibited. Stage 60-D remains blocked until protected transport, exact-SHA postmerge verification and terminal Lock release are green."
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}
