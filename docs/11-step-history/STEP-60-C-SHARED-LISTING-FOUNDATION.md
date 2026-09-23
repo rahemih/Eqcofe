@@ -54,6 +54,10 @@ This Stage does **not**:
 
 The public cursor is treated as an opaque backend token. The Storefront may carry it through the URL but never decode or reinterpret its ranking/keyset semantics.
 
+## Provider event recovery
+
+The first PR #262 provider event was created before the PR body contained the mandatory explicit Task Contract path. Its Canonical CI / Phase A failures were therefore governance-context failures (`PR_TASK_CONTRACT_REFERENCE_REQUIRED`), not implementation-test failures. The PR body was corrected to reference the exact Stage 60-C Task Contract. This amendment intentionally creates a fresh Head so subsequent provider runs consume a fresh pull-request event; all earlier exact-artifact evidence is stale and must not be reused.
+
 ## Definition of Done
 
 - Task Contract registered from exact canonical base;
