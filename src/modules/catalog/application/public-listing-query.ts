@@ -24,6 +24,8 @@ export type ListingSignals = {
 };
 
 export type ListingFacetResponse = {
+  filtering_available: boolean;
+  disabled_reason: string | null;
   brands: Array<{ id: string; name_fa: string; slug: string }>;
   price_range: { min_toman: number; max_toman: number } | null;
   availability: { in_stock_count: number; out_of_stock_count: number };
@@ -158,6 +160,8 @@ export function buildFacets(rows: any[], signals: ListingSignals): ListingFacetR
   }
 
   return {
+    filtering_available: true,
+    disabled_reason: null,
     brands: [...brands.values()].sort((a, b) => a.name_fa.localeCompare(b.name_fa, 'fa')),
     price_range: prices.length
       ? { min_toman: Math.min(...prices), max_toman: Math.max(...prices) }
@@ -167,6 +171,22 @@ export function buildFacets(rows: any[], signals: ListingSignals): ListingFacetR
       out_of_stock_count: Math.max(0, rows.length - inStockCount),
     },
   };
+}
+
+export function unavailableListingFacets(reason: string): ListingFacetResponse {
+  return {
+    filtering_available: false,
+    disabled_reason: reason,
+    brands: [],
+    price_range: null,
+    availability: { in_stock_count: 0, out_of_stock_count: 0 },
+  };
+}
+
+export function hasAdvancedListingQuery(raw: any, kind: PublicListingKind) {
+  const keys = ['min_price', 'max_price', 'available', 'sort', 'attribute_value'];
+  if (kind === 'search') keys.push('brand');
+  return keys.some((key) => raw?.[key] !== undefined && raw?.[key] !== null && raw?.[key] !== '');
 }
 
 export function normalizeAttributeGroups(
