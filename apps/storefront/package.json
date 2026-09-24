@@ -12,13 +12,13 @@
     "start": "react-router-serve ./build/server/index.js",
     "typecheck": "react-router typegen && tsc --noEmit",
     "static-quality": "eslint app vite.config.ts react-router.config.ts",
-    "verify": "pnpm typecheck && pnpm static-quality && pnpm build && pnpm shell:verify && pnpm navigation:verify && pnpm home-data:verify && pnpm discovery:verify && pnpm merchandising:verify && pnpm home-state:verify && pnpm step59:acceptance && pnpm listing-foundation:verify && pnpm search-results:verify && pnpm category-listing:verify && pnpm filter-sort-pagination:verify && pnpm listing-seo-accessibility:verify && pnpm api:verify && pnpm auth:verify && pnpm state:verify && pnpm quality:static",
+    "verify": "pnpm typecheck && pnpm static-quality && pnpm build && pnpm shell:verify && pnpm navigation:verify && pnpm home-data:verify && pnpm discovery:verify && pnpm merchandising:verify && pnpm home-state:verify && pnpm step59:acceptance && pnpm listing-foundation:verify && pnpm search-results:verify && pnpm category-listing:verify && pnpm filter-sort-pagination:verify && pnpm listing-seo-accessibility:verify && pnpm step60:acceptance && pnpm api:verify && pnpm auth:verify && pnpm state:verify && pnpm quality:static",
     "shell:verify": "node ./scripts/verify-shell.mjs",
     "api:verify": "pnpm --dir ../.. exec tsx apps/storefront/scripts/verify-api-foundation.ts",
     "auth:verify": "pnpm --dir ../.. exec tsx apps/storefront/scripts/verify-auth-boundary.ts",
     "state:verify": "pnpm --dir ../.. exec tsx apps/storefront/scripts/verify-state-foundation.ts",
     "quality:static": "node ./scripts/verify-quality-static.mjs",
-    "quality:browser": "node ./scripts/verify-quality-browser.mjs && node ./scripts/verify-step60-listing-browser.mjs",
+    "quality:browser": "node ./scripts/verify-quality-browser.mjs && node ./scripts/verify-step60-listing-browser.mjs && node ./scripts/verify-step60-acceptance.mjs",
     "navigation:verify": "node ./scripts/verify-step59-navigation.mjs",
     "home-data:verify": "pnpm --dir ../.. exec tsx apps/storefront/scripts/verify-step59-home-data.ts",
     "discovery:verify": "pnpm --dir ../.. exec tsx apps/storefront/scripts/verify-step59-discovery.ts",
@@ -29,7 +29,8 @@
     "search-results:verify": "pnpm --dir ../.. exec tsx apps/storefront/scripts/verify-step60-search-results.ts",
     "category-listing:verify": "pnpm --dir ../.. exec tsx apps/storefront/scripts/verify-step60-category-listing.ts",
     "filter-sort-pagination:verify": "pnpm --dir ../.. exec tsx apps/storefront/scripts/verify-step60-filter-sort-pagination.ts",
-    "listing-seo-accessibility:verify": "pnpm --dir ../.. exec tsx apps/storefront/scripts/verify-step60-seo-accessibility.ts"
+    "listing-seo-accessibility:verify": "pnpm --dir ../.. exec tsx apps/storefront/scripts/verify-step60-seo-accessibility.ts",
+    "step60:acceptance": "node ./scripts/verify-step60-acceptance.mjs"
   },
   "dependencies": {
     "@react-router/node": "8.4.0",
