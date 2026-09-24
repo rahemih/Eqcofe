@@ -109,12 +109,12 @@ try {
       await page.locator('select[name="brand"]').selectOption('brand-sample');
       await page.locator('.listing-controls__actions button').click();
       await page.waitForURL(/brand=brand-sample/);
-      assert.equal(await page.locator('.search-page').getAttribute('data-search-state'), 'empty');
+      await page.locator('.search-page[data-search-state="empty"]').waitFor();
       await page.goto(origin + '/category/grinders');
       await page.locator('.listing-pagination a').click();
       await page.waitForURL(/cursor=opaque-next/);
+      await page.locator('.listing-pagination a').waitFor({ state: 'detached' });
       assert.equal(await page.locator('.category-page').getAttribute('data-category-state'), 'ready');
-      assert.equal(await page.locator('.listing-pagination a').count(), 0);
     } finally { await browser.close(); }
   }
   console.log(JSON.stringify({ status: 'PASS', stage: '60-H', ssrScenarios: 9, authoritativeApi: true }));
