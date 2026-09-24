@@ -1,0 +1,65 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP60-G-SEO-ACCESSIBILITY-001",
+  "title": "Step 60-G listing SEO states accessibility and responsive hardening",
+  "description": "Harden the existing Search and Category listing surfaces only. Search is noindex; canonical category URLs are based on the authoritative category slug and a site-owned origin, never untrusted request Host. Only successful unfiltered first-page category listings are indexable; filtered/sorted/cursor, missing, invalid and failed states remain noindex. Preserve bounded GET retry and authoritative data, expose filtered-empty distinctly, announce pending navigation without inventing results, and make mobile filter disclosure keyboard/ARIA-accessible while preserving desktop access, RTL, 44px targets, reduced-motion and 400% reflow. Add deterministic metadata/state checks and a mock-backed browser gate to the existing pinned free Storefront Quality workflow. No backend/OpenAPI/database, new dependency, unrelated route, full Step60 acceptance/prototype (H), or Roadmap/Current-State closure (I).",
+  "risk": "MEDIUM",
+  "risk_floor": "MEDIUM",
+  "owner": "PRODUCT_DESIGN",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "aa26be53ff3937fc0822c3ae3c1b022da8fd60cf"
+  },
+  "scope": {
+    "read": ["apps/storefront/**", "docs/11-step-history/**", "docs/13-product-design/**", "docs/14-multi-agent/**"],
+    "write": [
+      "apps/storefront/package.json",
+      "apps/storefront/app/root.tsx",
+      "apps/storefront/app/i18n/fa-IR.ts",
+      "apps/storefront/app/routes/search.tsx",
+      "apps/storefront/app/routes/category.tsx",
+      "apps/storefront/app/features/listing/ListingControls.tsx",
+      "apps/storefront/app/features/listing/listing-seo.ts",
+      "apps/storefront/app/features/listing/listing-url-state.ts",
+      "apps/storefront/app/features/search/search-data.server.ts",
+      "apps/storefront/app/features/search/search-state.ts",
+      "apps/storefront/app/features/category/category-data.server.ts",
+      "apps/storefront/app/features/category/category-state.ts",
+      "apps/storefront/app/styles/listing-controls.css",
+      "apps/storefront/scripts/verify-step60-seo-accessibility.ts",
+      "apps/storefront/scripts/verify-step60-listing-browser.mjs",
+      "apps/storefront/scripts/verify-step60-filter-sort-pagination.ts",
+      "docs/11-step-history/STEP-60-G-SEO-STATES-ACCESSIBILITY.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP60-G-SEO-ACCESSIBILITY-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**", "pnpm-lock.yaml", "pnpm-workspace.yaml", "contracts/**", "src/**", "database/**", "test/**", "docs/12-current-state/**", "docs/13-product-design/**", "apps/storefront/app/platform/**", "apps/storefront/app/shell/**"
+    ]
+  },
+  "requested_lock_ids": ["LOCK-EQCOFE-STEP60-G-SEO-ACCESSIBILITY-001-01"],
+  "human_gate_required": false,
+  "token_budget": { "expected_max": 30000, "soft_alert": 45000, "hard_cap": 90000 },
+  "max_repair_cycles": 3,
+  "task_risk_rules": [
+    { "id": "STEP60_G_STOREFRONT_QUALITY_MEDIUM", "risk": "MEDIUM", "paths": ["apps/storefront/**", "docs/11-step-history/STEP-60-G-SEO-STATES-ACCESSIBILITY.md", "docs/14-multi-agent/tasks/EQCOFE-STEP60-G-SEO-ACCESSIBILITY-001.json", "docs/14-multi-agent/generated/TASK-CATALOG.md"] }
+  ],
+  "dependencies": [
+    { "item": "60-F", "required_state": "TERMINAL_MERGED_POSTMERGE_PASS_LOCK_RELEASED", "observed_state": "TERMINAL_MERGED_POSTMERGE_PASS_LOCK_RELEASED", "merge_sha": "aa26be53ff3937fc0822c3ae3c1b022da8fd60cf", "terminal_evidence_comment": 5797727495, "blocking": false }
+  ],
+  "evidence": {
+    "linear_issue": "HOS-16", "live_guard_main_head": "aa26be53ff3937fc0822c3ae3c1b022da8fd60cf", "live_guard_open_prs": 0, "live_guard_competing_writer": "NONE", "predecessor_pr": 265, "predecessor_terminal_comment": 5797727495,
+    "implementation_owner_agent": "A3", "orchestration_owner_agent": "A0", "qa_agent": "A7", "security_agent": "A8", "evidence_agent": "A10"
+  },
+  "acceptance_criteria": [
+    { "id": "AC-001", "description": "Search remains noindex and does not manufacture a canonical URL; only successful unfiltered first-page Category may be indexable. Other Category dimensions and unavailable states are noindex, with the category base canonical URL constructed from authoritative slug and fixed origin.", "verification": "listing-seo-accessibility:verify and SSR browser checks", "mandatory": true },
+    { "id": "AC-002", "description": "Filtered-empty differs from general no-result. Loading navigation announces a pending state, retaining the previous verified listing until the new loader settles. All retries remain explicit and bounded GET only.", "verification": "listing-seo-accessibility:verify and root pnpm verify", "mandatory": true },
+    { "id": "AC-003", "description": "Mobile filter disclosure supports keyboard and aria-expanded/controls; desktop remains fully accessible. RTL, 44px targets, six widths, 400% reflow proxy, reduced motion and zero WCAG-tagged axe findings are checked on mock-backed Search and Category surfaces.", "verification": "Step 58 Storefront Quality browser job", "mandatory": true },
+    { "id": "AC-004", "description": "No pricing/inventory authority, backend/OpenAPI/database migration, new dependency, Step60-H acceptance/prototype, or Step60-I final state sync is included.", "verification": "scope and diff review", "mandatory": true },
+    { "id": "AC-005", "description": "Exact-head Canonical CI, Phase A, Storefront Quality, deterministic Review, artifact-bound ACTIVE Lock, protected Merge Policy transport, exact-SHA postmerge verify and terminal Lock release are required before 60-H.", "verification": "provider-backed terminal evidence", "mandatory": true }
+  ],
+  "external_gate_evidence": { "protocol": "EQCOFE_GATE_V1", "artifact_bound_gates": ["REVIEW", "LOCK"], "trusted_github_transport_login": "rahemih", "rule": "Provider risk classification is authoritative; HIGH escalation requires Security and Owner Human Gate." },
+  "process_improvement_links": [],
+  "incident_links": []
+}

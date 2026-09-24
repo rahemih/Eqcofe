@@ -11,6 +11,7 @@ import {
 } from "../../platform/state/surface-state.js";
 import {
   ListingUrlStateError,
+  hasActiveListingFilters,
   parseListingUrlState,
   serializeListingUrlState,
   type ListingUrlState,
@@ -112,7 +113,7 @@ export async function loadSearchRouteData(
         urlState: state,
         listing: result.data,
         results: result.data.items.length === 0
-          ? emptyState("no-result")
+          ? emptyState(hasActiveListingFilters(state) ? "filtered" : "no-result")
           : readyState(result.data),
         contract: searchContract(),
       },

@@ -184,6 +184,15 @@ export function clearListingFilters(current: ListingUrlState): ListingUrlState {
   });
 }
 
+export function hasActiveListingFilters(state: ListingUrlState): boolean {
+  return state.brand !== undefined
+    || state.minPrice !== undefined
+    || state.maxPrice !== undefined
+    || state.available !== undefined
+    || state.sort !== undefined
+    || Boolean(state.attributeValueIds?.length);
+}
+
 function singular(params: URLSearchParams, key: string): string | undefined {
   const values = params.getAll(key);
   if (values.length > 1) {

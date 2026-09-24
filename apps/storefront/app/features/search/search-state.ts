@@ -61,6 +61,16 @@ export function describeSearchState(
   }
 
   if (state.status === "empty") {
+    if (state.reason === "filtered") {
+      return {
+        variant: "empty",
+        title: faIR.state.empty.filteredTitle,
+        message: faIR.state.empty.filteredBody,
+        requestId: null,
+        urgent: false,
+        retryAllowed: false,
+      };
+    }
     return {
       variant: "empty",
       title: faIR.search.state.empty.title,

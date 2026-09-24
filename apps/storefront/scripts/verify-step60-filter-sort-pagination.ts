@@ -114,7 +114,11 @@ for(const token of [
   "updateListingUrlState",
 ]) assert.ok(controls.includes(token),"STEP60_F_CONTROL_MISSING:"+token);
 assert.match(controls,/<Form method="get"/);
-assert.doesNotMatch(controls,/localStorage|sessionStorage|useState\s*\(/);
+assert.doesNotMatch(controls,/localStorage|sessionStorage/);
+// Stage 60-G adds local disclosure visibility only; listing query/filter state
+// remains URL-owned and never becomes a client-side product authority.
+assert.match(controls,/const \[expanded, setExpanded\] = useState\(false\)/);
+assert.match(controls,/state: ListingUrlState/);
 assert.match(pagination,/next_cursor/);
 assert.match(pagination,/updateListingUrlState/);
 assert.match(searchRoute,/ListingControls/);
