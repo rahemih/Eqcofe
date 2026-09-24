@@ -1,0 +1,60 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP60-H-ACCEPTANCE-001",
+  "title": "Step 60-H integrated listing acceptance and browser prototype",
+  "description": "Accept the production Search and Category listing as one flow with deterministic mock-backed SSR and browser interaction, including query/filter/sort/cursor, empty and invalid states, canonical/robots and GET-only API authority. Preserve the existing Step60-G browser accessibility/responsive quality gate. No new product feature, backend, OpenAPI, database, dependency, workflow or final Roadmap/Current-State closure.",
+  "risk": "MEDIUM",
+  "risk_floor": "MEDIUM",
+  "owner": "PRODUCT_DESIGN",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "eddccb0ccf3756a1f01ea06facb7401ce65a0193"
+  },
+  "scope": {
+    "read": ["apps/storefront/**", "docs/11-step-history/**", "docs/13-product-design/**", "docs/14-multi-agent/**"],
+    "write": [
+      "apps/storefront/package.json",
+      "apps/storefront/scripts/verify-step60-acceptance.mjs",
+      "docs/11-step-history/STEP-60-H-FULL-ACCEPTANCE-PROTOTYPE.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP60-H-ACCEPTANCE-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [".github/**", "pnpm-lock.yaml", "contracts/**", "src/**", "database/**", "test/**", "docs/12-current-state/**", "docs/13-product-design/**", "apps/storefront/app/**"]
+  },
+  "requested_lock_ids": ["LOCK-EQCOFE-STEP60-H-ACCEPTANCE-001-01"],
+  "human_gate_required": false,
+  "token_budget": { "expected_max": 22000, "soft_alert": 34000, "hard_cap": 68000 },
+  "max_repair_cycles": 3,
+  "task_risk_rules": [
+    { "id": "STEP60_H_INTEGRATED_ACCEPTANCE_MEDIUM", "risk": "MEDIUM", "paths": ["apps/storefront/package.json", "apps/storefront/scripts/verify-step60-acceptance.mjs", "docs/11-step-history/STEP-60-H-FULL-ACCEPTANCE-PROTOTYPE.md", "docs/14-multi-agent/tasks/EQCOFE-STEP60-H-ACCEPTANCE-001.json", "docs/14-multi-agent/generated/TASK-CATALOG.md"] }
+  ],
+  "dependencies": [
+    { "item": "60-G", "required_state": "TERMINAL_MERGED_POSTMERGE_PASS_LOCK_RELEASED", "observed_state": "TERMINAL_MERGED_POSTMERGE_PASS_LOCK_RELEASED", "merge_sha": "eddccb0ccf3756a1f01ea06facb7401ce65a0193", "terminal_evidence_comment": 5813172784, "blocking": false }
+  ],
+  "evidence": {
+    "linear_issue": "HOS-16",
+    "live_guard_main_head": "eddccb0ccf3756a1f01ea06facb7401ce65a0193",
+    "live_guard_open_prs": 0,
+    "predecessor_pr": 266,
+    "predecessor_terminal_comment": 5813172784,
+    "implementation_owner_agent": "A3",
+    "orchestration_owner_agent": "A0",
+    "qa_agent": "A7",
+    "evidence_agent": "A10"
+  },
+  "acceptance_criteria": [
+    { "id": "AC-001", "description": "Integrated mock-backed Search/Category SSR checks verify listing, filtered empty, invalid input, metadata and URL pagination without non-GET calls.", "verification": "step60:acceptance and root pnpm verify", "mandatory": true },
+    { "id": "AC-002", "description": "Pinned browser quality verifies filter submission and cursor navigation on production Search/Category, in addition to Step60-G responsive/axe gates.", "verification": "Storefront Quality browser workflow", "mandatory": true },
+    { "id": "AC-003", "description": "Existing running Search/Category routes form the final interactive listing prototype; no unrelated runtime, backend, dependencies or workflow change.", "verification": "scope and diff review", "mandatory": true },
+    { "id": "AC-004", "description": "Canonical completion requires exact-head provider checks, deterministic Review, artifact-bound ACTIVE Lock, protected merge, exact-SHA postmerge verification and terminal Lock release before Stage 60-I.", "verification": "provider-backed terminal evidence", "mandatory": true }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": ["REVIEW", "LOCK"],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Provider risk classification is authoritative; HIGH escalation requires Security and Owner Human Gate."
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}
