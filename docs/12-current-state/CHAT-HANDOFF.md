@@ -26,7 +26,18 @@ Conversation history is supporting context only. It must not override current ca
 - Valid blocker: NONE.
 - This closure proves current canonical behavior; it does not convert current verification into historical provenance.
 
-## Current handoff snapshot
+## Current handoff snapshot — 2026-09-26
+
+- Official repository and canonical branch: `rahemih/Eqcofe` / `main`.
+- Last fully closed step: **Step 60 — Search, Category, Filters & Listing — CLOSED / FINAL CANONICAL PASS**. Stages A–I are complete.
+- Stage-I PR [#268](https://github.com/rahemih/Eqcofe/pull/268) merged at `0c2b6d3cf9fdc26474f184d416637f382dd10612` through protected run [36238576728](https://github.com/rahemih/Eqcofe/actions/runs/36238576728). Merge job `108394770663` and exact-SHA postmerge job `108394814717` passed root `pnpm verify` (938/938 application tests) and Phase A. [Terminal owner evidence 5846848178](https://github.com/rahemih/Eqcofe/pull/268#issuecomment-5846848178) released its Lock.
+- Postclosure documentation PR [#269](https://github.com/rahemih/Eqcofe/pull/269) merged at `316dc4066552b5cdd32142d80f43105f3b7c6934` through protected run [36248092839](https://github.com/rahemih/Eqcofe/actions/runs/36248092839). Merge job `108420927511` and exact-SHA postmerge job `108420975736` passed; [terminal owner evidence 5847049155](https://github.com/rahemih/Eqcofe/pull/269#issuecomment-5847049155) released its Lock.
+- Active step/substep: **NONE**. Next step: **Step 61 — Product Detail & Rich Media — NEXT / NOT_STARTED**, requiring a fresh live guard and separately scoped Task Contract.
+- Linear: [HOS-16](https://linear.app/hossein123/issue/HOS-16/step-60-search-category-filters-and-listing) Done; [HOS-65](https://linear.app/hossein123/issue/HOS-65/step-61-product-detail-and-rich-media) Backlog.
+- Agent Layer A0–A10 is canonically registered; the temporary freeze was released in [PR #261 comment 5792067040](https://github.com/rahemih/Eqcofe/pull/261#issuecomment-5792067040). New work requires fresh task, scope, Lock and writer checks. Automation Layer remains future architecture.
+- This snapshot records the latest verified state through #269. Re-read live GitHub, CI, Current State, Roadmap and Linear before the next mutation. The older Step-56 snapshot below is dated historical context.
+
+## Historical Step 56 handoff snapshot (superseded)
 
 - Official repository: `rahemih/Eqcofe`
 - Canonical branch: `main`
@@ -191,6 +202,6 @@ F design complete; canonical after exact-head CI/merge/post-merge.16 surfaces/10
 
 G design complete; canonical after exact-head Canonical CI/Phase A, merge and post-merge. actors=3, journeys=4, domains=9, permissions=33, surfaces=34, operations=185, blocked=94, supported=91, states=1571, views=434, frames=1004, artifacts=1075, sources=90. Preserve export/configuration/staff security boundaries and94 NO_ACTION. H NOT_STARTED.
 
-### Current Step56 final handoff
+### Historical Step 56 final handoff
 
 Step56 CLOSED / FINAL GATE PASS; A–H complete, effective after H exact-head CI/merge/post-merge. actors=3, journeys=12, domains=28, surfaces=97, operations=532, blocked=186, supported=346, states=4472, views=1142, screenJourneyLinks=111, frames=2672, artifacts=2884.186 NO_ACTION and source gaps remain release-blocking. A–G snapshots immutable. Step57 NEXT / NOT_STARTED; no runtime/high-fidelity implementation started. Final evidence: `step56-final-audit.json`, `STEP-56-H-FINAL-AUDIT.md`, final history and PR/execution report.
