@@ -1,0 +1,117 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-POST-STEP60-HANDOFF-SYNC-001",
+  "title": "Post-Step 60 Chat Handoff reconciliation",
+  "description": "Replace the stale current-labelled Step 56 handoff snapshot with provider-backed Step 60 terminal evidence and Step 61 not-started handoff, preserving historical sections. Documentation/governance only.",
+  "risk": "MEDIUM",
+  "risk_floor": "MEDIUM",
+  "owner": "PRODUCT_DESIGN",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "316dc4066552b5cdd32142d80f43105f3b7c6934"
+  },
+  "scope": {
+    "read": [
+      "docs/11-step-history/**",
+      "docs/12-current-state/**",
+      "docs/14-multi-agent/**",
+      ".github/workflows/**"
+    ],
+    "write": [
+      "docs/12-current-state/CHAT-HANDOFF.md",
+      "docs/14-multi-agent/tasks/EQCOFE-POST-STEP60-HANDOFF-SYNC-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "apps/**",
+      "src/**",
+      "database/**",
+      "contracts/**",
+      "test/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "docs/13-product-design/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-POST-STEP60-HANDOFF-SYNC-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 12000,
+    "soft_alert": 20000,
+    "hard_cap": 40000
+  },
+  "task_risk_rules": [
+    {
+      "id": "POST_STEP60_HANDOFF_SYNC_MEDIUM",
+      "risk": "MEDIUM",
+      "paths": [
+        "docs/12-current-state/CHAT-HANDOFF.md",
+        "docs/14-multi-agent/tasks/EQCOFE-POST-STEP60-HANDOFF-SYNC-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "Step 60",
+      "required_state": "CLOSED_FINAL_CANONICAL_PASS",
+      "observed_state": "CLOSED_FINAL_CANONICAL_PASS",
+      "merge_sha": "0c2b6d3cf9fdc26474f184d416637f382dd10612",
+      "terminal_evidence_comment": 5846848178,
+      "blocking": false
+    },
+    {
+      "item": "Step 60 postclosure docs",
+      "required_state": "TERMINAL_MERGED_POSTMERGE_PASS_LOCK_RELEASED",
+      "observed_state": "TERMINAL_MERGED_POSTMERGE_PASS_LOCK_RELEASED",
+      "merge_sha": "316dc4066552b5cdd32142d80f43105f3b7c6934",
+      "terminal_evidence_comment": 5847049155,
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "linear_issue": "HOS-16",
+    "next_linear_issue": "HOS-65",
+    "live_guard_main_head": "316dc4066552b5cdd32142d80f43105f3b7c6934",
+    "live_guard_open_prs": 0,
+    "predecessor_pr": 269,
+    "predecessor_protected_run": 36248092839,
+    "predecessor_postmerge_job": 108420975736,
+    "predecessor_terminal_comment": 5847049155
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "The current-labelled handoff accurately records Step 60 terminal closure and Step 61 NEXT / NOT_STARTED; old Step 56 evidence remains identifiable as historical.",
+      "verification": "provider-backed document review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Only three authorized documentation/governance paths change, and generated task catalog matches the task contract.",
+      "verification": "diff and task catalog check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Exact-head CI/Phase A, deterministic Review and artifact-bound Lock, protected merge, exact-SHA postmerge and terminal Lock release close the reconciliation.",
+      "verification": "provider-backed terminal evidence",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Documentation-only MEDIUM-risk handoff sync; Step 61 remains separate."
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}
