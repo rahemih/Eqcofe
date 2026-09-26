@@ -1,0 +1,61 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP60-I-CLOSURE-001",
+  "title": "Step 60-I final canonical closure and Step 61 handoff",
+  "description": "Audit the terminal A-H evidence, reconcile Step 60 history, Current State and Master Roadmap, regenerate the task catalog and hand off to Step 61 only after Stage-I protected merge and exact-SHA postmerge verification. Documentation and governance only.",
+  "risk": "MEDIUM",
+  "risk_floor": "MEDIUM",
+  "owner": "PRODUCT_DESIGN",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "b6a3d1864a3a53edd1d300602acccecafc35d6e6"
+  },
+  "scope": {
+    "read": ["apps/storefront/**", "docs/11-step-history/**", "docs/12-current-state/**", "docs/14-multi-agent/**", ".github/workflows/**"],
+    "write": [
+      "docs/11-step-history/STEP-60-I-FINAL-CANONICAL-CLOSURE.md",
+      "docs/12-current-state/CURRENT-STATE.md",
+      "docs/12-current-state/MASTER-ROADMAP.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP60-I-CLOSURE-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [".github/**", "apps/**", "src/**", "database/**", "contracts/**", "test/**", "package.json", "pnpm-lock.yaml", "docs/13-product-design/**"]
+  },
+  "requested_lock_ids": ["LOCK-EQCOFE-STEP60-I-CLOSURE-001-01"],
+  "human_gate_required": false,
+  "token_budget": { "expected_max": 18000, "soft_alert": 30000, "hard_cap": 60000 },
+  "task_risk_rules": [
+    {
+      "id": "STEP60_I_CANONICAL_CLOSURE_MEDIUM",
+      "risk": "MEDIUM",
+      "paths": ["docs/11-step-history/STEP-60-I-FINAL-CANONICAL-CLOSURE.md", "docs/12-current-state/CURRENT-STATE.md", "docs/12-current-state/MASTER-ROADMAP.md", "docs/14-multi-agent/tasks/EQCOFE-STEP60-I-CLOSURE-001.json", "docs/14-multi-agent/generated/TASK-CATALOG.md"]
+    }
+  ],
+  "dependencies": [
+    { "item": "60-H", "required_state": "TERMINAL_MERGED_POSTMERGE_PASS_LOCK_RELEASED", "observed_state": "TERMINAL_MERGED_POSTMERGE_PASS_LOCK_RELEASED", "merge_sha": "b6a3d1864a3a53edd1d300602acccecafc35d6e6", "terminal_evidence_comment": 5823862236, "blocking": false }
+  ],
+  "evidence": {
+    "linear_issue": "HOS-16",
+    "live_guard_main_head": "b6a3d1864a3a53edd1d300602acccecafc35d6e6",
+    "live_guard_open_prs": 0,
+    "predecessor_pr": 267,
+    "predecessor_protected_run": 36012004673,
+    "predecessor_postmerge_job": 107674985799,
+    "predecessor_terminal_comment": 5823862236
+  },
+  "acceptance_criteria": [
+    { "id": "AC-001", "description": "A-H terminal evidence and Stage-H protected merge, exact-SHA postmerge verification and Lock release are recorded accurately.", "verification": "provider-backed evidence and deterministic document review", "mandatory": true },
+    { "id": "AC-002", "description": "Current State and Master Roadmap replace stale Step-60-not-started current claims, keep historical snapshots identifiable, and gate Step 61 on Stage-I canonical closure.", "verification": "deterministic document review", "mandatory": true },
+    { "id": "AC-003", "description": "Diff is scoped to governance documents and generated task catalog; no runtime, workflow or API mutation.", "verification": "diff and task catalog check", "mandatory": true },
+    { "id": "AC-004", "description": "Exact-head CI and Phase A, artifact-bound Review and Lock, Merge Policy, protected merge, exact-SHA postmerge verification and terminal Lock release complete before HOS-16 is marked Done or Step 61 starts.", "verification": "provider-backed terminal evidence", "mandatory": true }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": ["REVIEW", "LOCK"],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Step 60-I is MEDIUM-risk documentation/governance closure. Step 61 is blocked until I is canonically terminal."
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}
