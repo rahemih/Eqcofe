@@ -1,5 +1,9 @@
 # EQCOFE — Step 60-I Final Canonical Closure
 
+## Postmerge terminal addendum (2026-09-26)
+
+Stage-I [PR #268](https://github.com/rahemih/Eqcofe/pull/268) merged through protected [run 36238576728](https://github.com/rahemih/Eqcofe/actions/runs/36238576728) at `0c2b6d3cf9fdc26474f184d416637f382dd10612`. Merge job `108394770663` and exact-SHA postmerge job `108394814717` succeeded; root `pnpm verify` passed (938/938 application tests), Phase A passed, and postmerge-failure was skipped. The [terminal owner comment 5846848178](https://github.com/rahemih/Eqcofe/pull/268#issuecomment-5846848178) released `LOCK-EQCOFE-STEP60-I-CLOSURE-001-01` for head `ce5b54dca30de33c40d5a13b7da2aba66ec40ca8` and artifact `27da72d40808bf2542f164028c27752cb1638601795d27890aa85d9f87822e6b`. Step 60-I and Step 60 are `CLOSED / FINAL CANONICAL PASS`; Linear `HOS-16` is Done. Step 61 is `NEXT / NOT_STARTED`. The original premerge conditions below remain as the dated Stage-I execution contract and are fulfilled by this addendum.
+
 ## Verdict and scope
 
 Step 60-A through 60-H are `CANONICAL_COMPLETE`. Step 60 as a whole becomes `CLOSED / FINAL CANONICAL PASS` **only after this Stage-I document and state reconciliation complete their own protected merge, exact-SHA postmerge verification and terminal Lock release**. This closure changes documentation/governance only and introduces no new product capability.

@@ -1,7 +1,7 @@
 # EQCOFE Current State
 
 ## Trusted state date
-**2026-09-25**
+**2026-09-26**
 
 ## Official repository
 - Repository: `rahemih/Eqcofe`
@@ -10,7 +10,7 @@
 
 ## Current Step 60 position
 
-**Step 60 — Search, Category, Filters & Listing — A–H CANONICAL_COMPLETE; 60-I FINAL CLOSURE IN PROGRESS.** Step 60 reaches `CLOSED / FINAL CANONICAL PASS` only after the Stage-I PR itself passes protected merge, exact-SHA postmerge verification and terminal Lock release. Step 61 remains `PLANNED / NOT_STARTED` until then.
+**Step 60 — Search, Category, Filters & Listing — CLOSED / FINAL CANONICAL PASS; A–I CANONICAL_COMPLETE.** Stage-I PR #268 passed protected merge, exact-SHA postmerge verification and terminal Lock release. Step 61 is `NEXT / NOT_STARTED` and requires a fresh live guard and separate scoped task.
 
 | Stage | PR | Canonical merge | State |
 | --- | ---: | --- | --- |
@@ -22,7 +22,9 @@
 | 60-F filters/sorting/cursor | #265 | `aa26be53ff3937fc0822c3ae3c1b022da8fd60cf` | COMPLETE |
 | 60-G SEO/states/accessibility | #266 | `eddccb0ccf3756a1f01ea06facb7401ce65a0193` | COMPLETE |
 | 60-H integrated acceptance | #267 | `b6a3d1864a3a53edd1d300602acccecafc35d6e6` | COMPLETE |
-| 60-I final closure | pending | pending | IN PROGRESS |
+| 60-I final closure | #268 | `0c2b6d3cf9fdc26474f184d416637f382dd10612` | COMPLETE |
+
+Stage I exact head `ce5b54dca30de33c40d5a13b7da2aba66ec40ca8` passed Canonical CI `36227082639`, Phase A `36227082651` and Merge Policy `36227082650`. Protected workflow_dispatch run `36238576728` merged PR #268; merge job `108394770663` and exact-SHA postmerge job `108394814717` passed, including root `pnpm verify` (938/938 application tests) and Phase A. The postmerge-failure job was skipped. Owner [terminal comment 5846848178](https://github.com/rahemih/Eqcofe/pull/268#issuecomment-5846848178) released `LOCK-EQCOFE-STEP60-I-CLOSURE-001-01`. Linear `HOS-16` is Done; Step 61 `HOS-65` remains Backlog.
 
 Stage H exact head `ff916d9e2d828b8a8e80605785a7e71158230d4f` passed Canonical CI `36008565878`, Phase A `36008565888` and Storefront Quality `36008565846`. Protected Merge Policy run `36012004673` merged PR #267; merge job `107674820150` and exact-SHA postmerge job `107674985799` passed, including root `pnpm verify` and Phase A. Terminal Lock `LOCK-EQCOFE-STEP60-H-ACCEPTANCE-001-01` was released in [PR #267 comment 5823862236](https://github.com/rahemih/Eqcofe/pull/267#issuecomment-5823862236). Later failed run `36033125995` was a redundant dispatch after merge and is not the canonical transport.
 
@@ -181,6 +183,7 @@ Seven B obligations / 23 variants / 74 low-fidelity RTL frames / 91 deterministi
 - **Step 57 — High-Fidelity UI & Prototype Approval — CLOSED / FINAL GATE PASS**
 - **Step 58 — Frontend Application Foundation — CLOSED / FINAL GATE PASS**
 - **Step 59 — Home, Navigation & Discovery — CLOSED / FINAL CANONICAL PASS**
+- **Step 60 — Search, Category, Filters & Listing — CLOSED / FINAL CANONICAL PASS**
 
 Detailed closure evidence remains immutable in `docs/11-step-history/` and merged PR/CI history.
 
@@ -550,7 +553,7 @@ Verify job: `97170521019` — PASS
 - Dark theme is explicitly deferred: it is not a Roadmap requirement and the current Figma plan permits one mode per collection.
 
 ## Next safe action
-Finish Stage 60-I with exact-head CI and Phase A, artifact-bound Review and ACTIVE Lock, protected merge, exact-SHA postmerge verification and terminal Lock release. Only then begin **Step 61 — Product Detail & Rich Media** after a fresh live guard and separate scope/contract. The dated Step-59 snapshot above records the state when Step 59 closed and does not describe today's active work.
+Begin **Step 61 — Product Detail & Rich Media** only after a fresh live guard and a separate scope/contract. Stage 60-I is canonically complete; the dated Step-59 and pre-terminal Stage-I snapshots above record historical positions rather than today's active work.
 
 ## Step 52 active closure state
 - **A1 — Canonical Handoff & Scope Freeze — COMPLETE / FINAL GATE PASS**
