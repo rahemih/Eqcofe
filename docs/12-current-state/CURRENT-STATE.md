@@ -1,14 +1,34 @@
 # EQCOFE Current State
 
 ## Trusted state date
-**2026-09-20**
+**2026-09-25**
 
 ## Official repository
 - Repository: `rahemih/Eqcofe`
 - Default/canonical branch: `main`
 - Historical repository: `rahemih/digikala-clone` — historical/recovery evidence only; not canonical application source.
 
-## Current Step59 final position
+## Current Step 60 position
+
+**Step 60 — Search, Category, Filters & Listing — A–H CANONICAL_COMPLETE; 60-I FINAL CLOSURE IN PROGRESS.** Step 60 reaches `CLOSED / FINAL CANONICAL PASS` only after the Stage-I PR itself passes protected merge, exact-SHA postmerge verification and terminal Lock release. Step 61 remains `PLANNED / NOT_STARTED` until then.
+
+| Stage | PR | Canonical merge | State |
+| --- | ---: | --- | --- |
+| 60-A handoff | #258 | `bdf8fccde4ca40cced48381ad3be2e0461ade535` | COMPLETE |
+| 60-B backend/OpenAPI contract | #261 | `a8fcb395055dd5e68ef6bc4ec04f6c5c7c063566` | COMPLETE |
+| 60-C shared listing | #262 | `a4da53f9431ba02784b0eba5f1b551bce6cfdd51` | COMPLETE |
+| 60-D search | #263 | `d06885c26a77ab3db7f23356ac973db2019164c3` | COMPLETE |
+| 60-E category | #264 | `70c7695e670239463ce0101a641523623eed8fdd` | COMPLETE |
+| 60-F filters/sorting/cursor | #265 | `aa26be53ff3937fc0822c3ae3c1b022da8fd60cf` | COMPLETE |
+| 60-G SEO/states/accessibility | #266 | `eddccb0ccf3756a1f01ea06facb7401ce65a0193` | COMPLETE |
+| 60-H integrated acceptance | #267 | `b6a3d1864a3a53edd1d300602acccecafc35d6e6` | COMPLETE |
+| 60-I final closure | pending | pending | IN PROGRESS |
+
+Stage H exact head `ff916d9e2d828b8a8e80605785a7e71158230d4f` passed Canonical CI `36008565878`, Phase A `36008565888` and Storefront Quality `36008565846`. Protected Merge Policy run `36012004673` merged PR #267; merge job `107674820150` and exact-SHA postmerge job `107674985799` passed, including root `pnpm verify` and Phase A. Terminal Lock `LOCK-EQCOFE-STEP60-H-ACCEPTANCE-001-01` was released in [PR #267 comment 5823862236](https://github.com/rahemih/Eqcofe/pull/267#issuecomment-5823862236). Later failed run `36033125995` was a redundant dispatch after merge and is not the canonical transport.
+
+Search and Category now render server-loaded listings with generated OpenAPI data, supported URL filters/sort/cursor, explicit states, and listing SEO boundaries; the integrated nine-case SSR and browser quality gates passed. Product Detail/rich media/add-to-cart remain Step 61. No Stage-I runtime feature change is authorized. Closure record: `docs/11-step-history/STEP-60-I-FINAL-CANONICAL-CLOSURE.md`.
+
+## Historical Step59 final position (snapshot from 2026-09-20)
 
 **Step 59 — Home, Navigation & Discovery — CLOSED / FINAL CANONICAL PASS**, subject only to the Step 59-H closure artifact completing its own protected transport and postmerge verification. Active step NONE after H; Step60 NEXT / NOT_STARTED.
 
@@ -530,7 +550,7 @@ Verify job: `97170521019` — PASS
 - Dark theme is explicitly deferred: it is not a Roadmap requirement and the current Figma plan permits one mode per collection.
 
 ## Next safe action
-After Step 59-H itself completes protected merge and exact-SHA postmerge verification, start **Step 60 — Search, Category, Filters & Listing** only under a fresh live guard and separate scoped task. Step60 is NEXT / NOT_STARTED; no Step60 feature implementation is included in Step59-H.
+Finish Stage 60-I with exact-head CI and Phase A, artifact-bound Review and ACTIVE Lock, protected merge, exact-SHA postmerge verification and terminal Lock release. Only then begin **Step 61 — Product Detail & Rich Media** after a fresh live guard and separate scope/contract. The dated Step-59 snapshot above records the state when Step 59 closed and does not describe today's active work.
 
 ## Step 52 active closure state
 - **A1 — Canonical Handoff & Scope Freeze — COMPLETE / FINAL GATE PASS**

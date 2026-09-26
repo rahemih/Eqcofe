@@ -1,12 +1,12 @@
 # EQCOFE — Complete Master Execution Roadmap
 
-**Roadmap version:** 3.51 — Step-59 Final Canonical Closure
-**Effective date:** 2026-09-20
+**Roadmap version:** 3.52 — Step-60 Final Canonical Closure (pending 60-I transport)
+**Effective date:** 2026-09-25
 **Canonical repository:** `rahemih/Eqcofe`  
 **Canonical branch:** `main`  
 **Verified Step-44 code baseline:** `b239dfe825b615f36caf2e26cc7abc80c70d349c`
 
-> This is the canonical end-to-end execution map for EQCOFE. Phase A (Steps 1–28) is now `CLOSED / FINAL GATE PASS` by current canonical verification. For historical Steps 1–27, the exact original step labels/closure lineage are not independently proven by recovered Git evidence and remain `Historical Attribution: UNVERIFIED`; Step 28 remains `Historical Attribution: PARTIAL`. Current-baseline verification must not be cited as recovered historical provenance. Steps 29–56 retain their existing canonical status. Step 55 is CLOSED / FINAL GATE PASS; Step 56-A foundation is complete and Step 56-B is complete; Step 56-C is complete; Step 56-D is complete; Step 56-E is complete; Step 56-F is complete; Step 56-G is complete; Step 56-H is complete; Step 56 is CLOSED / FINAL GATE PASS; Step 57 is CLOSED / FINAL GATE PASS; Step 58 is CLOSED / FINAL CANONICAL PASS; Step 59 is CLOSED / FINAL CANONICAL PASS; Step 60 is next, not started.
+> This is the canonical end-to-end execution map for EQCOFE. Phase A (Steps 1–28) is `CLOSED / FINAL GATE PASS` by current canonical verification. For historical Steps 1–27, exact original labels/closure lineage remain `Historical Attribution: UNVERIFIED`; Step 28 remains `Historical Attribution: PARTIAL`. Current-baseline verification does not prove recovered historical provenance. Steps 29–59 retain their established canonical status. Step 60-A through 60-H are canonically complete; Step 60-I closes Step 60 only after its own protected merge, exact-SHA postmerge verification and Lock release. Step 61 is the next planned implementation step after that closure.
 
 ## Status legend
 - `RECONSTRUCTED-HISTORY`: normalized historical description; exact historical step attribution is not proven.
@@ -313,8 +313,8 @@ Production Storefront foundation is established and canonically verified: worksp
 ## Step 59 — Home, Navigation & Discovery — `CLOSED / FINAL CANONICAL PASS`
 Production Home/Navigation/Discovery is established and canonically verified: responsive Header/navigation, semantic search entry, authoritative server-loaded Home data, category/brand discovery handoffs, bounded Toman merchandising, Buying Guide/Wholesale handoffs, Home loading/empty/recovery/error/offline behavior, Persian RTL/accessibility/responsive hardening, and integrated Browser Acceptance. Final closure history: `docs/11-step-history/STEP-59-H-FINAL-CANONICAL-CLOSURE.md`.
 
-## Step 60 — Search, Category, Filters & Listing — `NEXT / NOT_STARTED`
-Implement indexed/category listings, filters, sorting, pagination/infinite strategy, empty/loading/error states and SEO-friendly listing behavior. Step 60 must begin under a fresh live guard and separate task; no Step-60 feature implementation is introduced by Step 59-H.
+## Step 60 — Search, Category, Filters & Listing — `FINAL CLOSURE IN PROGRESS (60-I)`
+Stages A–H are canonically complete through protected PRs #258, #261–#267. Search and Category listings use authoritative generated contracts, filters, sorting and cursor pagination; listing SEO, states, accessibility and integrated acceptance are verified. Stage H merged at `b6a3d1864a3a53edd1d300602acccecafc35d6e6` with successful exact-SHA postmerge verification in run `36012004673` and terminal Lock release. Stage I is documentation/governance-only and must complete its own protected transport before Step 60 is `CLOSED / FINAL CANONICAL PASS`. See `docs/11-step-history/STEP-60-I-FINAL-CANONICAL-CLOSURE.md`.
 
 ## Step 61 — Product Detail & Rich Media — `PLANNED`
 Implement product/variant selection, stock/price states, media gallery, video/3D capability, specifications, related content and add-to-cart behavior.
@@ -433,11 +433,11 @@ Evolve architecture, integrations and product capabilities based on production e
 
 # Current Position
 
-- **Last fully closed step:** Step 59 — Home, Navigation & Discovery.
+- **Last fully closed step:** Step 59 — Home, Navigation & Discovery; Step 60 awaits 60-I transport.
 - **Phase A:** CLOSED / FINAL GATE PASS — Steps 1–28 are COMPLETE / VERIFIED BY CURRENT CANONICAL BASELINE; historical attribution remains UNVERIFIED for Steps 1–27 and PARTIAL for Step 28.
 - **Step 49 closure:** CLOSED / FINAL GATE PASS after A11 audit.
-- **Active step:** NONE — Step59 is canonically closed after H transport/postmerge PASS.
-- **Next approved step:** Step 60 — Search, Category, Filters & Listing — NEXT / NOT_STARTED.
+- **Active step:** Step 60-I — final evidence and documentation closure.
+- **Next approved step after 60-I canonical closure:** Step 61 — Product Detail & Rich Media; start only under a fresh live guard and separately scoped task.
 - **Backend feature-completion horizon:** Step 52.
 - **UI/UX design begins:** Step 53.
 - **Storefront implementation begins:** Step 58.
