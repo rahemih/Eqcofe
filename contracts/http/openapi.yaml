@@ -640,7 +640,7 @@ components:
       required:
       - id
       - media_type
-      - url
+      - storage_key
       - mime_type
       - sort_order
       - is_primary
@@ -654,8 +654,9 @@ components:
           enum:
           - image
           - video
-        url:
+        storage_key:
           type: string
+          minLength: 1
         mime_type:
           type: string
         sort_order:
