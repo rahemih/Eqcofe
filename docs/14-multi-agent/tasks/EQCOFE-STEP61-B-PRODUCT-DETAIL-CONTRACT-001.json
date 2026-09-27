@@ -53,7 +53,15 @@
       "docs/13-product-design/step56-wireframes/E/manifest.json",
       "docs/13-product-design/step56-wireframes/F/manifest.json",
       "docs/13-product-design/step56-wireframes/G/manifest.json",
-      "docs/13-product-design/step57-high-fidelity-contract.json"
+      "docs/13-product-design/step57-high-fidelity-contract.json",
+      "docs/13-product-design/step56-final-audit/surface-matrix.json",
+      "docs/13-product-design/step56-final-audit/operation-matrix.json",
+      "docs/13-product-design/step56-final-audit/journey-matrix.json",
+      "docs/13-product-design/step56-final-audit/state-matrix.json",
+      "docs/13-product-design/step56-final-audit/release-blockers.json",
+      "docs/13-product-design/step56-final-audit/README.md",
+      "docs/13-product-design/step57-prototype/src/coverage.json",
+      "docs/13-product-design/step57-prototype/manifest.json"
     ],
     "forbidden": [
       ".github/**",
@@ -107,7 +115,15 @@
         "docs/13-product-design/step56-wireframes/E/manifest.json",
         "docs/13-product-design/step56-wireframes/F/manifest.json",
         "docs/13-product-design/step56-wireframes/G/manifest.json",
-        "docs/13-product-design/step57-high-fidelity-contract.json"
+        "docs/13-product-design/step57-high-fidelity-contract.json",
+        "docs/13-product-design/step56-final-audit/surface-matrix.json",
+        "docs/13-product-design/step56-final-audit/operation-matrix.json",
+        "docs/13-product-design/step56-final-audit/journey-matrix.json",
+        "docs/13-product-design/step56-final-audit/state-matrix.json",
+        "docs/13-product-design/step56-final-audit/release-blockers.json",
+        "docs/13-product-design/step56-final-audit/README.md",
+        "docs/13-product-design/step57-prototype/src/coverage.json",
+        "docs/13-product-design/step57-prototype/manifest.json"
       ]
     }
   ],
@@ -135,7 +151,10 @@
     ],
     "media_capability_boundary": "Canonical DB/service supports image, video and document only. No 3D/360 media type or metadata exists; Step 61-B must not invent it.",
     "cart_boundary": "POST /cart/{id}/items is already typed and runtime-validates sellability and authoritative online stock. Step 61-B must not mutate Cart rules.",
-    "provenance_sync": "Step56/57 validators pin mutable runtime/OpenAPI source hashes. Repair is restricted to exact hash/manifest synchronization using the canonical cascade proven in Step 60-B; no design semantics or historical verdicts may change."
+    "provenance_sync": "Step56/57 validators pin mutable runtime/OpenAPI source hashes. Repair is restricted to exact hash/manifest synchronization using the canonical cascade proven in Step 60-B; no design semantics or historical verdicts may change.",
+    "storage_boundary": "Public Product Detail exposes storage_key descriptors, not a fabricated public media URL. Existing upload signing remains admin-only; no public URL resolver is claimed in 61-B.",
+    "openapi_placeholder_debt": "OpenAPI still contains placeholder product reviews/related/recommendations paths without runtime controllers. Step 61-B forbids Storefront use of those paths; later governed stages must implement or remove them before production use.",
+    "design_provenance_repair": "Because contracts/http/openapi.yaml is a recovered design source, deterministic Step56/57 hash-only provenance regeneration is conditionally authorized if canonical CI reports source-hash drift. No design semantics, review status, screen inventory, journey coverage or historical transport claim may be changed."
   },
   "acceptance_criteria": [
     {
@@ -178,6 +197,12 @@
       "id": "AC-007",
       "description": "HIGH-risk canonical closure requires exact-head Canonical CI, Phase A, deterministic Review, Verification and Security PASS, explicit Human Gate approval, ACTIVE artifact-bound Lock, protected merge, exact-SHA postmerge verify and terminal Lock release.",
       "verification": "canonical_transport_and_postmerge_evidence",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "If OpenAPI source-hash changes trigger deterministic Step56/57 recovered-source drift, only generator-equivalent provenance/hash artifacts may be refreshed; design semantics and review/closure status remain unchanged.",
+      "verification": "step56_step57_provenance_only_repair",
       "mandatory": true
     }
   ],
