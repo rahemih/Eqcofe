@@ -782,7 +782,7 @@ components:
           - type: 'null'
         primary_image:
           anyOf:
-          - $ref: '#/components/schemas/MediaRef'
+          - $ref: '#/components/schemas/PublicProductMediaView'
           - type: 'null'
         media:
           type: array
