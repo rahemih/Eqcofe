@@ -1,0 +1,164 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP61-B-PRODUCT-DETAIL-CONTRACT-001",
+  "title": "Step 61-B backend and OpenAPI Product Detail contract readiness",
+  "description": "Harden the authoritative public Product Detail contract before Storefront implementation. Align runtime and OpenAPI for product description, product price, specifications, safe active image/video media gallery, variant attributes and authoritative variant availability; type the public product-variants response and preserve the existing add-to-cart contract without mutating Cart business rules. Do not invent 3D/360 support until canonical backend metadata exists.",
+  "risk": "HIGH",
+  "risk_floor": "HIGH",
+  "owner": "BACKEND_ENGINEERING",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "bb1b9be162696c302248b8b6244095e30d5aa100"
+  },
+  "scope": {
+    "read": [
+      "apps/storefront/**",
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "src/modules/catalog/**",
+      "src/modules/cart/**",
+      "src/modules/inventory/**",
+      "src/modules/pricing/**",
+      "database/migrations/0005_catalog_core.sql",
+      "docs/11-step-history/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**",
+      "docs/14-multi-agent/**",
+      "test/**"
+    ],
+    "write": [
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "src/modules/catalog/application/catalog-query.service.ts",
+      "src/modules/catalog/infrastructure/catalog.repository.ts",
+      "src/modules/catalog/presentation/catalog.controller.ts",
+      "test/step61-product-detail-contract.spec.ts",
+      "docs/11-step-history/STEP-61-B-PRODUCT-DETAIL-CONTRACT.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP61-B-PRODUCT-DETAIL-CONTRACT-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "database/migrations/**",
+      "apps/storefront/**",
+      "src/modules/cart/**",
+      "src/modules/inventory/**",
+      "src/modules/pricing/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP61-B-PRODUCT-DETAIL-CONTRACT-001-01"
+  ],
+  "human_gate_required": true,
+  "token_budget": {
+    "expected_max": 30000,
+    "soft_alert": 45000,
+    "hard_cap": 90000
+  },
+  "task_risk_rules": [
+    {
+      "id": "STEP61_B_PUBLIC_PRODUCT_DETAIL_CONTRACT_HIGH",
+      "risk": "HIGH",
+      "paths": [
+        "contracts/http/openapi.yaml",
+        "src/generated/openapi.ts",
+        "src/modules/catalog/application/catalog-query.service.ts",
+        "src/modules/catalog/infrastructure/catalog.repository.ts",
+        "src/modules/catalog/presentation/catalog.controller.ts",
+        "test/step61-product-detail-contract.spec.ts",
+        "docs/11-step-history/STEP-61-B-PRODUCT-DETAIL-CONTRACT.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP61-B-PRODUCT-DETAIL-CONTRACT-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "61-A",
+      "name": "Canonical handoff and Product Detail scope freeze",
+      "required_state": "CANONICAL_COMPLETE_LOCK_RELEASED",
+      "observed_state": "CANONICAL_COMPLETE_LOCK_RELEASED",
+      "merge_sha": "bb1b9be162696c302248b8b6244095e30d5aa100",
+      "evidence": "PR #271 protected Merge Policy run 36323034227; merge and exact-SHA postmerge verification PASS; terminal Lock comment 5856373152.",
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "live_guard_main_head": "bb1b9be162696c302248b8b6244095e30d5aa100",
+    "live_open_prs_before_write": 0,
+    "active_relevant_locks_before_write": 0,
+    "linear_issue": "HOS-65",
+    "runtime_contract_drift": [
+      "Product detail runtime returns price and specifications while ProductResponse omits both.",
+      "Product detail currently exposes only primary_image although active product_media supports ordered image/video attachments and variant linkage.",
+      "Variant runtime exposes price/attributes but availability is null although InventoryAvailabilityPort can batch authoritative online sellable quantities.",
+      "GET /products/{slug}/variants exists publicly but its 200 response is untyped and shares the admin-oriented query method."
+    ],
+    "media_capability_boundary": "Canonical DB/service supports image, video and document only. No 3D/360 media type or metadata exists; Step 61-B must not invent it.",
+    "cart_boundary": "POST /cart/{id}/items is already typed and runtime-validates sellability and authoritative online stock. Step 61-B must not mutate Cart rules."
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "GET /products/{slug} runtime and ProductResponse are structurally aligned for descriptions, product price, specifications, safe public media and public variants; generated OpenAPI is refreshed.",
+      "verification": "product_detail_contract_test",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Public media contains active image/video attachments only, ordered deterministically, with variant linkage and no internal media status or admin-only fields; unsupported 3D/360 is not fabricated.",
+      "verification": "public_media_boundary_test",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Public variants use an explicit stable DTO, include typed attributes, price and Inventory-owned availability/quantity, and do not leak admin camelCase/internal fields.",
+      "verification": "public_variant_contract_test",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "GET /products/{slug}/variants has a typed successful OpenAPI response matching the public variant DTO; Admin variant endpoint behavior remains unchanged.",
+      "verification": "public_admin_variant_separation_test",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Existing POST /cart/{id}/items contract remains authoritative and unchanged in business semantics; no Cart/Pricing/Inventory/domain mutation is introduced.",
+      "verification": "cart_boundary_regression",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "No database migration, dependency, Storefront runtime, compare/wishlist, checkout/account or later-step implementation is introduced.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "HIGH-risk canonical closure requires exact-head Canonical CI, Phase A, deterministic Review, Verification and Security PASS, explicit Human Gate approval, ACTIVE artifact-bound Lock, protected merge, exact-SHA postmerge verify and terminal Lock release.",
+      "verification": "canonical_transport_and_postmerge_evidence",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "VERIFICATION",
+      "SECURITY",
+      "HUMAN",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Step 61-B is HIGH risk. Direct-main write/raw merge prohibited. Human approval is required only after the final exact head and artifact are frozen and technical/security gates are green."
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}
