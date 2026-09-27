@@ -47,7 +47,10 @@ test('Step 61-B public Product Detail exposes authoritative typed detail and act
   assert.equal(product.price.current_toman, 12500000);
   assert.equal(product.media.length, 2);
   assert.deepEqual(product.media.map((m:any) => m.media_type), ['image','video']);
+  assert.equal(product.media[0].storage_key, '/media/a.webp');
+  assert.equal('url' in product.media[0], false, 'storage key must not be mislabeled as a public URL');
   assert.equal(product.primary_image.id, 'm1');
+  assert.equal(product.primary_image.storage_key, '/media/a.webp');
   assert.equal(product.specifications[0].key, 'power');
   assert.equal(product.variants.length, 1);
   assert.equal(product.variants[0].id, 'v1');
@@ -71,6 +74,8 @@ test('Step 61-B OpenAPI and generated types own Product Detail and public varian
   const generated = readFileSync('src/generated/openapi.ts','utf8');
   assert.match(openapi, /PublicProductResponse:/);
   assert.match(openapi, /PublicProductMediaView:/);
+  assert.match(openapi, /PublicProductMediaView:[\s\S]*storage_key:/);
+  assert.doesNotMatch(openapi.match(/PublicProductMediaView:[\s\S]*?PublicVariantResponse:/)?.[0] ?? '', /\n\s+url:/);
   assert.match(openapi, /PublicVariantResponse:/);
   assert.match(openapi, /ProductSpecificationView:/);
   assert.match(openapi, /operationId: getProduct[\s\S]*PublicProductResponse/);
