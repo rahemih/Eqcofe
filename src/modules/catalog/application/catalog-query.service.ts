@@ -162,7 +162,7 @@ export class CatalogQueryService {
   async product(slug: string) {
     const product = await this.repo.publicProductBySlug(slug);
     if (!product) throw new DomainError('PRODUCT_NOT_FOUND', 'محصول پیدا نشد.');
-    return this.decorate(product);
+    return this.decoratePublicProduct(product);
   }
 
   async adminProduct(id: string) {
@@ -192,6 +192,34 @@ export class CatalogQueryService {
       price: await this.pricing.getVariantPrice(variant.id),
       availability: null,
     })));
+  }
+
+  async publicVariants(productId: string) {
+    const variants = (await this.repo.listVariants(productId)).filter((variant: any) => variant.status === 'active');
+    const quantities = await this.inventory.getOnlineSellableQuantities(variants.map((variant: any) => String(variant.id)));
+    return Promise.all(variants.map(async (variant: any) => {
+      const price = await this.pricing.getVariantPrice(variant.id);
+      const salesEnabled = Boolean(variant.effectiveSalesEnabled) && Boolean(price);
+      const availableQuantity = salesEnabled ? Math.max(0, Number(quantities[String(variant.id)] ?? 0)) : 0;
+      return {
+        id: String(variant.id),
+        product_id: String(variant.productId),
+        sku: String(variant.sku),
+        barcode: variant.barcode ?? null,
+        name_suffix: variant.nameSuffix ?? null,
+        status: variant.status,
+        sales_enabled: salesEnabled,
+        weight_grams: variant.weightGrams ?? null,
+        attributes: await this.repo.variantAttributes(variant.id),
+        price,
+        availability: {
+          sales_enabled: salesEnabled,
+          in_stock: salesEnabled && availableQuantity > 0,
+          available_quantity: availableQuantity,
+        },
+        version: Number(variant.version),
+      };
+    }));
   }
 
   brands(publicOnly = true) { return this.repo.listBrands(publicOnly); }
@@ -335,6 +363,47 @@ export class CatalogQueryService {
     const parsed = Number(value);
     if (!Number.isFinite(parsed) || parsed <= 0) return fallback;
     return Math.max(1, Math.min(maximum, Math.trunc(parsed)));
+  }
+
+  private async decoratePublicProduct(product: any) {
+    const variants = await this.publicVariants(product.id);
+    const additional = await this.repo.additionalCategories(product.id);
+    const mediaRows = await this.repo.publicProductMedia(product.id);
+    const media = mediaRows.map((item: any) => ({
+      id: String(item.id),
+      variant_id: item.variant_id ? String(item.variant_id) : null,
+      media_type: item.media_type,
+      url: String(item.storage_key),
+      mime_type: String(item.mime_type),
+      sort_order: Number(item.sort_order),
+      is_primary: Boolean(item.is_primary),
+      alt_text_fa: item.alt_text_fa ?? null,
+      width: item.width == null ? null : Number(item.width),
+      height: item.height == null ? null : Number(item.height),
+    }));
+    const primary = media.find((item: any) => item.is_primary) ?? media[0] ?? null;
+    const specifications = await this.repo.productAttributes(product.id);
+    const price = await this.pricing.getProductPrice(product.id);
+    return {
+      id: product.id,
+      name_fa: product.name_fa,
+      name_en: product.name_en ?? null,
+      slug: product.slug,
+      short_description: product.short_description ?? null,
+      description: product.description ?? null,
+      brand: product.brand_id ? { id: product.brand_id, name_fa: product.brand_name, slug: product.brand_slug ?? '' } : null,
+      primary_category: { id: product.primary_category_id, name_fa: product.category_name, slug: product.category_slug ?? '' },
+      additional_categories: additional,
+      sales_enabled: Boolean(product.effective_sales_enabled) && Boolean(price),
+      price,
+      primary_image: primary ? { id: primary.id, url: primary.url, alt_text_fa: primary.alt_text_fa } : null,
+      media,
+      specifications,
+      variants,
+      version: Number(product.version),
+      published_at: product.published_at ?? null,
+      updated_at: product.updated_at,
+    };
   }
 
   private async decorate(product: any) {
