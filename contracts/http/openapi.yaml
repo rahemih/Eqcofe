@@ -548,6 +548,259 @@ components:
       - sku
       - status
       - sales_enabled
+    ProductSpecificationView:
+      type: object
+      additionalProperties: false
+      required:
+      - attribute_id
+      - key
+      - name_fa
+      - data_type
+      - attribute_value_id
+      - is_filterable
+      - is_comparable
+      properties:
+        attribute_id:
+          $ref: '#/components/schemas/EntityId'
+        key:
+          type: string
+        name_fa:
+          type: string
+        unit:
+          anyOf:
+          - type: string
+          - type: 'null'
+        data_type:
+          type: string
+        is_filterable:
+          type: boolean
+        is_comparable:
+          type: boolean
+        attribute_value_id:
+          $ref: '#/components/schemas/EntityId'
+        value_text:
+          anyOf:
+          - type: string
+          - type: 'null'
+        value_numeric:
+          anyOf:
+          - type: number
+          - type: 'null'
+        value_boolean:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+        normalized_value:
+          anyOf:
+          - type: string
+          - type: 'null'
+    PublicVariantAttributeView:
+      type: object
+      additionalProperties: false
+      required:
+      - attribute_id
+      - key
+      - name_fa
+      - data_type
+      - attribute_value_id
+      properties:
+        attribute_id:
+          $ref: '#/components/schemas/EntityId'
+        key:
+          type: string
+        name_fa:
+          type: string
+        unit:
+          anyOf:
+          - type: string
+          - type: 'null'
+        data_type:
+          type: string
+        attribute_value_id:
+          $ref: '#/components/schemas/EntityId'
+        value_text:
+          anyOf:
+          - type: string
+          - type: 'null'
+        value_numeric:
+          anyOf:
+          - type: number
+          - type: 'null'
+        value_boolean:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+        normalized_value:
+          anyOf:
+          - type: string
+          - type: 'null'
+    PublicProductMediaView:
+      type: object
+      additionalProperties: false
+      required:
+      - id
+      - media_type
+      - url
+      - mime_type
+      - sort_order
+      - is_primary
+      properties:
+        id:
+          $ref: '#/components/schemas/EntityId'
+        variant_id:
+          $ref: '#/components/schemas/NullableEntityId'
+        media_type:
+          type: string
+          enum:
+          - image
+          - video
+        url:
+          type: string
+        mime_type:
+          type: string
+        sort_order:
+          type: integer
+          minimum: 0
+        is_primary:
+          type: boolean
+        alt_text_fa:
+          anyOf:
+          - type: string
+            maxLength: 300
+          - type: 'null'
+        width:
+          anyOf:
+          - type: integer
+            minimum: 1
+          - type: 'null'
+        height:
+          anyOf:
+          - type: integer
+            minimum: 1
+          - type: 'null'
+    PublicVariantResponse:
+      type: object
+      additionalProperties: false
+      required:
+      - id
+      - product_id
+      - sku
+      - status
+      - sales_enabled
+      - attributes
+      - price
+      - availability
+      - version
+      properties:
+        id:
+          $ref: '#/components/schemas/EntityId'
+        product_id:
+          $ref: '#/components/schemas/EntityId'
+        sku:
+          $ref: '#/components/schemas/Sku'
+        barcode:
+          anyOf:
+          - $ref: '#/components/schemas/Barcode'
+          - type: 'null'
+        name_suffix:
+          anyOf:
+          - type: string
+            maxLength: 150
+          - type: 'null'
+        status:
+          type: string
+          enum:
+          - active
+        sales_enabled:
+          type: boolean
+        weight_grams:
+          anyOf:
+          - type: integer
+            minimum: 0
+          - type: 'null'
+        attributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/PublicVariantAttributeView'
+        price:
+          anyOf:
+          - $ref: '#/components/schemas/PriceView'
+          - type: 'null'
+        availability:
+          $ref: '#/components/schemas/AvailabilityView'
+        version:
+          $ref: '#/components/schemas/EntityVersion'
+    PublicProductResponse:
+      type: object
+      additionalProperties: false
+      required:
+      - id
+      - name_fa
+      - slug
+      - primary_category
+      - sales_enabled
+      - price
+      - media
+      - specifications
+      - variants
+      - version
+      properties:
+        id:
+          $ref: '#/components/schemas/EntityId'
+        name_fa:
+          type: string
+        name_en:
+          anyOf:
+          - type: string
+          - type: 'null'
+        slug:
+          $ref: '#/components/schemas/Slug'
+        short_description:
+          anyOf:
+          - type: string
+          - type: 'null'
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+        brand:
+          anyOf:
+          - $ref: '#/components/schemas/BrandRef'
+          - type: 'null'
+        primary_category:
+          $ref: '#/components/schemas/CategoryRef'
+        additional_categories:
+          type: array
+          items:
+            $ref: '#/components/schemas/CategoryRef'
+        sales_enabled:
+          type: boolean
+        price:
+          anyOf:
+          - $ref: '#/components/schemas/PriceView'
+          - type: 'null'
+        primary_image:
+          anyOf:
+          - $ref: '#/components/schemas/MediaRef'
+          - type: 'null'
+        media:
+          type: array
+          items:
+            $ref: '#/components/schemas/PublicProductMediaView'
+        specifications:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductSpecificationView'
+        variants:
+          type: array
+          items:
+            $ref: '#/components/schemas/PublicVariantResponse'
+        version:
+          $ref: '#/components/schemas/EntityVersion'
+        published_at:
+          $ref: '#/components/schemas/NullableTimestamp'
+        updated_at:
+          $ref: '#/components/schemas/Timestamp'
     ProductCreateRequest:
       type: object
       additionalProperties: false
@@ -6969,7 +7222,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ProductResponse'
+                $ref: '#/components/schemas/PublicProductResponse'
         '404':
           $ref: '#/components/responses/NotFound'
   /categories:
@@ -7865,13 +8118,22 @@ paths:
       operationId: getProductsSlugVariants
       responses:
         '200':
-          description: عملیات موفق
+          description: واریانت‌های عمومی فعال با قیمت و موجودی جاری
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PublicVariantResponse'
+        '404':
+          $ref: '#/components/responses/NotFound'
       parameters:
       - name: slug
         in: path
         required: true
         schema:
           type: string
+
   /products/{slug}/reviews:
     get:
       tags:
