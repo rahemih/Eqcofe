@@ -1,6 +1,9 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { execFileSync } from 'node:child_process';
+import { mkdtempSync, readFileSync, rmSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 import { CatalogQueryService } from '../src/modules/catalog/application/catalog-query.service';
 
 function service() {
@@ -94,4 +97,17 @@ test('Step 61-B preserves authoritative add-to-cart boundary without Cart mutati
   assert.match(openapi, /variant_id:[\s\S]*quantity:/);
   assert.match(cart, /getOnlineSellableQuantity\(variantId\)/);
   assert.match(cart, /INSUFFICIENT_STOCK/);
+});
+
+
+test('Step 61-B generated OpenAPI is byte-for-byte reproducible from canonical source', () => {
+  const dir=mkdtempSync(join(tmpdir(),'eqcofe-step61-openapi-'));
+  const output=join(dir,'openapi.ts');
+  const pnpm=process.platform==='win32'?'pnpm.cmd':'pnpm';
+  try{
+    execFileSync(pnpm,['exec','openapi-typescript','contracts/http/openapi.yaml','-o',output],{stdio:'pipe'});
+    assert.equal(readFileSync('src/generated/openapi.ts','utf8'),readFileSync(output,'utf8'));
+  }finally{
+    rmSync(dir,{recursive:true,force:true});
+  }
 });
