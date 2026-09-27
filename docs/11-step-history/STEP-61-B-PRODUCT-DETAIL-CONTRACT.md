@@ -13,7 +13,7 @@ Canonical base: `bb1b9be162696c302248b8b6244095e30d5aa100` (Step 61-A canonical 
 5. `POST /cart/{id}/items` is already an authoritative add-to-cart boundary and must not be redesigned here.
 
 ## Capability boundary
-The canonical media model supports `image`, `video`, and `document`. Step 61-B exposes only active image/video attachments to the public Product Detail contract. It does **not** invent a 3D/360 media type, viewer URL or metadata. Any true 3D/360 backend capability is deferred to the later media implementation stage and requires its own governed contract change.
+The canonical media model supports `image`, `video`, and `document`. Step 61-B exposes only active image/video attachments to the public Product Detail contract. Public media returns the canonical `storage_key` descriptor and does **not** relabel it as a public viewer URL. It does **not** invent a 3D/360 media type, public URL resolver or 3D metadata. Any true 3D/360 backend capability is deferred to the later media implementation stage and requires its own governed contract change.
 
 ## Authorized implementation
 - align `ProductResponse` with public Product Detail runtime;
@@ -23,6 +23,9 @@ The canonical media model supports `image`, `video`, and `document`. Step 61-B e
 - preserve Admin variant behavior through a separate public projection;
 - add focused regression/contract tests;
 - regenerate generated OpenAPI types.
+
+## Known later-stage contract debt
+OpenAPI contains placeholder product `reviews`, `related` and `recommendations` routes without matching runtime controllers. Step 61-B does not pretend they are executable; Storefront must not consume them. A later governed stage must implement or remove each placeholder before production use.
 
 ## Out of scope
 No Storefront page implementation, DB migration, dependency change, Cart/Pricing/Inventory domain mutation, Compare/Wishlist, checkout/account, or invented 3D/360 capability.
