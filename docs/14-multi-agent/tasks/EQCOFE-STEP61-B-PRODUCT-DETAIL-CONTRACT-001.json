@@ -160,5 +160,9 @@
     "rule": "Step 61-B is HIGH risk. Direct-main write/raw merge prohibited. Human approval is required only after the final exact head and artifact are frozen and technical/security gates are green."
   },
   "process_improvement_links": [],
-  "incident_links": []
+  "incident_links": [],
+  "authorized_human_approver": {
+    "role": "PROJECT_OWNER",
+    "github_login": "rahemih"
+  }
 }
