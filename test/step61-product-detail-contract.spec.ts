@@ -77,7 +77,8 @@ test('Step 61-B OpenAPI and generated types own Product Detail and public varian
   const generated = readFileSync('src/generated/openapi.ts','utf8');
   assert.match(openapi, /PublicProductResponse:/);
   assert.match(openapi, /PublicProductMediaView:/);
-  assert.match(openapi, /PublicProductMediaView:[\s\S]*storage_key:/);\n  assert.match(openapi, /primary_image:[\s\S]*PublicProductMediaView/);
+  assert.match(openapi, /PublicProductMediaView:[\s\S]*storage_key:/);
+  assert.match(openapi, /primary_image:[\s\S]*PublicProductMediaView/);
   assert.doesNotMatch(openapi.match(/PublicProductMediaView:[\s\S]*?PublicVariantResponse:/)?.[0] ?? '', /\n\s+url:/);
   assert.match(openapi, /PublicVariantResponse:/);
   assert.match(openapi, /ProductSpecificationView:/);
@@ -86,7 +87,8 @@ test('Step 61-B OpenAPI and generated types own Product Detail and public varian
   assert.doesNotMatch(openapi.match(/PublicProductMediaView:[\s\S]*?PublicVariantResponse:/)?.[0] ?? '', /3d|360/i);
   assert.match(generated, /PublicProductResponse: \{/);
   assert.match(generated, /PublicProductMediaView: \{/);
-  assert.match(generated, /PublicVariantResponse: \{/);\n  assert.match(generated, /primary_image\?: components\[\"schemas\"\]\[\"PublicProductMediaView\"\] \| null/);
+  assert.match(generated, /PublicVariantResponse: \{/);
+  assert.match(generated, /primary_image\?: components\[\"schemas\"\]\[\"PublicProductMediaView\"\] \| null/);
   assert.match(generated, /"application\/json": components\["schemas"\]\["PublicProductResponse"\]/);
 });
 
