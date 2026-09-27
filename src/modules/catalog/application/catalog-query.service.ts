@@ -373,7 +373,7 @@ export class CatalogQueryService {
       id: String(item.id),
       variant_id: item.variant_id ? String(item.variant_id) : null,
       media_type: item.media_type,
-      url: String(item.storage_key),
+      storage_key: String(item.storage_key),
       mime_type: String(item.mime_type),
       sort_order: Number(item.sort_order),
       is_primary: Boolean(item.is_primary),
@@ -381,7 +381,7 @@ export class CatalogQueryService {
       width: item.width == null ? null : Number(item.width),
       height: item.height == null ? null : Number(item.height),
     }));
-    const primary = media.find((item: any) => item.is_primary) ?? media[0] ?? null;
+    const primary = media.find((item: any) => item.is_primary && item.media_type === 'image') ?? media.find((item: any) => item.media_type === 'image') ?? null;
     const specifications = await this.repo.productAttributes(product.id);
     const price = await this.pricing.getProductPrice(product.id);
     return {
@@ -396,7 +396,7 @@ export class CatalogQueryService {
       additional_categories: additional,
       sales_enabled: Boolean(product.effective_sales_enabled) && Boolean(price),
       price,
-      primary_image: primary ? { id: primary.id, url: primary.url, alt_text_fa: primary.alt_text_fa } : null,
+      primary_image: primary,
       media,
       specifications,
       variants,
