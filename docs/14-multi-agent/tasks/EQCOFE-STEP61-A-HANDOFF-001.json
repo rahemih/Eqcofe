@@ -28,7 +28,8 @@
     ],
     "write": [
       "docs/11-step-history/STEP-61-A-CANONICAL-HANDOFF.md",
-      "docs/14-multi-agent/tasks/EQCOFE-STEP61-A-HANDOFF-001.json"
+      "docs/14-multi-agent/tasks/EQCOFE-STEP61-A-HANDOFF-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
     ],
     "forbidden": [
       ".github/**",
@@ -60,7 +61,8 @@
       "risk": "MEDIUM",
       "paths": [
         "docs/11-step-history/STEP-61-A-CANONICAL-HANDOFF.md",
-        "docs/14-multi-agent/tasks/EQCOFE-STEP61-A-HANDOFF-001.json"
+        "docs/14-multi-agent/tasks/EQCOFE-STEP61-A-HANDOFF-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md"
       ]
     }
   ],
@@ -119,7 +121,7 @@
     },
     {
       "id": "AC-005",
-      "description": "Stage 61-A remains documentation/governance-only; no runtime, dependency, backend, API, DB, migration, permission or business-rule mutation is introduced.",
+      "description": "Stage 61-A remains documentation/governance-only; changes are restricted to the handoff document, Task Contract and deterministic generated Task Catalog; no runtime, dependency, backend, API, DB, migration, permission or business-rule mutation is introduced.",
       "verification": "deterministic_scope_check",
       "mandatory": true
     },
