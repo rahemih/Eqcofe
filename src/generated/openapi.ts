@@ -8512,7 +8512,7 @@ export interface components {
             variant_id?: components["schemas"]["NullableEntityId"];
             /** @enum {string} */
             media_type: "image" | "video";
-            url: string;
+            storage_key: string;
             mime_type: string;
             sort_order: number;
             is_primary: boolean;
@@ -8547,7 +8547,7 @@ export interface components {
             additional_categories?: components["schemas"]["CategoryRef"][];
             sales_enabled: boolean;
             price: components["schemas"]["PriceView"] | null;
-            primary_image?: components["schemas"]["MediaRef"] | null;
+            primary_image?: components["schemas"]["PublicProductMediaView"] | null;
             media: components["schemas"]["PublicProductMediaView"][];
             specifications: components["schemas"]["ProductSpecificationView"][];
             variants: components["schemas"]["PublicVariantResponse"][];
