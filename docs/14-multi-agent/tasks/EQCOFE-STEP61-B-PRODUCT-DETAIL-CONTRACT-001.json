@@ -36,7 +36,24 @@
       "test/step61-product-detail-contract.spec.ts",
       "docs/11-step-history/STEP-61-B-PRODUCT-DETAIL-CONTRACT.md",
       "docs/14-multi-agent/tasks/EQCOFE-STEP61-B-PRODUCT-DETAIL-CONTRACT-001.json",
-      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "docs/13-product-design/step56-admin-shell-wireframes.json",
+      "docs/13-product-design/step56-admin-ux-contract.json",
+      "docs/13-product-design/step56-catalog-media-wireframes.json",
+      "docs/13-product-design/step56-commerce-operations-wireframes.json",
+      "docs/13-product-design/step56-customers-growth-wireframes.json",
+      "docs/13-product-design/step56-final-audit.json",
+      "docs/13-product-design/step56-final-audit/manifest.json",
+      "docs/13-product-design/step56-foundation/A/manifest.json",
+      "docs/13-product-design/step56-management-security-wireframes.json",
+      "docs/13-product-design/step56-pricing-inventory-wireframes.json",
+      "docs/13-product-design/step56-wireframes/B/manifest.json",
+      "docs/13-product-design/step56-wireframes/C/manifest.json",
+      "docs/13-product-design/step56-wireframes/D/manifest.json",
+      "docs/13-product-design/step56-wireframes/E/manifest.json",
+      "docs/13-product-design/step56-wireframes/F/manifest.json",
+      "docs/13-product-design/step56-wireframes/G/manifest.json",
+      "docs/13-product-design/step57-high-fidelity-contract.json"
     ],
     "forbidden": [
       ".github/**",
@@ -48,8 +65,7 @@
       "src/modules/cart/**",
       "src/modules/inventory/**",
       "src/modules/pricing/**",
-      "docs/12-current-state/**",
-      "docs/13-product-design/**"
+      "docs/12-current-state/**"
     ]
   },
   "requested_lock_ids": [
@@ -74,7 +90,24 @@
         "test/step61-product-detail-contract.spec.ts",
         "docs/11-step-history/STEP-61-B-PRODUCT-DETAIL-CONTRACT.md",
         "docs/14-multi-agent/tasks/EQCOFE-STEP61-B-PRODUCT-DETAIL-CONTRACT-001.json",
-        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+        "docs/14-multi-agent/generated/TASK-CATALOG.md",
+        "docs/13-product-design/step56-admin-shell-wireframes.json",
+        "docs/13-product-design/step56-admin-ux-contract.json",
+        "docs/13-product-design/step56-catalog-media-wireframes.json",
+        "docs/13-product-design/step56-commerce-operations-wireframes.json",
+        "docs/13-product-design/step56-customers-growth-wireframes.json",
+        "docs/13-product-design/step56-final-audit.json",
+        "docs/13-product-design/step56-final-audit/manifest.json",
+        "docs/13-product-design/step56-foundation/A/manifest.json",
+        "docs/13-product-design/step56-management-security-wireframes.json",
+        "docs/13-product-design/step56-pricing-inventory-wireframes.json",
+        "docs/13-product-design/step56-wireframes/B/manifest.json",
+        "docs/13-product-design/step56-wireframes/C/manifest.json",
+        "docs/13-product-design/step56-wireframes/D/manifest.json",
+        "docs/13-product-design/step56-wireframes/E/manifest.json",
+        "docs/13-product-design/step56-wireframes/F/manifest.json",
+        "docs/13-product-design/step56-wireframes/G/manifest.json",
+        "docs/13-product-design/step57-high-fidelity-contract.json"
       ]
     }
   ],
@@ -101,7 +134,8 @@
       "GET /products/{slug}/variants exists publicly but its 200 response is untyped and shares the admin-oriented query method."
     ],
     "media_capability_boundary": "Canonical DB/service supports image, video and document only. No 3D/360 media type or metadata exists; Step 61-B must not invent it.",
-    "cart_boundary": "POST /cart/{id}/items is already typed and runtime-validates sellability and authoritative online stock. Step 61-B must not mutate Cart rules."
+    "cart_boundary": "POST /cart/{id}/items is already typed and runtime-validates sellability and authoritative online stock. Step 61-B must not mutate Cart rules.",
+    "provenance_sync": "Step56/57 validators pin mutable runtime/OpenAPI source hashes. Repair is restricted to exact hash/manifest synchronization using the canonical cascade proven in Step 60-B; no design semantics or historical verdicts may change."
   },
   "acceptance_criteria": [
     {
