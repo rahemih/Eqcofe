@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import type { ResolvedProductMedia } from "./product-detail-media.server.js";
 
 export function ProductMediaGallery({
@@ -14,13 +14,8 @@ export function ProductMediaGallery({
   );
   const [activeId, setActiveId] = useState<string | null>(visible[0]?.id ?? null);
 
-  useEffect(() => {
-    if (!visible.some((item) => item.id === activeId)) {
-      setActiveId(visible[0]?.id ?? null);
-    }
-  }, [activeId, visible]);
-
-  const activeIndex = Math.max(0, visible.findIndex((item) => item.id === activeId));
+  const requestedIndex = visible.findIndex((item) => item.id === activeId);
+  const activeIndex = requestedIndex >= 0 ? requestedIndex : 0;
   const active = visible[activeIndex] ?? null;
 
   if (!active) {

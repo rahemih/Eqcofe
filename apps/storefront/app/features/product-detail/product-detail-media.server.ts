@@ -67,10 +67,19 @@ export function resolveMediaDeliveryUrl(
       || decoded === ".."
       || decoded.includes("/")
       || decoded.includes("\\")
-      || /[\u0000-\u001f\u007f]/.test(decoded)
+      || hasControlCharacter(decoded)
     ) return null;
     encodedSegments.push(encodeURIComponent(decoded));
   }
 
   return `${publicBaseUrl.replace(/\/+$/, "")}/${encodedSegments.join("/")}`;
+}
+
+
+function hasControlCharacter(value: string): boolean {
+  for (const character of value) {
+    const code = character.charCodeAt(0);
+    if (code <= 0x1f || code === 0x7f) return true;
+  }
+  return false;
 }
