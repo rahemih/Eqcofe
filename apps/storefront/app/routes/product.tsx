@@ -34,6 +34,7 @@ export default function ProductRoute() {
   if (loaderData.product.status !== "ready") {
     return (
       <div className="product-detail-page" data-product-state={loaderData.product.status}>
+        <h1>جزئیات محصول</h1>
         <StatePanel
           variant="error"
           title="اطلاعات محصول در دسترس نیست"
