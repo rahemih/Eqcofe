@@ -3,10 +3,21 @@ import type { ProductVariant } from "./product-detail-contract.js";
 import { availabilityLabel, selectDefaultVariantId, variantLabel } from "./product-variant-selection.js";
 import { formatToman } from "../home/home-merchandising.js";
 
-export function ProductVariantSelector({ variants }: { variants: readonly ProductVariant[] }) {
+export type ProductVariantSelectorProps = {
+  variants: readonly ProductVariant[];
+  selectedId?: string | null;
+  onSelect?: (variantId: string) => void;
+};
+
+export function ProductVariantSelector({
+  variants,
+  selectedId,
+  onSelect,
+}: ProductVariantSelectorProps) {
   const initialVariantId = useMemo(() => selectDefaultVariantId(variants), [variants]);
-  const [selectedId, setSelectedId] = useState(initialVariantId);
-  const selected = variants.find((variant) => variant.id === selectedId) ?? variants[0] ?? null;
+  const [internalSelectedId, setInternalSelectedId] = useState(initialVariantId);
+  const effectiveSelectedId = selectedId === undefined ? internalSelectedId : selectedId;
+  const selected = variants.find((variant) => variant.id === effectiveSelectedId) ?? variants[0] ?? null;
 
   if (!selected) {
     return (
@@ -17,10 +28,14 @@ export function ProductVariantSelector({ variants }: { variants: readonly Produc
     );
   }
 
+  const selectVariant = (variantId: string) => {
+    if (selectedId === undefined) setInternalSelectedId(variantId);
+    onSelect?.(variantId);
+  };
+
   return (
     <section className="product-variants" aria-labelledby="product-variants-title">
       <h2 id="product-variants-title">انتخاب مدل</h2>
-
       <div className="product-variants__choices" role="radiogroup" aria-label="مدل‌های قابل انتخاب">
         {variants.map((variant) => {
           const checked = variant.id === selected.id;
@@ -32,7 +47,7 @@ export function ProductVariantSelector({ variants }: { variants: readonly Produc
               aria-checked={checked}
               className="product-variants__choice"
               data-selected={checked || undefined}
-              onClick={() => setSelectedId(variant.id)}
+              onClick={() => selectVariant(variant.id)}
             >
               <span>{variantLabel(variant)}</span>
               <span className="product-variants__choice-stock">{availabilityLabel(variant)}</span>
@@ -40,7 +55,6 @@ export function ProductVariantSelector({ variants }: { variants: readonly Produc
           );
         })}
       </div>
-
       <div className="product-variant-state" aria-live="polite" aria-atomic="true">
         <p className="product-variant-state__name">{variantLabel(selected)}</p>
         {selected.price ? (
@@ -63,4 +77,3 @@ export function ProductVariantSelector({ variants }: { variants: readonly Produc
     </section>
   );
 }
-

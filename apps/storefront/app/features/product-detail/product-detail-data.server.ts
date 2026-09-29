@@ -1,4 +1,5 @@
 import type { ApiClientConfig } from "../../platform/api/request.js";
+import { readServerMediaConfig } from "../../platform/config/api.server.js";
 import {
   createCustomerSessionBridge,
   type CustomerSessionBridge,
@@ -12,10 +13,18 @@ import type {
   ProductDetailResponse,
   ProductVariantsResponse,
 } from "./product-detail-contract.js";
+import {
+  PRODUCT_MEDIA_CAPABILITIES,
+  resolveProductMedia,
+  type ProductMediaCapabilities,
+  type ResolvedProductMedia,
+} from "./product-detail-media.server.js";
 
 export type ProductDetailRouteData = {
   product: AsyncSurfaceState<ProductDetailResponse>;
   variants: AsyncSurfaceState<ProductVariantsResponse>;
+  media: readonly ResolvedProductMedia[];
+  mediaCapabilities: ProductMediaCapabilities;
   contract: {
     method: "GET";
     path: "/products/{slug}";
@@ -31,6 +40,7 @@ export type ProductDetailRouteData = {
 export type LoadProductDetailOptions = {
   config?: ApiClientConfig;
   fetchImpl?: typeof fetch;
+  mediaPublicBaseUrl?: string | null;
 };
 
 export type ProductDetailRouteDataResult = {
@@ -64,10 +74,16 @@ export async function loadProductDetailFoundation(
       });
     }
 
+    const mediaBaseUrl = options.mediaPublicBaseUrl === undefined
+      ? safeReadMediaBaseUrl()
+      : options.mediaPublicBaseUrl;
+
     return {
       data: {
         product: readyState(productResult.data),
         variants,
+        media: resolveProductMedia(productResult.data.media, mediaBaseUrl),
+        mediaCapabilities: PRODUCT_MEDIA_CAPABILITIES,
         contract: productDetailContract(),
       },
       setCookies: bridge.takeSetCookies(),
@@ -84,10 +100,20 @@ export async function loadProductDetailFoundation(
           method: "get",
           connectivity: "unknown",
         }),
+        media: [],
+        mediaCapabilities: PRODUCT_MEDIA_CAPABILITIES,
         contract: productDetailContract(),
       },
       setCookies: bridge?.takeSetCookies() ?? [],
     };
+  }
+}
+
+function safeReadMediaBaseUrl(): string | null {
+  try {
+    return readServerMediaConfig().publicBaseUrl;
+  } catch {
+    return null;
   }
 }
 
