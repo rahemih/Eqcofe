@@ -38,7 +38,7 @@ export async function addProductVariantToCart(
     ...(options.fetchImpl ? { fetchImpl: options.fetchImpl } : {}),
   });
 
-  let credentials = readCartCredentials(request);
+  const credentials = readCartCredentials(request);
   const setCookies: string[] = [];
 
   if (credentials) {
@@ -47,7 +47,6 @@ export async function addProductVariantToCart(
       return { itemCount: result.items.length, setCookies };
     } catch (error) {
       if (!(error instanceof ApiClientError) || error.code !== "CART_ACCESS_DENIED") throw error;
-      credentials = null;
     }
   }
 
