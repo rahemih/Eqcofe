@@ -1,0 +1,32 @@
+.product-detail-summary {
+  display: grid;
+  gap: 1rem;
+  inline-size: 100%;
+}
+
+.product-detail-summary__identity,
+.product-detail-summary__commercial {
+  min-inline-size: 0;
+}
+
+.product-detail-summary__category,
+.product-detail-summary__description,
+.product-detail-summary__price,
+.product-detail-summary__price-unavailable {
+  margin: 0;
+}
+
+.product-detail-summary h1 {
+  margin-block: 0.5rem;
+}
+
+.product-detail-summary__price {
+  font-weight: 700;
+}
+
+@media (min-width: 48rem) {
+  .product-detail-summary {
+    grid-template-columns: minmax(0, 1fr) minmax(12rem, auto);
+    align-items: start;
+  }
+}
