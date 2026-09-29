@@ -35,7 +35,7 @@ export default function ProductRoute() {
     return (
       <div className="product-detail-page" data-product-state={loaderData.product.status}>
         <StatePanel
-          variant="danger"
+          variant="error"
           title="اطلاعات محصول در دسترس نیست"
           message="بارگذاری جزئیات محصول انجام نشد. دوباره تلاش کنید."
           requestId={"problem" in loaderData.product ? loaderData.product.problem.requestId : null}
@@ -57,7 +57,7 @@ export default function ProductRoute() {
         <section className="product-variants" aria-labelledby="product-variants-title">
           <h2 id="product-variants-title">انتخاب مدل</h2>
           <StatePanel
-            variant="warning"
+            variant="recovery"
             title="وضعیت مدل‌ها در دسترس نیست"
             message="اطلاعات قیمت و موجودی مدل‌ها بارگذاری نشد. برای تازه‌سازی دوباره تلاش کنید."
             requestId={"problem" in loaderData.variants ? loaderData.variants.problem.requestId : null}

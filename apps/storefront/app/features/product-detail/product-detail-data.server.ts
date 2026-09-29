@@ -17,11 +17,9 @@ export type ProductDetailRouteData = {
   product: AsyncSurfaceState<ProductDetailResponse>;
   variants: AsyncSurfaceState<ProductVariantsResponse>;
   contract: {
-    product: {
-      method: "GET";
-      path: "/products/{slug}";
-      authority: "backend";
-    };
+    method: "GET";
+    path: "/products/{slug}";
+    authority: "backend";
     variants: {
       method: "GET";
       path: "/products/{slug}/variants";
@@ -95,11 +93,9 @@ export async function loadProductDetailFoundation(
 
 function productDetailContract(): ProductDetailRouteData["contract"] {
   return {
-    product: {
-      method: "GET",
-      path: "/products/{slug}",
-      authority: "backend",
-    },
+    method: "GET",
+    path: "/products/{slug}",
+    authority: "backend",
     variants: {
       method: "GET",
       path: "/products/{slug}/variants",

@@ -129,7 +129,7 @@ try {
   assert.equal(result.data.product.status, "ready");
   assert.equal(result.data.variants.status, "ready");
   assert.deepEqual(hits, ["/products/sample-product", "/products/sample-product/variants"]);
-  assert.equal(result.data.contract.product.authority, "backend");
+  assert.equal(result.data.contract.authority, "backend");
   assert.equal(result.data.contract.variants.authority, "backend");
 
   console.log(JSON.stringify({
