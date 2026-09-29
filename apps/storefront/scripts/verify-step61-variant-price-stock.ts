@@ -7,7 +7,7 @@ import {
   availabilityLabel,
   selectDefaultVariantId,
   variantLabel,
-} from "../app/features/product-detail/ProductVariantSelector.js";
+} from "../app/features/product-detail/product-variant-selection.js";
 import { loadProductDetailFoundation } from "../app/features/product-detail/product-detail-data.server.js";
 import type { ProductVariant } from "../app/features/product-detail/product-detail-contract.js";
 
