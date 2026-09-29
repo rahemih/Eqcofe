@@ -2,7 +2,7 @@
   "schema_version": "2.2",
   "task_id": "EQCOFE-STEP61-D-VARIANT-PRICE-STOCK-001",
   "title": "Step 61-D variant selection, price and stock states",
-  "description": "Productionize the Product Detail route and implement customer-facing variant selection using only canonical public variant price and availability truth from Step 61-B. Fetch typed GET /products/{slug}/variants through the existing server session bridge, select an appropriate default variant without inventing commercial truth, expose current/old price and low-stock/out-of-stock/stopped-sale states from backend fields, and keep rich media, specifications, related content, cart mutation and final hardening deferred to later Step 61 stages.",
+  "description": "Productionize the Product Detail route and implement customer-facing variant selection using only canonical public variant price and availability truth from Step 61-B. Fetch typed GET /products/{slug}/variants through the existing server session bridge, select an appropriate default variant without inventing commercial truth, expose current/old price and low-stock/out-of-stock/stopped-sale states from backend fields, and keep rich media, specifications, related content, cart mutation and final hardening deferred to later Step 61 stages. Legacy Storefront QA assertions that still require the pre-61-D Product placeholder may be migrated only where necessary to validate the production Product route, without weakening their existing merchandising, accessibility, responsive, RTL or safety guarantees.",
   "risk": "MEDIUM",
   "risk_floor": "MEDIUM",
   "owner": "PRODUCT_DESIGN",
@@ -31,7 +31,9 @@
       "apps/storefront/scripts/verify-step61-variant-price-stock.ts",
       "docs/11-step-history/STEP-61-D-VARIANT-PRICE-STOCK.md",
       "docs/14-multi-agent/tasks/EQCOFE-STEP61-D-VARIANT-PRICE-STOCK-001.json",
-      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "apps/storefront/scripts/verify-step59-merchandising.ts",
+      "apps/storefront/scripts/verify-quality-browser.mjs"
     ],
     "forbidden": [
       ".github/**",
@@ -70,7 +72,9 @@
         "apps/storefront/scripts/verify-step61-variant-price-stock.ts",
         "docs/11-step-history/STEP-61-D-VARIANT-PRICE-STOCK.md",
         "docs/14-multi-agent/tasks/EQCOFE-STEP61-D-VARIANT-PRICE-STOCK-001.json",
-        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+        "docs/14-multi-agent/generated/TASK-CATALOG.md",
+        "apps/storefront/scripts/verify-step59-merchandising.ts",
+        "apps/storefront/scripts/verify-quality-browser.mjs"
       ]
     }
   ],
@@ -132,6 +136,12 @@
       "id": "AC-006",
       "description": "Canonical completion requires root pnpm verify, exact-head Canonical CI, Phase A, Storefront quality, deterministic Review, exact-artifact ACTIVE Lock, protected merge, exact-SHA postmerge verification and terminal Lock release before 61-E.",
       "verification": "canonical_transport_and_postmerge_evidence",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "Legacy Step 59 merchandising and Storefront browser-quality checks are migrated from the obsolete Product placeholder assumption to the production Product Detail route without weakening their existing quality assertions.",
+      "verification": "pnpm --dir apps/storefront merchandising:verify && pnpm --dir apps/storefront quality:browser",
       "mandatory": true
     }
   ],
