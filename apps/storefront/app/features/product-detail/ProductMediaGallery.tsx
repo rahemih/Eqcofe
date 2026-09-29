@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import type { ResolvedProductMedia } from "./product-detail-media.server.js";
+import { selectVisibleProductMedia, type ResolvedProductMedia } from "./product-detail-media.server.js";
 
 export function ProductMediaGallery({
   media,
@@ -93,15 +93,6 @@ export function ProductMediaGallery({
       <CapabilityNotice />
     </section>
   );
-}
-
-export function selectVisibleProductMedia(
-  media: readonly ResolvedProductMedia[],
-  selectedVariantId: string | null,
-): readonly ResolvedProductMedia[] {
-  return [...media]
-    .filter((item) => item.variant_id == null || item.variant_id === selectedVariantId)
-    .sort((left, right) => left.sort_order - right.sort_order || left.id.localeCompare(right.id));
 }
 
 function CapabilityNotice() {

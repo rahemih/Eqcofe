@@ -6,9 +6,9 @@ import {
   PRODUCT_MEDIA_CAPABILITIES,
   resolveMediaDeliveryUrl,
   resolveProductMedia,
+  selectVisibleProductMedia,
   type ResolvedProductMedia,
 } from "../app/features/product-detail/product-detail-media.server.js";
-import { selectVisibleProductMedia } from "../app/features/product-detail/ProductMediaGallery.js";
 import { normalizeMediaPublicBaseUrl } from "../app/platform/config/api.server.js";
 import type { ProductMedia } from "../app/features/product-detail/product-detail-contract.js";
 
