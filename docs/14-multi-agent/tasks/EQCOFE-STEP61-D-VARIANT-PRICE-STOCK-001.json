@@ -34,7 +34,8 @@
       "docs/14-multi-agent/generated/TASK-CATALOG.md",
       "apps/storefront/scripts/verify-step59-merchandising.ts",
       "apps/storefront/scripts/verify-quality-browser.mjs",
-      "apps/storefront/scripts/verify-step59-acceptance.ts"
+      "apps/storefront/scripts/verify-step59-acceptance.ts",
+      "apps/storefront/scripts/verify-step61-product-detail-foundation.ts"
     ],
     "forbidden": [
       ".github/**",
@@ -76,7 +77,8 @@
         "docs/14-multi-agent/generated/TASK-CATALOG.md",
         "apps/storefront/scripts/verify-step59-merchandising.ts",
         "apps/storefront/scripts/verify-quality-browser.mjs",
-        "apps/storefront/scripts/verify-step59-acceptance.ts"
+        "apps/storefront/scripts/verify-step59-acceptance.ts",
+        "apps/storefront/scripts/verify-step61-product-detail-foundation.ts"
       ]
     }
   ],
@@ -142,8 +144,8 @@
     },
     {
       "id": "AC-007",
-      "description": "Legacy Step 59 merchandising/acceptance and Storefront browser-quality checks are migrated from the obsolete Product placeholder assumption to the production Product Detail route without weakening their existing quality assertions.",
-      "verification": "pnpm --dir apps/storefront merchandising:verify && pnpm --dir apps/storefront step59:acceptance && pnpm --dir apps/storefront quality:browser",
+      "description": "Legacy Step 59 merchandising/acceptance, Storefront browser-quality, and Step 61-C foundation checks are migrated from obsolete pre-61-D assumptions to the production Product Detail route without weakening their original foundation or quality guarantees.",
+      "verification": "pnpm --dir apps/storefront merchandising:verify && pnpm --dir apps/storefront step59:acceptance && pnpm --dir apps/storefront product-detail-foundation:verify && pnpm --dir apps/storefront quality:browser",
       "mandatory": true
     }
   ],
