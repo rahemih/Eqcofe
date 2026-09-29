@@ -18,6 +18,10 @@ const repoRoot = resolve(storefrontRoot, "../..");
 const routeSource = readFileSync(resolve(storefrontRoot, "app/routes/product.tsx"), "utf8");
 const dataSource = readFileSync(resolve(storefrontRoot, "app/features/product-detail/product-detail-data.server.ts"), "utf8");
 const selectorSource = readFileSync(resolve(storefrontRoot, "app/features/product-detail/ProductVariantSelector.tsx"), "utf8");
+const selectionSource = readFileSync(
+  resolve(storefrontRoot, "app/features/product-detail/product-variant-selection.ts"),
+  "utf8",
+);
 const openApi = readFileSync(resolve(repoRoot, "src/generated/openapi.ts"), "utf8");
 
 assert.match(routeSource, /loadProductDetailFoundation/);
@@ -26,8 +30,8 @@ assert.match(routeSource, /appendCustomerSessionSetCookies/);
 assert.equal(routeSource.includes("RoutePlaceholder"), false, "STEP61_D_ROUTE_STILL_PLACEHOLDER");
 assert.match(dataSource, /"\/products\/\{slug\}\/variants"/);
 assert.match(dataSource, /pathParams: \{ slug \}/);
-assert.match(selectorSource, /availability\.in_stock/);
-assert.match(selectorSource, /availability\.available_quantity/);
+assert.match(selectionSource, /availability\.in_stock/);
+assert.match(selectionSource, /availability\.available_quantity/);
 assert.match(selectorSource, /price\.current_toman/);
 assert.match(selectorSource, /price\.old_toman/);
 assert.equal(/localStorage|sessionStorage|document\.cookie|fetch\(/.test(selectorSource), false, "STEP61_D_CLIENT_AUTHORITY_FORBIDDEN");
