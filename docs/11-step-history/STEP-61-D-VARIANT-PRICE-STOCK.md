@@ -31,3 +31,5 @@ Stage 61-D is not complete until protected Merge Policy transport, exact-SHA pos
 
 ## QA compatibility migration
 Step 61-D intentionally removes the Product placeholder. Two older Storefront verifiers that encoded the placeholder as an implementation detail are migrated within this task: the Step 59 merchandising source assertion now requires the production Product loader/variant selector, and the browser text-spacing probe targets live Product Detail paragraph content instead of `.route-placeholder p`. Their merchandising, accessibility, RTL, responsive and no-overflow guarantees remain unchanged.
+
+The Step 59 acceptance verifier is also migrated from the obsolete Product placeholder marker to the production Product Detail loader/variant-selector contract. This is test-contract maintenance only; product behavior is unchanged.

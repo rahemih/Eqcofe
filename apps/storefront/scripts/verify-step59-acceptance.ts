@@ -49,7 +49,9 @@ assert.equal(home.includes("RoutePlaceholder"), false, "STEP59_G_HOME_REGRESSED_
 
 assert(searchProductionized || /targetStep=\{60\}/.test(search), "STEP59_G_SEARCH_HANDOFF_INVALID");
 assert(categoryProductionized || /targetStep=\{60\}/.test(category), "STEP59_G_CATEGORY_HANDOFF_INVALID");
-assert.match(product, /targetStep=\{61\}/);
+assert.match(product, /loadProductDetailFoundation/);
+assert.match(product, /ProductVariantSelector/);
+assert.equal(product.includes("RoutePlaceholder"), false, "STEP61_D_PRODUCT_HANDOFF_INVALID");
 assert.match(wholesale, /targetStep=\{65\}/);
 assert.match(articles, /targetStep=\{66\}/);
 
