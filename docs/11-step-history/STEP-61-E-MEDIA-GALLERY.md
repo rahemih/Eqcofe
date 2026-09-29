@@ -17,6 +17,9 @@ The canonical contract exposes no 3D/360 media type, model URL, spin-frame set o
 - safe unavailable state if delivery configuration is absent or invalid;
 - explicit 3D/360 capability notice.
 
+## Legacy QA compatibility
+Step59 merchandising verification is migrated from obsolete direct `ProductVariantSelector` route ownership to the production composition boundary `product route -> ProductDetailExperience -> ProductVariantSelector`. The original production-route assertion remains in force.
+
 ## Deferrals
 - specifications, related content and add-to-cart → 61-F;
 - final SEO/state/accessibility/responsive hardening → 61-G;

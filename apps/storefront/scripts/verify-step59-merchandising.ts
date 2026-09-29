@@ -18,6 +18,10 @@ const projectionSource = readFileSync(resolve(storefrontRoot, "app/features/home
 const componentSource = readFileSync(resolve(storefrontRoot, "app/features/home/HomeMerchandising.tsx"), "utf8");
 const homeRouteSource = readFileSync(resolve(storefrontRoot, "app/routes/home.tsx"), "utf8");
 const productRouteSource = readFileSync(resolve(storefrontRoot, "app/routes/product.tsx"), "utf8");
+const productExperienceSource = readFileSync(
+  resolve(storefrontRoot, "app/features/product-detail/ProductDetailExperience.tsx"),
+  "utf8",
+);
 const articlesRouteSource = readFileSync(resolve(storefrontRoot, "app/routes/articles.tsx"), "utf8");
 const wholesaleRouteSource = readFileSync(resolve(storefrontRoot, "app/routes/wholesale.tsx"), "utf8");
 const css = readFileSync(resolve(storefrontRoot, "app/styles/home.css"), "utf8");
@@ -114,7 +118,8 @@ for (const forbiddenPhrase of ["جشنواره", "خرید اول", "اولین 
 }
 
 assert.match(productRouteSource, /loadProductDetailFoundation/);
-assert.match(productRouteSource, /ProductVariantSelector/);
+assert.match(productRouteSource, /ProductDetailExperience/);
+assert.match(productExperienceSource, /ProductVariantSelector/);
 assert.equal(
   productRouteSource.includes("RoutePlaceholder"),
   false,
