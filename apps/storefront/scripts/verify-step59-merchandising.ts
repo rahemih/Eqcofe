@@ -113,7 +113,13 @@ for (const forbiddenPhrase of ["جشنواره", "خرید اول", "اولین 
   );
 }
 
-assert.match(productRouteSource, /loadProductDetailFoundation/);\nassert.match(productRouteSource, /ProductVariantSelector/);\nassert.equal(productRouteSource.includes("RoutePlaceholder"), false, "STEP61_D_PRODUCT_ROUTE_NOT_PRODUCTIONIZED");
+assert.match(productRouteSource, /loadProductDetailFoundation/);
+assert.match(productRouteSource, /ProductVariantSelector/);
+assert.equal(
+  productRouteSource.includes("RoutePlaceholder"),
+  false,
+  "STEP61_D_PRODUCT_ROUTE_NOT_PRODUCTIONIZED",
+);
 assert.match(articlesRouteSource, /targetStep=\{66\}/);
 assert.match(wholesaleRouteSource, /targetStep=\{65\}/);
 
