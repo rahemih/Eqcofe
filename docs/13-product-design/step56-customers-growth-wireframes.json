@@ -826,19 +826,19 @@
   "sources": [
     {
       "path": "contracts/http/openapi.yaml",
-      "sha256": "b0712df0d593230391d4cbe23612e5489255407c8d635877dc58adb5e23db51d"
+      "sha256": "51f6d9230c25cf26308bd419cb5f4e7f49589b46439d352a5878982a567db6bf"
     },
     {
       "path": "docs/13-product-design/step56-admin-shell-wireframes.json",
-      "sha256": "c5d9d28eb6ef54043f8792ffc804998396891fbbf20026f9219a28192bf21607"
+      "sha256": "f56d3db97693c1f2e3777fe2fab26684533037353bc5948e06788691edc5bfe4"
     },
     {
       "path": "docs/13-product-design/step56-admin-ux-contract.json",
-      "sha256": "1c15f0730e511c0c4dd0e2ed88578dc181899dabcbd0fcc5e81caf2f56b49ea4"
+      "sha256": "0871e6108e1350b8d79e72aa03dc6a2529994d90a499ace95a0668ca5ee8e8df"
     },
     {
       "path": "docs/13-product-design/step56-commerce-operations-wireframes.json",
-      "sha256": "37bccac68d570cec3688add0a2ff7be5e506be3232bf32b8aa8b891b9066bf0b"
+      "sha256": "8e4f8baf34fe7f5ea05a9551aceedfcc85546548c360410d80e3c22ce1c2aa08"
     },
     {
       "path": "src/modules/ai/ai.module.ts",
@@ -902,7 +902,7 @@
     },
     {
       "path": "src/modules/catalog/application/catalog-query.service.ts",
-      "sha256": "f8f71e29a0f35ee2b8fef77d6cb4ce9f4f2278bd3bbf93f39fecc96865c1f4d5"
+      "sha256": "27bac600e34965ee5fb35a49ed7beab7b9716f6e16a44460bad57e82bdf68afc"
     },
     {
       "path": "src/modules/catalog/application/catalog-structure.service.ts",
@@ -974,7 +974,7 @@
     },
     {
       "path": "src/modules/catalog/infrastructure/catalog.repository.ts",
-      "sha256": "c3c16a781ea5e20cec8afb37842b39a8e181ed41099927637ab7bf8207ab5d87"
+      "sha256": "8348a8615a981f6869970d6deeab7c4b13fc197179a1fafa457c9933d8fe1831"
     },
     {
       "path": "src/modules/catalog/infrastructure/configured-media-storage.adapter.ts",
@@ -986,7 +986,7 @@
     },
     {
       "path": "src/modules/catalog/presentation/catalog.controller.ts",
-      "sha256": "48e44904ad35f064a749f94bb79ce0f070629a618b4be3cceb796265cba22236"
+      "sha256": "8402e95d85b931758bfe2830b921309262e8bd7913fe6746b59c6f4ef1f3986c"
     },
     {
       "path": "src/modules/content/application/article-admin-query.service.ts",

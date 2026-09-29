@@ -8481,6 +8481,80 @@ export interface components {
             availability?: components["schemas"]["AvailabilityView"] | null;
             version?: components["schemas"]["EntityVersion"];
         };
+        ProductSpecificationView: {
+            attribute_id: components["schemas"]["EntityId"];
+            key: string;
+            name_fa: string;
+            unit?: string | null;
+            data_type: string;
+            is_filterable: boolean;
+            is_comparable: boolean;
+            attribute_value_id: components["schemas"]["EntityId"];
+            value_text?: string | null;
+            value_numeric?: number | null;
+            value_boolean?: boolean | null;
+            normalized_value?: string | null;
+        };
+        PublicVariantAttributeView: {
+            attribute_id: components["schemas"]["EntityId"];
+            key: string;
+            name_fa: string;
+            unit?: string | null;
+            data_type: string;
+            attribute_value_id: components["schemas"]["EntityId"];
+            value_text?: string | null;
+            value_numeric?: number | null;
+            value_boolean?: boolean | null;
+            normalized_value?: string | null;
+        };
+        PublicProductMediaView: {
+            id: components["schemas"]["EntityId"];
+            variant_id?: components["schemas"]["NullableEntityId"];
+            /** @enum {string} */
+            media_type: "image" | "video";
+            storage_key: string;
+            mime_type: string;
+            sort_order: number;
+            is_primary: boolean;
+            alt_text_fa?: string | null;
+            width?: number | null;
+            height?: number | null;
+        };
+        PublicVariantResponse: {
+            id: components["schemas"]["EntityId"];
+            product_id: components["schemas"]["EntityId"];
+            sku: components["schemas"]["Sku"];
+            barcode?: components["schemas"]["Barcode"] | null;
+            name_suffix?: string | null;
+            /** @enum {string} */
+            status: "active";
+            sales_enabled: boolean;
+            weight_grams?: number | null;
+            attributes: components["schemas"]["PublicVariantAttributeView"][];
+            price: components["schemas"]["PriceView"] | null;
+            availability: components["schemas"]["AvailabilityView"];
+            version: components["schemas"]["EntityVersion"];
+        };
+        PublicProductResponse: {
+            id: components["schemas"]["EntityId"];
+            name_fa: string;
+            name_en?: string | null;
+            slug: components["schemas"]["Slug"];
+            short_description?: string | null;
+            description?: string | null;
+            brand?: components["schemas"]["BrandRef"] | null;
+            primary_category: components["schemas"]["CategoryRef"];
+            additional_categories?: components["schemas"]["CategoryRef"][];
+            sales_enabled: boolean;
+            price: components["schemas"]["PriceView"] | null;
+            primary_image?: components["schemas"]["PublicProductMediaView"] | null;
+            media: components["schemas"]["PublicProductMediaView"][];
+            specifications: components["schemas"]["ProductSpecificationView"][];
+            variants: components["schemas"]["PublicVariantResponse"][];
+            version: components["schemas"]["EntityVersion"];
+            published_at?: components["schemas"]["NullableTimestamp"];
+            updated_at?: components["schemas"]["Timestamp"];
+        };
         ProductCreateRequest: {
             name_fa: string;
             name_en?: string | null;
@@ -10548,7 +10622,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ProductResponse"];
+                    "application/json": components["schemas"]["PublicProductResponse"];
                 };
             };
             404: components["responses"]["NotFound"];
@@ -11386,13 +11460,16 @@ export interface operations {
         };
         requestBody?: never;
         responses: {
-            /** @description عملیات موفق */
+            /** @description واریانت‌های عمومی فعال با قیمت و موجودی جاری */
             200: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["PublicVariantResponse"][];
+                };
             };
+            404: components["responses"]["NotFound"];
         };
     };
     getProductsSlugReviews: {
