@@ -208,7 +208,7 @@ async function assertTextSpacingAndLongPersian(page) {
       "p { margin-block-end: 2em !important; }",
     ].join("\n"),
   });
-  await page.locator(".route-placeholder p").first().evaluate((element) => {
+  await page.locator(".product-detail-page p").first().evaluate((element) => {
     element.textContent = "این یک متن آزمایشی بسیار طولانی فارسی برای بررسی بازچینی، فاصلهٔ متن، خوانایی و جلوگیری از برش یا هم‌پوشانی محتوا در عرض فشرده است. ".repeat(12);
   });
   await assertNoHorizontalOverflow(page, "TEXT_SPACING_LONG_PERSIAN");

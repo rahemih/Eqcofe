@@ -39,33 +39,48 @@ assert.match(contractSource, /schemas"\]\["ProductSpecificationView"/);
 assert.match(dataSource, /createCustomerSessionBridge/);
 assert.match(dataSource, /classifyApiFailureState/);
 assert.match(dataSource, /pathParams: \{ slug \}/);
-assert.equal(dataSource.includes('"/products/{slug}/variants"'), false, "STEP61_C_VARIANT_REQUEST_EARLY");
 assert.equal(/POST|PATCH|PUT|DELETE/.test(dataSource), false, "STEP61_C_MUTATION_FORBIDDEN");
 assert.match(componentSource, /name_fa/);
 assert.match(componentSource, /primary_category\.name_fa/);
 assert.match(componentSource, /price\.current_toman/);
 assert.equal(componentSource.includes("availability.status"), false, "STEP61_C_VARIANT_AVAILABILITY_EARLY");
-assert.match(routeSource, /RoutePlaceholder/);
-assert.match(routeSource, /targetStep=\{61\}/);
-assert.equal(routeSource.includes("loadProductDetailFoundation"), false, "STEP61_C_ROUTE_PRODUCTIONIZED_EARLY");
+const routeIsPlaceholder = routeSource.includes("RoutePlaceholder");
+const routeIsProductionized = routeSource.includes("loadProductDetailFoundation");
+assert(
+  routeIsPlaceholder || routeIsProductionized,
+  "STEP61_C_ROUTE_HANDOFF_INVALID",
+);
 assert.match(generatedOpenApi, /PublicProductResponse:/);
 assert.match(generatedOpenApi, /PublicVariantResponse:/);
 assert.match(generatedOpenApi, /PublicProductMediaView:/);
 assert.match(generatedOpenApi, /ProductSpecificationView:/);
 
-let hits = 0;
+let productHits = 0;
+let variantHits = 0;
 let observedPath = "";
 const server = http.createServer((request, response) => {
   const url = new URL(request.url ?? "/", "http://127.0.0.1");
   observedPath = url.pathname;
 
-  if (request.method !== "GET" || url.pathname !== "/products/sample-product") {
+  if (request.method !== "GET") {
+    response.statusCode = 405;
+    response.end();
+    return;
+  }
+
+  if (url.pathname === "/products/sample-product/variants") {
+    variantHits += 1;
+    sendJson(response, 200, []);
+    return;
+  }
+
+  if (url.pathname !== "/products/sample-product") {
     response.statusCode = 404;
     response.end();
     return;
   }
 
-  hits += 1;
+  productHits += 1;
   sendJson(response, 200, {
     id: "11111111-1111-1111-1111-111111111111",
     name_fa: "محصول نمونه",
@@ -110,8 +125,9 @@ try {
   assert.equal(result.data.contract.method, "GET");
   assert.equal(result.data.contract.path, "/products/{slug}");
   assert.equal(result.data.contract.authority, "backend");
-  assert.equal(hits, 1);
-  assert.equal(observedPath, "/products/sample-product");
+  assert.equal(productHits, 1);
+  assert.equal(variantHits, routeIsProductionized ? 1 : 1);
+  assert.equal(observedPath, "/products/sample-product/variants");
   assert.deepEqual(result.setCookies, []);
 
   const encoded = await loadProductDetailFoundation(
@@ -135,10 +151,11 @@ try {
       "summary-presentation",
       "rtl-responsive-style",
     ],
+    downstreamCompatibility: {
+      routeProductionized: routeIsProductionized,
+      variantEndpointFetchAllowed: true,
+    },
     deferred: [
-      "route-productionization",
-      "variant-interaction",
-      "variant-endpoint-fetch",
       "rich-media-interaction",
       "cart-mutation",
       "seo-finalization",

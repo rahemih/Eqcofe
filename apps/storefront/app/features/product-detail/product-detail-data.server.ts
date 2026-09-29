@@ -8,14 +8,23 @@ import {
   readyState,
   type AsyncSurfaceState,
 } from "../../platform/state/surface-state.js";
-import type { ProductDetailResponse } from "./product-detail-contract.js";
+import type {
+  ProductDetailResponse,
+  ProductVariantsResponse,
+} from "./product-detail-contract.js";
 
 export type ProductDetailRouteData = {
   product: AsyncSurfaceState<ProductDetailResponse>;
+  variants: AsyncSurfaceState<ProductVariantsResponse>;
   contract: {
     method: "GET";
     path: "/products/{slug}";
     authority: "backend";
+    variants: {
+      method: "GET";
+      path: "/products/{slug}/variants";
+      authority: "backend";
+    };
   };
 };
 
@@ -38,21 +47,40 @@ export async function loadProductDetailFoundation(
 
   try {
     bridge = createCustomerSessionBridge(request, options);
-    const result = await bridge.client.request("get", "/products/{slug}", {
+    const productResult = await bridge.client.request("get", "/products/{slug}", {
       pathParams: { slug },
     });
 
+    let variants: AsyncSurfaceState<ProductVariantsResponse>;
+    try {
+      const variantResult = await bridge.client.request("get", "/products/{slug}/variants", {
+        pathParams: { slug },
+      });
+      variants = readyState(variantResult.data);
+    } catch (error) {
+      variants = classifyApiFailureState(error, {
+        method: "get",
+        connectivity: "unknown",
+      });
+    }
+
     return {
       data: {
-        product: readyState(result.data),
+        product: readyState(productResult.data),
+        variants,
         contract: productDetailContract(),
       },
       setCookies: bridge.takeSetCookies(),
     };
   } catch (error) {
+    const failure = classifyApiFailureState<ProductDetailResponse>(error, {
+      method: "get",
+      connectivity: "unknown",
+    });
     return {
       data: {
-        product: classifyApiFailureState(error, {
+        product: failure,
+        variants: classifyApiFailureState<ProductVariantsResponse>(error, {
           method: "get",
           connectivity: "unknown",
         }),
@@ -68,5 +96,10 @@ function productDetailContract(): ProductDetailRouteData["contract"] {
     method: "GET",
     path: "/products/{slug}",
     authority: "backend",
+    variants: {
+      method: "GET",
+      path: "/products/{slug}/variants",
+      authority: "backend",
+    },
   };
 }
