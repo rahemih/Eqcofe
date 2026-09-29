@@ -29,3 +29,12 @@ Step59 acceptance verification is migrated by the same rule: it verifies `Produc
 
 ## Canonical completion
 61-E is complete only after protected Merge Policy transport, exact-SHA postmerge verification and terminal Lock RELEASED.
+
+
+## Owner-authorized repair-budget amendment
+After three repair cycles, Canonical CI exposed one additional legacy ownership assertion in `verify-step61-variant-price-stock.ts`. The Project Owner explicitly authorized one additional repair cycle, limited to:
+- increasing `max_repair_cycles` from 3 to 4;
+- adding that verifier to the Step 61-E write/risk scope;
+- migrating only the obsolete direct-route `ProductVariantSelector` assertion to the production composition `route -> ProductDetailExperience -> ProductVariantSelector`.
+
+No runtime, backend, OpenAPI, database, dependency, price or stock authority behavior is changed by this amendment.

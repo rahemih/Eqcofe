@@ -2,7 +2,7 @@
   "schema_version": "2.2",
   "task_id": "EQCOFE-STEP61-E-MEDIA-GALLERY-001",
   "title": "Step 61-E Product Detail media gallery, video and capability boundary",
-  "description": "Implement Product Detail media presentation using only canonical active image/video descriptors. Add a server-only configured public media delivery resolver for storage_key, fail closed for missing/invalid delivery configuration or unsafe keys, synchronize product/variant media with the selected variant, provide keyboard-operable gallery and native video controls, and explicitly represent 3D/360 as unavailable because the canonical contract exposes no 3D/360 media type or metadata. Legacy merchandising verification may be migrated only from direct route ownership assertions to the Step 61-E ProductDetailExperience composition, without weakening its production-route requirement. Step59 acceptance verification may likewise follow the production composition boundary instead of requiring ProductVariantSelector to be imported directly by the route.",
+  "description": "Implement Product Detail media presentation using only canonical active image/video descriptors. Add a server-only configured public media delivery resolver for storage_key, fail closed for missing/invalid delivery configuration or unsafe keys, synchronize product/variant media with the selected variant, provide keyboard-operable gallery and native video controls, and explicitly represent 3D/360 as unavailable because the canonical contract exposes no 3D/360 media type or metadata. Legacy merchandising verification may be migrated only from direct route ownership assertions to the Step 61-E ProductDetailExperience composition, without weakening its production-route requirement. Step59 acceptance verification may likewise follow the production composition boundary instead of requiring ProductVariantSelector to be imported directly by the route. Owner explicitly authorized one additional repair cycle, limited to migrating the legacy Step61-D verifier ownership assertion and updating this Task Contract; runtime behavior remains frozen.",
   "risk": "MEDIUM",
   "risk_floor": "MEDIUM",
   "owner": "PRODUCT_DESIGN",
@@ -36,7 +36,8 @@
       "docs/14-multi-agent/tasks/EQCOFE-STEP61-E-MEDIA-GALLERY-001.json",
       "docs/14-multi-agent/generated/TASK-CATALOG.md",
       "apps/storefront/scripts/verify-step59-merchandising.ts",
-      "apps/storefront/scripts/verify-step59-acceptance.ts"
+      "apps/storefront/scripts/verify-step59-acceptance.ts",
+      "apps/storefront/scripts/verify-step61-variant-price-stock.ts"
     ],
     "forbidden": [
       ".github/**",
@@ -62,7 +63,7 @@
     "soft_alert": 54000,
     "hard_cap": 108000
   },
-  "max_repair_cycles": 3,
+  "max_repair_cycles": 4,
   "task_risk_rules": [
     {
       "id": "STEP61_E_MEDIA_GALLERY_MEDIUM",
@@ -78,7 +79,8 @@
         "docs/14-multi-agent/tasks/EQCOFE-STEP61-E-MEDIA-GALLERY-001.json",
         "docs/14-multi-agent/generated/TASK-CATALOG.md",
         "apps/storefront/scripts/verify-step59-merchandising.ts",
-        "apps/storefront/scripts/verify-step59-acceptance.ts"
+        "apps/storefront/scripts/verify-step59-acceptance.ts",
+        "apps/storefront/scripts/verify-step61-variant-price-stock.ts"
       ]
     }
   ],
@@ -106,7 +108,9 @@
     "orchestration_owner_agent": "A0",
     "qa_agent": "A7",
     "security_agent": "A8",
-    "evidence_agent": "A10"
+    "evidence_agent": "A10",
+    "owner_repair_budget_amendment": "APPROVED_IN_CHAT_2026-09-29",
+    "owner_repair_budget_authority": "PROJECT_OWNER"
   },
   "acceptance_criteria": [
     {
@@ -161,6 +165,12 @@
       "id": "AC-009",
       "description": "Legacy Step59 acceptance verification follows route -> ProductDetailExperience -> ProductVariantSelector while preserving the productionized Product Detail handoff requirement.",
       "verification": "pnpm --dir apps/storefront step59:acceptance",
+      "mandatory": true
+    },
+    {
+      "id": "AC-010",
+      "description": "Legacy Step61-D variant/price/stock verification follows route -> ProductDetailExperience -> ProductVariantSelector while preserving all price, stock, mutation-forbidden and backend-authority assertions.",
+      "verification": "pnpm --dir apps/storefront variant-price-stock:verify",
       "mandatory": true
     }
   ],
