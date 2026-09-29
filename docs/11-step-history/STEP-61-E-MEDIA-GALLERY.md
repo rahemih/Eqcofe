@@ -20,6 +20,8 @@ The canonical contract exposes no 3D/360 media type, model URL, spin-frame set o
 ## Legacy QA compatibility
 Step59 merchandising verification is migrated from obsolete direct `ProductVariantSelector` route ownership to the production composition boundary `product route -> ProductDetailExperience -> ProductVariantSelector`. The original production-route assertion remains in force.
 
+Step59 acceptance verification is migrated by the same rule: it verifies `ProductDetailExperience` at the route and `ProductVariantSelector` inside that composition without restoring obsolete direct ownership.
+
 ## Deferrals
 - specifications, related content and add-to-cart → 61-F;
 - final SEO/state/accessibility/responsive hardening → 61-G;
