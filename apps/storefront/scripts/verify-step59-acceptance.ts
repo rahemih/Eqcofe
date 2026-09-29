@@ -235,8 +235,14 @@ try {
     assert(categoryDownstream.body.includes("SF-B-02"), "STEP59_G_CATEGORY_PLACEHOLDER_LOST");
   }
 
+  const productDownstream = await request("/product/acceptance-product-1");
+  assert.equal(productDownstream.status, 200, "STEP59_G_DOWNSTREAM_ROUTE_FAILED:/product");
+  assert(
+    productDownstream.body.includes("جزئیات محصول"),
+    "STEP61_D_PRODUCT_ROUTE_PRODUCTION_HANDOFF_MISSING",
+  );
+
   for (const [path, screenId] of [
-    ["/product/acceptance-product-1", "SF-C-01"],
     ["/wholesale", "SF-E-07"],
     ["/articles", "SF-F-01"],
   ] as const) {
@@ -259,7 +265,7 @@ try {
     priceUnit: "TOMAN",
     downstreamBoundaries: {
       step60: { search: searchProductionized ? "PRODUCTION_60_D" : "PLACEHOLDER", category: categoryProductionized ? "PRODUCTION_60_E" : "PLACEHOLDER" },
-      step61: ["product"],
+      step61: { product: "PRODUCTION_61_D" },
       step65: ["wholesale"],
       step66: ["articles"],
     },
