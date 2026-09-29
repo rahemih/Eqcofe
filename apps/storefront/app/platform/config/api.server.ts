@@ -33,3 +33,44 @@ function readTimeout(raw: string | undefined): number {
   }
   return Math.floor(value);
 }
+
+
+export type MediaPublicConfig = {
+  publicBaseUrl: string | null;
+};
+
+export function readServerMediaConfig(env: NodeJS.ProcessEnv = process.env): MediaPublicConfig {
+  const raw = env.EQCOFE_MEDIA_PUBLIC_BASE_URL?.trim();
+  if (!raw) return { publicBaseUrl: null };
+  return { publicBaseUrl: normalizeMediaPublicBaseUrl(raw) };
+}
+
+export function normalizeMediaPublicBaseUrl(value: string): string {
+  const trimmed = value.trim();
+  let url: URL;
+  try {
+    url = new URL(trimmed);
+  } catch {
+    throw new ApiClientError({
+      kind: "configuration",
+      code: "MEDIA_PUBLIC_BASE_URL_INVALID",
+      message: "EQCOFE_MEDIA_PUBLIC_BASE_URL must be an absolute HTTP(S) URL.",
+    });
+  }
+
+  if (
+    (url.protocol !== "http:" && url.protocol !== "https:")
+    || url.username
+    || url.password
+    || url.search
+    || url.hash
+  ) {
+    throw new ApiClientError({
+      kind: "configuration",
+      code: "MEDIA_PUBLIC_BASE_URL_INVALID",
+      message: "EQCOFE_MEDIA_PUBLIC_BASE_URL must be HTTP(S) without credentials, query, or hash.",
+    });
+  }
+
+  return url.toString().replace(/\/+$/, "");
+}

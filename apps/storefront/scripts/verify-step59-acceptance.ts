@@ -16,6 +16,10 @@ const searchProductionized = search.includes("loadSearchRouteData") && search.in
 const category = readFileSync(resolve(storefrontRoot, "app/routes/category.tsx"), "utf8");
 const categoryProductionized = category.includes("loadCategoryRouteData") && category.includes("<ListingGrid");
 const product = readFileSync(resolve(storefrontRoot, "app/routes/product.tsx"), "utf8");
+const productExperience = readFileSync(
+  resolve(storefrontRoot, "app/features/product-detail/ProductDetailExperience.tsx"),
+  "utf8",
+);
 const wholesale = readFileSync(resolve(storefrontRoot, "app/routes/wholesale.tsx"), "utf8");
 const articles = readFileSync(resolve(storefrontRoot, "app/routes/articles.tsx"), "utf8");
 const shell = readFileSync(resolve(storefrontRoot, "app/shell/AppShell.tsx"), "utf8");
@@ -50,7 +54,8 @@ assert.equal(home.includes("RoutePlaceholder"), false, "STEP59_G_HOME_REGRESSED_
 assert(searchProductionized || /targetStep=\{60\}/.test(search), "STEP59_G_SEARCH_HANDOFF_INVALID");
 assert(categoryProductionized || /targetStep=\{60\}/.test(category), "STEP59_G_CATEGORY_HANDOFF_INVALID");
 assert.match(product, /loadProductDetailFoundation/);
-assert.match(product, /ProductVariantSelector/);
+assert.match(product, /ProductDetailExperience/);
+assert.match(productExperience, /ProductVariantSelector/);
 assert.equal(product.includes("RoutePlaceholder"), false, "STEP61_D_PRODUCT_HANDOFF_INVALID");
 assert.match(wholesale, /targetStep=\{65\}/);
 assert.match(articles, /targetStep=\{66\}/);

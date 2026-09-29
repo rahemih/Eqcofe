@@ -16,6 +16,10 @@ const storefrontRoot = resolve(scriptDir, "..");
 const repoRoot = resolve(storefrontRoot, "../..");
 
 const routeSource = readFileSync(resolve(storefrontRoot, "app/routes/product.tsx"), "utf8");
+const experienceSource = readFileSync(
+  resolve(storefrontRoot, "app/features/product-detail/ProductDetailExperience.tsx"),
+  "utf8",
+);
 const dataSource = readFileSync(resolve(storefrontRoot, "app/features/product-detail/product-detail-data.server.ts"), "utf8");
 const selectorSource = readFileSync(resolve(storefrontRoot, "app/features/product-detail/ProductVariantSelector.tsx"), "utf8");
 const selectionSource = readFileSync(
@@ -25,7 +29,8 @@ const selectionSource = readFileSync(
 const openApi = readFileSync(resolve(repoRoot, "src/generated/openapi.ts"), "utf8");
 
 assert.match(routeSource, /loadProductDetailFoundation/);
-assert.match(routeSource, /ProductVariantSelector/);
+assert.match(routeSource, /ProductDetailExperience/);
+assert.match(experienceSource, /ProductVariantSelector/);
 assert.match(routeSource, /appendCustomerSessionSetCookies/);
 assert.equal(routeSource.includes("RoutePlaceholder"), false, "STEP61_D_ROUTE_STILL_PLACEHOLDER");
 assert.match(dataSource, /"\/products\/\{slug\}\/variants"/);

@@ -1,0 +1,195 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP61-E-MEDIA-GALLERY-001",
+  "title": "Step 61-E Product Detail media gallery, video and capability boundary",
+  "description": "Implement Product Detail media presentation using only canonical active image/video descriptors. Add a server-only configured public media delivery resolver for storage_key, fail closed for missing/invalid delivery configuration or unsafe keys, synchronize product/variant media with the selected variant, provide keyboard-operable gallery and native video controls, and explicitly represent 3D/360 as unavailable because the canonical contract exposes no 3D/360 media type or metadata. Legacy merchandising verification may be migrated only from direct route ownership assertions to the Step 61-E ProductDetailExperience composition, without weakening its production-route requirement. Step59 acceptance verification may likewise follow the production composition boundary instead of requiring ProductVariantSelector to be imported directly by the route. Owner explicitly authorized one additional repair cycle, limited to migrating the legacy Step61-D verifier ownership assertion and updating this Task Contract; runtime behavior remains frozen. Pure media capability/type/selection logic is split into a client-safe module; resolver and environment access remain server-only.",
+  "risk": "MEDIUM",
+  "risk_floor": "MEDIUM",
+  "owner": "PRODUCT_DESIGN",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "af9ce9b279f04c944763acb312cd85a53b129a2b"
+  },
+  "scope": {
+    "read": [
+      "apps/storefront/**",
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "src/modules/catalog/**",
+      "docs/11-step-history/**",
+      "docs/13-product-design/**",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "apps/storefront/package.json",
+      "apps/storefront/app/platform/config/api.server.ts",
+      "apps/storefront/app/routes/product.tsx",
+      "apps/storefront/app/features/product-detail/product-detail-data.server.ts",
+      "apps/storefront/app/features/product-detail/product-detail-media.server.ts",
+      "apps/storefront/app/features/product-detail/ProductDetailExperience.tsx",
+      "apps/storefront/app/features/product-detail/ProductMediaGallery.tsx",
+      "apps/storefront/app/features/product-detail/ProductVariantSelector.tsx",
+      "apps/storefront/app/styles/product-detail.css",
+      "apps/storefront/scripts/verify-step61-media-gallery.ts",
+      "docs/11-step-history/STEP-61-E-MEDIA-GALLERY.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP61-E-MEDIA-GALLERY-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "apps/storefront/scripts/verify-step59-merchandising.ts",
+      "apps/storefront/scripts/verify-step59-acceptance.ts",
+      "apps/storefront/scripts/verify-step61-variant-price-stock.ts",
+      "apps/storefront/app/features/product-detail/product-detail-media.ts"
+    ],
+    "forbidden": [
+      ".github/**",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "contracts/**",
+      "src/**",
+      "database/**",
+      "test/**",
+      "apps/storefront/app/platform/api/**",
+      "apps/storefront/app/platform/auth/**",
+      "apps/storefront/app/platform/state/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP61-E-MEDIA-GALLERY-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 36000,
+    "soft_alert": 54000,
+    "hard_cap": 108000
+  },
+  "max_repair_cycles": 4,
+  "task_risk_rules": [
+    {
+      "id": "STEP61_E_MEDIA_GALLERY_MEDIUM",
+      "risk": "MEDIUM",
+      "paths": [
+        "apps/storefront/package.json",
+        "apps/storefront/app/platform/config/api.server.ts",
+        "apps/storefront/app/routes/product.tsx",
+        "apps/storefront/app/features/product-detail/**",
+        "apps/storefront/app/styles/product-detail.css",
+        "apps/storefront/scripts/verify-step61-media-gallery.ts",
+        "docs/11-step-history/STEP-61-E-MEDIA-GALLERY.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP61-E-MEDIA-GALLERY-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md",
+        "apps/storefront/scripts/verify-step59-merchandising.ts",
+        "apps/storefront/scripts/verify-step59-acceptance.ts",
+        "apps/storefront/scripts/verify-step61-variant-price-stock.ts"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "61-D",
+      "name": "Variant selection, price and stock states",
+      "required_state": "TERMINAL_MERGED_POSTMERGE_PASS_LOCK_RELEASED",
+      "observed_state": "TERMINAL_MERGED_POSTMERGE_PASS_LOCK_RELEASED",
+      "merge_sha": "af9ce9b279f04c944763acb312cd85a53b129a2b",
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "linear_issue": "HOS-65",
+    "live_guard_main_head": "af9ce9b279f04c944763acb312cd85a53b129a2b",
+    "live_guard_open_prs": 0,
+    "live_guard_competing_writer": "NONE",
+    "predecessor_pr": 274,
+    "predecessor_terminal_comment": 5887187258,
+    "media_contract": "PublicProductMediaView=image|video with storage_key descriptor only",
+    "media_public_url_resolver_before_stage": "NONE",
+    "model3d_contract_before_stage": "NONE",
+    "implementation_owner_agent": "A3",
+    "orchestration_owner_agent": "A0",
+    "qa_agent": "A7",
+    "security_agent": "A8",
+    "evidence_agent": "A10",
+    "owner_repair_budget_amendment": "APPROVED_IN_CHAT_2026-09-29",
+    "owner_repair_budget_authority": "PROJECT_OWNER"
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Product Detail renders canonical image/video media only through a server-configured public delivery base; storage_key is never treated directly as a public URL.",
+      "verification": "pnpm --dir apps/storefront media-gallery:verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Unsafe absolute, traversal, encoded traversal, query/hash and backslash storage keys fail closed.",
+      "verification": "pnpm --dir apps/storefront media-gallery:verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Product-level media remains visible for every variant while variant-bound media is shown only for the selected variant.",
+      "verification": "pnpm --dir apps/storefront media-gallery:verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Gallery has textual previous/next and item controls, image alt text, native video controls and no gesture-only interaction.",
+      "verification": "pnpm --dir apps/storefront media-gallery:verify && pnpm --dir apps/storefront static-quality",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "3D/360 remains explicitly unavailable under the current canonical contract; no 3D media type, URL, frame set, model metadata or asset is fabricated.",
+      "verification": "pnpm --dir apps/storefront media-gallery:verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "No backend/OpenAPI/database/dependency/cart/specification/related-content/current-state/design-contract mutation occurs.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "Canonical completion requires root pnpm verify, exact-head Canonical CI, Phase A, Storefront quality, deterministic Review, exact-artifact ACTIVE Lock, protected merge, exact-SHA postmerge verification and terminal Lock release before 61-F.",
+      "verification": "canonical_transport_and_postmerge_evidence",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "Legacy Step59 merchandising verification follows the production Product Detail composition boundary (route -> ProductDetailExperience -> ProductVariantSelector) without restoring obsolete direct-route ownership.",
+      "verification": "pnpm --dir apps/storefront merchandising:verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-009",
+      "description": "Legacy Step59 acceptance verification follows route -> ProductDetailExperience -> ProductVariantSelector while preserving the productionized Product Detail handoff requirement.",
+      "verification": "pnpm --dir apps/storefront step59:acceptance",
+      "mandatory": true
+    },
+    {
+      "id": "AC-010",
+      "description": "Legacy Step61-D variant/price/stock verification follows route -> ProductDetailExperience -> ProductVariantSelector while preserving all price, stock, mutation-forbidden and backend-authority assertions.",
+      "verification": "pnpm --dir apps/storefront variant-price-stock:verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-011",
+      "description": "Client media components import only client-safe media modules; server-only resolver/configuration remain outside the client dependency graph.",
+      "verification": "pnpm --dir apps/storefront build && pnpm --dir apps/storefront media-gallery:verify",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Stage 61-E is MEDIUM risk. Direct-main write/raw merge are prohibited. Stage 61-F is blocked until protected transport, exact-SHA postmerge verification and terminal Lock release are green."
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}
