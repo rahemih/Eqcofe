@@ -15,10 +15,10 @@ import type {
 } from "./product-detail-contract.js";
 import {
   PRODUCT_MEDIA_CAPABILITIES,
-  resolveProductMedia,
   type ProductMediaCapabilities,
   type ResolvedProductMedia,
-} from "./product-detail-media.server.js";
+} from "./product-detail-media.js";
+import { resolveProductMedia } from "./product-detail-media.server.js";
 
 export type ProductDetailRouteData = {
   product: AsyncSurfaceState<ProductDetailResponse>;

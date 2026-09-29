@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { selectVisibleProductMedia, type ResolvedProductMedia } from "./product-detail-media.server.js";
+import { selectVisibleProductMedia, type ResolvedProductMedia } from "./product-detail-media.js";
 
 export function ProductMediaGallery({
   media,

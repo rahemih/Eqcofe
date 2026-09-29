@@ -38,3 +38,7 @@ After three repair cycles, Canonical CI exposed one additional legacy ownership 
 - migrating only the obsolete direct-route `ProductVariantSelector` assertion to the production composition `route -> ProductDetailExperience -> ProductVariantSelector`.
 
 No runtime, backend, OpenAPI, database, dependency, price or stock authority behavior is changed by this amendment.
+
+
+## Client/server module boundary repair
+Within the Owner-authorized fourth repair cycle, pure media capabilities/types/selection were split into a client-safe module. Delivery resolution and environment access remain server-only. No client component imports a `.server` module.
