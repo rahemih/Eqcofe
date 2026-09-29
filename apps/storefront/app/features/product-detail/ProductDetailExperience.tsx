@@ -1,6 +1,6 @@
 import { useMemo, useState, type ReactNode } from "react";
 import type { ProductDetailResponse, ProductVariant } from "./product-detail-contract.js";
-import type { ResolvedProductMedia } from "./product-detail-media.server.js";
+import type { ResolvedProductMedia } from "./product-detail-media.js";
 import { selectDefaultVariantId } from "./product-variant-selection.js";
 import { ProductDetailSummary } from "./ProductDetailSummary.js";
 import { ProductMediaGallery } from "./ProductMediaGallery.js";
