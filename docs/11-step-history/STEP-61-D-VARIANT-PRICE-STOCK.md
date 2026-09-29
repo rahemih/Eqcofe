@@ -35,3 +35,5 @@ Step 61-D intentionally removes the Product placeholder. Two older Storefront ve
 The Step 59 acceptance verifier is also migrated from the obsolete Product placeholder marker to the production Product Detail loader/variant-selector contract. This is test-contract maintenance only; product behavior is unchanged.
 
 The Step 61-C verifier is made downstream-compatible: it still proves generated OpenAPI types, server-session transport, Product Detail authority, summary invariants and no mutations, while allowing 61-D to productionize the route and fetch the typed variants endpoint.
+
+Governance repair: the new pure variant-selection helper path is explicitly added to the Stage 61-D write scope. No runtime behavior changes in this repair.

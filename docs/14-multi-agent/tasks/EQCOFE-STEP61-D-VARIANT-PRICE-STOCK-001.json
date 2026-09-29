@@ -35,7 +35,8 @@
       "apps/storefront/scripts/verify-step59-merchandising.ts",
       "apps/storefront/scripts/verify-quality-browser.mjs",
       "apps/storefront/scripts/verify-step59-acceptance.ts",
-      "apps/storefront/scripts/verify-step61-product-detail-foundation.ts"
+      "apps/storefront/scripts/verify-step61-product-detail-foundation.ts",
+      "apps/storefront/app/features/product-detail/product-variant-selection.ts"
     ],
     "forbidden": [
       ".github/**",
