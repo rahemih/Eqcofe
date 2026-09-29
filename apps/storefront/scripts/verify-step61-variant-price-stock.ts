@@ -41,7 +41,12 @@ assert.match(selectorSource, /price\.current_toman/);
 assert.match(selectorSource, /price\.old_toman/);
 assert.equal(/localStorage|sessionStorage|document\.cookie|fetch\(/.test(selectorSource), false, "STEP61_D_CLIENT_AUTHORITY_FORBIDDEN");
 assert.equal(/POST|PATCH|PUT|DELETE/.test(dataSource), false, "STEP61_D_MUTATION_FORBIDDEN");
-assert.equal(routeSource.includes("add-to-cart"), false, "STEP61_D_CART_SCOPE_LEAK");
+const downstreamCartProductionized = routeSource.includes("addProductVariantToCart")
+  && experienceSource.includes("ProductAddToCart");
+assert(
+  downstreamCartProductionized || !routeSource.includes("add-to-cart"),
+  "STEP61_D_CART_HANDOFF_INVALID",
+);
 assert.equal(selectorSource.includes("media"), false, "STEP61_D_MEDIA_SCOPE_LEAK");
 assert.match(openApi, /PublicVariantResponse:/);
 assert.match(openApi, /getProductsSlugVariants:/);
@@ -114,6 +119,15 @@ const server = http.createServer((request, response) => {
     return;
   }
 
+  if (url.pathname === "/categories/tools/products") {
+    sendJson(response, 200, {
+      items: [],
+      pagination: { next_cursor: null, has_more: false },
+      facets: { brands: [], price: null, availability: null, attributes: [] },
+    });
+    return;
+  }
+
   response.statusCode = 404;
   response.end();
 });
@@ -137,7 +151,11 @@ try {
 
   assert.equal(result.data.product.status, "ready");
   assert.equal(result.data.variants.status, "ready");
-  assert.deepEqual(hits, ["/products/sample-product", "/products/sample-product/variants"]);
+  assert.deepEqual(hits, [
+    "/products/sample-product",
+    "/products/sample-product/variants",
+    "/categories/tools/products",
+  ]);
   assert.equal(result.data.contract.authority, "backend");
   assert.equal(result.data.contract.variants.authority, "backend");
 
@@ -147,7 +165,8 @@ try {
     route: "/product/:slug",
     contracts: ["GET /products/{slug}", "GET /products/{slug}/variants"],
     authoritative: ["variant-price", "sales-enabled", "in-stock", "available-quantity"],
-    deferred: ["rich-media", "specifications", "related-content", "cart-mutation", "final-seo-state-hardening"],
+    downstreamCompatibility: ["rich-media", "specifications", "related-content", "cart-mutation"],
+    deferred: ["final-seo-state-hardening"],
   }, null, 2));
 } finally {
   await new Promise<void>((resolvePromise) => server.close(() => resolvePromise()));

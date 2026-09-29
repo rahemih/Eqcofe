@@ -12,6 +12,7 @@ import {
 import type {
   ProductDetailResponse,
   ProductVariantsResponse,
+  RelatedProductCard,
 } from "./product-detail-contract.js";
 import {
   PRODUCT_MEDIA_CAPABILITIES,
@@ -23,6 +24,7 @@ import { resolveProductMedia } from "./product-detail-media.server.js";
 export type ProductDetailRouteData = {
   product: AsyncSurfaceState<ProductDetailResponse>;
   variants: AsyncSurfaceState<ProductVariantsResponse>;
+  related: AsyncSurfaceState<readonly RelatedProductCard[]>;
   media: readonly ResolvedProductMedia[];
   mediaCapabilities: ProductMediaCapabilities;
   contract: {
@@ -33,6 +35,12 @@ export type ProductDetailRouteData = {
       method: "GET";
       path: "/products/{slug}/variants";
       authority: "backend";
+    };
+    related: {
+      method: "GET";
+      path: "/categories/{slug}/products";
+      authority: "backend";
+      source: "primary-category";
     };
   };
 };
@@ -74,6 +82,24 @@ export async function loadProductDetailFoundation(
       });
     }
 
+    let related: AsyncSurfaceState<readonly RelatedProductCard[]>;
+    try {
+      const relatedResult = await bridge.client.request("get", "/categories/{slug}/products", {
+        pathParams: { slug: productResult.data.primary_category.slug },
+        query: { limit: 5 },
+      });
+      related = readyState(
+        relatedResult.data.items
+          .filter((item) => item.id !== productResult.data.id)
+          .slice(0, 4),
+      );
+    } catch (error) {
+      related = classifyApiFailureState<readonly RelatedProductCard[]>(error, {
+        method: "get",
+        connectivity: "unknown",
+      });
+    }
+
     const mediaBaseUrl = options.mediaPublicBaseUrl === undefined
       ? safeReadMediaBaseUrl()
       : options.mediaPublicBaseUrl;
@@ -82,6 +108,7 @@ export async function loadProductDetailFoundation(
       data: {
         product: readyState(productResult.data),
         variants,
+        related,
         media: resolveProductMedia(productResult.data.media, mediaBaseUrl),
         mediaCapabilities: PRODUCT_MEDIA_CAPABILITIES,
         contract: productDetailContract(),
@@ -97,6 +124,10 @@ export async function loadProductDetailFoundation(
       data: {
         product: failure,
         variants: classifyApiFailureState<ProductVariantsResponse>(error, {
+          method: "get",
+          connectivity: "unknown",
+        }),
+        related: classifyApiFailureState<readonly RelatedProductCard[]>(error, {
           method: "get",
           connectivity: "unknown",
         }),
@@ -126,6 +157,12 @@ function productDetailContract(): ProductDetailRouteData["contract"] {
       method: "GET",
       path: "/products/{slug}/variants",
       authority: "backend",
+    },
+    related: {
+      method: "GET",
+      path: "/categories/{slug}/products",
+      authority: "backend",
+      source: "primary-category",
     },
   };
 }

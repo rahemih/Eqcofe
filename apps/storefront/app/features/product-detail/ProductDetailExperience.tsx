@@ -1,27 +1,40 @@
 import { useMemo, useState, type ReactNode } from "react";
-import type { ProductDetailResponse, ProductVariant } from "./product-detail-contract.js";
+import type {
+  ProductDetailResponse,
+  ProductVariant,
+  RelatedProductCard,
+} from "./product-detail-contract.js";
+import type { ProductCartFeedback } from "./product-detail-cart.js";
 import type { ResolvedProductMedia } from "./product-detail-media.js";
 import { selectDefaultVariantId } from "./product-variant-selection.js";
+import { ProductAddToCart } from "./ProductAddToCart.js";
 import { ProductDetailSummary } from "./ProductDetailSummary.js";
 import { ProductMediaGallery } from "./ProductMediaGallery.js";
+import { ProductRelated } from "./ProductRelated.js";
+import { ProductSpecifications } from "./ProductSpecifications.js";
 import { ProductVariantSelector } from "./ProductVariantSelector.js";
 
 export function ProductDetailExperience({
   product,
   variants,
+  relatedProducts,
   media,
   variantFallback,
+  cartFeedback,
 }: {
   product: ProductDetailResponse;
   variants: readonly ProductVariant[] | null;
+  relatedProducts: readonly RelatedProductCard[] | null;
   media: readonly ResolvedProductMedia[];
   variantFallback: ReactNode;
+  cartFeedback: ProductCartFeedback | null;
 }) {
   const initialSelectedId = useMemo(
     () => selectDefaultVariantId(variants ?? []),
     [variants],
   );
   const [selectedVariantId, setSelectedVariantId] = useState(initialSelectedId);
+  const selectedVariant = variants?.find((variant) => variant.id === selectedVariantId) ?? null;
 
   return (
     <>
@@ -34,6 +47,9 @@ export function ProductDetailExperience({
           onSelect={setSelectedVariantId}
         />
       ) : variantFallback}
+      <ProductAddToCart variant={selectedVariant} feedback={cartFeedback} />
+      <ProductSpecifications specifications={product.specifications} />
+      <ProductRelated products={relatedProducts} />
     </>
   );
 }

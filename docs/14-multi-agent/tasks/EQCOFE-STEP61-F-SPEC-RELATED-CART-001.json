@@ -1,0 +1,174 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP61-F-SPEC-RELATED-CART-001",
+  "title": "Step 61-F specifications, related content and add-to-cart",
+  "description": "Complete Product Detail commercial/supporting content using existing canonical contracts only: render ProductSpecificationView data, source related products from the typed primary-category listing endpoint rather than placeholder related/recommendation routes, and wire the selected sellable variant to the existing authoritative guest Cart API. Store guest cart capability credentials only in server-managed HttpOnly SameSite=Lax cookies; never expose cart_token to client JavaScript. Preserve Cart/Pricing/Inventory business rules and keep checkout/cart-page behavior reserved for Step 63.",
+  "risk": "MEDIUM",
+  "risk_floor": "MEDIUM",
+  "owner": "PRODUCT_DESIGN",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "2009eba4d6b7426dbe88e8d7838a05e53d333f7d"
+  },
+  "scope": {
+    "read": [
+      "apps/storefront/**",
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "src/modules/cart/**",
+      "src/modules/catalog/**",
+      "docs/11-step-history/**",
+      "docs/13-product-design/**",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "apps/storefront/package.json",
+      "apps/storefront/app/routes/product.tsx",
+      "apps/storefront/app/features/product-detail/product-detail-contract.ts",
+      "apps/storefront/app/features/product-detail/product-detail-data.server.ts",
+      "apps/storefront/app/features/product-detail/product-detail-cart.ts",
+      "apps/storefront/app/features/product-detail/product-detail-cart.server.ts",
+      "apps/storefront/app/features/product-detail/ProductDetailExperience.tsx",
+      "apps/storefront/app/features/product-detail/ProductAddToCart.tsx",
+      "apps/storefront/app/features/product-detail/ProductSpecifications.tsx",
+      "apps/storefront/app/features/product-detail/ProductRelated.tsx",
+      "apps/storefront/app/styles/product-detail.css",
+      "apps/storefront/scripts/verify-step61-product-detail-foundation.ts",
+      "apps/storefront/scripts/verify-step61-variant-price-stock.ts",
+      "apps/storefront/scripts/verify-step61-spec-related-cart.ts",
+      "docs/11-step-history/STEP-61-F-SPEC-RELATED-CART.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP61-F-SPEC-RELATED-CART-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "contracts/**",
+      "src/**",
+      "database/**",
+      "test/**",
+      "apps/storefront/app/platform/api/**",
+      "apps/storefront/app/platform/auth/**",
+      "apps/storefront/app/platform/state/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP61-F-SPEC-RELATED-CART-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 40000,
+    "soft_alert": 60000,
+    "hard_cap": 120000
+  },
+  "max_repair_cycles": 4,
+  "task_risk_rules": [
+    {
+      "id": "STEP61_F_SPEC_RELATED_CART_MEDIUM",
+      "risk": "MEDIUM",
+      "paths": [
+        "apps/storefront/package.json",
+        "apps/storefront/app/routes/product.tsx",
+        "apps/storefront/app/features/product-detail/**",
+        "apps/storefront/app/styles/product-detail.css",
+        "apps/storefront/scripts/verify-step61-product-detail-foundation.ts",
+        "apps/storefront/scripts/verify-step61-variant-price-stock.ts",
+        "apps/storefront/scripts/verify-step61-spec-related-cart.ts",
+        "docs/11-step-history/STEP-61-F-SPEC-RELATED-CART.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP61-F-SPEC-RELATED-CART-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "61-E",
+      "name": "Media gallery, video and capability boundary",
+      "required_state": "TERMINAL_MERGED_POSTMERGE_PASS_LOCK_RELEASED",
+      "observed_state": "TERMINAL_MERGED_POSTMERGE_PASS_LOCK_RELEASED",
+      "merge_sha": "2009eba4d6b7426dbe88e8d7838a05e53d333f7d",
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "linear_issue": "HOS-65",
+    "live_guard_main_head": "2009eba4d6b7426dbe88e8d7838a05e53d333f7d",
+    "live_guard_open_prs": 0,
+    "live_guard_competing_writer": "NONE",
+    "predecessor_pr": 275,
+    "predecessor_terminal_comment": 5892004330,
+    "cart_boundary": "Existing POST /cart and POST /cart/{id}/items remain authoritative; no Cart/Pricing/Inventory source mutation.",
+    "related_placeholder_debt": "/products/{slug}/related and /recommendations have no runtime controller/typed payload and are not consumed.",
+    "related_source": "GET /categories/{slug}/products using canonical primary category and ProductCard.",
+    "implementation_owner_agent": "A3",
+    "orchestration_owner_agent": "A0",
+    "qa_agent": "A7",
+    "security_agent": "A8",
+    "evidence_agent": "A10"
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Product specifications render canonical name/value/unit data with explicit empty state and no parallel specification DTO.",
+      "verification": "pnpm --dir apps/storefront spec-related-cart:verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Related content uses typed GET /categories/{slug}/products for the canonical primary category, excludes the current product, preserves backend order, reuses ListingGrid/ProductCard and does not consume placeholder related/recommendation endpoints.",
+      "verification": "pnpm --dir apps/storefront spec-related-cart:verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Selected variant add-to-cart calls existing POST /cart and POST /cart/{id}/items with quantity 1 and backend-authoritative sellability/stock enforcement; no Cart/Pricing/Inventory rule is reimplemented.",
+      "verification": "pnpm --dir apps/storefront spec-related-cart:verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Guest cart id/token remain server-managed host-only HttpOnly SameSite=Lax cookies (Secure on HTTPS); cart_token is never returned to or stored by client JavaScript.",
+      "verification": "pnpm --dir apps/storefront spec-related-cart:verify && pnpm --dir apps/storefront auth:verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Only invalid cart capability access may create replacement guest credentials; stock/global-sales/variant/checkout failures remain authoritative errors.",
+      "verification": "pnpm --dir apps/storefront spec-related-cart:verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Historical Step61 C/D verification is migrated only for the downstream related/cart handoff; original Product Detail, variant, price, availability and no-frontend-authority assertions remain enforced.",
+      "verification": "pnpm --dir apps/storefront product-detail-foundation:verify && pnpm --dir apps/storefront variant-price-stock:verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "No backend/OpenAPI/database/dependency/current-state/design-contract mutation and no cart page/checkout/payment implementation occurs.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "Canonical completion requires root pnpm verify, exact-head Canonical CI, Phase A, Storefront quality, deterministic Review, exact-artifact ACTIVE Lock, protected merge, exact-SHA postmerge verification and terminal Lock release before 61-G.",
+      "verification": "canonical_transport_and_postmerge_evidence",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Stage 61-F is MEDIUM risk because it changes Storefront-only presentation/server bridge and consumes but does not modify the authoritative Cart/Catalog domain. Direct-main write/raw merge are prohibited."
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}

@@ -209,3 +209,90 @@
   color: var(--eq-color-text-secondary);
   font-size: var(--eq-type-body-small-font-size);
 }
+
+.product-cart,
+.product-specifications,
+.product-related {
+  display: grid;
+  gap: var(--eq-spacing-4);
+}
+
+.product-cart h2,
+.product-specifications h2,
+.product-related h2,
+.product-cart__feedback,
+.product-specifications__empty,
+.product-related p {
+  margin: 0;
+}
+
+.product-cart__form {
+  display: flex;
+  align-items: center;
+  gap: var(--eq-spacing-3);
+}
+
+.product-cart__form button {
+  min-block-size: var(--eq-size-touch-min);
+  border: 0;
+  border-radius: var(--eq-radius-lg);
+  background: var(--eq-color-action-primary);
+  color: var(--eq-color-text-on-action);
+  padding: var(--eq-spacing-3) var(--eq-spacing-5);
+  font: inherit;
+  cursor: pointer;
+}
+
+.product-cart__form button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.product-cart__form button:focus-visible {
+  outline: none;
+  box-shadow: var(--eq-effect-focus-ring);
+}
+
+.product-cart__feedback[data-status="success"] {
+  color: var(--eq-color-status-success);
+}
+
+.product-cart__feedback[data-status="error"] {
+  color: var(--eq-color-status-danger);
+}
+
+.product-specifications__list {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  border: var(--eq-border-hairline) solid var(--eq-color-border-default);
+  border-radius: var(--eq-radius-xl);
+  overflow: hidden;
+}
+
+.product-specifications__item {
+  display: grid;
+  grid-template-columns: minmax(8rem, 0.8fr) minmax(0, 1.2fr);
+  gap: var(--eq-spacing-4);
+  padding: var(--eq-spacing-3) var(--eq-spacing-4);
+  background: var(--eq-color-bg-surface);
+}
+
+.product-specifications__item + .product-specifications__item {
+  border-block-start: var(--eq-border-hairline) solid var(--eq-color-border-default);
+}
+
+.product-specifications__item dt {
+  color: var(--eq-color-text-secondary);
+}
+
+.product-specifications__item dd {
+  margin: 0;
+}
+
+@media (max-width: 36rem) {
+  .product-specifications__item {
+    grid-template-columns: 1fr;
+    gap: var(--eq-spacing-1);
+  }
+}

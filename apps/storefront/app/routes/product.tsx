@@ -1,5 +1,10 @@
-import { data, Link, useLoaderData } from "react-router";
+import { data, Link, useActionData, useLoaderData } from "react-router";
 import { StatePanel } from "../components/StatePanel";
+import {
+  addProductVariantToCart,
+  appendGuestCartSetCookies,
+  productCartErrorResult,
+} from "../features/product-detail/product-detail-cart.server";
 import { ProductDetailExperience } from "../features/product-detail/ProductDetailExperience";
 import { loadProductDetailFoundation } from "../features/product-detail/product-detail-data.server";
 import { appendCustomerSessionSetCookies } from "../platform/auth/session-cookie.server";
@@ -25,8 +30,40 @@ export async function loader({
   return data(result.data, { headers });
 }
 
+export async function action({ request }: { request: Request }) {
+  const formData = await request.formData();
+  if (formData.get("intent") !== "add-to-cart") {
+    return data(
+      { status: "error" as const, message: "درخواست نامعتبر است." },
+      { status: 400 },
+    );
+  }
+
+  const variantId = formData.get("variant_id");
+  if (typeof variantId !== "string" || !variantId) {
+    return data(
+      { status: "error" as const, message: "ابتدا یک مدل معتبر انتخاب کنید." },
+      { status: 422 },
+    );
+  }
+
+  try {
+    const result = await addProductVariantToCart(request, variantId);
+    const headers = new Headers();
+    appendGuestCartSetCookies(headers, result.setCookies);
+    return data(
+      { status: "success" as const, message: "این مدل به سبد خرید اضافه شد." },
+      { headers },
+    );
+  } catch (error) {
+    const result = productCartErrorResult(error);
+    return data(result.feedback, { status: result.status });
+  }
+}
+
 export default function ProductRoute() {
   const loaderData = useLoaderData<typeof loader>();
+  const actionData = useActionData<typeof action>();
 
   if (loaderData.product.status !== "ready") {
     return (
@@ -44,6 +81,7 @@ export default function ProductRoute() {
   }
 
   const variants = loaderData.variants.status === "ready" ? loaderData.variants.data : null;
+  const relatedProducts = loaderData.related.status === "ready" ? loaderData.related.data : null;
   const variantFallback = variants ? null : (
     <section className="product-variants" aria-labelledby="product-variants-title">
       <h2 id="product-variants-title">انتخاب مدل</h2>
@@ -62,8 +100,10 @@ export default function ProductRoute() {
       <ProductDetailExperience
         product={loaderData.product.data}
         variants={variants}
+        relatedProducts={relatedProducts}
         media={loaderData.media}
         variantFallback={variantFallback}
+        cartFeedback={actionData ?? null}
       />
     </main>
   );
