@@ -74,6 +74,15 @@ const server = http.createServer((request, response) => {
     return;
   }
 
+  if (url.pathname === "/categories/coffee-tools/products") {
+    sendJson(response, 200, {
+      items: [],
+      pagination: { next_cursor: null, has_more: false },
+      facets: { brands: [], price: null, availability: null, attributes: [] },
+    });
+    return;
+  }
+
   if (url.pathname !== "/products/sample-product") {
     response.statusCode = 404;
     response.end();
@@ -127,7 +136,7 @@ try {
   assert.equal(result.data.contract.authority, "backend");
   assert.equal(productHits, 1);
   assert.equal(variantHits, routeIsProductionized ? 1 : 1);
-  assert.equal(observedPath, "/products/sample-product/variants");
+  assert.equal(observedPath, "/categories/coffee-tools/products");
   assert.deepEqual(result.setCookies, []);
 
   const encoded = await loadProductDetailFoundation(
@@ -157,7 +166,7 @@ try {
     },
     deferred: [
       "rich-media-interaction",
-      "cart-mutation",
+      "cart-mutation-downstream-compatible",
       "seo-finalization",
     ],
   }, null, 2));

@@ -2,11 +2,13 @@ import type { ApiComponents, ApiSuccessData } from "../../platform/api/contract.
 
 export type ProductDetailResponse = NonNullable<ApiSuccessData<"get", "/products/{slug}">>;
 export type ProductVariantsResponse = NonNullable<ApiSuccessData<"get", "/products/{slug}/variants">>;
+export type CategoryProductsResponse = NonNullable<ApiSuccessData<"get", "/categories/{slug}/products">>;
 
 export type ProductDetail = ApiComponents["schemas"]["PublicProductResponse"];
 export type ProductVariant = ApiComponents["schemas"]["PublicVariantResponse"];
 export type ProductMedia = ApiComponents["schemas"]["PublicProductMediaView"];
 export type ProductSpecification = ApiComponents["schemas"]["ProductSpecificationView"];
+export type RelatedProductCard = ApiComponents["schemas"]["ProductCard"];
 
 export type ProductDetailFoundation = {
   product: ProductDetailResponse;
