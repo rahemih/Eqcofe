@@ -9,7 +9,7 @@
 | EQCOFE-DEPS-NESTJS-MINOR-PATCH-001 | Governed NestJS minor/patch dependency refresh replacing Dependabot PR #145 | HIGH | REQUIRED | `369ae0c4e1360034040a0891384baa87cd123cbb` | 20000/32000/64000 |
 | EQCOFE-DEPS-RUNTIME-PATCH-001 | Governed runtime patch dependency refresh replacing Dependabot PR #174 | HIGH | REQUIRED | `fe42b0122854fa08e34380928bed546271a8ac6e` | 18000/30000/60000 |
 | EQCOFE-FRONTEND-CONSTITUTION-DRAFT-001 | Refresh Frontend Constitution Draft after Step 58 canonical foundation | MEDIUM | NOT_REQUIRED | `d6ccf594acc3997c31d8c8ec4afd817249650a95` | 18000/28000/56000 |
-| EQCOFE-GRAPHIFY-CODEX-INTEGRATION-001 | Project-scoped Graphify integration for Codex | MEDIUM | NOT_REQUIRED | `502cf4af22dd5ea5fbb8de33e5b5f9e1020f0eb2` | 12000/18000/36000 |
+| EQCOFE-GRAPHIFY-CODEX-INTEGRATION-001 | Project-scoped Graphify integration for Codex | MEDIUM | NOT_REQUIRED | `6244e5c9f2d689147f73905df6fae2f8703cc09a` | 12000/18000/36000 |
 | EQCOFE-POST-STEP60-HANDOFF-SYNC-001 | Post-Step 60 Chat Handoff reconciliation | MEDIUM | NOT_REQUIRED | `316dc4066552b5cdd32142d80f43105f3b7c6934` | 12000/20000/40000 |
 | EQCOFE-STEP57-HIFI-001 | Step 57 high-fidelity UI and prototype acceptance | HIGH | REQUIRED | `0b67ff8929e8976a0c4ae27c86dcb048567ff4da` | N/A (legacy/no budget) |
 | EQCOFE-STEP57-STATE-SYNC-001 | Step 57 final canonical state synchronization | MEDIUM | NOT_REQUIRED | `58291bb8ee6f834d549524380d93c112e653d5ee` | N/A (legacy/no budget) |
