@@ -24,3 +24,20 @@ Rules:
 - After code changes, run the focused tests plus repository verification required by the active task, then refresh Graphify with `graphify update .`.
 - Do not force-push, merge, change branch protection, or dispatch protected merge workflows unless the Owner explicitly authorizes that exact action.
 - Prefer completing safe local read/write/test operations autonomously; ask the Owner only for a real Human Gate, credential/login action, or explicitly protected operation.
+
+
+## Graph layer operational workflow
+
+For codebase work, use this exact sequence:
+
+1. Run `node scripts/graphify/health.mjs`.
+2. If health is `FRESH`, use `graphify query`, `graphify path`, or `graphify explain` before broad source browsing.
+3. If health is `STALE`, run `.codex/refresh-eqcofe-graph.ps1` before graph-first analysis.
+4. If the canonical graph is missing or invalid, stop using graph results as authority and rebuild the repository-wide graph from the repository root.
+5. After graph-guided analysis, inspect only the focused source files needed to verify the graph evidence.
+6. After any code mutation, run focused tests plus the active task's verification.
+7. Refresh the graph incrementally, record graph state, and re-run health before declaring local completion.
+8. During long coding waves, `.codex/start-graphify-watch.ps1` may run in a separate terminal; stop it with Ctrl+C when the wave ends.
+
+Canonical graph: `graphify-out/graph.json` at repository root.
+Focused subgraphs are disposable caches and are never canonical.
