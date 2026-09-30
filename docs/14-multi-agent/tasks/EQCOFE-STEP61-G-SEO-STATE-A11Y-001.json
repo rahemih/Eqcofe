@@ -1,0 +1,150 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP61-G-SEO-STATE-A11Y-001",
+  "title": "Step 61-G Product Detail SEO, states, accessibility and responsive hardening",
+  "description": "Harden the production Product Detail route using existing Storefront foundations only: site-owned canonical metadata, noindex for unavailable states, explicit backend-404 empty state, distinct error/forbidden/recovery/offline presentation, navigation pending feedback, single-main landmark semantics, long-content/reflow protection, logical CSS and minimum interaction targets. Do not change backend/OpenAPI/database/business authority.",
+  "risk": "MEDIUM",
+  "risk_floor": "MEDIUM",
+  "owner": "PRODUCT_DESIGN",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "e3ff5427cac9029c081d94a7971f40640bb1c895"
+  },
+  "scope": {
+    "read": [
+      "apps/storefront/**",
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "docs/11-step-history/**",
+      "docs/13-product-design/**",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "apps/storefront/package.json",
+      "apps/storefront/app/routes/product.tsx",
+      "apps/storefront/app/features/product-detail/product-detail-data.server.ts",
+      "apps/storefront/app/features/product-detail/product-detail-seo.ts",
+      "apps/storefront/app/features/product-detail/ProductDetailState.tsx",
+      "apps/storefront/app/styles/product-detail.css",
+      "apps/storefront/scripts/verify-step61-product-detail-hardening.ts",
+      "docs/11-step-history/STEP-61-G-PRODUCT-DETAIL-HARDENING.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP61-G-SEO-STATE-A11Y-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "contracts/**",
+      "src/**",
+      "database/**",
+      "test/**",
+      "apps/storefront/app/platform/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP61-G-SEO-STATE-A11Y-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 32000,
+    "soft_alert": 48000,
+    "hard_cap": 96000
+  },
+  "max_repair_cycles": 4,
+  "task_risk_rules": [
+    {
+      "id": "STEP61_G_PRODUCT_DETAIL_HARDENING_MEDIUM",
+      "risk": "MEDIUM",
+      "paths": [
+        "apps/storefront/package.json",
+        "apps/storefront/app/routes/product.tsx",
+        "apps/storefront/app/features/product-detail/product-detail-data.server.ts",
+        "apps/storefront/app/features/product-detail/product-detail-seo.ts",
+        "apps/storefront/app/features/product-detail/ProductDetailState.tsx",
+        "apps/storefront/app/styles/product-detail.css",
+        "apps/storefront/scripts/verify-step61-product-detail-hardening.ts",
+        "docs/11-step-history/STEP-61-G-PRODUCT-DETAIL-HARDENING.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP61-G-SEO-STATE-A11Y-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "61-F",
+      "name": "Specifications, related content and add-to-cart",
+      "required_state": "TERMINAL_MERGED_POSTMERGE_PASS_LOCK_RELEASED",
+      "observed_state": "TERMINAL_MERGED_POSTMERGE_PASS_LOCK_RELEASED",
+      "merge_sha": "e3ff5427cac9029c081d94a7971f40640bb1c895",
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "linear_issue": "HOS-65",
+    "live_guard_main_head": "e3ff5427cac9029c081d94a7971f40640bb1c895",
+    "live_guard_open_prs": 0,
+    "live_guard_competing_writer": "NONE",
+    "predecessor_pr": 276,
+    "predecessor_terminal_comment": 5904926282,
+    "seo_pattern": "Step60 category/search site-owned canonical helper",
+    "state_pattern": "Step58 AsyncSurfaceState + StatePanel + connectivity foundation",
+    "implementation_owner_agent": "A3",
+    "orchestration_owner_agent": "A0",
+    "qa_agent": "A7",
+    "security_agent": "A8",
+    "evidence_agent": "A10"
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Ready Product Detail emits Persian product title/description, index/follow and site-owned canonical URL; unavailable/non-ready states emit noindex/follow and no canonical.",
+      "verification": "pnpm --dir apps/storefront product-detail-hardening:verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Backend 404 maps to Product Detail empty/no-result; error, forbidden, recovery and offline presentations remain distinct and no unavailable state fabricates product data.",
+      "verification": "pnpm --dir apps/storefront product-detail-hardening:verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Product navigation exposes polite pending feedback and aria-busy while preserving the AppShell as the single main landmark.",
+      "verification": "pnpm --dir apps/storefront product-detail-hardening:verify && pnpm --dir apps/storefront shell:verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Responsive hardening prevents long Persian/spec/media content overflow, preserves logical properties, mobile add-to-cart width and minimum media control targets.",
+      "verification": "pnpm --dir apps/storefront product-detail-hardening:verify && pnpm --dir apps/storefront static-quality",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "No backend/OpenAPI/database/dependency/Cart/Pricing/Inventory authority mutation occurs.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Canonical completion requires root pnpm verify, exact-head Canonical CI, Phase A, Storefront Quality, Step57 Prototype, deterministic Review, exact-artifact ACTIVE Lock, protected merge, exact-SHA postmerge verification and terminal Lock release before 61-H.",
+      "verification": "canonical_transport_and_postmerge_evidence",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Stage 61-G is MEDIUM risk and Storefront-only. Direct-main write/raw merge are prohibited."
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}

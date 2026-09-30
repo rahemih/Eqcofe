@@ -1,4 +1,4 @@
-import { data, Link, useActionData, useLoaderData } from "react-router";
+import { data, Link, useActionData, useLoaderData, useNavigation } from "react-router";
 import { StatePanel } from "../components/StatePanel";
 import {
   addProductVariantToCart,
@@ -6,13 +6,18 @@ import {
   productCartErrorResult,
 } from "../features/product-detail/product-detail-cart.server";
 import { ProductDetailExperience } from "../features/product-detail/ProductDetailExperience";
-import { loadProductDetailFoundation } from "../features/product-detail/product-detail-data.server";
+import { ProductDetailState } from "../features/product-detail/ProductDetailState";
+import { productDetailMeta } from "../features/product-detail/product-detail-seo";
+import { loadProductDetailFoundation, type ProductDetailRouteData } from "../features/product-detail/product-detail-data.server";
 import { appendCustomerSessionSetCookies } from "../platform/auth/session-cookie.server";
 import "../styles/product-detail.css";
 
 export const handle = {
   breadcrumb: "جزئیات محصول",
 };
+
+export const meta = ({ loaderData }: { loaderData?: ProductDetailRouteData }) =>
+  productDetailMeta(loaderData);
 
 export async function loader({
   request,
@@ -64,19 +69,27 @@ export async function action({ request }: { request: Request }) {
 export default function ProductRoute() {
   const loaderData = useLoaderData<typeof loader>();
   const actionData = useActionData<typeof action>();
+  const navigation = useNavigation();
+  const pending = navigation.state === "loading"
+    && navigation.location?.pathname.startsWith("/product/");
 
   if (loaderData.product.status !== "ready") {
     return (
-      <div className="product-detail-page" data-product-state={loaderData.product.status}>
-        <h1>جزئیات محصول</h1>
-        <StatePanel
-          variant="error"
-          title="اطلاعات محصول در دسترس نیست"
-          message="بارگذاری جزئیات محصول انجام نشد. دوباره تلاش کنید."
-          requestId={"problem" in loaderData.product ? loaderData.product.problem.requestId : null}
-        />
-        <Link to="." reloadDocument className="product-detail-page__retry">تلاش دوباره</Link>
-      </div>
+      <>
+        {pending ? (
+          <p className="product-detail-pending" role="status" aria-live="polite">
+            در حال بارگذاری جزئیات محصول…
+          </p>
+        ) : null}
+        <div
+          className="product-detail-page"
+          data-product-state={loaderData.product.status}
+          aria-busy={pending}
+        >
+          <h1>جزئیات محصول</h1>
+          <ProductDetailState state={loaderData.product} retryHref="." />
+        </div>
+      </>
     );
   }
 
@@ -96,7 +109,18 @@ export default function ProductRoute() {
   );
 
   return (
-    <main className="product-detail-page" data-product-state="ready" data-variant-state={loaderData.variants.status}>
+    <>
+      {pending ? (
+        <p className="product-detail-pending" role="status" aria-live="polite">
+          در حال بارگذاری جزئیات محصول…
+        </p>
+      ) : null}
+      <article
+        className="product-detail-page"
+        data-product-state="ready"
+        data-variant-state={loaderData.variants.status}
+        aria-busy={pending}
+      >
       <ProductDetailExperience
         product={loaderData.product.data}
         variants={variants}
@@ -105,6 +129,7 @@ export default function ProductRoute() {
         variantFallback={variantFallback}
         cartFeedback={actionData ?? null}
       />
-    </main>
+      </article>
+    </>
   );
 }
