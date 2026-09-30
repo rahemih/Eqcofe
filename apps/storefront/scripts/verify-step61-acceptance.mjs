@@ -165,6 +165,16 @@ try {
   assert(getCalls.includes('GET /products/sample-grinder/variants'));
   assert(getCalls.includes('GET /categories/grinders/products'));
 
+  const cartResponse = await fetch(origin + '/product/sample-grinder', {
+    method: 'POST',
+    headers: { 'content-type': 'application/x-www-form-urlencoded' },
+    body: new URLSearchParams({ intent: 'add-to-cart', variant_id: availableId }),
+    redirect: 'manual',
+  });
+  assert.equal(cartResponse.status, 200, 'STEP61_H_CART_ACTION_STATUS');
+  const cartPayload = await cartResponse.json();
+  assert.equal(cartPayload.status, 'success', 'STEP61_H_CART_ACTION_FEEDBACK');
+
   if (process.env.EQCOFE_BROWSER_QA_ROOT) {
     const qaRequire = createRequire(resolve(process.env.EQCOFE_BROWSER_QA_ROOT, 'package.json'));
     const { chromium } = qaRequire('playwright');
