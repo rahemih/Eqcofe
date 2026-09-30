@@ -1,0 +1,129 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-GRAPHIFY-CODEX-INTEGRATION-001",
+  "title": "Project-scoped Graphify integration for Codex",
+  "description": "Integrate Graphify with Codex for EQCOFE as repository-local developer tooling, including a safe local Codex agent launcher. Add the Graphify Codex skill and PreToolUse hook, repository guidance, local-agent startup script, and ignore generated graph artifacts. No runtime application, backend, frontend, database, dependency, workflow, branch-protection, or production behavior changes.",
+  "risk": "MEDIUM",
+  "risk_floor": "MEDIUM",
+  "owner": "ENGINEERING_MANAGER",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "6244e5c9f2d689147f73905df6fae2f8703cc09a"
+  },
+  "scope": {
+    "read": [
+      ".codex/**",
+      "AGENTS.md",
+      ".gitignore",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      ".codex/**",
+      "AGENTS.md",
+      ".gitignore",
+      "docs/14-multi-agent/tasks/EQCOFE-GRAPHIFY-CODEX-INTEGRATION-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "apps/**",
+      "src/**",
+      "database/**",
+      "contracts/**",
+      "pnpm-lock.yaml",
+      "package.json",
+      "pnpm-workspace.yaml"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-GRAPHIFY-CODEX-INTEGRATION-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 12000,
+    "soft_alert": 18000,
+    "hard_cap": 36000
+  },
+  "max_repair_cycles": 3,
+  "task_risk_rules": [
+    {
+      "id": "GRAPHIFY_CODEX_PROJECT_TOOLING_MEDIUM",
+      "risk": "MEDIUM",
+      "paths": [
+        ".codex/**",
+        "AGENTS.md",
+        ".gitignore",
+        "docs/14-multi-agent/tasks/EQCOFE-GRAPHIFY-CODEX-INTEGRATION-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+      ]
+    }
+  ],
+  "dependencies": [],
+  "evidence": {
+    "pr_number": 280,
+    "implementation_branch": "chore/graphify-codex-integration",
+    "initial_commit": "0a3d6b9f3cdc924a2b84238f2fa0be2f282dad73",
+    "graphify_cli": "0.9.71",
+    "codex_cli": "0.149.1",
+    "repair_cycle": 1,
+    "repaired_failures": [
+      "PR_TASK_CONTRACT_REFERENCE_REQUIRED",
+      "TASK_CATALOG_STALE"
+    ],
+    "task_catalog_path": "docs/14-multi-agent/generated/TASK-CATALOG.md",
+    "synchronized_main": "6244e5c9f2d689147f73905df6fae2f8703cc09a",
+    "synchronization_reason": "Step 61-H canonical merge completed before Graphify PR closure",
+    "local_agent_launcher": ".codex/start-eqcofe-local-agent.ps1",
+    "local_agent_runtime": "Codex CLI"
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Codex recognizes and invokes the repository-local Graphify skill and hook configuration.",
+      "verification": "manual Codex invocation and Graphify query evidence",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Generated graphify-out artifacts remain excluded from version control.",
+      "verification": "git status and .gitignore review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "No runtime application, backend, frontend, database, dependency, workflow, or branch-protection behavior changes are introduced.",
+      "verification": "scope validation and PR diff review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "PR body references this Task Contract exactly once and canonical CI scope-history validation passes.",
+      "verification": "Canonical CI and merge-policy evidence",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Generated Task Catalog is reconciled exactly with the new Task Contract.",
+      "verification": "pnpm multi-agent:verify / task catalog exactness check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "A repository-local launcher starts Codex CLI from the EQCOFE root and refuses to start while the current branch is main.",
+      "verification": "Review .codex/start-eqcofe-local-agent.ps1 and launch on a non-main task branch.",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Provider risk classification is authoritative; HIGH escalation requires Security and Owner Human Gate."
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}
