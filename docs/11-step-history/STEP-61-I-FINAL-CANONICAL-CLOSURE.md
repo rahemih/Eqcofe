@@ -2,7 +2,7 @@
 
 ## Verdict and scope
 
-Step 61-A through Step 61-H are `CANONICAL_COMPLETE`. Step 61 as a whole becomes `CLOSED / FINAL CANONICAL PASS` only after this Stage-I documentation/governance reconciliation completes its own protected merge, exact-SHA postmerge verification and terminal Lock release.
+Step 61-A through Step 61-I are `CANONICAL_COMPLETE`. Step 61 is `CLOSED / FINAL CANONICAL PASS`.
 
 Stage I changes documentation/governance only. It adds no Product Detail feature, API/OpenAPI behavior, database change, dependency, workflow, security rule or Step 62 implementation.
 
@@ -45,4 +45,6 @@ Stage H exact head `277a56a6c25b9969ee7063bb0a20c0c6e9586586` passed Canonical C
 
 This Stage-I PR is documentation/governance-only. Before declaring Step 61 closed, require exact-head Canonical CI and Phase A, deterministic Review, artifact-bound ACTIVE Lock, Merge Policy PASS, protected workflow_dispatch merge, exact-SHA postmerge `pnpm verify` and Phase A PASS, and terminal Lock RELEASED.
 
-After those gates, mark `HOS-65` Done and authorize Step 62 as `NEXT / NOT_STARTED` under a fresh live guard and separate task. Until then Step 61 remains `FINAL CLOSURE IN PROGRESS` and Step 62 remains blocked.
+Those gates completed successfully. Stage-I exact head `99874de412cfdb339ec36241d45fff65d457b4ae` passed Canonical CI `36692201935` / #1138, Phase A `36692201792` / #637 and Merge Policy `36692202025` / #720 rerun with Review PASS, `blockers=[]` and `merge_eligible=true`. Protected workflow_dispatch run `36693182773` / #722 merged PR #281 as `26cf00e83e90872607c9c4562075e02981710ecc`; merge job `109814910586` and exact-SHA postmerge job `109815034416` succeeded, postmerge-failure `109816653333` skipped, and terminal comment `5907933747` released `LOCK-EQCOFE-STEP61-I-CLOSURE-001-01`.
+
+**Final verdict:** `STEP_61 = CLOSED / FINAL CANONICAL PASS`. Step 62 — Compare & Wishlist — is `NEXT / NOT_STARTED` under a fresh live guard and separate governed Task Contract. This postclosure synchronization changes documentation/governance only and does not start Step 62.

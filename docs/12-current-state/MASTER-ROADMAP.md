@@ -1,12 +1,12 @@
 # EQCOFE — Complete Master Execution Roadmap
 
-**Roadmap version:** 3.54 — Step-61 Final Canonical Closure in progress
+**Roadmap version:** 3.55 — Step-61 Final Canonical Closure
 **Effective date:** 2026-09-30
 **Canonical repository:** `rahemih/Eqcofe`  
 **Canonical branch:** `main`  
 **Verified Step-44 code baseline:** `b239dfe825b615f36caf2e26cc7abc80c70d349c`
 
-> This is the canonical end-to-end execution map for EQCOFE. Phase A (Steps 1–28) is `CLOSED / FINAL GATE PASS` by current canonical verification. For historical Steps 1–27, exact original labels/closure lineage remain `Historical Attribution: UNVERIFIED`; Step 28 remains `Historical Attribution: PARTIAL`. Current-baseline verification does not prove recovered historical provenance. Steps 29–60 retain their established canonical status. Step 61-A through 61-H are canonically complete through PR #278 and protected postmerge verification. Step 61-I is `FINAL CLOSURE IN PROGRESS`; Step 62 remains blocked until Stage I is canonically terminal.
+> This is the canonical end-to-end execution map for EQCOFE. Phase A (Steps 1–28) is `CLOSED / FINAL GATE PASS` by current canonical verification. For historical Steps 1–27, exact original labels/closure lineage remain `Historical Attribution: UNVERIFIED`; Step 28 remains `Historical Attribution: PARTIAL`. Current-baseline verification does not prove recovered historical provenance. Steps 29–61 retain their established canonical status. Step 61 is `CLOSED / FINAL CANONICAL PASS` after protected Stage-I merge, exact-SHA postmerge verification and terminal Lock release. Step 62 is `NEXT / NOT_STARTED` under a fresh live guard and separate Task Contract.
 
 ## Status legend
 - `RECONSTRUCTED-HISTORY`: normalized historical description; exact historical step attribution is not proven.
@@ -316,11 +316,11 @@ Production Home/Navigation/Discovery is established and canonically verified: re
 ## Step 60 — Search, Category, Filters & Listing — `CLOSED / FINAL CANONICAL PASS`
 Stages A–I are canonically complete through protected PRs #258 and #261–#268. Search and Category listings use authoritative generated contracts, filters, sorting and cursor pagination; listing SEO, states, accessibility and integrated acceptance are verified. Stage H merged at `b6a3d1864a3a53edd1d300602acccecafc35d6e6` through run `36012004673`. Documentation/governance-only Stage I merged through protected run `36238576728` at `0c2b6d3cf9fdc26474f184d416637f382dd10612`; exact-SHA postmerge `pnpm verify` (938/938 application tests) and Phase A passed, and [terminal comment 5846848178](https://github.com/rahemih/Eqcofe/pull/268#issuecomment-5846848178) released its Lock. See `docs/11-step-history/STEP-60-I-FINAL-CANONICAL-CLOSURE.md`.
 
-## Step 61 — Product Detail & Rich Media — `FINAL CLOSURE IN PROGRESS`
-Stages A–H are canonically complete through protected PRs #271–#278. The production Product Detail route uses authoritative backend/generated contracts for product identity, variants, Toman price/stock, media/video, specifications, related products and add-to-cart; SEO, loading/empty/error/offline states, Persian RTL, accessibility, responsive behavior and integrated browser acceptance are verified. Stage H merged at `6244e5c9f2d689147f73905df6fae2f8703cc09a` through protected run `36686397414`, with exact-SHA postmerge verification and terminal Lock release. Documentation/governance-only Stage I is reconciling canonical state and must itself pass protected merge/postmerge before Step 61 is closed. See `docs/11-step-history/STEP-61-I-FINAL-CANONICAL-CLOSURE.md`.
+## Step 61 — Product Detail & Rich Media — `CLOSED / FINAL CANONICAL PASS`
+Stages A–I are canonically complete. Product Detail uses authoritative backend/generated contracts for product identity, variants, integer-Toman price/stock, media/video, specifications, related products and add-to-cart. SEO/canonical/robots behavior, explicit loading/empty/error/offline recovery, Persian RTL, accessibility, responsive behavior and integrated browser acceptance are verified. Stage H merged at `6244e5c9f2d689147f73905df6fae2f8703cc09a`. Final Stage-I documentation/governance closure PR #281 merged as `26cf00e83e90872607c9c4562075e02981710ecc` through protected run `36693182773` / #722; merge job `109814910586` and exact-SHA postmerge job `109815034416` passed, postmerge-failure `109816653333` skipped, and terminal comment `5907933747` released `LOCK-EQCOFE-STEP61-I-CLOSURE-001-01`. See `docs/11-step-history/STEP-61-I-FINAL-CANONICAL-CLOSURE.md`.
 
-## Step 62 — Compare & Wishlist — `BLOCKED / NEXT AFTER STEP 61-I`
-Implement category-compatible comparison for up to four products and authenticated wishlist UX using authoritative backend data. Do not start until Step 61-I is canonically terminal and its Lock is released.
+## Step 62 — Compare & Wishlist — `NEXT / NOT_STARTED`
+Implement category-compatible comparison for up to four products and authenticated wishlist UX using authoritative backend data. Start only under a fresh live guard and a separate governed Task Contract; no Step 62 implementation was included in Step 61 closure.
 
 ## Step 63 — Cart & Checkout Frontend — `PLANNED`
 Implement cart, address, shipping/pickup, pricing/discount presentation, payment handoff, idempotent submission and recovery/error flows.
