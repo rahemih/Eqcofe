@@ -9,6 +9,7 @@
 | EQCOFE-DEPS-NESTJS-MINOR-PATCH-001 | Governed NestJS minor/patch dependency refresh replacing Dependabot PR #145 | HIGH | REQUIRED | `369ae0c4e1360034040a0891384baa87cd123cbb` | 20000/32000/64000 |
 | EQCOFE-DEPS-RUNTIME-PATCH-001 | Governed runtime patch dependency refresh replacing Dependabot PR #174 | HIGH | REQUIRED | `fe42b0122854fa08e34380928bed546271a8ac6e` | 18000/30000/60000 |
 | EQCOFE-FRONTEND-CONSTITUTION-DRAFT-001 | Refresh Frontend Constitution Draft after Step 58 canonical foundation | MEDIUM | NOT_REQUIRED | `d6ccf594acc3997c31d8c8ec4afd817249650a95` | 18000/28000/56000 |
+| EQCOFE-GRAPHIFY-CODEONLY-REFRESH-001 | Graphify keyless code-only incremental refresh | LOW | NOT_REQUIRED | `4b8b473e76a215aca7ffaa450298d13a9b83f2f3` | 5000/8000/16000 |
 | EQCOFE-GRAPHIFY-CODEX-INTEGRATION-001 | Project-scoped Graphify integration for Codex | MEDIUM | NOT_REQUIRED | `6244e5c9f2d689147f73905df6fae2f8703cc09a` | 12000/18000/36000 |
 | EQCOFE-GRAPHIFY-OPERATIONAL-LAYER-001 | Operational Graphify layer for EQCOFE | MEDIUM | NOT_REQUIRED | `26cf00e83e90872607c9c4562075e02981710ecc` | 18000/28000/56000 |
 | EQCOFE-POST-STEP60-HANDOFF-SYNC-001 | Post-Step 60 Chat Handoff reconciliation | MEDIUM | NOT_REQUIRED | `316dc4066552b5cdd32142d80f43105f3b7c6934` | 12000/20000/40000 |
@@ -96,4 +97,4 @@
 | MA-V1-ACC-MEDIUM-001 | V1 Acceptance MEDIUM R2 — telemetry terminal-state conflict hardening | MEDIUM | NOT_REQUIRED | `9017e0f25e9571568ed9acf4ca3ca977ce9e78f0` | 15000/25000/50000 |
 | MA-V1-ACCEPTANCE-CLOSURE-V16-R2-001 | V1.6 Phase 3 canonical acceptance closure R2 | HIGH | REQUIRED | `d7d235f5f240b8bea44bc607afa812b2f5bb12d4` | 30000/50000/90000 |
 
-Task contracts indexed: **90**.
+Task contracts indexed: **91**.
