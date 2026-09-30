@@ -6,7 +6,7 @@ import type { AsyncSurfaceState } from "../app/platform/state/surface-state.js";
 import type { ProductDetailResponse } from "../app/features/product-detail/product-detail-contract.js";
 import type { ProductDetailRouteData } from "../app/features/product-detail/product-detail-data.server.js";
 import { productDetailMeta } from "../app/features/product-detail/product-detail-seo.js";
-import { describeProductDetailState } from "../app/features/product-detail/ProductDetailState.js";
+import { describeProductDetailState } from "../app/features/product-detail/product-detail-state.js";
 
 const scriptDir = dirname(fileURLToPath(import.meta.url));
 const storefrontRoot = resolve(scriptDir, "..");

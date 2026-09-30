@@ -2,7 +2,7 @@
   "schema_version": "2.2",
   "task_id": "EQCOFE-STEP61-G-SEO-STATE-A11Y-001",
   "title": "Step 61-G Product Detail SEO, states, accessibility and responsive hardening",
-  "description": "Harden the production Product Detail route using existing Storefront foundations only: site-owned canonical metadata, noindex for unavailable states, explicit backend-404 empty state, distinct error/forbidden/recovery/offline presentation, navigation pending feedback, single-main landmark semantics, long-content/reflow protection, logical CSS and minimum interaction targets. Do not change backend/OpenAPI/database/business authority.",
+  "description": "Harden the production Product Detail route using existing Storefront foundations only: site-owned canonical metadata, noindex for unavailable states, explicit backend-404 empty state, distinct error/forbidden/recovery/offline presentation, navigation pending feedback, single-main landmark semantics, long-content/reflow protection, logical CSS and minimum interaction targets. Do not change backend/OpenAPI/database/business authority. Pure state presentation logic is isolated in a JSX-free client-safe module so root build verification can execute without importing TSX.",
   "risk": "MEDIUM",
   "risk_floor": "MEDIUM",
   "owner": "PRODUCT_DESIGN",
@@ -30,7 +30,8 @@
       "apps/storefront/scripts/verify-step61-product-detail-hardening.ts",
       "docs/11-step-history/STEP-61-G-PRODUCT-DETAIL-HARDENING.md",
       "docs/14-multi-agent/tasks/EQCOFE-STEP61-G-SEO-STATE-A11Y-001.json",
-      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "apps/storefront/app/features/product-detail/product-detail-state.ts"
     ],
     "forbidden": [
       ".github/**",
@@ -69,7 +70,8 @@
         "apps/storefront/scripts/verify-step61-product-detail-hardening.ts",
         "docs/11-step-history/STEP-61-G-PRODUCT-DETAIL-HARDENING.md",
         "docs/14-multi-agent/tasks/EQCOFE-STEP61-G-SEO-STATE-A11Y-001.json",
-        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+        "docs/14-multi-agent/generated/TASK-CATALOG.md",
+        "apps/storefront/app/features/product-detail/product-detail-state.ts"
       ]
     }
   ],

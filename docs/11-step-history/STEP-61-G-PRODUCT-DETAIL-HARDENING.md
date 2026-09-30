@@ -27,3 +27,7 @@ Integrated browser acceptance and final Product Detail prototype verification re
 
 ## Canonical completion
 61-G requires exact-head Canonical CI, Phase A, Storefront Quality, Step57 Prototype, deterministic artifact-bound Review/Lock, protected merge, exact-SHA postmerge verification and terminal Lock RELEASED before 61-H.
+
+
+## Verification module boundary repair
+Pure Product Detail state presentation logic is isolated in `product-detail-state.ts`; the TSX component keeps only rendering and connectivity subscription. This preserves behavior while allowing root build verification to import the pure state logic without JSX compiler requirements.
