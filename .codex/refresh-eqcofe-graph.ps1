@@ -8,11 +8,11 @@ if (-not (Test-Path '.\graphify-out\graph.json')) {
 
 $graphify = Get-Command graphify -ErrorAction SilentlyContinue
 if ($graphify) {
-    & $graphify.Source '.' '--update'
+    & $graphify.Source '.' '--update' '--code-only'
 } else {
     $uv = Get-Command uv -ErrorAction SilentlyContinue
     if (-not $uv) { throw 'Neither graphify nor uv is available on PATH.' }
-    & $uv.Source tool run --from graphifyy graphify . --update
+    & $uv.Source tool run --from graphifyy graphify . --update --code-only
 }
 if ($LASTEXITCODE -ne 0) { throw "Graphify update failed with exit code $LASTEXITCODE" }
 
