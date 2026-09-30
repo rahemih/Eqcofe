@@ -1,0 +1,140 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-GRAPHIFY-OPERATIONAL-LAYER-001",
+  "title": "Operational Graphify layer for EQCOFE",
+  "description": "Promote Graphify from installed developer tooling to an operational repository-local code intelligence layer: define the canonical graph architecture, add graph freshness/health checks, state recording, incremental refresh and watch launchers, and bind Codex local-agent behavior to graph-first/staleness-aware operation. No runtime application behavior, backend/frontend feature, database, dependency, CI workflow, branch protection, or production behavior changes.",
+  "risk": "MEDIUM",
+  "risk_floor": "MEDIUM",
+  "owner": "ENGINEERING_MANAGER",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "454d2ff2d6e479ca89bbacaccdf13f8951031396"
+  },
+  "scope": {
+    "read": [
+      ".codex/**",
+      "AGENTS.md",
+      "scripts/graphify/**",
+      "docs/14-multi-agent/**",
+      "graphify-out/**"
+    ],
+    "write": [
+      "AGENTS.md",
+      ".codex/refresh-eqcofe-graph.ps1",
+      ".codex/start-graphify-watch.ps1",
+      "scripts/graphify/health.mjs",
+      "scripts/graphify/record-state.mjs",
+      "docs/14-multi-agent/graphify/GRAPH-LAYER-OPERATIONAL.md",
+      "docs/14-multi-agent/tasks/EQCOFE-GRAPHIFY-OPERATIONAL-LAYER-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "apps/**",
+      "src/**",
+      "database/**",
+      "contracts/**",
+      "pnpm-lock.yaml",
+      "package.json",
+      "pnpm-workspace.yaml"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-GRAPHIFY-OPERATIONAL-LAYER-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 18000,
+    "soft_alert": 28000,
+    "hard_cap": 56000
+  },
+  "max_repair_cycles": 3,
+  "task_risk_rules": [
+    {
+      "id": "GRAPHIFY_OPERATIONAL_LAYER_MEDIUM",
+      "risk": "MEDIUM",
+      "paths": [
+        "AGENTS.md",
+        ".codex/refresh-eqcofe-graph.ps1",
+        ".codex/start-graphify-watch.ps1",
+        "scripts/graphify/health.mjs",
+        "scripts/graphify/record-state.mjs",
+        "docs/14-multi-agent/graphify/GRAPH-LAYER-OPERATIONAL.md",
+        "docs/14-multi-agent/tasks/EQCOFE-GRAPHIFY-OPERATIONAL-LAYER-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "PR-280-GRAPHIFY-CODEX-INTEGRATION",
+      "required_state": "MERGED",
+      "observed_state": "MERGED",
+      "merge_sha": "454d2ff2d6e479ca89bbacaccdf13f8951031396",
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "implementation_branch": "chore/graphify-operational-layer",
+    "graphify_cli": "0.9.71",
+    "codex_cli": "0.149.1",
+    "predecessor_pr": 280,
+    "predecessor_merge_sha": "454d2ff2d6e479ca89bbacaccdf13f8951031396"
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Repository defines exactly one canonical repository-wide Graphify graph at graphify-out/; focused subgraphs are disposable local caches, not source of truth.",
+      "verification": "architecture document review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Graph health command reports graph presence, parseability, node/edge counts, recorded graph HEAD and stale/fresh state against current Git HEAD.",
+      "verification": "node scripts/graphify/health.mjs",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Incremental refresh launcher updates the canonical graph, records exact Git HEAD metadata, and runs health verification.",
+      "verification": ".codex/refresh-eqcofe-graph.ps1",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Watch launcher monitors code changes with Graphify debounce and uses the persisted Graphify interpreter/root when available.",
+      "verification": ".codex/start-graphify-watch.ps1 review and local smoke test",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Codex repository instructions enforce graph-first query, freshness check, stale refresh, focused source read, mutation, tests, graph refresh, verification.",
+      "verification": "AGENTS.md review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Generated Task Catalog is exactly reconciled with this Task Contract.",
+      "verification": "multi-agent task catalog exactness check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "No runtime application, backend/frontend, database, dependency, workflow, or branch-protection behavior changes are introduced.",
+      "verification": "scope and diff review",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Provider risk classification is authoritative; HIGH escalation requires Security and Owner Human Gate."
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}
