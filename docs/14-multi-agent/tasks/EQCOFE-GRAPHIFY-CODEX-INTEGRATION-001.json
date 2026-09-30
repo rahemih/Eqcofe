@@ -22,7 +22,8 @@
       ".codex/**",
       "AGENTS.md",
       ".gitignore",
-      "docs/14-multi-agent/tasks/EQCOFE-GRAPHIFY-CODEX-INTEGRATION-001.json"
+      "docs/14-multi-agent/tasks/EQCOFE-GRAPHIFY-CODEX-INTEGRATION-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
     ],
     "forbidden": [
       ".github/**",
@@ -53,7 +54,8 @@
         ".codex/**",
         "AGENTS.md",
         ".gitignore",
-        "docs/14-multi-agent/tasks/EQCOFE-GRAPHIFY-CODEX-INTEGRATION-001.json"
+        "docs/14-multi-agent/tasks/EQCOFE-GRAPHIFY-CODEX-INTEGRATION-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md"
       ]
     }
   ],
@@ -88,6 +90,12 @@
       "id": "AC-004",
       "description": "PR body references this Task Contract exactly once and canonical CI scope-history validation passes.",
       "verification": "Canonical CI and merge-policy evidence",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Generated Task Catalog is reconciled exactly with the new Task Contract.",
+      "verification": "pnpm multi-agent:verify / task catalog exactness check",
       "mandatory": true
     }
   ],
