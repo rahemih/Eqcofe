@@ -1,0 +1,130 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP61-POSTCLOSURE-DOCSYNC-001",
+  "title": "Step 61 postclosure canonical documentation state synchronization",
+  "description": "Reconcile terminal Step 61-I evidence into canonical Step 61 closure records, Current State and Master Roadmap after protected merge/postmerge/Lock release, without runtime or Step 62 implementation changes.",
+  "risk": "MEDIUM",
+  "risk_floor": "MEDIUM",
+  "owner": "PRODUCT_DESIGN",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "4b8b473e76a215aca7ffaa450298d13a9b83f2f3"
+  },
+  "scope": {
+    "read": [
+      "apps/storefront/**",
+      "docs/11-step-history/**",
+      "docs/12-current-state/**",
+      "docs/14-multi-agent/**",
+      ".github/workflows/**"
+    ],
+    "write": [
+      "docs/11-step-history/STEP-61-I-FINAL-CANONICAL-CLOSURE.md",
+      "docs/12-current-state/CURRENT-STATE.md",
+      "docs/12-current-state/MASTER-ROADMAP.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP61-POSTCLOSURE-DOCSYNC-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "apps/**",
+      "src/**",
+      "database/**",
+      "contracts/**",
+      "test/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "docs/13-product-design/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP61-POSTCLOSURE-DOCSYNC-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 18000,
+    "soft_alert": 30000,
+    "hard_cap": 60000
+  },
+  "max_repair_cycles": 3,
+  "task_risk_rules": [
+    {
+      "id": "STEP61_POSTCLOSURE_DOCSYNC_MEDIUM",
+      "risk": "MEDIUM",
+      "paths": [
+        "docs/11-step-history/STEP-61-I-FINAL-CANONICAL-CLOSURE.md",
+        "docs/12-current-state/CURRENT-STATE.md",
+        "docs/12-current-state/MASTER-ROADMAP.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP61-POSTCLOSURE-DOCSYNC-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "61-I",
+      "required_state": "TERMINAL_MERGED_POSTMERGE_PASS_LOCK_RELEASED",
+      "observed_state": "TERMINAL_MERGED_POSTMERGE_PASS_LOCK_RELEASED",
+      "merge_sha": "26cf00e83e90872607c9c4562075e02981710ecc",
+      "terminal_evidence_comment": 5907933747,
+      "blocking": false
+    },
+    {
+      "item": "GRAPHIFY_OPERATIONAL_LAYER",
+      "required_state": "TERMINAL_MERGED_POSTMERGE_PASS_LOCK_RELEASED",
+      "observed_state": "TERMINAL_MERGED_POSTMERGE_PASS_LOCK_RELEASED",
+      "merge_sha": "4b8b473e76a215aca7ffaa450298d13a9b83f2f3",
+      "terminal_evidence_comment": 5908448686,
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "linear_issue": "HOS-65",
+    "live_guard_main_head": "4b8b473e76a215aca7ffaa450298d13a9b83f2f3",
+    "live_guard_open_prs": 0,
+    "predecessor_pr": 281,
+    "predecessor_protected_run": 36693182773,
+    "predecessor_postmerge_job": 109815034416,
+    "predecessor_terminal_comment": 5907933747,
+    "graphify_pr": 283,
+    "graphify_terminal_comment": 5908448686
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Step 61-I terminal protected merge, exact-SHA postmerge PASS and Lock release are recorded accurately.",
+      "verification": "provider-backed evidence and deterministic document review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Current State and Master Roadmap mark Step 61 CLOSED / FINAL CANONICAL PASS and Step 62 NEXT / NOT_STARTED.",
+      "verification": "deterministic document review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "No runtime/API/database/dependency/workflow/Product Design mutation and no Step 62 implementation.",
+      "verification": "diff and Task Catalog exactness",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "This docs-sync task itself passes exact-head CI/Phase A, Review, artifact-bound ACTIVE Lock, Merge Policy, protected merge, exact-SHA postmerge and terminal Lock release.",
+      "verification": "provider-backed terminal evidence",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "MEDIUM-risk documentation-only postclosure state synchronization. Step 62 may start only after this task is terminal."
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}
