@@ -9,7 +9,7 @@
   "canonical": {
     "repository": "rahemih/Eqcofe",
     "branch": "main",
-    "base_sha": "454d2ff2d6e479ca89bbacaccdf13f8951031396"
+    "base_sha": "26cf00e83e90872607c9c4562075e02981710ecc"
   },
   "scope": {
     "read": [
@@ -80,7 +80,9 @@
     "graphify_cli": "0.9.71",
     "codex_cli": "0.149.1",
     "predecessor_pr": 280,
-    "predecessor_merge_sha": "454d2ff2d6e479ca89bbacaccdf13f8951031396"
+    "predecessor_merge_sha": "454d2ff2d6e479ca89bbacaccdf13f8951031396",
+    "synchronized_main": "26cf00e83e90872607c9c4562075e02981710ecc",
+    "synchronization_reason": "Step 61-I canonical closure merged before Graphify operational-layer closure"
   },
   "acceptance_criteria": [
     {

@@ -1,34 +1,34 @@
 # EQCOFE Current State
 
 ## Trusted state date
-**2026-09-26**
+**2026-09-30**
 
 ## Official repository
 - Repository: `rahemih/Eqcofe`
 - Default/canonical branch: `main`
 - Historical repository: `rahemih/digikala-clone` — historical/recovery evidence only; not canonical application source.
 
-## Current Step 60 position
+## Current Step 61 position
 
-**Step 60 — Search, Category, Filters & Listing — CLOSED / FINAL CANONICAL PASS; A–I CANONICAL_COMPLETE.** Stage-I PR #268 passed protected merge, exact-SHA postmerge verification and terminal Lock release. Step 61 is `NEXT / NOT_STARTED` and requires a fresh live guard and separate scoped task.
+**Step 61 — Product Detail & Rich Media — FINAL CLOSURE IN PROGRESS; A–H CANONICAL_COMPLETE; I IN PROGRESS.** Step 61-H PR #278 passed protected merge, exact-SHA postmerge verification and terminal Lock release. Step 61-I is documentation/governance-only and must complete its own protected transport before Step 61 is declared closed. Step 62 remains blocked until that terminal evidence exists.
 
 | Stage | PR | Canonical merge | State |
 | --- | ---: | --- | --- |
-| 60-A handoff | #258 | `bdf8fccde4ca40cced48381ad3be2e0461ade535` | COMPLETE |
-| 60-B backend/OpenAPI contract | #261 | `a8fcb395055dd5e68ef6bc4ec04f6c5c7c063566` | COMPLETE |
-| 60-C shared listing | #262 | `a4da53f9431ba02784b0eba5f1b551bce6cfdd51` | COMPLETE |
-| 60-D search | #263 | `d06885c26a77ab3db7f23356ac973db2019164c3` | COMPLETE |
-| 60-E category | #264 | `70c7695e670239463ce0101a641523623eed8fdd` | COMPLETE |
-| 60-F filters/sorting/cursor | #265 | `aa26be53ff3937fc0822c3ae3c1b022da8fd60cf` | COMPLETE |
-| 60-G SEO/states/accessibility | #266 | `eddccb0ccf3756a1f01ea06facb7401ce65a0193` | COMPLETE |
-| 60-H integrated acceptance | #267 | `b6a3d1864a3a53edd1d300602acccecafc35d6e6` | COMPLETE |
-| 60-I final closure | #268 | `0c2b6d3cf9fdc26474f184d416637f382dd10612` | COMPLETE |
+| 61-A canonical handoff | #271 | `bb1b9be162696c302248b8b6244095e30d5aa100` | COMPLETE |
+| 61-B backend/OpenAPI contract | #272 | `5a39afcd7e38cccbf1a0906dec7df6fe01589853` | COMPLETE |
+| 61-C shared Product Detail foundation | #273 | `ca59269b666c263e8ec35ede38b0d1d6fefe230f` | COMPLETE |
+| 61-D variant/price/stock | #274 | `af9ce9b279f04c944763acb312cd85a53b129a2b` | COMPLETE |
+| 61-E media gallery/video | #275 | `2009eba4d6b7426dbe88e8d7838a05e53d333f7d` | COMPLETE |
+| 61-F specs/related/add-to-cart | #276 | `e3ff5427cac9029c081d94a7971f40640bb1c895` | COMPLETE |
+| 61-G SEO/states/accessibility | #277 | `502cf4af22dd5ea5fbb8de33e5b5f9e1020f0eb2` | COMPLETE |
+| 61-H integrated acceptance | #278 | `6244e5c9f2d689147f73905df6fae2f8703cc09a` | COMPLETE |
+| 61-I final canonical closure | pending | pending | IN PROGRESS |
 
-Stage I exact head `ce5b54dca30de33c40d5a13b7da2aba66ec40ca8` passed Canonical CI `36227082639`, Phase A `36227082651` and Merge Policy `36227082650`. Protected workflow_dispatch run `36238576728` merged PR #268; merge job `108394770663` and exact-SHA postmerge job `108394814717` passed, including root `pnpm verify` (938/938 application tests) and Phase A. The postmerge-failure job was skipped. Owner [terminal comment 5846848178](https://github.com/rahemih/Eqcofe/pull/268#issuecomment-5846848178) released `LOCK-EQCOFE-STEP60-I-CLOSURE-001-01`. Linear `HOS-16` is Done; Step 61 `HOS-65` remains Backlog.
+Stage H exact head `277a56a6c25b9969ee7063bb0a20c0c6e9586586` passed Canonical CI `36682324342`, Phase A `36682324297`, Storefront Quality `36682324197`, Step 57 Prototype `36682324315`, and Merge Policy `36682324270` rerun. Protected workflow_dispatch run `36686397414` / #713 merged PR #278; merge job `109793150035` and exact-SHA postmerge job `109793271316` passed, including canonical `pnpm verify` and Phase A. Postmerge-failure `109794585244` skipped. Terminal comment `5906904915` released `LOCK-EQCOFE-STEP61-H-ACCEPTANCE-001-01`.
 
-Stage H exact head `ff916d9e2d828b8a8e80605785a7e71158230d4f` passed Canonical CI `36008565878`, Phase A `36008565888` and Storefront Quality `36008565846`. Protected Merge Policy run `36012004673` merged PR #267; merge job `107674820150` and exact-SHA postmerge job `107674985799` passed, including root `pnpm verify` and Phase A. Terminal Lock `LOCK-EQCOFE-STEP60-H-ACCEPTANCE-001-01` was released in [PR #267 comment 5823862236](https://github.com/rahemih/Eqcofe/pull/267#issuecomment-5823862236). Later failed run `36033125995` was a redundant dispatch after merge and is not the canonical transport.
+The production Product Detail flow now covers authoritative product identity, variant selection, Toman price and stock states, media gallery/video, specifications, related content, add-to-cart, SEO/canonical/robots rules and explicit loading/empty/error/offline recovery with Persian RTL/accessibility/responsive verification. Unsupported 3D/360 remains an explicit capability boundary rather than an invented feature. Compare/Wishlist remain Step 62 and are not started by Step 61-I.
 
-Search and Category now render server-loaded listings with generated OpenAPI data, supported URL filters/sort/cursor, explicit states, and listing SEO boundaries; the integrated nine-case SSR and browser quality gates passed. Product Detail/rich media/add-to-cart remain Step 61. No Stage-I runtime feature change is authorized. Closure record: `docs/11-step-history/STEP-60-I-FINAL-CANONICAL-CLOSURE.md`.
+Stage-I starting canonical main is `454d2ff2d6e479ca89bbacaccdf13f8951031396`. The prior shared-writer blocker PR #280 (Graphify/Codex integration) is terminal and released in comment `5907588792`. Linear `HOS-65` remains In Progress until Stage-I protected merge, exact-SHA postmerge verification and terminal Lock release.
 
 ## Historical Step59 final position (snapshot from 2026-09-20)
 

@@ -10,7 +10,7 @@
 | EQCOFE-DEPS-RUNTIME-PATCH-001 | Governed runtime patch dependency refresh replacing Dependabot PR #174 | HIGH | REQUIRED | `fe42b0122854fa08e34380928bed546271a8ac6e` | 18000/30000/60000 |
 | EQCOFE-FRONTEND-CONSTITUTION-DRAFT-001 | Refresh Frontend Constitution Draft after Step 58 canonical foundation | MEDIUM | NOT_REQUIRED | `d6ccf594acc3997c31d8c8ec4afd817249650a95` | 18000/28000/56000 |
 | EQCOFE-GRAPHIFY-CODEX-INTEGRATION-001 | Project-scoped Graphify integration for Codex | MEDIUM | NOT_REQUIRED | `6244e5c9f2d689147f73905df6fae2f8703cc09a` | 12000/18000/36000 |
-| EQCOFE-GRAPHIFY-OPERATIONAL-LAYER-001 | Operational Graphify layer for EQCOFE | MEDIUM | NOT_REQUIRED | `454d2ff2d6e479ca89bbacaccdf13f8951031396` | 18000/28000/56000 |
+| EQCOFE-GRAPHIFY-OPERATIONAL-LAYER-001 | Operational Graphify layer for EQCOFE | MEDIUM | NOT_REQUIRED | `26cf00e83e90872607c9c4562075e02981710ecc` | 18000/28000/56000 |
 | EQCOFE-POST-STEP60-HANDOFF-SYNC-001 | Post-Step 60 Chat Handoff reconciliation | MEDIUM | NOT_REQUIRED | `316dc4066552b5cdd32142d80f43105f3b7c6934` | 12000/20000/40000 |
 | EQCOFE-STEP57-HIFI-001 | Step 57 high-fidelity UI and prototype acceptance | HIGH | REQUIRED | `0b67ff8929e8976a0c4ae27c86dcb048567ff4da` | N/A (legacy/no budget) |
 | EQCOFE-STEP57-STATE-SYNC-001 | Step 57 final canonical state synchronization | MEDIUM | NOT_REQUIRED | `58291bb8ee6f834d549524380d93c112e653d5ee` | N/A (legacy/no budget) |
@@ -50,6 +50,7 @@
 | EQCOFE-STEP61-F-SPEC-RELATED-CART-001 | Step 61-F specifications, related content and add-to-cart | MEDIUM | NOT_REQUIRED | `2009eba4d6b7426dbe88e8d7838a05e53d333f7d` | 40000/60000/120000 |
 | EQCOFE-STEP61-G-SEO-STATE-A11Y-001 | Step 61-G Product Detail SEO, states, accessibility and responsive hardening | MEDIUM | NOT_REQUIRED | `e3ff5427cac9029c081d94a7971f40640bb1c895` | 32000/48000/96000 |
 | EQCOFE-STEP61-H-ACCEPTANCE-001 | Step 61-H integrated Product Detail acceptance and browser prototype | MEDIUM | NOT_REQUIRED | `502cf4af22dd5ea5fbb8de33e5b5f9e1020f0eb2` | 24000/36000/72000 |
+| EQCOFE-STEP61-I-CLOSURE-001 | Step 61-I final canonical closure and Step 62 handoff | MEDIUM | NOT_REQUIRED | `454d2ff2d6e479ca89bbacaccdf13f8951031396` | 18000/30000/60000 |
 | MA-AGENT-A0-ORCHESTRATOR-001 | A0 — Orchestrator / Engineering Manager Prompt | LOW | NOT_REQUIRED | `f7919991e619d416360e74a542741ef21c70f732` | 10000/16000/32000 |
 | MA-AGENT-A1-SPEC-001 | A1 — Specification & Research Prompt | LOW | NOT_REQUIRED | `120898df57138b301560e7d9b9f1b3f5da03e982` | 10000/16000/32000 |
 | MA-AGENT-A10-EVIDENCE-001 | A10 — Evidence & Documentation Prompt | LOW | NOT_REQUIRED | `bdf8fccde4ca40cced48381ad3be2e0461ade535` | 12000/18000/35000 |
@@ -95,4 +96,4 @@
 | MA-V1-ACC-MEDIUM-001 | V1 Acceptance MEDIUM R2 — telemetry terminal-state conflict hardening | MEDIUM | NOT_REQUIRED | `9017e0f25e9571568ed9acf4ca3ca977ce9e78f0` | 15000/25000/50000 |
 | MA-V1-ACCEPTANCE-CLOSURE-V16-R2-001 | V1.6 Phase 3 canonical acceptance closure R2 | HIGH | REQUIRED | `d7d235f5f240b8bea44bc607afa812b2f5bb12d4` | 30000/50000/90000 |
 
-Task contracts indexed: **89**.
+Task contracts indexed: **90**.
