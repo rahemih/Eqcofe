@@ -25,7 +25,7 @@ export function ProductDetailState({
   state: AsyncSurfaceState<ProductDetailResponse>;
   retryHref: string;
 }) {
-  const connectivity = useSyncExternalStore(
+  const connectivity = useSyncExternalStore<ConnectivityHint>(
     subscribeBrowserConnectivityHint,
     readBrowserConnectivityHint,
     () => "unknown",
