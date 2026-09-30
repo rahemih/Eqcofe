@@ -1,3 +1,4 @@
+import { ApiClientError } from "../../platform/api/errors.js";
 import type { ApiClientConfig } from "../../platform/api/request.js";
 import { readServerMediaConfig } from "../../platform/config/api.server.js";
 import {
@@ -6,6 +7,7 @@ import {
 } from "../../platform/auth/session-cookie.server.js";
 import {
   classifyApiFailureState,
+  emptyState,
   readyState,
   type AsyncSurfaceState,
 } from "../../platform/state/surface-state.js";
@@ -116,6 +118,20 @@ export async function loadProductDetailFoundation(
       setCookies: bridge.takeSetCookies(),
     };
   } catch (error) {
+    if (isNotFound(error)) {
+      return {
+        data: {
+          product: emptyState("no-result"),
+          variants: emptyState("no-result"),
+          related: emptyState("no-result"),
+          media: [],
+          mediaCapabilities: PRODUCT_MEDIA_CAPABILITIES,
+          contract: productDetailContract(),
+        },
+        setCookies: bridge?.takeSetCookies() ?? [],
+      };
+    }
+
     const failure = classifyApiFailureState<ProductDetailResponse>(error, {
       method: "get",
       connectivity: "unknown",
@@ -165,4 +181,11 @@ function productDetailContract(): ProductDetailRouteData["contract"] {
       source: "primary-category",
     },
   };
+}
+
+
+function isNotFound(error: unknown): boolean {
+  return error instanceof ApiClientError
+    && error.kind === "http"
+    && error.status === 404;
 }
