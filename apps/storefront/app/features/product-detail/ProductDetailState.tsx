@@ -4,6 +4,7 @@ import { StatePanel } from "../../components/StatePanel.js";
 import {
   readBrowserConnectivityHint,
   subscribeBrowserConnectivityHint,
+  type ConnectivityHint,
 } from "../../platform/state/connectivity.js";
 import type { AsyncSurfaceState } from "../../platform/state/surface-state.js";
 import type { ProductDetailResponse } from "./product-detail-contract.js";
