@@ -53,8 +53,24 @@ const product = {
     },
   ],
   specifications: [
-    { key: 'material', label_fa: 'جنس', value_fa: 'استیل' },
-    { key: 'weight', label_fa: 'وزن', value_fa: '۵۰۰ گرم' },
+    {
+      attribute_value_id: '88888888-8888-4888-8888-888888888888',
+      name_fa: 'جنس',
+      value_text: 'استیل',
+      value_numeric: null,
+      value_boolean: null,
+      normalized_value: 'steel',
+      unit: null,
+    },
+    {
+      attribute_value_id: '99999999-9999-4999-8999-999999999999',
+      name_fa: 'وزن',
+      value_text: '۵۰۰',
+      value_numeric: null,
+      value_boolean: null,
+      normalized_value: '500',
+      unit: 'گرم',
+    },
   ],
   variants,
   version: 1,
@@ -172,8 +188,12 @@ try {
     redirect: 'manual',
   });
   assert.equal(cartResponse.status, 200, 'STEP61_H_CART_ACTION_STATUS');
-  const cartPayload = await cartResponse.json();
-  assert.equal(cartPayload.status, 'success', 'STEP61_H_CART_ACTION_FEEDBACK');
+  const cartHtml = await cartResponse.text();
+  assert(
+    cartHtml.includes('data-status="success"')
+      && cartHtml.includes('این مدل به سبد خرید اضافه شد.'),
+    'STEP61_H_CART_ACTION_FEEDBACK',
+  );
 
   if (process.env.EQCOFE_BROWSER_QA_ROOT) {
     const qaRequire = createRequire(resolve(process.env.EQCOFE_BROWSER_QA_ROOT, 'package.json'));
