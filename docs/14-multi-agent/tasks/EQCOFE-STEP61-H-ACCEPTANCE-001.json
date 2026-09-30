@@ -1,0 +1,127 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP61-H-ACCEPTANCE-001",
+  "title": "Step 61-H integrated Product Detail acceptance and browser prototype",
+  "description": "Accept the production Product Detail flow as one integrated Storefront surface using deterministic mock-backed SSR and browser interaction. Verify product identity, variant selection, authoritative Toman price/stock, media controls, specifications, related content, add-to-cart, SEO, empty/error recovery states, RTL/mobile/accessibility and existing capability boundaries. No new product feature, backend, OpenAPI, database, dependency, workflow, final Roadmap/Current-State closure, or Step 62+ behavior.",
+  "risk": "MEDIUM",
+  "risk_floor": "MEDIUM",
+  "owner": "PRODUCT_DESIGN",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "502cf4af22dd5ea5fbb8de33e5b5f9e1020f0eb2"
+  },
+  "scope": {
+    "read": [
+      "apps/storefront/**",
+      "docs/11-step-history/**",
+      "docs/13-product-design/**",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "apps/storefront/package.json",
+      "apps/storefront/scripts/verify-step61-acceptance.mjs",
+      "docs/11-step-history/STEP-61-H-FULL-ACCEPTANCE-PROTOTYPE.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP61-H-ACCEPTANCE-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "pnpm-lock.yaml",
+      "contracts/**",
+      "src/**",
+      "database/**",
+      "test/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**",
+      "apps/storefront/app/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP61-H-ACCEPTANCE-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 24000,
+    "soft_alert": 36000,
+    "hard_cap": 72000
+  },
+  "max_repair_cycles": 3,
+  "task_risk_rules": [
+    {
+      "id": "STEP61_H_INTEGRATED_ACCEPTANCE_MEDIUM",
+      "risk": "MEDIUM",
+      "paths": [
+        "apps/storefront/package.json",
+        "apps/storefront/scripts/verify-step61-acceptance.mjs",
+        "docs/11-step-history/STEP-61-H-FULL-ACCEPTANCE-PROTOTYPE.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP61-H-ACCEPTANCE-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "61-G",
+      "required_state": "TERMINAL_MERGED_POSTMERGE_PASS_LOCK_RELEASED",
+      "observed_state": "TERMINAL_MERGED_POSTMERGE_PASS_LOCK_RELEASED",
+      "merge_sha": "502cf4af22dd5ea5fbb8de33e5b5f9e1020f0eb2",
+      "terminal_evidence_comment": 5905693046,
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "linear_issue": "HOS-65",
+    "live_guard_main_head": "502cf4af22dd5ea5fbb8de33e5b5f9e1020f0eb2",
+    "live_guard_open_prs": 0,
+    "predecessor_pr": 277,
+    "predecessor_terminal_comment": 5905693046,
+    "implementation_owner_agent": "A3",
+    "orchestration_owner_agent": "A0",
+    "qa_agent": "A7",
+    "evidence_agent": "A10"
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Integrated mock-backed Product Detail SSR verifies ready product, variant price/stock, media/specification/related surfaces, canonical metadata, and backend-owned GET authority.",
+      "verification": "step61:acceptance and root pnpm verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Browser acceptance exercises variant selection, media controls and add-to-cart on the production Product Detail route and preserves existing responsive/axe/keyboard Storefront Quality gates.",
+      "verification": "Storefront Quality browser workflow",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Not-found Product Detail resolves to an explicit no-result state with no invented canonical metadata; unsupported 3D/360 remains explicitly unavailable.",
+      "verification": "step61:acceptance",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "No runtime feature, backend/OpenAPI/database/dependency/workflow or Step 62+ behavior is introduced by Stage H.",
+      "verification": "scope and diff review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Canonical completion requires exact-head provider checks, deterministic Review, artifact-bound ACTIVE Lock, protected merge, exact-SHA postmerge verification and terminal Lock release before Stage 61-I.",
+      "verification": "provider-backed terminal evidence",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Provider risk classification is authoritative; HIGH escalation requires Security and Owner Human Gate."
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}
