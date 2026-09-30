@@ -65,7 +65,13 @@
     "implementation_branch": "chore/graphify-codex-integration",
     "initial_commit": "0a3d6b9f3cdc924a2b84238f2fa0be2f282dad73",
     "graphify_cli": "0.9.71",
-    "codex_cli": "0.149.1"
+    "codex_cli": "0.149.1",
+    "repair_cycle": 1,
+    "repaired_failures": [
+      "PR_TASK_CONTRACT_REFERENCE_REQUIRED",
+      "TASK_CATALOG_STALE"
+    ],
+    "task_catalog_path": "docs/14-multi-agent/generated/TASK-CATALOG.md"
   },
   "acceptance_criteria": [
     {
