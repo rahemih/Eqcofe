@@ -204,7 +204,7 @@ try {
       await page.goto(origin + '/product/sample-grinder');
       const radios = page.getByRole('radio');
       await radios.nth(1).click();
-      await page.getByText('۴ عدد باقی مانده').waitFor();
+      await page.locator('.product-variant-state__availability').filter({ hasText: '۴ عدد باقی مانده' }).waitFor();
       await page.getByRole('button', { name: 'بعدی' }).click();
       await page.getByRole('button', { name: 'افزودن به سبد خرید' }).click();
       await page.getByText('این مدل به سبد خرید اضافه شد.').waitFor();
