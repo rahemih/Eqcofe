@@ -10,7 +10,7 @@
 
 ## Current Step 61 position
 
-**Step 61 — Product Detail & Rich Media — FINAL CLOSURE IN PROGRESS; A–H CANONICAL_COMPLETE; I IN PROGRESS.** Step 61-H PR #278 passed protected merge, exact-SHA postmerge verification and terminal Lock release. Step 61-I is documentation/governance-only and must complete its own protected transport before Step 61 is declared closed. Step 62 remains blocked until that terminal evidence exists.
+**Step 61 — Product Detail & Rich Media — CLOSED / FINAL CANONICAL PASS.** Stages 61-A through 61-I are canonically complete. Step 62 — Compare & Wishlist is **NEXT / NOT_STARTED** and requires a fresh live guard plus separate governed Task Contract.
 
 | Stage | PR | Canonical merge | State |
 | --- | ---: | --- | --- |
@@ -22,13 +22,15 @@
 | 61-F specs/related/add-to-cart | #276 | `e3ff5427cac9029c081d94a7971f40640bb1c895` | COMPLETE |
 | 61-G SEO/states/accessibility | #277 | `502cf4af22dd5ea5fbb8de33e5b5f9e1020f0eb2` | COMPLETE |
 | 61-H integrated acceptance | #278 | `6244e5c9f2d689147f73905df6fae2f8703cc09a` | COMPLETE |
-| 61-I final canonical closure | pending | pending | IN PROGRESS |
+| 61-I final canonical closure | #281 | `26cf00e83e90872607c9c4562075e02981710ecc` | COMPLETE |
 
-Stage H exact head `277a56a6c25b9969ee7063bb0a20c0c6e9586586` passed Canonical CI `36682324342`, Phase A `36682324297`, Storefront Quality `36682324197`, Step 57 Prototype `36682324315`, and Merge Policy `36682324270` rerun. Protected workflow_dispatch run `36686397414` / #713 merged PR #278; merge job `109793150035` and exact-SHA postmerge job `109793271316` passed, including canonical `pnpm verify` and Phase A. Postmerge-failure `109794585244` skipped. Terminal comment `5906904915` released `LOCK-EQCOFE-STEP61-H-ACCEPTANCE-001-01`.
+Stage-I exact head `99874de412cfdb339ec36241d45fff65d457b4ae` passed Canonical CI `36692201935` / #1138, Phase A `36692201792` / #637, and Merge Policy `36692202025` / #720 rerun with deterministic Review PASS, `blockers=[]` and `merge_eligible=true`. Protected workflow_dispatch run `36693182773` / #722 merged PR #281; merge job `109814910586` and exact-SHA postmerge job `109815034416` passed, including canonical `pnpm verify` and Phase A. Postmerge-failure `109816653333` skipped. Terminal comment `5907933747` released `LOCK-EQCOFE-STEP61-I-CLOSURE-001-01`.
 
-The production Product Detail flow now covers authoritative product identity, variant selection, Toman price and stock states, media gallery/video, specifications, related content, add-to-cart, SEO/canonical/robots rules and explicit loading/empty/error/offline recovery with Persian RTL/accessibility/responsive verification. Unsupported 3D/360 remains an explicit capability boundary rather than an invented feature. Compare/Wishlist remain Step 62 and are not started by Step 61-I.
+The frozen Step-61 product result covers authoritative Product Detail identity, variant selection, integer-Toman price/stock states, image/video media, specifications, related content, add-to-cart, SEO/canonical/robots behavior, loading/empty/error/offline recovery, Persian RTL, accessibility, responsive behavior and integrated browser acceptance. Unsupported 3D/360 remains an explicit capability boundary rather than an invented feature. Compare/Wishlist remain Step 62; Cart/Checkout pages remain Step 63.
 
-Stage-I starting canonical main is `454d2ff2d6e479ca89bbacaccdf13f8951031396`. The prior shared-writer blocker PR #280 (Graphify/Codex integration) is terminal and released in comment `5907588792`. Linear `HOS-65` remains In Progress until Stage-I protected merge, exact-SHA postmerge verification and terminal Lock release.
+Graphify operational-layer PR #283 subsequently merged governance/developer-tooling changes only as `4b8b473e76a215aca7ffaa450298d13a9b83f2f3` through protected run `36696451929` / #727, with postmerge PASS and terminal Lock release comment `5908448686`. This does not alter Step-61 product scope.
+
+Linear `HOS-65` may be marked Done after this postclosure docs-sync task itself completes protected merge, exact-SHA postmerge verification and terminal Lock release.
 
 ## Historical Step59 final position (snapshot from 2026-09-20)
 
