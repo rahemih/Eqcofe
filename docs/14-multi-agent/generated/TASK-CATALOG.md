@@ -47,6 +47,7 @@
 | EQCOFE-STEP61-E-MEDIA-GALLERY-001 | Step 61-E Product Detail media gallery, video and capability boundary | MEDIUM | NOT_REQUIRED | `af9ce9b279f04c944763acb312cd85a53b129a2b` | 36000/54000/108000 |
 | EQCOFE-STEP61-F-SPEC-RELATED-CART-001 | Step 61-F specifications, related content and add-to-cart | MEDIUM | NOT_REQUIRED | `2009eba4d6b7426dbe88e8d7838a05e53d333f7d` | 40000/60000/120000 |
 | EQCOFE-STEP61-G-SEO-STATE-A11Y-001 | Step 61-G Product Detail SEO, states, accessibility and responsive hardening | MEDIUM | NOT_REQUIRED | `e3ff5427cac9029c081d94a7971f40640bb1c895` | 32000/48000/96000 |
+| EQCOFE-STEP61-H-ACCEPTANCE-001 | Step 61-H integrated Product Detail acceptance and browser prototype | MEDIUM | NOT_REQUIRED | `502cf4af22dd5ea5fbb8de33e5b5f9e1020f0eb2` | 24000/36000/72000 |
 | MA-AGENT-A0-ORCHESTRATOR-001 | A0 — Orchestrator / Engineering Manager Prompt | LOW | NOT_REQUIRED | `f7919991e619d416360e74a542741ef21c70f732` | 10000/16000/32000 |
 | MA-AGENT-A1-SPEC-001 | A1 — Specification & Research Prompt | LOW | NOT_REQUIRED | `120898df57138b301560e7d9b9f1b3f5da03e982` | 10000/16000/32000 |
 | MA-AGENT-A10-EVIDENCE-001 | A10 — Evidence & Documentation Prompt | LOW | NOT_REQUIRED | `bdf8fccde4ca40cced48381ad3be2e0461ade535` | 12000/18000/35000 |
@@ -92,4 +93,4 @@
 | MA-V1-ACC-MEDIUM-001 | V1 Acceptance MEDIUM R2 — telemetry terminal-state conflict hardening | MEDIUM | NOT_REQUIRED | `9017e0f25e9571568ed9acf4ca3ca977ce9e78f0` | 15000/25000/50000 |
 | MA-V1-ACCEPTANCE-CLOSURE-V16-R2-001 | V1.6 Phase 3 canonical acceptance closure R2 | HIGH | REQUIRED | `d7d235f5f240b8bea44bc607afa812b2f5bb12d4` | 30000/50000/90000 |
 
-Task contracts indexed: **86**.
+Task contracts indexed: **87**.
