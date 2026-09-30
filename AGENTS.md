@@ -12,3 +12,15 @@ Rules:
 - After modifying code, run `graphify update .` to keep the graph current (AST-only, no API cost).
 
 <!-- CI retrigger: Graphify governance repair -->
+
+
+## EQCOFE local Codex agent
+
+- Codex CLI is the local execution agent for this repository. It runs on the user's machine and inherits these repository instructions automatically.
+- Start it from the repository with `.codex/start-eqcofe-local-agent.ps1`.
+- Never mutate `main` directly. If the current branch is `main`, stop and create/switch to a task branch first.
+- Before codebase-wide investigation, use Graphify first when `graphify-out/graph.json` exists.
+- Keep changes inside the active Task Contract write scope. Treat forbidden paths and active locks as hard stops.
+- After code changes, run the focused tests plus repository verification required by the active task, then refresh Graphify with `graphify update .`.
+- Do not force-push, merge, change branch protection, or dispatch protected merge workflows unless the Owner explicitly authorizes that exact action.
+- Prefer completing safe local read/write/test operations autonomously; ask the Owner only for a real Human Gate, credential/login action, or explicitly protected operation.
