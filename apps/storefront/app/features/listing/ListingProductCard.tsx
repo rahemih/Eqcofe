@@ -1,10 +1,26 @@
 import { Link } from "react-router";
+import { WishlistAction } from "../compare-wishlist/WishlistAction.js";
+import type { WishlistMembershipView } from "../compare-wishlist/wishlist-action-state.js";
 import type { ListingProductCardData } from "./listing-contract.js";
 
-export function ListingProductCard({ product }: { product: ListingProductCardData }) {
+export function ListingProductCard({
+  product,
+  compareSelected,
+  compareDisabledReason,
+  onCompareToggle,
+  wishlist,
+}: {
+  product: ListingProductCardData;
+  compareSelected: boolean;
+  compareDisabledReason: string | null;
+  onCompareToggle: () => void;
+  wishlist: WishlistMembershipView;
+}) {
   const image = product.primary_image ?? null;
   const price = product.price ?? null;
   const availability = product.availability;
+  const wishlisted = wishlist.status === "ready"
+    && wishlist.productIds.includes(product.id);
 
   return (
     <article className="listing-card">
@@ -47,6 +63,26 @@ export function ListingProductCard({ product }: { product: ListingProductCardDat
           ) : (
             <span>قیمت در دسترس نیست</span>
           )}
+        </div>
+
+        <div className="listing-card__evaluation">
+          <button
+            type="button"
+            className="listing-card__compare"
+            aria-pressed={compareSelected}
+            disabled={!compareSelected && Boolean(compareDisabledReason)}
+            onClick={onCompareToggle}
+          >
+            {compareSelected ? "حذف از مقایسه" : "انتخاب برای مقایسه"}
+          </button>
+          {!compareSelected && compareDisabledReason ? (
+            <p className="listing-card__compare-reason">{compareDisabledReason}</p>
+          ) : null}
+          <WishlistAction
+            productId={product.id}
+            wishlisted={wishlisted}
+            membershipStatus={wishlist.status}
+          />
         </div>
       </div>
     </article>
