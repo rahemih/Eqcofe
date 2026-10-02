@@ -14920,7 +14920,7 @@
     },
     {
       "path": "contracts/http/openapi.yaml",
-      "sha256": "51f6d9230c25cf26308bd419cb5f4e7f49589b46439d352a5878982a567db6bf"
+      "sha256": "ca67e1c68c0d54f7a6ef4f34a8d197e395067d70aff138f19035424ee793bfac"
     },
     {
       "path": "contracts/http/step49-pos-a9.yaml",

@@ -8481,6 +8481,43 @@ export interface components {
             availability?: components["schemas"]["AvailabilityView"] | null;
             version?: components["schemas"]["EntityVersion"];
         };
+        CompareVariantView: {
+            variant_id: components["schemas"]["EntityId"];
+            sku: components["schemas"]["Sku"];
+            name_suffix?: string | null;
+        };
+        CompareProductView: {
+            id: components["schemas"]["EntityId"];
+            name_fa: string;
+            slug: components["schemas"]["Slug"];
+            primary_category_id: components["schemas"]["EntityId"];
+            category_name: string;
+            variants: components["schemas"]["CompareVariantView"][];
+            price: components["schemas"]["PriceView"] | null;
+            specifications: components["schemas"]["ProductSpecificationView"][];
+        };
+        CompareResponse: {
+            primary_category_id: components["schemas"]["EntityId"];
+            products: components["schemas"]["CompareProductView"][];
+        };
+        CompareValidationResponse: {
+            /** @constant */
+            valid: true;
+            primary_category_id: components["schemas"]["EntityId"];
+        };
+        WishlistItem: {
+            product_id: components["schemas"]["EntityId"];
+            added_at: components["schemas"]["Timestamp"];
+        };
+        WishlistListResponse: {
+            items: components["schemas"]["WishlistItem"][];
+        };
+        WishlistAddResponse: {
+            /** @constant */
+            added: true;
+            product_id: components["schemas"]["EntityId"];
+            already_present: boolean;
+        };
         ProductSpecificationView: {
             attribute_id: components["schemas"]["EntityId"];
             key: string;
@@ -10732,13 +10769,16 @@ export interface operations {
             };
         };
         responses: {
-            /** @description نتیجه مقایسه */
+            /** @description نتیجه مقایسه معتبر و هم‌دسته */
             200: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["CompareResponse"];
+                };
             };
+            404: components["responses"]["NotFound"];
             422: components["responses"]["Unprocessable"];
         };
     };
@@ -11677,20 +11717,17 @@ export interface operations {
             };
         };
         responses: {
-            /** @description عملیات موفق */
+            /** @description اعتبارسنجی مقایسه موفق */
             200: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
-            };
-            /** @description عملیات پذیرفته شد */
-            202: {
-                headers: {
-                    [name: string]: unknown;
+                content: {
+                    "application/json": components["schemas"]["CompareValidationResponse"];
                 };
-                content?: never;
             };
+            404: components["responses"]["NotFound"];
+            422: components["responses"]["Unprocessable"];
         };
     };
     getArticles: {
@@ -11873,13 +11910,17 @@ export interface operations {
         };
         requestBody?: never;
         responses: {
-            /** @description عملیات موفق */
+            /** @description فهرست علاقه‌مندی‌های مشتری */
             200: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["WishlistListResponse"];
+                };
             };
+            401: components["responses"]["Unauthorized"];
+            422: components["responses"]["Unprocessable"];
         };
     };
     postCustomerWishlistProductId: {
@@ -11889,26 +11930,25 @@ export interface operations {
                 "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             path: {
-                product_id: string;
+                product_id: components["schemas"]["EntityId"];
             };
             cookie?: never;
         };
         requestBody?: never;
         responses: {
-            /** @description عملیات موفق */
+            /** @description افزودن idempotent محصول به علاقه‌مندی‌ها */
             200: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
-            };
-            /** @description عملیات پذیرفته شد */
-            202: {
-                headers: {
-                    [name: string]: unknown;
+                content: {
+                    "application/json": components["schemas"]["WishlistAddResponse"];
                 };
-                content?: never;
             };
+            400: components["responses"]["BadRequest"];
+            401: components["responses"]["Unauthorized"];
+            404: components["responses"]["NotFound"];
+            422: components["responses"]["Unprocessable"];
         };
     };
     deleteCustomerWishlistProductId: {
@@ -11918,19 +11958,22 @@ export interface operations {
                 "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             path: {
-                product_id: string;
+                product_id: components["schemas"]["EntityId"];
             };
             cookie?: never;
         };
         requestBody?: never;
         responses: {
-            /** @description حذف/برداشتن موفق */
+            /** @description حذف idempotent محصول از علاقه‌مندی‌ها؛ بدون body */
             204: {
                 headers: {
                     [name: string]: unknown;
                 };
                 content?: never;
             };
+            400: components["responses"]["BadRequest"];
+            401: components["responses"]["Unauthorized"];
+            422: components["responses"]["Unprocessable"];
         };
     };
     getCustomerProductAlerts: {

@@ -1,0 +1,202 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP62-B-COMPARE-WISHLIST-CONTRACT-001",
+  "title": "Step 62-B backend/OpenAPI Compare and Wishlist contract readiness",
+  "description": "Harden the public Compare and authenticated Wishlist HTTP contracts before Storefront implementation. Preserve existing backend/domain behavior; align OpenAPI and generated TypeScript with runtime success/error/idempotency/auth semantics, add deterministic contract tests, and forbid unnecessary backend, database, dependency or Storefront mutations.",
+  "risk": "HIGH",
+  "risk_floor": "HIGH",
+  "owner": "BACKEND_ENGINEERING",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "18ba870afb4d0b192cfbcd5e60fd0f8f754f6ba4"
+  },
+  "scope": {
+    "read": [
+      "apps/storefront/**",
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "src/modules/catalog/**",
+      "src/modules/customer/**",
+      "src/platform/auth/**",
+      "docs/11-step-history/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**",
+      "docs/14-multi-agent/**",
+      "test/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "AGENTS.md",
+      ".codex/**",
+      "scripts/graphify/**"
+    ],
+    "write": [
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "test/step62-compare-wishlist-contract.spec.ts",
+      "docs/11-step-history/STEP-62-B-COMPARE-WISHLIST-CONTRACT.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP62-B-COMPARE-WISHLIST-CONTRACT-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "docs/13-product-design/step56-admin-shell-wireframes.json",
+      "docs/13-product-design/step56-admin-ux-contract.json",
+      "docs/13-product-design/step56-catalog-media-wireframes.json",
+      "docs/13-product-design/step56-commerce-operations-wireframes.json",
+      "docs/13-product-design/step56-customers-growth-wireframes.json",
+      "docs/13-product-design/step56-final-audit.json",
+      "docs/13-product-design/step56-final-audit/manifest.json",
+      "docs/13-product-design/step56-foundation/A/manifest.json",
+      "docs/13-product-design/step56-management-security-wireframes.json",
+      "docs/13-product-design/step56-pricing-inventory-wireframes.json",
+      "docs/13-product-design/step56-wireframes/B/manifest.json",
+      "docs/13-product-design/step56-wireframes/C/manifest.json",
+      "docs/13-product-design/step56-wireframes/D/manifest.json",
+      "docs/13-product-design/step56-wireframes/E/manifest.json",
+      "docs/13-product-design/step56-wireframes/F/manifest.json",
+      "docs/13-product-design/step56-wireframes/G/manifest.json",
+      "docs/13-product-design/step57-high-fidelity-contract.json",
+      "docs/13-product-design/step56-final-audit/surface-matrix.json",
+      "docs/13-product-design/step56-final-audit/operation-matrix.json",
+      "docs/13-product-design/step56-final-audit/journey-matrix.json",
+      "docs/13-product-design/step56-final-audit/state-matrix.json",
+      "docs/13-product-design/step56-final-audit/release-blockers.json",
+      "docs/13-product-design/step56-final-audit/README.md",
+      "docs/13-product-design/step57-prototype/src/coverage.json",
+      "docs/13-product-design/step57-prototype/manifest.json"
+    ],
+    "forbidden": [
+      ".github/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "database/**",
+      "apps/storefront/**",
+      "src/modules/catalog/**",
+      "src/modules/customer/**",
+      "src/platform/**",
+      "docs/12-current-state/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP62-B-COMPARE-WISHLIST-CONTRACT-001-01"
+  ],
+  "human_gate_required": true,
+  "token_budget": {
+    "expected_max": 30000,
+    "soft_alert": 45000,
+    "hard_cap": 90000
+  },
+  "task_risk_rules": [
+    {
+      "id": "STEP62_B_COMPARE_WISHLIST_HTTP_CONTRACT_HIGH",
+      "risk": "HIGH",
+      "paths": [
+        "contracts/http/openapi.yaml",
+        "src/generated/openapi.ts",
+        "test/step62-compare-wishlist-contract.spec.ts",
+        "docs/11-step-history/STEP-62-B-COMPARE-WISHLIST-CONTRACT.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP62-B-COMPARE-WISHLIST-CONTRACT-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md",
+        "docs/13-product-design/**"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "62-A",
+      "name": "Canonical handoff, live guard and Compare/Wishlist scope freeze",
+      "required_state": "CANONICAL_COMPLETE_LOCK_RELEASED",
+      "observed_state": "CANONICAL_COMPLETE_LOCK_RELEASED",
+      "merge_sha": "18ba870afb4d0b192cfbcd5e60fd0f8f754f6ba4",
+      "evidence": "PR #292 protected workflow_dispatch run 36976211832; merge and exact-SHA postmerge verification PASS; terminal Lock release comment 5947112790.",
+      "blocking": false
+    },
+    {
+      "item": "GRAPHIFY-FRESHNESS",
+      "name": "Canonical local Graphify freshness and focused dependency traces",
+      "required_state": "FRESH_PASS_WITH_QUERY_PATH_EXPLAIN",
+      "observed_state": "PENDING_LOCAL_EVIDENCE",
+      "evidence": "Step 62-A requires FRESH/PASS graph health and focused query/path/explain evidence before any runtime/contract mutation. GitHub connector cannot access ignored local graphify-out artifacts.",
+      "blocking": true
+    }
+  ],
+  "evidence": {
+    "live_guard_main_head": "18ba870afb4d0b192cfbcd5e60fd0f8f754f6ba4",
+    "live_open_prs_before_write": 0,
+    "active_relevant_locks_before_write": 0,
+    "linear_issue": "HOS-66",
+    "owner_stage_authorization": "Owner explicitly approved starting 62-B in chat. Final artifact-bound GitHub HUMAN evidence remains pending until exact final head/artifact are frozen.",
+    "runtime_contract_findings": [
+      "POST /compare runtime enforces 1..4 unique products, product existence and same primary category, and returns authoritative price plus comparable specifications; OpenAPI 200 response is currently untyped.",
+      "POST /compare/validate runtime returns {valid:true,primary_category_id}; OpenAPI currently exposes generic/untyped success responses including a 202 not produced by runtime.",
+      "GET /customer/wishlist runtime returns {items:[{product_id,added_at}]}; OpenAPI 200 response is currently untyped.",
+      "POST /customer/wishlist/{product_id} runtime returns 200 with added/product_id/already_present and requires idempotency; OpenAPI response is untyped and advertises 202.",
+      "DELETE /customer/wishlist/{product_id} runtime returns 204 and is idempotent; OpenAPI path parameter should use EntityId/uuid authority and authenticated/error responses should align."
+    ],
+    "backend_disposition": "No backend/domain rewrite is justified by Stage-B discovery. Catalog and Customer runtime files are read-only/forbidden in this task.",
+    "migration_need": "NONE",
+    "dependency_need": "NONE",
+    "graph_gate": "BLOCKING before openapi/generated/test mutation until local FRESH/PASS plus query/path/explain evidence is recorded."
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Compare validate and compare successful responses are explicitly typed and match current runtime semantics, including max four unique products, same-primary-category validation and authoritative comparable product output.",
+      "verification": "step62_compare_contract_test",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Wishlist list/add/remove contracts are explicitly typed and match current authenticated runtime semantics, including idempotent add/remove behavior and UUID product identifiers.",
+      "verification": "step62_wishlist_contract_test",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "OpenAPI success/error/status/security/idempotency declarations do not claim responses the runtime does not produce; generated TypeScript is regenerated byte-for-byte from canonical OpenAPI.",
+      "verification": "step62_generated_contract_parity",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "No Catalog/Customer/Auth runtime source, database migration, dependency, Storefront implementation, pricing or inventory authority is changed in 62-B.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Before the first OpenAPI/generated/test mutation, canonical local Graphify health is FRESH/PASS at current base and focused query/path/explain evidence covers Compare and Wishlist dependency paths.",
+      "verification": "graphify_prechange_evidence",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "If OpenAPI hash drift triggers recovered Step56/57 provenance checks, only generator-equivalent hash/manifest synchronization is allowed; no design semantics or historical verdicts change.",
+      "verification": "step56_step57_provenance_only_repair",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "HIGH-risk closure requires exact-head Canonical CI, Phase A, deterministic Review, Verification and Security PASS, explicit artifact-bound Human Gate evidence, ACTIVE Lock, protected merge, exact-SHA postmerge verification and terminal Lock release.",
+      "verification": "canonical_transport_and_postmerge_evidence",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "VERIFICATION",
+      "SECURITY",
+      "HUMAN",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "62-B is HIGH risk. Owner has authorized the stage. Final HUMAN evidence must bind to the frozen exact head and artifact before protected merge. Direct-main write/raw merge prohibited."
+  },
+  "authorized_human_approver": {
+    "role": "PROJECT_OWNER",
+    "github_login": "rahemih"
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}
