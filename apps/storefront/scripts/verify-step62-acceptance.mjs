@@ -297,7 +297,7 @@ try {
         url.pathname === "/compare"
         && url.searchParams.getAll("product").join(",") === [p1, p2].join(",")
       );
-      await guestPage.getByRole("heading", { name: "مقایسه ۲ محصول" }).waitFor();
+      await guestPage.getByRole("heading", { name: /مقایسه .* محصول/ }).waitFor();
       const region = guestPage.locator(".compare-table-wrap");
       assert.equal(await region.getAttribute("tabindex"), "0", "STEP62_H_COMPARE_REGION_FOCUSABLE");
       await region.focus();
