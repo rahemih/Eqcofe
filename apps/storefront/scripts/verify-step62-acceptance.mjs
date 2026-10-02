@@ -279,8 +279,15 @@ try {
       await secondCard.getByRole("button", { name: "انتخاب برای مقایسه" }).click();
       const blocked = otherCard.getByRole("button", { name: "انتخاب برای مقایسه" });
       assert.equal(await blocked.getAttribute("aria-disabled"), "true", "STEP62_H_MISMATCH_ARIA_DISABLED");
-      await blocked.click();
-      await guestPage.getByText("این محصول با دسته انتخاب‌های فعلی سازگار نیست.").waitFor();
+      const reasonId = await blocked.getAttribute("aria-describedby");
+      assert(reasonId, "STEP62_H_MISMATCH_REASON_ID_MISSING");
+      assert.equal(
+        await guestPage.locator(`#${reasonId}`).textContent(),
+        "این محصول با دسته انتخاب‌های فعلی سازگار نیست.",
+        "STEP62_H_MISMATCH_REASON_TEXT",
+      );
+      await blocked.focus();
+      assert(await blocked.evaluate((element) => document.activeElement === element), "STEP62_H_ARIA_DISABLED_NOT_FOCUSABLE");
 
       await firstCard.getByRole("button", { name: "انتخاب برای مقایسه" }).click();
       await guestPage.getByText("۲ از ۴ محصول انتخاب شده است.").waitFor();
