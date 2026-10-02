@@ -43,7 +43,7 @@ assert.match(listingGrid, /aria-live="polite"/);
 assert.match(listingGrid, /compare-selection__remove/);
 assert.match(listingGrid, /aria-label={`حذف .* از انتخاب مقایسه/);
 assert.match(listingCard, /aria-disabled={compareBlocked}/);
-assert.match(listingCard, /aria-describedby={compareBlocked ? compareReasonId : undefined}/);
+assert(listingCard.includes("aria-describedby={compareBlocked ? compareReasonId : undefined}"));
 assert.doesNotMatch(listingCard, /disabled={!compareSelected/);
 
 assert.match(wishlist, /aria-busy={submitting}/);
