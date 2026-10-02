@@ -1,0 +1,142 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP62-E-WISHLIST-ACTION-001",
+  "title": "Step 62-E authenticated Wishlist action and feedback",
+  "description": "Implement only the reusable Storefront Wishlist action layer on top of canonical Step 62-C/D foundations: backend-authoritative membership, add/remove through the customer-session bridge, required Idempotency-Key generation/transport, explicit 401 unauthenticated state, submitting lockout, success/already-present/error/retry feedback, a reusable Wishlist form component, and deterministic Stage-E verification. Do not modify Product Detail, Listing/ProductCard, Search, Category, Account routes, OTP/login, alerts, backend/OpenAPI/database/auth platform, dependencies, or later stages.",
+  "risk": "MEDIUM",
+  "risk_floor": "MEDIUM",
+  "owner": "PRODUCT_DESIGN",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "07aec6ea68ba3276f299ab5d16ed4241db73ab51"
+  },
+  "scope": {
+    "read": [
+      "apps/storefront/**",
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "docs/11-step-history/STEP-62-D-COMPARE-FLOW.md",
+      "docs/13-product-design/**",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "apps/storefront/package.json",
+      "apps/storefront/app/features/compare-wishlist/wishlist-action.server.ts",
+      "apps/storefront/app/features/compare-wishlist/WishlistAction.tsx",
+      "apps/storefront/app/features/compare-wishlist/wishlist-action-state.ts",
+      "apps/storefront/app/styles/wishlist.css",
+      "apps/storefront/scripts/verify-step62-wishlist-action.ts",
+      "docs/11-step-history/STEP-62-E-WISHLIST-ACTION.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP62-E-WISHLIST-ACTION-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "contracts/**",
+      "src/**",
+      "database/**",
+      "test/**",
+      "apps/storefront/app/routes/**",
+      "apps/storefront/app/platform/**",
+      "apps/storefront/app/features/listing/**",
+      "apps/storefront/app/features/product-detail/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP62-E-WISHLIST-ACTION-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 30000,
+    "soft_alert": 45000,
+    "hard_cap": 90000
+  },
+  "max_repair_cycles": 3,
+  "task_risk_rules": [
+    {
+      "id": "STEP62_E_STOREFRONT_WISHLIST_ACTION_MEDIUM",
+      "risk": "MEDIUM",
+      "paths": [
+        "apps/storefront/package.json",
+        "apps/storefront/app/features/compare-wishlist/**",
+        "apps/storefront/app/styles/wishlist.css",
+        "apps/storefront/scripts/verify-step62-wishlist-action.ts",
+        "docs/11-step-history/STEP-62-E-WISHLIST-ACTION.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP62-E-WISHLIST-ACTION-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "62-D",
+      "name": "Production Compare flow",
+      "required_state": "TERMINAL_MERGED_POSTMERGE_PASS_LOCK_RELEASED",
+      "observed_state": "TERMINAL_MERGED_POSTMERGE_PASS_LOCK_RELEASED",
+      "merge_sha": "07aec6ea68ba3276f299ab5d16ed4241db73ab51",
+      "evidence": "PR #295 protected workflow_dispatch run 36993493345; merge job 110794818981 PASS; exact-SHA postmerge job 110794940332 PASS; terminal Lock release comment 5950021286.",
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "linear_issue": "HOS-66",
+    "live_guard_main_head": "07aec6ea68ba3276f299ab5d16ed4241db73ab51",
+    "live_guard_open_step62_prs": 0,
+    "live_guard_competing_writer": "NONE",
+    "predecessor_pr": 295,
+    "predecessor_terminal_comment": 5950021286,
+    "implementation_owner_agent": "A3",
+    "orchestration_owner_agent": "A0",
+    "qa_agent": "A7",
+    "security_agent": "A8",
+    "evidence_agent": "A10"
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Wishlist membership is derived only from GET /customer/wishlist through the canonical customer-session bridge; browser code does not read session cookies or invent auth state.",
+      "verification": "pnpm --dir apps/storefront wishlist-action:verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Add/remove use canonical generated-OpenAPI Wishlist endpoints with required Idempotency-Key and preserve backend idempotency semantics including already-present success.",
+      "verification": "pnpm --dir apps/storefront wishlist-action:verify && pnpm --dir apps/storefront typecheck",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "401 becomes explicit unauthenticated feedback; mutation failure never reports false success; submitting state disables the control until authoritative completion.",
+      "verification": "pnpm --dir apps/storefront wishlist-action:verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "No Product Detail/Listing/Search/Category/Account route integration, OTP/login invention, product alerts, backend/OpenAPI/database/auth-platform/dependency/lockfile/Current State/design mutation occurs.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Canonical completion requires root pnpm verify, exact-head Canonical CI, Phase A, applicable Storefront checks, deterministic review, exact-artifact ACTIVE Lock, protected merge, exact-SHA postmerge verification and terminal Lock release before Stage 62-F begins.",
+      "verification": "canonical_transport_and_postmerge_evidence",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Stage 62-E is MEDIUM risk. Direct-main write/raw merge are prohibited. Stage 62-F remains blocked until protected transport, exact-SHA postmerge verification and terminal Lock release are green."
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}
