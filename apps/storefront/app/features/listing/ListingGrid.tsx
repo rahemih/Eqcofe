@@ -64,10 +64,13 @@ export function ListingGrid({
     })
     .find((value): value is string => Boolean(value)) ?? null;
 
-  const selectedNames = selectedIds.map((id) => {
-    if (compareSeed?.id === id) return compareSeed.name;
-    return products.find((product) => product.id === id)?.name ?? id;
-  });
+  const selectedItems = selectedIds.map((id) => ({
+    id,
+    name: compareSeed?.id === id
+      ? compareSeed.name
+      : products.find((product) => product.id === id)?.name ?? id,
+    locked: compareSeed?.id === id,
+  }));
 
   const compareHref = selectedIds.length >= 2
     ? `/compare?${serializeCompareUrlState({ productIds: selectedIds })}`
@@ -81,6 +84,15 @@ export function ListingGrid({
       return "این محصول با دسته انتخاب‌های فعلی سازگار نیست.";
     }
     return null;
+  }
+
+  function removeSelectedProduct(productId: string) {
+    if (compareSeed?.id === productId) return;
+    setSelection({
+      scope: selectionScope,
+      ids: selectedIds.filter((id) => id !== productId),
+    });
+    setIssue({ scope: selectionScope, message: null });
   }
 
   function toggleCompare(product: ListingProductCardData) {
@@ -118,7 +130,9 @@ export function ListingGrid({
         <div className="compare-selection__summary">
           <div>
             <h3 id={compareTitleId}>انتخاب برای مقایسه</h3>
-            <p>{selectedIds.length.toLocaleString("fa-IR")} از ۴ محصول انتخاب شده است.</p>
+            <p role="status" aria-live="polite" aria-atomic="true">
+              {selectedIds.length.toLocaleString("fa-IR")} از ۴ محصول انتخاب شده است.
+            </p>
           </div>
           {compareHref ? (
             <Link className="compare-selection__submit" to={compareHref}>
@@ -129,10 +143,24 @@ export function ListingGrid({
           )}
         </div>
 
-        {selectedNames.length ? (
+        {selectedItems.length ? (
           <ul className="compare-selection__items" aria-label="محصولات انتخاب‌شده برای مقایسه">
-            {selectedNames.map((name, index) => (
-              <li key={selectedIds[index]}>{name}</li>
+            {selectedItems.map((item) => (
+              <li key={item.id}>
+                <span>{item.name}</span>
+                {item.locked ? (
+                  <span className="compare-selection__seed-note">محصول اصلی</span>
+                ) : (
+                  <button
+                    type="button"
+                    className="compare-selection__remove"
+                    onClick={() => removeSelectedProduct(item.id)}
+                    aria-label={`حذف ${item.name} از انتخاب مقایسه`}
+                  >
+                    حذف
+                  </button>
+                )}
+              </li>
             ))}
           </ul>
         ) : null}

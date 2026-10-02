@@ -23,7 +23,16 @@ export function CompareTable({
         <h2 id="compare-result-title">مقایسه {formatCount(result.products.length)} محصول</h2>
       </header>
 
-      <div className="compare-table-wrap">
+      <p id="compare-scroll-hint" className="compare-table-hint">
+        برای مشاهده ستون‌های بیشتر، جدول را با کلیدهای جهت‌دار یا پیمایش افقی جابه‌جا کنید.
+      </p>
+      <div
+        className="compare-table-wrap"
+        role="region"
+        aria-labelledby="compare-result-title"
+        aria-describedby="compare-scroll-hint"
+        tabIndex={0}
+      >
         <table className="compare-table">
           <caption>ویژگی‌های قابل مقایسه و قیمت فعلی محصولات</caption>
           <thead>
@@ -32,10 +41,16 @@ export function CompareTable({
               {result.products.map((product) => (
                 <th scope="col" key={product.id}>
                   <span>{product.name_fa}</span>
-                  <Link to={`/product/${product.slug}`}>مشاهده محصول</Link>
+                  <Link
+                    to={`/product/${product.slug}`}
+                    aria-label={`مشاهده محصول ${product.name_fa}`}
+                  >
+                    مشاهده محصول
+                  </Link>
                   <Link
                     className="compare-remove"
                     to={compareHref(removeCompareProduct(urlState, product.id))}
+                    aria-label={`حذف ${product.name_fa} از مقایسه`}
                   >
                     حذف از مقایسه
                   </Link>
