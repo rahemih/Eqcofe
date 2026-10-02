@@ -2,14 +2,14 @@ import { Link } from "react-router";
 import type { ProductDetailResponse } from "../product-detail/product-detail-contract.js";
 import { serializeCompareUrlState } from "./compare-url-state.js";
 import { WishlistAction } from "./WishlistAction.js";
-import type { WishlistSnapshot } from "./wishlist-snapshot.server.js";
+import type { WishlistMembershipView } from "./wishlist-action-state.js";
 
 export function ProductEvaluationActions({
   product,
   wishlist,
 }: {
   product: ProductDetailResponse;
-  wishlist: Pick<WishlistSnapshot, "status" | "productIds">;
+  wishlist: WishlistMembershipView;
 }) {
   const wishlisted = wishlist.status === "ready"
     && wishlist.productIds.includes(product.id);
