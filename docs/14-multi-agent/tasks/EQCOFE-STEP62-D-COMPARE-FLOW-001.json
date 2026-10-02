@@ -1,0 +1,157 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP62-D-COMPARE-FLOW-001",
+  "title": "Step 62-D production Compare flow and deterministic URL state",
+  "description": "Productionize only the Storefront Compare journey on top of canonical Step 62-C: deterministic repeated-product UUID URL state capped at four, fail-closed parsing, first-use state with no Compare traffic below two selections, server-only POST /compare/validate then POST /compare, authoritative price/comparable-specification rendering, remove-selection navigation, explicit route states, and deterministic Stage-D verification. Do not implement Wishlist UI, Product Detail/Listing integration, final Step-62 hardening, backend/OpenAPI/database/auth-platform changes, dependencies, or later stages.",
+  "risk": "MEDIUM",
+  "risk_floor": "MEDIUM",
+  "owner": "PRODUCT_DESIGN",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "66766c5803a94e378da7c95a78df1b8b2c2fc27f"
+  },
+  "scope": {
+    "read": [
+      "apps/storefront/**",
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "docs/11-step-history/STEP-62-A-CANONICAL-HANDOFF.md",
+      "docs/11-step-history/STEP-62-B-COMPARE-WISHLIST-CONTRACT.md",
+      "docs/11-step-history/STEP-62-C-COMPARE-WISHLIST-FOUNDATION.md",
+      "docs/13-product-design/**",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "apps/storefront/package.json",
+      "apps/storefront/app/routes/compare.tsx",
+      "apps/storefront/app/features/compare-wishlist/compare-url-state.ts",
+      "apps/storefront/app/features/compare-wishlist/compare-route-data.server.ts",
+      "apps/storefront/app/features/compare-wishlist/CompareTable.tsx",
+      "apps/storefront/app/features/compare-wishlist/CompareState.tsx",
+      "apps/storefront/app/styles/compare.css",
+      "apps/storefront/scripts/verify-step62-compare-flow.ts",
+      "docs/11-step-history/STEP-62-D-COMPARE-FLOW.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP62-D-COMPARE-FLOW-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "contracts/**",
+      "src/**",
+      "database/**",
+      "test/**",
+      "apps/storefront/app/platform/api/**",
+      "apps/storefront/app/platform/auth/**",
+      "apps/storefront/app/platform/state/**",
+      "apps/storefront/app/routes/product.tsx",
+      "apps/storefront/app/routes/search.tsx",
+      "apps/storefront/app/routes/category.tsx",
+      "apps/storefront/app/features/listing/**",
+      "apps/storefront/app/features/product-detail/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP62-D-COMPARE-FLOW-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 34000,
+    "soft_alert": 52000,
+    "hard_cap": 104000
+  },
+  "max_repair_cycles": 3,
+  "task_risk_rules": [
+    {
+      "id": "STEP62_D_STOREFRONT_COMPARE_FLOW_MEDIUM",
+      "risk": "MEDIUM",
+      "paths": [
+        "apps/storefront/package.json",
+        "apps/storefront/app/routes/compare.tsx",
+        "apps/storefront/app/features/compare-wishlist/**",
+        "apps/storefront/app/styles/compare.css",
+        "apps/storefront/scripts/verify-step62-compare-flow.ts",
+        "docs/11-step-history/STEP-62-D-COMPARE-FLOW.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP62-D-COMPARE-FLOW-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "62-C",
+      "name": "Shared Compare/Wishlist data-state foundation",
+      "required_state": "TERMINAL_MERGED_POSTMERGE_PASS_LOCK_RELEASED",
+      "observed_state": "TERMINAL_MERGED_POSTMERGE_PASS_LOCK_RELEASED",
+      "merge_sha": "66766c5803a94e378da7c95a78df1b8b2c2fc27f",
+      "evidence": "PR #294 protected workflow_dispatch run 36989940721; merge job 110783550628 PASS; exact-SHA postmerge job 110783644820 PASS; terminal Lock release comment 5949710464.",
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "linear_issue": "HOS-66",
+    "live_guard_main_head": "66766c5803a94e378da7c95a78df1b8b2c2fc27f",
+    "live_guard_open_step62_prs": 0,
+    "live_guard_competing_writer": "NONE",
+    "predecessor_pr": 294,
+    "predecessor_terminal_comment": 5949710464,
+    "implementation_owner_agent": "A3",
+    "orchestration_owner_agent": "A0",
+    "qa_agent": "A7",
+    "security_agent": "A8",
+    "evidence_agent": "A10"
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "The production /compare route replaces the Step-62 placeholder and consumes the canonical Step-62-C bridge only; no direct browser API transport or parallel Compare DTO is introduced.",
+      "verification": "pnpm --dir apps/storefront compare-flow:verify && pnpm --dir apps/storefront typecheck",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Compare URL state accepts only repeated product UUIDs, fails closed on unknown keys/invalid IDs/duplicates/>4 selections, serializes deterministically, and issues no Compare request below two selections.",
+      "verification": "pnpm --dir apps/storefront compare-flow:verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Backend POST /compare/validate remains compatibility authority and POST /compare supplies product identity/current Toman price/comparable specifications; the Storefront does not infer category compatibility or fabricate stock/discount/availability.",
+      "verification": "pnpm --dir apps/storefront compare-flow:verify && deterministic_source_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Compare table uses table header associations, explicit product-detail/remove navigation, first-use/error/recovery states and inherited RTL/focus-safe presentation without starting final 62-G claims.",
+      "verification": "pnpm --dir apps/storefront typecheck && pnpm --dir apps/storefront static-quality && pnpm --dir apps/storefront compare-flow:verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "No Wishlist UI, Product Detail/Listing integration, backend/OpenAPI/database/auth-platform/dependency/lockfile/Current State/design-contract mutation occurs.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Canonical completion requires root pnpm verify, exact-head Canonical CI, Phase A, applicable Storefront checks, deterministic review, exact-artifact ACTIVE Lock, protected merge, exact-SHA postmerge verification and terminal Lock release before Stage 62-E begins.",
+      "verification": "canonical_transport_and_postmerge_evidence",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Stage 62-D is MEDIUM risk. Direct-main write/raw merge are prohibited. Stage 62-E remains blocked until protected transport, exact-SHA postmerge verification and terminal Lock release are green."
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}
