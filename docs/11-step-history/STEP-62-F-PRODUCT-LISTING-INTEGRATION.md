@@ -68,6 +68,10 @@ This Stage does **not**:
 - Mutations post to `/actions/wishlist`, which delegates to canonical Stage 62-E add/remove helpers and propagates validated customer-session Set-Cookie values.
 - Browser code does not read `document.cookie`, localStorage/sessionStorage or Authorization.
 
+## Historical verifier compatibility
+
+The Stage 62-E Wishlist verifier is minimally transitioned in this workstream to recognize `aria-pressed={actionWishlisted}`, because the integrated fetcher now reflects the authoritative mutation result rather than the initial loader prop. Existing assertions for submitting lockout, hidden mutation fields, live feedback semantics and the Stage 62-E security/idempotency boundary remain enforced.
+
 ## Definition of Done
 
 - exact predecessor closure and new canonical base captured;
