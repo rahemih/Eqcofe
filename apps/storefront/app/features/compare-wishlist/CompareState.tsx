@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { Link } from "react-router";
 import { StatePanel } from "../../components/StatePanel.js";
 import type { AsyncSurfaceState } from "../../platform/state/surface-state.js";
@@ -98,7 +99,7 @@ function CompareStateWithAction({
   label,
   reloadDocument = false,
 }: {
-  panel: React.ReactNode;
+  panel: ReactNode;
   href: string;
   label: string;
   reloadDocument?: boolean;
