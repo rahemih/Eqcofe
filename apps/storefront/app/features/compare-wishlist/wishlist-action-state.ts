@@ -4,6 +4,13 @@ export type WishlistActionFeedback =
   | { status: "unauthenticated"; message: string }
   | { status: "error"; message: string; requestId?: string | null };
 
+export type WishlistMembershipStatus = "ready" | "unauthenticated" | "unavailable";
+
+export type WishlistMembershipView = {
+  status: WishlistMembershipStatus;
+  productIds: readonly string[];
+};
+
 export type WishlistActionPayload =
   Exclude<WishlistActionFeedback, { status: "idle" }>
   & { wishlisted: boolean };
