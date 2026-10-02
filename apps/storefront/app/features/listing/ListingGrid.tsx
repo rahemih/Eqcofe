@@ -36,21 +36,26 @@ export function ListingGrid({
     () => products.map((product) => product.id).join("|"),
     [products],
   );
-  const [selectedIds, setSelectedIds] = useState<string[]>(
-    compareSeed ? [compareSeed.id] : [],
-  );
-  const [selectionIssue, setSelectionIssue] = useState<string | null>(null);
+  const selectionScope = `${signature}::${compareSeed?.id ?? ""}`;
+  const initialSelection = compareSeed ? [compareSeed.id] : [];
+  const [selection, setSelection] = useState<{ scope: string; ids: string[] }>({
+    scope: selectionScope,
+    ids: initialSelection,
+  });
+  const [issue, setIssue] = useState<{ scope: string; message: string | null }>({
+    scope: selectionScope,
+    message: null,
+  });
+  const selectedIds = selection.scope === selectionScope
+    ? selection.ids
+    : initialSelection;
+  const selectionIssue = issue.scope === selectionScope ? issue.message : null;
 
   useEffect(() => {
     if (wishlist === undefined && wishlistFetcher.state === "idle" && wishlistFetcher.data === undefined) {
       void wishlistFetcher.load("/actions/wishlist");
     }
   }, [wishlist, wishlistFetcher]);
-
-  useEffect(() => {
-    setSelectedIds(compareSeed ? [compareSeed.id] : []);
-    setSelectionIssue(null);
-  }, [signature, compareSeed?.id]);
 
   const selectedCategoryId = selectedIds
     .map((id) => {
@@ -81,19 +86,25 @@ export function ListingGrid({
   function toggleCompare(product: ListingProductCardData) {
     if (selectedIds.includes(product.id)) {
       if (compareSeed?.id === product.id) return;
-      setSelectedIds((current) => current.filter((id) => id !== product.id));
-      setSelectionIssue(null);
+      setSelection({
+        scope: selectionScope,
+        ids: selectedIds.filter((id) => id !== product.id),
+      });
+      setIssue({ scope: selectionScope, message: null });
       return;
     }
 
     const reason = disabledReason(product);
     if (reason) {
-      setSelectionIssue(reason);
+      setIssue({ scope: selectionScope, message: reason });
       return;
     }
 
-    setSelectedIds((current) => [...current, product.id]);
-    setSelectionIssue(null);
+    setSelection({
+      scope: selectionScope,
+      ids: [...selectedIds, product.id],
+    });
+    setIssue({ scope: selectionScope, message: null });
   }
 
   return (
