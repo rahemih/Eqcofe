@@ -24,7 +24,9 @@ assert.match(server, /error\.status === 401/);
 assert.doesNotMatch(server, /Authorization/i);
 assert.doesNotMatch(server, /localStorage|sessionStorage|document\.cookie/);
 
-assert.match(component, /aria-pressed=\{wishlisted\}/);
+assert.match(component, /aria-pressed=\{actionWishlisted\}/);
+assert.match(component, /fetcher\.data\?\.status === "success"/);
+assert.match(component, /action="\/actions\/wishlist"/);
 assert.match(component, /disabled=\{submitting\}/);
 assert.match(component, /name="current_wishlisted"/);
 assert.match(component, /role=\{urgent \? "alert" : "status"\}/);
