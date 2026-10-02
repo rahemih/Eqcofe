@@ -331,17 +331,19 @@ try {
       const authPage = await authContext.newPage();
       await authPage.goto(origin + searchPath, { waitUntil: "networkidle" });
       const authFirst = authPage.locator(".listing-card").filter({ hasText: "آسیاب یک" });
-      const add = authFirst.getByRole("button", { name: "افزودن به علاقه‌مندی‌ها" });
-      await add.click();
+      const actionButton = authFirst.locator(".wishlist-action__button");
+      assert.equal((await actionButton.textContent())?.trim(), "افزودن به علاقه‌مندی‌ها");
+      await actionButton.click();
       await authFirst.getByText("محصول به علاقه‌مندی‌های شما افزوده شد.").waitFor();
-      assert.equal(await add.getAttribute("aria-pressed"), "true");
+      assert.equal(await actionButton.getAttribute("aria-pressed"), "true");
+      assert.equal((await actionButton.textContent())?.trim(), "حذف از علاقه‌مندی‌ها");
 
-      const remove = authFirst.getByRole("button", { name: "حذف از علاقه‌مندی‌ها" });
-      await remove.click();
+      await actionButton.click();
       await authFirst.getByText("محصول از علاقه‌مندی‌های شما حذف شد.").waitFor();
-      assert.equal(await remove.getAttribute("aria-pressed"), "false");
+      assert.equal(await actionButton.getAttribute("aria-pressed"), "false");
+      assert.equal((await actionButton.textContent())?.trim(), "افزودن به علاقه‌مندی‌ها");
 
-      await authFirst.getByRole("button", { name: "افزودن به علاقه‌مندی‌ها" }).click();
+      await actionButton.click();
       await authFirst.getByText("محصول به علاقه‌مندی‌های شما افزوده شد.").waitFor();
       await authPage.reload({ waitUntil: "networkidle" });
       const reloadedFirst = authPage.locator(".listing-card").filter({ hasText: "آسیاب یک" });
