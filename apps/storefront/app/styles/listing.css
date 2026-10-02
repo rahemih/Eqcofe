@@ -150,9 +150,35 @@
 }
 
 .compare-selection__items li {
-  padding: var(--eq-spacing-2) var(--eq-spacing-3);
-  border-radius: var(--eq-radius-md);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--eq-spacing-2);
+  max-inline-size: 100%;
+  padding-block: var(--eq-spacing-1);
+  padding-inline-start: var(--eq-spacing-3);
+  padding-inline-end: var(--eq-spacing-1);
+  border: var(--eq-border-hairline) solid var(--eq-color-border-default);
+  border-radius: var(--eq-radius-full);
   background: var(--eq-color-bg-surface);
+}
+
+.compare-selection__items li > span:first-child {
+  overflow-wrap: anywhere;
+}
+
+.compare-selection__seed-note {
+  color: var(--eq-color-text-secondary);
+  font-size: var(--eq-type-caption-font-size);
+}
+
+.compare-selection__remove {
+  min-inline-size: var(--eq-size-touch-min);
+  min-block-size: var(--eq-size-touch-min);
+  border: 0;
+  border-radius: var(--eq-radius-full);
+  background: transparent;
+  font: inherit;
+  cursor: pointer;
 }
 
 .listing-card__evaluation {
@@ -168,19 +194,49 @@
   cursor: pointer;
 }
 
-.listing-card__compare:disabled {
+.listing-card__compare[aria-disabled="true"] {
   cursor: not-allowed;
   opacity: 0.65;
 }
 
 .listing-card__compare:focus-visible,
-.compare-selection__submit:focus-visible {
-  outline: 3px solid currentColor;
-  outline-offset: 3px;
+.compare-selection__submit:focus-visible,
+.compare-selection__remove:focus-visible {
+  outline: var(--eq-border-focus) solid var(--eq-color-action-focus);
+  outline-offset: var(--eq-spacing-1);
 }
 
 .listing-card__compare-reason,
 .compare-selection__issue,
 .compare-selection__hint {
   overflow-wrap: anywhere;
+}
+
+.compare-selection__issue {
+  color: var(--eq-color-status-warning);
+}
+
+.listing-card__compare-reason {
+  color: var(--eq-color-text-secondary);
+  font-size: var(--eq-type-body-small-font-size);
+  line-height: var(--eq-type-body-small-line-height);
+}
+
+@media (max-width: 360px) {
+  .compare-selection {
+    padding: var(--eq-spacing-3);
+  }
+
+  .compare-selection__submit {
+    inline-size: 100%;
+  }
+
+  .compare-selection__items {
+    display: grid;
+  }
+
+  .compare-selection__items li {
+    inline-size: 100%;
+    justify-content: space-between;
+  }
 }
