@@ -37,7 +37,7 @@ const ids = [
   "00000000-0000-4000-8000-000000000002",
   "00000000-0000-4000-8000-000000000003",
   "00000000-0000-4000-8000-000000000004",
-];
+] as const;
 const query = serializeCompareUrlState({ productIds: [ids[1], ids[0]] });
 assert.equal(
   query,
