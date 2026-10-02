@@ -1,0 +1,138 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP62-H-ACCEPTANCE-001",
+  "title": "Step 62-H integrated Compare/Wishlist browser acceptance",
+  "description": "Accept the production Compare/Wishlist flow as one integrated Storefront experience using deterministic mock-backed SSR/API verification plus Chromium browser interaction when the isolated QA toolchain is available. Verify Listing/ProductCard selection, deterministic Compare URL, backend validation/result/removal, guest and authenticated Wishlist boundaries, cookie forwarding, idempotency transport, membership reload authority, keyboard/focus, RTL/reflow and automated axe checks. No production runtime, backend, OpenAPI, database, dependency, workflow or docs12/docs13 mutation.",
+  "risk": "MEDIUM",
+  "risk_floor": "MEDIUM",
+  "owner": "PRODUCT_DESIGN",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "bcf6787ff5eb31c8e5d0b7b870e1a7fbe99712f1"
+  },
+  "scope": {
+    "read": [
+      "apps/storefront/**",
+      "docs/11-step-history/**",
+      "docs/13-product-design/**",
+      "docs/14-multi-agent/**",
+      "contracts/http/openapi.yaml"
+    ],
+    "write": [
+      "apps/storefront/package.json",
+      "apps/storefront/scripts/verify-step62-acceptance.mjs",
+      "docs/11-step-history/STEP-62-H-INTEGRATED-ACCEPTANCE.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP62-H-ACCEPTANCE-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "contracts/**",
+      "src/**",
+      "database/**",
+      "test/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**",
+      "apps/storefront/app/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP62-H-ACCEPTANCE-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 28000,
+    "soft_alert": 42000,
+    "hard_cap": 84000
+  },
+  "max_repair_cycles": 3,
+  "task_risk_rules": [
+    {
+      "id": "STEP62_H_INTEGRATED_ACCEPTANCE_MEDIUM",
+      "risk": "MEDIUM",
+      "paths": [
+        "apps/storefront/package.json",
+        "apps/storefront/scripts/verify-step62-acceptance.mjs",
+        "docs/11-step-history/STEP-62-H-INTEGRATED-ACCEPTANCE.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP62-H-ACCEPTANCE-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "62-G",
+      "name": "UX states, accessibility, RTL and responsive hardening",
+      "required_state": "TERMINAL_MERGED_POSTMERGE_PASS_LOCK_RELEASED",
+      "observed_state": "TERMINAL_MERGED_POSTMERGE_PASS_LOCK_RELEASED",
+      "merge_sha": "bcf6787ff5eb31c8e5d0b7b870e1a7fbe99712f1",
+      "evidence": "PR #298 protected workflow_dispatch 37003844033 SUCCESS; merge job 110827413213 PASS; exact-SHA postmerge 110827524639 PASS; terminal Lock release comment 5951902887.",
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "linear_issue": "HOS-66",
+    "live_guard_main_head": "bcf6787ff5eb31c8e5d0b7b870e1a7fbe99712f1",
+    "live_guard_open_step62_prs": 0,
+    "live_guard_competing_writer": "NONE",
+    "predecessor_pr": 298,
+    "predecessor_terminal_comment": 5951902887,
+    "implementation_owner_agent": "A3",
+    "orchestration_owner_agent": "A0",
+    "qa_agent": "A7",
+    "security_agent": "A8",
+    "evidence_agent": "A10"
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Mock-backed canonical acceptance verifies Search/Listing -> deterministic Compare URL -> backend validate -> authoritative result -> remove-to-empty flow, including reverse selection ordering and no unnecessary single-product backend Compare traffic.",
+      "verification": "pnpm --dir apps/storefront step62:acceptance",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Guest Wishlist remains explicitly unauthenticated with no false mutation success; authenticated Wishlist forwards only canonical customer session cookie and add/remove carry non-empty Idempotency-Key headers.",
+      "verification": "pnpm --dir apps/storefront step62:acceptance",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Authenticated browser flow verifies add/remove aria-pressed feedback and reload membership rehydration from GET /customer/wishlist rather than browser-local state.",
+      "verification": "Storefront Quality browser workflow",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Chromium acceptance verifies 320px and 1200px Step-62 flows, RTL, contained Compare horizontal scrolling, keyboard-focusable Compare region, no root horizontal overflow and zero automated WCAG violations on accepted screens.",
+      "verification": "Storefront Quality browser workflow",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Stage H changes only acceptance harness/package wiring/governance; production runtime app files, backend/OpenAPI/database/auth/dependencies/workflows and docs12/docs13 remain unchanged.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Canonical completion requires exact-head Canonical CI, Phase A, Storefront Quality, deterministic review, exact-artifact ACTIVE Lock, protected merge, exact-SHA postmerge verification and terminal Lock release before 62-I.",
+      "verification": "canonical_transport_and_postmerge_evidence",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Stage 62-H is MEDIUM risk. Direct-main write/raw merge are prohibited. Stage 62-I remains blocked until protected transport, exact-SHA postmerge verification and terminal Lock release are green."
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}
