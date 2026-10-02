@@ -3,6 +3,7 @@ import {
   mutateWishlistProduct,
   type WishlistIntent,
 } from "../features/compare-wishlist/wishlist-action.server.js";
+import { loadWishlistSnapshot } from "../features/compare-wishlist/wishlist-snapshot.server.js";
 import {
   wishlistFeedbackFromMutation,
   type WishlistActionPayload,
@@ -11,11 +12,14 @@ import { appendCustomerSessionSetCookies } from "../platform/auth/session-cookie
 
 const ENTITY_ID = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
-export async function loader() {
-  throw new Response("Method Not Allowed", {
-    status: 405,
-    headers: { Allow: "POST" },
-  });
+export async function loader({ request }: { request: Request }) {
+  const snapshot = await loadWishlistSnapshot(request);
+  const headers = new Headers();
+  appendCustomerSessionSetCookies(headers, snapshot.setCookies);
+  return data(
+    { status: snapshot.status, productIds: snapshot.productIds },
+    { headers },
+  );
 }
 
 export async function action({ request }: { request: Request }) {
