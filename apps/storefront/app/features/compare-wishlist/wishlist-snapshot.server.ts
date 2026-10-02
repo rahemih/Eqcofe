@@ -1,12 +1,11 @@
 import { ApiClientError } from "../../platform/api/errors.js";
+import type { WishlistMembershipView } from "./wishlist-action-state.js";
 import {
   loadWishlist,
   type CompareWishlistDataOptions,
 } from "./compare-wishlist-data.server.js";
 
-export type WishlistSnapshot = {
-  status: "ready" | "unauthenticated" | "unavailable";
-  productIds: readonly string[];
+export type WishlistSnapshot = WishlistMembershipView & {
   setCookies: readonly string[];
 };
 
