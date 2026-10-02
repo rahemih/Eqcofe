@@ -1,0 +1,222 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP62-A-HANDOFF-001",
+  "title": "Step 62-A canonical handoff, live guard and Compare/Wishlist scope freeze",
+  "description": "Documentation/governance-only Stage A for Step 62. Verify the live canonical handoff after Step 61 and Graphify operationalization, freeze Compare & Wishlist scope against Step 63+, register the A-I execution plan and acceptance gates, inspect existing Compare/Wishlist backend and Storefront readiness, and keep runtime implementation forbidden until protected merge and exact-SHA post-merge verification pass.",
+  "risk": "MEDIUM",
+  "risk_floor": "MEDIUM",
+  "owner": "PRODUCT_DESIGN",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "cd9710e2294c540d8c528aa5e2372aae63fc5c70"
+  },
+  "scope": {
+    "read": [
+      "apps/storefront/**",
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "src/modules/catalog/**",
+      "src/modules/customer/**",
+      "docs/11-step-history/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**",
+      "docs/14-multi-agent/**",
+      ".github/workflows/**",
+      "AGENTS.md",
+      ".codex/**",
+      "scripts/graphify/**",
+      "package.json",
+      "pnpm-lock.yaml"
+    ],
+    "write": [
+      "docs/11-step-history/STEP-62-A-CANONICAL-HANDOFF.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP62-A-HANDOFF-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "apps/**",
+      "src/**",
+      "database/**",
+      "contracts/**",
+      "scripts/**",
+      "test/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP62-A-HANDOFF-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 18000,
+    "soft_alert": 30000,
+    "hard_cap": 60000
+  },
+  "task_risk_rules": [
+    {
+      "id": "STEP62_A_CANONICAL_SCOPE_FREEZE_MEDIUM",
+      "risk": "MEDIUM",
+      "paths": [
+        "docs/11-step-history/STEP-62-A-CANONICAL-HANDOFF.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP62-A-HANDOFF-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": 61,
+      "name": "Product Detail & Rich Media final canonical closure",
+      "required_state": "CLOSED_FINAL_CANONICAL_PASS",
+      "observed_state": "CLOSED_FINAL_CANONICAL_PASS",
+      "merge_sha": "26cf00e83e90872607c9c4562075e02981710ecc",
+      "evidence": "Step 61 stages A-I canonically closed; Stage-I protected merge, exact-SHA postmerge verification and terminal Lock release are recorded in CURRENT-STATE.",
+      "blocking": false
+    },
+    {
+      "item": "GRAPHIFY-OPERATIONAL",
+      "name": "Graphify operational layer and lifecycle integration",
+      "required_state": "CANONICAL_OPERATIONAL",
+      "observed_state": "CANONICAL_OPERATIONAL_TOOLING",
+      "merge_sha": "cd9710e2294c540d8c528aa5e2372aae63fc5c70",
+      "evidence": "Main includes Graphify operational layer plus Watch lifecycle integration through PRs #283, #287 and #288. Canonical graph output is repository-local and ignored by Git; connector-side Stage-A discovery therefore uses the committed graph operational contract plus focused source verification. Runtime mutation remains forbidden until a local executor records FRESH/PASS graph health and query/path/explain evidence.",
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "live_guard_main_head": "cd9710e2294c540d8c528aa5e2372aae63fc5c70",
+    "live_open_prs_before_write": 0,
+    "active_relevant_locks_before_write": 0,
+    "competing_writer": "NONE_OBSERVED",
+    "step62_branches_before_write": [],
+    "linear_issue": "HOS-66",
+    "linear_state_before_start": "In Progress (Discovery only)",
+    "roadmap_state_before_start": "NEXT / NOT_STARTED",
+    "current_state_before_start": "NEXT / NOT_STARTED",
+    "graph_tooling_state": "CANONICAL_OPERATIONAL_TOOLING; live local graph artifact not exposed by GitHub connector",
+    "discovery": {
+      "compare_backend": "POST /compare/validate and POST /compare exist; CatalogQueryService.compare enforces 1..4 unique products and one primary category, and returns comparable specifications with authoritative pricing.",
+      "wishlist_backend": "GET/POST/DELETE /customer/wishlist exist behind CustomerOnly; CustomerWishlistService enforces active customer ownership, product existence, idempotent add/remove semantics, audit/outbox, and repository uniqueness.",
+      "frontend": "Step 55/57 design artifacts define compare selection/table and wishlist states, while Step 60/61 runtime explicitly left Compare/Wishlist for Step 62.",
+      "migration_need": "No evidence of a new migration requirement at Stage A.",
+      "dependency_need": "No evidence of a new dependency requirement at Stage A."
+    }
+  },
+  "stages": [
+    {
+      "id": "62-A",
+      "goal": "Canonical handoff, live guard, discovery and scope freeze",
+      "risk": "MEDIUM",
+      "human_gate": false
+    },
+    {
+      "id": "62-B",
+      "goal": "Backend/OpenAPI Compare and Wishlist contract readiness",
+      "risk": "HIGH",
+      "human_gate": true
+    },
+    {
+      "id": "62-C",
+      "goal": "Shared Storefront Compare/Wishlist data-state foundation",
+      "risk": "MEDIUM",
+      "human_gate": false
+    },
+    {
+      "id": "62-D",
+      "goal": "Production Compare flow and deterministic URL/state behavior",
+      "risk": "MEDIUM",
+      "human_gate": false
+    },
+    {
+      "id": "62-E",
+      "goal": "Authenticated Wishlist flow, auth boundary and recovery states",
+      "risk": "HIGH",
+      "human_gate": true
+    },
+    {
+      "id": "62-F",
+      "goal": "Integrate Product Detail and Listing/ProductCard entry points",
+      "risk": "MEDIUM",
+      "human_gate": false
+    },
+    {
+      "id": "62-G",
+      "goal": "RTL/accessibility/responsive/loading-empty-error hardening",
+      "risk": "MEDIUM",
+      "human_gate": false
+    },
+    {
+      "id": "62-H",
+      "goal": "Integrated acceptance and browser verification",
+      "risk": "MEDIUM",
+      "human_gate": false
+    },
+    {
+      "id": "62-I",
+      "goal": "Final canonical closure and Step 63 handoff",
+      "risk": "MEDIUM",
+      "human_gate": false
+    }
+  ],
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Live main, Step 61 closure, Current State, Roadmap, open PRs, Step 62 branches, Linear HOS-66 and relevant terminal Locks are inspected; Step 62 is proven NEXT / NOT_STARTED at the Stage-A baseline.",
+      "verification": "canonical_handoff_and_live_guard_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Step 62 A-I plan and exact Compare/Wishlist IN boundary are frozen; Cart/Checkout and later account/wholesale scope remain reserved for Steps 63+.",
+      "verification": "step62_scope_freeze_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Existing backend readiness is recorded: Compare already enforces 1..4 unique same-primary-category products and authoritative comparable specifications/pricing; Wishlist is customer-owned, authenticated, idempotent and backend-authoritative. No backend rewrite is authorized by Stage A.",
+      "verification": "backend_readiness_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Graphify tooling is confirmed canonical. Because the canonical graph artifact is local and ignored by Git, Stage A records connector-visible graph tooling evidence and requires FRESH/PASS health plus query/path/explain evidence before any runtime mutation in Stage 62-B or later.",
+      "verification": "graph_operational_boundary_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Persian fa-IR RTL, integer Toman, no Wallet, no brown palette, backend authority, accessibility, responsive and fail-closed contracts remain binding.",
+      "verification": "inherited_contract_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Stage 62-A remains documentation/governance-only; changes are restricted to the handoff document, Task Contract and deterministic generated Task Catalog; no runtime, dependency, backend, API, DB, migration, permission or business-rule mutation is introduced.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "Canonical completion requires exact-head verification, Phase A and Merge Policy PASS, artifact-bound REVIEW/LOCK evidence, protected merge and exact-SHA postmerge verification before 62-B may mutate runtime/API.",
+      "verification": "canonical_transport_and_postmerge_evidence",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Step 62-A is MEDIUM risk. Direct-main write and raw merge are prohibited. Step 62-B is forbidden until 62-A protected transport and exact-SHA postmerge verification are green and the 62-A Lock is terminally RELEASED."
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}
