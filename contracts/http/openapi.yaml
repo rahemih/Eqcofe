@@ -548,6 +548,119 @@ components:
       - sku
       - status
       - sales_enabled
+    CompareVariantView:
+      type: object
+      additionalProperties: false
+      required:
+      - variant_id
+      - sku
+      properties:
+        variant_id:
+          $ref: '#/components/schemas/EntityId'
+        sku:
+          $ref: '#/components/schemas/Sku'
+        name_suffix:
+          anyOf:
+          - type: string
+          - type: 'null'
+    CompareProductView:
+      type: object
+      additionalProperties: false
+      required:
+      - id
+      - name_fa
+      - slug
+      - primary_category_id
+      - category_name
+      - variants
+      - price
+      - specifications
+      properties:
+        id:
+          $ref: '#/components/schemas/EntityId'
+        name_fa:
+          type: string
+        slug:
+          $ref: '#/components/schemas/Slug'
+        primary_category_id:
+          $ref: '#/components/schemas/EntityId'
+        category_name:
+          type: string
+        variants:
+          type: array
+          items:
+            $ref: '#/components/schemas/CompareVariantView'
+        price:
+          anyOf:
+          - $ref: '#/components/schemas/PriceView'
+          - type: 'null'
+        specifications:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductSpecificationView'
+    CompareResponse:
+      type: object
+      additionalProperties: false
+      required:
+      - primary_category_id
+      - products
+      properties:
+        primary_category_id:
+          $ref: '#/components/schemas/EntityId'
+        products:
+          type: array
+          minItems: 1
+          maxItems: 4
+          items:
+            $ref: '#/components/schemas/CompareProductView'
+    CompareValidationResponse:
+      type: object
+      additionalProperties: false
+      required:
+      - valid
+      - primary_category_id
+      properties:
+        valid:
+          type: boolean
+          const: true
+        primary_category_id:
+          $ref: '#/components/schemas/EntityId'
+    WishlistItem:
+      type: object
+      additionalProperties: false
+      required:
+      - product_id
+      - added_at
+      properties:
+        product_id:
+          $ref: '#/components/schemas/EntityId'
+        added_at:
+          $ref: '#/components/schemas/Timestamp'
+    WishlistListResponse:
+      type: object
+      additionalProperties: false
+      required:
+      - items
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/WishlistItem'
+    WishlistAddResponse:
+      type: object
+      additionalProperties: false
+      required:
+      - added
+      - product_id
+      - already_present
+      properties:
+        added:
+          type: boolean
+          const: true
+        product_id:
+          $ref: '#/components/schemas/EntityId'
+        already_present:
+          type: boolean
     ProductSpecificationView:
       type: object
       additionalProperties: false
@@ -7325,6 +7438,7 @@ paths:
           application/json:
             schema:
               type: object
+              additionalProperties: false
               required:
               - product_ids
               properties:
@@ -7337,9 +7451,16 @@ paths:
                     $ref: '#/components/schemas/EntityId'
       responses:
         '200':
-          description: نتیجه مقایسه
+          description: نتیجه مقایسه معتبر و هم‌دسته
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompareResponse'
+        '404':
+          $ref: '#/components/responses/NotFound'
         '422':
           $ref: '#/components/responses/Unprocessable'
+      security: []
   /auth/otp/request:
     post:
       tags:
@@ -8362,15 +8483,22 @@ paths:
       operationId: postCompareValidate
       responses:
         '200':
-          description: عملیات موفق
-        '202':
-          description: عملیات پذیرفته شد
+          description: اعتبارسنجی مقایسه موفق
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompareValidationResponse'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/Unprocessable'
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/PostCompareValidateRequest'
+      security: []
   /articles:
     get:
       tags:
@@ -8497,7 +8625,15 @@ paths:
       operationId: getCustomerWishlist
       responses:
         '200':
-          description: عملیات موفق
+          description: فهرست علاقه‌مندی‌های مشتری
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WishlistListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/Unprocessable'
       security:
       - customerSession: []
   /customer/wishlist/{product_id}:
@@ -8507,19 +8643,30 @@ paths:
       operationId: postCustomerWishlistProductId
       responses:
         '200':
-          description: عملیات موفق
-        '202':
-          description: عملیات پذیرفته شد
+          description: افزودن idempotent محصول به علاقه‌مندی‌ها
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WishlistAddResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/Unprocessable'
       parameters:
       - $ref: '#/components/parameters/IdempotencyKey'
       - name: product_id
         in: path
         required: true
         schema:
-          type: string
+          $ref: '#/components/schemas/EntityId'
       security:
       - customerSession: []
       x-eqcofe:
+        idempotency: required
         noRequestBody: true
     delete:
       tags:
@@ -8527,18 +8674,25 @@ paths:
       operationId: deleteCustomerWishlistProductId
       responses:
         '204':
-          description: حذف/برداشتن موفق
+          description: حذف idempotent محصول از علاقه‌مندی‌ها؛ بدون body
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/Unprocessable'
       parameters:
       - $ref: '#/components/parameters/IdempotencyKey'
       - name: product_id
         in: path
         required: true
         schema:
-          type: string
+          $ref: '#/components/schemas/EntityId'
       security:
       - customerSession: []
       x-eqcofe:
         idempotency: required
+        noRequestBody: true
   /customer/product-alerts:
     post:
       tags:
