@@ -2,7 +2,7 @@
   "schema_version": "2.2",
   "task_id": "EQCOFE-STEP62-F-PRODUCT-LISTING-INTEGRATION-001",
   "title": "Step 62-F Product Detail and Listing/ProductCard Compare/Wishlist integration",
-  "description": "Integrate canonical Step 62-D/E Compare/Wishlist foundations into Product Detail and shared Listing/ProductCard surfaces only. Add one shared Wishlist resource route, bounded client-side membership hydration, reusable product/listing actions, local max-four/same-category compare selection that serializes into the canonical deterministic Compare URL, and Product Detail seeding into related products. Preserve backend Compare validation and Wishlist ownership/mutation authority. Do not change legacy listing data loaders, Account management, Product Alerts, backend/OpenAPI/database/auth platform/dependencies/lockfiles, or later hardening/acceptance stages. A minimal compatibility transition to the Stage 62-E verifier is authorized only to accept the Stage 62-F post-mutation authoritative pressed-state variable while preserving all Stage 62-E security/idempotency assertions.",
+  "description": "Integrate canonical Step 62-D/E Compare/Wishlist foundations into Product Detail and shared Listing/ProductCard surfaces only. Add one shared Wishlist resource route, bounded client-side membership hydration, reusable product/listing actions, local max-four/same-category compare selection that serializes into the canonical deterministic Compare URL, and Product Detail seeding into related products. Preserve backend Compare validation and Wishlist ownership/mutation authority. Do not change legacy listing data loaders, Account management, Product Alerts, backend/OpenAPI/database/auth platform/dependencies/lockfiles, or later hardening/acceptance stages. A minimal compatibility transition to the Stage 62-E verifier is authorized only to accept the Stage 62-F post-mutation authoritative pressed-state variable while preserving all Stage 62-E security/idempotency assertions. Permit only the minimum compatibility transition in the historical Stage 62-E Wishlist verifier needed to recognize authoritative fetcher-driven aria-pressed state while preserving all previous security/idempotency/submitting assertions.",
   "risk": "MEDIUM",
   "risk_floor": "MEDIUM",
   "owner": "PRODUCT_DESIGN",
@@ -137,7 +137,7 @@
     },
     {
       "id": "AC-004",
-      "description": "Legacy Search/Category server loaders, Account management, Product Alerts, backend/OpenAPI/database/auth platform/dependencies/lockfiles and docs12/docs13 remain unchanged.",
+      "description": "Legacy Search/Category server loaders, Account management, Product Alerts, backend/OpenAPI/database/auth platform/dependencies/lockfiles and docs12/docs13 remain unchanged. The historical Stage 62-E Wishlist verifier may be minimally transitioned only to recognize the fetcher-driven authoritative pressed state; its security/idempotency/submitting assertions must remain enforced.",
       "verification": "deterministic_scope_check",
       "mandatory": true
     },
