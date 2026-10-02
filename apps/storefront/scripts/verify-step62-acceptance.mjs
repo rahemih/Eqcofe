@@ -192,7 +192,7 @@ try {
   const compare = await fetch(origin + validComparePath);
   assert.equal(compare.status, 200, "STEP62_H_COMPARE_STATUS");
   const compareHtml = await compare.text();
-  for (const fragment of ["مقایسه ۲ محصول", "آسیاب یک", "آسیاب دو", "جنس", "قیمت فعلی"]) {
+  for (const fragment of ["ویژگی‌های قابل مقایسه و قیمت فعلی محصولات", "آسیاب یک", "آسیاب دو", "جنس", "قیمت فعلی"]) {
     assert(compareHtml.includes(fragment), `STEP62_H_COMPARE_CONTENT:${fragment}`);
   }
   const compareCalls = observed.slice(compareStart).filter((item) => item.path.startsWith("/compare"));
