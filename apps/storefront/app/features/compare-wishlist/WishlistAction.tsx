@@ -3,8 +3,8 @@ import { useFetcher } from "react-router";
 import type {
   WishlistActionFeedback,
   WishlistActionPayload,
+  WishlistMembershipStatus,
 } from "./wishlist-action-state.js";
-import type { WishlistSnapshot } from "./wishlist-snapshot.server.js";
 
 export function WishlistAction({
   productId,
@@ -14,7 +14,7 @@ export function WishlistAction({
 }: {
   productId: string;
   wishlisted: boolean;
-  membershipStatus?: WishlistSnapshot["status"];
+  membershipStatus?: WishlistMembershipStatus;
   feedback?: WishlistActionFeedback;
 }) {
   const fetcher = useFetcher<WishlistActionPayload>();
@@ -57,7 +57,7 @@ export function WishlistAction({
 }
 
 function initialMembershipFeedback(
-  status: WishlistSnapshot["status"],
+  status: WishlistMembershipStatus,
 ): WishlistActionFeedback {
   if (status === "unauthenticated") {
     return {
