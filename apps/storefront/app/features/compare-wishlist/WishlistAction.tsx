@@ -1,10 +1,5 @@
 import { Form } from "react-router";
-
-export type WishlistActionFeedback =
-  | { status: "idle" }
-  | { status: "success"; message: string }
-  | { status: "unauthenticated"; message: string }
-  | { status: "error"; message: string; requestId?: string | null };
+import type { WishlistActionFeedback } from "./wishlist-action-state.js";
 
 export function WishlistAction({
   productId,
