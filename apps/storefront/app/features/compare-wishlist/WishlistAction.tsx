@@ -20,6 +20,8 @@ export function WishlistAction({
 }) {
   const fetcher = useFetcher<WishlistActionPayload>();
   const headingId = useId();
+  const hintId = `${headingId}-hint`;
+  const feedbackId = `${headingId}-feedback`;
   const actionWishlisted = fetcher.data?.status === "success"
     ? fetcher.data.wishlisted
     : wishlisted;
@@ -29,11 +31,20 @@ export function WishlistAction({
     ?? initialMembershipFeedback(membershipStatus);
   const intent = actionWishlisted ? "wishlist-remove" : "wishlist-add";
   const label = actionWishlisted ? "حذف از علاقه‌مندی‌ها" : "افزودن به علاقه‌مندی‌ها";
+  const showUnavailableHint = membershipStatus === "unavailable" && fetcher.data === undefined;
+  const describedBy = [
+    showUnavailableHint ? hintId : null,
+    feedback.status !== "idle" ? feedbackId : null,
+  ].filter(Boolean).join(" ") || undefined;
 
   return (
-    <section className="wishlist-action" aria-labelledby={headingId}>
+    <section
+      className="wishlist-action"
+      aria-labelledby={headingId}
+      aria-busy={submitting}
+    >
       <h3 id={headingId}>علاقه‌مندی</h3>
-      <fetcher.Form method="post" action="/actions/wishlist">
+      <fetcher.Form method="post" action="/actions/wishlist" aria-busy={submitting}>
         <input type="hidden" name="intent" value={intent} />
         <input type="hidden" name="product_id" value={productId} />
         <input type="hidden" name="current_wishlisted" value={actionWishlisted ? "1" : "0"} />
@@ -41,18 +52,19 @@ export function WishlistAction({
           type="submit"
           className="wishlist-action__button"
           aria-pressed={actionWishlisted}
+          aria-describedby={describedBy}
           disabled={submitting}
         >
           {submitting ? "در حال ثبت…" : label}
         </button>
       </fetcher.Form>
 
-      {membershipStatus === "unavailable" && fetcher.data === undefined ? (
-        <p className="wishlist-action__hint">
+      {showUnavailableHint ? (
+        <p id={hintId} className="wishlist-action__hint">
           وضعیت فعلی علاقه‌مندی در دسترس نیست؛ افزودن محصول همچنان به‌صورت امن و تکرارپذیر انجام می‌شود.
         </p>
       ) : null}
-      <WishlistFeedback feedback={feedback} />
+      <WishlistFeedback id={feedbackId} feedback={feedback} />
     </section>
   );
 }
@@ -69,12 +81,19 @@ function initialMembershipFeedback(
   return { status: "idle" };
 }
 
-function WishlistFeedback({ feedback }: { feedback: WishlistActionFeedback }) {
+function WishlistFeedback({
+  id,
+  feedback,
+}: {
+  id: string;
+  feedback: WishlistActionFeedback;
+}) {
   if (feedback.status === "idle") return null;
 
   const urgent = feedback.status === "error";
   return (
     <div
+      id={id}
       className="wishlist-action__feedback"
       role={urgent ? "alert" : "status"}
       aria-live={urgent ? "assertive" : "polite"}
