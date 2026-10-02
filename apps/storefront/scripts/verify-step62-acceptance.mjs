@@ -276,13 +276,13 @@ try {
       await firstCard.getByText("برای ذخیره یا حذف محصول از علاقه‌مندی‌ها باید وارد حساب مشتری شوید.").waitFor();
       assert.equal(await guestWishButton.getAttribute("aria-pressed"), "false");
 
-      await firstCard.getByRole("button", { name: "انتخاب برای مقایسه" }).click();
+      await secondCard.getByRole("button", { name: "انتخاب برای مقایسه" }).click();
       const blocked = otherCard.getByRole("button", { name: "انتخاب برای مقایسه" });
       assert.equal(await blocked.getAttribute("aria-disabled"), "true", "STEP62_H_MISMATCH_ARIA_DISABLED");
       await blocked.click();
       await guestPage.getByText("این محصول با دسته انتخاب‌های فعلی سازگار نیست.").waitFor();
 
-      await secondCard.getByRole("button", { name: "انتخاب برای مقایسه" }).click();
+      await firstCard.getByRole("button", { name: "انتخاب برای مقایسه" }).click();
       await guestPage.getByText("۲ از ۴ محصول انتخاب شده است.").waitFor();
       const compareLink = guestPage.getByRole("link", { name: "مقایسه ۲ محصول" });
       await compareLink.click();
