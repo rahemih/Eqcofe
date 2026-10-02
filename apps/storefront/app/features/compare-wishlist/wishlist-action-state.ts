@@ -1,6 +1,10 @@
-import type { WishlistMutationResult } from "./wishlist-action.server.js";
-import type { WishlistActionFeedback } from "./WishlistAction.js";
+export type WishlistActionFeedback =
+  | { status: "idle" }
+  | { status: "success"; message: string }
+  | { status: "unauthenticated"; message: string }
+  | { status: "error"; message: string; requestId?: string | null };
 
+import type { WishlistMutationResult } from "./wishlist-action.server.js";
 export function wishlistFeedbackFromMutation(
   result: WishlistMutationResult,
 ): WishlistActionFeedback {
