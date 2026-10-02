@@ -55,10 +55,8 @@ export async function mutateWishlistProduct(
       const result = await addWishlistProduct(
         request,
         {
-          params: {
-            path: { product_id: input.productId },
-            header: { "Idempotency-Key": idempotencyKey },
-          },
+          pathParams: { product_id: input.productId },
+          headers: { "Idempotency-Key": idempotencyKey },
         },
         options,
       );
@@ -73,10 +71,8 @@ export async function mutateWishlistProduct(
     const result = await removeWishlistProduct(
       request,
       {
-        params: {
-          path: { product_id: input.productId },
-          header: { "Idempotency-Key": idempotencyKey },
-        },
+        pathParams: { product_id: input.productId },
+        headers: { "Idempotency-Key": idempotencyKey },
       },
       options,
     );
