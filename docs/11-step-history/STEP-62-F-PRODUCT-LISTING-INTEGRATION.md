@@ -99,3 +99,15 @@ STEP_62_G = BLOCKED_UNTIL_62_F_CANONICAL_COMPLETE
 STEP_62_H_TO_I = NOT_STARTED
 CLAIMED_CANONICAL_PASS = NO
 ```
+
+
+## Repair note — Stage 62-E verifier compatibility
+
+During exact-head CI, the historical Stage 62-E verifier still required the literal source token `aria-pressed={wishlisted}`. Stage 62-F intentionally moved the pressed state to `actionWishlisted` so a successful authoritative mutation is reflected immediately without waiting for a route reload.
+
+The verifier transition is deliberately minimal:
+- assert the Stage 62-F authoritative `actionWishlisted` pressed state;
+- assert the successful-fetcher state bridge and canonical `/actions/wishlist` target;
+- keep the disabled/submitting assertion;
+- keep Idempotency-Key, 401 unauthenticated, retry, and browser-storage/security assertions unchanged;
+- mark Product/Listing integration as started because 62-F now owns that transition.
