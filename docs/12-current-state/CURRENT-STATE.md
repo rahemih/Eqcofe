@@ -1,36 +1,38 @@
 # EQCOFE Current State
 
 ## Trusted state date
-**2026-09-30**
+**2026-10-02**
 
 ## Official repository
 - Repository: `rahemih/Eqcofe`
 - Default/canonical branch: `main`
 - Historical repository: `rahemih/digikala-clone` — historical/recovery evidence only; not canonical application source.
 
-## Current Step 61 position
+## Current Step 62 position
 
-**Step 61 — Product Detail & Rich Media — CLOSED / FINAL CANONICAL PASS.** Stages 61-A through 61-I are canonically complete. Step 62 — Compare & Wishlist is **NEXT / NOT_STARTED** and requires a fresh live guard plus separate governed Task Contract.
+**Step 62 — Compare & Wishlist — FINAL CLOSURE IN PROGRESS.** Stages 62-A through 62-H are canonically complete. Stage 62-I is documentation/governance-only and must itself complete protected transport, exact-SHA postmerge verification and terminal Lock release before Step 62 becomes `CLOSED / FINAL CANONICAL PASS`. Step 63 — Cart & Checkout Frontend remains blocked until that terminal evidence.
 
 | Stage | PR | Canonical merge | State |
 | --- | ---: | --- | --- |
-| 61-A canonical handoff | #271 | `bb1b9be162696c302248b8b6244095e30d5aa100` | COMPLETE |
-| 61-B backend/OpenAPI contract | #272 | `5a39afcd7e38cccbf1a0906dec7df6fe01589853` | COMPLETE |
-| 61-C shared Product Detail foundation | #273 | `ca59269b666c263e8ec35ede38b0d1d6fefe230f` | COMPLETE |
-| 61-D variant/price/stock | #274 | `af9ce9b279f04c944763acb312cd85a53b129a2b` | COMPLETE |
-| 61-E media gallery/video | #275 | `2009eba4d6b7426dbe88e8d7838a05e53d333f7d` | COMPLETE |
-| 61-F specs/related/add-to-cart | #276 | `e3ff5427cac9029c081d94a7971f40640bb1c895` | COMPLETE |
-| 61-G SEO/states/accessibility | #277 | `502cf4af22dd5ea5fbb8de33e5b5f9e1020f0eb2` | COMPLETE |
-| 61-H integrated acceptance | #278 | `6244e5c9f2d689147f73905df6fae2f8703cc09a` | COMPLETE |
-| 61-I final canonical closure | #281 | `26cf00e83e90872607c9c4562075e02981710ecc` | COMPLETE |
+| 62-A canonical handoff/discovery/scope freeze | #292 | `18ba870afb4d0b192cfbcd5e60fd0f8f754f6ba4` | COMPLETE |
+| 62-B backend/OpenAPI Compare & Wishlist contract | #293 | `9050379610b5d8a4da80899a6a700041df184f01` | COMPLETE |
+| 62-C shared Storefront Compare/Wishlist foundation | #294 | `66766c5803a94e378da7c95a78df1b8b2c2fc27f` | COMPLETE |
+| 62-D production Compare flow + deterministic URL/state | #295 | `07aec6ea68ba3276f299ab5d16ed4241db73ab51` | COMPLETE |
+| 62-E authenticated Wishlist action/auth-recovery boundary | #296 | `87ba9461a0d2657c2419549b81d19423597c2ecf` | COMPLETE |
+| 62-F Product Detail + Listing/ProductCard integration | #297 | `4d8afb3733fc2091acc16177098c7edfc6e1143c` | COMPLETE |
+| 62-G UX/accessibility/RTL/responsive hardening | #298 | `bcf6787ff5eb31c8e5d0b7b870e1a7fbe99712f1` | COMPLETE |
+| 62-H integrated browser acceptance | #299 | `32a69f22fdc783573827e91477d9c6ae875999be` | COMPLETE |
+| 62-I final canonical closure | current governed Stage-I branch | pending protected merge | IN PROGRESS |
 
-Stage-I exact head `99874de412cfdb339ec36241d45fff65d457b4ae` passed Canonical CI `36692201935` / #1138, Phase A `36692201792` / #637, and Merge Policy `36692202025` / #720 rerun with deterministic Review PASS, `blockers=[]` and `merge_eligible=true`. Protected workflow_dispatch run `36693182773` / #722 merged PR #281; merge job `109814910586` and exact-SHA postmerge job `109815034416` passed, including canonical `pnpm verify` and Phase A. Postmerge-failure `109816653333` skipped. Terminal comment `5907933747` released `LOCK-EQCOFE-STEP61-I-CLOSURE-001-01`.
+Stage-H exact head `4284c595cd8e9dad5d42aa69f478a48c49343cff` passed Canonical CI `37010597113` / #1213, Phase A `37010597301` / #712 and Storefront Quality `37010597080` / #357. Protected workflow_dispatch `37015961791` / #823 merged PR #299 as `32a69f22fdc783573827e91477d9c6ae875999be`; merge job `110866759918` and exact-SHA postmerge job `110866922950` passed, including canonical `pnpm verify` and Phase A. Terminal comment `5954056988` released `LOCK-EQCOFE-STEP62-H-ACCEPTANCE-001-01`.
 
-The frozen Step-61 product result covers authoritative Product Detail identity, variant selection, integer-Toman price/stock states, image/video media, specifications, related content, add-to-cart, SEO/canonical/robots behavior, loading/empty/error/offline recovery, Persian RTL, accessibility, responsive behavior and integrated browser acceptance. Unsupported 3D/360 remains an explicit capability boundary rather than an invented feature. Compare/Wishlist remain Step 62; Cart/Checkout pages remain Step 63.
+The frozen Step-62 product result covers deterministic Compare selection/URL state, backend-authoritative same-category validation, authoritative integer-Toman price/comparable-specification display, authenticated Wishlist membership/add/remove with idempotency and server-session boundaries, Product Detail + Listing/ProductCard integration, guest/auth recovery, Persian RTL, accessibility, responsive behavior and integrated browser acceptance. Browser-local auth or Wishlist truth is not introduced. Full Account Wishlist management remains Step 64; Cart/Checkout frontend remains Step 63.
 
-Graphify operational-layer PR #283 subsequently merged governance/developer-tooling changes only as `4b8b473e76a215aca7ffaa450298d13a9b83f2f3` through protected run `36696451929` / #727, with postmerge PASS and terminal Lock release comment `5908448686`. This does not alter Step-61 product scope.
+Linear `HOS-66` remains In Progress until Stage-I exact-head gates, protected merge, exact-SHA postmerge verification and terminal Lock release complete. Only then may it be marked Done and Step 63 become `NEXT / NOT_STARTED`.
 
-Linear `HOS-65` may be marked Done after this postclosure docs-sync task itself completes protected merge, exact-SHA postmerge verification and terminal Lock release.
+## Previous Step 61 final position
+
+**Step 61 — Product Detail & Rich Media — CLOSED / FINAL CANONICAL PASS.** Stages 61-A through 61-I are canonically complete. Final closure PR #281 merged as `26cf00e83e90872607c9c4562075e02981710ecc` through protected run `36693182773` / #722; exact-SHA postmerge passed and terminal comment `5907933747` released `LOCK-EQCOFE-STEP61-I-CLOSURE-001-01`. Product Detail remains frozen as the authoritative Step-61 result; its Compare/Wishlist integration was added later in Step 62 without changing Product Detail ownership boundaries.
 
 ## Historical Step59 final position (snapshot from 2026-09-20)
 
@@ -555,7 +557,7 @@ Verify job: `97170521019` — PASS
 - Dark theme is explicitly deferred: it is not a Roadmap requirement and the current Figma plan permits one mode per collection.
 
 ## Next safe action
-Begin **Step 61 — Product Detail & Rich Media** only after a fresh live guard and a separate scope/contract. Stage 60-I is canonically complete; the dated Step-59 and pre-terminal Stage-I snapshots above record historical positions rather than today's active work.
+Complete **Step 62-I — Final Canonical Closure** through exact-head gates, protected merge, exact-SHA postmerge verification and terminal Lock release. After that terminal evidence only, mark HOS-66 Done and begin **Step 63 — Cart & Checkout Frontend** under a fresh live guard and a separate governed Task Contract. Historical Step-59/60/61 snapshots below remain evidence and do not override this current position.
 
 ## Step 52 active closure state
 - **A1 — Canonical Handoff & Scope Freeze — COMPLETE / FINAL GATE PASS**
