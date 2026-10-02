@@ -1,5 +1,5 @@
 import { useEffect, useId, useMemo, useState } from "react";
-import { Link } from "react-router";
+import { Link, useFetcher } from "react-router";
 import { serializeCompareUrlState } from "../compare-wishlist/compare-url-state.js";
 import type { WishlistMembershipView } from "../compare-wishlist/wishlist-action-state.js";
 import type { ListingProductCardData } from "./listing-contract.js";
@@ -20,7 +20,7 @@ const EMPTY_WISHLIST: WishlistMembershipView = {
 export function ListingGrid({
   products,
   heading,
-  wishlist = EMPTY_WISHLIST,
+  wishlist,
   compareSeed = null,
 }: {
   products: readonly ListingProductCardData[];
@@ -28,6 +28,8 @@ export function ListingGrid({
   wishlist?: WishlistMembershipView;
   compareSeed?: ListingCompareSeed | null;
 }) {
+  const wishlistFetcher = useFetcher<WishlistMembershipView>();
+  const resolvedWishlist = wishlist ?? wishlistFetcher.data ?? EMPTY_WISHLIST;
   const sectionTitleId = useId();
   const compareTitleId = useId();
   const signature = useMemo(
@@ -38,6 +40,12 @@ export function ListingGrid({
     compareSeed ? [compareSeed.id] : [],
   );
   const [selectionIssue, setSelectionIssue] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (wishlist === undefined && wishlistFetcher.state === "idle" && wishlistFetcher.data === undefined) {
+      void wishlistFetcher.load("/actions/wishlist");
+    }
+  }, [wishlist, wishlistFetcher]);
 
   useEffect(() => {
     setSelectedIds(compareSeed ? [compareSeed.id] : []);
@@ -135,7 +143,7 @@ export function ListingGrid({
               compareSelected={selectedIds.includes(product.id)}
               compareDisabledReason={reason}
               onCompareToggle={() => toggleCompare(product)}
-              wishlist={wishlist}
+              wishlist={resolvedWishlist}
             />
           );
         })}
