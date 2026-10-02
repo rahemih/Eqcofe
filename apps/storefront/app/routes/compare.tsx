@@ -1,10 +1,7 @@
 import { data, useLoaderData, useLocation, useNavigation } from "react-router";
 import { CompareState } from "../features/compare-wishlist/CompareState.js";
 import { CompareTable } from "../features/compare-wishlist/CompareTable.js";
-import {
-  loadCompareRouteData,
-  type CompareRouteData,
-} from "../features/compare-wishlist/compare-route-data.server.js";
+import { loadCompareRouteData } from "../features/compare-wishlist/compare-route-data.server.js";
 import { appendCustomerSessionSetCookies } from "../platform/auth/session-cookie.server.js";
 import "../styles/compare.css";
 
@@ -12,7 +9,7 @@ export const handle = {
   breadcrumb: "مقایسه محصولات",
 };
 
-export const meta = (_args: { loaderData?: CompareRouteData }) => [
+export const meta = () => [
   { title: "مقایسه محصولات | EQCOFE" },
   { name: "robots", content: "noindex,follow" },
 ];
