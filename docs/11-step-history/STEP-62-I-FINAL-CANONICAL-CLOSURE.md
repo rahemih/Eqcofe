@@ -2,11 +2,34 @@
 
 ## Verdict and scope
 
-Step 62-A through Step 62-H are `CANONICAL_COMPLETE`.
+Step 62-A through Step 62-I are `CANONICAL_COMPLETE`.
 
 This Stage I is documentation/governance-only. It adds no Compare/Wishlist runtime feature, API/OpenAPI behavior, database change, dependency, workflow, security rule, Product Design source mutation, Step 63 runtime implementation, or new business authority.
 
-**Closure rule:** Step 62 becomes `CLOSED / FINAL CANONICAL PASS` only when this Stage-I change itself completes exact-head provider gates, deterministic Review, artifact-bound ACTIVE Lock, protected Merge Policy transport, exact-SHA postmerge `pnpm verify` and Phase A, and terminal Lock RELEASED. Before that transport is terminal, the correct state is `FINAL CLOSURE IN PROGRESS`.
+**Terminal verdict:** Step 62 is `CLOSED / FINAL CANONICAL PASS`. Stage-I completed exact-head provider gates, deterministic Review, artifact-bound ACTIVE Lock, protected Merge Policy transport, exact-SHA postmerge `pnpm verify` and Phase A, and terminal Lock RELEASED.
+
+
+## Stage-I terminal evidence — 2026-10-02
+
+- PR #300 exact head: `717704316a490d1121ab2266e045553f672f6cbb`.
+- Exact artifact: `654898654c117236bd547940a52dbe35b0e416686a1e25fbb2ddc53f1791a834`.
+- Canonical CI `37017308910` / #1216 = **SUCCESS**.
+- Phase A `37017310383` / #715 = **SUCCESS**.
+- Merge Policy pre-merge `37017308851` / #826 = **SUCCESS**, `blockers=[]`, `merge_eligible=true`.
+- Protected workflow_dispatch `37045917485` / #829 = **SUCCESS**.
+- Merge job `110967197701` = **SUCCESS**.
+- Canonical merge/main SHA: `a09c22260f8b3c15d78752b40630b2fa480bbeb4`.
+- Exact-SHA postmerge job `110967351777` = **SUCCESS**; exact checkout, canonical `pnpm verify` and Phase A all passed.
+- Postmerge-failure `110968642626` = **SKIPPED**.
+- Terminal Lock release comment: `5958638572`; `LOCK-EQCOFE-STEP62-I-CLOSURE-001-01` = **RELEASED**.
+
+Therefore:
+
+```text
+STEP_62_A_TO_I = CANONICAL_COMPLETE
+STEP_62 = CLOSED / FINAL CANONICAL PASS
+STEP_63 = NEXT / NOT_STARTED
+```
 
 ## Fresh baseline — 2026-10-02
 

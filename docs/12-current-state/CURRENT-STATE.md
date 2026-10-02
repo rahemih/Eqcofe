@@ -10,7 +10,7 @@
 
 ## Current Step 62 position
 
-**Step 62 — Compare & Wishlist — FINAL CLOSURE IN PROGRESS.** Stages 62-A through 62-H are canonically complete. Stage 62-I is documentation/governance-only and must itself complete protected transport, exact-SHA postmerge verification and terminal Lock release before Step 62 becomes `CLOSED / FINAL CANONICAL PASS`. Step 63 — Cart & Checkout Frontend remains blocked until that terminal evidence.
+**Step 62 — Compare & Wishlist — CLOSED / FINAL CANONICAL PASS.** Stages 62-A through 62-I are canonically complete. Final Stage-I documentation/governance closure PR #300 completed protected merge, exact-SHA postmerge verification and terminal Lock release. Step 63 — Cart & Checkout Frontend is **NEXT / NOT_STARTED** after this postclosure docs-sync task itself completes protected transport and terminal release.
 
 | Stage | PR | Canonical merge | State |
 | --- | ---: | --- | --- |
@@ -22,13 +22,13 @@
 | 62-F Product Detail + Listing/ProductCard integration | #297 | `4d8afb3733fc2091acc16177098c7edfc6e1143c` | COMPLETE |
 | 62-G UX/accessibility/RTL/responsive hardening | #298 | `bcf6787ff5eb31c8e5d0b7b870e1a7fbe99712f1` | COMPLETE |
 | 62-H integrated browser acceptance | #299 | `32a69f22fdc783573827e91477d9c6ae875999be` | COMPLETE |
-| 62-I final canonical closure | current governed Stage-I branch | pending protected merge | IN PROGRESS |
+| 62-I final canonical closure | #300 | `a09c22260f8b3c15d78752b40630b2fa480bbeb4` | COMPLETE |
 
-Stage-H exact head `4284c595cd8e9dad5d42aa69f478a48c49343cff` passed Canonical CI `37010597113` / #1213, Phase A `37010597301` / #712 and Storefront Quality `37010597080` / #357. Protected workflow_dispatch `37015961791` / #823 merged PR #299 as `32a69f22fdc783573827e91477d9c6ae875999be`; merge job `110866759918` and exact-SHA postmerge job `110866922950` passed, including canonical `pnpm verify` and Phase A. Terminal comment `5954056988` released `LOCK-EQCOFE-STEP62-H-ACCEPTANCE-001-01`.
+Stage-I exact head `717704316a490d1121ab2266e045553f672f6cbb` passed Canonical CI `37017308910` / #1216 and Phase A `37017310383` / #715. Protected workflow_dispatch `37045917485` / #829 merged PR #300 as `a09c22260f8b3c15d78752b40630b2fa480bbeb4`; merge job `110967197701` and exact-SHA postmerge job `110967351777` passed, including canonical `pnpm verify` and Phase A. Postmerge-failure `110968642626` skipped. Terminal comment `5958638572` released `LOCK-EQCOFE-STEP62-I-CLOSURE-001-01`.
 
 The frozen Step-62 product result covers deterministic Compare selection/URL state, backend-authoritative same-category validation, authoritative integer-Toman price/comparable-specification display, authenticated Wishlist membership/add/remove with idempotency and server-session boundaries, Product Detail + Listing/ProductCard integration, guest/auth recovery, Persian RTL, accessibility, responsive behavior and integrated browser acceptance. Browser-local auth or Wishlist truth is not introduced. Full Account Wishlist management remains Step 64; Cart/Checkout frontend remains Step 63.
 
-Linear `HOS-66` remains In Progress until Stage-I exact-head gates, protected merge, exact-SHA postmerge verification and terminal Lock release complete. Only then may it be marked Done and Step 63 become `NEXT / NOT_STARTED`.
+Linear `HOS-66` remains In Progress only for this postclosure documentation-state synchronization. Mark it Done after this docs-sync task itself completes protected merge, exact-SHA postmerge verification and terminal Lock release; then Step 63 may start under a fresh live guard and separate governed Task Contract.
 
 ## Previous Step 61 final position
 
@@ -557,7 +557,7 @@ Verify job: `97170521019` — PASS
 - Dark theme is explicitly deferred: it is not a Roadmap requirement and the current Figma plan permits one mode per collection.
 
 ## Next safe action
-Complete **Step 62-I — Final Canonical Closure** through exact-head gates, protected merge, exact-SHA postmerge verification and terminal Lock release. After that terminal evidence only, mark HOS-66 Done and begin **Step 63 — Cart & Checkout Frontend** under a fresh live guard and a separate governed Task Contract. Historical Step-59/60/61 snapshots below remain evidence and do not override this current position.
+Complete **EQCOFE-STEP62-POSTCLOSURE-DOCSYNC-001** through exact-head gates, protected merge, exact-SHA postmerge verification and terminal Lock release. Then mark Linear **HOS-66 Done** and begin **Step 63 — Cart & Checkout Frontend** under a fresh live guard and a separate governed Task Contract.
 
 ## Step 52 active closure state
 - **A1 — Canonical Handoff & Scope Freeze — COMPLETE / FINAL GATE PASS**
