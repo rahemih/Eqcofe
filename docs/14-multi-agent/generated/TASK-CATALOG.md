@@ -60,6 +60,7 @@
 | EQCOFE-STEP62-D-COMPARE-FLOW-001 | Step 62-D production Compare flow and deterministic URL state | MEDIUM | NOT_REQUIRED | `66766c5803a94e378da7c95a78df1b8b2c2fc27f` | 34000/52000/104000 |
 | EQCOFE-STEP62-E-WISHLIST-ACTION-001 | Step 62-E authenticated Wishlist action and feedback | MEDIUM | NOT_REQUIRED | `07aec6ea68ba3276f299ab5d16ed4241db73ab51` | 30000/45000/90000 |
 | EQCOFE-STEP62-F-PRODUCT-LISTING-INTEGRATION-001 | Step 62-F Product Detail and Listing/ProductCard Compare/Wishlist integration | MEDIUM | NOT_REQUIRED | `87ba9461a0d2657c2419549b81d19423597c2ecf` | 42000/65000/120000 |
+| EQCOFE-STEP62-FINAL-AUDIT-001 | Step 62 final canonical audit and terminal-state documentation repair | MEDIUM | NOT_REQUIRED | `cc97380fde99cd4e2da45b2e4a708dae5352423d` | 18000/30000/60000 |
 | EQCOFE-STEP62-G-UX-HARDENING-001 | Step 62-G Compare/Wishlist UX accessibility RTL responsive hardening | MEDIUM | NOT_REQUIRED | `4d8afb3733fc2091acc16177098c7edfc6e1143c` | 32000/50000/90000 |
 | EQCOFE-STEP62-H-ACCEPTANCE-001 | Step 62-H integrated Compare/Wishlist browser acceptance | MEDIUM | NOT_REQUIRED | `bcf6787ff5eb31c8e5d0b7b870e1a7fbe99712f1` | 28000/42000/84000 |
 | EQCOFE-STEP62-I-CLOSURE-001 | Step 62-I final canonical closure and Step 63 handoff | MEDIUM | NOT_REQUIRED | `32a69f22fdc783573827e91477d9c6ae875999be` | 20000/32000/64000 |
@@ -109,4 +110,4 @@
 | MA-V1-ACC-MEDIUM-001 | V1 Acceptance MEDIUM R2 — telemetry terminal-state conflict hardening | MEDIUM | NOT_REQUIRED | `9017e0f25e9571568ed9acf4ca3ca977ce9e78f0` | 15000/25000/50000 |
 | MA-V1-ACCEPTANCE-CLOSURE-V16-R2-001 | V1.6 Phase 3 canonical acceptance closure R2 | HIGH | REQUIRED | `d7d235f5f240b8bea44bc607afa812b2f5bb12d4` | 30000/50000/90000 |
 
-Task contracts indexed: **103**.
+Task contracts indexed: **104**.
