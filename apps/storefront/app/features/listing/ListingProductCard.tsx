@@ -21,6 +21,10 @@ export function ListingProductCard({
   const availability = product.availability;
   const wishlisted = wishlist.status === "ready"
     && wishlist.productIds.includes(product.id);
+  const compareBlocked = !compareSelected && Boolean(compareDisabledReason);
+  const compareReasonId = compareDisabledReason
+    ? `compare-reason-${product.id}`
+    : undefined;
 
   return (
     <article className="listing-card">
@@ -70,13 +74,16 @@ export function ListingProductCard({
             type="button"
             className="listing-card__compare"
             aria-pressed={compareSelected}
-            disabled={!compareSelected && Boolean(compareDisabledReason)}
+            aria-disabled={compareBlocked}
+            aria-describedby={compareBlocked ? compareReasonId : undefined}
             onClick={onCompareToggle}
           >
             {compareSelected ? "حذف از مقایسه" : "انتخاب برای مقایسه"}
           </button>
           {!compareSelected && compareDisabledReason ? (
-            <p className="listing-card__compare-reason">{compareDisabledReason}</p>
+            <p id={compareReasonId} className="listing-card__compare-reason">
+              {compareDisabledReason}
+            </p>
           ) : null}
           <WishlistAction
             productId={product.id}
