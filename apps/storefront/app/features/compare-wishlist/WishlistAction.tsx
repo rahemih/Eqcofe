@@ -1,40 +1,71 @@
-import { Form } from "react-router";
-import type { WishlistActionFeedback } from "./wishlist-action-state.js";
+import { useId } from "react";
+import { useFetcher } from "react-router";
+import type {
+  WishlistActionFeedback,
+  WishlistActionPayload,
+} from "./wishlist-action-state.js";
+import type { WishlistSnapshot } from "./wishlist-snapshot.server.js";
 
 export function WishlistAction({
   productId,
   wishlisted,
-  submitting = false,
-  feedback = { status: "idle" },
+  membershipStatus = "ready",
+  feedback: externalFeedback,
 }: {
   productId: string;
   wishlisted: boolean;
-  submitting?: boolean;
+  membershipStatus?: WishlistSnapshot["status"];
   feedback?: WishlistActionFeedback;
 }) {
-  const intent = wishlisted ? "wishlist-remove" : "wishlist-add";
-  const label = wishlisted ? "حذف از علاقه‌مندی‌ها" : "افزودن به علاقه‌مندی‌ها";
+  const fetcher = useFetcher<WishlistActionPayload>();
+  const headingId = useId();
+  const actionWishlisted = fetcher.data?.status === "success"
+    ? fetcher.data.wishlisted
+    : wishlisted;
+  const submitting = fetcher.state !== "idle";
+  const feedback = fetcher.data
+    ?? externalFeedback
+    ?? initialMembershipFeedback(membershipStatus);
+  const intent = actionWishlisted ? "wishlist-remove" : "wishlist-add";
+  const label = actionWishlisted ? "حذف از علاقه‌مندی‌ها" : "افزودن به علاقه‌مندی‌ها";
 
   return (
-    <section className="wishlist-action" aria-labelledby="wishlist-action-title">
-      <h2 id="wishlist-action-title">علاقه‌مندی</h2>
-      <Form method="post">
+    <section className="wishlist-action" aria-labelledby={headingId}>
+      <h3 id={headingId}>علاقه‌مندی</h3>
+      <fetcher.Form method="post" action="/actions/wishlist">
         <input type="hidden" name="intent" value={intent} />
         <input type="hidden" name="product_id" value={productId} />
-        <input type="hidden" name="current_wishlisted" value={wishlisted ? "1" : "0"} />
+        <input type="hidden" name="current_wishlisted" value={actionWishlisted ? "1" : "0"} />
         <button
           type="submit"
           className="wishlist-action__button"
-          aria-pressed={wishlisted}
+          aria-pressed={actionWishlisted}
           disabled={submitting}
         >
           {submitting ? "در حال ثبت…" : label}
         </button>
-      </Form>
+      </fetcher.Form>
 
+      {membershipStatus === "unavailable" && fetcher.data === undefined ? (
+        <p className="wishlist-action__hint">
+          وضعیت فعلی علاقه‌مندی در دسترس نیست؛ افزودن محصول همچنان به‌صورت امن و تکرارپذیر انجام می‌شود.
+        </p>
+      ) : null}
       <WishlistFeedback feedback={feedback} />
     </section>
   );
+}
+
+function initialMembershipFeedback(
+  status: WishlistSnapshot["status"],
+): WishlistActionFeedback {
+  if (status === "unauthenticated") {
+    return {
+      status: "unauthenticated",
+      message: "برای ذخیره محصول در علاقه‌مندی‌ها باید وارد حساب مشتری شوید.",
+    };
+  }
+  return { status: "idle" };
 }
 
 function WishlistFeedback({ feedback }: { feedback: WishlistActionFeedback }) {
