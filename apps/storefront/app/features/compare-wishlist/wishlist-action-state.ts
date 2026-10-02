@@ -4,6 +4,10 @@ export type WishlistActionFeedback =
   | { status: "unauthenticated"; message: string }
   | { status: "error"; message: string; requestId?: string | null };
 
+export type WishlistActionPayload =
+  Exclude<WishlistActionFeedback, { status: "idle" }>
+  & { wishlisted: boolean };
+
 import type { WishlistMutationResult } from "./wishlist-action.server.js";
 export function wishlistFeedbackFromMutation(
   result: WishlistMutationResult,
