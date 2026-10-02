@@ -42,5 +42,5 @@ console.log(JSON.stringify({
   idempotencyKey: true,
   unauthenticatedExplicit: true,
   accountManagementDeferred: true,
-  productListingIntegrationStarted: false,
+  productListingIntegrationStarted: true,
 }));
