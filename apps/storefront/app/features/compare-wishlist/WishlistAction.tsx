@@ -1,5 +1,6 @@
 import { useId } from "react";
 import { useFetcher } from "react-router";
+import "../../styles/wishlist.css";
 import type {
   WishlistActionFeedback,
   WishlistActionPayload,
