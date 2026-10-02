@@ -18,7 +18,7 @@ export type WishlistActionPayload =
 import type { WishlistMutationResult } from "./wishlist-action.server.js";
 export function wishlistFeedbackFromMutation(
   result: WishlistMutationResult,
-): WishlistActionFeedback {
+): Exclude<WishlistActionFeedback, { status: "idle" }> {
   if (result.status === "success") {
     return {
       status: "success",
