@@ -1,10 +1,15 @@
-import { ListingGrid } from "../listing/ListingGrid.js";
+import type { WishlistMembershipView } from "../compare-wishlist/wishlist-action-state.js";
+import { ListingGrid, type ListingCompareSeed } from "../listing/ListingGrid.js";
 import type { RelatedProductCard } from "./product-detail-contract.js";
 
 export function ProductRelated({
   products,
+  wishlist,
+  compareSeed,
 }: {
   products: readonly RelatedProductCard[] | null;
+  wishlist: WishlistMembershipView;
+  compareSeed: ListingCompareSeed;
 }) {
   if (products === null) {
     return (
@@ -24,5 +29,12 @@ export function ProductRelated({
     );
   }
 
-  return <ListingGrid products={products} heading="محصولات مرتبط" />;
+  return (
+    <ListingGrid
+      products={products}
+      heading="محصولات مرتبط"
+      wishlist={wishlist}
+      compareSeed={compareSeed}
+    />
+  );
 }
