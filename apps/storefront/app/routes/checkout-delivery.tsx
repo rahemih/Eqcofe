@@ -1,4 +1,5 @@
 import { data, redirect, useActionData, useLoaderData, useNavigation } from "react-router";
+import { StatePanel } from "../components/StatePanel.js";
 import { CheckoutDeliveryView } from "../features/cart-checkout/CheckoutDeliveryView.js";
 import {
   handleCheckoutDeliveryAction,
@@ -15,9 +16,9 @@ export async function loader({ request }: { request: Request }) {
     const result = await loadCheckoutDelivery(request);
     const headers = new Headers();
     for (const cookie of result.setCookies) headers.append("Set-Cookie", cookie);
-    return data(result.data, { headers });
+    return data({ kind: "ready" as const, value: result.data }, { headers });
   } catch {
-    return redirect("/checkout/address");
+    return data({ kind: "recovery" as const });
   }
 }
 
@@ -36,5 +37,6 @@ export default function CheckoutDeliveryRoute() {
   const actionData = useActionData<typeof action>() ?? null;
   const navigation = useNavigation();
   const busy = navigation.state !== "idle";
-  return <main className="checkout-flow-page" aria-busy={busy}><CheckoutDeliveryView data={loaderData} actionData={actionData} busy={busy} /></main>;
+  if (loaderData.kind === "recovery") return <main className="checkout-flow-page"><StatePanel variant="recovery" title="روش تحویل فعلاً قابل دریافت نیست" message="بدون نشانی، Cart و پاسخ authoritative روش‌های ارسال، مبلغ یا روش تحویل حدس زده نمی‌شود." /></main>;
+  return <main className="checkout-flow-page" aria-busy={busy}><CheckoutDeliveryView data={loaderData.value} actionData={actionData} busy={busy} /></main>;
 }
