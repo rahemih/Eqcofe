@@ -42,7 +42,24 @@
       "src/modules/orders/**",
       "src/modules/payments/**",
       "src/modules/fulfillment/**",
-      "test/**"
+      "test/**",
+      "docs/13-product-design/step56-admin-shell-wireframes.json",
+      "docs/13-product-design/step56-admin-ux-contract.json",
+      "docs/13-product-design/step56-catalog-media-wireframes.json",
+      "docs/13-product-design/step56-commerce-operations-wireframes.json",
+      "docs/13-product-design/step56-customers-growth-wireframes.json",
+      "docs/13-product-design/step56-final-audit.json",
+      "docs/13-product-design/step56-final-audit/manifest.json",
+      "docs/13-product-design/step56-foundation/A/manifest.json",
+      "docs/13-product-design/step56-management-security-wireframes.json",
+      "docs/13-product-design/step56-pricing-inventory-wireframes.json",
+      "docs/13-product-design/step56-wireframes/B/manifest.json",
+      "docs/13-product-design/step56-wireframes/C/manifest.json",
+      "docs/13-product-design/step56-wireframes/D/manifest.json",
+      "docs/13-product-design/step56-wireframes/E/manifest.json",
+      "docs/13-product-design/step56-wireframes/F/manifest.json",
+      "docs/13-product-design/step56-wireframes/G/manifest.json",
+      "docs/13-product-design/step57-high-fidelity-contract.json"
     ],
     "forbidden": [
       ".github/**",
@@ -53,7 +70,7 @@
       "apps/admin/**",
       "apps/storefront/**",
       "docs/12-current-state/**",
-      "docs/13-product-design/**"
+      "docs/13-product-design/** EXCEPT provenance-only paths explicitly listed in scope.write"
     ]
   },
   "requested_lock_ids": [
@@ -85,7 +102,24 @@
         "src/modules/orders/**",
         "src/modules/payments/**",
         "src/modules/fulfillment/**",
-        "test/**"
+        "test/**",
+        "docs/13-product-design/step56-admin-shell-wireframes.json",
+        "docs/13-product-design/step56-admin-ux-contract.json",
+        "docs/13-product-design/step56-catalog-media-wireframes.json",
+        "docs/13-product-design/step56-commerce-operations-wireframes.json",
+        "docs/13-product-design/step56-customers-growth-wireframes.json",
+        "docs/13-product-design/step56-final-audit.json",
+        "docs/13-product-design/step56-final-audit/manifest.json",
+        "docs/13-product-design/step56-foundation/A/manifest.json",
+        "docs/13-product-design/step56-management-security-wireframes.json",
+        "docs/13-product-design/step56-pricing-inventory-wireframes.json",
+        "docs/13-product-design/step56-wireframes/B/manifest.json",
+        "docs/13-product-design/step56-wireframes/C/manifest.json",
+        "docs/13-product-design/step56-wireframes/D/manifest.json",
+        "docs/13-product-design/step56-wireframes/E/manifest.json",
+        "docs/13-product-design/step56-wireframes/F/manifest.json",
+        "docs/13-product-design/step56-wireframes/G/manifest.json",
+        "docs/13-product-design/step57-high-fidelity-contract.json"
       ]
     }
   ],
@@ -134,6 +168,12 @@
       "description": "Stage 63-B canonical completion requires exact-head CI, deterministic Review, artifact-bound Lock, required Human Gate, protected merge, exact-SHA postmerge verification and terminal Lock release.",
       "verification": "canonical_transport_and_postmerge_evidence",
       "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "If OpenAPI hash drift triggers recovered Step56/57 provenance checks, only generator-equivalent SHA/manifest synchronization is allowed on the explicitly listed provenance files; no design semantics, frames, historical verdicts or UI behavior may change.",
+      "verification": "step56_step57_provenance_only_repair",
+      "mandatory": true
     }
   ],
   "external_gate_evidence": {
@@ -153,5 +193,8 @@
   "authorized_human_approver": {
     "role": "PROJECT_OWNER",
     "github_login": "rahemih"
+  },
+  "evidence": {
+    "design_provenance_repair": "contracts/http/openapi.yaml is a recovered Step56/57 source. Only generator-equivalent SHA/manifest synchronization on the explicitly listed provenance paths is authorized; design semantics, frames, verdicts, journeys and product behavior must not change."
   }
 }
