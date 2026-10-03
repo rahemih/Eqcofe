@@ -1,42 +1,48 @@
 # EQCOFE — Step 63-F Address, Delivery, Quote, Reservation, Review & Order Submission
 
-## Scope
+## State
 
-Stage 63-F starts from canonical main `da8d0fb465e85ef37a30e00c71a008cea4a31b25` after Step 63-E terminal closure.
+**IN_PROGRESS / NOT_CANONICAL**
 
-Implemented surfaces:
+Canonical predecessor: Step 63-E merge `da8d0fb465e85ef37a30e00c71a008cea4a31b25`.
 
-- `/checkout/address`: authenticated customer-owned address list, select, create, edit and set-default actions.
-- `/checkout/delivery`: authoritative `GET /shipping-methods` selection and optional coupon input.
-- `/checkout/review`: server-authoritative Quote creation, Checkout credential rotation, reservation, final totals, bounded rebuild and idempotent Order creation.
-- Successful order creation hands off to the existing `/order/:orderNumber/outcome` route. Payment initiation/verification/outcome runtime remains exclusively Stage 63-G.
+## Implemented scope
+
+- `/checkout/address`: authenticated customer-owned existing Address list, selection and safe edit.
+- `/checkout/delivery`: authoritative `GET /shipping-methods`, optional coupon and backend Quote.
+- `/checkout/review`: HttpOnly HMAC-bound Review snapshot tied to server-only Checkout credentials, authoritative integer-Toman totals, Reservation and idempotent Order submission.
+- Successful Order creation hands off to `/order/:orderNumber/outcome`; Payment initiation/status/verify and outcome runtime remain Stage 63-G.
 
 ## Authority and safety
 
-- Customer session, Cart token and Checkout token remain server-only HttpOnly cookies.
-- Address ownership is re-read from `GET /customer/addresses` before selection, review and order creation.
-- Shipping IDs are re-read from `GET /shipping-methods`; the UI never invents shipping fee values.
-- Quote, reserve and order mutations use rendered idempotency keys.
-- Refreshing Review never assumes the prior Quote/Reservation succeeded; authoritative state must be rebuilt.
-- Unknown or conflicting backend outcomes fail closed.
-- No Payment mutation exists in Stage 63-F.
+- Customer session, Cart token and Checkout token remain server-only.
+- Existing Address ownership is re-read from `GET /customer/addresses` before use.
+- Existing `province_id` and `city_id` remain opaque and unchanged during safe edits.
+- Shipping methods/fees and Quote totals come only from backend responses.
+- Review state is stored only in an HttpOnly, SameSite=Lax, 15-minute HMAC-bound cookie signed with the server-only Checkout token.
+- Reserve and Order use stable server-generated idempotency keys.
+- Unknown, expired or conflicting outcomes fail closed.
+- Stage 63-F never infers Payment success.
 
-## Geography compatibility finding
+## Blocking finding — new Address creation
 
-The canonical Customer Address contract requires opaque UUID `province_id` and `city_id` values, while the canonical repository exposes no public province/city dictionary endpoint and the database columns have no geography foreign-key constraint.
+The frozen Step-63 scope requires first-use Address creation. Canonical Address input requires opaque `province_id` and `city_id` UUIDs, while repository/OpenAPI discovery found no public province/city/geography lookup endpoint or canonical reference source.
 
-Stage 63-F therefore does **not** claim an authoritative geography catalog. For newly entered addresses:
-- human-readable province/city labels are retained in `location_metadata`;
-- the human-readable labels are also retained in `address_line`;
-- deterministic opaque UUIDs are derived only as a compatibility representation for the existing backend contract;
-- existing addresses retain their previously stored IDs unchanged.
+Therefore Stage 63-F explicitly prohibits synthetic UUIDs and raw UUID input fields:
 
-This compatibility bridge must not be interpreted as production geography authority and must be replaced by an authoritative geography source before production shipping integrations depend on regional IDs.
+```text
+ADDRESS_REFERENCE_DATA_MISSING = TRUE
+NEW_ADDRESS_CREATION = FAIL_CLOSED
+SYNTHETIC_GEOGRAPHY_UUID = PROHIBITED
+STAGE_63_F = IN_PROGRESS / NOT_CANONICAL
+```
+
+Existing customer-owned Addresses remain usable. Stage 63-F must not be marked READY FOR PROTECTED MERGE until a governed canonical geography/reference-data contract resolves this blocker.
 
 ## Graph directive
 
-Project Owner directive remains active: all Step-63 Graphify/graph work is deferred to final Step-63 acceptance/closure before Step 64 handoff. Stage 63-F must not block on local graph state.
+Project Owner directive remains active: all Step-63 Graphify/graph work is deferred to final Step-63 acceptance/closure before Step 64 handoff.
 
-## Canonical exit gate
+## Exit gate
 
-Stage 63-F is HIGH risk and is not canonical until exact-head Canonical CI, Phase A, Storefront Quality, CodeQL Security, deterministic Review, exact-artifact Project Owner Human approval, ACTIVE Lock, protected workflow_dispatch, exact-SHA postmerge verification and terminal Lock release are all evidenced.
+After the Address reference blocker is resolved, HIGH-risk final completion still requires exact-head Canonical CI, Phase A, Storefront Quality, CodeQL Security, deterministic Review, exact-artifact Project Owner Human approval, ACTIVE Lock, protected workflow_dispatch, exact-SHA postmerge verification and terminal Lock release.
