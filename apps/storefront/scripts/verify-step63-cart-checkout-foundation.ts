@@ -108,10 +108,15 @@ assert.doesNotMatch(identityRoute, /RoutePlaceholder/);
 assert.match(identityRoute, /loadCheckoutIdentity/);
 assert.match(identityRoute, /handleCheckoutIdentityAction/);
 
-for (const file of ["checkout-address.tsx", "checkout-delivery.tsx", "checkout-review.tsx"]) {
+const fulfillmentRoutes = [
+  ["checkout-address.tsx", /checkout-address\\.server\\.js/],
+  ["checkout-delivery.tsx", /checkout-delivery\\.server\\.js/],
+  ["checkout-review.tsx", /checkout-review\\.server\\.js/],
+] as const;
+for (const [file, serverImport] of fulfillmentRoutes) {
   const source = readFileSync("apps/storefront/app/routes/" + file, "utf8");
   assert.doesNotMatch(source, /RoutePlaceholder/);
-  assert.match(source, /checkout-flow\.server\.js/);
+  assert.match(source, serverImport);
 }
 for (const file of ["payment-return.tsx", "order-outcome.tsx"]) {
   const source = readFileSync("apps/storefront/app/routes/" + file, "utf8");
