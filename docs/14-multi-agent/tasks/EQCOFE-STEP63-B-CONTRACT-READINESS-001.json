@@ -138,9 +138,20 @@
   ],
   "external_gate_evidence": {
     "protocol": "EQCOFE_GATE_V1",
-    "artifact_bound_gates": ["REVIEW", "LOCK", "HUMAN_APPROVAL"],
-    "trusted_github_transport_login": "rahemih"
+    "artifact_bound_gates": [
+      "REVIEW",
+      "VERIFICATION",
+      "SECURITY",
+      "HUMAN",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Step 63-B is HIGH risk. Owner has authorized continuation of Step 63 in chat, but final HUMAN approval must bind to the frozen exact head and artifact after technical/security gates are green. Direct-main write/raw merge prohibited."
   },
   "process_improvement_links": [],
-  "incident_links": []
+  "incident_links": [],
+  "authorized_human_approver": {
+    "role": "PROJECT_OWNER",
+    "github_login": "rahemih"
+  }
 }
