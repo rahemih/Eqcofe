@@ -22,7 +22,7 @@ assert.match(service, /OTP_INVALID/);
 assert.match(service, /OTP_EXPIRED_OR_CONSUMED/);
 assert.match(service, /OTP_ATTEMPTS_EXCEEDED/);
 assert.match(auth, /\/auth\/otp\/verify:[\s\S]*'200':[\s\S]*session_id:[\s\S]*expires_at:/);
-assert.match(auth, /\/auth\/otp\/verify:[\s\S]*pattern: '\^\[0-9\]\{6\}\$'/);
+assert.match(auth, /\/auth\/otp\/verify:[\s\S]*pattern: ["']\^\[0-9\]\{6\}\$["']/);
 assert.match(auth, /\/auth\/otp\/verify:[\s\S]*'401':[\s\S]*Unauthorized/);
 assert.match(auth, /\/auth\/otp\/verify:[\s\S]*'429':[\s\S]*TooManyRequests/);
 
