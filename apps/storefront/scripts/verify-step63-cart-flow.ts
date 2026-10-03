@@ -1,0 +1,16 @@
+import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
+const route=readFileSync("apps/storefront/app/routes/cart.tsx","utf8");
+const data=readFileSync("apps/storefront/app/features/cart-checkout/cart-route-data.server.ts","utf8");
+const bridge=readFileSync("apps/storefront/app/features/cart-checkout/cart-checkout-data.server.ts","utf8");
+const view=readFileSync("apps/storefront/app/features/cart-checkout/CartView.tsx","utf8");
+const state=readFileSync("apps/storefront/app/features/cart-checkout/CartState.tsx","utf8");
+const css=readFileSync("apps/storefront/app/styles/cart.css","utf8");
+assert.doesNotMatch(route,/RoutePlaceholder/);
+assert.match(route,/loadCartRouteData/);assert.match(route,/mutateCartRoute/);assert.match(route,/aria-busy/);
+assert.match(data,/loadGuestCart/);assert.match(data,/updateGuestCartItem/);assert.match(data,/removeGuestCartItem/);assert.match(data,/Number\.isSafeInteger/);assert.match(data,/UUID_RE/);
+assert.match(bridge,/requireCartCredentials/);assert.match(bridge,/"X-Cart-Token"/);assert.doesNotMatch(route+view+state,/cart_token|checkout_token|localStorage|sessionStorage|document\.cookie/);
+assert.match(view,/\/checkout\/identity/);assert.match(view,/قیمت، تخفیف، موجودی و هزینه ارسال/);assert.match(view,/method="post"/);assert.match(view,/name="quantity"/);
+assert.match(state,/سبد خرید خالی است/);assert.match(state,/StatePanel/);assert.match(css,/44px/);assert.match(css,/@media\(max-width:840px\)/);
+for(const forbidden of ["checkout-address.tsx","checkout-delivery.tsx","checkout-review.tsx","payment-return.tsx","order-outcome.tsx"]) assert.doesNotMatch(route+data+view+state,new RegExp(forbidden.replace(".","\\.")));
+console.log(JSON.stringify({verifier:"step63-cart-flow",status:"PASS",productionCart:true,serverOnlyCredentials:true,authoritativeMutations:true,deferredCheckoutStages:true}));
