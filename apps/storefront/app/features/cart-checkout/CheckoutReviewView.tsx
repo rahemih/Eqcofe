@@ -1,16 +1,25 @@
 import { Form, Link } from "react-router";
-import type { CheckoutFlowMessage, CheckoutReviewPageData, CheckoutReviewPreparedData } from "./checkout-flow.server.js";
-const toman = new Intl.NumberFormat("fa-IR");
-export function CheckoutReviewView({loaderData,actionData,busy}:{loaderData:CheckoutReviewPageData;actionData:CheckoutReviewPreparedData|CheckoutFlowMessage|null;busy:boolean}) {
-  if ("status" in loaderData) return <section className="checkout-flow"><h1>بازبینی سفارش</h1><p className="checkout-flow__alert" role="alert">{loaderData.message}</p><Link className="checkout-back-link" to="/checkout/delivery">بازگشت به روش تحویل</Link></section>;
-  const prepared=actionData?.status==="prepared"?actionData:null;
-  return <section className="checkout-flow" aria-labelledby="checkout-review-title">
-    <header className="checkout-flow__intro"><p>مرحله ۵ از ۵</p><h1 id="checkout-review-title">بازبینی و ثبت سفارش</h1><p>Quote، موجودی، تخفیف، ارسال و رزرو پیش از ثبت سفارش دوباره از سرور گرفته می‌شوند.</p></header>
-    {actionData?.status==="error"?<p className="checkout-flow__alert" role="alert">{actionData.message}</p>:null}
-    <div className="checkout-review-grid"><div><article className="checkout-review-card"><h2>نشانی و تحویل</h2><p>{loaderData.address.recipient_name} — {loaderData.address.address_line}</p><p>{loaderData.shippingMethod.name_fa}</p></article>
-      {prepared?<article className="checkout-review-card"><h2>اقلام و قیمت معتبر</h2><ul className="checkout-review-items">{prepared.quote.items.map(item=><li key={item.variant_id}><span>{item.product_name} × {toman.format(item.quantity)}</span><strong>{toman.format(item.line_total_toman)} تومان</strong></li>)}</ul><p>نوع مشتری: {prepared.quote.customer_type==="wholesale"?"عمده":"خرده"}</p><p>انقضای Quote: <bdi>{prepared.quote.expires_at}</bdi></p><p>رزرو: {prepared.reservation.status} — <bdi>{prepared.reservation.expires_at}</bdi></p></article>:
-      <article className="checkout-review-card"><h2>بازسازی بازبینی</h2><p>مرور مجدد صفحه، نتیجه قبلی را موفق فرض نمی‌کند.</p><Form method="post"><input type="hidden" name="intent" value="prepare"/><input type="hidden" name="shipping_method_id" value={loaderData.shippingMethod.id}/><input type="hidden" name="quote_idempotency_key" value={loaderData.quoteIdempotencyKey}/><input type="hidden" name="reservation_idempotency_key" value={loaderData.reservationIdempotencyKey}/><button type="submit" disabled={busy}>بازسازی Quote و رزرو</button></Form></article>}</div>
-      <aside className="checkout-review-summary"><h2>جمع سفارش</h2>{prepared?<><dl><div><dt>جمع کالاها</dt><dd>{toman.format(prepared.quote.subtotal_toman)} تومان</dd></div><div><dt>تخفیف</dt><dd>{toman.format(prepared.quote.discount_toman)} تومان</dd></div><div><dt>ارسال</dt><dd>{toman.format(prepared.quote.shipping_toman)} تومان</dd></div><div><dt>مالیات</dt><dd>{toman.format(prepared.quote.tax_toman)} تومان</dd></div><div className="checkout-review-summary__total"><dt>مبلغ نهایی</dt><dd>{toman.format(prepared.quote.total_toman)} تومان</dd></div></dl><Form method="post"><input type="hidden" name="intent" value="create-order"/><input type="hidden" name="order_idempotency_key" value={prepared.orderIdempotencyKey}/><button type="submit" disabled={busy}>ثبت سفارش</button></Form><p className="checkout-review-note">پرداخت در Stage 63-G آغاز می‌شود؛ این مرحله نتیجه پرداخت را جعل نمی‌کند.</p></>:<p>ابتدا بازبینی معتبر را بسازید.</p>}</aside>
-    </div><Link className="checkout-back-link" to="/checkout/delivery">بازگشت به روش تحویل</Link>
-  </section>;
+import type { CheckoutReviewActionResult, CheckoutReviewLoaderData } from "./checkout-review.server.js";
+
+export function CheckoutReviewView({ data, actionData, busy }: { data: CheckoutReviewLoaderData; actionData: CheckoutReviewActionResult | null; busy: boolean }) {
+  const { snapshot, address, cart } = data;
+  const feedback = actionData?.kind === "data" ? actionData : null;
+  return <div className="checkout-flow checkout-review">
+    <header className="checkout-flow__intro"><p className="checkout-flow__step">مرحله ۵ از ۵</p><h1>بازبینی و ثبت سفارش</h1><p>این صفحه Snapshot معتبر Quote را بازبینی می‌کند؛ ثبت سفارش با کلید idempotent انجام می‌شود.</p></header>
+    {feedback ? <div className="checkout-flow__feedback" role="alert">{feedback.message}{feedback.requestId ? <span>شناسه پیگیری: <bdi dir="ltr">{feedback.requestId}</bdi></span> : null}</div> : null}
+    <div className="checkout-review__grid">
+      <div>
+        <section className="checkout-flow__card"><h2>کالاها</h2><ul className="checkout-review__items">{cart.data.items.map(item=><li key={item.id}><span>{item.product_name}</span><span>تعداد {new Intl.NumberFormat("fa-IR").format(item.quantity)}</span></li>)}</ul></section>
+        <section className="checkout-flow__card"><h2>نشانی و تحویل</h2><p>{address.recipient_name} — {address.address_line}</p><p><bdi dir="ltr">{address.postal_code}</bdi> · <bdi dir="ltr">{address.recipient_mobile}</bdi></p><p>{snapshot.shipping.nameFa}</p><div className="checkout-flow__actions"><Link to="/checkout/address">تغییر نشانی</Link><Link to="/checkout/delivery">تغییر روش تحویل</Link></div></section>
+      </div>
+      <aside className="checkout-flow__card checkout-review__summary"><h2>خلاصه مبلغ</h2><dl>
+        <div><dt>جمع پایه</dt><dd>{t(snapshot.subtotalToman)} تومان</dd></div><div><dt>تخفیف قیمت‌گذاری</dt><dd>{t(snapshot.pricingDiscountToman)} تومان</dd></div><div><dt>تخفیف بازاریابی</dt><dd>{t(snapshot.marketingDiscountToman)} تومان</dd></div><div><dt>ارسال</dt><dd>{t(snapshot.shippingToman)} تومان</dd></div><div><dt>مالیات</dt><dd>{t(snapshot.taxToman)} تومان</dd></div><div className="checkout-review__total"><dt>مبلغ نهایی</dt><dd>{t(snapshot.totalToman)} تومان</dd></div>
+      </dl><p>اعتبار Quote تا <time dateTime={snapshot.expiresAt}>{new Intl.DateTimeFormat("fa-IR",{dateStyle:"short",timeStyle:"short"}).format(new Date(snapshot.expiresAt))}</time></p>
+      <Form method="post"><input type="hidden" name="intent" value="submit-order"/><button type="submit" disabled={busy}>ثبت سفارش</button></Form>
+      <p className="checkout-review__payment-note">پرداخت در Stage 63-G از مسیر authoritative Payment آغاز می‌شود؛ این مرحله موفقیت پرداخت تولید نمی‌کند.</p></aside>
+    </div>
+    <nav className="checkout-flow__nav"><Link to="/checkout/delivery">بازگشت به تحویل</Link><Link to="/cart">سبد خرید</Link></nav>
+    {busy ? <p role="status" aria-live="polite">در حال رزرو و ثبت idempotent سفارش…</p> : null}
+  </div>;
 }
+function t(value:number){return new Intl.NumberFormat("fa-IR").format(value);}
