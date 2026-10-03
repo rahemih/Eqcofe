@@ -145,6 +145,7 @@ async function reconcileCheckoutCart(
   if (guest) {
     try {
       const merged = await mergeGuestCartIntoCustomer(authenticatedRequest, options);
+      assertCheckoutCartNotEmpty(merged.data.data.cart.items.length);
       return {
         cartId: merged.data.data.cart.id,
         cartToken: merged.data.data.cart_token,
@@ -156,11 +157,23 @@ async function reconcileCheckoutCart(
   }
 
   const accessed = await accessCustomerCart(authenticatedRequest, options);
+  assertCheckoutCartNotEmpty(accessed.data.data.cart.items.length);
   return {
     cartId: accessed.data.data.cart.id,
     cartToken: accessed.data.data.cart_token,
     sessionCookies: accessed.setCookies,
   };
+}
+
+function assertCheckoutCartNotEmpty(itemCount: number): void {
+  if (itemCount > 0) return;
+  throw new ApiClientError({
+    kind: "http",
+    code: "CART_EMPTY_FOR_CHECKOUT",
+    message: "Checkout cannot continue with an empty authoritative cart.",
+    status: 409,
+    retryable: false,
+  });
 }
 
 function requestWithFreshCustomerSession(
@@ -265,7 +278,7 @@ function identityFailure(error: unknown, challengeId?: string): CheckoutIdentity
         message: "کد ورود نامعتبر یا منقضی شده است. کد را بررسی یا کد تازه درخواست کنید.",
       });
     }
-    if (error.code === "CART_ALREADY_IN_CHECKOUT" || error.code === "CART_NOT_GUEST") {
+    if (error.code === "CART_ALREADY_IN_CHECKOUT" || error.code === "CART_NOT_GUEST" || error.code === "CART_EMPTY_FOR_CHECKOUT") {
       return dataResult(409, {
         status: "merge-conflict",
         message: "وضعیت سبد هم‌زمان تغییر کرده است. به سبد برگردید و وضعیت تازه را بررسی کنید.",
