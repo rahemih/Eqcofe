@@ -66,6 +66,7 @@
 | EQCOFE-STEP62-I-CLOSURE-001 | Step 62-I final canonical closure and Step 63 handoff | MEDIUM | NOT_REQUIRED | `32a69f22fdc783573827e91477d9c6ae875999be` | 20000/32000/64000 |
 | EQCOFE-STEP62-POSTCLOSURE-DOCSYNC-001 | Step 62 postclosure canonical documentation state synchronization | MEDIUM | NOT_REQUIRED | `a09c22260f8b3c15d78752b40630b2fa480bbeb4` | 18000/30000/60000 |
 | EQCOFE-STEP63-A-HANDOFF-001 | Step 63-A canonical handoff, live guard and Cart/Checkout scope freeze | MEDIUM | NOT_REQUIRED | `4215ff81d08455aa0e2e167ecd13dd82eda7ac4a` | 18000/30000/60000 |
+| EQCOFE-STEP63-B-CONTRACT-READINESS-001 | Step 63-B backend and OpenAPI Cart/Checkout contract readiness | HIGH | REQUIRED | `53870e90ea08e0e7045c6c4149282e5d60ef2909` | 30000/50000/90000 |
 | MA-AGENT-A0-ORCHESTRATOR-001 | A0 — Orchestrator / Engineering Manager Prompt | LOW | NOT_REQUIRED | `f7919991e619d416360e74a542741ef21c70f732` | 10000/16000/32000 |
 | MA-AGENT-A1-SPEC-001 | A1 — Specification & Research Prompt | LOW | NOT_REQUIRED | `120898df57138b301560e7d9b9f1b3f5da03e982` | 10000/16000/32000 |
 | MA-AGENT-A10-EVIDENCE-001 | A10 — Evidence & Documentation Prompt | LOW | NOT_REQUIRED | `bdf8fccde4ca40cced48381ad3be2e0461ade535` | 12000/18000/35000 |
@@ -111,4 +112,4 @@
 | MA-V1-ACC-MEDIUM-001 | V1 Acceptance MEDIUM R2 — telemetry terminal-state conflict hardening | MEDIUM | NOT_REQUIRED | `9017e0f25e9571568ed9acf4ca3ca977ce9e78f0` | 15000/25000/50000 |
 | MA-V1-ACCEPTANCE-CLOSURE-V16-R2-001 | V1.6 Phase 3 canonical acceptance closure R2 | HIGH | REQUIRED | `d7d235f5f240b8bea44bc607afa812b2f5bb12d4` | 30000/50000/90000 |
 
-Task contracts indexed: **105**.
+Task contracts indexed: **106**.

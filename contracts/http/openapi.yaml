@@ -1413,16 +1413,78 @@ components:
       - cart_id
       - address_id
       - shipping_method_id
+    CheckoutQuoteLine:
+      type: object
+      additionalProperties: false
+      required:
+      - product_id
+      - variant_id
+      - sku
+      - product_name
+      - quantity
+      - unit_base_toman
+      - unit_final_toman
+      - discount_toman
+      - tax_toman
+      - tax_rule_id
+      - line_total_toman
+      - pricing_snapshot
+      properties:
+        product_id:
+          $ref: '#/components/schemas/EntityId'
+        variant_id:
+          $ref: '#/components/schemas/EntityId'
+        sku:
+          type: string
+        product_name:
+          type: string
+        quantity:
+          type: integer
+          minimum: 1
+        unit_base_toman:
+          $ref: '#/components/schemas/MoneyToman'
+        unit_final_toman:
+          $ref: '#/components/schemas/MoneyToman'
+        discount_toman:
+          $ref: '#/components/schemas/MoneyToman'
+        tax_toman:
+          $ref: '#/components/schemas/MoneyToman'
+        tax_rule_id:
+          $ref: '#/components/schemas/NullableEntityId'
+        line_total_toman:
+          $ref: '#/components/schemas/MoneyToman'
+        pricing_snapshot:
+          type: object
+          additionalProperties: true
+    CheckoutMarketingSnapshot:
+      type: object
+      additionalProperties: false
+      required:
+      - applications
+      - pricing_net_toman
+      properties:
+        applications:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+        pricing_net_toman:
+          $ref: '#/components/schemas/MoneyToman'
     CheckoutQuoteResponse:
       type: object
+      additionalProperties: false
       required:
       - checkout_id
       - checkout_token
+      - customer_type
       - subtotal_toman
+      - pricing_discount_toman
+      - marketing_discount_toman
       - discount_toman
       - shipping_toman
       - tax_toman
       - total_toman
+      - marketing_snapshot
       - expires_at
       - items
       properties:
@@ -1432,7 +1494,16 @@ components:
         checkout_token:
           type: string
           minLength: 32
+        customer_type:
+          type: string
+          enum:
+          - retail
+          - wholesale
         subtotal_toman:
+          $ref: '#/components/schemas/MoneyToman'
+        pricing_discount_toman:
+          $ref: '#/components/schemas/MoneyToman'
+        marketing_discount_toman:
           $ref: '#/components/schemas/MoneyToman'
         discount_toman:
           $ref: '#/components/schemas/MoneyToman'
@@ -1442,14 +1513,15 @@ components:
           $ref: '#/components/schemas/MoneyToman'
         total_toman:
           $ref: '#/components/schemas/MoneyToman'
+        marketing_snapshot:
+          $ref: '#/components/schemas/CheckoutMarketingSnapshot'
         expires_at:
           type: string
           format: date-time
         items:
           type: array
           items:
-            type: object
-            additionalProperties: true
+            $ref: '#/components/schemas/CheckoutQuoteLine'
     CreateReservationRequest:
       type: object
       additionalProperties: false
@@ -2865,6 +2937,56 @@ components:
       required:
       - product_id
       - alert_type
+    CustomerAddressResponse:
+      type: object
+      additionalProperties: false
+      required:
+      - id
+      - recipient_name
+      - recipient_mobile
+      - province_id
+      - city_id
+      - postal_code
+      - address_line
+      - building_no
+      - unit_no
+      - location_metadata
+      - is_default
+      - created_at
+      - updated_at
+      properties:
+        id:
+          $ref: '#/components/schemas/EntityId'
+        recipient_name:
+          type: string
+        recipient_mobile:
+          $ref: '#/components/schemas/PhoneIran'
+        province_id:
+          $ref: '#/components/schemas/EntityId'
+        city_id:
+          $ref: '#/components/schemas/EntityId'
+        postal_code:
+          type: string
+          pattern: ^\\d{10}$
+        address_line:
+          type: string
+        building_no:
+          type:
+          - string
+          - 'null'
+        unit_no:
+          type:
+          - string
+          - 'null'
+        location_metadata:
+          type: object
+          additionalProperties: true
+        is_default:
+          type: boolean
+        created_at:
+          $ref: '#/components/schemas/Timestamp'
+        updated_at:
+          $ref: '#/components/schemas/Timestamp'
     PostCustomerAddressesRequest:
       type: object
       additionalProperties: false
@@ -2898,7 +3020,10 @@ components:
           - 'null'
           minLength: 1
           maxLength: 30
-        is_default_shipping:
+        location_metadata:
+          type: object
+          additionalProperties: true
+        is_default:
           type: boolean
       required:
       - recipient_name
@@ -2938,8 +3063,9 @@ components:
           type: *id004
           minLength: 1
           maxLength: 30
-        is_default_shipping:
-          type: boolean
+        location_metadata:
+          type: object
+          additionalProperties: true
       minProperties: 1
     PostCustomerAddressesIdSetDefaultRequest:
       type: object
@@ -8744,7 +8870,28 @@ paths:
       operationId: getCustomerAddresses
       responses:
         '200':
-          description: عملیات موفق
+          description: فهرست آدرس‌های مشتری
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                required:
+                - success
+                - data
+                - meta
+                properties:
+                  success:
+                    type: boolean
+                    const: true
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CustomerAddressResponse'
+                  meta:
+                    $ref: '#/components/schemas/SuccessMeta'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
       security:
       - customerSession: []
     post:
@@ -8754,10 +8901,31 @@ paths:
       parameters:
       - $ref: '#/components/parameters/IdempotencyKey'
       responses:
-        '200':
-          description: عملیات موفق
-        '202':
-          description: عملیات پذیرفته شد
+        '201':
+          description: آدرس ایجاد شد
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                required:
+                - success
+                - data
+                - meta
+                properties:
+                  success:
+                    type: boolean
+                    const: true
+                  data:
+                    $ref: '#/components/schemas/CustomerAddressResponse'
+                  meta:
+                    $ref: '#/components/schemas/SuccessMeta'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '422':
+          $ref: '#/components/responses/Unprocessable'
       security:
       - customerSession: []
       requestBody:
@@ -8775,7 +8943,32 @@ paths:
       operationId: patchCustomerAddressesId
       responses:
         '200':
-          description: عملیات موفق
+          description: آدرس به‌روزرسانی شد
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                required:
+                - success
+                - data
+                - meta
+                properties:
+                  success:
+                    type: boolean
+                    const: true
+                  data:
+                    $ref: '#/components/schemas/CustomerAddressResponse'
+                  meta:
+                    $ref: '#/components/schemas/SuccessMeta'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '422':
+          $ref: '#/components/responses/Unprocessable'
       parameters:
       - $ref: '#/components/parameters/IdempotencyKey'
       - name: id
@@ -8800,7 +8993,15 @@ paths:
       operationId: deleteCustomerAddressesId
       responses:
         '204':
-          description: حذف/برداشتن موفق
+          description: آدرس حذف شد
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '422':
+          $ref: '#/components/responses/Unprocessable'
       parameters:
       - $ref: '#/components/parameters/IdempotencyKey'
       - name: id
@@ -8820,9 +9021,32 @@ paths:
       operationId: postCustomerAddressesIdSetDefault
       responses:
         '200':
-          description: عملیات موفق
-        '202':
-          description: عملیات پذیرفته شد
+          description: آدرس پیش‌فرض به‌روزرسانی شد
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                required:
+                - success
+                - data
+                - meta
+                properties:
+                  success:
+                    type: boolean
+                    const: true
+                  data:
+                    $ref: '#/components/schemas/CustomerAddressResponse'
+                  meta:
+                    $ref: '#/components/schemas/SuccessMeta'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '422':
+          $ref: '#/components/responses/Unprocessable'
       parameters:
       - $ref: '#/components/parameters/IdempotencyKey'
       - name: id
@@ -8834,6 +9058,7 @@ paths:
       security:
       - customerSession: []
       x-eqcofe:
+        idempotency: required
         noRequestBody: true
   /customer/orders/{order_number}:
     get:
@@ -19189,6 +19414,12 @@ paths:
                 shipping_method_id:
                   type: string
                   format: uuid
+                coupon_code:
+                  type:
+                  - string
+                  - 'null'
+                  minLength: 1
+                  maxLength: 100
       x-eqcofe:
         idempotency: required
   /checkout/{id}/reserve:

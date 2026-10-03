@@ -1,0 +1,222 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP63-B-CONTRACT-READINESS-001",
+  "title": "Step 63-B backend and OpenAPI Cart/Checkout contract readiness",
+  "description": "High-risk Stage B for Step 63. Audit canonical Cart, Checkout, Address, Shipping and Payment contracts against the frozen Step-63 Storefront journey; prove backend/OpenAPI/generated-contract readiness, identify only evidence-backed gaps, and permit scoped runtime/API correction only after fresh Graphify evidence and required Human Gate.",
+  "risk": "HIGH",
+  "risk_floor": "HIGH",
+  "owner": "BACKEND",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "53870e90ea08e0e7045c6c4149282e5d60ef2909"
+  },
+  "scope": {
+    "read": [
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "src/modules/cart/**",
+      "src/modules/checkout/**",
+      "src/modules/customer/**",
+      "src/modules/orders/**",
+      "src/modules/payments/**",
+      "src/modules/fulfillment/**",
+      "apps/storefront/**",
+      "test/**",
+      "docs/11-step-history/**",
+      "docs/13-product-design/step55-checkout-payment-wireframes.json",
+      "docs/14-multi-agent/**",
+      "scripts/graphify/**",
+      "package.json",
+      "pnpm-lock.yaml"
+    ],
+    "write": [
+      "docs/11-step-history/STEP-63-B-CONTRACT-READINESS.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP63-B-CONTRACT-READINESS-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "src/modules/cart/**",
+      "src/modules/checkout/**",
+      "src/modules/customer/**",
+      "src/modules/orders/**",
+      "src/modules/payments/**",
+      "src/modules/fulfillment/**",
+      "test/**",
+      "docs/13-product-design/step56-admin-shell-wireframes.json",
+      "docs/13-product-design/step56-admin-ux-contract.json",
+      "docs/13-product-design/step56-catalog-media-wireframes.json",
+      "docs/13-product-design/step56-commerce-operations-wireframes.json",
+      "docs/13-product-design/step56-customers-growth-wireframes.json",
+      "docs/13-product-design/step56-final-audit.json",
+      "docs/13-product-design/step56-final-audit/manifest.json",
+      "docs/13-product-design/step56-foundation/A/manifest.json",
+      "docs/13-product-design/step56-management-security-wireframes.json",
+      "docs/13-product-design/step56-pricing-inventory-wireframes.json",
+      "docs/13-product-design/step56-wireframes/B/manifest.json",
+      "docs/13-product-design/step56-wireframes/C/manifest.json",
+      "docs/13-product-design/step56-wireframes/D/manifest.json",
+      "docs/13-product-design/step56-wireframes/E/manifest.json",
+      "docs/13-product-design/step56-wireframes/F/manifest.json",
+      "docs/13-product-design/step56-wireframes/G/manifest.json",
+      "docs/13-product-design/step57-high-fidelity-contract.json"
+    ],
+    "forbidden": [
+      ".github/**",
+      "database/migrations/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "apps/admin/**",
+      "apps/storefront/**",
+      "docs/12-current-state/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP63-B-CONTRACT-READINESS-001-01"
+  ],
+  "human_gate_required": true,
+  "token_budget": {
+    "expected_max": 30000,
+    "soft_alert": 50000,
+    "hard_cap": 90000
+  },
+  "pre_mutation_gates": {
+    "graph_health": "FRESH_PASS_REQUIRED",
+    "query_evidence": "REQUIRED",
+    "path_evidence": "REQUIRED_WHEN_CROSS_MODULE",
+    "explain_evidence": "REQUIRED_FOR_NON_TRIVIAL_DEPENDENCY_DECISIONS",
+    "human_gate": "REQUIRED_BEFORE_HIGH_RISK_RUNTIME_OR_CONTRACT_MUTATION"
+  },
+  "task_risk_rules": [
+    {
+      "id": "STEP63_B_BACKEND_OPENAPI_HIGH",
+      "risk": "HIGH",
+      "paths": [
+        "contracts/http/openapi.yaml",
+        "src/generated/openapi.ts",
+        "src/modules/cart/**",
+        "src/modules/checkout/**",
+        "src/modules/customer/**",
+        "src/modules/orders/**",
+        "src/modules/payments/**",
+        "src/modules/fulfillment/**",
+        "test/**",
+        "docs/13-product-design/step56-admin-shell-wireframes.json",
+        "docs/13-product-design/step56-admin-ux-contract.json",
+        "docs/13-product-design/step56-catalog-media-wireframes.json",
+        "docs/13-product-design/step56-commerce-operations-wireframes.json",
+        "docs/13-product-design/step56-customers-growth-wireframes.json",
+        "docs/13-product-design/step56-final-audit.json",
+        "docs/13-product-design/step56-final-audit/manifest.json",
+        "docs/13-product-design/step56-foundation/A/manifest.json",
+        "docs/13-product-design/step56-management-security-wireframes.json",
+        "docs/13-product-design/step56-pricing-inventory-wireframes.json",
+        "docs/13-product-design/step56-wireframes/B/manifest.json",
+        "docs/13-product-design/step56-wireframes/C/manifest.json",
+        "docs/13-product-design/step56-wireframes/D/manifest.json",
+        "docs/13-product-design/step56-wireframes/E/manifest.json",
+        "docs/13-product-design/step56-wireframes/F/manifest.json",
+        "docs/13-product-design/step56-wireframes/G/manifest.json",
+        "docs/13-product-design/step57-high-fidelity-contract.json"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "63-A",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "53870e90ea08e0e7045c6c4149282e5d60ef2909",
+      "blocking": false
+    }
+  ],
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Canonical OpenAPI, generated contracts and backend implementations for cart CRUD, quote, customer cart access/merge, addresses, shipping methods, checkout reserve/order and payment initiate/status/verify are audited against the frozen Step-63 journey.",
+      "verification": "contract_readiness_matrix",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Legacy Step-55 endpoint labels are never treated as authority when they differ from current canonical OpenAPI.",
+      "verification": "design_contract_drift_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Price, stock, discount, shipping, totals, ownership, order and payment truth remain backend-authoritative and retry-sensitive mutations preserve required idempotency.",
+      "verification": "authority_and_idempotency_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "No backend/OpenAPI/runtime mutation occurs until Graphify health is FRESH/PASS with required query/path/explain evidence and the HIGH-risk Human Gate is satisfied.",
+      "verification": "pre_mutation_gate_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Any discovered gap is repaired only inside this Task Contract scope and receives focused regression coverage plus canonical verify.",
+      "verification": "scoped_repair_and_regression",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Stage 63-B canonical completion requires exact-head CI, deterministic Review, artifact-bound Lock, required Human Gate, protected merge, exact-SHA postmerge verification and terminal Lock release.",
+      "verification": "canonical_transport_and_postmerge_evidence",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "If OpenAPI hash drift triggers recovered Step56/57 provenance checks, only generator-equivalent SHA/manifest synchronization is allowed on the explicitly listed provenance files; no design semantics, frames, historical verdicts or UI behavior may change.",
+      "verification": "step56_step57_provenance_only_repair",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "VERIFICATION",
+      "SECURITY",
+      "HUMAN",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Step 63-B is HIGH risk. Owner has authorized continuation of Step 63 in chat, but final HUMAN approval must bind to the frozen exact head and artifact after technical/security gates are green. Direct-main write/raw merge prohibited."
+  },
+  "process_improvement_links": [],
+  "incident_links": [],
+  "authorized_human_approver": {
+    "role": "PROJECT_OWNER",
+    "github_login": "rahemih"
+  },
+  "evidence": {
+    "design_provenance_repair": "contracts/http/openapi.yaml is a recovered Step56/57 source. Only generator-equivalent SHA/manifest synchronization on the explicitly listed provenance paths is authorized; design semantics, frames, verdicts, journeys and product behavior must not change.",
+    "graph_pre_mutation": {
+      "status": "FRESH_PASS_WITH_QUERY_PATH_EXPLAIN",
+      "exact_head": "140473a9c44ae2184248c8cb269730d2c82575ef",
+      "branch": "eqcofe/step63-b-contract-readiness",
+      "github_evidence_comment": 5967651506,
+      "query": "cart checkout quote address payment openapi",
+      "path": "CartService -> PaymentService",
+      "explain": "CartService",
+      "terminal_sentinel": "STEP63_GRAPH_EVIDENCE_COMPLETE"
+    },
+    "contract_repair": {
+      "runtime_mutation": "NONE",
+      "database_migration": "NONE",
+      "dependency_change": "NONE",
+      "openapi_changes": [
+        "Typed authoritative checkout quote pricing/marketing/line snapshot fields and exposed runtime-supported coupon_code.",
+        "Typed customer-owned address responses and aligned create/update/delete/set-default status/idempotency semantics.",
+        "Aligned customer address input fields with runtime: is_default and location_metadata; forbidden patch-time default mutation remains excluded."
+      ],
+      "regression_test": "test/step63-cart-checkout-contract.spec.ts",
+      "provenance_repair": "Generator-equivalent recovered Step56/57 hash/manifest synchronization only; no design semantics changed."
+    },
+    "scope_rule_note": "Product Design provenance writes are authorized only by the explicit exact paths in scope.write; no unsupported negation/EXCEPT glob is used."
+  }
+}
