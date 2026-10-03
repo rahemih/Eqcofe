@@ -83,10 +83,10 @@
   },
   "max_repair_cycles": 3,
   "pre_mutation_gates": {
-    "graph_health": "FRESH_PASS_REQUIRED",
-    "query_evidence": "REQUIRED",
-    "path_evidence": "REQUIRED_WHEN_CROSS_MODULE",
-    "explain_evidence": "REQUIRED_FOR_NON_TRIVIAL_DEPENDENCY_DECISIONS",
+    "graph_health": "DEFERRED_BY_PROJECT_OWNER_UNTIL_STEP63_FINAL",
+    "query_evidence": "DEFERRED_BY_PROJECT_OWNER_UNTIL_STEP63_FINAL",
+    "path_evidence": "DEFERRED_BY_PROJECT_OWNER_UNTIL_STEP63_FINAL",
+    "explain_evidence": "DEFERRED_BY_PROJECT_OWNER_UNTIL_STEP63_FINAL",
     "human_gate": "FINAL_EXACT_ARTIFACT_APPROVAL_REQUIRED_BEFORE_PROTECTED_MERGE"
   },
   "task_risk_rules": [
@@ -192,11 +192,24 @@
       "disposition": "Scoped OpenAPI/generated/test repair is required before production Checkout Identity can safely consume challenge_id. Backend business logic change is not justified."
     },
     "graph_pre_mutation": {
-      "status": "PENDING_FRESH_EVIDENCE",
-      "required_query": "auth otp checkout identity customer cart merge openapi",
-      "required_path": "AuthController -> AuthService and checkout identity -> customer cart merge",
-      "required_explain": "AuthService/createCustomerSessionBridge"
-    }
+      "status": "DEFERRED_TO_STEP63_FINAL",
+      "owner_directive": "Project Owner explicitly directed that all Step 63 Graphify/graph work be postponed until the end of Step 63. This task must not block Stage E on local graph evidence.",
+      "deferred_scope": [
+        "health",
+        "query",
+        "path",
+        "explain",
+        "graph UI"
+      ],
+      "terminal_requirement": "Reconcile and execute the accumulated Step 63 graph evidence/work during final Step 63 acceptance/closure before Step 64 handoff."
+    },
+    "owner_directives": [
+      {
+        "date": "2026-10-03",
+        "directive": "Defer all Step 63 graph/Graphify work until the end of Step 63; continue functional stages without graph blocking.",
+        "effect": "Stage 63-E may proceed with source-of-truth GitHub/runtime/OpenAPI evidence and normal CI/security/human gates. Graph reconciliation is mandatory at Step 63 final closure."
+      }
+    ]
   },
   "process_improvement_links": [],
   "incident_links": []
