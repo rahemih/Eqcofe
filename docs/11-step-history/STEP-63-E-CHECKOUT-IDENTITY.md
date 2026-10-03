@@ -39,3 +39,7 @@ On 2026-10-03 the Project Owner explicitly directed that all Graphify/graph work
 This is a deferral, not a removal: the accumulated Step-63 graph health/query/path/explain work and graph UI/reconciliation must be executed during final Step 63 acceptance/closure before handoff to Step 64.
 
 All remaining HIGH-risk gates still apply: exact-head CI, Phase A, Storefront Quality, CodeQL Security, deterministic Review, exact-artifact Human Gate, ACTIVE Lock, protected merge, exact-SHA postmerge verification and terminal Lock release.
+
+## Contract repair applied
+
+Stage 63-E aligns the public OTP contract to the existing runtime without changing Backend identity logic: request success is 201 with an envelope containing `challenge_id` and `expires_at`; verify success is 200 with `session_id` and `expires_at`; invalid/expired credentials are 401 and rate/attempt exhaustion is 429. The generated TypeScript contract and a focused byte-for-byte generator regression are included in this PR.
