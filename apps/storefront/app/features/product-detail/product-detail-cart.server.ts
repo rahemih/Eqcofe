@@ -1,13 +1,12 @@
 import { ApiClientError } from "../../platform/api/errors.js";
 import { createApiClient, type ApiClientConfig } from "../../platform/api/request.js";
 import { readServerApiConfig } from "../../platform/config/api.server.js";
+import {
+  appendCartCheckoutSetCookies,
+  readCartCredentials,
+  serializeCartCredentials,
+} from "../cart-checkout/cart-checkout-session.server.js";
 import type { ProductCartFeedback } from "./product-detail-cart.js";
-
-const CART_ID_COOKIE = "eqcofe_cart_id";
-const CART_TOKEN_COOKIE = "eqcofe_cart_token";
-const HOST_CART_ID_COOKIE = "__Host-eqcofe_cart_id";
-const HOST_CART_TOKEN_COOKIE = "__Host-eqcofe_cart_token";
-const CART_COOKIE_MAX_AGE_SECONDS = 7 * 24 * 60 * 60;
 
 export type AddProductVariantToCartOptions = {
   config?: ApiClientConfig;
@@ -53,21 +52,13 @@ export async function addProductVariantToCart(
   const created = await client.request("post", "/cart", {});
   const cartId = created.data.data.cart_id;
   const cartToken = created.data.data.cart_token;
-  if (!isUuid(cartId) || !isSafeToken(cartToken)) {
-    throw new ApiClientError({
-      kind: "security",
-      code: "CART_CREDENTIALS_INVALID",
-      message: "Cart API returned invalid credentials.",
-    });
-  }
-
   setCookies.push(...serializeCartCredentials(request, cartId, cartToken));
   const result = await addItem(client, cartId, cartToken, variantId);
   return { itemCount: result.items.length, setCookies };
 }
 
 export function appendGuestCartSetCookies(headers: Headers, values: readonly string[]): void {
-  for (const value of values) headers.append("Set-Cookie", value);
+  appendCartCheckoutSetCookies(headers, values);
 }
 
 export function productCartErrorResult(error: unknown): {
@@ -111,80 +102,6 @@ async function addItem(
     body: { variant_id: variantId, quantity: 1 },
   });
   return result.data.data;
-}
-
-function readCartCredentials(request: Request): { cartId: string; cartToken: string } | null {
-  const secure = new URL(request.url).protocol === "https:";
-  const idName = secure ? HOST_CART_ID_COOKIE : CART_ID_COOKIE;
-  const tokenName = secure ? HOST_CART_TOKEN_COOKIE : CART_TOKEN_COOKIE;
-  const cookies = parseCookieHeader(request.headers.get("cookie"));
-  const rawId = cookies.get(idName);
-  const rawToken = cookies.get(tokenName);
-  if (!rawId || !rawToken) return null;
-
-  const cartId = safeDecode(rawId);
-  const cartToken = safeDecode(rawToken);
-  if (!cartId || !cartToken || !isUuid(cartId) || !isSafeToken(cartToken)) return null;
-  return { cartId, cartToken };
-}
-
-function serializeCartCredentials(request: Request, cartId: string, cartToken: string): readonly string[] {
-  const secure = new URL(request.url).protocol === "https:";
-  const idName = secure ? HOST_CART_ID_COOKIE : CART_ID_COOKIE;
-  const tokenName = secure ? HOST_CART_TOKEN_COOKIE : CART_TOKEN_COOKIE;
-  return [
-    serializeCookie(idName, cartId, secure),
-    serializeCookie(tokenName, cartToken, secure),
-  ];
-}
-
-function serializeCookie(name: string, value: string, secure: boolean): string {
-  const attributes = [
-    `${name}=${encodeURIComponent(value)}`,
-    "Path=/",
-    "HttpOnly",
-    "SameSite=Lax",
-    `Max-Age=${CART_COOKIE_MAX_AGE_SECONDS}`,
-  ];
-  if (secure) attributes.push("Secure");
-  return attributes.join("; ");
-}
-
-function parseCookieHeader(raw: string | null): Map<string, string> {
-  const output = new Map<string, string>();
-  for (const part of raw?.split(";") ?? []) {
-    const trimmed = part.trim();
-    if (!trimmed) continue;
-    const separator = trimmed.indexOf("=");
-    if (separator <= 0) continue;
-    const name = trimmed.slice(0, separator);
-    if (output.has(name)) {
-      throw new ApiClientError({
-        kind: "security",
-        code: "CART_COOKIE_DUPLICATE",
-        message: "Duplicate cart cookie was rejected.",
-      });
-    }
-    output.set(name, trimmed.slice(separator + 1));
-  }
-  return output;
-}
-
-function safeDecode(value: string): string | null {
-  try {
-    return decodeURIComponent(value);
-  } catch {
-    return null;
-  }
-}
-
-function isSafeToken(value: string): boolean {
-  if (!value || value.length > 1024) return false;
-  for (const character of value) {
-    const code = character.charCodeAt(0);
-    if (code <= 0x20 || code === 0x7f || character === ";" || character === ",") return false;
-  }
-  return true;
 }
 
 function isUuid(value: string): boolean {
