@@ -103,7 +103,7 @@ export async function handleCheckoutAddressAction(request: Request): Promise<Che
 
 export async function loadCheckoutDelivery(request: Request): Promise<CheckoutFlowData<CheckoutDeliveryPageData> | CheckoutFlowRedirect> {
   const selected = readSelection(request);
-  if (!selected.addressId) return { kind: "redirect", location: "/checkout/address", setCookies: [] };
+  if (!selected.addressId) return { kind: "data", statusCode: 200, data: { status: "error", message: "ابتدا یک نشانی تحویل معتبر انتخاب کنید.", requestId: null }, setCookies: [] };
   try {
     const [addresses, methods] = await Promise.all([loadCustomerAddresses(request), loadShippingMethods()]);
     const address = addresses.data.data.find((item) => item.id === selected.addressId);
@@ -121,8 +121,8 @@ export async function loadCheckoutDelivery(request: Request): Promise<CheckoutFl
 
 export async function loadCheckoutReview(request: Request): Promise<CheckoutFlowData<CheckoutReviewPageData> | CheckoutFlowRedirect> {
   const selected = readSelection(request);
-  if (!selected.addressId) return { kind: "redirect", location: "/checkout/address", setCookies: [] };
-  if (!selected.shippingMethodId) return { kind: "redirect", location: "/checkout/delivery", setCookies: [] };
+  if (!selected.addressId) return { kind: "data", statusCode: 200, data: { status: "error", message: "ابتدا نشانی تحویل را انتخاب کنید.", requestId: null }, setCookies: [] };
+  if (!selected.shippingMethodId) return { kind: "data", statusCode: 200, data: { status: "error", message: "ابتدا روش تحویل را انتخاب کنید.", requestId: null }, setCookies: [] };
   try {
     const [addresses, methods] = await Promise.all([loadCustomerAddresses(request), loadShippingMethods()]);
     const address = addresses.data.data.find((item) => item.id === selected.addressId);
