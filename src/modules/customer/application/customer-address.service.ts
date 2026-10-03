@@ -6,6 +6,7 @@ import { AuditWriter } from '../../../platform/audit/audit.writer';
 import { DomainError } from '../../../shared/errors/domain-error';
 import { customerAddressEvent } from '../domain/customer.events';
 import { CustomerAddressRow,CustomerRepository } from '../infrastructure/customer.repository';
+import { isIranProvinceCityPair1404 } from '../../../../shared/reference/iran-geography-1404';
 
 export interface CustomerAddressInput{
   recipient_name?:unknown;
@@ -62,6 +63,10 @@ export class CustomerAddressService{
   private bool(value:unknown):boolean{
     if(value===undefined)return false;if(typeof value!=='boolean')throw new DomainError('ADDRESS_INVALID','وضعیت پیش‌فرض آدرس معتبر نیست.');return value;
   }
+  private geography(provinceId:string,cityId:string):{provinceId:string;cityId:string}{
+    if(!isIranProvinceCityPair1404(provinceId,cityId))throw new DomainError('ADDRESS_REFERENCE_INVALID','استان و شهر انتخاب‌شده معتبر نیست.');
+    return{provinceId,cityId};
+  }
   private async assertCustomerActive(customerId:string,ex:any):Promise<void>{
     const customer=await this.repo.profileById(customerId,ex);
     if(!customer||customer.status!=='active')throw new DomainError('CUSTOMER_INACTIVE','حساب مشتری فعال نیست.');
@@ -72,12 +77,15 @@ export class CustomerAddressService{
     building_no:row.building_no??null,unit_no:row.unit_no??null,location_metadata:row.location_metadata??{},
     is_default:Boolean(row.is_default_shipping),created_at:row.created_at,updated_at:row.updated_at,
   };}
-  private required(input:CustomerAddressInput){return{
-    recipientName:this.text(input.recipient_name,150,true)!,recipientMobile:this.mobile(input.recipient_mobile),
-    provinceId:this.uuid(input.province_id),cityId:this.uuid(input.city_id),postalCode:this.postal(input.postal_code),
-    addressLine:this.text(input.address_line,1000,true)!,buildingNo:this.text(input.building_no,30,false),unitNo:this.text(input.unit_no,30,false),
-    locationMetadata:this.metadata(input.location_metadata),isDefault:this.bool(input.is_default),
-  };}
+  private required(input:CustomerAddressInput){
+    const geography=this.geography(this.uuid(input.province_id),this.uuid(input.city_id));
+    return{
+      recipientName:this.text(input.recipient_name,150,true)!,recipientMobile:this.mobile(input.recipient_mobile),
+      ...geography,postalCode:this.postal(input.postal_code),
+      addressLine:this.text(input.address_line,1000,true)!,buildingNo:this.text(input.building_no,30,false),unitNo:this.text(input.unit_no,30,false),
+      locationMetadata:this.metadata(input.location_metadata),isDefault:this.bool(input.is_default),
+    };
+  }
 
   async list(){const customerId=this.customerId(),ex=this.repo.db();await this.assertCustomerActive(customerId,ex);return (await this.repo.listAddresses(customerId,ex)).map(x=>this.present(x));}
   async get(addressId:string){
@@ -117,6 +125,7 @@ export class CustomerAddressService{
         unitNo:Object.prototype.hasOwnProperty.call(input,'unit_no')?this.text(input.unit_no,30,false):before.unit_no,
         locationMetadata:Object.prototype.hasOwnProperty.call(input,'location_metadata')?this.metadata(input.location_metadata):(before.location_metadata??{}),
       };
+      if(Object.prototype.hasOwnProperty.call(input,'province_id')||Object.prototype.hasOwnProperty.call(input,'city_id'))this.geography(next.provinceId,next.cityId);
       const changed:string[]=[];
       const pairs:[string,unknown,unknown][]=[['recipient_name',before.recipient_name,next.recipientName],['recipient_mobile',before.recipient_mobile,next.recipientMobile],['province_id',String(before.province_id),next.provinceId],['city_id',String(before.city_id),next.cityId],['postal_code',before.postal_code,next.postalCode],['address_line',before.address_line,next.addressLine],['building_no',before.building_no,next.buildingNo],['unit_no',before.unit_no,next.unitNo],['location_metadata',JSON.stringify(before.location_metadata??{}),JSON.stringify(next.locationMetadata)]];
       for(const [name,a,b] of pairs)if(a!==b)changed.push(name);if(changed.length===0)return this.present(before);
