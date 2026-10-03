@@ -58,3 +58,13 @@ Those remain owned by later Step-63 stages.
 ## Exit criteria
 
 Generated-contract parity, token boundary, shared adapters and state foundation must pass deterministic verification, canonical CI, Phase A and protected merge/postmerge transport. Only then may Step 63-D start.
+
+## TTL evidence
+
+Canonical backend configuration in `CartService` confirms:
+
+- Cart TTL default: `commerce.cart_ttl_hours = 168` hours.
+- Checkout TTL default: `commerce.checkout_ttl_minutes = 15` minutes.
+- Reservation TTL default: `commerce.reservation_ttl_minutes = 15` minutes.
+
+The Storefront credential cookies therefore use 7 days for Cart credentials and 15 minutes for Checkout credentials. These values mirror backend defaults rather than inventing a separate client authority.
