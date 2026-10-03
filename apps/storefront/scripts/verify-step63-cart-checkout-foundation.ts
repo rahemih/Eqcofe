@@ -103,8 +103,12 @@ if (/RoutePlaceholder/.test(cartRoute)) {
   assert.match(cartRoute, /mutateCartRoute/);
 }
 
+const identityRoute = readFileSync("apps/storefront/app/routes/checkout-identity.tsx", "utf8");
+assert.doesNotMatch(identityRoute, /RoutePlaceholder/);
+assert.match(identityRoute, /loadCheckoutIdentity/);
+assert.match(identityRoute, /handleCheckoutIdentityAction/);
+
 const deferredRouteFiles = [
-  "checkout-identity.tsx",
   "checkout-address.tsx",
   "checkout-delivery.tsx",
   "checkout-review.tsx",
@@ -125,5 +129,6 @@ console.log(JSON.stringify({
   authoritativeState: true,
   productDetailCredentialReuse: true,
   cartRouteStageAware: true,
+  checkoutIdentityStageAware: true,
   deferredRoutesRemainPlaceholders: true,
 }));
