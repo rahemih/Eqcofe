@@ -28,3 +28,7 @@ Checkout identity, address, delivery, final quote/review, reservation, order cre
 ## Exit criteria
 
 Stage 63-D becomes canonical only after deterministic verification, exact-head CI/Phase A/Storefront checks, deterministic Review, ACTIVE Lock, protected merge, exact-SHA postmerge verification and terminal Lock release.
+
+## Repair cycle 1 — predecessor verifier compatibility
+
+Canonical CI and Phase A initially failed because the Stage 63-C verifier hard-coded that every Step-63 route, including `/cart`, must remain a `RoutePlaceholder`. Stage 63-D is the authorized stage that productionizes `/cart`, so that assertion became stale. The repair keeps all Stage 63-C credential/data-boundary assertions, permits either the 63-C placeholder or the 63-D production Cart route for `cart.tsx`, and continues to require all later Step-63 checkout/payment routes to remain placeholders.
