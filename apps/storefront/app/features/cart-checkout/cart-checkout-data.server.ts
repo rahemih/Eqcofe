@@ -68,13 +68,11 @@ export async function loadCustomerCart(
 
 export async function mergeGuestCartIntoCustomer(
   request: Request,
-  idempotencyKey: string,
   options: CartCheckoutDataOptions = {},
 ): Promise<StorefrontDataResult<CustomerCartMergeResponse>> {
   const cart = requireCartCredentials(request);
   const bridge = createCustomerSessionBridge(request, options);
   const result = await bridge.client.request("post", "/customer/cart/merge", {
-    headers: { "Idempotency-Key": idempotencyKey },
     body: {
       source_cart_id: cart.cartId,
       source_cart_token: cart.cartToken,
