@@ -69,8 +69,7 @@
       "pnpm-workspace.yaml",
       "apps/admin/**",
       "apps/storefront/**",
-      "docs/12-current-state/**",
-      "docs/13-product-design/** EXCEPT provenance-only paths explicitly listed in scope.write"
+      "docs/12-current-state/**"
     ]
   },
   "requested_lock_ids": [
@@ -217,6 +216,7 @@
       ],
       "regression_test": "test/step63-cart-checkout-contract.spec.ts",
       "provenance_repair": "Generator-equivalent recovered Step56/57 hash/manifest synchronization only; no design semantics changed."
-    }
+    },
+    "scope_rule_note": "Product Design provenance writes are authorized only by the explicit exact paths in scope.write; no unsupported negation/EXCEPT glob is used."
   }
 }
