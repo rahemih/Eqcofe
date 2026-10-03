@@ -2,7 +2,7 @@
   "schema_version": "2.2",
   "task_id": "EQCOFE-STEP63-F-CHECKOUT-FULFILLMENT-001",
   "title": "Step 63-F Address, delivery, quote, reservation, review and idempotent order submission",
-  "description": "HIGH-risk Step 63-F. Productionize customer-owned Checkout Address, authoritative Delivery selection, Quote, reservation, final Review and idempotent Order creation on top of canonical Step 63-E. Payment initiation/status/verify and Order Outcome runtime remain forbidden for Stage 63-G. No backend business-rule, database, dependency, workflow or Current State mutation.",
+  "description": "HIGH-risk Step 63-F. Productionize selection/edit of existing customer-owned Checkout Addresses, authoritative Delivery selection, Quote, tamper-evident server-only Review state, Reservation and idempotent Order creation on top of canonical Step 63-E. New Address creation remains fail-closed because the canonical API requires province_id/city_id UUIDs but exposes no public geography reference source. Payment initiation/status/verify and Order Outcome runtime remain forbidden for Stage 63-G.",
   "risk": "HIGH",
   "risk_floor": "HIGH",
   "owner": "PRODUCT_DESIGN",
@@ -28,6 +28,10 @@
       "apps/storefront/package.json",
       "apps/storefront/app/features/cart-checkout/cart-checkout-data.server.ts",
       "apps/storefront/app/features/cart-checkout/checkout-flow.server.ts",
+      "apps/storefront/app/features/cart-checkout/checkout-flow-state.server.ts",
+      "apps/storefront/app/features/cart-checkout/checkout-address.server.ts",
+      "apps/storefront/app/features/cart-checkout/checkout-delivery.server.ts",
+      "apps/storefront/app/features/cart-checkout/checkout-review.server.ts",
       "apps/storefront/app/features/cart-checkout/CheckoutAddressView.tsx",
       "apps/storefront/app/features/cart-checkout/CheckoutDeliveryView.tsx",
       "apps/storefront/app/features/cart-checkout/CheckoutReviewView.tsx",
@@ -86,7 +90,7 @@
   "acceptance_criteria": [
     {
       "id": "AC-001",
-      "description": "Address route reads only customer-owned addresses and supports selection, create, edit and set-default through existing authenticated APIs; selected IDs are revalidated against the account before use.",
+      "description": "Address route reads only customer-owned addresses and supports selection and safe edit of existing addresses. Existing province_id/city_id values remain opaque and unchanged; raw geography UUIDs are not exposed as customer inputs.",
       "verification": "stage_verifier_and_review",
       "mandatory": true
     },
@@ -98,31 +102,37 @@
     },
     {
       "id": "AC-003",
-      "description": "Review obtains authoritative Quote and Reservation, rotates Checkout credentials server-side, shows integer-Toman totals and never treats refresh/unknown results as success.",
-      "verification": "stage_verifier_and_failure_review",
+      "description": "Quote output is carried to Review only in an HttpOnly HMAC-bound snapshot tied to the server-only Checkout token. Client/browser storage is never authoritative for totals or credentials.",
+      "verification": "stage_verifier_and_security_review",
       "mandatory": true
     },
     {
       "id": "AC-004",
-      "description": "Order creation uses the currently owned address snapshot and an idempotency key; retry safety is delegated to the canonical idempotent backend command.",
+      "description": "Reservation and Order submission use stable server-generated idempotency keys and fail closed on conflict, expiry or unknown outcomes.",
       "verification": "stage_verifier_and_contract_review",
       "mandatory": true
     },
     {
       "id": "AC-005",
+      "description": "New Address creation must not fabricate province/city UUIDs. Until a canonical geography reference contract exists, ADDRESS_REFERENCE_DATA_MISSING remains a blocking condition and Stage 63-F remains NOT_CANONICAL.",
+      "verification": "repository_contract_audit",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
       "description": "Payment initiation/verify/status and Order Outcome runtime remain deferred placeholders for Stage 63-G; Stage F does not fabricate payment success.",
       "verification": "deterministic_scope_check",
       "mandatory": true
     },
     {
-      "id": "AC-006",
+      "id": "AC-007",
       "description": "Persian RTL, 44px targets, focus visibility and responsive reflow are present; credentials never enter URL, route data, browser storage or user-visible diagnostics.",
       "verification": "storefront_quality_and_security",
       "mandatory": true
     },
     {
-      "id": "AC-007",
-      "description": "Canonical completion requires exact-head Canonical CI, Phase A, Storefront Quality, CodeQL Security, deterministic Review, exact-artifact Human Gate, ACTIVE Lock, protected merge, exact-SHA postmerge verification and terminal Lock release.",
+      "id": "AC-008",
+      "description": "Canonical completion requires resolution of ADDRESS_REFERENCE_DATA_MISSING plus exact-head Canonical CI, Phase A, Storefront Quality, CodeQL Security, deterministic Review, exact-artifact Human Gate, ACTIVE Lock, protected merge, exact-SHA postmerge verification and terminal Lock release.",
       "verification": "canonical_transport_and_postmerge_evidence",
       "mandatory": true
     }
@@ -152,7 +162,16 @@
       "status": "DEFERRED_TO_STEP63_FINAL",
       "terminal_requirement": "Execute accumulated Step 63 graph health/query/path/explain evidence during final acceptance/closure before Step 64 handoff."
     },
-    "geography_contract_note": "Customer Address requires province_id/city_id UUIDs, database has no geography FK, and no public geography lookup endpoint exists. Stage F uses deterministic opaque compatibility IDs and preserves human labels; it does not claim authoritative geography."
+    "geography_contract_note": {
+      "openapi_requires": [
+        "province_id",
+        "city_id"
+      ],
+      "public_reference_endpoint": "NONE_FOUND",
+      "repository_reference_source": "NONE_FOUND",
+      "disposition": "FAIL_CLOSED_NO_SYNTHETIC_UUID",
+      "blocker": "ADDRESS_REFERENCE_DATA_MISSING"
+    }
   },
   "process_improvement_links": [],
   "incident_links": []
