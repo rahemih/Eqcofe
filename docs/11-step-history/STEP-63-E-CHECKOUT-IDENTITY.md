@@ -1,0 +1,37 @@
+# EQCOFE — Step 63-E Checkout Identity
+
+## Status
+
+`STEP_63_D = CANONICAL_COMPLETE`
+
+`STEP_63_E = AUDIT / PRE-MUTATION GATE`
+
+Canonical baseline: `8d53017e77ce3c7caf8e7aba0f82967b82753288`
+
+## Purpose
+
+Productionize only `/checkout/identity` while preserving the canonical server-only customer session boundary and the explicit guest-cart merge rule from the frozen Step-55 checkout journey.
+
+## Evidence-confirmed contract drift
+
+Canonical runtime `AuthController.requestOtp()` returns the `AuthService.requestOtp()` result containing `challenge_id` and `expires_at`; because the controller has no explicit HTTP status override, Nest POST semantics return 201. Current OpenAPI advertises 202 and no response content. The frontend therefore cannot obtain a typed authoritative challenge identifier from the current generated contract.
+
+Canonical runtime `verifyOtp()` sets the customer session using the existing HttpOnly cookie boundary and returns only non-secret session metadata. Current OpenAPI advertises 200 without typed response content.
+
+## Required repair
+
+The repair is OpenAPI/generated-contract/test-only for the backend contract: type the runtime OTP request/verify success responses and align the request status. Backend identity business rules, OTP generation, session-token handling, database schema and dependencies remain unchanged.
+
+After that contract is canonical inside this PR, the Storefront identity route may use only `createCustomerSessionBridge`, relay sanitized Set-Cookie headers server-side, probe authoritative session state, merge an existing guest Cart only after OTP success, and continue to `/checkout/address` only after session/merge success.
+
+## Security invariants
+
+OTP codes, challenge identifiers and session secrets are never placed in URL/analytics/logs. Session token is never returned to browser route data. The browser receives only the HttpOnly Set-Cookie already enforced by the Step-58 auth bridge. Unknown OTP/merge outcomes fail closed and do not advance checkout.
+
+## Deferred
+
+Address, delivery, review, reservation/order creation, payment return and order outcome remain later Step-63 stages. Graph UI remains deferred until Step 63 is fully complete.
+
+## Pre-mutation gate
+
+No OpenAPI/generated/frontend runtime mutation beyond this governance/evidence setup is authorized until fresh Graphify health/query/path/explain evidence is attached. Final HIGH-risk Human approval must bind to the frozen exact artifact after CI, Phase A, Security and deterministic Review are green.
