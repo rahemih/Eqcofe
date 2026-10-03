@@ -1,5 +1,10 @@
 import type { ApiRequestInput, ApiSuccessData } from "../../platform/api/contract.js";
 
+export type CheckoutOtpRequestRequest = ApiRequestInput<"post", "/auth/otp/request">;
+export type CheckoutOtpRequestResponse = NonNullable<ApiSuccessData<"post", "/auth/otp/request">>;
+export type CheckoutOtpVerifyRequest = ApiRequestInput<"post", "/auth/otp/verify">;
+export type CheckoutOtpVerifyResponse = NonNullable<ApiSuccessData<"post", "/auth/otp/verify">>;
+
 export type CartCreateRequest = ApiRequestInput<"post", "/cart">;
 export type CartCreateResponse = NonNullable<ApiSuccessData<"post", "/cart">>;
 export type CartViewRequest = ApiRequestInput<"get", "/cart/{id}">;

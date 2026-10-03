@@ -27,6 +27,11 @@ import type {
   CartUpdateItemRequest,
   CartUpdateItemResponse,
   CartRemoveItemResponse,
+  CheckoutOtpRequestRequest,
+  CheckoutOtpRequestResponse,
+  CheckoutOtpVerifyRequest,
+  CheckoutOtpVerifyResponse,
+  CustomerCartAccessResponse,
 } from "./cart-checkout-contract.js";
 import {
   readCartCredentials,
@@ -44,6 +49,35 @@ export type StorefrontDataResult<T> = {
   data: T;
   setCookies: readonly string[];
 };
+
+export async function requestCheckoutOtp(
+  request: Pick<Request, "headers">,
+  body: CheckoutOtpRequestRequest["body"],
+  options: CartCheckoutDataOptions = {},
+): Promise<StorefrontDataResult<CheckoutOtpRequestResponse>> {
+  const bridge = createCustomerSessionBridge(request, options);
+  const result = await bridge.client.request("post", "/auth/otp/request", { body });
+  return resultFromBridge(result.data, bridge);
+}
+
+export async function verifyCheckoutOtp(
+  request: Pick<Request, "headers">,
+  body: CheckoutOtpVerifyRequest["body"],
+  options: CartCheckoutDataOptions = {},
+): Promise<StorefrontDataResult<CheckoutOtpVerifyResponse>> {
+  const bridge = createCustomerSessionBridge(request, options);
+  const result = await bridge.client.request("post", "/auth/otp/verify", { body });
+  return resultFromBridge(result.data, bridge);
+}
+
+export async function accessCustomerCart(
+  request: Pick<Request, "headers">,
+  options: CartCheckoutDataOptions = {},
+): Promise<StorefrontDataResult<CustomerCartAccessResponse>> {
+  const bridge = createCustomerSessionBridge(request, options);
+  const result = await bridge.client.request("post", "/customer/cart/access", {});
+  return resultFromBridge(result.data, bridge);
+}
 
 export async function loadGuestCart(
   request: Request,

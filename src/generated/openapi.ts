@@ -10844,13 +10844,25 @@ export interface operations {
             };
         };
         responses: {
-            /** @description درخواست OTP پذیرفته شد */
-            202: {
+            /** @description درخواست OTP ایجاد شد */
+            201: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        /** @constant */
+                        success: true;
+                        data: {
+                            challenge_id: components["schemas"]["EntityId"];
+                            /** Format: date-time */
+                            expires_at: string;
+                        };
+                        meta: components["schemas"]["SuccessMeta"];
+                    };
+                };
             };
+            401: components["responses"]["Unauthorized"];
             429: components["responses"]["TooManyRequests"];
         };
     };
@@ -10875,9 +10887,21 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        /** @constant */
+                        success: true;
+                        data: {
+                            session_id: components["schemas"]["EntityId"];
+                            /** Format: date-time */
+                            expires_at: string;
+                        };
+                        meta: components["schemas"]["SuccessMeta"];
+                    };
+                };
             };
-            422: components["responses"]["Unprocessable"];
+            401: components["responses"]["Unauthorized"];
+            429: components["responses"]["TooManyRequests"];
         };
     };
     createCart: {

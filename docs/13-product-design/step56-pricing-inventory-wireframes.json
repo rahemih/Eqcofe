@@ -826,19 +826,19 @@
   "sources": [
     {
       "path": "contracts/http/openapi.yaml",
-      "sha256": "8efcd1c480d9066680273ffb7d2ae1f0373a0afd5f4da81cb38c4525dddd5e61"
+      "sha256": "d81608a3e6b25161bf630bbf4b62a1eaf442a8d1ae6fdd9b2d7bb3e5fa2361e7"
     },
     {
       "path": "docs/13-product-design/step56-admin-shell-wireframes.json",
-      "sha256": "cb9f64ab805d0132341cbe164af33ce0839fcb05dfe77101f77489fbbb6b1588"
+      "sha256": "71877f2fe64a47df3d34ad6ed14b191e1f2e35976e809ab4ed61e4d2957d35df"
     },
     {
       "path": "docs/13-product-design/step56-admin-ux-contract.json",
-      "sha256": "ecb338200501dcb0d4a5edd55da39dcc78c9e9326ca50ecbc7f8bb2fad1a5f0f"
+      "sha256": "2b71870c9cc8e462598c9bed0f86d8b5839f3f2e4482b5e167583d9f42fa2611"
     },
     {
       "path": "docs/13-product-design/step56-catalog-media-wireframes.json",
-      "sha256": "a0960574c9d9c5a770a52e3d69302f3db304c3bc0de02d612aad8ff1753afdd0"
+      "sha256": "c2081eafb290fc7dbd1dfb4f15e229c5e2be434dee3d0f2dc5bc129d9fc2fa16"
     },
     {
       "path": "src/modules/catalog/application/catalog-import-apply.service.ts",

@@ -69,6 +69,7 @@
 | EQCOFE-STEP63-B-CONTRACT-READINESS-001 | Step 63-B backend and OpenAPI Cart/Checkout contract readiness | HIGH | REQUIRED | `53870e90ea08e0e7045c6c4149282e5d60ef2909` | 30000/50000/90000 |
 | EQCOFE-STEP63-C-CART-CHECKOUT-FOUNDATION-001 | Step 63-C shared Cart/Checkout data, credential and authoritative state foundation | MEDIUM | NOT_REQUIRED | `f92d6dc3e96e9c0a4489d7085d50ca8ebde31ba2` | 32000/50000/96000 |
 | EQCOFE-STEP63-D-CART-FLOW-001 | Step 63-D production Cart route and authoritative item mutation flow | MEDIUM | NOT_REQUIRED | `8a35247ebdce58decfc752b41e8fed89d7447da6` | 36000/56000/108000 |
+| EQCOFE-STEP63-E-CHECKOUT-IDENTITY-001 | Step 63-E Checkout identity contract repair and OTP/session flow | HIGH | REQUIRED | `8d53017e77ce3c7caf8e7aba0f82967b82753288` | 42000/65000/120000 |
 | MA-AGENT-A0-ORCHESTRATOR-001 | A0 — Orchestrator / Engineering Manager Prompt | LOW | NOT_REQUIRED | `f7919991e619d416360e74a542741ef21c70f732` | 10000/16000/32000 |
 | MA-AGENT-A1-SPEC-001 | A1 — Specification & Research Prompt | LOW | NOT_REQUIRED | `120898df57138b301560e7d9b9f1b3f5da03e982` | 10000/16000/32000 |
 | MA-AGENT-A10-EVIDENCE-001 | A10 — Evidence & Documentation Prompt | LOW | NOT_REQUIRED | `bdf8fccde4ca40cced48381ad3be2e0461ade535` | 12000/18000/35000 |
@@ -114,4 +115,4 @@
 | MA-V1-ACC-MEDIUM-001 | V1 Acceptance MEDIUM R2 — telemetry terminal-state conflict hardening | MEDIUM | NOT_REQUIRED | `9017e0f25e9571568ed9acf4ca3ca977ce9e78f0` | 15000/25000/50000 |
 | MA-V1-ACCEPTANCE-CLOSURE-V16-R2-001 | V1.6 Phase 3 canonical acceptance closure R2 | HIGH | REQUIRED | `d7d235f5f240b8bea44bc607afa812b2f5bb12d4` | 30000/50000/90000 |
 
-Task contracts indexed: **108**.
+Task contracts indexed: **109**.

@@ -7598,14 +7598,44 @@ paths:
           application/json:
             schema:
               type: object
+              additionalProperties: false
               required:
               - mobile
               properties:
                 mobile:
                   type: string
       responses:
-        '202':
-          description: درخواست OTP پذیرفته شد
+        '201':
+          description: درخواست OTP ایجاد شد
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                required:
+                - success
+                - data
+                - meta
+                properties:
+                  success:
+                    type: boolean
+                    const: true
+                  data:
+                    type: object
+                    additionalProperties: false
+                    required:
+                    - challenge_id
+                    - expires_at
+                    properties:
+                      challenge_id:
+                        $ref: '#/components/schemas/EntityId'
+                      expires_at:
+                        type: string
+                        format: date-time
+                  meta:
+                    $ref: '#/components/schemas/SuccessMeta'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
         '429':
           $ref: '#/components/responses/TooManyRequests'
       security: []
@@ -7620,6 +7650,7 @@ paths:
           application/json:
             schema:
               type: object
+              additionalProperties: false
               required:
               - challenge_id
               - code
@@ -7628,13 +7659,43 @@ paths:
                   $ref: '#/components/schemas/EntityId'
                 code:
                   type: string
-                  minLength: 4
-                  maxLength: 10
+                  pattern: "^[0-9]{6}$"
+                  minLength: 6
+                  maxLength: 6
       responses:
         '200':
           description: ورود موفق
-        '422':
-          $ref: '#/components/responses/Unprocessable'
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                required:
+                - success
+                - data
+                - meta
+                properties:
+                  success:
+                    type: boolean
+                    const: true
+                  data:
+                    type: object
+                    additionalProperties: false
+                    required:
+                    - session_id
+                    - expires_at
+                    properties:
+                      session_id:
+                        $ref: '#/components/schemas/EntityId'
+                      expires_at:
+                        type: string
+                        format: date-time
+                  meta:
+                    $ref: '#/components/schemas/SuccessMeta'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
       security: []
   /cart:
     post:
