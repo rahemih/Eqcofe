@@ -1,0 +1,225 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP63-A-HANDOFF-001",
+  "title": "Step 63-A canonical handoff, live guard and Cart/Checkout scope freeze",
+  "description": "Documentation/governance-only Stage A for Step 63. Verify the terminal Step 62 handoff on live main, freeze Cart & Checkout Frontend scope, record current Storefront placeholder state and authoritative backend/OpenAPI readiness, register the A-I execution plan and acceptance gates, and keep runtime/API/database/dependency mutation forbidden until Stage A completes protected merge and exact-SHA postmerge verification.",
+  "risk": "MEDIUM",
+  "risk_floor": "MEDIUM",
+  "owner": "PRODUCT_DESIGN",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "4215ff81d08455aa0e2e167ecd13dd82eda7ac4a"
+  },
+  "scope": {
+    "read": [
+      "apps/storefront/**",
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "src/modules/cart/**",
+      "src/modules/checkout/**",
+      "src/modules/customer/**",
+      "src/modules/orders/**",
+      "src/modules/payments/**",
+      "src/modules/fulfillment/**",
+      "docs/11-step-history/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**",
+      "docs/14-multi-agent/**",
+      ".github/workflows/**",
+      "AGENTS.md",
+      ".codex/**",
+      "scripts/graphify/**",
+      "package.json",
+      "pnpm-lock.yaml"
+    ],
+    "write": [
+      "docs/11-step-history/STEP-63-A-CANONICAL-HANDOFF.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP63-A-HANDOFF-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "apps/**",
+      "src/**",
+      "database/**",
+      "contracts/**",
+      "scripts/**",
+      "test/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP63-A-HANDOFF-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 18000,
+    "soft_alert": 30000,
+    "hard_cap": 60000
+  },
+  "task_risk_rules": [
+    {
+      "id": "STEP63_A_CANONICAL_SCOPE_FREEZE_MEDIUM",
+      "risk": "MEDIUM",
+      "paths": [
+        "docs/11-step-history/STEP-63-A-CANONICAL-HANDOFF.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP63-A-HANDOFF-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": 62,
+      "name": "Compare & Wishlist final canonical closure and final audit",
+      "required_state": "CLOSED_FINAL_CANONICAL_PASS",
+      "observed_state": "CLOSED_FINAL_CANONICAL_PASS",
+      "merge_sha": "4215ff81d08455aa0e2e167ecd13dd82eda7ac4a",
+      "evidence": "PR #303 merged Step 62 final audit on live main; HOS-66 is Done; Step 62 runtime/browser/CodeQL evidence remains PASS and no open PR exists.",
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "live_guard_main_head": "4215ff81d08455aa0e2e167ecd13dd82eda7ac4a",
+    "live_open_prs_before_write": 0,
+    "active_relevant_locks_before_write": 0,
+    "competing_writer": "NONE_OBSERVED",
+    "linear_issue": "HOS-67",
+    "linear_state_before_start": "Backlog",
+    "roadmap_state_before_start": "NEXT / NOT_STARTED",
+    "current_state_before_start": "NEXT / NOT_STARTED",
+    "graph_tooling_state": "Canonical Graphify tooling exists; live local graph artifact is repository-local/ignored and is not exposed through the GitHub connector. Runtime stages require FRESH/PASS local graph health before mutation.",
+    "discovery": {
+      "storefront_routes": "/cart, /checkout/identity, /checkout/address, /checkout/delivery, /checkout/review, /payment/return and /order/:orderNumber/outcome are registered but currently RoutePlaceholder screens targeted to Step 63.",
+      "cart_backend": "Canonical OpenAPI provides POST /cart, GET /cart/{id}, POST/PATCH/DELETE cart items, POST /cart/{id}/quote, GET /customer/cart, POST /customer/cart/access and POST /customer/cart/merge.",
+      "checkout_backend": "Canonical OpenAPI provides POST /checkout/{id}/reserve and POST /checkout/{id}/order with checkout access-token boundaries and required idempotency.",
+      "address_delivery": "Canonical OpenAPI provides customer-owned address operations and GET /shipping-methods.",
+      "payment_backend": "Canonical OpenAPI provides POST /orders/{order_number}/payments with required Idempotency-Key, POST /payments/{payment_id}/verify, GET /orders/{order_number}/payments/{payment_id} and GET /payments/{payment_id}/status.",
+      "design_drift": "Step-55 wireframe operation labels use older customer-prefixed payment route names in places. Step 63 must bind to current canonical OpenAPI operationIds/paths rather than legacy design labels.",
+      "migration_need": "No Stage-A evidence requires a new database migration.",
+      "dependency_need": "No Stage-A evidence requires a new dependency."
+    }
+  },
+  "stages": [
+    {
+      "id": "63-A",
+      "goal": "Canonical handoff, live guard, discovery and Cart/Checkout scope freeze",
+      "risk": "MEDIUM",
+      "human_gate": false
+    },
+    {
+      "id": "63-B",
+      "goal": "Backend/OpenAPI Cart, Checkout, Address, Shipping and Payment contract readiness",
+      "risk": "HIGH",
+      "human_gate": true
+    },
+    {
+      "id": "63-C",
+      "goal": "Shared Storefront Cart/Checkout data, token and authoritative state foundation",
+      "risk": "MEDIUM",
+      "human_gate": false
+    },
+    {
+      "id": "63-D",
+      "goal": "Production Cart flow, quantity mutation, quote refresh and guest/customer cart recovery",
+      "risk": "MEDIUM",
+      "human_gate": false
+    },
+    {
+      "id": "63-E",
+      "goal": "Checkout identity and customer-owned address flow",
+      "risk": "HIGH",
+      "human_gate": true
+    },
+    {
+      "id": "63-F",
+      "goal": "Delivery selection, authoritative quote, reservation, review and idempotent order submission",
+      "risk": "HIGH",
+      "human_gate": true
+    },
+    {
+      "id": "63-G",
+      "goal": "Payment handoff, return verification, status recovery and order outcome flow",
+      "risk": "HIGH",
+      "human_gate": true
+    },
+    {
+      "id": "63-H",
+      "goal": "RTL, accessibility, responsive, loading/empty/error/offline hardening and integrated browser acceptance",
+      "risk": "MEDIUM",
+      "human_gate": false
+    },
+    {
+      "id": "63-I",
+      "goal": "Final canonical verification, documentation reconciliation and Step 64 handoff",
+      "risk": "MEDIUM",
+      "human_gate": false
+    }
+  ],
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Live main, Step 62 terminal closure/final audit, Current State, Roadmap, open PRs, HOS-67 and relevant Lock state are inspected; Step 63 is proven NEXT / NOT_STARTED at the Stage-A baseline.",
+      "verification": "canonical_handoff_and_live_guard_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Step 63 A-I plan and exact Cart/Checkout IN boundary are frozen; Account/After-Sales remains Step 64, Wholesale Step 65 and Content/SEO Step 66.",
+      "verification": "step63_scope_freeze_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Existing Storefront Step-63 routes are verified as placeholders while canonical backend/OpenAPI readiness for cart, quote, reserve, order, cart merge/access, addresses, shipping methods and payment status/verify is recorded.",
+      "verification": "frontend_backend_readiness_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Legacy Step-55 payment endpoint labels are treated as design history only when they differ from current canonical OpenAPI; Stage 63 implementation must consume current generated/OpenAPI contracts.",
+      "verification": "contract_authority_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Persian fa-IR RTL, integer Toman, no Wallet, no brown palette, backend authority, accessibility, responsive behavior, safe auth/token handling and fail-closed recovery remain binding.",
+      "verification": "inherited_contract_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Stage 63-A is documentation/governance-only; no runtime, API, OpenAPI, DB, migration, dependency, permission or business-rule mutation is introduced.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "Before any Stage 63 runtime mutation, local Graphify health must be FRESH/PASS and the applicable query/path/explain evidence must be recorded because the live graph artifact is not exposed through the GitHub connector.",
+      "verification": "graph_operational_boundary_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "Canonical completion of 63-A requires exact-head verification, Phase A and Merge Policy PASS, artifact-bound REVIEW/LOCK evidence, protected merge and exact-SHA postmerge verification before 63-B may mutate runtime/API.",
+      "verification": "canonical_transport_and_postmerge_evidence",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Step 63-A is MEDIUM risk. Direct-main write and raw merge are prohibited. Step 63-B runtime/API mutation is forbidden until 63-A protected transport, exact-SHA postmerge verification and terminal Lock release are complete."
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}
