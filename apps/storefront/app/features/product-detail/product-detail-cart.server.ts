@@ -52,14 +52,6 @@ export async function addProductVariantToCart(
   const created = await client.request("post", "/cart", {});
   const cartId = created.data.data.cart_id;
   const cartToken = created.data.data.cart_token;
-  if (!isUuid(cartId) || !isSafeToken(cartToken)) {
-    throw new ApiClientError({
-      kind: "security",
-      code: "CART_CREDENTIALS_INVALID",
-      message: "Cart API returned invalid credentials.",
-    });
-  }
-
   setCookies.push(...serializeCartCredentials(request, cartId, cartToken));
   const result = await addItem(client, cartId, cartToken, variantId);
   return { itemCount: result.items.length, setCookies };
