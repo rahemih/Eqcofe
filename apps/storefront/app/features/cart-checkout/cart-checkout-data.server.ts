@@ -30,7 +30,6 @@ import {
   requireCartCredentials,
   requireCheckoutCredentials,
   serializeCheckoutCredentials,
-  type CheckoutCredentials,
 } from "./cart-checkout-session.server.js";
 
 export type CartCheckoutDataOptions = {
@@ -277,7 +276,6 @@ function createCheckoutSecurityClient(
       ...config,
       fetchImpl: securedFetch,
     }),
-    credentials: checkout satisfies CheckoutCredentials,
   };
 }
 
