@@ -4,7 +4,7 @@
 
 `STEP_63_D = CANONICAL_COMPLETE`
 
-`STEP_63_E = AUDIT / PRE-MUTATION GATE`
+`STEP_63_E = IMPLEMENTATION AUTHORIZED — GRAPH DEFERRED TO STEP63 FINAL`
 
 Canonical baseline: `8d53017e77ce3c7caf8e7aba0f82967b82753288`
 
@@ -32,6 +32,10 @@ OTP codes, challenge identifiers and session secrets are never placed in URL/ana
 
 Address, delivery, review, reservation/order creation, payment return and order outcome remain later Step-63 stages. Graph UI remains deferred until Step 63 is fully complete.
 
-## Pre-mutation gate
+## Graph deferral — Owner Directive
 
-No OpenAPI/generated/frontend runtime mutation beyond this governance/evidence setup is authorized until fresh Graphify health/query/path/explain evidence is attached. Final HIGH-risk Human approval must bind to the frozen exact artifact after CI, Phase A, Security and deterministic Review are green.
+On 2026-10-03 the Project Owner explicitly directed that all Graphify/graph work for Step 63 be postponed until the end of Step 63. Therefore Stage 63-E is not blocked on local Graphify health/query/path/explain evidence.
+
+This is a deferral, not a removal: the accumulated Step-63 graph health/query/path/explain work and graph UI/reconciliation must be executed during final Step 63 acceptance/closure before handoff to Step 64.
+
+All remaining HIGH-risk gates still apply: exact-head CI, Phase A, Storefront Quality, CodeQL Security, deterministic Review, exact-artifact Human Gate, ACTIVE Lock, protected merge, exact-SHA postmerge verification and terminal Lock release.
