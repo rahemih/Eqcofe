@@ -195,6 +195,28 @@
     "github_login": "rahemih"
   },
   "evidence": {
-    "design_provenance_repair": "contracts/http/openapi.yaml is a recovered Step56/57 source. Only generator-equivalent SHA/manifest synchronization on the explicitly listed provenance paths is authorized; design semantics, frames, verdicts, journeys and product behavior must not change."
+    "design_provenance_repair": "contracts/http/openapi.yaml is a recovered Step56/57 source. Only generator-equivalent SHA/manifest synchronization on the explicitly listed provenance paths is authorized; design semantics, frames, verdicts, journeys and product behavior must not change.",
+    "graph_pre_mutation": {
+      "status": "FRESH_PASS_WITH_QUERY_PATH_EXPLAIN",
+      "exact_head": "140473a9c44ae2184248c8cb269730d2c82575ef",
+      "branch": "eqcofe/step63-b-contract-readiness",
+      "github_evidence_comment": 5967651506,
+      "query": "cart checkout quote address payment openapi",
+      "path": "CartService -> PaymentService",
+      "explain": "CartService",
+      "terminal_sentinel": "STEP63_GRAPH_EVIDENCE_COMPLETE"
+    },
+    "contract_repair": {
+      "runtime_mutation": "NONE",
+      "database_migration": "NONE",
+      "dependency_change": "NONE",
+      "openapi_changes": [
+        "Typed authoritative checkout quote pricing/marketing/line snapshot fields and exposed runtime-supported coupon_code.",
+        "Typed customer-owned address responses and aligned create/update/delete/set-default status/idempotency semantics.",
+        "Aligned customer address input fields with runtime: is_default and location_metadata; forbidden patch-time default mutation remains excluded."
+      ],
+      "regression_test": "test/step63-cart-checkout-contract.spec.ts",
+      "provenance_repair": "Generator-equivalent recovered Step56/57 hash/manifest synchronization only; no design semantics changed."
+    }
   }
 }
