@@ -2,7 +2,7 @@
   "schema_version": "2.2",
   "task_id": "EQCOFE-STEP63-D-CART-FLOW-001",
   "title": "Step 63-D production Cart route and authoritative item mutation flow",
-  "description": "Productionize only /cart on top of canonical Step 63-C: server-loaded guest Cart, explicit empty/error/recovery states, backend-authoritative quantity update and item removal through the shared Cart credential boundary, deterministic mutation intents, no browser-visible Cart token, and handoff to /checkout/identity. Do not implement identity/address/delivery/review/payment UI or invent price/stock/discount truth not present in the CartView contract.",
+  "description": "Productionize only /cart on top of canonical Step 63-C: server-loaded guest Cart, explicit empty/error/recovery states, backend-authoritative quantity update and item removal through the shared Cart credential boundary, deterministic mutation intents, no browser-visible Cart token, and handoff to /checkout/identity. Do not implement identity/address/delivery/review/payment UI or invent price/stock/discount truth not present in the CartView contract. Stage 63-D may update the predecessor foundation verifier only to make its placeholder assertion stage-aware while preserving all credential/data-boundary assertions.",
   "risk": "MEDIUM",
   "risk_floor": "MEDIUM",
   "owner": "PRODUCT_DESIGN",
@@ -29,6 +29,7 @@
       "apps/storefront/app/features/cart-checkout/CartState.tsx",
       "apps/storefront/app/styles/cart.css",
       "apps/storefront/scripts/verify-step63-cart-flow.ts",
+      "apps/storefront/scripts/verify-step63-cart-checkout-foundation.ts",
       "docs/11-step-history/STEP-63-D-CART-FLOW.md",
       "docs/14-multi-agent/tasks/EQCOFE-STEP63-D-CART-FLOW-001.json",
       "docs/14-multi-agent/generated/TASK-CATALOG.md"
@@ -74,6 +75,7 @@
         "apps/storefront/app/features/cart-checkout/**",
         "apps/storefront/app/styles/cart.css",
         "apps/storefront/scripts/verify-step63-cart-flow.ts",
+        "apps/storefront/scripts/verify-step63-cart-checkout-foundation.ts",
         "docs/11-step-history/STEP-63-D-CART-FLOW.md",
         "docs/14-multi-agent/tasks/EQCOFE-STEP63-D-CART-FLOW-001.json",
         "docs/14-multi-agent/generated/TASK-CATALOG.md"
@@ -131,6 +133,12 @@
       "id": "AC-005",
       "description": "Canonical completion requires exact-head Canonical CI, Phase A, Storefront checks, deterministic Review, ACTIVE Lock, protected merge, exact-SHA postmerge verification and terminal Lock release before Stage 63-E.",
       "verification": "canonical_transport_and_postmerge_evidence",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "The Stage 63-C foundation verifier remains valid after Cart productionization: /cart may be productionized in 63-D while all later Step-63 routes remain placeholders and all foundation credential/data-boundary assertions remain enforced.",
+      "verification": "pnpm --dir apps/storefront cart-checkout-foundation:verify",
       "mandatory": true
     }
   ],
