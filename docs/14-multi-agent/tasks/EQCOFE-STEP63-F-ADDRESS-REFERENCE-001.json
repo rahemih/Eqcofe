@@ -27,7 +27,12 @@
       "test/step63-address-reference.spec.ts",
       "docs/11-step-history/STEP-63-F-ADDRESS-REFERENCE-READINESS.md",
       "docs/14-multi-agent/tasks/EQCOFE-STEP63-F-ADDRESS-REFERENCE-001.json",
-      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "docs/13-product-design/step56-customers-growth-wireframes.json",
+      "docs/13-product-design/step56-wireframes/F/manifest.json",
+      "docs/13-product-design/step56-final-audit.json",
+      "docs/13-product-design/step56-final-audit/manifest.json",
+      "docs/13-product-design/step57-high-fidelity-contract.json"
     ],
     "forbidden": [
       ".github/**",
@@ -116,12 +121,18 @@
     },
     {
       "id": "AC-006",
+      "description": "Any recovered Step56/57 source-hash drift caused only by this customer Address source change is repaired strictly as generator-equivalent SHA/manifest provenance synchronization on explicitly authorized design paths; design semantics, frames, journeys and historical verdicts do not change.",
+      "verification": "provenance_only_repair",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
       "description": "Graph/Graphify remains deferred to final Step 63 closure by Project Owner directive.",
       "verification": "scope_review",
       "mandatory": true
     },
     {
-      "id": "AC-007",
+      "id": "AC-008",
       "description": "Canonical completion requires exact-head Canonical CI, Phase A, CodeQL Security where applicable, deterministic Review, exact-artifact Human Gate, ACTIVE Lock, protected merge, exact-SHA postmerge verification and terminal Lock release.",
       "verification": "canonical_transport",
       "mandatory": true
@@ -159,6 +170,11 @@
     },
     "graph_pre_mutation": {
       "status": "DEFERRED_TO_STEP63_FINAL"
+    },
+    "provenance_repair": {
+      "authorized": true,
+      "semantics_change": "NONE",
+      "reason": "Step56/57 recovered-source SHA cascade for customer-address.service.ts"
     }
   }
 }
