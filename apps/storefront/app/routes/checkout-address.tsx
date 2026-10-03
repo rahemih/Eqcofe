@@ -1,4 +1,5 @@
 import { data, redirect, useActionData, useLoaderData, useNavigation } from "react-router";
+import { StatePanel } from "../components/StatePanel.js";
 import { CheckoutAddressView } from "../features/cart-checkout/CheckoutAddressView.js";
 import {
   handleCheckoutAddressAction,
@@ -16,9 +17,9 @@ export async function loader({ request }: { request: Request }) {
     const result = await loadCheckoutAddress(request);
     const headers = new Headers();
     appendCustomerSessionSetCookies(headers, result.setCookies);
-    return data(result.data, { headers });
+    return data({ kind: "ready" as const, value: result.data }, { headers });
   } catch {
-    return redirect("/checkout/identity");
+    return data({ kind: "recovery" as const });
   }
 }
 
@@ -37,5 +38,6 @@ export default function CheckoutAddressRoute() {
   const actionData = useActionData<typeof action>() ?? null;
   const navigation = useNavigation();
   const busy = navigation.state !== "idle";
-  return <main className="checkout-flow-page" aria-busy={busy}><CheckoutAddressView data={loaderData} actionData={actionData} busy={busy} /></main>;
+  if (loaderData.kind === "recovery") return <main className="checkout-flow-page"><StatePanel variant="recovery" title="نشانی فعلاً قابل دریافت نیست" message="برای ادامه Checkout باید نشست مشتری و سرویس API معتبر در دسترس باشد؛ موفقیت فرض نمی‌شود." /></main>;
+  return <main className="checkout-flow-page" aria-busy={busy}><CheckoutAddressView data={loaderData.value} actionData={actionData} busy={busy} /></main>;
 }
