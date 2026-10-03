@@ -186,9 +186,9 @@
     "predecessor_terminal_comment": 5969434006,
     "audit_findings": {
       "runtime_request_otp": "AuthController POST auth/otp/request returns AuthService.requestOtp result {challenge_id, expires_at}; Nest POST default status is 201 because no @HttpCode override is present.",
-      "openapi_request_otp": "OpenAPI currently declares only 202 with no content body.",
-      "runtime_verify_otp": "AuthController returns {session_id, expires_at} and sets the customer session only via HttpOnly cookie.",
-      "openapi_verify_otp": "OpenAPI currently declares 200 with no response content.",
+      "openapi_request_otp": "Repaired in Stage E: 201 typed envelope with challenge_id/expires_at plus runtime-aligned 401/429 responses.",
+      "runtime_verify_otp": "AuthController sets the customer session only via HttpOnly cookie and returns {session_id, expires_at}; invalid/expired OTP is 401 and exhausted attempts are 429.",
+      "openapi_verify_otp": "Repaired in Stage E: typed 200 envelope with session_id/expires_at, exactly-six-digit code constraint, and runtime-aligned 401/429 responses.",
       "disposition": "Scoped OpenAPI/generated/test repair is required before production Checkout Identity can safely consume challenge_id. Backend business logic change is not justified."
     },
     "graph_pre_mutation": {
@@ -209,7 +209,14 @@
         "directive": "Defer all Step 63 graph/Graphify work until the end of Step 63; continue functional stages without graph blocking.",
         "effect": "Stage 63-E may proceed with source-of-truth GitHub/runtime/OpenAPI evidence and normal CI/security/human gates. Graph reconciliation is mandatory at Step 63 final closure."
       }
-    ]
+    ],
+    "contract_repair": {
+      "backend_runtime_mutation": "NONE",
+      "database_migration": "NONE",
+      "dependency_change": "NONE",
+      "openapi_status": "MUTATION_APPLIED_PENDING_PROVIDER_VALIDATION",
+      "regression_test": "test/step63-checkout-identity-contract.spec.ts"
+    }
   },
   "process_improvement_links": [],
   "incident_links": []
