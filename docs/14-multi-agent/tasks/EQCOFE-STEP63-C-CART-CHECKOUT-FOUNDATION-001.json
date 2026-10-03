@@ -28,6 +28,7 @@
       "apps/storefront/app/features/cart-checkout/cart-checkout-data.server.ts",
       "apps/storefront/app/features/cart-checkout/cart-checkout-state.ts",
       "apps/storefront/app/features/product-detail/product-detail-cart.server.ts",
+      "apps/storefront/scripts/verify-step61-spec-related-cart.ts",
       "apps/storefront/scripts/verify-step63-cart-checkout-foundation.ts",
       "docs/11-step-history/STEP-63-C-CART-CHECKOUT-FOUNDATION.md",
       "docs/14-multi-agent/tasks/EQCOFE-STEP63-C-CART-CHECKOUT-FOUNDATION-001.json",
@@ -70,7 +71,8 @@
         "apps/storefront/scripts/verify-step63-cart-checkout-foundation.ts",
         "docs/11-step-history/STEP-63-C-CART-CHECKOUT-FOUNDATION.md",
         "docs/14-multi-agent/tasks/EQCOFE-STEP63-C-CART-CHECKOUT-FOUNDATION-001.json",
-        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+        "docs/14-multi-agent/generated/TASK-CATALOG.md",
+        "apps/storefront/scripts/verify-step61-spec-related-cart.ts"
       ]
     }
   ],
@@ -89,7 +91,9 @@
     "linear_issue": "HOS-67",
     "live_guard_main_head": "f92d6dc3e96e9c0a4489d7085d50ca8ebde31ba2",
     "live_guard_open_step63_prs": 0,
-    "live_guard_unrelated_open_prs": [291],
+    "live_guard_unrelated_open_prs": [
+      291
+    ],
     "live_guard_competing_writer": "NONE",
     "predecessor_pr": 305,
     "predecessor_terminal_comment": 5968874417,
@@ -97,7 +101,8 @@
     "orchestration_owner_agent": "A0",
     "qa_agent": "A7",
     "security_agent": "A8",
-    "evidence_agent": "A10"
+    "evidence_agent": "A10",
+    "inherited_verifier_reconciliation": "Step 61-F verifier is updated only to follow the shared Step 63-C Cart credential boundary while preserving all inherited endpoint, quantity, cookie runtime and client-visibility assertions."
   },
   "acceptance_criteria": [
     {
@@ -120,7 +125,7 @@
     },
     {
       "id": "AC-004",
-      "description": "The existing Product Detail add-to-cart helper reuses the shared Cart credential boundary without changing endpoint, quantity, error mapping or visible behavior.",
+      "description": "The existing Product Detail add-to-cart helper reuses the shared Cart credential boundary without changing endpoint, quantity, error mapping or visible behavior, and the inherited Step 61-F verifier follows that shared boundary rather than requiring cookie literals in the Product Detail module.",
       "verification": "pnpm --dir apps/storefront cart-checkout-foundation:verify && pnpm --dir apps/storefront spec-related-cart:verify",
       "mandatory": true
     },
