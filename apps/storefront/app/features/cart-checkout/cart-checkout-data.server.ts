@@ -17,6 +17,7 @@ import type {
   CustomerAddressesResponse,
   CustomerAddressUpdateBody,
   CustomerAddressUpdateResponse,
+  CustomerAddressSetDefaultResponse,
   CustomerCartMergeResponse,
   CustomerCartResponse,
   GuestOrderResponse,
@@ -302,6 +303,20 @@ export async function updateCustomerAddress(
     pathParams: { id: addressId },
     headers: { "Idempotency-Key": idempotencyKey },
     body,
+  });
+  return resultFromBridge(result.data, bridge);
+}
+
+export async function setDefaultCustomerAddress(
+  request: Pick<Request, "headers">,
+  addressId: string,
+  idempotencyKey: string,
+  options: CartCheckoutDataOptions = {},
+): Promise<StorefrontDataResult<CustomerAddressSetDefaultResponse>> {
+  const bridge = createCustomerSessionBridge(request, options);
+  const result = await bridge.client.request("post", "/customer/addresses/{id}/set-default", {
+    pathParams: { id: addressId },
+    headers: { "Idempotency-Key": idempotencyKey },
   });
   return resultFromBridge(result.data, bridge);
 }
