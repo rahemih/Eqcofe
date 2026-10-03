@@ -52,9 +52,6 @@ assert.match(css, /@media \(max-width: 360px\)/);
 assert.doesNotMatch(css.toLowerCase(), /brown|#(?:6f4e37|795548|8b4513)/);
 
 for (const deferred of [
-  "checkout-address.tsx",
-  "checkout-delivery.tsx",
-  "checkout-review.tsx",
   "payment-return.tsx",
   "order-outcome.tsx",
 ]) {
@@ -70,6 +67,6 @@ console.log(JSON.stringify({
   serverOnlySessionBridge: true,
   explicitGuestCartMerge: true,
   unknownOutcomeFailClosed: true,
-  laterCheckoutStagesDeferred: true,
+  paymentAndOutcomeStagesDeferred: true,
   graphWork: "DEFERRED_TO_STEP63_FINAL"
 }));
