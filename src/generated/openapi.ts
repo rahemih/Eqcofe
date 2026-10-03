@@ -8755,20 +8755,45 @@ export interface components {
             shipping_method_id: components["schemas"]["EntityId"];
             coupon_code?: string | null;
         };
+        CheckoutQuoteLine: {
+            product_id: components["schemas"]["EntityId"];
+            variant_id: components["schemas"]["EntityId"];
+            sku: string;
+            product_name: string;
+            quantity: number;
+            unit_base_toman: components["schemas"]["MoneyToman"];
+            unit_final_toman: components["schemas"]["MoneyToman"];
+            discount_toman: components["schemas"]["MoneyToman"];
+            tax_toman: components["schemas"]["MoneyToman"];
+            tax_rule_id: components["schemas"]["NullableEntityId"];
+            line_total_toman: components["schemas"]["MoneyToman"];
+            pricing_snapshot: {
+                [key: string]: unknown;
+            };
+        };
+        CheckoutMarketingSnapshot: {
+            applications: {
+                [key: string]: unknown;
+            }[];
+            pricing_net_toman: components["schemas"]["MoneyToman"];
+        };
         CheckoutQuoteResponse: {
             /** Format: uuid */
             checkout_id: string;
             checkout_token: string;
+            /** @enum {string} */
+            customer_type: "retail" | "wholesale";
             subtotal_toman: components["schemas"]["MoneyToman"];
+            pricing_discount_toman: components["schemas"]["MoneyToman"];
+            marketing_discount_toman: components["schemas"]["MoneyToman"];
             discount_toman: components["schemas"]["MoneyToman"];
             shipping_toman: components["schemas"]["MoneyToman"];
             tax_toman: components["schemas"]["MoneyToman"];
             total_toman: components["schemas"]["MoneyToman"];
+            marketing_snapshot: components["schemas"]["CheckoutMarketingSnapshot"];
             /** Format: date-time */
             expires_at: string;
-            items: {
-                [key: string]: unknown;
-            }[];
+            items: components["schemas"]["CheckoutQuoteLine"][];
         };
         CreateReservationRequest: {
             quote_id: components["schemas"]["EntityId"];
@@ -9222,6 +9247,23 @@ export interface components {
             alert_type: "back_in_stock" | "price_drop";
             target_price_toman?: components["schemas"]["MoneyToman"] | null;
         };
+        CustomerAddressResponse: {
+            id: components["schemas"]["EntityId"];
+            recipient_name: string;
+            recipient_mobile: components["schemas"]["PhoneIran"];
+            province_id: components["schemas"]["EntityId"];
+            city_id: components["schemas"]["EntityId"];
+            postal_code: string;
+            address_line: string;
+            building_no: string | null;
+            unit_no: string | null;
+            location_metadata: {
+                [key: string]: unknown;
+            };
+            is_default: boolean;
+            created_at: components["schemas"]["Timestamp"];
+            updated_at: components["schemas"]["Timestamp"];
+        };
         PostCustomerAddressesRequest: {
             recipient_name: string;
             recipient_mobile: components["schemas"]["PhoneIran"];
@@ -9231,7 +9273,10 @@ export interface components {
             address_line: string;
             building_no?: string | null;
             unit_no?: string | null;
-            is_default_shipping?: boolean;
+            location_metadata?: {
+                [key: string]: unknown;
+            };
+            is_default?: boolean;
         };
         PatchCustomerAddressesIdRequest: {
             recipient_name?: string;
@@ -9242,7 +9287,9 @@ export interface components {
             address_line?: string;
             building_no?: string | null;
             unit_no?: string | null;
-            is_default_shipping?: boolean;
+            location_metadata?: {
+                [key: string]: unknown;
+            };
         };
         PostCustomerAddressesIdSetDefaultRequest: Record<string, never>;
         PostWebhooksPaymentsProviderKeyRequest: {
@@ -12052,13 +12099,21 @@ export interface operations {
         };
         requestBody?: never;
         responses: {
-            /** @description عملیات موفق */
+            /** @description فهرست آدرس‌های مشتری */
             200: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        /** @constant */
+                        success: true;
+                        data: components["schemas"]["CustomerAddressResponse"][];
+                        meta: components["schemas"]["SuccessMeta"];
+                    };
+                };
             };
+            401: components["responses"]["Unauthorized"];
         };
     };
     postCustomerAddresses: {
@@ -12076,20 +12131,23 @@ export interface operations {
             };
         };
         responses: {
-            /** @description عملیات موفق */
-            200: {
+            /** @description آدرس ایجاد شد */
+            201: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
-            };
-            /** @description عملیات پذیرفته شد */
-            202: {
-                headers: {
-                    [name: string]: unknown;
+                content: {
+                    "application/json": {
+                        /** @constant */
+                        success: true;
+                        data: components["schemas"]["CustomerAddressResponse"];
+                        meta: components["schemas"]["SuccessMeta"];
+                    };
                 };
-                content?: never;
             };
+            401: components["responses"]["Unauthorized"];
+            409: components["responses"]["Conflict"];
+            422: components["responses"]["Unprocessable"];
         };
     };
     deleteCustomerAddressesId: {
@@ -12105,13 +12163,17 @@ export interface operations {
         };
         requestBody?: never;
         responses: {
-            /** @description حذف/برداشتن موفق */
+            /** @description آدرس حذف شد */
             204: {
                 headers: {
                     [name: string]: unknown;
                 };
                 content?: never;
             };
+            401: components["responses"]["Unauthorized"];
+            404: components["responses"]["NotFound"];
+            409: components["responses"]["Conflict"];
+            422: components["responses"]["Unprocessable"];
         };
     };
     patchCustomerAddressesId: {
@@ -12131,13 +12193,24 @@ export interface operations {
             };
         };
         responses: {
-            /** @description عملیات موفق */
+            /** @description آدرس به‌روزرسانی شد */
             200: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        /** @constant */
+                        success: true;
+                        data: components["schemas"]["CustomerAddressResponse"];
+                        meta: components["schemas"]["SuccessMeta"];
+                    };
+                };
             };
+            401: components["responses"]["Unauthorized"];
+            404: components["responses"]["NotFound"];
+            409: components["responses"]["Conflict"];
+            422: components["responses"]["Unprocessable"];
         };
     };
     postCustomerAddressesIdSetDefault: {
@@ -12153,20 +12226,24 @@ export interface operations {
         };
         requestBody?: never;
         responses: {
-            /** @description عملیات موفق */
+            /** @description آدرس پیش‌فرض به‌روزرسانی شد */
             200: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
-            };
-            /** @description عملیات پذیرفته شد */
-            202: {
-                headers: {
-                    [name: string]: unknown;
+                content: {
+                    "application/json": {
+                        /** @constant */
+                        success: true;
+                        data: components["schemas"]["CustomerAddressResponse"];
+                        meta: components["schemas"]["SuccessMeta"];
+                    };
                 };
-                content?: never;
             };
+            401: components["responses"]["Unauthorized"];
+            404: components["responses"]["NotFound"];
+            409: components["responses"]["Conflict"];
+            422: components["responses"]["Unprocessable"];
         };
     };
     getCustomerOrdersOrderNumber: {
@@ -24809,6 +24886,7 @@ export interface operations {
                 "application/json": {
                     /** Format: uuid */
                     shipping_method_id: string;
+                    coupon_code?: string | null;
                 };
             };
         };
