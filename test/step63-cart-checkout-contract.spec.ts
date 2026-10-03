@@ -25,7 +25,7 @@ test('checkout quote runtime remains authoritative and OpenAPI exposes coupon an
 
   const quote = openapi.slice(openapi.indexOf('  /cart/{id}/quote:'), openapi.indexOf('  /checkout/{id}/reserve:'));
   assert.match(quote,/coupon_code:/);
-  assert.match(quote,/IdempotencyKey/);
+  assert.match(quote,/x-eqcofe:\s*\n\s*idempotency: required/s);
   assert.match(quote,/CheckoutQuoteResponse/);
 
   const schema = openapi.slice(openapi.indexOf('    CheckoutQuoteLine:'), openapi.indexOf('    CreateReservationRequest:'));
