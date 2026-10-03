@@ -83,7 +83,7 @@ The following findings are confirmed from canonical runtime/controller code and 
 
 - Runtime create/update/set-default/delete operations are customer-owned and idempotency-protected.
 - **Confirmed contract gap:** `GET /customer/addresses` and mutation success responses are not typed with canonical address response schemas.
-- **Confirmed status drift:** OpenAPI advertises `202` for address create and set-default although the current Nest controllers return ordinary successful responses and do not declare 202.
+- **Confirmed status drift:** OpenAPI advertised stale `202` responses; runtime uses Nest default `201` for address creation and explicit `200` for set-default.
 - **Confirmed idempotency drift:** `POST /customer/addresses/{id}/set-default` uses `@RequireIdempotency('customer.address.set_default')` in runtime, but its OpenAPI operation does not currently declare the required idempotency metadata consistently.
 
 ### Payment and outcome
@@ -106,3 +106,39 @@ PATH_EVIDENCE = PRESENT when applicable
 EXPLAIN_EVIDENCE = PRESENT for non-trivial dependency decisions
 HUMAN_GATE = APPROVED for the final HIGH-risk artifact
 ```
+
+
+## Implemented scoped repair
+
+The Stage-B repair remains contract/test-only; backend business logic was not changed.
+
+- Checkout quote request now exposes runtime-supported optional `coupon_code`.
+- Checkout quote response now types `customer_type`, pricing/marketing discount split, marketing snapshot and stable line-item snapshots.
+- Customer address list/create/update/set-default success responses are typed with a canonical customer-address response schema.
+- Address create now documents runtime `201`; set-default documents runtime `200`; stale `202` claims were removed.
+- Address request fields now match runtime authority: `is_default` is create-only and `location_metadata` is modeled; patch cannot mutate default status.
+- Idempotency metadata is explicit on customer address mutations.
+- Reserve/order/payment authority and fail-closed recovery behavior were audited and intentionally left unchanged.
+- Regression coverage: `test/step63-cart-checkout-contract.spec.ts`.
+- Database migration: NONE.
+- Dependency change: NONE.
+- Backend runtime business-rule mutation: NONE.
+
+## Local Graphify evidence
+
+Pre-mutation Graphify evidence was completed on exact head `140473a9c44ae2184248c8cb269730d2c82575ef`:
+
+- refresh + record-state;
+- query: `cart checkout quote address payment openapi`;
+- path: `CartService -> PaymentService`;
+- explain: `CartService`;
+- terminal sentinel: `STEP63_GRAPH_EVIDENCE_COMPLETE`;
+- GitHub evidence comment: `5967651506`.
+
+## Recovered design provenance repair
+
+Changing canonical OpenAPI invalidates historical source hashes consumed by Step56/57 validators. The repair follows the previously canonical Step 60/61/62 pattern: only recovered-source SHA references and derived manifest SHA references are synchronized. Diff review confirms these Product Design files contain hash-only changes; frames, journeys, UI semantics, historical verdicts and application behavior remain unchanged.
+
+## Remaining canonical gates
+
+After exact-head CI is green, Stage 63-B still requires deterministic Review PASS, Security PASS, exact-artifact ACTIVE Lock, explicit Project Owner HUMAN approval, protected merge, exact-SHA postmerge verification and terminal Lock RELEASE.
