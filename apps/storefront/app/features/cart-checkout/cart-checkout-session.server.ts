@@ -104,14 +104,23 @@ function readCredentialPair(
 
   const id = safeDecode(rawId);
   const token = safeDecode(rawToken);
-  validateCredentials(id, token, prefix);
-  return { cartId: id, cartToken: token };
+  const validated = validatedCredentials(id, token, prefix);
+  return { cartId: validated.id, cartToken: validated.token };
 }
 
-function validateCredentials(id: string | null, token: string | null, prefix: "CART" | "CHECKOUT"): asserts id is string {
+function validateCredentials(id: string | null, token: string | null, prefix: "CART" | "CHECKOUT"): void {
+  void validatedCredentials(id, token, prefix);
+}
+
+function validatedCredentials(
+  id: string | null,
+  token: string | null,
+  prefix: "CART" | "CHECKOUT",
+): { id: string; token: string } {
   if (!id || !isUuid(id) || !token || !isSafeToken(token)) {
     throw credentialError(`${prefix}_CREDENTIALS_INVALID`, `${prefix} credentials are invalid.`);
   }
+  return { id, token };
 }
 
 function serializeCookie(name: string, value: string, maxAge: number, secure: boolean): string {
