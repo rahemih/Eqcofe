@@ -1,0 +1,156 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP63-D-CART-FLOW-001",
+  "title": "Step 63-D production Cart route and authoritative item mutation flow",
+  "description": "Productionize only /cart on top of canonical Step 63-C: server-loaded guest Cart, explicit empty/error/recovery states, backend-authoritative quantity update and item removal through the shared Cart credential boundary, deterministic mutation intents, no browser-visible Cart token, and handoff to /checkout/identity. Do not implement identity/address/delivery/review/payment UI or invent price/stock/discount truth not present in the CartView contract. Stage 63-D may update the predecessor foundation verifier only to make its placeholder assertion stage-aware while preserving all credential/data-boundary assertions.",
+  "risk": "MEDIUM",
+  "risk_floor": "MEDIUM",
+  "owner": "PRODUCT_DESIGN",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "8a35247ebdce58decfc752b41e8fed89d7447da6"
+  },
+  "scope": {
+    "read": [
+      "apps/storefront/**",
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "docs/11-step-history/STEP-63-C-CART-CHECKOUT-FOUNDATION.md",
+      "docs/13-product-design/step55-checkout-payment-wireframes.json",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "apps/storefront/package.json",
+      "apps/storefront/app/routes/cart.tsx",
+      "apps/storefront/app/features/cart-checkout/cart-checkout-data.server.ts",
+      "apps/storefront/app/features/cart-checkout/cart-route-data.server.ts",
+      "apps/storefront/app/features/cart-checkout/CartView.tsx",
+      "apps/storefront/app/features/cart-checkout/CartState.tsx",
+      "apps/storefront/app/styles/cart.css",
+      "apps/storefront/scripts/verify-step63-cart-flow.ts",
+      "apps/storefront/scripts/verify-step63-cart-checkout-foundation.ts",
+      "docs/11-step-history/STEP-63-D-CART-FLOW.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP63-D-CART-FLOW-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "contracts/**",
+      "src/**",
+      "database/**",
+      "test/**",
+      "apps/storefront/app/platform/api/**",
+      "apps/storefront/app/platform/auth/**",
+      "apps/storefront/app/platform/state/**",
+      "apps/storefront/app/routes/checkout-identity.tsx",
+      "apps/storefront/app/routes/checkout-address.tsx",
+      "apps/storefront/app/routes/checkout-delivery.tsx",
+      "apps/storefront/app/routes/checkout-review.tsx",
+      "apps/storefront/app/routes/payment-return.tsx",
+      "apps/storefront/app/routes/order-outcome.tsx",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP63-D-CART-FLOW-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 36000,
+    "soft_alert": 56000,
+    "hard_cap": 108000
+  },
+  "max_repair_cycles": 3,
+  "task_risk_rules": [
+    {
+      "id": "STEP63_D_STOREFRONT_CART_FLOW_MEDIUM",
+      "risk": "MEDIUM",
+      "paths": [
+        "apps/storefront/package.json",
+        "apps/storefront/app/routes/cart.tsx",
+        "apps/storefront/app/features/cart-checkout/**",
+        "apps/storefront/app/styles/cart.css",
+        "apps/storefront/scripts/verify-step63-cart-flow.ts",
+        "apps/storefront/scripts/verify-step63-cart-checkout-foundation.ts",
+        "docs/11-step-history/STEP-63-D-CART-FLOW.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP63-D-CART-FLOW-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "63-C",
+      "name": "Shared Cart/Checkout Storefront foundation",
+      "required_state": "TERMINAL_MERGED_POSTMERGE_PASS_LOCK_RELEASED",
+      "observed_state": "TERMINAL_MERGED_POSTMERGE_PASS_LOCK_RELEASED",
+      "merge_sha": "8a35247ebdce58decfc752b41e8fed89d7447da6",
+      "evidence": "PR #306 protected workflow_dispatch 37123027376; merge job 111202734550 SUCCESS; exact-SHA postmerge 111202780688 SUCCESS; terminal Lock release comment 5969251153.",
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "linear_issue": "HOS-67",
+    "live_guard_main_head": "8a35247ebdce58decfc752b41e8fed89d7447da6",
+    "predecessor_pr": 306,
+    "predecessor_terminal_comment": 5969251153,
+    "implementation_owner_agent": "A3",
+    "orchestration_owner_agent": "A0",
+    "qa_agent": "A7",
+    "security_agent": "A8",
+    "evidence_agent": "A10"
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "The production /cart route replaces the Step-63 placeholder and loads Cart truth only through the canonical Step 63-C server boundary; Cart bearer credentials never reach route data, URLs, logs or browser storage.",
+      "verification": "pnpm --dir apps/storefront cart-flow:verify && pnpm --dir apps/storefront typecheck",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Quantity changes and removals are backend-authoritative, use the existing Cart credential boundary, reject invalid quantities fail-closed and never fabricate success after unknown mutation outcomes.",
+      "verification": "pnpm --dir apps/storefront cart-flow:verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Cart renders product/variant/SKU/quantity from authoritative CartView data, explicit first-use/loading/error/recovery states and a checkout-identity handoff; it does not fabricate price, stock, discount or shipping truth absent from CartView.",
+      "verification": "pnpm --dir apps/storefront cart-flow:verify && deterministic_source_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "No checkout identity/address/delivery/review/payment UI, backend/OpenAPI/database/dependency/design/current-state mutation occurs.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Canonical completion requires exact-head Canonical CI, Phase A, Storefront checks, deterministic Review, ACTIVE Lock, protected merge, exact-SHA postmerge verification and terminal Lock release before Stage 63-E.",
+      "verification": "canonical_transport_and_postmerge_evidence",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "The Stage 63-C foundation verifier remains valid after Cart productionization: /cart may be productionized in 63-D while all later Step-63 routes remain placeholders and all foundation credential/data-boundary assertions remain enforced.",
+      "verification": "pnpm --dir apps/storefront cart-checkout-foundation:verify",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Stage 63-D is MEDIUM risk. Direct-main write/raw merge are prohibited. Stage 63-E remains blocked until protected transport, exact-SHA postmerge verification and terminal Lock release are green."
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}

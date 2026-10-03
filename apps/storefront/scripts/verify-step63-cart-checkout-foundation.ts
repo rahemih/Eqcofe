@@ -95,8 +95,15 @@ assert.throws(
   /Duplicate Cart\/Checkout credential cookie was rejected/,
 );
 
-const routeFiles = [
-  "cart.tsx",
+const cartRoute = readFileSync("apps/storefront/app/routes/cart.tsx", "utf8");
+if (/RoutePlaceholder/.test(cartRoute)) {
+  assert.match(cartRoute, /targetStep=\{63\}/);
+} else {
+  assert.match(cartRoute, /loadCartRouteData/);
+  assert.match(cartRoute, /mutateCartRoute/);
+}
+
+const deferredRouteFiles = [
   "checkout-identity.tsx",
   "checkout-address.tsx",
   "checkout-delivery.tsx",
@@ -104,7 +111,7 @@ const routeFiles = [
   "payment-return.tsx",
   "order-outcome.tsx",
 ];
-for (const file of routeFiles) {
+for (const file of deferredRouteFiles) {
   const source = readFileSync("apps/storefront/app/routes/" + file, "utf8");
   assert.match(source, /RoutePlaceholder/);
   assert.match(source, /targetStep=\{63\}/);
@@ -117,5 +124,6 @@ console.log(JSON.stringify({
   serverOnlyCredentialBoundary: true,
   authoritativeState: true,
   productDetailCredentialReuse: true,
-  routesRemainPlaceholders: true,
+  cartRouteStageAware: true,
+  deferredRoutesRemainPlaceholders: true,
 }));

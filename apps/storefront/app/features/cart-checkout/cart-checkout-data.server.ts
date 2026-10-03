@@ -24,6 +24,9 @@ import type {
   PaymentStatusResponse,
   PaymentVerifyResponse,
   ShippingMethodsResponse,
+  CartUpdateItemRequest,
+  CartUpdateItemResponse,
+  CartRemoveItemResponse,
 } from "./cart-checkout-contract.js";
 import {
   readCartCredentials,
@@ -53,6 +56,36 @@ export async function loadGuestCart(
   const result = await client.request("get", "/cart/{id}", {
     pathParams: { id: credentials.cartId },
     headers: { "X-Cart-Token": credentials.cartToken },
+  });
+  return { data: result.data, setCookies: [] };
+}
+
+export async function updateGuestCartItem(
+  request: Request,
+  itemId: string,
+  body: CartUpdateItemRequest["body"],
+  options: CartCheckoutDataOptions = {},
+): Promise<StorefrontDataResult<CartUpdateItemResponse>> {
+  const cart = requireCartCredentials(request);
+  const client = createPlainClient(options);
+  const result = await client.request("patch", "/cart/{id}/items/{itemId}", {
+    pathParams: { id: cart.cartId, itemId },
+    headers: { "X-Cart-Token": cart.cartToken },
+    body,
+  });
+  return { data: result.data, setCookies: [] };
+}
+
+export async function removeGuestCartItem(
+  request: Request,
+  itemId: string,
+  options: CartCheckoutDataOptions = {},
+): Promise<StorefrontDataResult<CartRemoveItemResponse>> {
+  const cart = requireCartCredentials(request);
+  const client = createPlainClient(options);
+  const result = await client.request("delete", "/cart/{id}/items/{itemId}", {
+    pathParams: { id: cart.cartId, itemId },
+    headers: { "X-Cart-Token": cart.cartToken },
   });
   return { data: result.data, setCookies: [] };
 }
