@@ -131,7 +131,10 @@
       "postmerge_job": 111440303699,
       "tests": "959/959 PASS",
       "runtime_mutation": false
-    }
+    },
+    "closure_pr": 315,
+    "superseded_closure_pr": 313,
+    "superseded_closure_comment": 5980222399
   },
   "acceptance_criteria": [
     {
