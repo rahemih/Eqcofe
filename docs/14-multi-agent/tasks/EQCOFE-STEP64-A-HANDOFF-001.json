@@ -1,0 +1,239 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP64-A-HANDOFF-001",
+  "title": "Step 64-A canonical handoff, live guard and Customer Account/After-Sales scope freeze",
+  "description": "Documentation/governance-only Stage A for Step 64. Verify terminal Step 63 handoff on live main, record the Owner Graph deferral without claiming Graph PASS, freeze Customer Account & After-Sales scope, prove current Storefront placeholder state and high-level backend readiness, register the A-I execution plan and keep runtime/API/database/dependency mutation forbidden until Stage A completes canonical transport.",
+  "risk": "MEDIUM",
+  "risk_floor": "MEDIUM",
+  "owner": "PRODUCT_DESIGN",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "e7985b7b3c7bfd81cab293607674d576ca93a82e"
+  },
+  "scope": {
+    "read": [
+      "apps/storefront/**",
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "src/modules/identity/**",
+      "src/modules/customer/**",
+      "src/modules/orders/**",
+      "src/modules/returns/**",
+      "src/modules/warranty/**",
+      "src/modules/notifications/**",
+      "src/modules/loyalty/**",
+      "src/modules/catalog/**",
+      "docs/11-step-history/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**",
+      "docs/14-multi-agent/**",
+      ".github/workflows/**",
+      "AGENTS.md",
+      ".codex/**",
+      "scripts/graphify/**",
+      "package.json",
+      "pnpm-lock.yaml"
+    ],
+    "write": [
+      "docs/11-step-history/STEP-64-A-CANONICAL-HANDOFF.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP64-A-HANDOFF-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "apps/**",
+      "src/**",
+      "database/**",
+      "contracts/**",
+      "scripts/**",
+      "test/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP64-A-HANDOFF-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 20000,
+    "soft_alert": 32000,
+    "hard_cap": 64000
+  },
+  "task_risk_rules": [
+    {
+      "id": "STEP64_A_CANONICAL_SCOPE_FREEZE_MEDIUM",
+      "risk": "MEDIUM",
+      "paths": [
+        "docs/11-step-history/STEP-64-A-CANONICAL-HANDOFF.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP64-A-HANDOFF-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": 63,
+      "name": "Cart & Checkout Frontend final canonical closure",
+      "required_state": "CLOSED_FINAL_CANONICAL_PASS",
+      "observed_state": "CLOSED_FINAL_CANONICAL_PASS_GRAPH_DEFERRED_BY_OWNER",
+      "merge_sha": "e7985b7b3c7bfd81cab293607674d576ca93a82e",
+      "evidence": "PR #315 merged; post-merge Canonical CI #1351 and Phase A #850 passed; terminal Lock release comment 5980921349; HOS-67 Done. Graph is explicitly deferred by Project Owner and is not represented as PASS.",
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "live_guard_main_head": "e7985b7b3c7bfd81cab293607674d576ca93a82e",
+    "step63_merge_pr": 315,
+    "step63_postmerge_ci_run": 37208274324,
+    "step63_postmerge_phase_a_run": 37208274314,
+    "step63_terminal_lock_comment": 5980921349,
+    "step63_linear_issue": "HOS-67",
+    "step63_linear_state": "Done",
+    "linear_issue": "HOS-68",
+    "linear_state_after_start": "In Progress",
+    "competing_step64_writer": "NONE_OBSERVED",
+    "unrelated_open_prs": [
+      289,
+      290,
+      291
+    ],
+    "roadmap_version": "3.59 — Step-63 Final Canonical Closure",
+    "roadmap_state_before_start": "NEXT / NOT_STARTED",
+    "graph_state": "DEFERRED_BY_OWNER / LOCAL_ONLY_UNAVAILABLE; no Graph PASS claim is permitted; future reconciliation remains required.",
+    "discovery": {
+      "storefront_routes": "/account, /account/profile, /account/addresses, /account/orders, /account/orders/:order-number, /account/tools, /account/returns/:return-number? and /account/warranty/:claim-number? are registered and remain RoutePlaceholder surfaces targeted to Step 64.",
+      "identity_profile": "Canonical runtime exposes OTP/session/logout boundaries plus customer profile read/update.",
+      "addresses": "Canonical runtime exposes customer-owned list/create/update/delete/set-default; Step 63 already hardened ownership, idempotency and geography usage.",
+      "wishlist": "Canonical runtime and Step-62 Storefront foundation already provide authoritative list/add/remove; account management was intentionally deferred to Step 64.",
+      "orders": "Canonical runtime exposes customer order list/detail/timeline/invoice and idempotent cancel.",
+      "returns": "Canonical runtime exposes customer return create/list/detail/timeline/cancel.",
+      "warranty": "Canonical runtime exposes customer warranty create/list/detail/timeline.",
+      "notifications_tools": "Owner-scoped in-app notification infrastructure exists, while historical design also references loyalty/product-alert/review capabilities. Stage 64-B must prove present OpenAPI/runtime authority before any such UI is implemented.",
+      "wholesale_boundary": "Wholesale application/status/pricing remains Step 65 and is excluded from Step 64.",
+      "migration_need": "No Stage-A evidence requires a database migration.",
+      "dependency_need": "No Stage-A evidence requires a new dependency."
+    }
+  },
+  "stages": [
+    {
+      "id": "64-A",
+      "goal": "Canonical handoff, live guard, discovery and Account/After-Sales scope freeze",
+      "risk": "MEDIUM",
+      "human_gate": false
+    },
+    {
+      "id": "64-B",
+      "goal": "Backend/OpenAPI contract readiness for Account, Orders, customer tools, Returns, Warranty and Notifications",
+      "risk": "HIGH",
+      "human_gate": true
+    },
+    {
+      "id": "64-C",
+      "goal": "Shared Storefront Account session/data/recovery foundation and Account overview shell",
+      "risk": "MEDIUM",
+      "human_gate": false
+    },
+    {
+      "id": "64-D",
+      "goal": "Profile, account security and customer-owned Address management",
+      "risk": "HIGH",
+      "human_gate": true
+    },
+    {
+      "id": "64-E",
+      "goal": "Orders, order detail, timeline, invoice and authoritative customer actions",
+      "risk": "HIGH",
+      "human_gate": true
+    },
+    {
+      "id": "64-F",
+      "goal": "Wishlist, notifications and only contract-authorized customer tools",
+      "risk": "MEDIUM",
+      "human_gate": false
+    },
+    {
+      "id": "64-G",
+      "goal": "Returns and Warranty request/detail/timeline/recovery flows",
+      "risk": "HIGH",
+      "human_gate": true
+    },
+    {
+      "id": "64-H",
+      "goal": "RTL, accessibility, responsive/state hardening and integrated browser acceptance",
+      "risk": "MEDIUM",
+      "human_gate": false
+    },
+    {
+      "id": "64-I",
+      "goal": "Final canonical verification, documentation reconciliation and Step 65 handoff",
+      "risk": "MEDIUM",
+      "human_gate": false
+    }
+  ],
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Live main, Step 63 terminal merge/postmerge/Lock/Linear state, Roadmap, open PRs and competing Step-64 writer state are inspected before Stage-A write.",
+      "verification": "canonical_handoff_and_live_guard_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Step 64 A-I plan and exact Customer Account/After-Sales IN boundary are frozen; Wholesale remains Step 65, Content Step 66 and Admin Steps 67+.",
+      "verification": "step64_scope_freeze_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "All eight Step-64 Storefront routes are proven existing placeholders rather than hidden implementation.",
+      "verification": "storefront_placeholder_inventory_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "High-level current runtime readiness for identity/profile, addresses, Wishlist, orders/invoices, returns and warranty is recorded without inventing missing notification/customer-tool contracts.",
+      "verification": "backend_readiness_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Current runtime/OpenAPI/generated contracts override legacy wireframe endpoint labels; design remains authority only for UX intent and inherited states.",
+      "verification": "contract_authority_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Graph/Graphify is recorded as DEFERRED_BY_OWNER / LOCAL_ONLY_UNAVAILABLE and never represented as PASS.",
+      "verification": "owner_graph_deferral_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "Stage 64-A changes only its documentation/governance allowlist and introduces no runtime/API/OpenAPI/DB/dependency/permission/business-rule mutation.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "Canonical completion of 64-A requires exact-head verification, artifact-bound REVIEW/LOCK evidence, protected merge, exact-SHA postmerge verification and terminal Lock release before 64-B runtime/API mutation.",
+      "verification": "canonical_transport_and_postmerge_evidence",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Step 64-A is MEDIUM risk. Direct-main write and ungoverned runtime mutation are prohibited. Step 64-B runtime/API mutation is forbidden until 64-A canonical transport and terminal Lock release are complete."
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}
