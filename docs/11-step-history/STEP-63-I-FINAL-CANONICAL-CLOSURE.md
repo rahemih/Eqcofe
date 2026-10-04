@@ -2,7 +2,7 @@
 
 ## Current verdict
 
-Status: **IN_PROGRESS / GRAPH_GATE_PENDING**
+Status: **FINAL CLOSURE PREPARED / GRAPH_GATE_PENDING**
 
 Canonical starting baseline: `e14e44b033a15b2cf579908af53d7d882dcd5b09`
 
@@ -10,7 +10,7 @@ Task Contract: `docs/14-multi-agent/tasks/EQCOFE-STEP63-I-CLOSURE-001.json`
 
 Step 63 A–H are terminal and canonical through PR #312. Stage 63-I is documentation/governance-only and does not add runtime, API/OpenAPI, database, dependency, workflow, Product Design source or business-rule authority.
 
-**Step 63 is not yet closed by this document.** The Project Owner explicitly deferred accumulated Graph/Graphify evidence to final Step 63 closure. Because `graphify-out/` is Git-ignored/local-only, GitHub provider evidence cannot manufacture or substitute that local graph gate.
+**This branch prepares the terminal Step-63 closure before the deferred Graph gate.** The Project Owner explicitly deferred accumulated Graph/Graphify evidence to the end of Step 63. Because `graphify-out/` is Git-ignored/local-only, GitHub provider evidence cannot manufacture or substitute that local graph gate. Once fresh Graphify evidence is attached to this exact artifact and protected merge/postmerge/Lock release complete, this document becomes the canonical terminal closure without further runtime mutation.
 
 ## Stage-H terminal evidence
 
@@ -76,18 +76,12 @@ The local artifact `graphify-out/graph.json` must not be committed. Stage-I will
 
 ## Remaining Stage-I work
 
-1. execute final Graphify health/query/path/explain evidence on `e14e44b033a15b2cf579908af53d7d882dcd5b09`;
-2. reconcile `CURRENT-STATE.md` and `MASTER-ROADMAP.md`;
-3. freeze Step 63 as `CLOSED / FINAL CANONICAL PASS` and Step 64 as `NEXT / NOT_STARTED`;
-4. pass exact-head CI/Phase A, Review and exact-artifact ACTIVE Lock;
-5. protected merge + exact-SHA postmerge verification;
-6. terminal Lock release;
-7. mark Linear `HOS-67` Done only after terminal evidence.
+All non-Graph closure content, Current State/Roadmap reconciliation and Step-64 handoff wording are prepared in this PR. The only evidence gate intentionally left for the Project Owner's final local action is fresh Graphify health/query/path/explain evidence on `e14e44b033a15b2cf579908af53d7d882dcd5b09`. After that evidence is attached, execute protected merge, exact-SHA postmerge verification, terminal Lock release and mark Linear `HOS-67` Done.
 
 Until those gates:
 
 ```text
-STEP_63_I = IN_PROGRESS / GRAPH_GATE_PENDING
-STEP_63 = NOT_YET_TERMINALLY_CLOSED
-STEP_64 = BLOCKED
+STEP_63_I = FINAL_CLOSURE_PREPARED / GRAPH_GATE_PENDING
+STEP_63 = BRANCH_VERDICT_CLOSED_BUT_NOT_YET_CANONICAL_ON_MAIN
+STEP_64 = BLOCKED_UNTIL_GRAPH_AND_PROTECTED_MERGE
 ```
