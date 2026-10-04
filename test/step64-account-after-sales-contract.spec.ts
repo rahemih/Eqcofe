@@ -29,8 +29,11 @@ test('customer notification inbox is a customer-only wrapper over owner-scoped s
   assert.match(notifications,/@Patch\('customer\/notifications\/:id\/read'\)/);
   assert.match(notifications,/@RequireIdempotency\('notifications\.customer\.acknowledge'\)/);
   assert.match(notifications,/@Post\('customer\/notifications\/:id\/acknowledge'\)/);
-  assert.match(inApp,/recipient_subject_type=o\.type/);
-  assert.match(inApp,/recipient_subject_id=o\.id/);
+  assert.match(inApp,/repo\.inbox\(o\.type,o\.id,opt\)/);
+  assert.match(inApp,/repo\.markRead\(ex,id,o\.type,o\.id\)/);
+  assert.match(inApp,/repo\.acknowledge\(ex,id,o\.type,o\.id\)/);
+  assert.match(inApp,/recipient_subject_type:o\.type/);
+  assert.match(inApp,/recipient_subject_id:o\.id/);
   assert.match(inApp,/NOTIFICATION_IN_APP_NOT_FOUND/);
 });
 
@@ -49,8 +52,15 @@ test('Step 64-B OpenAPI exposes safe typed account and after-sales contract',()=
   assert.match(afterSales,/IdempotencyKey/);
   assert.match(afterSales,/CustomerReturnResponse/);
   assert.match(afterSales,/CustomerWarrantyResponse/);
-  assert.match(afterSales,/AfterSalesTimelineEnvelope/);
   assert.doesNotMatch(afterSales,/'202':/);
+  const returnTimeline=openapi.slice(openapi.indexOf('  /customer/returns/{return_number}/timeline:'),openapi.indexOf('  /admin/returns/{id}/timeline:'));
+  const warrantyTimeline=openapi.slice(openapi.indexOf('  /customer/warranty/claims/{claim_number}/timeline:'),openapi.indexOf('  /admin/warranty/claims/{id}/timeline:'));
+  for(const timeline of [returnTimeline,warrantyTimeline]){
+    assert.match(timeline,/AfterSalesTimelineEnvelope/);
+    assert.match(timeline,/customerSession/);
+    assert.match(timeline,/'401':/);
+    assert.match(timeline,/'404':/);
+  }
 });
 
 test('generated Step 64-B contract contains safe account, notifications and after-sales operations',()=>{
