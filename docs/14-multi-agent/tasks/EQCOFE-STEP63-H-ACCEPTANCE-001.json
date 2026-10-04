@@ -1,0 +1,157 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP63-H-ACCEPTANCE-001",
+  "title": "Step 63-H integrated Cart/Checkout browser acceptance and UX hardening",
+  "description": "Accept the production Step 63 Cart/Checkout journey as one integrated Storefront experience using deterministic mock-backed SSR/API verification plus Chromium/Axe when the isolated QA toolchain is available. Verify Cart, identity boundary, address/shipping authority, signed Review snapshot, idempotent reservation/order, signed payment handoff, callback-state containment, authoritative status/verify, Order Outcome, RTL/reflow, focus and 44px targets. No production runtime/backend/OpenAPI/database/dependency/workflow/docs12/docs13 mutation.",
+  "risk": "MEDIUM",
+  "risk_floor": "MEDIUM",
+  "owner": "PRODUCT_DESIGN",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "e4da7d24e47d3c6791a237167a4ea94360bd07e5"
+  },
+  "scope": {
+    "read": [
+      "apps/storefront/**",
+      "contracts/http/openapi.yaml",
+      "docs/11-step-history/**",
+      "docs/13-product-design/**",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "apps/storefront/package.json",
+      "apps/storefront/scripts/verify-step63-acceptance.mjs",
+      "docs/11-step-history/STEP-63-H-INTEGRATED-ACCEPTANCE.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP63-H-ACCEPTANCE-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "contracts/**",
+      "src/**",
+      "database/**",
+      "test/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**",
+      "apps/storefront/app/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP63-H-ACCEPTANCE-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 36000,
+    "soft_alert": 56000,
+    "hard_cap": 108000
+  },
+  "max_repair_cycles": 3,
+  "task_risk_rules": [
+    {
+      "id": "STEP63_H_INTEGRATED_ACCEPTANCE_MEDIUM",
+      "risk": "MEDIUM",
+      "paths": [
+        "apps/storefront/package.json",
+        "apps/storefront/scripts/verify-step63-acceptance.mjs",
+        "docs/11-step-history/STEP-63-H-INTEGRATED-ACCEPTANCE.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP63-H-ACCEPTANCE-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+      ]
+    }
+  ],
+  "pre_mutation_gates": {
+    "graph_health": "DEFERRED_BY_PROJECT_OWNER_TO_STEP63_I_FINAL",
+    "query_evidence": "DEFERRED_BY_PROJECT_OWNER_TO_STEP63_I_FINAL",
+    "path_evidence": "DEFERRED_BY_PROJECT_OWNER_TO_STEP63_I_FINAL",
+    "explain_evidence": "DEFERRED_BY_PROJECT_OWNER_TO_STEP63_I_FINAL"
+  },
+  "dependencies": [
+    {
+      "item": "63-G Payment Outcome",
+      "required_state": "TERMINAL_MERGED_POSTMERGE_PASS_LOCK_RELEASED",
+      "observed_state": "TERMINAL_MERGED_POSTMERGE_PASS_LOCK_RELEASED",
+      "merge_sha": "e4da7d24e47d3c6791a237167a4ea94360bd07e5",
+      "evidence": "PR #311 protected workflow_dispatch 37195780154; merge job 111417223585 SUCCESS; exact-SHA postmerge 111417277703 SUCCESS with 959/959 application tests; terminal Lock release comment 5979160460.",
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "linear_issue": "HOS-67",
+    "live_guard_main_head": "e4da7d24e47d3c6791a237167a4ea94360bd07e5",
+    "predecessor_pr": 311,
+    "predecessor_terminal_comment": 5979160460,
+    "implementation_owner_agent": "A3",
+    "orchestration_owner_agent": "A0",
+    "qa_agent": "A7",
+    "security_agent": "A8",
+    "evidence_agent": "A10",
+    "graph_final_requirement": {
+      "status": "DEFERRED_TO_STEP63_I_FINAL",
+      "terminal_requirement": "Execute fresh graph health/query/path/explain evidence on the final Step 63 canonical baseline before Step 64 handoff."
+    }
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Mock-backed production-build acceptance covers Cart, Checkout identity boundary, customer-owned address, shipping method and signed Review snapshot without inventing browser-side business authority.",
+      "verification": "pnpm --dir apps/storefront step63:acceptance",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Review submission exercises idempotent Reservation and Order creation followed by payment initiation using the server-only Checkout token and signed payment handoff.",
+      "verification": "pnpm --dir apps/storefront step63:acceptance",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Provider callback state remains server-to-server and is absent from the Payment Return redirect/browser URL; payment result is determined only by authoritative status/verify.",
+      "verification": "pnpm --dir apps/storefront step63:acceptance",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Order Outcome is rendered from authoritative Order and bound Payment state after verify, with no fabricated paid result.",
+      "verification": "pnpm --dir apps/storefront step63:acceptance",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Chromium acceptance at 320px and 1200px verifies Persian RTL, no root horizontal overflow, key 44px targets, keyboard focus and zero automated WCAG violations on accepted Step-63 screens.",
+      "verification": "Storefront Quality browser workflow",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Stage H changes only the acceptance harness, package wiring and governance artifacts; runtime app, backend, OpenAPI, database, dependencies, workflows and docs12/docs13 remain unchanged.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "Production provider activation/secrets remain deferred to Step 74 and Graph/Graphify final evidence remains deferred only to 63-I before Step 64.",
+      "verification": "scope_and_governance_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "Canonical completion requires exact-head Canonical CI, Phase A, Storefront Quality, deterministic Review, exact-artifact ACTIVE Lock, protected merge, exact-SHA postmerge verification and terminal Lock release before 63-I.",
+      "verification": "canonical_transport_and_postmerge_evidence",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Stage 63-H is MEDIUM risk. Human Gate is not required. Direct-main write/raw merge prohibited. Stage 63-I remains blocked until protected transport, exact-SHA postmerge verification and terminal Lock release are green."
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}
