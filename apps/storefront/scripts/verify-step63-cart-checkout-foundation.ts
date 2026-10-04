@@ -109,9 +109,9 @@ assert.match(identityRoute, /loadCheckoutIdentity/);
 assert.match(identityRoute, /handleCheckoutIdentityAction/);
 
 const fulfillmentRoutes = [
-  ["checkout-address.tsx", /checkout-address\\.server\\.js/],
-  ["checkout-delivery.tsx", /checkout-delivery\\.server\\.js/],
-  ["checkout-review.tsx", /checkout-review\\.server\\.js/],
+  ["checkout-address.tsx", /checkout-address\.server\.js/],
+  ["checkout-delivery.tsx", /checkout-delivery\.server\.js/],
+  ["checkout-review.tsx", /checkout-review\.server\.js/],
 ] as const;
 for (const [file, serverImport] of fulfillmentRoutes) {
   const source = readFileSync("apps/storefront/app/routes/" + file, "utf8");
