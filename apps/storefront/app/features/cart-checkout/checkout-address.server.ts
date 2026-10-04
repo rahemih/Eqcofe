@@ -168,7 +168,7 @@ function parseAddressPatch(form: FormData): CustomerAddressUpdateBody | null {
   return { recipient_name, recipient_mobile, postal_code, address_line, building_no, unit_no };
 }
 
-function clean(value: FormDataEntryValue | null, max: number, nullable = false): string | null {
+function clean(value: unknown, max: number, nullable = false): string | null {
   const normalized = String(value ?? "").trim().replace(/\s+/g, " ");
   if (!normalized) return nullable ? null : null;
   return normalized.length <= max ? normalized : null;
