@@ -1,0 +1,188 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP63-F-ADDRESS-REFERENCE-001",
+  "title": "Step 63-F canonical Iran province-city reference readiness",
+  "description": "HIGH-risk backend/reference-data repair for Step 63-F. Vendor a source-locked Iran 1404 province/city subset, issue stable repository-owned UUID references, and require Customer Address create/geography-change operations to use a valid province-city pair. No database migration, OpenAPI shape/status change, dependency, workflow, payment/order business-rule, or Graph mutation.",
+  "risk": "HIGH",
+  "risk_floor": "HIGH",
+  "owner": "BACKEND",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "da8d0fb465e85ef37a30e00c71a008cea4a31b25"
+  },
+  "scope": {
+    "read": [
+      "shared/reference/**",
+      "src/modules/customer/**",
+      "contracts/http/openapi.yaml",
+      "database/migrations/**",
+      "test/**",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "shared/reference/iran-geography-1404.ts",
+      "shared/reference/IRAN-GEOGRAPHY-1404-NOTICE.md",
+      "src/modules/customer/application/customer-address.service.ts",
+      "test/step63-address-reference.spec.ts",
+      "docs/11-step-history/STEP-63-F-ADDRESS-REFERENCE-READINESS.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP63-F-ADDRESS-REFERENCE-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "docs/13-product-design/step56-customers-growth-wireframes.json",
+      "docs/13-product-design/step56-wireframes/F/manifest.json",
+      "docs/13-product-design/step56-final-audit.json",
+      "docs/13-product-design/step56-final-audit/manifest.json",
+      "docs/13-product-design/step57-high-fidelity-contract.json",
+      "docs/13-product-design/step56-management-security-wireframes.json",
+      "docs/13-product-design/step56-wireframes/G/manifest.json"
+    ],
+    "forbidden": [
+      ".github/**",
+      "database/**",
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "pnpm-lock.yaml",
+      "apps/storefront/**",
+      "src/modules/cart/**",
+      "src/modules/orders/**",
+      "src/modules/payments/**",
+      "docs/12-current-state/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP63-F-ADDRESS-REFERENCE-001-01"
+  ],
+  "human_gate_required": true,
+  "token_budget": {
+    "expected_max": 30000,
+    "soft_alert": 50000,
+    "hard_cap": 90000
+  },
+  "max_repair_cycles": 3,
+  "pre_mutation_gates": {
+    "graph_health": "DEFERRED_BY_PROJECT_OWNER_UNTIL_STEP63_FINAL",
+    "query_evidence": "DEFERRED_BY_PROJECT_OWNER_UNTIL_STEP63_FINAL",
+    "path_evidence": "DEFERRED_BY_PROJECT_OWNER_UNTIL_STEP63_FINAL",
+    "explain_evidence": "DEFERRED_BY_PROJECT_OWNER_UNTIL_STEP63_FINAL",
+    "human_gate": "FINAL_EXACT_ARTIFACT_APPROVAL_REQUIRED_BEFORE_PROTECTED_MERGE"
+  },
+  "task_risk_rules": [
+    {
+      "id": "STEP63_F_ADDRESS_REFERENCE_BACKEND_HIGH",
+      "risk": "HIGH",
+      "paths": [
+        "shared/reference/**",
+        "src/modules/customer/application/customer-address.service.ts",
+        "test/step63-address-reference.spec.ts",
+        "docs/11-step-history/STEP-63-F-ADDRESS-REFERENCE-READINESS.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP63-F-ADDRESS-REFERENCE-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "63-E",
+      "required_state": "TERMINAL_MERGED_POSTMERGE_PASS_LOCK_RELEASED",
+      "observed_state": "TERMINAL_MERGED_POSTMERGE_PASS_LOCK_RELEASED",
+      "merge_sha": "da8d0fb465e85ef37a30e00c71a008cea4a31b25",
+      "evidence": "PR #308 protected workflow_dispatch 37131544917; exact-SHA postmerge 111227552033 SUCCESS; terminal Lock release comment 5970424399.",
+      "blocking": false
+    }
+  ],
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Reference data is pinned to exact upstream source commit and documents year/source/license; subset contains exactly 31 provinces and 1481 cities.",
+      "verification": "focused_test_and_provenance_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Every issued province/city ID is a valid unique stable UUID and every city resolves to exactly one province.",
+      "verification": "focused_test",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Customer Address creation validates the province-city pair and rejects unknown/cross-province pairs with ADDRESS_REFERENCE_INVALID.",
+      "verification": "service_source_and_regression_test",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Existing Address edits that do not change province/city remain compatible; explicit geography changes are revalidated.",
+      "verification": "service_source_and_regression_test",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "No migration, OpenAPI change, dependency, external runtime fetch, or browser-generated geography identifier is introduced.",
+      "verification": "deterministic_scope_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Any recovered Step56/57 source-hash drift caused only by this customer Address source change is repaired strictly as generator-equivalent SHA/manifest provenance synchronization on explicitly authorized design paths; design semantics, frames, journeys and historical verdicts do not change.",
+      "verification": "provenance_only_repair",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "Graph/Graphify remains deferred to final Step 63 closure by Project Owner directive.",
+      "verification": "scope_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "Canonical completion requires exact-head Canonical CI, Phase A, CodeQL Security where applicable, deterministic Review, exact-artifact Human Gate, ACTIVE Lock, protected merge, exact-SHA postmerge verification and terminal Lock release.",
+      "verification": "canonical_transport",
+      "mandatory": true
+    }
+  ],
+  "authorized_human_approver": {
+    "role": "PROJECT_OWNER",
+    "github_login": "rahemih"
+  },
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "VERIFICATION",
+      "SECURITY",
+      "HUMAN",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "HIGH-risk customer address validation/reference data repair. Direct-main/raw merge prohibited."
+  },
+  "evidence": {
+    "linear_issue": "HOS-67",
+    "functional_pr": 309,
+    "address_blocker": "ADDRESS_REFERENCE_DATA_MISSING",
+    "reference_source": {
+      "repository": "Hameds/IranCountryDivisions",
+      "commit": "68687cf96cc1852d5d38c7283353c80829331758",
+      "file": "packages/npm/data/1404/core.json",
+      "year": 1404,
+      "upstream": "مرکز آمار ایران - فایل جغرافیایی سالانه",
+      "license": "MIT",
+      "province_count": 31,
+      "city_count": 1481
+    },
+    "graph_pre_mutation": {
+      "status": "DEFERRED_TO_STEP63_FINAL"
+    },
+    "provenance_repair": {
+      "authorized": true,
+      "semantics_change": "NONE",
+      "reason": "Step56/57 recovered-source SHA cascade for customer-address.service.ts",
+      "expanded_chain": [
+        "step56-customers-growth-wireframes.json",
+        "step56-wireframes/F/manifest.json",
+        "step56-management-security-wireframes.json",
+        "step56-wireframes/G/manifest.json"
+      ]
+    }
+  }
+}
