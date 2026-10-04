@@ -36,6 +36,7 @@
     "write": [
       "contracts/http/openapi.yaml",
       "src/generated/openapi.ts",
+      "src/modules/identity/presentation/auth.controller.ts",
       "src/modules/notifications/presentation/notifications.controller.ts",
       "test/step64-account-after-sales-contract.spec.ts",
       "docs/11-step-history/STEP-64-B-CONTRACT-READINESS.md",
@@ -66,7 +67,6 @@
       "pnpm-lock.yaml",
       "pnpm-workspace.yaml",
       "apps/storefront/**",
-      "src/modules/identity/**",
       "src/modules/customer/**",
       "src/modules/orders/**",
       "src/modules/returns/**",
@@ -100,6 +100,7 @@
       "paths": [
         "contracts/http/openapi.yaml",
         "src/generated/openapi.ts",
+        "src/modules/identity/presentation/auth.controller.ts",
         "src/modules/notifications/presentation/notifications.controller.ts",
         "test/step64-account-after-sales-contract.spec.ts",
         "docs/11-step-history/STEP-64-B-CONTRACT-READINESS.md",
@@ -122,6 +123,7 @@
   "evidence": {
     "graph_state": "DEFERRED_BY_OWNER / LOCAL_ONLY_UNAVAILABLE; no PASS claim.",
     "audit_findings": [
+      "SECURITY: GET /auth/session returns the full internal ExecutionActor; ExecutionActor includes sessionId, so the customer session endpoint can expose an internal session identifier. Stage 64-B sanitizes the returned actor view and types the safe response.",
       "Auth session/logout/logout-all success bodies are untyped; logout routes advertise stale 202.",
       "Returns customer create/list/detail/cancel contracts are generic or stale; runtime create/cancel are idempotency-protected and create defaults to 201.",
       "Returns customer timeline lacks complete customer-session/path/error contract.",
@@ -136,7 +138,7 @@
   "acceptance_criteria": [
     {
       "id": "AC-001",
-      "description": "Auth session/logout/logout-all contract matches runtime response bodies and actual statuses without exposing session secrets.",
+      "description": "Auth session exposes only the safe customer actor view (no sessionId/permissions/scopes); logout/logout-all use explicit HTTP 200 and typed success bodies.",
       "verification": "step64_auth_contract_test",
       "mandatory": true
     },
