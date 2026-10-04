@@ -1,3 +1,4 @@
+| EQCOFE-STEP63-PRECLOSURE-QA-REPAIR-001 | Step 63 pre-closure integrated mutation coverage repair | MEDIUM | NOT_REQUIRED | `e14e44b033a15b2cf579908af53d7d882dcd5b09` | 22000/36000/72000 |
 # EQCOFE Multi-Agent Task Catalog
 
 > AUTO-GENERATED. Source of truth: `docs/14-multi-agent/tasks/*.json`.
@@ -119,4 +120,4 @@
 | MA-V1-ACC-MEDIUM-001 | V1 Acceptance MEDIUM R2 — telemetry terminal-state conflict hardening | MEDIUM | NOT_REQUIRED | `9017e0f25e9571568ed9acf4ca3ca977ce9e78f0` | 15000/25000/50000 |
 | MA-V1-ACCEPTANCE-CLOSURE-V16-R2-001 | V1.6 Phase 3 canonical acceptance closure R2 | HIGH | REQUIRED | `d7d235f5f240b8bea44bc607afa812b2f5bb12d4` | 30000/50000/90000 |
 
-Task contracts indexed: **113**.
+Task contracts indexed: **114**.
