@@ -1,0 +1,114 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP63-PRECLOSURE-QA-REPAIR-001",
+  "title": "Step 63 pre-closure integrated mutation coverage repair",
+  "description": "Close the final QA coverage gap before Step 63 Graph/closure by extending the existing integrated SSR/browser acceptance harness to execute Cart quantity/remove mutations, OTP request/verify with authoritative customer-session Cart merge, and checkout Address select/update/create actions. Test-only; no production runtime/API/database/dependency/workflow mutation.",
+  "risk": "MEDIUM",
+  "risk_floor": "MEDIUM",
+  "owner": "QA",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "e14e44b033a15b2cf579908af53d7d882dcd5b09"
+  },
+  "scope": {
+    "read": [
+      "apps/storefront/app/**",
+      "contracts/http/**",
+      "src/modules/**",
+      "test/**",
+      "docs/11-step-history/**",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "apps/storefront/scripts/verify-step63-acceptance.mjs",
+      "docs/11-step-history/STEP-63-PRECLOSURE-QA-REPAIR.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP63-PRECLOSURE-QA-REPAIR-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      "apps/storefront/app/**",
+      "src/**",
+      "database/**",
+      "contracts/**",
+      "test/**",
+      ".github/**",
+      "package.json",
+      "pnpm-lock.yaml"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP63-PRECLOSURE-QA-REPAIR-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 22000,
+    "soft_alert": 36000,
+    "hard_cap": 72000
+  },
+  "max_repair_cycles": 3,
+  "task_risk_rules": [
+    {
+      "id": "STEP63_PRECLOSURE_QA_REPAIR_MEDIUM",
+      "risk": "MEDIUM",
+      "paths": [
+        "apps/storefront/scripts/verify-step63-acceptance.mjs",
+        "docs/11-step-history/STEP-63-PRECLOSURE-QA-REPAIR.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP63-PRECLOSURE-QA-REPAIR-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "63-H",
+      "required_state": "TERMINAL_MERGED_POSTMERGE_PASS_LOCK_RELEASED",
+      "observed_state": "TERMINAL_MERGED_POSTMERGE_PASS_LOCK_RELEASED",
+      "merge_sha": "e14e44b033a15b2cf579908af53d7d882dcd5b09",
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "linear_issue": "HOS-67",
+    "audit_finding": "INTEGRATED_MUTATION_COVERAGE_GAP",
+    "production_runtime_changed": false,
+    "graph_gate": "DEFERRED_UNTIL_AFTER_THIS_REPAIR"
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Integrated acceptance executes Cart quantity and remove actions through the production Storefront action route.",
+      "verification": "step63 acceptance SSR/API run",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Integrated acceptance executes OTP request/verify, captures a sanitized customer session cookie and proves guest Cart merge transport.",
+      "verification": "step63 acceptance SSR/API run",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Integrated acceptance executes Address select, non-geography update and canonical-reference create actions with idempotency evidence.",
+      "verification": "step63 acceptance SSR/API run",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Existing Step-63 payment/order/browser/Axe acceptance remains green with no production runtime mutation.",
+      "verification": "Canonical CI + Storefront Quality + diff scope",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "MEDIUM risk test-only preclosure QA repair; Human Gate not required."
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}
