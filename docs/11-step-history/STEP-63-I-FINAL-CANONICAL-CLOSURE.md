@@ -1,0 +1,93 @@
+# EQCOFE — Step 63-I Final Canonical Closure
+
+## Current verdict
+
+Status: **IN_PROGRESS / GRAPH_GATE_PENDING**
+
+Canonical starting baseline: `e14e44b033a15b2cf579908af53d7d882dcd5b09`
+
+Task Contract: `docs/14-multi-agent/tasks/EQCOFE-STEP63-I-CLOSURE-001.json`
+
+Step 63 A–H are terminal and canonical through PR #312. Stage 63-I is documentation/governance-only and does not add runtime, API/OpenAPI, database, dependency, workflow, Product Design source or business-rule authority.
+
+**Step 63 is not yet closed by this document.** The Project Owner explicitly deferred accumulated Graph/Graphify evidence to final Step 63 closure. Because `graphify-out/` is Git-ignored/local-only, GitHub provider evidence cannot manufacture or substitute that local graph gate.
+
+## Stage-H terminal evidence
+
+- PR #312 exact head: `338ff9e0892f94982e69d78624a82d975c4d0b45`
+- Exact artifact: `dfc614026f01f8c72790c787c058e21eac0bcadef9bdf0c3f5d48aa2cacf0cda`
+- Canonical CI `37197561211 / 111422457371` = SUCCESS
+- Phase A `37197561212 / 111422457600` = SUCCESS
+- Storefront Quality `37197561228 / 111422457470` = SUCCESS
+- Browser acceptance: 320px / 1200px, six Axe runs, callback-state leak false
+- Protected workflow_dispatch `37199480032` / #967 = SUCCESS
+- Merge job `111428027601` = SUCCESS
+- Canonical merge/main SHA: `e14e44b033a15b2cf579908af53d7d882dcd5b09`
+- Exact-SHA postmerge job `111428076121` = SUCCESS
+- Application regression: 959/959 PASS
+- Postmerge-failure `111428836834` = SKIPPED
+- Terminal Lock release comment: `5979598896`
+
+## A–H canonical lineage
+
+| Stage | PR | Canonical merge | Outcome |
+| --- | ---: | --- | --- |
+| 63-A canonical handoff/scope freeze | #304 | `53870e90ea08e0e7045c6c4149282e5d60ef2909` | COMPLETE |
+| 63-B backend/OpenAPI Cart/Checkout readiness | #305 | `f92d6dc3e96e9c0a4489d7085d50ca8ebde31ba2` | COMPLETE |
+| 63-C shared Cart/Checkout Storefront foundation | #306 | `8a35247ebdce58decfc752b41e8fed89d7447da6` | COMPLETE |
+| 63-D production Cart flow | #307 | `8d53017e77ce3c7caf8e7aba0f82967b82753288` | COMPLETE |
+| 63-E Checkout identity OTP/session flow | #308 | `da8d0fb465e85ef37a30e00c71a008cea4a31b25` | COMPLETE |
+| 63-F canonical Iran address-reference repair | #310 | `e1c69999150d3b0c19ad27ce6cc8b5211b6b77d8` | COMPLETE |
+| 63-F address/delivery/review/idempotent order submission | #309 | `db8a54c611a7860b27097d09cbba4a14a01bd949` | COMPLETE |
+| 63-G payment handoff/callback recovery/order outcome | #311 | `e4da7d24e47d3c6791a237167a4ea94360bd07e5` | COMPLETE |
+| 63-H integrated browser acceptance | #312 | `e14e44b033a15b2cf579908af53d7d882dcd5b09` | COMPLETE |
+
+## Graph/Graphify final gate — pending
+
+Required before terminal closure:
+
+```text
+GRAPH_HEALTH = FRESH / PASS
+QUERY_EVIDENCE = PRESENT
+PATH_EVIDENCE = PRESENT
+EXPLAIN_EVIDENCE = PRESENT
+GRAPH_BASELINE = e14e44b033a15b2cf579908af53d7d882dcd5b09
+```
+
+Canonical repository helpers:
+- `scripts/graphify/record-state.mjs`
+- `scripts/graphify/health.mjs`
+
+The local artifact `graphify-out/graph.json` must not be committed. Stage-I will record only concise evidence/results after the local gate is executed against the exact final Step-63 baseline.
+
+## Frozen Step 63 product result
+
+- Production Cart display and quantity/remove mutations use server-only Cart credentials and authoritative backend state.
+- Checkout identity uses backend session/OTP boundaries without browser auth authority.
+- Customer-owned address selection/edit/create uses canonical Iran province/city reference validation.
+- Shipping and quote totals are backend authoritative and integer Toman.
+- Review snapshot is HMAC-signed and bound to the Checkout token.
+- Reservation and Order submission are idempotent.
+- Payment handoff is HMAC-signed; provider callback state is proxied server-to-server and not carried into browser-visible Payment Return.
+- Payment result uses authoritative status/verify; ambiguous/pending payment remains fail-closed and retry-safe.
+- Order Outcome uses authoritative Order + bound Payment state.
+- Persian RTL, responsive reflow, keyboard/focus, 44px targets and automated accessibility acceptance are verified.
+- Production payment-provider activation/secrets remain deferred to Step 74.
+
+## Remaining Stage-I work
+
+1. execute final Graphify health/query/path/explain evidence on `e14e44b033a15b2cf579908af53d7d882dcd5b09`;
+2. reconcile `CURRENT-STATE.md` and `MASTER-ROADMAP.md`;
+3. freeze Step 63 as `CLOSED / FINAL CANONICAL PASS` and Step 64 as `NEXT / NOT_STARTED`;
+4. pass exact-head CI/Phase A, Review and exact-artifact ACTIVE Lock;
+5. protected merge + exact-SHA postmerge verification;
+6. terminal Lock release;
+7. mark Linear `HOS-67` Done only after terminal evidence.
+
+Until those gates:
+
+```text
+STEP_63_I = IN_PROGRESS / GRAPH_GATE_PENDING
+STEP_63 = NOT_YET_TERMINALLY_CLOSED
+STEP_64 = BLOCKED
+```
