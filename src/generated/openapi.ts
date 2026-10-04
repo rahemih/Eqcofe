@@ -777,6 +777,54 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/customer/notifications": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getCustomerNotifications"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/customer/notifications/{id}/read": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch: operations["patchCustomerNotificationsIdRead"];
+        trace?: never;
+    };
+    "/customer/notifications/{id}/acknowledge": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["postCustomerNotificationsIdAcknowledge"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/customer/cart": {
         parameters: {
             query?: never;
@@ -9088,6 +9136,117 @@ export interface components {
             status: string;
             created_at?: components["schemas"]["Timestamp"];
         };
+        AuthLogoutData: {
+            /** @constant */
+            logged_out: true;
+        };
+        AuthLogoutResponse: {
+            /** @constant */
+            success: true;
+            data: components["schemas"]["AuthLogoutData"];
+            meta: components["schemas"]["SuccessMeta"];
+        };
+        AuthSessionActor: {
+            /** @constant */
+            type: "customer";
+            id: components["schemas"]["EntityId"];
+            accountId: components["schemas"]["EntityId"];
+        };
+        AuthSessionData: {
+            actor: components["schemas"]["AuthSessionActor"];
+        };
+        AuthSessionResponse: {
+            /** @constant */
+            success: true;
+            data: components["schemas"]["AuthSessionData"];
+            meta: components["schemas"]["SuccessMeta"];
+        };
+        CustomerNotificationView: {
+            id: components["schemas"]["EntityId"];
+            title?: string | null;
+            body: string;
+            payload?: {
+                [key: string]: unknown;
+            };
+            notification_kind?: string | null;
+            read_at: components["schemas"]["NullableTimestamp"];
+            acknowledged_at: components["schemas"]["NullableTimestamp"];
+            created_at: components["schemas"]["Timestamp"];
+            updated_at?: components["schemas"]["NullableTimestamp"];
+        } & {
+            [key: string]: unknown;
+        };
+        CustomerNotificationListData: {
+            items: components["schemas"]["CustomerNotificationView"][];
+        };
+        CustomerNotificationListResponse: {
+            /** @constant */
+            success: true;
+            data: components["schemas"]["CustomerNotificationListData"];
+            meta: components["schemas"]["SuccessMeta"];
+        };
+        CustomerNotificationResponse: {
+            /** @constant */
+            success: true;
+            data: components["schemas"]["CustomerNotificationView"];
+            meta: components["schemas"]["SuccessMeta"];
+        };
+        CustomerReturnView: {
+            id: components["schemas"]["EntityId"];
+            return_number: string;
+            order_id: components["schemas"]["EntityId"];
+            order_number?: string | null;
+            status: string;
+            requested_at?: components["schemas"]["NullableTimestamp"];
+            items?: {
+                [key: string]: unknown;
+            }[];
+        } & {
+            [key: string]: unknown;
+        };
+        CustomerReturnResponse: {
+            /** @constant */
+            success: true;
+            data: components["schemas"]["CustomerReturnView"];
+            meta: components["schemas"]["SuccessMeta"];
+        };
+        CustomerReturnListResponse: {
+            /** @constant */
+            success: true;
+            data: components["schemas"]["CustomerReturnView"][];
+            meta: components["schemas"]["SuccessMeta"];
+        };
+        CustomerWarrantyView: {
+            id: components["schemas"]["EntityId"];
+            claim_number: string;
+            order_id: components["schemas"]["EntityId"];
+            order_item_id: components["schemas"]["EntityId"];
+            order_number?: string | null;
+            status: string;
+            issue_type?: string | null;
+            issue_description?: string | null;
+            requested_at?: components["schemas"]["NullableTimestamp"];
+        } & {
+            [key: string]: unknown;
+        };
+        CustomerWarrantyResponse: {
+            /** @constant */
+            success: true;
+            data: components["schemas"]["CustomerWarrantyView"];
+            meta: components["schemas"]["SuccessMeta"];
+        };
+        CustomerWarrantyListResponse: {
+            /** @constant */
+            success: true;
+            data: components["schemas"]["CustomerWarrantyView"][];
+            meta: components["schemas"]["SuccessMeta"];
+        };
+        AfterSalesTimelineEnvelope: {
+            /** @constant */
+            success: true;
+            data: components["schemas"]["AfterSalesTimelineResponse"];
+            meta: components["schemas"]["SuccessMeta"];
+        };
         ReturnItemRequest: {
             order_item_id: components["schemas"]["EntityId"];
             quantity: components["schemas"]["PositiveQuantity"];
@@ -11888,20 +12047,16 @@ export interface operations {
         };
         requestBody?: never;
         responses: {
-            /** @description عملیات موفق */
+            /** @description خروج موفق مشتری */
             200: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
-            };
-            /** @description عملیات پذیرفته شد */
-            202: {
-                headers: {
-                    [name: string]: unknown;
+                content: {
+                    "application/json": components["schemas"]["AuthLogoutResponse"];
                 };
-                content?: never;
             };
+            401: components["responses"]["Unauthorized"];
         };
     };
     postAuthLogoutAll: {
@@ -11913,20 +12068,16 @@ export interface operations {
         };
         requestBody?: never;
         responses: {
-            /** @description عملیات موفق */
+            /** @description خروج موفق مشتری از همه نشست‌ها */
             200: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
-            };
-            /** @description عملیات پذیرفته شد */
-            202: {
-                headers: {
-                    [name: string]: unknown;
+                content: {
+                    "application/json": components["schemas"]["AuthLogoutResponse"];
                 };
-                content?: never;
             };
+            401: components["responses"]["Unauthorized"];
         };
     };
     getAuthSession: {
@@ -11938,13 +12089,95 @@ export interface operations {
         };
         requestBody?: never;
         responses: {
-            /** @description عملیات موفق */
+            /** @description نشست احراز هویت‌شده مشتری بدون شناسه داخلی نشست */
             200: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["AuthSessionResponse"];
+                };
             };
+            401: components["responses"]["Unauthorized"];
+        };
+    };
+    getCustomerNotifications: {
+        parameters: {
+            query?: {
+                limit?: number;
+                offset?: number;
+                unread_only?: boolean;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description صندوق اعلان درون‌برنامه‌ای مشتری جاری */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CustomerNotificationListResponse"];
+                };
+            };
+            401: components["responses"]["Unauthorized"];
+        };
+    };
+    patchCustomerNotificationsIdRead: {
+        parameters: {
+            query?: never;
+            header: {
+                "Idempotency-Key": components["parameters"]["IdempotencyKey"];
+            };
+            path: {
+                id: components["schemas"]["EntityId"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description علامت‌گذاری idempotent اعلان متعلق به مشتری به‌عنوان خوانده‌شده */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CustomerNotificationResponse"];
+                };
+            };
+            401: components["responses"]["Unauthorized"];
+            404: components["responses"]["NotFound"];
+            422: components["responses"]["Unprocessable"];
+        };
+    };
+    postCustomerNotificationsIdAcknowledge: {
+        parameters: {
+            query?: never;
+            header: {
+                "Idempotency-Key": components["parameters"]["IdempotencyKey"];
+            };
+            path: {
+                id: components["schemas"]["EntityId"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description تأیید idempotent اعلان متعلق به مشتری */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CustomerNotificationResponse"];
+                };
+            };
+            401: components["responses"]["Unauthorized"];
+            404: components["responses"]["NotFound"];
+            422: components["responses"]["Unprocessable"];
         };
     };
     getCustomerCart: {
@@ -12463,7 +12696,9 @@ export interface operations {
     postCustomerOrdersOrderNumberReturns: {
         parameters: {
             query?: never;
-            header?: never;
+            header: {
+                "Idempotency-Key": components["parameters"]["IdempotencyKey"];
+            };
             path: {
                 order_number: string;
             };
@@ -12475,20 +12710,18 @@ export interface operations {
             };
         };
         responses: {
-            /** @description عملیات موفق */
-            200: {
+            /** @description درخواست مرجوعی مشتری ایجاد شد */
+            201: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
-            };
-            /** @description عملیات پذیرفته شد */
-            202: {
-                headers: {
-                    [name: string]: unknown;
+                content: {
+                    "application/json": components["schemas"]["CustomerReturnResponse"];
                 };
-                content?: never;
             };
+            401: components["responses"]["Unauthorized"];
+            404: components["responses"]["NotFound"];
+            422: components["responses"]["Unprocessable"];
         };
     };
     getCustomerReturns: {
@@ -12500,13 +12733,16 @@ export interface operations {
         };
         requestBody?: never;
         responses: {
-            /** @description عملیات موفق */
+            /** @description فهرست مرجوعی‌های متعلق به مشتری جاری */
             200: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["CustomerReturnListResponse"];
+                };
             };
+            401: components["responses"]["Unauthorized"];
         };
     };
     getCustomerReturnsReturnNumber: {
@@ -12520,19 +12756,25 @@ export interface operations {
         };
         requestBody?: never;
         responses: {
-            /** @description عملیات موفق */
+            /** @description جزئیات مرجوعی متعلق به مشتری جاری */
             200: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["CustomerReturnResponse"];
+                };
             };
+            401: components["responses"]["Unauthorized"];
+            404: components["responses"]["NotFound"];
         };
     };
     postCustomerReturnsReturnNumberCancel: {
         parameters: {
             query?: never;
-            header?: never;
+            header: {
+                "Idempotency-Key": components["parameters"]["IdempotencyKey"];
+            };
             path: {
                 return_number: string;
             };
@@ -12544,20 +12786,18 @@ export interface operations {
             };
         };
         responses: {
-            /** @description عملیات موفق */
+            /** @description مرجوعی متعلق به مشتری با رعایت وضعیت مجاز لغو شد */
             200: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
-            };
-            /** @description عملیات پذیرفته شد */
-            202: {
-                headers: {
-                    [name: string]: unknown;
+                content: {
+                    "application/json": components["schemas"]["CustomerReturnResponse"];
                 };
-                content?: never;
             };
+            401: components["responses"]["Unauthorized"];
+            404: components["responses"]["NotFound"];
+            422: components["responses"]["Unprocessable"];
         };
     };
     getCustomerWarrantyClaims: {
@@ -12569,19 +12809,24 @@ export interface operations {
         };
         requestBody?: never;
         responses: {
-            /** @description عملیات موفق */
+            /** @description فهرست درخواست‌های گارانتی متعلق به مشتری جاری */
             200: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["CustomerWarrantyListResponse"];
+                };
             };
+            401: components["responses"]["Unauthorized"];
         };
     };
     postCustomerWarrantyClaims: {
         parameters: {
             query?: never;
-            header?: never;
+            header: {
+                "Idempotency-Key": components["parameters"]["IdempotencyKey"];
+            };
             path?: never;
             cookie?: never;
         };
@@ -12591,20 +12836,18 @@ export interface operations {
             };
         };
         responses: {
-            /** @description عملیات موفق */
-            200: {
+            /** @description درخواست گارانتی مشتری ایجاد شد */
+            201: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
-            };
-            /** @description عملیات پذیرفته شد */
-            202: {
-                headers: {
-                    [name: string]: unknown;
+                content: {
+                    "application/json": components["schemas"]["CustomerWarrantyResponse"];
                 };
-                content?: never;
             };
+            401: components["responses"]["Unauthorized"];
+            404: components["responses"]["NotFound"];
+            422: components["responses"]["Unprocessable"];
         };
     };
     getCustomerWarrantyClaimsClaimNumber: {
@@ -12618,13 +12861,17 @@ export interface operations {
         };
         requestBody?: never;
         responses: {
-            /** @description عملیات موفق */
+            /** @description جزئیات درخواست گارانتی متعلق به مشتری جاری */
             200: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["CustomerWarrantyResponse"];
+                };
             };
+            401: components["responses"]["Unauthorized"];
+            404: components["responses"]["NotFound"];
         };
     };
     postCustomerWholesaleApplications: {
@@ -25419,20 +25666,24 @@ export interface operations {
         parameters: {
             query?: never;
             header?: never;
-            path?: never;
+            path: {
+                return_number: string;
+            };
             cookie?: never;
         };
         requestBody?: never;
         responses: {
-            /** @description OK */
+            /** @description تاریخچه وضعیت متعلق به مشتری جاری */
             200: {
                 headers: {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["AfterSalesTimelineResponse"];
+                    "application/json": components["schemas"]["AfterSalesTimelineEnvelope"];
                 };
             };
+            401: components["responses"]["Unauthorized"];
+            404: components["responses"]["NotFound"];
         };
     };
     getAdminReturnTimeline: {
@@ -25459,20 +25710,24 @@ export interface operations {
         parameters: {
             query?: never;
             header?: never;
-            path?: never;
+            path: {
+                claim_number: string;
+            };
             cookie?: never;
         };
         requestBody?: never;
         responses: {
-            /** @description OK */
+            /** @description تاریخچه وضعیت متعلق به مشتری جاری */
             200: {
                 headers: {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["AfterSalesTimelineResponse"];
+                    "application/json": components["schemas"]["AfterSalesTimelineEnvelope"];
                 };
             };
+            401: components["responses"]["Unauthorized"];
+            404: components["responses"]["NotFound"];
         };
     };
     getAdminWarrantyTimeline: {

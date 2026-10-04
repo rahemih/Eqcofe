@@ -826,7 +826,7 @@
   "sources": [
     {
       "path": "contracts/http/openapi.yaml",
-      "sha256": "d81608a3e6b25161bf630bbf4b62a1eaf442a8d1ae6fdd9b2d7bb3e5fa2361e7"
+      "sha256": "e956fb46373ef78e487bcb19ad0d5ad55712ca10ea9ce6865cc2c68a9b1486b3"
     },
     {
       "path": "contracts/http/step49-pos-a9.yaml",
@@ -834,15 +834,15 @@
     },
     {
       "path": "docs/13-product-design/step56-admin-shell-wireframes.json",
-      "sha256": "71877f2fe64a47df3d34ad6ed14b191e1f2e35976e809ab4ed61e4d2957d35df"
+      "sha256": "7c7fa8bcfa3b19caf57c4a52cdb3bc688c1b432ccfe587972664086519bc619d"
     },
     {
       "path": "docs/13-product-design/step56-admin-ux-contract.json",
-      "sha256": "2b71870c9cc8e462598c9bed0f86d8b5839f3f2e4482b5e167583d9f42fa2611"
+      "sha256": "ec8cf0c248038dda87eb542fb13df6fec761a9bf6ac24333729b5474f36a1969"
     },
     {
       "path": "docs/13-product-design/step56-pricing-inventory-wireframes.json",
-      "sha256": "373af3f75537c8098966a709d3ee7956ff6de4a20862b1afbdb4f5b54ca784a8"
+      "sha256": "24371bf2f6029a10889f68002cdf91449e89f2ec8fb3b6cc4eb1f894080c6796"
     },
     {
       "path": "src/modules/after-sales/after-sales.module.ts",

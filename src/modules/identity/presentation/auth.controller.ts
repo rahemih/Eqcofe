@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Req, Res, UnauthorizedException } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, HttpStatus, Param, Post, Req, Res, UnauthorizedException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { CustomerOnly, Permissions, Public, RequireStepUp, StaffOnly } from '../../../platform/auth/auth.decorators';
 import { AuthService } from '../application/auth.service';
@@ -21,9 +21,9 @@ export class AuthController {
 
   @Public() @Post('auth/otp/request') requestOtp(@Body() b:{mobile:string},@Req() req:any){return this.auth.requestOtp(b.mobile,req.ip);}
   @Public() @Post('auth/otp/verify') async verifyOtp(@Body() b:{challenge_id:string;code:string},@Req() req:any,@Res({passthrough:true}) res:any){const s=await this.auth.verifyOtp(b.challenge_id,b.code,meta(req));this.cookieSet(res,this.cookieName('customer'),s.session_token,s.expires_at,'Lax');return {session_id:s.session_id,expires_at:s.expires_at};}
-  @CustomerOnly() @Post('auth/logout') async logout(@Req() req:any,@Res({passthrough:true}) res:any){await this.auth.logout(req.actor.sessionId);this.cookieClear(res,this.cookieName('customer'),'Lax');return {logged_out:true};}
-  @CustomerOnly() @Post('auth/logout-all') async logoutAll(@Req() req:any,@Res({passthrough:true}) res:any){await this.auth.logoutAll(req.actor.accountId);this.cookieClear(res,this.cookieName('customer'),'Lax');return {logged_out:true};}
-  @CustomerOnly() @Get('auth/session') session(@Req() req:any){return {actor:req.actor};}
+  @CustomerOnly() @HttpCode(HttpStatus.OK) @Post('auth/logout') async logout(@Req() req:any,@Res({passthrough:true}) res:any){await this.auth.logout(req.actor.sessionId);this.cookieClear(res,this.cookieName('customer'),'Lax');return {logged_out:true};}
+  @CustomerOnly() @HttpCode(HttpStatus.OK) @Post('auth/logout-all') async logoutAll(@Req() req:any,@Res({passthrough:true}) res:any){await this.auth.logoutAll(req.actor.accountId);this.cookieClear(res,this.cookieName('customer'),'Lax');return {logged_out:true};}
+  @CustomerOnly() @Get('auth/session') session(@Req() req:any){return {actor:{type:'customer',id:req.actor.id,accountId:req.actor.accountId??req.actor.id}};}
 
   @Public() @Post('admin/auth/login') async adminLogin(@Body() b:{username:string;password:string},@Req() req:any,@Res({passthrough:true}) res:any){const r=await this.admin.begin(b.username,b.password,req.ip);this.cookieSet(res,this.cookieName('preauth'),r.pre_auth_token,new Date(Date.now()+r.expires_in_seconds*1000),'Strict');return {fido_required:true,expires_in_seconds:r.expires_in_seconds};}
   @Public() @Post('admin/auth/fido/challenge') async adminFidoChallenge(@Body() b:{enrollment_token?:string},@Req() req:any){const p=this.tokens.verify(this.preAuth(req)??'','admin_pre_auth');if(!p)throw new UnauthorizedException('ADMIN_PRE_AUTH_REQUIRED');const creds=await this.webauthn.credentialCount(p.sub);if(creds===0){if(!b?.enrollment_token||!(await this.webauthn.validateEnrollmentToken(p.sub,b.enrollment_token)))throw new UnauthorizedException('FIDO2_ENROLLMENT_TOKEN_REQUIRED');return {mode:'registration',...(await this.webauthn.registrationChallenge(p.sub,p.sub,'EQCOFE Admin',true))};}return {mode:'authentication',...(await this.webauthn.authenticationChallenge(p.sub,'webauthn_auth'))};}

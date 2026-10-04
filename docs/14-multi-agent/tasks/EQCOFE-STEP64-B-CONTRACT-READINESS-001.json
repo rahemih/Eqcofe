@@ -1,0 +1,245 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP64-B-CONTRACT-READINESS-001",
+  "title": "Step 64-B backend/OpenAPI Customer Account & After-Sales contract readiness",
+  "description": "High-risk Stage B for Step 64. Audit and repair evidence-backed Account/Auth, Orders/After-Sales and customer in-app notification HTTP contract gaps before Storefront Account implementation. Preserve backend business authority; do not invent legacy design-only customer tools.",
+  "risk": "HIGH",
+  "risk_floor": "HIGH",
+  "owner": "BACKEND_ENGINEERING",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "b1fd06587a7a71cfeff8d4c6233a5a6dbd3284df"
+  },
+  "scope": {
+    "read": [
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "src/modules/identity/**",
+      "src/modules/customer/**",
+      "src/modules/orders/**",
+      "src/modules/returns/**",
+      "src/modules/warranty/**",
+      "src/modules/notifications/**",
+      "src/modules/loyalty/**",
+      "apps/storefront/**",
+      "test/**",
+      "docs/11-step-history/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**",
+      "docs/14-multi-agent/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "AGENTS.md",
+      ".codex/**"
+    ],
+    "write": [
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "src/modules/identity/presentation/auth.controller.ts",
+      "src/modules/notifications/presentation/notifications.controller.ts",
+      "test/step64-account-after-sales-contract.spec.ts",
+      "docs/11-step-history/STEP-64-B-CONTRACT-READINESS.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP64-B-CONTRACT-READINESS-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "docs/13-product-design/step56-admin-shell-wireframes.json",
+      "docs/13-product-design/step56-admin-ux-contract.json",
+      "docs/13-product-design/step56-catalog-media-wireframes.json",
+      "docs/13-product-design/step56-commerce-operations-wireframes.json",
+      "docs/13-product-design/step56-customers-growth-wireframes.json",
+      "docs/13-product-design/step56-final-audit.json",
+      "docs/13-product-design/step56-final-audit/manifest.json",
+      "docs/13-product-design/step56-foundation/A/manifest.json",
+      "docs/13-product-design/step56-management-security-wireframes.json",
+      "docs/13-product-design/step56-pricing-inventory-wireframes.json",
+      "docs/13-product-design/step56-wireframes/B/manifest.json",
+      "docs/13-product-design/step56-wireframes/C/manifest.json",
+      "docs/13-product-design/step56-wireframes/D/manifest.json",
+      "docs/13-product-design/step56-wireframes/E/manifest.json",
+      "docs/13-product-design/step56-wireframes/F/manifest.json",
+      "docs/13-product-design/step56-wireframes/G/manifest.json",
+      "docs/13-product-design/step57-high-fidelity-contract.json"
+    ],
+    "forbidden": [
+      ".github/**",
+      "database/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "apps/storefront/**",
+      "src/modules/customer/**",
+      "src/modules/orders/**",
+      "src/modules/returns/**",
+      "src/modules/warranty/**",
+      "src/modules/loyalty/**",
+      "docs/12-current-state/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP64-B-CONTRACT-READINESS-001-01"
+  ],
+  "human_gate_required": true,
+  "authorized_human_approver": {
+    "role": "PROJECT_OWNER",
+    "github_login": "rahemih"
+  },
+  "token_budget": {
+    "expected_max": 32000,
+    "soft_alert": 50000,
+    "hard_cap": 90000
+  },
+  "pre_mutation_gates": {
+    "graph_health": "DEFERRED_BY_OWNER_LOCAL_ONLY_UNAVAILABLE",
+    "graph_pass_claim": "FORBIDDEN",
+    "human_gate": "FINAL_EXACT_ARTIFACT_APPROVAL_REQUIRED_BEFORE_PROTECTED_MERGE"
+  },
+  "task_risk_rules": [
+    {
+      "id": "STEP64_B_ACCOUNT_AFTERSALES_HTTP_HIGH",
+      "risk": "HIGH",
+      "paths": [
+        "contracts/http/openapi.yaml",
+        "src/generated/openapi.ts",
+        "src/modules/identity/presentation/auth.controller.ts",
+        "src/modules/notifications/presentation/notifications.controller.ts",
+        "test/step64-account-after-sales-contract.spec.ts",
+        "docs/11-step-history/STEP-64-B-CONTRACT-READINESS.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP64-B-CONTRACT-READINESS-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md",
+        "docs/13-product-design/**"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "64-A",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "b1fd06587a7a71cfeff8d4c6233a5a6dbd3284df",
+      "evidence": "PR #316 merged; exact-SHA Canonical CI #1353 and Phase A #852 PASS; terminal Lock release comment 5981015509.",
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "graph_state": "DEFERRED_BY_OWNER / LOCAL_ONLY_UNAVAILABLE; no PASS claim.",
+    "audit_findings": [
+      "SECURITY: GET /auth/session returns the full internal ExecutionActor; ExecutionActor includes sessionId, so the customer session endpoint can expose an internal session identifier. Stage 64-B sanitizes the returned actor view and types the safe response.",
+      "Auth session/logout/logout-all success bodies are untyped; logout routes advertise stale 202.",
+      "Returns customer create/list/detail/cancel contracts are generic or stale; runtime create/cancel are idempotency-protected and create defaults to 201.",
+      "Returns customer timeline lacks complete customer-session/path/error contract.",
+      "Warranty customer create/list/detail contracts are generic; runtime create is idempotency-protected and defaults to 201.",
+      "Warranty customer timeline lacks complete customer-session/path/error contract.",
+      "NotificationInAppService exists with owner-scoped list/markRead/acknowledge but no customer-facing HTTP controller route exists.",
+      "Legacy OpenAPI customer Product Alerts/Loyalty/Review operations have no matching customer-facing runtime controller discovered; Step 64 treats them as NO_ACTION, not executable authority."
+    ],
+    "migration_need": "NONE",
+    "dependency_need": "NONE",
+    "implemented_repair": {
+      "auth_session": "sanitized customer actor only; internal sessionId/permissions/scopes excluded",
+      "auth_logout": "logout and logout-all explicit HTTP 200 with typed success contract",
+      "returns": "customer create/list/detail/timeline/cancel typed; auth/idempotency/status aligned to runtime",
+      "warranty": "customer create/list/detail/timeline typed; auth/idempotency/status aligned to runtime",
+      "notifications": "customer-only list/read/acknowledge wrappers over existing owner-scoped NotificationInAppService; UUID validation; no persistence/provider rule change",
+      "generated_contract": "src/generated/openapi.ts regenerated from canonical OpenAPI",
+      "regression_test": "test/step64-account-after-sales-contract.spec.ts",
+      "product_alerts_loyalty_reviews": "NO_ACTION for Step 64 absent proven customer-facing runtime authority",
+      "database_migration": "NONE",
+      "dependency_change": "NONE",
+      "storefront_mutation": "NONE"
+    },
+    "provenance_reconciliation": "Hash/manifest-only Step56 A/B-G -> Step56-H -> Step57 synchronization; no design semantics changed.",
+    "pre_freeze_validation": {
+      "head_sha": "06f14df536162f76d2e7ee4adcef6b8473020b7f",
+      "canonical_ci": {
+        "run_id": 37220988618,
+        "run_number": 1378,
+        "job_id": 111491110089,
+        "status": "SUCCESS"
+      },
+      "phase_a": {
+        "run_id": 37220988635,
+        "run_number": 877,
+        "job_id": 111491109798,
+        "status": "SUCCESS"
+      },
+      "codeql": {
+        "run_id": 37220986328,
+        "status": "SUCCESS",
+        "job_ids": [
+          111491105992,
+          111491106179,
+          111491106199
+        ]
+      },
+      "tests": {
+        "application": "965/965 PASS",
+        "multi_agent": "148/148 PASS"
+      },
+      "note": "Documentation evidence update changes the artifact; final exact-head providers and artifact-bound gates must refresh."
+    }
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Auth session exposes only the safe customer actor view (no sessionId/permissions/scopes); logout/logout-all use explicit HTTP 200 and typed success bodies.",
+      "verification": "step64_auth_contract_test",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Customer Returns create/list/detail/timeline/cancel contracts match runtime ownership, typed success, status and idempotency semantics.",
+      "verification": "step64_returns_contract_test",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Customer Warranty create/list/detail/timeline contracts match runtime ownership, typed success, status and idempotency semantics.",
+      "verification": "step64_warranty_contract_test",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Customer in-app notification list/read/acknowledge HTTP routes are customer-only wrappers over existing owner-scoped NotificationInAppService and do not add database/provider/business-rule scope.",
+      "verification": "step64_notification_contract_security_test",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Legacy Product Alert/Loyalty/Review OpenAPI-only operations are not consumed by Step 64 Storefront unless runtime authority is separately proven.",
+      "verification": "step64_no_invented_customer_tools_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Generated TypeScript is byte-for-byte reproducible from canonical OpenAPI; focused tests and canonical verify pass.",
+      "verification": "step64_generated_contract_parity",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "No DB migration, dependency change, Wholesale, Storefront C+ implementation or new after-sales eligibility rule is introduced.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "HIGH-risk terminal closure requires exact-head Canonical CI, Phase A, deterministic Review, Security PASS, exact-artifact HUMAN approval and Lock, merge, exact-SHA postmerge and terminal Lock release.",
+      "verification": "canonical_transport_and_postmerge_evidence",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "VERIFICATION",
+      "SECURITY",
+      "HUMAN",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Step 64-B is HIGH risk. Final HUMAN approval must bind to the frozen exact head and artifact after technical/security gates pass. Direct-main mutation is prohibited."
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}

@@ -2423,6 +2423,282 @@ components:
       - id
       - customer_type
       - status
+    AuthLogoutData:
+      type: object
+      additionalProperties: false
+      required:
+      - logged_out
+      properties:
+        logged_out:
+          type: boolean
+          const: true
+    AuthLogoutResponse:
+      type: object
+      additionalProperties: false
+      required:
+      - success
+      - data
+      - meta
+      properties:
+        success:
+          type: boolean
+          const: true
+        data:
+          $ref: '#/components/schemas/AuthLogoutData'
+        meta:
+          $ref: '#/components/schemas/SuccessMeta'
+    AuthSessionActor:
+      type: object
+      additionalProperties: false
+      required:
+      - type
+      - id
+      - accountId
+      properties:
+        type:
+          type: string
+          const: customer
+        id:
+          $ref: '#/components/schemas/EntityId'
+        accountId:
+          $ref: '#/components/schemas/EntityId'
+    AuthSessionData:
+      type: object
+      additionalProperties: false
+      required:
+      - actor
+      properties:
+        actor:
+          $ref: '#/components/schemas/AuthSessionActor'
+    AuthSessionResponse:
+      type: object
+      additionalProperties: false
+      required:
+      - success
+      - data
+      - meta
+      properties:
+        success:
+          type: boolean
+          const: true
+        data:
+          $ref: '#/components/schemas/AuthSessionData'
+        meta:
+          $ref: '#/components/schemas/SuccessMeta'
+    CustomerNotificationView:
+      type: object
+      additionalProperties: true
+      required:
+      - id
+      - body
+      - read_at
+      - acknowledged_at
+      - created_at
+      properties:
+        id:
+          $ref: '#/components/schemas/EntityId'
+        title:
+          type:
+          - string
+          - 'null'
+        body:
+          type: string
+        payload:
+          type: object
+          additionalProperties: true
+        notification_kind:
+          type:
+          - string
+          - 'null'
+        read_at:
+          $ref: '#/components/schemas/NullableTimestamp'
+        acknowledged_at:
+          $ref: '#/components/schemas/NullableTimestamp'
+        created_at:
+          $ref: '#/components/schemas/Timestamp'
+        updated_at:
+          $ref: '#/components/schemas/NullableTimestamp'
+    CustomerNotificationListData:
+      type: object
+      additionalProperties: false
+      required:
+      - items
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomerNotificationView'
+    CustomerNotificationListResponse:
+      type: object
+      additionalProperties: false
+      required:
+      - success
+      - data
+      - meta
+      properties:
+        success:
+          type: boolean
+          const: true
+        data:
+          $ref: '#/components/schemas/CustomerNotificationListData'
+        meta:
+          $ref: '#/components/schemas/SuccessMeta'
+    CustomerNotificationResponse:
+      type: object
+      additionalProperties: false
+      required:
+      - success
+      - data
+      - meta
+      properties:
+        success:
+          type: boolean
+          const: true
+        data:
+          $ref: '#/components/schemas/CustomerNotificationView'
+        meta:
+          $ref: '#/components/schemas/SuccessMeta'
+    CustomerReturnView:
+      type: object
+      additionalProperties: true
+      required:
+      - id
+      - return_number
+      - order_id
+      - status
+      properties:
+        id:
+          $ref: '#/components/schemas/EntityId'
+        return_number:
+          type: string
+        order_id:
+          $ref: '#/components/schemas/EntityId'
+        order_number:
+          type:
+          - string
+          - 'null'
+        status:
+          type: string
+        requested_at:
+          $ref: '#/components/schemas/NullableTimestamp'
+        items:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+    CustomerReturnResponse:
+      type: object
+      additionalProperties: false
+      required:
+      - success
+      - data
+      - meta
+      properties:
+        success:
+          type: boolean
+          const: true
+        data:
+          $ref: '#/components/schemas/CustomerReturnView'
+        meta:
+          $ref: '#/components/schemas/SuccessMeta'
+    CustomerReturnListResponse:
+      type: object
+      additionalProperties: false
+      required:
+      - success
+      - data
+      - meta
+      properties:
+        success:
+          type: boolean
+          const: true
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomerReturnView'
+        meta:
+          $ref: '#/components/schemas/SuccessMeta'
+    CustomerWarrantyView:
+      type: object
+      additionalProperties: true
+      required:
+      - id
+      - claim_number
+      - order_id
+      - order_item_id
+      - status
+      properties:
+        id:
+          $ref: '#/components/schemas/EntityId'
+        claim_number:
+          type: string
+        order_id:
+          $ref: '#/components/schemas/EntityId'
+        order_item_id:
+          $ref: '#/components/schemas/EntityId'
+        order_number:
+          type:
+          - string
+          - 'null'
+        status:
+          type: string
+        issue_type:
+          type:
+          - string
+          - 'null'
+        issue_description:
+          type:
+          - string
+          - 'null'
+        requested_at:
+          $ref: '#/components/schemas/NullableTimestamp'
+    CustomerWarrantyResponse:
+      type: object
+      additionalProperties: false
+      required:
+      - success
+      - data
+      - meta
+      properties:
+        success:
+          type: boolean
+          const: true
+        data:
+          $ref: '#/components/schemas/CustomerWarrantyView'
+        meta:
+          $ref: '#/components/schemas/SuccessMeta'
+    CustomerWarrantyListResponse:
+      type: object
+      additionalProperties: false
+      required:
+      - success
+      - data
+      - meta
+      properties:
+        success:
+          type: boolean
+          const: true
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomerWarrantyView'
+        meta:
+          $ref: '#/components/schemas/SuccessMeta'
+    AfterSalesTimelineEnvelope:
+      type: object
+      additionalProperties: false
+      required:
+      - success
+      - data
+      - meta
+      properties:
+        success:
+          type: boolean
+          const: true
+        data:
+          $ref: '#/components/schemas/AfterSalesTimelineResponse'
+        meta:
+          $ref: '#/components/schemas/SuccessMeta'
     ReturnItemRequest:
       type: object
       additionalProperties: false
@@ -8743,9 +9019,13 @@ paths:
       operationId: postAuthLogout
       responses:
         '200':
-          description: عملیات موفق
-        '202':
-          description: عملیات پذیرفته شد
+          description: خروج موفق مشتری
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthLogoutResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
       x-eqcofe:
         requestBody: none
         noRequestBody: true
@@ -8758,9 +9038,13 @@ paths:
       operationId: postAuthLogoutAll
       responses:
         '200':
-          description: عملیات موفق
-        '202':
-          description: عملیات پذیرفته شد
+          description: خروج موفق مشتری از همه نشست‌ها
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthLogoutResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
       x-eqcofe:
         requestBody: none
         noRequestBody: true
@@ -8773,9 +9057,113 @@ paths:
       operationId: getAuthSession
       responses:
         '200':
-          description: عملیات موفق
+          description: نشست احراز هویت‌شده مشتری بدون شناسه داخلی نشست
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthSessionResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
       security:
       - customerSession: []
+  /customer/notifications:
+    get:
+      tags:
+      - Customer
+      operationId: getCustomerNotifications
+      parameters:
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 50
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+      - name: unread_only
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+      responses:
+        '200':
+          description: صندوق اعلان درون‌برنامه‌ای مشتری جاری
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerNotificationListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      security:
+      - customerSession: []
+  /customer/notifications/{id}/read:
+    patch:
+      tags:
+      - Customer
+      operationId: patchCustomerNotificationsIdRead
+      parameters:
+      - $ref: '#/components/parameters/IdempotencyKey'
+      - name: id
+        in: path
+        required: true
+        schema:
+          $ref: '#/components/schemas/EntityId'
+      responses:
+        '200':
+          description: علامت‌گذاری idempotent اعلان متعلق به مشتری به‌عنوان خوانده‌شده
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerNotificationResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/Unprocessable'
+      security:
+      - customerSession: []
+      x-eqcofe:
+        idempotency: required
+        noRequestBody: true
+  /customer/notifications/{id}/acknowledge:
+    post:
+      tags:
+      - Customer
+      operationId: postCustomerNotificationsIdAcknowledge
+      parameters:
+      - $ref: '#/components/parameters/IdempotencyKey'
+      - name: id
+        in: path
+        required: true
+        schema:
+          $ref: '#/components/schemas/EntityId'
+      responses:
+        '200':
+          description: تأیید idempotent اعلان متعلق به مشتری
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerNotificationResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/Unprocessable'
+      security:
+      - customerSession: []
+      x-eqcofe:
+        idempotency: required
+        noRequestBody: true
   /customer/cart:
     get:
       tags:
@@ -9334,118 +9722,180 @@ paths:
   /customer/orders/{order_number}/returns:
     post:
       tags:
-      - Customer
+      - Returns
       operationId: postCustomerOrdersOrderNumberReturns
-      responses:
-        '200':
-          description: عملیات موفق
-        '202':
-          description: عملیات پذیرفته شد
       parameters:
+      - $ref: '#/components/parameters/IdempotencyKey'
       - name: order_number
         in: path
         required: true
         schema:
           type: string
-      security:
-      - customerSession: []
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/PostCustomerOrdersOrderNumberReturnsRequest'
+      responses:
+        '201':
+          description: درخواست مرجوعی مشتری ایجاد شد
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerReturnResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/Unprocessable'
+      security:
+      - customerSession: []
+      x-eqcofe:
+        idempotency: required
   /customer/returns:
     get:
       tags:
-      - Customer
+      - Returns
       operationId: getCustomerReturns
       responses:
         '200':
-          description: عملیات موفق
+          description: فهرست مرجوعی‌های متعلق به مشتری جاری
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerReturnListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
       security:
       - customerSession: []
   /customer/returns/{return_number}:
     get:
       tags:
-      - Customer
+      - Returns
       operationId: getCustomerReturnsReturnNumber
-      responses:
-        '200':
-          description: عملیات موفق
       parameters:
       - name: return_number
         in: path
         required: true
         schema:
           type: string
+      responses:
+        '200':
+          description: جزئیات مرجوعی متعلق به مشتری جاری
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerReturnResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
       security:
       - customerSession: []
   /customer/returns/{return_number}/cancel:
     post:
       tags:
-      - Customer
+      - Returns
       operationId: postCustomerReturnsReturnNumberCancel
-      responses:
-        '200':
-          description: عملیات موفق
-        '202':
-          description: عملیات پذیرفته شد
       parameters:
+      - $ref: '#/components/parameters/IdempotencyKey'
       - name: return_number
         in: path
         required: true
         schema:
           type: string
-      security:
-      - customerSession: []
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/CancelRequest'
+      responses:
+        '200':
+          description: مرجوعی متعلق به مشتری با رعایت وضعیت مجاز لغو شد
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerReturnResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/Unprocessable'
+      security:
+      - customerSession: []
+      x-eqcofe:
+        idempotency: required
   /customer/warranty/claims:
     post:
       tags:
-      - Customer
+      - Warranty
       operationId: postCustomerWarrantyClaims
-      responses:
-        '200':
-          description: عملیات موفق
-        '202':
-          description: عملیات پذیرفته شد
-      security:
-      - customerSession: []
+      parameters:
+      - $ref: '#/components/parameters/IdempotencyKey'
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/PostCustomerWarrantyClaimsRequest'
+      responses:
+        '201':
+          description: درخواست گارانتی مشتری ایجاد شد
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerWarrantyResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/Unprocessable'
+      security:
+      - customerSession: []
+      x-eqcofe:
+        idempotency: required
     get:
       tags:
-      - Customer
+      - Warranty
       operationId: getCustomerWarrantyClaims
       responses:
         '200':
-          description: عملیات موفق
+          description: فهرست درخواست‌های گارانتی متعلق به مشتری جاری
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerWarrantyListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
       security:
       - customerSession: []
   /customer/warranty/claims/{claim_number}:
     get:
       tags:
-      - Customer
+      - Warranty
       operationId: getCustomerWarrantyClaimsClaimNumber
-      responses:
-        '200':
-          description: عملیات موفق
       parameters:
       - name: claim_number
         in: path
         required: true
         schema:
           type: string
+      responses:
+        '200':
+          description: جزئیات درخواست گارانتی متعلق به مشتری جاری
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerWarrantyResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
       security:
       - customerSession: []
   /customer/wholesale/applications:
@@ -20066,13 +20516,25 @@ paths:
       operationId: getCustomerReturnTimeline
       tags:
       - Returns
+      parameters:
+      - name: return_number
+        in: path
+        required: true
+        schema:
+          type: string
       responses:
         '200':
-          description: OK
+          description: تاریخچه وضعیت متعلق به مشتری جاری
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AfterSalesTimelineResponse'
+                $ref: '#/components/schemas/AfterSalesTimelineEnvelope'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      security:
+      - customerSession: []
   /admin/returns/{id}/timeline:
     get:
       operationId: getAdminReturnTimeline
@@ -20090,13 +20552,25 @@ paths:
       operationId: getCustomerWarrantyTimeline
       tags:
       - Warranty
+      parameters:
+      - name: claim_number
+        in: path
+        required: true
+        schema:
+          type: string
       responses:
         '200':
-          description: OK
+          description: تاریخچه وضعیت متعلق به مشتری جاری
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AfterSalesTimelineResponse'
+                $ref: '#/components/schemas/AfterSalesTimelineEnvelope'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      security:
+      - customerSession: []
   /admin/warranty/claims/{id}/timeline:
     get:
       operationId: getAdminWarrantyTimeline
