@@ -304,6 +304,19 @@ try {
   assert(reviewHtml.includes("بازبینی و ثبت سفارش"), "STEP63_H_REVIEW_CONTENT");
   assert(reviewHtml.includes("ثبت سفارش و رفتن به پرداخت"), "STEP63_H_REVIEW_PAYMENT_CTA");
 
+  const submitOrder = await fetch(origin + "/checkout/review", {
+    method: "POST",
+    headers: {
+      cookie: reviewCookies.join("; "),
+      "content-type": "application/x-www-form-urlencoded",
+    },
+    body: new URLSearchParams({ intent: "submit-order" }),
+    redirect: "manual",
+  });
+  assert.equal(submitOrder.status, 302, "STEP63_H_REVIEW_SUBMIT_STATUS");
+  const submitLocation = submitOrder.headers.get("location") ?? "";
+  assert(submitLocation.startsWith("/payment/return?payment_id="), "STEP63_H_REVIEW_PAYMENT_HANDOFF_REDIRECT");
+
   const callbackState = "callback-state-" + "z".repeat(40);
   const callback = await fetch(origin + `/payments/${paymentId}/callback?state=${encodeURIComponent(callbackState)}`, {
     redirect: "manual",
@@ -347,7 +360,7 @@ try {
       await submit.click();
       await page.waitForURL((url) => url.pathname === "/payment/return");
       assert(!page.url().includes("state="), "STEP63_H_BROWSER_CALLBACK_STATE_LEAK");
-      await page.getByRole("heading", { name: "بررسی نتیجه پرداخت" }).waitFor();
+      await page.getByRole("heading", { name: "بررسی نتیجه پرداخت", exact: true }).waitFor();
       await page.getByText("pending", { exact: true }).waitFor();
       await assertPageBasics(page, "payment-return-320");
       await runAxe(page, axe, "payment-return-320");
