@@ -2,7 +2,7 @@
 
 ## Current verdict
 
-Status: **FINAL CLOSURE PREPARED / GRAPH_GATE_PENDING**
+Status: **FINAL CLOSURE DOCUMENT — EFFECTIVE AFTER REQUIRED GRAPH EVIDENCE + PROTECTED MERGE**
 
 Canonical starting baseline: `e14e44b033a15b2cf579908af53d7d882dcd5b09`
 
@@ -42,7 +42,7 @@ Step 63 A–H are terminal and canonical through PR #312. Stage 63-I is document
 | 63-G payment handoff/callback recovery/order outcome | #311 | `e4da7d24e47d3c6791a237167a4ea94360bd07e5` | COMPLETE |
 | 63-H integrated browser acceptance | #312 | `e14e44b033a15b2cf579908af53d7d882dcd5b09` | COMPLETE |
 
-## Graph/Graphify final gate — pending
+## Graph/Graphify final gate — mandatory before protected merge
 
 Required before terminal closure:
 
@@ -74,14 +74,14 @@ The local artifact `graphify-out/graph.json` must not be committed. Stage-I will
 - Persian RTL, responsive reflow, keyboard/focus, 44px targets and automated accessibility acceptance are verified.
 - Production payment-provider activation/secrets remain deferred to Step 74.
 
-## Remaining Stage-I work
+## Stage-I terminal gate sequence
 
-All non-Graph closure content, Current State/Roadmap reconciliation and Step-64 handoff wording are prepared in this PR. The only evidence gate intentionally left for the Project Owner's final local action is fresh Graphify health/query/path/explain evidence on `e14e44b033a15b2cf579908af53d7d882dcd5b09`. After that evidence is attached, execute protected merge, exact-SHA postmerge verification, terminal Lock release and mark Linear `HOS-67` Done.
+All non-Graph closure content, Current State/Roadmap reconciliation and Step-64 handoff wording are carried by this PR. Before protected merge, fresh Graphify health/query/path/explain evidence must be attached for exact baseline `e14e44b033a15b2cf579908af53d7d882dcd5b09`. The immutable terminal sequence is: Graph evidence → exact-artifact Review/Lock validation → protected merge → exact-SHA postmerge verification → terminal Lock release → Linear `HOS-67 = Done`.
 
 Until those gates:
 
 ```text
-STEP_63_I = FINAL_CLOSURE_PREPARED / GRAPH_GATE_PENDING
-STEP_63 = BRANCH_VERDICT_CLOSED_BUT_NOT_YET_CANONICAL_ON_MAIN
-STEP_64 = BLOCKED_UNTIL_GRAPH_AND_PROTECTED_MERGE
+STEP_63_I = FINAL_CLOSURE_TRANSPORT_REQUIRING_GRAPH_BEFORE_MERGE
+STEP_63 = CLOSED / FINAL CANONICAL PASS WHEN_63_I_TERMINAL_SEQUENCE_COMPLETES
+STEP_64 = NEXT / NOT_STARTED ONLY_AFTER_63_I_TERMINAL_SEQUENCE
 ```
