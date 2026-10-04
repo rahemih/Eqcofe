@@ -22,6 +22,10 @@ const shippingId = "33333333-3333-4333-8333-333333333333";
 const reservationId = "44444444-4444-4444-8444-444444444444";
 const orderId = "55555555-5555-4555-8555-555555555555";
 const paymentId = "66666666-6666-4666-8666-666666666666";
+const sessionId = "77777777-7777-4777-8777-777777777777";
+const newAddressId = "88888888-8888-4888-8888-888888888888";
+const challengeId = "99999999-9999-4999-8999-999999999999";
+const customerSession = "session-" + "s".repeat(48);
 const cartToken = "cart-token-" + "x".repeat(48);
 const checkoutToken = "checkout-token-" + "y".repeat(48);
 const orderNumber = "EQ-63H-0001";
@@ -46,6 +50,7 @@ const address = {
   created_at: createdAt,
   updated_at: createdAt,
 };
+let customerAddresses = [address];
 
 const cart = {
   id: cartId,
@@ -164,9 +169,64 @@ const api = createServer(async (request, response) => {
     return json(response, 200, envelope(cart));
   }
 
+  if (request.method === "POST" && url.pathname === "/auth/otp/request") {
+    record.body = await bodyJson(request);
+    observed.push(record);
+    assert.equal(record.body?.mobile, "09123456789", "STEP63_H_OTP_REQUEST_MOBILE");
+    return json(response, 201, envelope({ challenge_id: challengeId, expires_at: expiresAt }));
+  }
+
+  if (request.method === "POST" && url.pathname === "/auth/otp/verify") {
+    record.body = await bodyJson(request);
+    observed.push(record);
+    assert.equal(record.body?.challenge_id, challengeId, "STEP63_H_OTP_VERIFY_CHALLENGE");
+    assert.equal(record.body?.code, "123456", "STEP63_H_OTP_VERIFY_CODE");
+    response.writeHead(200, {
+      "content-type": "application/json; charset=utf-8",
+      "x-request-id": "step63-h",
+      "set-cookie": `eqcofe_session=${customerSession}; Path=/; HttpOnly; SameSite=Lax; Max-Age=900`,
+    });
+    response.end(JSON.stringify(envelope({ session_id: sessionId, expires_at: expiresAt })));
+    return;
+  }
+
+  if (request.method === "POST" && url.pathname === "/customer/cart/merge") {
+    record.body = await bodyJson(request);
+    observed.push(record);
+    assert(String(request.headers.cookie ?? "").includes(`eqcofe_session=${customerSession}`), "STEP63_H_SESSION_COOKIE_TRANSPORT");
+    assert.equal(record.body?.source_cart_id, cartId, "STEP63_H_MERGE_CART_ID");
+    assert.equal(record.body?.source_cart_token, cartToken, "STEP63_H_MERGE_CART_TOKEN");
+    return json(response, 200, envelope({ cart, cart_token: cartToken }));
+  }
+
   if (request.method === "GET" && url.pathname === "/customer/addresses") {
     observed.push(record);
-    return json(response, 200, envelope([address]));
+    return json(response, 200, envelope(customerAddresses));
+  }
+
+  if (request.method === "POST" && url.pathname === "/customer/addresses") {
+    record.body = await bodyJson(request);
+    observed.push(record);
+    assert(record.idempotencyKey, "STEP63_H_ADDRESS_CREATE_IDEMPOTENCY");
+    const created = {
+      ...address,
+      ...record.body,
+      id: newAddressId,
+      is_default: Boolean(record.body?.is_default),
+      created_at: createdAt,
+      updated_at: new Date().toISOString(),
+    };
+    customerAddresses = [...customerAddresses, created];
+    return json(response, 201, envelope(created));
+  }
+
+  if (request.method === "PATCH" && url.pathname === `/customer/addresses/${addressId}`) {
+    record.body = await bodyJson(request);
+    observed.push(record);
+    assert(record.idempotencyKey, "STEP63_H_ADDRESS_UPDATE_IDEMPOTENCY");
+    const updated = { ...customerAddresses[0], ...record.body, updated_at: new Date().toISOString() };
+    customerAddresses = [updated, ...customerAddresses.slice(1)];
+    return json(response, 200, envelope(updated));
   }
 
   if (request.method === "GET" && url.pathname === "/shipping-methods") {
@@ -278,6 +338,113 @@ const paymentCookies = [...baseCookies, paymentCookie];
 
 try {
   await waitForServer();
+
+  const quantityMutation = await fetch(origin + "/cart", {
+    method: "POST",
+    headers: {
+      cookie: baseCookies.join("; "),
+      "content-type": "application/x-www-form-urlencoded",
+    },
+    body: new URLSearchParams({ intent: "quantity", item_id: itemId, quantity: "3" }),
+    redirect: "manual",
+  });
+  assert.equal(quantityMutation.status, 200, "STEP63_H_CART_QUANTITY_ACTION_STATUS");
+  assert.equal(cart.items[0].quantity, 3, "STEP63_H_CART_QUANTITY_MUTATED");
+
+  const removeMutation = await fetch(origin + "/cart", {
+    method: "POST",
+    headers: {
+      cookie: baseCookies.join("; "),
+      "content-type": "application/x-www-form-urlencoded",
+    },
+    body: new URLSearchParams({ intent: "remove", item_id: itemId }),
+    redirect: "manual",
+  });
+  assert.equal(removeMutation.status, 200, "STEP63_H_CART_REMOVE_ACTION_STATUS");
+
+  const otpRequest = await fetch(origin + "/checkout/identity", {
+    method: "POST",
+    headers: {
+      cookie: baseCookies.join("; "),
+      "content-type": "application/x-www-form-urlencoded",
+    },
+    body: new URLSearchParams({ intent: "request-otp", mobile: "09123456789" }),
+    redirect: "manual",
+  });
+  assert.equal(otpRequest.status, 200, "STEP63_H_OTP_REQUEST_ACTION_STATUS");
+
+  const otpVerify = await fetch(origin + "/checkout/identity", {
+    method: "POST",
+    headers: {
+      cookie: baseCookies.join("; "),
+      "content-type": "application/x-www-form-urlencoded",
+    },
+    body: new URLSearchParams({ intent: "verify-otp", challenge_id: challengeId, code: "123456" }),
+    redirect: "manual",
+  });
+  assert.equal(otpVerify.status, 302, "STEP63_H_OTP_VERIFY_ACTION_STATUS");
+  assert.equal(otpVerify.headers.get("location"), "/checkout/address", "STEP63_H_OTP_VERIFY_REDIRECT");
+  const authCookies = typeof otpVerify.headers.getSetCookie === "function"
+    ? otpVerify.headers.getSetCookie().map((value) => value.split(";", 1)[0])
+    : [];
+  assert(authCookies.some((value) => value.startsWith("eqcofe_session=")), "STEP63_H_SESSION_COOKIE_REISSUED");
+
+  const authenticatedCookieHeader = authCookies.join("; ");
+  const selectAddress = await fetch(origin + "/checkout/address", {
+    method: "POST",
+    headers: {
+      cookie: authenticatedCookieHeader,
+      "content-type": "application/x-www-form-urlencoded",
+    },
+    body: new URLSearchParams({ intent: "select-address", address_id: addressId }),
+    redirect: "manual",
+  });
+  assert.equal(selectAddress.status, 302, "STEP63_H_ADDRESS_SELECT_STATUS");
+  assert.equal(selectAddress.headers.get("location"), "/checkout/delivery", "STEP63_H_ADDRESS_SELECT_REDIRECT");
+
+  const updateAddress = await fetch(origin + "/checkout/address", {
+    method: "POST",
+    headers: {
+      cookie: authenticatedCookieHeader,
+      "content-type": "application/x-www-form-urlencoded",
+    },
+    body: new URLSearchParams({
+      intent: "update-address",
+      address_id: addressId,
+      recipient_name: address.recipient_name,
+      recipient_mobile: address.recipient_mobile,
+      postal_code: address.postal_code,
+      address_line: address.address_line + " ویرایش‌شده",
+      building_no: address.building_no,
+      unit_no: address.unit_no,
+    }),
+    redirect: "manual",
+  });
+  assert.equal(updateAddress.status, 302, "STEP63_H_ADDRESS_UPDATE_STATUS");
+  assert.equal(updateAddress.headers.get("location"), "/checkout/delivery", "STEP63_H_ADDRESS_UPDATE_REDIRECT");
+
+  const createAddress = await fetch(origin + "/checkout/address", {
+    method: "POST",
+    headers: {
+      cookie: authenticatedCookieHeader,
+      "content-type": "application/x-www-form-urlencoded",
+    },
+    body: new URLSearchParams({
+      intent: "create-address",
+      province_id: provinceId,
+      city_id: cityId,
+      recipient_name: "گیرنده جدید",
+      recipient_mobile: "09123456789",
+      postal_code: "1234567890",
+      address_line: "نشانی جدید تست پذیرش",
+      building_no: "21",
+      unit_no: "4",
+      is_default: "on",
+    }),
+    redirect: "manual",
+  });
+  assert.equal(createAddress.status, 302, "STEP63_H_ADDRESS_CREATE_STATUS");
+  assert.equal(createAddress.headers.get("location"), "/checkout/delivery", "STEP63_H_ADDRESS_CREATE_REDIRECT");
 
   const cartResponse = await fetch(origin + "/cart", { headers: { cookie: baseCookies.join("; ") } });
   assert.equal(cartResponse.status, 200, "STEP63_H_CART_STATUS");
@@ -426,7 +593,14 @@ try {
   const paths = observed.map((item) => `${item.method} ${item.path}`);
   for (const required of [
     `GET /cart/${cartId}`,
+    `PATCH /cart/${cartId}/items/${itemId}`,
+    `DELETE /cart/${cartId}/items/${itemId}`,
+    "POST /auth/otp/request",
+    "POST /auth/otp/verify",
+    "POST /customer/cart/merge",
     "GET /customer/addresses",
+    "POST /customer/addresses",
+    `PATCH /customer/addresses/${addressId}`,
     "GET /shipping-methods",
     `POST /checkout/${checkoutId}/reserve`,
     `POST /checkout/${checkoutId}/order`,
@@ -445,8 +619,11 @@ try {
     stage: "63-H",
     integrated: [
       "cart-ready-state",
+      "cart-quantity-and-remove-mutations",
       "checkout-identity-guest-boundary",
+      "checkout-otp-session-and-cart-merge",
       "authoritative-customer-address",
+      "address-select-update-create",
       "authoritative-shipping-method",
       "signed-review-snapshot",
       "idempotent-reservation-and-order",
