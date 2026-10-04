@@ -1,0 +1,188 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP63-F-CHECKOUT-FULFILLMENT-001",
+  "title": "Step 63-F Address, delivery, quote, reservation, review and idempotent order submission",
+  "description": "HIGH-risk Step 63-F. Productionize customer-owned Address list/selection/edit/create using the canonical Iran 1404 province-city reference, authoritative Delivery selection, Quote, tamper-evident server-only Review state, Reservation and idempotent Order creation. Payment initiation/status/verify and Order Outcome runtime remain deferred to Stage 63-G.",
+  "risk": "HIGH",
+  "risk_floor": "HIGH",
+  "owner": "PRODUCT_DESIGN",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "e1c69999150d3b0c19ad27ce6cc8b5211b6b77d8"
+  },
+  "scope": {
+    "read": [
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "src/modules/customer/**",
+      "src/modules/cart/**",
+      "src/modules/orders/**",
+      "apps/storefront/**",
+      "docs/11-step-history/**",
+      "docs/13-product-design/step55-checkout-payment-wireframes.json",
+      "docs/14-multi-agent/**",
+      "scripts/graphify/**",
+      "shared/reference/**"
+    ],
+    "write": [
+      "apps/storefront/package.json",
+      "apps/storefront/app/features/cart-checkout/cart-checkout-data.server.ts",
+      "apps/storefront/app/features/cart-checkout/checkout-flow.server.ts",
+      "apps/storefront/app/features/cart-checkout/checkout-flow-state.server.ts",
+      "apps/storefront/app/features/cart-checkout/checkout-address.server.ts",
+      "apps/storefront/app/features/cart-checkout/checkout-delivery.server.ts",
+      "apps/storefront/app/features/cart-checkout/checkout-review.server.ts",
+      "apps/storefront/app/features/cart-checkout/CheckoutAddressView.tsx",
+      "apps/storefront/app/features/cart-checkout/CheckoutDeliveryView.tsx",
+      "apps/storefront/app/features/cart-checkout/CheckoutReviewView.tsx",
+      "apps/storefront/app/routes/checkout-address.tsx",
+      "apps/storefront/app/routes/checkout-delivery.tsx",
+      "apps/storefront/app/routes/checkout-review.tsx",
+      "apps/storefront/app/styles/checkout-flow.css",
+      "apps/storefront/scripts/verify-step63-cart-checkout-foundation.ts",
+      "apps/storefront/scripts/verify-step63-checkout-identity.ts",
+      "apps/storefront/scripts/verify-step63-checkout-fulfillment.ts",
+      "docs/11-step-history/STEP-63-F-CHECKOUT-FULFILLMENT.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP63-F-CHECKOUT-FULFILLMENT-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "database/**",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "apps/admin/**",
+      "src/modules/**",
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "docs/12-current-state/**",
+      "apps/storefront/app/routes/payment-return.tsx",
+      "apps/storefront/app/routes/order-outcome.tsx"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP63-F-CHECKOUT-FULFILLMENT-001-01"
+  ],
+  "human_gate_required": true,
+  "token_budget": {
+    "expected_max": 48000,
+    "soft_alert": 75000,
+    "hard_cap": 120000
+  },
+  "max_repair_cycles": 3,
+  "pre_mutation_gates": {
+    "graph_health": "DEFERRED_BY_PROJECT_OWNER_UNTIL_STEP63_FINAL",
+    "query_evidence": "DEFERRED_BY_PROJECT_OWNER_UNTIL_STEP63_FINAL",
+    "path_evidence": "DEFERRED_BY_PROJECT_OWNER_UNTIL_STEP63_FINAL",
+    "explain_evidence": "DEFERRED_BY_PROJECT_OWNER_UNTIL_STEP63_FINAL",
+    "human_gate": "FINAL_EXACT_ARTIFACT_APPROVAL_REQUIRED_BEFORE_PROTECTED_MERGE"
+  },
+  "dependencies": [
+    {
+      "item": "63-E",
+      "required_state": "TERMINAL_MERGED_POSTMERGE_PASS_LOCK_RELEASED",
+      "observed_state": "TERMINAL_MERGED_POSTMERGE_PASS_LOCK_RELEASED",
+      "merge_sha": "da8d0fb465e85ef37a30e00c71a008cea4a31b25",
+      "evidence": "PR #308 protected workflow_dispatch 37131544917; merge job 111227485574 SUCCESS; exact-SHA postmerge 111227552033 SUCCESS; terminal Lock release comment 5970424399.",
+      "blocking": false
+    },
+    {
+      "item": "63-F Address Reference Repair",
+      "required_state": "TERMINAL_MERGED_POSTMERGE_PASS_LOCK_RELEASED",
+      "observed_state": "TERMINAL_MERGED_POSTMERGE_PASS_LOCK_RELEASED",
+      "merge_sha": "e1c69999150d3b0c19ad27ce6cc8b5211b6b77d8",
+      "evidence": "PR #310 protected workflow_dispatch 37187061874; merge job 111391132912 SUCCESS; exact-SHA postmerge 111391180657 SUCCESS; terminal Lock release comment 5977917922.",
+      "blocking": false
+    }
+  ],
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Address route reads only customer-owned addresses and supports selection, safe edit, and new Address creation. New Address province/city choices come only from the canonical Iran 1404 reference; browser code never generates geography identifiers.",
+      "verification": "stage_verifier_and_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Delivery uses only methods and fees returned by GET /shipping-methods; optional coupon is transported only into the authoritative Quote request.",
+      "verification": "stage_verifier_and_types",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Quote output is carried to Review only in an HttpOnly HMAC-bound snapshot tied to the server-only Checkout token. Client/browser storage is never authoritative for totals or credentials.",
+      "verification": "stage_verifier_and_security_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Reservation and Order submission use stable server-generated idempotency keys and fail closed on conflict, expiry or unknown outcomes.",
+      "verification": "stage_verifier_and_contract_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "New Address creation consumes the canonical source-locked Iran 1404 province/city reference merged by PR #310 and requires a valid province-city pair before calling the existing customer Address API.",
+      "verification": "stage_verifier_backend_reference_and_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Payment initiation/verify/status and Order Outcome runtime remain deferred placeholders for Stage 63-G; Stage F does not fabricate payment success.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "Persian RTL, 44px targets, focus visibility and responsive reflow are present; credentials never enter URL, route data, browser storage or user-visible diagnostics.",
+      "verification": "storefront_quality_and_security",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "Canonical completion requires exact-head Canonical CI, Phase A, Storefront Quality, CodeQL Security, deterministic Review, exact-artifact Human Gate, ACTIVE Lock, protected merge, exact-SHA postmerge verification and terminal Lock release.",
+      "verification": "canonical_transport_and_postmerge_evidence",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "VERIFICATION",
+      "SECURITY",
+      "HUMAN",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Stage 63-F is HIGH risk because it crosses authenticated address ownership, reservation and idempotent order creation. Final owner HUMAN approval must bind to the frozen exact head/artifact after technical/security gates are green. Direct-main write/raw merge prohibited."
+  },
+  "authorized_human_approver": {
+    "role": "PROJECT_OWNER",
+    "github_login": "rahemih"
+  },
+  "evidence": {
+    "live_guard_main_head": "e1c69999150d3b0c19ad27ce6cc8b5211b6b77d8",
+    "linear_issue": "HOS-67",
+    "predecessor_pr": 308,
+    "predecessor_terminal_comment": 5970424399,
+    "graph_pre_mutation": {
+      "status": "DEFERRED_TO_STEP63_FINAL",
+      "terminal_requirement": "Execute accumulated Step 63 graph health/query/path/explain evidence during final acceptance/closure before Step 64 handoff."
+    },
+    "address_reference": {
+      "status": "CANONICAL_COMPLETE",
+      "pr": 310,
+      "merge_sha": "e1c69999150d3b0c19ad27ce6cc8b5211b6b77d8",
+      "protected_run_id": 37187061874,
+      "postmerge_job_id": 111391180657,
+      "reference_year": 1404,
+      "province_count": 31,
+      "city_count": 1481,
+      "source_commit": "68687cf96cc1852d5d38c7283353c80829331758"
+    }
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}

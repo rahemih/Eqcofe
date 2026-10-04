@@ -108,14 +108,17 @@ assert.doesNotMatch(identityRoute, /RoutePlaceholder/);
 assert.match(identityRoute, /loadCheckoutIdentity/);
 assert.match(identityRoute, /handleCheckoutIdentityAction/);
 
-const deferredRouteFiles = [
-  "checkout-address.tsx",
-  "checkout-delivery.tsx",
-  "checkout-review.tsx",
-  "payment-return.tsx",
-  "order-outcome.tsx",
-];
-for (const file of deferredRouteFiles) {
+const fulfillmentRoutes = [
+  ["checkout-address.tsx", /checkout-address\.server\.js/],
+  ["checkout-delivery.tsx", /checkout-delivery\.server\.js/],
+  ["checkout-review.tsx", /checkout-review\.server\.js/],
+] as const;
+for (const [file, serverImport] of fulfillmentRoutes) {
+  const source = readFileSync("apps/storefront/app/routes/" + file, "utf8");
+  assert.doesNotMatch(source, /RoutePlaceholder/);
+  assert.match(source, serverImport);
+}
+for (const file of ["payment-return.tsx", "order-outcome.tsx"]) {
   const source = readFileSync("apps/storefront/app/routes/" + file, "utf8");
   assert.match(source, /RoutePlaceholder/);
   assert.match(source, /targetStep=\{63\}/);
@@ -130,5 +133,6 @@ console.log(JSON.stringify({
   productDetailCredentialReuse: true,
   cartRouteStageAware: true,
   checkoutIdentityStageAware: true,
-  deferredRoutesRemainPlaceholders: true,
+  checkoutFulfillmentStageAware: true,
+  paymentOutcomeRoutesDeferred: true,
 }));
