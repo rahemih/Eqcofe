@@ -10,7 +10,7 @@
 
 ## Current Step 63 position
 
-**Step 63 — Cart & Checkout Frontend — `CLOSED / FINAL CANONICAL PASS` once Stage 63-I lands through its terminal gate sequence.** Stages 63-A through 63-H are canonically complete, and the final pre-Graph QA audit repair is canonically complete through PR #314. The replacement Stage 63-I transport is based on `main@11edbe47831b0e02ca587781b147585e4c1f06e9`; it freezes Step 63 as `CLOSED / FINAL CANONICAL PASS` and Step 64 as `NEXT / NOT_STARTED`. This text becomes canonical on `main` only after final Graph/Graphify evidence, protected merge, exact-SHA postmerge verification and terminal Lock release.
+**Step 63 — Cart & Checkout Frontend — `CLOSED / FINAL CANONICAL PASS` once Stage 63-I lands through its terminal gate sequence.** Stages 63-A through 63-H are canonically complete, and the final pre-Graph QA audit repair is canonically complete through PR #314. The Stage 63-I PR #315 is based on `main@11edbe47831b0e02ca587781b147585e4c1f06e9`; it freezes Step 63 as `CLOSED / FINAL CANONICAL PASS` and Step 64 as `NEXT / NOT_STARTED`. This text becomes canonical on `main` only after final Graph/Graphify evidence, protected merge, exact-SHA postmerge verification and terminal Lock release.
 
 | Stage | PR | Canonical merge | State |
 | --- | ---: | --- | --- |
@@ -24,7 +24,7 @@
 | 63-G payment handoff/callback recovery/outcome | #311 | `e4da7d24e47d3b0c19ad27ce6cc8b5211b6b77d8` | COMPLETE |
 | 63-H integrated browser acceptance | #312 | `e14e44b033a15b2cf579908af53d7d882dcd5b09` | COMPLETE |
 | Pre-closure QA mutation coverage repair | #314 | `11edbe47831b0e02ca587781b147585e4c1f06e9` | COMPLETE |
-| 63-I final canonical closure / Step 64 handoff | replacement closure transport | terminal transport | EFFECTIVE AFTER REQUIRED GRAPH EVIDENCE + PROTECTED MERGE |
+| 63-I final canonical closure / Step 64 handoff | #315 | terminal transport | EFFECTIVE AFTER REQUIRED GRAPH EVIDENCE + PROTECTED MERGE |
 
 Stage-H exact head `338ff9e0892f94982e69d78624a82d975c4d0b45` passed Canonical CI `37197561211`, Phase A `37197561212` and Storefront Quality `37197561228`. Protected workflow_dispatch `37199480032` / #967 merged PR #312 as `e14e44b033a15b2cf579908af53d7d882dcd5b09`; merge job `111428027601` and exact-SHA postmerge `111428076121` passed, including 959/959 application tests; postmerge-failure `111428836834` skipped; terminal comment `5979598896` released `LOCK-EQCOFE-STEP63-H-ACCEPTANCE-001-01`.
 
@@ -39,7 +39,7 @@ PATH_EVIDENCE = PRESENT
 EXPLAIN_EVIDENCE = PRESENT
 ```
 
-The terminal sequence for the replacement Stage 63-I closure PR is: attach that Graphify evidence, preserve exact-artifact Review/Lock validity, perform protected Merge Policy transport, pass exact-SHA postmerge verification, release the terminal Lock, then mark Linear `HOS-67 = Done`. Step 64 must not start before that sequence completes.
+The terminal sequence for PR #315 is: attach that Graphify evidence, preserve exact-artifact Review/Lock validity, perform protected Merge Policy transport, pass exact-SHA postmerge verification, release the terminal Lock, then mark Linear `HOS-67 = Done`. Step 64 must not start before that sequence completes.
 
 ## Current Step 62 position
 
@@ -591,7 +591,7 @@ Verify job: `97170521019` — PASS
 - Dark theme is explicitly deferred: it is not a Roadmap requirement and the current Figma plan permits one mode per collection.
 
 ## Next safe action
-Begin **Step 64 — Customer Account & After-Sales** only after PR #313 carries fresh final Graph/Graphify evidence, completes protected merge and exact-SHA postmerge verification, releases its terminal Lock, and Linear `HOS-67` is Done.
+Begin **Step 64 — Customer Account & After-Sales** only after PR #315 carries fresh final Graph/Graphify evidence, completes protected merge and exact-SHA postmerge verification, releases its terminal Lock, and Linear `HOS-67` is Done.
 
 ## Step 52 active closure state
 - **A1 — Canonical Handoff & Scope Freeze — COMPLETE / FINAL GATE PASS**
