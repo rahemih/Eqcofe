@@ -8,7 +8,7 @@ import { fileURLToPath } from "node:url";
 
 const root = resolve(fileURLToPath(new URL("..", import.meta.url)));
 const appPort = 41763;
-const origin = \`http://127.0.0.1:\${appPort}\`;
+const origin = `http://127.0.0.1:${appPort}`;
 
 const cartId = "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa";
 const checkoutId = "bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb";
@@ -145,12 +145,12 @@ const api = createServer(async (request, response) => {
     body: null,
   };
 
-  if (request.method === "GET" && url.pathname === \`/cart/\${cartId}\`) {
+  if (request.method === "GET" && url.pathname === `/cart/${cartId}`) {
     observed.push(record);
     return json(response, 200, envelope(cart));
   }
 
-  if (request.method === "PATCH" && url.pathname === \`/cart/\${cartId}/items/\${itemId}\`) {
+  if (request.method === "PATCH" && url.pathname === `/cart/${cartId}/items/${itemId}`) {
     record.body = await bodyJson(request);
     observed.push(record);
     assert.equal(record.cartToken, cartToken, "STEP63_H_CART_TOKEN_TRANSPORT");
@@ -158,7 +158,7 @@ const api = createServer(async (request, response) => {
     return json(response, 200, envelope(cart));
   }
 
-  if (request.method === "DELETE" && url.pathname === \`/cart/\${cartId}/items/\${itemId}\`) {
+  if (request.method === "DELETE" && url.pathname === `/cart/${cartId}/items/${itemId}`) {
     observed.push(record);
     assert.equal(record.cartToken, cartToken, "STEP63_H_CART_TOKEN_DELETE_TRANSPORT");
     return json(response, 200, envelope(cart));
@@ -174,14 +174,14 @@ const api = createServer(async (request, response) => {
     return json(response, 200, envelope([shipping]));
   }
 
-  if (request.method === "POST" && url.pathname === \`/checkout/\${checkoutId}/reserve\`) {
+  if (request.method === "POST" && url.pathname === `/checkout/${checkoutId}/reserve`) {
     observed.push(record);
     assert.equal(record.checkoutToken, checkoutToken, "STEP63_H_RESERVE_CHECKOUT_TOKEN");
     assert(record.idempotencyKey, "STEP63_H_RESERVE_IDEMPOTENCY_MISSING");
     return json(response, 200, envelope({ checkout_id: checkoutId, reservation_id: reservationId, status: "reserved", expires_at: expiresAt }));
   }
 
-  if (request.method === "POST" && url.pathname === \`/checkout/\${checkoutId}/order\`) {
+  if (request.method === "POST" && url.pathname === `/checkout/${checkoutId}/order`) {
     record.body = await bodyJson(request);
     observed.push(record);
     assert.equal(record.checkoutToken, checkoutToken, "STEP63_H_ORDER_CHECKOUT_TOKEN");
@@ -190,7 +190,7 @@ const api = createServer(async (request, response) => {
     return json(response, 201, envelope(order()));
   }
 
-  if (request.method === "POST" && url.pathname === \`/orders/\${orderNumber}/payments\`) {
+  if (request.method === "POST" && url.pathname === `/orders/${orderNumber}/payments`) {
     observed.push(record);
     assert.equal(record.checkoutToken, checkoutToken, "STEP63_H_PAYMENT_CHECKOUT_TOKEN");
     assert(record.idempotencyKey, "STEP63_H_PAYMENT_IDEMPOTENCY_MISSING");
@@ -198,7 +198,7 @@ const api = createServer(async (request, response) => {
     return json(response, 200, envelope(payment()));
   }
 
-  if (request.method === "GET" && url.pathname === \`/payments/\${paymentId}/status\`) {
+  if (request.method === "GET" && url.pathname === `/payments/${paymentId}/status`) {
     observed.push(record);
     assert.equal(record.checkoutToken, checkoutToken, "STEP63_H_STATUS_CHECKOUT_TOKEN");
     return json(response, 200, envelope({
@@ -209,14 +209,14 @@ const api = createServer(async (request, response) => {
     }));
   }
 
-  if (request.method === "POST" && url.pathname === \`/payments/\${paymentId}/verify\`) {
+  if (request.method === "POST" && url.pathname === `/payments/${paymentId}/verify`) {
     observed.push(record);
     assert.equal(record.checkoutToken, checkoutToken, "STEP63_H_VERIFY_CHECKOUT_TOKEN");
     paymentStatus = "paid";
     return json(response, 200, envelope(payment()));
   }
 
-  if (request.method === "POST" && url.pathname === \`/payments/\${paymentId}/callback\`) {
+  if (request.method === "POST" && url.pathname === `/payments/${paymentId}/callback`) {
     observed.push(record);
     assert(url.searchParams.get("state")?.startsWith("callback-state-"), "STEP63_H_CALLBACK_STATE_SERVER_SIDE");
     response.writeHead(200, { "content-length": "0" });
@@ -224,13 +224,13 @@ const api = createServer(async (request, response) => {
     return;
   }
 
-  if (request.method === "GET" && url.pathname === \`/orders/\${orderNumber}\`) {
+  if (request.method === "GET" && url.pathname === `/orders/${orderNumber}`) {
     observed.push(record);
     assert.equal(record.checkoutToken, checkoutToken, "STEP63_H_ORDER_READ_CHECKOUT_TOKEN");
     return json(response, 200, envelope(order()));
   }
 
-  if (request.method === "GET" && url.pathname === \`/orders/\${orderNumber}/payments/\${paymentId}\`) {
+  if (request.method === "GET" && url.pathname === `/orders/${orderNumber}/payments/${paymentId}`) {
     observed.push(record);
     assert.equal(record.checkoutToken, checkoutToken, "STEP63_H_PAYMENT_READ_CHECKOUT_TOKEN");
     return json(response, 200, envelope(payment()));
@@ -241,7 +241,7 @@ const api = createServer(async (request, response) => {
 });
 
 await new Promise((done) => api.listen(0, "127.0.0.1", done));
-const apiOrigin = \`http://127.0.0.1:\${api.address().port}\`;
+const apiOrigin = `http://127.0.0.1:${api.address().port}`;
 const server = spawn("pnpm", ["exec", "react-router-serve", "./build/server/index.js"], {
   cwd: root,
   env: {
@@ -268,10 +268,10 @@ const paymentCookie = signedCookie("eqcofe_checkout_payment", {
   expiresAt,
 });
 const baseCookies = [
-  \`eqcofe_cart_id=\${cartId}\`,
-  \`eqcofe_cart_token=\${cartToken}\`,
-  \`eqcofe_checkout_id=\${checkoutId}\`,
-  \`eqcofe_checkout_token=\${checkoutToken}\`,
+  `eqcofe_cart_id=${cartId}`,
+  `eqcofe_cart_token=${cartToken}`,
+  `eqcofe_checkout_id=${checkoutId}`,
+  `eqcofe_checkout_token=${checkoutToken}`,
 ];
 const reviewCookies = [...baseCookies, reviewCookie];
 const paymentCookies = [...baseCookies, paymentCookie];
@@ -293,7 +293,7 @@ try {
   assert.equal(addressResponse.status, 200, "STEP63_H_ADDRESS_STATUS");
   assert((await addressResponse.text()).includes(address.recipient_name), "STEP63_H_ADDRESS_CONTENT");
 
-  const selectedCookies = [...baseCookies, \`eqcofe_checkout_address_id=\${addressId}\`];
+  const selectedCookies = [...baseCookies, `eqcofe_checkout_address_id=${addressId}`];
   const deliveryResponse = await fetch(origin + "/checkout/delivery", { headers: { cookie: selectedCookies.join("; ") } });
   assert.equal(deliveryResponse.status, 200, "STEP63_H_DELIVERY_STATUS");
   assert((await deliveryResponse.text()).includes(shipping.name_fa), "STEP63_H_DELIVERY_CONTENT");
@@ -305,21 +305,21 @@ try {
   assert(reviewHtml.includes("ثبت سفارش و رفتن به پرداخت"), "STEP63_H_REVIEW_PAYMENT_CTA");
 
   const callbackState = "callback-state-" + "z".repeat(40);
-  const callback = await fetch(origin + \`/payments/\${paymentId}/callback?state=\${encodeURIComponent(callbackState)}\`, {
+  const callback = await fetch(origin + `/payments/${paymentId}/callback?state=${encodeURIComponent(callbackState)}`, {
     redirect: "manual",
   });
   assert.equal(callback.status, 302, "STEP63_H_CALLBACK_REDIRECT_STATUS");
   const callbackLocation = callback.headers.get("location") ?? "";
-  assert(callbackLocation.includes(\`payment_id=\${paymentId}\`), "STEP63_H_CALLBACK_PAYMENT_ID");
+  assert(callbackLocation.includes(`payment_id=${paymentId}`), "STEP63_H_CALLBACK_PAYMENT_ID");
   assert(!callbackLocation.includes("state="), "STEP63_H_CALLBACK_STATE_LEAK");
 
-  const returnResponse = await fetch(origin + \`/payment/return?payment_id=\${paymentId}\`, { headers: { cookie: paymentCookies.join("; ") } });
+  const returnResponse = await fetch(origin + `/payment/return?payment_id=${paymentId}`, { headers: { cookie: paymentCookies.join("; ") } });
   assert.equal(returnResponse.status, 200, "STEP63_H_PAYMENT_RETURN_STATUS");
   const returnHtml = await returnResponse.text();
   assert(returnHtml.includes("بررسی نتیجه پرداخت"), "STEP63_H_PAYMENT_RETURN_CONTENT");
   assert(returnHtml.includes("pending"), "STEP63_H_PENDING_AUTHORITATIVE_STATE");
 
-  const outcomeResponse = await fetch(origin + \`/order/\${orderNumber}/outcome\`, { headers: { cookie: paymentCookies.join("; ") } });
+  const outcomeResponse = await fetch(origin + `/order/${orderNumber}/outcome`, { headers: { cookie: paymentCookies.join("; ") } });
   assert.equal(outcomeResponse.status, 200, "STEP63_H_OUTCOME_STATUS");
   assert((await outcomeResponse.text()).includes("نتیجه سفارش هنوز قطعی نیست"), "STEP63_H_OUTCOME_PENDING_CONTENT");
 
@@ -356,7 +356,7 @@ try {
       const verify = page.getByRole("button", { name: "تأیید با درگاه" });
       await assertTarget(verify, "verify-payment");
       await verify.click();
-      await page.waitForURL((url) => url.pathname === \`/order/\${orderNumber}/outcome\`);
+      await page.waitForURL((url) => url.pathname === `/order/${orderNumber}/outcome`);
       await page.getByRole("heading", { name: "سفارش ثبت و پرداخت تأیید شد" }).waitFor();
       await assertPageBasics(page, "order-outcome-320");
       await runAxe(page, axe, "order-outcome-320");
@@ -364,7 +364,7 @@ try {
       await mobile.close();
 
       const desktop = await browser.newContext({ viewport: { width: 1200, height: 900 }, locale: "fa-IR" });
-      await desktop.addCookies(browserCookies([...baseCookies, \`eqcofe_checkout_address_id=\${addressId}\`]));
+      await desktop.addCookies(browserCookies([...baseCookies, `eqcofe_checkout_address_id=${addressId}`]));
       const wide = await desktop.newPage();
       await wide.goto(origin + "/cart", { waitUntil: "networkidle" });
       await wide.getByRole("heading", { name: "سبد خرید" }).waitFor();
@@ -398,19 +398,19 @@ try {
     }
   }
 
-  const paths = observed.map((item) => \`\${item.method} \${item.path}\`);
+  const paths = observed.map((item) => `${item.method} ${item.path}`);
   for (const required of [
-    \`GET /cart/\${cartId}\`,
+    `GET /cart/${cartId}`,
     "GET /customer/addresses",
     "GET /shipping-methods",
-    \`POST /checkout/\${checkoutId}/reserve\`,
-    \`POST /checkout/\${checkoutId}/order\`,
-    \`POST /orders/\${orderNumber}/payments\`,
-    \`GET /payments/\${paymentId}/status\`,
-    \`POST /payments/\${paymentId}/verify\`,
-    \`POST /payments/\${paymentId}/callback\`,
-    \`GET /orders/\${orderNumber}\`,
-    \`GET /orders/\${orderNumber}/payments/\${paymentId}\`,
+    `POST /checkout/${checkoutId}/reserve`,
+    `POST /checkout/${checkoutId}/order`,
+    `POST /orders/${orderNumber}/payments`,
+    `GET /payments/${paymentId}/status`,
+    `POST /payments/${paymentId}/verify`,
+    `POST /payments/${paymentId}/callback`,
+    `GET /orders/${orderNumber}`,
+    `GET /orders/${orderNumber}/payments/${paymentId}`,
   ]) {
     assert(paths.includes(required), "STEP63_H_BACKEND_AUTHORITY_MISSING:" + required);
   }
@@ -454,7 +454,7 @@ try {
 function signedCookie(name, value) {
   const payload = Buffer.from(JSON.stringify(value), "utf8").toString("base64url");
   const signature = createHmac("sha256", checkoutToken).update(payload).digest("base64url");
-  return \`\${name}=\${payload}.\${signature}\`;
+  return `${name}=${payload}.${signature}`;
 }
 
 function browserCookies(values) {
