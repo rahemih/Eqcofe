@@ -1,12 +1,18 @@
-import { Body,Controller,Get,Headers,Param,Patch,Post,Query } from '@nestjs/common';
+import { Body,Controller,Get,Headers,HttpCode,HttpStatus,Param,Patch,Post,Query } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { Permissions,Public,RequireIdempotency,RequireStepUp,StaffOnly } from '../../../platform/auth/auth.decorators';
+import { CustomerOnly,Permissions,Public,RequireIdempotency,RequireStepUp,StaffOnly } from '../../../platform/auth/auth.decorators';
 import { DomainError } from '../../../shared/errors/domain-error';
 import { NotificationAdminService } from '../application/notification-admin.service';
 import { NotificationTemplateService } from '../application/notification-template.service';
 import { NotificationCommandService } from '../application/notification-command.service';
+import { NotificationInAppService } from '../application/notification-in-app.service';
+function uuid(value:string){const x=String(value??'');if(!/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(x))throw new DomainError('VALIDATION_ERROR','شناسه اعلان معتبر نیست.');return x;}
+function bool(value:unknown){return value===true||value==='true'||value==='1';}
 @Controller() export class NotificationsController{
- constructor(private readonly admin:NotificationAdminService,private readonly templates:NotificationTemplateService,private readonly commands:NotificationCommandService,private readonly env:ConfigService){}
+ constructor(private readonly admin:NotificationAdminService,private readonly templates:NotificationTemplateService,private readonly commands:NotificationCommandService,private readonly inApp:NotificationInAppService,private readonly env:ConfigService){}
+ @CustomerOnly() @Get('customer/notifications') customerInbox(@Query()q:any){return this.inApp.list({limit:q?.limit,offset:q?.offset,unreadOnly:bool(q?.unread_only)});}
+ @CustomerOnly() @RequireIdempotency('notifications.customer.mark_read') @Patch('customer/notifications/:id/read') customerMarkRead(@Param('id')id:string){return this.inApp.markRead(uuid(id));}
+ @CustomerOnly() @RequireIdempotency('notifications.customer.acknowledge') @HttpCode(HttpStatus.OK) @Post('customer/notifications/:id/acknowledge') customerAcknowledge(@Param('id')id:string){return this.inApp.acknowledge(uuid(id));}
  @StaffOnly() @Permissions('notifications.view') @Get('admin/notifications') list(@Query()q:any){return this.admin.list(q);}
  @StaffOnly() @Permissions('notifications.view') @Get('admin/notifications/operations/summary') operationsSummary(){return this.admin.operationsSummary();}
  @StaffOnly() @Permissions('notifications.view') @Get('admin/notifications/:id') get(@Param('id')id:string){return this.admin.get(id);}
