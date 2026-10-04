@@ -33,6 +33,6 @@ export default function CheckoutReviewRoute() {
   const actionData = useActionData<typeof action>() ?? null;
   const navigation = useNavigation();
   const busy = navigation.state !== "idle";
-  if (loaderData.kind === "recovery") return <main className="checkout-flow-page"><StatePanel variant="recovery" title="بازبینی سفارش نیاز به Quote معتبر دارد" message="بدون Checkout معتبر، Quote امضاشده و نشانی متعلق به مشتری، Reservation یا Order ساخته نمی‌شود." /></main>;
+  if (loaderData.kind === "recovery") return <main className="checkout-flow-page"><h1>بازبینی سفارش</h1><StatePanel variant="recovery" title="بازبینی سفارش نیاز به Quote معتبر دارد" message="بدون Checkout معتبر، Quote امضاشده و نشانی متعلق به مشتری، Reservation یا Order ساخته نمی‌شود." /></main>;
   return <main className="checkout-flow-page" aria-busy={busy}><CheckoutReviewView data={loaderData.value} actionData={actionData} busy={busy} /></main>;
 }
