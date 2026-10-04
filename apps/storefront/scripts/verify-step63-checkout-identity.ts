@@ -51,13 +51,20 @@ assert.match(css, /@media \(max-width: 600px\)/);
 assert.match(css, /@media \(max-width: 360px\)/);
 assert.doesNotMatch(css.toLowerCase(), /brown|#(?:6f4e37|795548|8b4513)/);
 
-for (const deferred of [
-  "payment-return.tsx",
-  "order-outcome.tsx",
-]) {
-  const source = readFileSync("apps/storefront/app/routes/" + deferred, "utf8");
-  assert.match(source, /RoutePlaceholder/);
-  assert.match(source, /targetStep=\{63\}/);
+const identityPaymentReturn = readFileSync("apps/storefront/app/routes/payment-return.tsx", "utf8");
+const identityOrderOutcome = readFileSync("apps/storefront/app/routes/order-outcome.tsx", "utf8");
+const identityPaymentDeferred = /RoutePlaceholder/.test(identityPaymentReturn);
+assert.equal(
+  identityPaymentDeferred,
+  /RoutePlaceholder/.test(identityOrderOutcome),
+  "63-G payment/outcome transition must be atomic",
+);
+if (identityPaymentDeferred) {
+  assert.match(identityPaymentReturn, /targetStep=\{63\}/);
+  assert.match(identityOrderOutcome, /targetStep=\{63\}/);
+} else {
+  assert.match(identityPaymentReturn, /loadPaymentReturn/);
+  assert.match(identityOrderOutcome, /loadOrderOutcome/);
 }
 
 console.log(JSON.stringify({
@@ -67,6 +74,7 @@ console.log(JSON.stringify({
   serverOnlySessionBridge: true,
   explicitGuestCartMerge: true,
   unknownOutcomeFailClosed: true,
-  paymentAndOutcomeStagesDeferred: true,
+  paymentAndOutcomeStagesDeferred: identityPaymentDeferred,
+  paymentOutcomeSuccessorActive: !identityPaymentDeferred,
   graphWork: "DEFERRED_TO_STEP63_FINAL"
 }));

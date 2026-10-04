@@ -50,6 +50,10 @@ export type PaymentStatusRequest = ApiRequestInput<"get", "/payments/{payment_id
 export type PaymentStatusResponse = NonNullable<ApiSuccessData<"get", "/payments/{payment_id}/status">>;
 export type PaymentVerifyRequest = ApiRequestInput<"post", "/payments/{payment_id}/verify">;
 export type PaymentVerifyResponse = NonNullable<ApiSuccessData<"post", "/payments/{payment_id}/verify">>;
+export type PaymentCallbackRequest = ApiRequestInput<"post", "/payments/{payment_id}/callback">;
+export type PaymentCallbackResponse = ApiSuccessData<"post", "/payments/{payment_id}/callback">;
+export type GuestPaymentRequest = ApiRequestInput<"get", "/orders/{order_number}/payments/{payment_id}">;
+export type GuestPaymentResponse = NonNullable<ApiSuccessData<"get", "/orders/{order_number}/payments/{payment_id}">>;
 export type GuestOrderRequest = ApiRequestInput<"get", "/orders/{number}">;
 export type GuestOrderResponse = NonNullable<ApiSuccessData<"get", "/orders/{number}">>;
 

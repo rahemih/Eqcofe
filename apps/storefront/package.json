@@ -12,7 +12,7 @@
     "start": "react-router-serve ./build/server/index.js",
     "typecheck": "react-router typegen && tsc --noEmit",
     "static-quality": "eslint app vite.config.ts react-router.config.ts",
-    "verify": "pnpm typecheck && pnpm static-quality && pnpm build && pnpm shell:verify && pnpm navigation:verify && pnpm home-data:verify && pnpm discovery:verify && pnpm merchandising:verify && pnpm home-state:verify && pnpm step59:acceptance && pnpm listing-foundation:verify && pnpm search-results:verify && pnpm category-listing:verify && pnpm filter-sort-pagination:verify && pnpm listing-seo-accessibility:verify && pnpm step60:acceptance && pnpm product-detail-foundation:verify && pnpm variant-price-stock:verify && pnpm media-gallery:verify && pnpm spec-related-cart:verify && pnpm product-detail-hardening:verify && pnpm step61:acceptance && pnpm compare-wishlist-foundation:verify && pnpm compare-flow:verify && pnpm wishlist-action:verify && pnpm product-listing-evaluation:verify && pnpm step62-ux-hardening:verify && pnpm step62:acceptance && pnpm cart-checkout-foundation:verify && pnpm cart-flow:verify && pnpm checkout-identity:verify && pnpm checkout-fulfillment:verify && pnpm api:verify && pnpm auth:verify && pnpm state:verify && pnpm quality:static",
+    "verify": "pnpm typecheck && pnpm static-quality && pnpm build && pnpm shell:verify && pnpm navigation:verify && pnpm home-data:verify && pnpm discovery:verify && pnpm merchandising:verify && pnpm home-state:verify && pnpm step59:acceptance && pnpm listing-foundation:verify && pnpm search-results:verify && pnpm category-listing:verify && pnpm filter-sort-pagination:verify && pnpm listing-seo-accessibility:verify && pnpm step60:acceptance && pnpm product-detail-foundation:verify && pnpm variant-price-stock:verify && pnpm media-gallery:verify && pnpm spec-related-cart:verify && pnpm product-detail-hardening:verify && pnpm step61:acceptance && pnpm compare-wishlist-foundation:verify && pnpm compare-flow:verify && pnpm wishlist-action:verify && pnpm product-listing-evaluation:verify && pnpm step62-ux-hardening:verify && pnpm step62:acceptance && pnpm cart-checkout-foundation:verify && pnpm cart-flow:verify && pnpm checkout-identity:verify && pnpm checkout-fulfillment:verify && pnpm payment-outcome:verify && pnpm api:verify && pnpm auth:verify && pnpm state:verify && pnpm quality:static",
     "shell:verify": "node ./scripts/verify-shell.mjs",
     "api:verify": "pnpm --dir ../.. exec tsx apps/storefront/scripts/verify-api-foundation.ts",
     "auth:verify": "pnpm --dir ../.. exec tsx apps/storefront/scripts/verify-auth-boundary.ts",
@@ -46,7 +46,8 @@
     "cart-checkout-foundation:verify": "pnpm --dir ../.. exec tsx apps/storefront/scripts/verify-step63-cart-checkout-foundation.ts",
     "cart-flow:verify": "pnpm --dir ../.. exec tsx apps/storefront/scripts/verify-step63-cart-flow.ts",
     "checkout-identity:verify": "pnpm --dir ../.. exec tsx apps/storefront/scripts/verify-step63-checkout-identity.ts",
-    "checkout-fulfillment:verify": "pnpm --dir ../.. exec tsx apps/storefront/scripts/verify-step63-checkout-fulfillment.ts"
+    "checkout-fulfillment:verify": "pnpm --dir ../.. exec tsx apps/storefront/scripts/verify-step63-checkout-fulfillment.ts",
+    "payment-outcome:verify": "tsx scripts/verify-step63-payment-outcome.ts"
   },
   "dependencies": {
     "@react-router/node": "8.4.0",

@@ -24,7 +24,11 @@ export async function loader({ request }: { request: Request }) {
 
 export async function action({ request }: { request: Request }) {
   const result = await handleCheckoutReviewAction(request);
-  if (result.kind === "redirect") return redirect(result.location);
+  if (result.kind === "redirect") {
+    const headers = new Headers();
+    for (const cookie of result.setCookies) headers.append("Set-Cookie", cookie);
+    return redirect(result.location, { headers });
+  }
   return data<CheckoutReviewActionResult>(result, { status: result.statusCode });
 }
 

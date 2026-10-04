@@ -118,10 +118,20 @@ for (const [file, serverImport] of fulfillmentRoutes) {
   assert.doesNotMatch(source, /RoutePlaceholder/);
   assert.match(source, serverImport);
 }
-for (const file of ["payment-return.tsx", "order-outcome.tsx"]) {
-  const source = readFileSync("apps/storefront/app/routes/" + file, "utf8");
-  assert.match(source, /RoutePlaceholder/);
-  assert.match(source, /targetStep=\{63\}/);
+const foundationPaymentReturn = readFileSync("apps/storefront/app/routes/payment-return.tsx", "utf8");
+const foundationOrderOutcome = readFileSync("apps/storefront/app/routes/order-outcome.tsx", "utf8");
+const foundationPaymentDeferred = /RoutePlaceholder/.test(foundationPaymentReturn);
+assert.equal(
+  foundationPaymentDeferred,
+  /RoutePlaceholder/.test(foundationOrderOutcome),
+  "63-G payment/outcome transition must be atomic",
+);
+if (foundationPaymentDeferred) {
+  assert.match(foundationPaymentReturn, /targetStep=\{63\}/);
+  assert.match(foundationOrderOutcome, /targetStep=\{63\}/);
+} else {
+  assert.match(foundationPaymentReturn, /loadPaymentReturn/);
+  assert.match(foundationOrderOutcome, /loadOrderOutcome/);
 }
 
 console.log(JSON.stringify({
@@ -134,5 +144,6 @@ console.log(JSON.stringify({
   cartRouteStageAware: true,
   checkoutIdentityStageAware: true,
   checkoutFulfillmentStageAware: true,
-  paymentOutcomeRoutesDeferred: true,
+  paymentOutcomeRoutesDeferred: foundationPaymentDeferred,
+  paymentOutcomeSuccessorActive: !foundationPaymentDeferred,
 }));
