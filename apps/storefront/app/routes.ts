@@ -12,6 +12,7 @@ export default [
   route("checkout/address", "./routes/checkout-address.tsx"),
   route("checkout/delivery", "./routes/checkout-delivery.tsx"),
   route("checkout/review", "./routes/checkout-review.tsx"),
+  route("payments/:paymentId/callback", "./routes/payment-provider-callback.tsx"),
   route("payment/return", "./routes/payment-return.tsx"),
   route("order/:orderNumber/outcome", "./routes/order-outcome.tsx"),
   route("account", "./routes/account.tsx"),

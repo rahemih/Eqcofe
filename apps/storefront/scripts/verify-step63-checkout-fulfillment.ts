@@ -66,12 +66,22 @@ assert.doesNotMatch(
 assert.match(addressView,/مرحله ۳ از ۵/);
 assert.match(deliveryView,/مرحله ۴ از ۵/);
 assert.match(reviewView,/مرحله ۵ از ۵/);
-assert.match(reviewView,/پرداخت در Stage 63-G/);
 
-for(const file of ["payment-return.tsx","order-outcome.tsx"]){
-  const source=readFileSync("apps/storefront/app/routes/"+file,"utf8");
-  assert.match(source,/RoutePlaceholder/);
-  assert.match(source,/targetStep=\{63\}/);
+const paymentReturnRoute=readFileSync("apps/storefront/app/routes/payment-return.tsx","utf8");
+const orderOutcomeRoute=readFileSync("apps/storefront/app/routes/order-outcome.tsx","utf8");
+const paymentPlaceholder=/RoutePlaceholder/.test(paymentReturnRoute);
+const outcomePlaceholder=/RoutePlaceholder/.test(orderOutcomeRoute);
+assert.equal(paymentPlaceholder,outcomePlaceholder,"63-G payment/outcome transition must be atomic");
+
+if(paymentPlaceholder){
+  assert.match(reviewView,/پرداخت در Stage 63-G/);
+  assert.match(paymentReturnRoute,/targetStep=\{63\}/);
+  assert.match(orderOutcomeRoute,/targetStep=\{63\}/);
+}else{
+  assert.match(reviewView,/پرداخت از مسیر authoritative آغاز می‌شود/);
+  assert.match(paymentReturnRoute,/loadPaymentReturn/);
+  assert.match(orderOutcomeRoute,/loadOrderOutcome/);
+  assert.match(reviewServer,/beginPaymentForOrder/);
 }
 
 assert.match(css,/min-height:44px/);
@@ -91,6 +101,6 @@ console.log(JSON.stringify({
   authoritativeQuote:true,
   signedReviewSnapshot:true,
   idempotentReserveOrder:true,
-  paymentDeferred:true,
+  paymentBoundary:paymentPlaceholder?"DEFERRED_TO_63_G":"SUCCESSOR_63_G_ACTIVE",
   graphWork:"DEFERRED_TO_STEP63_FINAL",
 }));

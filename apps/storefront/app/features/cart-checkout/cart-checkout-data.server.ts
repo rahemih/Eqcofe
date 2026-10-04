@@ -20,6 +20,8 @@ import type {
   CustomerCartMergeResponse,
   CustomerCartResponse,
   GuestOrderResponse,
+  GuestPaymentResponse,
+  PaymentCallbackResponse,
   PaymentInitiateResponse,
   PaymentStatusResponse,
   PaymentVerifyResponse,
@@ -225,6 +227,32 @@ export async function loadGuestOrder(
   const result = await client.request("get", "/orders/{number}", {
     pathParams: { number: orderNumber },
     headers: { "X-Checkout-Token": checkout.checkoutToken },
+  });
+  return { data: result.data, setCookies: [] };
+}
+
+export async function loadPaymentForOrder(
+  request: Request,
+  orderNumber: string,
+  paymentId: string,
+  options: CartCheckoutDataOptions = {},
+): Promise<StorefrontDataResult<GuestPaymentResponse>> {
+  const secured = createCheckoutSecurityClient(request, options);
+  const result = await secured.client.request("get", "/orders/{order_number}/payments/{payment_id}", {
+    pathParams: { order_number: orderNumber, payment_id: paymentId },
+  });
+  return { data: result.data, setCookies: [] };
+}
+
+export async function processPaymentProviderCallback(
+  paymentId: string,
+  state: string,
+  options: CartCheckoutDataOptions = {},
+): Promise<StorefrontDataResult<PaymentCallbackResponse>> {
+  const client = createPlainClient(options);
+  const result = await client.request("post", "/payments/{payment_id}/callback", {
+    pathParams: { payment_id: paymentId },
+    query: { state },
   });
   return { data: result.data, setCookies: [] };
 }

@@ -72,6 +72,7 @@
 | EQCOFE-STEP63-E-CHECKOUT-IDENTITY-001 | Step 63-E Checkout identity contract repair and OTP/session flow | HIGH | REQUIRED | `8d53017e77ce3c7caf8e7aba0f82967b82753288` | 42000/65000/120000 |
 | EQCOFE-STEP63-F-ADDRESS-REFERENCE-001 | Step 63-F canonical Iran province-city reference readiness | HIGH | REQUIRED | `da8d0fb465e85ef37a30e00c71a008cea4a31b25` | 30000/50000/90000 |
 | EQCOFE-STEP63-F-CHECKOUT-FULFILLMENT-001 | Step 63-F Address, delivery, quote, reservation, review and idempotent order submission | HIGH | REQUIRED | `e1c69999150d3b0c19ad27ce6cc8b5211b6b77d8` | 48000/75000/120000 |
+| EQCOFE-STEP63-G-PAYMENT-OUTCOME-001 | Step 63-G Payment handoff, provider callback bridge and authoritative order outcome | HIGH | REQUIRED | `db8a54c611a7860b27097d09cbba4a14a01bd949` | 52000/80000/120000 |
 | MA-AGENT-A0-ORCHESTRATOR-001 | A0 — Orchestrator / Engineering Manager Prompt | LOW | NOT_REQUIRED | `f7919991e619d416360e74a542741ef21c70f732` | 10000/16000/32000 |
 | MA-AGENT-A1-SPEC-001 | A1 — Specification & Research Prompt | LOW | NOT_REQUIRED | `120898df57138b301560e7d9b9f1b3f5da03e982` | 10000/16000/32000 |
 | MA-AGENT-A10-EVIDENCE-001 | A10 — Evidence & Documentation Prompt | LOW | NOT_REQUIRED | `bdf8fccde4ca40cced48381ad3be2e0461ade535` | 12000/18000/35000 |
@@ -117,4 +118,4 @@
 | MA-V1-ACC-MEDIUM-001 | V1 Acceptance MEDIUM R2 — telemetry terminal-state conflict hardening | MEDIUM | NOT_REQUIRED | `9017e0f25e9571568ed9acf4ca3ca977ce9e78f0` | 15000/25000/50000 |
 | MA-V1-ACCEPTANCE-CLOSURE-V16-R2-001 | V1.6 Phase 3 canonical acceptance closure R2 | HIGH | REQUIRED | `d7d235f5f240b8bea44bc607afa812b2f5bb12d4` | 30000/50000/90000 |
 
-Task contracts indexed: **111**.
+Task contracts indexed: **112**.

@@ -11,6 +11,7 @@ import {
   stableCheckoutIdempotencyKey,
   type CheckoutReviewSnapshot,
 } from "./checkout-flow-state.server.js";
+import { beginPaymentForOrder } from "./checkout-payment.server.js";
 
 export type ReviewAddress = CustomerAddressesResponse["data"][number];
 export type CheckoutReviewLoaderData = {
@@ -20,7 +21,7 @@ export type CheckoutReviewLoaderData = {
 };
 
 export type CheckoutReviewActionResult =
-  | { kind: "redirect"; location: string }
+  | { kind: "redirect"; location: string; setCookies: readonly string[] }
   | { kind: "data"; statusCode: number; message: string; requestId: string | null };
 
 export async function loadCheckoutReview(request: Request): Promise<{
@@ -52,7 +53,13 @@ export async function handleCheckoutReviewAction(request: Request): Promise<Chec
       { address: toOrderAddress(address) },
       stableCheckoutIdempotencyKey(request, "checkout-order"),
     );
-    return { kind: "redirect", location: "/order/" + encodeURIComponent(order.data.data.order_number) + "/outcome" };
+    const orderNumber = order.data.data.order_number;
+    try {
+      const payment = await beginPaymentForOrder(request, orderNumber, "payment-initiate");
+      return { kind: "redirect", location: payment.location, setCookies: payment.setCookies };
+    } catch {
+      return { kind: "redirect", location: "/order/" + encodeURIComponent(orderNumber) + "/outcome", setCookies: [] };
+    }
   } catch (error) {
     return apiFailure(error);
   }

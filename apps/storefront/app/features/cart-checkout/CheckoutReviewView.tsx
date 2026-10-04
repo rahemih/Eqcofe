@@ -15,8 +15,8 @@ export function CheckoutReviewView({ data, actionData, busy }: { data: CheckoutR
       <aside className="checkout-flow__card checkout-review__summary"><h2>خلاصه مبلغ</h2><dl>
         <div><dt>جمع پایه</dt><dd>{t(snapshot.subtotalToman)} تومان</dd></div><div><dt>تخفیف قیمت‌گذاری</dt><dd>{t(snapshot.pricingDiscountToman)} تومان</dd></div><div><dt>تخفیف بازاریابی</dt><dd>{t(snapshot.marketingDiscountToman)} تومان</dd></div><div><dt>ارسال</dt><dd>{t(snapshot.shippingToman)} تومان</dd></div><div><dt>مالیات</dt><dd>{t(snapshot.taxToman)} تومان</dd></div><div className="checkout-review__total"><dt>مبلغ نهایی</dt><dd>{t(snapshot.totalToman)} تومان</dd></div>
       </dl><p>اعتبار Quote تا <time dateTime={snapshot.expiresAt}>{new Intl.DateTimeFormat("fa-IR",{dateStyle:"short",timeStyle:"short"}).format(new Date(snapshot.expiresAt))}</time></p>
-      <Form method="post"><input type="hidden" name="intent" value="submit-order"/><button type="submit" disabled={busy}>ثبت سفارش</button></Form>
-      <p className="checkout-review__payment-note">پرداخت در Stage 63-G از مسیر authoritative Payment آغاز می‌شود؛ این مرحله موفقیت پرداخت تولید نمی‌کند.</p></aside>
+      <Form method="post"><input type="hidden" name="intent" value="submit-order"/><button type="submit" disabled={busy}>ثبت سفارش و رفتن به پرداخت</button></Form>
+      <p className="checkout-review__payment-note">پس از ثبت idempotent سفارش، پرداخت از مسیر authoritative آغاز می‌شود. خطا یا بازگشت درگاه هرگز به‌تنهایی موفقیت پرداخت محسوب نمی‌شود.</p></aside>
     </div>
     <nav className="checkout-flow__nav"><Link to="/checkout/delivery">بازگشت به تحویل</Link><Link to="/cart">سبد خرید</Link></nav>
     {busy ? <p role="status" aria-live="polite">در حال رزرو و ثبت idempotent سفارش…</p> : null}

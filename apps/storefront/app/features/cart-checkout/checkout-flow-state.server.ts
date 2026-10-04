@@ -11,8 +11,19 @@ const ADDRESS_COOKIE = "eqcofe_checkout_address_id";
 const HOST_ADDRESS_COOKIE = "__Host-eqcofe_checkout_address_id";
 const REVIEW_COOKIE = "eqcofe_checkout_review";
 const HOST_REVIEW_COOKIE = "__Host-eqcofe_checkout_review";
+const PAYMENT_COOKIE = "eqcofe_checkout_payment";
+const HOST_PAYMENT_COOKIE = "__Host-eqcofe_checkout_payment";
 const MAX_AGE_SECONDS = 15 * 60;
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+
+export type CheckoutPaymentHandoff = Readonly<{
+  v: 1;
+  checkoutId: string;
+  orderNumber: string;
+  paymentId: string;
+  createdAt: string;
+  expiresAt: string;
+}>;
 
 export type CheckoutReviewSnapshot = Readonly<{
   v: 1;
@@ -89,6 +100,36 @@ export function readReviewSnapshot(request: Request): CheckoutReviewSnapshot {
   return snapshot;
 }
 
+export function serializePaymentHandoff(request: Request, orderNumber: string, paymentId: string): string {
+  const checkout = requireCheckoutCredentials(request);
+  if (!isSafeOrderNumber(orderNumber) || !UUID_RE.test(paymentId)) throw securityError("CHECKOUT_PAYMENT_HANDOFF_INVALID");
+  const issuedAt = new Date();
+  const value: CheckoutPaymentHandoff = { v: 1, checkoutId: checkout.checkoutId, orderNumber, paymentId, createdAt: issuedAt.toISOString(), expiresAt: new Date(issuedAt.getTime() + MAX_AGE_SECONDS * 1000).toISOString() };
+  const payload = Buffer.from(JSON.stringify(value), "utf8").toString("base64url");
+  const signature = createHmac("sha256", checkout.checkoutToken).update(payload).digest("base64url");
+  return serializeCookie(isSecure(request) ? HOST_PAYMENT_COOKIE : PAYMENT_COOKIE, payload + "." + signature, request);
+}
+
+export function readPaymentHandoff(request: Request): CheckoutPaymentHandoff {
+  const checkout = requireCheckoutCredentials(request);
+  const raw = readCookie(request, isSecure(request) ? HOST_PAYMENT_COOKIE : PAYMENT_COOKIE);
+  if (!raw) throw securityError("CHECKOUT_PAYMENT_HANDOFF_MISSING");
+  const decoded = safeDecode(raw);
+  if (!decoded) throw securityError("CHECKOUT_PAYMENT_HANDOFF_INVALID");
+  const parts = decoded.split(".");
+  if (parts.length !== 2 || !parts[0] || !parts[1]) throw securityError("CHECKOUT_PAYMENT_HANDOFF_INVALID");
+  const [payload, supplied] = parts, expected = createHmac("sha256", checkout.checkoutToken).update(payload).digest();
+  let actual: Buffer;
+  try { actual = Buffer.from(supplied, "base64url"); } catch { throw securityError("CHECKOUT_PAYMENT_HANDOFF_INVALID"); }
+  if (actual.length !== expected.length || !timingSafeEqual(actual, expected)) throw securityError("CHECKOUT_PAYMENT_HANDOFF_TAMPERED");
+  let value: CheckoutPaymentHandoff;
+  try { value = JSON.parse(Buffer.from(payload, "base64url").toString("utf8")) as CheckoutPaymentHandoff; } catch { throw securityError("CHECKOUT_PAYMENT_HANDOFF_INVALID"); }
+  if (value.v !== 1 || value.checkoutId !== checkout.checkoutId || !isSafeOrderNumber(value.orderNumber) || !UUID_RE.test(value.paymentId)) throw securityError("CHECKOUT_PAYMENT_HANDOFF_INVALID");
+  const created = new Date(value.createdAt).getTime(), expires = new Date(value.expiresAt).getTime();
+  if (!Number.isFinite(created) || !Number.isFinite(expires) || expires <= Date.now() || expires - created > MAX_AGE_SECONDS * 1000 + 1000) throw securityError("CHECKOUT_PAYMENT_HANDOFF_EXPIRED");
+  return Object.freeze(value);
+}
+
 export function hasCartCredentials(request: Request): boolean {
   try { return readCartCredentials(request) !== null; } catch { return false; }
 }
@@ -106,6 +147,8 @@ function validateSnapshot(value: CheckoutReviewSnapshot): void {
   if (value.customerType !== "retail" && value.customerType !== "wholesale") throw securityError("CHECKOUT_REVIEW_CUSTOMER_TYPE_INVALID");
   if (!Number.isFinite(new Date(value.expiresAt).getTime())) throw securityError("CHECKOUT_REVIEW_EXPIRY_INVALID");
 }
+
+function isSafeOrderNumber(value: string): boolean { return /^[A-Za-z0-9_-]{1,80}$/.test(value); }
 
 function digest(...parts: string[]): string {
   const hash = createHash("sha256");

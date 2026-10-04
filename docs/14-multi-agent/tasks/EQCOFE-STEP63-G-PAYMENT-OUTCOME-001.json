@@ -1,0 +1,194 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP63-G-PAYMENT-OUTCOME-001",
+  "title": "Step 63-G Payment handoff, provider callback bridge and authoritative order outcome",
+  "description": "HIGH-risk Step 63-G. Productionize payment initiation, provider callback handoff, authoritative status/verify recovery and Order Outcome without fabricating success. Ambiguous initiation without a signed payment handoff fails closed: authoritative Order payment state blocks a duplicate payment until the prior outcome is terminal or recoverable. Real provider enablement and production secrets remain deferred to Step 74.",
+  "risk": "HIGH",
+  "risk_floor": "HIGH",
+  "owner": "PRODUCT_DESIGN",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "db8a54c611a7860b27097d09cbba4a14a01bd949"
+  },
+  "scope": {
+    "read": [
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "src/modules/payments/**",
+      "src/modules/orders/**",
+      "apps/storefront/**",
+      "test/step63-cart-checkout-contract.spec.ts",
+      "docs/11-step-history/**",
+      "docs/13-product-design/step55-checkout-payment-wireframes.json",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "apps/storefront/package.json",
+      "apps/storefront/app/routes.ts",
+      "apps/storefront/app/features/cart-checkout/cart-checkout-contract.ts",
+      "apps/storefront/app/features/cart-checkout/cart-checkout-data.server.ts",
+      "apps/storefront/app/features/cart-checkout/checkout-flow-state.server.ts",
+      "apps/storefront/app/features/cart-checkout/checkout-review.server.ts",
+      "apps/storefront/app/features/cart-checkout/checkout-payment.server.ts",
+      "apps/storefront/app/features/cart-checkout/CheckoutReviewView.tsx",
+      "apps/storefront/app/features/cart-checkout/PaymentReturnView.tsx",
+      "apps/storefront/app/features/cart-checkout/OrderOutcomeView.tsx",
+      "apps/storefront/app/routes/checkout-review.tsx",
+      "apps/storefront/app/routes/payment-provider-callback.tsx",
+      "apps/storefront/app/routes/payment-return.tsx",
+      "apps/storefront/app/routes/order-outcome.tsx",
+      "apps/storefront/app/styles/checkout-flow.css",
+      "apps/storefront/scripts/verify-step63-cart-checkout-foundation.ts",
+      "apps/storefront/scripts/verify-step63-checkout-identity.ts",
+      "apps/storefront/scripts/verify-step63-checkout-fulfillment.ts",
+      "apps/storefront/scripts/verify-step63-payment-outcome.ts",
+      "docs/11-step-history/STEP-63-G-PAYMENT-OUTCOME.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP63-G-PAYMENT-OUTCOME-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "database/**",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "apps/admin/**",
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "docs/12-current-state/**",
+      "src/modules/cart/**",
+      "src/modules/orders/**",
+      "src/modules/customer/**",
+      "src/modules/payments/presentation/**",
+      "src/modules/payments/infrastructure/**",
+      "src/modules/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP63-G-PAYMENT-OUTCOME-001-01"
+  ],
+  "human_gate_required": true,
+  "token_budget": {
+    "expected_max": 52000,
+    "soft_alert": 80000,
+    "hard_cap": 120000
+  },
+  "max_repair_cycles": 3,
+  "pre_mutation_gates": {
+    "graph_health": "DEFERRED_BY_PROJECT_OWNER_UNTIL_STEP63_FINAL",
+    "query_evidence": "DEFERRED_BY_PROJECT_OWNER_UNTIL_STEP63_FINAL",
+    "path_evidence": "DEFERRED_BY_PROJECT_OWNER_UNTIL_STEP63_FINAL",
+    "explain_evidence": "DEFERRED_BY_PROJECT_OWNER_UNTIL_STEP63_FINAL",
+    "human_gate": "FINAL_EXACT_ARTIFACT_APPROVAL_REQUIRED_BEFORE_PROTECTED_MERGE"
+  },
+  "dependencies": [
+    {
+      "item": "63-F Checkout Fulfillment",
+      "required_state": "TERMINAL_MERGED_POSTMERGE_PASS_LOCK_RELEASED",
+      "observed_state": "TERMINAL_MERGED_POSTMERGE_PASS_LOCK_RELEASED",
+      "merge_sha": "db8a54c611a7860b27097d09cbba4a14a01bd949",
+      "evidence": "PR #309 protected workflow_dispatch 37191884831; merge job 111405640903 SUCCESS; exact-SHA postmerge 111405690958 SUCCESS; terminal Lock release comment 5978521969.",
+      "blocking": false
+    }
+  ],
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Checkout Review creates the order idempotently and then initiates payment using the server-only Checkout token and a stable idempotency key. It never fabricates payment success when initiation is unavailable or ambiguous.",
+      "verification": "stage_verifier_and_contract_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "A Storefront provider-callback bridge receives the provider GET callback, sends callback state only server-to-server to the canonical backend callback operation, and redirects to /payment/return without carrying callback state or secrets forward.",
+      "verification": "stage_verifier_and_security_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Payment return is bound to an HttpOnly HMAC-signed handoff tied to the Checkout token and determines result only from authoritative payment status/verify. Query parameters cannot select an unrelated payment.",
+      "verification": "stage_verifier_and_security_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Order outcome loads the authoritative order and bound payment, displays paid/pending/failed/refund-required states without inference, and allows a new payment attempt only after authoritative status proves the prior attempt is terminal or no prior handoff exists.",
+      "verification": "stage_verifier_and_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "If initiation becomes ambiguous before a signed payment handoff exists, Order Outcome fails closed. A pending/authorized/paid/refund state on the authoritative Order blocks any fresh payment attempt; only unpaid/failed/cancelled order state may recover without a prior handoff.",
+      "verification": "stage_verifier_and_fail_closed_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Provider enablement remains fail-closed by default. No merchant secret, production provider activation, provider infrastructure change or Step 74 production integration is introduced.",
+      "verification": "scope_and_security_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "Persian RTL, bidi isolation for references, 44px targets, visible focus and responsive reflow are present. No payment/checkout credential or callback state enters browser storage or user-visible diagnostics.",
+      "verification": "storefront_quality_and_security",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "Canonical completion requires exact-head Canonical CI, Phase A, Storefront Quality, CodeQL Security, deterministic Review, exact-artifact Human Gate, ACTIVE Lock, protected merge, exact-SHA postmerge verification and terminal Lock release.",
+      "verification": "canonical_transport_and_postmerge_evidence",
+      "mandatory": true
+    },
+    {
+      "id": "AC-009",
+      "description": "The Step 63-C foundation, Step 63-E identity and Step 63-F fulfillment predecessor verifiers are transition-aware: they preserve their original invariants while accepting either the original payment/outcome placeholders or the atomic production successor runtime introduced by Step 63-G. No security, credential, identity or fulfillment assertion is removed.",
+      "verification": "predecessor_transition_verifiers",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "VERIFICATION",
+      "SECURITY",
+      "HUMAN",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Stage 63-G is HIGH risk because it crosses payment initiation, provider callback state and authoritative paid/outcome recovery. Final Project Owner HUMAN approval must bind to the frozen exact head/artifact after technical/security gates are green. Direct-main write/raw merge prohibited."
+  },
+  "authorized_human_approver": {
+    "role": "PROJECT_OWNER",
+    "github_login": "rahemih"
+  },
+  "evidence": {
+    "live_guard_main_head": "db8a54c611a7860b27097d09cbba4a14a01bd949",
+    "linear_issue": "HOS-67",
+    "predecessor_pr": 309,
+    "predecessor_terminal_comment": 5978521969,
+    "graph_pre_mutation": {
+      "status": "DEFERRED_TO_STEP63_FINAL",
+      "terminal_requirement": "Execute accumulated Step 63 graph health/query/path/explain evidence during final acceptance/closure before Step 64 handoff."
+    },
+    "payment_provider_boundary": {
+      "payments_enabled_default": false,
+      "configured_provider_default": "disabled",
+      "production_integration_step": 74,
+      "callback_bridge_requirement": "PAYMENT_CALLBACK_BASE_URL must resolve to the Storefront origin when a browser-return provider flow is enabled so /payments/:paymentId/callback can proxy state server-to-server and return to /payment/return.",
+      "ambiguous_initiation_recovery": "No backend mutation in Step 63-G. If browser/server transport loses the initiated payment_id, Storefront reads authoritative Order payment_status and blocks duplicate initiation for pending/authorized/paid/refund states; operator/customer recovery remains fail-closed until the backend exposes a safe payment identity."
+    },
+    "predecessor_verifier_repair": {
+      "reason": "Step 63-C/63-E/63-F verifiers intentionally froze SF-D-06/SF-D-07 placeholders (and 63-F froze the old Stage 63-G CTA). Once successor Stage 63-G runtime is present, those placeholder assertions become stale while all predecessor security and domain invariants must remain enforced.",
+      "mode": "TRANSITION_AWARE_NO_SECURITY_OR_DOMAIN_CHECK_REMOVAL",
+      "repaired_verifiers": [
+        "apps/storefront/scripts/verify-step63-cart-checkout-foundation.ts",
+        "apps/storefront/scripts/verify-step63-checkout-identity.ts",
+        "apps/storefront/scripts/verify-step63-checkout-fulfillment.ts"
+      ]
+    }
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}
