@@ -9897,7 +9897,8 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
       security:
-      - customerSession: []  /customer/wholesale/applications:
+      - customerSession: []
+  /customer/wholesale/applications:
     post:
       tags:
       - Customer
