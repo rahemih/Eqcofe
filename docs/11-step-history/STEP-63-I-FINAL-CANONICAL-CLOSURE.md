@@ -96,7 +96,7 @@ The local artifact `graphify-out/graph.json` must not be committed. Stage-I will
 
 ## Stage-I terminal gate sequence
 
-All non-Graph closure content, Current State/Roadmap reconciliation and Step-64 handoff wording are carried by this PR. Before protected merge, fresh Graphify health/query/path/explain evidence must be attached for exact baseline `11edbe47831b0e02ca587781b147585e4c1f06e9`. The immutable terminal sequence is: Graph evidence → exact-artifact Review/Lock validation → protected merge → exact-SHA postmerge verification → terminal Lock release → Linear `HOS-67 = Done`.
+All non-Graph closure content, Current State/Roadmap reconciliation and Step-64 handoff wording are carried by PR #315, which supersedes closed/unmerged PR #313 after the canonical QA repair. Before protected merge, fresh Graphify health/query/path/explain evidence must be attached for exact baseline `11edbe47831b0e02ca587781b147585e4c1f06e9`. The immutable PR #315 terminal sequence is: Graph evidence → exact-artifact Review/Lock validation → protected merge → exact-SHA postmerge verification → terminal Lock release → Linear `HOS-67 = Done`.
 
 Until those gates:
 
