@@ -9859,7 +9859,6 @@ paths:
       - customerSession: []
       x-eqcofe:
         idempotency: required
-  /customer/warranty/claims:
     get:
       tags:
       - Warranty
