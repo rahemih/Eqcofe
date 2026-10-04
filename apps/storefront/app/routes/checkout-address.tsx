@@ -38,6 +38,6 @@ export default function CheckoutAddressRoute() {
   const actionData = useActionData<typeof action>() ?? null;
   const navigation = useNavigation();
   const busy = navigation.state !== "idle";
-  if (loaderData.kind === "recovery") return <main className="checkout-flow-page"><StatePanel variant="recovery" title="نشانی فعلاً قابل دریافت نیست" message="برای ادامه Checkout باید نشست مشتری و سرویس API معتبر در دسترس باشد؛ موفقیت فرض نمی‌شود." /></main>;
+  if (loaderData.kind === "recovery") return <main className="checkout-flow-page"><h1>نشانی سفارش</h1><StatePanel variant="recovery" title="نشانی فعلاً قابل دریافت نیست" message="برای ادامه Checkout باید نشست مشتری و سرویس API معتبر در دسترس باشد؛ موفقیت فرض نمی‌شود." /></main>;
   return <main className="checkout-flow-page" aria-busy={busy}><CheckoutAddressView data={loaderData.value} actionData={actionData} busy={busy} /></main>;
 }
