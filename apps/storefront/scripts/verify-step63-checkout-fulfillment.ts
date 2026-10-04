@@ -52,8 +52,12 @@ assert.match(reviewRoute,/checkout-review\.server\.js/);
 
 assert.doesNotMatch(
   state+addressServer+deliveryServer+reviewServer+addressRoute+deliveryRoute+reviewRoute+addressView+deliveryView+reviewView,
-  /localStorage|sessionStorage|document\.cookie|checkout_token/i,
+  /localStorage|sessionStorage|document\.cookie/i,
 );
+const browserFacing = addressRoute+deliveryRoute+reviewRoute+addressView+deliveryView+reviewView;
+assert.doesNotMatch(browserFacing,/checkout_token|checkoutToken|X-Checkout-Token/i);
+assert.match(deliveryServer,/serializeReviewSnapshot\(request, snapshot, quote\.checkout_token\)/);
+assert.equal((deliveryServer.match(/quote\.checkout_token/g) ?? []).length,1);
 assert.doesNotMatch(
   addressServer+deliveryServer+reviewServer+addressRoute+deliveryRoute+reviewRoute,
   /initiatePayment|verifyPayment|loadPaymentStatus/,
