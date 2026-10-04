@@ -133,7 +133,50 @@
       "Legacy OpenAPI customer Product Alerts/Loyalty/Review operations have no matching customer-facing runtime controller discovered; Step 64 treats them as NO_ACTION, not executable authority."
     ],
     "migration_need": "NONE",
-    "dependency_need": "NONE"
+    "dependency_need": "NONE",
+    "implemented_repair": {
+      "auth_session": "sanitized customer actor only; internal sessionId/permissions/scopes excluded",
+      "auth_logout": "logout and logout-all explicit HTTP 200 with typed success contract",
+      "returns": "customer create/list/detail/timeline/cancel typed; auth/idempotency/status aligned to runtime",
+      "warranty": "customer create/list/detail/timeline typed; auth/idempotency/status aligned to runtime",
+      "notifications": "customer-only list/read/acknowledge wrappers over existing owner-scoped NotificationInAppService; UUID validation; no persistence/provider rule change",
+      "generated_contract": "src/generated/openapi.ts regenerated from canonical OpenAPI",
+      "regression_test": "test/step64-account-after-sales-contract.spec.ts",
+      "product_alerts_loyalty_reviews": "NO_ACTION for Step 64 absent proven customer-facing runtime authority",
+      "database_migration": "NONE",
+      "dependency_change": "NONE",
+      "storefront_mutation": "NONE"
+    },
+    "provenance_reconciliation": "Hash/manifest-only Step56 A/B-G -> Step56-H -> Step57 synchronization; no design semantics changed.",
+    "pre_freeze_validation": {
+      "head_sha": "06f14df536162f76d2e7ee4adcef6b8473020b7f",
+      "canonical_ci": {
+        "run_id": 37220988618,
+        "run_number": 1378,
+        "job_id": 111491110089,
+        "status": "SUCCESS"
+      },
+      "phase_a": {
+        "run_id": 37220988635,
+        "run_number": 877,
+        "job_id": 111491109798,
+        "status": "SUCCESS"
+      },
+      "codeql": {
+        "run_id": 37220986328,
+        "status": "SUCCESS",
+        "job_ids": [
+          111491105992,
+          111491106179,
+          111491106199
+        ]
+      },
+      "tests": {
+        "application": "965/965 PASS",
+        "multi_agent": "148/148 PASS"
+      },
+      "note": "Documentation evidence update changes the artifact; final exact-head providers and artifact-bound gates must refresh."
+    }
   },
   "acceptance_criteria": [
     {
