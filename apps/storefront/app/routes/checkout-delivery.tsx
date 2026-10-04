@@ -37,6 +37,6 @@ export default function CheckoutDeliveryRoute() {
   const actionData = useActionData<typeof action>() ?? null;
   const navigation = useNavigation();
   const busy = navigation.state !== "idle";
-  if (loaderData.kind === "recovery") return <main className="checkout-flow-page"><StatePanel variant="recovery" title="روش تحویل فعلاً قابل دریافت نیست" message="بدون نشانی، Cart و پاسخ authoritative روش‌های ارسال، مبلغ یا روش تحویل حدس زده نمی‌شود." /></main>;
+  if (loaderData.kind === "recovery") return <main className="checkout-flow-page"><h1>روش تحویل</h1><StatePanel variant="recovery" title="روش تحویل فعلاً قابل دریافت نیست" message="بدون نشانی، Cart و پاسخ authoritative روش‌های ارسال، مبلغ یا روش تحویل حدس زده نمی‌شود." /></main>;
   return <main className="checkout-flow-page" aria-busy={busy}><CheckoutDeliveryView data={loaderData.value} actionData={actionData} busy={busy} /></main>;
 }
