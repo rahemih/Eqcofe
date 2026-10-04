@@ -126,3 +126,28 @@ Stage 64-B is HIGH risk. Technical repair and exact-head verification may procee
 - terminal Lock RELEASED.
 
 Until terminal closure, `STEP_64_C = BLOCKED_FROM_MUTATION`.
+
+
+## Security finding — customer session actor exposure
+
+Stage 64-B source audit found a real security defect rather than contract-only drift:
+
+- `ExecutionActor` contains internal `sessionId`, permissions and scopes fields.
+- `GET /auth/session` returned `req.actor` verbatim.
+- A customer could therefore receive an internal session identifier in the success payload.
+
+Repair in this stage:
+- return a minimal customer actor view only: `type`, `id`, `accountId`;
+- never serialize `sessionId`, permissions or scopes to the customer session endpoint;
+- make logout/logout-all explicit HTTP 200 operations;
+- add focused contract/security regression assertions.
+
+## Customer in-app notification HTTP bridge
+
+The repository already had `NotificationInAppService` with owner-scoped list, mark-read and acknowledge behavior, but no customer HTTP routes. Stage 64-B exposes only a thin customer-only wrapper:
+
+- `GET /customer/notifications`
+- `PATCH /customer/notifications/:id/read`
+- `POST /customer/notifications/:id/acknowledge`
+
+The mutations remain idempotency-protected. UUID input is validated before the repository cast. No database/provider/routing/business-rule change is introduced.
