@@ -151,3 +151,33 @@ The repository already had `NotificationInAppService` with owner-scoped list, ma
 - `POST /customer/notifications/:id/acknowledge`
 
 The mutations remain idempotency-protected. UUID input is validated before the repository cast. No database/provider/routing/business-rule change is introduced.
+
+## Implemented repair and pre-freeze verification
+
+The evidence-backed Stage-B repair is complete before the final artifact freeze:
+
+- `GET /auth/session` now emits only the bounded customer actor view and does not serialize internal `sessionId`, permissions or scopes.
+- `POST /auth/logout` and `POST /auth/logout-all` explicitly return HTTP 200 and have typed canonical success responses.
+- Customer Returns create/list/detail/timeline/cancel contracts are aligned with runtime ownership, status, idempotency and typed response behavior.
+- Customer Warranty create/list/detail/timeline contracts are aligned with runtime ownership, status, idempotency and typed response behavior.
+- Customer in-app notification list/read/acknowledge routes are exposed as `CustomerOnly` wrappers over the existing owner-scoped `NotificationInAppService`; no database/provider/routing rule was added.
+- UUID notification identifiers are validated before repository casts; mutation routes retain idempotency requirements.
+- Generated TypeScript is regenerated from canonical OpenAPI and regression coverage lives in `test/step64-account-after-sales-contract.spec.ts`.
+- Product Alerts/Loyalty/Reviews remain NO_ACTION for Step 64 because no matching customer-facing runtime controller was proven.
+- Database migration: NONE.
+- Dependency/lockfile change: NONE.
+- Wholesale/Step65 scope: untouched.
+
+OpenAPI hash drift was reconciled through the recovered Step56/57 provenance chain using hash/manifest-only updates. Diff audit confirms no Product Design screen, journey, permission, operation or visual semantics changed. The cascade includes A and B-G source/manifests, Step56-H final audit/manifest and Step57 high-fidelity source hashes.
+
+Pre-freeze exact-head validation on `06f14df536162f76d2e7ee4adcef6b8473020b7f`:
+
+- Canonical CI #1378 / run `37220988618` / job `111491110089` = SUCCESS;
+- Phase A #877 / run `37220988635` / job `111491109798` = SUCCESS;
+- GitHub CodeQL dynamic run `37220986328` = SUCCESS for JavaScript/TypeScript, Actions and Python;
+- application tests = 965/965 PASS;
+- multi-agent tests = 148/148 PASS;
+- Step56-H semantic audit = PASS;
+- Step57 foundation/prototype checks = PASS inside canonical verify.
+
+This evidence is pre-freeze only. The documentation update itself changes the PR artifact, so exact-head providers and all artifact-bound gates must refresh once more before Lock/Human/merge.
