@@ -32,7 +32,9 @@
       "docs/13-product-design/step56-wireframes/F/manifest.json",
       "docs/13-product-design/step56-final-audit.json",
       "docs/13-product-design/step56-final-audit/manifest.json",
-      "docs/13-product-design/step57-high-fidelity-contract.json"
+      "docs/13-product-design/step57-high-fidelity-contract.json",
+      "docs/13-product-design/step56-management-security-wireframes.json",
+      "docs/13-product-design/step56-wireframes/G/manifest.json"
     ],
     "forbidden": [
       ".github/**",
@@ -174,7 +176,13 @@
     "provenance_repair": {
       "authorized": true,
       "semantics_change": "NONE",
-      "reason": "Step56/57 recovered-source SHA cascade for customer-address.service.ts"
+      "reason": "Step56/57 recovered-source SHA cascade for customer-address.service.ts",
+      "expanded_chain": [
+        "step56-customers-growth-wireframes.json",
+        "step56-wireframes/F/manifest.json",
+        "step56-management-security-wireframes.json",
+        "step56-wireframes/G/manifest.json"
+      ]
     }
   }
 }
