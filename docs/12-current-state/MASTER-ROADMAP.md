@@ -337,7 +337,7 @@ Canonical A–H lineage:
 - 63-H PR #312 → `e14e44b033a15b2cf579908af53d7d882dcd5b09`
 - pre-closure QA repair PR #314 → `11edbe47831b0e02ca587781b147585e4c1f06e9`
 
-Stage H protected run `37199480032` / #967 merged PR #312; merge job `111428027601`, exact-SHA postmerge job `111428076121` and 959/959 application tests passed; postmerge-failure `111428836834` skipped; terminal comment `5979598896` released the Stage-H Lock. Final Stage-I replacement closure PR is the only remaining transport after the canonical pre-closure QA repair. Its terminal verdict is effective only after fresh local Graph/Graphify health/query/path/explain evidence is attached to the exact final Step-63 baseline, followed by protected merge, exact-SHA postmerge verification and terminal Lock release.
+Stage H protected run `37199480032` / #967 merged PR #312; merge job `111428027601`, exact-SHA postmerge job `111428076121` and 959/959 application tests passed; postmerge-failure `111428836834` skipped; terminal comment `5979598896` released the Stage-H Lock. Final Stage-I PR #315 is the only remaining transport after the canonical pre-closure QA repair. Its terminal verdict is effective only after fresh local Graph/Graphify health/query/path/explain evidence is attached to the exact final Step-63 baseline, followed by protected merge, exact-SHA postmerge verification and terminal Lock release.
 
 ## Step 64 — Customer Account & After-Sales — `NEXT / NOT_STARTED`
 Implement profile, addresses, orders/invoices, order detail, returns, warranty, notifications and account security surfaces.
