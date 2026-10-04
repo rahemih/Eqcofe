@@ -8,6 +8,38 @@
 - Default/canonical branch: `main`
 - Historical repository: `rahemih/digikala-clone` — historical/recovery evidence only; not canonical application source.
 
+## Current Step 63 position
+
+**Step 63 — Cart & Checkout Frontend — FINAL CLOSURE PREPARED.** Stages 63-A through 63-H are canonically complete. Stage 63-I PR #313 is the final documentation/governance transport. Its branch content freezes Step 63 as `CLOSED / FINAL CANONICAL PASS` and Step 64 as `NEXT / NOT_STARTED`, but that verdict is not canonical on `main` until the Project Owner's deferred final Graph/Graphify gate is present, protected merge succeeds, exact-SHA postmerge verification passes and the terminal Lock is released.
+
+| Stage | PR | Canonical merge | State |
+| --- | ---: | --- | --- |
+| 63-A canonical handoff/discovery/scope freeze | #304 | `53870e90ea08e0e7045c6c4149282e5d60ef2909` | COMPLETE |
+| 63-B backend/OpenAPI Cart/Checkout readiness | #305 | `f92d6dc3e96e9c0a4489d7085d50ca8ebde31ba2` | COMPLETE |
+| 63-C shared Cart/Checkout foundation | #306 | `8a35247ebdce58decfc752b41e8fed89d7447da6` | COMPLETE |
+| 63-D production Cart flow | #307 | `8d53017e77ce3c7caf8e7aba0f82967b82753288` | COMPLETE |
+| 63-E Checkout identity / OTP / session | #308 | `da8d0fb465e85ef37a30e00c71a008cea4a31b25` | COMPLETE |
+| 63-F canonical Iran address-reference repair | #310 | `e1c69999150d3b0c19ad27ce6cc8b5211b6b77d8` | COMPLETE |
+| 63-F address/delivery/review/idempotent order | #309 | `db8a54c611a7860b27097d09cbba4a14a01bd949` | COMPLETE |
+| 63-G payment handoff/callback recovery/outcome | #311 | `e4da7d24e47d3b0c19ad27ce6cc8b5211b6b77d8` | COMPLETE |
+| 63-H integrated browser acceptance | #312 | `e14e44b033a15b2cf579908af53d7d882dcd5b09` | COMPLETE |
+| 63-I final canonical closure / Step 64 handoff | #313 | pending protected merge | GRAPH GATE PENDING |
+
+Stage-H exact head `338ff9e0892f94982e69d78624a82d975c4d0b45` passed Canonical CI `37197561211`, Phase A `37197561212` and Storefront Quality `37197561228`. Protected workflow_dispatch `37199480032` / #967 merged PR #312 as `e14e44b033a15b2cf579908af53d7d882dcd5b09`; merge job `111428027601` and exact-SHA postmerge `111428076121` passed, including 959/959 application tests; postmerge-failure `111428836834` skipped; terminal comment `5979598896` released `LOCK-EQCOFE-STEP63-H-ACCEPTANCE-001-01`.
+
+The frozen Step-63 product result covers authoritative Cart and Checkout state, guest/auth identity boundaries, address/shipping/quote, signed Review snapshot, idempotent reserve/order submission, signed payment handoff, callback-state containment, authoritative payment recovery and Order Outcome. Persian RTL, responsive, keyboard/focus, 44px targets and automated accessibility/browser acceptance are verified. Real provider activation/secrets remain Step 74.
+
+**Only remaining Step-63 blocker:** final local Graphify evidence on baseline `e14e44b033a15b2cf579908af53d7d882dcd5b09`:
+
+```text
+GRAPH_HEALTH = FRESH / PASS
+QUERY_EVIDENCE = PRESENT
+PATH_EVIDENCE = PRESENT
+EXPLAIN_EVIDENCE = PRESENT
+```
+
+After that evidence is attached to PR #313, only protected Merge Policy transport, exact-SHA postmerge verification, terminal Lock release and Linear `HOS-67 = Done` remain. Step 64 must not start earlier.
+
 ## Current Step 62 position
 
 **Step 62 — Compare & Wishlist — CLOSED / FINAL CANONICAL PASS.** Stages 62-A through 62-I and the postclosure documentation synchronization are canonically complete. Final Stage-I PR #300 and postclosure PR #302 both completed protected merge, exact-SHA postmerge verification and terminal Lock release. Linear `HOS-66` is **Done**. Step 63 — Cart & Checkout Frontend is **NEXT / NOT_STARTED** and may begin only under a fresh live guard and a separate governed Task Contract.
@@ -558,7 +590,7 @@ Verify job: `97170521019` — PASS
 - Dark theme is explicitly deferred: it is not a Roadmap requirement and the current Figma plan permits one mode per collection.
 
 ## Next safe action
-Begin **Step 63 — Cart & Checkout Frontend** only under a fresh live guard and a separate governed Task Contract. Step 62 is terminally closed; do not reopen or mutate its runtime without a new governed repair task backed by fresh evidence.
+Begin **Step 64 — Customer Account & After-Sales** only after PR #313 carries fresh final Graph/Graphify evidence, completes protected merge and exact-SHA postmerge verification, releases its terminal Lock, and Linear `HOS-67` is Done.
 
 ## Step 52 active closure state
 - **A1 — Canonical Handoff & Scope Freeze — COMPLETE / FINAL GATE PASS**
