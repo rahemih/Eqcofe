@@ -73,8 +73,8 @@
 | EQCOFE-STEP63-F-ADDRESS-REFERENCE-001 | Step 63-F canonical Iran province-city reference readiness | HIGH | REQUIRED | `da8d0fb465e85ef37a30e00c71a008cea4a31b25` | 30000/50000/90000 |
 | EQCOFE-STEP63-F-CHECKOUT-FULFILLMENT-001 | Step 63-F Address, delivery, quote, reservation, review and idempotent order submission | HIGH | REQUIRED | `e1c69999150d3b0c19ad27ce6cc8b5211b6b77d8` | 48000/75000/120000 |
 | EQCOFE-STEP63-G-PAYMENT-OUTCOME-001 | Step 63-G Payment handoff, provider callback bridge and authoritative order outcome | HIGH | REQUIRED | `db8a54c611a7860b27097d09cbba4a14a01bd949` | 52000/80000/120000 |
-| EQCOFE-STEP63-I-CLOSURE-001 | Step 63-I final canonical closure, Graph evidence and Step 64 handoff | MEDIUM | NOT_REQUIRED | `e14e44b033a15b2cf579908af53d7d882dcd5b09` | 24000/38000/76000 |
 | EQCOFE-STEP63-H-ACCEPTANCE-001 | Step 63-H integrated Cart/Checkout browser acceptance and UX hardening | MEDIUM | NOT_REQUIRED | `e4da7d24e47d3c6791a237167a4ea94360bd07e5` | 36000/56000/108000 |
+| EQCOFE-STEP63-I-CLOSURE-001 | Step 63-I final canonical closure, Graph evidence and Step 64 handoff | MEDIUM | NOT_REQUIRED | `e14e44b033a15b2cf579908af53d7d882dcd5b09` | 24000/38000/76000 |
 | MA-AGENT-A0-ORCHESTRATOR-001 | A0 — Orchestrator / Engineering Manager Prompt | LOW | NOT_REQUIRED | `f7919991e619d416360e74a542741ef21c70f732` | 10000/16000/32000 |
 | MA-AGENT-A1-SPEC-001 | A1 — Specification & Research Prompt | LOW | NOT_REQUIRED | `120898df57138b301560e7d9b9f1b3f5da03e982` | 10000/16000/32000 |
 | MA-AGENT-A10-EVIDENCE-001 | A10 — Evidence & Documentation Prompt | LOW | NOT_REQUIRED | `bdf8fccde4ca40cced48381ad3be2e0461ade535` | 12000/18000/35000 |
