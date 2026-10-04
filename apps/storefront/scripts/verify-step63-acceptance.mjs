@@ -336,6 +336,18 @@ try {
   assert.equal(outcomeResponse.status, 200, "STEP63_H_OUTCOME_STATUS");
   assert((await outcomeResponse.text()).includes("نتیجه سفارش هنوز قطعی نیست"), "STEP63_H_OUTCOME_PENDING_CONTENT");
 
+  const verifyResponse = await fetch(origin + "/payment/return", {
+    method: "POST",
+    headers: {
+      cookie: paymentCookies.join("; "),
+      "content-type": "application/x-www-form-urlencoded",
+    },
+    body: new URLSearchParams({ intent: "verify-payment" }),
+    redirect: "manual",
+  });
+  assert.equal(verifyResponse.status, 302, "STEP63_H_VERIFY_ACTION_STATUS");
+  assert.equal(verifyResponse.headers.get("location"), `/order/${orderNumber}/outcome`, "STEP63_H_VERIFY_ACTION_REDIRECT");
+
   let browserVerified = false;
   let axeRuns = 0;
   if (process.env.EQCOFE_BROWSER_QA_ROOT) {
