@@ -67,10 +67,10 @@
     }
   ],
   "pre_mutation_gates": {
-    "graph_health": "PENDING_REQUIRED_BEFORE_FINAL_CLOSURE",
-    "query_evidence": "PENDING_REQUIRED_BEFORE_FINAL_CLOSURE",
-    "path_evidence": "PENDING_REQUIRED_BEFORE_FINAL_CLOSURE",
-    "explain_evidence": "PENDING_REQUIRED_BEFORE_FINAL_CLOSURE",
+    "graph_health": "PENDING_FINAL_OWNER_GRAPH_EXECUTION",
+    "query_evidence": "PENDING_FINAL_OWNER_GRAPH_EXECUTION",
+    "path_evidence": "PENDING_FINAL_OWNER_GRAPH_EXECUTION",
+    "explain_evidence": "PENDING_FINAL_OWNER_GRAPH_EXECUTION",
     "note": "Project Owner explicitly deferred accumulated Step-63 Graph/Graphify evidence to final Stage 63-I. The local graph artifact is Git-ignored and cannot be proven through GitHub connector state alone."
   },
   "dependencies": [
@@ -104,8 +104,10 @@
       "canonical_health_script": "scripts/graphify/health.mjs",
       "canonical_record_state_script": "scripts/graphify/record-state.mjs",
       "required_final_baseline": "e14e44b033a15b2cf579908af53d7d882dcd5b09",
-      "status": "PENDING_LOCAL_EXECUTION"
-    }
+      "status": "FINAL_GATE_PENDING_AFTER_NON_GRAPH_CLOSURE_PREP"
+    },
+    "non_graph_closure_prepared": true,
+    "current_state_and_roadmap_reconciled_on_pr_branch": true
   },
   "acceptance_criteria": [
     {
