@@ -39,7 +39,12 @@ export async function loadAccountOverview(
   request: Pick<Request, "headers">,
   options: AccountDataOptions = {},
 ): Promise<AccountOverviewData> {
-  const bridge = createCustomerSessionBridge(request, options);
+  let bridge: ReturnType<typeof createCustomerSessionBridge>;
+  try {
+    bridge = createCustomerSessionBridge(request, options);
+  } catch {
+    return { status: "unavailable", setCookies: [] };
+  }
 
   let session: AccountSessionResponse;
   try {
