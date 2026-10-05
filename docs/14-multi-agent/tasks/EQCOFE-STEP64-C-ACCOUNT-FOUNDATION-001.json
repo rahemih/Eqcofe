@@ -1,0 +1,174 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP64-C-ACCOUNT-FOUNDATION-001",
+  "title": "Step 64-C shared Account Storefront foundation and overview",
+  "description": "Implement the shared Storefront Customer Account foundation on top of canonical Step 64-B contracts: generated-contract aliases, server-only customer-session data access, bounded partial recovery and production /account overview. Keep profile/address/orders detail/tools/returns/warranty mutations and production routes deferred to their owning later Step-64 stages.",
+  "risk": "MEDIUM",
+  "risk_floor": "MEDIUM",
+  "owner": "PRODUCT_DESIGN",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "901542c71138406226474381909649067f8869e8"
+  },
+  "scope": {
+    "read": [
+      "apps/storefront/**",
+      "src/generated/openapi.ts",
+      "contracts/http/openapi.yaml",
+      "docs/11-step-history/STEP-64-A-CANONICAL-HANDOFF.md",
+      "docs/11-step-history/STEP-64-B-CONTRACT-READINESS.md",
+      "docs/13-product-design/step55-account-wholesale-after-sales-wireframes.json",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "apps/storefront/package.json",
+      "apps/storefront/app/features/account/account-contract.ts",
+      "apps/storefront/app/features/account/account-data.server.ts",
+      "apps/storefront/app/features/account/AccountOverviewView.tsx",
+      "apps/storefront/app/routes/account.tsx",
+      "apps/storefront/app/styles/account.css",
+      "apps/storefront/scripts/verify-step64-account-foundation.ts",
+      "docs/11-step-history/STEP-64-C-ACCOUNT-FOUNDATION.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP64-C-ACCOUNT-FOUNDATION-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "contracts/**",
+      "src/**",
+      "database/**",
+      "test/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**",
+      "apps/storefront/app/routes/account-profile.tsx",
+      "apps/storefront/app/routes/account-addresses.tsx",
+      "apps/storefront/app/routes/account-orders.tsx",
+      "apps/storefront/app/routes/account-order-detail.tsx",
+      "apps/storefront/app/routes/account-tools.tsx",
+      "apps/storefront/app/routes/account-return.tsx",
+      "apps/storefront/app/routes/account-warranty.tsx"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP64-C-ACCOUNT-FOUNDATION-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 28000,
+    "soft_alert": 44000,
+    "hard_cap": 84000
+  },
+  "max_repair_cycles": 3,
+  "task_risk_rules": [
+    {
+      "id": "STEP64_C_ACCOUNT_FOUNDATION_MEDIUM",
+      "risk": "MEDIUM",
+      "paths": [
+        "apps/storefront/package.json",
+        "apps/storefront/app/features/account/**",
+        "apps/storefront/app/routes/account.tsx",
+        "apps/storefront/app/styles/account.css",
+        "apps/storefront/scripts/verify-step64-account-foundation.ts",
+        "docs/11-step-history/STEP-64-C-ACCOUNT-FOUNDATION.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP64-C-ACCOUNT-FOUNDATION-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "64-B",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "901542c71138406226474381909649067f8869e8",
+      "evidence": "PR #317 merged as 901542c71138406226474381909649067f8869e8; exact-SHA CI 37221588090, Phase A 37221588099, Storefront Quality 37221588076 and CodeQL 37221587725 passed; terminal Lock release comment 5992128878.",
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "linear_issue": "HOS-68",
+    "live_guard_main_head": "901542c71138406226474381909649067f8869e8",
+    "live_guard_competing_step64_prs": 0,
+    "implementation_owner_agent": "A3",
+    "qa_agent": "A7",
+    "security_agent": "A8",
+    "evidence_agent": "A10",
+    "contract_authority": "src/generated/openapi.ts",
+    "graph_state": "OUT_OF_SCOPE_BY_OWNER_DIRECTIVE",
+    "design_screen": "SF-E-01",
+    "productionized_route": "/account",
+    "deferred_child_routes": [
+      "/account/profile",
+      "/account/addresses",
+      "/account/orders",
+      "/account/orders/:orderNumber",
+      "/account/tools",
+      "/account/returns/:returnNumber?",
+      "/account/warranty/:claimNumber?"
+    ]
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Account session, recent Orders and Notifications types are direct aliases of generated OpenAPI success contracts.",
+      "verification": "pnpm --dir apps/storefront account-foundation:verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "All account data travels through the existing server-only CustomerSessionBridge; no browser-local auth/session authority or raw cookie access is introduced.",
+      "verification": "account-foundation verifier + typecheck",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "A 401 from any authoritative account request fails closed to an unauthenticated state with no personal/order data rendered.",
+      "verification": "account-foundation verifier",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Independent Orders/Notifications failures produce bounded partial recovery rather than false success or total account failure.",
+      "verification": "account-foundation verifier",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "SF-E-01 /account becomes production UI with account navigation, recent Orders and Notifications while child Step-64 routes remain owned by D-G.",
+      "verification": "account-foundation verifier + deterministic scope check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Persian RTL-compatible markup, 44px targets, visible focus and responsive single-column behavior are present without brown palette additions.",
+      "verification": "account-foundation verifier + Storefront Quality",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "No backend/OpenAPI/database/dependency/design/Current-State mutation is introduced.",
+      "verification": "deterministic scope check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "Canonical completion requires exact-head CI, Phase A, Storefront Quality as applicable, deterministic Review, exact-artifact ACTIVE Lock, protected merge, exact-SHA postmerge verification and terminal Lock release.",
+      "verification": "canonical transport evidence",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Stage 64-C is MEDIUM risk. Human Gate is not required. Direct-main/raw merge are prohibited; Stage 64-D remains blocked until terminal 64-C evidence."
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}
