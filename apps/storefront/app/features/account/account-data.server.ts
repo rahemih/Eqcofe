@@ -2,7 +2,6 @@ import { ApiClientError } from "../../platform/api/errors.js";
 import type { ApiClientConfig } from "../../platform/api/request.js";
 import {
   createCustomerSessionBridge,
-  type CustomerSessionBridge,
 } from "../../platform/auth/session-cookie.server.js";
 import type {
   AccountActor,
