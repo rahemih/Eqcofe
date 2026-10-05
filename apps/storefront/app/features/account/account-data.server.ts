@@ -23,6 +23,10 @@ export type AccountOverviewData =
       setCookies: readonly string[];
     }
   | {
+      status: "unavailable";
+      setCookies: readonly string[];
+    }
+  | {
       status: "ready";
       actor: AccountActor;
       recentOrders: readonly AccountOrderItem[];
@@ -45,7 +49,7 @@ export async function loadAccountOverview(
     if (isUnauthorized(error)) {
       return { status: "unauthenticated", setCookies: bridge.takeSetCookies() };
     }
-    throw error;
+    return { status: "unavailable", setCookies: bridge.takeSetCookies() };
   }
 
   const [ordersResult, notificationsResult] = await Promise.allSettled([
