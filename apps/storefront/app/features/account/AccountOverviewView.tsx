@@ -8,6 +8,17 @@ type AccountOverviewViewProps = {
 const toman = new Intl.NumberFormat("fa-IR");
 
 export function AccountOverviewView({ state }: AccountOverviewViewProps) {
+  if (state.status === "unavailable") {
+    return (
+      <section className="account-overview__state" aria-labelledby="account-unavailable">
+        <p className="account-overview__eyebrow">حساب کاربری</p>
+        <h1 id="account-unavailable">اطلاعات حساب موقتاً در دسترس نیست</h1>
+        <p>هیچ وضعیت ساختگی نمایش داده نمی‌شود. پس از برقراری ارتباط دوباره تلاش کنید.</p>
+        <Link className="account-overview__primary-link" to="/account">تلاش دوباره</Link>
+      </section>
+    );
+  }
+
   if (state.status === "unauthenticated") {
     return (
       <section className="account-overview__state" aria-labelledby="account-session-ended">
