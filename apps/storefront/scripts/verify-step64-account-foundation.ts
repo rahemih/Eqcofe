@@ -12,6 +12,7 @@ for(const path of ["/auth/session","/customer/orders","/customer/notifications"]
 assert.match(data,/createCustomerSessionBridge/);
 assert.match(data,/Promise\.allSettled/);
 assert.match(data,/status: "unauthenticated"/);
+assert.match(data,/status: "unavailable"/);
 assert.match(data,/partialFailures/);
 assert.doesNotMatch(data,/localStorage|sessionStorage|document\.cookie/);
 assert.match(route,/loadAccountOverview/);
@@ -19,6 +20,7 @@ assert.match(route,/appendCustomerSessionSetCookies/);
 assert.doesNotMatch(route,/RoutePlaceholder/);
 assert.match(view,/پیشخوان حساب کاربری/);
 assert.match(view,/نشست شما پایان یافته است/);
+assert.match(view,/اطلاعات حساب موقتاً در دسترس نیست/);
 assert.match(view,/سفارش‌های اخیر/);
 assert.match(view,/اعلان‌های اخیر/);
 assert.match(view,/خدمات مشتری/);
