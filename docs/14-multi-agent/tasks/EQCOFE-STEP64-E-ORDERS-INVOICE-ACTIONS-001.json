@@ -2,7 +2,7 @@
   "schema_version": "2.2",
   "task_id": "EQCOFE-STEP64-E-ORDERS-INVOICE-ACTIONS-001",
   "title": "Step 64-E customer orders, detail, timeline, invoice and authoritative actions",
-  "description": "HIGH-risk Step 64-E. Productionize SF-E-04 /account/orders and SF-E-05 /account/orders/:order-number from canonical generated contracts. Use cursor pagination, customer-owned order detail, normalized timeline, invoice truth and only backend-authorized order cancellation. Repair the discovered order timeline runtime/OpenAPI shape mismatch without changing database/business eligibility. Do not invent filters, payment authority, return/warranty eligibility, backend rules or Step 64-F+ functionality.",
+  "description": "HIGH-risk Step 64-E. Productionize SF-E-04 /account/orders and SF-E-05 /account/orders/:order-number from canonical generated contracts. Use cursor pagination, customer-owned order detail, boundary-normalized timeline, invoice truth and only backend-authorized order cancellation. Contain the discovered legacy runtime timeline/OpenAPI shape mismatch in the server-only Storefront adapter without changing Backend, OpenAPI, database or business eligibility. Do not invent filters, payment authority, return/warranty eligibility, backend rules or Step 64-F+ functionality.",
   "risk": "HIGH",
   "risk_floor": "HIGH",
   "owner": "PRODUCT_DESIGN",
@@ -34,7 +34,6 @@
       "apps/storefront/app/routes/account-order-detail.tsx",
       "apps/storefront/app/styles/account.css",
       "apps/storefront/scripts/verify-step64-orders-invoice-actions.ts",
-      "src/modules/orders/application/order.service.ts",
       "test/step64-orders-storefront-contract.spec.ts",
       "docs/11-step-history/STEP-64-E-ORDERS-INVOICE-ACTIONS.md",
       "docs/14-multi-agent/tasks/EQCOFE-STEP64-E-ORDERS-INVOICE-ACTIONS-001.json",
@@ -55,7 +54,8 @@
       "docs/13-product-design/**",
       "apps/storefront/app/routes/account-tools.tsx",
       "apps/storefront/app/routes/account-returns.tsx",
-      "apps/storefront/app/routes/account-warranty.tsx"
+      "apps/storefront/app/routes/account-warranty.tsx",
+      "src/modules/orders/application/order.service.ts"
     ]
   },
   "requested_lock_ids": [
@@ -100,8 +100,8 @@
     },
     {
       "id": "AC-003",
-      "description": "Order timeline runtime data is normalized to the canonical OrderTimelineResponse contract with from_status/to_status/reason/created_at before Storefront consumption; no OpenAPI or business-rule mutation is introduced.",
-      "verification": "focused_backend_regression_and_stage_verifier",
+      "description": "Legacy runtime Order timeline rows are normalized at the server-only Storefront boundary into the canonical OrderTimelineResponse shape (from_status/to_status/reason/created_at) before rendering. Backend/OpenAPI/database/business rules remain unchanged.",
+      "verification": "stage_verifier_and_focused_contract_regression",
       "mandatory": true
     },
     {
@@ -192,7 +192,8 @@
       "cancel_action_token": "cancel_order",
       "list_pagination": "cursor + limit only",
       "order_filtering_supported": false,
-      "payment_customer_session_authority": false
+      "payment_customer_session_authority": false,
+      "timeline_runtime_reconciliation": "STOREFRONT_SERVER_BOUNDARY_NORMALIZATION_ONLY"
     }
   },
   "process_improvement_links": [],
