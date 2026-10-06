@@ -1,0 +1,201 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP64-E-ORDERS-INVOICE-ACTIONS-001",
+  "title": "Step 64-E customer orders, detail, timeline, invoice and authoritative actions",
+  "description": "HIGH-risk Step 64-E. Productionize SF-E-04 /account/orders and SF-E-05 /account/orders/:order-number from canonical generated contracts. Use cursor pagination, customer-owned order detail, boundary-normalized timeline, invoice truth and only backend-authorized order cancellation. Contain the discovered legacy runtime timeline/OpenAPI shape mismatch in the server-only Storefront adapter without changing Backend, OpenAPI, database or business eligibility. Do not invent filters, payment authority, return/warranty eligibility, backend rules or Step 64-F+ functionality.",
+  "risk": "HIGH",
+  "risk_floor": "HIGH",
+  "owner": "PRODUCT_DESIGN",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "2a0bb00543177a229e6650132e4fa9e99a778f93"
+  },
+  "scope": {
+    "read": [
+      "apps/storefront/**",
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "src/modules/orders/**",
+      "src/platform/http/**",
+      "docs/11-step-history/**",
+      "docs/13-product-design/step55-account-wholesale-after-sales-wireframes.json",
+      "docs/13-product-design/step55-wireframes/E/SF-E-04/**",
+      "docs/13-product-design/step55-wireframes/E/SF-E-05/**",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "apps/storefront/package.json",
+      "apps/storefront/app/features/account/account-contract.ts",
+      "apps/storefront/app/features/account/account-orders.server.ts",
+      "apps/storefront/app/features/account/AccountOrdersView.tsx",
+      "apps/storefront/app/features/account/AccountOrderDetailView.tsx",
+      "apps/storefront/app/routes/account-orders.tsx",
+      "apps/storefront/app/routes/account-order-detail.tsx",
+      "apps/storefront/app/styles/account.css",
+      "apps/storefront/scripts/verify-step64-orders-invoice-actions.ts",
+      "test/step64-orders-storefront-contract.spec.ts",
+      "docs/11-step-history/STEP-64-E-ORDERS-INVOICE-ACTIONS.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP64-E-ORDERS-INVOICE-ACTIONS-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "database/**",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "apps/admin/**",
+      "contracts/**",
+      "src/generated/openapi.ts",
+      "src/modules/payments/**",
+      "src/modules/returns/**",
+      "src/modules/warranty/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**",
+      "apps/storefront/app/routes/account-tools.tsx",
+      "apps/storefront/app/routes/account-returns.tsx",
+      "apps/storefront/app/routes/account-warranty.tsx",
+      "src/modules/orders/application/order.service.ts"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP64-E-ORDERS-INVOICE-ACTIONS-001-01"
+  ],
+  "human_gate_required": true,
+  "token_budget": {
+    "expected_max": 52000,
+    "soft_alert": 80000,
+    "hard_cap": 120000
+  },
+  "max_repair_cycles": 3,
+  "pre_mutation_gates": {
+    "graph_health": "RETIRED_AND_OUT_OF_SCOPE",
+    "query_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "path_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "explain_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "human_gate": "FINAL_EXACT_ARTIFACT_APPROVAL_REQUIRED_BEFORE_PROTECTED_MERGE"
+  },
+  "dependencies": [
+    {
+      "item": "64-D",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "2a0bb00543177a229e6650132e4fa9e99a778f93",
+      "evidence": "PR #322 merged through protected workflow_dispatch 37464041417; exact-SHA postmerge verification job 112275367104 succeeded; terminal Lock release comment 6016630544.",
+      "blocking": false
+    }
+  ],
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "SF-E-04 /account/orders uses the canonical generated GET /customer/orders contract, fixed bounded page size and cursor pagination. It does not invent backend filters, totals or previous-page authority.",
+      "verification": "stage_verifier_types_and_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "SF-E-05 /account/orders/:order-number loads only customer-owned detail from GET /customer/orders/{order_number}; ownership-denied/not-found behavior leaks no record existence or content.",
+      "verification": "stage_verifier_and_security_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Legacy runtime Order timeline rows are normalized at the server-only Storefront boundary into the canonical OrderTimelineResponse shape (from_status/to_status/reason/created_at) before rendering. Backend/OpenAPI/database/business rules remain unchanged.",
+      "verification": "stage_verifier_and_focused_contract_regression",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Invoice presentation consumes GET /customer/orders/{order_number}/invoice and renders only authoritative integer-Toman values from the embedded OrderResponse. No fabricated PDF/file download or wallet behavior is added.",
+      "verification": "stage_verifier_and_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Cancel control is shown only when authoritative OrderResponse.allowed_actions includes cancel_order, and the server re-fetches current order state before POST /customer/orders/{order_number}/cancel.",
+      "verification": "stage_verifier_and_security_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Customer cancel mutation uses required idempotency, bounded reason_code/note, and treats 401/403/404/409/422/unknown outcomes fail-closed without manufacturing success.",
+      "verification": "stage_verifier_and_security_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "Session credentials remain server-only through CustomerSessionBridge; order/payment/customer identifiers never become browser auth authority, analytics secrets or raw diagnostic payload.",
+      "verification": "stage_verifier_and_security_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "Persian RTL order list/detail/invoice/timeline UI has stable bidi order references, integer-Toman formatting, semantic loading/empty/error/terminal states, 44px targets, visible focus and responsive reflow.",
+      "verification": "storefront_quality_and_stage_verifier",
+      "mandatory": true
+    },
+    {
+      "id": "AC-009",
+      "description": "No DB migration, dependency, OpenAPI/generated contract, Product Design, Current-State, payment, Returns/Warranty or Step 64-F+ mutation is introduced.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-010",
+      "description": "Canonical completion requires exact-head Canonical CI, Phase A, Storefront Quality, Security, deterministic Review, exact-artifact ACTIVE Lock, exact-artifact Project Owner Human Gate, protected merge, exact-SHA postmerge verification and terminal Lock release.",
+      "verification": "canonical_transport_and_postmerge_evidence",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "VERIFICATION",
+      "SECURITY",
+      "HUMAN",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Stage 64-E is HIGH risk because it presents customer-owned order financial state and can invoke order cancellation. Final Project Owner HUMAN approval must bind to the frozen exact head/artifact after technical/security gates are green. Direct-main/raw merge prohibited."
+  },
+  "authorized_human_approver": {
+    "role": "PROJECT_OWNER",
+    "github_login": "rahemih"
+  },
+  "evidence": {
+    "linear_issue": "HOS-68",
+    "live_guard_main_head": "2a0bb00543177a229e6650132e4fa9e99a778f93",
+    "predecessor_pr": 322,
+    "predecessor_terminal_comment": 6016630544,
+    "implementation_owner_agent": "A3",
+    "backend_repair_agent": "A2",
+    "qa_agent": "A7",
+    "security_agent": "A8",
+    "product_design_agent": "A9",
+    "evidence_agent": "A10",
+    "graph_state": "RETIRED_AND_OUT_OF_SCOPE",
+    "design_screens": [
+      "SF-E-04",
+      "SF-E-05"
+    ],
+    "productionized_routes": [
+      "/account/orders",
+      "/account/orders/:order-number"
+    ],
+    "backend_authority": {
+      "order_list": "GET /customer/orders",
+      "order_detail": "GET /customer/orders/{order_number}",
+      "order_timeline": "GET /customer/orders/{order_number}/timeline",
+      "order_invoice": "GET /customer/orders/{order_number}/invoice",
+      "order_cancel": "POST /customer/orders/{order_number}/cancel",
+      "cancel_action_token": "cancel_order",
+      "list_pagination": "cursor + limit only",
+      "order_filtering_supported": false,
+      "payment_customer_session_authority": false,
+      "timeline_runtime_reconciliation": "STOREFRONT_SERVER_BOUNDARY_NORMALIZATION_ONLY"
+    }
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}
