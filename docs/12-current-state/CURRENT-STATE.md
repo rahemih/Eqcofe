@@ -8,7 +8,7 @@
 - Default/canonical branch: `main`
 - Historical repository: `rahemih/digikala-clone` — historical/recovery evidence only; not canonical application source.
 
-## Current Step 63 position
+## Previous Step 63 position
 
 **Step 63 — Cart & Checkout Frontend — `CLOSED / FINAL CANONICAL PASS`.** Terminal PR #315 merged canonically as `e7985b7b3c7bfd81cab293607674d576ca93a82e`. Exact-SHA postmerge Canonical CI `37208274324 / 111453974034` and Phase A `37208274314 / 111453973977` passed, terminal Lock `LOCK-EQCOFE-STEP63-I-CLOSURE-001-01` was released, and Linear `HOS-67` is Done.
 
@@ -32,7 +32,27 @@ The frozen Step-63 product result covers authoritative Cart/Checkout state, gues
 
 ## Current Step 64 position
 
-**Step 64 — Customer Account & After-Sales — ACTIVE.** Stage 64-A is canonical through PR #316 at `b1fd06587a7a71cfeff8d4c6233a5a6dbd3284df`; Stage 64-B is canonical through PR #317 at `901542c71138406226474381909649067f8869e8`; Stage 64-C continues in PR #318. Step 64 execution uses normal repository source, contracts, tests, CI/provider evidence, GitHub and Linear governance only; no graph artifact or graph freshness check is required.
+**Step 64 — Customer Account & After-Sales — `CLOSED / FINAL CANONICAL PASS` after terminal 64-I transport.** Stages 64-A through 64-H are already terminal/canonical; Stage 64-I is the documentation/governance closure transport based on canonical main `7306dc4277b72286f43eb04540cd774e28d4bf1e`. Step 65 must not mutate until 64-I completes protected merge, exact-SHA postmerge verification and terminal Lock release.
+
+| Stage | PR | Canonical merge | Terminal Lock | State |
+| --- | ---: | --- | ---: | --- |
+| 64-A canonical handoff / scope freeze | #316 | `b1fd06587a7a71cfeff8d4c6233a5a6dbd3284df` | `5981015509` | COMPLETE |
+| 64-B Backend/OpenAPI readiness | #317 | `901542c71138406226474381909649067f8869e8` | `5992128878` | COMPLETE |
+| 64-C shared Account foundation / overview | #321 | `8cbc8fa1c0598f9a3ab819f2468563349fe8b6be` | `6015856178` | COMPLETE |
+| 64-D Profile / security / Addresses | #322 | `2a0bb00543177a229e6650132e4fa9e99a778f93` | `6016630544` | COMPLETE |
+| 64-E Orders / timeline / invoice / actions | #324 | `8a2aef6c643b59822d9c65783464044e7737a514` | `6017547738` | COMPLETE |
+| 64-F Wishlist / notifications / customer tools | #326 | `5b12963738f094a6d9a5e795519c0760a9745dfe` | `6018080825` | COMPLETE |
+| 64-G Returns / Warranty | #327 | `5149a4588dc0a78cedb71dc9fce698e3d01e1016` | `6023088654` | COMPLETE |
+| 64-H integrated browser acceptance | #328 | `7306dc4277b72286f43eb04540cd774e28d4bf1e` | `6023384928` | COMPLETE |
+| 64-I final verification / docs / handoff | final closure transport | current branch | pending terminal closure | IN PROGRESS |
+
+Stage 64-H exact merge-SHA evidence is green: Canonical CI `37515371757`, Phase A `37515371763`, Storefront Quality `37515371750` and CodeQL `37515371879` all succeeded. Its integrated browser acceptance covered 320px and 1200px with 20 Axe runs and zero automated WCAG violations; application regression remained **981/981 PASS**.
+
+Canonical Step-64 functionality now includes Account overview/recovery, Profile and security session actions, customer-owned Addresses, Orders/detail/timeline/invoice/backend-authorized actions, Wishlist and customer in-app Notifications, Returns and Warranty. Product Alerts, Loyalty and Reviews remain `NO_ACTION`. Superseded PRs #318, #323 and #325 are closed/unmerged and not part of canonical lineage.
+
+Graph/Graphify is retired from active EQCOFE governance through PR #320 / `4d126a0087b8042e270aeae73225c558c4dd8e74`; there is no graph debt or graph gate for Step 64.
+
+**Next safe action after terminal 64-I:** Step 65 — Wholesale Experience (`HOS-69`) becomes `NEXT / NOT_STARTED`.
 
 ## Current Step 62 position
 
