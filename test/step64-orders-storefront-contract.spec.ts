@@ -10,16 +10,18 @@ const server=readFileSync('apps/storefront/app/features/account/account-orders.s
 const listView=readFileSync('apps/storefront/app/features/account/AccountOrdersView.tsx','utf8');
 const detailView=readFileSync('apps/storefront/app/features/account/AccountOrderDetailView.tsx','utf8');
 
-test('customer order timeline runtime is normalized to canonical contract keys',()=>{
+test('Storefront boundary normalizes legacy customer timeline rows to canonical keys',()=>{
   const timeline=orderService.slice(
     orderService.indexOf('async timelineCustomer'),
     orderService.indexOf('async invoiceCustomer'),
   );
-  assert.match(timeline,/SELECT from_status,to_status,reason,created_at FROM orders\.order_status_history/);
-  assert.match(timeline,/from_status:row\.from_status\?\?null,to_status:String\(row\.to_status\)/);
-  assert.match(timeline,/from_status:null,to_status:String\(row\.status\),reason:null/);
-  assert.doesNotMatch(timeline,/source,to_status status/);
-  assert.doesNotMatch(timeline,/source,status,NULL::text/);
+  assert.match(timeline,/source,to_status status/);
+  assert.match(timeline,/source,status,NULL::text reason/);
+  assert.match(server,/function normalizeOrderTimeline/);
+  assert.match(server,/row\.to_status\) \?\? cleanTimelineString\(row\.status\)/);
+  assert.match(server,/from_status: fromStatus/);
+  assert.match(server,/to_status: toStatus/);
+  assert.match(server,/created_at: createdAt/);
 });
 
 test('customer order runtime remains customer-owned and cancel remains idempotent',()=>{
