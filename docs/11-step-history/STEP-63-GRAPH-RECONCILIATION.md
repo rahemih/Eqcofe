@@ -6,6 +6,8 @@ Status: **LOCAL GRAPH EVIDENCE COMPLETE / GOVERNED DOCUMENTATION RECONCILIATION 
 
 Linear follow-up: `HOS-181`
 
+Governed reconciliation transport: PR #319
+
 Step 63 terminal merge: PR #315 → `e7985b7b3c7bfd81cab293607674d576ca93a82e`
 
 This follow-up closes the only explicitly deferred Step-63 Graph/Graphify debt without reopening Step 63, changing Cart/Checkout runtime behavior, or rolling back Step 64. The Project Owner's earlier deferral remains valid historical chronology for the moment PR #315 and Step 64-A/B were executed; it is no longer an unresolved live dependency after the evidence below.
