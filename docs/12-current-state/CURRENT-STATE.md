@@ -44,7 +44,7 @@ The frozen Step-63 product result covers authoritative Cart/Checkout state, gues
 | 64-F Wishlist / notifications / customer tools | #326 | `5b12963738f094a6d9a5e795519c0760a9745dfe` | `6018080825` | COMPLETE |
 | 64-G Returns / Warranty | #327 | `5149a4588dc0a78cedb71dc9fce698e3d01e1016` | `6023088654` | COMPLETE |
 | 64-H integrated browser acceptance | #328 | `7306dc4277b72286f43eb04540cd774e28d4bf1e` | `6023384928` | COMPLETE |
-| 64-I final verification / docs / handoff | final closure transport | current branch | pending terminal closure | IN PROGRESS |
+| 64-I final verification / docs / handoff | final closure transport | this canonical document | terminal evidence attached to PR | COMPLETE |
 
 Stage 64-H exact merge-SHA evidence is green: Canonical CI `37515371757`, Phase A `37515371763`, Storefront Quality `37515371750` and CodeQL `37515371879` all succeeded. Its integrated browser acceptance covered 320px and 1200px with 20 Axe runs and zero automated WCAG violations; application regression remained **981/981 PASS**.
 
@@ -52,7 +52,7 @@ Canonical Step-64 functionality now includes Account overview/recovery, Profile 
 
 Graph/Graphify is retired from active EQCOFE governance through PR #320 / `4d126a0087b8042e270aeae73225c558c4dd8e74`; there is no graph debt or graph gate for Step 64.
 
-**Next safe action after terminal 64-I:** Step 65 — Wholesale Experience (`HOS-69`) becomes `NEXT / NOT_STARTED`.
+**Next safe action:** Step 65 — Wholesale Experience (`HOS-69`) is `NEXT / NOT_STARTED` once this 64-I document is terminally canonical on `main`. No Step-65 mutation is authorized before that terminal evidence.
 
 ## Current Step 62 position
 
