@@ -8,7 +8,6 @@ const listView = read("apps/storefront/app/features/account/AccountOrdersView.ts
 const detailView = read("apps/storefront/app/features/account/AccountOrderDetailView.tsx");
 const listRoute = read("apps/storefront/app/routes/account-orders.tsx");
 const detailRoute = read("apps/storefront/app/routes/account-order-detail.tsx");
-const orderService = read("src/modules/orders/application/order.service.ts");
 const css = read("apps/storefront/app/styles/account.css");
 const pkg = read("apps/storefront/package.json");
 
@@ -32,8 +31,10 @@ assert.match(server, /status === 422/);
 assert.match(server, /موفقیت را فرض نکنید/);
 assert.doesNotMatch(server, /localStorage|sessionStorage/);
 
-assert.match(orderService, /SELECT from_status,to_status,reason,created_at FROM orders\.order_status_history/);
-assert.match(orderService, /from_status:null,to_status:String\(row\.status\),reason:null/);
+assert.match(server, /function normalizeOrderTimeline/);
+assert.match(server, /cleanTimelineString\(row\.to_status\) \?\? cleanTimelineString\(row\.status\)/);
+assert.match(server, /from_status: fromStatus/);
+assert.match(server, /to_status: toStatus/);
 
 assert.doesNotMatch(listRoute, /RoutePlaceholder/);
 assert.doesNotMatch(detailRoute, /RoutePlaceholder/);
