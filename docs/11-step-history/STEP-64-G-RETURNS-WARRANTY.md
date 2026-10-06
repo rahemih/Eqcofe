@@ -76,6 +76,14 @@ Admin Warranty transitions such as review, approve/reject, receive, repair, reso
 - payment/shipping/inventory mutation
 - Step 64-H+ implementation
 
+## Active transport
+
+- PR: `#327`
+- Branch: `eqcofe/step64-g-returns-warranty`
+- Base: `5b12963738f094a6d9a5e795519c0760a9745dfe`
+- Initial implementation scope: 13 Task-Contract-authorized paths; no forbidden Backend/OpenAPI/generated/DB/dependency/Product Design/Current-State mutation.
+- Provider evidence is not inferred before exact-head workflows complete.
+
 ## Canonical gate
 
 Stage 64-G is **HIGH risk**. Final protected merge requires explicit Project Owner Human approval bound to the frozen exact head/artifact, but only after Canonical CI, Phase A, Storefront Quality, CodeQL/Security, deterministic Review and exact-artifact ACTIVE Lock are green.
