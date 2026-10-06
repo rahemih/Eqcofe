@@ -29,56 +29,8 @@ Write-Host "EQCOFE local agent"
 Write-Host "Repository: $repo"
 Write-Host "Branch: $branch"
 Write-Host "Codex: $codexExe"
-Write-Host 'Repository AGENTS.md and Graphify instructions will be loaded by Codex.'
+Write-Host 'Repository AGENTS.md instructions will be loaded by Codex.'
+Write-Host 'Starting Codex...'
 
-Write-Host 'Checking Graphify health...'
-& node scripts/graphify/health.mjs
-if ($LASTEXITCODE -ne 0) {
-    Write-Host 'Graph is stale or unhealthy. Refreshing before Codex starts...'
-    & powershell -ExecutionPolicy Bypass -File (Join-Path $PSScriptRoot 'refresh-eqcofe-graph.ps1')
-    if ($LASTEXITCODE -ne 0) {
-        throw 'Graphify refresh failed before Codex startup.'
-    }
-}
-
-$watchScript = Join-Path $PSScriptRoot 'start-graphify-watch.ps1'
-if (-not (Test-Path $watchScript)) {
-    throw "Graphify watch launcher is missing: $watchScript"
-}
-
-$watchProcess = $null
-$codexExitCode = 1
-
-try {
-    Write-Host 'Starting Graphify Watch for this Codex session...'
-    $watchProcess = Start-Process powershell -ArgumentList @(
-        '-NoProfile',
-        '-ExecutionPolicy', 'Bypass',
-        '-File', $watchScript
-    ) -WorkingDirectory $repo -WindowStyle Hidden -PassThru
-
-    Start-Sleep -Seconds 1
-    if ($watchProcess.HasExited) {
-        throw "Graphify Watch exited during startup with code $($watchProcess.ExitCode)."
-    }
-
-    Write-Host "Graphify Watch PID: $($watchProcess.Id)"
-    Write-Host 'Starting Codex...'
-    & $codexExe
-    $codexExitCode = $LASTEXITCODE
-}
-finally {
-    if ($watchProcess -and -not $watchProcess.HasExited) {
-        Write-Host "Stopping Graphify Watch PID $($watchProcess.Id)..."
-        Stop-Process -Id $watchProcess.Id -Force -ErrorAction SilentlyContinue
-        $watchProcess.WaitForExit(5000) | Out-Null
-    }
-
-    Write-Host 'Running final Graphify refresh and health check...'
-    & powershell -ExecutionPolicy Bypass -File (Join-Path $PSScriptRoot 'refresh-eqcofe-graph.ps1')
-    if ($LASTEXITCODE -ne 0) {
-        Write-Warning 'Final Graphify refresh/health check failed. Run .codex/refresh-eqcofe-graph.ps1 manually before relying on graph freshness.'
-    }
-}
-
-exit $codexExitCode
+& $codexExe
+exit $LASTEXITCODE
