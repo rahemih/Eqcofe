@@ -1,12 +1,12 @@
 # EQCOFE — Complete Master Execution Roadmap
 
-**Roadmap version:** 3.59 — Step-63 Final Canonical Closure
-**Effective date:** 2026-10-04
+**Roadmap version:** 3.60 — Step-64 Active / Tooling Simplification
+**Effective date:** 2026-10-06
 **Canonical repository:** `rahemih/Eqcofe`  
 **Canonical branch:** `main`  
 **Verified Step-44 code baseline:** `b239dfe825b615f36caf2e26cc7abc80c70d349c`
 
-> This is the canonical end-to-end execution map for EQCOFE. Phase A (Steps 1–28) is `CLOSED / FINAL GATE PASS` by current canonical verification. For historical Steps 1–27, exact original labels/closure lineage remain `Historical Attribution: UNVERIFIED`; Step 28 remains `Historical Attribution: PARTIAL`. Current-baseline verification does not prove recovered historical provenance. Steps 29–63 retain their established canonical status. Step 62 remains `CLOSED / FINAL CANONICAL PASS`. Step 63 is the active final-closure branch result: Stages A–H are terminal and canonical, while Stage I becomes `CLOSED / FINAL CANONICAL PASS` only after the deferred final Graph/Graphify evidence, protected merge, exact-SHA postmerge verification and terminal Lock release. Once those gates land on `main`, Linear `HOS-67` is Done and Step 64 becomes `NEXT / NOT_STARTED`.
+> This is the canonical end-to-end execution map for EQCOFE. Phase A (Steps 1–28) is `CLOSED / FINAL GATE PASS` by current canonical verification. For historical Steps 1–27, exact original labels/closure lineage remain `Historical Attribution: UNVERIFIED`; Step 28 remains `Historical Attribution: PARTIAL`. Current-baseline verification does not prove recovered historical provenance. Steps 29–63 retain their established canonical status. Step 62 remains `CLOSED / FINAL CANONICAL PASS`. Step 63 is `CLOSED / FINAL CANONICAL PASS` through terminal PR #315 / `e7985b7b3c7bfd81cab293607674d576ca93a82e`. Step 64 is ACTIVE: 64-A and 64-B are canonical and 64-C is the active continuation. By Owner directive dated 2026-10-06, Graph/Graphify is retired from active project governance and is not a gate, dependency, evidence requirement or Definition-of-Done item.
 
 ## Status legend
 - `RECONSTRUCTED-HISTORY`: normalized historical description; exact historical step attribution is not proven.
@@ -323,9 +323,9 @@ Stages A–I are canonically complete. Product Detail uses authoritative backend
 Stages A–I are canonically complete. Compare uses deterministic URL/state, backend-authoritative same-primary-category validation, authoritative integer-Toman price and comparable-specification data, and shared Product Detail + Listing/ProductCard entry points. Wishlist uses authoritative backend membership/add/remove operations, required idempotency transport, server-owned customer session boundaries, explicit guest/auth recovery, and no browser-local auth/Wishlist truth. Persian RTL, accessibility, responsive behavior and integrated Chromium acceptance are verified. Stage H merged PR #299 as `32a69f22fdc783573827e91477d9c6ae875999be`. Final Stage-I PR #300 merged as `a09c22260f8b3c15d78752b40630b2fa480bbeb4`; postclosure PR #302 then synchronized canonical state and merged as `cc97380fde99cd4e2da45b2e4a708dae5352423d` through protected run `37048234302` / #831, with merge job `110974878059`, exact-SHA postmerge job `110975075156`, postmerge-failure `110976648892` skipped and terminal comment `5958958362` releasing `LOCK-EQCOFE-STEP62-POSTCLOSURE-DOCSYNC-001-01`. Final audit confirms 950/950 application tests, all Step-62 deterministic verifiers, Chromium browser acceptance and exact-main CodeQL are green; see `docs/11-step-history/STEP-62-FINAL-AUDIT.md`.
 
 ## Step 63 — Cart & Checkout Frontend — `CLOSED / FINAL CANONICAL PASS`
-Stages A–H are canonically complete and Stage I is the documentation/governance-only final closure transport. The frozen result includes production Cart quantity/remove flows with server-only credentials; Checkout identity/session and guest recovery; customer-owned address selection/edit/create with canonical Iran province/city reference validation; authoritative shipping and integer-Toman quote totals; HMAC-signed Review snapshot; idempotent reservation and Order submission; HMAC-signed payment handoff; server-to-server provider callback state containment; authoritative payment status/verify recovery; authoritative Order Outcome; Persian RTL, responsive reflow, focus/44px targets and integrated Chromium/Axe acceptance. Production payment-provider activation/secrets remain deferred to Step 74.
+Stages A–I are canonically complete. The frozen result includes production Cart quantity/remove flows with server-only credentials; Checkout identity/session and guest recovery; customer-owned address selection/edit/create with canonical Iran province/city reference validation; authoritative shipping and integer-Toman quote totals; HMAC-signed Review snapshot; idempotent reservation and Order submission; HMAC-signed payment handoff; server-to-server provider callback state containment; authoritative payment status/verify recovery; authoritative Order Outcome; Persian RTL, responsive reflow, focus/44px targets and integrated Chromium/Axe acceptance. Production payment-provider activation/secrets remain deferred to Step 74.
 
-Canonical A–H lineage:
+Canonical lineage:
 - 63-A PR #304 → `53870e90ea08e0e7045c6c4149282e5d60ef2909`
 - 63-B PR #305 → `f92d6dc3e96e9c0a4489d7085d50ca8ebde31ba2`
 - 63-C PR #306 → `8a35247ebdce58decfc752b41e8fed89d7447da6`
@@ -336,11 +336,12 @@ Canonical A–H lineage:
 - 63-G PR #311 → `e4da7d24e47d3c6791a237167a4ea94360bd07e5`
 - 63-H PR #312 → `e14e44b033a15b2cf579908af53d7d882dcd5b09`
 - pre-closure QA repair PR #314 → `11edbe47831b0e02ca587781b147585e4c1f06e9`
+- 63-I terminal PR #315 → `e7985b7b3c7bfd81cab293607674d576ca93a82e`
 
-Stage H protected run `37199480032` / #967 merged PR #312; merge job `111428027601`, exact-SHA postmerge job `111428076121` and 959/959 application tests passed; postmerge-failure `111428836834` skipped; terminal comment `5979598896` released the Stage-H Lock. Final Stage-I PR #315 is the only remaining transport after the canonical pre-closure QA repair. Its terminal verdict is effective only after fresh local Graph/Graphify health/query/path/explain evidence is attached to the exact final Step-63 baseline, followed by protected merge, exact-SHA postmerge verification and terminal Lock release.
+PR #315 completed protected merge, exact-SHA postmerge Canonical CI/Phase A and terminal Lock release; Linear `HOS-67` is Done. Historical graph-related wording from the execution period is superseded for active governance by the 2026-10-06 Owner tooling-retirement directive; `HOS-181` is Canceled and PR #319 is Closed / Unmerged. Step 63 has no remaining graph dependency.
 
-## Step 64 — Customer Account & After-Sales — `NEXT / NOT_STARTED`
-Implement profile, addresses, orders/invoices, order detail, returns, warranty, notifications and account security surfaces.
+## Step 64 — Customer Account & After-Sales — `ACTIVE`
+Implement profile, addresses, orders/invoices, order detail, returns, warranty, notifications and account security surfaces. 64-A is canonical through PR #316 / `b1fd06587a7a71cfeff8d4c6233a5a6dbd3284df`; 64-B is canonical through PR #317 / `901542c71138406226474381909649067f8869e8`; 64-C continues in PR #318. Graph/Graphify is not part of Step-64 execution or closure criteria.
 
 ## Step 65 — Wholesale Experience — `PLANNED`
 Implement wholesale application/status, approved wholesale pricing and B2B-oriented quantity/order UX.

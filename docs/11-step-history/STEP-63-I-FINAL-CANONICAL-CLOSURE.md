@@ -1,5 +1,8 @@
 # EQCOFE — Step 63-I Final Canonical Closure
 
+> **Owner tooling-policy supersession — 2026-10-06:** the Graph/Graphify requirements retained below are historical execution chronology only. PR #315 subsequently merged as `e7985b7b3c7bfd81cab293607674d576ca93a82e`, postmerge verification and terminal Lock release completed, and HOS-67 is Done. The Owner has now retired Graph/Graphify from active EQCOFE governance; HOS-181 is Canceled and PR #319 is Closed / Unmerged. No current or future step is blocked by the historical graph gate unless the Owner explicitly reintroduces such tooling through a new governed change.
+
+
 ## Current verdict
 
 Status: **FINAL CLOSURE DOCUMENT — EFFECTIVE AFTER REQUIRED GRAPH EVIDENCE + PROTECTED MERGE**
