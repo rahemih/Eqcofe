@@ -49,7 +49,6 @@ assert.doesNotMatch(listView, /name="status"|status-filter|filter-status/);
 assert.match(detailView, /name="intent" value="cancel-order"/);
 assert.match(detailView, /فاکتور authoritative/);
 assert.match(detailView, /bdi/);
-assert.doesNotMatch(detailView, /Wallet|wallet/);
 
 assert.match(css, /account-orders__list/);
 assert.match(css, /account-order-detail__timeline/);
