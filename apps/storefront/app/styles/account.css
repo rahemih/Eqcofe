@@ -383,3 +383,208 @@
     justify-content: center;
   }
 }
+
+
+.account-orders__list {
+  display: grid;
+  gap: 1rem;
+}
+
+.account-orders__card {
+  display: grid;
+  gap: 1rem;
+  border: 1px solid var(--color-border, #d1d5db);
+  border-radius: 1rem;
+  padding: 1rem;
+  background: var(--color-surface, #fff);
+}
+
+.account-orders__summary {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: .85rem;
+}
+
+.account-orders__summary > div {
+  display: grid;
+  gap: .3rem;
+  min-width: 0;
+}
+
+.account-orders__label {
+  font-size: .875rem;
+  opacity: .78;
+}
+
+.account-orders__reference {
+  overflow-wrap: anywhere;
+  font-variant-numeric: tabular-nums;
+}
+
+.account-orders__detail-link,
+.account-orders__pagination a,
+.account-orders__empty-actions a {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid currentColor;
+  border-radius: .75rem;
+  padding: .55rem .85rem;
+  text-decoration: none;
+}
+
+.account-orders__detail-link {
+  justify-self: start;
+}
+
+.account-orders__pagination,
+.account-orders__empty-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .75rem;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.account-order-detail__columns {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.account-order-detail__items {
+  display: grid;
+  gap: .75rem;
+}
+
+.account-order-detail__item {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(17rem, auto);
+  gap: 1rem;
+  align-items: start;
+  border-block-start: 1px solid var(--color-border, #d1d5db);
+  padding-block-start: .85rem;
+}
+
+.account-order-detail__item:first-child {
+  border-block-start: 0;
+  padding-block-start: 0;
+}
+
+.account-order-detail__item > div {
+  display: grid;
+  gap: .35rem;
+  min-width: 0;
+}
+
+.account-order-detail__item dl,
+.account-order-detail__summary-grid,
+.account-order-detail__invoice {
+  margin: 0;
+}
+
+.account-order-detail__item dl {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(7rem, 1fr));
+  gap: .5rem;
+}
+
+.account-order-detail__item dl > div,
+.account-order-detail__summary-grid > div,
+.account-order-detail__invoice > div {
+  display: grid;
+  gap: .2rem;
+}
+
+.account-order-detail__item dt,
+.account-order-detail__summary-grid dt,
+.account-order-detail__invoice dt {
+  font-size: .875rem;
+  opacity: .78;
+}
+
+.account-order-detail__item dd,
+.account-order-detail__summary-grid dd,
+.account-order-detail__invoice dd {
+  margin: 0;
+  font-weight: 700;
+}
+
+.account-order-detail__summary-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.account-order-detail__total {
+  font-size: 1.05rem;
+}
+
+.account-order-detail__timeline {
+  display: grid;
+  gap: 1rem;
+  margin: 0;
+  padding-inline-start: 1.5rem;
+}
+
+.account-order-detail__timeline li {
+  padding-inline-start: .25rem;
+}
+
+.account-order-detail__timeline li > * {
+  display: block;
+  margin-block: .2rem;
+}
+
+.account-order-detail__invoice {
+  display: grid;
+  gap: .65rem;
+}
+
+.account-order-detail__invoice > div {
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 1rem;
+}
+
+.account-order-detail__hint,
+.account-order-detail__terminal {
+  margin-block-end: 0;
+}
+
+@media (max-width: 52.5rem) {
+  .account-orders__summary,
+  .account-order-detail__summary-grid,
+  .account-order-detail__columns {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .account-order-detail__columns {
+    grid-template-columns: 1fr;
+  }
+
+  .account-order-detail__item {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 37.5rem) {
+  .account-orders__summary,
+  .account-order-detail__summary-grid,
+  .account-order-detail__item dl {
+    grid-template-columns: 1fr;
+  }
+
+  .account-orders__detail-link,
+  .account-orders__pagination a,
+  .account-orders__empty-actions a {
+    width: 100%;
+  }
+
+  .account-orders__pagination,
+  .account-orders__empty-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+}

@@ -28,6 +28,15 @@ export type AccountAddressDeleteRequest = ApiRequestInput<"delete", "/customer/a
 
 export type AccountOrdersRequest = ApiRequestInput<"get", "/customer/orders">;
 export type AccountOrdersResponse = NonNullable<ApiSuccessData<"get", "/customer/orders">>;
+export type AccountOrderDetailRequest = ApiRequestInput<"get", "/customer/orders/{order_number}">;
+export type AccountOrderDetailResponse = NonNullable<ApiSuccessData<"get", "/customer/orders/{order_number}">>;
+export type AccountOrderTimelineRequest = ApiRequestInput<"get", "/customer/orders/{order_number}/timeline">;
+export type AccountOrderTimelineResponse = NonNullable<ApiSuccessData<"get", "/customer/orders/{order_number}/timeline">>;
+export type AccountOrderInvoiceRequest = ApiRequestInput<"get", "/customer/orders/{order_number}/invoice">;
+export type AccountOrderInvoiceResponse = NonNullable<ApiSuccessData<"get", "/customer/orders/{order_number}/invoice">>;
+export type AccountOrderCancelRequest = ApiRequestInput<"post", "/customer/orders/{order_number}/cancel">;
+export type AccountOrderCancelResponse = NonNullable<ApiSuccessData<"post", "/customer/orders/{order_number}/cancel">>;
+export type AccountOrderCancelBody = NonNullable<AccountOrderCancelRequest["body"]>;
 
 export type AccountNotificationsRequest = ApiRequestInput<"get", "/customer/notifications">;
 export type AccountNotificationsResponse = NonNullable<ApiSuccessData<"get", "/customer/notifications">>;
@@ -36,4 +45,8 @@ export type AccountActor = AccountSessionResponse["data"]["actor"];
 export type AccountProfile = AccountProfileResponse;
 export type AccountAddress = AccountAddressesResponse["data"][number];
 export type AccountOrderItem = AccountOrdersResponse["data"]["items"][number];
+export type AccountOrder = AccountOrderDetailResponse["data"];
+export type AccountOrderTimeline = AccountOrderTimelineResponse["data"];
+export type AccountOrderInvoice = AccountOrderInvoiceResponse["data"];
+export type AccountOrderCancelResult = AccountOrderCancelResponse["data"];
 export type AccountNotificationItem = AccountNotificationsResponse["data"]["items"][number];
