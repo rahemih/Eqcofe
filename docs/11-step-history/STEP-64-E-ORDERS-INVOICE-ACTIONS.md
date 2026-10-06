@@ -34,7 +34,7 @@ Canonical OpenAPI/generated contract requires each `OrderTimelineEntry` to expos
 - `reason`
 - `created_at`
 
-The runtime previously emitted mixed rows shaped as `source/status/reason/created_at` for order, fulfillment and shipment history. Stage 64-E repairs the runtime projection to the already-canonical OpenAPI shape. This changes no database schema, transition rule, eligibility rule, OpenAPI or generated contract.
+The runtime currently emits mixed rows shaped as `source/status/reason/created_at` for order, fulfillment and shipment history. Mutating that legacy backend source would invalidate frozen Product Design provenance hashes outside the Stage-E scope. Stage 64-E therefore contains the mismatch at the server-only Storefront adapter: it accepts canonical `to_status` or the observed legacy `status`, validates each row and emits only the canonical `OrderTimelineResponse` shape to the React surface. Backend, OpenAPI, generated types, database and business transitions remain unchanged.
 
 ## Orders list authority
 
@@ -99,7 +99,6 @@ with:
 
 ## Implementation paths
 
-- `src/modules/orders/application/order.service.ts`
 - `apps/storefront/app/features/account/account-contract.ts`
 - `apps/storefront/app/features/account/account-orders.server.ts`
 - `apps/storefront/app/features/account/AccountOrdersView.tsx`
@@ -113,6 +112,7 @@ with:
 
 ## Explicitly unchanged
 
+- Backend Orders runtime (including `src/modules/orders/application/order.service.ts`)
 - Database/migrations
 - OpenAPI
 - generated OpenAPI TypeScript
