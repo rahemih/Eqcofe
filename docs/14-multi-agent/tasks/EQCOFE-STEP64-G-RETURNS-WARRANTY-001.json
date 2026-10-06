@@ -168,12 +168,19 @@
     "product_design_agent": "A9",
     "evidence_agent": "A10",
     "graph_state": "RETIRED_AND_OUT_OF_SCOPE",
-    "design_screens": ["SF-E-11", "SF-E-12"],
+    "design_screens": [
+      "SF-E-11",
+      "SF-E-12"
+    ],
     "productionized_routes": [
       "/account/returns/:returnNumber?",
       "/account/warranty/:claimNumber?"
     ]
   },
   "process_improvement_links": [],
-  "incident_links": []
+  "incident_links": [],
+  "authorized_human_approver": {
+    "role": "PROJECT_OWNER",
+    "github_login": "rahemih"
+  }
 }
