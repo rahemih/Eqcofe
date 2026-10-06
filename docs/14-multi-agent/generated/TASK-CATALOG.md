@@ -82,6 +82,7 @@
 | EQCOFE-STEP64-G-RETURNS-WARRANTY-001 | Step 64-G customer Returns and Warranty request/detail/timeline/recovery | HIGH | REQUIRED | `5b12963738f094a6d9a5e795519c0760a9745dfe` | 56000/82000/125000 |
 | EQCOFE-STEP64-H-ACCOUNT-ACCEPTANCE-001 | Step 64-H Account/After-Sales RTL accessibility responsive/state hardening and integrated browser acceptance | MEDIUM | NOT_REQUIRED | `5149a4588dc0a78cedb71dc9fce698e3d01e1016` | 36000/56000/108000 |
 | EQCOFE-STEP64-I-CLOSURE-001 | Step 64-I final canonical verification, documentation reconciliation and Step 65 handoff | MEDIUM | NOT_REQUIRED | `7306dc4277b72286f43eb04540cd774e28d4bf1e` | 26000/42000/82000 |
+| EQCOFE-STEP65-A-HANDOFF-001 | Step 65-A Wholesale Experience canonical handoff, live discovery and scope freeze | MEDIUM | NOT_REQUIRED | `9bf08d39ea2d45e3dfa4edfc197ac921bf1a8c36` | 22000/36000/72000 |
 | MA-AGENT-A0-ORCHESTRATOR-001 | A0 — Orchestrator / Engineering Manager Prompt | LOW | NOT_REQUIRED | `f7919991e619d416360e74a542741ef21c70f732` | 10000/16000/32000 |
 | MA-AGENT-A1-SPEC-001 | A1 — Specification & Research Prompt | LOW | NOT_REQUIRED | `120898df57138b301560e7d9b9f1b3f5da03e982` | 10000/16000/32000 |
 | MA-AGENT-A10-EVIDENCE-001 | A10 — Evidence & Documentation Prompt | LOW | NOT_REQUIRED | `bdf8fccde4ca40cced48381ad3be2e0461ade535` | 12000/18000/35000 |
@@ -127,4 +128,4 @@
 | MA-V1-ACC-MEDIUM-001 | V1 Acceptance MEDIUM R2 — telemetry terminal-state conflict hardening | MEDIUM | NOT_REQUIRED | `9017e0f25e9571568ed9acf4ca3ca977ce9e78f0` | 15000/25000/50000 |
 | MA-V1-ACCEPTANCE-CLOSURE-V16-R2-001 | V1.6 Phase 3 canonical acceptance closure R2 | HIGH | REQUIRED | `d7d235f5f240b8bea44bc607afa812b2f5bb12d4` | 30000/50000/90000 |
 
-Task contracts indexed: **121**.
+Task contracts indexed: **122**.
