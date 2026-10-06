@@ -204,7 +204,7 @@ export async function mutateAccountAddress(
       if (!body) {
         return invalidMutation("اطلاعات ویرایش نشانی معتبر نیست.", bridge.takeSetCookies());
       }
-      if (!isIranProvinceCityPair1404(body.province_id, body.city_id)) {
+      if (!body.province_id || !body.city_id || !isIranProvinceCityPair1404(body.province_id, body.city_id)) {
         return invalidMutation("استان و شهر انتخاب‌شده با مرجع معتبر فروشگاه تطابق ندارند.", bridge.takeSetCookies());
       }
       await bridge.client.request("patch", "/customer/addresses/{id}", {
