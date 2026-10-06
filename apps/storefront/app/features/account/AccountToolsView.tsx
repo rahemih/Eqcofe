@@ -147,7 +147,7 @@ function ReadyTools({
         {data.notifications.status === "unavailable" ? (
           <div className="account-tools__section-state" role="status">
             <p>اعلان‌ها موقتاً دریافت نشدند؛ علاقه‌مندی‌ها همچنان مستقل قابل استفاده‌اند.</p>
-            <Link to={notificationUrl(data.unreadOnly, data.notificationOffset) + "#notifications"}>
+            <Link to={notificationUrl(data.unreadOnly, data.notificationOffset)}>
               تلاش دوباره برای اعلان‌ها
             </Link>
           </div>
