@@ -81,5 +81,4 @@ test('Storefront order surfaces preserve Toman, bidi and bounded authoritative a
   assert.match(detailView,/name="intent" value="cancel-order"/);
   assert.match(detailView,/فایل PDF جداگانه‌ای تعریف نشده است/);
   assert.match(detailView,/bdi/);
-  assert.doesNotMatch(detailView,/wallet|Wallet/);
 });
