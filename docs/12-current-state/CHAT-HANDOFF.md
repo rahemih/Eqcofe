@@ -26,16 +26,35 @@ Conversation history is supporting context only. It must not override current ca
 - Valid blocker: NONE.
 - This closure proves current canonical behavior; it does not convert current verification into historical provenance.
 
-## Current handoff snapshot — 2026-09-26
+## Current handoff snapshot — 2026-10-06
 
-- Official repository and canonical branch: `rahemih/Eqcofe` / `main`.
-- Last fully closed step: **Step 60 — Search, Category, Filters & Listing — CLOSED / FINAL CANONICAL PASS**. Stages A–I are complete.
-- Stage-I PR [#268](https://github.com/rahemih/Eqcofe/pull/268) merged at `0c2b6d3cf9fdc26474f184d416637f382dd10612` through protected run [36238576728](https://github.com/rahemih/Eqcofe/actions/runs/36238576728). Merge job `108394770663` and exact-SHA postmerge job `108394814717` passed root `pnpm verify` (938/938 application tests) and Phase A. [Terminal owner evidence 5846848178](https://github.com/rahemih/Eqcofe/pull/268#issuecomment-5846848178) released its Lock.
-- Postclosure documentation PR [#269](https://github.com/rahemih/Eqcofe/pull/269) merged at `316dc4066552b5cdd32142d80f43105f3b7c6934` through protected run [36248092839](https://github.com/rahemih/Eqcofe/actions/runs/36248092839). Merge job `108420927511` and exact-SHA postmerge job `108420975736` passed; [terminal owner evidence 5847049155](https://github.com/rahemih/Eqcofe/pull/269#issuecomment-5847049155) released its Lock.
-- Active step/substep: **NONE**. Next step: **Step 61 — Product Detail & Rich Media — NEXT / NOT_STARTED**, requiring a fresh live guard and separately scoped Task Contract.
-- Linear: [HOS-16](https://linear.app/hossein123/issue/HOS-16/step-60-search-category-filters-and-listing) Done; [HOS-65](https://linear.app/hossein123/issue/HOS-65/step-61-product-detail-and-rich-media) Backlog.
-- Agent Layer A0–A10 is canonically registered; the temporary freeze was released in [PR #261 comment 5792067040](https://github.com/rahemih/Eqcofe/pull/261#issuecomment-5792067040). New work requires fresh task, scope, Lock and writer checks. Automation Layer remains future architecture.
-- This snapshot records the latest verified state through #269. Re-read live GitHub, CI, Current State, Roadmap and Linear before the next mutation. The older Step-56 snapshot below is dated historical context.
+- Official repository / canonical branch: `rahemih/Eqcofe` / `main`.
+- Canonical product baseline before final Step-64 docs closure: `7306dc4277b72286f43eb04540cd774e28d4bf1e` (PR #328).
+- Last product stage complete: **Step 64-H — integrated Account/After-Sales acceptance — CANONICAL_COMPLETE**.
+- Active substep: **Step 64-I — final canonical verification, documentation reconciliation and Step 65 handoff**.
+- Step 64 stages A–H canonical PR lineage: #316, #317, #321, #322, #324, #326, #327, #328.
+- Step 64-H exact merge-SHA Canonical CI `37515371757`, Phase A `37515371763`, Storefront Quality `37515371750` and CodeQL `37515371879` are PASS. Browser acceptance passed at 320/1200 with 20 Axe runs; application regression is 981/981 PASS.
+- Graph/Graphify is **RETIRED / OUT OF SCOPE** through canonical PR #320; historical graph language does not create a live gate.
+- Linear current issue: `HOS-68 — Step 64 — Customer Account & After-Sales` remains In Progress until terminal 64-I.
+- Successor issue: `HOS-69 — Step 65 — Wholesale Experience` remains Backlog / NOT_STARTED until terminal 64-I.
+- Step 65 must not begin mutation before Step 64-I protected merge, exact-SHA postmerge verification and terminal Lock release.
+- Technical source of truth remains GitHub `main` + CI + merged PR evidence; Linear mirrors management state.
+
+### Step 64 canonical lineage
+
+| Stage | PR | Merge SHA | State |
+| --- | ---: | --- | --- |
+| 64-A | #316 | `b1fd06587a7a71cfeff8d4c6233a5a6dbd3284df` | COMPLETE |
+| 64-B | #317 | `901542c71138406226474381909649067f8869e8` | COMPLETE |
+| 64-C | #321 | `8cbc8fa1c0598f9a3ab819f2468563349fe8b6be` | COMPLETE |
+| 64-D | #322 | `2a0bb00543177a229e6650132e4fa9e99a778f93` | COMPLETE |
+| 64-E | #324 | `8a2aef6c643b59822d9c65783464044e7737a514` | COMPLETE |
+| 64-F | #326 | `5b12963738f094a6d9a5e795519c0760a9745dfe` | COMPLETE |
+| 64-G | #327 | `5149a4588dc0a78cedb71dc9fce698e3d01e1016` | COMPLETE |
+| 64-H | #328 | `7306dc4277b72286f43eb04540cd774e28d4bf1e` | COMPLETE |
+| 64-I | final closure transport | based on current baseline | IN PROGRESS |
+
+Superseded/non-canonical transports #318, #323 and #325 must not be treated as Step-64 canonical lineage.
 
 ## Historical Step 56 handoff snapshot (superseded)
 
