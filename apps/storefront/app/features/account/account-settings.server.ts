@@ -62,7 +62,7 @@ export async function loadAccountProfile(
     const response = await bridge.client.request("get", "/customer/profile", {});
     return {
       status: "ready",
-      data: { profile: response.data.data as AccountProfile },
+      data: { profile: response.data as AccountProfile },
       setCookies: bridge.takeSetCookies(),
     };
   } catch (error) {
@@ -167,7 +167,7 @@ export async function mutateAccountAddress(
       if (!body) {
         return invalidMutation("اطلاعات نشانی جدید معتبر نیست.", bridge.takeSetCookies());
       }
-      if (!isIranProvinceCityPair1404(body.province_id, body.city_id)) {
+      if (!body.province_id || !body.city_id || !isIranProvinceCityPair1404(body.province_id, body.city_id)) {
         return invalidMutation("استان و شهر انتخاب‌شده با مرجع معتبر فروشگاه تطابق ندارند.", bridge.takeSetCookies());
       }
       await bridge.client.request("post", "/customer/addresses", {
@@ -317,17 +317,19 @@ function mutationFailure(
 }
 
 function parseProfileUpdate(form: FormData): AccountProfileUpdateBody | null {
-  const firstName = cleanNullable(form.get("first_name"), 100);
-  const lastName = cleanNullable(form.get("last_name"), 100);
+  const firstName = cleanOptional(form.get("first_name"), 100);
+  const lastName = cleanOptional(form.get("last_name"), 100);
   const rawEmail = String(form.get("email") ?? "").trim().toLowerCase();
-  if (firstName === undefined || lastName === undefined) return null;
+  if (firstName === null || lastName === null) return null;
   if (rawEmail.length > 320) return null;
   if (rawEmail && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(rawEmail)) return null;
-  return {
-    first_name: firstName,
-    last_name: lastName,
-    email: rawEmail || null,
-  };
+
+  const body: AccountProfileUpdateBody = {};
+  if (firstName) body.first_name = firstName;
+  if (lastName) body.last_name = lastName;
+  if (rawEmail) body.email = rawEmail;
+  if (Object.keys(body).length === 0) return null;
+  return body;
 }
 
 function parseAddressCreate(form: FormData): AccountAddressCreateBody | null {
@@ -386,6 +388,13 @@ function cleanNullable(value: unknown, max: number): string | null | undefined {
   const normalized = String(value ?? "").trim().replace(/\s+/g, " ");
   if (!normalized) return null;
   if (normalized.length > max) return undefined;
+  return normalized;
+}
+
+function cleanOptional(value: unknown, max: number): string | undefined | null {
+  const normalized = String(value ?? "").trim().replace(/\s+/g, " ");
+  if (!normalized) return undefined;
+  if (normalized.length > max) return null;
   return normalized;
 }
 
