@@ -1,0 +1,202 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP64-D-PROFILE-SECURITY-ADDRESSES-001",
+  "title": "Step 64-D profile, account security and customer-owned Address management",
+  "description": "HIGH-risk Step 64-D. Productionize SF-E-02 /account/profile and SF-E-03 /account/addresses using canonical generated contracts, server-only CustomerSessionBridge transport, bounded profile fields, account session logout controls, customer-owned Address CRUD/default operations and canonical Iran 1404 geography. Do not invent OTP/step-up, mobile editing, backend rules, API/database changes, or Step 64-E+ functionality.",
+  "risk": "HIGH",
+  "risk_floor": "HIGH",
+  "owner": "PRODUCT_DESIGN",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "8cbc8fa1c0598f9a3ab819f2468563349fe8b6be"
+  },
+  "scope": {
+    "read": [
+      "apps/storefront/**",
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "src/modules/customer/**",
+      "src/modules/identity/**",
+      "shared/reference/**",
+      "docs/11-step-history/**",
+      "docs/13-product-design/step55-account-wholesale-after-sales-wireframes.json",
+      "docs/13-product-design/step55-wireframes/E/SF-E-02/**",
+      "docs/13-product-design/step55-wireframes/E/SF-E-03/**",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "apps/storefront/package.json",
+      "apps/storefront/app/features/account/account-contract.ts",
+      "apps/storefront/app/features/account/account-settings.server.ts",
+      "apps/storefront/app/features/account/AccountProfileView.tsx",
+      "apps/storefront/app/features/account/AccountAddressesView.tsx",
+      "apps/storefront/app/routes/account-profile.tsx",
+      "apps/storefront/app/routes/account-addresses.tsx",
+      "apps/storefront/app/styles/account.css",
+      "apps/storefront/scripts/verify-step64-profile-security-addresses.ts",
+      "docs/11-step-history/STEP-64-D-PROFILE-SECURITY-ADDRESSES.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP64-D-PROFILE-SECURITY-ADDRESSES-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "database/**",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "apps/admin/**",
+      "contracts/**",
+      "src/**",
+      "shared/reference/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**",
+      "apps/storefront/app/routes/account-orders.tsx",
+      "apps/storefront/app/routes/account-order-detail.tsx",
+      "apps/storefront/app/routes/account-tools.tsx",
+      "apps/storefront/app/routes/account-return.tsx",
+      "apps/storefront/app/routes/account-warranty.tsx"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP64-D-PROFILE-SECURITY-ADDRESSES-001-01"
+  ],
+  "human_gate_required": true,
+  "token_budget": {
+    "expected_max": 46000,
+    "soft_alert": 70000,
+    "hard_cap": 120000
+  },
+  "max_repair_cycles": 3,
+  "pre_mutation_gates": {
+    "graph_health": "RETIRED_AND_OUT_OF_SCOPE",
+    "query_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "path_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "explain_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "human_gate": "FINAL_EXACT_ARTIFACT_APPROVAL_REQUIRED_BEFORE_PROTECTED_MERGE"
+  },
+  "dependencies": [
+    {
+      "item": "64-C",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "8cbc8fa1c0598f9a3ab819f2468563349fe8b6be",
+      "evidence": "PR #321 merged as 8cbc8fa1c0598f9a3ab819f2468563349fe8b6be; protected Merge Policy workflow_dispatch 37458610700 succeeded; exact-SHA postmerge verification job 112252402620 succeeded; terminal Lock release comment 6015856178.",
+      "blocking": false
+    }
+  ],
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "SF-E-02 /account/profile reads the authenticated customer profile from the canonical generated contract and permits only first_name, last_name and email updates. Mobile, customer type, status and server-owned identity fields are not editable.",
+      "verification": "stage_verifier_types_and_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Account security exposes only contract-authorized current-session and all-session logout controls. No frontend-invented password, OTP, step-up, session identifier, permission or token authority is introduced.",
+      "verification": "stage_verifier_and_security_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "SF-E-03 /account/addresses lists only customer-owned addresses and supports create, update, delete and set-default using canonical APIs and required idempotency keys.",
+      "verification": "stage_verifier_types_and_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Address province and city values come only from the canonical Iran 1404 reference and every submitted province-city pair is revalidated server-side before an Address API mutation.",
+      "verification": "stage_verifier_and_reference_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "401 fails closed to unauthenticated presentation; 403/404 ownership-denied states leak no other-customer existence/content; 409 and uncertain failures never manufacture mutation success.",
+      "verification": "stage_verifier_and_security_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Customer session cookies remain server-only through CustomerSessionBridge; credentials/tokens do not enter URLs, browser storage, analytics or user-visible diagnostics.",
+      "verification": "stage_verifier_and_security_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "Persian RTL UI has semantic labels/errors/status, 44px targets, visible focus and responsive single-column reflow without brown palette additions.",
+      "verification": "storefront_quality_and_stage_verifier",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "No backend/OpenAPI/database/dependency/Product Design/Current-State mutation is introduced and Step 64-E+ routes remain deferred.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-009",
+      "description": "Canonical completion requires exact-head Canonical CI, Phase A, Storefront Quality, Security, deterministic Review, exact-artifact ACTIVE Lock, exact-artifact Project Owner Human Gate, protected merge, exact-SHA postmerge verification and terminal Lock release.",
+      "verification": "canonical_transport_and_postmerge_evidence",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "VERIFICATION",
+      "SECURITY",
+      "HUMAN",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Stage 64-D is HIGH risk because it mutates authenticated customer profile/session and owned address state. Final Project Owner HUMAN approval must bind to the frozen exact head/artifact after technical/security gates are green. Direct-main/raw merge prohibited."
+  },
+  "authorized_human_approver": {
+    "role": "PROJECT_OWNER",
+    "github_login": "rahemih"
+  },
+  "evidence": {
+    "linear_issue": "HOS-68",
+    "live_guard_main_head": "8cbc8fa1c0598f9a3ab819f2468563349fe8b6be",
+    "predecessor_pr": 321,
+    "predecessor_terminal_comment": 6015856178,
+    "implementation_owner_agent": "A3",
+    "qa_agent": "A7",
+    "security_agent": "A8",
+    "product_design_agent": "A9",
+    "evidence_agent": "A10",
+    "graph_state": "RETIRED_AND_OUT_OF_SCOPE",
+    "design_screens": [
+      "SF-E-02",
+      "SF-E-03"
+    ],
+    "productionized_routes": [
+      "/account/profile",
+      "/account/addresses"
+    ],
+    "backend_authority": {
+      "profile_mutable_fields": [
+        "first_name",
+        "last_name",
+        "email"
+      ],
+      "profile_mobile_editable": false,
+      "profile_step_up_required": false,
+      "session_actions": [
+        "POST /auth/logout",
+        "POST /auth/logout-all"
+      ],
+      "address_actions": [
+        "GET /customer/addresses",
+        "POST /customer/addresses",
+        "PATCH /customer/addresses/{id}",
+        "DELETE /customer/addresses/{id}",
+        "POST /customer/addresses/{id}/set-default"
+      ],
+      "geography_reference_year": 1404
+    }
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}
