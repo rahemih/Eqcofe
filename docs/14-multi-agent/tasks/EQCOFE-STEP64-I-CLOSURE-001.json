@@ -1,0 +1,226 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP64-I-CLOSURE-001",
+  "title": "Step 64-I final canonical verification, documentation reconciliation and Step 65 handoff",
+  "description": "MEDIUM-risk documentation/governance closure. Audit terminal canonical evidence for Step 64 A-H, reconcile MASTER-ROADMAP, CURRENT-STATE and CHAT-HANDOFF against live GitHub/CI truth, freeze the final Customer Account & After-Sales product result, and authorize Step 65 Wholesale Experience only after protected merge, exact-SHA postmerge verification and terminal Lock release. Graph/Graphify remains retired. No runtime/backend/OpenAPI/database/dependency/workflow/Product Design mutation.",
+  "risk": "MEDIUM",
+  "risk_floor": "MEDIUM",
+  "owner": "PRODUCT_DESIGN",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "7306dc4277b72286f43eb04540cd774e28d4bf1e"
+  },
+  "scope": {
+    "read": [
+      "apps/storefront/**",
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "docs/11-step-history/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**",
+      "docs/14-multi-agent/**",
+      ".github/workflows/**"
+    ],
+    "write": [
+      "docs/11-step-history/STEP-64-I-FINAL-CANONICAL-CLOSURE.md",
+      "docs/12-current-state/CURRENT-STATE.md",
+      "docs/12-current-state/MASTER-ROADMAP.md",
+      "docs/12-current-state/CHAT-HANDOFF.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP64-I-CLOSURE-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "apps/**",
+      "src/**",
+      "database/**",
+      "contracts/**",
+      "test/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "docs/13-product-design/**",
+      "graphify-out/**",
+      "scripts/graphify/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP64-I-CLOSURE-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 26000,
+    "soft_alert": 42000,
+    "hard_cap": 82000
+  },
+  "max_repair_cycles": 3,
+  "task_risk_rules": [
+    {
+      "id": "STEP64_I_CANONICAL_CLOSURE_MEDIUM",
+      "risk": "MEDIUM",
+      "paths": [
+        "docs/11-step-history/STEP-64-I-FINAL-CANONICAL-CLOSURE.md",
+        "docs/12-current-state/CURRENT-STATE.md",
+        "docs/12-current-state/MASTER-ROADMAP.md",
+        "docs/12-current-state/CHAT-HANDOFF.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP64-I-CLOSURE-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+      ]
+    }
+  ],
+  "pre_mutation_gates": {
+    "graph_health": "RETIRED_AND_OUT_OF_SCOPE",
+    "query_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "path_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "explain_evidence": "RETIRED_AND_OUT_OF_SCOPE"
+  },
+  "dependencies": [
+    {
+      "item": "64-H Integrated Account/After-Sales Acceptance",
+      "required_state": "TERMINAL_MERGED_POSTMERGE_PASS_LOCK_RELEASED",
+      "observed_state": "TERMINAL_MERGED_POSTMERGE_PASS_LOCK_RELEASED",
+      "merge_sha": "7306dc4277b72286f43eb04540cd774e28d4bf1e",
+      "terminal_evidence_comment": 6023384928,
+      "postmerge_canonical_ci_run_id": 37515371757,
+      "postmerge_phase_a_run_id": 37515371763,
+      "postmerge_storefront_quality_run_id": 37515371750,
+      "postmerge_codeql_run_id": 37515371879,
+      "blocking": false
+    }
+  ],
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Step 64 A-H canonical lineage records the actual merged PRs #316, #317, #321, #322, #324, #326, #327 and #328, their merge SHAs and terminal Lock RELEASED evidence; superseded transports are identified without being treated as canonical.",
+      "verification": "provider-backed PR and terminal-gate audit",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "MASTER-ROADMAP advances from v3.60 Step-64 Active to final Step-64 closure, removes stale PR #318 continuation language and marks Step 65 Wholesale Experience as NEXT / NOT_STARTED only after terminal 64-I transport.",
+      "verification": "deterministic document review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "CURRENT-STATE records Step 64 as CLOSED / FINAL CANONICAL PASS with A-H lineage and identifies 64-I as the final closure transport until its terminal sequence completes.",
+      "verification": "deterministic document review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "CHAT-HANDOFF current snapshot is refreshed from stale Step-60 state to the verified Step-64 closure boundary and names HOS-69 / Step 65 as next only after terminal 64-I closure.",
+      "verification": "deterministic document review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Frozen Step-64 product result accurately records profile/security/addresses, orders/invoice/timeline/actions, Wishlist/notifications authorized tools, Returns/Warranty and integrated RTL/accessibility/responsive acceptance without inventing Product Alerts/Loyalty/Reviews runtime authority.",
+      "verification": "source and history audit",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Graph/Graphify remains RETIRED / OUT OF SCOPE and no historical graph requirement is reintroduced as a live gate.",
+      "verification": "document review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "Diff remains documentation/governance only; no runtime, workflow, API/OpenAPI, database, dependency, Product Design or graph artifact mutation.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "Exact-head Canonical CI and Phase A, deterministic Review, exact-artifact ACTIVE Lock, protected merge, exact-SHA postmerge verification and terminal Lock release complete before HOS-68 is Done or Step 65 implementation starts.",
+      "verification": "canonical_transport_and_postmerge_evidence",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Step 64-I is MEDIUM-risk documentation/governance closure. Human Gate is not required. Step 65 implementation remains blocked until 64-I protected merge, exact-SHA postmerge verification and terminal Lock release."
+  },
+  "evidence": {
+    "linear_issue": "HOS-68",
+    "successor_linear_issue": "HOS-69",
+    "live_guard_main_head": "7306dc4277b72286f43eb04540cd774e28d4bf1e",
+    "live_guard_open_step64_i_prs": 0,
+    "competing_writer": "NONE_OBSERVED",
+    "implementation_owner_agent": "A10",
+    "orchestration_owner_agent": "A0",
+    "qa_agent": "A7",
+    "evidence_agent": "A10",
+    "graph_state": "RETIRED_AND_OUT_OF_SCOPE",
+    "canonical_stages": {
+      "64-A": {
+        "pr": 316,
+        "merge_sha": "b1fd06587a7a71cfeff8d4c6233a5a6dbd3284df",
+        "terminal_comment": 5981015509
+      },
+      "64-B": {
+        "pr": 317,
+        "merge_sha": "901542c71138406226474381909649067f8869e8",
+        "terminal_comment": 5992128878
+      },
+      "64-C": {
+        "pr": 321,
+        "merge_sha": "8cbc8fa1c0598f9a3ab819f2468563349fe8b6be",
+        "terminal_comment": 6015856178
+      },
+      "64-D": {
+        "pr": 322,
+        "merge_sha": "2a0bb00543177a229e6650132e4fa9e99a778f93",
+        "terminal_comment": 6016630544
+      },
+      "64-E": {
+        "pr": 324,
+        "merge_sha": "8a2aef6c643b59822d9c65783464044e7737a514",
+        "terminal_comment": 6017547738
+      },
+      "64-F": {
+        "pr": 326,
+        "merge_sha": "5b12963738f094a6d9a5e795519c0760a9745dfe",
+        "terminal_comment": 6018080825
+      },
+      "64-G": {
+        "pr": 327,
+        "merge_sha": "5149a4588dc0a78cedb71dc9fce698e3d01e1016",
+        "terminal_comment": 6023088654
+      },
+      "64-H": {
+        "pr": 328,
+        "merge_sha": "7306dc4277b72286f43eb04540cd774e28d4bf1e",
+        "terminal_comment": 6023384928
+      }
+    },
+    "superseded_transports": [
+      {
+        "pr": 318,
+        "reason": "Stage 64-C transport superseded after main advanced; canonical replacement is #321"
+      },
+      {
+        "pr": 323,
+        "reason": "Stage 64-E transport closed/unmerged after scope-history contamination; canonical clean transport is #324"
+      },
+      {
+        "pr": 325,
+        "reason": "non-canonical replacement attempt closed/unmerged; canonical Stage 64-E is #324"
+      }
+    ],
+    "tooling_reconciliation": {
+      "pr": 320,
+      "merge_sha": "4d126a0087b8042e270aeae73225c558c4dd8e74",
+      "result": "Graph/Graphify retired from active governance"
+    }
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}
