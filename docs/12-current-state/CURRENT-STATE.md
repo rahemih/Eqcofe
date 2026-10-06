@@ -25,7 +25,7 @@
 | 63-H integrated browser acceptance | #312 | `e14e44b033a15b2cf579908af53d7d882dcd5b09` | COMPLETE |
 | Pre-closure QA mutation coverage repair | #314 | `11edbe47831b0e02ca587781b147585e4c1f06e9` | COMPLETE |
 | 63-I final canonical closure / Step 64 handoff | #315 | `e7985b7b3c7bfd81cab293607674d576ca93a82e` | COMPLETE |
-| Deferred Graph/Graphify reconciliation | HOS-181 | exact terminal SHA `e7985b7b3c7bfd81cab293607674d576ca93a82e` | LOCAL EVIDENCE COMPLETE; GOVERNED DOC TRANSPORT |
+| Deferred Graph/Graphify reconciliation | PR #319 / HOS-181 | exact terminal SHA `e7985b7b3c7bfd81cab293607674d576ca93a82e` | LOCAL EVIDENCE COMPLETE; GOVERNED DOC TRANSPORT |
 
 ### Step-63 Graph reconciliation evidence
 
