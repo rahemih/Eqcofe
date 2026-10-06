@@ -1,8 +1,10 @@
 # EQCOFE — Step 63-I Final Canonical Closure
 
+> **Post-closure reconciliation — 2026-10-06:** the pre-merge Graph gate language retained below is historical chronology. The Project Owner later explicitly deferred local Graph evidence, PR #315 merged canonically as `e7985b7b3c7bfd81cab293607674d576ca93a82e`, postmerge verification/terminal Lock release completed, and `HOS-67` became Done. Follow-up `HOS-181` has now executed the deferred repository-wide Graphify evidence against that exact terminal SHA: health **PASS/FRESH**, **14,838 nodes / 29,923 edges**, query/path/explain evidence present, and no tracked-file mutation. The deferred Graph debt is therefore technically resolved without reopening Step 63 or changing runtime behavior.
+
 ## Current verdict
 
-Status: **FINAL CLOSURE DOCUMENT — EFFECTIVE AFTER REQUIRED GRAPH EVIDENCE + PROTECTED MERGE**
+Status: **CLOSED / FINAL CANONICAL PASS — DEFERRED GRAPH EVIDENCE RECONCILED POSTCLOSURE**
 
 Canonical starting baseline: `11edbe47831b0e02ca587781b147585e4c1f06e9`
 
@@ -62,16 +64,17 @@ Step 63 A–H are terminal and canonical through PR #312. The final pre-Graph au
 - Terminal Lock release comment: `5980197573`
 - Production runtime/API/database/dependency/workflow mutation: NONE
 
-## Graph/Graphify final gate — mandatory before protected merge
+## Historical Graph/Graphify final gate — pre-merge requirement
 
-Required before terminal closure:
+The following block records the original Stage-I pre-merge requirement. It was later deferred by explicit Owner directive for PR #315 and satisfied postclosure by HOS-181 on the actual terminal SHA:
 
 ```text
 GRAPH_HEALTH = FRESH / PASS
 QUERY_EVIDENCE = PRESENT
 PATH_EVIDENCE = PRESENT
 EXPLAIN_EVIDENCE = PRESENT
-GRAPH_BASELINE = 11edbe47831b0e02ca587781b147585e4c1f06e9
+GRAPH_TERMINAL_SHA = e7985b7b3c7bfd81cab293607674d576ca93a82e
+FINAL_GRAPH = 14838 nodes / 29923 edges
 ```
 
 Canonical repository helpers:
