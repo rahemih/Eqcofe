@@ -1,0 +1,173 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP63-GRAPH-RECONCILIATION-001",
+  "title": "Step 63 deferred Graph/Graphify postclosure reconciliation",
+  "description": "Close the deferred Step-63 Graph/Graphify debt on the exact terminal Step-63 SHA, record FRESH/PASS health plus query/path/explain evidence, and reconcile only live documentation/governance wording without reopening HOS-67, mutating Step-63 runtime, or rolling back active Step-64 work.",
+  "risk": "MEDIUM",
+  "risk_floor": "MEDIUM",
+  "owner": "PRODUCT_DESIGN",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "901542c71138406226474381909649067f8869e8"
+  },
+  "scope": {
+    "read": [
+      "apps/storefront/**",
+      "src/**",
+      "contracts/**",
+      "scripts/graphify/**",
+      "graphify-out/**",
+      "docs/11-step-history/**",
+      "docs/12-current-state/**",
+      "docs/14-multi-agent/**",
+      ".github/workflows/**"
+    ],
+    "write": [
+      "docs/11-step-history/STEP-63-GRAPH-RECONCILIATION.md",
+      "docs/11-step-history/STEP-63-I-FINAL-CANONICAL-CLOSURE.md",
+      "docs/12-current-state/CURRENT-STATE.md",
+      "docs/12-current-state/MASTER-ROADMAP.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP63-GRAPH-RECONCILIATION-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "apps/**",
+      "src/**",
+      "database/**",
+      "contracts/**",
+      "test/**",
+      "scripts/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "docs/13-product-design/**",
+      "graphify-out/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP63-GRAPH-RECONCILIATION-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 18000,
+    "soft_alert": 30000,
+    "hard_cap": 60000
+  },
+  "max_repair_cycles": 3,
+  "task_risk_rules": [
+    {
+      "id": "STEP63_GRAPH_RECONCILIATION_MEDIUM",
+      "risk": "MEDIUM",
+      "paths": [
+        "docs/11-step-history/STEP-63-GRAPH-RECONCILIATION.md",
+        "docs/11-step-history/STEP-63-I-FINAL-CANONICAL-CLOSURE.md",
+        "docs/12-current-state/CURRENT-STATE.md",
+        "docs/12-current-state/MASTER-ROADMAP.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP63-GRAPH-RECONCILIATION-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "Step 63 terminal closure",
+      "required_state": "CLOSED_FINAL_CANONICAL_PASS",
+      "observed_state": "CLOSED_FINAL_CANONICAL_PASS_GRAPH_DEBT_DEFERRED",
+      "merge_sha": "e7985b7b3c7bfd81cab293607674d576ca93a82e",
+      "evidence": "PR #315 merged; postmerge verification and terminal Lock release completed; HOS-67 is Done. Local Graph evidence was explicitly deferred for later reconciliation.",
+      "blocking": false
+    },
+    {
+      "item": "Step 64 active execution",
+      "required_state": "MUST_NOT_BE_ROLLED_BACK_OR_MUTATED_BY_THIS_TASK",
+      "observed_state": "64-A_AND_64-B_CANONICAL_64-C_OPEN_AT_RECONCILIATION_START",
+      "main_sha": "901542c71138406226474381909649067f8869e8",
+      "open_pr": 318,
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "linear_issue": "HOS-181",
+    "related_closed_issue": "HOS-67",
+    "reconciliation_start_main_head": "901542c71138406226474381909649067f8869e8",
+    "step63_terminal_pr": 315,
+    "step63_terminal_sha": "e7985b7b3c7bfd81cab293607674d576ca93a82e",
+    "graphify": {
+      "artifact_scope": "LOCAL_GIT_IGNORED",
+      "recorded_baseline_head": "140473a9c44ae2184248c8cb269730d2c82575ef",
+      "baseline_nodes": 14427,
+      "baseline_edges": 29122,
+      "exact_delta_commits": 158,
+      "exact_delta_files": 88,
+      "changed_code_files": 42,
+      "changed_semantic_files": 46,
+      "changed_images": 0,
+      "deleted_files": 0,
+      "replaced_stale_nodes": 77,
+      "final_nodes": 14838,
+      "final_edges": 29923,
+      "health": "PASS",
+      "freshness": "FRESH",
+      "git_head": "e7985b7b3c7bfd81cab293607674d576ca93a82e",
+      "recorded_graph_head": "e7985b7b3c7bfd81cab293607674d576ca93a82e",
+      "query_evidence": "PRESENT",
+      "path_evidence": "PRESENT",
+      "explain_evidence": "PRESENT",
+      "skipped_sensitive": "NONE",
+      "tracked_file_mutation": false,
+      "successful_paths": [
+        "CartController -> constructor() -> CartService",
+        "PaymentsController -> constructor() -> PaymentService"
+      ]
+    },
+    "implementation_owner_agent": "A10",
+    "orchestration_owner_agent": "A0",
+    "qa_agent": "A7",
+    "evidence_agent": "A10"
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Exact terminal Step-63 SHA has repository-wide Graphify health PASS/FRESH with node/edge counts and recorded graph head matching the terminal SHA.",
+      "verification": "local Graphify output plus canonical health/record-state scripts",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Focused query, at least one successful deterministic path trace, and explain evidence are present and recorded without committing graphify-out artifacts.",
+      "verification": "local Graphify query/path/explain evidence review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Live Current State, Master Roadmap and Step-63 terminal history no longer present Graph deferral as an unresolved blocker, while historical deferral chronology remains explicit.",
+      "verification": "deterministic documentation review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Diff is restricted to the declared documentation/governance allowlist and introduces no runtime/API/OpenAPI/database/dependency/workflow/Product Design/Step-64 implementation mutation.",
+      "verification": "deterministic scope check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Task Catalog indexes this Task Contract exactly and normal MEDIUM-risk Review/Lock/protected transport/postmerge/Lock-release evidence completes before HOS-181 is marked Done.",
+      "verification": "governance provider evidence",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "MEDIUM-risk documentation/governance-only postclosure reconciliation. Human Gate is not required. Direct-main write, raw merge and Step-64 runtime mutation are prohibited."
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}
