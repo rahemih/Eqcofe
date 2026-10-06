@@ -52,7 +52,7 @@ Conversation history is supporting context only. It must not override current ca
 | 64-F | #326 | `5b12963738f094a6d9a5e795519c0760a9745dfe` | COMPLETE |
 | 64-G | #327 | `5149a4588dc0a78cedb71dc9fce698e3d01e1016` | COMPLETE |
 | 64-H | #328 | `7306dc4277b72286f43eb04540cd774e28d4bf1e` | COMPLETE |
-| 64-I | final closure transport | terminal on this document's canonical merge | COMPLETE |
+| 64-I | #329 | terminal on this document's canonical merge | COMPLETE |
 
 Superseded/non-canonical transports #318, #323 and #325 must not be treated as Step-64 canonical lineage.
 
