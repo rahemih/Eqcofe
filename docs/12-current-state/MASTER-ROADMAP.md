@@ -354,7 +354,7 @@ Canonical product implementation and acceptance are complete through Stages 64-A
 | 64-F Wishlist, notifications and authorized customer tools | #326 | `5b12963738f094a6d9a5e795519c0760a9745dfe` | COMPLETE |
 | 64-G Returns and Warranty | #327 | `5149a4588dc0a78cedb71dc9fce698e3d01e1016` | COMPLETE |
 | 64-H integrated RTL/accessibility/responsive/browser acceptance | #328 | `7306dc4277b72286f43eb04540cd774e28d4bf1e` | COMPLETE |
-| 64-I final canonical verification / docs reconciliation / Step 65 handoff | closure transport | based on `7306dc4277b72286f43eb04540cd774e28d4bf1e` | FINAL CLOSURE |
+| 64-I final canonical verification / docs reconciliation / Step 65 handoff | #329 | based on `7306dc4277b72286f43eb04540cd774e28d4bf1e` | FINAL CLOSURE |
 
 The frozen Step-64 result covers Account overview, profile/security, customer-owned Addresses, Orders/invoice/timeline/actions, Wishlist and in-app Notifications, Returns, Warranty, recovery states, Persian RTL, accessibility and responsive/browser acceptance. Product Alerts, Loyalty and Reviews remain `NO_ACTION` because no matching customer runtime was proven. Superseded transports #318, #323 and #325 are not canonical. Graph/Graphify remains retired and is not a closure criterion.
 
