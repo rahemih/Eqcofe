@@ -780,3 +780,222 @@
     box-sizing: border-box;
   }
 }
+
+
+/* Step 64-G — customer Returns and Warranty */
+.account-after-sales {
+  min-width: 0;
+}
+
+.account-after-sales__heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.account-after-sales__heading > a,
+.account-after-sales__empty > a,
+.account-settings__notice > a {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  padding-inline: .8rem;
+  border: 1px solid var(--color-border, #d1d5db);
+  border-radius: .7rem;
+  text-decoration: none;
+}
+
+.account-after-sales__form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin-block-start: 1rem;
+}
+
+.account-after-sales__form label,
+.account-after-sales__cancel label {
+  display: grid;
+  gap: .4rem;
+  min-width: 0;
+  font-weight: 600;
+}
+
+.account-after-sales__form input,
+.account-after-sales__form select,
+.account-after-sales__form textarea,
+.account-after-sales__cancel textarea {
+  width: 100%;
+  min-height: 44px;
+  box-sizing: border-box;
+  border: 1px solid var(--color-border, #9ca3af);
+  border-radius: .65rem;
+  padding: .65rem .75rem;
+  background: var(--color-surface, #fff);
+  color: inherit;
+  font: inherit;
+}
+
+.account-after-sales__form textarea,
+.account-after-sales__cancel textarea {
+  resize: vertical;
+}
+
+.account-after-sales__wide {
+  grid-column: 1 / -1;
+}
+
+.account-after-sales__form button,
+.account-after-sales__cancel button {
+  min-height: 44px;
+  border: 1px solid currentColor;
+  border-radius: .75rem;
+  padding: .65rem .9rem;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+}
+
+.account-after-sales__form button:disabled,
+.account-after-sales__cancel button:disabled {
+  cursor: not-allowed;
+  opacity: .65;
+}
+
+.account-after-sales__hint {
+  margin-block-end: 0;
+  color: var(--color-text-muted, #4b5563);
+}
+
+.account-after-sales__empty {
+  display: grid;
+  gap: .75rem;
+  justify-items: start;
+  padding-block: .5rem;
+}
+
+.account-after-sales__list,
+.account-after-sales__timeline {
+  display: grid;
+  gap: .75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.account-after-sales__list li {
+  min-width: 0;
+  border-block-start: 1px solid var(--color-border, #d1d5db);
+}
+
+.account-after-sales__list li > a {
+  min-height: 44px;
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(8rem, .8fr) minmax(0, 1fr) auto;
+  gap: .75rem;
+  align-items: center;
+  padding-block: .75rem;
+  text-decoration: none;
+}
+
+.account-after-sales__list bdi,
+.account-after-sales__facts bdi,
+.account-settings__notice bdi {
+  overflow-wrap: anywhere;
+}
+
+.account-after-sales__detail-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: 1rem;
+}
+
+.account-after-sales__facts {
+  display: grid;
+  gap: .8rem;
+}
+
+.account-after-sales__facts > div {
+  display: grid;
+  grid-template-columns: minmax(7rem, .7fr) minmax(0, 1.3fr);
+  gap: .75rem;
+  align-items: baseline;
+}
+
+.account-after-sales__facts dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.account-after-sales__description {
+  margin-block-start: 1rem;
+  border-block-start: 1px solid var(--color-border, #d1d5db);
+  padding-block-start: .75rem;
+}
+
+.account-after-sales__description p {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.account-after-sales__timeline li {
+  display: grid;
+  gap: .3rem;
+  border-inline-start: .25rem solid currentColor;
+  padding: .25rem .85rem .75rem;
+}
+
+.account-after-sales__timeline time {
+  color: var(--color-text-muted, #4b5563);
+  font-size: .9rem;
+}
+
+.account-after-sales__cancel {
+  display: grid;
+  gap: .75rem;
+  max-width: 42rem;
+}
+
+.account-after-sales :is(a, button, input, select, textarea):focus-visible {
+  outline: 3px solid currentColor;
+  outline-offset: 3px;
+}
+
+@media (max-width: 52.5rem) {
+  .account-after-sales__detail-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .account-after-sales__list li > a {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 37.5rem) {
+  .account-after-sales__heading {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .account-after-sales__form {
+    grid-template-columns: 1fr;
+  }
+
+  .account-after-sales__wide {
+    grid-column: auto;
+  }
+
+  .account-after-sales__list li > a,
+  .account-after-sales__facts > div {
+    grid-template-columns: 1fr;
+  }
+
+  .account-after-sales__heading > a,
+  .account-after-sales__empty > a,
+  .account-settings__notice > a,
+  .account-after-sales__form button,
+  .account-after-sales__cancel button {
+    justify-content: center;
+  }
+}
