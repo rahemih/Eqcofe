@@ -1,0 +1,179 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP64-G-RETURNS-WARRANTY-001",
+  "title": "Step 64-G customer Returns and Warranty request/detail/timeline/recovery",
+  "description": "HIGH-risk Step 64-G. Productionize SF-E-11 /account/returns/:returnNumber? and SF-E-12 /account/warranty/:claimNumber? using only the canonical customer-owned Returns/Warranty contracts repaired in Stage 64-B. Support bounded creation, list/detail/timeline recovery and customer return cancellation only where current runtime permits it. Do not invent eligibility, upload/evidence, refund/replacement authority, admin transitions, payment actions, or Step 64-H+ behavior.",
+  "risk": "HIGH",
+  "risk_floor": "HIGH",
+  "owner": "PRODUCT_DESIGN",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "5b12963738f094a6d9a5e795519c0760a9745dfe"
+  },
+  "scope": {
+    "read": [
+      "apps/storefront/**",
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "src/modules/returns/**",
+      "src/modules/warranty/**",
+      "src/modules/orders/**",
+      "docs/11-step-history/**",
+      "docs/13-product-design/step55-account-wholesale-after-sales-wireframes.json",
+      "docs/13-product-design/step55-wireframes/E/SF-E-11/**",
+      "docs/13-product-design/step55-wireframes/E/SF-E-12/**",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "apps/storefront/package.json",
+      "apps/storefront/app/features/account/account-contract.ts",
+      "apps/storefront/app/features/account/account-after-sales.server.ts",
+      "apps/storefront/app/features/account/AccountReturnsView.tsx",
+      "apps/storefront/app/features/account/AccountWarrantyView.tsx",
+      "apps/storefront/app/routes/account-return.tsx",
+      "apps/storefront/app/routes/account-warranty.tsx",
+      "apps/storefront/app/styles/account.css",
+      "apps/storefront/scripts/verify-step64-returns-warranty.ts",
+      "test/step64-returns-warranty-storefront-contract.spec.ts",
+      "docs/11-step-history/STEP-64-G-RETURNS-WARRANTY.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP64-G-RETURNS-WARRANTY-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "database/**",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "apps/admin/**",
+      "contracts/**",
+      "src/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP64-G-RETURNS-WARRANTY-001-01"
+  ],
+  "human_gate_required": true,
+  "token_budget": {
+    "expected_max": 56000,
+    "soft_alert": 82000,
+    "hard_cap": 125000
+  },
+  "max_repair_cycles": 3,
+  "pre_mutation_gates": {
+    "graph_health": "RETIRED_AND_OUT_OF_SCOPE",
+    "query_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "path_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "explain_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "human_gate": "REQUIRED_AFTER_TECHNICAL_SECURITY_REVIEW_LOCK_PASS"
+  },
+  "dependencies": [
+    {
+      "item": "64-F",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "5b12963738f094a6d9a5e795519c0760a9745dfe",
+      "evidence": "PR #326 merged; exact merge-SHA Canonical CI, Phase A, Storefront Quality and CodeQL succeeded; terminal Lock released.",
+      "blocking": false
+    }
+  ],
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "SF-E-11 /account/returns/:returnNumber? and SF-E-12 /account/warranty/:claimNumber? are productionized and no longer use RoutePlaceholder.",
+      "verification": "stage_verifier_and_storefront_quality",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Returns use only canonical customer-owned list/detail/timeline/create/cancel operations. Creation submits one or more valid owned order-item requests under the selected order; customer cancellation is exposed only for current requested state and rechecks the owned return before mutation.",
+      "verification": "stage_verifier_types_runtime_source_and_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Warranty uses only canonical customer-owned list/detail/timeline/create operations and never exposes admin review/receive/repair/resolve/close authority to Storefront.",
+      "verification": "stage_verifier_types_runtime_source_and_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Create/cancel mutations use required Idempotency-Key, validated bounded input and fail-closed unknown outcomes. 401 clears personal presentation; 403/404 do not disclose another customer's record.",
+      "verification": "stage_verifier_and_security_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Detail remains authoritative when timeline loading fails; no browser-local after-sales truth, optimistic success or inferred eligibility is introduced.",
+      "verification": "stage_verifier_and_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Return and Warranty customer timelines render only bounded canonical status/reason/timestamp fields. Unknown additionalProperties and raw internal fields are not rendered as authority.",
+      "verification": "stage_verifier_and_security_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "No upload/evidence workflow, refund amount, replacement decision, staff transition, payment mutation, shipping mutation or unsupported eligibility rule is invented.",
+      "verification": "deterministic_source_assertion",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "Customer session cookies remain server-only through CustomerSessionBridge; no token/session/browser-storage authority is introduced.",
+      "verification": "stage_verifier_and_security_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-009",
+      "description": "Persian RTL UI provides list/create/detail/timeline/error/empty/pending/terminal states, 44px targets, visible focus, bidi-isolated references and narrow/400% reflow without brown palette additions.",
+      "verification": "storefront_quality_and_stage_verifier",
+      "mandatory": true
+    },
+    {
+      "id": "AC-010",
+      "description": "No Backend/OpenAPI/generated/database/dependency/Product Design/Current-State mutation is introduced.",
+      "verification": "deterministic_scope_history",
+      "mandatory": true
+    },
+    {
+      "id": "AC-011",
+      "description": "Canonical completion requires exact-head Canonical CI, Phase A, Storefront Quality, Security, deterministic Review, exact-artifact ACTIVE Lock, exact-artifact Project Owner Human Gate, protected merge, exact-merge-SHA verification and terminal Lock release.",
+      "verification": "canonical_transport_and_postmerge_evidence",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "SECURITY",
+      "REVIEW",
+      "LOCK",
+      "HUMAN"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "HIGH-risk Stage 64-G requires Project Owner approval only after the exact artifact has passed provider checks, Security, deterministic Review and ACTIVE Lock."
+  },
+  "evidence": {
+    "linear_issue": "HOS-68",
+    "live_guard_main_head": "5b12963738f094a6d9a5e795519c0760a9745dfe",
+    "predecessor_pr": 326,
+    "implementation_owner_agent": "A3",
+    "qa_agent": "A7",
+    "security_agent": "A8",
+    "product_design_agent": "A9",
+    "evidence_agent": "A10",
+    "graph_state": "RETIRED_AND_OUT_OF_SCOPE",
+    "design_screens": ["SF-E-11", "SF-E-12"],
+    "productionized_routes": [
+      "/account/returns/:returnNumber?",
+      "/account/warranty/:claimNumber?"
+    ]
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}
