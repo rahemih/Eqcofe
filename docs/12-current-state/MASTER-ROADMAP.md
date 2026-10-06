@@ -1,12 +1,12 @@
 # EQCOFE — Complete Master Execution Roadmap
 
-**Roadmap version:** 3.60 — Step-64 Active / Tooling Simplification
+**Roadmap version:** 3.61 — Step-64 Final Closure / Step-65 Handoff
 **Effective date:** 2026-10-06
 **Canonical repository:** `rahemih/Eqcofe`  
 **Canonical branch:** `main`  
 **Verified Step-44 code baseline:** `b239dfe825b615f36caf2e26cc7abc80c70d349c`
 
-> This is the canonical end-to-end execution map for EQCOFE. Phase A (Steps 1–28) is `CLOSED / FINAL GATE PASS` by current canonical verification. For historical Steps 1–27, exact original labels/closure lineage remain `Historical Attribution: UNVERIFIED`; Step 28 remains `Historical Attribution: PARTIAL`. Current-baseline verification does not prove recovered historical provenance. Steps 29–63 retain their established canonical status. Step 62 remains `CLOSED / FINAL CANONICAL PASS`. Step 63 is `CLOSED / FINAL CANONICAL PASS` through terminal PR #315 / `e7985b7b3c7bfd81cab293607674d576ca93a82e`. Step 64 is ACTIVE: 64-A and 64-B are canonical and 64-C is the active continuation. By Owner directive dated 2026-10-06, Graph/Graphify is retired from active project governance and is not a gate, dependency, evidence requirement or Definition-of-Done item.
+> This is the canonical end-to-end execution map for EQCOFE. Phase A (Steps 1–28) is `CLOSED / FINAL GATE PASS` by current canonical verification. For historical Steps 1–27, exact original labels/closure lineage remain `Historical Attribution: UNVERIFIED`; Step 28 remains `Historical Attribution: PARTIAL`. Current-baseline verification does not prove recovered historical provenance. Steps 29–63 retain their established canonical status. Step 62 remains `CLOSED / FINAL CANONICAL PASS`. Step 63 is `CLOSED / FINAL CANONICAL PASS` through terminal PR #315 / `e7985b7b3c7bfd81cab293607674d576ca93a82e`. Step 64 is `CLOSED / FINAL CANONICAL PASS` through Stages 64-A–64-I after the Stage-I terminal transport completes; Stages 64-A–64-H are already canonical through PR #328 / `7306dc4277b72286f43eb04540cd774e28d4bf1e`. Step 65 — Wholesale Experience is the next execution step and remains `NEXT / NOT_STARTED` until the Step-64-I protected merge, exact-SHA postmerge verification and terminal Lock release are complete. By Owner directive dated 2026-10-06, Graph/Graphify is retired from active project governance and is not a gate, dependency, evidence requirement or Definition-of-Done item.
 
 ## Status legend
 - `RECONSTRUCTED-HISTORY`: normalized historical description; exact historical step attribution is not proven.
@@ -340,10 +340,25 @@ Canonical lineage:
 
 PR #315 completed protected merge, exact-SHA postmerge Canonical CI/Phase A and terminal Lock release; Linear `HOS-67` is Done. Historical graph-related wording from the execution period is superseded for active governance by the 2026-10-06 Owner tooling-retirement directive; `HOS-181` is Canceled and PR #319 is Closed / Unmerged. Step 63 has no remaining graph dependency.
 
-## Step 64 — Customer Account & After-Sales — `ACTIVE`
-Implement profile, addresses, orders/invoices, order detail, returns, warranty, notifications and account security surfaces. 64-A is canonical through PR #316 / `b1fd06587a7a71cfeff8d4c6233a5a6dbd3284df`; 64-B is canonical through PR #317 / `901542c71138406226474381909649067f8869e8`; 64-C continues in PR #318. Graph/Graphify is not part of Step-64 execution or closure criteria.
+## Step 64 — Customer Account & After-Sales — `CLOSED / FINAL CANONICAL PASS`
 
-## Step 65 — Wholesale Experience — `PLANNED`
+Canonical product implementation and acceptance are complete through Stages 64-A–64-H. Stage 64-I is the documentation/governance closure transport that reconciles this Roadmap, Current State and Chat Handoff; this closed status is terminal only after 64-I itself completes protected merge, exact-SHA postmerge verification and Lock release.
+
+| Stage | Canonical PR | Canonical merge | State |
+| --- | ---: | --- | --- |
+| 64-A canonical handoff / scope freeze | #316 | `b1fd06587a7a71cfeff8d4c6233a5a6dbd3284df` | COMPLETE |
+| 64-B Backend/OpenAPI Account & After-Sales readiness | #317 | `901542c71138406226474381909649067f8869e8` | COMPLETE |
+| 64-C shared Account foundation and overview | #321 | `8cbc8fa1c0598f9a3ab819f2468563349fe8b6be` | COMPLETE |
+| 64-D Profile, security and customer Address management | #322 | `2a0bb00543177a229e6650132e4fa9e99a778f93` | COMPLETE |
+| 64-E Orders, detail, timeline, invoice and customer actions | #324 | `8a2aef6c643b59822d9c65783464044e7737a514` | COMPLETE |
+| 64-F Wishlist, notifications and authorized customer tools | #326 | `5b12963738f094a6d9a5e795519c0760a9745dfe` | COMPLETE |
+| 64-G Returns and Warranty | #327 | `5149a4588dc0a78cedb71dc9fce698e3d01e1016` | COMPLETE |
+| 64-H integrated RTL/accessibility/responsive/browser acceptance | #328 | `7306dc4277b72286f43eb04540cd774e28d4bf1e` | COMPLETE |
+| 64-I final canonical verification / docs reconciliation / Step 65 handoff | #329 | based on `7306dc4277b72286f43eb04540cd774e28d4bf1e` | FINAL CLOSURE |
+
+The frozen Step-64 result covers Account overview, profile/security, customer-owned Addresses, Orders/invoice/timeline/actions, Wishlist and in-app Notifications, Returns, Warranty, recovery states, Persian RTL, accessibility and responsive/browser acceptance. Product Alerts, Loyalty and Reviews remain `NO_ACTION` because no matching customer runtime was proven. Superseded transports #318, #323 and #325 are not canonical. Graph/Graphify remains retired and is not a closure criterion.
+
+## Step 65 — Wholesale Experience — `NEXT / NOT_STARTED`
 Implement wholesale application/status, approved wholesale pricing and B2B-oriented quantity/order UX.
 
 ## Step 66 — Content, SEO & Policy Frontend — `PLANNED`
