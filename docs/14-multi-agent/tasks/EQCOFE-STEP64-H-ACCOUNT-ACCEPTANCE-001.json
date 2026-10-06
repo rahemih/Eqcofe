@@ -1,0 +1,165 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP64-H-ACCOUNT-ACCEPTANCE-001",
+  "title": "Step 64-H Account/After-Sales RTL accessibility responsive/state hardening and integrated browser acceptance",
+  "description": "MEDIUM-risk acceptance-only Stage 64-H. Prove the canonical Step 64 Account/After-Sales surfaces from 64-C through 64-G as an integrated production-build experience using deterministic mock-backed SSR/API verification and optional Chromium/Axe when the isolated QA toolchain is available. Cover ready, unauthenticated, partial-failure and terminal/recovery states; Persian RTL, bidi references, keyboard/focus, 44px targets and 400% reflow. No production runtime/backend/OpenAPI/database/dependency/workflow/docs12/docs13 mutation.",
+  "risk": "MEDIUM",
+  "risk_floor": "MEDIUM",
+  "owner": "PRODUCT_DESIGN",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "5149a4588dc0a78cedb71dc9fce698e3d01e1016"
+  },
+  "scope": {
+    "read": [
+      "apps/storefront/**",
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "docs/11-step-history/**",
+      "docs/13-product-design/**",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "apps/storefront/package.json",
+      "apps/storefront/scripts/verify-step64-acceptance.mjs",
+      "docs/11-step-history/STEP-64-H-INTEGRATED-ACCEPTANCE.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP64-H-ACCOUNT-ACCEPTANCE-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "contracts/**",
+      "src/**",
+      "database/**",
+      "test/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**",
+      "apps/storefront/app/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP64-H-ACCOUNT-ACCEPTANCE-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 36000,
+    "soft_alert": 56000,
+    "hard_cap": 108000
+  },
+  "max_repair_cycles": 3,
+  "task_risk_rules": [
+    {
+      "id": "STEP64_H_ACCOUNT_ACCEPTANCE_MEDIUM",
+      "risk": "MEDIUM",
+      "paths": [
+        "apps/storefront/package.json",
+        "apps/storefront/scripts/verify-step64-acceptance.mjs",
+        "docs/11-step-history/STEP-64-H-INTEGRATED-ACCEPTANCE.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP64-H-ACCOUNT-ACCEPTANCE-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+      ]
+    }
+  ],
+  "pre_mutation_gates": {
+    "graph_health": "RETIRED_AND_OUT_OF_SCOPE",
+    "query_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "path_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "explain_evidence": "RETIRED_AND_OUT_OF_SCOPE"
+  },
+  "dependencies": [
+    {
+      "item": "64-G",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "5149a4588dc0a78cedb71dc9fce698e3d01e1016",
+      "evidence": "PR #327 merged through workflow_dispatch 37510343828; merge job 112429559049 SUCCESS; exact-SHA postmerge job 112429729768 SUCCESS; terminal Lock release comment 6023088654.",
+      "blocking": false
+    }
+  ],
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Production-build mock-backed acceptance covers the canonical Account overview, Profile, Addresses, Orders list/detail, Customer Tools, Returns list/detail and Warranty list/detail surfaces without browser-owned business authority.",
+      "verification": "pnpm --dir apps/storefront step64:acceptance",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Authenticated ready-state rendering proves server-only customer-session transport, authoritative account/order/tool/after-sales data and bidi-safe order/case references.",
+      "verification": "pnpm --dir apps/storefront step64:acceptance",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Unauthenticated, unavailable/partial-failure and terminal/recovery states remain fail-closed and do not render stale personal data or fabricate success.",
+      "verification": "pnpm --dir apps/storefront step64:acceptance",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Chromium acceptance at 320px and 1200px verifies Persian RTL, no root horizontal overflow, keyboard focus, representative 44px targets and zero automated WCAG violations on accepted Step-64 routes when isolated QA tooling is available.",
+      "verification": "Storefront Quality browser workflow",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "400% reflow equivalent at 320 CSS px remains usable with long Persian copy and stable account/order/after-sales layouts without two-axis page scrolling.",
+      "verification": "Storefront Quality browser workflow",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Acceptance validates Account mutations only through existing server adapters and does not introduce or relax profile/address/order/tool/return/warranty business authority.",
+      "verification": "source_and_scope_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "Stage H changes only the acceptance harness, package wiring and governance artifacts; runtime app, backend, OpenAPI, generated contracts, database, dependencies, workflows, Product Design and current-state/roadmap docs remain unchanged.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "Canonical completion requires exact-head Canonical CI, Phase A and Storefront Quality, deterministic Review, exact-artifact ACTIVE Lock, protected merge, exact-SHA postmerge verification and terminal Lock release before 64-I.",
+      "verification": "canonical_transport_and_postmerge_evidence",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Stage 64-H is MEDIUM risk and requires no Human Gate. Direct-main/raw merge prohibited. Stage 64-I remains blocked until protected transport, exact-SHA postmerge verification and terminal Lock release are green."
+  },
+  "evidence": {
+    "linear_issue": "HOS-68",
+    "live_guard_main_head": "5149a4588dc0a78cedb71dc9fce698e3d01e1016",
+    "predecessor_pr": 327,
+    "predecessor_terminal_comment": 6023088654,
+    "implementation_owner_agent": "A3",
+    "orchestration_owner_agent": "A0",
+    "qa_agent": "A7",
+    "security_agent": "A8",
+    "evidence_agent": "A10",
+    "graph_state": "RETIRED_AND_OUT_OF_SCOPE",
+    "accepted_route_files": [
+      "account.tsx",
+      "account-profile.tsx",
+      "account-addresses.tsx",
+      "account-orders.tsx",
+      "account-order-detail.tsx",
+      "account-tools.tsx",
+      "account-return.tsx",
+      "account-warranty.tsx"
+    ]
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}
