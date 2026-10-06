@@ -9467,6 +9467,25 @@ export interface components {
             /** @enum {string|null} */
             preferred_resolution?: "repair" | "replacement" | "refund" | "inspection" | null;
         };
+        CustomerWholesaleApplicationView: {
+            id: components["schemas"]["EntityId"];
+            customer_id: components["schemas"]["EntityId"];
+            business_name: string;
+            manager_name: string;
+            business_type: string;
+            province_id: components["schemas"]["EntityId"];
+            city_id: components["schemas"]["EntityId"];
+            business_identifier: string | null;
+            note: string | null;
+            /** @enum {string} */
+            status: "submitted" | "under_review" | "approved" | "rejected";
+            submitted_at: components["schemas"]["Timestamp"];
+            review_started_at: components["schemas"]["NullableTimestamp"];
+            reviewed_at: components["schemas"]["NullableTimestamp"];
+            decision_note: string | null;
+            rejection_reason: string | null;
+        };
+        CustomerWholesaleApplicationMaybe: components["schemas"]["CustomerWholesaleApplicationView"] | null;
         PostCustomerWholesaleApplicationsRequest: {
             business_name: string;
             manager_name: string;
@@ -12889,20 +12908,18 @@ export interface operations {
             };
         };
         responses: {
-            /** @description عملیات موفق */
-            200: {
+            /** @description درخواست عمده مشتری ثبت شد */
+            201: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
-            };
-            /** @description عملیات پذیرفته شد */
-            202: {
-                headers: {
-                    [name: string]: unknown;
+                content: {
+                    "application/json": components["schemas"]["CustomerWholesaleApplicationView"];
                 };
-                content?: never;
             };
+            401: components["responses"]["Unauthorized"];
+            409: components["responses"]["Conflict"];
+            422: components["responses"]["Unprocessable"];
         };
     };
     getCustomerWholesaleApplication: {
@@ -12914,13 +12931,17 @@ export interface operations {
         };
         requestBody?: never;
         responses: {
-            /** @description عملیات موفق */
+            /** @description آخرین درخواست عمده متعلق به مشتری جاری یا null در صورت نبود درخواست */
             200: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["CustomerWholesaleApplicationMaybe"];
+                };
             };
+            401: components["responses"]["Unauthorized"];
+            422: components["responses"]["Unprocessable"];
         };
     };
     getCustomerLoyalty: {
