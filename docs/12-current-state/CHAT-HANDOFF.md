@@ -30,14 +30,14 @@ Conversation history is supporting context only. It must not override current ca
 
 - Official repository / canonical branch: `rahemih/Eqcofe` / `main`.
 - Canonical product baseline before final Step-64 docs closure: `7306dc4277b72286f43eb04540cd774e28d4bf1e` (PR #328).
-- Last product stage complete: **Step 64-H — integrated Account/After-Sales acceptance — CANONICAL_COMPLETE**.
-- Active substep: **Step 64-I — final canonical verification, documentation reconciliation and Step 65 handoff**.
+- Last completed step after this handoff becomes terminal on `main`: **Step 64 — Customer Account & After-Sales — CLOSED / FINAL CANONICAL PASS**.
+- Active substep after terminal closure: **NONE**.
 - Step 64 stages A–H canonical PR lineage: #316, #317, #321, #322, #324, #326, #327, #328.
 - Step 64-H exact merge-SHA Canonical CI `37515371757`, Phase A `37515371763`, Storefront Quality `37515371750` and CodeQL `37515371879` are PASS. Browser acceptance passed at 320/1200 with 20 Axe runs; application regression is 981/981 PASS.
 - Graph/Graphify is **RETIRED / OUT OF SCOPE** through canonical PR #320; historical graph language does not create a live gate.
 - Linear current issue: `HOS-68 — Step 64 — Customer Account & After-Sales` remains In Progress until terminal 64-I.
 - Successor issue: `HOS-69 — Step 65 — Wholesale Experience` remains Backlog / NOT_STARTED until terminal 64-I.
-- Step 65 must not begin mutation before Step 64-I protected merge, exact-SHA postmerge verification and terminal Lock release.
+- Step 65 is the next authorized execution step only after this Step-64-I document has protected merge, exact-SHA postmerge verification and terminal Lock release; until then this branch wording is prospective.
 - Technical source of truth remains GitHub `main` + CI + merged PR evidence; Linear mirrors management state.
 
 ### Step 64 canonical lineage
@@ -52,7 +52,7 @@ Conversation history is supporting context only. It must not override current ca
 | 64-F | #326 | `5b12963738f094a6d9a5e795519c0760a9745dfe` | COMPLETE |
 | 64-G | #327 | `5149a4588dc0a78cedb71dc9fce698e3d01e1016` | COMPLETE |
 | 64-H | #328 | `7306dc4277b72286f43eb04540cd774e28d4bf1e` | COMPLETE |
-| 64-I | final closure transport | based on current baseline | IN PROGRESS |
+| 64-I | final closure transport | terminal on this document's canonical merge | COMPLETE |
 
 Superseded/non-canonical transports #318, #323 and #325 must not be treated as Step-64 canonical lineage.
 
