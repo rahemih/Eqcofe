@@ -1,7 +1,7 @@
 # EQCOFE Current State
 
 ## Trusted state date
-**2026-10-04**
+**2026-10-06**
 
 ## Official repository
 - Repository: `rahemih/Eqcofe`
@@ -10,7 +10,7 @@
 
 ## Current Step 63 position
 
-**Step 63 — Cart & Checkout Frontend — `CLOSED / FINAL CANONICAL PASS` once Stage 63-I lands through its terminal gate sequence.** Stages 63-A through 63-H are canonically complete, and the final pre-Graph QA audit repair is canonically complete through PR #314. The Stage 63-I PR #315 is based on `main@11edbe47831b0e02ca587781b147585e4c1f06e9`; it freezes Step 63 as `CLOSED / FINAL CANONICAL PASS` and Step 64 as `NEXT / NOT_STARTED`. This text becomes canonical on `main` only after final Graph/Graphify evidence, protected merge, exact-SHA postmerge verification and terminal Lock release.
+**Step 63 — Cart & Checkout Frontend — `CLOSED / FINAL CANONICAL PASS`.** PR #315 is the canonical terminal merge at `e7985b7b3c7bfd81cab293607674d576ca93a82e`; its protected/postmerge/Lock sequence completed and Linear `HOS-67` remains **Done**. The historical Owner directive that allowed Graph/Graphify to be deferred did not invalidate Step-63 closure; it created one explicit local evidence debt, now reconciled by follow-up `HOS-181` without reopening Step 63.
 
 | Stage | PR | Canonical merge | State |
 | --- | ---: | --- | --- |
@@ -21,25 +21,34 @@
 | 63-E Checkout identity / OTP / session | #308 | `da8d0fb465e85ef37a30e00c71a008cea4a31b25` | COMPLETE |
 | 63-F canonical Iran address-reference repair | #310 | `e1c69999150d3b0c19ad27ce6cc8b5211b6b77d8` | COMPLETE |
 | 63-F address/delivery/review/idempotent order | #309 | `db8a54c611a7860b27097d09cbba4a14a01bd949` | COMPLETE |
-| 63-G payment handoff/callback recovery/outcome | #311 | `e4da7d24e47d3b0c19ad27ce6cc8b5211b6b77d8` | COMPLETE |
+| 63-G payment handoff/callback recovery/outcome | #311 | `e4da7d24e47d3c6791a237167a4ea94360bd07e5` | COMPLETE |
 | 63-H integrated browser acceptance | #312 | `e14e44b033a15b2cf579908af53d7d882dcd5b09` | COMPLETE |
 | Pre-closure QA mutation coverage repair | #314 | `11edbe47831b0e02ca587781b147585e4c1f06e9` | COMPLETE |
-| 63-I final canonical closure / Step 64 handoff | #315 | terminal transport | EFFECTIVE AFTER REQUIRED GRAPH EVIDENCE + PROTECTED MERGE |
+| 63-I final canonical closure / Step 64 handoff | #315 | `e7985b7b3c7bfd81cab293607674d576ca93a82e` | COMPLETE |
+| Deferred Graph/Graphify reconciliation | HOS-181 | exact terminal SHA `e7985b7b3c7bfd81cab293607674d576ca93a82e` | LOCAL EVIDENCE COMPLETE; GOVERNED DOC TRANSPORT |
 
-Stage-H exact head `338ff9e0892f94982e69d78624a82d975c4d0b45` passed Canonical CI `37197561211`, Phase A `37197561212` and Storefront Quality `37197561228`. Protected workflow_dispatch `37199480032` / #967 merged PR #312 as `e14e44b033a15b2cf579908af53d7d882dcd5b09`; merge job `111428027601` and exact-SHA postmerge `111428076121` passed, including 959/959 application tests; postmerge-failure `111428836834` skipped; terminal comment `5979598896` released `LOCK-EQCOFE-STEP63-H-ACCEPTANCE-001-01`.
-
-The frozen Step-63 product result covers authoritative Cart and Checkout state, guest/auth identity boundaries, address/shipping/quote, signed Review snapshot, idempotent reserve/order submission, signed payment handoff, callback-state containment, authoritative payment recovery and Order Outcome. The pre-Graph audit additionally proves Cart quantity/remove, OTP request/verify + authenticated Cart merge, and Address select/update/create through the production Storefront HTTP/SSR action paths. Persian RTL, responsive, keyboard/focus, 44px targets and automated accessibility/browser acceptance are verified. Real provider activation/secrets remain Step 74.
-
-**Stage-I pre-merge terminal requirement:** final local Graphify evidence must be produced on baseline `11edbe47831b0e02ca587781b147585e4c1f06e9` before protected merge:
+### Step-63 Graph reconciliation evidence
 
 ```text
-GRAPH_HEALTH = FRESH / PASS
+GRAPH_HEALTH = PASS
+FRESHNESS = FRESH
+GIT_HEAD = e7985b7b3c7bfd81cab293607674d576ca93a82e
+RECORDED_GRAPH_HEAD = e7985b7b3c7bfd81cab293607674d576ca93a82e
+NODES = 14838
+EDGES = 29923
 QUERY_EVIDENCE = PRESENT
 PATH_EVIDENCE = PRESENT
 EXPLAIN_EVIDENCE = PRESENT
+TRACKED_FILE_MUTATION = NONE
 ```
 
-The terminal sequence for PR #315 is: attach that Graphify evidence, preserve exact-artifact Review/Lock validity, perform protected Merge Policy transport, pass exact-SHA postmerge verification, release the terminal Lock, then mark Linear `HOS-67 = Done`. Step 64 must not start before that sequence completes.
+The targeted refresh preserved the full graph baseline (14,427 nodes / 29,122 edges), processed the exact 88-file Git delta only (42 code + 46 semantic, 0 image changes, 0 deletions), replaced 77 stale source nodes and produced 14,838 nodes / 29,923 edges. Successful path evidence includes `CartController -> constructor() -> CartService` and `PaymentsController -> constructor() -> PaymentService`. `CartOrderCheckoutService` explain evidence resolves to the canonical cart-order-checkout service. The local `graphify-out/**` artifacts remain Git-ignored and are not committed.
+
+The frozen Step-63 product result remains unchanged: authoritative Cart/Checkout state, guest/auth identity boundaries, address/shipping/quote, signed Review snapshot, idempotent reserve/order submission, signed payment handoff, callback-state containment, authoritative payment recovery and Order Outcome, Persian RTL/responsive/accessibility acceptance, with real payment-provider activation/secrets still deferred to Step 74.
+
+## Current Step 64 position
+
+**Step 64 — Customer Account & After-Sales — ACTIVE.** This Graph reconciliation does not roll back, rewrite or mutate Step-64 implementation. At reconciliation start, Stage 64-A was canonical through PR #316 at `b1fd06587a7a71cfeff8d4c6233a5a6dbd3284df`, Stage 64-B was canonical through PR #317 at current main `901542c71138406226474381909649067f8869e8`, and Stage 64-C PR #318 was open. Historical Step-64 A/B statements that Graph was `DEFERRED_BY_OWNER / LOCAL_ONLY_UNAVAILABLE` remain accurate snapshots of their execution time; the live debt is now resolved by HOS-181.
 
 ## Current Step 62 position
 
