@@ -18,7 +18,7 @@ export type AccountToolsOptions = {
 
 export type AccountToolsSection<T> =
   | { status: "ready"; items: readonly T[] }
-  | { status: "unavailable"; items: readonly [] };
+  | { status: "unavailable"; items: readonly T[] };
 
 export type AccountToolsPageData = {
   wishlist: AccountToolsSection<AccountWishlistItem>;
