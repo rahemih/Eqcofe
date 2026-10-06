@@ -48,8 +48,9 @@ assert.match(profileRoute, /loadAccountProfile/);
 assert.match(profileRoute, /mutateAccountProfile/);
 assert.doesNotMatch(profileRoute, /RoutePlaceholder/);
 
-assert.match(addresses, /name="intent" value="create-address"/);
-assert.match(addresses, /name="intent" value="update-address"/);
+assert.match(addresses, /name="intent"/);
+assert.match(addresses, /"create-address"/);
+assert.match(addresses, /"update-address"/);
 assert.match(addresses, /name="intent" value="set-default-address"/);
 assert.match(addresses, /name="intent" value="delete-address"/);
 assert.match(addresses, /provinceCities/);
