@@ -2,7 +2,7 @@
 
 ## Current verdict
 
-Status: **FINAL CLOSURE TRANSPORT IN PROGRESS**
+Status: **FINAL CLOSURE DOCUMENT — EFFECTIVE AFTER PROTECTED MERGE + EXACT-SHA POSTMERGE PASS + TERMINAL LOCK RELEASE**
 
 Canonical starting baseline: `7306dc4277b72286f43eb04540cd774e28d4bf1e`
 
@@ -111,7 +111,9 @@ Step 65 scope remains:
 Until this sequence completes:
 
 ```text
-STEP_64_I = IN_PROGRESS / NOT_CANONICAL
-STEP_64 = CLOSED / FINAL CANONICAL PASS ONLY_WHEN_64_I_TERMINAL
-STEP_65 = BLOCKED_FROM_MUTATION / NEXT_AFTER_64_I
+STEP_64_I = CANONICAL_COMPLETE WHEN_THIS_DOCUMENT_IS_TERMINAL_ON_MAIN
+STEP_64 = CLOSED / FINAL CANONICAL PASS
+STEP_65 = NEXT / NOT_STARTED
 ```
+
+Before the terminal sequence completes, these lines are prospective branch-state wording and do not authorize Step 65. Once the document is canonical on `main` with postmerge verification and Lock release, they are the effective project state.
