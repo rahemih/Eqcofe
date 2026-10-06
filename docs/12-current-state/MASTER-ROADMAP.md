@@ -338,7 +338,7 @@ Canonical lineage:
 - pre-closure QA repair PR #314 → `11edbe47831b0e02ca587781b147585e4c1f06e9`
 - 63-I terminal PR #315 → `e7985b7b3c7bfd81cab293607674d576ca93a82e`
 
-Postclosure Graph/Graphify reconciliation under `HOS-181` resolves the historical Owner deferral without reopening Step 63. A targeted exact-delta refresh produced **14,838 nodes / 29,923 edges** on the exact terminal SHA with `GRAPH_HEALTH=PASS`, `FRESHNESS=FRESH`, query evidence present, successful path traces (`CartController -> CartService` and `PaymentsController -> PaymentService`), explain evidence present, no image/deletion delta and no tracked-file mutation. `graphify-out/**` remains local/Git-ignored.
+Postclosure Graph/Graphify reconciliation under PR #319 / `HOS-181` resolves the historical Owner deferral without reopening Step 63. A targeted exact-delta refresh produced **14,838 nodes / 29,923 edges** on the exact terminal SHA with `GRAPH_HEALTH=PASS`, `FRESHNESS=FRESH`, query evidence present, successful path traces (`CartController -> CartService` and `PaymentsController -> PaymentService`), explain evidence present, no image/deletion delta and no tracked-file mutation. `graphify-out/**` remains local/Git-ignored.
 
 ## Step 64 — Customer Account & After-Sales — `ACTIVE`
 Implement profile, addresses, orders/invoices, order detail, returns, warranty, notifications and account security surfaces. Step 64 remains governed by its own A-I lineage. At Step-63 Graph reconciliation start, 64-A and 64-B were canonical and 64-C PR #318 was open; this postclosure task does not change Step-64 implementation state.
