@@ -33,7 +33,7 @@ export type AccountNotificationsRequest = ApiRequestInput<"get", "/customer/noti
 export type AccountNotificationsResponse = NonNullable<ApiSuccessData<"get", "/customer/notifications">>;
 
 export type AccountActor = AccountSessionResponse["data"]["actor"];
-export type AccountProfile = AccountProfileResponse["data"];
+export type AccountProfile = AccountProfileResponse;
 export type AccountAddress = AccountAddressesResponse["data"][number];
 export type AccountOrderItem = AccountOrdersResponse["data"]["items"][number];
 export type AccountNotificationItem = AccountNotificationsResponse["data"]["items"][number];
