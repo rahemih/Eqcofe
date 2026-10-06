@@ -588,3 +588,195 @@
     flex-direction: column;
   }
 }
+
+
+.account-tools__nav,
+.account-tools__filter,
+.account-tools__section-heading,
+.account-tools__pagination,
+.account-tools__notification-heading,
+.account-tools__notification-actions {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  flex-wrap: wrap;
+}
+
+.account-tools__nav {
+  position: sticky;
+  top: .5rem;
+  z-index: 1;
+  padding: .5rem;
+  border: 1px solid var(--color-border, #d1d5db);
+  border-radius: 1rem;
+  background: var(--color-surface, #fff);
+}
+
+.account-tools__nav a,
+.account-tools__filter a,
+.account-tools__section-heading > a,
+.account-tools__pagination a,
+.account-tools__section-state a,
+.account-tools button {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid currentColor;
+  border-radius: .75rem;
+  padding: .55rem .85rem;
+  text-decoration: none;
+  font: inherit;
+}
+
+.account-tools__filter a[aria-current="page"] {
+  font-weight: 800;
+  text-decoration: underline;
+  text-underline-offset: .2rem;
+}
+
+.account-tools__section-heading,
+.account-tools__pagination {
+  justify-content: space-between;
+}
+
+.account-tools__section-heading {
+  align-items: flex-start;
+  margin-block-end: 1rem;
+}
+
+.account-tools__section-heading h2 {
+  margin-block-start: 0;
+}
+
+.account-tools__section-state {
+  display: grid;
+  gap: .75rem;
+  justify-items: start;
+  padding: 1rem;
+  border: 1px dashed var(--color-border, #9ca3af);
+  border-radius: .75rem;
+}
+
+.account-tools__wishlist-list,
+.account-tools__notification-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: .75rem;
+}
+
+.account-tools__wishlist-item,
+.account-tools__notification {
+  border-block-start: 1px solid var(--color-border, #d1d5db);
+  padding-block-start: .85rem;
+}
+
+.account-tools__wishlist-item:first-child,
+.account-tools__notification:first-child {
+  border-block-start: 0;
+  padding-block-start: 0;
+}
+
+.account-tools__wishlist-item {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 1rem;
+  align-items: center;
+}
+
+.account-tools__wishlist-item > div {
+  display: grid;
+  gap: .25rem;
+}
+
+.account-tools__notification {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 1rem;
+  align-items: start;
+}
+
+.account-tools__notification-copy {
+  min-width: 0;
+}
+
+.account-tools__notification-copy p {
+  overflow-wrap: anywhere;
+}
+
+.account-tools__notification-heading {
+  justify-content: space-between;
+}
+
+.account-tools__notification-heading span,
+.account-tools__acknowledged {
+  font-size: .875rem;
+  font-weight: 700;
+}
+
+.account-tools__notification-actions {
+  justify-content: flex-end;
+  max-width: 22rem;
+}
+
+.account-tools__deferred {
+  display: grid;
+  gap: .5rem;
+  margin-block-start: 1rem;
+}
+
+.account-tools__deferred span {
+  border: 1px dashed var(--color-border, #9ca3af);
+  border-radius: .75rem;
+  padding: .75rem;
+}
+
+.account-tools :is(a, button):focus-visible {
+  outline: 3px solid currentColor;
+  outline-offset: 3px;
+}
+
+.account-tools button:disabled {
+  cursor: not-allowed;
+  opacity: .65;
+}
+
+@media (max-width: 52.5rem) {
+  .account-tools__wishlist-item,
+  .account-tools__notification {
+    grid-template-columns: 1fr;
+  }
+
+  .account-tools__notification-actions {
+    justify-content: flex-start;
+    max-width: none;
+  }
+}
+
+@media (max-width: 37.5rem) {
+  .account-tools__nav,
+  .account-tools__filter,
+  .account-tools__section-heading,
+  .account-tools__pagination,
+  .account-tools__notification-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .account-tools__nav {
+    position: static;
+  }
+
+  .account-tools__nav a,
+  .account-tools__filter a,
+  .account-tools__section-heading > a,
+  .account-tools__pagination a,
+  .account-tools__section-state a,
+  .account-tools button,
+  .account-tools__notification-actions form {
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
