@@ -464,7 +464,7 @@ try {
         }));
         assert(focus.outlineStyle !== "none" && focus.outlineWidth >= 3, "STEP64_H_VISIBLE_KEYBOARD_FOCUS:" + JSON.stringify(focus));
 
-        const target = page.locator("main a[href], main button, main input, main select, main textarea").filter({ visible: true }).first();
+        const target = page.locator("main a[href]:visible, main button:visible, main input:visible, main select:visible, main textarea:visible").first();
         const box = await target.boundingBox();
         assert(box && box.height >= 44, "STEP64_H_TARGET_HEIGHT_44:" + JSON.stringify(box));
 
