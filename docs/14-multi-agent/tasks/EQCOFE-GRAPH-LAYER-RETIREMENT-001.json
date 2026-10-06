@@ -1,0 +1,177 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-GRAPH-LAYER-RETIREMENT-001",
+  "title": "Retire Graph/Graphify from active EQCOFE project workflow",
+  "description": "Owner-directed retirement of the repository-integrated Graph/Graphify layer. Remove tracked Graphify skills, hooks, health/watch/refresh tooling and graph-specific active governance contracts; remove graph-first requirements from agent instructions and local Codex startup; reconcile live Current State/Master Roadmap so Graph is no longer a gate, dependency or evidence requirement. Preserve completed historical step records as history only. No runtime application, API/OpenAPI, database, dependency, CI workflow, branch protection or product behavior change.",
+  "risk": "MEDIUM",
+  "risk_floor": "MEDIUM",
+  "owner": "ENGINEERING_MANAGER",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "901542c71138406226474381909649067f8869e8"
+  },
+  "scope": {
+    "read": [
+      ".codex/**",
+      "AGENTS.md",
+      ".gitignore",
+      "scripts/**",
+      "docs/11-step-history/**",
+      "docs/12-current-state/**",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "AGENTS.md",
+      ".gitignore",
+      ".codex/hooks.json",
+      ".codex/start-eqcofe-local-agent.ps1",
+      ".codex/refresh-eqcofe-graph.ps1",
+      ".codex/start-graphify-watch.ps1",
+      ".codex/skills/graphify/**",
+      "scripts/graphify/**",
+      "docs/14-multi-agent/graphify/**",
+      "docs/14-multi-agent/tasks/EQCOFE-GRAPHIFY-CODEONLY-REFRESH-001.json",
+      "docs/14-multi-agent/tasks/EQCOFE-GRAPHIFY-CODEX-INTEGRATION-001.json",
+      "docs/14-multi-agent/tasks/EQCOFE-GRAPHIFY-OPERATIONAL-LAYER-001.json",
+      "docs/14-multi-agent/tasks/EQCOFE-GRAPHIFY-WATCH-LIFECYCLE-001.json",
+      "docs/14-multi-agent/tasks/EQCOFE-GRAPH-LAYER-RETIREMENT-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "docs/11-step-history/GRAPH-LAYER-RETIREMENT.md",
+      "docs/11-step-history/STEP-63-I-FINAL-CANONICAL-CLOSURE.md",
+      "docs/12-current-state/CURRENT-STATE.md",
+      "docs/12-current-state/MASTER-ROADMAP.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "apps/**",
+      "src/**",
+      "database/**",
+      "contracts/**",
+      "test/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "docs/13-product-design/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-GRAPH-LAYER-RETIREMENT-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 22000,
+    "soft_alert": 36000,
+    "hard_cap": 72000
+  },
+  "max_repair_cycles": 3,
+  "task_risk_rules": [
+    {
+      "id": "GRAPH_LAYER_RETIREMENT_MEDIUM",
+      "risk": "MEDIUM",
+      "paths": [
+        "AGENTS.md",
+        ".gitignore",
+        ".codex/hooks.json",
+        ".codex/start-eqcofe-local-agent.ps1",
+        ".codex/refresh-eqcofe-graph.ps1",
+        ".codex/start-graphify-watch.ps1",
+        ".codex/skills/graphify/**",
+        "scripts/graphify/**",
+        "docs/14-multi-agent/graphify/**",
+        "docs/14-multi-agent/tasks/EQCOFE-GRAPHIFY-CODEONLY-REFRESH-001.json",
+        "docs/14-multi-agent/tasks/EQCOFE-GRAPHIFY-CODEX-INTEGRATION-001.json",
+        "docs/14-multi-agent/tasks/EQCOFE-GRAPHIFY-OPERATIONAL-LAYER-001.json",
+        "docs/14-multi-agent/tasks/EQCOFE-GRAPHIFY-WATCH-LIFECYCLE-001.json",
+        "docs/14-multi-agent/tasks/EQCOFE-GRAPH-LAYER-RETIREMENT-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md",
+        "docs/11-step-history/GRAPH-LAYER-RETIREMENT.md",
+        "docs/11-step-history/STEP-63-I-FINAL-CANONICAL-CLOSURE.md",
+        "docs/12-current-state/CURRENT-STATE.md",
+        "docs/12-current-state/MASTER-ROADMAP.md"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "Owner directive",
+      "required_state": "REMOVE_GRAPH_LAYER",
+      "observed_state": "EXPLICITLY_DIRECTED_2026-10-06",
+      "blocking": false
+    },
+    {
+      "item": "Step 63 graph reconciliation PR #319",
+      "required_state": "NOT_MERGED",
+      "observed_state": "CLOSED_UNMERGED",
+      "blocking": false
+    },
+    {
+      "item": "Linear HOS-181",
+      "required_state": "CANCELED",
+      "observed_state": "CANCELED",
+      "blocking": false
+    },
+    {
+      "item": "Step 64 execution",
+      "required_state": "MUST_CONTINUE_INDEPENDENT_OF_GRAPH",
+      "observed_state": "64-A_AND_64-B_CANONICAL_64-C_OPEN",
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "linear_issue": "HOS-189",
+    "canceled_graph_issue": "HOS-181",
+    "closed_unmerged_graph_pr": 319,
+    "active_step64_pr": 318,
+    "owner_policy": "Graph/Graphify is no longer part of active EQCOFE governance. Future graphing, if explicitly requested, is optional whole-project analysis only and cannot block project execution."
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "All tracked operational Graphify skills, hooks, refresh/watch/health/state tooling and graph-specific operational documentation are removed.",
+      "verification": "repository tree and diff review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "AGENTS.md and the local Codex launcher contain no graph-first, freshness, watch, refresh or Graphify dependency.",
+      "verification": "exact text search and launcher review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "The four graph-specific Task Contracts are removed and generated Task Catalog is exactly reconciled, while completed historical task/step records are not rewritten as if Graphify never existed.",
+      "verification": "task catalog exactness and history review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Current State and Master Roadmap record Step 63 as canonically closed, Step 64 as active, and Graph/Graphify as retired/non-blocking.",
+      "verification": "canonical documentation review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "No runtime/API/OpenAPI/database/dependency/workflow/branch-protection/product-design behavior changes are introduced.",
+      "verification": "diff scope review and canonical CI",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Local graph artifacts are not part of the repository and the Owner receives a one-line local cleanup command for existing graphify-out/worktree artifacts.",
+      "verification": "post-merge owner cleanup handoff",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "MEDIUM-risk developer-tooling/governance retirement. Human Gate not required because this task directly executes the Owner's explicit removal directive."
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}
