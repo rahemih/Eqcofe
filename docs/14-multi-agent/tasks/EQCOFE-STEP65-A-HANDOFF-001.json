@@ -1,0 +1,188 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP65-A-HANDOFF-001",
+  "title": "Step 65-A Wholesale Experience canonical handoff, live discovery and scope freeze",
+  "description": "MEDIUM-risk documentation/governance-only Step 65-A. Freeze the Wholesale Experience execution boundary from canonical main after terminal Step 64. Record current Storefront placeholders, customer wholesale runtime authority, OpenAPI/generated-contract gaps, authoritative customer-type/pricing/cart-quote boundaries, inherited Step-55 wholesale UX obligations and the staged A-I execution plan. No runtime, API/OpenAPI, database, dependency, pricing rule or business-rule mutation.",
+  "risk": "MEDIUM",
+  "risk_floor": "MEDIUM",
+  "owner": "PRODUCT_DESIGN",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "9bf08d39ea2d45e3dfa4edfc197ac921bf1a8c36"
+  },
+  "scope": {
+    "read": [
+      "apps/storefront/**",
+      "src/modules/customer/**",
+      "src/modules/pricing/**",
+      "src/modules/cart/**",
+      "src/modules/orders/**",
+      "src/modules/configuration/**",
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "docs/01-product-vision/**",
+      "docs/11-step-history/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "docs/11-step-history/STEP-65-A-CANONICAL-HANDOFF.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP65-A-HANDOFF-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "apps/**",
+      "src/**",
+      "contracts/**",
+      "database/**",
+      "test/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**",
+      "graphify-out/**",
+      "scripts/graphify/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP65-A-HANDOFF-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 22000,
+    "soft_alert": 36000,
+    "hard_cap": 72000
+  },
+  "max_repair_cycles": 3,
+  "task_risk_rules": [
+    {
+      "id": "STEP65_A_HANDOFF_MEDIUM",
+      "risk": "MEDIUM",
+      "paths": [
+        "docs/11-step-history/STEP-65-A-CANONICAL-HANDOFF.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP65-A-HANDOFF-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+      ]
+    }
+  ],
+  "pre_mutation_gates": {
+    "graph_health": "RETIRED_AND_OUT_OF_SCOPE",
+    "query_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "path_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "explain_evidence": "RETIRED_AND_OUT_OF_SCOPE"
+  },
+  "dependencies": [
+    {
+      "item": "Step 64 — Customer Account & After-Sales",
+      "required_state": "CLOSED_FINAL_CANONICAL_PASS",
+      "observed_state": "CLOSED_FINAL_CANONICAL_PASS",
+      "merge_sha": "9bf08d39ea2d45e3dfa4edfc197ac921bf1a8c36",
+      "terminal_evidence_comment": 6024963150,
+      "postmerge_canonical_ci_run_id": 37527227711,
+      "postmerge_phase_a_run_id": 37527227793,
+      "postmerge_codeql_run_id": 37527227650,
+      "linear_issue": "HOS-68",
+      "blocking": false
+    }
+  ],
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Fresh live guard records canonical main, terminal Step-64 evidence, HOS-69 activation and absence of competing Step-65 writers before mutation.",
+      "verification": "provider_backed_live_guard",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Stage A records the three current Step-65 Storefront placeholders and freezes SF-E-07 through SF-E-10 plus journeys SJ-10 and SJ-11 as design intent only, never as API authority.",
+      "verification": "source_and_design_audit",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Current runtime wholesale application authority is recorded exactly: customer submit is idempotent, customer status is owner-scoped, applicant remains retail until staff approval, and staff/admin review/approve/reject stays outside Step-65 Storefront authority.",
+      "verification": "runtime_source_audit",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "The current OpenAPI/generated-contract gaps for wholesale application submit/status response content are explicitly frozen as Stage 65-B readiness work; Stage A does not paper over them with untyped frontend models.",
+      "verification": "openapi_generated_contract_audit",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Wholesale identity/pricing authority is frozen accurately: CustomerProfile exposes customer_type, AuthSessionActor currently does not, Cart Quote resolves customer type server-side, CheckoutQuoteResponse exposes the resolved customer_type, and pricing accepts authoritative customerType plus quantity.",
+      "verification": "runtime_and_generated_contract_audit",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Frontend must not hardcode the wholesale quantity discount threshold or discount value; configuration/pricing/quote remain authoritative even though current configured default minimum is 11.",
+      "verification": "scope_and_authority_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "Frozen A-I execution plan isolates contract repair before frontend, separates application/status from approved wholesale commerce, preserves existing Cart/Checkout/Order authority, and reserves final acceptance/closure stages.",
+      "verification": "handoff_document_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "Stage A changes only its three documentation/governance paths; no runtime/API/OpenAPI/database/dependency/pricing/business-rule/Product-Design/current-state mutation is introduced.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-009",
+      "description": "Canonical completion requires exact-head Canonical CI and Phase A, deterministic Review, exact-artifact ACTIVE Lock, protected merge, exact-SHA postmerge verification and terminal Lock release before Stage 65-B mutation.",
+      "verification": "canonical_transport_and_postmerge_evidence",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Stage 65-A is MEDIUM risk and requires no Human Gate. Stage 65-B mutation remains blocked until protected merge, exact-SHA postmerge verification and terminal Lock release."
+  },
+  "evidence": {
+    "linear_issue": "HOS-69",
+    "predecessor_linear_issue": "HOS-68",
+    "live_guard_main_head": "9bf08d39ea2d45e3dfa4edfc197ac921bf1a8c36",
+    "competing_step65_writer": "NONE_OBSERVED",
+    "graph_state": "RETIRED_AND_OUT_OF_SCOPE",
+    "route_placeholders": [
+      "/wholesale",
+      "/account/wholesale/apply",
+      "/account/wholesale"
+    ],
+    "design_screens": [
+      "SF-E-07",
+      "SF-E-08",
+      "SF-E-09",
+      "SF-E-10"
+    ],
+    "journeys": [
+      "SJ-10",
+      "SJ-11"
+    ],
+    "implementation_owner_agent": "A10",
+    "orchestration_owner_agent": "A0",
+    "backend_agent": "A2",
+    "frontend_agent": "A3",
+    "qa_agent": "A7",
+    "security_agent": "A8",
+    "product_design_agent": "A9"
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}
