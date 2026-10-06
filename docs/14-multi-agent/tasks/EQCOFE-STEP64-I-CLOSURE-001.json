@@ -219,7 +219,9 @@
       "pr": 320,
       "merge_sha": "4d126a0087b8042e270aeae73225c558c4dd8e74",
       "result": "Graph/Graphify retired from active governance"
-    }
+    },
+    "closure_pr": 329,
+    "closure_branch": "eqcofe/step64-i-final-closure"
   },
   "process_improvement_links": [],
   "incident_links": []
