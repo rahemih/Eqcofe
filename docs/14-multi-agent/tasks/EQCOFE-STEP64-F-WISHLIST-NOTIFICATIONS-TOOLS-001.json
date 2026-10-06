@@ -1,0 +1,185 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP64-F-WISHLIST-NOTIFICATIONS-TOOLS-001",
+  "title": "Step 64-F account Wishlist, in-app notifications and contract-authorized customer tools",
+  "description": "MEDIUM-risk Step 64-F. Productionize SF-E-06 /account/tools with only runtime-proven customer capabilities: Wishlist management and customer in-app notifications. Reuse Step-62 Wishlist authority and Stage-64-B notification bridge. Product Alerts, Loyalty and Reviews remain NO_ACTION because Stage 64-B proved no matching customer runtime controller. Do not invent endpoints, backend rules, browser authority, provider delivery behavior or Step 64-G+ functionality.",
+  "risk": "MEDIUM",
+  "risk_floor": "MEDIUM",
+  "owner": "PRODUCT_DESIGN",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "8a2aef6c643b59822d9c65783464044e7737a514"
+  },
+  "scope": {
+    "read": [
+      "apps/storefront/**",
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "src/modules/notifications/**",
+      "src/modules/catalog/**",
+      "docs/11-step-history/**",
+      "docs/13-product-design/step55-account-wholesale-after-sales-wireframes.json",
+      "docs/13-product-design/step55-wireframes/E/SF-E-06/**",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "apps/storefront/package.json",
+      "apps/storefront/app/features/account/account-contract.ts",
+      "apps/storefront/app/features/account/account-tools.server.ts",
+      "apps/storefront/app/features/account/AccountToolsView.tsx",
+      "apps/storefront/app/routes/account-tools.tsx",
+      "apps/storefront/app/styles/account.css",
+      "apps/storefront/scripts/verify-step64-wishlist-notifications-tools.ts",
+      "test/step64-customer-tools-storefront-contract.spec.ts",
+      "docs/11-step-history/STEP-64-F-WISHLIST-NOTIFICATIONS-TOOLS.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP64-F-WISHLIST-NOTIFICATIONS-TOOLS-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "database/**",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "apps/admin/**",
+      "contracts/**",
+      "src/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**",
+      "apps/storefront/app/routes/account-return.tsx",
+      "apps/storefront/app/routes/account-warranty.tsx"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP64-F-WISHLIST-NOTIFICATIONS-TOOLS-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 40000,
+    "soft_alert": 62000,
+    "hard_cap": 110000
+  },
+  "max_repair_cycles": 3,
+  "pre_mutation_gates": {
+    "graph_health": "RETIRED_AND_OUT_OF_SCOPE",
+    "query_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "path_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "explain_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "human_gate": "NOT_REQUIRED_MEDIUM_STAGE"
+  },
+  "dependencies": [
+    {
+      "item": "64-E",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "8a2aef6c643b59822d9c65783464044e7737a514",
+      "evidence": "PR #324 merged; exact merge-SHA Canonical CI, Phase A, Storefront Quality and CodeQL all succeeded; application regression 970/970 PASS; terminal Lock release comment 6017547738.",
+      "blocking": false
+    }
+  ],
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "SF-E-06 /account/tools is productionized from the authenticated customer session and no longer uses RoutePlaceholder.",
+      "verification": "stage_verifier_and_storefront_quality",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Wishlist list is loaded only from canonical GET /customer/wishlist; account management supports removal using canonical DELETE /customer/wishlist/{product_id} with required Idempotency-Key. Addition remains available on existing Product/Listing surfaces and is not duplicated with invented product lookup authority.",
+      "verification": "stage_verifier_types_and_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Customer in-app notifications use only GET /customer/notifications, PATCH /customer/notifications/{id}/read and POST /customer/notifications/{id}/acknowledge. Mutations use required idempotency and owner-scoped identifiers.",
+      "verification": "stage_verifier_and_security_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Notification payload objects are never rendered raw or treated as navigation/action authority; only typed title/body/state/timestamps are presented.",
+      "verification": "stage_verifier_and_security_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Wishlist and notification resources recover independently with partial failure states; 401 fails closed to unauthenticated presentation and ownership-denied mutation states reveal no other-customer existence/content.",
+      "verification": "stage_verifier_and_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Product Alerts, Loyalty and Reviews remain explicitly NO_ACTION in Step 64 because Stage 64-B did not prove customer-facing runtime controllers. No calls to their OpenAPI-only declarations are introduced.",
+      "verification": "deterministic_source_assertion",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "Customer session cookies stay server-only through CustomerSessionBridge; no session/token/secret/browser-local authority is introduced.",
+      "verification": "stage_verifier_and_security_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "Persian RTL UI provides semantic tool navigation, empty/partial/error/status states, 44px targets, visible focus, bidi-isolated identifiers and responsive 320px/400% reflow without brown palette additions.",
+      "verification": "storefront_quality_and_stage_verifier",
+      "mandatory": true
+    },
+    {
+      "id": "AC-009",
+      "description": "No Backend/OpenAPI/generated/database/dependency/Product Design/Current-State/Returns/Warranty mutation is introduced.",
+      "verification": "deterministic_scope_history",
+      "mandatory": true
+    },
+    {
+      "id": "AC-010",
+      "description": "Canonical completion requires exact-head Canonical CI, Phase A, Storefront Quality, deterministic Review, exact-artifact ACTIVE Lock, protected merge, exact-merge-SHA verification and terminal Lock release. Human Gate is not required for MEDIUM Stage 64-F.",
+      "verification": "canonical_transport_and_postmerge_evidence",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "VERIFICATION",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Stage 64-F is MEDIUM risk and requires no Project Owner Human Gate. Exact artifact must still pass deterministic Review/verification and remain inside frozen Storefront-only scope."
+  },
+  "evidence": {
+    "linear_issue": "HOS-68",
+    "live_guard_main_head": "8a2aef6c643b59822d9c65783464044e7737a514",
+    "predecessor_pr": 324,
+    "predecessor_terminal_comment": 6017547738,
+    "implementation_owner_agent": "A3",
+    "qa_agent": "A7",
+    "security_agent": "A8",
+    "product_design_agent": "A9",
+    "evidence_agent": "A10",
+    "graph_state": "RETIRED_AND_OUT_OF_SCOPE",
+    "design_screen": "SF-E-06",
+    "productionized_route": "/account/tools",
+    "runtime_authority": {
+      "wishlist": [
+        "GET /customer/wishlist",
+        "POST /customer/wishlist/{product_id}",
+        "DELETE /customer/wishlist/{product_id}"
+      ],
+      "notifications": [
+        "GET /customer/notifications",
+        "PATCH /customer/notifications/{id}/read",
+        "POST /customer/notifications/{id}/acknowledge"
+      ],
+      "no_action": [
+        "Product Alerts",
+        "Loyalty",
+        "Reviews"
+      ]
+    }
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}

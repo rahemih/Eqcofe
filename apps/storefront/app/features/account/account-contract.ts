@@ -38,8 +38,16 @@ export type AccountOrderCancelRequest = ApiRequestInput<"post", "/customer/order
 export type AccountOrderCancelResponse = NonNullable<ApiSuccessData<"post", "/customer/orders/{order_number}/cancel">>;
 export type AccountOrderCancelBody = NonNullable<AccountOrderCancelRequest["body"]>;
 
+export type AccountWishlistRequest = ApiRequestInput<"get", "/customer/wishlist">;
+export type AccountWishlistResponse = NonNullable<ApiSuccessData<"get", "/customer/wishlist">>;
+export type AccountWishlistRemoveRequest = ApiRequestInput<"delete", "/customer/wishlist/{product_id}">;
+
 export type AccountNotificationsRequest = ApiRequestInput<"get", "/customer/notifications">;
 export type AccountNotificationsResponse = NonNullable<ApiSuccessData<"get", "/customer/notifications">>;
+export type AccountNotificationReadRequest = ApiRequestInput<"patch", "/customer/notifications/{id}/read">;
+export type AccountNotificationReadResponse = NonNullable<ApiSuccessData<"patch", "/customer/notifications/{id}/read">>;
+export type AccountNotificationAcknowledgeRequest = ApiRequestInput<"post", "/customer/notifications/{id}/acknowledge">;
+export type AccountNotificationAcknowledgeResponse = NonNullable<ApiSuccessData<"post", "/customer/notifications/{id}/acknowledge">>;
 
 export type AccountActor = AccountSessionResponse["data"]["actor"];
 export type AccountProfile = AccountProfileResponse;
@@ -49,4 +57,5 @@ export type AccountOrder = AccountOrderDetailResponse["data"];
 export type AccountOrderTimeline = AccountOrderTimelineResponse["data"];
 export type AccountOrderInvoice = AccountOrderInvoiceResponse["data"];
 export type AccountOrderCancelResult = AccountOrderCancelResponse["data"];
+export type AccountWishlistItem = AccountWishlistResponse["items"][number];
 export type AccountNotificationItem = AccountNotificationsResponse["data"]["items"][number];
