@@ -8,6 +8,8 @@ Canonical starting baseline: `7306dc4277b72286f43eb04540cd774e28d4bf1e`
 
 Task Contract: `docs/14-multi-agent/tasks/EQCOFE-STEP64-I-CLOSURE-001.json`
 
+Closure transport: PR `#329` / branch `eqcofe/step64-i-final-closure`.
+
 Step 64 A–H are terminal and canonical. Stage 64-I is documentation/governance-only: it reconciles canonical state documents with live GitHub/CI evidence, freezes the Step-64 product result and prepares the Step-65 handoff. It adds no runtime, API/OpenAPI, database, dependency, workflow or Product Design authority.
 
 Graph/Graphify is **RETIRED / OUT OF SCOPE** by the Owner's 2026-10-06 governed tooling-policy change; PR #320 is canonical and historical graph language does not create a current gate.
