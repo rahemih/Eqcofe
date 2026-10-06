@@ -49,6 +49,7 @@ export type AccountToolsMutationResult =
     };
 
 const NOTIFICATION_LIMIT = 20;
+const NOTIFICATION_FETCH_LIMIT = NOTIFICATION_LIMIT + 1;
 const MAX_NOTIFICATION_OFFSET = 10_000;
 
 export async function loadAccountTools(
@@ -67,7 +68,7 @@ export async function loadAccountTools(
     bridge.client.request("get", "/customer/wishlist", {}),
     bridge.client.request("get", "/customer/notifications", {
       query: {
-        limit: NOTIFICATION_LIMIT,
+        limit: NOTIFICATION_FETCH_LIMIT,
         offset: paging.offset,
         unread_only: paging.unreadOnly,
       },
@@ -93,8 +94,8 @@ export async function loadAccountTools(
   let notificationHasPotentialMore = false;
   if (notificationResult.status === "fulfilled") {
     const typed = notificationResult.value.data as AccountNotificationsResponse;
-    notifications = { status: "ready", items: typed.data.items };
-    notificationHasPotentialMore = typed.data.items.length === NOTIFICATION_LIMIT;
+    notifications = { status: "ready", items: typed.data.items.slice(0, NOTIFICATION_LIMIT) };
+    notificationHasPotentialMore = typed.data.items.length > NOTIFICATION_LIMIT;
   } else {
     notifications = { status: "unavailable", items: [] };
   }
@@ -227,8 +228,11 @@ function readNotificationPaging(url: string): {
     if (!Number.isSafeInteger(offset) || offset > MAX_NOTIFICATION_OFFSET) return null;
   }
 
+  const rawUnread = parsed.searchParams.get("unread");
+  if (rawUnread !== null && rawUnread !== "1") return null;
+
   return {
-    unreadOnly: parsed.searchParams.get("unread") === "1",
+    unreadOnly: rawUnread === "1",
     offset,
   };
 }
