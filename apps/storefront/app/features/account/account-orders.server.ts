@@ -9,7 +9,6 @@ import type {
   AccountOrderInvoiceResponse,
   AccountOrderItem,
   AccountOrderTimeline,
-  AccountOrderTimelineResponse,
   AccountOrdersResponse,
   AccountOrderDetailResponse,
 } from "./account-contract.js";
@@ -148,7 +147,9 @@ export async function loadAccountOrderDetail(
   let invoice: AccountOrderInvoice | null = null;
 
   if (timelineResult.status === "fulfilled") {
-    timeline = (timelineResult.value.data as AccountOrderTimelineResponse).data;
+    const normalized = normalizeOrderTimeline(timelineResult.value.data, orderNumber);
+    if (normalized) timeline = normalized;
+    else partialFailures.push("timeline");
   } else {
     partialFailures.push("timeline");
   }
@@ -234,6 +235,67 @@ export async function mutateAccountOrder(
   } catch (error) {
     return mutationFailure(error, bridge.takeSetCookies());
   }
+}
+
+function normalizeOrderTimeline(
+  value: unknown,
+  expectedOrderNumber: string,
+): AccountOrderTimeline | null {
+  const envelope = asRecord(value);
+  const data = asRecord(envelope?.data);
+  if (!data || data.order_number !== expectedOrderNumber || !Array.isArray(data.timeline)) {
+    return null;
+  }
+
+  const timeline: AccountOrderTimeline["timeline"] = [];
+  for (const candidate of data.timeline) {
+    const row = asRecord(candidate);
+    if (!row) return null;
+
+    const toStatus = cleanTimelineString(row.to_status) ?? cleanTimelineString(row.status);
+    const fromStatus = cleanTimelineNullableString(row.from_status);
+    const reason = cleanTimelineNullableString(row.reason);
+    const createdAt = cleanTimelineString(row.created_at);
+
+    if (
+      !toStatus
+      || fromStatus === undefined
+      || reason === undefined
+      || !createdAt
+      || Number.isNaN(new Date(createdAt).getTime())
+    ) {
+      return null;
+    }
+
+    timeline.push({
+      from_status: fromStatus,
+      to_status: toStatus,
+      reason,
+      created_at: createdAt,
+    });
+  }
+
+  return { order_number: expectedOrderNumber, timeline };
+}
+
+function asRecord(value: unknown): Record<string, unknown> | null {
+  return value !== null && typeof value === "object" && !Array.isArray(value)
+    ? value as Record<string, unknown>
+    : null;
+}
+
+function cleanTimelineString(value: unknown): string | null {
+  if (typeof value !== "string") return null;
+  const normalized = value.trim();
+  return normalized.length > 0 && normalized.length <= 200 ? normalized : null;
+}
+
+function cleanTimelineNullableString(value: unknown): string | null | undefined {
+  if (value === null || value === undefined) return null;
+  if (typeof value !== "string") return undefined;
+  const normalized = value.trim();
+  if (!normalized) return null;
+  return normalized.length <= 1000 ? normalized : undefined;
 }
 
 function safeBridge(
