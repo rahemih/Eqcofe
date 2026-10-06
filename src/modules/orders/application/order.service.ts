@@ -63,14 +63,10 @@ export class OrderService{
  async listCustomer(cursor:string|undefined,limit=25){const customerId=this.requireCustomerId();const safe=Math.min(Math.max(Number(limit)||25,1),100);let before:{created_at:string;id:string}|null=null;if(cursor){try{const parsed=JSON.parse(Buffer.from(cursor,'base64url').toString('utf8'));if(!parsed?.created_at||!parsed?.id||Number.isNaN(new Date(parsed.created_at).getTime())||!/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(String(parsed.id)))throw new Error();before={created_at:new Date(parsed.created_at).toISOString(),id:String(parsed.id)};}catch{throw new DomainError('INVALID_CURSOR','Cursor معتبر نیست.');}}const r=before?await sql<any>`SELECT id,order_number,status,total_toman,created_at,updated_at FROM orders.orders WHERE customer_id=${customerId}::uuid AND (created_at,id)<(${before.created_at}::timestamptz,${before.id}::uuid) ORDER BY created_at DESC,id DESC LIMIT ${safe+1}`.execute(this.db):await sql<any>`SELECT id,order_number,status,total_toman,created_at,updated_at FROM orders.orders WHERE customer_id=${customerId}::uuid ORDER BY created_at DESC,id DESC LIMIT ${safe+1}`.execute(this.db);const rows=r.rows.slice(0,safe),hasMore=r.rows.length>safe,last=rows[rows.length-1];return{items:rows.map(({id,...x}:any)=>x),__pagination:{has_more:hasMore,next_cursor:hasMore&&last?Buffer.from(JSON.stringify({created_at:new Date(last.created_at).toISOString(),id:String(last.id)})).toString('base64url'):null}};}
  async timelineCustomer(num:string){
   const customerId=this.requireCustomerId();const o=await this.orderOwnedRow(num,customerId);
-  const orderRows=await sql<any>`SELECT from_status,to_status,reason,created_at FROM orders.order_status_history WHERE order_id=${o.id}::uuid`.execute(this.db);
-  const fulfillmentRows=await sql<any>`SELECT status,updated_at created_at FROM fulfillment.fulfillments WHERE order_id=${o.id}::uuid`.execute(this.db);
-  const shipmentRows=await sql<any>`SELECT status,updated_at created_at FROM fulfillment.shipments WHERE order_id=${o.id}::uuid`.execute(this.db);
-  const timeline=[
-   ...orderRows.rows.map((row:any)=>({from_status:row.from_status??null,to_status:String(row.to_status),reason:row.reason??null,created_at:row.created_at})),
-   ...fulfillmentRows.rows.map((row:any)=>({from_status:null,to_status:String(row.status),reason:null,created_at:row.created_at})),
-   ...shipmentRows.rows.map((row:any)=>({from_status:null,to_status:String(row.status),reason:null,created_at:row.created_at})),
-  ].sort((a:any,b:any)=>new Date(a.created_at).getTime()-new Date(b.created_at).getTime());
+  const orderRows=await sql<any>`SELECT 'order' source,to_status status,reason,created_at FROM orders.order_status_history WHERE order_id=${o.id}::uuid`.execute(this.db);
+  const fulfillmentRows=await sql<any>`SELECT 'fulfillment' source,status,NULL::text reason,updated_at created_at FROM fulfillment.fulfillments WHERE order_id=${o.id}::uuid`.execute(this.db);
+  const shipmentRows=await sql<any>`SELECT 'shipment' source,status,NULL::text reason,updated_at created_at FROM fulfillment.shipments WHERE order_id=${o.id}::uuid`.execute(this.db);
+  const timeline=[...orderRows.rows,...fulfillmentRows.rows,...shipmentRows.rows].sort((a:any,b:any)=>new Date(a.created_at).getTime()-new Date(b.created_at).getTime());
   return{order_number:num,timeline};
  }
  async invoiceCustomer(num:string){const order=await this.getCustomer(num);return{invoice_number:order.order_number,issued_at:order.created_at,order};}
