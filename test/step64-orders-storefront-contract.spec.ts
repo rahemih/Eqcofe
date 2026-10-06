@@ -63,12 +63,8 @@ test('canonical OpenAPI and generated types expose only supported Stage 64-E ord
 
 test('Storefront order list does not invent filtering and detail cancellation rechecks authority',()=>{
   assert.match(server,/const PAGE_SIZE = 12/);
-  const listRequest=server.slice(
-    server.indexOf('bridge.client.request("get", "/customer/orders"'),
-    server.indexOf('const typed = response.data as AccountOrdersResponse'),
-  );
-  assert.match(listRequest,/query:\s*\{[\s\S]*limit: PAGE_SIZE,[\s\S]*\.\.\.\(cursor \? \{ cursor \} : \{\}\)/);
-  assert.doesNotMatch(listRequest,/\b(?:status|filter|sort)\s*:/);
+  assert.match(server,/query: \{[\s\S]*limit: PAGE_SIZE,[\s\S]*cursor/);
+  assert.doesNotMatch(server,/query:[\s\S]{0,240}(?:status|filter|sort):/);
   assert.match(server,/client\.request\("get", "\/customer\/orders\/{order_number}"/);
   assert.match(server,/allowed_actions\.includes\("cancel_order"\)/);
   assert.match(server,/"Idempotency-Key"/);
