@@ -66,8 +66,7 @@
       "src/modules/cart/**",
       "src/modules/orders/**",
       "src/modules/configuration/**",
-      "docs/12-current-state/**",
-      "docs/13-product-design/**"
+      "docs/12-current-state/**"
     ]
   },
   "requested_lock_ids": [
@@ -151,7 +150,8 @@
     "storefront_mutation": "NONE",
     "domain_service_mutation": "NONE",
     "pricing_cart_mutation": "NONE",
-    "design_provenance_repair": "Canonical CI/Phase A showed recovered-source drift for intentionally changed contracts/http/openapi.yaml and src/modules/customer/presentation/customer.controller.ts. Stage 65-B authorizes only the canonical generator-equivalent Step56/57 source-hash cascade on the explicitly listed Product Design provenance files; no screen, journey, operation, permission, visual, review-status, approval, runtime-release or business semantics may change."
+    "design_provenance_repair": "Canonical CI/Phase A showed recovered-source drift for intentionally changed contracts/http/openapi.yaml and src/modules/customer/presentation/customer.controller.ts. Stage 65-B authorizes only the canonical generator-equivalent Step56/57 source-hash cascade on the explicitly listed Product Design provenance files; no screen, journey, operation, permission, visual, review-status, approval, runtime-release or business semantics may change.",
+    "scope_conflict_repair": "The provenance-only repair added 17 exact Product Design hash/manifest paths to scope.write and the HIGH risk rule. The inherited broad forbidden glob docs/13-product-design/** conflicted with those exact authorized paths and caused deterministic Merge Policy to fail closed. The broad glob is removed; the exact write allowlist remains the only Product Design mutation authority, so all other Product Design paths stay unauthorized by omission."
   },
   "acceptance_criteria": [
     {
