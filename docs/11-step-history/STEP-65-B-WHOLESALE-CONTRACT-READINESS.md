@@ -86,6 +86,21 @@ No additional runtime mutation is needed for pricing identity:
 
 Stage 65-C+ must consume these boundaries instead of local flags.
 
+
+## Recovered Step56/57 provenance repair
+
+Canonical CI and Phase A correctly failed closed after the intentional Wholesale OpenAPI/controller contract repair because historical Step56/57 recovered-source evidence pins mutable source SHA256 values.
+
+Stage 65-B follows the already-canonical Step 60/61/62/63/64 repair pattern:
+
+- refresh only the changed recovered-source SHA256 values for `contracts/http/openapi.yaml` and `src/modules/customer/presentation/customer.controller.ts`;
+- propagate source hashes through Step56 A–G contracts and their generated manifest `sourceSha256` links;
+- regenerate the Step56-H final-audit provenance hashes and audit manifest;
+- refresh only Step57 high-fidelity source-linked SHA256 values;
+- preserve every design screen, journey, operation, permission disposition, review status, visual artifact, historical verdict and runtime-release claim.
+
+No Product Design semantics changed. The repair is provenance/hash-only and exists solely to keep deterministic historical evidence aligned with the intentionally changed canonical contract sources.
+
 ## Explicit non-scope
 
 - CustomerWholesaleService/domain/repository.
