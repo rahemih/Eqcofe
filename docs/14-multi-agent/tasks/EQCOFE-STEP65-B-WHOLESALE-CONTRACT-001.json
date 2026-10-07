@@ -34,7 +34,24 @@
       "test/step65-wholesale-contract.spec.ts",
       "docs/11-step-history/STEP-65-B-WHOLESALE-CONTRACT-READINESS.md",
       "docs/14-multi-agent/tasks/EQCOFE-STEP65-B-WHOLESALE-CONTRACT-001.json",
-      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "docs/13-product-design/step56-admin-ux-contract.json",
+      "docs/13-product-design/step56-foundation/A/manifest.json",
+      "docs/13-product-design/step56-admin-shell-wireframes.json",
+      "docs/13-product-design/step56-wireframes/B/manifest.json",
+      "docs/13-product-design/step56-catalog-media-wireframes.json",
+      "docs/13-product-design/step56-wireframes/C/manifest.json",
+      "docs/13-product-design/step56-pricing-inventory-wireframes.json",
+      "docs/13-product-design/step56-wireframes/D/manifest.json",
+      "docs/13-product-design/step56-commerce-operations-wireframes.json",
+      "docs/13-product-design/step56-wireframes/E/manifest.json",
+      "docs/13-product-design/step56-customers-growth-wireframes.json",
+      "docs/13-product-design/step56-wireframes/F/manifest.json",
+      "docs/13-product-design/step56-management-security-wireframes.json",
+      "docs/13-product-design/step56-wireframes/G/manifest.json",
+      "docs/13-product-design/step56-final-audit.json",
+      "docs/13-product-design/step56-final-audit/manifest.json",
+      "docs/13-product-design/step57-high-fidelity-contract.json"
     ],
     "forbidden": [
       ".github/**",
@@ -78,7 +95,24 @@
         "test/step65-wholesale-contract.spec.ts",
         "docs/11-step-history/STEP-65-B-WHOLESALE-CONTRACT-READINESS.md",
         "docs/14-multi-agent/tasks/EQCOFE-STEP65-B-WHOLESALE-CONTRACT-001.json",
-        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+        "docs/14-multi-agent/generated/TASK-CATALOG.md",
+        "docs/13-product-design/step56-admin-ux-contract.json",
+        "docs/13-product-design/step56-foundation/A/manifest.json",
+        "docs/13-product-design/step56-admin-shell-wireframes.json",
+        "docs/13-product-design/step56-wireframes/B/manifest.json",
+        "docs/13-product-design/step56-catalog-media-wireframes.json",
+        "docs/13-product-design/step56-wireframes/C/manifest.json",
+        "docs/13-product-design/step56-pricing-inventory-wireframes.json",
+        "docs/13-product-design/step56-wireframes/D/manifest.json",
+        "docs/13-product-design/step56-commerce-operations-wireframes.json",
+        "docs/13-product-design/step56-wireframes/E/manifest.json",
+        "docs/13-product-design/step56-customers-growth-wireframes.json",
+        "docs/13-product-design/step56-wireframes/F/manifest.json",
+        "docs/13-product-design/step56-management-security-wireframes.json",
+        "docs/13-product-design/step56-wireframes/G/manifest.json",
+        "docs/13-product-design/step56-final-audit.json",
+        "docs/13-product-design/step56-final-audit/manifest.json",
+        "docs/13-product-design/step57-high-fidelity-contract.json"
       ]
     }
   ],
@@ -116,7 +150,8 @@
     "dependency_need": "NONE",
     "storefront_mutation": "NONE",
     "domain_service_mutation": "NONE",
-    "pricing_cart_mutation": "NONE"
+    "pricing_cart_mutation": "NONE",
+    "design_provenance_repair": "Canonical CI/Phase A showed recovered-source drift for intentionally changed contracts/http/openapi.yaml and src/modules/customer/presentation/customer.controller.ts. Stage 65-B authorizes only the canonical generator-equivalent Step56/57 source-hash cascade on the explicitly listed Product Design provenance files; no screen, journey, operation, permission, visual, review-status, approval, runtime-release or business semantics may change."
   },
   "acceptance_criteria": [
     {
@@ -171,6 +206,12 @@
       "id": "AC-009",
       "description": "HIGH-risk terminal closure requires exact-head Canonical CI, Phase A, CodeQL/Security, deterministic Review, exact-artifact ACTIVE Lock, exact-artifact Project Owner Human approval, protected merge, exact-SHA postmerge verification and terminal Lock release.",
       "verification": "canonical_transport_and_postmerge_evidence",
+      "mandatory": true
+    },
+    {
+      "id": "AC-010",
+      "description": "Recovered Step56/57 provenance drift caused only by the authorized OpenAPI/controller contract repair is synchronized through generator-equivalent source SHA/manifest/final-audit/high-fidelity hash propagation on the explicitly listed Product Design files; no design semantics or historical verdicts change.",
+      "verification": "step56_step57_provenance_only_repair",
       "mandatory": true
     }
   ],
