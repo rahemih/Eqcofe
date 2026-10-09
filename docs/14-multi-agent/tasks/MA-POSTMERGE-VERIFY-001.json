@@ -24,7 +24,8 @@
       ".github/workflows/merge-policy.yml",
       "docs/14-multi-agent/incidents/MA-POSTMERGE-VERIFY-SUPPRESSED-001.md",
       "docs/14-multi-agent/tasks/MA-POSTMERGE-VERIFY-001.json",
-      "test/multi-agent/merge-policy-workflow.test.mjs"
+      "test/multi-agent/merge-policy-workflow.test.mjs",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
     ],
     "forbidden": [
       "README.md",
@@ -192,6 +193,12 @@
       "trigger": "PR #332 live governance validation",
       "root_cause": "historical task contract retained its original canonical base SHA, which cannot authorize a new repair branch from current main",
       "repair": "rebind canonical.base_sha to the exact current main baseline for this authorized repair transport"
+    },
+    {
+      "date": "2026-10-09",
+      "trigger": "TASK_CATALOG_STALE on Canonical CI and Phase A",
+      "root_cause": "current deterministic docs automation requires generated task catalog parity whenever an indexed Task Contract changes",
+      "repair": "authorize and synchronize only the generated Task Catalog row for MA-POSTMERGE-VERIFY-001"
     }
   ]
 }
