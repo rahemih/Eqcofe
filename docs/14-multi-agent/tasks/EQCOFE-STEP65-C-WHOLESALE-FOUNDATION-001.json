@@ -173,6 +173,12 @@
       "description": "Inherited Step 59 merchandising and acceptance verification are reconciled only for the now-productionized /wholesale route: Articles remains Step 66 placeholder, Wholesale must prove the 65-C loader/view production implementation, and no unrelated Step 59 merchandising/acceptance authority is weakened.",
       "verification": "pnpm --dir apps/storefront merchandising:verify && pnpm --dir apps/storefront step59:acceptance && pnpm --dir apps/storefront wholesale-foundation:verify",
       "mandatory": true
+    },
+    {
+      "id": "AC-009",
+      "description": "Inherited Step59 final acceptance must preserve its original shell/home/search/category/product/Articles/RTL/dependency checks while recognizing the planned Stage65 production Wholesale route instead of requiring the old Step65 placeholder.",
+      "verification": "pnpm --dir apps/storefront step59:acceptance",
+      "mandatory": true
     }
   ],
   "external_gate_evidence": {
@@ -204,6 +210,12 @@
       "trigger": "Canonical CI run 37964074154",
       "root_cause": "Legacy Step 59 acceptance verifier still required /wholesale to contain RoutePlaceholder targetStep={65}, which became intentionally obsolete when Stage 65-C productionized that route.",
       "repair": "Authorize a verifier-only acceptance handoff update that accepts the 65-C production loader/view while preserving the Step 66 Articles placeholder and all unrelated Step 59 acceptance checks."
+    },
+    {
+      "date": "2026-10-09",
+      "trigger": "Canonical CI run 37964180670",
+      "root_cause": "Step59 final acceptance retained the same historical targetStep={65} wholesale placeholder assertion after 65-C productionization",
+      "repair": "authorize only the Step59 acceptance handoff assertion reconciliation; preserve all unrelated acceptance checks"
     }
   ]
 }
