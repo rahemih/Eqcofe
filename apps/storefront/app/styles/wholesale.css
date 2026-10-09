@@ -1,0 +1,123 @@
+.wholesale-page {
+  display: grid;
+  gap: 1.5rem;
+  max-width: 75rem;
+  margin-inline: auto;
+  padding: 1.5rem 1rem 3rem;
+}
+
+.wholesale-page__hero {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(17rem, 5fr);
+  gap: 1.25rem;
+  align-items: start;
+}
+
+.wholesale-page__eyebrow {
+  margin: 0 0 .35rem;
+  color: var(--color-text-muted, #4b5563);
+  font-size: .875rem;
+}
+
+.wholesale-page h1,
+.wholesale-page h2 {
+  margin-block-start: 0;
+}
+
+.wholesale-page__lead {
+  max-width: 52rem;
+  line-height: 1.9;
+}
+
+.wholesale-page__actions {
+  display: flex;
+  gap: .75rem;
+  flex-wrap: wrap;
+  margin-block-start: 1rem;
+}
+
+.wholesale-page__primary,
+.wholesale-page__secondary {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid currentColor;
+  border-radius: .75rem;
+  padding: .6rem 1rem;
+  text-decoration: none;
+}
+
+.wholesale-page__primary {
+  font-weight: 800;
+}
+
+.wholesale-page__state,
+.wholesale-page__state-card,
+.wholesale-page__grid article,
+.wholesale-page__process {
+  border: 1px solid var(--color-border, #d1d5db);
+  border-radius: 1rem;
+  background: var(--color-surface, #fff);
+  padding: 1rem;
+}
+
+.wholesale-page__state {
+  max-width: 42rem;
+  margin: 2rem auto;
+}
+
+.wholesale-page__state-card {
+  border-inline-start: .35rem solid currentColor;
+}
+
+.wholesale-page__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.wholesale-page__grid article {
+  min-width: 0;
+}
+
+.wholesale-page__process ol {
+  display: grid;
+  gap: 1rem;
+  margin: 0;
+  padding-inline-start: 1.5rem;
+}
+
+.wholesale-page__process li {
+  padding-inline-start: .25rem;
+}
+
+.wholesale-page__process li > * {
+  display: block;
+  margin-block: .2rem;
+}
+
+.wholesale-page :is(a, button):focus-visible {
+  outline: 3px solid currentColor;
+  outline-offset: 3px;
+}
+
+@media (max-width: 52.5rem) {
+  .wholesale-page__hero,
+  .wholesale-page__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 37.5rem) {
+  .wholesale-page__actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .wholesale-page__primary,
+  .wholesale-page__secondary {
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
