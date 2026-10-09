@@ -126,7 +126,15 @@ assert.equal(
   "STEP61_D_PRODUCT_ROUTE_NOT_PRODUCTIONIZED",
 );
 assert.match(articlesRouteSource, /targetStep=\{66\}/);
-assert.match(wholesaleRouteSource, /targetStep=\{65\}/);
+assert.ok(
+  /targetStep=\{65\}/.test(wholesaleRouteSource)
+    || (
+      wholesaleRouteSource.includes("loadWholesaleIntroduction")
+      && wholesaleRouteSource.includes("WholesaleIntroductionView")
+      && !wholesaleRouteSource.includes("RoutePlaceholder")
+    ),
+  "STEP65_WHOLESALE_ROUTE_NEITHER_DEFERRED_NOR_PRODUCTIONIZED",
+);
 
 for (const token of [
   ".home-merchandising",

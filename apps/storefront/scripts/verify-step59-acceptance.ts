@@ -21,6 +21,10 @@ const productExperience = readFileSync(
   "utf8",
 );
 const wholesale = readFileSync(resolve(storefrontRoot, "app/routes/wholesale.tsx"), "utf8");
+const wholesaleProductionized =
+  wholesale.includes("loadWholesaleIntroduction")
+  && wholesale.includes("WholesaleIntroductionView")
+  && !wholesale.includes("RoutePlaceholder");
 const articles = readFileSync(resolve(storefrontRoot, "app/routes/articles.tsx"), "utf8");
 const shell = readFileSync(resolve(storefrontRoot, "app/shell/AppShell.tsx"), "utf8");
 const searchEntry = readFileSync(resolve(storefrontRoot, "app/shell/SearchEntry.tsx"), "utf8");
@@ -57,7 +61,15 @@ assert.match(product, /loadProductDetailFoundation/);
 assert.match(product, /ProductDetailExperience/);
 assert.match(productExperience, /ProductVariantSelector/);
 assert.equal(product.includes("RoutePlaceholder"), false, "STEP61_D_PRODUCT_HANDOFF_INVALID");
-assert.match(wholesale, /targetStep=\{65\}/);
+assert.ok(
+  /targetStep=\{65\}/.test(wholesale)
+    || (
+      wholesale.includes("loadWholesaleIntroduction")
+      && wholesale.includes("WholesaleIntroductionView")
+      && !wholesale.includes("RoutePlaceholder")
+    ),
+  "STEP65_WHOLESALE_HANDOFF_INVALID",
+);
 assert.match(articles, /targetStep=\{66\}/);
 
 assert.equal(/\bbrown\b/i.test(homeCss), false, "STEP59_G_BROWN_FORBIDDEN");
@@ -116,6 +128,10 @@ const apiServer = http.createServer((request, response) => {
   const url = new URL(request.url ?? "/", "http://127.0.0.1");
   if (request.method === "GET" && url.pathname === "/products") {
     sendJson(response, 200, products);
+    return;
+  }
+  if (request.method === "GET" && url.pathname === "/auth/session" && wholesaleProductionized) {
+    sendJson(response, 401, { code: "CUSTOMER_REQUIRED", message: "ورود مشتری الزامی است." });
     return;
   }
   if (request.method === "GET" && url.pathname === "/search" && searchProductionized) {
@@ -247,14 +263,30 @@ try {
     "STEP61_D_PRODUCT_ROUTE_PRODUCTION_HANDOFF_MISSING",
   );
 
-  for (const [path, screenId] of [
-    ["/wholesale", "SF-E-07"],
-    ["/articles", "SF-F-01"],
-  ] as const) {
-    const downstream = await request(path);
-    assert.equal(downstream.status, 200, "STEP59_G_DOWNSTREAM_ROUTE_FAILED:" + path);
-    assert(downstream.body.includes(screenId), "STEP59_G_DOWNSTREAM_PLACEHOLDER_LOST:" + path);
+  const wholesaleDownstream = await request("/wholesale");
+  assert.equal(wholesaleDownstream.status, 200, "STEP59_G_DOWNSTREAM_ROUTE_FAILED:/wholesale");
+  if (wholesaleProductionized) {
+    assert(
+      wholesaleDownstream.body.includes("خرید عمده تجهیزات قهوه از ایکوفی"),
+      "STEP65_C_WHOLESALE_PRODUCTION_HANDOFF_MISSING",
+    );
+    assert(
+      wholesaleDownstream.body.includes("برای ثبت درخواست باید وارد حساب مشتری شوید"),
+      "STEP65_C_WHOLESALE_GUEST_RECOVERY_MISSING",
+    );
+  } else {
+    assert(
+      wholesaleDownstream.body.includes("SF-E-07"),
+      "STEP59_G_DOWNSTREAM_PLACEHOLDER_LOST:/wholesale",
+    );
   }
+
+  const articlesDownstream = await request("/articles");
+  assert.equal(articlesDownstream.status, 200, "STEP59_G_DOWNSTREAM_ROUTE_FAILED:/articles");
+  assert(
+    articlesDownstream.body.includes("SF-F-01"),
+    "STEP59_G_DOWNSTREAM_PLACEHOLDER_LOST:/articles",
+  );
 
   console.log(JSON.stringify({
     status: "PASS",
@@ -271,7 +303,7 @@ try {
     downstreamBoundaries: {
       step60: { search: searchProductionized ? "PRODUCTION_60_D" : "PLACEHOLDER", category: categoryProductionized ? "PRODUCTION_60_E" : "PLACEHOLDER" },
       step61: { product: "PRODUCTION_61_D" },
-      step65: ["wholesale"],
+      step65: { wholesale: wholesaleProductionized ? "PRODUCTION_65_C" : "PLACEHOLDER" },
       step66: ["articles"],
     },
     browserAcceptance: "PROVIDER_WORKFLOW_REQUIRED_ON_EXACT_HEAD",
