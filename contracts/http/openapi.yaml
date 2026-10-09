@@ -7130,21 +7130,60 @@ components:
         cart_token:
           type: string
           minLength: 32
+    CartPricingView:
+      type: object
+      additionalProperties: false
+      required:
+      - subtotal_toman
+      - discount_toman
+      - total_toman
+      properties:
+        subtotal_toman:
+          $ref: '#/components/schemas/MoneyToman'
+        discount_toman:
+          $ref: '#/components/schemas/MoneyToman'
+        total_toman:
+          $ref: '#/components/schemas/MoneyToman'
+    CartLinePricingView:
+      type: object
+      additionalProperties: false
+      required:
+      - unit_base_toman
+      - unit_final_toman
+      - discount_toman
+      - line_total_toman
+      properties:
+        unit_base_toman:
+          $ref: '#/components/schemas/MoneyToman'
+        unit_final_toman:
+          $ref: '#/components/schemas/MoneyToman'
+        discount_toman:
+          $ref: '#/components/schemas/MoneyToman'
+        line_total_toman:
+          $ref: '#/components/schemas/MoneyToman'
     CartView:
       type: object
       additionalProperties: false
       required:
       - id
       - customer_id
+      - customer_type
       - status
       - version
       - expires_at
       - items
+      - pricing
+      - requires_revalidation
       properties:
         id: &id017
           $ref: '#/components/schemas/EntityId'
         customer_id:
           $ref: '#/components/schemas/NullableEntityId'
+        customer_type:
+          type: string
+          enum:
+          - retail
+          - wholesale
         status:
           type: string
           enum:
@@ -7160,6 +7199,12 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/CartItemView'
+        pricing:
+          anyOf:
+          - $ref: '#/components/schemas/CartPricingView'
+          - type: 'null'
+        requires_revalidation:
+          type: boolean
     CheckoutReservationResponse:
       type: object
       required:
@@ -7369,6 +7414,8 @@ components:
       - sku
       - product_name
       - quantity
+      - price
+      - availability
       properties:
         id: *id017
         product_id: *id017
@@ -7380,6 +7427,12 @@ components:
         quantity:
           type: integer
           minimum: 1
+        price:
+          anyOf:
+          - $ref: '#/components/schemas/CartLinePricingView'
+          - type: 'null'
+        availability:
+          $ref: '#/components/schemas/AvailabilityView'
     CreateCartResponse:
       type: object
       additionalProperties: false
