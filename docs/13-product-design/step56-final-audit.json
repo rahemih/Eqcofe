@@ -34,23 +34,23 @@
   "sources": [
     {
       "path": "docs/13-product-design/step56-admin-shell-wireframes.json",
-      "sha256": "7c7fa8bcfa3b19caf57c4a52cdb3bc688c1b432ccfe587972664086519bc619d"
+      "sha256": "57fbb705bccfec4f4ae1e138eab0e7c4b87de09de5c4d6f9e78a0bfd41b7a2ee"
     },
     {
       "path": "docs/13-product-design/step56-admin-ux-contract.json",
-      "sha256": "ec8cf0c248038dda87eb542fb13df6fec761a9bf6ac24333729b5474f36a1969"
+      "sha256": "c0caa17b5e9e2c9caf010b347ca53071af491d67ed959e64b66c785fd316d46c"
     },
     {
       "path": "docs/13-product-design/step56-catalog-media-wireframes.json",
-      "sha256": "3dc01ec6420335e5091be48c2feb845aaa5e8ad61a92d4ab3afd06bac4797e12"
+      "sha256": "4baaf35a867fa7d3c47e5b760552f3e528fcdff97325578c48b8dfec1d57212d"
     },
     {
       "path": "docs/13-product-design/step56-commerce-operations-wireframes.json",
-      "sha256": "e90d9ecf7780342c96b9615f0b1c33dc5e2d2f110875ce50951beddc73462f04"
+      "sha256": "214fe54b2c556c76f2b6e3122841b6b4b355a78c00447d851ddb9ed22563f33d"
     },
     {
       "path": "docs/13-product-design/step56-customers-growth-wireframes.json",
-      "sha256": "79e0441fc919dba1236cfa0f2a33fde65788ef5132ea570aebed592a1a036d2c"
+      "sha256": "dec493878b89f0a203845d9528d45d65aa3c09c016907080ddc5a6cc2b6cb686"
     },
     {
       "path": "docs/13-product-design/step56-final-handoffs.json",
@@ -62,35 +62,35 @@
     },
     {
       "path": "docs/13-product-design/step56-management-security-wireframes.json",
-      "sha256": "8edbe041313517f85904f983d493bff7e03d796cf2a0beab553fbb141d588825"
+      "sha256": "88aa6f19d150d1921464ae2d961be1a8c3d41f69f7c064c710cdbabd833a628d"
     },
     {
       "path": "docs/13-product-design/step56-pricing-inventory-wireframes.json",
-      "sha256": "24371bf2f6029a10889f68002cdf91449e89f2ec8fb3b6cc4eb1f894080c6796"
+      "sha256": "ca8bf8d94336e637c9fccbd7a03b516acbe632537a8e2e6fb0b9ecdd1f685dcd"
     },
     {
       "path": "docs/13-product-design/step56-wireframes/B/manifest.json",
-      "sha256": "3d4c67062899189e5fc26587513e86a19d0b656ed2bad38ee4142535086dd46e"
+      "sha256": "7902970898dcb0ef714e514a357009ee181a1b199af6c0202f5d4c0337eeacf4"
     },
     {
       "path": "docs/13-product-design/step56-wireframes/C/manifest.json",
-      "sha256": "3aaa5ca837525795a2252c8d8be1f5b541567494390d5d39f9f89ce87f649a94"
+      "sha256": "69414c8f22a0a73f7579cb6a9ac14c6e8e1157f5fcaaee1f2a3a1e8724e41eeb"
     },
     {
       "path": "docs/13-product-design/step56-wireframes/D/manifest.json",
-      "sha256": "04f1c9c09c5552bbb9e4b12da37196630ed50c8e1cee9be5b96d8e3343c7b20e"
+      "sha256": "64d33d2059d15623e094f70c8335cae8e99ca9363c85fb8f687492db37a2f5c8"
     },
     {
       "path": "docs/13-product-design/step56-wireframes/E/manifest.json",
-      "sha256": "e642bb3a8489e00ee7c033cd86db782c338d4644acbdb5b60863a062d5a025fb"
+      "sha256": "320e8420347dfdd604dc746711d30f1cd5ae4f270be7cd64eb17c3432c196f89"
     },
     {
       "path": "docs/13-product-design/step56-wireframes/F/manifest.json",
-      "sha256": "d75f27114809f7818b7dafc693eb56a0c19f2e545c5998ef445093cc52673649"
+      "sha256": "df1af911d79a6cbaf234e859f6d91121811cbc3a5bcb0a0a120d93bbceed86a5"
     },
     {
       "path": "docs/13-product-design/step56-wireframes/G/manifest.json",
-      "sha256": "7def8b6596c432e43aaa505eb869cd6b8bf7b239f26ff266c55f3011cfaa745e"
+      "sha256": "74f8ba5999b5491d5b4c999d87428a89cc558045ca3c3c2840734902755ba80c"
     },
     {
       "path": "scripts/step56-final-audit.mjs",
@@ -268,7 +268,7 @@
     {
       "gate": "B",
       "path": "docs/13-product-design/step56-wireframes/B/manifest.json",
-      "sha256": "3d4c67062899189e5fc26587513e86a19d0b656ed2bad38ee4142535086dd46e",
+      "sha256": "7902970898dcb0ef714e514a357009ee181a1b199af6c0202f5d4c0337eeacf4",
       "surfaces": 7,
       "frames": 74,
       "artifacts": 91,
@@ -302,7 +302,7 @@
     {
       "gate": "C",
       "path": "docs/13-product-design/step56-wireframes/C/manifest.json",
-      "sha256": "3aaa5ca837525795a2252c8d8be1f5b541567494390d5d39f9f89ce87f649a94",
+      "sha256": "69414c8f22a0a73f7579cb6a9ac14c6e8e1157f5fcaaee1f2a3a1e8724e41eeb",
       "surfaces": 8,
       "frames": 114,
       "artifacts": 133,
@@ -335,7 +335,7 @@
     {
       "gate": "D",
       "path": "docs/13-product-design/step56-wireframes/D/manifest.json",
-      "sha256": "04f1c9c09c5552bbb9e4b12da37196630ed50c8e1cee9be5b96d8e3343c7b20e",
+      "sha256": "64d33d2059d15623e094f70c8335cae8e99ca9363c85fb8f687492db37a2f5c8",
       "surfaces": 21,
       "frames": 624,
       "artifacts": 669,
@@ -368,7 +368,7 @@
     {
       "gate": "E",
       "path": "docs/13-product-design/step56-wireframes/E/manifest.json",
-      "sha256": "e642bb3a8489e00ee7c033cd86db782c338d4644acbdb5b60863a062d5a025fb",
+      "sha256": "320e8420347dfdd604dc746711d30f1cd5ae4f270be7cd64eb17c3432c196f89",
       "surfaces": 11,
       "frames": 368,
       "artifacts": 393,
@@ -402,7 +402,7 @@
     {
       "gate": "F",
       "path": "docs/13-product-design/step56-wireframes/F/manifest.json",
-      "sha256": "d75f27114809f7818b7dafc693eb56a0c19f2e545c5998ef445093cc52673649",
+      "sha256": "df1af911d79a6cbaf234e859f6d91121811cbc3a5bcb0a0a120d93bbceed86a5",
       "surfaces": 16,
       "frames": 488,
       "artifacts": 523,
@@ -430,7 +430,7 @@
     {
       "gate": "G",
       "path": "docs/13-product-design/step56-wireframes/G/manifest.json",
-      "sha256": "7def8b6596c432e43aaa505eb869cd6b8bf7b239f26ff266c55f3011cfaa745e",
+      "sha256": "74f8ba5999b5491d5b4c999d87428a89cc558045ca3c3c2840734902755ba80c",
       "surfaces": 34,
       "frames": 1004,
       "artifacts": 1075,

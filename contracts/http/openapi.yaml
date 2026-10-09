@@ -3404,6 +3404,85 @@ components:
       - order_item_id
       - issue_type
       - issue_description
+    CustomerWholesaleApplicationView:
+      type: object
+      additionalProperties: false
+      required:
+      - id
+      - customer_id
+      - business_name
+      - manager_name
+      - business_type
+      - province_id
+      - city_id
+      - business_identifier
+      - note
+      - status
+      - submitted_at
+      - review_started_at
+      - reviewed_at
+      - decision_note
+      - rejection_reason
+      properties:
+        id:
+          $ref: '#/components/schemas/EntityId'
+        customer_id:
+          $ref: '#/components/schemas/EntityId'
+        business_name:
+          type: string
+          minLength: 1
+          maxLength: 250
+        manager_name:
+          type: string
+          minLength: 1
+          maxLength: 200
+        business_type:
+          type: string
+          minLength: 1
+          maxLength: 100
+        province_id:
+          $ref: '#/components/schemas/EntityId'
+        city_id:
+          $ref: '#/components/schemas/EntityId'
+        business_identifier:
+          type:
+          - string
+          - 'null'
+          minLength: 1
+          maxLength: 100
+        note:
+          type:
+          - string
+          - 'null'
+          minLength: 1
+          maxLength: 4000
+        status:
+          type: string
+          enum:
+          - submitted
+          - under_review
+          - approved
+          - rejected
+        submitted_at:
+          $ref: '#/components/schemas/Timestamp'
+        review_started_at:
+          $ref: '#/components/schemas/NullableTimestamp'
+        reviewed_at:
+          $ref: '#/components/schemas/NullableTimestamp'
+        decision_note:
+          type:
+          - string
+          - 'null'
+          maxLength: 2000
+        rejection_reason:
+          type:
+          - string
+          - 'null'
+          maxLength: 2000
+    CustomerWholesaleApplicationMaybe:
+      anyOf:
+      - $ref: '#/components/schemas/CustomerWholesaleApplicationView'
+      - type: 'null'
     PostCustomerWholesaleApplicationsRequest:
       type: object
       additionalProperties: false
@@ -9906,10 +9985,18 @@ paths:
       parameters:
       - $ref: '#/components/parameters/IdempotencyKey'
       responses:
-        '200':
-          description: عملیات موفق
-        '202':
-          description: عملیات پذیرفته شد
+        '201':
+          description: درخواست عمده مشتری ثبت شد
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerWholesaleApplicationView'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '422':
+          $ref: '#/components/responses/Unprocessable'
       security:
       - customerSession: []
       requestBody:
@@ -9927,7 +10014,15 @@ paths:
       operationId: getCustomerWholesaleApplication
       responses:
         '200':
-          description: عملیات موفق
+          description: آخرین درخواست عمده متعلق به مشتری جاری یا null در صورت نبود درخواست
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerWholesaleApplicationMaybe'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/Unprocessable'
       security:
       - customerSession: []
   /customer/loyalty:

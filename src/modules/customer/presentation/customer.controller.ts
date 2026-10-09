@@ -27,7 +27,7 @@ export class CustomerController{
   @CustomerOnly() @RequireIdempotency('customer.wishlist.add') @HttpCode(HttpStatus.OK) @Post('customer/wishlist/:product_id') addWishlist(@Param('product_id') id:string){return this.wishlist.add(id);}
   @CustomerOnly() @RequireIdempotency('customer.wishlist.remove') @HttpCode(HttpStatus.NO_CONTENT) @Delete('customer/wishlist/:product_id') async removeWishlist(@Param('product_id') id:string){await this.wishlist.remove(id);}
 
-  @CustomerOnly() @RequireIdempotency('customer.wholesale.submit') @Post('customer/wholesale/applications') submitWholesale(@Body() body:any){return this.wholesale.submit(body??{});}
+  @CustomerOnly() @RequireIdempotency('customer.wholesale.submit') @HttpCode(HttpStatus.CREATED) @Post('customer/wholesale/applications') submitWholesale(@Body() body:any){return this.wholesale.submit(body??{});}
   @CustomerOnly() @Get('customer/wholesale/application') myWholesale(){return this.wholesale.myApplication();}
 }
 

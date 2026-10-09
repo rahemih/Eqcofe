@@ -826,7 +826,7 @@
   "sources": [
     {
       "path": "contracts/http/openapi.yaml",
-      "sha256": "e956fb46373ef78e487bcb19ad0d5ad55712ca10ea9ce6865cc2c68a9b1486b3"
+      "sha256": "763836850db59237015c3d0350849ed272f38454ec051e268109a62fe53bdb8f"
     },
     {
       "path": "database/migrations/0028_configuration_core.sql",
@@ -834,15 +834,15 @@
     },
     {
       "path": "docs/13-product-design/step56-admin-shell-wireframes.json",
-      "sha256": "7c7fa8bcfa3b19caf57c4a52cdb3bc688c1b432ccfe587972664086519bc619d"
+      "sha256": "57fbb705bccfec4f4ae1e138eab0e7c4b87de09de5c4d6f9e78a0bfd41b7a2ee"
     },
     {
       "path": "docs/13-product-design/step56-admin-ux-contract.json",
-      "sha256": "ec8cf0c248038dda87eb542fb13df6fec761a9bf6ac24333729b5474f36a1969"
+      "sha256": "c0caa17b5e9e2c9caf010b347ca53071af491d67ed959e64b66c785fd316d46c"
     },
     {
       "path": "docs/13-product-design/step56-customers-growth-wireframes.json",
-      "sha256": "79e0441fc919dba1236cfa0f2a33fde65788ef5132ea570aebed592a1a036d2c"
+      "sha256": "dec493878b89f0a203845d9528d45d65aa3c09c016907080ddc5a6cc2b6cb686"
     },
     {
       "path": "src/modules/admin/admin.module.ts",

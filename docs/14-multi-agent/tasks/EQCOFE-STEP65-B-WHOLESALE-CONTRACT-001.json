@@ -1,0 +1,231 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP65-B-WHOLESALE-CONTRACT-001",
+  "title": "Step 65-B Wholesale customer application/status and B2B authority contract readiness",
+  "description": "HIGH-risk Step 65-B. Repair only the proven customer Wholesale HTTP/OpenAPI contract drift before Storefront implementation: explicit 201 submit status, typed customer-owned wholesale application response, typed nullable latest-application read, accurate auth/conflict/validation responses, and reproducible generated TypeScript. Freeze existing CustomerProfile customer_type and server-resolved CheckoutQuote customer_type as the only current B2B identity/pricing authorities. Do not change wholesale domain transitions, database, pricing rules, Cart/Checkout business logic, admin review authority or Storefront.",
+  "risk": "HIGH",
+  "risk_floor": "HIGH",
+  "owner": "BACKEND_ENGINEERING",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "a36757a1fa36d1f541102e0e1a3426406e3c5864"
+  },
+  "scope": {
+    "read": [
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "src/modules/customer/**",
+      "src/modules/pricing/**",
+      "src/modules/cart/**",
+      "src/modules/configuration/**",
+      "src/platform/http/**",
+      "apps/storefront/**",
+      "test/**",
+      "docs/11-step-history/**",
+      "docs/13-product-design/**",
+      "docs/14-multi-agent/**",
+      "package.json"
+    ],
+    "write": [
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "src/modules/customer/presentation/customer.controller.ts",
+      "test/step65-wholesale-contract.spec.ts",
+      "docs/11-step-history/STEP-65-B-WHOLESALE-CONTRACT-READINESS.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP65-B-WHOLESALE-CONTRACT-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "docs/13-product-design/step56-admin-ux-contract.json",
+      "docs/13-product-design/step56-foundation/A/manifest.json",
+      "docs/13-product-design/step56-admin-shell-wireframes.json",
+      "docs/13-product-design/step56-wireframes/B/manifest.json",
+      "docs/13-product-design/step56-catalog-media-wireframes.json",
+      "docs/13-product-design/step56-wireframes/C/manifest.json",
+      "docs/13-product-design/step56-pricing-inventory-wireframes.json",
+      "docs/13-product-design/step56-wireframes/D/manifest.json",
+      "docs/13-product-design/step56-commerce-operations-wireframes.json",
+      "docs/13-product-design/step56-wireframes/E/manifest.json",
+      "docs/13-product-design/step56-customers-growth-wireframes.json",
+      "docs/13-product-design/step56-wireframes/F/manifest.json",
+      "docs/13-product-design/step56-management-security-wireframes.json",
+      "docs/13-product-design/step56-wireframes/G/manifest.json",
+      "docs/13-product-design/step56-final-audit.json",
+      "docs/13-product-design/step56-final-audit/manifest.json",
+      "docs/13-product-design/step57-high-fidelity-contract.json"
+    ],
+    "forbidden": [
+      ".github/**",
+      "database/**",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "apps/storefront/**",
+      "src/modules/customer/application/**",
+      "src/modules/customer/domain/**",
+      "src/modules/customer/infrastructure/**",
+      "src/modules/pricing/**",
+      "src/modules/cart/**",
+      "src/modules/orders/**",
+      "src/modules/configuration/**",
+      "docs/12-current-state/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP65-B-WHOLESALE-CONTRACT-001-01"
+  ],
+  "human_gate_required": true,
+  "authorized_human_approver": {
+    "role": "PROJECT_OWNER",
+    "github_login": "rahemih"
+  },
+  "token_budget": {
+    "expected_max": 36000,
+    "soft_alert": 58000,
+    "hard_cap": 98000
+  },
+  "max_repair_cycles": 3,
+  "task_risk_rules": [
+    {
+      "id": "STEP65_B_WHOLESALE_HTTP_HIGH",
+      "risk": "HIGH",
+      "paths": [
+        "contracts/http/openapi.yaml",
+        "src/generated/openapi.ts",
+        "src/modules/customer/presentation/customer.controller.ts",
+        "test/step65-wholesale-contract.spec.ts",
+        "docs/11-step-history/STEP-65-B-WHOLESALE-CONTRACT-READINESS.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP65-B-WHOLESALE-CONTRACT-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md",
+        "docs/13-product-design/step56-admin-ux-contract.json",
+        "docs/13-product-design/step56-foundation/A/manifest.json",
+        "docs/13-product-design/step56-admin-shell-wireframes.json",
+        "docs/13-product-design/step56-wireframes/B/manifest.json",
+        "docs/13-product-design/step56-catalog-media-wireframes.json",
+        "docs/13-product-design/step56-wireframes/C/manifest.json",
+        "docs/13-product-design/step56-pricing-inventory-wireframes.json",
+        "docs/13-product-design/step56-wireframes/D/manifest.json",
+        "docs/13-product-design/step56-commerce-operations-wireframes.json",
+        "docs/13-product-design/step56-wireframes/E/manifest.json",
+        "docs/13-product-design/step56-customers-growth-wireframes.json",
+        "docs/13-product-design/step56-wireframes/F/manifest.json",
+        "docs/13-product-design/step56-management-security-wireframes.json",
+        "docs/13-product-design/step56-wireframes/G/manifest.json",
+        "docs/13-product-design/step56-final-audit.json",
+        "docs/13-product-design/step56-final-audit/manifest.json",
+        "docs/13-product-design/step57-high-fidelity-contract.json"
+      ]
+    }
+  ],
+  "pre_mutation_gates": {
+    "graph_health": "RETIRED_AND_OUT_OF_SCOPE",
+    "query_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "path_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "explain_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "human_gate": "FINAL_EXACT_ARTIFACT_APPROVAL_REQUIRED_BEFORE_PROTECTED_MERGE"
+  },
+  "dependencies": [
+    {
+      "item": "65-A",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "a36757a1fa36d1f541102e0e1a3426406e3c5864",
+      "evidence": "PR #330 merged; exact-SHA Canonical CI 37529029137 and Phase A 37529029136 PASS; terminal Lock release comment 6025205025.",
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "linear_issue": "HOS-69",
+    "graph_state": "RETIRED_AND_OUT_OF_SCOPE",
+    "audit_findings": [
+      "Runtime POST /customer/wholesale/applications is customer-only, idempotency-protected and returns the created application; Nest POST defaults to HTTP 201, while current OpenAPI advertises stale 200/202 with no response content.",
+      "Runtime GET /customer/wholesale/application is customer-only and returns the latest owned application or null; current OpenAPI 200 has no response content.",
+      "PostCustomerWholesaleApplicationsRequest is already typed with current runtime fields and limits.",
+      "CustomerWholesaleService owns eligibility and transitions; applicant remains retail until staff approval; no domain/service repair is required.",
+      "GlobalExceptionFilter maps CUSTOMER_REQUIRED to 401, validation/default DomainError to 422, and concurrency/constraint conflicts to 409.",
+      "CustomerProfileResponse already exposes authoritative customer_type retail|wholesale.",
+      "AuthSessionActor does not expose customer_type and is not expanded in this stage.",
+      "Cart Quote already resolves customer type server-side and CheckoutQuoteResponse exposes authoritative customer_type; pricing/Cart logic does not require mutation."
+    ],
+    "migration_need": "NONE",
+    "dependency_need": "NONE",
+    "storefront_mutation": "NONE",
+    "domain_service_mutation": "NONE",
+    "pricing_cart_mutation": "NONE",
+    "design_provenance_repair": "Canonical CI/Phase A showed recovered-source drift for intentionally changed contracts/http/openapi.yaml and src/modules/customer/presentation/customer.controller.ts. Stage 65-B authorizes only the canonical generator-equivalent Step56/57 source-hash cascade on the explicitly listed Product Design provenance files; no screen, journey, operation, permission, visual, review-status, approval, runtime-release or business semantics may change.",
+    "scope_conflict_repair": "The provenance-only repair added 17 exact Product Design hash/manifest paths to scope.write and the HIGH risk rule. The inherited broad forbidden glob docs/13-product-design/** conflicted with those exact authorized paths and caused deterministic Merge Policy to fail closed. The broad glob is removed; the exact write allowlist remains the only Product Design mutation authority, so all other Product Design paths stay unauthorized by omission."
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Customer wholesale submit explicitly uses HTTP 201 and its OpenAPI response body is typed as the exact runtime-owned Wholesale application view; stale 200/202 success responses are removed.",
+      "verification": "step65_wholesale_contract_test",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Customer latest wholesale application GET is typed as Wholesale application-or-null, preserving the runtime no-application state without inventing a sentinel status.",
+      "verification": "step65_wholesale_contract_test",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Wholesale application view includes only current runtime-present fields with bounded/typed identifiers, nullable notes/timestamps/decision fields and status enum submitted|under_review|approved|rejected.",
+      "verification": "openapi_generated_contract_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Customer wholesale submit/read contracts include current customer-session security and fail-closed 401 plus appropriate 409/422 error responses without exposing admin decision endpoints as customer authority.",
+      "verification": "step65_wholesale_security_contract_test",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Existing request body fields/limits remain aligned to CustomerWholesaleService input validation; no new eligibility, business type enum or document/upload requirement is invented.",
+      "verification": "runtime_openapi_alignment_test",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "CustomerProfileResponse remains the typed current customer_type presentation authority; AuthSessionActor is not expanded. CheckoutQuoteResponse and Cart runtime remain the server-resolved pricing/customer-type authority.",
+      "verification": "step65_b2b_authority_regression",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "Generated TypeScript is byte-for-byte reproducible from canonical OpenAPI via openapi-typescript.",
+      "verification": "step65_generated_contract_parity",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "No database migration, dependency, Storefront, customer domain/application, Pricing, Cart/Checkout, admin authority, Product Design or Current-State mutation is introduced.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-009",
+      "description": "HIGH-risk terminal closure requires exact-head Canonical CI, Phase A, CodeQL/Security, deterministic Review, exact-artifact ACTIVE Lock, exact-artifact Project Owner Human approval, protected merge, exact-SHA postmerge verification and terminal Lock release.",
+      "verification": "canonical_transport_and_postmerge_evidence",
+      "mandatory": true
+    },
+    {
+      "id": "AC-010",
+      "description": "Recovered Step56/57 provenance drift caused only by the authorized OpenAPI/controller contract repair is synchronized through generator-equivalent source SHA/manifest/final-audit/high-fidelity hash propagation on the explicitly listed Product Design files; no design semantics or historical verdicts change.",
+      "verification": "step56_step57_provenance_only_repair",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "SECURITY",
+      "HUMAN",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Step 65-B is HIGH risk. Project Owner Human approval must bind to the frozen exact head/artifact only after provider checks, Security, deterministic Review and ACTIVE Lock pass."
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}
