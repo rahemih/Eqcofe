@@ -59,7 +59,9 @@ assert.equal(
   "pnpm --dir ../.. exec tsx apps/storefront/scripts/verify-step65-wholesale-foundation.ts",
 );
 const verifyScript = packageJson.scripts.verify;
-assert.equal(typeof verifyScript, "string");
+if (typeof verifyScript !== "string") {
+  throw new Error("STOREFRONT_VERIFY_CHAIN_MISSING");
+}
 assert.ok(verifyScript.includes("wholesale-foundation:verify"));
 
 console.log("STEP65_WHOLESALE_FOUNDATION_VERIFY_PASS");
