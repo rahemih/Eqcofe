@@ -97,7 +97,7 @@
       "required_state": "CANONICAL_COMPLETE",
       "observed_state": "CANONICAL_COMPLETE",
       "merge_sha": "a8905e495f43c7afc9a39a6de0eca38d484b1cbf",
-      "evidence": "PR #333 merged; exact-SHA Canonical CI 37965730057, Phase A 37965730066 and Storefront Quality 37965730091 SUCCESS; terminal Lock release comment 6085866881.",
+      "evidence": "PR #333 merged; exact-SHA Canonical CI 37965730057, Phase A 37965730066 and Storefront Quality 37965730091 SUCCESS; terminal Lock release comment 6085869501.",
       "blocking": false
     }
   ],
