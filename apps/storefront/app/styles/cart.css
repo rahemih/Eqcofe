@@ -1,2 +1,99 @@
 .cart-page{max-width:1280px;margin:0 auto;padding:clamp(1rem,3vw,2rem)}
 .cart-intro{margin-block-end:1.5rem}.cart-intro h1{margin:.25rem 0}.cart-view{display:grid;grid-template-columns:minmax(0,2fr) minmax(16rem,1fr);gap:1.5rem;align-items:start}.cart-items{list-style:none;margin:0;padding:0;display:grid;gap:1rem}.cart-item{border:1px solid var(--border-subtle,#d8d8d8);border-radius:1rem;padding:1rem;display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:1rem;align-items:center}.cart-item__identity{display:grid;gap:.35rem}.cart-item__quantity{display:flex;align-items:end;gap:.5rem}.cart-item__quantity label{display:grid;gap:.25rem}.cart-item input{min-width:5rem;min-height:44px}.cart-item button,.cart-checkout-link,.cart-state-action a{min-height:44px;display:inline-flex;align-items:center;justify-content:center;padding:.65rem 1rem}.cart-item__remove{white-space:nowrap}.cart-summary{position:sticky;top:1rem;border:1px solid var(--border-subtle,#d8d8d8);border-radius:1rem;padding:1rem}.cart-checkout-link{width:100%;text-decoration:none;border:1px solid currentColor;border-radius:.75rem}.cart-action-error{border-inline-start:4px solid currentColor;padding:.75rem 1rem}.cart-state-action{display:grid;gap:1rem;justify-items:start}@media(max-width:840px){.cart-view{grid-template-columns:1fr}.cart-summary{position:static}.cart-item{grid-template-columns:1fr}.cart-item__quantity{align-items:stretch;flex-wrap:wrap}}@media(max-width:360px){.cart-page{padding-inline:1rem}.cart-item__quantity{display:grid}.cart-item input,.cart-item button{width:100%}}
+
+
+/* Step 65-E — authoritative Cart pricing and Wholesale context */
+.cart-view .cart-item {
+  grid-template-columns: minmax(0, 1.2fr) minmax(10rem, .8fr) auto auto;
+}
+
+.cart-wholesale-context {
+  display: grid;
+  gap: .75rem;
+  border: 1px solid currentColor;
+  border-inline-start-width: .35rem;
+  border-radius: 1rem;
+  padding: 1rem;
+  margin-block-end: 1.25rem;
+}
+
+.cart-wholesale-context h2,
+.cart-wholesale-context p {
+  margin: 0;
+}
+
+.cart-wholesale-context__badge {
+  display: inline-block;
+  margin-block-end: .35rem;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  padding: .25rem .65rem;
+  font-weight: 700;
+}
+
+.cart-item__availability {
+  overflow-wrap: anywhere;
+}
+
+.cart-item__pricing {
+  display: grid;
+  gap: .25rem;
+  min-inline-size: 0;
+}
+
+.cart-item__pricing del {
+  opacity: .75;
+}
+
+.cart-item__saving {
+  font-weight: 700;
+}
+
+.cart-item__pricing-unavailable,
+.cart-summary__revalidation {
+  border-inline-start: .25rem solid currentColor;
+  padding-inline-start: .75rem;
+  overflow-wrap: anywhere;
+}
+
+.cart-summary__pricing {
+  display: grid;
+  gap: .6rem;
+  margin-block: 1rem;
+}
+
+.cart-summary__pricing > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.cart-summary__pricing dt,
+.cart-summary__pricing dd {
+  margin: 0;
+}
+
+.cart-summary__total {
+  border-block-start: 1px solid currentColor;
+  padding-block-start: .65rem;
+  font-weight: 800;
+}
+
+.cart-item :is(input, button):focus-visible,
+.cart-checkout-link:focus-visible {
+  outline: 3px solid currentColor;
+  outline-offset: 3px;
+}
+
+@media(max-width:840px){
+  .cart-view .cart-item {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media(max-width:360px){
+  .cart-summary__pricing > div {
+    display: grid;
+    gap: .25rem;
+  }
+}
