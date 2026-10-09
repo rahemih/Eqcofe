@@ -57,7 +57,15 @@ assert.match(product, /loadProductDetailFoundation/);
 assert.match(product, /ProductDetailExperience/);
 assert.match(productExperience, /ProductVariantSelector/);
 assert.equal(product.includes("RoutePlaceholder"), false, "STEP61_D_PRODUCT_HANDOFF_INVALID");
-assert.match(wholesale, /targetStep=\{65\}/);
+assert.ok(
+  /targetStep=\{65\}/.test(wholesale)
+    || (
+      wholesale.includes("loadWholesaleIntroduction")
+      && wholesale.includes("WholesaleIntroductionView")
+      && !wholesale.includes("RoutePlaceholder")
+    ),
+  "STEP65_WHOLESALE_HANDOFF_INVALID",
+);
 assert.match(articles, /targetStep=\{66\}/);
 
 assert.equal(/\bbrown\b/i.test(homeCss), false, "STEP59_G_BROWN_FORBIDDEN");
