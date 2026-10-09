@@ -9,7 +9,7 @@
   "canonical": {
     "repository": "rahemih/Eqcofe",
     "branch": "main",
-    "base_sha": "deb78949fc289ce5d530f99ed2f6da62a89785f5"
+    "base_sha": "8a62ee1c4bd20f5ec181a8c57cafc91a1d91862b"
   },
   "scope": {
     "read": [
@@ -186,6 +186,12 @@
       "trigger": "workflow_dispatch run 37955398950 for already-merged PR #331",
       "root_cause": "merge job always invoked --merge-pr before resolving existing merge state, causing PR_NOT_OPEN_AND_READY and suppressing postmerge-verify",
       "repair": "inspect merged state first; skip merge execution when already merged; preserve exact merge SHA verification path"
+    },
+    {
+      "date": "2026-10-09",
+      "trigger": "PR #332 live governance validation",
+      "root_cause": "historical task contract retained its original canonical base SHA, which cannot authorize a new repair branch from current main",
+      "repair": "rebind canonical.base_sha to the exact current main baseline for this authorized repair transport"
     }
   ]
 }
