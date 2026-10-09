@@ -10559,14 +10559,29 @@ export interface components {
             cart: components["schemas"]["CartView"];
             cart_token: string;
         };
+        CartPricingView: {
+            subtotal_toman: components["schemas"]["MoneyToman"];
+            discount_toman: components["schemas"]["MoneyToman"];
+            total_toman: components["schemas"]["MoneyToman"];
+        };
+        CartLinePricingView: {
+            unit_base_toman: components["schemas"]["MoneyToman"];
+            unit_final_toman: components["schemas"]["MoneyToman"];
+            discount_toman: components["schemas"]["MoneyToman"];
+            line_total_toman: components["schemas"]["MoneyToman"];
+        };
         CartView: {
             id: components["schemas"]["EntityId"];
             customer_id: components["schemas"]["NullableEntityId"];
+            /** @enum {string} */
+            customer_type: "retail" | "wholesale";
             /** @enum {string} */
             status: "active" | "converted" | "expired";
             version: number;
             expires_at: components["schemas"]["Timestamp"];
             items: components["schemas"]["CartItemView"][];
+            pricing: components["schemas"]["CartPricingView"] | null;
+            requires_revalidation: boolean;
         };
         CheckoutReservationResponse: {
             /** Format: uuid */
@@ -10646,6 +10661,8 @@ export interface components {
             sku: string;
             product_name: string;
             quantity: number;
+            price: components["schemas"]["CartLinePricingView"] | null;
+            availability: components["schemas"]["AvailabilityView"];
         };
         CreateCartResponse: {
             cart_id: components["schemas"]["EntityId"];
