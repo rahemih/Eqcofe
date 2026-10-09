@@ -10,7 +10,7 @@ export function WholesaleIntroductionView({ state }: Props) {
     return (
       <main className="wholesale-page" aria-labelledby="wholesale-unavailable">
         <section className="wholesale-page__state" role="status">
-          <p className="wholesale-page__eyebrow">فروش عمده ایکوفی</p>
+          <p className="wholesale-page__eyebrow">SF-E-07 · فروش عمده ایکوفی</p>
           <h1 id="wholesale-unavailable">اطلاعات فروش عمده موقتاً در دسترس نیست</h1>
           <p>وضعیت حساب یا درخواست از حافظه مرورگر حدس زده نمی‌شود. برای دریافت وضعیت معتبر دوباره تلاش کنید.</p>
           <Link className="wholesale-page__primary" to="/wholesale">تلاش دوباره</Link>
