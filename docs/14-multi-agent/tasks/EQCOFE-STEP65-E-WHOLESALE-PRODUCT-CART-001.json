@@ -43,7 +43,24 @@
       "apps/storefront/package.json",
       "docs/11-step-history/STEP-65-E-WHOLESALE-PRODUCT-CART.md",
       "docs/14-multi-agent/tasks/EQCOFE-STEP65-E-WHOLESALE-PRODUCT-CART-001.json",
-      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "docs/13-product-design/step56-admin-ux-contract.json",
+      "docs/13-product-design/step56-foundation/A/manifest.json",
+      "docs/13-product-design/step56-admin-shell-wireframes.json",
+      "docs/13-product-design/step56-wireframes/B/manifest.json",
+      "docs/13-product-design/step56-catalog-media-wireframes.json",
+      "docs/13-product-design/step56-wireframes/C/manifest.json",
+      "docs/13-product-design/step56-pricing-inventory-wireframes.json",
+      "docs/13-product-design/step56-wireframes/D/manifest.json",
+      "docs/13-product-design/step56-commerce-operations-wireframes.json",
+      "docs/13-product-design/step56-wireframes/E/manifest.json",
+      "docs/13-product-design/step56-customers-growth-wireframes.json",
+      "docs/13-product-design/step56-wireframes/F/manifest.json",
+      "docs/13-product-design/step56-management-security-wireframes.json",
+      "docs/13-product-design/step56-wireframes/G/manifest.json",
+      "docs/13-product-design/step56-final-audit.json",
+      "docs/13-product-design/step56-final-audit/manifest.json",
+      "docs/13-product-design/step57-high-fidelity-contract.json"
     ],
     "forbidden": [
       "database/**",
@@ -59,7 +76,7 @@
       "apps/storefront/app/routes/payment-*.tsx",
       "apps/storefront/app/routes/order-*.tsx",
       "docs/12-current-state/**",
-      "docs/13-product-design/**"
+      "docs/13-product-design/** except the 17 exact provenance/hash-only paths listed in scope.write"
     ]
   },
   "requested_lock_ids": [
@@ -98,7 +115,24 @@
         "apps/storefront/package.json",
         "docs/11-step-history/STEP-65-E-WHOLESALE-PRODUCT-CART.md",
         "docs/14-multi-agent/tasks/EQCOFE-STEP65-E-WHOLESALE-PRODUCT-CART-001.json",
-        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+        "docs/14-multi-agent/generated/TASK-CATALOG.md",
+        "docs/13-product-design/step56-admin-ux-contract.json",
+        "docs/13-product-design/step56-foundation/A/manifest.json",
+        "docs/13-product-design/step56-admin-shell-wireframes.json",
+        "docs/13-product-design/step56-wireframes/B/manifest.json",
+        "docs/13-product-design/step56-catalog-media-wireframes.json",
+        "docs/13-product-design/step56-wireframes/C/manifest.json",
+        "docs/13-product-design/step56-pricing-inventory-wireframes.json",
+        "docs/13-product-design/step56-wireframes/D/manifest.json",
+        "docs/13-product-design/step56-commerce-operations-wireframes.json",
+        "docs/13-product-design/step56-wireframes/E/manifest.json",
+        "docs/13-product-design/step56-customers-growth-wireframes.json",
+        "docs/13-product-design/step56-wireframes/F/manifest.json",
+        "docs/13-product-design/step56-management-security-wireframes.json",
+        "docs/13-product-design/step56-wireframes/G/manifest.json",
+        "docs/13-product-design/step56-final-audit.json",
+        "docs/13-product-design/step56-final-audit/manifest.json",
+        "docs/13-product-design/step57-high-fidelity-contract.json"
       ]
     }
   ],
@@ -133,7 +167,13 @@
     "migration_need": "NONE",
     "dependency_need": "NONE",
     "pricing_rule_mutation": "NONE",
-    "checkout_order_mutation": "NONE"
+    "checkout_order_mutation": "NONE",
+    "provenance_repair": {
+      "trigger": "Canonical CI 37982605132",
+      "classification": "EXPECTED_RECOVERED_SOURCE_HASH_DRIFT",
+      "precedent": "Step 65-B PR #331 canonical hash-only provenance refresh",
+      "mutation_rule": "Only SHA-256 provenance references may change in these 17 files; Product Design semantics, screens, states, content and artifacts are immutable."
+    }
   },
   "acceptance_criteria": [
     {
@@ -195,6 +235,12 @@
       "description": "HIGH-risk closure requires exact-head Canonical CI, Phase A, Storefront Quality, CodeQL/Security, deterministic Review, exact-artifact ACTIVE Lock, exact-artifact Project Owner Human approval, protected merge, exact-SHA postmerge verification and terminal Lock release.",
       "verification": "canonical transport evidence",
       "mandatory": true
+    },
+    {
+      "id": "AC-011",
+      "description": "Step56/57 recovered-source provenance is refreshed only for SHA-256 references transitively affected by the canonical OpenAPI change. No Product Design semantic field, screen, state, copy, frame, component or artifact content may change.",
+      "verification": "design:validate + design:check + per-file hash-only diff audit",
+      "mandatory": true
     }
   ],
   "external_gate_evidence": {
@@ -209,5 +255,13 @@
     "rule": "Step 65-E is HIGH risk. Human approval binds only to the frozen exact head/artifact after technical, security, deterministic review and lock gates pass."
   },
   "process_improvement_links": [],
-  "incident_links": []
+  "incident_links": [],
+  "repair_history": [
+    {
+      "date": "2026-10-09",
+      "trigger": "Canonical CI run 37982605132",
+      "root_cause": "The intentional CartView OpenAPI change invalidated frozen Step56/57 recovered-source SHA-256 provenance. The design validator correctly rejected stale hashes.",
+      "repair": "Authorize the exact 17-file hash-only provenance cascade previously used by canonical Step 65-B PR #331; semantic Product Design mutation remains forbidden."
+    }
+  ]
 }
