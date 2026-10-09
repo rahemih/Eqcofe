@@ -169,3 +169,6 @@ The controller correctly failed closed with `PR_NOT_OPEN_AND_READY` because PR #
 This is an orchestration idempotency defect rather than a Step 65-B artifact failure. The repair keeps the controller fail-closed behavior unchanged. The workflow now inspects the PR merge state first. For an already-merged PR it validates the existing canonical `merge_commit_sha`, skips the second merge attempt, then publishes the same immutable SHA through the existing `merge_sha` output so the normal exact-SHA post-merge verifier can run.
 
 The repair does not relax Rulesets, does not synthesize PASS evidence, does not retarget verification to moving `main`, and does not add a new credential.
+
+
+The repair PR transport itself must reference the canonical Task Contract by exact repository path in the pull-request body so live scope-history validation binds the PR event to the intended contract.
