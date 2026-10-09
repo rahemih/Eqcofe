@@ -70,12 +70,28 @@ jobs:
           ref: refs/pull/${{ inputs.pr_number }}/head
           fetch-depth: 0
           persist-credentials: false
+      - name: inspect-pr-merge-state
+        id: pr_state
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ inputs.pr_number }}
+        run: |
+          set -euo pipefail
+          read -r merged merge_sha pr_state < <(gh api "repos/${GITHUB_REPOSITORY}/pulls/${PR_NUMBER}" --jq '[.merged, (.merge_commit_sha // ""), .state] | @tsv')
+          echo "already_merged=${merged}" >> "$GITHUB_OUTPUT"
+          echo "merge_sha=${merge_sha}" >> "$GITHUB_OUTPUT"
+          echo "pr_state=${pr_state}" >> "$GITHUB_OUTPUT"
+          if [ "$merged" = "true" ]; then
+            [[ "$merge_sha" =~ ^[0-9a-f]{40}$ ]]
+            gh api "repos/${GITHUB_REPOSITORY}/commits/${merge_sha}" --silent
+          fi
       - uses: actions/setup-node@v6.5.0
         with:
           node-version: 24.18.1
       - name: generate-current-project-map
         run: node scripts/multi-agent/project-map.mjs
       - name: deterministic-merge-policy-execution
+        if: steps.pr_state.outputs.already_merged != 'true'
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: node scripts/multi-agent/merge-policy-controller.mjs --merge-pr '${{ inputs.pr_number }}'

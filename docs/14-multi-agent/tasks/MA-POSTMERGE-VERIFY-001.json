@@ -9,7 +9,7 @@
   "canonical": {
     "repository": "rahemih/Eqcofe",
     "branch": "main",
-    "base_sha": "deb78949fc289ce5d530f99ed2f6da62a89785f5"
+    "base_sha": "8a62ee1c4bd20f5ec181a8c57cafc91a1d91862b"
   },
   "scope": {
     "read": [
@@ -24,7 +24,8 @@
       ".github/workflows/merge-policy.yml",
       "docs/14-multi-agent/incidents/MA-POSTMERGE-VERIFY-SUPPRESSED-001.md",
       "docs/14-multi-agent/tasks/MA-POSTMERGE-VERIFY-001.json",
-      "test/multi-agent/merge-policy-workflow.test.mjs"
+      "test/multi-agent/merge-policy-workflow.test.mjs",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
     ],
     "forbidden": [
       "README.md",
@@ -51,7 +52,7 @@
     "soft_alert": 30000,
     "hard_cap": 60000
   },
-  "max_repair_cycles": 1,
+  "max_repair_cycles": 2,
   "task_risk_rules": [
     {
       "id": "MERGE_EXECUTOR_POSTMERGE_HIGH",
@@ -169,9 +170,35 @@
       "description": "Post-merge verification has a 30-minute job timeout and failure reporting has a 5-minute timeout. Token Telemetry remains NOT_IMPLEMENTED until frozen implementation Item 7; native GitHub Actions timing/log evidence is not mislabeled as Item 7 telemetry.",
       "verification": "workflow_contract_test_and_governance_order_review",
       "mandatory": true
+    },
+    {
+      "id": "AC-012",
+      "description": "A workflow_dispatch retry for a PR that is already merged must not attempt a second merge. It validates the existing canonical merge_commit_sha, skips deterministic merge execution, publishes that immutable SHA, and continues into exact-SHA post-merge verification.",
+      "verification": "node --test test/multi-agent/merge-policy-workflow.test.mjs",
+      "mandatory": true
     }
   ],
   "incident_links": [
     "MA-POSTMERGE-VERIFY-SUPPRESSED-001"
+  ],
+  "repair_history": [
+    {
+      "date": "2026-10-09",
+      "trigger": "workflow_dispatch run 37955398950 for already-merged PR #331",
+      "root_cause": "merge job always invoked --merge-pr before resolving existing merge state, causing PR_NOT_OPEN_AND_READY and suppressing postmerge-verify",
+      "repair": "inspect merged state first; skip merge execution when already merged; preserve exact merge SHA verification path"
+    },
+    {
+      "date": "2026-10-09",
+      "trigger": "PR #332 live governance validation",
+      "root_cause": "historical task contract retained its original canonical base SHA, which cannot authorize a new repair branch from current main",
+      "repair": "rebind canonical.base_sha to the exact current main baseline for this authorized repair transport"
+    },
+    {
+      "date": "2026-10-09",
+      "trigger": "TASK_CATALOG_STALE on Canonical CI and Phase A",
+      "root_cause": "current deterministic docs automation requires generated task catalog parity whenever an indexed Task Contract changes",
+      "repair": "authorize and synchronize only the generated Task Catalog row for MA-POSTMERGE-VERIFY-001"
+    }
   ]
 }

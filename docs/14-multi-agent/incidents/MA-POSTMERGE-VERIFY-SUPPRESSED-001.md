@@ -154,3 +154,21 @@ This incident can close only when:
 - Reviewer confirms the evidence.
 
 Until then the incident remains OPEN.
+
+
+## 2026-10-09 — already-merged redispatch regression
+
+A second operational edge case was observed while closing Step 65-B after PR #331 had already been merged as canonical SHA `8a62ee1c4bd20f5ec181a8c57cafc91a1d91862b`.
+
+Manual `workflow_dispatch` run `37955398950` received `pr_number=331`, checked out the immutable PR head correctly, then unconditionally called:
+
+`node scripts/multi-agent/merge-policy-controller.mjs --merge-pr '331'`
+
+The controller correctly failed closed with `PR_NOT_OPEN_AND_READY` because PR #331 was already merged. As a consequence, the merge job failed before publishing the existing `merge_commit_sha`, and `postmerge-verify` was skipped.
+
+This is an orchestration idempotency defect rather than a Step 65-B artifact failure. The repair keeps the controller fail-closed behavior unchanged. The workflow now inspects the PR merge state first. For an already-merged PR it validates the existing canonical `merge_commit_sha`, skips the second merge attempt, then publishes the same immutable SHA through the existing `merge_sha` output so the normal exact-SHA post-merge verifier can run.
+
+The repair does not relax Rulesets, does not synthesize PASS evidence, does not retarget verification to moving `main`, and does not add a new credential.
+
+
+The repair PR transport itself must reference the canonical Task Contract by exact repository path in the pull-request body so live scope-history validation binds the PR event to the intended contract.
