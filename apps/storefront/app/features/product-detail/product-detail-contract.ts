@@ -9,6 +9,8 @@ export type ProductVariant = ApiComponents["schemas"]["PublicVariantResponse"];
 export type ProductMedia = ApiComponents["schemas"]["PublicProductMediaView"];
 export type ProductSpecification = ApiComponents["schemas"]["ProductSpecificationView"];
 export type RelatedProductCard = ApiComponents["schemas"]["ProductCard"];
+export type ProductCustomerProfile = NonNullable<ApiSuccessData<"get", "/customer/profile">>;
+export type ProductCustomerType = ProductCustomerProfile["customer_type"];
 
 export type ProductDetailFoundation = {
   product: ProductDetailResponse;
