@@ -363,3 +363,62 @@
     inline-size: 100%;
   }
 }
+
+
+/* Step 65-E — approved Wholesale Product commerce context */
+.product-cart__heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--eq-spacing-3);
+  flex-wrap: wrap;
+}
+
+.product-cart__wholesale-badge {
+  border: var(--eq-border-hairline) solid currentColor;
+  border-radius: 999px;
+  padding: var(--eq-spacing-1) var(--eq-spacing-3);
+  font-weight: 700;
+}
+
+.product-cart__wholesale-context {
+  border-inline-start: 0.25rem solid currentColor;
+  padding-inline-start: var(--eq-spacing-4);
+  max-inline-size: 50rem;
+}
+
+.product-cart__wholesale-context p {
+  margin-block-end: 0;
+  overflow-wrap: anywhere;
+}
+
+.product-cart__quantity {
+  display: grid;
+  gap: var(--eq-spacing-1);
+  min-inline-size: min(100%, 14rem);
+}
+
+.product-cart__quantity input {
+  min-block-size: var(--eq-size-touch-min);
+  max-inline-size: 9rem;
+  padding: var(--eq-spacing-2) var(--eq-spacing-3);
+  font: inherit;
+}
+
+.product-cart__quantity small {
+  max-inline-size: 34rem;
+  color: var(--eq-color-text-secondary);
+}
+
+.product-cart__quantity input:focus-visible {
+  outline: none;
+  box-shadow: var(--eq-effect-focus-ring);
+}
+
+@media (max-width: 36rem) {
+  .product-cart__quantity,
+  .product-cart__quantity input {
+    inline-size: 100%;
+    max-inline-size: none;
+  }
+}
