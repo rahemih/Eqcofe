@@ -1,0 +1,213 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP65-E-WHOLESALE-PRODUCT-CART-001",
+  "title": "Step 65-E approved-wholesale price/quantity UX integrated with existing Product and Cart authority",
+  "description": "HIGH-risk Step 65-E. Productionize SF-E-10 across existing Product and Cart flows without a parallel B2B commerce engine. Close the proven CartView presentation gap by enriching the existing Cart response from canonical Pricing + CustomerCommerce + Inventory authority for the cart owner's current customer_type and line quantity. Product public catalog prices remain retail/default and must never be relabeled as wholesale. An authenticated authoritative wholesale customer is attached to the existing customer cart before product add-to-cart so Cart pricing can resolve wholesale server-side. No pricing rule, quantity threshold, discount percentage, Checkout/Order lifecycle, database or dependency change.",
+  "risk": "HIGH",
+  "risk_floor": "HIGH",
+  "owner": "COMMERCE_ENGINEERING",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "66b7e5cce0b854a76f243d4b9ad7fca5ccfb98dd"
+  },
+  "scope": {
+    "read": [
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "src/modules/cart/**",
+      "src/modules/pricing/**",
+      "src/modules/customer/**",
+      "src/modules/inventory/**",
+      "apps/storefront/**",
+      "test/**",
+      "docs/11-step-history/**",
+      "docs/13-product-design/**",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "src/modules/cart/application/cart.service.ts",
+      "test/step65-wholesale-commerce.spec.ts",
+      "apps/storefront/app/features/product-detail/product-detail-contract.ts",
+      "apps/storefront/app/features/product-detail/product-detail-data.server.ts",
+      "apps/storefront/app/features/product-detail/ProductDetailExperience.tsx",
+      "apps/storefront/app/features/product-detail/ProductAddToCart.tsx",
+      "apps/storefront/app/features/product-detail/product-detail-cart.server.ts",
+      "apps/storefront/app/routes/product.tsx",
+      "apps/storefront/app/features/cart-checkout/CartView.tsx",
+      "apps/storefront/app/styles/product-detail.css",
+      "apps/storefront/app/styles/cart.css",
+      "apps/storefront/scripts/verify-step65-wholesale-commerce.ts",
+      "apps/storefront/package.json",
+      "docs/11-step-history/STEP-65-E-WHOLESALE-PRODUCT-CART.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP65-E-WHOLESALE-PRODUCT-CART-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      "database/**",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "src/modules/pricing/**",
+      "src/modules/customer/**",
+      "src/modules/inventory/**",
+      "src/modules/cart/infrastructure/**",
+      "src/modules/cart/presentation/**",
+      "apps/storefront/app/features/cart-checkout/checkout-*.server.ts",
+      "apps/storefront/app/routes/checkout-*.tsx",
+      "apps/storefront/app/routes/payment-*.tsx",
+      "apps/storefront/app/routes/order-*.tsx",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP65-E-WHOLESALE-PRODUCT-CART-001-01"
+  ],
+  "human_gate_required": true,
+  "authorized_human_approver": {
+    "role": "PROJECT_OWNER",
+    "github_login": "rahemih"
+  },
+  "token_budget": {
+    "expected_max": 52000,
+    "soft_alert": 78000,
+    "hard_cap": 125000
+  },
+  "max_repair_cycles": 4,
+  "task_risk_rules": [
+    {
+      "id": "STEP65_E_WHOLESALE_PRODUCT_CART_HIGH",
+      "risk": "HIGH",
+      "paths": [
+        "contracts/http/openapi.yaml",
+        "src/generated/openapi.ts",
+        "src/modules/cart/application/cart.service.ts",
+        "test/step65-wholesale-commerce.spec.ts",
+        "apps/storefront/app/features/product-detail/product-detail-contract.ts",
+        "apps/storefront/app/features/product-detail/product-detail-data.server.ts",
+        "apps/storefront/app/features/product-detail/ProductDetailExperience.tsx",
+        "apps/storefront/app/features/product-detail/ProductAddToCart.tsx",
+        "apps/storefront/app/features/product-detail/product-detail-cart.server.ts",
+        "apps/storefront/app/routes/product.tsx",
+        "apps/storefront/app/features/cart-checkout/CartView.tsx",
+        "apps/storefront/app/styles/product-detail.css",
+        "apps/storefront/app/styles/cart.css",
+        "apps/storefront/scripts/verify-step65-wholesale-commerce.ts",
+        "apps/storefront/package.json",
+        "docs/11-step-history/STEP-65-E-WHOLESALE-PRODUCT-CART.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP65-E-WHOLESALE-PRODUCT-CART-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+      ]
+    }
+  ],
+  "pre_mutation_gates": {
+    "graph_health": "RETIRED_AND_OUT_OF_SCOPE",
+    "query_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "path_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "explain_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "human_gate": "FINAL_EXACT_ARTIFACT_APPROVAL_REQUIRED_BEFORE_PROTECTED_MERGE"
+  },
+  "dependencies": [
+    {
+      "item": "65-D",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "66b7e5cce0b854a76f243d4b9ad7fca5ccfb98dd",
+      "evidence": "PR #334 merged after exact-artifact Project Owner Human Gate; exact-SHA Canonical CI 37980747330, Phase A 37980747282 and Storefront Quality 37980747159 SUCCESS; terminal Lock release comment 6087902230.",
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "linear_issue": "HOS-69",
+    "graph_state": "RETIRED_AND_OUT_OF_SCOPE",
+    "audit_findings": [
+      "Public Catalog getVariantPrice currently calls Pricing with default quantity=1 and customerType=retail; Product price must not be relabeled as wholesale.",
+      "Current CartView runtime/OpenAPI exposes identity and quantity only, so Storefront cannot lawfully display numeric wholesale pricing in Cart.",
+      "Canonical Cart Quote already resolves cart owner customer_type and quantity through CustomerCommercePort + PricingQuotePort.",
+      "CartService already injects CustomerCommercePort, PricingQuotePort and InventoryAvailabilityPort, allowing Cart presentation to reuse the same authorities without a new B2B engine.",
+      "SF-E-10 is an embedded wholesale commerce context, not a standalone route.",
+      "Frontend hardcoded wholesale minimum quantity is forbidden; governed configuration currently defaults to 11 but is not Storefront authority."
+    ],
+    "migration_need": "NONE",
+    "dependency_need": "NONE",
+    "pricing_rule_mutation": "NONE",
+    "checkout_order_mutation": "NONE"
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "CartView contract is enriched only with server-derived customer_type, per-line current quantity pricing/discount/availability and a nullable pricing summary/revalidation flag; generated TypeScript matches OpenAPI exactly.",
+      "verification": "OpenAPI generation/sync + step65 commerce verifier",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "CartService presentation resolves customer type from cart owner, calls Pricing quoteVariant with each line's authoritative quantity + customerType, calls Inventory availability, uses integer-Toman MoneyToman invariants, and never reads pricing/customer/inventory persistence directly.",
+      "verification": "backend test + source verifier",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Cart remains readable when an item cannot produce a current price: line pricing is null, overall pricing summary is null and requires_revalidation=true; no zero/fabricated price is invented.",
+      "verification": "backend test",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Product detail derives customer_type only from current Customer Profile. Public Product/Variant prices remain catalog/default prices and are never labeled as wholesale.",
+      "verification": "storefront verifier",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "For an authoritative wholesale session, product add-to-cart uses the existing customer Cart authority (merge existing guest cart when valid, otherwise access/create customer cart) and serializes only server-only HttpOnly cart credentials; retail/guest behavior remains supported.",
+      "verification": "storefront verifier + existing auth/cart gates",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Wholesale Product UX allows a bounded quantity input and explains that authoritative wholesale/quantity price is recalculated in Cart; no frontend minimum threshold, discount formula or guaranteed savings is introduced.",
+      "verification": "storefront verifier + browser quality",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "Cart displays authoritative unit/line/subtotal/discount/total Toman data from CartView, non-color wholesale context, availability/low-stock information, and reprices after quantity mutation through the existing Cart action.",
+      "verification": "storefront verifier + browser quality",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "No Pricing rule/config, Customer promotion, Inventory rule, Checkout/Reservation/Order, DB, dependency, admin, Product Design or Current-State mutation is introduced.",
+      "verification": "deterministic scope/risk check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-009",
+      "description": "Inherited Product/Cart/Checkout/API/auth/state/quality verifiers remain in the Storefront verify chain together with the new Step 65-E verifier.",
+      "verification": "storefront verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-010",
+      "description": "HIGH-risk closure requires exact-head Canonical CI, Phase A, Storefront Quality, CodeQL/Security, deterministic Review, exact-artifact ACTIVE Lock, exact-artifact Project Owner Human approval, protected merge, exact-SHA postmerge verification and terminal Lock release.",
+      "verification": "canonical transport evidence",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "SECURITY",
+      "HUMAN",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Step 65-E is HIGH risk. Human approval binds only to the frozen exact head/artifact after technical, security, deterministic review and lock gates pass."
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}
