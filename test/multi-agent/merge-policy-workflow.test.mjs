@@ -33,6 +33,16 @@ test('pre-merge checkout does not persist write credentials', () => {
   assert.match(mergeJob, /ref: refs\/pull\/\$\{\{ inputs\.pr_number \}\}\/head[\s\S]*?persist-credentials: false/);
 });
 
+
+test('workflow_dispatch is idempotent when the requested PR is already merged', () => {
+  assert.match(mergeJob, /name: inspect-pr-merge-state/);
+  assert.match(mergeJob, /id: pr_state/);
+  assert.match(mergeJob, /\.merged, \(\.merge_commit_sha \/\/ ""\), \.state/);
+  assert.match(mergeJob, /if: steps\.pr_state\.outputs\.already_merged != 'true'/);
+  assert.match(mergeJob, /if \[ "\$merged" = "true" \]; then[\s\S]*?gh api "repos\/\$\{GITHUB_REPOSITORY\}\/commits\/\$\{merge_sha\}" --silent/);
+  assert.match(mergeJob, /name: resolve-exact-merge-sha[\s\S]*?test "\$merged" = "true"/);
+});
+
 test('post-merge verification runs in a separate read-only GitHub-hosted job', () => {
   assert.match(postmergeJob, /needs: merge/);
   assert.match(postmergeJob, /runs-on: ubuntu-latest/);
