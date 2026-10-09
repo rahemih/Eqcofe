@@ -12,6 +12,7 @@ import {
   type AsyncSurfaceState,
 } from "../../platform/state/surface-state.js";
 import type {
+  ProductCustomerType,
   ProductDetailResponse,
   ProductVariantsResponse,
   RelatedProductCard,
@@ -29,6 +30,7 @@ export type ProductDetailRouteData = {
   related: AsyncSurfaceState<readonly RelatedProductCard[]>;
   media: readonly ResolvedProductMedia[];
   mediaCapabilities: ProductMediaCapabilities;
+  customerType: ProductCustomerType | null;
   contract: {
     method: "GET";
     path: "/products/{slug}";
@@ -70,6 +72,14 @@ export async function loadProductDetailFoundation(
     const productResult = await bridge.client.request("get", "/products/{slug}", {
       pathParams: { slug },
     });
+
+    let customerType: ProductCustomerType | null = null;
+    try {
+      const profileResult = await bridge.client.request("get", "/customer/profile", {});
+      customerType = profileResult.data.customer_type;
+    } catch {
+      customerType = null;
+    }
 
     let variants: AsyncSurfaceState<ProductVariantsResponse>;
     try {
@@ -113,6 +123,7 @@ export async function loadProductDetailFoundation(
         related,
         media: resolveProductMedia(productResult.data.media, mediaBaseUrl),
         mediaCapabilities: PRODUCT_MEDIA_CAPABILITIES,
+        customerType,
         contract: productDetailContract(),
       },
       setCookies: bridge.takeSetCookies(),
@@ -126,6 +137,7 @@ export async function loadProductDetailFoundation(
           related: emptyState("no-result"),
           media: [],
           mediaCapabilities: PRODUCT_MEDIA_CAPABILITIES,
+          customerType: null,
           contract: productDetailContract(),
         },
         setCookies: bridge?.takeSetCookies() ?? [],
@@ -149,6 +161,7 @@ export async function loadProductDetailFoundation(
         }),
         media: [],
         mediaCapabilities: PRODUCT_MEDIA_CAPABILITIES,
+        customerType: null,
         contract: productDetailContract(),
       },
       setCookies: bridge?.takeSetCookies() ?? [],
