@@ -83,6 +83,14 @@ function decideCta(state: WholesalePageData): {
   message: string;
   secondary?: { href: string; label: string };
 } {
+  if (state.status === "unavailable") {
+    return {
+      href: "/wholesale",
+      label: "تلاش دوباره",
+      message: "اطلاعات فروش عمده موقتاً در دسترس نیست.",
+    };
+  }
+
   if (state.status === "guest") {
     return {
       href: "/account/wholesale/apply",
