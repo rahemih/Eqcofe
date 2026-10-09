@@ -1,0 +1,178 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP65-C-WHOLESALE-FOUNDATION-001",
+  "title": "Step 65-C shared Storefront Wholesale session/data/recovery foundation and public introduction",
+  "description": "MEDIUM-risk Step 65-C. Build the shared typed Storefront Wholesale read foundation and replace only the public /wholesale placeholder with the production Persian RTL introduction. Consume GET /auth/session, GET /customer/profile and GET /customer/wholesale/application through the existing server-side customer-session bridge. Preserve backend-owned eligibility/status/customer_type authority, recover safely to application/status routes, and do not implement submit/status mutation UX yet.",
+  "risk": "MEDIUM",
+  "risk_floor": "MEDIUM",
+  "owner": "FRONTEND_ENGINEERING",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "91406a9c2ef70662c326d1d82b6c1273d6a4708f"
+  },
+  "scope": {
+    "read": [
+      "apps/storefront/**",
+      "src/generated/openapi.ts",
+      "contracts/http/openapi.yaml",
+      "docs/11-step-history/**",
+      "docs/13-product-design/**",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "apps/storefront/app/features/wholesale/wholesale-contract.ts",
+      "apps/storefront/app/features/wholesale/wholesale-data.server.ts",
+      "apps/storefront/app/features/wholesale/WholesaleIntroductionView.tsx",
+      "apps/storefront/app/routes/wholesale.tsx",
+      "apps/storefront/app/styles/wholesale.css",
+      "apps/storefront/scripts/verify-step65-wholesale-foundation.ts",
+      "apps/storefront/package.json",
+      "docs/11-step-history/STEP-65-C-WHOLESALE-FOUNDATION.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP65-C-WHOLESALE-FOUNDATION-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "database/**",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "src/modules/**",
+      "apps/storefront/app/routes/wholesale-apply.tsx",
+      "apps/storefront/app/routes/account-wholesale.tsx",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP65-C-WHOLESALE-FOUNDATION-001-01"
+  ],
+  "human_gate_required": false,
+  "authorized_human_approver": {
+    "role": "PROJECT_OWNER",
+    "github_login": "rahemih"
+  },
+  "token_budget": {
+    "expected_max": 30000,
+    "soft_alert": 48000,
+    "hard_cap": 90000
+  },
+  "max_repair_cycles": 3,
+  "task_risk_rules": [
+    {
+      "id": "STEP65_C_WHOLESALE_STOREFRONT_MEDIUM",
+      "risk": "MEDIUM",
+      "paths": [
+        "apps/storefront/app/features/wholesale/wholesale-contract.ts",
+        "apps/storefront/app/features/wholesale/wholesale-data.server.ts",
+        "apps/storefront/app/features/wholesale/WholesaleIntroductionView.tsx",
+        "apps/storefront/app/routes/wholesale.tsx",
+        "apps/storefront/app/styles/wholesale.css",
+        "apps/storefront/scripts/verify-step65-wholesale-foundation.ts",
+        "apps/storefront/package.json",
+        "docs/11-step-history/STEP-65-C-WHOLESALE-FOUNDATION.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP65-C-WHOLESALE-FOUNDATION-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+      ]
+    }
+  ],
+  "pre_mutation_gates": {
+    "graph_health": "RETIRED_AND_OUT_OF_SCOPE",
+    "query_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "path_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "explain_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "human_gate": "NOT_REQUIRED_MEDIUM"
+  },
+  "dependencies": [
+    {
+      "item": "65-B",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "8a62ee1c4bd20f5ec181a8c57cafc91a1d91862b",
+      "evidence": "PR #331 merged; workflow_dispatch 37961586432 and exact-SHA postmerge-verify 113925611065 SUCCESS; terminal Lock release comment 6085465245.",
+      "blocking": false
+    },
+    {
+      "item": "governance-postmerge-repair",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "91406a9c2ef70662c326d1d82b6c1273d6a4708f",
+      "evidence": "PR #332 merged; workflow_dispatch 37959644546 and postmerge-verify 113919022021 SUCCESS; terminal Lock release comment 6085162069.",
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "linear_issue": "HOS-69",
+    "graph_state": "RETIRED_AND_OUT_OF_SCOPE",
+    "audit_findings": [
+      "Public /wholesale is still a Step-65 placeholder.",
+      "Account Wholesale apply/status routes remain placeholders and are reserved for 65-D.",
+      "Customer session transport already exists server-side and safely bridges only the customer session cookie.",
+      "CustomerProfileResponse.customer_type is the current typed retail|wholesale authority.",
+      "GET /customer/wholesale/application is typed nullable and is the only customer-owned latest application authority.",
+      "Stage 65-C must not calculate discounts, hardcode wholesale thresholds or infer approval from local state."
+    ],
+    "migration_need": "NONE",
+    "dependency_need": "NONE",
+    "backend_mutation": "NONE",
+    "openapi_mutation": "NONE",
+    "apply_status_mutation_ux": "DEFERRED_TO_65_D"
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "A typed Wholesale contract layer derives session, customer profile and latest wholesale application types only from generated OpenAPI; no local duplicate application/customer_type model is invented.",
+      "verification": "step65_wholesale_foundation_verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Server data loader uses the existing customer-session bridge, treats auth 401 as guest, fetches profile/application only for authenticated customers, preserves Set-Cookie rotation, and degrades non-auth failures to a recoverable unavailable state.",
+      "verification": "step65_wholesale_foundation_verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Public /wholesale is a production Persian RTL introduction with honest benefits/process copy, no guaranteed approval/discount claim, and CTA routing derived from authoritative state: guest/apply, active/status, approved/shop.",
+      "verification": "step65_wholesale_foundation_verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "An active/submitted/under_review/rejected/approved application never creates frontend promotion authority. customer_type from profile remains authoritative for wholesale identity and application state is presented only as application state.",
+      "verification": "step65_wholesale_foundation_verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "No wholesale price percentage, quantity threshold, Cart/Checkout parallel authority, browser token storage, backend/OpenAPI/database/dependency mutation or Step65-D form/status implementation is introduced.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Storefront verify includes the new wholesale foundation verifier without removing inherited Step59-64, API, auth, state or quality gates.",
+      "verification": "storefront_verify_chain",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "MEDIUM-risk canonical closure requires exact-head Canonical CI, Phase A, deterministic Review, exact-artifact ACTIVE Lock, protected merge, exact-SHA postmerge verification and terminal Lock release; no Owner Human Gate is required.",
+      "verification": "canonical_transport_and_postmerge_evidence",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Step 65-C is MEDIUM risk; Human Gate is not required. Exact-artifact Review and Lock evidence remain mandatory."
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}
