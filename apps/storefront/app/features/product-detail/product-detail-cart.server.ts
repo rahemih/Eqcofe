@@ -27,9 +27,12 @@ export type AddProductVariantToCartResult = {
 export async function addProductVariantToCart(
   request: Request,
   variantId: string,
-  quantity = 1,
-  options: AddProductVariantToCartOptions = {},
+  quantityOrOptions: number | AddProductVariantToCartOptions = 1,
+  explicitOptions: AddProductVariantToCartOptions = {},
 ): Promise<AddProductVariantToCartResult> {
+  const quantity = typeof quantityOrOptions === "number" ? quantityOrOptions : 1;
+  const options = typeof quantityOrOptions === "number" ? explicitOptions : quantityOrOptions;
+
   if (!isUuid(variantId)) {
     throw new ApiClientError({
       kind: "configuration",
