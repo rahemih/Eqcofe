@@ -171,12 +171,6 @@
       "description": "Inherited Step59 merchandising verification no longer treats /wholesale as permanently placeholder-only: it must continue proving Step66 Articles remains deferred while accepting either the historical Step65 placeholder or the Stage65 production Wholesale route, without weakening merchandising/promotion assertions.",
       "verification": "pnpm --dir apps/storefront merchandising:verify",
       "mandatory": true
-    },
-    {
-      "id": "AC-008",
-      "description": "Inherited Step 59 merchandising verification is reconciled only for the now-productionized /wholesale route: Articles remains Step 66 placeholder, Wholesale must prove the 65-C loader/view production implementation, and no unrelated Step 59 merchandising authority is weakened.",
-      "verification": "pnpm --dir apps/storefront merchandising:verify && pnpm --dir apps/storefront wholesale-foundation:verify",
-      "mandatory": true
     }
   ],
   "external_gate_evidence": {
@@ -196,6 +190,12 @@
       "trigger": "Canonical CI run 37963818987",
       "root_cause": "Legacy Step 59 merchandising verifier still required /wholesale to contain RoutePlaceholder targetStep={65}, which became intentionally obsolete when Stage 65-C productionized that route.",
       "repair": "Authorize a verifier-only compatibility update requiring the 65-C production loader/view while preserving the Step 66 Articles placeholder and all unrelated Step 59 checks."
+    },
+    {
+      "date": "2026-10-09",
+      "trigger": "concurrent task-contract reconciliation on PR #333",
+      "root_cause": "two equivalent AC-008 entries were appended during the inherited verifier repair cycle",
+      "repair": "retain one canonical AC-008 and remove the duplicate before exact-artifact verification"
     }
   ]
 }
