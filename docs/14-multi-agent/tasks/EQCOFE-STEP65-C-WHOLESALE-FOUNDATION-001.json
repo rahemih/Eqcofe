@@ -30,7 +30,8 @@
       "apps/storefront/package.json",
       "docs/11-step-history/STEP-65-C-WHOLESALE-FOUNDATION.md",
       "docs/14-multi-agent/tasks/EQCOFE-STEP65-C-WHOLESALE-FOUNDATION-001.json",
-      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "apps/storefront/scripts/verify-step59-merchandising.ts"
     ],
     "forbidden": [
       ".github/**",
@@ -74,7 +75,8 @@
         "apps/storefront/package.json",
         "docs/11-step-history/STEP-65-C-WHOLESALE-FOUNDATION.md",
         "docs/14-multi-agent/tasks/EQCOFE-STEP65-C-WHOLESALE-FOUNDATION-001.json",
-        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+        "docs/14-multi-agent/generated/TASK-CATALOG.md",
+        "apps/storefront/scripts/verify-step59-merchandising.ts"
       ]
     }
   ],
@@ -118,7 +120,8 @@
     "dependency_need": "NONE",
     "backend_mutation": "NONE",
     "openapi_mutation": "NONE",
-    "apply_status_mutation_ux": "DEFERRED_TO_65_D"
+    "apply_status_mutation_ux": "DEFERRED_TO_65_D",
+    "legacy_verifier_reconciliation": "Step59-E verifier historically asserted /wholesale targetStep={65}. Stage 65-C is the planned productionization point, so only that stale placeholder assertion is reconciled while all Step59 merchandising checks remain active."
   },
   "acceptance_criteria": [
     {
@@ -161,6 +164,12 @@
       "id": "AC-007",
       "description": "MEDIUM-risk canonical closure requires exact-head Canonical CI, Phase A, deterministic Review, exact-artifact ACTIVE Lock, protected merge, exact-SHA postmerge verification and terminal Lock release; no Owner Human Gate is required.",
       "verification": "canonical_transport_and_postmerge_evidence",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "Inherited Step59 merchandising verification no longer treats /wholesale as permanently placeholder-only: it must continue proving Step66 Articles remains deferred while accepting either the historical Step65 placeholder or the Stage65 production Wholesale route, without weakening merchandising/promotion assertions.",
+      "verification": "pnpm --dir apps/storefront merchandising:verify",
       "mandatory": true
     }
   ],
