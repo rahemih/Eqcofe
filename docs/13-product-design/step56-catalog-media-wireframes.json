@@ -719,11 +719,11 @@
   "sources": [
     {
       "path": "docs/13-product-design/step56-admin-shell-wireframes.json",
-      "sha256": "57fbb705bccfec4f4ae1e138eab0e7c4b87de09de5c4d6f9e78a0bfd41b7a2ee"
+      "sha256": "24bdfcd6f23da7a78b8ad45880e106a4ca0688ec91d6fa1020e72b05d936c75f"
     },
     {
       "path": "docs/13-product-design/step56-admin-ux-contract.json",
-      "sha256": "c0caa17b5e9e2c9caf010b347ca53071af491d67ed959e64b66c785fd316d46c"
+      "sha256": "97b17dfeabd4a6c7347007864b566ee42fb35f725ce58e3b4ccd1ee5407a0d60"
     },
     {
       "path": "src/modules/catalog/application/catalog-import-apply.service.ts",
