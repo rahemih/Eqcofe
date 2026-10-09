@@ -35,7 +35,8 @@
       "apps/storefront/package.json",
       "docs/11-step-history/STEP-65-D-WHOLESALE-APPLICATION.md",
       "docs/14-multi-agent/tasks/EQCOFE-STEP65-D-WHOLESALE-APPLICATION-001.json",
-      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "apps/storefront/scripts/verify-step65-wholesale-foundation.ts"
     ],
     "forbidden": [
       ".github/**",
@@ -80,7 +81,8 @@
         "apps/storefront/package.json",
         "docs/11-step-history/STEP-65-D-WHOLESALE-APPLICATION.md",
         "docs/14-multi-agent/tasks/EQCOFE-STEP65-D-WHOLESALE-APPLICATION-001.json",
-        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+        "docs/14-multi-agent/generated/TASK-CATALOG.md",
+        "apps/storefront/scripts/verify-step65-wholesale-foundation.ts"
       ]
     }
   ],
@@ -172,6 +174,12 @@
       "description": "HIGH-risk closure requires exact-head Canonical CI, Phase A, Storefront Quality, CodeQL/Security, deterministic Review, exact-artifact ACTIVE Lock, exact-artifact Project Owner Human approval, protected merge, exact-SHA postmerge verification and terminal Lock release.",
       "verification": "canonical_transport_and_postmerge_evidence",
       "mandatory": true
+    },
+    {
+      "id": "AC-010",
+      "description": "Inherited Step65-C foundation verification must keep proving the public Wholesale foundation while accepting either the historical deferred 65-D placeholders or the planned production application/status routes, without weakening session/authority/quality assertions.",
+      "verification": "pnpm --dir apps/storefront wholesale-foundation:verify",
+      "mandatory": true
     }
   ],
   "external_gate_evidence": {
@@ -186,5 +194,13 @@
     "rule": "Step 65-D is HIGH risk. Owner Human approval must bind to the frozen exact head/artifact only after technical providers, Security, deterministic Review and ACTIVE Lock pass."
   },
   "process_improvement_links": [],
-  "incident_links": []
+  "incident_links": [],
+  "repair_history": [
+    {
+      "date": "2026-10-09",
+      "trigger": "Canonical CI run 37966929182",
+      "root_cause": "Step65-C verifier intentionally required the apply/status routes to remain placeholders until Step65-D",
+      "repair": "authorize only the inherited handoff assertions to recognize the planned Step65-D production routes while retaining all foundation assertions"
+    }
+  ]
 }
