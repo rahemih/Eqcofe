@@ -50,8 +50,24 @@ assert.ok(css.includes("min-height: 44px"));
 assert.ok(css.includes("focus-visible"));
 assert.ok(css.includes("max-width: 37.5rem"));
 
-assert.ok(applyRoute.includes("RoutePlaceholder"));
-assert.ok(statusRoute.includes("RoutePlaceholder"));
+assert.ok(
+  applyRoute.includes("RoutePlaceholder")
+    || (
+      applyRoute.includes("loadWholesaleApplicationPage")
+      && applyRoute.includes("submitWholesaleApplication")
+      && !applyRoute.includes("RoutePlaceholder")
+    ),
+  "STEP65_D_APPLY_ROUTE_NEITHER_DEFERRED_NOR_PRODUCTIONIZED",
+);
+assert.ok(
+  statusRoute.includes("RoutePlaceholder")
+    || (
+      statusRoute.includes("loadWholesaleAccountSnapshot")
+      && statusRoute.includes("WholesaleStatusView")
+      && !statusRoute.includes("RoutePlaceholder")
+    ),
+  "STEP65_D_STATUS_ROUTE_NEITHER_DEFERRED_NOR_PRODUCTIONIZED",
+);
 
 const packageJson = JSON.parse(pkg) as { scripts: Record<string, string> };
 assert.equal(

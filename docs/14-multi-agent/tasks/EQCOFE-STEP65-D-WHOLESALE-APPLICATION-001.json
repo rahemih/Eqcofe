@@ -1,0 +1,206 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP65-D-WHOLESALE-APPLICATION-001",
+  "title": "Step 65-D customer Wholesale application and application-status experience",
+  "description": "HIGH-risk Step 65-D. Productionize only the customer-owned Wholesale application and status routes using the typed contracts established in 65-B and the server/session foundation from 65-C. Submit through the existing customer session bridge with server-derived idempotency, authoritative province/city validation and fail-closed recovery. Preserve CustomerProfile.customer_type as wholesale identity authority, backend-owned application transitions, and staff-only review/approve/reject.",
+  "risk": "HIGH",
+  "risk_floor": "HIGH",
+  "owner": "FRONTEND_ENGINEERING",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "a8905e495f43c7afc9a39a6de0eca38d484b1cbf"
+  },
+  "scope": {
+    "read": [
+      "apps/storefront/**",
+      "src/generated/openapi.ts",
+      "contracts/http/openapi.yaml",
+      "src/modules/customer/application/customer-wholesale.service.ts",
+      "src/modules/customer/infrastructure/customer-wholesale.repository.ts",
+      "shared/reference/iran-geography-1404.js",
+      "docs/11-step-history/**",
+      "docs/13-product-design/**",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "apps/storefront/app/features/wholesale/wholesale-contract.ts",
+      "apps/storefront/app/features/wholesale/wholesale-application.server.ts",
+      "apps/storefront/app/features/wholesale/WholesaleApplicationView.tsx",
+      "apps/storefront/app/features/wholesale/WholesaleStatusView.tsx",
+      "apps/storefront/app/routes/wholesale-apply.tsx",
+      "apps/storefront/app/routes/account-wholesale.tsx",
+      "apps/storefront/app/styles/wholesale.css",
+      "apps/storefront/scripts/verify-step65-wholesale-application.ts",
+      "apps/storefront/package.json",
+      "docs/11-step-history/STEP-65-D-WHOLESALE-APPLICATION.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP65-D-WHOLESALE-APPLICATION-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "apps/storefront/scripts/verify-step65-wholesale-foundation.ts"
+    ],
+    "forbidden": [
+      ".github/**",
+      "database/**",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "src/modules/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**",
+      "apps/storefront/app/routes/wholesale.tsx"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP65-D-WHOLESALE-APPLICATION-001-01"
+  ],
+  "human_gate_required": true,
+  "authorized_human_approver": {
+    "role": "PROJECT_OWNER",
+    "github_login": "rahemih"
+  },
+  "token_budget": {
+    "expected_max": 38000,
+    "soft_alert": 60000,
+    "hard_cap": 100000
+  },
+  "max_repair_cycles": 3,
+  "task_risk_rules": [
+    {
+      "id": "STEP65_D_WHOLESALE_APPLICATION_HIGH",
+      "risk": "HIGH",
+      "paths": [
+        "apps/storefront/app/features/wholesale/wholesale-contract.ts",
+        "apps/storefront/app/features/wholesale/wholesale-application.server.ts",
+        "apps/storefront/app/features/wholesale/WholesaleApplicationView.tsx",
+        "apps/storefront/app/features/wholesale/WholesaleStatusView.tsx",
+        "apps/storefront/app/routes/wholesale-apply.tsx",
+        "apps/storefront/app/routes/account-wholesale.tsx",
+        "apps/storefront/app/styles/wholesale.css",
+        "apps/storefront/scripts/verify-step65-wholesale-application.ts",
+        "apps/storefront/package.json",
+        "docs/11-step-history/STEP-65-D-WHOLESALE-APPLICATION.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP65-D-WHOLESALE-APPLICATION-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md",
+        "apps/storefront/scripts/verify-step65-wholesale-foundation.ts"
+      ]
+    }
+  ],
+  "pre_mutation_gates": {
+    "graph_health": "RETIRED_AND_OUT_OF_SCOPE",
+    "query_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "path_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "explain_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "human_gate": "FINAL_EXACT_ARTIFACT_APPROVAL_REQUIRED_BEFORE_PROTECTED_MERGE"
+  },
+  "dependencies": [
+    {
+      "item": "65-C",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "a8905e495f43c7afc9a39a6de0eca38d484b1cbf",
+      "evidence": "PR #333 merged; exact-SHA Canonical CI 37965730057, Phase A 37965730066 and Storefront Quality 37965730091 SUCCESS; terminal Lock release comment 6085869501.",
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "linear_issue": "HOS-69",
+    "graph_state": "RETIRED_AND_OUT_OF_SCOPE",
+    "audit_findings": [
+      "POST /customer/wholesale/applications is typed 201, customer-only and requires Idempotency-Key.",
+      "GET /customer/wholesale/application is typed as latest application or null.",
+      "CustomerProfileResponse.customer_type is authoritative retail|wholesale identity; application status cannot promote browser state.",
+      "Backend active application means submitted|under_review and blocks duplicate submit; rejected is terminal and may be followed by a new retail application.",
+      "Approval/rejection/review remain staff-only backend transitions.",
+      "Province/city UUID pair can reuse the canonical Iran geography 1404 reference already used by Account."
+    ],
+    "migration_need": "NONE",
+    "dependency_need": "NONE",
+    "backend_mutation": "NONE",
+    "openapi_mutation": "NONE",
+    "pricing_cart_mutation": "NONE"
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Wholesale application/status request and response types are direct aliases of generated OpenAPI; no duplicate frontend status/customer_type authority is invented.",
+      "verification": "step65_wholesale_application_verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Application loader uses the existing server-only customer-session bridge plus CustomerProfile and latest application. Wholesale customers and active submitted/under_review applications cannot reach a second submit form.",
+      "verification": "step65_wholesale_application_verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Retail customers with no application, or a rejected latest application, may reach the application form. Business fields are bounded to current backend limits and province/city must match the canonical Iran geography reference.",
+      "verification": "step65_wholesale_application_verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Submission POST uses a server-derived stable Idempotency-Key, treats 201 as success and redirects to /account/wholesale. 409 active-application conflict recovers to status instead of presenting duplicate success or resubmitting automatically.",
+      "verification": "step65_wholesale_application_verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Status page presents only server-owned submitted|under_review|approved|rejected application state and safe decision/rejection data. CustomerProfile.customer_type remains authoritative for actual wholesale identity.",
+      "verification": "step65_wholesale_application_verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Persian RTL forms/status UI provides semantic labels/errors, 44px targets, visible focus and responsive behavior; no guaranteed approval/discount, hardcoded wholesale threshold, browser credential storage, or brown palette is introduced.",
+      "verification": "step65_wholesale_application_verify + Storefront Quality",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "No backend/OpenAPI/database/dependency/Pricing/Cart/Checkout/admin/Product Design/Current-State mutation is introduced.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "Storefront verify includes the Step 65-D verifier without removing inherited Step59-65C/API/auth/state/quality gates.",
+      "verification": "storefront_verify_chain",
+      "mandatory": true
+    },
+    {
+      "id": "AC-009",
+      "description": "HIGH-risk closure requires exact-head Canonical CI, Phase A, Storefront Quality, CodeQL/Security, deterministic Review, exact-artifact ACTIVE Lock, exact-artifact Project Owner Human approval, protected merge, exact-SHA postmerge verification and terminal Lock release.",
+      "verification": "canonical_transport_and_postmerge_evidence",
+      "mandatory": true
+    },
+    {
+      "id": "AC-010",
+      "description": "Inherited Step65-C foundation verification must keep proving the public Wholesale foundation while accepting either the historical deferred 65-D placeholders or the planned production application/status routes, without weakening session/authority/quality assertions.",
+      "verification": "pnpm --dir apps/storefront wholesale-foundation:verify",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "SECURITY",
+      "HUMAN",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Step 65-D is HIGH risk. Owner Human approval must bind to the frozen exact head/artifact only after technical providers, Security, deterministic Review and ACTIVE Lock pass."
+  },
+  "process_improvement_links": [],
+  "incident_links": [],
+  "repair_history": [
+    {
+      "date": "2026-10-09",
+      "trigger": "Canonical CI run 37966929182",
+      "root_cause": "Step65-C verifier intentionally required the apply/status routes to remain placeholders until Step65-D",
+      "repair": "authorize only the inherited handoff assertions to recognize the planned Step65-D production routes while retaining all foundation assertions"
+    }
+  ]
+}
