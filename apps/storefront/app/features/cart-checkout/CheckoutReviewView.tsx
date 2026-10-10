@@ -7,6 +7,7 @@ export function CheckoutReviewView({ data, actionData, busy }: { data: CheckoutR
   return <div className="checkout-flow checkout-review">
     <header className="checkout-flow__intro"><p className="checkout-flow__step">مرحله ۵ از ۵</p><h1>بازبینی و ثبت سفارش</h1><p>این صفحه Snapshot معتبر Quote را بازبینی می‌کند؛ ثبت سفارش با کلید idempotent انجام می‌شود.</p></header>
     {feedback ? <div className="checkout-flow__feedback" role="alert">{feedback.message}{feedback.requestId ? <span>شناسه پیگیری: <bdi dir="ltr">{feedback.requestId}</bdi></span> : null}</div> : null}
+    {snapshot.customerType === "wholesale" ? <div className="checkout-flow__alert" role="status"><strong>بازبینی سفارش عمده</strong><span>نوع مشتری و همه مبلغ‌ها از Quote معتبر Backend آمده‌اند؛ هیچ حداقل یا درصد تخفیفی در مرورگر محاسبه نمی‌شود.</span></div> : null}
     <div className="checkout-review__grid">
       <div>
         <section className="checkout-flow__card"><h2>کالاها</h2><ul className="checkout-review__items">{cart.data.items.map(item=><li key={item.id}><span>{item.product_name}</span><span>تعداد {new Intl.NumberFormat("fa-IR").format(item.quantity)}</span></li>)}</ul></section>
