@@ -834,15 +834,15 @@
     },
     {
       "path": "docs/13-product-design/step56-admin-shell-wireframes.json",
-      "sha256": "75275faf7bbd7d4fe0cbb7a8d486baa1db70d7ea01f9c02543e44e2e83142da3"
+      "sha256": "3b50f574f16a8d74a580a5f8310af5f09281fc9495d0cdad3ce06cd73533da42"
     },
     {
       "path": "docs/13-product-design/step56-admin-ux-contract.json",
-      "sha256": "ef4f29fd2b4e35ffc566da5a608794ab411c33efe62e956c18729d2fd4f7710e"
+      "sha256": "753bf32448f4e3035f18d8b6d82a32ff8d2f21d5d0f366d456767daf38530f54"
     },
     {
       "path": "docs/13-product-design/step56-customers-growth-wireframes.json",
-      "sha256": "48aea276cc367584aaf98cbe4a3f2a519de0768985bc8edcc46cc96670d40660"
+      "sha256": "d35d36cc7b83c2ab8c0c8573578b0cafed46f493cc7426505a34c2d313011892"
     },
     {
       "path": "src/modules/admin/admin.module.ts",
