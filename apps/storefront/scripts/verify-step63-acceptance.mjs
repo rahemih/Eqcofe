@@ -52,9 +52,11 @@ const address = {
 };
 let customerAddresses = [address];
 
+const cartUnitToman = 750000;
 const cart = {
   id: cartId,
   customer_id: null,
+  customer_type: "retail",
   status: "active",
   version: 1,
   expires_at: new Date(now.getTime() + 24 * 60 * 60_000).toISOString(),
@@ -65,7 +67,24 @@ const cart = {
     sku: "EQ-63H-SKU",
     product_name: "آسیاب تست پذیرش",
     quantity: 2,
+    price: {
+      unit_base_toman: cartUnitToman,
+      unit_final_toman: cartUnitToman,
+      discount_toman: 0,
+      line_total_toman: cartUnitToman * 2,
+    },
+    availability: {
+      sales_enabled: true,
+      in_stock: true,
+      available_quantity: 20,
+    },
   }],
+  pricing: {
+    subtotal_toman: cartUnitToman * 2,
+    discount_toman: 0,
+    total_toman: cartUnitToman * 2,
+  },
+  requires_revalidation: false,
 };
 
 const shipping = {
@@ -160,6 +179,9 @@ const api = createServer(async (request, response) => {
     observed.push(record);
     assert.equal(record.cartToken, cartToken, "STEP63_H_CART_TOKEN_TRANSPORT");
     cart.items[0].quantity = Number(record.body.quantity);
+    cart.items[0].price.line_total_toman = cartUnitToman * cart.items[0].quantity;
+    cart.pricing.subtotal_toman = cart.items[0].price.line_total_toman;
+    cart.pricing.total_toman = cart.items[0].price.line_total_toman;
     return json(response, 200, envelope(cart));
   }
 
