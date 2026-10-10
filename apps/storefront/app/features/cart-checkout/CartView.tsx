@@ -129,6 +129,7 @@ export function CartView({ response, busy }: { response: CartViewResponse; busy:
         )}
 
         <p>
+          قیمت، تخفیف، موجودی و هزینه ارسال از داده‌های معتبر سرور محاسبه می‌شوند؛
           هزینه ارسال، مالیات و تخفیف‌های Checkout فقط در Quote معتبر مرحله بعد قطعی می‌شوند.
         </p>
 
