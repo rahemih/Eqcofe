@@ -39,7 +39,24 @@
       "test/step66-content-seo-contract.spec.ts",
       "docs/11-step-history/STEP-66-B-CONTENT-SEO-CONTRACT-READINESS.md",
       "docs/14-multi-agent/tasks/EQCOFE-STEP66-B-CONTENT-SEO-CONTRACT-001.json",
-      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "docs/13-product-design/step56-admin-ux-contract.json",
+      "docs/13-product-design/step56-foundation/A/manifest.json",
+      "docs/13-product-design/step56-admin-shell-wireframes.json",
+      "docs/13-product-design/step56-wireframes/B/manifest.json",
+      "docs/13-product-design/step56-catalog-media-wireframes.json",
+      "docs/13-product-design/step56-wireframes/C/manifest.json",
+      "docs/13-product-design/step56-pricing-inventory-wireframes.json",
+      "docs/13-product-design/step56-wireframes/D/manifest.json",
+      "docs/13-product-design/step56-commerce-operations-wireframes.json",
+      "docs/13-product-design/step56-wireframes/E/manifest.json",
+      "docs/13-product-design/step56-customers-growth-wireframes.json",
+      "docs/13-product-design/step56-wireframes/F/manifest.json",
+      "docs/13-product-design/step56-management-security-wireframes.json",
+      "docs/13-product-design/step56-wireframes/G/manifest.json",
+      "docs/13-product-design/step56-final-audit.json",
+      "docs/13-product-design/step56-final-audit/manifest.json",
+      "docs/13-product-design/step57-high-fidelity-contract.json"
     ],
     "forbidden": [
       ".github/**",
@@ -85,7 +102,24 @@
         "test/step66-content-seo-contract.spec.ts",
         "docs/11-step-history/STEP-66-B-CONTENT-SEO-CONTRACT-READINESS.md",
         "docs/14-multi-agent/tasks/EQCOFE-STEP66-B-CONTENT-SEO-CONTRACT-001.json",
-        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+        "docs/14-multi-agent/generated/TASK-CATALOG.md",
+        "docs/13-product-design/step56-admin-ux-contract.json",
+        "docs/13-product-design/step56-foundation/A/manifest.json",
+        "docs/13-product-design/step56-admin-shell-wireframes.json",
+        "docs/13-product-design/step56-wireframes/B/manifest.json",
+        "docs/13-product-design/step56-catalog-media-wireframes.json",
+        "docs/13-product-design/step56-wireframes/C/manifest.json",
+        "docs/13-product-design/step56-pricing-inventory-wireframes.json",
+        "docs/13-product-design/step56-wireframes/D/manifest.json",
+        "docs/13-product-design/step56-commerce-operations-wireframes.json",
+        "docs/13-product-design/step56-wireframes/E/manifest.json",
+        "docs/13-product-design/step56-customers-growth-wireframes.json",
+        "docs/13-product-design/step56-wireframes/F/manifest.json",
+        "docs/13-product-design/step56-management-security-wireframes.json",
+        "docs/13-product-design/step56-wireframes/G/manifest.json",
+        "docs/13-product-design/step56-final-audit.json",
+        "docs/13-product-design/step56-final-audit/manifest.json",
+        "docs/13-product-design/step57-high-fidelity-contract.json"
       ]
     }
   ],
@@ -156,6 +190,12 @@
       "mandatory": true
     },
     {
+      "id": "AC-009-PROVENANCE",
+      "description": "Recovered Step-56/57 Product Design provenance hashes are regenerated only for the changed canonical OpenAPI/catalog/content sources and their deterministic hash cascade; no design semantics, frames, copy, component ownership or Product Design intent changes.",
+      "verification": "design_generator_provenance_drift_check",
+      "mandatory": true
+    },
+    {
       "id": "AC-009",
       "description": "HIGH-risk terminal closure requires exact-head CI, Phase A, CodeQL/Security, deterministic Review, exact-artifact Lock, exact-artifact Project Owner Human approval, protected merge, exact-SHA postmerge verification and terminal Lock release.",
       "verification": "canonical_transport_and_postmerge_evidence",
@@ -182,7 +222,8 @@
     "robots_boundary": "STOREFRONT_RESOURCE_NO_BACKEND_ENDPOINT",
     "contact_mutation": "NONE",
     "archive_privacy_rule": "status=archived AND published_at IS NOT NULL; archive_reason forbidden",
-    "stop_sale_rule": "status=published AND effective_sales_enabled=false; inventory-only out-of-stock is not stop-sale"
+    "stop_sale_rule": "status=published AND effective_sales_enabled=false; inventory-only out-of-stock is not stop-sale",
+    "product_design_provenance_repair": "GENERATOR_EQUIVALENT_HASH_ONLY"
   },
   "process_improvement_links": [],
   "incident_links": []
