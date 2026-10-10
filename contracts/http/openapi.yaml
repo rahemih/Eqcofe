@@ -1157,6 +1157,148 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/SearchSuggestion'
+    ArticleSeoMetadata:
+      type: object
+      additionalProperties: false
+      required: [title, description, canonical_url, indexable, robots]
+      properties:
+        title:
+          type: string
+        description:
+          type: [string, 'null']
+        canonical_url:
+          type: string
+          format: uri
+        indexable:
+          type: boolean
+        robots:
+          type: string
+          enum: [index,follow]
+    ArticleSummary:
+      type: object
+      additionalProperties: false
+      required: [id, slug, title_fa, seo_title, meta_description, published_at, seo]
+      properties:
+        id:
+          $ref: '#/components/schemas/EntityId'
+        slug:
+          $ref: '#/components/schemas/Slug'
+        title_fa:
+          type: string
+        seo_title:
+          type: [string, 'null']
+        meta_description:
+          type: [string, 'null']
+        published_at:
+          $ref: '#/components/schemas/Timestamp'
+        seo:
+          $ref: '#/components/schemas/ArticleSeoMetadata'
+    ArticleDetail:
+      type: object
+      additionalProperties: false
+      required: [id, slug, title_fa, seo_title, meta_description, published_at, seo, body, content_version]
+      properties:
+        id:
+          $ref: '#/components/schemas/EntityId'
+        slug:
+          $ref: '#/components/schemas/Slug'
+        title_fa:
+          type: string
+        seo_title:
+          type: [string, 'null']
+        meta_description:
+          type: [string, 'null']
+        published_at:
+          $ref: '#/components/schemas/Timestamp'
+        seo:
+          $ref: '#/components/schemas/ArticleSeoMetadata'
+        body:
+          type: string
+        content_version:
+          type: integer
+          minimum: 1
+    ArticleListResponse:
+      type: object
+      additionalProperties: false
+      required: [items, next_cursor]
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ArticleSummary'
+        next_cursor:
+          type: [string, 'null']
+    ArticleRelatedResponse:
+      type: object
+      additionalProperties: false
+      required: [items]
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ArticleSummary'
+    SitemapEntry:
+      type: object
+      additionalProperties: false
+      required: [loc, lastmod]
+      properties:
+        loc:
+          type: string
+          format: uri
+        lastmod:
+          $ref: '#/components/schemas/Timestamp'
+    ArticleSitemapResponse:
+      type: object
+      additionalProperties: false
+      required: [items, next_cursor]
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/SitemapEntry'
+        next_cursor:
+          type: [string, 'null']
+    ArchivedProductCard:
+      type: object
+      additionalProperties: false
+      required: [id, slug, name, brand, primary_category, archived_at]
+      properties:
+        id:
+          $ref: '#/components/schemas/EntityId'
+        slug:
+          $ref: '#/components/schemas/Slug'
+        name:
+          type: string
+        brand:
+          anyOf:
+          - $ref: '#/components/schemas/BrandRef'
+          - type: 'null'
+        primary_category:
+          $ref: '#/components/schemas/CategoryRef'
+        archived_at:
+          $ref: '#/components/schemas/Timestamp'
+    ArchivedProductListResponse:
+      type: object
+      additionalProperties: false
+      required: [items, pagination]
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ArchivedProductCard'
+        pagination:
+          $ref: '#/components/schemas/CursorPagination'
+    StoppedSaleProductListResponse:
+      type: object
+      additionalProperties: false
+      required: [items, pagination]
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductCard'
+        pagination:
+          $ref: '#/components/schemas/CursorPagination'
     PublicCategoryResponse:
       type: object
       additionalProperties: true
@@ -7879,6 +8021,44 @@ paths:
                 $ref: '#/components/schemas/PublicProductResponse'
         '404':
           $ref: '#/components/responses/NotFound'
+  /catalog/archive:
+    get:
+      tags: [Catalog]
+      operationId: getCatalogArchive
+      description: فهرست عمومی محصولاتی که قبلاً منتشر شده و سپس آرشیو شده‌اند؛ دلیل آرشیو و وضعیت مدیریتی افشا نمی‌شود.
+      parameters:
+      - $ref: '#/components/parameters/Cursor'
+      - name: limit
+        in: query
+        schema: { type: integer, minimum: 1, maximum: 100, default: 25 }
+      responses:
+        '200':
+          description: محصولات آرشیوشده عمومی
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArchivedProductListResponse'
+        '422':
+          $ref: '#/components/responses/Unprocessable'
+  /catalog/stop-sale:
+    get:
+      tags: [Catalog]
+      operationId: getCatalogStopSale
+      description: فهرست محصولات منتشرشده با فروش مؤثر متوقف؛ کمبود موجودی به‌تنهایی stop-sale نیست.
+      parameters:
+      - $ref: '#/components/parameters/Cursor'
+      - name: limit
+        in: query
+        schema: { type: integer, minimum: 1, maximum: 100, default: 25 }
+      responses:
+        '200':
+          description: محصولات با فروش مؤثر متوقف
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StoppedSaleProductListResponse'
+        '422':
+          $ref: '#/components/responses/Unprocessable'
   /categories:
     get:
       tags:
@@ -9100,42 +9280,86 @@ paths:
             schema:
               $ref: '#/components/schemas/PostCompareValidateRequest'
       security: []
+  /content/sitemap/articles:
+    get:
+      tags: [Content]
+      operationId: getContentSitemapArticles
+      description: داده JSON سایت‌مپ فقط برای مقالات منتشرشده؛ robots.txt resource متعلق به Storefront است.
+      parameters:
+      - $ref: '#/components/parameters/Cursor'
+      - name: limit
+        in: query
+        schema: { type: integer, minimum: 1, maximum: 1000, default: 500 }
+      responses:
+        '200':
+          description: صفحه داده سایت‌مپ مقالات منتشرشده
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArticleSitemapResponse'
+        '422':
+          $ref: '#/components/responses/Unprocessable'
   /articles:
     get:
-      tags:
-      - Catalog
+      tags: [Content]
       operationId: getArticles
+      parameters:
+      - $ref: '#/components/parameters/Cursor'
+      - name: limit
+        in: query
+        schema: { type: integer, minimum: 1, maximum: 100, default: 20 }
       responses:
         '200':
-          description: عملیات موفق
+          description: مقالات منتشرشده
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArticleListResponse'
+        '422':
+          $ref: '#/components/responses/Unprocessable'
   /articles/{slug}:
     get:
-      tags:
-      - Catalog
+      tags: [Content]
       operationId: getArticlesSlug
-      responses:
-        '200':
-          description: عملیات موفق
       parameters:
       - name: slug
         in: path
         required: true
         schema:
-          type: string
+          $ref: '#/components/schemas/Slug'
+      responses:
+        '200':
+          description: مقاله منتشرشده
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArticleDetail'
+        '404':
+          $ref: '#/components/responses/NotFound'
   /articles/{slug}/related:
     get:
-      tags:
-      - Catalog
+      tags: [Content]
       operationId: getArticlesSlugRelated
-      responses:
-        '200':
-          description: عملیات موفق
       parameters:
       - name: slug
         in: path
         required: true
         schema:
-          type: string
+          $ref: '#/components/schemas/Slug'
+      - name: limit
+        in: query
+        schema: { type: integer, minimum: 1, maximum: 20, default: 6 }
+      responses:
+        '200':
+          description: مقالات مرتبط منتشرشده
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArticleRelatedResponse'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/Unprocessable'
   /campaigns/{slug}:
     get:
       tags:
