@@ -15227,7 +15227,7 @@
     },
     {
       "path": "src/modules/catalog/presentation/catalog.controller.ts",
-      "sha256": "faa37b803f43c842f7c34be76787421614975e75e88a7c014d5fab357a7ba69b"
+      "sha256": "73508b22c708fb76070e742d61673969fa17c9b0927b8acec6cfeb6b5df00b87"
     },
     {
       "path": "src/modules/configuration/configuration.module.ts",
