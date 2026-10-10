@@ -62,7 +62,7 @@
     },
     {
       "path": "docs/13-product-design/step56-management-security-wireframes.json",
-      "sha256": "619bb4dd9ee6ac8a556987a0e237d60e91822ec02db5123afb011d59440081a5"
+      "sha256": "383c16ffb010f36a820d3471ae61bb75d6e070ed6feaebe4715311dc0a920773"
     },
     {
       "path": "docs/13-product-design/step56-pricing-inventory-wireframes.json",
@@ -86,7 +86,7 @@
     },
     {
       "path": "docs/13-product-design/step56-wireframes/F/manifest.json",
-      "sha256": "781588918805ffa3ac36eecc32d0ccb89586d830347ca061bb56d0b744ae2d3f"
+      "sha256": "f6534740f9c72d7fdc99ebe740e5332eb1157c1a8e75635637d4002b787ffa67"
     },
     {
       "path": "docs/13-product-design/step56-wireframes/G/manifest.json",
@@ -402,7 +402,7 @@
     {
       "gate": "F",
       "path": "docs/13-product-design/step56-wireframes/F/manifest.json",
-      "sha256": "781588918805ffa3ac36eecc32d0ccb89586d830347ca061bb56d0b744ae2d3f",
+      "sha256": "f6534740f9c72d7fdc99ebe740e5332eb1157c1a8e75635637d4002b787ffa67",
       "surfaces": 16,
       "frames": 488,
       "artifacts": 523,
