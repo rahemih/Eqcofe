@@ -268,7 +268,7 @@
     {
       "gate": "B",
       "path": "docs/13-product-design/step56-wireframes/B/manifest.json",
-      "sha256": "685e7c13c1e5b36cd8e750e39eab2003f2a029a64f6617e1f51bd5ac14568217",
+      "sha256": "b89ad19480ee0476a308ae8e73fdc1f53ca962de55fe044dd6f62590993338ca",
       "surfaces": 7,
       "frames": 74,
       "artifacts": 91,
@@ -302,7 +302,7 @@
     {
       "gate": "C",
       "path": "docs/13-product-design/step56-wireframes/C/manifest.json",
-      "sha256": "cfce5c21f823ecf0a5ec47f9315d0177ed05b843ad7edb1c42bfc61401be05ef",
+      "sha256": "7c5bf24bc9206f06dc2c96bcca2a4328e3bff7e5da33f91bbb3f6d57ef79a189",
       "surfaces": 8,
       "frames": 114,
       "artifacts": 133,
@@ -335,7 +335,7 @@
     {
       "gate": "D",
       "path": "docs/13-product-design/step56-wireframes/D/manifest.json",
-      "sha256": "79de548603bd007c5e717d5fa9e4269ae5f47c458ab980479621051b1f85be4c",
+      "sha256": "325864b818810e9049c5da2734017aad4a01a068f5006cfcb0e8b3b95f46d953",
       "surfaces": 21,
       "frames": 624,
       "artifacts": 669,
@@ -368,7 +368,7 @@
     {
       "gate": "E",
       "path": "docs/13-product-design/step56-wireframes/E/manifest.json",
-      "sha256": "ad1d5d009ebf7f62b79980598223d68cd129d55f69c017c3c40aefa4e5702798",
+      "sha256": "3490a3c97c229f5a080a4db6e82654ad102ce0b230db38dcbaf36c97a9172f14",
       "surfaces": 11,
       "frames": 368,
       "artifacts": 393,
@@ -402,7 +402,7 @@
     {
       "gate": "F",
       "path": "docs/13-product-design/step56-wireframes/F/manifest.json",
-      "sha256": "1a1946881b9f5bc6ac44eb34510c39eff7f2801fe651f35385efc09d23eb1ff1",
+      "sha256": "012f42bd626ad5448e830a1f6d48fb5502059c4953c2af3c363a37bb9bf09395",
       "surfaces": 16,
       "frames": 488,
       "artifacts": 523,
@@ -430,7 +430,7 @@
     {
       "gate": "G",
       "path": "docs/13-product-design/step56-wireframes/G/manifest.json",
-      "sha256": "9d377b77b9933dcda9e0b67720b33c2657eb073591ed94140a0ff6aed32c3e7c",
+      "sha256": "f31d892cfcf62b547cd2ba56245d00ad71f8f9f5f198e559417f3e2e5a640fc8",
       "surfaces": 34,
       "frames": 1004,
       "artifacts": 1075,
