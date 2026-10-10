@@ -41,7 +41,7 @@ export function CartView({ response, busy }: { response: CartViewResponse; busy:
               <li className="cart-item" key={item.id}>
                 <div className="cart-item__identity">
                   <strong>{item.product_name}</strong>
-                  <span>SKU: <bdi>{item.sku}</bdi></span>
+                  <span>SKU: <bdi dir="ltr">{item.sku}</bdi></span>
                   <span className="cart-item__availability" data-in-stock={item.availability.in_stock}>
                     {!item.availability.sales_enabled
                       ? "فروش این کالا فعلاً متوقف است"
