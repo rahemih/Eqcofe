@@ -13,7 +13,7 @@ const [intro,apply,status,css,product,cart,review,outcome,order,pkgText]=await P
   read("apps/storefront/app/features/account/AccountOrderDetailView.tsx"),
   read("apps/storefront/package.json"),
 ]);
-for(const token of ["max-width: 52.5rem","max-width: 37.5rem","max-width:22.5rem","max-width:20rem","min-width:75rem","min-width:90rem","min-height: 44px","focus-visible","overflow-wrap:anywhere","unicode-bidi:isolate"]) assert.ok(css.includes(token),"STEP65_G_CSS_MISSING:"+token);
+for(const token of ["max-width: 52.5rem","max-width: 37.5rem","max-width: 22.5rem","max-width: 20rem","min-width: 75rem","min-width: 90rem","min-height: 44px","focus-visible","overflow-wrap: anywhere","unicode-bidi: isolate"]) assert.ok(css.includes(token),"STEP65_G_CSS_MISSING:"+token);
 assert.ok(intro.includes('role="status" aria-live="polite"'));
 assert.ok(apply.includes('aria-busy={busy}'));
 assert.ok(apply.includes('role="alert" aria-live="assertive"'));
