@@ -22,6 +22,34 @@ export class CatalogQueryService {
     @Inject(INVENTORY_AVAILABILITY_PORT) private readonly inventory: InventoryAvailabilityPort,
   ) {}
 
+  async archive(q: any) {
+    this.assertQueryKeys(q, ['cursor', 'limit']);
+    const limit = this.publicLimit(q.limit, 25, 100);
+    const result = await this.repo.listPublicArchived({ limit, cursor: q.cursor });
+    return {
+      items: result.data.map((row: any) => ({
+        id: String(row.id),
+        slug: String(row.slug),
+        name: String(row.name_fa),
+        brand: row.brand_id ? { id: String(row.brand_id), name_fa: String(row.brand_name ?? ''), slug: String(row.brand_slug ?? '') } : null,
+        primary_category: { id: String(row.category_id), name_fa: String(row.category_name), slug: String(row.category_slug) },
+        archived_at: new Date(row.archived_at).toISOString(),
+      })),
+      pagination: { next_cursor: result.nextCursor, has_more: result.hasMore },
+    };
+  }
+
+  async stopSale(q: any) {
+    this.assertQueryKeys(q, ['cursor', 'limit']);
+    const limit = this.publicLimit(q.limit, 25, 100);
+    const result = await this.repo.listPublicStoppedSale({ limit, cursor: q.cursor });
+    const signals = await this.listingSignals(result.data, undefined, false);
+    return {
+      items: this.publicCardsFromSignals(result.data, signals),
+      pagination: { next_cursor: result.nextCursor, has_more: result.hasMore },
+    };
+  }
+
   async listProducts(q: any) {
     this.assertQueryKeys(q, ['cursor', 'limit', 'category', 'brand', 'min_price', 'max_price', 'available', 'sort', 'attribute_value']);
     return this.listProductsScoped(q);
