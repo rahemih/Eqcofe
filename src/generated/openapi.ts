@@ -44,6 +44,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
+        /** @description فهرست عمومی محصولاتی که قبلاً منتشر شده و سپس آرشیو شده‌اند؛ دلیل آرشیو و وضعیت مدیریتی افشا نمی‌شود. */
         get: operations["getCatalogArchive"];
         put?: never;
         post?: never;
@@ -60,6 +61,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
+        /** @description فهرست محصولات منتشرشده با فروش مؤثر متوقف؛ کمبود موجودی به‌تنهایی stop-sale نیست. */
         get: operations["getCatalogStopSale"];
         put?: never;
         post?: never;
@@ -704,6 +706,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
+        /** @description داده JSON سایت‌مپ فقط برای مقالات منتشرشده؛ robots.txt resource متعلق به Storefront است. */
         get: operations["getContentSitemapArticles"];
         put?: never;
         post?: never;
