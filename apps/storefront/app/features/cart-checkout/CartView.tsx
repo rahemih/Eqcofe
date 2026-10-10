@@ -16,7 +16,7 @@ export function CartView({ response, busy }: { response: CartViewResponse; busy:
     >
       <div className="cart-view__main">
         {wholesale ? (
-          <section className="cart-wholesale-context" aria-labelledby="cart-wholesale-title">
+          <section className="cart-wholesale-context" aria-labelledby="cart-wholesale-title" role="status" aria-live="polite">
             <div>
               <span className="cart-wholesale-context__badge">SF-E-10 · حساب عمده فعال</span>
               <h2 id="cart-wholesale-title">قیمت‌گذاری عمده بر اساس تعداد فعلی سبد</h2>
