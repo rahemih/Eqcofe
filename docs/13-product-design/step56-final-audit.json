@@ -90,7 +90,7 @@
     },
     {
       "path": "docs/13-product-design/step56-wireframes/G/manifest.json",
-      "sha256": "69bd8c213f7af0c249ad9eefe4c6fc82e9527bf8e70a98bafe1f04a3aeeb9b72"
+      "sha256": "a0e67091e3770717c115b15b3436c1b015df4a3bbf38b3ec3d4051da815a5c89"
     },
     {
       "path": "scripts/step56-final-audit.mjs",
@@ -430,7 +430,7 @@
     {
       "gate": "G",
       "path": "docs/13-product-design/step56-wireframes/G/manifest.json",
-      "sha256": "69bd8c213f7af0c249ad9eefe4c6fc82e9527bf8e70a98bafe1f04a3aeeb9b72",
+      "sha256": "a0e67091e3770717c115b15b3436c1b015df4a3bbf38b3ec3d4051da815a5c89",
       "surfaces": 34,
       "frames": 1004,
       "artifacts": 1075,
