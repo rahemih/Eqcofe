@@ -24,10 +24,12 @@ export type AddProductVariantToCartResult = {
   customerType: "wholesale" | null;
 };
 
+const DEFAULT_ADD_TO_CART_INPUT = Object.freeze({ quantity: 1 });
+
 export async function addProductVariantToCart(
   request: Request,
   variantId: string,
-  quantityOrOptions: number | AddProductVariantToCartOptions = 1,
+  quantityOrOptions: number | AddProductVariantToCartOptions = DEFAULT_ADD_TO_CART_INPUT.quantity,
   explicitOptions: AddProductVariantToCartOptions = {},
 ): Promise<AddProductVariantToCartResult> {
   const quantity = typeof quantityOrOptions === "number" ? quantityOrOptions : 1;
