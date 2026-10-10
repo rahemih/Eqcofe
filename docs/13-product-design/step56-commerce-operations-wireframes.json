@@ -826,7 +826,7 @@
   "sources": [
     {
       "path": "contracts/http/openapi.yaml",
-      "sha256": "ed67c825f0e5c534c7839f5fa74dd7b80f445b980b1e6ea3484fe193bcb9098d"
+      "sha256": "033a83c7696a26e346f6d8285d56e53367abb096af92b5bab1a6a12eb808955b"
     },
     {
       "path": "contracts/http/step49-pos-a9.yaml",
@@ -834,15 +834,15 @@
     },
     {
       "path": "docs/13-product-design/step56-admin-shell-wireframes.json",
-      "sha256": "24bdfcd6f23da7a78b8ad45880e106a4ca0688ec91d6fa1020e72b05d936c75f"
+      "sha256": "32b7e528d620bd7ad7edd4a6c5515c6bfd89689a27fa73c42997353713ca9d4c"
     },
     {
       "path": "docs/13-product-design/step56-admin-ux-contract.json",
-      "sha256": "97b17dfeabd4a6c7347007864b566ee42fb35f725ce58e3b4ccd1ee5407a0d60"
+      "sha256": "8d5da75226bd74e9cf35da909293eaba7de5400e5792128d252dd6bbec634396"
     },
     {
       "path": "docs/13-product-design/step56-pricing-inventory-wireframes.json",
-      "sha256": "23edf2f2ad73f0481136f074598721550f77d4fee1538776277584166e15e85c"
+      "sha256": "6ae20470b67b67b2d9d75c2a6c47eb9109c221c4f25749f7b6414b61e20a7cfa"
     },
     {
       "path": "src/modules/after-sales/after-sales.module.ts",
@@ -858,7 +858,7 @@
     },
     {
       "path": "src/modules/cart/application/cart.service.ts",
-      "sha256": "896667d056d7258005af11a7d389efb45d1c58ba4940f70476ac29f746839961"
+      "sha256": "e57272f3c5044448212b90a259db18a067ccd337dd950d091fe567a10bed0c22"
     },
     {
       "path": "src/modules/cart/application/ports/cart-order-checkout.port.ts",
@@ -874,7 +874,7 @@
     },
     {
       "path": "src/modules/cart/infrastructure/cart.repository.ts",
-      "sha256": "6f34d8e5ecac92ae69bf31cdaa136eb2d0bea7e7810bcc6a2029825824fd6436"
+      "sha256": "8509dfa941b16dd003c8fa39a841556c0fdcad856ec94a6b06ad2806ac3e34e0"
     },
     {
       "path": "src/modules/cart/infrastructure/checkout-marketing-snapshot.repository.ts",
@@ -950,7 +950,7 @@
     },
     {
       "path": "src/modules/orders/application/order.service.ts",
-      "sha256": "df586ca8f4754668f50086525dfd829adb747427161e988932cad726ef69e62f"
+      "sha256": "d702cfdfd89372b327aab313e8c7f1c1cdaaf9724409d1049beb668e8f7db28c"
     },
     {
       "path": "src/modules/orders/application/ports/order-after-sales.port.ts",
