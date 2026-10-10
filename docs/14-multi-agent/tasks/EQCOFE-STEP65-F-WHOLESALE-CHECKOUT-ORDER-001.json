@@ -1,0 +1,253 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP65-F-WHOLESALE-CHECKOUT-ORDER-001",
+  "title": "Step 65-F B2B Cart/Checkout/Order integration hardening on existing authoritative checkout flow",
+  "description": "HIGH-risk Step 65-F. Complete SJ-11 from authoritative wholesale Cart through Checkout and durable Order without creating a parallel B2B commerce engine. Persist the authoritative customer_type resolved by Cart Quote as an immutable Checkout snapshot, expose that snapshot through OrderResponse, and surface non-color wholesale context in Checkout Review, Order Outcome and customer Order Detail. Existing Pricing, Customer promotion, Inventory, Reservation, Payment and Order state machines remain authoritative and unchanged. No frontend wholesale threshold, discount formula, guaranteed saving or separate wholesale checkout/order lifecycle is allowed.",
+  "risk": "HIGH",
+  "risk_floor": "HIGH",
+  "owner": "COMMERCE_ENGINEERING",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "2d893ea144177c9346555da24b15dce636f0b24a"
+  },
+  "scope": {
+    "read": [
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "database/migrations/**",
+      "src/modules/cart/**",
+      "src/modules/orders/**",
+      "src/modules/pricing/**",
+      "src/modules/customer/**",
+      "src/modules/inventory/**",
+      "src/modules/payments/**",
+      "apps/storefront/**",
+      "test/**",
+      "docs/11-step-history/**",
+      "docs/13-product-design/**",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "database/migrations/0063_wholesale_checkout_customer_type_snapshot.sql",
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "src/modules/cart/application/cart.service.ts",
+      "src/modules/cart/infrastructure/cart.repository.ts",
+      "src/modules/orders/application/order.service.ts",
+      "test/step65-wholesale-checkout-order.spec.ts",
+      "apps/storefront/app/features/cart-checkout/CheckoutReviewView.tsx",
+      "apps/storefront/app/features/cart-checkout/OrderOutcomeView.tsx",
+      "apps/storefront/app/features/account/AccountOrderDetailView.tsx",
+      "apps/storefront/scripts/verify-step65-wholesale-checkout-order.ts",
+      "apps/storefront/scripts/verify-step63-acceptance.mjs",
+      "apps/storefront/scripts/verify-step64-acceptance.mjs",
+      "apps/storefront/package.json",
+      "docs/11-step-history/STEP-65-F-WHOLESALE-CHECKOUT-ORDER.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP65-F-WHOLESALE-CHECKOUT-ORDER-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "docs/13-product-design/step56-admin-ux-contract.json",
+      "docs/13-product-design/step56-foundation/A/manifest.json",
+      "docs/13-product-design/step56-admin-shell-wireframes.json",
+      "docs/13-product-design/step56-wireframes/B/manifest.json",
+      "docs/13-product-design/step56-catalog-media-wireframes.json",
+      "docs/13-product-design/step56-wireframes/C/manifest.json",
+      "docs/13-product-design/step56-pricing-inventory-wireframes.json",
+      "docs/13-product-design/step56-wireframes/D/manifest.json",
+      "docs/13-product-design/step56-commerce-operations-wireframes.json",
+      "docs/13-product-design/step56-wireframes/E/manifest.json",
+      "docs/13-product-design/step56-customers-growth-wireframes.json",
+      "docs/13-product-design/step56-wireframes/F/manifest.json",
+      "docs/13-product-design/step56-management-security-wireframes.json",
+      "docs/13-product-design/step56-wireframes/G/manifest.json",
+      "docs/13-product-design/step56-final-audit.json",
+      "docs/13-product-design/step56-final-audit/manifest.json",
+      "docs/13-product-design/step57-high-fidelity-contract.json"
+    ],
+    "forbidden": [
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "src/modules/pricing/**",
+      "src/modules/customer/**",
+      "src/modules/inventory/**",
+      "src/modules/payments/**",
+      "docs/12-current-state/**",
+      "apps/admin/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP65-F-WHOLESALE-CHECKOUT-ORDER-001-01"
+  ],
+  "human_gate_required": true,
+  "authorized_human_approver": {
+    "role": "PROJECT_OWNER",
+    "github_login": "rahemih"
+  },
+  "token_budget": {
+    "expected_max": 56000,
+    "soft_alert": 84000,
+    "hard_cap": 130000
+  },
+  "max_repair_cycles": 4,
+  "task_risk_rules": [
+    {
+      "id": "STEP65_F_WHOLESALE_CHECKOUT_ORDER_HIGH",
+      "risk": "HIGH",
+      "paths": [
+        "database/migrations/0063_wholesale_checkout_customer_type_snapshot.sql",
+        "contracts/http/openapi.yaml",
+        "src/generated/openapi.ts",
+        "src/modules/cart/application/cart.service.ts",
+        "src/modules/cart/infrastructure/cart.repository.ts",
+        "src/modules/orders/application/order.service.ts",
+        "test/step65-wholesale-checkout-order.spec.ts",
+        "apps/storefront/app/features/cart-checkout/CheckoutReviewView.tsx",
+        "apps/storefront/app/features/cart-checkout/OrderOutcomeView.tsx",
+        "apps/storefront/app/features/account/AccountOrderDetailView.tsx",
+        "apps/storefront/scripts/verify-step65-wholesale-checkout-order.ts",
+        "apps/storefront/scripts/verify-step63-acceptance.mjs",
+        "apps/storefront/scripts/verify-step64-acceptance.mjs",
+        "apps/storefront/package.json",
+        "docs/11-step-history/STEP-65-F-WHOLESALE-CHECKOUT-ORDER.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP65-F-WHOLESALE-CHECKOUT-ORDER-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md",
+        "docs/13-product-design/step56-admin-ux-contract.json",
+        "docs/13-product-design/step56-foundation/A/manifest.json",
+        "docs/13-product-design/step56-admin-shell-wireframes.json",
+        "docs/13-product-design/step56-wireframes/B/manifest.json",
+        "docs/13-product-design/step56-catalog-media-wireframes.json",
+        "docs/13-product-design/step56-wireframes/C/manifest.json",
+        "docs/13-product-design/step56-pricing-inventory-wireframes.json",
+        "docs/13-product-design/step56-wireframes/D/manifest.json",
+        "docs/13-product-design/step56-commerce-operations-wireframes.json",
+        "docs/13-product-design/step56-wireframes/E/manifest.json",
+        "docs/13-product-design/step56-customers-growth-wireframes.json",
+        "docs/13-product-design/step56-wireframes/F/manifest.json",
+        "docs/13-product-design/step56-management-security-wireframes.json",
+        "docs/13-product-design/step56-wireframes/G/manifest.json",
+        "docs/13-product-design/step56-final-audit.json",
+        "docs/13-product-design/step56-final-audit/manifest.json",
+        "docs/13-product-design/step57-high-fidelity-contract.json"
+      ]
+    }
+  ],
+  "pre_mutation_gates": {
+    "graph_health": "RETIRED_AND_OUT_OF_SCOPE",
+    "query_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "path_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "explain_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "human_gate": "FINAL_EXACT_ARTIFACT_APPROVAL_REQUIRED_BEFORE_PROTECTED_MERGE"
+  },
+  "dependencies": [
+    {
+      "item": "65-E",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "2d893ea144177c9346555da24b15dce636f0b24a",
+      "evidence": "PR #335 merged after exact-artifact Project Owner Human Gate; exact-SHA Canonical CI 38043876012, Phase A 38043875987, Storefront Quality 38043875988 and CodeQL 38043875948 SUCCESS; terminal Lock release comment 6096477604.",
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "linear_issue": "HOS-69",
+    "graph_state": "RETIRED_AND_OUT_OF_SCOPE",
+    "audit_findings": [
+      "Checkout Quote already resolves authoritative customer_type and snapshots authoritative pricing totals into the existing Checkout flow.",
+      "CheckoutReviewSnapshot already carries quote.customer_type server-side, but CheckoutReviewView does not surface wholesale context.",
+      "orders.orders currently references the originating checkout but OrderResponse does not expose the checkout customer_type; customer Order Detail and Order Outcome therefore cannot lawfully label the resulting order as wholesale.",
+      "A durable checkout customer_type snapshot is required so an order remains tied to the exact quoted commerce context instead of re-reading a later mutable customer profile.",
+      "Existing Cart/Checkout/Reservation/Order/Payment state machines are sufficient; a second B2B engine is forbidden."
+    ],
+    "migration_need": "REQUIRED_SNAPSHOT_ONLY",
+    "migration_rule": "Add only cart.checkouts.customer_type immutable quote snapshot with retail/wholesale constraint and deterministic backfill; no Pricing/Customer/Inventory/Payment rule mutation.",
+    "dependency_need": "NONE",
+    "pricing_rule_mutation": "NONE",
+    "customer_promotion_mutation": "NONE",
+    "inventory_rule_mutation": "NONE",
+    "payment_state_machine_mutation": "NONE",
+    "order_state_machine_mutation": "NONE",
+    "provenance_rule": "OpenAPI change may require the same Step56/57 recovered-source SHA-256 cascade used by prior Step65 contract changes; Product Design semantics remain immutable."
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Cart Quote persists the authoritative customer_type resolved for the quote into cart.checkouts together with the existing monetary snapshot; guest/retail resolves retail and approved wholesale resolves wholesale.",
+      "verification": "migration + backend test",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "The checkout customer_type snapshot is immutable commerce history for the resulting order and is not re-derived from a later Customer Profile when OrderResponse is read.",
+      "verification": "backend test + source verifier",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "OrderResponse exposes required customer_type retail|wholesale from the originating checkout snapshot while preserving all existing order/payment/fulfillment fields and generated TypeScript stays in OpenAPI sync.",
+      "verification": "OpenAPI generation/sync + backend test",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Checkout Review displays non-color wholesale context only when the signed authoritative quote snapshot says wholesale and shows authoritative pricing/marketing/total Toman values without calculating a browser threshold or percentage.",
+      "verification": "storefront verifier + browser quality",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Order Outcome and authenticated Order Detail display wholesale order context only from OrderResponse.customer_type; no application status, local flag, current profile or pricing heuristic may relabel an order.",
+      "verification": "storefront verifier",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Quantity/price change, invalid/expired checkout, reservation conflict, order idempotency and payment recovery continue through the existing authoritative Step63 flow; no parallel B2B Cart/Checkout/Order or payment path is introduced.",
+      "verification": "inherited Step63 acceptance + new verifier",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "No wholesale minimum quantity, discount percentage, guaranteed savings or Pricing/Customer/Inventory/Payment business rule is introduced in Storefront, OrderService or migration.",
+      "verification": "deterministic source/scope audit",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "Historical Step63/64 acceptance fixtures are updated only as required for the new mandatory OrderResponse customer_type field; their assertions and semantics are not weakened.",
+      "verification": "Step63/64 acceptance verifiers",
+      "mandatory": true
+    },
+    {
+      "id": "AC-009",
+      "description": "Inherited Product/Cart/Checkout/API/auth/state/account/quality verifiers remain active together with the new Step65-F verifier.",
+      "verification": "storefront verify + canonical CI",
+      "mandatory": true
+    },
+    {
+      "id": "AC-010",
+      "description": "Any Step56/57 recovered-source updates are SHA-256 provenance-only; no Product Design screen/state/copy/frame/component semantics change.",
+      "verification": "design:validate + design:check + hash-only diff audit",
+      "mandatory": true
+    },
+    {
+      "id": "AC-011",
+      "description": "HIGH-risk closure requires exact-head Canonical CI, Phase A, Storefront Quality, CodeQL/Security, deterministic Review, exact-artifact ACTIVE Lock, exact-artifact Project Owner Human approval, protected merge, exact-SHA postmerge verification and terminal Lock release.",
+      "verification": "canonical transport evidence",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "SECURITY",
+      "HUMAN",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Step 65-F is HIGH risk. Human approval binds only to the frozen exact head/artifact after technical, security, deterministic review and lock gates pass."
+  },
+  "process_improvement_links": [],
+  "incident_links": [],
+  "repair_history": []
+}
