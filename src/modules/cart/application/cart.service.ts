@@ -38,7 +38,7 @@ export class CartService{
    const available=await this.availability.getOnlineSellableQuantity(String(i.variant_id));
    const availability={sales_enabled:sellable,in_stock:sellable&&available>0,available_quantity:Math.max(0,Number(available))};
    if(!sellable||quantity>available)requiresRevalidation=true;
-   let price:any=null;
+   let price=null as any;
    if(sellable){
     try{
      const quoted:any=await this.pricing.quoteVariant({variantId:String(i.variant_id),quantity,customerType});
