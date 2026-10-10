@@ -82,6 +82,12 @@ export function AccountOrderDetailView({ state, actionData, busy }: Props) {
         </div>
       ) : null}
 
+      {order.customer_type === "wholesale" ? (
+        <div className="account-settings__notice" role="status">
+          این سفارش با زمینه عمده ذخیره‌شده در Checkout ثبت شده است؛ قیمت و تخفیف از Snapshot سفارش نمایش داده می‌شوند، نه از نوع فعلی حساب.
+        </div>
+      ) : null}
+
       <OrderSummary order={order} />
 
       <section className="account-settings__panel" aria-labelledby="order-items-heading">
