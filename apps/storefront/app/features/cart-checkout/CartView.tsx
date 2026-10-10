@@ -12,6 +12,7 @@ export function CartView({ response, busy }: { response: CartViewResponse; busy:
       className="cart-view"
       aria-labelledby="cart-items-title"
       data-wholesale-context={wholesale || undefined}
+      aria-busy={busy}
     >
       <div className="cart-view__main">
         {wholesale ? (
