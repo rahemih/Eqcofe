@@ -8892,6 +8892,8 @@ export interface components {
             order_number: string;
             customer_id?: components["schemas"]["NullableEntityId"];
             /** @enum {string} */
+            customer_type: "retail" | "wholesale";
+            /** @enum {string} */
             order_status: "draft" | "pending_confirmation" | "confirmed" | "completed" | "cancelled" | "expired";
             /** @enum {string} */
             payment_status: "unpaid" | "pending" | "authorized" | "paid" | "partially_refunded" | "refunded" | "failed" | "cancelled";
