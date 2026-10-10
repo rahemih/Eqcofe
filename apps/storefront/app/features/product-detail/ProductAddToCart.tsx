@@ -57,7 +57,7 @@ export function ProductAddToCart({
               aria-describedby="product-cart-quantity-help"
             />
             <small id="product-cart-quantity-help">
-              حداقل یا درصد تخفیف در مرورگر ثابت نشده است؛ قیمت با تعداد فعلی توسط سرور تعیین می‌شود.
+              هیچ حداقل یا درصد تخفیفی در مرورگر ثابت نشده است؛ قیمت با تعداد فعلی توسط سرور تعیین می‌شود.
             </small>
           </label>
         ) : null}
