@@ -208,7 +208,8 @@
         "reason": "Merge Policy idempotent post-merge redispatch repair after Step 65-B; infrastructure/governance repair, not a Step-65 product stage."
       }
     ],
-    "closure_branch": "eqcofe/step65-i-final-closure"
+    "closure_branch": "eqcofe/step65-i-final-closure",
+    "closure_pr": 339
   },
   "process_improvement_links": [],
   "incident_links": []

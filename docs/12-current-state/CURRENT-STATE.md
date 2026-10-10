@@ -1,7 +1,7 @@
 # EQCOFE Current State
 
 ## Trusted state date
-**2026-10-06**
+**2026-10-10**
 
 ## Official repository
 - Repository: `rahemih/Eqcofe`
@@ -30,9 +30,35 @@ The frozen Step-63 product result covers authoritative Cart/Checkout state, gues
 
 **Tooling policy supersession — 2026-10-06:** the Project Owner retired Graph/Graphify from active EQCOFE governance. Historical Step-61/62/63 documents that mention graph requirements remain chronology only and no longer create a live gate. Follow-up `HOS-181` is Canceled and PR #319 is Closed / Unmerged. There is no remaining graph debt for Step 63.
 
+## Current Step 65 position
+
+**Step 65 — Wholesale Experience — `CLOSED / FINAL CANONICAL PASS` after terminal 65-I transport.** Stages 65-A through 65-H are already terminal/canonical; Stage 65-I is the documentation/governance closure transport based on canonical main `ac16c91f1604e7e5be4dfe09cf832c77b73bbaf9`. Step 66 must not mutate until PR #339 completes protected merge, exact-SHA postmerge verification and terminal Lock release.
+
+| Stage | PR | Canonical merge | Terminal Lock | State |
+| --- | ---: | --- | ---: | --- |
+| 65-A canonical handoff / scope freeze | #330 | `a36757a1fa36d1f541102e0e1a3426406e3c5864` | `6025205025` | COMPLETE |
+| 65-B Backend/OpenAPI Wholesale contract readiness | #331 | `8a62ee1c4bd20f5ec181a8c57cafc91a1d91862b` | `6085465245` | COMPLETE |
+| 65-C shared Wholesale Storefront foundation | #333 | `a8905e495f43c7afc9a39a6de0eca38d484b1cbf` | `6085869501` | COMPLETE |
+| 65-D Wholesale application and application-status experience | #334 | `66b7e5cce0b854a76f243d4b9ad7fca5ccfb98dd` | `6087902230` | COMPLETE |
+| 65-E approved Wholesale Product / Cart commerce context | #335 | `2d893ea144177c9346555da24b15dce636f0b24a` | `6096756145` | COMPLETE |
+| 65-F Wholesale Checkout / Order snapshot hardening | #336 | `a460b7c482f6d13609d70fd1f81ba56b186b6a74` | `6097088128` | COMPLETE |
+| 65-G RTL / accessibility / responsive / state hardening | #337 | `376ad9de097a20fb8f497a1db74ee683d2928b6c` | `6097098295` | COMPLETE |
+| 65-H integrated production-build / browser acceptance | #338 | `ac16c91f1604e7e5be4dfe09cf832c77b73bbaf9` | `6097209588` | COMPLETE |
+| 65-I final verification / docs / Step 66 handoff | #339 | this canonical document | terminal evidence attached to PR #339 | FINAL CLOSURE |
+
+Stage 65-H exact merge-SHA evidence is green: Canonical CI `38049769102`, Phase A `38049769115`, Storefront Quality `38049769106` and CodeQL `38049768943` all succeeded.
+
+Canonical Step-65 functionality includes public Wholesale introduction, backend-owned application/status, authoritative approval and customer-type promotion, approved Wholesale Product/Cart pricing context, quantity-aware authoritative Quotes, immutable Checkout customer-type history, Order context from originating Checkout, existing Checkout/Payment recovery semantics and integrated RTL/accessibility/responsive/browser acceptance. No frontend approval, hardcoded threshold, discount formula or parallel B2B engine is introduced.
+
+PR #332 / `91406a9c2ef70662c326d1d82b6c1273d6a4708f` is a canonical Merge Policy infrastructure repair after 65-B and is not part of the A–H product-stage lineage.
+
+Graph/Graphify remains retired from active EQCOFE governance; there is no graph debt or graph gate for Step 65.
+
+**Next safe action:** Step 66 — Content, SEO & Policy Frontend (`HOS-70`) is `NEXT / NOT_STARTED` only once this 65-I document is terminally canonical on `main`. No Step-66 mutation is authorized before that terminal evidence.
+
 ## Current Step 64 position
 
-**Step 64 — Customer Account & After-Sales — `CLOSED / FINAL CANONICAL PASS` after terminal 64-I transport.** Stages 64-A through 64-H are already terminal/canonical; Stage 64-I is the documentation/governance closure transport based on canonical main `7306dc4277b72286f43eb04540cd774e28d4bf1e`. Step 65 must not mutate until 64-I completes protected merge, exact-SHA postmerge verification and terminal Lock release.
+**Step 64 — Customer Account & After-Sales — `CLOSED / FINAL CANONICAL PASS`.** Stage 64-I completed terminally through PR #329 / `9bf08d39ea2d45e3dfa4edfc197ac921bf1a8c57`. This section is retained as the verified predecessor snapshot; the live execution boundary is Step 65-I above.
 
 | Stage | PR | Canonical merge | Terminal Lock | State |
 | --- | ---: | --- | ---: | --- |
@@ -52,7 +78,7 @@ Canonical Step-64 functionality now includes Account overview/recovery, Profile 
 
 Graph/Graphify is retired from active EQCOFE governance through PR #320 / `4d126a0087b8042e270aeae73225c558c4dd8e74`; there is no graph debt or graph gate for Step 64.
 
-**Next safe action:** Step 65 — Wholesale Experience (`HOS-69`) is `NEXT / NOT_STARTED` once this 64-I document is terminally canonical on `main`. No Step-65 mutation is authorized before that terminal evidence.
+**Historical Step-64 handoff:** Step 65 was the successor to Step 64 and has since executed through Stage 65-H; use the Current Step 65 position above for live authority.
 
 ## Current Step 62 position
 

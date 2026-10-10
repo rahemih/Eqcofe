@@ -1,12 +1,12 @@
 # EQCOFE — Complete Master Execution Roadmap
 
-**Roadmap version:** 3.61 — Step-64 Final Closure / Step-65 Handoff
-**Effective date:** 2026-10-06
+**Roadmap version:** 3.62 — Step-65 Final Closure / Step-66 Handoff
+**Effective date:** 2026-10-10
 **Canonical repository:** `rahemih/Eqcofe`  
 **Canonical branch:** `main`  
 **Verified Step-44 code baseline:** `b239dfe825b615f36caf2e26cc7abc80c70d349c`
 
-> This is the canonical end-to-end execution map for EQCOFE. Phase A (Steps 1–28) is `CLOSED / FINAL GATE PASS` by current canonical verification. For historical Steps 1–27, exact original labels/closure lineage remain `Historical Attribution: UNVERIFIED`; Step 28 remains `Historical Attribution: PARTIAL`. Current-baseline verification does not prove recovered historical provenance. Steps 29–63 retain their established canonical status. Step 62 remains `CLOSED / FINAL CANONICAL PASS`. Step 63 is `CLOSED / FINAL CANONICAL PASS` through terminal PR #315 / `e7985b7b3c7bfd81cab293607674d576ca93a82e`. Step 64 is `CLOSED / FINAL CANONICAL PASS` through Stages 64-A–64-I after the Stage-I terminal transport completes; Stages 64-A–64-H are already canonical through PR #328 / `7306dc4277b72286f43eb04540cd774e28d4bf1e`. Step 65 — Wholesale Experience is the next execution step and remains `NEXT / NOT_STARTED` until the Step-64-I protected merge, exact-SHA postmerge verification and terminal Lock release are complete. By Owner directive dated 2026-10-06, Graph/Graphify is retired from active project governance and is not a gate, dependency, evidence requirement or Definition-of-Done item.
+> This is the canonical end-to-end execution map for EQCOFE. Phase A (Steps 1–28) is `CLOSED / FINAL GATE PASS` by current canonical verification. For historical Steps 1–27, exact original labels/closure lineage remain `Historical Attribution: UNVERIFIED`; Step 28 remains `Historical Attribution: PARTIAL`. Current-baseline verification does not prove recovered historical provenance. Steps 29–64 retain their established canonical status. Step 63 is `CLOSED / FINAL CANONICAL PASS` through terminal PR #315 / `e7985b7b3c7bfd81cab293607674d576ca93a82e`. Step 64 is `CLOSED / FINAL CANONICAL PASS` through terminal PR #329 / `9bf08d39ea2d45e3dfa4edfc197ac921bf1a8c57`. Step 65 — Wholesale Experience is `CLOSED / FINAL CANONICAL PASS` after Stage 65-I completes its terminal transport; Stages 65-A–65-H are already canonical through PR #338 / `ac16c91f1604e7e5be4dfe09cf832c77b73bbaf9`. Step 66 — Content, SEO & Policy Frontend becomes `NEXT / NOT_STARTED` only after the Step-65-I protected merge, exact-SHA postmerge verification and terminal Lock release. Graph/Graphify remains retired from active project governance and is not a gate, dependency, evidence requirement or Definition-of-Done item.
 
 ## Status legend
 - `RECONSTRUCTED-HISTORY`: normalized historical description; exact historical step attribution is not proven.
@@ -358,11 +358,26 @@ Canonical product implementation and acceptance are complete through Stages 64-A
 
 The frozen Step-64 result covers Account overview, profile/security, customer-owned Addresses, Orders/invoice/timeline/actions, Wishlist and in-app Notifications, Returns, Warranty, recovery states, Persian RTL, accessibility and responsive/browser acceptance. Product Alerts, Loyalty and Reviews remain `NO_ACTION` because no matching customer runtime was proven. Superseded transports #318, #323 and #325 are not canonical. Graph/Graphify remains retired and is not a closure criterion.
 
-## Step 65 — Wholesale Experience — `NEXT / NOT_STARTED`
-Implement wholesale application/status, approved wholesale pricing and B2B-oriented quantity/order UX.
+## Step 65 — Wholesale Experience — `CLOSED / FINAL CANONICAL PASS`
 
-## Step 66 — Content, SEO & Policy Frontend — `PLANNED`
-Implement article/blog surfaces, SEO metadata/structured data, sitemap/robots consumption, About/Contact/FAQ/Terms/Returns/Warranty and archive/stop-sale views.
+Canonical Wholesale implementation and acceptance are complete through Stages 65-A–65-H. Stage 65-I is the documentation/governance closure transport based on canonical main `ac16c91f1604e7e5be4dfe09cf832c77b73bbaf9`; this closed status is terminal only after 65-I itself completes protected merge, exact-SHA postmerge verification and Lock release.
+
+| Stage | Canonical PR | Canonical merge | State |
+| --- | ---: | --- | --- |
+| 65-A canonical handoff / scope freeze | #330 | `a36757a1fa36d1f541102e0e1a3426406e3c5864` | COMPLETE |
+| 65-B Backend/OpenAPI Wholesale contract readiness | #331 | `8a62ee1c4bd20f5ec181a8c57cafc91a1d91862b` | COMPLETE |
+| 65-C shared Wholesale Storefront foundation | #333 | `a8905e495f43c7afc9a39a6de0eca38d484b1cbf` | COMPLETE |
+| 65-D Wholesale application and application-status experience | #334 | `66b7e5cce0b854a76f243d4b9ad7fca5ccfb98dd` | COMPLETE |
+| 65-E approved Wholesale Product / Cart commerce context | #335 | `2d893ea144177c9346555da24b15dce636f0b24a` | COMPLETE |
+| 65-F Wholesale Checkout / Order snapshot hardening | #336 | `a460b7c482f6d13609d70fd1f81ba56b186b6a74` | COMPLETE |
+| 65-G RTL / accessibility / responsive / state hardening | #337 | `376ad9de097a20fb8f497a1db74ee683d2928b6c` | COMPLETE |
+| 65-H integrated production-build / browser acceptance | #338 | `ac16c91f1604e7e5be4dfe09cf832c77b73bbaf9` | COMPLETE |
+| 65-I final canonical verification / docs reconciliation / Step 66 handoff | #339 | based on `ac16c91f1604e7e5be4dfe09cf832c77b73bbaf9` | FINAL CLOSURE |
+
+The frozen Step-65 result covers authoritative Wholesale application/status, backend-owned approval and customer-type promotion, approved Wholesale Product/Cart context, authoritative quantity-aware Pricing and Quote values, immutable Checkout customer-type history, Order context from the originating Checkout, existing Cart/Checkout/Order/Payment recovery semantics, Persian RTL/accessibility/responsive state hardening and integrated production/browser acceptance. Frontend approval, a hardcoded Wholesale threshold, discount percentage calculation, guaranteed saving and a parallel B2B commerce engine remain forbidden. PR #332 is a canonical Merge Policy infrastructure repair, not a product stage. Graph/Graphify remains retired.
+
+## Step 66 — Content, SEO & Policy Frontend — `NEXT / NOT_STARTED`
+Implement article/blog surfaces, SEO metadata/structured data, sitemap/robots consumption, About/Contact/FAQ/Terms/Returns/Warranty and archive/stop-sale views. Step 66 implementation is authorized only after terminal Step-65-I protected merge, exact-SHA postmerge verification and Lock release.
 
 # PHASE F — Admin Frontend
 
@@ -463,11 +478,12 @@ Evolve architecture, integrations and product capabilities based on production e
 
 # Current Position
 
-- **Last fully closed implementation stage:** Step 63-H plus canonical pre-closure QA repair #314; Step 63-I final closure remains pending only on Graph/Graphify evidence and protected terminal transport.
+- **Last fully closed implementation stage:** Step 65-H — integrated Wholesale production/browser acceptance — PR #338 / `ac16c91f1604e7e5be4dfe09cf832c77b73bbaf9`.
 - **Phase A:** CLOSED / FINAL GATE PASS — Steps 1–28 are COMPLETE / VERIFIED BY CURRENT CANONICAL BASELINE; historical attribution remains UNVERIFIED for Steps 1–27 and PARTIAL for Step 28.
 - **Step 49 closure:** CLOSED / FINAL GATE PASS after A11 audit.
-- **Active step:** Step 63-I — Final Canonical Closure.
-- **Next approved step:** Step 64 — Customer Account & After-Sales, only after Step 63-I completes Graph evidence, protected merge, exact-SHA postmerge verification and terminal Lock release.
+- **Active step:** Step 65-I — Final Canonical Verification / Documentation Reconciliation / Step 66 Handoff.
+- **Next approved step:** Step 66 — Content, SEO & Policy Frontend, only after Step 65-I completes protected merge, exact-SHA postmerge verification and terminal Lock release.
+- **Graph/Graphify:** RETIRED / OUT OF SCOPE; no live graph gate remains.
 - **Backend feature-completion horizon:** Step 52.
 - **UI/UX design begins:** Step 53.
 - **Storefront implementation begins:** Step 58.
