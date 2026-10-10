@@ -50,7 +50,7 @@
     },
     {
       "path": "docs/13-product-design/step56-customers-growth-wireframes.json",
-      "sha256": "ff081245305757b6978ac0971bbdd0d22fdd1ad264b7935a1aae4b47ba6fca24"
+      "sha256": "48146ca7174684c1def6bdc0014f5b9b508e67f74287890fee31e88b7594dd09"
     },
     {
       "path": "docs/13-product-design/step56-final-handoffs.json",
@@ -82,7 +82,7 @@
     },
     {
       "path": "docs/13-product-design/step56-wireframes/E/manifest.json",
-      "sha256": "52f71d5dda2276106f32c4c4150273e298ca51e72481ae4ffa24dab028bde0cd"
+      "sha256": "d809bb2e79bf0009396c7e6e50a798583a3b7143f216ff54f60294cb9b5679a7"
     },
     {
       "path": "docs/13-product-design/step56-wireframes/F/manifest.json",
@@ -368,7 +368,7 @@
     {
       "gate": "E",
       "path": "docs/13-product-design/step56-wireframes/E/manifest.json",
-      "sha256": "52f71d5dda2276106f32c4c4150273e298ca51e72481ae4ffa24dab028bde0cd",
+      "sha256": "d809bb2e79bf0009396c7e6e50a798583a3b7143f216ff54f60294cb9b5679a7",
       "surfaces": 11,
       "frames": 368,
       "artifacts": 393,
