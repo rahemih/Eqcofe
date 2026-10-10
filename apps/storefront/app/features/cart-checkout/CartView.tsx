@@ -12,10 +12,11 @@ export function CartView({ response, busy }: { response: CartViewResponse; busy:
       className="cart-view"
       aria-labelledby="cart-items-title"
       data-wholesale-context={wholesale || undefined}
+      aria-busy={busy}
     >
       <div className="cart-view__main">
         {wholesale ? (
-          <section className="cart-wholesale-context" aria-labelledby="cart-wholesale-title">
+          <section className="cart-wholesale-context" aria-labelledby="cart-wholesale-title" role="status" aria-live="polite">
             <div>
               <span className="cart-wholesale-context__badge">SF-E-10 · حساب عمده فعال</span>
               <h2 id="cart-wholesale-title">قیمت‌گذاری عمده بر اساس تعداد فعلی سبد</h2>
@@ -40,7 +41,7 @@ export function CartView({ response, busy }: { response: CartViewResponse; busy:
               <li className="cart-item" key={item.id}>
                 <div className="cart-item__identity">
                   <strong>{item.product_name}</strong>
-                  <span>SKU: <bdi>{item.sku}</bdi></span>
+                  <span>SKU: <bdi dir="ltr">{item.sku}</bdi></span>
                   <span className="cart-item__availability" data-in-stock={item.availability.in_stock}>
                     {!item.availability.sales_enabled
                       ? "فروش این کالا فعلاً متوقف است"

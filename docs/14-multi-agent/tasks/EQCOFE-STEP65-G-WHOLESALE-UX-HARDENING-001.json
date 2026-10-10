@@ -1,0 +1,150 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP65-G-WHOLESALE-UX-HARDENING-001",
+  "title": "Step 65-G RTL accessibility responsive and state hardening across Wholesale surfaces",
+  "description": "MEDIUM-risk Step 65-G. Harden existing Wholesale presentation surfaces for Persian RTL, accessibility, responsive/reflow behavior and explicit state semantics without changing commerce authority.",
+  "risk": "MEDIUM",
+  "risk_floor": "MEDIUM",
+  "owner": "FRONTEND_ENGINEERING",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "a460b7c482f6d13609d70fd1f81ba56b186b6a74"
+  },
+  "scope": {
+    "read": [
+      "apps/storefront/**",
+      "docs/11-step-history/**",
+      "docs/13-product-design/**",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "apps/storefront/app/features/wholesale/WholesaleIntroductionView.tsx",
+      "apps/storefront/app/features/wholesale/WholesaleApplicationView.tsx",
+      "apps/storefront/app/features/wholesale/WholesaleStatusView.tsx",
+      "apps/storefront/app/styles/wholesale.css",
+      "apps/storefront/app/features/product-detail/ProductAddToCart.tsx",
+      "apps/storefront/app/features/cart-checkout/CartView.tsx",
+      "apps/storefront/app/features/cart-checkout/CheckoutReviewView.tsx",
+      "apps/storefront/app/features/cart-checkout/OrderOutcomeView.tsx",
+      "apps/storefront/app/features/account/AccountOrderDetailView.tsx",
+      "apps/storefront/scripts/verify-step65-wholesale-ux-hardening.ts",
+      "apps/storefront/package.json",
+      "docs/11-step-history/STEP-65-G-WHOLESALE-UX-HARDENING.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP65-G-WHOLESALE-UX-HARDENING-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "database/**",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "src/modules/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP65-G-WHOLESALE-UX-HARDENING-001-01"
+  ],
+  "human_gate_required": false,
+  "authorized_human_approver": {
+    "role": "PROJECT_OWNER",
+    "github_login": "rahemih"
+  },
+  "token_budget": {
+    "expected_max": 32000,
+    "soft_alert": 50000,
+    "hard_cap": 90000
+  },
+  "max_repair_cycles": 3,
+  "task_risk_rules": [
+    {
+      "id": "STEP65_G_WHOLESALE_UX_MEDIUM",
+      "risk": "MEDIUM",
+      "paths": [
+        "apps/storefront/**",
+        "docs/11-step-history/STEP-65-G-WHOLESALE-UX-HARDENING.md",
+        "docs/14-multi-agent/**"
+      ]
+    }
+  ],
+  "pre_mutation_gates": {
+    "graph_health": "RETIRED_AND_OUT_OF_SCOPE",
+    "query_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "path_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "explain_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "human_gate": "NOT_REQUIRED_MEDIUM"
+  },
+  "dependencies": [
+    {
+      "item": "65-F",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "a460b7c482f6d13609d70fd1f81ba56b186b6a74",
+      "evidence": "PR #336 merged; exact-main Canonical CI 38048100970 PASS, Phase A 38048101078 PASS, terminal Lock release comment 6096990357.",
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "linear_issue": "HOS-69",
+    "graph_state": "RETIRED_AND_OUT_OF_SCOPE",
+    "migration_need": "NONE",
+    "dependency_need": "NONE",
+    "backend_mutation": "NONE",
+    "openapi_mutation": "NONE",
+    "pricing_rule_mutation": "NONE"
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Wholesale direct surfaces preserve Persian RTL semantic order, non-color state text and stable LTR identifiers.",
+      "verification": "wholesale-ux-hardening:verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Application/Product/Cart/Checkout/Order expose aria-busy and live state semantics without changing backend authority.",
+      "verification": "wholesale-ux-hardening:verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "CSS covers 320/360/600/840/1200/1440, 400% reflow, 44px targets, visible focus and overflow-safe content.",
+      "verification": "wholesale-ux-hardening:verify + Storefront Quality",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "No brown palette, frontend threshold, discount formula or local pricing/customer authority.",
+      "verification": "wholesale-ux-hardening:verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Storefront verify includes 65-G while retaining inherited gates.",
+      "verification": "pnpm --dir apps/storefront verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "MEDIUM canonical closure requires exact-head CI/Phase A/Review/Lock, protected merge, exact-SHA postmerge verify and terminal Lock release; no Human Gate.",
+      "verification": "canonical governance",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "MEDIUM risk; Human Gate not required."
+  },
+  "process_improvement_links": [],
+  "incident_links": [],
+  "repair_history": []
+}

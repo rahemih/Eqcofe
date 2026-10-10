@@ -63,7 +63,7 @@ function ReadyStatus({
   const authoritativeWholesale = customerType === "wholesale";
 
   return (
-    <div className="wholesale-account">
+    <div className="wholesale-account" data-wholesale-application-status={application.status} data-customer-type={customerType}>
       <header className="wholesale-account__header">
         <div>
           <p className="wholesale-page__eyebrow">SF-E-09 · وضعیت فروش عمده</p>
@@ -75,7 +75,7 @@ function ReadyStatus({
         <Link to="/account">بازگشت به حساب من</Link>
       </header>
 
-      <section className="wholesale-status__summary" aria-labelledby="wholesale-status-heading">
+      <section className="wholesale-status__summary" aria-labelledby="wholesale-status-heading" role="status" aria-live="polite">
         <div>
           <span className="wholesale-status__label">وضعیت درخواست</span>
           <h2 id="wholesale-status-heading">{status.label}</h2>
@@ -89,12 +89,12 @@ function ReadyStatus({
       <section className="wholesale-account__panel" aria-labelledby="wholesale-business-heading">
         <h2 id="wholesale-business-heading">اطلاعات درخواست</h2>
         <dl className="wholesale-status__facts">
-          <div><dt>شناسه درخواست</dt><dd><bdi dir="ltr">{application.id}</bdi></dd></div>
+          <div><dt>شناسه درخواست</dt><dd><bdi className="wholesale-status__identifier" dir="ltr">{application.id}</bdi></dd></div>
           <div><dt>نام کسب‌وکار</dt><dd>{application.business_name}</dd></div>
           <div><dt>نام مدیر یا مسئول</dt><dd>{application.manager_name}</dd></div>
           <div><dt>نوع کسب‌وکار</dt><dd>{application.business_type}</dd></div>
           {application.business_identifier ? (
-            <div><dt>شناسه کسب‌وکار</dt><dd><bdi dir="ltr">{application.business_identifier}</bdi></dd></div>
+            <div><dt>شناسه کسب‌وکار</dt><dd><bdi className="wholesale-status__identifier" dir="ltr">{application.business_identifier}</bdi></dd></div>
           ) : null}
           <div>
             <dt>زمان ثبت</dt>

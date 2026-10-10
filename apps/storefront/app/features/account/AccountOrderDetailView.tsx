@@ -53,7 +53,7 @@ export function AccountOrderDetailView({ state, actionData, busy }: Props) {
   const canCancel = order.allowed_actions.includes("cancel_order");
 
   return (
-    <div className="account-settings">
+    <div className="account-settings" aria-busy={busy}>
       <header className="account-settings__header">
         <div>
           <p className="account-overview__eyebrow">SF-E-05 · سفارش مشتری</p>
@@ -83,7 +83,7 @@ export function AccountOrderDetailView({ state, actionData, busy }: Props) {
       ) : null}
 
       {order.customer_type === "wholesale" ? (
-        <div className="account-settings__notice" role="status">
+        <div className="account-settings__notice" role="status" aria-live="polite">
           این سفارش با زمینه عمده ذخیره‌شده در Checkout ثبت شده است؛ قیمت و تخفیف از Snapshot سفارش نمایش داده می‌شوند، نه از نوع فعلی حساب.
         </div>
       ) : null}

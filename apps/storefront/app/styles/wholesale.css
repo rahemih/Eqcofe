@@ -306,3 +306,92 @@
     justify-content: center;
   }
 }
+
+
+/* Step 65-G — Wholesale RTL/accessibility/responsive/state hardening */
+.wholesale-page,
+.wholesale-account {
+  inline-size: 100%;
+  box-sizing: border-box;
+}
+
+.wholesale-page > *,
+.wholesale-account > *,
+.wholesale-page__hero > *,
+.wholesale-status__summary > *,
+.wholesale-account__form > * {
+  min-inline-size: 0;
+}
+
+.wholesale-page :is(h1, h2, p, strong, span, li),
+.wholesale-account :is(h1, h2, p, strong, span, label, dt, dd, small) {
+  overflow-wrap: anywhere;
+}
+
+.wholesale-status__identifier,
+.wholesale-account bdi {
+  display: inline-block;
+  max-inline-size: 100%;
+  overflow-wrap: anywhere;
+  unicode-bidi: isolate;
+}
+
+.wholesale-account__busy {
+  margin: 0;
+  font-weight: 700;
+}
+
+.wholesale-account :is(button, input, select, textarea):disabled {
+  cursor: not-allowed;
+  opacity: .65;
+}
+
+.wholesale-status__badge {
+  max-inline-size: 100%;
+  white-space: normal;
+  text-align: center;
+}
+
+@media (min-width: 75rem) {
+  .wholesale-page,
+  .wholesale-account {
+    padding-inline: 1.5rem;
+  }
+}
+
+@media (min-width: 90rem) {
+  .wholesale-page,
+  .wholesale-account {
+    padding-inline: 2rem;
+  }
+}
+
+@media (max-width: 22.5rem) {
+  .wholesale-page,
+  .wholesale-account {
+    padding-inline: .625rem;
+  }
+
+  .wholesale-status__badge,
+  .wholesale-page__actions,
+  .wholesale-page__primary,
+  .wholesale-page__secondary {
+    inline-size: 100%;
+    box-sizing: border-box;
+  }
+}
+
+@media (max-width: 20rem) {
+  .wholesale-page,
+  .wholesale-account {
+    padding-inline: .5rem;
+  }
+
+  .wholesale-page__state,
+  .wholesale-account__state,
+  .wholesale-account__panel,
+  .wholesale-status__summary {
+    border-radius: .75rem;
+    padding: .75rem;
+  }
+}
