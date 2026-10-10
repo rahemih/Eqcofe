@@ -75,11 +75,11 @@ async function verifyWholesaleApplicationJourney() {
     }
 
     if (request.method === "GET" && url.pathname === "/customer/profile") {
-      return json(response, 200, envelope(profile()));
+      return json(response, 200, profile());
     }
 
     if (request.method === "GET" && url.pathname === "/customer/wholesale/application") {
-      return json(response, 200, envelope(application));
+      return json(response, 200, application);
     }
 
     if (request.method === "POST" && url.pathname === "/customer/wholesale/applications") {
@@ -108,7 +108,7 @@ async function verifyWholesaleApplicationJourney() {
         decision_note: null,
         rejection_reason: null,
       };
-      return json(response, 201, envelope(application));
+      return json(response, 201, application);
     }
 
     return json(response, 404, errorEnvelope("NOT_FOUND", "not found"));
