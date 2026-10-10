@@ -858,7 +858,7 @@
     },
     {
       "path": "src/modules/cart/application/cart.service.ts",
-      "sha256": "e0f062b7ac29832139a1a912d20532ac638d996317cc083310d8563e6ded27d9"
+      "sha256": "896667d056d7258005af11a7d389efb45d1c58ba4940f70476ac29f746839961"
     },
     {
       "path": "src/modules/cart/application/ports/cart-order-checkout.port.ts",
