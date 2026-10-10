@@ -8751,6 +8751,43 @@ export interface components {
             category_id: components["schemas"]["EntityId"];
             filters: components["schemas"]["CategoryFilterDefinition"][];
         };
+        ArticleSeoMetadata: {
+            title: string;
+            description: string | null;
+            /** Format: uri */
+            canonical_url: string;
+            /** @constant */
+            indexable: true;
+            /** @enum {string} */
+            robots: "index,follow";
+        };
+        PublicArticleSummary: {
+            id: components["schemas"]["EntityId"];
+            slug: components["schemas"]["Slug"];
+            title_fa: string;
+            seo_title: string | null;
+            meta_description: string | null;
+            published_at: components["schemas"]["Timestamp"];
+            seo: components["schemas"]["ArticleSeoMetadata"];
+        };
+        PublicArticleDetail: {
+            id: components["schemas"]["EntityId"];
+            slug: components["schemas"]["Slug"];
+            title_fa: string;
+            seo_title: string | null;
+            meta_description: string | null;
+            published_at: components["schemas"]["Timestamp"];
+            seo: components["schemas"]["ArticleSeoMetadata"];
+            body: string | null;
+            content_version: number;
+        };
+        PublicArticleListResponse: {
+            items: components["schemas"]["PublicArticleSummary"][];
+            next_cursor: string | null;
+        };
+        PublicArticleRelatedResponse: {
+            items: components["schemas"]["PublicArticleSummary"][];
+        };
         SalesControlPreviewRequest: {
             /** @enum {string} */
             scope_type: "global" | "brand" | "category" | "product" | "variant";
@@ -12000,20 +12037,26 @@ export interface operations {
     };
     getArticles: {
         parameters: {
-            query?: never;
+            query?: {
+                cursor?: components["parameters"]["Cursor"];
+                limit?: number;
+            };
             header?: never;
             path?: never;
             cookie?: never;
         };
         requestBody?: never;
         responses: {
-            /** @description عملیات موفق */
+            /** @description فهرست مقالات عمومی منتشرشده */
             200: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["PublicArticleListResponse"];
+                };
             };
+            422: components["responses"]["Unprocessable"];
         };
     };
     getArticlesSlug: {
@@ -12021,39 +12064,48 @@ export interface operations {
             query?: never;
             header?: never;
             path: {
-                slug: string;
+                slug: components["schemas"]["Slug"];
             };
             cookie?: never;
         };
         requestBody?: never;
         responses: {
-            /** @description عملیات موفق */
+            /** @description snapshot عمومی مقاله منتشرشده */
             200: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["PublicArticleDetail"];
+                };
             };
+            404: components["responses"]["NotFound"];
         };
     };
     getArticlesSlugRelated: {
         parameters: {
-            query?: never;
+            query?: {
+                limit?: number;
+            };
             header?: never;
             path: {
-                slug: string;
+                slug: components["schemas"]["Slug"];
             };
             cookie?: never;
         };
         requestBody?: never;
         responses: {
-            /** @description عملیات موفق */
+            /** @description مقالات عمومی مرتبط با مقاله منتشرشده */
             200: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["PublicArticleRelatedResponse"];
+                };
             };
+            404: components["responses"]["NotFound"];
+            422: components["responses"]["Unprocessable"];
         };
     };
     getCampaignsSlug: {

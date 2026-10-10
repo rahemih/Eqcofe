@@ -1257,6 +1257,138 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/CategoryFilterDefinition'
+    ArticleSeoMetadata:
+      type: object
+      additionalProperties: false
+      required:
+      - title
+      - description
+      - canonical_url
+      - indexable
+      - robots
+      properties:
+        title:
+          type: string
+          minLength: 1
+          maxLength: 300
+        description:
+          type:
+          - string
+          - 'null'
+          maxLength: 500
+        canonical_url:
+          type: string
+          format: uri
+        indexable:
+          type: boolean
+          const: true
+        robots:
+          type: string
+          enum:
+          - index,follow
+    PublicArticleSummary:
+      type: object
+      additionalProperties: false
+      required:
+      - id
+      - slug
+      - title_fa
+      - seo_title
+      - meta_description
+      - published_at
+      - seo
+      properties:
+        id:
+          $ref: '#/components/schemas/EntityId'
+        slug:
+          $ref: '#/components/schemas/Slug'
+        title_fa:
+          type: string
+          minLength: 1
+          maxLength: 500
+        seo_title:
+          type:
+          - string
+          - 'null'
+          maxLength: 300
+        meta_description:
+          type:
+          - string
+          - 'null'
+          maxLength: 500
+        published_at:
+          $ref: '#/components/schemas/Timestamp'
+        seo:
+          $ref: '#/components/schemas/ArticleSeoMetadata'
+    PublicArticleDetail:
+      type: object
+      additionalProperties: false
+      required:
+      - id
+      - slug
+      - title_fa
+      - seo_title
+      - meta_description
+      - published_at
+      - seo
+      - body
+      - content_version
+      properties:
+        id:
+          $ref: '#/components/schemas/EntityId'
+        slug:
+          $ref: '#/components/schemas/Slug'
+        title_fa:
+          type: string
+          minLength: 1
+          maxLength: 500
+        seo_title:
+          type:
+          - string
+          - 'null'
+          maxLength: 300
+        meta_description:
+          type:
+          - string
+          - 'null'
+          maxLength: 500
+        published_at:
+          $ref: '#/components/schemas/Timestamp'
+        seo:
+          $ref: '#/components/schemas/ArticleSeoMetadata'
+        body:
+          type:
+          - string
+          - 'null'
+        content_version:
+          type: integer
+          minimum: 1
+    PublicArticleListResponse:
+      type: object
+      additionalProperties: false
+      required:
+      - items
+      - next_cursor
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/PublicArticleSummary'
+        next_cursor:
+          type:
+          - string
+          - 'null'
+          maxLength: 1024
+    PublicArticleRelatedResponse:
+      type: object
+      additionalProperties: false
+      required:
+      - items
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/PublicArticleSummary'
     SalesControlPreviewRequest:
       type: object
       additionalProperties: false
@@ -9103,39 +9235,81 @@ paths:
   /articles:
     get:
       tags:
-      - Catalog
+      - Content
       operationId: getArticles
+      description: فهرست فقط مقالات published؛ draft/scheduled/unpublished/archived عمومی نیست.
+      parameters:
+      - $ref: '#/components/parameters/Cursor'
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 20
       responses:
         '200':
-          description: عملیات موفق
+          description: فهرست مقالات عمومی منتشرشده
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicArticleListResponse'
+        '422':
+          $ref: '#/components/responses/Unprocessable'
+      security: []
   /articles/{slug}:
     get:
       tags:
-      - Catalog
+      - Content
       operationId: getArticlesSlug
-      responses:
-        '200':
-          description: عملیات موفق
       parameters:
       - name: slug
         in: path
         required: true
         schema:
-          type: string
+          $ref: '#/components/schemas/Slug'
+      responses:
+        '200':
+          description: snapshot عمومی مقاله منتشرشده
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicArticleDetail'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      security: []
   /articles/{slug}/related:
     get:
       tags:
-      - Catalog
+      - Content
       operationId: getArticlesSlugRelated
-      responses:
-        '200':
-          description: عملیات موفق
       parameters:
       - name: slug
         in: path
         required: true
         schema:
-          type: string
+          $ref: '#/components/schemas/Slug'
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 20
+          default: 6
+      responses:
+        '200':
+          description: مقالات عمومی مرتبط با مقاله منتشرشده
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicArticleRelatedResponse'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/Unprocessable'
+      security: []
   /campaigns/{slug}:
     get:
       tags:

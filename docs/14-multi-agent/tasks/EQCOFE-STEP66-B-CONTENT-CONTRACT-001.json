@@ -1,0 +1,188 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP66-B-CONTENT-CONTRACT-001",
+  "title": "Step 66-B Article OpenAPI/generated contract readiness and public SEO boundary freeze",
+  "description": "HIGH-risk contract-only Step 66-B. Type the existing published-only public Article reads and backend-owned SEO metadata before Storefront implementation. Freeze sitemap as Storefront consumption of paginated Article canonical_url/published_at data, robots.txt as a Storefront static resource, and archive/stop-sale collection semantics as deferred to Stage 66-G because no safe public collection authority exists. No runtime, database, dependency, Storefront or business-rule mutation.",
+  "risk": "HIGH",
+  "risk_floor": "HIGH",
+  "owner": "BACKEND_ENGINEERING",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "8fba48079fa767955408624539a8a2e8311d6935"
+  },
+  "scope": {
+    "read": [
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "src/modules/content/**",
+      "src/modules/catalog/**",
+      "apps/storefront/**",
+      "test/**",
+      "docs/13-product-design/**",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "test/step66-content-contract.spec.ts",
+      "docs/11-step-history/STEP-66-B-CONTENT-CONTRACT-READINESS.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP66-B-CONTENT-CONTRACT-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "docs/13-product-design/step56-admin-ux-contract.json",
+      "docs/13-product-design/step56-foundation/A/manifest.json",
+      "docs/13-product-design/step56-admin-shell-wireframes.json",
+      "docs/13-product-design/step56-wireframes/B/manifest.json",
+      "docs/13-product-design/step56-catalog-media-wireframes.json",
+      "docs/13-product-design/step56-wireframes/C/manifest.json",
+      "docs/13-product-design/step56-pricing-inventory-wireframes.json",
+      "docs/13-product-design/step56-wireframes/D/manifest.json",
+      "docs/13-product-design/step56-commerce-operations-wireframes.json",
+      "docs/13-product-design/step56-wireframes/E/manifest.json",
+      "docs/13-product-design/step56-customers-growth-wireframes.json",
+      "docs/13-product-design/step56-wireframes/F/manifest.json",
+      "docs/13-product-design/step56-management-security-wireframes.json",
+      "docs/13-product-design/step56-wireframes/G/manifest.json",
+      "docs/13-product-design/step56-final-audit.json",
+      "docs/13-product-design/step56-final-audit/manifest.json",
+      "docs/13-product-design/step57-high-fidelity-contract.json"
+    ],
+    "forbidden": [
+      ".github/**",
+      "database/**",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "apps/storefront/**",
+      "src/modules/content/**",
+      "src/modules/catalog/**",
+      "docs/12-current-state/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP66-B-CONTENT-CONTRACT-001-01"
+  ],
+  "human_gate_required": true,
+  "authorized_human_approver": {
+    "role": "PROJECT_OWNER",
+    "github_login": "rahemih"
+  },
+  "token_budget": {
+    "expected_max": 38000,
+    "soft_alert": 62000,
+    "hard_cap": 100000
+  },
+  "max_repair_cycles": 3,
+  "task_risk_rules": [
+    {
+      "id": "STEP66_B_CONTENT_HTTP_HIGH",
+      "risk": "HIGH",
+      "paths": [
+        "contracts/http/openapi.yaml",
+        "src/generated/openapi.ts",
+        "test/step66-content-contract.spec.ts",
+        "docs/11-step-history/STEP-66-B-CONTENT-CONTRACT-READINESS.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP66-B-CONTENT-CONTRACT-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md",
+        "docs/13-product-design/step56-admin-ux-contract.json",
+        "docs/13-product-design/step56-foundation/A/manifest.json",
+        "docs/13-product-design/step56-admin-shell-wireframes.json",
+        "docs/13-product-design/step56-wireframes/B/manifest.json",
+        "docs/13-product-design/step56-catalog-media-wireframes.json",
+        "docs/13-product-design/step56-wireframes/C/manifest.json",
+        "docs/13-product-design/step56-pricing-inventory-wireframes.json",
+        "docs/13-product-design/step56-wireframes/D/manifest.json",
+        "docs/13-product-design/step56-commerce-operations-wireframes.json",
+        "docs/13-product-design/step56-wireframes/E/manifest.json",
+        "docs/13-product-design/step56-customers-growth-wireframes.json",
+        "docs/13-product-design/step56-wireframes/F/manifest.json",
+        "docs/13-product-design/step56-management-security-wireframes.json",
+        "docs/13-product-design/step56-wireframes/G/manifest.json",
+        "docs/13-product-design/step56-final-audit.json",
+        "docs/13-product-design/step56-final-audit/manifest.json",
+        "docs/13-product-design/step57-high-fidelity-contract.json"
+      ]
+    }
+  ],
+  "pre_mutation_gates": {
+    "graph_health": "RETIRED_AND_OUT_OF_SCOPE",
+    "query_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "path_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "explain_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "human_gate": "FINAL_EXACT_ARTIFACT_APPROVAL_REQUIRED_BEFORE_PROTECTED_MERGE"
+  },
+  "dependencies": [
+    {
+      "item": "66-A",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "8fba48079fa767955408624539a8a2e8311d6935",
+      "evidence": "PR #340 merged; exact-SHA Canonical CI 38051125948, Phase A 38051125928 and CodeQL 38051126275 PASS; terminal Lock released.",
+      "blocking": false
+    }
+  ],
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Three public Article reads have typed responses matching current runtime and error boundaries.",
+      "verification": "step66_content_contract_test",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "No author/category/tag/structured data is invented and published-only lifecycle remains intact.",
+      "verification": "runtime_openapi_alignment",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Sitemap is Storefront consumption of typed Article canonical_url/published_at; robots.txt is Storefront static; no redundant backend resource is invented.",
+      "verification": "boundary_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Archive/stop-sale collection authority remains deferred to Stage 66-G; no guessed public endpoint is created.",
+      "verification": "authority_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Generated TypeScript is byte-for-byte reproducible from pinned OpenAPI generator.",
+      "verification": "generated_contract_parity",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Step56/57 recovered-source hash propagation is generator-equivalent only, with no Product Design semantic mutation.",
+      "verification": "provenance_only_repair",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "HIGH-risk closure requires CI, Phase A, CodeQL/Security, Review, exact Lock, Project Owner Human approval, protected merge and postmerge verification.",
+      "verification": "canonical_transport",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "SECURITY",
+      "HUMAN",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Project Owner approval binds only to final exact head/artifact after provider checks, Security, Review and ACTIVE Lock."
+  },
+  "evidence": {
+    "linear_issue": "HOS-70",
+    "migration_need": "NONE",
+    "dependency_need": "NONE",
+    "runtime_mutation": "NONE",
+    "archive_stop_sale": "DEFERRED_TO_66_G_HIGH",
+    "graph_state": "RETIRED_AND_OUT_OF_SCOPE"
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}
