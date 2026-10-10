@@ -3,6 +3,7 @@ import type { ApiClientConfig } from "../../platform/api/request.js";
 import { readServerMediaConfig } from "../../platform/config/api.server.js";
 import {
   createCustomerSessionBridge,
+  extractCustomerSessionCookieHeader,
   type CustomerSessionBridge,
 } from "../../platform/auth/session-cookie.server.js";
 import {
@@ -12,6 +13,7 @@ import {
   type AsyncSurfaceState,
 } from "../../platform/state/surface-state.js";
 import type {
+  ProductCustomerType,
   ProductDetailResponse,
   ProductVariantsResponse,
   RelatedProductCard,
@@ -29,6 +31,7 @@ export type ProductDetailRouteData = {
   related: AsyncSurfaceState<readonly RelatedProductCard[]>;
   media: readonly ResolvedProductMedia[];
   mediaCapabilities: ProductMediaCapabilities;
+  customerType: ProductCustomerType | null;
   contract: {
     method: "GET";
     path: "/products/{slug}";
@@ -66,10 +69,21 @@ export async function loadProductDetailFoundation(
   let bridge: CustomerSessionBridge | undefined;
 
   try {
+    const hasCustomerSession = extractCustomerSessionCookieHeader(request) !== null;
     bridge = createCustomerSessionBridge(request, options);
     const productResult = await bridge.client.request("get", "/products/{slug}", {
       pathParams: { slug },
     });
+
+    let customerType: ProductCustomerType | null = null;
+    if (hasCustomerSession) {
+      try {
+        const profileResult = await bridge.client.request("get", "/customer/profile", {});
+        customerType = profileResult.data.customer_type;
+      } catch {
+        customerType = null;
+      }
+    }
 
     let variants: AsyncSurfaceState<ProductVariantsResponse>;
     try {
@@ -113,6 +127,7 @@ export async function loadProductDetailFoundation(
         related,
         media: resolveProductMedia(productResult.data.media, mediaBaseUrl),
         mediaCapabilities: PRODUCT_MEDIA_CAPABILITIES,
+        customerType,
         contract: productDetailContract(),
       },
       setCookies: bridge.takeSetCookies(),
@@ -126,6 +141,7 @@ export async function loadProductDetailFoundation(
           related: emptyState("no-result"),
           media: [],
           mediaCapabilities: PRODUCT_MEDIA_CAPABILITIES,
+          customerType: null,
           contract: productDetailContract(),
         },
         setCookies: bridge?.takeSetCookies() ?? [],
@@ -149,6 +165,7 @@ export async function loadProductDetailFoundation(
         }),
         media: [],
         mediaCapabilities: PRODUCT_MEDIA_CAPABILITIES,
+        customerType: null,
         contract: productDetailContract(),
       },
       setCookies: bridge?.takeSetCookies() ?? [],

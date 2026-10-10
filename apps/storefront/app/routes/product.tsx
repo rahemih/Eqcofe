@@ -52,12 +52,29 @@ export async function action({ request }: { request: Request }) {
     );
   }
 
+  const quantityValue = formData.get("quantity");
+  const quantity = quantityValue == null || quantityValue === ""
+    ? 1
+    : Number(quantityValue);
+  if (!Number.isSafeInteger(quantity) || quantity < 1 || quantity > 999) {
+    return data(
+      { status: "error" as const, message: "تعداد انتخاب‌شده معتبر نیست." },
+      { status: 422 },
+    );
+  }
+
   try {
-    const result = await addProductVariantToCart(request, variantId);
+    const result = await addProductVariantToCart(request, variantId, quantity);
     const headers = new Headers();
     appendGuestCartSetCookies(headers, result.setCookies);
+    appendCustomerSessionSetCookies(headers, result.customerSessionSetCookies);
     return data(
-      { status: "success" as const, message: "این مدل به سبد خرید اضافه شد." },
+      {
+        status: "success" as const,
+        message: result.customerType === "wholesale"
+          ? "کالا با تعداد انتخاب‌شده به سبد عمده افزوده شد؛ قیمت معتبر در سبد نمایش داده می‌شود."
+          : "این مدل به سبد خرید اضافه شد.",
+      },
       { headers },
     );
   } catch (error) {
@@ -128,6 +145,7 @@ export default function ProductRoute() {
         media={loaderData.media}
         variantFallback={variantFallback}
         cartFeedback={actionData ?? null}
+        customerType={loaderData.customerType}
       />
       </article>
     </>

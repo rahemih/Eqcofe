@@ -3,6 +3,7 @@ import { useFetcher } from "react-router";
 import { ProductEvaluationActions } from "../compare-wishlist/ProductEvaluationActions.js";
 import type { WishlistMembershipView } from "../compare-wishlist/wishlist-action-state.js";
 import type {
+  ProductCustomerType,
   ProductDetailResponse,
   ProductVariant,
   RelatedProductCard,
@@ -29,6 +30,7 @@ export function ProductDetailExperience({
   media,
   variantFallback,
   cartFeedback,
+  customerType,
 }: {
   product: ProductDetailResponse;
   variants: readonly ProductVariant[] | null;
@@ -36,6 +38,7 @@ export function ProductDetailExperience({
   media: readonly ResolvedProductMedia[];
   variantFallback: ReactNode;
   cartFeedback: ProductCartFeedback | null;
+  customerType: ProductCustomerType | null;
 }) {
   const wishlistFetcher = useFetcher<WishlistMembershipView>();
   const wishlist = wishlistFetcher.data ?? UNKNOWN_WISHLIST;
@@ -64,7 +67,11 @@ export function ProductDetailExperience({
           onSelect={setSelectedVariantId}
         />
       ) : variantFallback}
-      <ProductAddToCart variant={selectedVariant} feedback={cartFeedback} />
+      <ProductAddToCart
+        variant={selectedVariant}
+        feedback={cartFeedback}
+        customerType={customerType}
+      />
       <ProductSpecifications specifications={product.specifications} />
       <ProductRelated
         products={relatedProducts}

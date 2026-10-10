@@ -1,5 +1,9 @@
 import { ApiClientError } from "../../platform/api/errors.js";
 import { createApiClient, type ApiClientConfig } from "../../platform/api/request.js";
+import {
+  createCustomerSessionBridge,
+  extractCustomerSessionCookieHeader,
+} from "../../platform/auth/session-cookie.server.js";
 import { readServerApiConfig } from "../../platform/config/api.server.js";
 import {
   appendCartCheckoutSetCookies,
@@ -16,13 +20,21 @@ export type AddProductVariantToCartOptions = {
 export type AddProductVariantToCartResult = {
   itemCount: number;
   setCookies: readonly string[];
+  customerSessionSetCookies: readonly string[];
+  customerType: "wholesale" | null;
 };
+
+const DEFAULT_ADD_TO_CART_INPUT = Object.freeze({ quantity: 1 });
 
 export async function addProductVariantToCart(
   request: Request,
   variantId: string,
-  options: AddProductVariantToCartOptions = {},
+  quantityOrOptions: number | AddProductVariantToCartOptions = DEFAULT_ADD_TO_CART_INPUT.quantity,
+  explicitOptions: AddProductVariantToCartOptions = {},
 ): Promise<AddProductVariantToCartResult> {
+  const quantity = typeof quantityOrOptions === "number" ? quantityOrOptions : 1;
+  const options = typeof quantityOrOptions === "number" ? explicitOptions : quantityOrOptions;
+
   if (!isUuid(variantId)) {
     throw new ApiClientError({
       kind: "configuration",
@@ -30,7 +42,103 @@ export async function addProductVariantToCart(
       message: "Variant id is invalid.",
     });
   }
+  if (!Number.isSafeInteger(quantity) || quantity < 1 || quantity > 999) {
+    throw new ApiClientError({
+      kind: "configuration",
+      code: "CART_QUANTITY_INVALID",
+      message: "Cart quantity is invalid.",
+    });
+  }
 
+  const sessionCookie = extractCustomerSessionCookieHeader(request);
+  if (sessionCookie) {
+    const wholesale = await tryAddToWholesaleCustomerCart(
+      request,
+      variantId,
+      quantity,
+      options,
+    );
+    if (wholesale) return wholesale;
+  }
+
+  return addToGuestCart(request, variantId, quantity, options);
+}
+
+async function tryAddToWholesaleCustomerCart(
+  request: Request,
+  variantId: string,
+  quantity: number,
+  options: AddProductVariantToCartOptions,
+): Promise<AddProductVariantToCartResult | null> {
+  const bridge = createCustomerSessionBridge(request, options);
+
+  try {
+    const profile = await bridge.client.request("get", "/customer/profile", {});
+    if (profile.data.customer_type !== "wholesale") return null;
+  } catch (error) {
+    if (
+      error instanceof ApiClientError
+      && error.kind === "http"
+      && error.status === 401
+    ) {
+      return null;
+    }
+    throw error;
+  }
+
+  const existing = readCartCredentials(request);
+  let cartId: string;
+  let cartToken: string;
+
+  if (existing) {
+    try {
+      const merged = await bridge.client.request("post", "/customer/cart/merge", {
+        body: {
+          source_cart_id: existing.cartId,
+          source_cart_token: existing.cartToken,
+        },
+      });
+      cartId = merged.data.data.cart.id;
+      cartToken = merged.data.data.cart_token;
+    } catch (error) {
+      if (
+        !(error instanceof ApiClientError)
+        || !["CART_NOT_GUEST", "CART_ACCESS_DENIED"].includes(error.code)
+      ) {
+        throw error;
+      }
+      const accessed = await bridge.client.request("post", "/customer/cart/access", {});
+      cartId = accessed.data.data.cart.id;
+      cartToken = accessed.data.data.cart_token;
+    }
+  } else {
+    const accessed = await bridge.client.request("post", "/customer/cart/access", {});
+    cartId = accessed.data.data.cart.id;
+    cartToken = accessed.data.data.cart_token;
+  }
+
+  const result = await addItem(
+    bridge.client,
+    cartId,
+    cartToken,
+    variantId,
+    quantity,
+  );
+
+  return {
+    itemCount: result.items.length,
+    setCookies: serializeCartCredentials(request, cartId, cartToken),
+    customerSessionSetCookies: bridge.takeSetCookies(),
+    customerType: "wholesale",
+  };
+}
+
+async function addToGuestCart(
+  request: Request,
+  variantId: string,
+  quantity: number,
+  options: AddProductVariantToCartOptions,
+): Promise<AddProductVariantToCartResult> {
   const baseConfig = options.config ?? readServerApiConfig();
   const client = createApiClient({
     ...baseConfig,
@@ -42,10 +150,23 @@ export async function addProductVariantToCart(
 
   if (credentials) {
     try {
-      const result = await addItem(client, credentials.cartId, credentials.cartToken, variantId);
-      return { itemCount: result.items.length, setCookies };
+      const result = await addItem(
+        client,
+        credentials.cartId,
+        credentials.cartToken,
+        variantId,
+        quantity,
+      );
+      return {
+        itemCount: result.items.length,
+        setCookies,
+        customerSessionSetCookies: [],
+        customerType: null,
+      };
     } catch (error) {
-      if (!(error instanceof ApiClientError) || error.code !== "CART_ACCESS_DENIED") throw error;
+      if (!(error instanceof ApiClientError) || error.code !== "CART_ACCESS_DENIED") {
+        throw error;
+      }
     }
   }
 
@@ -53,8 +174,13 @@ export async function addProductVariantToCart(
   const cartId = created.data.data.cart_id;
   const cartToken = created.data.data.cart_token;
   setCookies.push(...serializeCartCredentials(request, cartId, cartToken));
-  const result = await addItem(client, cartId, cartToken, variantId);
-  return { itemCount: result.items.length, setCookies };
+  const result = await addItem(client, cartId, cartToken, variantId, quantity);
+  return {
+    itemCount: result.items.length,
+    setCookies,
+    customerSessionSetCookies: [],
+    customerType: null,
+  };
 }
 
 export function appendGuestCartSetCookies(headers: Headers, values: readonly string[]): void {
@@ -73,11 +199,13 @@ export function productCartErrorResult(error: unknown): {
   }
 
   const messages: Record<string, string> = {
-    INSUFFICIENT_STOCK: "موجودی این مدل برای افزودن به سبد کافی نیست.",
+    INSUFFICIENT_STOCK: "موجودی این مدل برای تعداد انتخاب‌شده کافی نیست.",
     SALES_GLOBALLY_DISABLED: "فروش آنلاین در حال حاضر متوقف است.",
     VARIANT_NOT_FOUND: "مدل انتخاب‌شده دیگر در دسترس نیست.",
     CART_ALREADY_IN_CHECKOUT: "این سبد وارد مرحله پرداخت شده است. از صفحه سبد ادامه دهید.",
+    CART_QUANTITY_INVALID: "تعداد انتخاب‌شده معتبر نیست.",
     VALIDATION_ERROR: "درخواست افزودن به سبد معتبر نیست.",
+    CUSTOMER_COMMERCE_UNAVAILABLE: "وضعیت حساب برای قیمت‌گذاری فعلاً در دسترس نیست.",
   };
 
   return {
@@ -95,11 +223,12 @@ async function addItem(
   cartId: string,
   cartToken: string,
   variantId: string,
+  quantity: number,
 ) {
   const result = await client.request("post", "/cart/{id}/items", {
     pathParams: { id: cartId },
     headers: { "X-Cart-Token": cartToken },
-    body: { variant_id: variantId, quantity: 1 },
+    body: { variant_id: variantId, quantity },
   });
   return result.data.data;
 }
