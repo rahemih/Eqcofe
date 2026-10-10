@@ -1676,6 +1676,11 @@ components:
           type: string
         customer_id:
           $ref: '#/components/schemas/NullableEntityId'
+        customer_type:
+          type: string
+          enum:
+          - retail
+          - wholesale
         order_status:
           type: string
           enum:
@@ -1743,6 +1748,7 @@ components:
       required:
       - id
       - order_number
+      - customer_type
       - order_status
       - payment_status
       - fulfillment_status
