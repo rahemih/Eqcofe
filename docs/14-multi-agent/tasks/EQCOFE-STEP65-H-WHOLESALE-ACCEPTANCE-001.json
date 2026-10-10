@@ -1,0 +1,148 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP65-H-WHOLESALE-ACCEPTANCE-001",
+  "title": "Step 65-H integrated production-build and browser acceptance for Wholesale application through approved purchase",
+  "description": "MEDIUM-risk Step 65-H. Add integrated production-build acceptance for SJ-10 Wholesale application/status and SJ-11 approved Wholesale purchase, reusing existing Storefront, Cart, Checkout, Order and browser QA authority without runtime business-rule mutation.",
+  "risk": "MEDIUM",
+  "risk_floor": "MEDIUM",
+  "owner": "QA_ENGINEERING",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "376ad9de097a20fb8f497a1db74ee683d2928b6c"
+  },
+  "scope": {
+    "read": [
+      "apps/storefront/**",
+      "docs/11-step-history/**",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "apps/storefront/scripts/verify-step65-acceptance.mjs",
+      "apps/storefront/package.json",
+      "docs/11-step-history/STEP-65-H-WHOLESALE-ACCEPTANCE.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP65-H-WHOLESALE-ACCEPTANCE-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "database/**",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "contracts/**",
+      "src/**",
+      "apps/storefront/app/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP65-H-WHOLESALE-ACCEPTANCE-001-01"
+  ],
+  "human_gate_required": false,
+  "authorized_human_approver": {
+    "role": "PROJECT_OWNER",
+    "github_login": "rahemih"
+  },
+  "token_budget": {
+    "expected_max": 38000,
+    "soft_alert": 60000,
+    "hard_cap": 105000
+  },
+  "max_repair_cycles": 3,
+  "task_risk_rules": [
+    {
+      "id": "STEP65_H_WHOLESALE_ACCEPTANCE_MEDIUM",
+      "risk": "MEDIUM",
+      "paths": [
+        "apps/storefront/scripts/verify-step65-acceptance.mjs",
+        "apps/storefront/package.json",
+        "docs/11-step-history/STEP-65-H-WHOLESALE-ACCEPTANCE.md",
+        "docs/14-multi-agent/**"
+      ]
+    }
+  ],
+  "pre_mutation_gates": {
+    "graph_health": "RETIRED_AND_OUT_OF_SCOPE",
+    "query_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "path_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "explain_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "human_gate": "NOT_REQUIRED_MEDIUM"
+  },
+  "dependencies": [
+    {
+      "item": "65-G",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "376ad9de097a20fb8f497a1db74ee683d2928b6c",
+      "evidence": "PR #337 merged; exact-SHA Canonical CI 38048945886 PASS, Phase A 38048945936 PASS, Storefront Quality 38048945899 PASS, CodeQL 38048945652 PASS, terminal Lock release comment 6097098295.",
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "linear_issue": "HOS-69",
+    "graph_state": "RETIRED_AND_OUT_OF_SCOPE",
+    "migration_need": "NONE",
+    "dependency_need": "NONE",
+    "backend_mutation": "NONE",
+    "openapi_mutation": "NONE",
+    "pricing_rule_mutation": "NONE",
+    "runtime_mutation": "NONE"
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Production server acceptance proves authenticated retail customer can submit one idempotent Wholesale application and duplicate submission recovers to authoritative existing status without a second backend submit.",
+      "verification": "step65:acceptance",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Application remains retail until the test fixture simulates authoritative backend approval/profile promotion; Storefront never self-promotes customer_type.",
+      "verification": "step65:acceptance",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Approved-wholesale purchase reuses the canonical Step63 Cart/Checkout/Order/Payment acceptance with a derived wholesale fixture and asserts Checkout Review plus Order Outcome wholesale context.",
+      "verification": "step65:acceptance",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Browser mode covers 320 and 1200 widths, RTL, no horizontal overflow, 44x44 targets and axe WCAG checks on Wholesale application/status plus inherited checkout acceptance.",
+      "verification": "Storefront Quality + step65:acceptance",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "No runtime app source, Backend, OpenAPI, database, pricing rule, dependency or workflow mutation is introduced; acceptance remains test-only.",
+      "verification": "deterministic scope check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Storefront verify and quality:browser include Step65 integrated acceptance while retaining all inherited gates.",
+      "verification": "pnpm --dir apps/storefront verify + Storefront Quality",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "MEDIUM canonical closure requires exact-head CI/Phase A/Review/Lock, protected merge, exact-SHA postmerge verification and terminal Lock release; no Human Gate.",
+      "verification": "canonical governance",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "MEDIUM risk; Human Gate not required."
+  },
+  "process_improvement_links": [],
+  "incident_links": [],
+  "repair_history": []
+}
