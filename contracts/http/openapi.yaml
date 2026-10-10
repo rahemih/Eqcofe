@@ -16,6 +16,7 @@ security: []
 tags:
 - name: Auth
 - name: Catalog
+- name: Content
 - name: Search
 - name: Compare
 - name: Cart
@@ -9234,8 +9235,7 @@ paths:
       security: []
   /articles:
     get:
-      tags:
-      - Content
+      tags: [Content]
       operationId: getArticles
       description: فهرست فقط مقالات published؛ draft/scheduled/unpublished/archived عمومی نیست.
       parameters:
@@ -9243,72 +9243,53 @@ paths:
       - name: limit
         in: query
         required: false
-        schema:
-          type: integer
-          minimum: 1
-          maximum: 100
-          default: 20
+        schema: { type: integer, minimum: 1, maximum: 100, default: 20 }
       responses:
         '200':
           description: فهرست مقالات عمومی منتشرشده
           content:
             application/json:
-              schema:
-                $ref: '#/components/schemas/PublicArticleListResponse'
-        '422':
-          $ref: '#/components/responses/Unprocessable'
+              schema: { $ref: '#/components/schemas/PublicArticleListResponse' }
+        '422': { $ref: '#/components/responses/Unprocessable' }
       security: []
   /articles/{slug}:
     get:
-      tags:
-      - Content
+      tags: [Content]
       operationId: getArticlesSlug
-      parameters:
-      - name: slug
-        in: path
-        required: true
-        schema:
-          $ref: '#/components/schemas/Slug'
       responses:
         '200':
           description: snapshot عمومی مقاله منتشرشده
           content:
             application/json:
-              schema:
-                $ref: '#/components/schemas/PublicArticleDetail'
-        '404':
-          $ref: '#/components/responses/NotFound'
-      security: []
-  /articles/{slug}/related:
-    get:
-      tags:
-      - Content
-      operationId: getArticlesSlugRelated
+              schema: { $ref: '#/components/schemas/PublicArticleDetailResponse' }
+        '404': { $ref: '#/components/responses/NotFound' }
       parameters:
       - name: slug
         in: path
         required: true
-        schema:
-          $ref: '#/components/schemas/Slug'
-      - name: limit
-        in: query
-        required: false
-        schema:
-          type: integer
-          minimum: 1
-          maximum: 20
-          default: 6
+        schema: { $ref: '#/components/schemas/Slug' }
+      security: []
+  /articles/{slug}/related:
+    get:
+      tags: [Content]
+      operationId: getArticlesSlugRelated
       responses:
         '200':
           description: مقالات عمومی مرتبط با مقاله منتشرشده
           content:
             application/json:
-              schema:
-                $ref: '#/components/schemas/PublicArticleRelatedResponse'
-        '404':
-          $ref: '#/components/responses/NotFound'
-        '422':
-          $ref: '#/components/responses/Unprocessable'
+              schema: { $ref: '#/components/schemas/PublicArticleRelatedResponse' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '422': { $ref: '#/components/responses/Unprocessable' }
+      parameters:
+      - name: slug
+        in: path
+        required: true
+        schema: { $ref: '#/components/schemas/Slug' }
+      - name: limit
+        in: query
+        required: false
+        schema: { type: integer, minimum: 1, maximum: 20, default: 6 }
       security: []
   /campaigns/{slug}:
     get:
