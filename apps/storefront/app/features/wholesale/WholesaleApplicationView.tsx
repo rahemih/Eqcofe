@@ -85,7 +85,7 @@ function ReadyApplication({
   const cityId = provinceCities[0]?.id ?? "";
 
   return (
-    <div className="wholesale-account">
+    <div className="wholesale-account" aria-busy={busy}>
       <header className="wholesale-account__header">
         <div>
           <p className="wholesale-page__eyebrow">SF-E-08 · درخواست فروش عمده</p>
@@ -109,7 +109,7 @@ function ReadyApplication({
       ) : null}
 
       {actionData && !actionData.ok ? (
-        <div className="wholesale-account__error" role="alert" tabIndex={-1}>
+        <div className="wholesale-account__error" role="alert" aria-live="assertive" tabIndex={-1}>
           {actionData.message}
         </div>
       ) : null}
@@ -118,7 +118,7 @@ function ReadyApplication({
         <h2 id="wholesale-apply-heading">اطلاعات کسب‌وکار</h2>
         <p>مرجع استان و شهر سال {state.referenceYear} است. نوع کسب‌وکار متن آزاد و حداکثر ۱۰۰ نویسه است.</p>
 
-        <Form method="post" replace className="wholesale-account__form">
+        <Form method="post" replace className="wholesale-account__form" aria-describedby="wholesale-application-consent">
           <input type="hidden" name="intent" value="submit-wholesale-application" />
 
           <label>
@@ -194,6 +194,11 @@ function ReadyApplication({
           >
             {busy ? "در حال ثبت درخواست…" : "ارسال درخواست برای بررسی"}
           </button>
+          {busy ? (
+            <p className="wholesale-account__busy wholesale-account__wide" role="status" aria-live="polite">
+              درخواست در حال ارسال است؛ از ارسال دوباره خودداری کنید.
+            </p>
+          ) : null}
         </Form>
       </section>
     </div>
