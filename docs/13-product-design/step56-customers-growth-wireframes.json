@@ -834,7 +834,7 @@
     },
     {
       "path": "docs/13-product-design/step56-admin-ux-contract.json",
-      "sha256": "ef4f29fd2b4e35ffc566da5a608794ab411c33efe62e956c18729d2fd4f7710e"
+      "sha256": "753bf32448f4e3035f18d8b6d82a32ff8d2f21d5d0f366d456767daf38530f54"
     },
     {
       "path": "docs/13-product-design/step56-commerce-operations-wireframes.json",
@@ -902,7 +902,7 @@
     },
     {
       "path": "src/modules/catalog/application/catalog-query.service.ts",
-      "sha256": "27bac600e34965ee5fb35a49ed7beab7b9716f6e16a44460bad57e82bdf68afc"
+      "sha256": "3513d9bd5614897031b24f946c8b9cc8e46f4769945ce6649268b154235a3b27"
     },
     {
       "path": "src/modules/catalog/application/catalog-structure.service.ts",
@@ -974,7 +974,7 @@
     },
     {
       "path": "src/modules/catalog/infrastructure/catalog.repository.ts",
-      "sha256": "8348a8615a981f6869970d6deeab7c4b13fc197179a1fafa457c9933d8fe1831"
+      "sha256": "77c40f3b119e59924ab0ebe48b4af51b6d26320348e59a4863e747a48043527e"
     },
     {
       "path": "src/modules/catalog/infrastructure/configured-media-storage.adapter.ts",
@@ -1010,7 +1010,7 @@
     },
     {
       "path": "src/modules/content/application/article-public-query.service.ts",
-      "sha256": "0ab7e31209967779dc9a95b0de8fd32fbd62334edef4944ea3465949dfea6f72"
+      "sha256": "f07f9d09179dea1bc76dff8327b8197075ec42e7d7c9fa59cd1d3127b7d5b533"
     },
     {
       "path": "src/modules/content/application/article-seo.service.ts",
@@ -1018,11 +1018,11 @@
     },
     {
       "path": "src/modules/content/application/article-sitemap.service.ts",
-      "sha256": "da2abcee30081b6da0e30f68e23a4e6fa292e1da97a4a3982d1ec14f5da63a34"
+      "sha256": "d91e0d08d6d7a4a373ba0aaabd21bdb58c99cce3a5bcc63329d3dde54a97ef53"
     },
     {
       "path": "src/modules/content/content.module.ts",
-      "sha256": "1a840187d4f167e30e3d86e8e707da97b9b158a5f912bdb80c05d0429468460c"
+      "sha256": "4a9afbe11f66ac71e646db97b1e923306f548354de7d789d13742962e6bd1740"
     },
     {
       "path": "src/modules/content/domain/content.events.ts",
@@ -1035,6 +1035,10 @@
     {
       "path": "src/modules/content/presentation/content-admin.controller.ts",
       "sha256": "9352ab818227a57c6291592f5548fa0406a435506b6d4b43ce7d2e18ee25ad7b"
+    },
+    {
+      "path": "src/modules/content/presentation/content-discovery.controller.ts",
+      "sha256": "d2f9d594e98418c2e6f72cc26ff8512bc99d7b326fca72e60311a842d394d694"
     },
     {
       "path": "src/modules/content/presentation/content-public.controller.ts",

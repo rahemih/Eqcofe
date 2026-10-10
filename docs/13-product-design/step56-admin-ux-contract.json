@@ -15246,6 +15246,10 @@
       "sha256": "9352ab818227a57c6291592f5548fa0406a435506b6d4b43ce7d2e18ee25ad7b"
     },
     {
+      "path": "src/modules/content/presentation/content-discovery.controller.ts",
+      "sha256": "d2f9d594e98418c2e6f72cc26ff8512bc99d7b326fca72e60311a842d394d694"
+    },
+    {
       "path": "src/modules/content/presentation/content-public.controller.ts",
       "sha256": "bfc6a1a7376d35d80cd77c2a5da1d9fcae21fb1f517012f3acb702ff7c32b113"
     },
