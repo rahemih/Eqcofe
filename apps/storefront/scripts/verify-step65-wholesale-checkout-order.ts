@@ -20,7 +20,6 @@ const [
 
 for(const token of [
   "ADD COLUMN IF NOT EXISTS customer_type text",
-  "customer_type = cu.customer_type",
   "SET customer_type = 'retail'",
   "ALTER COLUMN customer_type SET NOT NULL",
   "customer_type IN ('retail','wholesale')",
@@ -28,6 +27,8 @@ for(const token of [
 
 assert.ok(!migration.includes("pricing."));
 assert.ok(!migration.includes("UPDATE customer.customers"));
+assert.ok(!migration.includes("customer.customers"),"STEP65_F_LEGACY_PROFILE_REDERIVATION_FORBIDDEN");
+assert.ok(!migration.includes("cu.customer_type"),"STEP65_F_LEGACY_PROFILE_REDERIVATION_FORBIDDEN");
 assert.ok(cartRepo.includes("customer_id,customer_type,token_hash"));
 assert.ok(cartRepo.includes("${c.customerType}"));
 assert.ok(cartService.includes("customerId:c.customer_id,customerType,tokenHash"));
@@ -67,6 +68,7 @@ console.log(JSON.stringify({
   stage:"65-F",
   journey:"SJ-11",
   checkoutCustomerTypeSnapshot:true,
+  legacyBackfillAuthority:"conservative-retail-no-profile-rederivation",
   orderCustomerTypeAuthority:"originating-checkout-snapshot",
   parallelB2BEngine:false,
   frontendThreshold:false,

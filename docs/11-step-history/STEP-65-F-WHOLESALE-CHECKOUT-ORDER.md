@@ -24,6 +24,8 @@ Complete SJ-11 from an authoritative wholesale Cart through the existing Checkou
 
 Persist a single authoritative `cart.checkouts.customer_type` snapshot at Quote creation, keep it immutable through the existing Checkout lifecycle, and expose it from the resulting Order by joining the originating Checkout. Do not duplicate it into a second B2B order engine or re-run Pricing/Customer authority after the fact.
 
+For legacy Checkout rows created before this snapshot existed, backfill `retail` conservatively. The migration must not derive historical commerce context from the customer's current mutable profile, because that could relabel an older retail order after a later wholesale approval.
+
 ## Explicit non-goals
 
 - no wholesale threshold or percentage formula in Storefront;
@@ -41,6 +43,10 @@ Persist a single authoritative `cart.checkouts.customer_type` snapshot at Quote 
 - Order Outcome: show wholesale context only from `OrderResponse.customer_type`;
 - Account Order Detail: same immutable order context;
 - continue displaying authoritative integer-Toman totals and existing recovery/idempotency semantics.
+
+## Independent review repair
+
+The pre-gate review rejected the first migration backfill because it copied `customer.customers.customer_type` into legacy Checkout rows. That source is mutable and cannot prove the historical quote context. The repair removes that profile join, uses conservative retail backfill only for rows that predate the snapshot, and adds deterministic tests/verifier assertions forbidding profile re-derivation.
 
 ## Closure
 

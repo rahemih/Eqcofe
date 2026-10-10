@@ -10,7 +10,10 @@ const openapi=readFileSync("contracts/http/openapi.yaml","utf8");
 
 test("Step65-F stores quote customer type on the existing checkout snapshot",()=>{
   assert.match(migration,/ADD COLUMN IF NOT EXISTS customer_type text/);
+  assert.match(migration,/SET customer_type = 'retail'/);
   assert.match(migration,/CHECK \(customer_type IN \('retail','wholesale'\)\)/);
+  assert.equal(migration.includes("customer.customers"),false);
+  assert.equal(migration.includes("cu.customer_type"),false);
   assert.match(cartRepo,/customer_id,customer_type,token_hash/);
   assert.match(cartRepo,/\$\{c\.customerType\}/);
   assert.match(cartService,/customerId:c\.customer_id,customerType,tokenHash/);
