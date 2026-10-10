@@ -23,6 +23,9 @@ export class ArticlePublicQueryService {
 
   private cursor(value: unknown): { publishedAt: Date; id: string } | null {
     if (value === undefined || value === null || value === '') return null;
+    if (typeof value !== 'string' || value.length < 1 || value.length > 1024) {
+      throw new DomainError('CONTENT_PUBLIC_CURSOR_INVALID', 'نشانگر صفحه مقالات معتبر نیست.');
+    }
     let decoded = '';
     try { decoded = Buffer.from(String(value), 'base64url').toString('utf8'); }
     catch { throw new DomainError('CONTENT_PUBLIC_CURSOR_INVALID', 'نشانگر صفحه مقالات معتبر نیست.'); }
