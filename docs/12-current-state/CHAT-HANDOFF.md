@@ -26,35 +26,44 @@ Conversation history is supporting context only. It must not override current ca
 - Valid blocker: NONE.
 - This closure proves current canonical behavior; it does not convert current verification into historical provenance.
 
-## Current handoff snapshot — 2026-10-06
+## Current handoff snapshot — 2026-10-10
 
 - Official repository / canonical branch: `rahemih/Eqcofe` / `main`.
-- Canonical product baseline before final Step-64 docs closure: `7306dc4277b72286f43eb04540cd774e28d4bf1e` (PR #328).
-- Last completed step after this handoff becomes terminal on `main`: **Step 64 — Customer Account & After-Sales — CLOSED / FINAL CANONICAL PASS**.
-- Active substep after terminal closure: **NONE**.
-- Step 64 stages A–H canonical PR lineage: #316, #317, #321, #322, #324, #326, #327, #328.
-- Step 64-H exact merge-SHA Canonical CI `37515371757`, Phase A `37515371763`, Storefront Quality `37515371750` and CodeQL `37515371879` are PASS. Browser acceptance passed at 320/1200 with 20 Axe runs; application regression is 981/981 PASS.
-- Graph/Graphify is **RETIRED / OUT OF SCOPE** through canonical PR #320; historical graph language does not create a live gate.
-- Linear current issue: `HOS-68 — Step 64 — Customer Account & After-Sales` remains In Progress until terminal 64-I.
-- Successor issue: `HOS-69 — Step 65 — Wholesale Experience` remains Backlog / NOT_STARTED until terminal 64-I.
-- Step 65 is the next authorized execution step only after this Step-64-I document has protected merge, exact-SHA postmerge verification and terminal Lock release; until then this branch wording is prospective.
+- Canonical product baseline before final Step-65 docs closure: `ac16c91f1604e7e5be4dfe09cf832c77b73bbaf9` (PR #338).
+- Last completed implementation stage: **Step 65-H — integrated Wholesale production/browser acceptance — CANONICAL_COMPLETE**.
+- Active substep: **65-I — final canonical verification / docs reconciliation / Step 66 handoff**.
+- Step 65 stages A–H canonical PR lineage: #330, #331, #333, #334, #335, #336, #337, #338.
+- Step 65-H exact merge-SHA Canonical CI `38049769102`, Phase A `38049769115`, Storefront Quality `38049769106` and CodeQL `38049768943` are PASS.
+- PR #332 is a canonical Merge Policy infrastructure repair between B and C; it is not a Step-65 product stage.
+- Graph/Graphify is **RETIRED / OUT OF SCOPE**; historical graph language does not create a live gate.
+- Linear current issue: `HOS-69 — Step 65 — Wholesale Experience` remains In Progress until terminal 65-I.
+- Successor issue: `HOS-70 — Step 66 — Content, SEO & Policy Frontend` remains not-started until terminal 65-I.
+- Step 66 is the next authorized execution step only after PR #339 has protected merge, exact-SHA postmerge verification and terminal Lock release; until then this branch wording is prospective.
 - Technical source of truth remains GitHub `main` + CI + merged PR evidence; Linear mirrors management state.
 
-### Step 64 canonical lineage
+### Step 65 canonical lineage
 
 | Stage | PR | Merge SHA | State |
 | --- | ---: | --- | --- |
-| 64-A | #316 | `b1fd06587a7a71cfeff8d4c6233a5a6dbd3284df` | COMPLETE |
-| 64-B | #317 | `901542c71138406226474381909649067f8869e8` | COMPLETE |
-| 64-C | #321 | `8cbc8fa1c0598f9a3ab819f2468563349fe8b6be` | COMPLETE |
-| 64-D | #322 | `2a0bb00543177a229e6650132e4fa9e99a778f93` | COMPLETE |
-| 64-E | #324 | `8a2aef6c643b59822d9c65783464044e7737a514` | COMPLETE |
-| 64-F | #326 | `5b12963738f094a6d9a5e795519c0760a9745dfe` | COMPLETE |
-| 64-G | #327 | `5149a4588dc0a78cedb71dc9fce698e3d01e1016` | COMPLETE |
-| 64-H | #328 | `7306dc4277b72286f43eb04540cd774e28d4bf1e` | COMPLETE |
-| 64-I | #329 | terminal on this document's canonical merge | COMPLETE |
+| 65-A | #330 | `a36757a1fa36d1f541102e0e1a3426406e3c5864` | COMPLETE |
+| 65-B | #331 | `8a62ee1c4bd20f5ec181a8c57cafc91a1d91862b` | COMPLETE |
+| 65-C | #333 | `a8905e495f43c7afc9a39a6de0eca38d484b1cbf` | COMPLETE |
+| 65-D | #334 | `66b7e5cce0b854a76f243d4b9ad7fca5ccfb98dd` | COMPLETE |
+| 65-E | #335 | `2d893ea144177c9346555da24b15dce636f0b24a` | COMPLETE |
+| 65-F | #336 | `a460b7c482f6d13609d70fd1f81ba56b186b6a74` | COMPLETE |
+| 65-G | #337 | `376ad9de097a20fb8f497a1db74ee683d2928b6c` | COMPLETE |
+| 65-H | #338 | `ac16c91f1604e7e5be4dfe09cf832c77b73bbaf9` | COMPLETE |
+| 65-I | #339 | terminal on this document's canonical merge | FINAL CLOSURE |
 
-Superseded/non-canonical transports #318, #323 and #325 must not be treated as Step-64 canonical lineage.
+### Frozen Step 65 authority boundary
+
+- application/status and approval are backend-owned;
+- customer remains retail until authoritative approval;
+- Pricing and Cart Quote remain authoritative for quantity-aware Wholesale amounts;
+- Checkout snapshots quoted customer type; Order reads originating Checkout history;
+- no frontend hardcoded threshold, discount formula, approval flag or parallel B2B commerce engine;
+- Persian RTL/accessibility/responsive/browser acceptance is verified;
+- Graph/Graphify remains retired.
 
 ## Historical Step 56 handoff snapshot (superseded)
 
