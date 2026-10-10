@@ -76,6 +76,7 @@ function order() {
     id: orderId,
     order_number: orderNumber,
     customer_id: customerId,
+    customer_type: "retail",
     order_status: "pending_confirmation",
     payment_status: "pending",
     fulfillment_status: "unfulfilled",

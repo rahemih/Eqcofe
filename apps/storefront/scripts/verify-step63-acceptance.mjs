@@ -114,6 +114,7 @@ function order() {
   return {
     order_id: orderId,
     order_number: orderNumber,
+    customer_type: "retail",
     order_status: "pending_confirmation",
     payment_status: paymentStatus === "paid" ? "paid" : "pending",
     fulfillment_status: "unfulfilled",
