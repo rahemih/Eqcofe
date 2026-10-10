@@ -1,0 +1,206 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP66-A-HANDOFF-001",
+  "title": "Step 66-A Content SEO and Policy Frontend canonical handoff, live discovery and scope freeze",
+  "description": "MEDIUM-risk documentation/governance-only Step 66-A. Freeze the Content, SEO & Policy Frontend execution boundary from canonical main after terminal Step 65. Record current Storefront placeholders, authoritative public article runtime, incomplete OpenAPI/generated response typing, backend SEO/canonical authority, internal sitemap capability without a public HTTP boundary, absence of public Contact mutation, and missing public archive/stop-sale listing contract. Preserve Step-55 content/policy UX obligations and freeze the staged A-I execution plan without runtime/API/OpenAPI/database/dependency/business-rule mutation.",
+  "risk": "MEDIUM",
+  "risk_floor": "MEDIUM",
+  "owner": "PRODUCT_DESIGN",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "e6a2c96fca940f3cd0c641d7d1b21af74df568c3"
+  },
+  "scope": {
+    "read": [
+      "apps/storefront/**",
+      "src/modules/content/**",
+      "src/modules/catalog/**",
+      "src/modules/configuration/**",
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "docs/01-product-vision/**",
+      "docs/11-step-history/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "docs/11-step-history/STEP-66-A-CANONICAL-HANDOFF.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP66-A-HANDOFF-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "apps/**",
+      "src/**",
+      "contracts/**",
+      "database/**",
+      "test/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**",
+      "graphify-out/**",
+      "scripts/graphify/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP66-A-HANDOFF-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 24000,
+    "soft_alert": 40000,
+    "hard_cap": 80000
+  },
+  "max_repair_cycles": 3,
+  "task_risk_rules": [
+    {
+      "id": "STEP66_A_HANDOFF_MEDIUM",
+      "risk": "MEDIUM",
+      "paths": [
+        "docs/11-step-history/STEP-66-A-CANONICAL-HANDOFF.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP66-A-HANDOFF-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+      ]
+    }
+  ],
+  "pre_mutation_gates": {
+    "graph_health": "RETIRED_AND_OUT_OF_SCOPE",
+    "query_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "path_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "explain_evidence": "RETIRED_AND_OUT_OF_SCOPE"
+  },
+  "dependencies": [
+    {
+      "item": "Step 65 — Wholesale Experience",
+      "required_state": "CLOSED_FINAL_CANONICAL_PASS",
+      "observed_state": "CLOSED_FINAL_CANONICAL_PASS",
+      "merge_sha": "e6a2c96fca940f3cd0c641d7d1b21af74df568c3",
+      "terminal_evidence_comment": 6097295499,
+      "postmerge_canonical_ci_run_id": 38050416806,
+      "postmerge_phase_a_run_id": 38050416701,
+      "postmerge_codeql_run_id": 38050416522,
+      "linear_issue": "HOS-69",
+      "blocking": false
+    }
+  ],
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Fresh live guard records canonical main, terminal Step-65 evidence, HOS-70 activation and absence of competing Step-66 writers before mutation.",
+      "verification": "provider_backed_live_guard",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Stage A records the seven current Step-66 Storefront placeholders SF-F-01 through SF-F-07 and freezes Step-55 F design intent as UX authority only, never as API or business-rule authority.",
+      "verification": "source_and_design_audit",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Public Article runtime authority is recorded exactly: GET /articles, GET /articles/:slug and GET /articles/:slug/related expose published public content, bounded cursor/limit behavior and backend-derived SEO metadata.",
+      "verification": "runtime_source_audit",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "OpenAPI currently lacks typed JSON response schemas for all three public Article endpoints; Stage 66-B must reconcile runtime/OpenAPI/generated TypeScript before production Storefront consumes them. Untyped frontend-local article response models are forbidden as a substitute.",
+      "verification": "openapi_generated_contract_audit",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "SEO/sitemap authority is frozen accurately: ArticleSeoService owns canonical/indexability metadata; ArticleSitemapService owns bounded published-article sitemap data internally; no public sitemap.xml or robots.txt HTTP boundary is currently established.",
+      "verification": "runtime_and_route_audit",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "About, FAQ and policy screens remain static-approved-content intent; Contact has no approved public mutation. Stage 66 must not invent legal terms, support channels, SLAs, partners, certifications, contact-success states or sensitive-data collection.",
+      "verification": "source_and_design_audit",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "Archive/stop-sale authority is frozen fail-closed: public Catalog reads expose published products and effective sales_enabled state, while archive/unarchive and stop/resume are staff-only mutations. No public archive/stop-sale collection contract or Storefront route currently exists, so frontend routes/data semantics must not be guessed.",
+      "verification": "catalog_runtime_and_router_audit",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "Frozen A-I execution plan places contract/readiness before frontend implementation, separates dynamic article/SEO work from static policy/contact surfaces, defers archive/stop-sale views until public authority exists, and reserves integrated acceptance/final closure stages.",
+      "verification": "handoff_document_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-009",
+      "description": "Stage A changes only its three documentation/governance paths; no runtime/API/OpenAPI/database/dependency/business-rule/Product-Design/current-state/workflow mutation is introduced.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-010",
+      "description": "Canonical completion requires exact-head Canonical CI and Phase A, deterministic Review, exact-artifact ACTIVE Lock, protected merge, exact-SHA postmerge verification and terminal Lock release before Stage 66-B mutation.",
+      "verification": "canonical_transport_and_postmerge_evidence",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Stage 66-A is MEDIUM risk and requires no Human Gate. Stage 66-B mutation remains blocked until 66-A protected merge, exact-SHA postmerge verification and terminal Lock release."
+  },
+  "evidence": {
+    "linear_issue": "HOS-70",
+    "predecessor_linear_issue": "HOS-69",
+    "live_guard_main_head": "e6a2c96fca940f3cd0c641d7d1b21af74df568c3",
+    "competing_step66_writer": "NONE_OBSERVED",
+    "graph_state": "RETIRED_AND_OUT_OF_SCOPE",
+    "route_placeholders": [
+      "/articles",
+      "/articles/:slug",
+      "/about",
+      "/contact",
+      "/faq",
+      "/policies/terms",
+      "/policies/returns-warranty"
+    ],
+    "design_screens": [
+      "SF-F-01",
+      "SF-F-02",
+      "SF-F-03",
+      "SF-F-04",
+      "SF-F-05",
+      "SF-F-06",
+      "SF-F-07"
+    ],
+    "direct_article_endpoints": [
+      "GET /articles",
+      "GET /articles/{slug}",
+      "GET /articles/{slug}/related"
+    ],
+    "article_openapi_response_typing": "MISSING",
+    "sitemap_http_boundary": "MISSING",
+    "robots_http_boundary": "MISSING",
+    "public_contact_mutation": "MISSING",
+    "archive_stop_sale_storefront_routes": "MISSING",
+    "archive_stop_sale_public_collection_contract": "MISSING",
+    "implementation_owner_agent": "A10",
+    "orchestration_owner_agent": "A0",
+    "backend_agent": "A2",
+    "frontend_agent": "A3",
+    "qa_agent": "A7",
+    "security_agent": "A8",
+    "product_design_agent": "A9"
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}
