@@ -22,6 +22,7 @@ export function ProductAddToCart({
       className="product-cart"
       aria-labelledby="product-cart-title"
       data-wholesale-context={wholesale || undefined}
+      aria-busy={submitting}
     >
       <div className="product-cart__heading">
         <h2 id="product-cart-title">سبد خرید</h2>
@@ -29,7 +30,7 @@ export function ProductAddToCart({
       </div>
 
       {wholesale ? (
-        <div className="product-cart__wholesale-context" role="status">
+        <div className="product-cart__wholesale-context" role="status" aria-live="polite">
           <strong>خرید عمده تأییدشده</strong>
           <p>
             قیمت نمایش‌داده‌شده در بخش مدل، قیمت کاتالوگ است. قیمت معتبر عمده و اثر تعداد
