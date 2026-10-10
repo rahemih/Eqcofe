@@ -22,7 +22,7 @@ export function WholesaleIntroductionView({ state }: Props) {
   const decision = decideCta(state);
 
   return (
-    <main className="wholesale-page">
+    <main className="wholesale-page" data-wholesale-state={state.status}>
       <header className="wholesale-page__hero" aria-labelledby="wholesale-title">
         <div>
           <p className="wholesale-page__eyebrow">SF-E-07 · تجربه خرید عمده</p>
@@ -41,7 +41,7 @@ export function WholesaleIntroductionView({ state }: Props) {
           </div>
         </div>
 
-        <aside className="wholesale-page__state-card" aria-labelledby="wholesale-state-heading">
+        <aside className="wholesale-page__state-card" aria-labelledby="wholesale-state-heading" role="status" aria-live="polite">
           <h2 id="wholesale-state-heading">وضعیت شما</h2>
           <p>{decision.message}</p>
           {state.status === "ready" && state.application ? (
