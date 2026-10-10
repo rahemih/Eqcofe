@@ -182,7 +182,7 @@ function ReadyApplication({
           </label>
 
           <div className="wholesale-account__consent wholesale-account__wide">
-            <p>
+            <p id="wholesale-application-consent">
               با ارسال فرم فقط یک درخواست بررسی ثبت می‌شود. وضعیت نهایی، نوع مشتری و قیمت‌ها فقط از پاسخ‌های معتبر سرور تعیین می‌شوند.
             </p>
           </div>
