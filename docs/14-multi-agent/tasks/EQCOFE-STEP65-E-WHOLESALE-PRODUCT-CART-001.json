@@ -273,6 +273,12 @@
       "trigger": "Step 58 Storefront Quality run 37984702094",
       "root_cause": "The Step 63 browser acceptance API fixture returned the pre-65-E CartView shape. After successful quantity mutation, route revalidation rendered CartView and correctly required the newly mandatory customer_type/pricing/availability fields, causing the historical fixture to crash the render.",
       "repair": "Update only the Step 63 acceptance fixture response shape to include authoritative retail CartView fields. Preserve all Step 63 assertions, commands, checkout behavior and acceptance semantics."
+    },
+    {
+      "date": "2026-10-10",
+      "trigger": "Pre-gate deterministic verifier audit on PR #335",
+      "root_cause": "ProductAddToCart explanatory copy and verify-step65-wholesale-commerce.ts used semantically equivalent but textually different Persian strings, so the deterministic storefront verifier would fail once queued CI started.",
+      "repair": "Align the ProductAddToCart no-browser-threshold/no-discount-formula copy with the existing deterministic verifier. No pricing threshold, discount rule, authority, API, database, checkout/order behavior or dependency changes."
     }
   ]
 }
