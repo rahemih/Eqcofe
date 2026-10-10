@@ -3,6 +3,7 @@ import type { ApiClientConfig } from "../../platform/api/request.js";
 import { readServerMediaConfig } from "../../platform/config/api.server.js";
 import {
   createCustomerSessionBridge,
+  extractCustomerSessionCookieHeader,
   type CustomerSessionBridge,
 } from "../../platform/auth/session-cookie.server.js";
 import {
@@ -68,17 +69,20 @@ export async function loadProductDetailFoundation(
   let bridge: CustomerSessionBridge | undefined;
 
   try {
+    const hasCustomerSession = extractCustomerSessionCookieHeader(request) !== null;
     bridge = createCustomerSessionBridge(request, options);
     const productResult = await bridge.client.request("get", "/products/{slug}", {
       pathParams: { slug },
     });
 
     let customerType: ProductCustomerType | null = null;
-    try {
-      const profileResult = await bridge.client.request("get", "/customer/profile", {});
-      customerType = profileResult.data.customer_type;
-    } catch {
-      customerType = null;
+    if (hasCustomerSession) {
+      try {
+        const profileResult = await bridge.client.request("get", "/customer/profile", {});
+        customerType = profileResult.data.customer_type;
+      } catch {
+        customerType = null;
+      }
     }
 
     let variants: AsyncSurfaceState<ProductVariantsResponse>;
