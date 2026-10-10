@@ -1,0 +1,215 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP65-I-CLOSURE-001",
+  "title": "Step 65-I final canonical verification, documentation reconciliation and Step 66 handoff",
+  "description": "MEDIUM-risk documentation/governance closure. Audit terminal canonical evidence for Step 65 A-H, reconcile MASTER-ROADMAP, CURRENT-STATE and CHAT-HANDOFF against live GitHub/CI truth, freeze the final Wholesale Experience product result, and authorize Step 66 Content, SEO & Policy Frontend only after protected merge, exact-SHA postmerge verification and terminal Lock release. Graph/Graphify remains retired. No runtime/backend/OpenAPI/database/dependency/workflow/Product Design semantic mutation.",
+  "risk": "MEDIUM",
+  "risk_floor": "MEDIUM",
+  "owner": "PRODUCT_DESIGN",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "ac16c91f1604e7e5be4dfe09cf832c77b73bbaf9"
+  },
+  "scope": {
+    "read": [
+      "apps/storefront/**",
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "docs/11-step-history/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**",
+      "docs/14-multi-agent/**",
+      ".github/workflows/**"
+    ],
+    "write": [
+      "docs/11-step-history/STEP-65-I-FINAL-CANONICAL-CLOSURE.md",
+      "docs/12-current-state/CURRENT-STATE.md",
+      "docs/12-current-state/MASTER-ROADMAP.md",
+      "docs/12-current-state/CHAT-HANDOFF.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP65-I-CLOSURE-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "apps/**",
+      "src/**",
+      "database/**",
+      "contracts/**",
+      "test/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "docs/13-product-design/**",
+      "graphify-out/**",
+      "scripts/graphify/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP65-I-CLOSURE-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 30000,
+    "soft_alert": 48000,
+    "hard_cap": 90000
+  },
+  "max_repair_cycles": 3,
+  "task_risk_rules": [
+    {
+      "id": "STEP65_I_CANONICAL_CLOSURE_MEDIUM",
+      "risk": "MEDIUM",
+      "paths": [
+        "docs/11-step-history/STEP-65-I-FINAL-CANONICAL-CLOSURE.md",
+        "docs/12-current-state/CURRENT-STATE.md",
+        "docs/12-current-state/MASTER-ROADMAP.md",
+        "docs/12-current-state/CHAT-HANDOFF.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP65-I-CLOSURE-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+      ]
+    }
+  ],
+  "pre_mutation_gates": {
+    "graph_health": "RETIRED_AND_OUT_OF_SCOPE",
+    "query_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "path_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "explain_evidence": "RETIRED_AND_OUT_OF_SCOPE"
+  },
+  "dependencies": [
+    {
+      "item": "65-H Integrated Wholesale Production/Browser Acceptance",
+      "required_state": "TERMINAL_MERGED_POSTMERGE_PASS_LOCK_RELEASED",
+      "observed_state": "TERMINAL_MERGED_POSTMERGE_PASS_LOCK_RELEASED",
+      "merge_sha": "ac16c91f1604e7e5be4dfe09cf832c77b73bbaf9",
+      "terminal_evidence_comment": 6097209588,
+      "postmerge_canonical_ci_run_id": 38049769102,
+      "postmerge_phase_a_run_id": 38049769115,
+      "postmerge_storefront_quality_run_id": 38049769106,
+      "postmerge_codeql_run_id": 38049768943,
+      "blocking": false
+    }
+  ],
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Step 65 A-H canonical lineage records the actual merged PRs #330, #331, #333, #334, #335, #336, #337 and #338, their merge SHAs and terminal Lock RELEASED evidence; governance repair PR #332 is identified separately and is not misclassified as a product stage.",
+      "verification": "provider-backed PR and terminal-gate audit",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "MASTER-ROADMAP advances from v3.61 Step-65 next/not-started wording to final Step-65 closure and marks Step 66 Content, SEO & Policy Frontend as NEXT / NOT_STARTED only after terminal 65-I transport.",
+      "verification": "deterministic document review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "CURRENT-STATE records Step 65 as CLOSED / FINAL CANONICAL PASS with A-H lineage and identifies 65-I as the final closure transport until its terminal sequence completes.",
+      "verification": "deterministic document review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "CHAT-HANDOFF current snapshot is refreshed to the verified Step-65 closure boundary and names HOS-70 / Step 66 as next only after terminal 65-I closure.",
+      "verification": "deterministic document review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Frozen Step-65 product result accurately records authoritative Wholesale application/status, approved customer identity, Product/Cart pricing and quantity context, Checkout/Order snapshot authority, accessibility/responsive hardening and integrated production/browser acceptance without inventing frontend approval/pricing authority.",
+      "verification": "source and history audit",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Graph/Graphify remains RETIRED / OUT OF SCOPE and no historical graph requirement is reintroduced as a live gate.",
+      "verification": "document review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "Diff remains documentation/governance only; no runtime, workflow, API/OpenAPI, database, dependency, Product Design semantic or graph artifact mutation.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "Exact-head Canonical CI and Phase A, deterministic Review, exact-artifact ACTIVE Lock, protected merge, exact-SHA postmerge verification and terminal Lock release complete before HOS-69 is Done or Step 66 implementation starts.",
+      "verification": "canonical_transport_and_postmerge_evidence",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Step 65-I is MEDIUM-risk documentation/governance closure. Human Gate is not required. Step 66 implementation remains blocked until 65-I protected merge, exact-SHA postmerge verification and terminal Lock release."
+  },
+  "evidence": {
+    "linear_issue": "HOS-69",
+    "successor_linear_issue": "HOS-70",
+    "live_guard_main_head": "ac16c91f1604e7e5be4dfe09cf832c77b73bbaf9",
+    "live_guard_open_step65_i_prs": 0,
+    "competing_writer": "NONE_OBSERVED",
+    "implementation_owner_agent": "A10",
+    "orchestration_owner_agent": "A0",
+    "qa_agent": "A7",
+    "evidence_agent": "A10",
+    "graph_state": "RETIRED_AND_OUT_OF_SCOPE",
+    "canonical_stages": {
+      "65-A": {
+        "pr": 330,
+        "merge_sha": "a36757a1fa36d1f541102e0e1a3426406e3c5864",
+        "terminal_comment": 6025205025
+      },
+      "65-B": {
+        "pr": 331,
+        "merge_sha": "8a62ee1c4bd20f5ec181a8c57cafc91a1d91862b",
+        "terminal_comment": 6085465245
+      },
+      "65-C": {
+        "pr": 333,
+        "merge_sha": "a8905e495f43c7afc9a39a6de0eca38d484b1cbf",
+        "terminal_comment": 6085869501
+      },
+      "65-D": {
+        "pr": 334,
+        "merge_sha": "66b7e5cce0b854a76f243d4b9ad7fca5ccfb98dd",
+        "terminal_comment": 6087902230
+      },
+      "65-E": {
+        "pr": 335,
+        "merge_sha": "2d893ea144177c9346555da24b15dce636f0b24a",
+        "terminal_comment": 6096756145
+      },
+      "65-F": {
+        "pr": 336,
+        "merge_sha": "a460b7c482f6d13609d70fd1f81ba56b186b6a74",
+        "terminal_comment": 6097088128
+      },
+      "65-G": {
+        "pr": 337,
+        "merge_sha": "376ad9de097a20fb8f497a1db74ee683d2928b6c",
+        "terminal_comment": 6097098295
+      },
+      "65-H": {
+        "pr": 338,
+        "merge_sha": "ac16c91f1604e7e5be4dfe09cf832c77b73bbaf9",
+        "terminal_comment": 6097209588
+      }
+    },
+    "governance_repairs": [
+      {
+        "pr": 332,
+        "merge_sha": "91406a9c2ef70662c326d1d82b6c1273d6a4708f",
+        "reason": "Merge Policy idempotent post-merge redispatch repair after Step 65-B; infrastructure/governance repair, not a Step-65 product stage."
+      }
+    ],
+    "closure_branch": "eqcofe/step65-i-final-closure"
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}
