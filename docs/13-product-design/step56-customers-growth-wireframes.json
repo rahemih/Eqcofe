@@ -838,7 +838,7 @@
     },
     {
       "path": "docs/13-product-design/step56-commerce-operations-wireframes.json",
-      "sha256": "b54a1cafd0dbc092ed33d9691671732a508c67644c037caee12724be84f483ed"
+      "sha256": "bb34467a4694548fc05e0be60a80d24e52c82736729732225810239f65fbb119"
     },
     {
       "path": "src/modules/ai/ai.module.ts",
