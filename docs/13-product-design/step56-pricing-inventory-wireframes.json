@@ -838,7 +838,7 @@
     },
     {
       "path": "docs/13-product-design/step56-catalog-media-wireframes.json",
-      "sha256": "0d75f936df157e869a2f78729ed96ec66640fbc6583e250e29fe16cbed733770"
+      "sha256": "7acc39212e46712f69db820f19c1a044b8fe4ef201d09c151260f5c36cfb97fc"
     },
     {
       "path": "src/modules/catalog/application/catalog-import-apply.service.ts",
