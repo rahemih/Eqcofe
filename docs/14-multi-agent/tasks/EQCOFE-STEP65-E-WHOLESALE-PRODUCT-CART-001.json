@@ -60,7 +60,8 @@
       "docs/13-product-design/step56-wireframes/G/manifest.json",
       "docs/13-product-design/step56-final-audit.json",
       "docs/13-product-design/step56-final-audit/manifest.json",
-      "docs/13-product-design/step57-high-fidelity-contract.json"
+      "docs/13-product-design/step57-high-fidelity-contract.json",
+      "apps/storefront/scripts/verify-step63-acceptance.mjs"
     ],
     "forbidden": [
       "database/**",
@@ -71,10 +72,6 @@
       "src/modules/inventory/**",
       "src/modules/cart/infrastructure/**",
       "src/modules/cart/presentation/**",
-      "apps/storefront/app/features/cart-checkout/checkout-*.server.ts",
-      "apps/storefront/app/routes/checkout-*.tsx",
-      "apps/storefront/app/routes/payment-*.tsx",
-      "apps/storefront/app/routes/order-*.tsx",
       "docs/12-current-state/**"
     ]
   },
@@ -131,7 +128,8 @@
         "docs/13-product-design/step56-wireframes/G/manifest.json",
         "docs/13-product-design/step56-final-audit.json",
         "docs/13-product-design/step56-final-audit/manifest.json",
-        "docs/13-product-design/step57-high-fidelity-contract.json"
+        "docs/13-product-design/step57-high-fidelity-contract.json",
+        "apps/storefront/scripts/verify-step63-acceptance.mjs"
       ]
     }
   ],
@@ -173,7 +171,8 @@
       "precedent": "Step 65-B PR #331 canonical hash-only provenance refresh",
       "mutation_rule": "Only SHA-256 provenance references may change in these 17 files; Product Design semantics, screens, states, content and artifacts are immutable.",
       "non_whitelisted_design": "OUT_OF_SCOPE_BY_EXACT_SCOPE_WRITE_ALLOWLIST"
-    }
+    },
+    "step63_fixture_repair": "Historical Step63 acceptance response-shape compatibility only; no Step63 production behavior or assertions are weakened."
   },
   "acceptance_criteria": [
     {
@@ -268,6 +267,12 @@
       "trigger": "Pre-final governance static audit",
       "root_cause": "A human-readable 'except' phrase had been placed in scope.forbidden and is not a supported path pattern.",
       "repair": "Remove the descriptive pseudo-pattern. Exact scope.write contains the only 17 Product Design provenance paths authorized; every other Product Design path remains out of scope by default."
+    },
+    {
+      "date": "2026-10-10",
+      "trigger": "Step 58 Storefront Quality run 37984702094",
+      "root_cause": "The Step 63 browser acceptance API fixture returned the pre-65-E CartView shape. After successful quantity mutation, route revalidation rendered CartView and correctly required the newly mandatory customer_type/pricing/availability fields, causing the historical fixture to crash the render.",
+      "repair": "Update only the Step 63 acceptance fixture response shape to include authoritative retail CartView fields. Preserve all Step 63 assertions, commands, checkout behavior and acceptance semantics."
     }
   ]
 }
