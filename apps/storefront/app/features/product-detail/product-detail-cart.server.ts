@@ -99,7 +99,10 @@ async function tryAddToWholesaleCustomerCart(
       cartId = merged.data.data.cart.id;
       cartToken = merged.data.data.cart_token;
     } catch (error) {
-      if (!(error instanceof ApiClientError) || error.code !== "CART_NOT_GUEST") {
+      if (
+        !(error instanceof ApiClientError)
+        || !["CART_NOT_GUEST", "CART_ACCESS_DENIED"].includes(error.code)
+      ) {
         throw error;
       }
       const accessed = await bridge.client.request("post", "/customer/cart/access", {});
