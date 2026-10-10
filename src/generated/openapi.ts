@@ -12076,7 +12076,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["PublicArticleDetail"];
+                    "application/json": components["schemas"]["PublicArticleDetailResponse"];
                 };
             };
             404: components["responses"]["NotFound"];
