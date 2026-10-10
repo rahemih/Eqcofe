@@ -94,6 +94,7 @@ for(const token of [
   'profile.data.customer_type !== "wholesale"',
   '"/customer/cart/merge"',
   '"/customer/cart/access"',
+  '["CART_NOT_GUEST", "CART_ACCESS_DENIED"].includes(error.code)',
   "serializeCartCredentials",
   "customerSessionSetCookies",
   "quantityOrOptions",
