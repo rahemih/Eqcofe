@@ -37,6 +37,40 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/catalog/archive": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description فهرست عمومی محصولاتی که قبلاً منتشر شده و سپس آرشیو شده‌اند؛ دلیل آرشیو و وضعیت مدیریتی افشا نمی‌شود. */
+        get: operations["getCatalogArchive"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/catalog/stop-sale": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description فهرست محصولات منتشرشده با فروش مؤثر متوقف؛ کمبود موجودی به‌تنهایی stop-sale نیست. */
+        get: operations["getCatalogStopSale"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/categories": {
         parameters: {
             query?: never;
@@ -659,6 +693,23 @@ export interface paths {
         get?: never;
         put?: never;
         post: operations["postCompareValidate"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/content/sitemap/articles": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description داده JSON سایت‌مپ فقط برای مقالات منتشرشده؛ robots.txt resource متعلق به Storefront است. */
+        get: operations["getContentSitemapArticles"];
+        put?: never;
+        post?: never;
         delete?: never;
         options?: never;
         head?: never;
@@ -8717,6 +8768,67 @@ export interface components {
             query: string;
             suggestions: components["schemas"]["SearchSuggestion"][];
         };
+        ArticleSeoMetadata: {
+            title: string;
+            description: string | null;
+            /** Format: uri */
+            canonical_url: string;
+            indexable: boolean;
+            /** @enum {string} */
+            robots: "index,follow";
+        };
+        ArticleSummary: {
+            id: components["schemas"]["EntityId"];
+            slug: components["schemas"]["Slug"];
+            title_fa: string;
+            seo_title: string | null;
+            meta_description: string | null;
+            published_at: components["schemas"]["Timestamp"];
+            seo: components["schemas"]["ArticleSeoMetadata"];
+        };
+        ArticleDetail: {
+            id: components["schemas"]["EntityId"];
+            slug: components["schemas"]["Slug"];
+            title_fa: string;
+            seo_title: string | null;
+            meta_description: string | null;
+            published_at: components["schemas"]["Timestamp"];
+            seo: components["schemas"]["ArticleSeoMetadata"];
+            body: string;
+            content_version: number;
+        };
+        ArticleListResponse: {
+            items: components["schemas"]["ArticleSummary"][];
+            next_cursor: string | null;
+        };
+        ArticleRelatedResponse: {
+            items: components["schemas"]["ArticleSummary"][];
+        };
+        SitemapEntry: {
+            /** Format: uri */
+            loc: string;
+            lastmod: components["schemas"]["Timestamp"];
+        };
+        ArticleSitemapResponse: {
+            items: components["schemas"]["SitemapEntry"][];
+            next_cursor: string | null;
+        };
+        ArchivedProductCard: {
+            id: components["schemas"]["EntityId"];
+            slug: components["schemas"]["Slug"];
+            name: string;
+            brand: components["schemas"]["BrandRef"] | null;
+            primary_category: components["schemas"]["CategoryRef"];
+            archived_at: components["schemas"]["Timestamp"];
+        };
+        ArchivedProductListResponse: {
+            items: components["schemas"]["ArchivedProductCard"][];
+            pagination: components["schemas"]["CursorPagination"];
+        };
+        StoppedSaleProductListResponse: {
+            items: components["schemas"]["ProductCard"][];
+            pagination: components["schemas"]["CursorPagination"];
+        };
         PublicCategoryResponse: {
             id: components["schemas"]["EntityId"];
             parent_id?: components["schemas"]["EntityId"] | null;
@@ -10909,6 +11021,54 @@ export interface operations {
             404: components["responses"]["NotFound"];
         };
     };
+    getCatalogArchive: {
+        parameters: {
+            query?: {
+                cursor?: components["parameters"]["Cursor"];
+                limit?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description محصولات آرشیوشده عمومی */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ArchivedProductListResponse"];
+                };
+            };
+            422: components["responses"]["Unprocessable"];
+        };
+    };
+    getCatalogStopSale: {
+        parameters: {
+            query?: {
+                cursor?: components["parameters"]["Cursor"];
+                limit?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description محصولات با فروش مؤثر متوقف */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StoppedSaleProductListResponse"];
+                };
+            };
+            422: components["responses"]["Unprocessable"];
+        };
+    };
     listCategories: {
         parameters: {
             query?: never;
@@ -11998,22 +12158,52 @@ export interface operations {
             422: components["responses"]["Unprocessable"];
         };
     };
-    getArticles: {
+    getContentSitemapArticles: {
         parameters: {
-            query?: never;
+            query?: {
+                cursor?: components["parameters"]["Cursor"];
+                limit?: number;
+            };
             header?: never;
             path?: never;
             cookie?: never;
         };
         requestBody?: never;
         responses: {
-            /** @description عملیات موفق */
+            /** @description صفحه داده سایت‌مپ مقالات منتشرشده */
             200: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["ArticleSitemapResponse"];
+                };
             };
+            422: components["responses"]["Unprocessable"];
+        };
+    };
+    getArticles: {
+        parameters: {
+            query?: {
+                cursor?: components["parameters"]["Cursor"];
+                limit?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description مقالات منتشرشده */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ArticleListResponse"];
+                };
+            };
+            422: components["responses"]["Unprocessable"];
         };
     };
     getArticlesSlug: {
@@ -12021,39 +12211,48 @@ export interface operations {
             query?: never;
             header?: never;
             path: {
-                slug: string;
+                slug: components["schemas"]["Slug"];
             };
             cookie?: never;
         };
         requestBody?: never;
         responses: {
-            /** @description عملیات موفق */
+            /** @description مقاله منتشرشده */
             200: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["ArticleDetail"];
+                };
             };
+            404: components["responses"]["NotFound"];
         };
     };
     getArticlesSlugRelated: {
         parameters: {
-            query?: never;
+            query?: {
+                limit?: number;
+            };
             header?: never;
             path: {
-                slug: string;
+                slug: components["schemas"]["Slug"];
             };
             cookie?: never;
         };
         requestBody?: never;
         responses: {
-            /** @description عملیات موفق */
+            /** @description مقالات مرتبط منتشرشده */
             200: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["ArticleRelatedResponse"];
+                };
             };
+            404: components["responses"]["NotFound"];
+            422: components["responses"]["Unprocessable"];
         };
     };
     getCampaignsSlug: {

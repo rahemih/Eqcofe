@@ -5,6 +5,7 @@ import { ArticleEditorialService } from './application/article-editorial.service
 import { ArticlePublicQueryService } from './application/article-public-query.service';
 import { ContentRepository } from './infrastructure/content.repository';
 import { ContentPublicController } from './presentation/content-public.controller';
+import { ContentDiscoveryController } from './presentation/content-discovery.controller';
 import { ArticleSeoService } from './application/article-seo.service';
 import { ArticleInternalLinkService } from './application/article-internal-link.service';
 import { ArticleSitemapService } from './application/article-sitemap.service';
@@ -14,7 +15,7 @@ import { ArticleOperationsService } from './application/article-operations.servi
 
 @Module({
   imports: [ConfigurationModule],
-  controllers: [ContentPublicController, ContentAdminController],
+  controllers: [ContentPublicController, ContentDiscoveryController, ContentAdminController],
   providers: [ContentRepository, ArticleDraftService, ArticleEditorialService, ArticleSeoService, ArticlePublicQueryService, ArticleInternalLinkService, ArticleSitemapService, ArticleAdminQueryService, ArticleOperationsService],
   exports: [ArticleDraftService, ArticleEditorialService, ArticleSeoService, ArticlePublicQueryService, ArticleInternalLinkService, ArticleSitemapService, ArticleAdminQueryService, ArticleOperationsService],
 })
