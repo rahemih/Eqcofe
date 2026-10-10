@@ -719,11 +719,11 @@
   "sources": [
     {
       "path": "docs/13-product-design/step56-admin-shell-wireframes.json",
-      "sha256": "e16c75a5812b8594e6a9395b58d9992818d4dd6fabd5096567e2237d6154f236"
+      "sha256": "75275faf7bbd7d4fe0cbb7a8d486baa1db70d7ea01f9c02543e44e2e83142da3"
     },
     {
       "path": "docs/13-product-design/step56-admin-ux-contract.json",
-      "sha256": "8241e1072d8b0c81da3ce30f6951edab0e2028f372b5efc9ba5b2ddee3aa4e8e"
+      "sha256": "ef4f29fd2b4e35ffc566da5a608794ab411c33efe62e956c18729d2fd4f7710e"
     },
     {
       "path": "src/modules/catalog/application/catalog-import-apply.service.ts",
@@ -815,7 +815,7 @@
     },
     {
       "path": "src/modules/catalog/presentation/catalog.controller.ts",
-      "sha256": "cb6c653b357a47a8ee03dac88bd82ac6ccdfad22814619688514b2738c2f374d"
+      "sha256": "faa37b803f43c842f7c34be76787421614975e75e88a7c014d5fab357a7ba69b"
     },
     {
       "path": "test/catalog-domain.spec.ts",
