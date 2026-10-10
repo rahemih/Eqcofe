@@ -1173,7 +1173,7 @@ components:
           type: boolean
         robots:
           type: string
-          enum: [index,follow]
+          enum: ["index,follow"]
     ArticleSummary:
       type: object
       additionalProperties: false
