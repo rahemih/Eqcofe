@@ -14920,7 +14920,7 @@
     },
     {
       "path": "contracts/http/openapi.yaml",
-      "sha256": "033a83c7696a26e346f6d8285d56e53367abb096af92b5bab1a6a12eb808955b"
+      "sha256": "d34decef5c65234e380ee9ec1b09eca855b16cb89b3abc3a5cf8b8fd411e1136"
     },
     {
       "path": "contracts/http/step49-pos-a9.yaml",
@@ -15227,7 +15227,7 @@
     },
     {
       "path": "src/modules/catalog/presentation/catalog.controller.ts",
-      "sha256": "8402e95d85b931758bfe2830b921309262e8bd7913fe6746b59c6f4ef1f3986c"
+      "sha256": "cb6c653b357a47a8ee03dac88bd82ac6ccdfad22814619688514b2738c2f374d"
     },
     {
       "path": "src/modules/configuration/configuration.module.ts",
@@ -15239,7 +15239,7 @@
     },
     {
       "path": "src/modules/content/content.module.ts",
-      "sha256": "1a840187d4f167e30e3d86e8e707da97b9b158a5f912bdb80c05d0429468460c"
+      "sha256": "4a9afbe11f66ac71e646db97b1e923306f548354de7d789d13742962e6bd1740"
     },
     {
       "path": "src/modules/content/presentation/content-admin.controller.ts",
