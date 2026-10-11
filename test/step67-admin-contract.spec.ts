@@ -9,7 +9,7 @@ const api=()=>readFileSync('contracts/http/openapi.yaml','utf8');
 const generated=()=>readFileSync('src/generated/openapi.ts','utf8');
 const auth=()=>readFileSync('src/modules/identity/presentation/auth.controller.ts','utf8');
 
-test('Step 67-B types existing Admin authentication and context responses',()=>{
+test('Step 67-B types runtime-accurate enveloped Admin authentication and context responses',()=>{
   const source=api(),types=generated();
   for(const schema of [
     'AdminLoginResponse','AdminFidoChallengeResponse','AdminSessionEstablishedResponse',
@@ -23,30 +23,61 @@ test('Step 67-B types existing Admin authentication and context responses',()=>{
   ]) {
     const i=types.indexOf(op+':');
     assert.notEqual(i,-1,'missing '+op);
-    assert.match(types.slice(i,i+2800),/"application\/json": components\["schemas"\]/,'untyped '+op);
+    assert.match(types.slice(i,i+3200),/"application\/json": components\["schemas"\]/,'untyped '+op);
+  }
+  for(const op of ['postAdminAuthLogin','postAdminAuthFidoChallenge','postAdminAuthFidoVerify','postAdminAuthStepUpChallenge','postAdminAuthStepUpVerify','postAdminAuthLogout']) {
+    const i=types.indexOf(op+':');
+    const part=types.slice(i,i+3200);
+    assert.match(part,/201:/,'runtime status not documented '+op);
   }
 });
 
-test('Step 67-B schemas match existing controller authority and do not expose session tokens',()=>{
-  const source=api(),controller=auth();
-  assert.match(controller,/return \{fido_required:true,expires_in_seconds:r\.expires_in_seconds\}/);
-  assert.match(controller,/return \{session_id:s\.session_id,expires_at:s\.expires_at\}/);
-  assert.match(controller,/return \{step_up_token:this\.tokens\.sign/);
-  assert.match(controller,/return \{id:req\.actor\.id,account_id:req\.actor\.accountId,type:req\.actor\.type\}/);
-  assert.match(controller,/return \{permissions:req\.actor\.permissions\?\?\[\]\}/);
-  assert.match(controller,/return \{scopes:req\.actor\.scopes\?\?\[\]\}/);
-  assert.match(controller,/return \{actor:req\.actor\}/);
-  assert.match(controller,/HttpOnly; .*SameSite=\$\{sameSite\}/);
-  const sessionSchema=source.slice(source.indexOf('    AdminSessionActor:'),source.indexOf('    AdminSessionResponse:'));
-  assert.doesNotMatch(sessionSchema,/session_token|pre_auth_token|step_up_token/);
+test('Step 67-B Admin success schemas model the global success envelope',()=>{
+  const source=api();
+  for(const schema of ['AdminLoginResponse','AdminFidoChallengeResponse','AdminSessionEstablishedResponse','AdminWebAuthnChallengeResponse','AdminStepUpVerifyResponse','AdminLogoutResponse','AdminSessionResponse','AdminMeResponse','AdminPermissionsResponse','AdminScopesResponse']) {
+    const start=source.indexOf('    '+schema+':');
+    assert(start>=0,'missing '+schema);
+    const part=source.slice(start,start+1100);
+    assert.match(part,/required:[\s\S]*- success[\s\S]*- data[\s\S]*- meta/,'not enveloped '+schema);
+    assert.match(part,/success:[\s\S]*const: true/,'success const missing '+schema);
+    assert.match(part,/meta:[\s\S]*SuccessMeta/,'meta missing '+schema);
+  }
 });
 
-test('Step 67-B preserves dashboard as non-runtime unresolved contract inventory only',()=>{
+test('Step 67-B sanitizes Admin session and keeps permissions and scopes on dedicated reads',()=>{
+  const controller=auth(),source=api(),types=generated();
+  assert.match(controller,/@StaffOnly\(\) @Get\('admin\/auth\/session'\) adminSession\(@Req\(\) req:any\)\{return \{actor:\{type:'staff',id:req\.actor\.id,accountId:req\.actor\.accountId\}\};\}/);
+  const actorYaml=source.slice(source.indexOf('    AdminSessionActor:'),source.indexOf('    AdminSessionData:'));
+  assert.doesNotMatch(actorYaml,/sessionId|permissions|scopes/);
+  const actorTs=types.slice(types.indexOf('AdminSessionActor:'),types.indexOf('AdminSessionData:'));
+  assert.doesNotMatch(actorTs,/sessionId|permissions|scopes/);
+  assert.match(source,/AdminPermissionsData:[\s\S]*permissions:/);
+  assert.match(source,/AdminScopesData:[\s\S]*scopes:/);
+});
+
+test('Step 67-B preserves cookie-only pre-auth and Admin session token authority',()=>{
+  const source=api(),controller=auth();
+  const schemas=source.slice(source.indexOf('    AdminLoginData:'),source.indexOf('    PostAdminAuthLoginRequest:'));
+  assert.doesNotMatch(schemas,/pre_auth_token|session_token/);
+  assert.match(schemas,/AdminStepUpVerifyData:[\s\S]*step_up_token:/);
+  assert.match(controller,/cookieSet\(res,this\.cookieName\('preauth'\),r\.pre_auth_token/);
+  assert.match(controller,/cookieSet\(res,this\.cookieName\('admin'\),s\.session_token/);
+  assert.match(controller,/typ:'step_up'[\s\S]*sid:req\.actor\.sessionId[\s\S]*5\*60\*1000/);
+});
+
+test('Step 67-B leaves WebAuthn options extensible at the stable wrapper boundary',()=>{
+  const source=api();
+  const options=source.slice(source.indexOf('    AdminWebAuthnOptions:'),source.indexOf('    AdminFidoChallengeData:'));
+  assert.match(options,/type: object/);
+  assert.match(options,/additionalProperties: true/);
+});
+
+test('Step 67-B removes non-runtime dashboard operation from executable HTTP authority',()=>{
   const source=api(),types=generated();
-  assert.match(source,/^  \/admin\/dashboard:/m);
-  assert.match(source,/operationId: getAdminDashboard[\s\S]*runtime: unresolved_not_granted[\s\S]*frontendConsumption: forbidden/);
-  const operation=types.slice(types.indexOf('    getAdminDashboard: {'),types.indexOf('    postAdminProductsIdArchive: {'));
-  assert.match(operation,/content\?: never/);
+  assert.doesNotMatch(source,/^  \/admin\/dashboard:/m);
+  assert.doesNotMatch(types,/"\/admin\/dashboard":/);
+  assert.doesNotMatch(types,/getAdminDashboard:/);
+  assert.doesNotMatch(auth(),/@Get\('admin\/dashboard'\)/);
   const design=readFileSync('docs/13-product-design/step56-foundation/A/SOURCE-GAPS.md','utf8');
   assert.match(design,/GET \/admin\/dashboard[^\n]*UNRESOLVED_NOT_GRANTED/);
 });
