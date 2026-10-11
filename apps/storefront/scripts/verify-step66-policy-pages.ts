@@ -50,7 +50,13 @@ assert.ok(faq.includes("<details"));
 assert.ok(faq.includes("<summary"));
 assert.ok(terms.includes("TERMS_CONTENT"));
 assert.ok(returns.includes("RETURNS_CONTENT"));
-assert.ok(contact.includes("RoutePlaceholder"), "STEP66_F_CONTACT_MUST_REMAIN_DEFERRED");
+const contactProductionized =
+  contact.includes("SupportContactView")
+  && !contact.includes("RoutePlaceholder");
+assert.ok(
+  contact.includes("RoutePlaceholder") || contactProductionized,
+  "STEP66_CONTACT_HANDOFF_INVALID",
+);
 
 assert.equal(/\bbrown\b/i.test(css), false);
 assert.equal(/(margin|padding|border)-(left|right)\s*:|(^|[;{\s])(left|right)\s*:/m.test(css), false);

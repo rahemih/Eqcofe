@@ -96,6 +96,7 @@
 | EQCOFE-STEP66-C-CONTENT-FOUNDATION-001 | Step 66-C shared Content SEO Storefront foundation and Article listing | MEDIUM | NOT_REQUIRED | `3103976a9d17edc89d4aeca9517f2a5af5cf8e21` | 30000/48000/90000 |
 | EQCOFE-STEP66-D-ARTICLE-SEO-001 | Step 66-D Article detail related SEO structured data sitemap and robots | MEDIUM | NOT_REQUIRED | `f52fa97d8718763c7432e0bd408103a3cc9b06f0` | 32000/52000/92000 |
 | EQCOFE-STEP66-E-POLICY-PAGES-001 | Step 66-E approved About FAQ Terms and Returns Warranty surfaces | MEDIUM | NOT_REQUIRED | `737fa897bbb633967138db9fc298566c80ac5073` | 26000/44000/82000 |
+| EQCOFE-STEP66-F-CONTACT-SUPPORT-001 | Step 66-F contact and support presentation with fail-closed no-mutation behavior | MEDIUM | NOT_REQUIRED | `7a0f0586349386c6011da376f7cc70ecd58bf91f` | 22000/38000/76000 |
 | MA-AGENT-A0-ORCHESTRATOR-001 | A0 — Orchestrator / Engineering Manager Prompt | LOW | NOT_REQUIRED | `f7919991e619d416360e74a542741ef21c70f732` | 10000/16000/32000 |
 | MA-AGENT-A1-SPEC-001 | A1 — Specification & Research Prompt | LOW | NOT_REQUIRED | `120898df57138b301560e7d9b9f1b3f5da03e982` | 10000/16000/32000 |
 | MA-AGENT-A10-EVIDENCE-001 | A10 — Evidence & Documentation Prompt | LOW | NOT_REQUIRED | `bdf8fccde4ca40cced48381ad3be2e0461ade535` | 12000/18000/35000 |
@@ -141,4 +142,4 @@
 | MA-V1-ACC-MEDIUM-001 | V1 Acceptance MEDIUM R2 — telemetry terminal-state conflict hardening | MEDIUM | NOT_REQUIRED | `9017e0f25e9571568ed9acf4ca3ca977ce9e78f0` | 15000/25000/50000 |
 | MA-V1-ACCEPTANCE-CLOSURE-V16-R2-001 | V1.6 Phase 3 canonical acceptance closure R2 | HIGH | REQUIRED | `d7d235f5f240b8bea44bc607afa812b2f5bb12d4` | 30000/50000/90000 |
 
-Task contracts indexed: **135**.
+Task contracts indexed: **136**.
