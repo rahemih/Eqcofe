@@ -1484,6 +1484,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/admin/dashboard": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description Contract inventory only. No runtime controller or permission authority exists; frontend consumption is forbidden until a later governed reconciliation. */
+        get: operations["getAdminDashboard"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/admin/products/{id}/archive": {
         parameters: {
             query?: never;
@@ -13542,6 +13559,24 @@ export interface operations {
                 content: {
                     "application/json": components["schemas"]["AdminScopesResponse"];
                 };
+            };
+        };
+    };
+    getAdminDashboard: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Historical contract placeholder only; no runtime response authority is asserted. */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
             };
         };
     };
