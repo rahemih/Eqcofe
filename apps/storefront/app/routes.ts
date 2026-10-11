@@ -35,4 +35,6 @@ export default [
   route("faq", "./routes/faq.tsx"),
   route("policies/terms", "./routes/terms.tsx"),
   route("policies/returns-warranty", "./routes/returns-warranty.tsx"),
+  route("archive", "./routes/archive.tsx"),
+  route("stop-sale", "./routes/stop-sale.tsx"),
 ] satisfies RouteConfig;

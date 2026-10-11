@@ -29,7 +29,7 @@ for (const routePath of [
   'account/profile','account/addresses','account/orders','account/orders/:orderNumber','account/tools',
   'wholesale','account/wholesale/apply','account/wholesale','account/returns/:returnNumber?',
   'account/warranty/:claimNumber?','articles','articles/:slug','about','contact','faq',
-  'policies/terms','policies/returns-warranty'
+  'policies/terms','policies/returns-warranty','archive','stop-sale'
 ]) {
   assert(routeConfig.includes(`route("${routePath}"`), `ROUTE_PLACEHOLDER_MISSING:${routePath}`);
 }
@@ -57,7 +57,7 @@ try {
     "/wholesale", "/account/wholesale/apply", "/account/wholesale", "/account/returns",
     "/account/returns/RET-100", "/account/warranty", "/account/warranty/WAR-100", "/articles",
     "/articles/example", "/about", "/contact", "/faq", "/policies/terms",
-    "/policies/returns-warranty"
+    "/policies/returns-warranty", "/archive", "/stop-sale"
   ];
 
   for (const pathname of routes) {

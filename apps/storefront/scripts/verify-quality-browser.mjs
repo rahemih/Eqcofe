@@ -37,6 +37,8 @@ try {
     "/checkout/review",
     "/account",
     "/policies/returns-warranty",
+    "/archive",
+    "/stop-sale",
   ];
   const widths = [320, 360, 600, 840, 1200, 1440];
   let axeRuns = 0;
