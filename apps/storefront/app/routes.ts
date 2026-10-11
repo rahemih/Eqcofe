@@ -28,6 +28,8 @@ export default [
   route("account/warranty/:claimNumber?", "./routes/account-warranty.tsx"),
   route("articles", "./routes/articles.tsx"),
   route("articles/:slug", "./routes/article-detail.tsx"),
+  route("sitemap.xml", "./routes/sitemap.ts"),
+  route("robots.txt", "./routes/robots.ts"),
   route("about", "./routes/about.tsx"),
   route("contact", "./routes/contact.tsx"),
   route("faq", "./routes/faq.tsx"),
