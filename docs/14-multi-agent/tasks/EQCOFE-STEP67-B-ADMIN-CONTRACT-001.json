@@ -116,7 +116,7 @@
       "required_state": "CANONICAL_COMPLETE",
       "observed_state": "CANONICAL_COMPLETE",
       "merge_sha": "87a074ed2d0557234ecfbb615ff7187c36f37f80",
-      "evidence": "PR #352 merged; exact-SHA Canonical CI #1710, Phase A #1209 and CodeQL #844 SUCCESS; terminal Lock release comment 6108601184.",
+      "evidence": "PR #352 merged; exact-SHA Canonical CI #1710, Phase A #1209 and CodeQL #844 SUCCESS; terminal Lock release comment 6108600509.",
       "blocking": false
     }
   ],
