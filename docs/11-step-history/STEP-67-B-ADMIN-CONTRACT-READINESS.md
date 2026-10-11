@@ -26,7 +26,7 @@ The current OpenAPI exposes these operations but leaves successful response bodi
 
 `GET /admin/dashboard` exists in the old assembled OpenAPI/design inventory but no matching runtime controller or permission authority exists. Step 56 already classifies it `UNRESOLVED_NOT_GRANTED`.
 
-67-B therefore removes it from executable OpenAPI/generated-client authority. Product Design unavailable-only evidence is retained. No metric/count/feed is created.
+67-B therefore retains it only as explicitly annotated contract inventory (`runtime: unresolved_not_granted`, `frontendConsumption: forbidden`) so the frozen Step56 operation/gap lineage stays intact. Its generated response remains untyped and no Admin frontend may consume it. Product Design unavailable-only evidence is retained. No metric/count/feed is created.
 
 ## Boundaries
 
