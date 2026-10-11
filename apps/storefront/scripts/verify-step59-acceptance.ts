@@ -26,6 +26,10 @@ const wholesaleProductionized =
   && wholesale.includes("WholesaleIntroductionView")
   && !wholesale.includes("RoutePlaceholder");
 const articles = readFileSync(resolve(storefrontRoot, "app/routes/articles.tsx"), "utf8");
+const articlesProductionized =
+  articles.includes("loadArticleListRouteData")
+  && articles.includes("ArticleListView")
+  && !articles.includes("RoutePlaceholder");
 const shell = readFileSync(resolve(storefrontRoot, "app/shell/AppShell.tsx"), "utf8");
 const searchEntry = readFileSync(resolve(storefrontRoot, "app/shell/SearchEntry.tsx"), "utf8");
 const homeCss = readFileSync(resolve(storefrontRoot, "app/styles/home.css"), "utf8");
@@ -70,7 +74,10 @@ assert.ok(
     ),
   "STEP65_WHOLESALE_HANDOFF_INVALID",
 );
-assert.match(articles, /targetStep=\{66\}/);
+assert.ok(
+  /targetStep=\{66\}/.test(articles) || articlesProductionized,
+  "STEP66_ARTICLES_HANDOFF_INVALID",
+);
 
 assert.equal(/\bbrown\b/i.test(homeCss), false, "STEP59_G_BROWN_FORBIDDEN");
 assert.equal(/flex-direction\s*:\s*row-reverse/i.test(homeCss), false, "STEP59_G_ROW_REVERSE_FORBIDDEN");
@@ -128,6 +135,27 @@ const apiServer = http.createServer((request, response) => {
   const url = new URL(request.url ?? "/", "http://127.0.0.1");
   if (request.method === "GET" && url.pathname === "/products") {
     sendJson(response, 200, products);
+    return;
+  }
+  if (request.method === "GET" && url.pathname === "/articles" && articlesProductionized) {
+    sendJson(response, 200, {
+      items: [{
+        id: "20000000-0000-4000-8000-000000000001",
+        slug: "acceptance-coffee-guide",
+        title_fa: "راهنمای پذیرش تجهیزات قهوه",
+        seo_title: null,
+        meta_description: "خلاصه مقاله پذیرش",
+        published_at: "2026-10-01T00:00:00.000Z",
+        seo: {
+          title: "راهنمای پذیرش تجهیزات قهوه",
+          description: "خلاصه مقاله پذیرش",
+          canonical_url: "https://eqcofe.com/articles/acceptance-coffee-guide",
+          indexable: true,
+          robots: "index,follow"
+        }
+      }],
+      next_cursor: null
+    });
     return;
   }
   if (request.method === "GET" && url.pathname === "/auth/session" && wholesaleProductionized) {
@@ -283,10 +311,21 @@ try {
 
   const articlesDownstream = await request("/articles");
   assert.equal(articlesDownstream.status, 200, "STEP59_G_DOWNSTREAM_ROUTE_FAILED:/articles");
-  assert(
-    articlesDownstream.body.includes("SF-F-01"),
-    "STEP59_G_DOWNSTREAM_PLACEHOLDER_LOST:/articles",
-  );
+  if (articlesProductionized) {
+    assert(
+      articlesDownstream.body.includes("مقالات و راهنمای خرید تجهیزات قهوه"),
+      "STEP66_C_ARTICLES_PRODUCTION_HANDOFF_MISSING",
+    );
+    assert(
+      articlesDownstream.body.includes("راهنمای پذیرش تجهیزات قهوه"),
+      "STEP66_C_ARTICLES_AUTHORITATIVE_RESULT_MISSING",
+    );
+  } else {
+    assert(
+      articlesDownstream.body.includes("SF-F-01"),
+      "STEP59_G_DOWNSTREAM_PLACEHOLDER_LOST:/articles",
+    );
+  }
 
   console.log(JSON.stringify({
     status: "PASS",
@@ -304,7 +343,7 @@ try {
       step60: { search: searchProductionized ? "PRODUCTION_60_D" : "PLACEHOLDER", category: categoryProductionized ? "PRODUCTION_60_E" : "PLACEHOLDER" },
       step61: { product: "PRODUCTION_61_D" },
       step65: { wholesale: wholesaleProductionized ? "PRODUCTION_65_C" : "PLACEHOLDER" },
-      step66: ["articles"],
+      step66: { articles: articlesProductionized ? "PRODUCTION_66_C" : "PLACEHOLDER" },
     },
     browserAcceptance: "PROVIDER_WORKFLOW_REQUIRED_ON_EXACT_HEAD",
     runtimeFeatureChanges: 0,
