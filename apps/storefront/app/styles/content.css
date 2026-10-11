@@ -105,3 +105,67 @@
   gap: 0.75rem;
   padding-inline-start: 1.25rem;
 }
+
+.policy-page {
+  display: grid;
+  gap: 2rem;
+}
+
+.policy-page__toc {
+  border: 1px solid var(--eq-color-border);
+  border-radius: var(--eq-radius-lg);
+  padding: 1rem;
+}
+
+.policy-page__toc ul,
+.article-related ul {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.policy-page__toc a,
+.faq-list summary,
+.policy-page__next a {
+  min-block-size: var(--eq-size-touch-min);
+}
+
+.policy-page__toc a,
+.policy-page__next a {
+  display: inline-flex;
+  align-items: center;
+}
+
+.policy-page__sections {
+  display: grid;
+  gap: 2rem;
+  max-inline-size: 52rem;
+}
+
+.policy-page__sections section:focus-visible,
+.faq-list summary:focus-visible {
+  outline: 3px solid currentColor;
+  outline-offset: 3px;
+}
+
+.faq-list {
+  display: grid;
+  gap: 0.75rem;
+  max-inline-size: 52rem;
+}
+
+.faq-list details {
+  border: 1px solid var(--eq-color-border);
+  border-radius: var(--eq-radius-lg);
+  padding: 1rem;
+}
+
+.faq-list summary {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  font-weight: 700;
+}
+
+.policy-page__next {
+  max-inline-size: 52rem;
+}
