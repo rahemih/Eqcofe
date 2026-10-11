@@ -1,12 +1,12 @@
 # EQCOFE — Complete Master Execution Roadmap
 
-**Roadmap version:** 3.62 — Step-65 Final Closure / Step-66 Handoff
-**Effective date:** 2026-10-10
+**Roadmap version:** 3.63 — Step-66 Final Closure / Step-67 Handoff
+**Effective date:** 2026-10-11
 **Canonical repository:** `rahemih/Eqcofe`  
 **Canonical branch:** `main`  
 **Verified Step-44 code baseline:** `b239dfe825b615f36caf2e26cc7abc80c70d349c`
 
-> This is the canonical end-to-end execution map for EQCOFE. Phase A (Steps 1–28) is `CLOSED / FINAL GATE PASS` by current canonical verification. For historical Steps 1–27, exact original labels/closure lineage remain `Historical Attribution: UNVERIFIED`; Step 28 remains `Historical Attribution: PARTIAL`. Current-baseline verification does not prove recovered historical provenance. Steps 29–64 retain their established canonical status. Step 63 is `CLOSED / FINAL CANONICAL PASS` through terminal PR #315 / `e7985b7b3c7bfd81cab293607674d576ca93a82e`. Step 64 is `CLOSED / FINAL CANONICAL PASS` through terminal PR #329 / `9bf08d39ea2d45e3dfa4edfc197ac921bf1a8c57`. Step 65 — Wholesale Experience is `CLOSED / FINAL CANONICAL PASS` after Stage 65-I completes its terminal transport; Stages 65-A–65-H are already canonical through PR #338 / `ac16c91f1604e7e5be4dfe09cf832c77b73bbaf9`. Step 66 — Content, SEO & Policy Frontend becomes `NEXT / NOT_STARTED` only after the Step-65-I protected merge, exact-SHA postmerge verification and terminal Lock release. Graph/Graphify remains retired from active project governance and is not a gate, dependency, evidence requirement or Definition-of-Done item.
+> This is the canonical end-to-end execution map for EQCOFE. Phase A (Steps 1–28) is `CLOSED / FINAL GATE PASS` by current canonical verification. For historical Steps 1–27, exact original labels/closure lineage remain `Historical Attribution: UNVERIFIED`; Step 28 remains `Historical Attribution: PARTIAL`. Current-baseline verification does not prove recovered historical provenance. Steps 29–65 retain their established canonical status. Step 65 — Wholesale Experience is `CLOSED / FINAL CANONICAL PASS` through terminal PR #339. Step 66 — Content, SEO & Policy Frontend is `CLOSED / FINAL CANONICAL PASS` after Stage 66-I completes its terminal transport; Stages 66-A–66-H are already canonical through PR #350 / `8b38f46daf5d2e9bb14449d5ee76cf16df9e69d3`. Step 67 — Admin Shell, RBAC & Dashboard Foundation becomes `NEXT / NOT_STARTED` only after the Step-66-I protected merge, exact-SHA postmerge verification and terminal Lock release. Graph/Graphify remains retired from active project governance and is not a gate, dependency, evidence requirement or Definition-of-Done item.
 
 ## Status legend
 - `RECONSTRUCTED-HISTORY`: normalized historical description; exact historical step attribution is not proven.
@@ -376,13 +376,28 @@ Canonical Wholesale implementation and acceptance are complete through Stages 65
 
 The frozen Step-65 result covers authoritative Wholesale application/status, backend-owned approval and customer-type promotion, approved Wholesale Product/Cart context, authoritative quantity-aware Pricing and Quote values, immutable Checkout customer-type history, Order context from the originating Checkout, existing Cart/Checkout/Order/Payment recovery semantics, Persian RTL/accessibility/responsive state hardening and integrated production/browser acceptance. Frontend approval, a hardcoded Wholesale threshold, discount percentage calculation, guaranteed saving and a parallel B2B commerce engine remain forbidden. PR #332 is a canonical Merge Policy infrastructure repair, not a product stage. Graph/Graphify remains retired.
 
-## Step 66 — Content, SEO & Policy Frontend — `NEXT / NOT_STARTED`
-Implement article/blog surfaces, SEO metadata/structured data, sitemap/robots consumption, About/Contact/FAQ/Terms/Returns/Warranty and archive/stop-sale views. Step 66 implementation is authorized only after terminal Step-65-I protected merge, exact-SHA postmerge verification and Lock release.
+## Step 66 — Content, SEO & Policy Frontend — `CLOSED / FINAL CANONICAL PASS`
+
+Stages 66-A through 66-H are canonical through PR #350 / `8b38f46daf5d2e9bb14449d5ee76cf16df9e69d3`. Stage 66-I is the final documentation/governance transport and makes this closure effective only after its protected merge, exact-SHA postmerge verification and terminal Lock release.
+
+| Stage | PR | Canonical merge | State |
+| --- | ---: | --- | --- |
+| 66-A canonical handoff / scope freeze | #340 | `8fba48079fa767955408624539a8a2e8311d6935` | COMPLETE |
+| 66-B Content/SEO/public catalog contract readiness | #341 | `3103976a9d17edc89d4aeca9517f2a5af5cf8e21` | COMPLETE |
+| 66-C shared Content/SEO foundation + Article listing | #344 | `f52fa97d8718763c7432e0bd408103a3cc9b06f0` | COMPLETE |
+| 66-D Article detail / related / SEO / sitemap / robots | #345 | `737fa897bbb633967138db9fc298566c80ac5073` | COMPLETE |
+| 66-E approved static policy surfaces | #346 | `7a0f0586349386c6011da376f7cc70ecd58bf91f` | COMPLETE |
+| 66-F Contact/support fail-closed presentation | #348 | `5250b513c4ef028b1b2b6ba2e010602b51e66123` | COMPLETE |
+| 66-G Archive / Stop-Sale public views | #349 | `51f976ccb125540ef08aed8d9a9727794884f3e7` | COMPLETE |
+| 66-H integrated production/browser acceptance | #350 | `8b38f46daf5d2e9bb14449d5ee76cf16df9e69d3` | COMPLETE |
+| 66-I final verification / docs / Step 67 handoff | #351 | based on `8b38f46daf5d2e9bb14449d5ee76cf16df9e69d3` | FINAL CLOSURE |
+
+The frozen Step-66 result covers published Article listing/detail/related content, backend-owned SEO/canonical/robots authority, safe Article JSON-LD, bounded sitemap/robots integration, approved static About/FAQ/Terms/Returns-Warranty content, fail-closed Contact/support, public Archive and Stop-Sale views with strict privacy/authority boundaries, and integrated RTL/accessibility/responsive/browser acceptance. Duplicate PRs #342, #343 and #347 are closed/unmerged and excluded from canonical lineage.
 
 # PHASE F — Admin Frontend
 
-## Step 67 — Admin Shell, RBAC & Dashboard Foundation — `PLANNED`
-Implement secure admin shell, permission-aware navigation, Step-Up UX, dashboard foundation and global operational states.
+## Step 67 — Admin Shell, RBAC & Dashboard Foundation — `NEXT / NOT_STARTED`
+Implement secure admin shell, permission-aware navigation, Step-Up UX, dashboard foundation and global operational states. Step 67 implementation is authorized only after terminal Step-66-I protected merge, exact-SHA postmerge verification and Lock release.
 
 ## Step 68 — Catalog & Media Administration — `PLANNED`
 Implement product/category/brand/variant editing, drag-drop media management, video/3D metadata, archive/reactivation and bulk catalog operations.

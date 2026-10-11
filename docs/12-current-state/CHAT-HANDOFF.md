@@ -26,42 +26,45 @@ Conversation history is supporting context only. It must not override current ca
 - Valid blocker: NONE.
 - This closure proves current canonical behavior; it does not convert current verification into historical provenance.
 
-## Current handoff snapshot — 2026-10-10
+## Current handoff snapshot — 2026-10-11
 
 - Official repository / canonical branch: `rahemih/Eqcofe` / `main`.
-- Canonical product baseline before final Step-65 docs closure: `ac16c91f1604e7e5be4dfe09cf832c77b73bbaf9` (PR #338).
-- Last completed implementation stage: **Step 65-H — integrated Wholesale production/browser acceptance — CANONICAL_COMPLETE**.
-- Active substep: **65-I — final canonical verification / docs reconciliation / Step 66 handoff**.
-- Step 65 stages A–H canonical PR lineage: #330, #331, #333, #334, #335, #336, #337, #338.
-- Step 65-H exact merge-SHA Canonical CI `38049769102`, Phase A `38049769115`, Storefront Quality `38049769106` and CodeQL `38049768943` are PASS.
-- PR #332 is a canonical Merge Policy infrastructure repair between B and C; it is not a Step-65 product stage.
+- Canonical product baseline before final Step-66 docs closure: `8b38f46daf5d2e9bb14449d5ee76cf16df9e69d3` (PR #350).
+- Last completed implementation stage: **Step 66-H — integrated Content/SEO/Policy production/browser acceptance — CANONICAL_COMPLETE**.
+- Active substep: **66-I — final canonical verification / docs reconciliation / Step 67 handoff**.
+- Step 66 stages A–H canonical PR lineage: #340, #341, #344, #345, #346, #348, #349, #350.
+- Step 66-H exact merge-SHA Canonical CI `38127656391`, Phase A `38127656404`, Storefront Quality `38127656337`, CodeQL `38127656341` and Prototype `38127656402` are PASS.
+- Duplicate/noncanonical PRs #342, #343 and #347 are closed/unmerged and excluded from canonical lineage.
 - Graph/Graphify is **RETIRED / OUT OF SCOPE**; historical graph language does not create a live gate.
-- Linear current issue: `HOS-69 — Step 65 — Wholesale Experience` remains In Progress until terminal 65-I.
-- Successor issue: `HOS-70 — Step 66 — Content, SEO & Policy Frontend` remains not-started until terminal 65-I.
-- Step 66 is the next authorized execution step only after PR #339 has protected merge, exact-SHA postmerge verification and terminal Lock release; until then this branch wording is prospective.
+- Linear current issue: `HOS-70 — Step 66 — Content, SEO & Policy Frontend` remains In Progress until terminal 66-I.
+- Successor issue: `HOS-71 — Step 67 — Admin Shell, RBAC & Dashboard Foundation` remains Backlog / not-started until terminal 66-I.
+- Step 67 is the next authorized execution step only after the 66-I closure PR has protected merge, exact-SHA postmerge verification and terminal Lock release; until then this branch wording is prospective.
 - Technical source of truth remains GitHub `main` + CI + merged PR evidence; Linear mirrors management state.
 
-### Step 65 canonical lineage
+### Step 66 canonical lineage
 
 | Stage | PR | Merge SHA | State |
 | --- | ---: | --- | --- |
-| 65-A | #330 | `a36757a1fa36d1f541102e0e1a3426406e3c5864` | COMPLETE |
-| 65-B | #331 | `8a62ee1c4bd20f5ec181a8c57cafc91a1d91862b` | COMPLETE |
-| 65-C | #333 | `a8905e495f43c7afc9a39a6de0eca38d484b1cbf` | COMPLETE |
-| 65-D | #334 | `66b7e5cce0b854a76f243d4b9ad7fca5ccfb98dd` | COMPLETE |
-| 65-E | #335 | `2d893ea144177c9346555da24b15dce636f0b24a` | COMPLETE |
-| 65-F | #336 | `a460b7c482f6d13609d70fd1f81ba56b186b6a74` | COMPLETE |
-| 65-G | #337 | `376ad9de097a20fb8f497a1db74ee683d2928b6c` | COMPLETE |
-| 65-H | #338 | `ac16c91f1604e7e5be4dfe09cf832c77b73bbaf9` | COMPLETE |
-| 65-I | #339 | terminal on this document's canonical merge | FINAL CLOSURE |
+| 66-A | #340 | `8fba48079fa767955408624539a8a2e8311d6935` | COMPLETE |
+| 66-B | #341 | `3103976a9d17edc89d4aeca9517f2a5af5cf8e21` | COMPLETE |
+| 66-C | #344 | `f52fa97d8718763c7432e0bd408103a3cc9b06f0` | COMPLETE |
+| 66-D | #345 | `737fa897bbb633967138db9fc298566c80ac5073` | COMPLETE |
+| 66-E | #346 | `7a0f0586349386c6011da376f7cc70ecd58bf91f` | COMPLETE |
+| 66-F | #348 | `5250b513c4ef028b1b2b6ba2e010602b51e66123` | COMPLETE |
+| 66-G | #349 | `51f976ccb125540ef08aed8d9a9727794884f3e7` | COMPLETE |
+| 66-H | #350 | `8b38f46daf5d2e9bb14449d5ee76cf16df9e69d3` | COMPLETE |
+| 66-I | #351 | terminal on this document's canonical merge | FINAL CLOSURE |
 
-### Frozen Step 65 authority boundary
+### Frozen Step 66 authority boundary
 
-- application/status and approval are backend-owned;
-- customer remains retail until authoritative approval;
-- Pricing and Cart Quote remain authoritative for quantity-aware Wholesale amounts;
-- Checkout snapshots quoted customer type; Order reads originating Checkout history;
-- no frontend hardcoded threshold, discount formula, approval flag or parallel B2B commerce engine;
+- public Article publication and SEO metadata remain Backend-owned;
+- Storefront consumes typed Article list/detail/related contracts and safe JSON-LD without executing raw Article HTML;
+- sitemap uses the bounded Article sitemap contract; robots is a Storefront resource;
+- About/FAQ/Terms/Returns-Warranty use approved static content boundaries without fabricated legal/business promises;
+- Contact remains fail-closed with no invented public mutation, email, phone or SLA;
+- Archive exposes minimal historical public identity only;
+- Stop-Sale uses the dedicated public sales-authority endpoint and is never inferred from stock;
+- Archive/Stop-Sale are `noindex,follow` and excluded from sitemap;
 - Persian RTL/accessibility/responsive/browser acceptance is verified;
 - Graph/Graphify remains retired.
 

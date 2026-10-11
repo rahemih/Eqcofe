@@ -30,6 +30,32 @@ The frozen Step-63 product result covers authoritative Cart/Checkout state, gues
 
 **Tooling policy supersession — 2026-10-06:** the Project Owner retired Graph/Graphify from active EQCOFE governance. Historical Step-61/62/63 documents that mention graph requirements remain chronology only and no longer create a live gate. Follow-up `HOS-181` is Canceled and PR #319 is Closed / Unmerged. There is no remaining graph debt for Step 63.
 
+## Current Step 66 position
+
+**Step 66 — Content, SEO & Policy Frontend — `CLOSED / FINAL CANONICAL PASS` after terminal 66-I transport.** Stages 66-A through 66-H are already terminal/canonical; Stage 66-I is the documentation/governance closure transport based on canonical main `8b38f46daf5d2e9bb14449d5ee76cf16df9e69d3`. Step 67 must not mutate until the 66-I closure PR completes protected merge, exact-SHA postmerge verification and terminal Lock release.
+
+| Stage | PR | Canonical merge | Terminal Lock | State |
+| --- | ---: | --- | ---: | --- |
+| 66-A canonical handoff / discovery / scope freeze | #340 | `8fba48079fa767955408624539a8a2e8311d6935` | `6097384981` | COMPLETE |
+| 66-B Backend/OpenAPI/generated contract readiness | #341 | `3103976a9d17edc89d4aeca9517f2a5af5cf8e21` | `6106263436` | COMPLETE |
+| 66-C shared Content/SEO foundation + Article listing | #344 | `f52fa97d8718763c7432e0bd408103a3cc9b06f0` | `6106518857` | COMPLETE |
+| 66-D Article detail/related + metadata/JSON-LD/sitemap/robots | #345 | `737fa897bbb633967138db9fc298566c80ac5073` | `6106638831` | COMPLETE |
+| 66-E approved About/FAQ/Terms/Returns-Warranty surfaces | #346 | `7a0f0586349386c6011da376f7cc70ecd58bf91f` | `6107131030` | COMPLETE |
+| 66-F Contact/support fail-closed routing | #348 | `5250b513c4ef028b1b2b6ba2e010602b51e66123` | `6107217258` | COMPLETE |
+| 66-G public Archive / Stop-Sale views | #349 | `51f976ccb125540ef08aed8d9a9727794884f3e7` | `6107326647` | COMPLETE |
+| 66-H integrated production/browser acceptance | #350 | `8b38f46daf5d2e9bb14449d5ee76cf16df9e69d3` | `6107506700` | COMPLETE |
+| 66-I final verification / docs / Step 67 handoff | #351 | this canonical document | terminal evidence attached to PR #351 | FINAL CLOSURE |
+
+Stage 66-H exact merge-SHA evidence is green: Canonical CI `38127656391` / #1700, Phase A `38127656404` / #1199, Storefront Quality `38127656337` / #757, CodeQL `38127656341` / #835 and Prototype `38127656402` / #1111 all succeeded.
+
+Canonical Step-66 functionality includes typed published Article listing/detail/related content; backend-owned SEO/canonical/robots metadata; safe Article JSON-LD; bounded sitemap.xml and robots.txt; approved About/FAQ/Terms/Returns-Warranty surfaces; fail-closed Contact/support with no invented public submission; privacy-bounded Archive; dedicated-authority Stop-Sale; and integrated Persian RTL/accessibility/responsive/browser acceptance. Article body HTML is never executed as raw markup, Archive private/admin fields remain hidden, and stock alone is never inferred as stop-sale.
+
+Acceptance hardening in 66-H repaired Article link minimum-target presentation and synchronized inherited test timing without changing business authority. Duplicate PRs #342, #343 and #347 are closed/unmerged and are not part of canonical lineage.
+
+Graph/Graphify remains retired from active EQCOFE governance; there is no graph debt or graph gate for Step 66.
+
+**Next safe action:** Step 67 — Admin Shell, RBAC & Dashboard Foundation (`HOS-71`) is `NEXT / NOT_STARTED` only once this 66-I closure document is terminally canonical on `main`. No Step-67 mutation is authorized before that terminal evidence.
+
 ## Current Step 65 position
 
 **Step 65 — Wholesale Experience — `CLOSED / FINAL CANONICAL PASS` after terminal 65-I transport.** Stages 65-A through 65-H are already terminal/canonical; Stage 65-I is the documentation/governance closure transport based on canonical main `ac16c91f1604e7e5be4dfe09cf832c77b73bbaf9`. Step 66 must not mutate until PR #339 completes protected merge, exact-SHA postmerge verification and terminal Lock release.
