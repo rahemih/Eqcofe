@@ -3876,19 +3876,12 @@ components:
       properties:
         type:
           type: string
-          const: staff
+          enum:
+          - staff
         id:
           $ref: '#/components/schemas/EntityId'
         accountId:
           $ref: '#/components/schemas/EntityId'
-    AdminSessionData:
-      type: object
-      additionalProperties: false
-      required:
-      - actor
-      properties:
-        actor:
-          $ref: '#/components/schemas/AdminSessionActor'
     AdminSessionResponse:
       type: object
       additionalProperties: false
