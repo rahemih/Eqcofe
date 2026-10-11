@@ -159,3 +159,46 @@
 .faq-item p {
   margin-block: 1rem 0;
 }
+
+.support-page {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.support-page__notice,
+.support-page__privacy {
+  border: 1px solid var(--eq-color-border);
+  border-radius: var(--eq-radius-lg);
+  padding: 1.25rem;
+  background: var(--eq-color-surface);
+}
+
+.support-route-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.support-route-grid__items {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr;
+}
+
+.support-route-card {
+  border: 1px solid var(--eq-color-border);
+  border-radius: var(--eq-radius-lg);
+  padding: 1.25rem;
+  background: var(--eq-color-surface);
+}
+
+@media (min-width: 600px) {
+  .support-route-grid__items {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 840px) {
+  .support-route-grid__items {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
