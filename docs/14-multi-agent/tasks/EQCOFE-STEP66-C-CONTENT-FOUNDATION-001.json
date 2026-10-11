@@ -1,0 +1,181 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP66-C-CONTENT-FOUNDATION-001",
+  "title": "Step 66-C shared Content SEO Storefront foundation and Article listing",
+  "description": "MEDIUM-risk Step 66-C. Build the shared typed Storefront Content/SEO read foundation and replace only /articles with the production Persian RTL published-Article listing. Consume GET /articles only through generated OpenAPI and the existing server-side API/session bridge. Preserve backend-owned publication/SEO authority; Article detail, structured data, sitemap/robots, policy/contact and archive/stop-sale surfaces remain reserved for later Step-66 stages.",
+  "risk": "MEDIUM",
+  "risk_floor": "MEDIUM",
+  "owner": "FRONTEND_ENGINEERING",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "3103976a9d17edc89d4aeca9517f2a5af5cf8e21"
+  },
+  "scope": {
+    "read": [
+      "apps/storefront/**",
+      "src/generated/openapi.ts",
+      "contracts/http/openapi.yaml",
+      "docs/11-step-history/**",
+      "docs/13-product-design/**",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "apps/storefront/app/features/content/article-contract.ts",
+      "apps/storefront/app/features/content/article-list-data.server.ts",
+      "apps/storefront/app/features/content/ArticleListView.tsx",
+      "apps/storefront/app/routes/articles.tsx",
+      "apps/storefront/app/styles/content.css",
+      "apps/storefront/scripts/verify-step66-content-foundation.ts",
+      "apps/storefront/package.json",
+      "apps/storefront/scripts/verify-step59-merchandising.ts",
+      "apps/storefront/scripts/verify-step59-acceptance.ts",
+      "docs/11-step-history/STEP-66-C-CONTENT-FOUNDATION.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP66-C-CONTENT-FOUNDATION-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "database/**",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "src/modules/**",
+      "apps/storefront/app/routes/article-detail.tsx",
+      "apps/storefront/app/routes/about.tsx",
+      "apps/storefront/app/routes/contact.tsx",
+      "apps/storefront/app/routes/faq.tsx",
+      "apps/storefront/app/routes/terms.tsx",
+      "apps/storefront/app/routes/returns-warranty.tsx",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP66-C-CONTENT-FOUNDATION-001-01"
+  ],
+  "human_gate_required": false,
+  "authorized_human_approver": {
+    "role": "PROJECT_OWNER",
+    "github_login": "rahemih"
+  },
+  "token_budget": {
+    "expected_max": 30000,
+    "soft_alert": 48000,
+    "hard_cap": 90000
+  },
+  "max_repair_cycles": 3,
+  "task_risk_rules": [
+    {
+      "id": "STEP66_C_CONTENT_STOREFRONT_MEDIUM",
+      "risk": "MEDIUM",
+      "paths": [
+        "apps/storefront/app/features/content/article-contract.ts",
+        "apps/storefront/app/features/content/article-list-data.server.ts",
+        "apps/storefront/app/features/content/ArticleListView.tsx",
+        "apps/storefront/app/routes/articles.tsx",
+        "apps/storefront/app/styles/content.css",
+        "apps/storefront/scripts/verify-step66-content-foundation.ts",
+        "apps/storefront/package.json",
+        "apps/storefront/scripts/verify-step59-merchandising.ts",
+        "apps/storefront/scripts/verify-step59-acceptance.ts",
+        "docs/11-step-history/STEP-66-C-CONTENT-FOUNDATION.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP66-C-CONTENT-FOUNDATION-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+      ]
+    }
+  ],
+  "pre_mutation_gates": {
+    "graph_health": "RETIRED_AND_OUT_OF_SCOPE",
+    "query_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "path_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "explain_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "human_gate": "NOT_REQUIRED_MEDIUM"
+  },
+  "dependencies": [
+    {
+      "item": "66-B",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "3103976a9d17edc89d4aeca9517f2a5af5cf8e21",
+      "evidence": "PR #341 merged; exact-SHA Canonical CI 38118036927, Phase A 38118036967, Storefront Quality 38118036903 and CodeQL 38118037144 SUCCESS; terminal Lock release comment 6106263436.",
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "linear_issue": "HOS-70",
+    "graph_state": "RETIRED_AND_OUT_OF_SCOPE",
+    "migration_need": "NONE",
+    "dependency_need": "NONE",
+    "backend_mutation": "NONE",
+    "openapi_mutation": "NONE",
+    "article_detail": "DEFERRED_TO_66_D",
+    "structured_data": "DEFERRED_TO_66_D",
+    "sitemap_robots": "DEFERRED_TO_66_D",
+    "policy_contact": "DEFERRED_TO_66_E_66_F",
+    "archive_stop_sale": "DEFERRED_TO_66_G",
+    "legacy_verifier_reconciliation": "Step59 historically asserts /articles targetStep={66}. Stage 66-C is its planned productionization point; only that handoff assertion may be reconciled while all unrelated Step59 checks remain active."
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Article list types derive only from generated OpenAPI ApiSuccessData GET /articles; no duplicate response schema is invented.",
+      "verification": "step66_content_foundation_verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Server loader uses the existing server-side customer-session/API bridge, fixed bounded page size, opaque cursor passthrough with a 1024-character bound, preserves Set-Cookie rotation and never decodes or invents publication state.",
+      "verification": "step66_content_foundation_verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Public /articles becomes a production Persian RTL listing using only backend-published items, with accessible heading/card/link/empty/error/retry/next-page states and no draft/admin controls.",
+      "verification": "step66_content_foundation_verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Article detail, related content, backend SEO metadata rendering, structured data and sitemap/robots remain unchanged and reserved for 66-D.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "No Backend/OpenAPI/generated/DB/dependency/policy/contact/archive/stop-sale or Product Design mutation is introduced.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Storefront verify includes the new 66-C verifier without removing inherited Step59-65/API/auth/state/quality gates.",
+      "verification": "storefront_verify_chain",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "Inherited Step59 merchandising and acceptance checks recognize either the historical Article placeholder or the Stage66-C production route while preserving every unrelated check.",
+      "verification": "step59_compatibility_handoff",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "MEDIUM-risk canonical closure requires exact-head Canonical CI, Phase A, deterministic Review, exact-artifact ACTIVE Lock, protected merge, exact-SHA postmerge verification and terminal Lock release; no Owner Human Gate is required.",
+      "verification": "canonical_transport_and_postmerge_evidence",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Step 66-C is MEDIUM risk; Human Gate is not required. Exact-artifact Review and Lock evidence remain mandatory."
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}
