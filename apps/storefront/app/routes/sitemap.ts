@@ -1,4 +1,4 @@
-import type { ApiSuccessData } from "../platform/api/contract.js";
+import type { ApiSuccessData, ApiSuccessResult } from "../platform/api/contract.js";
 import { createApiClient } from "../platform/api/request.js";
 import { readServerApiConfig } from "../platform/config/api.server.js";
 
@@ -13,7 +13,7 @@ export async function loader() {
   let cursor: string | null = null;
 
   for (let page = 0; page < MAX_PAGES; page += 1) {
-    const response = await client.request("get", "/content/sitemap/articles", {
+    const response: ApiSuccessResult<"get", "/content/sitemap/articles"> = await client.request("get", "/content/sitemap/articles", {
       query: {
         limit: PAGE_SIZE,
         ...(cursor ? { cursor } : {}),
