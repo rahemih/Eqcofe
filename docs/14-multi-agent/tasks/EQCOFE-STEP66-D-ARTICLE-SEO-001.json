@@ -30,6 +30,7 @@
       "apps/storefront/app/routes.ts",
       "apps/storefront/app/styles/content.css",
       "apps/storefront/scripts/verify-step66-article-seo.ts",
+      "apps/storefront/scripts/verify-step66-content-foundation.ts",
       "apps/storefront/package.json",
       "docs/11-step-history/STEP-66-D-ARTICLE-SEO.md",
       "docs/14-multi-agent/tasks/EQCOFE-STEP66-D-ARTICLE-SEO-001.json",
@@ -81,7 +82,8 @@
         "apps/storefront/package.json",
         "docs/11-step-history/STEP-66-D-ARTICLE-SEO.md",
         "docs/14-multi-agent/tasks/EQCOFE-STEP66-D-ARTICLE-SEO-001.json",
-        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+        "docs/14-multi-agent/generated/TASK-CATALOG.md",
+        "apps/storefront/scripts/verify-step66-content-foundation.ts"
       ]
     }
   ],
@@ -110,7 +112,8 @@
     "backend_mutation": "NONE",
     "openapi_mutation": "NONE",
     "policy_contact": "DEFERRED_TO_66_E_66_F",
-    "archive_stop_sale": "DEFERRED_TO_66_G"
+    "archive_stop_sale": "DEFERRED_TO_66_G",
+    "legacy_verifier_reconciliation": "66-C intentionally froze Article detail as a placeholder pending 66-D. This stage authorizes only that stale handoff assertion to recognize the production 66-D loader/view/meta route; no unrelated 66-C check may be weakened."
   },
   "acceptance_criteria": [
     {
@@ -159,6 +162,12 @@
       "id": "AC-008",
       "description": "MEDIUM-risk canonical closure requires exact-head Canonical CI, Phase A, deterministic Review, exact-artifact ACTIVE Lock, protected merge, exact-SHA postmerge verification and terminal Lock release; no Owner Human Gate required.",
       "verification": "canonical_transport_and_postmerge_evidence",
+      "mandatory": true
+    },
+    {
+      "id": "AC-009",
+      "description": "Inherited 66-C content-foundation verification is reconciled only for the planned 66-D Article-detail handoff: detail may remain the Step-66 placeholder or prove the production loader/view/meta implementation; every unrelated 66-C assertion remains active.",
+      "verification": "content_foundation_compatibility_handoff",
       "mandatory": true
     }
   ],
