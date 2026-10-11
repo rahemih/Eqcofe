@@ -3702,7 +3702,7 @@ components:
           minLength: 1
           maxLength: 5000
       minProperties: 1
-    AdminLoginResponse:
+    AdminLoginData:
       type: object
       additionalProperties: false
       required:
@@ -3711,13 +3711,29 @@ components:
       properties:
         fido_required:
           type: boolean
+          const: true
         expires_in_seconds:
           type: integer
           minimum: 1
+    AdminLoginResponse:
+      type: object
+      additionalProperties: false
+      required:
+      - success
+      - data
+      - meta
+      properties:
+        success:
+          type: boolean
+          const: true
+        data:
+          $ref: '#/components/schemas/AdminLoginData'
+        meta:
+          $ref: '#/components/schemas/SuccessMeta'
     AdminWebAuthnOptions:
       type: object
       additionalProperties: true
-    AdminFidoChallengeResponse:
+    AdminFidoChallengeData:
       type: object
       additionalProperties: false
       required:
@@ -3734,7 +3750,22 @@ components:
           $ref: '#/components/schemas/EntityId'
         options:
           $ref: '#/components/schemas/AdminWebAuthnOptions'
-    AdminWebAuthnChallengeResponse:
+    AdminFidoChallengeResponse:
+      type: object
+      additionalProperties: false
+      required:
+      - success
+      - data
+      - meta
+      properties:
+        success:
+          type: boolean
+          const: true
+        data:
+          $ref: '#/components/schemas/AdminFidoChallengeData'
+        meta:
+          $ref: '#/components/schemas/SuccessMeta'
+    AdminWebAuthnChallengeData:
       type: object
       additionalProperties: false
       required:
@@ -3745,7 +3776,22 @@ components:
           $ref: '#/components/schemas/EntityId'
         options:
           $ref: '#/components/schemas/AdminWebAuthnOptions'
-    AdminSessionEstablishedResponse:
+    AdminWebAuthnChallengeResponse:
+      type: object
+      additionalProperties: false
+      required:
+      - success
+      - data
+      - meta
+      properties:
+        success:
+          type: boolean
+          const: true
+        data:
+          $ref: '#/components/schemas/AdminWebAuthnChallengeData'
+        meta:
+          $ref: '#/components/schemas/SuccessMeta'
+    AdminSessionEstablishedData:
       type: object
       additionalProperties: false
       required:
@@ -3757,7 +3803,22 @@ components:
         expires_at:
           type: string
           format: date-time
-    AdminStepUpVerifyResponse:
+    AdminSessionEstablishedResponse:
+      type: object
+      additionalProperties: false
+      required:
+      - success
+      - data
+      - meta
+      properties:
+        success:
+          type: boolean
+          const: true
+        data:
+          $ref: '#/components/schemas/AdminSessionEstablishedData'
+        meta:
+          $ref: '#/components/schemas/SuccessMeta'
+    AdminStepUpVerifyData:
       type: object
       additionalProperties: false
       required:
@@ -3766,7 +3827,22 @@ components:
         step_up_token:
           type: string
           minLength: 1
-    AdminLogoutResponse:
+    AdminStepUpVerifyResponse:
+      type: object
+      additionalProperties: false
+      required:
+      - success
+      - data
+      - meta
+      properties:
+        success:
+          type: boolean
+          const: true
+        data:
+          $ref: '#/components/schemas/AdminStepUpVerifyData'
+        meta:
+          $ref: '#/components/schemas/SuccessMeta'
+    AdminLogoutData:
       type: object
       additionalProperties: false
       required:
@@ -3774,6 +3850,22 @@ components:
       properties:
         logged_out:
           type: boolean
+          const: true
+    AdminLogoutResponse:
+      type: object
+      additionalProperties: false
+      required:
+      - success
+      - data
+      - meta
+      properties:
+        success:
+          type: boolean
+          const: true
+        data:
+          $ref: '#/components/schemas/AdminLogoutData'
+        meta:
+          $ref: '#/components/schemas/SuccessMeta'
     AdminSessionActor:
       type: object
       additionalProperties: false
@@ -3781,29 +3873,15 @@ components:
       - type
       - id
       - accountId
-      - sessionId
-      - permissions
-      - scopes
       properties:
         type:
           type: string
-          enum:
-          - staff
+          const: staff
         id:
           $ref: '#/components/schemas/EntityId'
         accountId:
           $ref: '#/components/schemas/EntityId'
-        sessionId:
-          $ref: '#/components/schemas/EntityId'
-        permissions:
-          type: array
-          items:
-            type: string
-        scopes:
-          type: array
-          items:
-            type: string
-    AdminSessionResponse:
+    AdminSessionData:
       type: object
       additionalProperties: false
       required:
@@ -3811,7 +3889,22 @@ components:
       properties:
         actor:
           $ref: '#/components/schemas/AdminSessionActor'
-    AdminMeResponse:
+    AdminSessionResponse:
+      type: object
+      additionalProperties: false
+      required:
+      - success
+      - data
+      - meta
+      properties:
+        success:
+          type: boolean
+          const: true
+        data:
+          $ref: '#/components/schemas/AdminSessionData'
+        meta:
+          $ref: '#/components/schemas/SuccessMeta'
+    AdminMeData:
       type: object
       additionalProperties: false
       required:
@@ -3825,9 +3918,23 @@ components:
           $ref: '#/components/schemas/EntityId'
         type:
           type: string
-          enum:
-          - staff
-    AdminPermissionsResponse:
+          const: staff
+    AdminMeResponse:
+      type: object
+      additionalProperties: false
+      required:
+      - success
+      - data
+      - meta
+      properties:
+        success:
+          type: boolean
+          const: true
+        data:
+          $ref: '#/components/schemas/AdminMeData'
+        meta:
+          $ref: '#/components/schemas/SuccessMeta'
+    AdminPermissionsData:
       type: object
       additionalProperties: false
       required:
@@ -3837,7 +3944,22 @@ components:
           type: array
           items:
             type: string
-    AdminScopesResponse:
+    AdminPermissionsResponse:
+      type: object
+      additionalProperties: false
+      required:
+      - success
+      - data
+      - meta
+      properties:
+        success:
+          type: boolean
+          const: true
+        data:
+          $ref: '#/components/schemas/AdminPermissionsData'
+        meta:
+          $ref: '#/components/schemas/SuccessMeta'
+    AdminScopesData:
       type: object
       additionalProperties: false
       required:
@@ -3847,6 +3969,21 @@ components:
           type: array
           items:
             type: string
+    AdminScopesResponse:
+      type: object
+      additionalProperties: false
+      required:
+      - success
+      - data
+      - meta
+      properties:
+        success:
+          type: boolean
+          const: true
+        data:
+          $ref: '#/components/schemas/AdminScopesData'
+        meta:
+          $ref: '#/components/schemas/SuccessMeta'
     PostAdminAuthLoginRequest:
       type: object
       additionalProperties: false
