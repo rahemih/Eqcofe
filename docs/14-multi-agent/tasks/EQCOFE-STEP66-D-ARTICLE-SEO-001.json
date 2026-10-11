@@ -1,0 +1,185 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP66-D-ARTICLE-SEO-001",
+  "title": "Step 66-D Article detail related SEO structured data sitemap and robots",
+  "description": "MEDIUM-risk Step 66-D. Productionize /articles/:slug with generated OpenAPI detail/related contracts and backend-owned SEO metadata, add safe Article structured data, and expose Storefront-owned sitemap.xml/robots.txt by consuming the bounded public Article sitemap contract. No Backend/OpenAPI/database/dependency mutation and no raw HTML execution.",
+  "risk": "MEDIUM",
+  "risk_floor": "MEDIUM",
+  "owner": "FRONTEND_ENGINEERING",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "f52fa97d8718763c7432e0bd408103a3cc9b06f0"
+  },
+  "scope": {
+    "read": [
+      "apps/storefront/**",
+      "src/generated/openapi.ts",
+      "contracts/http/openapi.yaml",
+      "docs/11-step-history/**",
+      "docs/13-product-design/**",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "apps/storefront/app/features/content/article-detail-data.server.ts",
+      "apps/storefront/app/features/content/article-detail-seo.ts",
+      "apps/storefront/app/features/content/ArticleDetailView.tsx",
+      "apps/storefront/app/routes/article-detail.tsx",
+      "apps/storefront/app/routes/sitemap.ts",
+      "apps/storefront/app/routes/robots.ts",
+      "apps/storefront/app/routes.ts",
+      "apps/storefront/app/styles/content.css",
+      "apps/storefront/scripts/verify-step66-article-seo.ts",
+      "apps/storefront/scripts/verify-step66-content-foundation.ts",
+      "apps/storefront/package.json",
+      "docs/11-step-history/STEP-66-D-ARTICLE-SEO.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP66-D-ARTICLE-SEO-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "database/**",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "src/modules/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**",
+      "apps/storefront/app/routes/about.tsx",
+      "apps/storefront/app/routes/contact.tsx",
+      "apps/storefront/app/routes/faq.tsx",
+      "apps/storefront/app/routes/terms.tsx",
+      "apps/storefront/app/routes/returns-warranty.tsx"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP66-D-ARTICLE-SEO-001-01"
+  ],
+  "human_gate_required": false,
+  "authorized_human_approver": {
+    "role": "PROJECT_OWNER",
+    "github_login": "rahemih"
+  },
+  "token_budget": {
+    "expected_max": 32000,
+    "soft_alert": 52000,
+    "hard_cap": 92000
+  },
+  "max_repair_cycles": 3,
+  "task_risk_rules": [
+    {
+      "id": "STEP66_D_ARTICLE_SEO_MEDIUM",
+      "risk": "MEDIUM",
+      "paths": [
+        "apps/storefront/app/features/content/**",
+        "apps/storefront/app/routes/article-detail.tsx",
+        "apps/storefront/app/routes/sitemap.ts",
+        "apps/storefront/app/routes/robots.ts",
+        "apps/storefront/app/routes.ts",
+        "apps/storefront/app/styles/content.css",
+        "apps/storefront/scripts/verify-step66-article-seo.ts",
+        "apps/storefront/package.json",
+        "docs/11-step-history/STEP-66-D-ARTICLE-SEO.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP66-D-ARTICLE-SEO-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md",
+        "apps/storefront/scripts/verify-step66-content-foundation.ts"
+      ]
+    }
+  ],
+  "pre_mutation_gates": {
+    "graph_health": "RETIRED_AND_OUT_OF_SCOPE",
+    "query_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "path_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "explain_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "human_gate": "NOT_REQUIRED_MEDIUM"
+  },
+  "dependencies": [
+    {
+      "item": "66-C",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "f52fa97d8718763c7432e0bd408103a3cc9b06f0",
+      "evidence": "PR #344 merged; exact-SHA Canonical CI #1674, Phase A #1173, Storefront Quality #736 and CodeQL #811 SUCCESS; terminal Lock release comment 6106518857.",
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "linear_issue": "HOS-70",
+    "graph_state": "RETIRED_AND_OUT_OF_SCOPE",
+    "migration_need": "NONE",
+    "dependency_need": "NONE",
+    "backend_mutation": "NONE",
+    "openapi_mutation": "NONE",
+    "policy_contact": "DEFERRED_TO_66_E_66_F",
+    "archive_stop_sale": "DEFERRED_TO_66_G",
+    "legacy_verifier_reconciliation": "66-C intentionally froze Article detail as a placeholder pending 66-D. This stage authorizes only that stale handoff assertion to recognize the production 66-D loader/view/meta route; no unrelated 66-C check may be weakened."
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Article detail and related types derive only from generated OpenAPI GET /articles/{slug} and GET /articles/{slug}/related.",
+      "verification": "step66_article_seo_verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Server loader validates slug locally, reads public detail and bounded related content via existing server API bridge, preserves Set-Cookie rotation, and degrades failures without fabricating article content.",
+      "verification": "step66_article_seo_verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Article route renders published backend content with accessible hierarchy and related links; body is never executed as raw HTML.",
+      "verification": "step66_article_seo_verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Route metadata uses backend-provided seo.title/description/canonical_url/robots authority; fallback state is noindex.",
+      "verification": "step66_article_seo_verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "JSON-LD Article structured data is generated only from authoritative public article fields and serialized as JSON, not interpolated executable HTML.",
+      "verification": "step66_article_seo_verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Storefront exposes /sitemap.xml and /robots.txt; sitemap consumes only GET /content/sitemap/articles with bounded pagination and robots references the canonical sitemap without inventing backend SEO authority.",
+      "verification": "step66_article_seo_verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "No Backend/OpenAPI/generated/database/dependency/policy/contact/archive/stop-sale/Product Design mutation is introduced.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "MEDIUM-risk canonical closure requires exact-head Canonical CI, Phase A, deterministic Review, exact-artifact ACTIVE Lock, protected merge, exact-SHA postmerge verification and terminal Lock release; no Owner Human Gate required.",
+      "verification": "canonical_transport_and_postmerge_evidence",
+      "mandatory": true
+    },
+    {
+      "id": "AC-009",
+      "description": "Inherited 66-C content-foundation verification is reconciled only for the planned 66-D Article-detail handoff: detail may remain the Step-66 placeholder or prove the production loader/view/meta implementation; every unrelated 66-C assertion remains active.",
+      "verification": "content_foundation_compatibility_handoff",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Step 66-D is MEDIUM risk; Human Gate is not required."
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}
