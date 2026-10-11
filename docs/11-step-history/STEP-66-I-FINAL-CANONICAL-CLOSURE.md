@@ -8,7 +8,7 @@ Canonical starting baseline: `8b38f46daf5d2e9bb14449d5ee76cf16df9e69d3`
 
 Task Contract: `docs/14-multi-agent/tasks/EQCOFE-STEP66-I-CLOSURE-001.json`
 
-Closure transport: branch `eqcofe/step66-i-final-closure`; canonical PR is assigned by GitHub transport.
+Closure transport: PR `#351` / branch `eqcofe/step66-i-final-closure`.
 
 Step 66 A–H are terminal and canonical. Stage 66-I is documentation/governance-only: it reconciles canonical state documents with live GitHub/CI evidence, freezes the final Content/SEO/Policy Storefront result and prepares the Step-67 handoff. It adds no runtime, API/OpenAPI, database, dependency, workflow or Product Design semantic authority.
 
