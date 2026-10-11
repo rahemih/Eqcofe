@@ -26,7 +26,8 @@
       "apps/storefront/package.json",
       "docs/11-step-history/STEP-66-F-CONTACT-SUPPORT.md",
       "docs/14-multi-agent/tasks/EQCOFE-STEP66-F-CONTACT-SUPPORT-001.json",
-      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "apps/storefront/scripts/verify-step66-policy-pages.ts"
     ],
     "forbidden": [
       ".github/**",
@@ -66,7 +67,8 @@
         "apps/storefront/package.json",
         "docs/11-step-history/STEP-66-F-CONTACT-SUPPORT.md",
         "docs/14-multi-agent/tasks/EQCOFE-STEP66-F-CONTACT-SUPPORT-001.json",
-        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+        "docs/14-multi-agent/generated/TASK-CATALOG.md",
+        "apps/storefront/scripts/verify-step66-policy-pages.ts"
       ]
     }
   ],
@@ -105,7 +107,8 @@
       "secret",
       "full payment/card data"
     ],
-    "direct_submission": "FAIL_CLOSED_NOT_AVAILABLE"
+    "direct_submission": "FAIL_CLOSED_NOT_AVAILABLE",
+    "legacy_verifier_reconciliation": "Step 66-E verifier historically requires Contact to remain RoutePlaceholder. Stage 66-F is the planned productionization point; only that Contact handoff assertion is reconciled while all Step 66-E policy-page checks remain active."
   },
   "acceptance_criteria": [
     {
@@ -161,5 +164,13 @@
     "rule": "Step 66-F is MEDIUM risk; Human Gate is not required."
   },
   "process_improvement_links": [],
-  "incident_links": []
+  "incident_links": [],
+  "repair_history": [
+    {
+      "date": "2026-10-11",
+      "trigger": "Canonical CI #1686 on PR #348",
+      "root_cause": "Step 66-E policy-pages verifier still required /contact to remain a RoutePlaceholder after Stage 66-F intentionally productionized SF-F-04.",
+      "repair": "Authorize a verifier-only compatibility update accepting either the historical placeholder or the 66-F SupportContactView production route; preserve every unrelated 66-E check."
+    }
+  ]
 }
