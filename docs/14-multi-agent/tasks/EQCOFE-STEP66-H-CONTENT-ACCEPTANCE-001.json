@@ -26,7 +26,8 @@
       "docs/11-step-history/STEP-66-H-CONTENT-ACCEPTANCE.md",
       "docs/14-multi-agent/tasks/EQCOFE-STEP66-H-CONTENT-ACCEPTANCE-001.json",
       "docs/14-multi-agent/generated/TASK-CATALOG.md",
-      "apps/storefront/scripts/verify-step62-acceptance.mjs"
+      "apps/storefront/scripts/verify-step62-acceptance.mjs",
+      "apps/storefront/app/styles/content.css"
     ],
     "forbidden": [
       ".github/**",
@@ -37,8 +38,7 @@
       "src/generated/openapi.ts",
       "src/modules/**",
       "docs/12-current-state/**",
-      "docs/13-product-design/**",
-      "apps/storefront/app/**"
+      "docs/13-product-design/**"
     ]
   },
   "requested_lock_ids": [
@@ -65,7 +65,8 @@
         "docs/11-step-history/STEP-66-H-CONTENT-ACCEPTANCE.md",
         "docs/14-multi-agent/tasks/EQCOFE-STEP66-H-CONTENT-ACCEPTANCE-001.json",
         "docs/14-multi-agent/generated/TASK-CATALOG.md",
-        "apps/storefront/scripts/verify-step62-acceptance.mjs"
+        "apps/storefront/scripts/verify-step62-acceptance.mjs",
+        "apps/storefront/app/styles/content.css"
       ]
     }
   ],
@@ -135,6 +136,11 @@
       "trigger": "Storefront Quality #751 on PR #350",
       "finding": "Inherited Step62 browser acceptance read the Wishlist button label immediately after success-message visibility; React pending-state label could still be present for a short interval.",
       "repair": "Test-only synchronization: wait for the final accessible button name after Wishlist removal before asserting aria-pressed and label. No Wishlist runtime code or authority is changed."
+    },
+    "runtime_defect_repair": {
+      "trigger": "Storefront Quality #753 on PR #350",
+      "finding": "Article Detail breadcrumb and related-article anchors rendered at ~17px block height, below the 44px minimum target required by the Step55/58 accessibility baseline.",
+      "repair": "Add logical CSS-only 44px minimum target sizing and visible focus to Article Detail navigation/related links. No data, authority, business logic or component semantics change."
     }
   },
   "acceptance_criteria": [
