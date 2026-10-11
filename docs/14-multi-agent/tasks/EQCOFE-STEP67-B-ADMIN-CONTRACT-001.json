@@ -45,7 +45,8 @@
       "docs/13-product-design/step56-final-audit.json",
       "docs/13-product-design/step56-final-audit/manifest.json",
       "docs/13-product-design/step57-high-fidelity-contract.json",
-      "src/modules/identity/presentation/auth.controller.ts"
+      "src/modules/identity/presentation/auth.controller.ts",
+      "docs/13-product-design/step56-foundation/A/admin-traceability.json"
     ],
     "forbidden": [
       ".github/**",
@@ -99,7 +100,8 @@
         "docs/13-product-design/step56-final-audit.json",
         "docs/13-product-design/step56-final-audit/manifest.json",
         "docs/13-product-design/step57-high-fidelity-contract.json",
-        "src/modules/identity/presentation/auth.controller.ts"
+        "src/modules/identity/presentation/auth.controller.ts",
+        "docs/13-product-design/step56-foundation/A/admin-traceability.json"
       ]
     }
   ],
@@ -128,7 +130,7 @@
     "admin_frontend_mutation": "NONE",
     "runtime_source": "src/modules/identity/presentation/auth.controller.ts + WebAuthnService + SessionActorResolver",
     "dashboard_resolution": "RETAIN_CONTRACT_INVENTORY_ONLY_WITH_RUNTIME=UNRESOLVED_NOT_GRANTED_AND_FRONTEND_CONSUMPTION_FORBIDDEN; no runtime/permission/metric authority",
-    "product_design_provenance_repair": "GENERATOR_EQUIVALENT_HASH_ONLY",
+    "product_design_provenance_repair": "GENERATOR_EQUIVALENT_SOURCE_EVIDENCE_AND_HASH_ONLY; dashboard state remains UNRESOLVED_NOT_GRANTED",
     "transport_rules": [
       "Admin auth success payloads must match current controller return shapes; no frontend-local guessed models.",
       "HttpOnly/SameSite=Strict cookie/session-token authority is unchanged.",
@@ -214,6 +216,12 @@
       "trigger": "Canonical CI #1711 on PR #353",
       "root_cause": "Removing GET /admin/dashboard from OpenAPI violated frozen Step56 operation-union and GAP-01/GAP-02 evidence, which intentionally retains this contract-only operation as UNRESOLVED_NOT_GRANTED.",
       "repair": "Restore dashboard as contract inventory only with explicit x-eqcofe runtime=unresolved_not_granted and frontendConsumption=forbidden; preserve untyped response and no runtime authority."
+    },
+    {
+      "date": "2026-10-11",
+      "trigger": "Canonical CI #1715 on PR #353 after dashboard-inventory repair",
+      "root_cause": "Step56 validator now reports only Source evidence drift for GET /admin/dashboard and recovered-source SHA drift for contracts/http/openapi.yaml.",
+      "repair": "Regenerate dashboard operationEvidence extension metadata, Step56-A admin traceability, and downstream source/manifest hashes only. Preserve UNRESOLVED_NOT_GRANTED/no-runtime semantics."
     }
   ]
 }
