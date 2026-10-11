@@ -2,7 +2,7 @@
   "schema_version": "2.2",
   "task_id": "EQCOFE-STEP67-B-ADMIN-CONTRACT-001",
   "title": "Step 67-B Admin authentication context and dashboard contract readiness",
-  "description": "HIGH-risk Backend/OpenAPI contract-readiness stage. Reconcile existing Admin login/FIDO/session/me/permissions/scopes/Step-Up success responses with actual AuthController/WebAuthn runtime, regenerate typed OpenAPI output, remove the non-runtime /admin/dashboard operation from executable HTTP authority while preserving Product Design UNRESOLVED_NOT_GRANTED/unavailable-only evidence, and refresh only generator-equivalent Product Design provenance hashes caused by the OpenAPI source change. No database, dependency, Admin frontend or business-authorization mutation.",
+  "description": "HIGH-risk Backend/OpenAPI contract-readiness stage. Reconcile existing Admin login/FIDO/session/me/permissions/scopes/Step-Up success responses with actual AuthController/WebAuthn runtime, regenerate typed OpenAPI output, retain /admin/dashboard only as explicitly non-runtime UNRESOLVED_NOT_GRANTED contract inventory while preserving Product Design unavailable-only evidence and forbidding frontend consumption, and refresh only generator-equivalent Product Design provenance hashes caused by the OpenAPI source change. No database, dependency, Admin frontend or business-authorization mutation.",
   "risk": "HIGH",
   "risk_floor": "HIGH",
   "owner": "BACKEND_ENGINEERING",
@@ -126,7 +126,7 @@
     "dependency_need": "NONE",
     "admin_frontend_mutation": "NONE",
     "runtime_source": "src/modules/identity/presentation/auth.controller.ts + WebAuthnService + SessionActorResolver",
-    "dashboard_resolution": "REMOVE_FROM_EXECUTABLE_OPENAPI; retain Step56 UNRESOLVED_NOT_GRANTED/unavailable-only design evidence",
+    "dashboard_resolution": "RETAIN_CONTRACT_INVENTORY_ONLY_WITH_RUNTIME=UNRESOLVED_NOT_GRANTED_AND_FRONTEND_CONSUMPTION_FORBIDDEN; no runtime/permission/metric authority",
     "product_design_provenance_repair": "GENERATOR_EQUIVALENT_HASH_ONLY",
     "transport_rules": [
       "Admin auth success payloads must match current controller return shapes; no frontend-local guessed models.",
@@ -156,7 +156,7 @@
     },
     {
       "id": "AC-004",
-      "description": "GET /admin/dashboard is absent from executable OpenAPI/generated paths because no runtime controller/permission authority exists; Step56 UNRESOLVED_NOT_GRANTED evidence remains preserved and no metric is fabricated.",
+      "description": "GET /admin/dashboard remains only as explicitly annotated non-runtime UNRESOLVED_NOT_GRANTED contract inventory so Step56 operation/gap lineage stays intact; generated response remains untyped, frontend consumption is forbidden, and no metric/runtime/permission authority is fabricated.",
       "verification": "step67_admin_contract_test",
       "mandatory": true
     },
@@ -191,5 +191,13 @@
     "rule": "Step 67-B is HIGH risk. Exact-artifact Project Owner approval is mandatory after technical/security/review/Lock evidence is complete."
   },
   "process_improvement_links": [],
-  "incident_links": []
+  "incident_links": [],
+  "repair_history": [
+    {
+      "date": "2026-10-11",
+      "trigger": "Canonical CI #1711 on PR #353",
+      "root_cause": "Removing GET /admin/dashboard from OpenAPI violated frozen Step56 operation-union and GAP-01/GAP-02 evidence, which intentionally retains this contract-only operation as UNRESOLVED_NOT_GRANTED.",
+      "repair": "Restore dashboard as contract inventory only with explicit x-eqcofe runtime=unresolved_not_granted and frontendConsumption=forbidden; preserve untyped response and no runtime authority."
+    }
+  ]
 }
