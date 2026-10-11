@@ -1,0 +1,165 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP66-F-CONTACT-SUPPORT-001",
+  "title": "Step 66-F contact and support presentation with fail-closed no-mutation behavior",
+  "description": "MEDIUM-risk Step 66-F. Productionize SF-F-04 /contact without inventing a public support mutation or channel. Present only canonical internal support paths (orders, returns, warranty, wholesale, FAQ), warn against secrets/payment data, and explicitly fail closed when direct public message submission is unavailable.",
+  "risk": "MEDIUM",
+  "risk_floor": "MEDIUM",
+  "owner": "FRONTEND_ENGINEERING",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "7a0f0586349386c6011da376f7cc70ecd58bf91f"
+  },
+  "scope": {
+    "read": [
+      "apps/storefront/**",
+      "docs/11-step-history/**",
+      "docs/13-product-design/**",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "apps/storefront/app/features/content/SupportContactView.tsx",
+      "apps/storefront/app/routes/contact.tsx",
+      "apps/storefront/app/styles/content.css",
+      "apps/storefront/scripts/verify-step66-contact-support.ts",
+      "apps/storefront/package.json",
+      "docs/11-step-history/STEP-66-F-CONTACT-SUPPORT.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP66-F-CONTACT-SUPPORT-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "database/**",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "src/modules/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP66-F-CONTACT-SUPPORT-001-01"
+  ],
+  "human_gate_required": false,
+  "authorized_human_approver": {
+    "role": "PROJECT_OWNER",
+    "github_login": "rahemih"
+  },
+  "token_budget": {
+    "expected_max": 22000,
+    "soft_alert": 38000,
+    "hard_cap": 76000
+  },
+  "max_repair_cycles": 3,
+  "task_risk_rules": [
+    {
+      "id": "STEP66_F_CONTACT_SUPPORT_MEDIUM",
+      "risk": "MEDIUM",
+      "paths": [
+        "apps/storefront/app/features/content/SupportContactView.tsx",
+        "apps/storefront/app/routes/contact.tsx",
+        "apps/storefront/app/styles/content.css",
+        "apps/storefront/scripts/verify-step66-contact-support.ts",
+        "apps/storefront/package.json",
+        "docs/11-step-history/STEP-66-F-CONTACT-SUPPORT.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP66-F-CONTACT-SUPPORT-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+      ]
+    }
+  ],
+  "pre_mutation_gates": {
+    "graph_health": "RETIRED_AND_OUT_OF_SCOPE",
+    "query_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "path_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "explain_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "human_gate": "NOT_REQUIRED_MEDIUM"
+  },
+  "dependencies": [
+    {
+      "item": "66-E",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "7a0f0586349386c6011da376f7cc70ecd58bf91f",
+      "evidence": "PR #346 merged; exact-SHA Canonical CI #1684, Phase A #1183, Storefront Quality #744, CodeQL #819 and Prototype #1095 SUCCESS; terminal Lock release comment 6107131030.",
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "linear_issue": "HOS-70",
+    "graph_state": "RETIRED_AND_OUT_OF_SCOPE",
+    "public_contact_mutation": "NONE_APPROVED",
+    "approved_external_channels": "NONE_ESTABLISHED",
+    "support_routes": [
+      "/account/orders",
+      "/account/returns",
+      "/account/warranty",
+      "/account/wholesale",
+      "/faq"
+    ],
+    "prohibited_collection": [
+      "OTP",
+      "token",
+      "secret",
+      "full payment/card data"
+    ],
+    "direct_submission": "FAIL_CLOSED_NOT_AVAILABLE"
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "SF-F-04 /contact becomes a production Persian RTL support-routing page with exactly one h1 and semantic sections.",
+      "verification": "step66_contact_support_verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "No public support submission is claimed; the page clearly states direct online message submission is not active until an approved public mutation exists.",
+      "verification": "step66_contact_support_verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Only canonical internal paths are offered for order, return, warranty, wholesale and FAQ support; no email, phone, response hours or SLA is invented.",
+      "verification": "step66_contact_support_verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "The page warns users not to send OTP, token, secret or complete payment/card information.",
+      "verification": "step66_contact_support_verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "No input form, textarea, submit action, browser-local support queue, Backend/OpenAPI/DB/dependency/Product Design/current-state mutation is introduced.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Storefront verify includes the new contact support verifier and preserves inherited Step66-C/D/E and prior gates.",
+      "verification": "storefront_verify_chain",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "MEDIUM-risk canonical closure requires exact-head Canonical CI, Phase A, deterministic Review, exact-artifact ACTIVE Lock, protected merge, exact-SHA postmerge verification and terminal Lock release.",
+      "verification": "canonical_transport_and_postmerge_evidence",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Step 66-F is MEDIUM risk; Human Gate is not required."
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}
