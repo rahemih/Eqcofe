@@ -99,6 +99,7 @@
 | EQCOFE-STEP66-F-CONTACT-SUPPORT-001 | Step 66-F contact and support presentation with fail-closed no-mutation behavior | MEDIUM | NOT_REQUIRED | `7a0f0586349386c6011da376f7cc70ecd58bf91f` | 22000/38000/76000 |
 | EQCOFE-STEP66-G-CATALOG-STATE-VIEWS-001 | Step 66-G public Archive and Stop-Sale Storefront views | HIGH | REQUIRED | `5250b513c4ef028b1b2b6ba2e010602b51e66123` | 38000/62000/105000 |
 | EQCOFE-STEP66-H-CONTENT-ACCEPTANCE-001 | Step 66-H integrated Content SEO Policy Storefront production and browser acceptance | MEDIUM | NOT_REQUIRED | `51f976ccb125540ef08aed8d9a9727794884f3e7` | 32000/52000/92000 |
+| EQCOFE-STEP66-I-CLOSURE-001 | Step 66-I final canonical verification, documentation reconciliation and Step 67 handoff | MEDIUM | NOT_REQUIRED | `8b38f46daf5d2e9bb14449d5ee76cf16df9e69d3` | 30000/48000/90000 |
 | MA-AGENT-A0-ORCHESTRATOR-001 | A0 — Orchestrator / Engineering Manager Prompt | LOW | NOT_REQUIRED | `f7919991e619d416360e74a542741ef21c70f732` | 10000/16000/32000 |
 | MA-AGENT-A1-SPEC-001 | A1 — Specification & Research Prompt | LOW | NOT_REQUIRED | `120898df57138b301560e7d9b9f1b3f5da03e982` | 10000/16000/32000 |
 | MA-AGENT-A10-EVIDENCE-001 | A10 — Evidence & Documentation Prompt | LOW | NOT_REQUIRED | `bdf8fccde4ca40cced48381ad3be2e0461ade535` | 12000/18000/35000 |
@@ -144,4 +145,4 @@
 | MA-V1-ACC-MEDIUM-001 | V1 Acceptance MEDIUM R2 — telemetry terminal-state conflict hardening | MEDIUM | NOT_REQUIRED | `9017e0f25e9571568ed9acf4ca3ca977ce9e78f0` | 15000/25000/50000 |
 | MA-V1-ACCEPTANCE-CLOSURE-V16-R2-001 | V1.6 Phase 3 canonical acceptance closure R2 | HIGH | REQUIRED | `d7d235f5f240b8bea44bc607afa812b2f5bb12d4` | 30000/50000/90000 |
 
-Task contracts indexed: **138**.
+Task contracts indexed: **139**.
