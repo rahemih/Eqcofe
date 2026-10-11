@@ -1,0 +1,181 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP66-E-APPROVED-POLICY-CONTENT-001",
+  "title": "Step 66-E approved About FAQ Terms and Returns-Warranty content package and production surfaces",
+  "description": "HIGH-risk Step 66-E. Create a single owner-approvable Persian static content package for About, FAQ, Terms and Returns/Warranty, then productionize SF-F-03/SF-F-05/SF-F-06/SF-F-07 from that package. Content is limited to canonical product/business facts and explicit non-promises; it must not invent legal eligibility, SLA, certification, partner, shipping deadline, warranty duration or return window. Final exact-artifact Project Owner Human Gate is mandatory.",
+  "risk": "HIGH",
+  "risk_floor": "HIGH",
+  "owner": "CONTENT_ENGINEERING",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "737fa897bbb633967138db9fc298566c80ac5073"
+  },
+  "scope": {
+    "read": [
+      "apps/storefront/**",
+      "docs/11-step-history/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "apps/storefront/app/features/content/static-content.ts",
+      "apps/storefront/app/features/content/StaticContentPage.tsx",
+      "apps/storefront/app/routes/about.tsx",
+      "apps/storefront/app/routes/faq.tsx",
+      "apps/storefront/app/routes/terms.tsx",
+      "apps/storefront/app/routes/returns-warranty.tsx",
+      "apps/storefront/app/styles/content.css",
+      "apps/storefront/scripts/verify-step66-policy-content.ts",
+      "apps/storefront/package.json",
+      "docs/11-step-history/STEP-66-E-APPROVED-POLICY-CONTENT.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP66-E-APPROVED-POLICY-CONTENT-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "database/**",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "src/modules/**",
+      "apps/storefront/app/routes/contact.tsx",
+      "apps/storefront/app/routes/articles.tsx",
+      "apps/storefront/app/routes/article-detail.tsx",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP66-E-APPROVED-POLICY-CONTENT-001-01"
+  ],
+  "human_gate_required": true,
+  "authorized_human_approver": {
+    "role": "PROJECT_OWNER",
+    "github_login": "rahemih"
+  },
+  "token_budget": {
+    "expected_max": 34000,
+    "soft_alert": 56000,
+    "hard_cap": 96000
+  },
+  "max_repair_cycles": 3,
+  "task_risk_rules": [
+    {
+      "id": "STEP66_E_POLICY_CONTENT_HIGH",
+      "risk": "HIGH",
+      "paths": [
+        "apps/storefront/app/features/content/static-content.ts",
+        "apps/storefront/app/features/content/StaticContentPage.tsx",
+        "apps/storefront/app/routes/about.tsx",
+        "apps/storefront/app/routes/faq.tsx",
+        "apps/storefront/app/routes/terms.tsx",
+        "apps/storefront/app/routes/returns-warranty.tsx",
+        "apps/storefront/app/styles/content.css",
+        "apps/storefront/scripts/verify-step66-policy-content.ts",
+        "apps/storefront/package.json",
+        "docs/11-step-history/STEP-66-E-APPROVED-POLICY-CONTENT.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP66-E-APPROVED-POLICY-CONTENT-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+      ]
+    }
+  ],
+  "pre_mutation_gates": {
+    "graph_health": "RETIRED_AND_OUT_OF_SCOPE",
+    "query_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "path_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "explain_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "human_gate": "REQUIRED_FINAL_EXACT_ARTIFACT"
+  },
+  "dependencies": [
+    {
+      "item": "66-D",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "737fa897bbb633967138db9fc298566c80ac5073",
+      "evidence": "PR #345 merged; exact-SHA Canonical CI #1681, Phase A #1180, Storefront Quality #742 and CodeQL #817 SUCCESS; terminal Lock release comment 6106638831.",
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "linear_issue": "HOS-70",
+    "graph_state": "RETIRED_AND_OUT_OF_SCOPE",
+    "migration_need": "NONE",
+    "dependency_need": "NONE",
+    "backend_mutation": "NONE",
+    "openapi_mutation": "NONE",
+    "approved_content_source": "FINAL_EXACT_ARTIFACT_PROJECT_OWNER_HUMAN_GATE",
+    "content_constraints": [
+      "No fabricated statistics, certification, partner or company-history claim.",
+      "No support SLA, response-hour, shipping-deadline, warranty-duration or return-window promise.",
+      "No customer-specific return/warranty eligibility promise.",
+      "Toman, no Wallet, backend-authoritative price/payment/order state and approved wholesale identity remain canonical.",
+      "Final content becomes approved only when Project Owner explicitly approves this exact artifact."
+    ]
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "A single typed Persian static content package owns About, FAQ, Terms and Returns/Warranty production copy with explicit version/effective-date metadata.",
+      "verification": "step66_policy_content_verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "About contains only canonical EQCOFE scope/value facts and no fabricated statistics, certification, partner or history claims.",
+      "verification": "step66_policy_content_verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "FAQ answers only canonical storefront/account/wholesale/payment/after-sales facts and does not promise unsupported service levels or policies.",
+      "verification": "step66_policy_content_verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Terms explains Toman pricing, authoritative checkout/order/payment state, account/wholesale authority and prohibited Wallet without inventing shipping deadlines, legal entitlement or external-provider guarantees.",
+      "verification": "step66_policy_content_verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Returns/Warranty explains general process and directs final eligibility to the customer-owned order/claim authority; no universal window/duration or guaranteed approval is invented.",
+      "verification": "step66_policy_content_verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "SF-F-03/05/06/07 routes are productionized with semantic H1/section navigation/focus-safe Persian RTL presentation and no raw HTML.",
+      "verification": "step66_policy_content_verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "No Contact mutation, Backend/OpenAPI/generated/DB/dependency/Product Design/current-state mutation is introduced.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "HIGH-risk closure requires exact-head Canonical CI, Phase A, Storefront Quality, CodeQL/Security, deterministic Review PASS, exact-artifact ACTIVE Lock, Project Owner Human Gate approval, protected merge, exact-SHA postmerge verification and terminal Lock release.",
+      "verification": "canonical_transport_and_postmerge_evidence",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "SECURITY",
+      "HUMAN",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Step 66-E is HIGH risk and requires exact-artifact Project Owner Human approval after all technical/security/review/Lock evidence passes."
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}
