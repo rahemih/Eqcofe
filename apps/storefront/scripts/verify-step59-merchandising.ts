@@ -23,6 +23,10 @@ const productExperienceSource = readFileSync(
   "utf8",
 );
 const articlesRouteSource = readFileSync(resolve(storefrontRoot, "app/routes/articles.tsx"), "utf8");
+const articlesProductionized =
+  articlesRouteSource.includes("loadArticleListRouteData")
+  && articlesRouteSource.includes("ArticleListView")
+  && !articlesRouteSource.includes("RoutePlaceholder");
 const wholesaleRouteSource = readFileSync(resolve(storefrontRoot, "app/routes/wholesale.tsx"), "utf8");
 const css = readFileSync(resolve(storefrontRoot, "app/styles/home.css"), "utf8");
 const messages = readFileSync(resolve(storefrontRoot, "app/i18n/fa-IR.ts"), "utf8");
@@ -125,7 +129,11 @@ assert.equal(
   false,
   "STEP61_D_PRODUCT_ROUTE_NOT_PRODUCTIONIZED",
 );
-assert.match(articlesRouteSource, /targetStep=\{66\}/);
+assert.ok(
+  /targetStep=\{66\}/.test(articlesRouteSource)
+    || articlesProductionized,
+  "STEP66_ARTICLES_ROUTE_NEITHER_DEFERRED_NOR_PRODUCTIONIZED",
+);
 assert.ok(
   /targetStep=\{65\}/.test(wholesaleRouteSource)
     || (
