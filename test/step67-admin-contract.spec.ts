@@ -41,11 +41,12 @@ test('Step 67-B schemas match existing controller authority and do not expose se
   assert.doesNotMatch(sessionSchema,/session_token|pre_auth_token|step_up_token/);
 });
 
-test('Step 67-B removes non-runtime dashboard operation from executable HTTP authority',()=>{
+test('Step 67-B preserves dashboard as non-runtime unresolved contract inventory only',()=>{
   const source=api(),types=generated();
-  assert.doesNotMatch(source,/^  \/admin\/dashboard:/m);
-  assert.doesNotMatch(types,/"\/admin\/dashboard":/);
-  assert.doesNotMatch(types,/getAdminDashboard:/);
+  assert.match(source,/^  \/admin\/dashboard:/m);
+  assert.match(source,/operationId: getAdminDashboard[\s\S]*runtime: unresolved_not_granted[\s\S]*frontendConsumption: forbidden/);
+  const operation=types.slice(types.indexOf('    getAdminDashboard: {'),types.indexOf('    postAdminProductsIdArchive: {'));
+  assert.match(operation,/content\?: never/);
   const design=readFileSync('docs/13-product-design/step56-foundation/A/SOURCE-GAPS.md','utf8');
   assert.match(design,/GET \/admin\/dashboard[^\n]*UNRESOLVED_NOT_GRANTED/);
 });
