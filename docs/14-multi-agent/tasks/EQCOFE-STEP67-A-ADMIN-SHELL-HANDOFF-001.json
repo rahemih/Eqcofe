@@ -1,0 +1,277 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP67-A-ADMIN-SHELL-HANDOFF-001",
+  "title": "Step 67-A Admin Shell RBAC Dashboard canonical handoff and scope freeze",
+  "description": "MEDIUM-risk documentation/governance-only Stage 67-A. Re-read terminal Step-66 evidence, live main/open writers, Linear HOS-71, Step53/56/57 Admin UX authority, current repository topology, Admin auth/RBAC/Step-Up runtime and OpenAPI/generated contracts. Freeze the smallest safe Step-67 execution plan. No Admin frontend/runtime, Backend/OpenAPI/database/dependency/workflow/Product Design mutation is authorized in 67-A.",
+  "risk": "MEDIUM",
+  "risk_floor": "MEDIUM",
+  "owner": "PRODUCT_DESIGN",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "30c300ba9b72f990523fd0771630bb905f9ae528"
+  },
+  "scope": {
+    "read": [
+      "apps/**",
+      "src/modules/admin/**",
+      "src/modules/identity/**",
+      "src/modules/analytics/**",
+      "src/platform/auth/**",
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "docs/11-step-history/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**",
+      "docs/14-multi-agent/**",
+      "package.json",
+      "pnpm-workspace.yaml"
+    ],
+    "write": [
+      "docs/11-step-history/STEP-67-A-ADMIN-SHELL-HANDOFF.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP67-A-ADMIN-SHELL-HANDOFF-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "apps/**",
+      "src/**",
+      "contracts/**",
+      "database/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP67-A-ADMIN-SHELL-HANDOFF-001-01"
+  ],
+  "human_gate_required": false,
+  "authorized_human_approver": {
+    "role": "PROJECT_OWNER",
+    "github_login": "rahemih"
+  },
+  "token_budget": {
+    "expected_max": 26000,
+    "soft_alert": 42000,
+    "hard_cap": 82000
+  },
+  "max_repair_cycles": 3,
+  "task_risk_rules": [
+    {
+      "id": "STEP67_A_ADMIN_HANDOFF_MEDIUM",
+      "risk": "MEDIUM",
+      "paths": [
+        "docs/11-step-history/STEP-67-A-ADMIN-SHELL-HANDOFF.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP67-A-ADMIN-SHELL-HANDOFF-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+      ]
+    }
+  ],
+  "pre_mutation_gates": {
+    "graph_health": "RETIRED_AND_OUT_OF_SCOPE",
+    "query_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "path_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "explain_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "human_gate": "NOT_REQUIRED_MEDIUM"
+  },
+  "dependencies": [
+    {
+      "item": "Step 66 final closure",
+      "required_state": "CLOSED / FINAL CANONICAL PASS",
+      "observed_state": "CLOSED / FINAL CANONICAL PASS",
+      "merge_sha": "30c300ba9b72f990523fd0771630bb905f9ae528",
+      "evidence": "PR #351 merged; exact-SHA Canonical CI #1708, Phase A #1207 and CodeQL #842 SUCCESS; terminal Lock release comment 6108497830; Linear HOS-70 Done.",
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "linear_issue": "HOS-71",
+    "graph_state": "RETIRED_AND_OUT_OF_SCOPE",
+    "admin_frontend_exists": false,
+    "workspace_boundary": "pnpm workspace includes apps/* but apps/admin does not exist on canonical main",
+    "design_authority": [
+      "docs/13-product-design/STEP-53-ADMIN-EXPERIENCE.md",
+      "docs/13-product-design/STEP-56-ADMIN-UX-FOUNDATION.md",
+      "docs/13-product-design/STEP-56-B-ADMIN-IA-SHELL.md",
+      "docs/13-product-design/step56-admin-shell-wireframes.json",
+      "Step 57 final high-fidelity/prototype acceptance"
+    ],
+    "runtime_authority": {
+      "auth_controller": "src/modules/identity/presentation/auth.controller.ts",
+      "rbac_controller": "src/modules/admin/presentation/rbac.controller.ts",
+      "guards": [
+        "src/platform/auth/permissions.guard.ts",
+        "src/platform/auth/step-up.guard.ts",
+        "src/platform/auth/scope-policy.ts"
+      ],
+      "implemented": [
+        "POST /admin/auth/login",
+        "POST /admin/auth/fido/challenge",
+        "POST /admin/auth/fido/verify",
+        "POST /admin/auth/step-up/challenge",
+        "POST /admin/auth/step-up/verify",
+        "POST /admin/auth/logout",
+        "GET /admin/auth/session",
+        "GET /admin/me",
+        "GET /admin/me/permissions",
+        "GET /admin/me/scopes"
+      ]
+    },
+    "contract_gaps": [
+      "Admin auth/session/me/permissions/scopes paths exist in OpenAPI/generated types but successful responses are content?: never although runtime returns JSON.",
+      "GET /admin/dashboard exists in the contract/design inventory but no matching runtime controller/permission authority was found; it remains UNRESOLVED_NOT_GRANTED/unavailable-only."
+    ],
+    "shell_invariants": {
+      "navigation_groups": 8,
+      "destination_count": 97,
+      "permission_rule": "navigation visibility is advisory/discovery only; Backend remains authorization authority; operation permissions are conjunctions, not a surface union shortcut",
+      "scope_rule": "server-assigned scope only; shell never edits RBAC or invents scope",
+      "denied_deeplink": "neutral safe exit without entity/count/private-data leakage",
+      "local_search": "authorized destination labels only; no entity/global data search",
+      "quick_actions": "navigate to review destination only; never execute mutation directly",
+      "responsive_breakpoint": 840,
+      "desktop_sidebar_px": 240,
+      "widths": [
+        320,
+        360,
+        600,
+        840,
+        1200,
+        1440
+      ],
+      "reflow_400_percent_css_px": 320,
+      "min_target_px": 44,
+      "rtl": true,
+      "no_brown": true
+    },
+    "explicitly_deferred": [
+      "RBAC/staff management mutation workspaces to later Management/Security administration scope (Step 73)",
+      "Catalog/Media domain administration to Step 68",
+      "Pricing/Inventory administration to Step 69",
+      "Commerce/Operations administration to Step 70",
+      "Customers/Growth administration to Step 71",
+      "Finance/Reports administration to Step 72",
+      "live dashboard metrics/counts until reconciled runtime + permission authority exists"
+    ]
+  },
+  "frozen_execution_plan": [
+    {
+      "stage": "67-A",
+      "goal": "Canonical handoff, live discovery, Admin shell/RBAC/dashboard scope freeze",
+      "risk": "MEDIUM",
+      "human_gate": false
+    },
+    {
+      "stage": "67-B",
+      "goal": "Backend/OpenAPI/generated response-contract readiness for Admin auth/session/me/permissions/scopes and dashboard contract/runtime reconciliation",
+      "risk": "HIGH",
+      "human_gate": true
+    },
+    {
+      "stage": "67-C",
+      "goal": "Create Admin application foundation, Persian RTL shell primitives, server-data/config/security transport and quality gates without authentication-flow business mutation",
+      "risk": "MEDIUM",
+      "human_gate": false
+    },
+    {
+      "stage": "67-D",
+      "goal": "Admin login + pre-auth/FIDO + authenticated session entry and fail-closed route/session lifecycle",
+      "risk": "HIGH",
+      "human_gate": true
+    },
+    {
+      "stage": "67-E",
+      "goal": "Permission/scope-aware authenticated shell, context presentation, deep-link denial, breadcrumb, local destination search and safe navigation",
+      "risk": "MEDIUM",
+      "human_gate": false
+    },
+    {
+      "stage": "67-F",
+      "goal": "Step-Up UX, credential self-service and generic safe action-review boundary without domain mutations",
+      "risk": "HIGH",
+      "human_gate": true
+    },
+    {
+      "stage": "67-G",
+      "goal": "Dashboard foundation and global loading/empty/error/denied/conflict states; unresolved dashboard metrics remain unavailable-only",
+      "risk": "MEDIUM",
+      "human_gate": false
+    },
+    {
+      "stage": "67-H",
+      "goal": "Integrated Admin shell RTL/accessibility/responsive/security production-browser acceptance",
+      "risk": "MEDIUM",
+      "human_gate": false
+    },
+    {
+      "stage": "67-I",
+      "goal": "Final canonical verification, docs reconciliation and Step 68 handoff",
+      "risk": "MEDIUM",
+      "human_gate": false
+    }
+  ],
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Terminal Step 66, live main/open PRs and Linear HOS-71 are re-read; Step 67 is proven NEXT/AUTHORIZED and no competing Step67 writer is observed.",
+      "verification": "canonical_handoff_live_guard",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Repository topology proves apps/admin is absent while pnpm workspace permits apps/*; no frontend existence is invented.",
+      "verification": "repository_topology_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Step53/56/57 Admin UX authority is frozen: eight groups, permission/scope-aware discovery, neutral denied deep links, local destination search only, safe quick-action navigation, RTL/responsive/accessibility obligations and no Brown.",
+      "verification": "design_authority_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Current Backend Admin login/FIDO/session/me/permissions/scopes/Step-Up runtime and PermissionsGuard/ScopePolicy authority are recorded without changing them.",
+      "verification": "runtime_authority_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "OpenAPI/generated response gaps for Admin auth/session/me/permission/scope operations and the contract-only unresolved GET /admin/dashboard are explicitly classified for 67-B; no frontend-local untyped model or fabricated dashboard metric is authorized.",
+      "verification": "contract_gap_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "The A-I execution plan separates app foundation, auth, permission-aware shell, Step-Up, dashboard/global states, acceptance and closure; RBAC management and later domain admin CRUD remain outside Step67.",
+      "verification": "scope_freeze_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "67-A changes only its governed documentation/task-catalog paths and does not mutate runtime, Backend/OpenAPI/database/dependencies/workflows/Product Design/current-state.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "MEDIUM-risk 67-A closure requires exact-head Canonical CI, Phase A, deterministic Review, exact-artifact ACTIVE Lock, protected merge, exact-SHA postmerge verification, terminal Lock release and Linear synchronization; no Owner Human Gate required.",
+      "verification": "canonical_transport_and_postmerge_evidence",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Step 67-A is MEDIUM risk; Human Gate is not required."
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}
