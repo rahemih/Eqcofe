@@ -1,5 +1,6 @@
 import type { ApiSuccessData } from "../platform/api/contract.js";
 import { createApiClient } from "../platform/api/request.js";
+import { readServerApiConfig } from "../platform/config/api.server.js";
 
 type SitemapResponse = NonNullable<ApiSuccessData<"get", "/content/sitemap/articles">>;
 const SITE_ORIGIN = "https://eqcofe.com";
@@ -7,9 +8,7 @@ const MAX_PAGES = 10;
 const PAGE_SIZE = 1000;
 
 export async function loader() {
-  const client = createApiClient({
-    baseUrl: process.env.EQCOFE_API_BASE_URL ?? "http://127.0.0.1:3000",
-  });
+  const client = createApiClient(readServerApiConfig());
   const items: SitemapResponse["items"] = [];
   let cursor: string | null = null;
 
