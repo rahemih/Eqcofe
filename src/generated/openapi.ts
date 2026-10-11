@@ -9619,57 +9619,116 @@ export interface components {
             rating?: number | null;
             body?: string | null;
         };
-        AdminLoginResponse: {
-            fido_required: boolean;
+        AdminLoginData: {
+            /** @constant */
+            fido_required: true;
             expires_in_seconds: number;
+        };
+        AdminLoginResponse: {
+            /** @constant */
+            success: true;
+            data: components["schemas"]["AdminLoginData"];
+            meta: components["schemas"]["SuccessMeta"];
         };
         AdminWebAuthnOptions: {
             [key: string]: unknown;
         };
-        AdminFidoChallengeResponse: {
+        AdminFidoChallengeData: {
             /** @enum {string} */
             mode: "registration" | "authentication";
             challenge_id: components["schemas"]["EntityId"];
             options: components["schemas"]["AdminWebAuthnOptions"];
         };
-        AdminWebAuthnChallengeResponse: {
+        AdminFidoChallengeResponse: {
+            /** @constant */
+            success: true;
+            data: components["schemas"]["AdminFidoChallengeData"];
+            meta: components["schemas"]["SuccessMeta"];
+        };
+        AdminWebAuthnChallengeData: {
             challenge_id: components["schemas"]["EntityId"];
             options: components["schemas"]["AdminWebAuthnOptions"];
         };
-        AdminSessionEstablishedResponse: {
+        AdminWebAuthnChallengeResponse: {
+            /** @constant */
+            success: true;
+            data: components["schemas"]["AdminWebAuthnChallengeData"];
+            meta: components["schemas"]["SuccessMeta"];
+        };
+        AdminSessionEstablishedData: {
             session_id: components["schemas"]["EntityId"];
             /** Format: date-time */
             expires_at: string;
         };
-        AdminStepUpVerifyResponse: {
+        AdminSessionEstablishedResponse: {
+            /** @constant */
+            success: true;
+            data: components["schemas"]["AdminSessionEstablishedData"];
+            meta: components["schemas"]["SuccessMeta"];
+        };
+        AdminStepUpVerifyData: {
             step_up_token: string;
         };
+        AdminStepUpVerifyResponse: {
+            /** @constant */
+            success: true;
+            data: components["schemas"]["AdminStepUpVerifyData"];
+            meta: components["schemas"]["SuccessMeta"];
+        };
+        AdminLogoutData: {
+            /** @constant */
+            logged_out: true;
+        };
         AdminLogoutResponse: {
-            logged_out: boolean;
+            /** @constant */
+            success: true;
+            data: components["schemas"]["AdminLogoutData"];
+            meta: components["schemas"]["SuccessMeta"];
         };
         AdminSessionActor: {
-            /** @enum {string} */
+            /** @constant */
             type: "staff";
             id: components["schemas"]["EntityId"];
             accountId: components["schemas"]["EntityId"];
-            sessionId: components["schemas"]["EntityId"];
-            permissions: string[];
-            scopes: string[];
         };
-        AdminSessionResponse: {
+        AdminSessionData: {
             actor: components["schemas"]["AdminSessionActor"];
         };
-        AdminMeResponse: {
+        AdminSessionResponse: {
+            /** @constant */
+            success: true;
+            data: components["schemas"]["AdminSessionData"];
+            meta: components["schemas"]["SuccessMeta"];
+        };
+        AdminMeData: {
             id: components["schemas"]["EntityId"];
             account_id: components["schemas"]["EntityId"];
-            /** @enum {string} */
+            /** @constant */
             type: "staff";
         };
-        AdminPermissionsResponse: {
+        AdminMeResponse: {
+            /** @constant */
+            success: true;
+            data: components["schemas"]["AdminMeData"];
+            meta: components["schemas"]["SuccessMeta"];
+        };
+        AdminPermissionsData: {
             permissions: string[];
         };
-        AdminScopesResponse: {
+        AdminPermissionsResponse: {
+            /** @constant */
+            success: true;
+            data: components["schemas"]["AdminPermissionsData"];
+            meta: components["schemas"]["SuccessMeta"];
+        };
+        AdminScopesData: {
             scopes: string[];
+        };
+        AdminScopesResponse: {
+            /** @constant */
+            success: true;
+            data: components["schemas"]["AdminScopesData"];
+            meta: components["schemas"]["SuccessMeta"];
         };
         PostAdminAuthLoginRequest: {
             username: string;
