@@ -106,7 +106,7 @@ const routes = [
   "/wholesale", "/account/wholesale/apply", "/account/wholesale", "/account/returns",
   "/account/returns/RET-100", "/account/warranty", "/account/warranty/WAR-100", "/articles",
   "/articles/example", "/about", "/contact", "/faq", "/policies/terms",
-  "/policies/returns-warranty",
+  "/policies/returns-warranty", "/archive", "/stop-sale",
 ];
 
 try {
