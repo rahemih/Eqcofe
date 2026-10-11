@@ -54,7 +54,7 @@
     "soft_alert": 52000,
     "hard_cap": 92000
   },
-  "max_repair_cycles": 3,
+  "max_repair_cycles": 5,
   "task_risk_rules": [
     {
       "id": "STEP66_H_CONTENT_ACCEPTANCE_MEDIUM",
@@ -141,6 +141,11 @@
       "trigger": "Storefront Quality #753 on PR #350",
       "finding": "Article Detail breadcrumb and related-article anchors rendered at ~17px block height, below the 44px minimum target required by the Step55/58 accessibility baseline.",
       "repair": "Add logical CSS-only 44px minimum target sizing and visible focus to Article Detail navigation/related links. No data, authority, business logic or component semantics change."
+    },
+    "runtime_defect_repair_article_list": {
+      "trigger": "Storefront Quality #754 on PR #350",
+      "finding": "Article list title anchor rendered ~27px high at 1200px, below the inherited 44px minimum interactive target.",
+      "repair": "CSS-only 44px logical block target for Article Card heading links; existing focus-visible rule retained. No component/data/business-authority change."
     }
   },
   "acceptance_criteria": [
