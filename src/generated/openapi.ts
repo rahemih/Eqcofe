@@ -9686,13 +9686,10 @@ export interface components {
             meta: components["schemas"]["SuccessMeta"];
         };
         AdminSessionActor: {
-            /** @constant */
+            /** @enum {string} */
             type: "staff";
             id: components["schemas"]["EntityId"];
             accountId: components["schemas"]["EntityId"];
-        };
-        AdminSessionData: {
-            actor: components["schemas"]["AdminSessionActor"];
         };
         AdminSessionResponse: {
             /** @constant */
