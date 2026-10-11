@@ -25,7 +25,8 @@
       "apps/storefront/package.json",
       "docs/11-step-history/STEP-66-H-CONTENT-ACCEPTANCE.md",
       "docs/14-multi-agent/tasks/EQCOFE-STEP66-H-CONTENT-ACCEPTANCE-001.json",
-      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "apps/storefront/scripts/verify-step62-acceptance.mjs"
     ],
     "forbidden": [
       ".github/**",
@@ -63,7 +64,8 @@
         "apps/storefront/package.json",
         "docs/11-step-history/STEP-66-H-CONTENT-ACCEPTANCE.md",
         "docs/14-multi-agent/tasks/EQCOFE-STEP66-H-CONTENT-ACCEPTANCE-001.json",
-        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+        "docs/14-multi-agent/generated/TASK-CATALOG.md",
+        "apps/storefront/scripts/verify-step62-acceptance.mjs"
       ]
     }
   ],
@@ -128,7 +130,12 @@
       "stop-sale not inferred from inventory",
       "Contact has no direct submission form",
       "fixture observes GET-only public reads"
-    ]
+    ],
+    "legacy_verifier_repair": {
+      "trigger": "Storefront Quality #751 on PR #350",
+      "finding": "Inherited Step62 browser acceptance read the Wishlist button label immediately after success-message visibility; React pending-state label could still be present for a short interval.",
+      "repair": "Test-only synchronization: wait for the final accessible button name after Wishlist removal before asserting aria-pressed and label. No Wishlist runtime code or authority is changed."
+    }
   },
   "acceptance_criteria": [
     {
