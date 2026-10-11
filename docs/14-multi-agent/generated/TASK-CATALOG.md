@@ -93,6 +93,7 @@
 | EQCOFE-STEP65-I-CLOSURE-001 | Step 65-I final canonical verification, documentation reconciliation and Step 66 handoff | MEDIUM | NOT_REQUIRED | `ac16c91f1604e7e5be4dfe09cf832c77b73bbaf9` | 30000/48000/90000 |
 | EQCOFE-STEP66-A-HANDOFF-001 | Step 66-A Content SEO and Policy Frontend canonical handoff, live discovery and scope freeze | MEDIUM | NOT_REQUIRED | `e6a2c96fca940f3cd0c641d7d1b21af74df568c3` | 24000/40000/80000 |
 | EQCOFE-STEP66-B-CONTENT-SEO-CONTRACT-001 | Step 66-B Content SEO sitemap and public catalog-state contract readiness | HIGH | REQUIRED | `8fba48079fa767955408624539a8a2e8311d6935` | 42000/68000/110000 |
+| EQCOFE-STEP66-C-CONTENT-FOUNDATION-001 | Step 66-C shared Content SEO Storefront foundation and Article listing | MEDIUM | NOT_REQUIRED | `3103976a9d17edc89d4aeca9517f2a5af5cf8e21` | 30000/48000/90000 |
 | MA-AGENT-A0-ORCHESTRATOR-001 | A0 — Orchestrator / Engineering Manager Prompt | LOW | NOT_REQUIRED | `f7919991e619d416360e74a542741ef21c70f732` | 10000/16000/32000 |
 | MA-AGENT-A1-SPEC-001 | A1 — Specification & Research Prompt | LOW | NOT_REQUIRED | `120898df57138b301560e7d9b9f1b3f5da03e982` | 10000/16000/32000 |
 | MA-AGENT-A10-EVIDENCE-001 | A10 — Evidence & Documentation Prompt | LOW | NOT_REQUIRED | `bdf8fccde4ca40cced48381ad3be2e0461ade535` | 12000/18000/35000 |
