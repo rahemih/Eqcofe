@@ -264,3 +264,10 @@
   outline: 3px solid currentColor;
   outline-offset: 3px;
 }
+
+.article-card h2 a {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: var(--eq-size-touch-min);
+  min-inline-size: var(--eq-size-touch-min);
+}
