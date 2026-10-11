@@ -10721,6 +10721,20 @@ paths:
                 $ref: '#/components/schemas/AdminScopesResponse'
       security:
       - adminSession: []
+  /admin/dashboard:
+    get:
+      tags:
+      - Admin Operations
+      operationId: getAdminDashboard
+      description: Contract inventory only. No runtime controller or permission authority exists; frontend consumption is forbidden until a later governed reconciliation.
+      x-eqcofe:
+        runtime: unresolved_not_granted
+        frontendConsumption: forbidden
+      responses:
+        '200':
+          description: Historical contract placeholder only; no runtime response authority is asserted.
+      security:
+      - adminSession: []
   /admin/products/{id}/archive:
     post:
       tags:
