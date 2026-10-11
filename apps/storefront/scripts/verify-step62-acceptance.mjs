@@ -340,6 +340,7 @@ try {
 
       await actionButton.click();
       await authFirst.getByText("محصول از علاقه‌مندی‌های شما حذف شد.").waitFor();
+      await authFirst.getByRole("button", { name: "افزودن به علاقه‌مندی‌ها" }).waitFor();
       assert.equal(await actionButton.getAttribute("aria-pressed"), "false");
       assert.equal((await actionButton.textContent())?.trim(), "افزودن به علاقه‌مندی‌ها");
 
