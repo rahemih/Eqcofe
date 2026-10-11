@@ -44,5 +44,5 @@ export class AuthController {
   @StaffOnly() @Post('admin/auth/fido/credentials/register/verify') @RequireStepUp() async addCredentialVerify(@Body() b:any,@Req() req:any){return this.webauthn.verifyRegistration(b.challenge_id,registrationResponse(b),b.device_name??'Security key',req.actor.accountId);}
   @StaffOnly() @Post('admin/auth/fido/credentials/:id/revoke') @RequireStepUp() async revokeCredential(@Param('id') id:string,@Req() req:any){await this.webauthn.revokeCredential(req.actor.accountId,id);return {revoked:true};}
   @StaffOnly() @Post('admin/auth/logout') async adminLogout(@Req() req:any,@Res({passthrough:true}) res:any){await this.auth.logout(req.actor.sessionId);this.cookieClear(res,this.cookieName('admin'),'Strict');return {logged_out:true};}
-  @StaffOnly() @Get('admin/auth/session') adminSession(@Req() req:any){return {actor:req.actor};}
+  @StaffOnly() @Get('admin/auth/session') adminSession(@Req() req:any){return {actor:{type:'staff',id:req.actor.id,accountId:req.actor.accountId}};}
 }
