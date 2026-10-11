@@ -62,9 +62,13 @@ assert.equal(
   packageJson.scripts["content-foundation:verify"],
   "pnpm --dir ../.. exec tsx apps/storefront/scripts/verify-step66-content-foundation.ts",
 );
-assert.ok(packageJson.scripts.verify.includes("content-foundation:verify"));
+const verifyScript = packageJson.scripts.verify;
+if (typeof verifyScript !== "string") {
+  throw new Error("STEP66_C_STOREFRONT_VERIFY_CHAIN_MISSING");
+}
+assert.ok(verifyScript.includes("content-foundation:verify"));
 for (const inherited of ["step59:acceptance", "step60:acceptance", "step61:acceptance", "step62:acceptance", "step63:acceptance", "step64:acceptance", "step65:acceptance", "api:verify", "auth:verify", "state:verify", "quality:static"]) {
-  assert.ok(packageJson.scripts.verify.includes(inherited), "STEP66_C_INHERITED_GATE_MISSING:" + inherited);
+  assert.ok(verifyScript.includes(inherited), "STEP66_C_INHERITED_GATE_MISSING:" + inherited);
 }
 
 assert.ok(merch.includes("articlesProductionized"));
