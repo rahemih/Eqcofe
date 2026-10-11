@@ -44,7 +44,7 @@ The frozen Step-63 product result covers authoritative Cart/Checkout state, gues
 | 66-F Contact/support fail-closed routing | #348 | `5250b513c4ef028b1b2b6ba2e010602b51e66123` | `6107217258` | COMPLETE |
 | 66-G public Archive / Stop-Sale views | #349 | `51f976ccb125540ef08aed8d9a9727794884f3e7` | `6107326647` | COMPLETE |
 | 66-H integrated production/browser acceptance | #350 | `8b38f46daf5d2e9bb14449d5ee76cf16df9e69d3` | `6107506700` | COMPLETE |
-| 66-I final verification / docs / Step 67 handoff | closure transport | this canonical document | terminal evidence attached to closure PR | FINAL CLOSURE |
+| 66-I final verification / docs / Step 67 handoff | #351 | this canonical document | terminal evidence attached to PR #351 | FINAL CLOSURE |
 
 Stage 66-H exact merge-SHA evidence is green: Canonical CI `38127656391` / #1700, Phase A `38127656404` / #1199, Storefront Quality `38127656337` / #757, CodeQL `38127656341` / #835 and Prototype `38127656402` / #1111 all succeeded.
 
