@@ -390,7 +390,7 @@ Stages 66-A through 66-H are canonical through PR #350 / `8b38f46daf5d2e9bb14449
 | 66-F Contact/support fail-closed presentation | #348 | `5250b513c4ef028b1b2b6ba2e010602b51e66123` | COMPLETE |
 | 66-G Archive / Stop-Sale public views | #349 | `51f976ccb125540ef08aed8d9a9727794884f3e7` | COMPLETE |
 | 66-H integrated production/browser acceptance | #350 | `8b38f46daf5d2e9bb14449d5ee76cf16df9e69d3` | COMPLETE |
-| 66-I final verification / docs / Step 67 handoff | closure transport | based on `8b38f46daf5d2e9bb14449d5ee76cf16df9e69d3` | FINAL CLOSURE |
+| 66-I final verification / docs / Step 67 handoff | #351 | based on `8b38f46daf5d2e9bb14449d5ee76cf16df9e69d3` | FINAL CLOSURE |
 
 The frozen Step-66 result covers published Article listing/detail/related content, backend-owned SEO/canonical/robots authority, safe Article JSON-LD, bounded sitemap/robots integration, approved static About/FAQ/Terms/Returns-Warranty content, fail-closed Contact/support, public Archive and Stop-Sale views with strict privacy/authority boundaries, and integrated RTL/accessibility/responsive/browser acceptance. Duplicate PRs #342, #343 and #347 are closed/unmerged and excluded from canonical lineage.
 
