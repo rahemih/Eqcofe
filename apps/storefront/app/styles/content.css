@@ -250,3 +250,24 @@
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
+
+.article-detail nav a,
+.article-related a {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: var(--eq-size-touch-min);
+  min-inline-size: var(--eq-size-touch-min);
+}
+
+.article-detail nav a:focus-visible,
+.article-related a:focus-visible {
+  outline: 3px solid currentColor;
+  outline-offset: 3px;
+}
+
+.article-card h2 a {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: var(--eq-size-touch-min);
+  min-inline-size: var(--eq-size-touch-min);
+}
