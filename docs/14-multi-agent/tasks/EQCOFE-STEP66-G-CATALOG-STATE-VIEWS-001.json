@@ -1,0 +1,189 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP66-G-CATALOG-STATE-VIEWS-001",
+  "title": "Step 66-G public Archive and Stop-Sale Storefront views",
+  "description": "HIGH-risk Step 66-G. Define the smallest Storefront route boundary /archive and /stop-sale and render only the public read semantics made canonical in Step 66-B. Archive exposes historical published product identity without price, inventory, availability or archive reason. Stop-sale consumes only the dedicated public endpoint and must not infer stop-sale from inventory. Both views are noindex,follow and are excluded from sitemap. Final exact-artifact Project Owner Human Gate is mandatory.",
+  "risk": "HIGH",
+  "risk_floor": "HIGH",
+  "owner": "FRONTEND_ENGINEERING",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "5250b513c4ef028b1b2b6ba2e010602b51e66123"
+  },
+  "scope": {
+    "read": [
+      "apps/storefront/**",
+      "src/generated/openapi.ts",
+      "contracts/http/openapi.yaml",
+      "docs/11-step-history/**",
+      "docs/13-product-design/**",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "apps/storefront/app/features/content/catalog-state-data.server.ts",
+      "apps/storefront/app/features/content/CatalogStateView.tsx",
+      "apps/storefront/app/routes/archive.tsx",
+      "apps/storefront/app/routes/stop-sale.tsx",
+      "apps/storefront/app/routes.ts",
+      "apps/storefront/app/styles/content.css",
+      "apps/storefront/scripts/verify-step66-catalog-state-views.ts",
+      "apps/storefront/scripts/verify-shell.mjs",
+      "apps/storefront/scripts/verify-quality-static.mjs",
+      "apps/storefront/scripts/verify-quality-browser.mjs",
+      "apps/storefront/package.json",
+      "docs/11-step-history/STEP-66-G-CATALOG-STATE-VIEWS.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP66-G-CATALOG-STATE-VIEWS-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "database/**",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "src/modules/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**",
+      "apps/storefront/app/routes/sitemap.ts",
+      "apps/storefront/app/routes/robots.ts"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP66-G-CATALOG-STATE-VIEWS-001-01"
+  ],
+  "human_gate_required": true,
+  "authorized_human_approver": {
+    "role": "PROJECT_OWNER",
+    "github_login": "rahemih"
+  },
+  "token_budget": {
+    "expected_max": 38000,
+    "soft_alert": 62000,
+    "hard_cap": 105000
+  },
+  "max_repair_cycles": 3,
+  "task_risk_rules": [
+    {
+      "id": "STEP66_G_PUBLIC_CATALOG_STATE_HIGH",
+      "risk": "HIGH",
+      "paths": [
+        "apps/storefront/app/features/content/catalog-state-data.server.ts",
+        "apps/storefront/app/features/content/CatalogStateView.tsx",
+        "apps/storefront/app/routes/archive.tsx",
+        "apps/storefront/app/routes/stop-sale.tsx",
+        "apps/storefront/app/routes.ts",
+        "apps/storefront/app/styles/content.css",
+        "apps/storefront/scripts/verify-step66-catalog-state-views.ts",
+        "apps/storefront/scripts/verify-shell.mjs",
+        "apps/storefront/scripts/verify-quality-static.mjs",
+        "apps/storefront/scripts/verify-quality-browser.mjs",
+        "apps/storefront/package.json",
+        "docs/11-step-history/STEP-66-G-CATALOG-STATE-VIEWS.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP66-G-CATALOG-STATE-VIEWS-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+      ]
+    }
+  ],
+  "pre_mutation_gates": {
+    "graph_health": "RETIRED_AND_OUT_OF_SCOPE",
+    "query_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "path_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "explain_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "human_gate": "REQUIRED_FINAL_EXACT_ARTIFACT"
+  },
+  "dependencies": [
+    {
+      "item": "66-F",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "5250b513c4ef028b1b2b6ba2e010602b51e66123",
+      "evidence": "PR #348 merged; exact-SHA Canonical CI #1688, Phase A #1187, Storefront Quality #747 and CodeQL #824 SUCCESS; terminal Lock release comment 6107217258.",
+      "blocking": false
+    },
+    {
+      "item": "66-B-public-catalog-state-contract",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "3103976a9d17edc89d4aeca9517f2a5af5cf8e21",
+      "evidence": "PR #341 established typed GET /catalog/archive and GET /catalog/stop-sale public contracts.",
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "linear_issue": "HOS-70",
+    "graph_state": "RETIRED_AND_OUT_OF_SCOPE",
+    "route_authority": "Stage 66-G explicitly defines /archive and /stop-sale as the smallest Storefront route boundary for the already-canonical public read contracts.",
+    "archive_authority": "GET /catalog/archive: historically published archived products only; minimal ArchivedProductCard; no archive_reason, price, availability, inventory, variants or admin state.",
+    "stop_sale_authority": "GET /catalog/stop-sale: currently published products whose effective sales authority is false; inventory-only out-of-stock does not qualify; no internal stop reason/scope exposed.",
+    "seo": "Both state-list pages are noindex,follow and intentionally excluded from sitemap.",
+    "migration_need": "NONE",
+    "dependency_need": "NONE",
+    "backend_mutation": "NONE",
+    "openapi_mutation": "NONE"
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Archive/stop-sale response types derive only from generated OpenAPI ApiSuccessData and cursor inputs remain opaque, bounded and route-scoped.",
+      "verification": "step66_catalog_state_views_verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Archive renders only historical identity/category/brand/archived timestamp from ArchivedProductCard; it never displays or invents price, availability, stock, archive reason, variants or admin state.",
+      "verification": "step66_catalog_state_views_verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Stop-sale uses only GET /catalog/stop-sale authority, labels sales as stopped, and does not infer the state from in_stock or disclose internal reason/scope.",
+      "verification": "step66_catalog_state_views_verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Both pages have Persian RTL semantic one-H1 accessible ready/empty/error/pagination states and minimum touch/focus behavior.",
+      "verification": "step66_catalog_state_views_verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Both pages emit robots noindex,follow and are not added to sitemap.xml.",
+      "verification": "step66_catalog_state_views_verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Inherited shell/static/browser quality route inventories include /archive and /stop-sale without weakening prior route checks.",
+      "verification": "storefront_quality_chain",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "No Backend/OpenAPI/generated/database/dependency/Product Design/current-state/admin mutation is introduced.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "HIGH-risk canonical closure requires exact-head Canonical CI, Phase A, Storefront Quality, CodeQL/Security, deterministic Review PASS, exact-artifact ACTIVE Lock, Project Owner Human Gate approval, protected merge, exact-SHA postmerge verification and terminal Lock release.",
+      "verification": "canonical_transport_and_postmerge_evidence",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "SECURITY",
+      "HUMAN",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Step 66-G is HIGH risk. Exact-artifact Project Owner Human approval is mandatory after technical/security/review/Lock evidence is complete."
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}
