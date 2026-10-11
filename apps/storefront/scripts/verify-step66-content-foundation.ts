@@ -42,8 +42,16 @@ assert.ok(route.includes("ArticleListView"));
 assert.ok(route.includes("appendCustomerSessionSetCookies"));
 assert.equal(route.includes("RoutePlaceholder"), false);
 
-assert.ok(detailRoute.includes("RoutePlaceholder"));
-assert.ok(detailRoute.includes("targetStep={66}"));
+const articleDetailProductionized =
+  detailRoute.includes("loadArticleDetailRouteData")
+  && detailRoute.includes("ArticleDetailView")
+  && detailRoute.includes("articleDetailMeta")
+  && !detailRoute.includes("RoutePlaceholder");
+assert.ok(
+  (detailRoute.includes("RoutePlaceholder") && detailRoute.includes("targetStep={66}"))
+    || articleDetailProductionized,
+  "STEP66_D_ARTICLE_DETAIL_HANDOFF_INVALID",
+);
 
 assert.ok(css.includes("min-block-size: var(--eq-size-touch-min)"));
 assert.ok(css.includes("min-inline-size: var(--eq-size-touch-min)"));
