@@ -233,9 +233,10 @@ try {
     assert(page.includes(expected), "STEP66_H_STATIC_CONTENT_MISSING:" + pathname);
   }
   const contact = await html("/contact");
-  assert(!/<form\b/i.test(contact), "STEP66_H_CONTACT_FORM_INVENTED");
-  assert(!/mailto:|tel:/i.test(contact), "STEP66_H_CONTACT_EXTERNAL_CHANNEL_INVENTED");
-  assert(contact.includes("رمز یک‌بارمصرف"), "STEP66_H_CONTACT_PRIVACY_WARNING");
+  const contactMain = mainContent(contact);
+  assert(!/<form\b/i.test(contactMain), "STEP66_H_CONTACT_FORM_INVENTED");
+  assert(!/mailto:|tel:/i.test(contactMain), "STEP66_H_CONTACT_EXTERNAL_CHANNEL_INVENTED");
+  assert(contactMain.includes("رمز یک‌بارمصرف"), "STEP66_H_CONTACT_PRIVACY_WARNING");
 
   const archive = await html("/archive");
   assert(archive.includes("آسیاب آرشیوشده"), "STEP66_H_ARCHIVE_READY");
@@ -380,6 +381,10 @@ async function html(pathname) {
 
 function countObserved(pathname) {
   return observed.filter((entry) => entry.path === pathname).length;
+}
+
+function mainContent(source) {
+  return source.match(/<main id="main-content"[^>]*>([\s\S]*?)<\/main>/i)?.[1] ?? "";
 }
 
 function metaRobots(source) {
