@@ -2,7 +2,7 @@
   "schema_version": "2.2",
   "task_id": "EQCOFE-STEP67-B-ADMIN-CONTRACT-001",
   "title": "Step 67-B Admin authentication context and dashboard contract readiness",
-  "description": "HIGH-risk Backend/OpenAPI contract-readiness stage. Reconcile existing Admin login/FIDO/session/me/permissions/scopes/Step-Up success responses with actual AuthController/WebAuthn runtime and the global success envelope, regenerate typed OpenAPI output, sanitize GET /admin/auth/session so internal sessionId/permissions/scopes are not echoed there, remove the non-runtime /admin/dashboard operation from executable HTTP authority while preserving Product Design UNRESOLVED_NOT_GRANTED/unavailable-only evidence, and refresh only generator-equivalent Product Design provenance hashes caused by the canonical source changes. No database, dependency, Admin frontend or business-authorization mutation.",
+  "description": "HIGH-risk Backend/OpenAPI contract-readiness stage. Reconcile existing Admin login/FIDO/session/me/permissions/scopes/Step-Up success responses with actual AuthController/WebAuthn runtime and the global success envelope, regenerate typed OpenAPI output, sanitize GET /admin/auth/session so internal sessionId/permissions/scopes are not echoed there, remove the non-runtime /admin/dashboard operation from executable HTTP authority while preserving Product Design UNRESOLVED_NOT_GRANTED/unavailable-only evidence, and refresh only generator-equivalent Product Design provenance hashes caused by the canonical source changes. Repair the proven Admin session-actor serialization defect by returning only type/id/accountId; no database, dependency, Admin frontend or business-authorization mutation.",
   "risk": "HIGH",
   "risk_floor": "HIGH",
   "owner": "BACKEND_ENGINEERING",
@@ -55,7 +55,9 @@
       "pnpm-lock.yaml",
       "pnpm-workspace.yaml",
       "src/platform/auth/**",
-      "docs/12-current-state/**"
+      "docs/12-current-state/**",
+      "src/modules/identity/application/**",
+      "src/modules/identity/infrastructure/**"
     ]
   },
   "requested_lock_ids": [
@@ -139,7 +141,8 @@
     ],
     "admin_session_privacy": "SANITIZED_PUBLIC_STAFF_IDENTITY_ONLY; internal sessionId remains server-side for Step-Up; permissions/scopes use dedicated endpoints",
     "post_status_alignment": "RUNTIME_ACCURATE_NEST_DEFAULT_201_RETAINED_FOR_EXISTING_ACTION_POSTS; no status behavior mutation",
-    "envelope_authority": "ResponseEnvelopeInterceptor success/data/meta"
+    "envelope_authority": "ResponseEnvelopeInterceptor success/data/meta",
+    "session_privacy_repair": "GET /admin/auth/session must not serialize internal sessionId, permissions or scopes; use dedicated server-derived permissions/scopes endpoints."
   },
   "acceptance_criteria": [
     {
@@ -156,7 +159,7 @@
     },
     {
       "id": "AC-003",
-      "description": "Generated OpenAPI types expose the Admin success envelopes instead of content?: never and are byte-for-byte reproducible from canonical OpenAPI.",
+      "description": "Admin session success schema and runtime expose only minimal staff actor type/id/accountId; internal sessionId, permissions/scopes and bearer/pre-auth/step-up tokens are never serialized there. Permissions/scopes remain available only through their dedicated server-derived endpoints; HttpOnly Strict cookie authority is unchanged.",
       "verification": "step67_generated_contract_parity",
       "mandatory": true
     },
@@ -222,6 +225,12 @@
       "trigger": "Canonical CI #1715 on PR #353 after dashboard-inventory repair",
       "root_cause": "Step56 validator now reports only Source evidence drift for GET /admin/dashboard and recovered-source SHA drift for contracts/http/openapi.yaml.",
       "repair": "Regenerate dashboard operationEvidence extension metadata, Step56-A admin traceability, and downstream source/manifest hashes only. Preserve UNRESOLVED_NOT_GRANTED/no-runtime semantics."
+    },
+    {
+      "date": "2026-10-11",
+      "trigger": "Independent security audit during PR #353 provider queue",
+      "root_cause": "GET /admin/auth/session returned req.actor verbatim. ExecutionActor contains internal sessionId plus permissions/scopes, reproducing the actor-serialization defect previously fixed for customer session in Step64-B.",
+      "repair": "Authorize a single runtime repair in auth.controller.ts: return only actor type, id and accountId; align OpenAPI/generated contract and add security regression. No auth decision/permission grant changes."
     }
   ]
 }
