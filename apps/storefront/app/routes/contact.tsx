@@ -1,16 +1,13 @@
-import { RoutePlaceholder } from "../components/RoutePlaceholder";
+import { SupportContactView } from "../features/content/SupportContactView.js";
+import "../styles/content.css";
 
-export const handle = {
-  breadcrumb: "تماس با ما",
-};
+export const handle = { breadcrumb: "تماس با ما" };
+export const meta = () => [
+  { title: "تماس و پشتیبانی | EQCOFE" },
+  { name: "description", content: "مسیرهای امن و معتبر پشتیبانی سفارش، مرجوعی، گارانتی و عمده‌فروشی در EQCOFE." },
+  { name: "robots", content: "index,follow" },
+];
 
 export default function ContactRoute() {
-  return (
-    <RoutePlaceholder
-      screenId="SF-F-04"
-      title="تماس با ما"
-      targetStep={66}
-      routeIntent="/contact"
-    />
-  );
+  return <SupportContactView />;
 }
