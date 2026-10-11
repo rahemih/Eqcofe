@@ -2,7 +2,7 @@
   "schema_version": "2.2",
   "task_id": "EQCOFE-STEP67-B-ADMIN-CONTRACT-001",
   "title": "Step 67-B Admin authentication context and dashboard contract readiness",
-  "description": "HIGH-risk Backend/OpenAPI contract-readiness stage. Reconcile existing Admin login/FIDO/session/me/permissions/scopes/Step-Up success responses with actual AuthController/WebAuthn runtime, regenerate typed OpenAPI output, retain /admin/dashboard only as explicitly non-runtime UNRESOLVED_NOT_GRANTED contract inventory while preserving Product Design unavailable-only evidence and forbidding frontend consumption, and refresh only generator-equivalent Product Design provenance hashes caused by the OpenAPI source change. No database, dependency, Admin frontend or business-authorization mutation.",
+  "description": "HIGH-risk Backend/OpenAPI contract-readiness stage. Reconcile existing Admin login/FIDO/session/me/permissions/scopes/Step-Up success responses with actual AuthController/WebAuthn runtime and the global success envelope, regenerate typed OpenAPI output, sanitize GET /admin/auth/session so internal sessionId/permissions/scopes are not echoed there, remove the non-runtime /admin/dashboard operation from executable HTTP authority while preserving Product Design UNRESOLVED_NOT_GRANTED/unavailable-only evidence, and refresh only generator-equivalent Product Design provenance hashes caused by the canonical source changes. No database, dependency, Admin frontend or business-authorization mutation.",
   "risk": "HIGH",
   "risk_floor": "HIGH",
   "owner": "BACKEND_ENGINEERING",
@@ -44,7 +44,8 @@
       "docs/13-product-design/step56-wireframes/G/manifest.json",
       "docs/13-product-design/step56-final-audit.json",
       "docs/13-product-design/step56-final-audit/manifest.json",
-      "docs/13-product-design/step57-high-fidelity-contract.json"
+      "docs/13-product-design/step57-high-fidelity-contract.json",
+      "src/modules/identity/presentation/auth.controller.ts"
     ],
     "forbidden": [
       ".github/**",
@@ -52,7 +53,6 @@
       "database/**",
       "pnpm-lock.yaml",
       "pnpm-workspace.yaml",
-      "src/modules/identity/**",
       "src/platform/auth/**",
       "docs/12-current-state/**"
     ]
@@ -98,7 +98,8 @@
         "docs/13-product-design/step56-wireframes/G/manifest.json",
         "docs/13-product-design/step56-final-audit.json",
         "docs/13-product-design/step56-final-audit/manifest.json",
-        "docs/13-product-design/step57-high-fidelity-contract.json"
+        "docs/13-product-design/step57-high-fidelity-contract.json",
+        "src/modules/identity/presentation/auth.controller.ts"
       ]
     }
   ],
@@ -133,47 +134,62 @@
       "HttpOnly/SameSite=Strict cookie/session-token authority is unchanged.",
       "Permissions/scopes remain server-derived; typing them does not grant authorization.",
       "No dashboard metric/count/feed contract is invented."
-    ]
+    ],
+    "admin_session_privacy": "SANITIZED_PUBLIC_STAFF_IDENTITY_ONLY; internal sessionId remains server-side for Step-Up; permissions/scopes use dedicated endpoints",
+    "post_status_alignment": "RUNTIME_ACCURATE_NEST_DEFAULT_201_RETAINED_FOR_EXISTING_ACTION_POSTS; no status behavior mutation",
+    "envelope_authority": "ResponseEnvelopeInterceptor success/data/meta"
   },
   "acceptance_criteria": [
     {
       "id": "AC-001",
-      "description": "OpenAPI provides explicit JSON success schemas for existing Admin login, FIDO challenge/verify, Step-Up challenge/verify, logout, session, me, permissions and scopes operations based on current runtime return shapes.",
+      "description": "OpenAPI provides explicit success envelopes for existing Admin login, FIDO challenge/verify, Step-Up challenge/verify, logout, session, me, permissions and scopes operations based on actual controller values plus the global ResponseEnvelopeInterceptor. Existing Admin action POST runtime status remains 201 and is documented as such; no synthetic 202 success alternative remains.",
       "verification": "step67_admin_contract_test",
       "mandatory": true
     },
     {
       "id": "AC-002",
-      "description": "Generated OpenAPI types expose those success bodies instead of content?: never and are byte-for-byte reproducible from canonical OpenAPI.",
-      "verification": "step67_admin_contract_test",
+      "description": "GET /admin/auth/session is sanitized to expose only staff type/id/accountId in its success envelope. Internal sessionId remains server-side for Step-Up binding; permissions and scopes are available only from their dedicated typed endpoints.",
+      "verification": "step67_admin_session_privacy_test",
       "mandatory": true
     },
     {
       "id": "AC-003",
-      "description": "Admin session actor schema contains server-derived staff identity/account/session/permissions/scopes context but no bearer/session token; login/pre-auth/admin cookie authority remains HttpOnly Strict runtime behavior.",
-      "verification": "step67_admin_contract_test",
+      "description": "Generated OpenAPI types expose the Admin success envelopes instead of content?: never and are byte-for-byte reproducible from canonical OpenAPI.",
+      "verification": "step67_generated_contract_parity",
       "mandatory": true
     },
     {
       "id": "AC-004",
-      "description": "GET /admin/dashboard remains only as explicitly annotated non-runtime UNRESOLVED_NOT_GRANTED contract inventory so Step56 operation/gap lineage stays intact; generated response remains untyped, frontend consumption is forbidden, and no metric/runtime/permission authority is fabricated.",
-      "verification": "step67_admin_contract_test",
+      "description": "Login/pre-auth/admin-session bearer tokens remain cookie-only. No pre_auth_token or session_token enters JSON response schemas. Only the dedicated short-lived session-bound step_up_token is an explicit response payload.",
+      "verification": "step67_admin_token_boundary_test",
       "mandatory": true
     },
     {
       "id": "AC-005",
-      "description": "Only generator-equivalent Product Design provenance/hash artifacts change as a consequence of canonical OpenAPI source mutation; no Product Design semantic state is promoted.",
-      "verification": "design_check_and_scope_audit",
+      "description": "WebAuthn challenge wrappers are typed at the stable wrapper boundary while nested options remain an extensible object owned by the WebAuthn runtime; no browser-option semantics are invented.",
+      "verification": "step67_webauthn_wrapper_contract_test",
       "mandatory": true
     },
     {
       "id": "AC-006",
-      "description": "No runtime controller, auth/permission guard, database, dependency, Admin frontend or current-state mutation is introduced.",
-      "verification": "deterministic_scope_check",
+      "description": "GET /admin/dashboard is absent from executable OpenAPI/generated paths because no runtime controller/permission authority exists; Step56 UNRESOLVED_NOT_GRANTED evidence remains preserved and no metric/count/feed is fabricated.",
+      "verification": "step67_dashboard_gap_test",
       "mandatory": true
     },
     {
       "id": "AC-007",
+      "description": "Only generator-equivalent Product Design provenance/hash artifacts change as a consequence of canonical OpenAPI/AuthController source mutation; no Product Design semantic state is promoted.",
+      "verification": "design_check_and_scope_audit",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "No database migration, dependency, Admin frontend, Storefront, RBAC/service business rule, dashboard runtime, analytics runtime, workflow or Current-State mutation is introduced.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-009",
       "description": "HIGH-risk closure requires exact-head Canonical CI, Phase A, CodeQL/Security, deterministic Review, exact-artifact ACTIVE Lock, Project Owner Human Gate, protected merge, exact-SHA postmerge verification and terminal Lock release.",
       "verification": "canonical_transport_and_postmerge_evidence",
       "mandatory": true
