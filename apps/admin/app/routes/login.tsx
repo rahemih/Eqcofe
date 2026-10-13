@@ -1,5 +1,5 @@
 import { Form, data, redirect, useActionData, useLoaderData, useNavigation, useSubmit } from "react-router";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { ApiComponents } from "../platform/api/contract";
 import { appendAdminAuthSetCookies } from "../platform/auth/admin-cookie.server";
 import { beginAdminLogin, requestAdminFidoChallenge, verifyAdminFido } from "../platform/auth/admin-auth-flow.server";
@@ -57,6 +57,8 @@ export default function LoginRoute(){
   const navigation=useNavigation();
   const submit=useSubmit();
   const handledChallenge=useRef<string|null>(null);
+  const [webauthnError,setWebauthnError]=useState<string|null>(null);
+  const [webauthnRetry,setWebauthnRetry]=useState(0);
   const busy=navigation.state!=="idle";
 
   useEffect(()=>{
@@ -70,6 +72,7 @@ export default function LoginRoute(){
   useEffect(()=>{
     if(actionState?.kind!=="challenge"||handledChallenge.current===actionState.challengeId)return;
     handledChallenge.current=actionState.challengeId;
+    setWebauthnError(null);
     void runAdminWebAuthn(actionState.mode,actionState.challengeId,actionState.options)
       .then((credential)=>{
         const form=new FormData();
@@ -77,8 +80,8 @@ export default function LoginRoute(){
         form.set("credential",JSON.stringify(credential));
         return submit(form,{method:"post"});
       })
-      .catch(()=>{handledChallenge.current=null;});
-  },[actionState,submit]);
+      .catch(()=>{handledChallenge.current=null;setWebauthnError("تأیید کلید امنیتی لغو شد یا قابل انجام نبود.");});
+  },[actionState,submit,webauthnRetry]);
 
   if(loaderState.kind==="unavailable"){
     return <AuthState title="ورود مدیریت موقتاً در دسترس نیست" message="تا زمانی که سرویس احراز هویت قابل بررسی نباشد، اطلاعات ورود دریافت نمی‌شود." requestId={loaderState.requestId}/>;
@@ -111,6 +114,7 @@ export default function LoginRoute(){
           </Form>
         )}
         {actionState?.kind==="challenge"?<p className="auth-progress" role="status">در انتظار تأیید کلید امنیتی…</p>:null}
+        {webauthnError&&actionState?.kind==="challenge"?<div className="auth-alert" role="alert"><p>{webauthnError}</p><button className="auth-retry-button" type="button" onClick={()=>setWebauthnRetry(value=>value+1)} disabled={busy}>تلاش دوباره با کلید امنیتی</button></div>:null}
         <p className="auth-footnote">نشست مدیریت فقط با کوکی HttpOnly نگه‌داری می‌شود؛ رمز و پاسخ کلید امنیتی در حافظه مرورگر ذخیره نمی‌شوند.</p>
       </section>
     </main>
