@@ -1,9 +1,9 @@
-import { Links, Meta, Scripts, ScrollRestoration } from "react-router";
+import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "react-router";
 import { DEFAULT_LOCALE, getAdminMessages } from "./i18n";
-import { AdminShell } from "./shell/AdminShell";
 import "./styles/tokens.css";
 import "./styles/shell.css";
 import "./styles/foundation.css";
+import "./styles/auth.css";
 
 export const meta = () => [{ title: getAdminMessages().documentTitle }];
 
@@ -18,7 +18,7 @@ export default function Root() {
         <Links />
       </head>
       <body>
-        <AdminShell />
+        <Outlet />
         <ScrollRestoration />
         <Scripts />
       </body>

@@ -103,6 +103,7 @@
 | EQCOFE-STEP67-A-ADMIN-SHELL-HANDOFF-001 | Step 67-A Admin Shell RBAC Dashboard canonical handoff and scope freeze | MEDIUM | NOT_REQUIRED | `30c300ba9b72f990523fd0771630bb905f9ae528` | 26000/42000/82000 |
 | EQCOFE-STEP67-B-ADMIN-CONTRACT-001 | Step 67-B Admin authentication context and dashboard contract readiness | HIGH | REQUIRED | `87a074ed2d0557234ecfbb615ff7187c36f37f80` | 42000/68000/112000 |
 | EQCOFE-STEP67-C-ADMIN-FOUNDATION-001 | Step 67-C Admin application foundation and secure transport | MEDIUM | NOT_REQUIRED | `2af5eb86b605184f78b47e7b3df9e458ce1d7bd7` | 38000/60000/100000 |
+| EQCOFE-STEP67-D-ADMIN-AUTH-SESSION-001 | Step 67-D Admin login, FIDO and authenticated session lifecycle | HIGH | REQUIRED | `3b72b7972edcad99531e37503cb359021d1f4b5e` | 42000/68000/112000 |
 | MA-AGENT-A0-ORCHESTRATOR-001 | A0 — Orchestrator / Engineering Manager Prompt | LOW | NOT_REQUIRED | `f7919991e619d416360e74a542741ef21c70f732` | 10000/16000/32000 |
 | MA-AGENT-A1-SPEC-001 | A1 — Specification & Research Prompt | LOW | NOT_REQUIRED | `120898df57138b301560e7d9b9f1b3f5da03e982` | 10000/16000/32000 |
 | MA-AGENT-A10-EVIDENCE-001 | A10 — Evidence & Documentation Prompt | LOW | NOT_REQUIRED | `bdf8fccde4ca40cced48381ad3be2e0461ade535` | 12000/18000/35000 |
@@ -148,4 +149,4 @@
 | MA-V1-ACC-MEDIUM-001 | V1 Acceptance MEDIUM R2 — telemetry terminal-state conflict hardening | MEDIUM | NOT_REQUIRED | `9017e0f25e9571568ed9acf4ca3ca977ce9e78f0` | 15000/25000/50000 |
 | MA-V1-ACCEPTANCE-CLOSURE-V16-R2-001 | V1.6 Phase 3 canonical acceptance closure R2 | HIGH | REQUIRED | `d7d235f5f240b8bea44bc607afa812b2f5bb12d4` | 30000/50000/90000 |
 
-Task contracts indexed: **142**.
+Task contracts indexed: **143**.

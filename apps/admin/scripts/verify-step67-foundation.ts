@@ -16,14 +16,14 @@ assert.match(rootPackage.scripts["frontend:verify"]??"",/@eqcofe\/admin verify/)
 assert.match(read("pnpm-lock.yaml"),/^  apps\/admin:/m);
 const root=read("apps/admin/app/root.tsx"),routes=read("apps/admin/app/routes.ts"),shell=read("apps/admin/app/shell/AdminShell.tsx");
 assert.match(root,/lang=\{DEFAULT_LOCALE\}/); assert.match(root,/dir=\{messages\.direction\}/);
-assert.match(routes,/index\("\.\/routes\/foundation\.tsx"\)/); assert.doesNotMatch(routes,/login|dashboard|products|orders|pricing|customers|reports/);
+assert.match(routes,/index\("\.\/routes\/foundation\.tsx"\)/); assert.match(routes,/route\("login"/); assert.match(routes,/route\("logout"/); assert.match(routes,/layout\("\.\/routes\/authenticated\.tsx"/); assert.doesNotMatch(routes,/dashboard|products|orders|pricing|customers|reports/);
 assert.match(shell,/href="#admin-main"/); assert.match(shell,/<main id="admin-main"/); assert.match(shell,/<Outlet \/>/); assert.match(shell,/aria-label=\{messages\.navigationLabel\}/);
 const shellCss=read("apps/admin/app/styles/shell.css"),foundationCss=read("apps/admin/app/styles/foundation.css"),css=shellCss+"\n"+foundationCss;
 for(const width of [360,600,840,1200,1440]) assert.ok(shellCss.includes(`@media (min-width: ${width}px)`),`ADMIN_BREAKPOINT_MISSING:${width}`);
 assert.match(shellCss,/@media \(prefers-reduced-motion: reduce\)/); assert.match(shellCss,/:focus-visible/); assert.match(shellCss,/min-block-size: var\(--eq-size-touch-min\)/);
 assert.doesNotMatch(css,/(margin|padding|border)-(left|right)\s*:|(^|[;{\s])(left|right)\s*:/m); assert.doesNotMatch(css,/#(?:[0-9a-fA-F]{3}){1,2}\b/); assert.doesNotMatch(css,/brown|قهوه‌ای/i);
 const appText=collect(resolve(adminRoot,"app")).map(path=>readFileSync(path,"utf8")).join("\n");
-for(const forbidden of ["/admin/dashboard","/admin/auth/login","/admin/auth/fido","/admin/auth/step-up","/admin/me","/admin/products","/admin/orders"]) assert.ok(!appText.includes(forbidden),`STAGE67_C_FORBIDDEN_PRODUCTION_CONSUMPTION:${forbidden}`);
+for(const forbidden of ["/admin/dashboard","/admin/auth/step-up","/admin/me/permissions","/admin/me/scopes","/admin/products","/admin/orders"]) assert.ok(!appText.includes(forbidden),`STAGE67_D_FORBIDDEN_PRODUCTION_CONSUMPTION:${forbidden}`);
 assert.doesNotMatch(appText,/VITE_/); assert.doesNotMatch(appText,/localStorage|sessionStorage/);
-console.log(JSON.stringify({status:"PASS",stage:"67-C",workspace:"@eqcofe/admin",rtl:true,tokenBridge:"EXACT",productionAuthConsumption:false,permissionNavigation:false,dashboardConsumption:false},null,2));
+console.log(JSON.stringify({status:"PASS",stage:"67-D",workspace:"@eqcofe/admin",rtl:true,tokenBridge:"EXACT",productionAuthConsumption:true,permissionNavigation:false,stepUp:false,dashboardConsumption:false},null,2));
 function collect(rootDir:string):string[]{const out:string[]=[];for(const name of readdirSync(rootDir)){const path=join(rootDir,name),stat=statSync(path);if(stat.isDirectory())out.push(...collect(path));else if(/\.(?:ts|tsx|css)$/.test(name))out.push(path);}return out;}
