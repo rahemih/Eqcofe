@@ -10,7 +10,7 @@ export type AdminAuthorizationContext =
   | { kind: "unavailable"; requestId: string | null; setCookies: readonly string[] };
 
 const PERMISSION_PATTERN=/^[a-z][a-z0-9_.:-]{0,127}$/;
-const UUID_PATTERN=/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+const UUID_PATTERN=/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 const ALLOWED_SCOPE_TYPES=new Set(["warehouse","physical_store"]);
 
 export async function readAdminAuthorizationContext(request:Pick<Request,"headers">):Promise<AdminAuthorizationContext>{
