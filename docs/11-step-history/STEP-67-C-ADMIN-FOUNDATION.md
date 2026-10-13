@@ -56,3 +56,10 @@ No Owner Human Gate is required for this MEDIUM-risk stage.
 - PR: `#354`
 - Task Contract: `docs/14-multi-agent/tasks/EQCOFE-STEP67-C-ADMIN-FOUNDATION-001.json`
 - Initial PR event predated the required Task Contract metadata in the PR body; this in-scope documentation commit intentionally emits a fresh synchronize event after metadata repair.
+
+## Live execution evidence
+
+- PR: `#354`
+- Branch: `eqcofe/step67-c-admin-foundation`
+- Task Contract authority: `docs/14-multi-agent/tasks/EQCOFE-STEP67-C-ADMIN-FOUNDATION-001.json`
+- The PR body is explicitly bound to this Task Contract so pull-request scope-history validation can evaluate the active governed write scope.
