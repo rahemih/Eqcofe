@@ -14920,7 +14920,7 @@
     },
     {
       "path": "contracts/http/openapi.yaml",
-      "sha256": "d34decef5c65234e380ee9ec1b09eca855b16cb89b3abc3a5cf8b8fd411e1136"
+      "sha256": "8f5a49b391c5c8ab2668b02d37f3f71318a40d32d6b5ede3c5bd9dd492fcce9d"
     },
     {
       "path": "contracts/http/step49-pos-a9.yaml",
@@ -15299,7 +15299,7 @@
     },
     {
       "path": "src/modules/identity/presentation/auth.controller.ts",
-      "sha256": "dad997192835745b2793abe273513c461c2866fb21cd71905197f1114c637b56"
+      "sha256": "6fd502493f6aa00e52fa0eeedbfd41e2b53de44d787d717ca1b84d54527457ec"
     },
     {
       "path": "src/modules/integrations/integrations.module.ts",
@@ -17229,7 +17229,10 @@
             "adminSession": []
           }
         ],
-        "extensions": {}
+        "extensions": {
+          "runtime": "unresolved_not_granted",
+          "frontendConsumption": "forbidden"
+        }
       },
       "runtime": null,
       "screen": "AD-B-03",

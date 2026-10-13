@@ -1491,6 +1491,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
+        /** @description Contract inventory only. No runtime controller or permission authority exists; frontend consumption is forbidden until a later governed reconciliation. */
         get: operations["getAdminDashboard"];
         put?: never;
         post?: never;
@@ -9618,6 +9619,117 @@ export interface components {
             rating?: number | null;
             body?: string | null;
         };
+        AdminLoginData: {
+            /** @constant */
+            fido_required: true;
+            expires_in_seconds: number;
+        };
+        AdminLoginResponse: {
+            /** @constant */
+            success: true;
+            data: components["schemas"]["AdminLoginData"];
+            meta: components["schemas"]["SuccessMeta"];
+        };
+        AdminWebAuthnOptions: {
+            [key: string]: unknown;
+        };
+        AdminFidoChallengeData: {
+            /** @enum {string} */
+            mode: "registration" | "authentication";
+            challenge_id: components["schemas"]["EntityId"];
+            options: components["schemas"]["AdminWebAuthnOptions"];
+        };
+        AdminFidoChallengeResponse: {
+            /** @constant */
+            success: true;
+            data: components["schemas"]["AdminFidoChallengeData"];
+            meta: components["schemas"]["SuccessMeta"];
+        };
+        AdminWebAuthnChallengeData: {
+            challenge_id: components["schemas"]["EntityId"];
+            options: components["schemas"]["AdminWebAuthnOptions"];
+        };
+        AdminWebAuthnChallengeResponse: {
+            /** @constant */
+            success: true;
+            data: components["schemas"]["AdminWebAuthnChallengeData"];
+            meta: components["schemas"]["SuccessMeta"];
+        };
+        AdminSessionEstablishedData: {
+            session_id: components["schemas"]["EntityId"];
+            /** Format: date-time */
+            expires_at: string;
+        };
+        AdminSessionEstablishedResponse: {
+            /** @constant */
+            success: true;
+            data: components["schemas"]["AdminSessionEstablishedData"];
+            meta: components["schemas"]["SuccessMeta"];
+        };
+        AdminStepUpVerifyData: {
+            step_up_token: string;
+        };
+        AdminStepUpVerifyResponse: {
+            /** @constant */
+            success: true;
+            data: components["schemas"]["AdminStepUpVerifyData"];
+            meta: components["schemas"]["SuccessMeta"];
+        };
+        AdminLogoutData: {
+            /** @constant */
+            logged_out: true;
+        };
+        AdminLogoutResponse: {
+            /** @constant */
+            success: true;
+            data: components["schemas"]["AdminLogoutData"];
+            meta: components["schemas"]["SuccessMeta"];
+        };
+        AdminSessionActor: {
+            /** @enum {string} */
+            type: "staff";
+            id: components["schemas"]["EntityId"];
+            accountId: components["schemas"]["EntityId"];
+        };
+        AdminSessionData: {
+            actor: components["schemas"]["AdminSessionActor"];
+        };
+        AdminSessionResponse: {
+            /** @constant */
+            success: true;
+            data: components["schemas"]["AdminSessionData"];
+            meta: components["schemas"]["SuccessMeta"];
+        };
+        AdminMeData: {
+            id: components["schemas"]["EntityId"];
+            account_id: components["schemas"]["EntityId"];
+            /** @constant */
+            type: "staff";
+        };
+        AdminMeResponse: {
+            /** @constant */
+            success: true;
+            data: components["schemas"]["AdminMeData"];
+            meta: components["schemas"]["SuccessMeta"];
+        };
+        AdminPermissionsData: {
+            permissions: string[];
+        };
+        AdminPermissionsResponse: {
+            /** @constant */
+            success: true;
+            data: components["schemas"]["AdminPermissionsData"];
+            meta: components["schemas"]["SuccessMeta"];
+        };
+        AdminScopesData: {
+            scopes: string[];
+        };
+        AdminScopesResponse: {
+            /** @constant */
+            success: true;
+            data: components["schemas"]["AdminScopesData"];
+            meta: components["schemas"]["SuccessMeta"];
+        };
         PostAdminAuthLoginRequest: {
             username: string;
             password: string;
@@ -13304,19 +13416,14 @@ export interface operations {
             };
         };
         responses: {
-            /** @description عملیات موفق */
-            200: {
+            /** @description نشست پیش‌احراز هویت ایجاد شد */
+            201: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
-            };
-            /** @description عملیات پذیرفته شد */
-            202: {
-                headers: {
-                    [name: string]: unknown;
+                content: {
+                    "application/json": components["schemas"]["AdminLoginResponse"];
                 };
-                content?: never;
             };
         };
     };
@@ -13335,19 +13442,14 @@ export interface operations {
             };
         };
         responses: {
-            /** @description عملیات موفق */
-            200: {
+            /** @description چالش WebAuthn ایجاد شد */
+            201: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
-            };
-            /** @description عملیات پذیرفته شد */
-            202: {
-                headers: {
-                    [name: string]: unknown;
+                content: {
+                    "application/json": components["schemas"]["AdminFidoChallengeResponse"];
                 };
-                content?: never;
             };
         };
     };
@@ -13364,19 +13466,14 @@ export interface operations {
             };
         };
         responses: {
-            /** @description عملیات موفق */
-            200: {
+            /** @description احراز هویت WebAuthn تکمیل و نشست مدیر ایجاد شد */
+            201: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
-            };
-            /** @description عملیات پذیرفته شد */
-            202: {
-                headers: {
-                    [name: string]: unknown;
+                content: {
+                    "application/json": components["schemas"]["AdminSessionEstablishedResponse"];
                 };
-                content?: never;
             };
         };
     };
@@ -13389,19 +13486,14 @@ export interface operations {
         };
         requestBody?: never;
         responses: {
-            /** @description عملیات موفق */
-            200: {
+            /** @description چالش Step-Up ایجاد شد */
+            201: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
-            };
-            /** @description عملیات پذیرفته شد */
-            202: {
-                headers: {
-                    [name: string]: unknown;
+                content: {
+                    "application/json": components["schemas"]["AdminWebAuthnChallengeResponse"];
                 };
-                content?: never;
             };
         };
     };
@@ -13418,19 +13510,14 @@ export interface operations {
             };
         };
         responses: {
-            /** @description عملیات موفق */
-            200: {
+            /** @description Step-Up تأیید شد */
+            201: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
-            };
-            /** @description عملیات پذیرفته شد */
-            202: {
-                headers: {
-                    [name: string]: unknown;
+                content: {
+                    "application/json": components["schemas"]["AdminStepUpVerifyResponse"];
                 };
-                content?: never;
             };
         };
     };
@@ -13443,19 +13530,14 @@ export interface operations {
         };
         requestBody?: never;
         responses: {
-            /** @description عملیات موفق */
-            200: {
+            /** @description خروج مدیر ثبت شد */
+            201: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
-            };
-            /** @description عملیات پذیرفته شد */
-            202: {
-                headers: {
-                    [name: string]: unknown;
+                content: {
+                    "application/json": components["schemas"]["AdminLogoutResponse"];
                 };
-                content?: never;
             };
         };
     };
@@ -13468,12 +13550,14 @@ export interface operations {
         };
         requestBody?: never;
         responses: {
-            /** @description عملیات موفق */
+            /** @description زمینه نشست معتبر مدیر */
             200: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["AdminSessionResponse"];
+                };
             };
         };
     };
@@ -13486,12 +13570,14 @@ export interface operations {
         };
         requestBody?: never;
         responses: {
-            /** @description عملیات موفق */
+            /** @description هویت مدیر جاری */
             200: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["AdminMeResponse"];
+                };
             };
         };
     };
@@ -13504,12 +13590,14 @@ export interface operations {
         };
         requestBody?: never;
         responses: {
-            /** @description عملیات موفق */
+            /** @description مجوزهای مؤثر مدیر جاری */
             200: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["AdminPermissionsResponse"];
+                };
             };
         };
     };
@@ -13522,12 +13610,14 @@ export interface operations {
         };
         requestBody?: never;
         responses: {
-            /** @description عملیات موفق */
+            /** @description محدوده‌های مؤثر مدیر جاری */
             200: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["AdminScopesResponse"];
+                };
             };
         };
     };
@@ -13540,7 +13630,7 @@ export interface operations {
         };
         requestBody?: never;
         responses: {
-            /** @description عملیات موفق */
+            /** @description Historical contract placeholder only; no runtime response authority is asserted. */
             200: {
                 headers: {
                     [name: string]: unknown;

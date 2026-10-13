@@ -1,0 +1,236 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP67-B-ADMIN-CONTRACT-001",
+  "title": "Step 67-B Admin authentication context and dashboard contract readiness",
+  "description": "HIGH-risk Backend/OpenAPI contract-readiness stage. Reconcile existing Admin login/FIDO/session/me/permissions/scopes/Step-Up success responses with actual AuthController/WebAuthn runtime and the global success envelope, regenerate typed OpenAPI output, sanitize GET /admin/auth/session so internal sessionId/permissions/scopes are not echoed there, retain the non-runtime /admin/dashboard operation only as explicitly annotated UNRESOLVED_NOT_GRANTED contract inventory with frontend consumption forbidden, preserving Product Design unavailable-only evidence, and refresh only generator-equivalent Product Design provenance hashes caused by the canonical source changes. Repair the proven Admin session-actor serialization defect by returning only type/id/accountId; no database, dependency, Admin frontend or business-authorization mutation.",
+  "risk": "HIGH",
+  "risk_floor": "HIGH",
+  "owner": "BACKEND_ENGINEERING",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "87a074ed2d0557234ecfbb615ff7187c36f37f80"
+  },
+  "scope": {
+    "read": [
+      "src/modules/identity/**",
+      "src/platform/auth/**",
+      "src/shared/application/execution-context.ts",
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "docs/13-product-design/**",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "test/step67-admin-contract.spec.ts",
+      "docs/11-step-history/STEP-67-B-ADMIN-CONTRACT-READINESS.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP67-B-ADMIN-CONTRACT-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "docs/13-product-design/step56-admin-ux-contract.json",
+      "docs/13-product-design/step56-foundation/A/manifest.json",
+      "docs/13-product-design/step56-admin-shell-wireframes.json",
+      "docs/13-product-design/step56-wireframes/B/manifest.json",
+      "docs/13-product-design/step56-catalog-media-wireframes.json",
+      "docs/13-product-design/step56-wireframes/C/manifest.json",
+      "docs/13-product-design/step56-pricing-inventory-wireframes.json",
+      "docs/13-product-design/step56-wireframes/D/manifest.json",
+      "docs/13-product-design/step56-commerce-operations-wireframes.json",
+      "docs/13-product-design/step56-wireframes/E/manifest.json",
+      "docs/13-product-design/step56-customers-growth-wireframes.json",
+      "docs/13-product-design/step56-wireframes/F/manifest.json",
+      "docs/13-product-design/step56-management-security-wireframes.json",
+      "docs/13-product-design/step56-wireframes/G/manifest.json",
+      "docs/13-product-design/step56-final-audit.json",
+      "docs/13-product-design/step56-final-audit/manifest.json",
+      "docs/13-product-design/step57-high-fidelity-contract.json",
+      "src/modules/identity/presentation/auth.controller.ts",
+      "docs/13-product-design/step56-foundation/A/admin-traceability.json"
+    ],
+    "forbidden": [
+      ".github/**",
+      "apps/**",
+      "database/**",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "src/platform/auth/**",
+      "docs/12-current-state/**",
+      "src/modules/identity/application/**",
+      "src/modules/identity/infrastructure/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP67-B-ADMIN-CONTRACT-001-01"
+  ],
+  "human_gate_required": true,
+  "authorized_human_approver": {
+    "role": "PROJECT_OWNER",
+    "github_login": "rahemih"
+  },
+  "token_budget": {
+    "expected_max": 42000,
+    "soft_alert": 68000,
+    "hard_cap": 112000
+  },
+  "max_repair_cycles": 3,
+  "task_risk_rules": [
+    {
+      "id": "STEP67_B_ADMIN_HTTP_HIGH",
+      "risk": "HIGH",
+      "paths": [
+        "contracts/http/openapi.yaml",
+        "src/generated/openapi.ts",
+        "test/step67-admin-contract.spec.ts",
+        "docs/11-step-history/STEP-67-B-ADMIN-CONTRACT-READINESS.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP67-B-ADMIN-CONTRACT-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md",
+        "docs/13-product-design/step56-admin-ux-contract.json",
+        "docs/13-product-design/step56-foundation/A/manifest.json",
+        "docs/13-product-design/step56-admin-shell-wireframes.json",
+        "docs/13-product-design/step56-wireframes/B/manifest.json",
+        "docs/13-product-design/step56-catalog-media-wireframes.json",
+        "docs/13-product-design/step56-wireframes/C/manifest.json",
+        "docs/13-product-design/step56-pricing-inventory-wireframes.json",
+        "docs/13-product-design/step56-wireframes/D/manifest.json",
+        "docs/13-product-design/step56-commerce-operations-wireframes.json",
+        "docs/13-product-design/step56-wireframes/E/manifest.json",
+        "docs/13-product-design/step56-customers-growth-wireframes.json",
+        "docs/13-product-design/step56-wireframes/F/manifest.json",
+        "docs/13-product-design/step56-management-security-wireframes.json",
+        "docs/13-product-design/step56-wireframes/G/manifest.json",
+        "docs/13-product-design/step56-final-audit.json",
+        "docs/13-product-design/step56-final-audit/manifest.json",
+        "docs/13-product-design/step57-high-fidelity-contract.json",
+        "src/modules/identity/presentation/auth.controller.ts",
+        "docs/13-product-design/step56-foundation/A/admin-traceability.json"
+      ]
+    }
+  ],
+  "pre_mutation_gates": {
+    "graph_health": "RETIRED_AND_OUT_OF_SCOPE",
+    "query_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "path_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "explain_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "human_gate": "REQUIRED_FINAL_EXACT_ARTIFACT"
+  },
+  "dependencies": [
+    {
+      "item": "67-A",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "87a074ed2d0557234ecfbb615ff7187c36f37f80",
+      "evidence": "PR #352 merged; exact-SHA Canonical CI #1710, Phase A #1209 and CodeQL #844 SUCCESS; terminal Lock release comment 6108600509.",
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "linear_issue": "HOS-71",
+    "graph_state": "RETIRED_AND_OUT_OF_SCOPE",
+    "migration_need": "NONE",
+    "dependency_need": "NONE",
+    "admin_frontend_mutation": "NONE",
+    "runtime_source": "src/modules/identity/presentation/auth.controller.ts + WebAuthnService + SessionActorResolver",
+    "dashboard_resolution": "RETAIN_CONTRACT_INVENTORY_ONLY_WITH_RUNTIME=UNRESOLVED_NOT_GRANTED_AND_FRONTEND_CONSUMPTION_FORBIDDEN; no runtime/permission/metric authority",
+    "product_design_provenance_repair": "GENERATOR_EQUIVALENT_SOURCE_EVIDENCE_AND_HASH_ONLY; dashboard state remains UNRESOLVED_NOT_GRANTED",
+    "transport_rules": [
+      "Admin auth success payloads must match current controller return shapes; no frontend-local guessed models.",
+      "HttpOnly/SameSite=Strict cookie/session-token authority is unchanged.",
+      "Permissions/scopes remain server-derived; typing them does not grant authorization.",
+      "No dashboard metric/count/feed contract is invented."
+    ],
+    "admin_session_privacy": "SANITIZED_PUBLIC_STAFF_IDENTITY_ONLY; internal sessionId remains server-side for Step-Up; permissions/scopes use dedicated endpoints",
+    "post_status_alignment": "RUNTIME_ACCURATE_NEST_DEFAULT_201_RETAINED_FOR_EXISTING_ACTION_POSTS; no status behavior mutation",
+    "envelope_authority": "ResponseEnvelopeInterceptor success/data/meta",
+    "session_privacy_repair": "GET /admin/auth/session must not serialize internal sessionId, permissions or scopes; use dedicated server-derived permissions/scopes endpoints."
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "OpenAPI provides explicit success envelopes for existing Admin login, FIDO challenge/verify, Step-Up challenge/verify, logout, session, me, permissions and scopes operations based on actual controller values plus the global ResponseEnvelopeInterceptor. Existing Admin action POST runtime status remains 201 and is documented as such; no synthetic 202 success alternative remains.",
+      "verification": "step67_admin_contract_test",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "GET /admin/auth/session is sanitized to expose only staff type/id/accountId in its success envelope. Internal sessionId remains server-side for Step-Up binding; permissions and scopes are available only from their dedicated typed endpoints.",
+      "verification": "step67_admin_session_privacy_test",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Admin session success schema and runtime expose only minimal staff actor type/id/accountId; internal sessionId, permissions/scopes and bearer/pre-auth/step-up tokens are never serialized there. Permissions/scopes remain available only through their dedicated server-derived endpoints; HttpOnly Strict cookie authority is unchanged.",
+      "verification": "step67_generated_contract_parity",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Login/pre-auth/admin-session bearer tokens remain cookie-only. No pre_auth_token or session_token enters JSON response schemas. Only the dedicated short-lived session-bound step_up_token is an explicit response payload.",
+      "verification": "step67_admin_token_boundary_test",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "WebAuthn challenge wrappers are typed at the stable wrapper boundary while nested options remain an extensible object owned by the WebAuthn runtime; no browser-option semantics are invented.",
+      "verification": "step67_webauthn_wrapper_contract_test",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "GET /admin/dashboard remains only as annotated contract inventory with runtime=UNRESOLVED_NOT_GRANTED and frontend consumption forbidden because no runtime controller/permission authority exists; its response remains untyped, no Admin frontend may consume it, Step56 unavailable-only evidence is preserved, and no metric/count/feed is fabricated.",
+      "verification": "step67_dashboard_gap_test",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "Only generator-equivalent Product Design provenance/hash artifacts change as a consequence of canonical OpenAPI/AuthController source mutation; no Product Design semantic state is promoted.",
+      "verification": "design_check_and_scope_audit",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "No database migration, dependency, Admin frontend, Storefront, RBAC/service business rule, dashboard runtime, analytics runtime, workflow or Current-State mutation is introduced.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-009",
+      "description": "HIGH-risk closure requires exact-head Canonical CI, Phase A, CodeQL/Security, deterministic Review, exact-artifact ACTIVE Lock, Project Owner Human Gate, protected merge, exact-SHA postmerge verification and terminal Lock release.",
+      "verification": "canonical_transport_and_postmerge_evidence",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "SECURITY",
+      "HUMAN",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Step 67-B is HIGH risk. Exact-artifact Project Owner approval is mandatory after technical/security/review/Lock evidence is complete."
+  },
+  "process_improvement_links": [],
+  "incident_links": [],
+  "repair_history": [
+    {
+      "date": "2026-10-11",
+      "trigger": "Canonical CI #1711 on PR #353",
+      "root_cause": "Removing GET /admin/dashboard from OpenAPI violated frozen Step56 operation-union and GAP-01/GAP-02 evidence, which intentionally retains this contract-only operation as UNRESOLVED_NOT_GRANTED.",
+      "repair": "Restore dashboard as contract inventory only with explicit x-eqcofe runtime=unresolved_not_granted and frontendConsumption=forbidden; preserve untyped response and no runtime authority."
+    },
+    {
+      "date": "2026-10-11",
+      "trigger": "Canonical CI #1715 on PR #353 after dashboard-inventory repair",
+      "root_cause": "Step56 validator now reports only Source evidence drift for GET /admin/dashboard and recovered-source SHA drift for contracts/http/openapi.yaml.",
+      "repair": "Regenerate dashboard operationEvidence extension metadata, Step56-A admin traceability, and downstream source/manifest hashes only. Preserve UNRESOLVED_NOT_GRANTED/no-runtime semantics."
+    },
+    {
+      "date": "2026-10-11",
+      "trigger": "Independent security audit during PR #353 provider queue",
+      "root_cause": "GET /admin/auth/session returned req.actor verbatim. ExecutionActor contains internal sessionId plus permissions/scopes, reproducing the actor-serialization defect previously fixed for customer session in Step64-B.",
+      "repair": "Authorize a single runtime repair in auth.controller.ts: return only actor type, id and accountId; align OpenAPI/generated contract and add security regression. No auth decision/permission grant changes."
+    }
+  ]
+}

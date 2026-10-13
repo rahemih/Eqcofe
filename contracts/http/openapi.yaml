@@ -3702,6 +3702,289 @@ components:
           minLength: 1
           maxLength: 5000
       minProperties: 1
+    AdminLoginData:
+      type: object
+      additionalProperties: false
+      required:
+      - fido_required
+      - expires_in_seconds
+      properties:
+        fido_required:
+          type: boolean
+          const: true
+        expires_in_seconds:
+          type: integer
+          minimum: 1
+    AdminLoginResponse:
+      type: object
+      additionalProperties: false
+      required:
+      - success
+      - data
+      - meta
+      properties:
+        success:
+          type: boolean
+          const: true
+        data:
+          $ref: '#/components/schemas/AdminLoginData'
+        meta:
+          $ref: '#/components/schemas/SuccessMeta'
+    AdminWebAuthnOptions:
+      type: object
+      additionalProperties: true
+    AdminFidoChallengeData:
+      type: object
+      additionalProperties: false
+      required:
+      - mode
+      - challenge_id
+      - options
+      properties:
+        mode:
+          type: string
+          enum:
+          - registration
+          - authentication
+        challenge_id:
+          $ref: '#/components/schemas/EntityId'
+        options:
+          $ref: '#/components/schemas/AdminWebAuthnOptions'
+    AdminFidoChallengeResponse:
+      type: object
+      additionalProperties: false
+      required:
+      - success
+      - data
+      - meta
+      properties:
+        success:
+          type: boolean
+          const: true
+        data:
+          $ref: '#/components/schemas/AdminFidoChallengeData'
+        meta:
+          $ref: '#/components/schemas/SuccessMeta'
+    AdminWebAuthnChallengeData:
+      type: object
+      additionalProperties: false
+      required:
+      - challenge_id
+      - options
+      properties:
+        challenge_id:
+          $ref: '#/components/schemas/EntityId'
+        options:
+          $ref: '#/components/schemas/AdminWebAuthnOptions'
+    AdminWebAuthnChallengeResponse:
+      type: object
+      additionalProperties: false
+      required:
+      - success
+      - data
+      - meta
+      properties:
+        success:
+          type: boolean
+          const: true
+        data:
+          $ref: '#/components/schemas/AdminWebAuthnChallengeData'
+        meta:
+          $ref: '#/components/schemas/SuccessMeta'
+    AdminSessionEstablishedData:
+      type: object
+      additionalProperties: false
+      required:
+      - session_id
+      - expires_at
+      properties:
+        session_id:
+          $ref: '#/components/schemas/EntityId'
+        expires_at:
+          type: string
+          format: date-time
+    AdminSessionEstablishedResponse:
+      type: object
+      additionalProperties: false
+      required:
+      - success
+      - data
+      - meta
+      properties:
+        success:
+          type: boolean
+          const: true
+        data:
+          $ref: '#/components/schemas/AdminSessionEstablishedData'
+        meta:
+          $ref: '#/components/schemas/SuccessMeta'
+    AdminStepUpVerifyData:
+      type: object
+      additionalProperties: false
+      required:
+      - step_up_token
+      properties:
+        step_up_token:
+          type: string
+          minLength: 1
+    AdminStepUpVerifyResponse:
+      type: object
+      additionalProperties: false
+      required:
+      - success
+      - data
+      - meta
+      properties:
+        success:
+          type: boolean
+          const: true
+        data:
+          $ref: '#/components/schemas/AdminStepUpVerifyData'
+        meta:
+          $ref: '#/components/schemas/SuccessMeta'
+    AdminLogoutData:
+      type: object
+      additionalProperties: false
+      required:
+      - logged_out
+      properties:
+        logged_out:
+          type: boolean
+          const: true
+    AdminLogoutResponse:
+      type: object
+      additionalProperties: false
+      required:
+      - success
+      - data
+      - meta
+      properties:
+        success:
+          type: boolean
+          const: true
+        data:
+          $ref: '#/components/schemas/AdminLogoutData'
+        meta:
+          $ref: '#/components/schemas/SuccessMeta'
+    AdminSessionActor:
+      type: object
+      additionalProperties: false
+      required:
+      - type
+      - id
+      - accountId
+      properties:
+        type:
+          type: string
+          enum:
+          - staff
+        id:
+          $ref: '#/components/schemas/EntityId'
+        accountId:
+          $ref: '#/components/schemas/EntityId'
+    AdminSessionData:
+      type: object
+      additionalProperties: false
+      required:
+      - actor
+      properties:
+        actor:
+          $ref: '#/components/schemas/AdminSessionActor'
+    AdminSessionResponse:
+      type: object
+      additionalProperties: false
+      required:
+      - success
+      - data
+      - meta
+      properties:
+        success:
+          type: boolean
+          const: true
+        data:
+          $ref: '#/components/schemas/AdminSessionData'
+        meta:
+          $ref: '#/components/schemas/SuccessMeta'
+    AdminMeData:
+      type: object
+      additionalProperties: false
+      required:
+      - id
+      - account_id
+      - type
+      properties:
+        id:
+          $ref: '#/components/schemas/EntityId'
+        account_id:
+          $ref: '#/components/schemas/EntityId'
+        type:
+          type: string
+          const: staff
+    AdminMeResponse:
+      type: object
+      additionalProperties: false
+      required:
+      - success
+      - data
+      - meta
+      properties:
+        success:
+          type: boolean
+          const: true
+        data:
+          $ref: '#/components/schemas/AdminMeData'
+        meta:
+          $ref: '#/components/schemas/SuccessMeta'
+    AdminPermissionsData:
+      type: object
+      additionalProperties: false
+      required:
+      - permissions
+      properties:
+        permissions:
+          type: array
+          items:
+            type: string
+    AdminPermissionsResponse:
+      type: object
+      additionalProperties: false
+      required:
+      - success
+      - data
+      - meta
+      properties:
+        success:
+          type: boolean
+          const: true
+        data:
+          $ref: '#/components/schemas/AdminPermissionsData'
+        meta:
+          $ref: '#/components/schemas/SuccessMeta'
+    AdminScopesData:
+      type: object
+      additionalProperties: false
+      required:
+      - scopes
+      properties:
+        scopes:
+          type: array
+          items:
+            type: string
+    AdminScopesResponse:
+      type: object
+      additionalProperties: false
+      required:
+      - success
+      - data
+      - meta
+      properties:
+        success:
+          type: boolean
+          const: true
+        data:
+          $ref: '#/components/schemas/AdminScopesData'
+        meta:
+          $ref: '#/components/schemas/SuccessMeta'
     PostAdminAuthLoginRequest:
       type: object
       additionalProperties: false
@@ -10407,10 +10690,12 @@ paths:
       - Admin Operations
       operationId: postAdminAuthLogin
       responses:
-        '200':
-          description: عملیات موفق
-        '202':
-          description: عملیات پذیرفته شد
+        '201':
+          description: نشست پیش‌احراز هویت ایجاد شد
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminLoginResponse'
       security: []
       requestBody:
         required: true
@@ -10424,10 +10709,12 @@ paths:
       - Admin Operations
       operationId: postAdminAuthFidoChallenge
       responses:
-        '200':
-          description: عملیات موفق
-        '202':
-          description: عملیات پذیرفته شد
+        '201':
+          description: چالش WebAuthn ایجاد شد
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminFidoChallengeResponse'
       security:
       - adminPreAuth: []
       requestBody:
@@ -10451,10 +10738,12 @@ paths:
       - Admin Operations
       operationId: postAdminAuthFidoVerify
       responses:
-        '200':
-          description: عملیات موفق
-        '202':
-          description: عملیات پذیرفته شد
+        '201':
+          description: احراز هویت WebAuthn تکمیل و نشست مدیر ایجاد شد
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminSessionEstablishedResponse'
       security:
       - adminPreAuth: []
       requestBody:
@@ -10469,10 +10758,12 @@ paths:
       - Admin Operations
       operationId: postAdminAuthStepUpChallenge
       responses:
-        '200':
-          description: عملیات موفق
-        '202':
-          description: عملیات پذیرفته شد
+        '201':
+          description: چالش Step-Up ایجاد شد
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminWebAuthnChallengeResponse'
       security:
       - adminSession: []
   /admin/auth/step-up/verify:
@@ -10481,10 +10772,12 @@ paths:
       - Admin Operations
       operationId: postAdminAuthStepUpVerify
       responses:
-        '200':
-          description: عملیات موفق
-        '202':
-          description: عملیات پذیرفته شد
+        '201':
+          description: Step-Up تأیید شد
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminStepUpVerifyResponse'
       security:
       - adminSession: []
       requestBody:
@@ -10499,10 +10792,12 @@ paths:
       - Admin Operations
       operationId: postAdminAuthLogout
       responses:
-        '200':
-          description: عملیات موفق
-        '202':
-          description: عملیات پذیرفته شد
+        '201':
+          description: خروج مدیر ثبت شد
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminLogoutResponse'
       security:
       - adminSession: []
       x-eqcofe:
@@ -10515,7 +10810,11 @@ paths:
       operationId: getAdminAuthSession
       responses:
         '200':
-          description: عملیات موفق
+          description: زمینه نشست معتبر مدیر
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminSessionResponse'
       security:
       - adminSession: []
   /admin/me:
@@ -10525,7 +10824,11 @@ paths:
       operationId: getAdminMe
       responses:
         '200':
-          description: عملیات موفق
+          description: هویت مدیر جاری
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminMeResponse'
       security:
       - adminSession: []
   /admin/me/permissions:
@@ -10535,7 +10838,11 @@ paths:
       operationId: getAdminMePermissions
       responses:
         '200':
-          description: عملیات موفق
+          description: مجوزهای مؤثر مدیر جاری
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminPermissionsResponse'
       security:
       - adminSession: []
   /admin/me/scopes:
@@ -10545,7 +10852,11 @@ paths:
       operationId: getAdminMeScopes
       responses:
         '200':
-          description: عملیات موفق
+          description: محدوده‌های مؤثر مدیر جاری
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminScopesResponse'
       security:
       - adminSession: []
   /admin/dashboard:
@@ -10553,9 +10864,13 @@ paths:
       tags:
       - Admin Operations
       operationId: getAdminDashboard
+      description: Contract inventory only. No runtime controller or permission authority exists; frontend consumption is forbidden until a later governed reconciliation.
+      x-eqcofe:
+        runtime: unresolved_not_granted
+        frontendConsumption: forbidden
       responses:
         '200':
-          description: عملیات موفق
+          description: Historical contract placeholder only; no runtime response authority is asserted.
       security:
       - adminSession: []
   /admin/products/{id}/archive:
