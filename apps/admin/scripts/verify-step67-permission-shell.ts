@@ -19,7 +19,7 @@ const task=JSON.parse(read("../../docs/14-multi-agent/tasks/EQCOFE-STEP67-E-PERM
 
 assert.equal(ADMIN_DESTINATIONS.length,60);
 assert.equal(ADMIN_NAV_GROUPS.length,8);
-assert.equal(ADMIN_DESTINATIONS.filter((item)=>item.group==="admin-home").length,0);
+assert.ok(!new Set(ADMIN_DESTINATIONS.map((item)=>String(item.group))).has("admin-home"));
 assert.equal(new Set(ADMIN_DESTINATIONS.map((item)=>item.surface)).size,60);
 assert.match(generator,/operation\.blocked===true/);
 assert.match(generator,/operation\.gapIds/);
