@@ -28,6 +28,11 @@ const api=http.createServer((req,res)=>{
     res.end(JSON.stringify({success:true,data:{scopes:["warehouse:11111111-1111-4111-8111-111111111111"]},meta:{request_id:requestId("scopes")}}));
     return;
   }
+  if(req.url==="/admin/auth/fido/credentials"){
+    res.statusCode=200;
+    res.end(JSON.stringify({success:true,data:[{id:"22222222-2222-4222-8222-222222222222",device_name:"کلید تست مدیر",credential_device_type:"singleDevice",backed_up:false,last_used_at:null,created_at:"2026-10-13T12:00:00.000Z"}],meta:{request_id:requestId("credentials")}}));
+    return;
+  }
   res.statusCode=404;
   res.end(JSON.stringify({success:false,error:{code:"NOT_FOUND",message:"Not found"},meta:{request_id:requestId("404")}}));
 });
@@ -54,7 +59,7 @@ try{
   assert(count(authenticated.body,"<h1")===1,"ADMIN_H1_COUNT_INVALID");
   assert(authenticated.body.includes("admin-header"),"ADMIN_HEADER_MISSING");
   assert(authenticated.body.includes('aria-label="ناوبری مدیریت"'),"ADMIN_NAV_LANDMARK_MISSING");
-  assert(authenticated.body.includes("67-E"),"ADMIN_STAGE_BADGE_MISSING");
+  assert(authenticated.body.includes("67-F"),"ADMIN_STAGE_BADGE_MISSING");
   assert(authenticated.body.includes("staff-67e"),"ADMIN_PROVEN_ACTOR_MISSING");
   assert(authenticated.body.includes("کالا و چرخه انتشار"),"PERMITTED_PRODUCT_DESTINATION_MISSING");
   assert(authenticated.body.includes("موجودی، گردش و لایه‌های بهای تمام‌شده"),"PERMITTED_INVENTORY_DESTINATION_MISSING");
@@ -63,6 +68,12 @@ try{
   assert(authenticated.body.includes("انبار"),"ASSIGNED_SCOPE_CONTEXT_MISSING");
   assert(authenticated.body.includes("11111111-1111-4111-8111-111111111111"),"ASSIGNED_SCOPE_ID_MISSING");
   assert(!authenticated.body.includes("/admin/dashboard"),"DASHBOARD_CONSUMPTION_FORBIDDEN");
+
+  const securityKeys=await request("/security-keys",headers);
+  assert(securityKeys.status===200,"SECURITY_KEYS_SSR_FAILED:"+securityKeys.status);
+  assert(securityKeys.body.includes("کلیدهای امنیتی من"),"SECURITY_KEYS_TITLE_MISSING");
+  assert(securityKeys.body.includes("کلید تست مدیر"),"SECURITY_KEY_SUMMARY_MISSING");
+  assert(!securityKeys.body.includes("credential_id")&&!securityKeys.body.includes("public_key"),"SECURITY_KEY_SECRET_LEAKED");
 
   const permitted=await request("/destinations/AD-C-01",headers);
   assert(permitted.status===200,"PERMITTED_HANDOFF_FAILED:"+permitted.status);
@@ -77,9 +88,9 @@ try{
   assert(!deniedKnown.body.includes("برندها")&&!deniedUnknown.body.includes("AD-Z-99"),"DENIAL_LEAKED_DESTINATION_IDENTITY");
 
   console.log(JSON.stringify({
-    status:"PASS",stage:"67-E",ssr:true,locale:"fa-IR",direction:"rtl",
+    status:"PASS",stage:"67-F",ssr:true,locale:"fa-IR",direction:"rtl",
     publicLogin:true,unauthenticatedFailClosed:true,permissionAwareShell:true,
-    scopeContextReadOnly:true,authorizedHandoff:true,neutralDeepLinkDenial:true,dashboardDeferred:true
+    scopeContextReadOnly:true,authorizedHandoff:true,neutralDeepLinkDenial:true,credentialSelfService:true,dashboardDeferred:true
   },null,2));
 }finally{server.kill("SIGTERM");api.close();}
 async function waitForServer(){for(let attempt=0;attempt<60;attempt+=1){try{const response=await request("/login");if(response.status===200)return;}catch{}await new Promise(resolvePromise=>setTimeout(resolvePromise,250));}throw new Error("ADMIN_SERVER_START_TIMEOUT\n"+output);}
