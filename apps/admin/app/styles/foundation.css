@@ -1,0 +1,10 @@
+.foundation-page { max-inline-size: 72rem; margin-inline: auto; }
+.foundation-heading { max-inline-size: 50rem; }
+.foundation-kicker { margin: 0; color: var(--eq-color-action-primary); font-weight: var(--eq-type-label-large-font-weight); }
+.foundation-heading h1 { margin-block: var(--eq-spacing-2) 0; margin-inline: 0; font-size: var(--eq-type-heading-1-font-size); line-height: var(--eq-type-heading-1-line-height); }
+.foundation-heading > p:last-child { margin-block: var(--eq-spacing-3) 0; margin-inline: 0; color: var(--eq-color-text-secondary); font-size: var(--eq-type-body-medium-font-size); line-height: var(--eq-type-body-medium-line-height); }
+.foundation-grid { display: grid; gap: var(--eq-spacing-4); margin-block-start: var(--eq-spacing-8); }
+.foundation-card { padding-block: var(--eq-spacing-5); padding-inline: var(--eq-spacing-5); border: var(--eq-border-hairline) solid var(--eq-color-border-default); border-radius: var(--eq-radius-xl); background: var(--eq-color-bg-surface); box-shadow: var(--eq-effect-elevation-1); }
+.foundation-card h2 { margin: 0; font-size: var(--eq-type-title-medium-font-size); line-height: var(--eq-type-title-medium-line-height); }
+.foundation-card p { margin-block: var(--eq-spacing-2) 0; margin-inline: 0; color: var(--eq-color-text-secondary); }
+@media (min-width: 840px) { .foundation-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
