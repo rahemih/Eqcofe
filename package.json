@@ -35,7 +35,12 @@
     "frontend:build": "pnpm --filter @eqcofe/storefront build",
     "frontend:typecheck": "pnpm --filter @eqcofe/storefront typecheck",
     "frontend:static-quality": "pnpm --filter @eqcofe/storefront static-quality",
-    "frontend:verify": "pnpm --filter @eqcofe/storefront verify"
+    "frontend:verify": "pnpm --filter @eqcofe/storefront verify && pnpm --filter @eqcofe/admin verify",
+    "admin:dev": "pnpm --filter @eqcofe/admin dev",
+    "admin:build": "pnpm --filter @eqcofe/admin build",
+    "admin:typecheck": "pnpm --filter @eqcofe/admin typecheck",
+    "admin:static-quality": "pnpm --filter @eqcofe/admin static-quality",
+    "admin:verify": "pnpm --filter @eqcofe/admin verify"
   },
   "dependencies": {
     "@fastify/helmet": "13.1.1",
