@@ -1,0 +1,193 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP67-D-ADMIN-AUTH-SESSION-001",
+  "title": "Step 67-D Admin login, FIDO and authenticated session lifecycle",
+  "description": "HIGH-risk Admin frontend authentication stage. Implement username/password pre-auth entry, browser WebAuthn registration/authentication, server-only FIDO challenge/verify transport, authenticated session probing, fail-closed protected-route lifecycle, logout and neutral expired/revoked-session recovery. Preserve HttpOnly SameSite=Strict Admin/pre-auth cookie authority, never expose bearer/session tokens to browser JavaScript, never treat UI state as authorization, and defer permission-aware navigation, Step-Up UX, dashboard metrics and all domain administration to later stages.",
+  "risk": "HIGH",
+  "risk_floor": "HIGH",
+  "owner": "FRONTEND_ENGINEERING",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "3b72b7972edcad99531e37503cb359021d1f4b5e"
+  },
+  "scope": {
+    "read": [
+      "apps/admin/**",
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "src/modules/identity/presentation/auth.controller.ts",
+      "src/modules/identity/application/admin-auth.service.ts",
+      "src/modules/identity/application/webauthn.service.ts",
+      "docs/11-step-history/**",
+      "docs/13-product-design/**",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "apps/admin/**",
+      "docs/11-step-history/STEP-67-D-ADMIN-AUTH-SESSION.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP67-D-ADMIN-AUTH-SESSION-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "contracts/**",
+      "database/**",
+      "src/**",
+      "test/**",
+      "scripts/**",
+      "apps/api/**",
+      "apps/worker/**",
+      "apps/scheduler/**",
+      "apps/storefront/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP67-D-ADMIN-AUTH-SESSION-001-01"
+  ],
+  "human_gate_required": true,
+  "authorized_human_approver": {
+    "role": "PROJECT_OWNER",
+    "github_login": "rahemih"
+  },
+  "token_budget": {
+    "expected_max": 42000,
+    "soft_alert": 68000,
+    "hard_cap": 112000
+  },
+  "max_repair_cycles": 4,
+  "task_risk_rules": [
+    {
+      "id": "STEP67_D_ADMIN_AUTH_SESSION_HIGH",
+      "risk": "HIGH",
+      "paths": [
+        "apps/admin/**",
+        "docs/11-step-history/STEP-67-D-ADMIN-AUTH-SESSION.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP67-D-ADMIN-AUTH-SESSION-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+      ]
+    }
+  ],
+  "pre_mutation_gates": {
+    "graph_health": "RETIRED_AND_OUT_OF_SCOPE",
+    "query_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "path_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "explain_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "human_gate": "REQUIRED_FINAL_EXACT_ARTIFACT"
+  },
+  "dependencies": [
+    {
+      "item": "67-C",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "3b72b7972edcad99531e37503cb359021d1f4b5e",
+      "evidence": "PR #354 merged; exact-SHA Canonical CI #1787, Phase A #1286 and CodeQL #934 SUCCESS; terminal Lock release comment 6144484040.",
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "linear_issue": "HOS-71",
+    "graph_state": "RETIRED_AND_OUT_OF_SCOPE",
+    "dependency_need": "NONE",
+    "backend_mutation": "NONE",
+    "openapi_mutation": "NONE",
+    "generated_contract_source": "src/generated/openapi.ts",
+    "runtime_authority": "AuthController + AdminAuthService + WebAuthnService",
+    "cookie_authority": "HttpOnly; SameSite=Strict; host-only; __Host- requires Secure",
+    "session_probe": "GET /admin/auth/session",
+    "login_flow": "POST /admin/auth/login -> pre-auth cookie -> POST /admin/auth/fido/challenge -> browser WebAuthn -> POST /admin/auth/fido/verify -> Admin session cookie",
+    "enrollment_flow": "first credential requires server-validated enrollment_token; token is user-entered only and never persisted client-side",
+    "deferred": [
+      "permission/scope-aware navigation -> 67-E",
+      "Step-Up/credential self-service -> 67-F",
+      "dashboard metrics -> 67-G",
+      "domain workspaces -> Steps 68-73"
+    ]
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "A public /login route accepts username/password through a server action only. Browser JavaScript never receives pre_auth_token/session_token and credentials are not stored locally.",
+      "verification": "admin_login_server_action",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Successful login forwards only sanitized Backend Set-Cookie pre-auth evidence and transitions to a WebAuthn challenge state; invalid/rate-limited credentials fail closed with neutral Persian errors and no raw Backend error leakage.",
+      "verification": "admin_login_failure_boundary",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "FIDO challenge is requested server-side using only allow-listed pre-auth cookies. Authentication and initial-registration modes are distinguished only from authoritative response data; enrollment token is requested only when Backend returns the enrollment-required condition.",
+      "verification": "admin_fido_challenge_boundary",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "WebAuthn runs only through navigator.credentials in the browser using validated challenge options. Assertion/attestation serialization sends only the fields required by the existing Backend runtime and never stores credential material.",
+      "verification": "admin_webauthn_browser_boundary",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "FIDO verification is proxied by a server action, captures only sanitized Admin Set-Cookie output, and on success enters the protected application without exposing session tokens to browser JavaScript.",
+      "verification": "admin_fido_verify_session_entry",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Protected Admin routes probe GET /admin/auth/session on the server. Missing, expired, revoked or invalid sessions redirect/resolve to neutral unauthenticated recovery and never render protected content from stale browser state.",
+      "verification": "admin_session_probe_fail_closed",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "Authenticated root exposes only minimal server-proven staff identity type/id/accountId. Permissions/scopes, permission-aware navigation, Step-Up and dashboard runtime remain deferred.",
+      "verification": "stage_boundary_static_audit",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "Logout is server-only, forwards the authoritative Admin session cookie, captures the Backend clearing Set-Cookie, and returns to /login. Mutation requests are never automatically retried.",
+      "verification": "admin_logout_lifecycle",
+      "mandatory": true
+    },
+    {
+      "id": "AC-009",
+      "description": "Deterministic Stage 67-D verification covers login/pre-auth cookie forwarding, WebAuthn encoding/serialization, authenticated/expired session route lifecycle, logout, Persian RTL/accessibility basics and stage-boundary exclusions.",
+      "verification": "admin_auth_session_verifiers",
+      "mandatory": true
+    },
+    {
+      "id": "AC-010",
+      "description": "No Backend/OpenAPI/generated-contract/database/Storefront/Product-Design/Current-State mutation is introduced; 67-E remains blocked.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-011",
+      "description": "HIGH-risk closure requires exact-head Canonical CI, Phase A, CodeQL/Security, deterministic Review, exact-artifact ACTIVE Lock, Project Owner Human Gate, protected merge, exact-SHA postmerge verification and terminal Lock release.",
+      "verification": "canonical_transport_and_postmerge_evidence",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "SECURITY",
+      "HUMAN",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Step 67-D is HIGH risk. Exact-artifact Project Owner approval is mandatory only after exact-head technical/security/review/Lock evidence is complete."
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}
