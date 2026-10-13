@@ -64,3 +64,5 @@ No Owner Human Gate is required for this MEDIUM-risk stage.
 - Task Contract authority: `docs/14-multi-agent/tasks/EQCOFE-STEP67-C-ADMIN-FOUNDATION-001.json`
 - The PR body is explicitly bound to this Task Contract so pull-request scope-history validation can evaluate the active governed write scope.
 - Governance parser requirement: PR body carries exactly one `Task Contract:` reference so both Merge Policy and scope-history validation consume the same authority path.
+
+- PR Task Contract metadata is constrained to exactly one canonical `Task Contract:` reference so both merge-policy and scope-history validators bind the same contract.
