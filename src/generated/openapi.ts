@@ -9675,6 +9675,42 @@ export interface components {
             data: components["schemas"]["AdminStepUpVerifyData"];
             meta: components["schemas"]["SuccessMeta"];
         };
+        AdminFidoCredentialSummary: {
+            id: components["schemas"]["EntityId"];
+            device_name: string;
+            credential_device_type: string | null;
+            backed_up: boolean;
+            /** Format: date-time */
+            last_used_at: string | null;
+            /** Format: date-time */
+            created_at: string;
+        };
+        AdminFidoCredentialsResponse: {
+            /** @constant */
+            success: true;
+            data: components["schemas"]["AdminFidoCredentialSummary"][];
+            meta: components["schemas"]["SuccessMeta"];
+        };
+        AdminFidoCredentialRegisteredData: {
+            /** @constant */
+            registered: true;
+        };
+        AdminFidoCredentialRegisteredResponse: {
+            /** @constant */
+            success: true;
+            data: components["schemas"]["AdminFidoCredentialRegisteredData"];
+            meta: components["schemas"]["SuccessMeta"];
+        };
+        AdminFidoCredentialRevokedData: {
+            /** @constant */
+            revoked: true;
+        };
+        AdminFidoCredentialRevokedResponse: {
+            /** @constant */
+            success: true;
+            data: components["schemas"]["AdminFidoCredentialRevokedData"];
+            meta: components["schemas"]["SuccessMeta"];
+        };
         AdminLogoutData: {
             /** @constant */
             logged_out: true;
@@ -24082,15 +24118,13 @@ export interface operations {
         };
         requestBody?: never;
         responses: {
-            /** @description OK */
+            /** @description کلیدهای امنیتی فعال مدیر جاری */
             200: {
                 headers: {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": {
-                        [key: string]: unknown;
-                    };
+                    "application/json": components["schemas"]["AdminFidoCredentialsResponse"];
                 };
             };
         };
@@ -24104,15 +24138,13 @@ export interface operations {
         };
         requestBody?: never;
         responses: {
-            /** @description OK */
-            200: {
+            /** @description چالش ثبت کلید امنیتی جدید ایجاد شد */
+            201: {
                 headers: {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": {
-                        [key: string]: unknown;
-                    };
+                    "application/json": components["schemas"]["AdminWebAuthnChallengeResponse"];
                 };
             };
         };
@@ -24130,15 +24162,13 @@ export interface operations {
             };
         };
         responses: {
-            /** @description OK */
-            200: {
+            /** @description کلید امنیتی جدید ثبت شد */
+            201: {
                 headers: {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": {
-                        [key: string]: unknown;
-                    };
+                    "application/json": components["schemas"]["AdminFidoCredentialRegisteredResponse"];
                 };
             };
         };
@@ -24154,15 +24184,13 @@ export interface operations {
         };
         requestBody?: never;
         responses: {
-            /** @description OK */
-            200: {
+            /** @description کلید امنیتی انتخاب‌شده لغو شد */
+            201: {
                 headers: {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": {
-                        [key: string]: unknown;
-                    };
+                    "application/json": components["schemas"]["AdminFidoCredentialRevokedResponse"];
                 };
             };
         };
