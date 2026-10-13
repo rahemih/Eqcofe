@@ -1,6 +1,11 @@
-import { ADMIN_DESTINATIONS, ADMIN_NAV_GROUPS, type AdminDestination, type AdminNavGroupId } from "./destinations.generated.js";
+import { ADMIN_DESTINATIONS, ADMIN_NAV_GROUPS, type AdminNavGroupId } from "./destinations.generated.js";
 
-export type PermittedAdminDestination=AdminDestination;
+export type PermittedAdminDestination={
+  surface:string;
+  label:string;
+  group:AdminNavGroupId;
+  permissionAlternatives:readonly (readonly string[])[];
+};
 export type PermittedAdminGroup={
   id:AdminNavGroupId;
   label:string;
