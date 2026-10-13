@@ -1,7 +1,7 @@
 import { data, redirect, useLoaderData } from "react-router";
 import { AdminShell } from "../shell/AdminShell";
 import { appendAdminAuthSetCookies } from "../platform/auth/admin-cookie.server";
-import { probeAdminSession } from "../platform/auth/admin-session.server";
+import { probeAdminSession } from "../platform/auth/session.server";
 
 export async function loader({request}:{request:Request}){
   const probe=await probeAdminSession(request);
