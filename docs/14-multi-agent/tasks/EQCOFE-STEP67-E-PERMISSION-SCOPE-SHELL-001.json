@@ -1,0 +1,195 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP67-E-PERMISSION-SCOPE-SHELL-001",
+  "title": "Step 67-E permission/scope-aware Admin shell and safe destination navigation",
+  "description": "MEDIUM-risk Admin frontend shell authorization-context stage. Read server-authoritative permissions/scopes for the authenticated staff session, fail closed on invalid/revoked context, expose only repository-proven destination handoffs whose unblocked gap-free runtime operations have permission alternatives fully satisfied by the current permission set, present server-assigned scopes without editing RBAC, provide neutral deep-link denial, breadcrumb and local destination-title search. Destination visibility never authorizes operations; later domain workspaces remain unimplemented.",
+  "risk": "MEDIUM",
+  "risk_floor": "MEDIUM",
+  "owner": "FRONTEND_ENGINEERING",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "32756cee24d7f60e63c768472e571c21eb2ec04f"
+  },
+  "scope": {
+    "read": [
+      "apps/admin/**",
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "src/modules/**/presentation/**",
+      "docs/11-step-history/**",
+      "docs/13-product-design/step56-admin-shell-wireframes.json",
+      "docs/13-product-design/step56-final-audit/operation-matrix.json",
+      "docs/13-product-design/step56-final-audit/surface-matrix.json",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "apps/admin/**",
+      "docs/11-step-history/STEP-67-E-PERMISSION-SCOPE-SHELL.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP67-E-PERMISSION-SCOPE-SHELL-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "contracts/**",
+      "database/**",
+      "src/**",
+      "test/**",
+      "scripts/**",
+      "apps/api/**",
+      "apps/worker/**",
+      "apps/scheduler/**",
+      "apps/storefront/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP67-E-PERMISSION-SCOPE-SHELL-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 36000,
+    "soft_alert": 58000,
+    "hard_cap": 96000
+  },
+  "max_repair_cycles": 4,
+  "task_risk_rules": [
+    {
+      "id": "STEP67_E_PERMISSION_SCOPE_SHELL_MEDIUM",
+      "risk": "MEDIUM",
+      "paths": [
+        "apps/admin/**",
+        "docs/11-step-history/STEP-67-E-PERMISSION-SCOPE-SHELL.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP67-E-PERMISSION-SCOPE-SHELL-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+      ]
+    }
+  ],
+  "pre_mutation_gates": {
+    "graph_health": "RETIRED_AND_OUT_OF_SCOPE",
+    "query_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "path_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "explain_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "human_gate": "NOT_REQUIRED"
+  },
+  "dependencies": [
+    {
+      "item": "67-D",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "32756cee24d7f60e63c768472e571c21eb2ec04f",
+      "evidence": "PR #355 merged; exact-SHA Canonical CI #1797, Phase A #1296 and CodeQL #943 SUCCESS; terminal Lock release comment 6145858971.",
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "linear_issue": "HOS-71",
+    "permission_source": "GET /admin/me/permissions",
+    "scope_source": "GET /admin/me/scopes",
+    "permission_rule": "DESTINATION_VISIBLE_IFF_ANY_UNBLOCKED_GAP_FREE_RUNTIME_OPERATION_HAS_ALL_REQUIRED_PERMISSIONS",
+    "operation_authority": "BACKEND_ONLY; destination visibility is never an operation authorization grant",
+    "destination_source": "Step56 final audit operation/surface matrices + Admin shell destination labels/groups",
+    "destination_transport": "generic Step67 shell handoff by design surface id; not a later-domain runtime URL",
+    "search_boundary": "LOCAL_PERMITTED_DESTINATION_LABELS_ONLY",
+    "scope_types": [
+      "warehouse",
+      "physical_store"
+    ],
+    "scope_mutation": "FORBIDDEN",
+    "dashboard": "UNRESOLVED_UNAVAILABLE_ONLY",
+    "deferred": [
+      "Step-Up/credential self-service -> 67-F",
+      "dashboard states/runtime -> 67-G",
+      "domain workspaces -> Steps 68-73"
+    ]
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Authenticated shell reads /admin/me/permissions and /admin/me/scopes server-side using the existing Admin cookie bridge; browser credential/token storage remains absent.",
+      "verification": "admin_context_server_loader",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Permission and scope payloads are validated, normalized and deduplicated; malformed or unsupported context fails closed without protected navigation.",
+      "verification": "admin_context_validation",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Destination registry is generated only from repository-proven Step56 operation/surface evidence. Unblocked, gap-free runtime operations contribute permission alternatives; unresolved or blocked operations never grant visibility.",
+      "verification": "destination_registry_provenance",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "A destination is visible only when at least one eligible operation alternative has all its required runtime permissions satisfied. Surface permission union is never used as an authorization shortcut.",
+      "verification": "destination_visibility_all_required_per_operation",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Server-assigned scopes are presented as immutable context only. No scope mutation, impersonation or invented scope-to-destination mapping is introduced.",
+      "verification": "scope_context_read_only",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Generic design-surface handoff routes re-check current permission context server-side. Unknown and unauthorized deep links render the same neutral denial without entity/count/PII/secret leakage.",
+      "verification": "neutral_deep_link_denial",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "Breadcrumb uses only shell group label + permitted destination label and no domain entity data.",
+      "verification": "breadcrumb_boundary",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "Local search searches only currently permitted destination labels/surface references; no customer/order/product/entity lookup or backend search is issued.",
+      "verification": "local_destination_search_only",
+      "mandatory": true
+    },
+    {
+      "id": "AC-009",
+      "description": "Quick navigation only opens the authorized generic handoff review surface; no command, mutation or later-domain workspace is executed.",
+      "verification": "safe_navigation_only",
+      "mandatory": true
+    },
+    {
+      "id": "AC-010",
+      "description": "Session/permission/scope revocation is observed on server loader revalidation and stale sensitive destination state is not cached.",
+      "verification": "revocation_revalidation",
+      "mandatory": true
+    },
+    {
+      "id": "AC-011",
+      "description": "No Step-Up UX, dashboard metric runtime, Backend/OpenAPI/database/Storefront/Product-Design/Current-State mutation or Steps 68-73 domain workspace is introduced.",
+      "verification": "stage_boundary_static_audit",
+      "mandatory": true
+    },
+    {
+      "id": "AC-012",
+      "description": "MEDIUM-risk closure requires exact-head Canonical CI, Phase A, CodeQL/deterministic Review, exact-artifact ACTIVE Lock, protected merge, exact-SHA postmerge verification and terminal Lock release. Human Gate is not required.",
+      "verification": "canonical_transport_and_postmerge_evidence",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Step 67-E is MEDIUM risk and does not require Project Owner Human Gate."
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}
