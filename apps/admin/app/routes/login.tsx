@@ -3,7 +3,7 @@ import { useEffect, useRef } from "react";
 import type { ApiComponents } from "../platform/api/contract";
 import { appendAdminAuthSetCookies } from "../platform/auth/admin-cookie.server";
 import { beginAdminLogin, requestAdminFidoChallenge, verifyAdminFido } from "../platform/auth/admin-auth-flow.server";
-import { probeAdminSession } from "../platform/auth/admin-session.server";
+import { probeAdminSession } from "../platform/auth/session.server";
 import { runAdminWebAuthn } from "../platform/auth/webauthn.client";
 
 type VerifyBody=ApiComponents["schemas"]["PostAdminAuthFidoVerifyRequest"];
