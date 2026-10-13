@@ -30,6 +30,6 @@ The current OpenAPI exposes these operations but leaves successful response bodi
 
 ## Boundaries
 
-No runtime AuthController, permission guard, database, dependency, Admin frontend or business authorization mutation. Any Step56/57 design artifact change must be generator-equivalent provenance/hash refresh only.
+The only authorized runtime mutation is the minimal `GET /admin/auth/session` serialization repair that returns staff `type/id/accountId` without internal `sessionId`, permissions or scopes. No permission guard, authorization decision, database, dependency, Admin frontend or business-rule mutation is authorized. Any Step56/57 design artifact change must be generator-equivalent provenance/hash refresh only.
 
 Final exact artifact requires Security, Review, ACTIVE Lock and Project Owner Human Gate.
