@@ -1,5 +1,5 @@
 import { Form, Outlet } from "react-router";
-import type { AdminSessionActor } from "../platform/auth/admin-session.server";
+import type { AdminSessionActor } from "../platform/auth/session.server";
 import { getAdminMessages } from "../i18n";
 
 export function AdminShell({actor}:{actor:AdminSessionActor}) {
