@@ -37,7 +37,7 @@
     },
     {
       "path": "src/modules/identity/presentation/auth.controller.ts",
-      "sha256": "dad997192835745b2793abe273513c461c2866fb21cd71905197f1114c637b56"
+      "sha256": "6fd502493f6aa00e52fa0eeedbfd41e2b53de44d787d717ca1b84d54527457ec"
     },
     {
       "path": "src/modules/identity/application/webauthn.service.ts",
