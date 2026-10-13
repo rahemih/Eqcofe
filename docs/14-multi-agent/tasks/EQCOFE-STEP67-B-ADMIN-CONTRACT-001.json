@@ -2,7 +2,7 @@
   "schema_version": "2.2",
   "task_id": "EQCOFE-STEP67-B-ADMIN-CONTRACT-001",
   "title": "Step 67-B Admin authentication context and dashboard contract readiness",
-  "description": "HIGH-risk Backend/OpenAPI contract-readiness stage. Reconcile existing Admin login/FIDO/session/me/permissions/scopes/Step-Up success responses with actual AuthController/WebAuthn runtime and the global success envelope, regenerate typed OpenAPI output, sanitize GET /admin/auth/session so internal sessionId/permissions/scopes are not echoed there, remove the non-runtime /admin/dashboard operation from executable HTTP authority while preserving Product Design UNRESOLVED_NOT_GRANTED/unavailable-only evidence, and refresh only generator-equivalent Product Design provenance hashes caused by the canonical source changes. Repair the proven Admin session-actor serialization defect by returning only type/id/accountId; no database, dependency, Admin frontend or business-authorization mutation.",
+  "description": "HIGH-risk Backend/OpenAPI contract-readiness stage. Reconcile existing Admin login/FIDO/session/me/permissions/scopes/Step-Up success responses with actual AuthController/WebAuthn runtime and the global success envelope, regenerate typed OpenAPI output, sanitize GET /admin/auth/session so internal sessionId/permissions/scopes are not echoed there, retain the non-runtime /admin/dashboard operation only as explicitly annotated UNRESOLVED_NOT_GRANTED contract inventory with frontend consumption forbidden, preserving Product Design unavailable-only evidence, and refresh only generator-equivalent Product Design provenance hashes caused by the canonical source changes. Repair the proven Admin session-actor serialization defect by returning only type/id/accountId; no database, dependency, Admin frontend or business-authorization mutation.",
   "risk": "HIGH",
   "risk_floor": "HIGH",
   "owner": "BACKEND_ENGINEERING",
@@ -177,7 +177,7 @@
     },
     {
       "id": "AC-006",
-      "description": "GET /admin/dashboard is absent from executable OpenAPI/generated paths because no runtime controller/permission authority exists; Step56 UNRESOLVED_NOT_GRANTED evidence remains preserved and no metric/count/feed is fabricated.",
+      "description": "GET /admin/dashboard remains only as annotated contract inventory with runtime=UNRESOLVED_NOT_GRANTED and frontend consumption forbidden because no runtime controller/permission authority exists; its response remains untyped, no Admin frontend may consume it, Step56 unavailable-only evidence is preserved, and no metric/count/feed is fabricated.",
       "verification": "step67_dashboard_gap_test",
       "mandatory": true
     },
