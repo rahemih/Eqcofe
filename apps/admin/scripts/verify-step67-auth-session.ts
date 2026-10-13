@@ -32,6 +32,8 @@ assert.match(login,/requestAdminFidoChallenge/);
 assert.match(login,/verifyAdminFido/);
 assert.match(login,/runAdminWebAuthn/);
 assert.match(login,/enrollment-required/);
+assert.match(login,/webauthnRetry/);
+assert.match(login,/تلاش دوباره با کلید امنیتی/);
 assert.match(login,/autoComplete="current-password"/);
 assert.doesNotMatch(login,/localStorage|sessionStorage|pre_auth_token|session_token/);
 
