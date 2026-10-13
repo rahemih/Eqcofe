@@ -9691,6 +9691,9 @@ export interface components {
             id: components["schemas"]["EntityId"];
             accountId: components["schemas"]["EntityId"];
         };
+        AdminSessionData: {
+            actor: components["schemas"]["AdminSessionActor"];
+        };
         AdminSessionResponse: {
             /** @constant */
             success: true;
