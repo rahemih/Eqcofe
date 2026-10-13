@@ -1,3 +1,4 @@
+/// <reference lib="dom" />
 import type { ApiComponents } from "../api/contract.js";
 
 type VerifyBody = ApiComponents["schemas"]["PostAdminAuthFidoVerifyRequest"];
