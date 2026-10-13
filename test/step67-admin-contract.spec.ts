@@ -72,16 +72,20 @@ test('Step 67-B leaves WebAuthn options extensible at the stable wrapper boundar
   assert.match(options,/additionalProperties: true/);
 });
 
-test('Step 67-B removes non-runtime dashboard operation from executable HTTP authority',()=>{
+test('Step 67-B retains dashboard only as unavailable contract inventory',()=>{
   const source=api(),types=generated();
-  assert.doesNotMatch(source,/^  \/admin\/dashboard:/m);
-  assert.doesNotMatch(types,/"\/admin\/dashboard":/);
-  assert.doesNotMatch(types,/getAdminDashboard:/);
+  assert.match(source,/^  \/admin\/dashboard:/m);
+  const start=source.indexOf('  /admin/dashboard:');
+  const inventory=source.slice(start,start+900);
+  assert.match(inventory,/runtime: unresolved_not_granted/);
+  assert.match(inventory,/frontendConsumption: forbidden/);
+  assert.doesNotMatch(inventory,/schema:/);
+  assert.match(types,/"\\/admin\\/dashboard":/);
+  assert.match(types,/getAdminDashboard:/);
   assert.doesNotMatch(auth(),/@Get\('admin\/dashboard'\)/);
   const design=readFileSync('docs/13-product-design/step56-foundation/A/SOURCE-GAPS.md','utf8');
   assert.match(design,/GET \/admin\/dashboard[^\n]*UNRESOLVED_NOT_GRANTED/);
 });
-
 test('Step 67-B generated OpenAPI is byte-for-byte reproducible from canonical source',()=>{
   const dir=mkdtempSync(join(tmpdir(),'eqcofe-step67-openapi-'));
   const output=join(dir,'openapi.ts');
