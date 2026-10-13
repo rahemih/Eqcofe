@@ -12,11 +12,12 @@
     "start": "react-router-serve ./build/server/index.js",
     "typecheck": "react-router typegen && tsc --noEmit",
     "static-quality": "eslint app vite.config.ts react-router.config.ts",
-    "verify": "pnpm typecheck && pnpm static-quality && pnpm build && pnpm foundation:verify && pnpm transport:verify && pnpm shell:verify && pnpm auth-session:verify",
+    "verify": "pnpm typecheck && pnpm static-quality && pnpm build && pnpm foundation:verify && pnpm transport:verify && pnpm shell:verify && pnpm auth-session:verify && pnpm permission-shell:verify",
     "foundation:verify": "pnpm --dir ../.. exec tsx apps/admin/scripts/verify-step67-foundation.ts",
     "transport:verify": "pnpm --dir ../.. exec tsx apps/admin/scripts/verify-step67-transport.ts",
     "shell:verify": "node ./scripts/verify-step67-shell.mjs",
-    "auth-session:verify": "pnpm --dir ../.. exec tsx apps/admin/scripts/verify-step67-auth-session.ts"
+    "auth-session:verify": "pnpm --dir ../.. exec tsx apps/admin/scripts/verify-step67-auth-session.ts",
+    "permission-shell:verify": "node ./scripts/generate-step67-destinations.mjs --check && pnpm --dir ../.. exec tsx apps/admin/scripts/verify-step67-permission-shell.ts"
   },
   "dependencies": {
     "@react-router/node": "8.4.0",

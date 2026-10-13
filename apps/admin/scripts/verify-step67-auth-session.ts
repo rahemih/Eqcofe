@@ -13,6 +13,7 @@ const logout=read("app/routes/logout.ts");
 const shell=read("app/shell/AdminShell.tsx");
 const flow=read("app/platform/auth/admin-auth-flow.server.ts");
 const session=read("app/platform/auth/session.server.ts");
+const context=read("app/platform/auth/context.server.ts");
 const webauthn=read("app/platform/auth/webauthn.client.ts");
 const cookie=read("app/platform/auth/admin-cookie.server.ts");
 const css=read("app/styles/auth.css");
@@ -22,10 +23,14 @@ assert.match(routes,/route\("login"/);
 assert.match(routes,/route\("logout"/);
 assert.match(routes,/layout\("\.\/routes\/authenticated\.tsx"/);
 assert.doesNotMatch(rootRoute,/AdminShell/);
-assert.match(authenticated,/probeAdminSession/);
+assert.match(authenticated,/readAdminAuthorizationContext/);
 assert.match(authenticated,/kind==="unauthenticated"/);
 assert.match(authenticated,/kind==="unavailable"/);
 assert.match(authenticated,/AdminShell actor=/);
+assert.match(context,/\/admin\/auth\/session/);
+assert.match(context,/\/admin\/me\/permissions/);
+assert.match(context,/\/admin\/me\/scopes/);
+assert.doesNotMatch(context,/localStorage|sessionStorage|pre_auth_token|session_token|\/admin\/dashboard/);
 
 assert.match(login,/beginAdminLogin/);
 assert.match(login,/requestAdminFidoChallenge/);
@@ -82,7 +87,7 @@ console.log(JSON.stringify({
   webauthnBrowserBoundary:true,
   protectedSessionProbe:true,
   logoutServerMutation:true,
-  permissionsDeferred:true,
+  authorizationContextRegression:true,
   dashboardDeferred:true,
   humanGateRequired:true
 },null,2));
