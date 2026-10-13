@@ -1,5 +1,5 @@
 import { redirect } from "react-router";
-import { applyAdminAuthCookies, logoutAdmin } from "../platform/auth/admin-auth-flow.server";
+import { applyAdminAuthCookies, logoutAdmin } from "../platform/auth/admin-auth-flow.server.js";
 
 export async function loader(){throw redirect("/");}
 
