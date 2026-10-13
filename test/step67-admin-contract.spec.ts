@@ -80,7 +80,7 @@ test('Step 67-B retains dashboard only as unavailable contract inventory',()=>{
   assert.match(inventory,/runtime: unresolved_not_granted/);
   assert.match(inventory,/frontendConsumption: forbidden/);
   assert.doesNotMatch(inventory,/schema:/);
-  assert.match(types,/"\\/admin\\/dashboard":/);
+  assert.match(types,/"\/admin\/dashboard":/);
   assert.match(types,/getAdminDashboard:/);
   assert.doesNotMatch(auth(),/@Get\('admin\/dashboard'\)/);
   const design=readFileSync('docs/13-product-design/step56-foundation/A/SOURCE-GAPS.md','utf8');
