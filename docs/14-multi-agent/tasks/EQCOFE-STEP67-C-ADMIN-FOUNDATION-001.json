@@ -1,0 +1,154 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP67-C-ADMIN-FOUNDATION-001",
+  "title": "Step 67-C Admin application foundation and secure transport",
+  "description": "Create only the Admin frontend application foundation: an independent React Router SSR workspace, Persian RTL shell primitives, exact design-token bridge, typed server-only API transport, strict Admin cookie isolation and deterministic quality gates. Do not implement login/FIDO/session probing, permission-aware navigation, Step-Up UX, dashboard metrics, later Admin domain workspaces, Backend/OpenAPI changes, database changes or current-state closure.",
+  "risk": "MEDIUM",
+  "risk_floor": "MEDIUM",
+  "owner": "FRONTEND_ENGINEERING",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "2af5eb86b605184f78b47e7b3df9e458ce1d7bd7"
+  },
+  "scope": {
+    "read": [
+      "package.json",
+      "pnpm-workspace.yaml",
+      "pnpm-lock.yaml",
+      "apps/storefront/**",
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "docs/11-step-history/**",
+      "docs/13-product-design/**",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "package.json",
+      "pnpm-lock.yaml",
+      "apps/admin/**",
+      "docs/11-step-history/STEP-67-C-ADMIN-FOUNDATION.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP67-C-ADMIN-FOUNDATION-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "pnpm-workspace.yaml",
+      "contracts/**",
+      "database/**",
+      "src/**",
+      "test/**",
+      "scripts/**",
+      "apps/api/**",
+      "apps/worker/**",
+      "apps/scheduler/**",
+      "apps/storefront/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP67-C-ADMIN-FOUNDATION-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 38000,
+    "soft_alert": 60000,
+    "hard_cap": 100000
+  },
+  "task_risk_rules": [
+    {
+      "id": "STEP67_C_ADMIN_FOUNDATION_MEDIUM",
+      "risk": "MEDIUM",
+      "paths": [
+        "package.json",
+        "pnpm-lock.yaml",
+        "apps/admin/**",
+        "docs/11-step-history/STEP-67-C-ADMIN-FOUNDATION.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP67-C-ADMIN-FOUNDATION-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "67-B",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "2af5eb86b605184f78b47e7b3df9e458ce1d7bd7",
+      "evidence": "PR #353 merged; exact-SHA Canonical CI #1778, Phase A #1277, Storefront #815 and CodeQL #925 SUCCESS; terminal Lock release comment 6143931051.",
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "linear_issue": "HOS-71",
+    "stage_b_pr": 353,
+    "stage_b_approved_head": "85c7069cbee3d5708d79df2fc27ecc04116d3daf",
+    "stage_b_artifact": "955303c27d80d56ff0aef188e646245a35eeb9994fb9fcf089b1a069916d5330",
+    "stage_b_merge": "2af5eb86b605184f78b47e7b3df9e458ce1d7bd7",
+    "generated_contract_source": "src/generated/openapi.ts",
+    "design_token_source": "docs/13-product-design/generated/eqcofe-design-tokens.css",
+    "graph_state": "RETIRED_AND_OUT_OF_SCOPE"
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "apps/admin is an independent exact-pinned React Router Framework Mode SSR workspace using the existing free/open-source frontend stack and canonical Node/pnpm versions, with no new external dependency family.",
+      "verification": "admin_workspace_build",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Admin root renders Persian fa-IR RTL semantics, skip-link, one main landmark and shell primitives using the canonical generated token bridge and logical CSS; no brown palette or physical left/right layout properties are introduced.",
+      "verification": "admin_rtl_shell_quality",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Admin API request and response typing derives from src/generated/openapi.ts; server API configuration is server-only and no VITE_* credential or deployment authority is exposed.",
+      "verification": "admin_typed_server_transport",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Admin auth transport forwards only allow-listed Admin session/pre-auth cookies, strips Authorization and unrelated cookies, requires HttpOnly Path=/ SameSite=Strict host-only Set-Cookie semantics and never forwards customer session cookies.",
+      "verification": "admin_cookie_security_transport",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Production routes do not yet call login, FIDO, session/me/permissions/scopes, Step-Up or dashboard endpoints; no permission-aware destination, domain mutation or dashboard metric is implemented before 67-D/67-E/67-G.",
+      "verification": "stage_boundary_static_audit",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Root canonical pnpm verify executes Admin typecheck, ESLint, SSR build and deterministic Stage-C foundation/transport/browser checks in addition to the existing Storefront verification chain.",
+      "verification": "canonical_frontend_verify_integration",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "No Backend/OpenAPI/generated-contract/database/Storefront/Current-State/Product-Design mutation is introduced.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "Canonical closure requires exact-head Canonical CI, Phase A, CodeQL/security, deterministic Review and exact-artifact ACTIVE Lock, protected merge, exact-SHA postmerge verification and terminal Lock release. Human Gate is not required for MEDIUM-risk 67-C.",
+      "verification": "canonical_transport_and_postmerge_evidence",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Step 67-C is MEDIUM risk. No Human Gate is required. 67-D remains blocked until 67-C terminal canonical closure."
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}
