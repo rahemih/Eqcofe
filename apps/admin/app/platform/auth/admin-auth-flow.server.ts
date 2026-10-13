@@ -17,7 +17,7 @@ export type AdminAuthFailureCode =
   | "SESSION_EXPIRED"
   | "UNAVAILABLE";
 
-export type AdminAuthFailure = { ok: false; code: AdminAuthFailureCode; requestId: string | null };
+export type AdminAuthFailure = { ok: false; code: AdminAuthFailureCode; requestId: string | null; setCookies: readonly string[] };
 export type AdminLoginSuccess = { ok: true; phase: "preauth"; expiresInSeconds: number; setCookies: readonly string[] };
 export type AdminChallengeSuccess = { ok: true; phase: "challenge"; mode: "registration" | "authentication"; challengeId: string; options: Record<string, unknown>; setCookies: readonly string[] };
 export type AdminVerifySuccess = { ok: true; phase: "authenticated"; expiresAt: string; setCookies: readonly string[] };
@@ -71,17 +71,16 @@ export function applyAdminAuthCookies(headers: Headers, values: readonly string[
 }
 
 function mapFailure(error: unknown, setCookies: readonly string[]): AdminAuthFailure {
-  void setCookies;
-  if (!(error instanceof ApiClientError)) return failure("UNAVAILABLE");
+  if (!(error instanceof ApiClientError)) return failure("UNAVAILABLE",null,setCookies);
   if (error.kind==="http") {
-    if (error.status===429 || error.code==="LOGIN_RATE_LIMITED") return failure("RATE_LIMITED",error.requestId);
-    if (error.code==="INVALID_CREDENTIALS") return failure("INVALID_CREDENTIALS",error.requestId);
-    if (error.code==="ADMIN_PRE_AUTH_REQUIRED") return failure("PREAUTH_REQUIRED",error.requestId);
-    if (error.code==="FIDO2_ENROLLMENT_TOKEN_REQUIRED") return failure("ENROLLMENT_TOKEN_REQUIRED",error.requestId);
-    if (error.code.startsWith("FIDO2_")) return failure("FIDO_FAILED",error.requestId);
-    if (error.status===401 || error.status===403) return failure("SESSION_EXPIRED",error.requestId);
+    if (error.status===429 || error.code==="LOGIN_RATE_LIMITED") return failure("RATE_LIMITED",error.requestId,setCookies);
+    if (error.code==="INVALID_CREDENTIALS") return failure("INVALID_CREDENTIALS",error.requestId,setCookies);
+    if (error.code==="ADMIN_PRE_AUTH_REQUIRED") return failure("PREAUTH_REQUIRED",error.requestId,setCookies);
+    if (error.code==="FIDO2_ENROLLMENT_TOKEN_REQUIRED") return failure("ENROLLMENT_TOKEN_REQUIRED",error.requestId,setCookies);
+    if (error.code.startsWith("FIDO2_")) return failure("FIDO_FAILED",error.requestId,setCookies);
+    if (error.status===401 || error.status===403) return failure("SESSION_EXPIRED",error.requestId,setCookies);
   }
-  return failure("UNAVAILABLE",error.requestId);
+  return failure("UNAVAILABLE",error.requestId,setCookies);
 }
-function failure(code:AdminAuthFailureCode,requestId:string|null=null):AdminAuthFailure{return {ok:false,code,requestId};}
+function failure(code:AdminAuthFailureCode,requestId:string|null=null,setCookies:readonly string[]=[]):AdminAuthFailure{return {ok:false,code,requestId,setCookies};}
 function isRecord(value:unknown):value is Record<string,unknown>{return typeof value==="object"&&value!==null&&!Array.isArray(value);}
