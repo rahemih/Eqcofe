@@ -76,7 +76,8 @@ test('Step 67-B retains dashboard only as unavailable contract inventory',()=>{
   const source=api(),types=generated();
   assert.match(source,/^  \/admin\/dashboard:/m);
   const start=source.indexOf('  /admin/dashboard:');
-  const inventory=source.slice(start,start+900);
+  const end=source.indexOf('\n  /admin/',start+1);
+  const inventory=source.slice(start,end===-1?undefined:end);
   assert.match(inventory,/runtime: unresolved_not_granted/);
   assert.match(inventory,/frontendConsumption: forbidden/);
   assert.doesNotMatch(inventory,/schema:/);
