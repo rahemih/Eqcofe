@@ -50,3 +50,9 @@ The Admin transport must be server-side by default. Browser-visible `VITE_*` con
 8. Linear HOS-71 reflects `STEP_67_C = CANONICAL_COMPLETE`.
 
 No Owner Human Gate is required for this MEDIUM-risk stage.
+
+## Live transport
+
+- PR: `#354`
+- Task Contract: `docs/14-multi-agent/tasks/EQCOFE-STEP67-C-ADMIN-FOUNDATION-001.json`
+- Initial PR event predated the required Task Contract metadata in the PR body; this in-scope documentation commit intentionally emits a fresh synchronize event after metadata repair.
