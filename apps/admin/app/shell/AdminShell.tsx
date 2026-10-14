@@ -33,7 +33,7 @@ export function AdminShell({actor,scopes,groups}:{actor:AdminActor;scopes:readon
             <p className="admin-brand">{messages.brand}</p>
           </div>
           <div className="admin-session-summary">
-            <span className="admin-stage-badge" aria-label="مرحله جاری">67-G</span>
+            <span className="admin-stage-badge" aria-label="مرحله جاری">67-H</span>
             <span className="admin-actor" title="نشست تأییدشده">مدیر <bdi>{actor.id}</bdi></span>
             <Link className="admin-security-link" to="/security-keys" aria-current={location.pathname==="/security-keys"?"page":undefined}>کلیدهای امنیتی</Link>
             <Form method="post" action="/logout">
