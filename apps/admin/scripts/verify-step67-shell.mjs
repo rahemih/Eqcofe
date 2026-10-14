@@ -59,7 +59,7 @@ try{
   assert(count(authenticated.body,"<h1")===1,"ADMIN_H1_COUNT_INVALID");
   assert(authenticated.body.includes("admin-header"),"ADMIN_HEADER_MISSING");
   assert(authenticated.body.includes('aria-label="ناوبری مدیریت"'),"ADMIN_NAV_LANDMARK_MISSING");
-  assert(authenticated.body.includes("67-F"),"ADMIN_STAGE_BADGE_MISSING");
+  assert(authenticated.body.includes("67-G"),"ADMIN_STAGE_BADGE_MISSING");
   assert(authenticated.body.includes("staff-67e"),"ADMIN_PROVEN_ACTOR_MISSING");
   assert(authenticated.body.includes("کالا و چرخه انتشار"),"PERMITTED_PRODUCT_DESTINATION_MISSING");
   assert(authenticated.body.includes("موجودی، گردش و لایه‌های بهای تمام‌شده"),"PERMITTED_INVENTORY_DESTINATION_MISSING");
