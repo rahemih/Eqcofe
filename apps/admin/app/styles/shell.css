@@ -29,7 +29,7 @@ button, a, input, select, textarea { font: inherit; }
 .admin-destination-search input { inline-size: 100%; min-block-size: var(--eq-size-touch-min); padding-inline: var(--eq-spacing-3); border: var(--eq-border-hairline) solid var(--eq-color-border-default); border-radius: var(--eq-radius-md); background: var(--eq-color-bg-surface); color: var(--eq-color-text-primary); }
 .admin-search-results, .admin-nav-groups { margin-block-start: var(--eq-spacing-4); }
 .admin-search-results ul, .admin-nav-groups ul, .admin-scope-context ul { list-style: none; padding: 0; margin: 0; }
-.admin-search-results bdi, .admin-nav-groups bdi { color: var(--eq-color-text-muted); font-size: var(--eq-type-caption-font-size); }
+.admin-search-results bdi, .admin-nav-groups bdi { color: var(--eq-color-text-secondary); font-size: var(--eq-type-caption-font-size); }
 .admin-search-empty { margin: 0; color: var(--eq-color-text-secondary); }
 .admin-nav-groups { display: grid; gap: var(--eq-spacing-2); }
 .admin-nav-groups details { border-block-end: var(--eq-border-hairline) solid var(--eq-color-border-default); padding-block-end: var(--eq-spacing-2); }
