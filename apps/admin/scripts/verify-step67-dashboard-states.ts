@@ -58,7 +58,7 @@ assert.match(packageJson.scripts.verify??"",/stepup-credentials:verify.*dashboar
 
 assert.match(design,/GET \/admin\/dashboard is contract-only and unresolved/);
 assert.match(design,/Only unavailable concept evidence is permitted/);
-assert.match(design,/Static known authorized destination links/);
+assert.match(design,/static known authorized destination links/i);
 assert.match(traceability,/"executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION"/);
 assert.match(traceability,/"coverage": "UNAVAILABLE_ONLY"/);
 
