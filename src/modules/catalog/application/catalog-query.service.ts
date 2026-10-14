@@ -457,7 +457,7 @@ export class CatalogQueryService {
       price,
       published_at: product.published_at ?? null,
       archived_at: product.archived_at ?? null,
-      primary_image: media ? { id: media.id, url: media.storage_key, alt_text_fa: media.alt_text_fa ?? null } : null,
+      primary_image: media ? { id: String(media.id), storage_key: String(media.storage_key), alt_text_fa: media.alt_text_fa ?? null } : null,
       specifications,
       variants,
       version: Number(product.version),
