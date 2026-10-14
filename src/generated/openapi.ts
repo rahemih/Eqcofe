@@ -8719,6 +8719,8 @@ export interface components {
             name_fa: string;
             name_en?: string | null;
             slug: components["schemas"]["Slug"];
+            short_description?: string | null;
+            description?: string | null;
             brand?: components["schemas"]["BrandRef"] | null;
             primary_category: components["schemas"]["CategoryRef"];
             additional_categories?: components["schemas"]["CategoryRef"][];
@@ -9895,7 +9897,7 @@ export interface components {
             size_bytes: number;
             checksum_sha256: string;
             /** @enum {string} */
-            purpose: "product_image" | "product_video" | "product_model_3d" | "article_image" | "document";
+            purpose: "product_image" | "product_video" | "product_model_3d" | "article_image";
         };
         PostAdminMediaIdCompleteRequest: {
             storage_etag?: string | null;
