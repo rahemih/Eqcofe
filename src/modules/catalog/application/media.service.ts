@@ -7,7 +7,7 @@ import { DomainError } from '../../../shared/errors/domain-error';
 import { CatalogRepository } from '../infrastructure/catalog.repository';
 import { MEDIA_STORAGE_PORT, MediaStoragePort } from './ports/media-storage.port';
 
-const allowed = new Set(['image/jpeg', 'image/png', 'image/webp', 'video/mp4']);
+const allowed = new Set(['image/jpeg', 'image/png', 'image/webp', 'video/mp4', 'model/gltf-binary']);
 
 @Injectable()
 export class MediaService {
