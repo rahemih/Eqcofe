@@ -87,6 +87,50 @@ test('Step 67-B retains dashboard only as unavailable contract inventory',()=>{
   const design=readFileSync('docs/13-product-design/step56-foundation/A/SOURCE-GAPS.md','utf8');
   assert.match(design,/GET \/admin\/dashboard[^\n]*UNRESOLVED_NOT_GRANTED/);
 });
+test('Step 67-F credential self-service contract is runtime-accurate and secret-minimized',()=>{
+  const source=api(),types=generated(),controller=auth();
+  for(const route of [
+    "@StaffOnly() @Get('admin/auth/fido/credentials')",
+    "@StaffOnly() @Post('admin/auth/fido/credentials/register/challenge')",
+    "@StaffOnly() @Post('admin/auth/fido/credentials/register/verify')",
+    "@StaffOnly() @Post('admin/auth/fido/credentials/:id/revoke')"
+  ]) assert.ok(controller.includes(route),'runtime route missing '+route);
+
+  const summaryStart=source.indexOf('    AdminFidoCredentialSummary:');
+  const summaryEnd=source.indexOf('    AdminFidoCredentialsResponse:',summaryStart);
+  assert.ok(summaryStart>=0&&summaryEnd>summaryStart,'credential summary schema missing');
+  const summary=source.slice(summaryStart,summaryEnd);
+  for(const field of ['id','device_name','credential_device_type','backed_up','last_used_at','created_at']) assert.match(summary,new RegExp('\\n        '+field+':'),'missing safe summary field '+field);
+  for(const secret of ['credential_id','public_key','sign_count','webauthn_user_id','session_token','enrollment_token','step_up_token']) assert.doesNotMatch(summary,new RegExp(secret),'secret leaked in credential summary '+secret);
+
+  const operations=[
+    ['listAdminFidoCredentials',200,'AdminFidoCredentialsResponse'],
+    ['createAdditionalAdminFidoCredentialChallenge',201,'AdminWebAuthnChallengeResponse'],
+    ['verifyAdditionalAdminFidoCredential',201,'AdminFidoCredentialRegisteredResponse'],
+    ['revokeAdminFidoCredential',201,'AdminFidoCredentialRevokedResponse']
+  ] as const;
+  for(const [op,status,schema] of operations){
+    const i=types.indexOf(op+':');
+    assert.notEqual(i,-1,'missing generated operation '+op);
+    const part=types.slice(i,i+2400);
+    assert.match(part,new RegExp('\\n            '+status+':'),'runtime status drift '+op);
+    assert.match(part,new RegExp('components\\["schemas"\\]\\["'+schema+'"\\]'),'untyped credential operation '+op);
+  }
+
+  const anchor=source.slice(source.indexOf('- &id028'),source.indexOf('- &id028')+120);
+  assert.match(anchor,/adminSession: \[\][\s\S]*stepUpToken: \[\]/,'canonical Step-Up security anchor drift');
+  for(const path of [
+    '/admin/auth/fido/credentials/register/challenge:',
+    '/admin/auth/fido/credentials/register/verify:',
+    '/admin/auth/fido/credentials/{id}/revoke:'
+  ]){
+    const start=source.indexOf('  '+path);
+    const end=source.indexOf('\n  /',start+3);
+    const block=source.slice(start,end===-1?undefined:end);
+    assert.match(block,/security:[\s\S]*- \*id028/,'Step-Up security missing '+path);
+  }
+});
+
 test('Step 67-B generated OpenAPI is byte-for-byte reproducible from canonical source',()=>{
   const dir=mkdtempSync(join(tmpdir(),'eqcofe-step67-openapi-'));
   const output=join(dir,'openapi.ts');

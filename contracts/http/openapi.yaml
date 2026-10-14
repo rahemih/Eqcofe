@@ -3842,6 +3842,103 @@ components:
           $ref: '#/components/schemas/AdminStepUpVerifyData'
         meta:
           $ref: '#/components/schemas/SuccessMeta'
+    AdminFidoCredentialSummary:
+      type: object
+      additionalProperties: false
+      required:
+      - id
+      - device_name
+      - credential_device_type
+      - backed_up
+      - last_used_at
+      - created_at
+      properties:
+        id:
+          $ref: '#/components/schemas/EntityId'
+        device_name:
+          type: string
+          minLength: 1
+          maxLength: 150
+        credential_device_type:
+          type:
+          - string
+          - 'null'
+          maxLength: 32
+        backed_up:
+          type: boolean
+        last_used_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        created_at:
+          type: string
+          format: date-time
+    AdminFidoCredentialsResponse:
+      type: object
+      additionalProperties: false
+      required:
+      - success
+      - data
+      - meta
+      properties:
+        success:
+          type: boolean
+          const: true
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdminFidoCredentialSummary'
+        meta:
+          $ref: '#/components/schemas/SuccessMeta'
+    AdminFidoCredentialRegisteredData:
+      type: object
+      additionalProperties: false
+      required:
+      - registered
+      properties:
+        registered:
+          type: boolean
+          const: true
+    AdminFidoCredentialRegisteredResponse:
+      type: object
+      additionalProperties: false
+      required:
+      - success
+      - data
+      - meta
+      properties:
+        success:
+          type: boolean
+          const: true
+        data:
+          $ref: '#/components/schemas/AdminFidoCredentialRegisteredData'
+        meta:
+          $ref: '#/components/schemas/SuccessMeta'
+    AdminFidoCredentialRevokedData:
+      type: object
+      additionalProperties: false
+      required:
+      - revoked
+      properties:
+        revoked:
+          type: boolean
+          const: true
+    AdminFidoCredentialRevokedResponse:
+      type: object
+      additionalProperties: false
+      required:
+      - success
+      - data
+      - meta
+      properties:
+        success:
+          type: boolean
+          const: true
+        data:
+          $ref: '#/components/schemas/AdminFidoCredentialRevokedData'
+        meta:
+          $ref: '#/components/schemas/SuccessMeta'
     AdminLogoutData:
       type: object
       additionalProperties: false
@@ -19228,12 +19325,11 @@ paths:
       - adminSession: []
       responses:
         '200':
-          description: OK
+          description: کلیدهای امنیتی فعال مدیر جاری
           content:
             application/json:
               schema:
-                type: object
-                additionalProperties: true
+                $ref: '#/components/schemas/AdminFidoCredentialsResponse'
   /admin/auth/fido/credentials/register/challenge:
     post:
       tags:
@@ -19243,13 +19339,12 @@ paths:
       security:
       - *id028
       responses:
-        '200':
-          description: OK
+        '201':
+          description: چالش ثبت کلید امنیتی جدید ایجاد شد
           content:
             application/json:
               schema:
-                type: object
-                additionalProperties: true
+                $ref: '#/components/schemas/AdminWebAuthnChallengeResponse'
   /admin/auth/fido/credentials/register/verify:
     post:
       tags:
@@ -19265,13 +19360,12 @@ paths:
             schema:
               $ref: '#/components/schemas/PostAdminAuthFidoVerifyRequest'
       responses:
-        '200':
-          description: OK
+        '201':
+          description: کلید امنیتی جدید ثبت شد
           content:
             application/json:
               schema:
-                type: object
-                additionalProperties: true
+                $ref: '#/components/schemas/AdminFidoCredentialRegisteredResponse'
   /admin/auth/fido/credentials/{id}/revoke:
     post:
       tags:
@@ -19288,13 +19382,12 @@ paths:
           type: string
           format: uuid
       responses:
-        '200':
-          description: OK
+        '201':
+          description: کلید امنیتی انتخاب‌شده لغو شد
           content:
             application/json:
               schema:
-                type: object
-                additionalProperties: true
+                $ref: '#/components/schemas/AdminFidoCredentialRevokedResponse'
   /admin/staff/{id}/fido/reset-enrollment:
     post:
       tags:
