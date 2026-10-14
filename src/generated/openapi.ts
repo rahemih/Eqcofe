@@ -14036,7 +14036,7 @@ export interface operations {
                 };
             };
             };
-        };
+    };
     };
     postAdminProductsProductIdVariants: {
         parameters: {
@@ -14097,7 +14097,7 @@ export interface operations {
                 };
             };
             };
-        };
+    };
     };
     postAdminVariantsIdStopSales: {
         parameters: {
@@ -14186,7 +14186,7 @@ export interface operations {
                 };
             };
             };
-        };
+    };
     };
     postAdminBrands: {
         parameters: {
@@ -14245,7 +14245,7 @@ export interface operations {
                 };
             };
             };
-        };
+    };
     };
     postAdminBrandsIdStopSales: {
         parameters: {
@@ -14334,7 +14334,7 @@ export interface operations {
                 };
             };
             };
-        };
+    };
     };
     postAdminCategories: {
         parameters: {
@@ -14393,7 +14393,7 @@ export interface operations {
                 };
             };
             };
-        };
+    };
     };
     postAdminCategoriesIdStopSales: {
         parameters: {
@@ -14614,7 +14614,7 @@ export interface operations {
                 };
             };
             };
-        };
+    };
     };
     deleteAdminMediaId: {
         parameters: {
@@ -14637,7 +14637,7 @@ export interface operations {
                 };
             };
             };
-        };
+    };
     };
     getAdminPricingBasePrices: {
         parameters: {
@@ -24544,7 +24544,7 @@ export interface operations {
                 };
             };
             };
-        };
+    };
     };
     patchAdminAttributeId: {
         parameters: {
@@ -24771,7 +24771,7 @@ export interface operations {
                 };
             };
             };
-        };
+    };
     };
     postAdminAttributeValues: {
         parameters: {
@@ -24798,7 +24798,7 @@ export interface operations {
                 };
             };
             };
-        };
+    };
     };
     getAdminProductMedia: {
         parameters: {
@@ -24821,7 +24821,7 @@ export interface operations {
                 };
             };
             };
-        };
+    };
     };
     postAdminProductMedia: {
         parameters: {
@@ -24848,7 +24848,7 @@ export interface operations {
                 };
             };
             };
-        };
+    };
     };
     deleteAdminProductMedia: {
         parameters: {
@@ -24872,7 +24872,7 @@ export interface operations {
                 };
             };
             };
-        };
+    };
     };
     postAdminProductMediaReorder: {
         parameters: {
@@ -24899,7 +24899,7 @@ export interface operations {
                 };
             };
             };
-        };
+    };
     };
     postAdminPricingCurrencyRatesRegister: {
         parameters: {
