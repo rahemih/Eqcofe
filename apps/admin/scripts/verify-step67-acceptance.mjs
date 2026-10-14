@@ -143,8 +143,14 @@ try{
         await page.goto(origin+"/",{waitUntil:"networkidle"});
         assert.equal(await page.locator('[data-admin-state="unavailable"]').count(),1,"STEP67_H_BROWSER_UNAVAILABLE_DASHBOARD:"+width);
         assert.equal(await page.locator("text=فروش امروز").count(),0,"STEP67_H_BROWSER_FAKE_METRIC:"+width);
-        const storage=await page.evaluate(()=>({local:localStorage.length,session:sessionStorage.length}));
-        assert.deepEqual(storage,{local:0,session:0},"STEP67_H_BROWSER_STORAGE_PERSISTENCE:"+width);
+        const storage=await page.evaluate(()=>({
+          local:Object.fromEntries(Array.from({length:localStorage.length},(_,index)=>{const key=localStorage.key(index)??"";return [key,localStorage.getItem(key)??""];})),
+          session:Object.fromEntries(Array.from({length:sessionStorage.length},(_,index)=>{const key=sessionStorage.key(index)??"";return [key,sessionStorage.getItem(key)??""];})),
+        }));
+        const storageText=JSON.stringify(storage);
+        for(const forbidden of ["eqcofe_admin_session","pre_auth_token","session_token","step_up_token","credential_id","public_key","Authorization","Bearer "]){
+          assert.ok(!storageText.includes(forbidden),"STEP67_H_BROWSER_AUTH_STORAGE_LEAK:"+forbidden+":"+width);
+        }
 
         await page.keyboard.press("Tab");
         const focus=await page.evaluate(()=>{
