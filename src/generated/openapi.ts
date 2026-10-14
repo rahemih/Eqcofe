@@ -9889,12 +9889,13 @@ export interface components {
         };
         PostAdminMediaUploadRequestRequest: {
             filename: string;
-            mime_type: string;
+            /** @enum {string} */
+            mime_type: "image/jpeg" | "image/png" | "image/webp" | "video/mp4" | "model/gltf-binary";
             /** Format: int64 */
             size_bytes: number;
             checksum_sha256: string;
             /** @enum {string} */
-            purpose: "product_image" | "article_image" | "document";
+            purpose: "product_image" | "product_video" | "product_model_3d" | "article_image" | "document";
         };
         PostAdminMediaIdCompleteRequest: {
             storage_etag?: string | null;
@@ -10664,7 +10665,7 @@ export interface components {
              * @default image
              * @enum {string}
              */
-            media_type: "image" | "video" | "document";
+            media_type: "image" | "video" | "document" | "model_3d";
             /** @default 0 */
             sort_order: number;
             /** @default false */
@@ -10680,6 +10681,198 @@ export interface components {
         };
         ReorderProductMediaRequest: {
             items: components["schemas"]["ReorderProductMediaItem"][];
+        };
+        AdminPrimaryMediaRef: {
+            id: components["schemas"]["EntityId"];
+            storage_key: string;
+            alt_text_fa?: string | null;
+        };
+        AdminVariantResponse: {
+            id: components["schemas"]["EntityId"];
+            product_id: components["schemas"]["EntityId"];
+            sku: string;
+            barcode?: string | null;
+            name_suffix?: string | null;
+            /** @enum {string} */
+            status: "active" | "inactive";
+            sales_enabled: boolean;
+            effective_sales_enabled?: boolean;
+            weight_grams?: number | null;
+            attributes?: components["schemas"]["AdminAttributeAssignmentView"][];
+            price?: components["schemas"]["PriceView"] | null;
+            availability?: components["schemas"]["AvailabilityView"] | null;
+            version: components["schemas"]["EntityVersion"];
+        };
+        AdminVariantListResponse: components["schemas"]["AdminVariantResponse"][];
+        AdminProductResponse: {
+            id: components["schemas"]["EntityId"];
+            name_fa: string;
+            name_en?: string | null;
+            slug: components["schemas"]["Slug"];
+            brand?: components["schemas"]["BrandRef"] | null;
+            primary_category: components["schemas"]["CategoryRef"];
+            additional_categories: components["schemas"]["CategoryRef"][];
+            /** @enum {string} */
+            status: "draft" | "review" | "published" | "archived";
+            sales_enabled: boolean;
+            price: components["schemas"]["PriceView"] | null;
+            published_at?: components["schemas"]["NullableTimestamp"];
+            archived_at?: components["schemas"]["NullableTimestamp"];
+            primary_image?: components["schemas"]["AdminPrimaryMediaRef"] | null;
+            specifications: components["schemas"]["ProductSpecificationView"][];
+            variants: components["schemas"]["AdminVariantListResponse"];
+            version: components["schemas"]["EntityVersion"];
+            created_at: components["schemas"]["Timestamp"];
+            updated_at: components["schemas"]["Timestamp"];
+        };
+        AdminProductListResponse: {
+            items: components["schemas"]["AdminProductResponse"][];
+            pagination: components["schemas"]["CursorPagination"];
+        };
+        AdminBrandResponse: {
+            id: components["schemas"]["EntityId"];
+            name_fa: string;
+            name_en?: string | null;
+            slug: components["schemas"]["Slug"];
+            description?: string | null;
+            /** @enum {string} */
+            status: "active" | "inactive";
+            sales_enabled: boolean;
+            version: components["schemas"]["EntityVersion"];
+            created_at?: components["schemas"]["Timestamp"];
+            updated_at?: components["schemas"]["Timestamp"];
+        };
+        AdminBrandListResponse: components["schemas"]["AdminBrandResponse"][];
+        AdminCategoryResponse: {
+            id: components["schemas"]["EntityId"];
+            parent_id?: components["schemas"]["NullableEntityId"];
+            name_fa: string;
+            slug: components["schemas"]["Slug"];
+            description?: string | null;
+            /** @enum {string} */
+            status: "active" | "inactive";
+            sales_enabled: boolean;
+            sort_order: number;
+            version: components["schemas"]["EntityVersion"];
+            created_at?: components["schemas"]["Timestamp"];
+            updated_at?: components["schemas"]["Timestamp"];
+        };
+        AdminCategoryListResponse: components["schemas"]["AdminCategoryResponse"][];
+        AdminAttributeResponse: {
+            id: components["schemas"]["EntityId"];
+            category_id?: components["schemas"]["NullableEntityId"];
+            name_fa: string;
+            key: string;
+            /** @enum {string} */
+            data_type: "text" | "number" | "boolean" | "select";
+            unit?: string | null;
+            is_variant_attribute: boolean;
+            is_filterable: boolean;
+            is_comparable: boolean;
+            sort_order: number;
+            version: components["schemas"]["EntityVersion"];
+            created_at?: components["schemas"]["Timestamp"];
+            updated_at?: components["schemas"]["Timestamp"];
+        };
+        AdminAttributeListResponse: components["schemas"]["AdminAttributeResponse"][];
+        AdminAttributeValueResponse: {
+            id: components["schemas"]["EntityId"];
+            attribute_id: components["schemas"]["EntityId"];
+            value_text?: string | null;
+            value_numeric?: number | null;
+            value_boolean?: boolean | null;
+            normalized_value?: string | null;
+            sort_order: number;
+            version: components["schemas"]["EntityVersion"];
+            created_at?: components["schemas"]["Timestamp"];
+        };
+        AdminAttributeValueListResponse: components["schemas"]["AdminAttributeValueResponse"][];
+        AdminAttributeAssignmentView: {
+            attribute_id: components["schemas"]["EntityId"];
+            key: string;
+            name_fa: string;
+            unit?: string | null;
+            /** @enum {string} */
+            data_type: "text" | "number" | "boolean" | "select";
+            is_filterable?: boolean;
+            is_comparable?: boolean;
+            attribute_value_id: components["schemas"]["EntityId"];
+            value_text?: string | null;
+            value_numeric?: number | null;
+            value_boolean?: boolean | null;
+            normalized_value?: string | null;
+        };
+        AdminAttributeAssignmentListResponse: components["schemas"]["AdminAttributeAssignmentView"][];
+        AdminProductMediaResponse: {
+            id: components["schemas"]["EntityId"];
+            product_id: components["schemas"]["EntityId"];
+            variant_id?: components["schemas"]["NullableEntityId"];
+            media_id: components["schemas"]["EntityId"];
+            /** @enum {string} */
+            media_type: "image" | "video" | "document" | "model_3d";
+            sort_order: number;
+            is_primary: boolean;
+            alt_text_fa?: string | null;
+            storage_key: string;
+            mime_type: string;
+            /** @enum {string} */
+            status: "uploading" | "quarantine" | "processing" | "active" | "rejected" | "deleted";
+            created_at: components["schemas"]["Timestamp"];
+        };
+        AdminProductMediaListResponse: components["schemas"]["AdminProductMediaResponse"][];
+        AdminMediaAssetResponse: {
+            id: components["schemas"]["EntityId"];
+            storage_key: string;
+            original_filename: string;
+            mime_type: string;
+            /** Format: int64 */
+            size_bytes: number;
+            checksum_sha256?: string | null;
+            /** @enum {string} */
+            status: "uploading" | "quarantine" | "processing" | "active" | "rejected" | "deleted";
+            width?: number | null;
+            height?: number | null;
+            created_by?: components["schemas"]["NullableEntityId"];
+            version: components["schemas"]["EntityVersion"];
+            created_at: components["schemas"]["Timestamp"];
+            updated_at: components["schemas"]["Timestamp"];
+        };
+        AdminMediaUploadTarget: {
+            /** @enum {string} */
+            method: "PUT";
+            url: string;
+            expires_at: components["schemas"]["Timestamp"];
+        };
+        AdminMediaUploadRequestResponse: {
+            id: components["schemas"]["EntityId"];
+            storage_key: string;
+            upload: components["schemas"]["AdminMediaUploadTarget"];
+        };
+        AdminDetachMediaResponse: {
+            /** @constant */
+            detached: true;
+        };
+        AdminDeleteMediaResponse: {
+            /** @constant */
+            deleted: true;
+        };
+        AdminSalesControlPreviewResponse: {
+            preview_id: components["schemas"]["EntityId"];
+            /** @enum {string} */
+            scope_type: "global" | "brand" | "category" | "product" | "variant";
+            scope_id: components["schemas"]["NullableEntityId"];
+            sales_enabled: boolean;
+            affected_count: number;
+            expires_at: components["schemas"]["Timestamp"];
+        };
+        AdminSalesControlApplyResponse: {
+            /** @constant */
+            applied: true;
+            /** @enum {string} */
+            scope_type: "global" | "brand" | "category" | "product" | "variant";
+            scope_id: components["schemas"]["NullableEntityId"];
+            sales_enabled: boolean;
+            affected_count: number;
         };
         RegisterCurrencyRateRequest: {
             source_currency_code: string;
@@ -11594,7 +11787,10 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["AdminProductListResponse"];
+                };
+            };
             };
             403: components["responses"]["Forbidden"];
         };
@@ -11618,8 +11814,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ProductResponse"];
+                    "application/json": components["schemas"]["AdminProductResponse"];
                 };
+            };
             };
             403: components["responses"]["Forbidden"];
         };
@@ -11641,8 +11838,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ProductResponse"];
+                    "application/json": components["schemas"]["AdminProductResponse"];
                 };
+            };
             };
             404: components["responses"]["NotFound"];
         };
@@ -11670,8 +11868,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ProductResponse"];
+                    "application/json": components["schemas"]["AdminProductResponse"];
                 };
+            };
             };
             409: components["responses"]["Conflict"];
         };
@@ -11692,7 +11891,10 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["AdminProductResponse"];
+                };
+            };
             };
             409: components["responses"]["Conflict"];
             422: components["responses"]["Unprocessable"];
@@ -13695,7 +13897,10 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["AdminProductResponse"];
+                };
+            };
             };
             /** @description عملیات پذیرفته شد */
             202: {
@@ -13726,7 +13931,10 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["AdminProductResponse"];
+                };
+            };
             };
             /** @description عملیات پذیرفته شد */
             202: {
@@ -13757,7 +13965,10 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["AdminProductResponse"];
+                };
+            };
             };
             /** @description عملیات پذیرفته شد */
             202: {
@@ -13788,7 +13999,10 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["AdminProductResponse"];
+                };
+            };
             };
             /** @description عملیات پذیرفته شد */
             202: {
@@ -13815,7 +14029,10 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["AdminVariantListResponse"];
+                };
+            };
             };
         };
     };
@@ -13839,7 +14056,10 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["AdminVariantResponse"];
+                };
+            };
             };
             /** @description عملیات پذیرفته شد */
             202: {
@@ -13870,7 +14090,10 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["AdminVariantResponse"];
+                };
+            };
             };
         };
     };
@@ -13894,7 +14117,10 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["AdminVariantResponse"];
+                };
+            };
             };
             /** @description عملیات پذیرفته شد */
             202: {
@@ -13925,7 +14151,10 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["AdminVariantResponse"];
+                };
+            };
             };
             /** @description عملیات پذیرفته شد */
             202: {
@@ -13950,7 +14179,10 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["AdminBrandListResponse"];
+                };
+            };
             };
         };
     };
@@ -13972,7 +14204,10 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["AdminBrandResponse"];
+                };
+            };
             };
             /** @description عملیات پذیرفته شد */
             202: {
@@ -14003,7 +14238,10 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["AdminBrandResponse"];
+                };
+            };
             };
         };
     };
@@ -14027,7 +14265,10 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["AdminBrandResponse"];
+                };
+            };
             };
             /** @description عملیات پذیرفته شد */
             202: {
@@ -14058,7 +14299,10 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["AdminBrandResponse"];
+                };
+            };
             };
             /** @description عملیات پذیرفته شد */
             202: {
@@ -14083,7 +14327,10 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["AdminCategoryListResponse"];
+                };
+            };
             };
         };
     };
@@ -14105,7 +14352,10 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["AdminCategoryResponse"];
+                };
+            };
             };
             /** @description عملیات پذیرفته شد */
             202: {
@@ -14136,7 +14386,10 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["AdminCategoryResponse"];
+                };
+            };
             };
         };
     };
@@ -14160,7 +14413,10 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["AdminCategoryResponse"];
+                };
+            };
             };
             /** @description عملیات پذیرفته شد */
             202: {
@@ -14191,7 +14447,10 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["AdminCategoryResponse"];
+                };
+            };
             };
             /** @description عملیات پذیرفته شد */
             202: {
@@ -14220,7 +14479,10 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["AdminSalesControlPreviewResponse"];
+                };
+            };
             };
             /** @description عملیات پذیرفته شد */
             202: {
@@ -14249,7 +14511,10 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["AdminSalesControlApplyResponse"];
+                };
+            };
             };
             /** @description عملیات پذیرفته شد */
             202: {
@@ -14278,7 +14543,10 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["AdminMediaUploadRequestResponse"];
+                };
+            };
             };
             /** @description عملیات پذیرفته شد */
             202: {
@@ -14309,7 +14577,10 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["AdminMediaAssetResponse"];
+                };
+            };
             };
             /** @description عملیات پذیرفته شد */
             202: {
@@ -14336,7 +14607,10 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["AdminMediaAssetResponse"];
+                };
+            };
             };
         };
     };
@@ -14352,11 +14626,14 @@ export interface operations {
         requestBody?: never;
         responses: {
             /** @description حذف/برداشتن موفق */
-            204: {
+            200: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["AdminDeleteMediaResponse"];
+                };
+            };
             };
         };
     };
@@ -24235,7 +24512,10 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["AdminAttributeListResponse"];
+                };
+            };
             };
         };
     };
@@ -24257,7 +24537,10 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["AdminAttributeResponse"];
+                };
+            };
             };
         };
     };
@@ -24283,7 +24566,10 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["AdminAttributeResponse"];
+                };
+            };
             };
         };
     };
@@ -24309,7 +24595,10 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["AdminAttributeValueResponse"];
+                };
+            };
             };
         };
     };
@@ -24329,7 +24618,10 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["AdminAttributeAssignmentListResponse"];
+                };
+            };
             };
         };
     };
@@ -24353,7 +24645,10 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["AdminAttributeAssignmentListResponse"];
+                };
+            };
             };
         };
     };
@@ -24373,7 +24668,10 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["AdminAttributeAssignmentListResponse"];
+                };
+            };
             };
         };
     };
@@ -24397,7 +24695,10 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["AdminAttributeAssignmentListResponse"];
+                };
+            };
             };
         };
     };
@@ -24417,7 +24718,10 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["AdminMediaAssetResponse"];
+                };
+            };
             };
         };
     };
@@ -24437,7 +24741,10 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["AdminMediaAssetResponse"];
+                };
+            };
             };
         };
     };
@@ -24457,7 +24764,10 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["AdminAttributeValueListResponse"];
+                };
+            };
             };
         };
     };
@@ -24481,7 +24791,10 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["AdminAttributeValueResponse"];
+                };
+            };
             };
         };
     };
@@ -24501,7 +24814,10 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["AdminProductMediaListResponse"];
+                };
+            };
             };
         };
     };
@@ -24525,7 +24841,10 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["AdminProductMediaListResponse"];
+                };
+            };
             };
         };
     };
@@ -24546,7 +24865,10 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["AdminDetachMediaResponse"];
+                };
+            };
             };
         };
     };
@@ -24570,7 +24892,10 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["AdminProductMediaListResponse"];
+                };
+            };
             };
         };
     };
