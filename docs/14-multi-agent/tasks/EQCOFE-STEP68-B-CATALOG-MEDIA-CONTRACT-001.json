@@ -175,7 +175,8 @@
       "storage_key is never mislabeled as a public URL.",
       "model_3d is an Admin Catalog/Media capability only in 68-B; existing public Product Detail image/video contract remains unchanged.",
       "Generated TypeScript must be byte-for-byte reproducible from canonical OpenAPI via openapi-typescript.",
-      "No generic bulk catalog mutation, pricing, inventory, Excel, customer, order or later Step68+ domain authority is invented."
+      "No generic bulk catalog mutation, pricing, inventory, Excel, customer, order or later Step68+ domain authority is invented.",
+      "Media upload purpose is authoritative and must match MIME; product_model_3d requires model/gltf-binary with a .glb filename."
     ],
     "provenance_repair_policy": "Canonical CI confirmed recovered-source drift for intentionally changed OpenAPI/Catalog sources. Only the 17 exact Step56/57 provenance paths listed here are authorized for generator-equivalent SHA/manifest refresh. No screen, frame, journey, operation, permission, visual, review-status, approval, runtime-release or business semantics may change.",
     "graph_state": "RETIRED_AND_OUT_OF_SCOPE",
@@ -234,6 +235,12 @@
       "id": "AC-006",
       "description": "OpenAPI upload/attachment contracts encode the bounded model_3d capability and 50 MiB media limit consistently with runtime.",
       "verification": "step68_openapi_media_contract",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006A",
+      "description": "Media upload purpose/MIME compatibility is enforced; product_model_3d accepts only model/gltf-binary with a .glb filename and unsupported document purpose is not advertised.",
+      "verification": "step68_media_purpose_contract",
       "mandatory": true
     },
     {
