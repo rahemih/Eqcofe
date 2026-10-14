@@ -157,10 +157,12 @@ export default function SecurityKeysRoute(){
     if(payload.kind==="success"){
       stepUpTokenRef.current=null;
       handledChallenge.current=null;
-      setClientError(null);
-      setReview(null);
-      void revalidator.revalidate();
-      queueMicrotask(()=>launcherRef.current?.focus());
+      queueMicrotask(()=>{
+        setClientError(null);
+        setReview(null);
+        void revalidator.revalidate();
+        launcherRef.current?.focus();
+      });
     }
   },[fetcher.data,fetcher,revalidator,deviceName]);
 
