@@ -1,7 +1,7 @@
 # EQCOFE Current State
 
 ## Trusted state date
-**2026-10-10**
+**2026-10-14**
 
 ## Official repository
 - Repository: `rahemih/Eqcofe`
@@ -29,6 +29,32 @@
 The frozen Step-63 product result covers authoritative Cart/Checkout state, guest/auth identity boundaries, address/shipping/quote, signed Review snapshot, idempotent reserve/order submission, signed payment handoff, callback-state containment, authoritative payment recovery and Order Outcome, plus Persian RTL/responsive/accessibility acceptance. Real provider activation/secrets remain deferred to Step 74.
 
 **Tooling policy supersession — 2026-10-06:** the Project Owner retired Graph/Graphify from active EQCOFE governance. Historical Step-61/62/63 documents that mention graph requirements remain chronology only and no longer create a live gate. Follow-up `HOS-181` is Canceled and PR #319 is Closed / Unmerged. There is no remaining graph debt for Step 63.
+
+## Current Step 67 position
+
+**Step 67 — Admin Shell, RBAC & Dashboard Foundation — `CLOSED / FINAL CANONICAL PASS after terminal 67-I transport`.** Stages 67-A through 67-H are terminal/canonical; Stage 67-I is the documentation/governance closure transport based on canonical main `64e1600631bc65677c8b1733ac6a4336c8f1e79c`. Step 68 must not mutate until the 67-I closure PR completes protected merge, exact-SHA postmerge verification and terminal Lock release.
+
+| Stage | PR | Canonical merge | Terminal Lock | State |
+| --- | ---: | --- | ---: | --- |
+| 67-A canonical handoff / live discovery / scope freeze | #352 | `87a074ed2d0557234ecfbb615ff7187c36f37f80` | `6108600509` | COMPLETE |
+| 67-B Admin auth/session/permission/scope contract readiness | #353 | `2af5eb86b605184f78b47e7b3df9e458ce1d7bd7` | `6143931051` | COMPLETE |
+| 67-C Admin application / SSR / secure transport foundation | #354 | `3b72b7972edcad99531e37503cb359021d1f4b5e` | `6144484040` | COMPLETE |
+| 67-D login / FIDO / authenticated session lifecycle | #355 | `32756cee24d7f60e63c768472e571c21eb2ec04f` | `6145858971` | COMPLETE |
+| 67-E permission/scope-aware shell / safe navigation | #356 | `6ec157ea5799d7c06cde5599a5bb3b828d767a1e` | `6147507394` | COMPLETE |
+| 67-F Step-Up / credential self-service / safe action review | #357 | `f40bd2cfc60243adc2611a5070d94191732af7b6` | `6163008531` | COMPLETE |
+| 67-G dashboard unavailable-only foundation / global states | #358 | `9079f210c21a629df3f82dd377a6e2b46b651e33` | `6163658732` | COMPLETE |
+| 67-H integrated Admin production/browser acceptance | #359 | `64e1600631bc65677c8b1733ac6a4336c8f1e79c` | `6166983938` | COMPLETE |
+| 67-I final verification / docs / Step 68 handoff | closure branch | this closure transport | terminal evidence required | FINAL CLOSURE |
+
+Stage 67-H exact merge-SHA evidence is green: Canonical CI `38533755212` / #1841, Phase A `38533755247` / #1340, Storefront Quality `38533755245` / #840, CodeQL `38533755641` / #985 and Prototype `38533755283` / #1252 all succeeded.
+
+Canonical Step-67 functionality includes a Persian RTL Admin SSR app; fail-closed login/pre-auth/FIDO/session entry; server-derived permission and assigned-scope presentation; safe destination search/navigation and neutral denied deep links; Step-Up credential registration/revocation with secret-minimized summaries; generic protected-action review boundaries; an unavailable-only dashboard with no fabricated metrics and no `GET /admin/dashboard` runtime consumption; reusable loading/empty/error/denied/conflict states; and integrated production SSR plus Chromium/Axe acceptance at compact and desktop widths.
+
+Security authority remains Backend-owned. Navigation visibility is not authorization, scopes are server-assigned/read-only, credential/Step-Up secrets are not persisted in browser storage or rendered, dashboard success/metrics are not fabricated, and Steps 68–73 domain workspaces remain unimplemented.
+
+Graph/Graphify remains retired from active EQCOFE governance; there is no graph debt or graph gate for Step 67.
+
+**Next safe action:** Step 68 — Catalog & Media Administration (`HOS-72`) becomes `NEXT / NOT_STARTED` only once this 67-I closure document is terminally canonical on `main`. No Step-68 mutation is authorized before that terminal evidence.
 
 ## Current Step 66 position
 
