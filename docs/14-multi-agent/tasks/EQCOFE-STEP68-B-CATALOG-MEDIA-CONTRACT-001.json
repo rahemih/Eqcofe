@@ -33,7 +33,24 @@
       "test/step68-catalog-media-contract.spec.ts",
       "docs/11-step-history/STEP-68-B-CATALOG-MEDIA-CONTRACT.md",
       "docs/14-multi-agent/tasks/EQCOFE-STEP68-B-CATALOG-MEDIA-CONTRACT-001.json",
-      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "docs/13-product-design/step56-admin-ux-contract.json",
+      "docs/13-product-design/step56-foundation/A/manifest.json",
+      "docs/13-product-design/step56-admin-shell-wireframes.json",
+      "docs/13-product-design/step56-wireframes/B/manifest.json",
+      "docs/13-product-design/step56-catalog-media-wireframes.json",
+      "docs/13-product-design/step56-wireframes/C/manifest.json",
+      "docs/13-product-design/step56-pricing-inventory-wireframes.json",
+      "docs/13-product-design/step56-wireframes/D/manifest.json",
+      "docs/13-product-design/step56-commerce-operations-wireframes.json",
+      "docs/13-product-design/step56-wireframes/E/manifest.json",
+      "docs/13-product-design/step56-customers-growth-wireframes.json",
+      "docs/13-product-design/step56-wireframes/F/manifest.json",
+      "docs/13-product-design/step56-management-security-wireframes.json",
+      "docs/13-product-design/step56-wireframes/G/manifest.json",
+      "docs/13-product-design/step56-final-audit.json",
+      "docs/13-product-design/step56-final-audit/manifest.json",
+      "docs/13-product-design/step57-high-fidelity-contract.json"
     ],
     "forbidden": [
       ".github/**",
@@ -81,7 +98,24 @@
         "test/step68-catalog-media-contract.spec.ts",
         "docs/11-step-history/STEP-68-B-CATALOG-MEDIA-CONTRACT.md",
         "docs/14-multi-agent/tasks/EQCOFE-STEP68-B-CATALOG-MEDIA-CONTRACT-001.json",
-        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+        "docs/14-multi-agent/generated/TASK-CATALOG.md",
+        "docs/13-product-design/step56-admin-ux-contract.json",
+        "docs/13-product-design/step56-foundation/A/manifest.json",
+        "docs/13-product-design/step56-admin-shell-wireframes.json",
+        "docs/13-product-design/step56-wireframes/B/manifest.json",
+        "docs/13-product-design/step56-catalog-media-wireframes.json",
+        "docs/13-product-design/step56-wireframes/C/manifest.json",
+        "docs/13-product-design/step56-pricing-inventory-wireframes.json",
+        "docs/13-product-design/step56-wireframes/D/manifest.json",
+        "docs/13-product-design/step56-commerce-operations-wireframes.json",
+        "docs/13-product-design/step56-wireframes/E/manifest.json",
+        "docs/13-product-design/step56-customers-growth-wireframes.json",
+        "docs/13-product-design/step56-wireframes/F/manifest.json",
+        "docs/13-product-design/step56-management-security-wireframes.json",
+        "docs/13-product-design/step56-wireframes/G/manifest.json",
+        "docs/13-product-design/step56-final-audit.json",
+        "docs/13-product-design/step56-final-audit/manifest.json",
+        "docs/13-product-design/step57-high-fidelity-contract.json"
       ]
     }
   ],
@@ -143,8 +177,27 @@
       "Generated TypeScript must be byte-for-byte reproducible from canonical OpenAPI via openapi-typescript.",
       "No generic bulk catalog mutation, pricing, inventory, Excel, customer, order or later Step68+ domain authority is invented."
     ],
-    "provenance_repair_policy": "If canonical CI/design checks detect recovered-source hash drift caused only by these explicitly authorized runtime/OpenAPI changes, 68-B may add only the exact generator-equivalent source-hash/manifest paths required to restore deterministic provenance. No screen, journey, operation, permission, visual, review-status, approval, runtime-release or business semantics may change.",
-    "graph_state": "RETIRED_AND_OUT_OF_SCOPE"
+    "provenance_repair_policy": "Canonical CI confirmed recovered-source drift for intentionally changed OpenAPI/Catalog sources. Only the 17 exact Step56/57 provenance paths listed here are authorized for generator-equivalent SHA/manifest refresh. No screen, frame, journey, operation, permission, visual, review-status, approval, runtime-release or business semantics may change.",
+    "graph_state": "RETIRED_AND_OUT_OF_SCOPE",
+    "provenance_repair_paths": [
+      "docs/13-product-design/step56-admin-ux-contract.json",
+      "docs/13-product-design/step56-foundation/A/manifest.json",
+      "docs/13-product-design/step56-admin-shell-wireframes.json",
+      "docs/13-product-design/step56-wireframes/B/manifest.json",
+      "docs/13-product-design/step56-catalog-media-wireframes.json",
+      "docs/13-product-design/step56-wireframes/C/manifest.json",
+      "docs/13-product-design/step56-pricing-inventory-wireframes.json",
+      "docs/13-product-design/step56-wireframes/D/manifest.json",
+      "docs/13-product-design/step56-commerce-operations-wireframes.json",
+      "docs/13-product-design/step56-wireframes/E/manifest.json",
+      "docs/13-product-design/step56-customers-growth-wireframes.json",
+      "docs/13-product-design/step56-wireframes/F/manifest.json",
+      "docs/13-product-design/step56-management-security-wireframes.json",
+      "docs/13-product-design/step56-wireframes/G/manifest.json",
+      "docs/13-product-design/step56-final-audit.json",
+      "docs/13-product-design/step56-final-audit/manifest.json",
+      "docs/13-product-design/step57-high-fidelity-contract.json"
+    ]
   },
   "acceptance_criteria": [
     {
