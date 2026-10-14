@@ -4579,7 +4579,6 @@ components:
           - product_video
           - product_model_3d
           - article_image
-          - document
       required:
       - filename
       - mime_type
@@ -7356,6 +7355,12 @@ components:
           type: [string, 'null']
         slug:
           $ref: '#/components/schemas/Slug'
+        short_description:
+          type: [string, 'null']
+          maxLength: 1000
+        description:
+          type: [string, 'null']
+          maxLength: 20000
         brand:
           anyOf:
           - $ref: '#/components/schemas/BrandRef'
