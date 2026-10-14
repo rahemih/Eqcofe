@@ -50,7 +50,8 @@
       "docs/13-product-design/step56-wireframes/G/manifest.json",
       "docs/13-product-design/step56-final-audit.json",
       "docs/13-product-design/step56-final-audit/manifest.json",
-      "docs/13-product-design/step57-high-fidelity-contract.json"
+      "docs/13-product-design/step57-high-fidelity-contract.json",
+      "docs/11-step-history/STEP-68-B-CATALOG-MEDIA-CONTRACT-READINESS.md"
     ],
     "forbidden": [
       ".github/**",
@@ -115,7 +116,8 @@
         "docs/13-product-design/step56-wireframes/G/manifest.json",
         "docs/13-product-design/step56-final-audit.json",
         "docs/13-product-design/step56-final-audit/manifest.json",
-        "docs/13-product-design/step57-high-fidelity-contract.json"
+        "docs/13-product-design/step57-high-fidelity-contract.json",
+        "docs/11-step-history/STEP-68-B-CATALOG-MEDIA-CONTRACT-READINESS.md"
       ]
     }
   ],
@@ -198,7 +200,13 @@
       "docs/13-product-design/step56-final-audit.json",
       "docs/13-product-design/step56-final-audit/manifest.json",
       "docs/13-product-design/step57-high-fidelity-contract.json"
-    ]
+    ],
+    "scope_history_repair": {
+      "transient_path": "docs/11-step-history/STEP-68-B-CATALOG-MEDIA-CONTRACT-READINESS.md",
+      "disposition": "CREATED_AS_STAGE_DOCUMENTATION_THEN_DELETED_AS_DUPLICATE",
+      "authority": "Explicitly included in the active HIGH-risk Task Contract so complete PR history is in-scope; final tree intentionally keeps only STEP-68-B-CATALOG-MEDIA-CONTRACT.md.",
+      "runtime_authority_change": false
+    }
   },
   "acceptance_criteria": [
     {
