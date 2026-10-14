@@ -59,7 +59,7 @@ try{
   assert(count(authenticated.body,"<h1")===1,"ADMIN_H1_COUNT_INVALID");
   assert(authenticated.body.includes("admin-header"),"ADMIN_HEADER_MISSING");
   assert(authenticated.body.includes('aria-label="ناوبری مدیریت"'),"ADMIN_NAV_LANDMARK_MISSING");
-  assert(authenticated.body.includes("67-F"),"ADMIN_STAGE_BADGE_MISSING");
+  assert(authenticated.body.includes("67-G"),"ADMIN_STAGE_BADGE_MISSING");
   assert(authenticated.body.includes("staff-67e"),"ADMIN_PROVEN_ACTOR_MISSING");
   assert(authenticated.body.includes("کالا و چرخه انتشار"),"PERMITTED_PRODUCT_DESTINATION_MISSING");
   assert(authenticated.body.includes("موجودی، گردش و لایه‌های بهای تمام‌شده"),"PERMITTED_INVENTORY_DESTINATION_MISSING");
@@ -88,7 +88,7 @@ try{
   assert(!deniedKnown.body.includes("برندها")&&!deniedUnknown.body.includes("AD-Z-99"),"DENIAL_LEAKED_DESTINATION_IDENTITY");
 
   console.log(JSON.stringify({
-    status:"PASS",stage:"67-F",ssr:true,locale:"fa-IR",direction:"rtl",
+    status:"PASS",stage:"67-G",ssr:true,locale:"fa-IR",direction:"rtl",
     publicLogin:true,unauthenticatedFailClosed:true,permissionAwareShell:true,
     scopeContextReadOnly:true,authorizedHandoff:true,neutralDeepLinkDenial:true,credentialSelfService:true,dashboardDeferred:true
   },null,2));

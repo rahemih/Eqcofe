@@ -1,5 +1,6 @@
 import { data, redirect, useLoaderData } from "react-router";
 import { AdminShell } from "../shell/AdminShell";
+import { AdminSurfaceState } from "../platform/state/AdminSurfaceState";
 import { appendAdminAuthSetCookies } from "../platform/auth/admin-cookie.server";
 import { readAdminAuthorizationContext } from "../platform/auth/context.server";
 import { getPermittedGroups } from "../navigation/destination-policy";
@@ -24,13 +25,13 @@ export default function AuthenticatedAdminLayout(){
   if(state.kind==="unavailable"){
     return (
       <main className="auth-state-page" id="admin-main">
-        <section className="auth-state-card" role="status" aria-labelledby="auth-unavailable-title">
-          <p className="auth-kicker">پنل مدیریت</p>
-          <h1 id="auth-unavailable-title">بررسی دسترسی مدیریت فعلاً ممکن نیست</h1>
-          <p>برای جلوگیری از نمایش مقصدهای مدیریتی با اطلاعات قدیمی، دسترسی تا تأیید دوباره نشست و مجوزها متوقف شده است.</p>
-          {state.requestId ? <p className="auth-request-id">شناسه پیگیری: <bdi>{state.requestId}</bdi></p> : null}
-          <a className="auth-secondary-link" href="/">تلاش دوباره</a>
-        </section>
+        <AdminSurfaceState
+          kind="error"
+          title="بررسی دسترسی مدیریت فعلاً ممکن نیست"
+          description="برای جلوگیری از نمایش مقصدهای مدیریتی با اطلاعات قدیمی، دسترسی تا تأیید دوباره نشست و مجوزها متوقف شده است."
+          requestId={state.requestId}
+          action={{href:"/",label:"تلاش دوباره"}}
+        />
       </main>
     );
   }
