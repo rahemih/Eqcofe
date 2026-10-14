@@ -76,7 +76,10 @@ assert.equal(task.human_gate_required,true);
 assert.equal(task.canonical.base_sha,"6ec157ea5799d7c06cde5599a5bb3b828d767a1e");
 assert.ok(task.scope.forbidden.includes("database/**"));
 assert.ok(task.scope.forbidden.includes("src/modules/identity/application/**"));
-assert.ok(task.scope.forbidden.includes("docs/13-product-design/**"));
+assert.ok(task.scope.forbidden.includes("docs/12-current-state/**"));
+const designWrites=task.scope.write.filter((item:string)=>item.startsWith("docs/13-product-design/"));
+assert.equal(designWrites.length,17);
+assert.ok(designWrites.every((item:string)=>!item.endsWith("/**")));
 
 const combined=[route,lifecycle,bridge,dialog,shell].join("\n");
 assert.doesNotMatch(combined,/\/admin\/dashboard/);
