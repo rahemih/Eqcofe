@@ -11430,6 +11430,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AdminVariantListResponse'
+
+      parameters:
+      - name: product_id
+        in: path
+        required: true
+        schema:
+          type: string
+      security:
+      - adminSession: []
     post:
       tags:
       - Admin Products
@@ -11469,6 +11478,22 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AdminVariantResponse'
+
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      security:
+      - adminSession: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchAdminVariantsIdRequest'
   /admin/variants/{id}/stop-sales:
     post:
       tags:
@@ -11539,6 +11564,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AdminBrandListResponse'
+
+      security:
+      - adminSession: []
     post:
       tags:
       - Admin Products
@@ -11572,6 +11600,22 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AdminBrandResponse'
+
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      security:
+      - adminSession: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchAdminBrandsIdRequest'
   /admin/brands/{id}/stop-sales:
     post:
       tags:
@@ -11642,6 +11686,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AdminCategoryListResponse'
+
+      security:
+      - adminSession: []
     post:
       tags:
       - Admin Products
@@ -11675,6 +11722,22 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AdminCategoryResponse'
+
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      security:
+      - adminSession: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchAdminCategoriesIdRequest'
   /admin/categories/{id}/stop-sales:
     post:
       tags:
@@ -11840,6 +11903,16 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AdminMediaAssetResponse'
+
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      security:
+      - adminSession: []
     delete:
       tags:
       - Admin Products
@@ -11851,6 +11924,16 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AdminDeleteMediaResponse'
+
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      security:
+      - adminSession: []
   /admin/pricing/base-prices:
     get:
       tags:
@@ -19800,6 +19883,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AdminAttributeResponse'
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCatalogAttributeRequest'
   /admin/attributes/{id}:
     patch:
       tags:
@@ -19998,6 +20088,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AdminAttributeValueListResponse'
+
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
     post:
       tags:
       - Admin Products
@@ -20010,6 +20108,20 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AdminAttributeValueResponse'
+
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCatalogAttributeValueRequest'
   /admin/products/{product_id}/media:
     get:
       tags:
@@ -20023,6 +20135,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AdminProductMediaListResponse'
+
+      parameters:
+      - name: product_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
     post:
       tags:
       - Admin Products
@@ -20035,6 +20155,20 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AdminProductMediaListResponse'
+
+      parameters:
+      - name: product_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AttachProductMediaRequest'
   /admin/products/{product_id}/media/{media_id}:
     delete:
       tags:
@@ -20048,6 +20182,20 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AdminDetachMediaResponse'
+
+      parameters:
+      - name: product_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: media_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
   /admin/products/{product_id}/media/reorder:
     post:
       tags:
@@ -20061,6 +20209,20 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AdminProductMediaListResponse'
+
+      parameters:
+      - name: product_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReorderProductMediaRequest'
   /admin/pricing/currency-rates/register:
     post:
       tags:
