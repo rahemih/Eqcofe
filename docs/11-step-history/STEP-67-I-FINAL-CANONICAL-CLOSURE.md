@@ -8,7 +8,7 @@ Canonical starting baseline: `64e1600631bc65677c8b1733ac6a4336c8f1e79c`
 
 Task Contract: `docs/14-multi-agent/tasks/EQCOFE-STEP67-I-CLOSURE-001.json`
 
-Closure transport: branch `eqcofe/step67-i-final-closure`; PR is assigned after opening.
+Closure transport: PR `#360` / branch `eqcofe/step67-i-final-closure`.
 
 Step 67 A–H are terminal and canonical. Stage 67-I is documentation/governance-only: it reconciles canonical state documents with live GitHub/CI evidence, freezes the final Admin Shell/RBAC/Dashboard Foundation result and prepares the Step-68 handoff. It adds no runtime, API/OpenAPI, database, dependency, workflow or Product Design semantic authority.
 

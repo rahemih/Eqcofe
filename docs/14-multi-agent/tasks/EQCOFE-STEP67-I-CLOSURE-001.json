@@ -204,7 +204,8 @@
         "terminal_comment": 6166983938
       }
     },
-    "closure_branch": "eqcofe/step67-i-final-closure"
+    "closure_branch": "eqcofe/step67-i-final-closure",
+    "closure_pr": 360
   },
   "process_improvement_links": [],
   "incident_links": []
