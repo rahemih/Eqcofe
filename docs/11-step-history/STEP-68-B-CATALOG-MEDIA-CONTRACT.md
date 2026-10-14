@@ -30,6 +30,7 @@ Human Gate: **REQUIRED — FINAL EXACT ARTIFACT**
 - upload MIME: `model/gltf-binary` (GLB);
 - database product-media check widened only for `model_3d`;
 - public Product Detail exposure remains unchanged;
+- upload purpose is authoritative: product_image/article_image -> image MIME, product_video -> MP4, product_model_3d -> GLB;
 - external-resource `.gltf` and 360 spin-frame semantics remain unauthorized.
 
 ## Contract readiness package
