@@ -3,6 +3,7 @@ import { DEFAULT_LOCALE, getAdminMessages } from "./i18n";
 import "./styles/tokens.css";
 import "./styles/shell.css";
 import "./styles/foundation.css";
+import "./styles/states.css";
 import "./styles/auth.css";
 
 export const meta = () => [{ title: getAdminMessages().documentTitle }];

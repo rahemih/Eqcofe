@@ -2,6 +2,7 @@ import { data, redirect, useLoaderData } from "react-router";
 import { appendAdminAuthSetCookies } from "../platform/auth/admin-cookie.server";
 import { readAdminAuthorizationContext } from "../platform/auth/context.server";
 import { findPermittedDestination, getAdminGroupLabel } from "../navigation/destination-policy";
+import { AdminSurfaceState } from "../platform/state/AdminSurfaceState";
 
 export async function loader({request,params}:{request:Request;params:{surfaceId?:string}}){
   const context=await readAdminAuthorizationContext(request);
@@ -29,22 +30,22 @@ export default function AdminDestinationRoute(){
   const state=useLoaderData<typeof loader>();
   if(state.kind==="unavailable"){
     return (
-      <section className="destination-state" role="status" aria-labelledby="destination-unavailable-title">
-        <p className="destination-kicker">مسیر مدیریت</p>
-        <h1 id="destination-unavailable-title">بررسی دسترسی فعلاً ممکن نیست</h1>
-        <p>تا زمانی که مجوزها و دامنهٔ نشست دوباره از سرور تأیید نشوند، این مقصد نمایش داده نمی‌شود.</p>
-        {state.requestId?<p className="auth-request-id">شناسه پیگیری: <bdi>{state.requestId}</bdi></p>:null}
-      </section>
+      <AdminSurfaceState
+        kind="error"
+        title="بررسی دسترسی فعلاً ممکن نیست"
+        description="تا زمانی که مجوزها و دامنهٔ نشست دوباره از سرور تأیید نشوند، این مقصد نمایش داده نمی‌شود."
+        requestId={state.requestId}
+        action={{href:"/",label:"بازخوانی وضعیت"}}
+      />
     );
   }
   if(state.kind==="denied"){
     return (
-      <section className="destination-state destination-denied" role="status" aria-labelledby="destination-denied-title">
-        <p className="destination-kicker">مسیر مدیریت</p>
-        <h1 id="destination-denied-title">این مقصد در زمینهٔ فعلی در دسترس نیست</h1>
-        <p>برای حفظ حریم اطلاعات مدیریتی، دربارهٔ وجود یا جزئیات مقصد اطلاعات بیشتری نمایش داده نمی‌شود.</p>
-        <a className="auth-secondary-link" href="/">بازگشت به نمای کلی</a>
-      </section>
+      <AdminSurfaceState
+        kind="denied"
+        description="برای حفظ حریم اطلاعات مدیریتی، دربارهٔ وجود یا جزئیات مقصد اطلاعات بیشتری نمایش داده نمی‌شود."
+        action={{href:"/",label:"بازگشت به نمای کلی"}}
+      />
     );
   }
 

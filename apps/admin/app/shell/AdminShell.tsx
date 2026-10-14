@@ -7,6 +7,8 @@ import { getAdminMessages } from "../i18n";
 type AdminActor=ApiComponents["schemas"]["AdminSessionActor"];
 type AssignedScope={type:"warehouse"|"physical_store";id:string;value:string};
 
+export type AdminShellOutletContext={groups:readonly PermittedAdminGroup[]};
+
 export function AdminShell({actor,scopes,groups}:{actor:AdminActor;scopes:readonly AssignedScope[];groups:readonly PermittedAdminGroup[]}) {
   const messages=getAdminMessages();
   const location=useLocation();
@@ -31,7 +33,7 @@ export function AdminShell({actor,scopes,groups}:{actor:AdminActor;scopes:readon
             <p className="admin-brand">{messages.brand}</p>
           </div>
           <div className="admin-session-summary">
-            <span className="admin-stage-badge" aria-label="مرحله جاری">67-F</span>
+            <span className="admin-stage-badge" aria-label="مرحله جاری">67-G</span>
             <span className="admin-actor" title="نشست تأییدشده">مدیر <bdi>{actor.id}</bdi></span>
             <Link className="admin-security-link" to="/security-keys" aria-current={location.pathname==="/security-keys"?"page":undefined}>کلیدهای امنیتی</Link>
             <Form method="post" action="/logout">
@@ -111,7 +113,7 @@ export function AdminShell({actor,scopes,groups}:{actor:AdminActor;scopes:readon
         </aside>
 
         <main id="admin-main" className="admin-main" tabIndex={-1}>
-          <Outlet />
+          <Outlet context={{groups}} />
         </main>
       </div>
     </>

@@ -1,0 +1,199 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP67-G-DASHBOARD-STATES-001",
+  "title": "Step 67-G Admin dashboard foundation and global operational states",
+  "description": "MEDIUM-risk Admin frontend stage. Implement the AD-B-03 overview as an unavailable-only dashboard foundation, expose only already-authorized static destinations, and establish reusable loading/empty/error/denied/conflict states. GET /admin/dashboard remains unresolved/not granted and must not be consumed. No Backend, OpenAPI, database, Product Design, later-domain workspace or business-metric authority is introduced.",
+  "risk": "MEDIUM",
+  "risk_floor": "MEDIUM",
+  "owner": "FRONTEND_ENGINEERING",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "f40bd2cfc60243adc2611a5070d94191732af7b6"
+  },
+  "scope": {
+    "read": [
+      "apps/admin/**",
+      "docs/11-step-history/**",
+      "docs/13-product-design/STEP-56-B-ADMIN-IA-SHELL.md",
+      "docs/13-product-design/step56-wireframes/B/AD-B-03/**",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "apps/admin/**",
+      "docs/11-step-history/STEP-67-G-DASHBOARD-STATES.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP67-G-DASHBOARD-STATES-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "contracts/**",
+      "src/**",
+      "database/**",
+      "apps/api/**",
+      "apps/worker/**",
+      "apps/scheduler/**",
+      "apps/storefront/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP67-G-DASHBOARD-STATES-001-01"
+  ],
+  "human_gate_required": false,
+  "authorized_human_approver": {
+    "role": "PROJECT_OWNER",
+    "github_login": "rahemih"
+  },
+  "token_budget": {
+    "expected_max": 36000,
+    "soft_alert": 58000,
+    "hard_cap": 96000
+  },
+  "max_repair_cycles": 3,
+  "task_risk_rules": [
+    {
+      "id": "STEP67_G_DASHBOARD_STATES_MEDIUM",
+      "risk": "MEDIUM",
+      "paths": [
+        "apps/admin/**",
+        "docs/11-step-history/STEP-67-G-DASHBOARD-STATES.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP67-G-DASHBOARD-STATES-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+      ]
+    }
+  ],
+  "pre_mutation_gates": {
+    "graph_health": "RETIRED_AND_OUT_OF_SCOPE",
+    "query_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "path_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "explain_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "human_gate": "NOT_REQUIRED_MEDIUM"
+  },
+  "dependencies": [
+    {
+      "item": "Step 67-F terminal canonical closure",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "f40bd2cfc60243adc2611a5070d94191732af7b6",
+      "evidence": "PR #357 merged from exact approved head b2502a4f62b09a83a7d87db2d8471faa887e35d1; exact-SHA Canonical CI #1825, Phase A #1324, Storefront Quality #835 and CodeQL #971 SUCCESS; terminal Lock release comment 6163008531.",
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "linear_issue": "HOS-71",
+    "design_surface": "AD-B-03",
+    "design_authority": [
+      "docs/13-product-design/STEP-56-B-ADMIN-IA-SHELL.md",
+      "docs/13-product-design/step56-wireframes/B/AD-B-03/README.md",
+      "docs/13-product-design/step56-wireframes/B/AD-B-03/traceability.json"
+    ],
+    "dashboard_authority": {
+      "operation": "GET /admin/dashboard",
+      "runtime": "UNRESOLVED_NOT_GRANTED",
+      "execution_authority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "frontend_consumption": false,
+      "allowed": "Unavailable panel plus already-authorized static destination links only"
+    },
+    "global_state_foundation": [
+      "loading",
+      "empty",
+      "error",
+      "denied",
+      "conflict"
+    ],
+    "recovery_rules": [
+      "Read failure allows an explicit safe refresh; no blind mutation retry.",
+      "Denied state reveals no entity existence, counts, PII or secret metadata.",
+      "Conflict stops mutation, requires authoritative reread and forbids silent overwrite.",
+      "Loading preserves structural context and does not fabricate success."
+    ],
+    "explicitly_deferred": [
+      "Any dashboard KPI, count, health, notification or business metric until runtime and permission authority is reconciled",
+      "Catalog/Media administration to Step 68",
+      "Pricing/Inventory administration to Step 69",
+      "Commerce/Operations administration to Step 70",
+      "Customers/Growth administration to Step 71",
+      "Finance/Reports administration to Step 72",
+      "Staff/RBAC/security/operations management workspaces to Step 73",
+      "Production-browser integrated acceptance to Step 67-H"
+    ]
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "AD-B-03 renders an explicit unavailable-only overview and never calls GET /admin/dashboard.",
+      "verification": "dashboard_unavailable_only_static_audit",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "No KPI, count, health, notification or business metric is fabricated; no dashboard success state is claimed.",
+      "verification": "dashboard_no_fabricated_authority",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Overview offers only destination links already filtered by the authenticated server-derived permission context.",
+      "verification": "authorized_destination_handoff",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Reusable loading, empty, error, denied and conflict state primitives exist with Persian RTL-safe copy and accessible status semantics.",
+      "verification": "global_state_foundation",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Authentication-context unavailability and deep-link denial reuse the global state primitive without leaking protected metadata.",
+      "verification": "global_state_route_integration",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Conflict guidance requires authoritative reread and forbids silent overwrite or blind mutation replay.",
+      "verification": "conflict_recovery_contract",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "Loading state preserves page structure and does not represent success or stale data as authoritative.",
+      "verification": "loading_structure_contract",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "No Backend/OpenAPI/database/Storefront/Product Design/current-state or Steps 68-73 domain mutation is introduced.",
+      "verification": "stage_boundary_static_audit",
+      "mandatory": true
+    },
+    {
+      "id": "AC-009",
+      "description": "Admin typecheck, lint, SSR build and deterministic 67-G verifier are integrated into the workspace verify chain.",
+      "verification": "admin_quality_gate",
+      "mandatory": true
+    },
+    {
+      "id": "AC-010",
+      "description": "MEDIUM-risk closure requires exact-head Canonical CI, Phase A, deterministic Review, exact-artifact ACTIVE Lock, protected merge, exact-SHA postmerge Canonical CI/Phase A/CodeQL and terminal Lock release; no Owner Human Gate is required.",
+      "verification": "canonical_transport_and_postmerge_evidence",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Step 67-G is MEDIUM risk; Project Owner Human Gate is not required."
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}
