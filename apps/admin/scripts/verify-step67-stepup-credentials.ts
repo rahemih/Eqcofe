@@ -19,7 +19,7 @@ const task=JSON.parse(read("../../docs/14-multi-agent/tasks/EQCOFE-STEP67-F-STEP
 
 assert.match(routes,/route\("security-keys"/);
 assert.match(shell,/to="\/security-keys"/);
-assert.match(shell,/>67-F</);
+assert.match(shell,/>67-G</);
 
 for(const endpoint of [
   "/admin/auth/fido/credentials",
@@ -87,7 +87,7 @@ assert.doesNotMatch(combined,/\/admin\/(?:products|orders|inventory|customers|fi
 
 console.log(JSON.stringify({
   status:"PASS",
-  stage:"67-F",
+  stage:"67-G",
   contractReconciled:true,
   stepUpServerBoundary:true,
   transientStepUpCapability:true,
