@@ -826,19 +826,19 @@
   "sources": [
     {
       "path": "contracts/http/openapi.yaml",
-      "sha256": "3815f50787e26ab83b88b5de9c58365015ae9dfa574ad4d1a4045174e7581e2e"
+      "sha256": "7574c5e7481558a87daad0569beaf112afa6683ce39263ceb0691f3005c0db70"
     },
     {
       "path": "docs/13-product-design/step56-admin-shell-wireframes.json",
-      "sha256": "1d40d357bbb599a3463a75ccac4b336f7e6744b8af25cb920f14663283c32299"
+      "sha256": "f96db9a5b5585302caf1237bdf7a5ac1afa15fc39cae0efc3d1ed4ce046ea62b"
     },
     {
       "path": "docs/13-product-design/step56-admin-ux-contract.json",
-      "sha256": "706d07e4e5bf5f776cfafe64cf81f48b154915cb1d0a48b4236960d402bd34d4"
+      "sha256": "45c62ff46c65ea24cf044633efdca5771c3b2dad3f2179f6596da860ec23ef45"
     },
     {
       "path": "docs/13-product-design/step56-commerce-operations-wireframes.json",
-      "sha256": "326747cbbd1baa9481c8c16008aa5d3f456e8185a242e93c32e7e1c8552a2d77"
+      "sha256": "4c50a33d29fc793ba1fa35b57d0701f3b97ecdbb9f11b2eacdb515feb2d573e6"
     },
     {
       "path": "src/modules/ai/ai.module.ts",
