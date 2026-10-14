@@ -14,7 +14,7 @@ const dialog=read("app/security/ActionReviewDialog.tsx");
 const shell=read("app/shell/AdminShell.tsx");
 const packageJson=JSON.parse(read("package.json")) as {scripts:Record<string,string>};
 const task=JSON.parse(read("../../docs/14-multi-agent/tasks/EQCOFE-STEP67-F-STEPUP-CREDENTIALS-001.json")) as {
-  risk:string;human_gate_required:boolean;canonical:{base_sha:string};scope:{forbidden:string[]}
+  risk:string;human_gate_required:boolean;canonical:{base_sha:string};scope:{forbidden:string[];write:string[]}
 };
 
 assert.match(routes,/route\("security-keys"/);
