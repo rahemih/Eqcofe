@@ -1,0 +1,192 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP67-H-ADMIN-ACCEPTANCE-001",
+  "title": "Step 67-H integrated Admin shell production and browser acceptance",
+  "description": "MEDIUM-risk QA stage for the complete Step 67 Admin shell. Run production-build SSR acceptance in canonical verification and, when the isolated browser QA environment is available, Chromium/Axe checks at 320px and 1200px covering RTL, accessibility, reflow, keyboard focus, permission-aware navigation, neutral denial, credential privacy, storage boundaries and unavailable-only dashboard authority. No Backend/OpenAPI/database/Product Design/current-state or domain-workspace authority is added.",
+  "risk": "MEDIUM",
+  "risk_floor": "MEDIUM",
+  "owner": "QA_ENGINEERING",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "9079f210c21a629df3f82dd377a6e2b46b651e33"
+  },
+  "scope": {
+    "read": [
+      "apps/admin/**",
+      "apps/storefront/package.json",
+      "docs/11-step-history/**",
+      "docs/13-product-design/step56-admin-shell-wireframes.json",
+      "docs/13-product-design/step56-wireframes/B/**",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "apps/admin/**",
+      "apps/storefront/package.json",
+      "docs/11-step-history/STEP-67-H-ADMIN-ACCEPTANCE.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP67-H-ADMIN-ACCEPTANCE-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "contracts/**",
+      "src/**",
+      "database/**",
+      "apps/api/**",
+      "apps/worker/**",
+      "apps/scheduler/**",
+      "apps/storefront/app/**",
+      "apps/storefront/scripts/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP67-H-ADMIN-ACCEPTANCE-001-01"
+  ],
+  "human_gate_required": false,
+  "authorized_human_approver": {
+    "role": "PROJECT_OWNER",
+    "github_login": "rahemih"
+  },
+  "token_budget": {
+    "expected_max": 32000,
+    "soft_alert": 52000,
+    "hard_cap": 92000
+  },
+  "max_repair_cycles": 5,
+  "task_risk_rules": [
+    {
+      "id": "STEP67_H_ADMIN_ACCEPTANCE_MEDIUM",
+      "risk": "MEDIUM",
+      "paths": [
+        "apps/admin/**",
+        "apps/storefront/package.json",
+        "docs/11-step-history/STEP-67-H-ADMIN-ACCEPTANCE.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP67-H-ADMIN-ACCEPTANCE-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+      ]
+    }
+  ],
+  "pre_mutation_gates": {
+    "graph_health": "RETIRED_AND_OUT_OF_SCOPE",
+    "query_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "path_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "explain_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "human_gate": "NOT_REQUIRED_MEDIUM"
+  },
+  "dependencies": [
+    {
+      "item": "67-G",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "9079f210c21a629df3f82dd377a6e2b46b651e33",
+      "evidence": "PR #358 merged from exact head de67dc024f045f207769c9aed3ef822f09c8789b; postmerge Canonical CI #1835, Phase A #1334 and CodeQL #980 SUCCESS; terminal Lock release comment 6163658732.",
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "linear_issue": "HOS-71",
+    "runtime_mutation": "NONE_PLANNED",
+    "browser_widths": [
+      320,
+      1200
+    ],
+    "acceptance_surfaces": [
+      "/login",
+      "/",
+      "/security-keys",
+      "/destinations/AD-C-01",
+      "/destinations/AD-Z-99"
+    ],
+    "qa_modes": [
+      "canonical production SSR",
+      "Storefront Quality isolated Chromium/Axe when EQCOFE_BROWSER_QA_ROOT is available"
+    ],
+    "security_privacy": [
+      "unauthenticated shell fail-closed",
+      "permission-filtered destination projection",
+      "neutral deep-link denial",
+      "no credential secret fields",
+      "no localStorage/sessionStorage auth persistence",
+      "no /admin/dashboard consumption",
+      "GET-only acceptance fixture"
+    ],
+    "dashboard_authority": "UNAVAILABLE_ONLY"
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Production Admin build serves Persian RTL login, authenticated shell, dashboard foundation, credential self-service and permitted/denied destination states against an isolated authoritative fixture.",
+      "verification": "step67_h_acceptance",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Unauthenticated Admin access redirects to login and public login never leaks the authenticated shell.",
+      "verification": "step67_h_acceptance",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Authenticated overview exposes only permission-filtered destinations, read-only assigned scope and an unavailable-only dashboard with no fabricated KPI/count/health/notification data and no /admin/dashboard runtime call.",
+      "verification": "step67_h_acceptance",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Credential self-service renders only safe summary fields; secret credential/authenticator material is absent from SSR/browser output.",
+      "verification": "step67_h_acceptance",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Known-forbidden and unknown deep links use the same 403 neutral denial without leaking destination identity.",
+      "verification": "step67_h_acceptance",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "When browser QA is available, Chromium/Axe passes RTL, one-H1, no-horizontal-overflow, 44px targets, keyboard-visible skip focus and WCAG automated checks at 320px and 1200px.",
+      "verification": "step67_h_browser_acceptance",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "Browser state persists no Admin authentication capability in localStorage/sessionStorage and acceptance fixture observes no backend mutation.",
+      "verification": "step67_h_security_browser_boundary",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "Storefront Quality test harness invokes the Admin browser acceptance without adding Playwright/Axe to production dependencies or modifying workflow files.",
+      "verification": "step67_h_quality_bridge",
+      "mandatory": true
+    },
+    {
+      "id": "AC-009",
+      "description": "No Backend/OpenAPI/database/Product Design/current-state or Steps 68-73 domain workspace mutation is introduced.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-010",
+      "description": "MEDIUM-risk closure requires exact-head Canonical CI, Phase A, Storefront Quality, CodeQL, deterministic Review, exact-artifact ACTIVE Lock, protected merge, exact-SHA postmerge verification and terminal Lock release; no Owner Human Gate required.",
+      "verification": "canonical_transport_and_postmerge_evidence",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Step 67-H is MEDIUM risk; Human Gate is not required."
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}

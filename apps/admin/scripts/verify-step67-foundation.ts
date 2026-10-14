@@ -14,7 +14,7 @@ assert.equal(adminTokens,sourceTokens,"ADMIN_DESIGN_TOKEN_BRIDGE_DRIFT");
 const rootPackage=JSON.parse(read("package.json")) as {scripts:Record<string,string>};
 const adminPackage=JSON.parse(read("apps/admin/package.json")) as {name:string;scripts:Record<string,string>};
 assert.equal(adminPackage.name,"@eqcofe/admin");
-assert.match(adminPackage.scripts.verify??"",/typecheck.*static-quality.*build.*foundation:verify.*transport:verify.*shell:verify.*auth-session:verify.*permission-shell:verify.*stepup-credentials:verify.*dashboard-states:verify/);
+assert.match(adminPackage.scripts.verify??"",/typecheck.*static-quality.*build.*foundation:verify.*transport:verify.*shell:verify.*auth-session:verify.*permission-shell:verify.*stepup-credentials:verify.*dashboard-states:verify.*acceptance:verify/);
 assert.match(rootPackage.scripts["frontend:verify"]??"",/@eqcofe\/admin verify/);
 assert.match(read("pnpm-lock.yaml"),/^  apps\/admin:/m);
 
@@ -56,7 +56,7 @@ assert.doesNotMatch(appText,/localStorage|sessionStorage/);
 
 console.log(JSON.stringify({
   status:"PASS",
-  stage:"67-G",
+  stage:"67-H",
   workspace:"@eqcofe/admin",
   rtl:true,
   tokenBridge:"EXACT",

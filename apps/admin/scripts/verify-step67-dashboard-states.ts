@@ -51,10 +51,10 @@ assert.match(authenticated,/AdminSurfaceState/);
 assert.match(authenticated,/kind="error"/);
 assert.match(destination,/kind="error"/);
 assert.match(destination,/kind="denied"/);
-assert.match(shell,/67-G/);
+assert.match(shell,/67-H/);
 assert.ok(shell.includes("<Outlet context={{groups}} />"),"DASHBOARD_OUTLET_CONTEXT_MISSING");
 assert.match(rootSource,/styles\/states\.css/);
-assert.match(packageJson.scripts.verify??"",/stepup-credentials:verify.*dashboard-states:verify/);
+assert.match(packageJson.scripts.verify??"",/stepup-credentials:verify.*dashboard-states:verify.*acceptance:verify/);
 
 assert.match(design,/GET \/admin\/dashboard is contract-only and unresolved/);
 assert.match(design,/Only unavailable concept evidence is permitted/);
