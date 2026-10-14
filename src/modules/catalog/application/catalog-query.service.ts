@@ -210,15 +210,19 @@ export class CatalogQueryService {
   async variants(productId: string) {
     const variants = await this.repo.listVariants(productId);
     return Promise.all(variants.map(async (variant: any) => ({
-      ...variant,
-      product_id: variant.productId,
-      name_suffix: variant.nameSuffix,
-      sales_enabled: variant.salesEnabled,
-      effective_sales_enabled: variant.effectiveSalesEnabled,
-      weight_grams: variant.weightGrams,
+      id: String(variant.id),
+      product_id: String(variant.productId),
+      sku: String(variant.sku),
+      barcode: variant.barcode ?? null,
+      name_suffix: variant.nameSuffix ?? null,
+      status: variant.status,
+      sales_enabled: Boolean(variant.salesEnabled),
+      effective_sales_enabled: Boolean(variant.effectiveSalesEnabled),
+      weight_grams: variant.weightGrams ?? null,
       attributes: await this.repo.variantAttributes(variant.id),
       price: await this.pricing.getVariantPrice(variant.id),
       availability: null,
+      version: Number(variant.version),
     })));
   }
 
