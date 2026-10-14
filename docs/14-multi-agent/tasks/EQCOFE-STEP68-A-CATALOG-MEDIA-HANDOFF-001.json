@@ -1,0 +1,258 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP68-A-CATALOG-MEDIA-HANDOFF-001",
+  "title": "Step 68-A Catalog & Media Administration canonical handoff and scope freeze",
+  "description": "MEDIUM-risk documentation/governance handoff. Verify terminal Step-67 closure, discover live Catalog/Media runtime and Step56-C authority, freeze the Step68 A-I execution plan, explicitly reconcile the Roadmap-required 3D/360 capability gap and prevent invented bulk/media authority. No runtime/backend/OpenAPI/database/dependency/workflow/Product Design semantic mutation in 68-A.",
+  "risk": "MEDIUM",
+  "risk_floor": "MEDIUM",
+  "owner": "PRODUCT_DESIGN",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "f89d89fb99cc3455253f272083d9414febe0cb70"
+  },
+  "scope": {
+    "read": [
+      "apps/admin/**",
+      "apps/storefront/**",
+      "src/modules/catalog/**",
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "database/**",
+      "docs/11-step-history/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/STEP-56-C-CATALOG-MEDIA.md",
+      "docs/13-product-design/step56-catalog-media-wireframes.json",
+      "docs/13-product-design/step56-wireframes/C/**",
+      "docs/13-product-design/step56-final-audit/**",
+      "docs/14-multi-agent/**",
+      ".github/workflows/**"
+    ],
+    "write": [
+      "docs/11-step-history/STEP-68-A-CATALOG-MEDIA-HANDOFF.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP68-A-CATALOG-MEDIA-HANDOFF-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "apps/**",
+      "src/**",
+      "database/**",
+      "contracts/**",
+      "test/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**",
+      "graphify-out/**",
+      "scripts/graphify/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP68-A-CATALOG-MEDIA-HANDOFF-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 26000,
+    "soft_alert": 42000,
+    "hard_cap": 82000
+  },
+  "max_repair_cycles": 3,
+  "task_risk_rules": [
+    {
+      "id": "STEP68_A_CATALOG_MEDIA_HANDOFF_MEDIUM",
+      "risk": "MEDIUM",
+      "paths": [
+        "docs/11-step-history/STEP-68-A-CATALOG-MEDIA-HANDOFF.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP68-A-CATALOG-MEDIA-HANDOFF-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+      ]
+    }
+  ],
+  "pre_mutation_gates": {
+    "graph_health": "RETIRED_AND_OUT_OF_SCOPE",
+    "query_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "path_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "explain_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "human_gate": "NOT_REQUIRED_MEDIUM"
+  },
+  "dependencies": [
+    {
+      "item": "Step 67 final canonical closure",
+      "required_state": "CLOSED_FINAL_CANONICAL_PASS",
+      "observed_state": "CLOSED_FINAL_CANONICAL_PASS",
+      "merge_sha": "f89d89fb99cc3455253f272083d9414febe0cb70",
+      "terminal_evidence_comment": 6167219589,
+      "postmerge_canonical_ci_run_id": 38555576930,
+      "postmerge_canonical_ci_attempt": 2,
+      "postmerge_phase_a_run_id": 38555577092,
+      "postmerge_codeql_run_id": 38555577538,
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "linear_issue": "HOS-72",
+    "live_guard_main_head": "f89d89fb99cc3455253f272083d9414febe0cb70",
+    "live_guard_open_step68_prs": 0,
+    "competing_writer": "NONE_OBSERVED; dependency PRs #289/#290 unrelated",
+    "graph_state": "RETIRED_AND_OUT_OF_SCOPE",
+    "design_source": "Step56-C",
+    "surfaces": [
+      "AD-C-01",
+      "AD-C-02",
+      "AD-C-03",
+      "AD-C-04",
+      "AD-C-05",
+      "AD-C-06",
+      "AD-C-07",
+      "AD-C-08"
+    ],
+    "source_traced_operation_count": 46,
+    "admin_product_pagination": {
+      "fields": [
+        "limit",
+        "cursor"
+      ],
+      "default_limit": 25,
+      "max_limit": 100,
+      "server_q_filter": false,
+      "server_status_filter": false
+    },
+    "media_current": {
+      "mime": [
+        "image/jpeg",
+        "image/png",
+        "image/webp",
+        "video/mp4"
+      ],
+      "max_bytes": 52428800,
+      "media_library_list": false,
+      "restore": false
+    },
+    "three_d_gap": {
+      "roadmap_required": true,
+      "canonical_runtime_support": false,
+      "canonical_model": "image/video/document only",
+      "status": "REQUIRED_CONTRACT_GAP",
+      "frontend_68a": "FORBIDDEN",
+      "reconcile_in": "68-B"
+    },
+    "bulk_boundary": {
+      "generic_catalog_bulk_runtime": false,
+      "source_proven": [
+        "POST /admin/sales-control/preview",
+        "POST /admin/sales-control/apply"
+      ],
+      "excel_bulk_owner": "Step69"
+    },
+    "frozen_stages": [
+      {
+        "stage": "68-A",
+        "risk": "MEDIUM",
+        "human_gate": false
+      },
+      {
+        "stage": "68-B",
+        "risk": "HIGH",
+        "human_gate": true
+      },
+      {
+        "stage": "68-C",
+        "risk": "MEDIUM",
+        "human_gate": false
+      },
+      {
+        "stage": "68-D",
+        "risk": "HIGH",
+        "human_gate": true
+      },
+      {
+        "stage": "68-E",
+        "risk": "MEDIUM",
+        "human_gate": false
+      },
+      {
+        "stage": "68-F",
+        "risk": "HIGH",
+        "human_gate": true
+      },
+      {
+        "stage": "68-G",
+        "risk": "HIGH",
+        "human_gate": true
+      },
+      {
+        "stage": "68-H",
+        "risk": "MEDIUM",
+        "human_gate": false
+      },
+      {
+        "stage": "68-I",
+        "risk": "MEDIUM",
+        "human_gate": false
+      }
+    ]
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Step 67 is proven terminal/canonical at main f89d89fb... with terminal Lock release 6167219589 before Step68 mutation.",
+      "verification": "provider-backed predecessor audit",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Step56-C inheritance is frozen to eight surfaces AD-C-01..08 and 46 source-traced operations with no pricing/inventory/Step69 authority leakage.",
+      "verification": "design/runtime source audit",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Product/variant/attribute/taxonomy/media/sales-control lifecycle and recovery boundaries are recorded from canonical source without invented history, pagination, concurrency, media-list or retry guarantees.",
+      "verification": "source-bound invariant audit",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Roadmap-required 3D/360 is explicitly recorded as REQUIRED_CONTRACT_GAP because canonical runtime/model exposes no 3D/360 type or metadata; 68-A frontend invention is forbidden and 68-B must reconcile the capability.",
+      "verification": "3d capability boundary audit",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Generic bulk catalog mutation is not invented; current source-proven Step68 bulk authority is sales-control preview/apply and Excel bulk remains Step69.",
+      "verification": "bulk authority audit",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "A-I execution plan, risk classification and Human Gate boundaries are frozen before implementation.",
+      "verification": "deterministic document review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "68-A diff remains documentation/governance only and Graph/Graphify stays retired.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "Exact-head Canonical CI/Phase A, deterministic Review, exact-artifact Lock, protected merge, exact-SHA postmerge verification and terminal Lock release complete before 68-B mutation.",
+      "verification": "canonical_transport_and_postmerge_evidence",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Step 68-A is MEDIUM-risk documentation/governance handoff. Human Gate is not required. Step 68-B remains blocked until terminal 68-A closure."
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}
