@@ -8,6 +8,13 @@ import { CatalogRepository } from '../infrastructure/catalog.repository';
 import { MEDIA_STORAGE_PORT, MediaStoragePort } from './ports/media-storage.port';
 
 const allowed = new Set(['image/jpeg', 'image/png', 'image/webp', 'video/mp4', 'model/gltf-binary']);
+const imageMime = new Set(['image/jpeg', 'image/png', 'image/webp']);
+const purposeMime = new Map<string, ReadonlySet<string>>([
+  ['product_image', imageMime],
+  ['article_image', imageMime],
+  ['product_video', new Set(['video/mp4'])],
+  ['product_model_3d', new Set(['model/gltf-binary'])],
+]);
 
 @Injectable()
 export class MediaService {
@@ -24,8 +31,16 @@ export class MediaService {
     const filename = String(i.filename ?? '').trim();
     const mime = String(i.mime_type ?? '');
     const size = Number(i.size_bytes);
+    const purpose = String(i.purpose ?? '');
     if (!filename || !allowed.has(mime) || !Number.isInteger(size) || size <= 0 || size > 50 * 1024 * 1024) {
       throw new DomainError('INVALID_MEDIA_UPLOAD', 'فایل رسانه معتبر نیست.');
+    }
+    const acceptedForPurpose = purposeMime.get(purpose);
+    if (!acceptedForPurpose || !acceptedForPurpose.has(mime)) {
+      throw new DomainError('INVALID_MEDIA_PURPOSE', 'کاربرد رسانه با نوع فایل سازگار نیست.');
+    }
+    if (purpose === 'product_model_3d' && !filename.toLowerCase().endsWith('.glb')) {
+      throw new DomainError('INVALID_MEDIA_UPLOAD', 'فایل سه‌بعدی باید با پسوند GLB باشد.');
     }
     const checksum = String(i.checksum_sha256 ?? '').toLowerCase();
     if (!/^[a-f0-9]{64}$/.test(checksum)) throw new DomainError('INVALID_CHECKSUM', 'SHA-256 معتبر نیست.');
@@ -43,7 +58,7 @@ export class MediaService {
         action: 'catalog.media.upload-request',
         resourceType: 'media',
         resourceId: id,
-        afterData: { storage_key: key, mime_type: mime, size_bytes: size, checksum_sha256: checksum },
+        afterData: { storage_key: key, mime_type: mime, size_bytes: size, checksum_sha256: checksum, purpose },
         requestId: c.requestId,
       });
     });
