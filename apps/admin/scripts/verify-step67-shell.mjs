@@ -88,7 +88,7 @@ try{
   assert(!deniedKnown.body.includes("برندها")&&!deniedUnknown.body.includes("AD-Z-99"),"DENIAL_LEAKED_DESTINATION_IDENTITY");
 
   console.log(JSON.stringify({
-    status:"PASS",stage:"67-F",ssr:true,locale:"fa-IR",direction:"rtl",
+    status:"PASS",stage:"67-G",ssr:true,locale:"fa-IR",direction:"rtl",
     publicLogin:true,unauthenticatedFailClosed:true,permissionAwareShell:true,
     scopeContextReadOnly:true,authorizedHandoff:true,neutralDeepLinkDenial:true,credentialSelfService:true,dashboardDeferred:true
   },null,2));

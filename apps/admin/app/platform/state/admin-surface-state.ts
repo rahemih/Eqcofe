@@ -33,7 +33,7 @@ export const ADMIN_SURFACE_STATE_COPY: Record<AdminSurfaceStateKind, AdminSurfac
   },
   denied: {
     kicker: "وضعیت صفحه",
-    title: "این مسیر در زمینهٔ فعلی در دسترس نیست",
+    title: "این مقصد در زمینهٔ فعلی در دسترس نیست",
     description: "برای حفظ حریم اطلاعات مدیریتی، جزئیات بیشتری دربارهٔ وجود یا محتوای مقصد نمایش داده نمی‌شود.",
   },
   conflict: {
