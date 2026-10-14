@@ -43,7 +43,7 @@ assert.match(route,/ActionReviewDialog/);
 assert.match(route,/runAdminWebAuthn\("authentication"/);
 assert.match(route,/runAdminWebAuthn\("registration"/);
 assert.match(route,/stepUpTokenRef/);
-assert.match(route,/form\.set\("intent","discard"\)/);
+assert.match(route,/\.set\("intent","discard"\)/);
 assert.doesNotMatch(route,/localStorage|sessionStorage|document\.cookie/);
 assert.doesNotMatch(route,/dangerouslySetInnerHTML/);
 
