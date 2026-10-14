@@ -719,11 +719,11 @@
   "sources": [
     {
       "path": "docs/13-product-design/step56-admin-shell-wireframes.json",
-      "sha256": "f96db9a5b5585302caf1237bdf7a5ac1afa15fc39cae0efc3d1ed4ce046ea62b"
+      "sha256": "0c2c5fd4e7cda7c501242ec65d86bf51fd5ff70ce6547bd5bbc96afde08f08e5"
     },
     {
       "path": "docs/13-product-design/step56-admin-ux-contract.json",
-      "sha256": "45c62ff46c65ea24cf044633efdca5771c3b2dad3f2179f6596da860ec23ef45"
+      "sha256": "e3876181f9adbe95b7d281049b9ca8f41e77833f7027375f6d65b3cc533e904f"
     },
     {
       "path": "src/modules/catalog/application/catalog-import-apply.service.ts",
@@ -731,15 +731,15 @@
     },
     {
       "path": "src/modules/catalog/application/catalog-query.service.ts",
-      "sha256": "6373023a1f999280936794c1dd91eda364d2782acde0b2d687ce6295a9641532"
+      "sha256": "ee1f7d52f174aa3581ca42f73a3befad7f746db5ed0dda3559b5b1cb6d6cf8c3"
     },
     {
       "path": "src/modules/catalog/application/catalog-structure.service.ts",
-      "sha256": "042525a4b11ec0fdb2a4b3a799c0e886132ea5ae0acb622e0b3682ab91ece0a7"
+      "sha256": "08bd8aac210607bccb65c29de24f0e8c8cc1b958ba49cf76daffe2513d2e6311"
     },
     {
       "path": "src/modules/catalog/application/media.service.ts",
-      "sha256": "136d638381d69d0dcd17ec567977a77808382da6b454cd9c4f97dd1e783b1d74"
+      "sha256": "3f43a7eeeb89f6523be82fa3626786779a6d33c1a2f06ee1a8714a5e18ee3e7e"
     },
     {
       "path": "src/modules/catalog/application/ports/catalog-customer.port.ts",

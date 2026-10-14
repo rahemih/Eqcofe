@@ -826,19 +826,19 @@
   "sources": [
     {
       "path": "contracts/http/openapi.yaml",
-      "sha256": "7574c5e7481558a87daad0569beaf112afa6683ce39263ceb0691f3005c0db70"
+      "sha256": "96527f58ba3d236d62dc395381ca4e57310c98262bfae77f91c9d690ca16395d"
     },
     {
       "path": "docs/13-product-design/step56-admin-shell-wireframes.json",
-      "sha256": "f96db9a5b5585302caf1237bdf7a5ac1afa15fc39cae0efc3d1ed4ce046ea62b"
+      "sha256": "0c2c5fd4e7cda7c501242ec65d86bf51fd5ff70ce6547bd5bbc96afde08f08e5"
     },
     {
       "path": "docs/13-product-design/step56-admin-ux-contract.json",
-      "sha256": "45c62ff46c65ea24cf044633efdca5771c3b2dad3f2179f6596da860ec23ef45"
+      "sha256": "e3876181f9adbe95b7d281049b9ca8f41e77833f7027375f6d65b3cc533e904f"
     },
     {
       "path": "docs/13-product-design/step56-commerce-operations-wireframes.json",
-      "sha256": "4c50a33d29fc793ba1fa35b57d0701f3b97ecdbb9f11b2eacdb515feb2d573e6"
+      "sha256": "959b2a858691e9aad36513aad8b98802b06b19f40aa97733ba40f95da4cadf3d"
     },
     {
       "path": "src/modules/ai/ai.module.ts",
@@ -902,15 +902,15 @@
     },
     {
       "path": "src/modules/catalog/application/catalog-query.service.ts",
-      "sha256": "3513d9bd5614897031b24f946c8b9cc8e46f4769945ce6649268b154235a3b27"
+      "sha256": "ee1f7d52f174aa3581ca42f73a3befad7f746db5ed0dda3559b5b1cb6d6cf8c3"
     },
     {
       "path": "src/modules/catalog/application/catalog-structure.service.ts",
-      "sha256": "0c4f369d34a7967c989f4493f3e922e3d622e674b55af21da09c168599becf8f"
+      "sha256": "08bd8aac210607bccb65c29de24f0e8c8cc1b958ba49cf76daffe2513d2e6311"
     },
     {
       "path": "src/modules/catalog/application/media.service.ts",
-      "sha256": "195020d833bd9d5f90e924c13ac9cd06e5b908d5aac77c276796a405cfe6bd16"
+      "sha256": "3f43a7eeeb89f6523be82fa3626786779a6d33c1a2f06ee1a8714a5e18ee3e7e"
     },
     {
       "path": "src/modules/catalog/application/ports/catalog-customer.port.ts",
@@ -942,11 +942,11 @@
     },
     {
       "path": "src/modules/catalog/application/taxonomy-command.service.ts",
-      "sha256": "1ab0943eeb7f4c8dad1efebc8dcc3ae0c65ed70d5e40be92b820f9e25b06f0ec"
+      "sha256": "5bc135b77e3c35e8cb3e800db025efc1ac9b4bdb133a1f1723a5040943e91816"
     },
     {
       "path": "src/modules/catalog/application/variant-command.service.ts",
-      "sha256": "a08d48c453d8add6e46735b7fef1e81874751842199673b0c791c456321a6168"
+      "sha256": "168878a3b067a893cb808ba3685a697a6b614d2123fd1477918c896a95cbe489"
     },
     {
       "path": "src/modules/catalog/catalog.module.ts",
@@ -974,7 +974,7 @@
     },
     {
       "path": "src/modules/catalog/infrastructure/catalog.repository.ts",
-      "sha256": "77c40f3b119e59924ab0ebe48b4af51b6d26320348e59a4863e747a48043527e"
+      "sha256": "eb55528c84668ae988ee2b0c93179c9958b96ce1f283c7227fc366fef5ee403d"
     },
     {
       "path": "src/modules/catalog/infrastructure/configured-media-storage.adapter.ts",
@@ -986,7 +986,7 @@
     },
     {
       "path": "src/modules/catalog/presentation/catalog.controller.ts",
-      "sha256": "73508b22c708fb76070e742d61673969fa17c9b0927b8acec6cfeb6b5df00b87"
+      "sha256": "0fd3d688c404f11c9b08b75cea7acef7bf3122a60e8262c9910a345e95812eea"
     },
     {
       "path": "src/modules/content/application/article-admin-query.service.ts",
