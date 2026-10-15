@@ -12,7 +12,7 @@ export async function loader({
 }) {
   const productId = params.productId?.trim() ?? "";
   if (!productId || productId.length > 128 || /[\u0000-\u001f\u007f]/.test(productId)) {
-    return data({ kind: "not_found" as const }, { status: 404 });
+    return data({ kind: "not_found" as const, requestId: null }, { status: 404 });
   }
 
   const result = await readAdminCatalogProduct(request, productId);
@@ -70,7 +70,7 @@ export default function AdminCatalogProductDetailRoute() {
         kind="empty"
         title="کالای درخواستی پیدا نشد"
         description="شناسهٔ درخواستی نتیجهٔ canonical ندارد. برای انتخاب کالا از فهرست مدیریت استفاده کنید."
-        requestId={"requestId" in state ? state.requestId : null}
+        requestId={state.requestId}
         action={{ href: "/catalog/products", label: "بازگشت به فهرست کالا" }}
       />
     );
