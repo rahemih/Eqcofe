@@ -1,5 +1,5 @@
 import { data, Link, useLoaderData, useNavigation } from "react-router";
-import { readAdminCatalogProduct } from "../catalog/catalog-read.server.js";
+import { hasCatalogControlCharacters, readAdminCatalogProduct } from "../catalog/catalog-read.server.js";
 import { appendAdminAuthSetCookies } from "../platform/auth/admin-cookie.server.js";
 import { AdminSurfaceState } from "../platform/state/AdminSurfaceState.js";
 
@@ -11,7 +11,7 @@ export async function loader({
   params: { productId?: string };
 }) {
   const productId = params.productId?.trim() ?? "";
-  if (!productId || productId.length > 128 || /[\u0000-\u001f\u007f]/.test(productId)) {
+  if (!productId || productId.length > 128 || hasCatalogControlCharacters(productId)) {
     return data({ kind: "not_found" as const, requestId: null }, { status: 404 });
   }
 
