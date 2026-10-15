@@ -47,6 +47,10 @@ export default function AdminCatalogProductsRoute() {
   const state = useLoaderData<typeof loader>();
   const navigation = useNavigation();
   const [filter, setFilter] = useState("");
+  const filteredProducts = useMemo(
+    () => state.kind === "ready" ? filterLoadedCatalogProducts(state.items, filter) : [],
+    [state, filter],
+  );
 
   if (state.kind === "invalid_cursor") {
     return (
@@ -81,11 +85,6 @@ export default function AdminCatalogProductsRoute() {
       />
     );
   }
-
-  const filteredProducts = useMemo(
-    () => filterLoadedCatalogProducts(state.items, filter),
-    [state.items, filter],
-  );
 
   return (
     <section className="catalog-read-page" aria-labelledby="catalog-products-title">
