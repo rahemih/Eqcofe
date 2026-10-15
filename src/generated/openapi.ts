@@ -11793,7 +11793,6 @@ export interface operations {
                     "application/json": components["schemas"]["AdminProductListResponse"];
                 };
             };
-            };
             403: components["responses"]["Forbidden"];
         };
     };
@@ -11819,7 +11818,6 @@ export interface operations {
                     "application/json": components["schemas"]["AdminProductResponse"];
                 };
             };
-            };
             403: components["responses"]["Forbidden"];
         };
     };
@@ -11842,7 +11840,6 @@ export interface operations {
                 content: {
                     "application/json": components["schemas"]["AdminProductResponse"];
                 };
-            };
             };
             404: components["responses"]["NotFound"];
         };
@@ -11873,7 +11870,6 @@ export interface operations {
                     "application/json": components["schemas"]["AdminProductResponse"];
                 };
             };
-            };
             409: components["responses"]["Conflict"];
         };
     };
@@ -11896,7 +11892,6 @@ export interface operations {
                 content: {
                     "application/json": components["schemas"]["AdminProductResponse"];
                 };
-            };
             };
             409: components["responses"]["Conflict"];
             422: components["responses"]["Unprocessable"];
@@ -13903,7 +13898,6 @@ export interface operations {
                     "application/json": components["schemas"]["AdminProductResponse"];
                 };
             };
-            };
             /** @description عملیات پذیرفته شد */
             202: {
                 headers: {
@@ -13936,7 +13930,6 @@ export interface operations {
                 content: {
                     "application/json": components["schemas"]["AdminProductResponse"];
                 };
-            };
             };
             /** @description عملیات پذیرفته شد */
             202: {
@@ -13971,7 +13964,6 @@ export interface operations {
                     "application/json": components["schemas"]["AdminProductResponse"];
                 };
             };
-            };
             /** @description عملیات پذیرفته شد */
             202: {
                 headers: {
@@ -14005,7 +13997,6 @@ export interface operations {
                     "application/json": components["schemas"]["AdminProductResponse"];
                 };
             };
-            };
             /** @description عملیات پذیرفته شد */
             202: {
                 headers: {
@@ -14035,7 +14026,6 @@ export interface operations {
                     "application/json": components["schemas"]["AdminVariantListResponse"];
                 };
             };
-            };
     };
     };
     postAdminProductsProductIdVariants: {
@@ -14061,7 +14051,6 @@ export interface operations {
                 content: {
                     "application/json": components["schemas"]["AdminVariantResponse"];
                 };
-            };
             };
             /** @description عملیات پذیرفته شد */
             202: {
@@ -14096,7 +14085,6 @@ export interface operations {
                     "application/json": components["schemas"]["AdminVariantResponse"];
                 };
             };
-            };
     };
     };
     postAdminVariantsIdStopSales: {
@@ -14122,7 +14110,6 @@ export interface operations {
                 content: {
                     "application/json": components["schemas"]["AdminVariantResponse"];
                 };
-            };
             };
             /** @description عملیات پذیرفته شد */
             202: {
@@ -14157,7 +14144,6 @@ export interface operations {
                     "application/json": components["schemas"]["AdminVariantResponse"];
                 };
             };
-            };
             /** @description عملیات پذیرفته شد */
             202: {
                 headers: {
@@ -14185,7 +14171,6 @@ export interface operations {
                     "application/json": components["schemas"]["AdminBrandListResponse"];
                 };
             };
-            };
     };
     };
     postAdminBrands: {
@@ -14209,7 +14194,6 @@ export interface operations {
                 content: {
                     "application/json": components["schemas"]["AdminBrandResponse"];
                 };
-            };
             };
             /** @description عملیات پذیرفته شد */
             202: {
@@ -14244,7 +14228,6 @@ export interface operations {
                     "application/json": components["schemas"]["AdminBrandResponse"];
                 };
             };
-            };
     };
     };
     postAdminBrandsIdStopSales: {
@@ -14270,7 +14253,6 @@ export interface operations {
                 content: {
                     "application/json": components["schemas"]["AdminBrandResponse"];
                 };
-            };
             };
             /** @description عملیات پذیرفته شد */
             202: {
@@ -14305,7 +14287,6 @@ export interface operations {
                     "application/json": components["schemas"]["AdminBrandResponse"];
                 };
             };
-            };
             /** @description عملیات پذیرفته شد */
             202: {
                 headers: {
@@ -14333,7 +14314,6 @@ export interface operations {
                     "application/json": components["schemas"]["AdminCategoryListResponse"];
                 };
             };
-            };
     };
     };
     postAdminCategories: {
@@ -14357,7 +14337,6 @@ export interface operations {
                 content: {
                     "application/json": components["schemas"]["AdminCategoryResponse"];
                 };
-            };
             };
             /** @description عملیات پذیرفته شد */
             202: {
@@ -14392,7 +14371,6 @@ export interface operations {
                     "application/json": components["schemas"]["AdminCategoryResponse"];
                 };
             };
-            };
     };
     };
     postAdminCategoriesIdStopSales: {
@@ -14418,7 +14396,6 @@ export interface operations {
                 content: {
                     "application/json": components["schemas"]["AdminCategoryResponse"];
                 };
-            };
             };
             /** @description عملیات پذیرفته شد */
             202: {
@@ -14453,7 +14430,6 @@ export interface operations {
                     "application/json": components["schemas"]["AdminCategoryResponse"];
                 };
             };
-            };
             /** @description عملیات پذیرفته شد */
             202: {
                 headers: {
@@ -14484,7 +14460,6 @@ export interface operations {
                 content: {
                     "application/json": components["schemas"]["AdminSalesControlPreviewResponse"];
                 };
-            };
             };
             /** @description عملیات پذیرفته شد */
             202: {
@@ -14517,7 +14492,6 @@ export interface operations {
                     "application/json": components["schemas"]["AdminSalesControlApplyResponse"];
                 };
             };
-            };
             /** @description عملیات پذیرفته شد */
             202: {
                 headers: {
@@ -14548,7 +14522,6 @@ export interface operations {
                 content: {
                     "application/json": components["schemas"]["AdminMediaUploadRequestResponse"];
                 };
-            };
             };
             /** @description عملیات پذیرفته شد */
             202: {
@@ -14583,7 +14556,6 @@ export interface operations {
                     "application/json": components["schemas"]["AdminMediaAssetResponse"];
                 };
             };
-            };
             /** @description عملیات پذیرفته شد */
             202: {
                 headers: {
@@ -14613,7 +14585,6 @@ export interface operations {
                     "application/json": components["schemas"]["AdminMediaAssetResponse"];
                 };
             };
-            };
     };
     };
     deleteAdminMediaId: {
@@ -14635,7 +14606,6 @@ export interface operations {
                 content: {
                     "application/json": components["schemas"]["AdminDeleteMediaResponse"];
                 };
-            };
             };
     };
     };
@@ -24518,7 +24488,6 @@ export interface operations {
                     "application/json": components["schemas"]["AdminAttributeListResponse"];
                 };
             };
-            };
         };
     };
     postAdminAttributes: {
@@ -24542,7 +24511,6 @@ export interface operations {
                 content: {
                     "application/json": components["schemas"]["AdminAttributeResponse"];
                 };
-            };
             };
     };
     };
@@ -24572,7 +24540,6 @@ export interface operations {
                     "application/json": components["schemas"]["AdminAttributeResponse"];
                 };
             };
-            };
         };
     };
     patchAdminAttributeValueId: {
@@ -24601,7 +24568,6 @@ export interface operations {
                     "application/json": components["schemas"]["AdminAttributeValueResponse"];
                 };
             };
-            };
         };
     };
     getAdminProductAttributes: {
@@ -24623,7 +24589,6 @@ export interface operations {
                 content: {
                     "application/json": components["schemas"]["AdminAttributeAssignmentListResponse"];
                 };
-            };
             };
         };
     };
@@ -24651,7 +24616,6 @@ export interface operations {
                     "application/json": components["schemas"]["AdminAttributeAssignmentListResponse"];
                 };
             };
-            };
         };
     };
     getAdminVariantAttributes: {
@@ -24673,7 +24637,6 @@ export interface operations {
                 content: {
                     "application/json": components["schemas"]["AdminAttributeAssignmentListResponse"];
                 };
-            };
             };
         };
     };
@@ -24701,7 +24664,6 @@ export interface operations {
                     "application/json": components["schemas"]["AdminAttributeAssignmentListResponse"];
                 };
             };
-            };
         };
     };
     postAdminMediaIdApprove: {
@@ -24723,7 +24685,6 @@ export interface operations {
                 content: {
                     "application/json": components["schemas"]["AdminMediaAssetResponse"];
                 };
-            };
             };
         };
     };
@@ -24747,7 +24708,6 @@ export interface operations {
                     "application/json": components["schemas"]["AdminMediaAssetResponse"];
                 };
             };
-            };
         };
     };
     getAdminAttributeValues: {
@@ -24769,7 +24729,6 @@ export interface operations {
                 content: {
                     "application/json": components["schemas"]["AdminAttributeValueListResponse"];
                 };
-            };
             };
     };
     };
@@ -24797,7 +24756,6 @@ export interface operations {
                     "application/json": components["schemas"]["AdminAttributeValueResponse"];
                 };
             };
-            };
     };
     };
     getAdminProductMedia: {
@@ -24819,7 +24777,6 @@ export interface operations {
                 content: {
                     "application/json": components["schemas"]["AdminProductMediaListResponse"];
                 };
-            };
             };
     };
     };
@@ -24847,7 +24804,6 @@ export interface operations {
                     "application/json": components["schemas"]["AdminProductMediaListResponse"];
                 };
             };
-            };
     };
     };
     deleteAdminProductMedia: {
@@ -24870,7 +24826,6 @@ export interface operations {
                 content: {
                     "application/json": components["schemas"]["AdminDetachMediaResponse"];
                 };
-            };
             };
     };
     };
@@ -24897,7 +24852,6 @@ export interface operations {
                 content: {
                     "application/json": components["schemas"]["AdminProductMediaListResponse"];
                 };
-            };
             };
     };
     };
