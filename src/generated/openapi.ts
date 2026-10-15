@@ -8719,8 +8719,6 @@ export interface components {
             name_fa: string;
             name_en?: string | null;
             slug: components["schemas"]["Slug"];
-            short_description?: string | null;
-            description?: string | null;
             brand?: components["schemas"]["BrandRef"] | null;
             primary_category: components["schemas"]["CategoryRef"];
             additional_categories?: components["schemas"]["CategoryRef"][];
@@ -10711,6 +10709,8 @@ export interface components {
             name_fa: string;
             name_en?: string | null;
             slug: components["schemas"]["Slug"];
+            short_description?: string | null;
+            description?: string | null;
             brand?: components["schemas"]["BrandRef"] | null;
             primary_category: components["schemas"]["CategoryRef"];
             additional_categories: components["schemas"]["CategoryRef"][];
