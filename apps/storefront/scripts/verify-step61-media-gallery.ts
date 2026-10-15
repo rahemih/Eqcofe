@@ -35,7 +35,12 @@ assert.match(mediaServerSource, /decodeURIComponent/);
 assert.match(configSource, /EQCOFE_MEDIA_PUBLIC_BASE_URL/);
 assert.equal(/process\.env/.test(gallerySource), false);
 assert.equal(/storage_key[^\n]*src=/.test(gallerySource), false);
-assert.equal(/model_3d|spin_360|media_type:\s*"3d"/i.test(openApi), false);
+const publicMediaStart = openApi.indexOf("PublicProductMediaView: {");
+const publicMediaEnd = openApi.indexOf("PublicVariantResponse: {", publicMediaStart);
+assert.ok(publicMediaStart >= 0 && publicMediaEnd > publicMediaStart, "PUBLIC_PRODUCT_MEDIA_SCHEMA_MISSING");
+const publicMediaContract = openApi.slice(publicMediaStart, publicMediaEnd);
+assert.match(publicMediaContract, /media_type:\s*"image"\s*\|\s*"video"/);
+assert.equal(/model_3d|spin_360|media_type:\s*"3d"/i.test(publicMediaContract), false);
 assert.equal(PRODUCT_MEDIA_CAPABILITIES.model3d, false);
 assert.equal(PRODUCT_MEDIA_CAPABILITIES.spin360, false);
 

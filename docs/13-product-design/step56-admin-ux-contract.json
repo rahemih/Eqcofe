@@ -14920,7 +14920,7 @@
     },
     {
       "path": "contracts/http/openapi.yaml",
-      "sha256": "3815f50787e26ab83b88b5de9c58365015ae9dfa574ad4d1a4045174e7581e2e"
+      "sha256": "8ed97421978b0d4d344444e98748223b99bc5044623893043f5f9439ab84713d"
     },
     {
       "path": "contracts/http/step49-pos-a9.yaml",
@@ -15227,7 +15227,7 @@
     },
     {
       "path": "src/modules/catalog/presentation/catalog.controller.ts",
-      "sha256": "73508b22c708fb76070e742d61673969fa17c9b0927b8acec6cfeb6b5df00b87"
+      "sha256": "0fd3d688c404f11c9b08b75cea7acef7bf3122a60e8262c9910a345e95812eea"
     },
     {
       "path": "src/modules/configuration/configuration.module.ts",

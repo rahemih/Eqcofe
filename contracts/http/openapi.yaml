@@ -4554,12 +4554,17 @@ components:
           maxLength: 255
         mime_type:
           type: string
-          minLength: 1
-          maxLength: 120
+          enum:
+          - image/jpeg
+          - image/png
+          - image/webp
+          - video/mp4
+          - model/gltf-binary
         size_bytes:
           type: integer
           format: int64
           minimum: 1
+          maximum: 52428800
         checksum_sha256:
           type: string
           minLength: 64
@@ -4571,8 +4576,9 @@ components:
           maxLength: 50
           enum:
           - product_image
+          - product_video
+          - product_model_3d
           - article_image
-          - document
       required:
       - filename
       - mime_type
@@ -7234,6 +7240,7 @@ components:
           - image
           - video
           - document
+          - model_3d
           default: image
         sort_order:
           type: integer
@@ -7275,6 +7282,323 @@ components:
           maxItems: 100
           items:
             $ref: '#/components/schemas/ReorderProductMediaItem'
+    AdminPrimaryMediaRef:
+      type: object
+      additionalProperties: false
+      required: [id, storage_key]
+      properties:
+        id:
+          $ref: '#/components/schemas/EntityId'
+        storage_key:
+          type: string
+          minLength: 1
+        alt_text_fa:
+          type: [string, 'null']
+          maxLength: 300
+    AdminVariantResponse:
+      type: object
+      additionalProperties: false
+      required: [id, product_id, sku, status, sales_enabled, version]
+      properties:
+        id:
+          $ref: '#/components/schemas/EntityId'
+        product_id:
+          $ref: '#/components/schemas/EntityId'
+        sku:
+          type: string
+          minLength: 1
+          maxLength: 120
+        barcode:
+          type: [string, 'null']
+          maxLength: 120
+        name_suffix:
+          type: [string, 'null']
+          maxLength: 180
+        status:
+          type: string
+          enum: [active, inactive]
+        sales_enabled:
+          type: boolean
+        effective_sales_enabled:
+          type: boolean
+        weight_grams:
+          type: [integer, 'null']
+          minimum: 1
+        attributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdminAttributeAssignmentView'
+        price:
+          anyOf:
+          - $ref: '#/components/schemas/PriceView'
+          - type: 'null'
+        availability:
+          anyOf:
+          - $ref: '#/components/schemas/AvailabilityView'
+          - type: 'null'
+        version:
+          $ref: '#/components/schemas/EntityVersion'
+    AdminVariantListResponse:
+      type: array
+      items:
+        $ref: '#/components/schemas/AdminVariantResponse'
+    AdminProductResponse:
+      type: object
+      additionalProperties: false
+      required: [id, name_fa, slug, primary_category, additional_categories, status, sales_enabled, price, specifications, variants, version, created_at, updated_at]
+      properties:
+        id:
+          $ref: '#/components/schemas/EntityId'
+        name_fa:
+          type: string
+        name_en:
+          type: [string, 'null']
+        slug:
+          $ref: '#/components/schemas/Slug'
+        short_description:
+          type: [string, 'null']
+          maxLength: 1000
+        description:
+          type: [string, 'null']
+          maxLength: 20000
+        brand:
+          anyOf:
+          - $ref: '#/components/schemas/BrandRef'
+          - type: 'null'
+        primary_category:
+          $ref: '#/components/schemas/CategoryRef'
+        additional_categories:
+          type: array
+          items:
+            $ref: '#/components/schemas/CategoryRef'
+        status:
+          type: string
+          enum: [draft, review, published, archived]
+        sales_enabled:
+          type: boolean
+        price:
+          anyOf:
+          - $ref: '#/components/schemas/PriceView'
+          - type: 'null'
+        published_at:
+          $ref: '#/components/schemas/NullableTimestamp'
+        archived_at:
+          $ref: '#/components/schemas/NullableTimestamp'
+        primary_image:
+          anyOf:
+          - $ref: '#/components/schemas/AdminPrimaryMediaRef'
+          - type: 'null'
+        specifications:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductSpecificationView'
+        variants:
+          $ref: '#/components/schemas/AdminVariantListResponse'
+        version:
+          $ref: '#/components/schemas/EntityVersion'
+        created_at:
+          $ref: '#/components/schemas/Timestamp'
+        updated_at:
+          $ref: '#/components/schemas/Timestamp'
+    AdminProductListResponse:
+      type: object
+      additionalProperties: false
+      required: [items, pagination]
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdminProductResponse'
+        pagination:
+          $ref: '#/components/schemas/CursorPagination'
+    AdminBrandResponse:
+      type: object
+      additionalProperties: false
+      required: [id, name_fa, slug, status, sales_enabled, version]
+      properties:
+        id: { $ref: '#/components/schemas/EntityId' }
+        name_fa: { type: string, maxLength: 150 }
+        name_en: { type: [string, 'null'], maxLength: 150 }
+        slug: { $ref: '#/components/schemas/Slug' }
+        description: { type: [string, 'null'] }
+        status: { type: string, enum: [active, inactive] }
+        sales_enabled: { type: boolean }
+        version: { $ref: '#/components/schemas/EntityVersion' }
+        created_at: { $ref: '#/components/schemas/Timestamp' }
+        updated_at: { $ref: '#/components/schemas/Timestamp' }
+    AdminBrandListResponse:
+      type: array
+      items:
+        $ref: '#/components/schemas/AdminBrandResponse'
+    AdminCategoryResponse:
+      type: object
+      additionalProperties: false
+      required: [id, name_fa, slug, status, sales_enabled, sort_order, version]
+      properties:
+        id: { $ref: '#/components/schemas/EntityId' }
+        parent_id: { $ref: '#/components/schemas/NullableEntityId' }
+        name_fa: { type: string, maxLength: 150 }
+        slug: { $ref: '#/components/schemas/Slug' }
+        description: { type: [string, 'null'] }
+        status: { type: string, enum: [active, inactive] }
+        sales_enabled: { type: boolean }
+        sort_order: { type: integer, minimum: 0 }
+        version: { $ref: '#/components/schemas/EntityVersion' }
+        created_at: { $ref: '#/components/schemas/Timestamp' }
+        updated_at: { $ref: '#/components/schemas/Timestamp' }
+    AdminCategoryListResponse:
+      type: array
+      items:
+        $ref: '#/components/schemas/AdminCategoryResponse'
+    AdminAttributeResponse:
+      type: object
+      additionalProperties: false
+      required: [id, name_fa, key, data_type, is_variant_attribute, is_filterable, is_comparable, sort_order, version]
+      properties:
+        id: { $ref: '#/components/schemas/EntityId' }
+        category_id: { $ref: '#/components/schemas/NullableEntityId' }
+        name_fa: { type: string, maxLength: 150 }
+        key: { type: string, maxLength: 120 }
+        data_type: { type: string, enum: [text, number, boolean, select] }
+        unit: { type: [string, 'null'], maxLength: 40 }
+        is_variant_attribute: { type: boolean }
+        is_filterable: { type: boolean }
+        is_comparable: { type: boolean }
+        sort_order: { type: integer, minimum: 0 }
+        version: { $ref: '#/components/schemas/EntityVersion' }
+        created_at: { $ref: '#/components/schemas/Timestamp' }
+        updated_at: { $ref: '#/components/schemas/Timestamp' }
+    AdminAttributeListResponse:
+      type: array
+      items:
+        $ref: '#/components/schemas/AdminAttributeResponse'
+    AdminAttributeValueResponse:
+      type: object
+      additionalProperties: false
+      required: [id, attribute_id, sort_order, version]
+      properties:
+        id: { $ref: '#/components/schemas/EntityId' }
+        attribute_id: { $ref: '#/components/schemas/EntityId' }
+        value_text: { type: [string, 'null'], maxLength: 300 }
+        value_numeric: { type: [number, 'null'] }
+        value_boolean: { type: [boolean, 'null'] }
+        normalized_value: { type: [string, 'null'], maxLength: 300 }
+        sort_order: { type: integer, minimum: 0 }
+        version: { $ref: '#/components/schemas/EntityVersion' }
+        created_at: { $ref: '#/components/schemas/Timestamp' }
+    AdminAttributeValueListResponse:
+      type: array
+      items:
+        $ref: '#/components/schemas/AdminAttributeValueResponse'
+    AdminAttributeAssignmentView:
+      type: object
+      additionalProperties: false
+      required: [attribute_id, key, name_fa, data_type, attribute_value_id]
+      properties:
+        attribute_id: { $ref: '#/components/schemas/EntityId' }
+        key: { type: string }
+        name_fa: { type: string }
+        unit: { type: [string, 'null'] }
+        data_type: { type: string, enum: [text, number, boolean, select] }
+        is_filterable: { type: boolean }
+        is_comparable: { type: boolean }
+        attribute_value_id: { $ref: '#/components/schemas/EntityId' }
+        value_text: { type: [string, 'null'] }
+        value_numeric: { type: [number, 'null'] }
+        value_boolean: { type: [boolean, 'null'] }
+        normalized_value: { type: [string, 'null'] }
+    AdminAttributeAssignmentListResponse:
+      type: array
+      items:
+        $ref: '#/components/schemas/AdminAttributeAssignmentView'
+    AdminProductMediaResponse:
+      type: object
+      additionalProperties: false
+      required: [id, product_id, media_id, media_type, sort_order, is_primary, storage_key, mime_type, status, created_at]
+      properties:
+        id: { $ref: '#/components/schemas/EntityId' }
+        product_id: { $ref: '#/components/schemas/EntityId' }
+        variant_id: { $ref: '#/components/schemas/NullableEntityId' }
+        media_id: { $ref: '#/components/schemas/EntityId' }
+        media_type: { type: string, enum: [image, video, document, model_3d] }
+        sort_order: { type: integer, minimum: 0 }
+        is_primary: { type: boolean }
+        alt_text_fa: { type: [string, 'null'], maxLength: 300 }
+        storage_key: { type: string }
+        mime_type: { type: string }
+        status: { type: string, enum: [uploading, quarantine, processing, active, rejected, deleted] }
+        created_at: { $ref: '#/components/schemas/Timestamp' }
+    AdminProductMediaListResponse:
+      type: array
+      items:
+        $ref: '#/components/schemas/AdminProductMediaResponse'
+    AdminMediaAssetResponse:
+      type: object
+      additionalProperties: false
+      required: [id, storage_key, original_filename, mime_type, size_bytes, status, version, created_at, updated_at]
+      properties:
+        id: { $ref: '#/components/schemas/EntityId' }
+        storage_key: { type: string }
+        original_filename: { type: string, maxLength: 300 }
+        mime_type: { type: string }
+        size_bytes: { type: integer, format: int64, minimum: 1, maximum: 52428800 }
+        checksum_sha256: { type: [string, 'null'], minLength: 64, maxLength: 64 }
+        status: { type: string, enum: [uploading, quarantine, processing, active, rejected, deleted] }
+        width: { type: [integer, 'null'], minimum: 1 }
+        height: { type: [integer, 'null'], minimum: 1 }
+        created_by: { $ref: '#/components/schemas/NullableEntityId' }
+        version: { $ref: '#/components/schemas/EntityVersion' }
+        created_at: { $ref: '#/components/schemas/Timestamp' }
+        updated_at: { $ref: '#/components/schemas/Timestamp' }
+    AdminMediaUploadTarget:
+      type: object
+      additionalProperties: false
+      required: [method, url, expires_at]
+      properties:
+        method: { type: string, enum: [PUT] }
+        url: { type: string, minLength: 1 }
+        expires_at: { $ref: '#/components/schemas/Timestamp' }
+    AdminMediaUploadRequestResponse:
+      type: object
+      additionalProperties: false
+      required: [id, storage_key, upload]
+      properties:
+        id: { $ref: '#/components/schemas/EntityId' }
+        storage_key: { type: string }
+        upload: { $ref: '#/components/schemas/AdminMediaUploadTarget' }
+    AdminDetachMediaResponse:
+      type: object
+      additionalProperties: false
+      required: [detached]
+      properties:
+        detached: { type: boolean, const: true }
+    AdminDeleteMediaResponse:
+      type: object
+      additionalProperties: false
+      required: [deleted]
+      properties:
+        deleted: { type: boolean, const: true }
+    AdminSalesControlPreviewResponse:
+      type: object
+      additionalProperties: false
+      required: [preview_id, scope_type, scope_id, sales_enabled, affected_count, expires_at]
+      properties:
+        preview_id: { $ref: '#/components/schemas/EntityId' }
+        scope_type: { type: string, enum: [global, brand, category, product, variant] }
+        scope_id: { $ref: '#/components/schemas/NullableEntityId' }
+        sales_enabled: { type: boolean }
+        affected_count: { type: integer, minimum: 0 }
+        expires_at: { $ref: '#/components/schemas/Timestamp' }
+    AdminSalesControlApplyResponse:
+      type: object
+      additionalProperties: false
+      required: [applied, scope_type, scope_id, sales_enabled, affected_count]
+      properties:
+        applied: { type: boolean, const: true }
+        scope_type: { type: string, enum: [global, brand, category, product, variant] }
+        scope_id: { $ref: '#/components/schemas/NullableEntityId' }
+        sales_enabled: { type: boolean }
+        affected_count: { type: integer, minimum: 0 }
     RegisterCurrencyRateRequest:
       type: object
       additionalProperties: false
@@ -8858,6 +9182,10 @@ paths:
       responses:
         '200':
           description: محصولات
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminProductListResponse'
         '403':
           $ref: '#/components/responses/Forbidden'
     post:
@@ -8872,7 +9200,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ProductResponse'
+                $ref: '#/components/schemas/AdminProductResponse'
         '403':
           $ref: '#/components/responses/Forbidden'
       x-eqcofe:
@@ -8907,7 +9235,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ProductResponse'
+                $ref: '#/components/schemas/AdminProductResponse'
         '404':
           $ref: '#/components/responses/NotFound'
     patch:
@@ -8930,7 +9258,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ProductResponse'
+                $ref: '#/components/schemas/AdminProductResponse'
         '409':
           $ref: '#/components/responses/Conflict'
       x-eqcofe:
@@ -8963,6 +9291,10 @@ paths:
       responses:
         '200':
           description: محصول منتشر شد
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminProductResponse'
         '409':
           $ref: '#/components/responses/Conflict'
         '422':
@@ -10978,6 +11310,10 @@ paths:
       responses:
         '200':
           description: عملیات موفق
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminProductResponse'
         '202':
           description: عملیات پذیرفته شد
       parameters:
@@ -11003,6 +11339,10 @@ paths:
       responses:
         '200':
           description: عملیات موفق
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminProductResponse'
         '202':
           description: عملیات پذیرفته شد
       parameters:
@@ -11028,6 +11368,10 @@ paths:
       responses:
         '200':
           description: عملیات موفق
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminProductResponse'
         '202':
           description: عملیات پذیرفته شد
       parameters:
@@ -11053,6 +11397,10 @@ paths:
       responses:
         '200':
           description: عملیات موفق
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminProductResponse'
         '202':
           description: عملیات پذیرفته شد
       parameters:
@@ -11078,6 +11426,11 @@ paths:
       responses:
         '200':
           description: عملیات موفق
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminVariantListResponse'
+
       parameters:
       - name: product_id
         in: path
@@ -11093,6 +11446,10 @@ paths:
       responses:
         '200':
           description: عملیات موفق
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminVariantResponse'
         '202':
           description: عملیات پذیرفته شد
       parameters:
@@ -11117,6 +11474,11 @@ paths:
       responses:
         '200':
           description: عملیات موفق
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminVariantResponse'
+
       parameters:
       - name: id
         in: path
@@ -11140,6 +11502,10 @@ paths:
       responses:
         '200':
           description: عملیات موفق
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminVariantResponse'
         '202':
           description: عملیات پذیرفته شد
       parameters:
@@ -11165,6 +11531,10 @@ paths:
       responses:
         '200':
           description: عملیات موفق
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminVariantResponse'
         '202':
           description: عملیات پذیرفته شد
       parameters:
@@ -11190,6 +11560,11 @@ paths:
       responses:
         '200':
           description: عملیات موفق
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminBrandListResponse'
+
       security:
       - adminSession: []
     post:
@@ -11199,6 +11574,10 @@ paths:
       responses:
         '200':
           description: عملیات موفق
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminBrandResponse'
         '202':
           description: عملیات پذیرفته شد
       security:
@@ -11217,6 +11596,11 @@ paths:
       responses:
         '200':
           description: عملیات موفق
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminBrandResponse'
+
       parameters:
       - name: id
         in: path
@@ -11240,6 +11624,10 @@ paths:
       responses:
         '200':
           description: عملیات موفق
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminBrandResponse'
         '202':
           description: عملیات پذیرفته شد
       parameters:
@@ -11265,6 +11653,10 @@ paths:
       responses:
         '200':
           description: عملیات موفق
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminBrandResponse'
         '202':
           description: عملیات پذیرفته شد
       parameters:
@@ -11290,6 +11682,11 @@ paths:
       responses:
         '200':
           description: عملیات موفق
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminCategoryListResponse'
+
       security:
       - adminSession: []
     post:
@@ -11299,6 +11696,10 @@ paths:
       responses:
         '200':
           description: عملیات موفق
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminCategoryResponse'
         '202':
           description: عملیات پذیرفته شد
       security:
@@ -11317,6 +11718,11 @@ paths:
       responses:
         '200':
           description: عملیات موفق
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminCategoryResponse'
+
       parameters:
       - name: id
         in: path
@@ -11340,6 +11746,10 @@ paths:
       responses:
         '200':
           description: عملیات موفق
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminCategoryResponse'
         '202':
           description: عملیات پذیرفته شد
       parameters:
@@ -11365,6 +11775,10 @@ paths:
       responses:
         '200':
           description: عملیات موفق
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminCategoryResponse'
         '202':
           description: عملیات پذیرفته شد
       parameters:
@@ -11390,6 +11804,10 @@ paths:
       responses:
         '200':
           description: عملیات موفق
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminSalesControlPreviewResponse'
         '202':
           description: عملیات پذیرفته شد
       security:
@@ -11408,6 +11826,10 @@ paths:
       responses:
         '200':
           description: عملیات موفق
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminSalesControlApplyResponse'
         '202':
           description: عملیات پذیرفته شد
       security:
@@ -11426,6 +11848,10 @@ paths:
       responses:
         '200':
           description: عملیات موفق
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminMediaUploadRequestResponse'
         '202':
           description: عملیات پذیرفته شد
       security:
@@ -11444,6 +11870,10 @@ paths:
       responses:
         '200':
           description: عملیات موفق
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminMediaAssetResponse'
         '202':
           description: عملیات پذیرفته شد
       parameters:
@@ -11469,6 +11899,11 @@ paths:
       responses:
         '200':
           description: عملیات موفق
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminMediaAssetResponse'
+
       parameters:
       - name: id
         in: path
@@ -11483,8 +11918,13 @@ paths:
       - Admin Products
       operationId: deleteAdminMediaId
       responses:
-        '204':
+        '200':
           description: حذف/برداشتن موفق
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminDeleteMediaResponse'
+
       parameters:
       - name: id
         in: path
@@ -19427,6 +19867,10 @@ paths:
       responses:
         '200':
           description: عملیات موفق
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminAttributeListResponse'
     post:
       tags:
       - Admin Products
@@ -19435,6 +19879,11 @@ paths:
       responses:
         '200':
           description: عملیات موفق
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminAttributeResponse'
+
       requestBody:
         required: true
         content:
@@ -19465,6 +19914,10 @@ paths:
       responses:
         '200':
           description: عملیات موفق
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminAttributeResponse'
   /admin/attribute-values/{id}:
     patch:
       tags:
@@ -19488,6 +19941,10 @@ paths:
       responses:
         '200':
           description: عملیات موفق
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminAttributeValueResponse'
   /admin/products/{product_id}/attributes:
     get:
       tags:
@@ -19504,6 +19961,10 @@ paths:
       responses:
         '200':
           description: عملیات موفق
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminAttributeAssignmentListResponse'
     put:
       tags:
       - Admin Products
@@ -19525,6 +19986,10 @@ paths:
       responses:
         '200':
           description: عملیات موفق
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminAttributeAssignmentListResponse'
   /admin/variants/{id}/attributes:
     get:
       tags:
@@ -19541,6 +20006,10 @@ paths:
       responses:
         '200':
           description: عملیات موفق
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminAttributeAssignmentListResponse'
     put:
       tags:
       - Admin Products
@@ -19562,6 +20031,10 @@ paths:
       responses:
         '200':
           description: عملیات موفق
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminAttributeAssignmentListResponse'
   /admin/media/{id}/approve:
     post:
       tags:
@@ -19578,6 +20051,10 @@ paths:
       responses:
         '200':
           description: عملیات موفق
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminMediaAssetResponse'
   /admin/media/{id}/reject:
     post:
       tags:
@@ -19594,6 +20071,10 @@ paths:
       responses:
         '200':
           description: عملیات موفق
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminMediaAssetResponse'
   /admin/attributes/{id}/values:
     get:
       tags:
@@ -19603,6 +20084,11 @@ paths:
       responses:
         '200':
           description: عملیات موفق
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminAttributeValueListResponse'
+
       parameters:
       - name: id
         in: path
@@ -19618,6 +20104,11 @@ paths:
       responses:
         '200':
           description: عملیات موفق
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminAttributeValueResponse'
+
       parameters:
       - name: id
         in: path
@@ -19640,6 +20131,11 @@ paths:
       responses:
         '200':
           description: عملیات موفق
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminProductMediaListResponse'
+
       parameters:
       - name: product_id
         in: path
@@ -19655,6 +20151,11 @@ paths:
       responses:
         '200':
           description: عملیات موفق
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminProductMediaListResponse'
+
       parameters:
       - name: product_id
         in: path
@@ -19677,6 +20178,11 @@ paths:
       responses:
         '200':
           description: عملیات موفق
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminDetachMediaResponse'
+
       parameters:
       - name: product_id
         in: path
@@ -19699,6 +20205,11 @@ paths:
       responses:
         '200':
           description: عملیات موفق
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminProductMediaListResponse'
+
       parameters:
       - name: product_id
         in: path

@@ -1,0 +1,298 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP68-B-CATALOG-MEDIA-CONTRACT-001",
+  "title": "Step 68-B Catalog and Media Backend OpenAPI contract readiness",
+  "description": "HIGH-risk Catalog & Media contract-readiness stage. Reconcile the frozen Step56-C 8-surface/46-operation Admin authority with canonical runtime, database, OpenAPI and generated TypeScript; add the minimum governed GLB/model_3d capability required by the roadmap without silently exposing it through the existing public Product Detail contract; normalize Admin response shapes for type-safe Step68 frontend work. No Step68-C frontend implementation, no pricing/inventory/commerce/customer domain work, and no generic bulk catalog mutation is authorized.",
+  "risk": "HIGH",
+  "risk_floor": "HIGH",
+  "owner": "BACKEND_ENGINEERING",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "fcca92ee97dfb81ba56f5519bf5be85d02a1336c"
+  },
+  "scope": {
+    "read": [
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "src/modules/catalog/**",
+      "database/migrations/**",
+      "test/**",
+      "docs/11-step-history/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/step56-catalog-media-wireframes.json",
+      "docs/13-product-design/step56-wireframes/C/**",
+      "docs/13-product-design/step56-final-audit/**",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "src/modules/catalog/**",
+      "database/migrations/0064_catalog_media_3d.sql",
+      "test/step68-catalog-media-contract.spec.ts",
+      "docs/11-step-history/STEP-68-B-CATALOG-MEDIA-CONTRACT.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP68-B-CATALOG-MEDIA-CONTRACT-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "docs/13-product-design/step56-admin-ux-contract.json",
+      "docs/13-product-design/step56-foundation/A/manifest.json",
+      "docs/13-product-design/step56-admin-shell-wireframes.json",
+      "docs/13-product-design/step56-wireframes/B/manifest.json",
+      "docs/13-product-design/step56-catalog-media-wireframes.json",
+      "docs/13-product-design/step56-wireframes/C/manifest.json",
+      "docs/13-product-design/step56-pricing-inventory-wireframes.json",
+      "docs/13-product-design/step56-wireframes/D/manifest.json",
+      "docs/13-product-design/step56-commerce-operations-wireframes.json",
+      "docs/13-product-design/step56-wireframes/E/manifest.json",
+      "docs/13-product-design/step56-customers-growth-wireframes.json",
+      "docs/13-product-design/step56-wireframes/F/manifest.json",
+      "docs/13-product-design/step56-management-security-wireframes.json",
+      "docs/13-product-design/step56-wireframes/G/manifest.json",
+      "docs/13-product-design/step56-final-audit.json",
+      "docs/13-product-design/step56-final-audit/manifest.json",
+      "docs/13-product-design/step57-high-fidelity-contract.json",
+      "docs/11-step-history/STEP-68-B-CATALOG-MEDIA-CONTRACT-READINESS.md",
+      "apps/storefront/scripts/verify-step61-media-gallery.ts"
+    ],
+    "forbidden": [
+      ".github/**",
+      "apps/admin/**",
+      "apps/storefront/app/**",
+      "apps/storefront/package.json",
+      "apps/storefront/vite.config.ts",
+      "apps/storefront/react-router.config.ts",
+      "apps/storefront/tsconfig.json",
+      "apps/api/**",
+      "apps/worker/**",
+      "apps/scheduler/**",
+      "src/modules/pricing/**",
+      "src/modules/inventory/**",
+      "src/modules/orders/**",
+      "src/modules/payment/**",
+      "src/modules/customer/**",
+      "docs/12-current-state/**",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "package.json",
+      "scripts/graphify/**",
+      "graphify-out/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP68-B-CATALOG-MEDIA-CONTRACT-001-01"
+  ],
+  "human_gate_required": true,
+  "authorized_human_approver": {
+    "role": "PROJECT_OWNER",
+    "github_login": "rahemih"
+  },
+  "token_budget": {
+    "expected_max": 46000,
+    "soft_alert": 72000,
+    "hard_cap": 118000
+  },
+  "max_repair_cycles": 5,
+  "task_risk_rules": [
+    {
+      "id": "STEP68_B_CATALOG_MEDIA_CONTRACT_HIGH",
+      "risk": "HIGH",
+      "paths": [
+        "contracts/http/openapi.yaml",
+        "src/generated/openapi.ts",
+        "src/modules/catalog/**",
+        "database/migrations/0064_catalog_media_3d.sql",
+        "test/step68-catalog-media-contract.spec.ts",
+        "docs/11-step-history/STEP-68-B-CATALOG-MEDIA-CONTRACT.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP68-B-CATALOG-MEDIA-CONTRACT-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md",
+        "docs/13-product-design/step56-admin-ux-contract.json",
+        "docs/13-product-design/step56-foundation/A/manifest.json",
+        "docs/13-product-design/step56-admin-shell-wireframes.json",
+        "docs/13-product-design/step56-wireframes/B/manifest.json",
+        "docs/13-product-design/step56-catalog-media-wireframes.json",
+        "docs/13-product-design/step56-wireframes/C/manifest.json",
+        "docs/13-product-design/step56-pricing-inventory-wireframes.json",
+        "docs/13-product-design/step56-wireframes/D/manifest.json",
+        "docs/13-product-design/step56-commerce-operations-wireframes.json",
+        "docs/13-product-design/step56-wireframes/E/manifest.json",
+        "docs/13-product-design/step56-customers-growth-wireframes.json",
+        "docs/13-product-design/step56-wireframes/F/manifest.json",
+        "docs/13-product-design/step56-management-security-wireframes.json",
+        "docs/13-product-design/step56-wireframes/G/manifest.json",
+        "docs/13-product-design/step56-final-audit.json",
+        "docs/13-product-design/step56-final-audit/manifest.json",
+        "docs/13-product-design/step57-high-fidelity-contract.json",
+        "docs/11-step-history/STEP-68-B-CATALOG-MEDIA-CONTRACT-READINESS.md"
+      ]
+    }
+  ],
+  "pre_mutation_gates": {
+    "graph_health": "RETIRED_AND_OUT_OF_SCOPE",
+    "query_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "path_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "explain_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "human_gate": "REQUIRED_FINAL_EXACT_ARTIFACT"
+  },
+  "dependencies": [
+    {
+      "item": "68-A Catalog & Media canonical handoff / live discovery / scope freeze",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "fcca92ee97dfb81ba56f5519bf5be85d02a1336c",
+      "terminal_evidence_comment": 6167410028,
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "linear_issue": "HOS-72",
+    "frozen_surface_count": 8,
+    "frozen_operation_count": 46,
+    "frozen_surfaces": [
+      "AD-C-01",
+      "AD-C-02",
+      "AD-C-03",
+      "AD-C-04",
+      "AD-C-05",
+      "AD-C-06",
+      "AD-C-07",
+      "AD-C-08"
+    ],
+    "live_contract_findings": {
+      "source_operations_present": 46,
+      "typed_success_before_stage": 3,
+      "typed_success_gap_before_stage": 43,
+      "model_3d_before_stage": "ABSENT",
+      "public_product_media_before_stage": [
+        "image",
+        "video"
+      ],
+      "generic_bulk_catalog_mutation": "NOT_PROVEN"
+    },
+    "three_d_reconciliation": {
+      "chosen_capability": "GLB",
+      "mime_type": "model/gltf-binary",
+      "admin_media_type": "model_3d",
+      "public_exposure_in_stage": false,
+      "gltf_external_resource_format": "NOT_AUTHORIZED",
+      "spin_360_frames": "NOT_AUTHORIZED"
+    },
+    "contract_rules": [
+      "All 46 frozen Step56-C operations must have explicit typed success bodies appropriate to their runtime result.",
+      "Admin responses are normalized to snake_case contract shapes; legacy mixed camelCase leakage is not frontend authority.",
+      "storage_key is never mislabeled as a public URL.",
+      "model_3d is an Admin Catalog/Media capability only in 68-B; existing public Product Detail image/video contract remains unchanged.",
+      "Generated TypeScript must be byte-for-byte reproducible from canonical OpenAPI via openapi-typescript.",
+      "No generic bulk catalog mutation, pricing, inventory, Excel, customer, order or later Step68+ domain authority is invented.",
+      "Media upload purpose is authoritative and must match MIME; product_model_3d requires model/gltf-binary with a .glb filename."
+    ],
+    "provenance_repair_policy": "Canonical CI confirmed recovered-source drift for intentionally changed OpenAPI/Catalog sources. Only the 17 exact Step56/57 provenance paths listed here are authorized for generator-equivalent SHA/manifest refresh. No screen, frame, journey, operation, permission, visual, review-status, approval, runtime-release or business semantics may change.",
+    "graph_state": "RETIRED_AND_OUT_OF_SCOPE",
+    "provenance_repair_paths": [
+      "docs/13-product-design/step56-admin-ux-contract.json",
+      "docs/13-product-design/step56-foundation/A/manifest.json",
+      "docs/13-product-design/step56-admin-shell-wireframes.json",
+      "docs/13-product-design/step56-wireframes/B/manifest.json",
+      "docs/13-product-design/step56-catalog-media-wireframes.json",
+      "docs/13-product-design/step56-wireframes/C/manifest.json",
+      "docs/13-product-design/step56-pricing-inventory-wireframes.json",
+      "docs/13-product-design/step56-wireframes/D/manifest.json",
+      "docs/13-product-design/step56-commerce-operations-wireframes.json",
+      "docs/13-product-design/step56-wireframes/E/manifest.json",
+      "docs/13-product-design/step56-customers-growth-wireframes.json",
+      "docs/13-product-design/step56-wireframes/F/manifest.json",
+      "docs/13-product-design/step56-management-security-wireframes.json",
+      "docs/13-product-design/step56-wireframes/G/manifest.json",
+      "docs/13-product-design/step56-final-audit.json",
+      "docs/13-product-design/step56-final-audit/manifest.json",
+      "docs/13-product-design/step57-high-fidelity-contract.json"
+    ],
+    "scope_history_repair": {
+      "transient_path": "docs/11-step-history/STEP-68-B-CATALOG-MEDIA-CONTRACT-READINESS.md",
+      "disposition": "CREATED_AS_STAGE_DOCUMENTATION_THEN_DELETED_AS_DUPLICATE",
+      "authority": "Explicitly included in the active HIGH-risk Task Contract so complete PR history is in-scope; final tree intentionally keeps only STEP-68-B-CATALOG-MEDIA-CONTRACT.md.",
+      "runtime_authority_change": false
+    },
+    "storefront_verifier_scope_repair": "Verifier-only maintenance is authorized to preserve the frozen public image/video boundary while Admin model_3d is introduced; no Storefront runtime mutation is authorized."
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "All 8 frozen Step56-C surfaces and all 46 source-traced Admin Catalog/Media operations remain present and no extra Step68 domain operation is invented.",
+      "verification": "step68_operation_matrix_audit",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "All 46 operations expose explicit typed success contracts suitable for generated Admin frontend consumption; existing runtime response-shape drift is normalized rather than hidden with additionalProperties.",
+      "verification": "step68_typed_success_contract_audit",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Catalog Admin response DTOs use stable snake_case shapes and storage_key is not represented as a public URL.",
+      "verification": "step68_runtime_contract_shape_tests",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Roadmap-required 3D capability is reconciled minimally as model_3d backed only by GLB/model/gltf-binary, while glTF external resources and 360 spin sequences remain unauthorized.",
+      "verification": "step68_3d_capability_tests",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Existing public Product Detail media remains image/video only in 68-B; 3D is not silently exposed to Storefront before a later typed consumption stage.",
+      "verification": "step68_public_media_boundary_test",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "OpenAPI upload/attachment contracts encode the bounded model_3d capability and 50 MiB media limit consistently with runtime.",
+      "verification": "step68_openapi_media_contract",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006A",
+      "description": "Media upload purpose/MIME compatibility is enforced; product_model_3d accepts only model/gltf-binary with a .glb filename and unsupported document purpose is not advertised.",
+      "verification": "step68_media_purpose_contract",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "src/generated/openapi.ts is byte-for-byte reproducible from contracts/http/openapi.yaml using the canonical openapi-typescript generator.",
+      "verification": "step68_generated_contract_parity",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "No generic bulk catalog mutation, pricing/inventory/Excel/customer/order/later-domain behavior or Step68-C frontend implementation is introduced.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-009",
+      "description": "Canonical CI, Phase A, CodeQL, deterministic Review and Independent Security all pass on the exact final head/artifact before exact-artifact Scope Lock and Project Owner Human Gate.",
+      "verification": "canonical_high_risk_gate_sequence",
+      "mandatory": true
+    },
+    {
+      "id": "AC-010",
+      "description": "After exact-artifact Project Owner approval, protected merge, exact-SHA postmerge verification and terminal Lock release complete before 68-C mutation is authorized.",
+      "verification": "canonical_transport_and_postmerge_evidence",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "SECURITY",
+      "HUMAN",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Step 68-B is HIGH risk. Exact-artifact Project Owner approval is mandatory only after technical, security, deterministic Review and exact-artifact Lock evidence are complete."
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}
