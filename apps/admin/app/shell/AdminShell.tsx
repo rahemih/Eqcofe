@@ -120,8 +120,12 @@ export function AdminShell({actor,scopes,groups}:{actor:AdminActor;scopes:readon
   );
 }
 
-function destinationHref(surface:string):string{return `/destinations/${encodeURIComponent(surface)}`;}
+function destinationHref(surface:string):string{
+  if(surface==="AD-C-01")return "/catalog/products";
+  return `/destinations/${encodeURIComponent(surface)}`;
+}
 function readCurrentSurface(pathname:string):string|null{
+  if(pathname==="/catalog/products"||pathname.startsWith("/catalog/products/"))return "AD-C-01";
   const match=/^\/destinations\/([^/]+)$/.exec(pathname);
   if(!match)return null;
   try{return decodeURIComponent(match[1]??"").toUpperCase();}catch{return null;}

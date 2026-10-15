@@ -29,7 +29,7 @@ assert.match(routes,/route\("logout"/);
 assert.match(routes,/layout\("\.\/routes\/authenticated\.tsx"/);
 assert.match(routes,/route\("security-keys"/);
 assert.match(routes,/route\("destinations\/:surfaceId"/);
-assert.doesNotMatch(routes,/dashboard|products|orders|pricing|customers|reports/);
+assert.doesNotMatch(routes,/dashboard|orders|pricing|customers|reports/);
 assert.match(shell,/href="#admin-main"/);
 assert.match(shell,/<main id="admin-main"/);
 assert.ok(shell.includes("<Outlet context={{groups}} />"),"ADMIN_OUTLET_CONTEXT_MISSING");
@@ -50,7 +50,7 @@ assert.doesNotMatch(css,/brown|قهوه‌ای/i);
 const appText=collect(resolve(adminRoot,"app")).map(path=>readFileSync(path,"utf8")).join("\n");
 assert.ok(appText.includes("/admin/me/permissions"),"STAGE67_E_PERMISSIONS_CONTEXT_MISSING");
 assert.ok(appText.includes("/admin/me/scopes"),"STAGE67_E_SCOPES_CONTEXT_MISSING");
-for(const forbidden of ["/admin/dashboard","/admin/products","/admin/orders"]) assert.ok(!appText.includes(forbidden),`STAGE67_G_FORBIDDEN_PRODUCTION_CONSUMPTION:${forbidden}`);
+for(const forbidden of ["/admin/dashboard","/admin/orders"]) assert.ok(!appText.includes(forbidden),`STAGE67_G_FORBIDDEN_PRODUCTION_CONSUMPTION:${forbidden}`);
 assert.doesNotMatch(appText,/VITE_/);
 assert.doesNotMatch(appText,/localStorage|sessionStorage/);
 

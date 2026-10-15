@@ -6,6 +6,8 @@ export default [
   layout("./routes/authenticated.tsx", [
     index("./routes/foundation.tsx"),
     route("security-keys", "./routes/security-keys.tsx"),
+    route("catalog/products", "./routes/catalog-products.tsx"),
+    route("catalog/products/:productId", "./routes/catalog-product.tsx"),
     route("destinations/:surfaceId", "./routes/destination.tsx"),
   ]),
 ] satisfies RouteConfig;

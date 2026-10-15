@@ -1,0 +1,158 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP68-C-ADMIN-CATALOG-READ-001",
+  "title": "Step 68-C shared Admin Catalog read, detail and state foundation",
+  "description": "Implement only the shared read-only Admin Catalog foundation after Step 68-B becomes canonical: typed server-side product list/detail and variant reads, opaque cursor pagination, local-only filtering of already loaded product rows, permission-safe/fail-closed states, and responsive Persian RTL presentation. Do not implement any Catalog mutation, product/variant lifecycle action, taxonomy mutation, media mutation/upload, sales-control apply, pricing/FX/Excel work, Backend/OpenAPI/database changes, Product Design changes, Storefront changes or Current-State closure.",
+  "risk": "MEDIUM",
+  "risk_floor": "MEDIUM",
+  "owner": "FRONTEND_ENGINEERING",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "bc5bb287a14d3200a8c234ed5ec0c30e0ee50c11"
+  },
+  "scope": {
+    "read": [
+      "package.json",
+      "apps/admin/**",
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "docs/11-step-history/**",
+      "docs/13-product-design/step56-catalog-media-wireframes.json",
+      "docs/13-product-design/step56-admin-shell-wireframes.json",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "apps/admin/**",
+      "docs/11-step-history/STEP-68-C-ADMIN-CATALOG-READ.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP68-C-ADMIN-CATALOG-READ-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "contracts/**",
+      "database/**",
+      "src/**",
+      "test/**",
+      "scripts/**",
+      "apps/api/**",
+      "apps/worker/**",
+      "apps/scheduler/**",
+      "apps/storefront/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP68-C-ADMIN-CATALOG-READ-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 36000,
+    "soft_alert": 58000,
+    "hard_cap": 96000
+  },
+  "task_risk_rules": [
+    {
+      "id": "STEP68_C_ADMIN_CATALOG_READ_MEDIUM",
+      "risk": "MEDIUM",
+      "paths": [
+        "apps/admin/**",
+        "docs/11-step-history/STEP-68-C-ADMIN-CATALOG-READ.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP68-C-ADMIN-CATALOG-READ-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "68-B",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "bc5bb287a14d3200a8c234ed5ec0c30e0ee50c11",
+      "evidence": "PR #362 merged after exact-artifact Project Owner approval; exact-SHA Canonical CI #1898, Phase A #1397, CodeQL #1047 and Storefront Quality #889 succeeded; terminal Lock release comment 6204157481.",
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "linear_issue": "HOS-72",
+    "stage_b_pr": 362,
+    "stage_b_approved_head": "f37061906ead9ab341ec8e57cb3758a7c986a904",
+    "stage_b_artifact": "d6796e1d70264bbd94bf5561419a4c784077d47ff18fbcd800753a5c881f1739",
+    "stage_b_merge": "bc5bb287a14d3200a8c234ed5ec0c30e0ee50c11",
+    "stage_b_lock_release_comment": 6204157481,
+    "generated_contract_source": "src/generated/openapi.ts",
+    "catalog_design_source": "docs/13-product-design/step56-catalog-media-wireframes.json",
+    "graph_state": "RETIRED_AND_OUT_OF_SCOPE"
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Admin Catalog reads use the canonical generated contract and existing Admin server auth bridge; no browser credential authority, raw customer cookie forwarding or parallel ad-hoc API client is introduced.",
+      "verification": "typed_admin_catalog_server_read",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "The product list consumes only the source-proven limit and opaque cursor query parameters, with default bounded page size; no server q/status/category/brand filter is invented.",
+      "verification": "catalog_cursor_boundary",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Product filtering/search in Stage 68-C is client-local over already loaded rows only and is explicitly presented as such; it never alters the backend query or claims global-result completeness.",
+      "verification": "loaded_row_filter_only",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Authorized product list and product detail/variant read surfaces are Persian RTL, responsive and keyboard-accessible, with explicit loading/empty/error/denied/not-found states and request-id recovery information where available.",
+      "verification": "catalog_read_state_quality",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Product detail renders only authoritative response fields and does not fabricate absent descriptions, audit history, mutation availability, pricing edit authority, inventory edit authority or media-library authority.",
+      "verification": "catalog_authority_boundary",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Stage 68-C production code invokes no Catalog mutation endpoint and exposes no create/edit/publish/archive/restore/sales/taxonomy/media mutation control; those remain 68-D through 68-G.",
+      "verification": "read_only_static_audit",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "Admin verification includes deterministic Stage 68-C type/static/build/read-boundary checks while preserving all inherited Step 67 acceptance gates.",
+      "verification": "admin_canonical_verify_integration",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "No Backend/OpenAPI/generated-contract/database/Storefront/Current-State/Product-Design/Step69 mutation is introduced.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-009",
+      "description": "Canonical closure requires exact-head Canonical CI, Phase A and CodeQL, deterministic Review and exact-artifact ACTIVE Lock, protected merge, exact-SHA postmerge verification and terminal Lock release. Human Gate is not required for MEDIUM-risk 68-C.",
+      "verification": "canonical_transport_and_postmerge_evidence",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Step 68-C is MEDIUM risk. No Human Gate is required. Stage 68-D remains blocked until 68-C terminal canonical closure."
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}
