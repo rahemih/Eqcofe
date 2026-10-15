@@ -52,10 +52,18 @@ export type CatalogCursorInput =
 
 export function normalizeCatalogCursor(value: string | null): CatalogCursorInput {
   if (value === null || value === "") return { ok: true, cursor: null };
-  if (value.length > ADMIN_CATALOG_CURSOR_MAX_LENGTH || /[\u0000-\u001f\u007f]/.test(value)) {
+  if (value.length > ADMIN_CATALOG_CURSOR_MAX_LENGTH || hasCatalogControlCharacters(value)) {
     return { ok: false };
   }
   return { ok: true, cursor: value };
+}
+
+export function hasCatalogControlCharacters(value: string): boolean {
+  for (const character of value) {
+    const code = character.charCodeAt(0);
+    if (code <= 0x1f || code === 0x7f) return true;
+  }
+  return false;
 }
 
 export async function readAdminCatalogPage(
