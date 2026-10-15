@@ -51,12 +51,17 @@
       "docs/13-product-design/step56-final-audit.json",
       "docs/13-product-design/step56-final-audit/manifest.json",
       "docs/13-product-design/step57-high-fidelity-contract.json",
-      "docs/11-step-history/STEP-68-B-CATALOG-MEDIA-CONTRACT-READINESS.md"
+      "docs/11-step-history/STEP-68-B-CATALOG-MEDIA-CONTRACT-READINESS.md",
+      "apps/storefront/scripts/verify-step61-media-gallery.ts"
     ],
     "forbidden": [
       ".github/**",
       "apps/admin/**",
-      "apps/storefront/**",
+      "apps/storefront/app/**",
+      "apps/storefront/package.json",
+      "apps/storefront/vite.config.ts",
+      "apps/storefront/react-router.config.ts",
+      "apps/storefront/tsconfig.json",
       "apps/api/**",
       "apps/worker/**",
       "apps/scheduler/**",
@@ -206,7 +211,8 @@
       "disposition": "CREATED_AS_STAGE_DOCUMENTATION_THEN_DELETED_AS_DUPLICATE",
       "authority": "Explicitly included in the active HIGH-risk Task Contract so complete PR history is in-scope; final tree intentionally keeps only STEP-68-B-CATALOG-MEDIA-CONTRACT.md.",
       "runtime_authority_change": false
-    }
+    },
+    "storefront_verifier_scope_repair": "Verifier-only maintenance is authorized to preserve the frozen public image/video boundary while Admin model_3d is introduced; no Storefront runtime mutation is authorized."
   },
   "acceptance_criteria": [
     {
