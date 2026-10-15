@@ -14026,7 +14026,7 @@ export interface operations {
                     "application/json": components["schemas"]["AdminVariantListResponse"];
                 };
             };
-    };
+        };
     };
     postAdminProductsProductIdVariants: {
         parameters: {
@@ -14085,7 +14085,7 @@ export interface operations {
                     "application/json": components["schemas"]["AdminVariantResponse"];
                 };
             };
-    };
+        };
     };
     postAdminVariantsIdStopSales: {
         parameters: {
@@ -14171,7 +14171,7 @@ export interface operations {
                     "application/json": components["schemas"]["AdminBrandListResponse"];
                 };
             };
-    };
+        };
     };
     postAdminBrands: {
         parameters: {
@@ -14228,7 +14228,7 @@ export interface operations {
                     "application/json": components["schemas"]["AdminBrandResponse"];
                 };
             };
-    };
+        };
     };
     postAdminBrandsIdStopSales: {
         parameters: {
@@ -14314,7 +14314,7 @@ export interface operations {
                     "application/json": components["schemas"]["AdminCategoryListResponse"];
                 };
             };
-    };
+        };
     };
     postAdminCategories: {
         parameters: {
@@ -14371,7 +14371,7 @@ export interface operations {
                     "application/json": components["schemas"]["AdminCategoryResponse"];
                 };
             };
-    };
+        };
     };
     postAdminCategoriesIdStopSales: {
         parameters: {
@@ -14585,7 +14585,7 @@ export interface operations {
                     "application/json": components["schemas"]["AdminMediaAssetResponse"];
                 };
             };
-    };
+        };
     };
     deleteAdminMediaId: {
         parameters: {
@@ -14607,7 +14607,7 @@ export interface operations {
                     "application/json": components["schemas"]["AdminDeleteMediaResponse"];
                 };
             };
-    };
+        };
     };
     getAdminPricingBasePrices: {
         parameters: {
@@ -24512,7 +24512,7 @@ export interface operations {
                     "application/json": components["schemas"]["AdminAttributeResponse"];
                 };
             };
-    };
+        };
     };
     patchAdminAttributeId: {
         parameters: {
@@ -24730,7 +24730,7 @@ export interface operations {
                     "application/json": components["schemas"]["AdminAttributeValueListResponse"];
                 };
             };
-    };
+        };
     };
     postAdminAttributeValues: {
         parameters: {
@@ -24756,7 +24756,7 @@ export interface operations {
                     "application/json": components["schemas"]["AdminAttributeValueResponse"];
                 };
             };
-    };
+        };
     };
     getAdminProductMedia: {
         parameters: {
@@ -24778,7 +24778,7 @@ export interface operations {
                     "application/json": components["schemas"]["AdminProductMediaListResponse"];
                 };
             };
-    };
+        };
     };
     postAdminProductMedia: {
         parameters: {
@@ -24804,7 +24804,7 @@ export interface operations {
                     "application/json": components["schemas"]["AdminProductMediaListResponse"];
                 };
             };
-    };
+        };
     };
     deleteAdminProductMedia: {
         parameters: {
@@ -24827,7 +24827,7 @@ export interface operations {
                     "application/json": components["schemas"]["AdminDetachMediaResponse"];
                 };
             };
-    };
+        };
     };
     postAdminProductMediaReorder: {
         parameters: {
@@ -24853,7 +24853,7 @@ export interface operations {
                     "application/json": components["schemas"]["AdminProductMediaListResponse"];
                 };
             };
-    };
+        };
     };
     postAdminPricingCurrencyRatesRegister: {
         parameters: {
