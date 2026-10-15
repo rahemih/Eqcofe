@@ -143,7 +143,7 @@ assert.equal(
   "STEP68_C_VERIFY_SCRIPT",
 );
 assert.ok(
-  packageJson.scripts.verify.includes("catalog-read:verify"),
+  (packageJson.scripts.verify ?? "").includes("catalog-read:verify"),
   "STEP68_C_VERIFY_CHAIN",
 );
 
