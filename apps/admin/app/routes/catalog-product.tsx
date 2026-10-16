@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { data, Link, useActionData, useLoaderData, useNavigation } from "react-router";
 import {
   archiveAdminProduct,
@@ -441,8 +442,16 @@ function mutationFailure(result: CatalogMutationFailure, headers: Headers) {
 }
 
 function CatalogActionNotice({ value }: { value: ActionData }) {
+  const noticeRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    noticeRef.current?.focus();
+  }, [value]);
+
   return (
     <div
+      ref={noticeRef}
+      tabIndex={-1}
       className={value.kind === "confirmed" ? "catalog-action-outcome" : "auth-alert"}
       role={value.kind === "confirmed" ? "status" : "alert"}
     >
