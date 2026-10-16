@@ -350,8 +350,8 @@ export default function AdminCatalogProductDetailRoute() {
         <h2 id="catalog-boundary-title">مرز این مرحله</h2>
         <p>
           قیمت و موجودی این صفحه فقط خواندنی هستند. ساختار ویژگی‌ها/برند/دسته به 68-E،
-          رسانه به 68-F و کنترل گروهی فروش به 68-G تعلق دارد. هیچ audit-history ساختگی
-          نمایش داده نمی‌شود.
+          رسانه به 68-F و کنترل گروهی فروش به 68-G تعلق دارد. تاریخچهٔ ممیزی endpoint canonical ندارد
+          و در این صفحه ساخته یا شبیه‌سازی نمی‌شود.
         </p>
       </section>
     </section>
