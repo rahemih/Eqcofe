@@ -34,9 +34,13 @@ export async function createAdminProduct(
   body: ProductCreateBody,
 ): Promise<ProductCreateResult> {
   let bridge: ReturnType<typeof createAdminAuthBridge> | null = null;
+  let mutationCompleted = false;
+  let mutationRequestId: string | null = null;
   try {
     bridge = createAdminAuthBridge(request);
     const created = await bridge.client.request("post", "/admin/products", { body });
+    mutationCompleted = true;
+    mutationRequestId = created.requestId;
     const confirmed = await readProductWithBridge(bridge, created.data.id);
     return {
       kind: "confirmed",
@@ -45,7 +49,15 @@ export async function createAdminProduct(
       setCookies: bridge.takeSetCookies(),
     };
   } catch (error) {
-    return classifyMutationFailure(error, bridge?.takeSetCookies() ?? []);
+    const setCookies = bridge?.takeSetCookies() ?? [];
+    if (mutationCompleted) {
+      return {
+        kind: "unknown_outcome",
+        requestId: mutationRequestId ?? requestIdFromError(error),
+        setCookies,
+      };
+    }
+    return classifyMutationFailure(error, setCookies);
   }
 }
 
