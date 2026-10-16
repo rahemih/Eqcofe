@@ -14064,7 +14064,9 @@ export interface operations {
     patchAdminVariantsId: {
         parameters: {
             query?: never;
-            header?: never;
+            header: {
+                "If-Match": components["parameters"]["IfMatch"];
+            };
             path: {
                 id: string;
             };
