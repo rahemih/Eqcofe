@@ -79,7 +79,8 @@ assert.ok(mutation.includes("createAdminAuthBridge(request)"), "STEP68_D_AUTH_BR
 assert.ok(!mutation.includes("fetch("), "STEP68_D_NO_ADHOC_FETCH");
 assert.ok(mutation.includes('headers: { "If-Match": formatIfMatch(version) }'), "STEP68_D_PRODUCT_AND_VARIANT_IF_MATCH");
 assert.ok(mutation.includes('kind: "unknown_outcome"'), "STEP68_D_UNKNOWN_OUTCOME");
-assert.ok(mutation.includes('outcome.status === 202 ? "accepted" : "confirmed"'), "STEP68_D_202_NONFINAL");
+assert.ok(mutation.includes('if (outcome.status === 202)'), "STEP68_D_202_NONFINAL");
+assert.ok(mutation.includes('error.status === 408 || error.status >= 500'), "STEP68_D_AMBIGUOUS_HTTP_UNKNOWN");
 assert.ok(mutation.includes('body: { ...body, status: "active" }'), "STEP68_D_VARIANT_CREATE_ACTIVE");
 assert.ok(!mutation.includes('"/admin/sales-control/'), "STEP68_D_NO_BULK_SALES_CONTROL");
 assert.ok(!mutation.includes('"/admin/media/'), "STEP68_D_NO_MEDIA_MUTATION");
