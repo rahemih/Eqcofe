@@ -42,9 +42,7 @@
       "apps/scheduler/**",
       "apps/storefront/**",
       "docs/12-current-state/**",
-      "docs/13-product-design/**",
-      "contracts/http/** except contracts/http/openapi.yaml",
-      "src/** except src/generated/openapi.ts"
+      "docs/13-product-design/**"
     ]
   },
   "requested_lock_ids": [
