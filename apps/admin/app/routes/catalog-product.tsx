@@ -226,6 +226,12 @@ export async function action({
     );
   }
 
+  if (!result) {
+    return data<ActionData>(
+      { kind: "failure", message: "نتیجهٔ عملیات کاتالوگ قابل تعیین نیست.", requestId: null },
+      { status: 500 },
+    );
+  }
   return mutationActionResult(result, successMessage);
 }
 
