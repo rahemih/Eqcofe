@@ -262,6 +262,10 @@ function classifyMutationFailure(
   }
 
   if (error.kind === "http") {
+    if (typeof error.status !== "number") {
+      return { kind: "unavailable", requestId: error.requestId, setCookies };
+    }
+
     if (error.status === 401 || error.status === 403) {
       return { kind: "denied", requestId: error.requestId, setCookies };
     }
