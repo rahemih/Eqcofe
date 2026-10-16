@@ -85,7 +85,7 @@ Brand and Category canonical GET operations may be used only to populate Product
 - Media upload/review/attachment/order/primary/delete — 68-F;
 - Sales-Control preview/apply bulk operations — 68-G;
 - pricing, FX, inventory editing or Excel import — Step 69;
-- Backend/OpenAPI/generated-contract/database changes;
+- Backend/database changes and any OpenAPI/generated-contract change beyond the exact Variant `If-Match` repair frozen above;
 - Storefront or Product Design mutations;
 - Master Roadmap / Current-State closure reconciliation — 68-I;
 - Graph/Graphify.
