@@ -204,13 +204,16 @@ async function mutateProduct(
     bridge = createAdminAuthBridge(request);
     const outcome = await mutation(bridge);
     const confirmed = await readProductWithBridge(bridge, productId);
-    return {
-      kind: outcome.status === 202 ? "accepted" : "confirmed",
+    const common = {
       product: confirmed.product,
       variants: confirmed.variants,
       requestId: outcome.requestId ?? confirmed.requestId,
       setCookies: bridge.takeSetCookies(),
     };
+    if (outcome.status === 202) {
+      return { kind: "accepted", ...common };
+    }
+    return { kind: "confirmed", ...common };
   } catch (error) {
     return classifyMutationFailure(error, bridge?.takeSetCookies() ?? []);
   }
