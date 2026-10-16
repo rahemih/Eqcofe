@@ -152,7 +152,7 @@ export default function AdminCatalogProductCreateRoute() {
           </label>
 
           <label className="catalog-editor-check">
-            <input type="checkbox" name="sales_enabled" />
+            <input type="checkbox" name="sales_enabled" defaultChecked />
             <span>فروش در سطح محصول فعال باشد</span>
           </label>
         </fieldset>
