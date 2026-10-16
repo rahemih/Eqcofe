@@ -113,3 +113,32 @@ Task Contract:
 11. Linear `HOS-72` synchronized.
 
 Any HEAD or artifact mutation after Owner approval invalidates that approval and requires a new Human Gate.
+
+
+## Entry audit repair — Variant optimistic concurrency
+
+Before exposing Variant edit UI, live runtime and the canonical HTTP contract were compared.
+
+Observed:
+- runtime `PATCH /admin/variants/:id` reads required `If-Match` and calls `expectedVersion(v)`;
+- VariantCommandService rejects a changed version with `VERSION_CONFLICT`;
+- canonical OpenAPI and its generated TypeScript previously omitted the `If-Match` parameter for this exact operation.
+
+68-D therefore includes one bounded carry-forward contract repair:
+- `contracts/http/openapi.yaml`: add canonical `IfMatch` to `PATCH /admin/variants/{id}`;
+- `src/generated/openapi.ts`: synchronize that exact operation header typing.
+
+No other operation, schema, database model or backend business rule is changed by this repair.
+
+The same audit confirmed that runtime Variant creation always creates status `active`; therefore 68-D does not present a create-time status selector and does not expose create-time Attribute assignment. Those capabilities are not fabricated from broader OpenAPI fields.
+
+## Implementation evidence
+
+The Admin implementation is intentionally server-mediated:
+- `catalog-mutation.server.ts` owns typed mutation transport and authoritative post-mutation re-read;
+- `catalog-form.server.ts` owns same-origin and bounded form parsing;
+- Product update and Variant update send quoted exact versions through `If-Match`;
+- network/timeout/abort after mutation becomes an explicit unknown outcome, never an automatic retry;
+- HTTP 202 remains accepted/non-final and is followed by canonical re-read;
+- Product create/edit/lifecycle and Variant create/edit/sales actions do not expose pricing, inventory, taxonomy-structure, media or bulk-sales-control mutation.
+
