@@ -142,3 +142,15 @@ The Admin implementation is intentionally server-mediated:
 - HTTP 202 remains accepted/non-final and is followed by canonical re-read;
 - Product create/edit/lifecycle and Variant create/edit/sales actions do not expose pricing, inventory, taxonomy-structure, media or bulk-sales-control mutation.
 
+
+
+## Repair-cycle evidence
+
+Canonical CI exposed recovered-source drift after the intentional one-line OpenAPI Variant `If-Match` repair. The governed response was a provenance-only refresh of the exact Step56/57 paths enumerated in the Task Contract. This refresh changes source SHA/manifest references only; it does not change screens, frames, journeys, permissions, operation ownership, visual semantics, business rules, approval state, or runtime-release authority.
+
+Mutation outcome handling is fail-closed:
+- network, timeout and abort after an unsafe mutation are `unknown_outcome`;
+- HTTP 408 and 5xx after an unsafe mutation are also `unknown_outcome`;
+- no POST/PATCH mutation is automatically retried;
+- operators are instructed to re-read canonical state before any repetition;
+- HTTP 202 remains accepted/non-final even when the follow-up canonical read succeeds.
