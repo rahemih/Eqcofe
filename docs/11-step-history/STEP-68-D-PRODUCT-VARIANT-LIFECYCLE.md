@@ -154,3 +154,17 @@ Mutation outcome handling is fail-closed:
 - no POST/PATCH mutation is automatically retried;
 - operators are instructed to re-read canonical state before any repetition;
 - HTTP 202 remains accepted/non-final even when the follow-up canonical read succeeds.
+
+
+## Independent Security repair — Variant parent binding
+
+Final exact-head security review found that Variant update/stop/resume accepted a form-supplied `variant_id` and then re-read the route Product without first proving that the target Variant belonged to that Product. Backend authorization remained authoritative, but a tampered form could target a different permitted Variant and then show confirmation against the wrong Product context.
+
+The bounded repair adds a server-side canonical preflight before every existing-Variant mutation:
+- read the canonical Product + Variant collection through the same server-owned Admin auth bridge;
+- require the submitted Variant ID to exist in that Product collection before any unsafe mutation is issued;
+- return `not_found` when the Variant is not a member of the route Product;
+- classify preflight read failures as non-mutating `unavailable/denied/not_found`, while preserving the existing `unknown_outcome` handling only after an unsafe mutation may have been issued;
+- keep Product, create-Variant, pricing, inventory, media, taxonomy and bulk-sales boundaries unchanged.
+
+This repair is frontend/server-bridge defense in depth and does not alter Backend authorization or database semantics.

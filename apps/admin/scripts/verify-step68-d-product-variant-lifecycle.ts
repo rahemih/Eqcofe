@@ -110,6 +110,12 @@ assert.ok(mutation.includes('error.status === 408 || error.status >= 500'), "STE
 assert.ok(mutation.includes("if (outcome)"), "STEP68_D_POST_MUTATION_CONFIRMATION_UNKNOWN");
 assert.ok(mutation.includes("if (mutationCompleted)"), "STEP68_D_CREATE_CONFIRMATION_UNKNOWN");
 assert.ok(mutation.includes("requestIdFromError(error)"), "STEP68_D_POST_MUTATION_REQUEST_ID");
+assert.ok(mutation.includes("requiredVariantId"), "STEP68_D_VARIANT_PARENT_BINDING_OPTION");
+assert.ok(
+  mutation.includes("preflight.variants.some((variant) => variant.id === requiredVariantId)"),
+  "STEP68_D_VARIANT_PARENT_BINDING_CHECK",
+);
+assert.ok(mutation.includes("classifyPreflightFailure"), "STEP68_D_VARIANT_PREFLIGHT_FAIL_CLOSED");
 assert.ok(mutation.includes('body: { ...body, status: "active" }'), "STEP68_D_VARIANT_CREATE_ACTIVE");
 assert.ok(!mutation.includes('"/admin/sales-control/'), "STEP68_D_NO_BULK_SALES_CONTROL");
 assert.ok(!mutation.includes('"/admin/media/'), "STEP68_D_NO_MEDIA_MUTATION");

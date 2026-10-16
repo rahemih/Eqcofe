@@ -173,7 +173,7 @@ export async function updateAdminVariant(
       body,
     });
     return { status: result.status, requestId: result.requestId };
-  });
+  }, { requiredVariantId: variantId });
 }
 
 export async function stopAdminVariantSales(
@@ -188,7 +188,7 @@ export async function stopAdminVariantSales(
       body: { reason_code: "manual", ...(reason ? { reason } : {}) },
     });
     return { status: result.status, requestId: result.requestId };
-  });
+  }, { requiredVariantId: variantId });
 }
 
 export async function resumeAdminVariantSales(
@@ -203,18 +203,35 @@ export async function resumeAdminVariantSales(
       body: comment ? { comment } : {},
     });
     return { status: result.status, requestId: result.requestId };
-  });
+  }, { requiredVariantId: variantId });
 }
 
 async function mutateProduct(
   request: Pick<Request, "headers">,
   productId: string,
   mutation: (bridge: ReturnType<typeof createAdminAuthBridge>) => Promise<{ status: number; requestId: string | null }>,
+  options: { requiredVariantId?: string } = {},
 ): Promise<ProductMutationResult> {
   let bridge: ReturnType<typeof createAdminAuthBridge> | null = null;
   let outcome: { status: number; requestId: string | null } | null = null;
   try {
     bridge = createAdminAuthBridge(request);
+    const requiredVariantId = options.requiredVariantId;
+    if (requiredVariantId) {
+      let preflight: Awaited<ReturnType<typeof readProductWithBridge>>;
+      try {
+        preflight = await readProductWithBridge(bridge, productId);
+      } catch (error) {
+        return classifyPreflightFailure(error, bridge.takeSetCookies());
+      }
+      if (!preflight.variants.some((variant) => variant.id === requiredVariantId)) {
+        return {
+          kind: "not_found",
+          requestId: preflight.requestId,
+          setCookies: bridge.takeSetCookies(),
+        };
+      }
+    }
     outcome = await mutation(bridge);
     const confirmed = await readProductWithBridge(bridge, productId);
     const common = {
@@ -259,6 +276,22 @@ async function readProductWithBridge(
 
 function requestIdFromError(error: unknown): string | null {
   return error instanceof ApiClientError ? error.requestId : null;
+}
+
+function classifyPreflightFailure(
+  error: unknown,
+  setCookies: readonly string[],
+): CatalogMutationFailure {
+  if (!(error instanceof ApiClientError)) {
+    return { kind: "unavailable", requestId: null, setCookies };
+  }
+  if (error.kind === "http" && (error.status === 401 || error.status === 403)) {
+    return { kind: "denied", requestId: error.requestId, setCookies };
+  }
+  if (error.kind === "http" && error.status === 404) {
+    return { kind: "not_found", requestId: error.requestId, setCookies };
+  }
+  return { kind: "unavailable", requestId: error.requestId, setCookies };
 }
 
 function classifyMutationFailure(
