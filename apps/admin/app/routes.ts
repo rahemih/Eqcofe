@@ -7,6 +7,7 @@ export default [
     index("./routes/foundation.tsx"),
     route("security-keys", "./routes/security-keys.tsx"),
     route("catalog/products", "./routes/catalog-products.tsx"),
+    route("catalog/products/new", "./routes/catalog-product-new.tsx"),
     route("catalog/products/:productId", "./routes/catalog-product.tsx"),
     route("destinations/:surfaceId", "./routes/destination.tsx"),
   ]),
