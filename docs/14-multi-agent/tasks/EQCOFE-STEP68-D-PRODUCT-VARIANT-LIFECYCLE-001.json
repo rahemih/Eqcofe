@@ -2,7 +2,7 @@
   "schema_version": "2.2",
   "task_id": "EQCOFE-STEP68-D-PRODUCT-VARIANT-LIFECYCLE-001",
   "title": "Step 68-D Product and Variant create edit lifecycle sales administration",
-  "description": "Implement only the HIGH-risk Admin product and variant create/edit/lifecycle surface on top of canonical Step 68-C. Use source-proven Catalog operations for product create/update/publish/archive/unarchive/stop-resume sales and variant create/update/stop-resume sales. Preserve server-owned authorization, exact Product If-Match concurrency, non-retry mutation semantics, explicit 202 accepted/unknown handling and server re-read after mutation. Attribute structure administration, Brand/Category mutation, Media, Sales-Control bulk controls and all Step69 pricing/inventory/Excel work remain out of scope.",
+  "description": "Implement only the HIGH-risk Admin product and variant create/edit/lifecycle surface on top of canonical Step 68-C. Use source-proven Catalog operations for product create/update/publish/archive/unarchive/stop-resume sales and variant create/update/stop-resume sales. Preserve server-owned authorization, exact Product If-Match concurrency, non-retry mutation semantics, explicit 202 accepted/unknown handling and server re-read after mutation. Attribute structure administration, Brand/Category mutation, Media, Sales-Control bulk controls and all Step69 pricing/inventory/Excel work remain out of scope. Entry audit found one bounded carry-forward contract defect: PATCH /admin/variants/{id} requires If-Match in the runtime controller but the canonical OpenAPI omitted it. This exact operation metadata repair is included before frontend variant editing.",
   "risk": "HIGH",
   "risk_floor": "HIGH",
   "owner": "FRONTEND_ENGINEERING",
@@ -23,6 +23,8 @@
     ],
     "write": [
       "apps/admin/**",
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
       "docs/11-step-history/STEP-68-D-PRODUCT-VARIANT-LIFECYCLE.md",
       "docs/14-multi-agent/tasks/EQCOFE-STEP68-D-PRODUCT-VARIANT-LIFECYCLE-001.json",
       "docs/14-multi-agent/generated/TASK-CATALOG.md"
@@ -32,9 +34,7 @@
       "package.json",
       "pnpm-lock.yaml",
       "pnpm-workspace.yaml",
-      "contracts/**",
       "database/**",
-      "src/**",
       "test/**",
       "scripts/**",
       "apps/api/**",
@@ -42,7 +42,9 @@
       "apps/scheduler/**",
       "apps/storefront/**",
       "docs/12-current-state/**",
-      "docs/13-product-design/**"
+      "docs/13-product-design/**",
+      "contracts/http/** except contracts/http/openapi.yaml",
+      "src/** except src/generated/openapi.ts"
     ]
   },
   "requested_lock_ids": [
@@ -60,6 +62,8 @@
       "risk": "HIGH",
       "paths": [
         "apps/admin/**",
+        "contracts/http/openapi.yaml",
+        "src/generated/openapi.ts",
         "docs/11-step-history/STEP-68-D-PRODUCT-VARIANT-LIFECYCLE.md",
         "docs/14-multi-agent/tasks/EQCOFE-STEP68-D-PRODUCT-VARIANT-LIFECYCLE-001.json",
         "docs/14-multi-agent/generated/TASK-CATALOG.md"
@@ -85,6 +89,12 @@
     "graph_state": "RETIRED_AND_OUT_OF_SCOPE"
   },
   "acceptance_criteria": [
+    {
+      "id": "AC-000",
+      "description": "The bounded carry-forward contract defect is repaired before variant-edit UI: PATCH /admin/variants/{id} declares canonical If-Match exactly as the runtime controller requires, and generated OpenAPI types are synchronized. No other endpoint semantics are changed.",
+      "verification": "variant_if_match_contract_repair",
+      "mandatory": true
+    },
     {
       "id": "AC-001",
       "description": "Product create/update/publish/archive/unarchive/stop-sales/resume-sales use only canonical Admin Catalog endpoints through the existing server auth bridge; no browser credential authority or ad-hoc transport is introduced.",
@@ -148,7 +158,12 @@
   ],
   "external_gate_evidence": {
     "protocol": "EQCOFE_GATE_V1",
-    "artifact_bound_gates": ["REVIEW", "SECURITY", "HUMAN", "LOCK"],
+    "artifact_bound_gates": [
+      "REVIEW",
+      "SECURITY",
+      "HUMAN",
+      "LOCK"
+    ],
     "trusted_github_transport_login": "rahemih",
     "rule": "Step 68-D is HIGH risk. Project Owner Human Gate is mandatory on the final exact HEAD and Artifact only. Stage 68-E remains blocked until terminal canonical closure."
   },
