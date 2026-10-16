@@ -37,10 +37,36 @@ for (const forbidden of [
   "database/**",
   "apps/storefront/**",
   "docs/12-current-state/**",
-  "docs/13-product-design/**",
 ]) {
   assert.ok(task.scope.forbidden.includes(forbidden), "STEP68_D_FORBIDDEN:" + forbidden);
 }
+
+const provenanceWrites = [
+  "docs/13-product-design/step56-admin-ux-contract.json",
+  "docs/13-product-design/step56-foundation/A/manifest.json",
+  "docs/13-product-design/step56-admin-shell-wireframes.json",
+  "docs/13-product-design/step56-wireframes/B/manifest.json",
+  "docs/13-product-design/step56-catalog-media-wireframes.json",
+  "docs/13-product-design/step56-wireframes/C/manifest.json",
+  "docs/13-product-design/step56-pricing-inventory-wireframes.json",
+  "docs/13-product-design/step56-wireframes/D/manifest.json",
+  "docs/13-product-design/step56-commerce-operations-wireframes.json",
+  "docs/13-product-design/step56-wireframes/E/manifest.json",
+  "docs/13-product-design/step56-customers-growth-wireframes.json",
+  "docs/13-product-design/step56-wireframes/F/manifest.json",
+  "docs/13-product-design/step56-management-security-wireframes.json",
+  "docs/13-product-design/step56-wireframes/G/manifest.json",
+  "docs/13-product-design/step56-final-audit.json",
+  "docs/13-product-design/step56-final-audit/manifest.json",
+  "docs/13-product-design/step57-high-fidelity-contract.json",
+];
+for (const provenanceWrite of provenanceWrites) {
+  assert.ok(task.scope.write.includes(provenanceWrite), "STEP68_D_PROVENANCE_WRITE:" + provenanceWrite);
+}
+assert.ok(
+  !task.scope.write.includes("docs/13-product-design/**"),
+  "STEP68_D_NO_BLANKET_PRODUCT_DESIGN_WRITE",
+);
 
 const openapi = read("contracts/http/openapi.yaml");
 const generated = read("src/generated/openapi.ts");
