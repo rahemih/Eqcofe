@@ -302,6 +302,11 @@ button, a, input, select, textarea { font: inherit; }
   background: var(--eq-color-bg-subtle);
 }
 .catalog-action-outcome p { margin: 0; }
+.catalog-action-outcome:focus,
+.auth-alert:focus {
+  outline: none;
+  box-shadow: var(--eq-effect-focus-ring);
+}
 .catalog-authority-footnote { margin-block-start: var(--eq-spacing-3); }
 @media (max-width: 599px) {
   .catalog-editor-form fieldset,

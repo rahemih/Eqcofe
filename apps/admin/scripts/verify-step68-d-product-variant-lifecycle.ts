@@ -134,6 +134,8 @@ assert.ok(detailRoute.includes('intent === "archive-product"'), "STEP68_D_ARCHIV
 assert.ok(detailRoute.includes('intent === "unarchive-product"'), "STEP68_D_UNARCHIVE_PRODUCT");
 assert.ok(detailRoute.includes('intent === "create-variant"'), "STEP68_D_CREATE_VARIANT");
 assert.ok(detailRoute.includes('intent === "update-variant"'), "STEP68_D_UPDATE_VARIANT");
+assert.ok(detailRoute.includes("noticeRef.current?.focus()"), "STEP68_D_OUTCOME_FOCUS_RESTORE");
+assert.ok(detailRoute.includes("tabIndex={-1}"), "STEP68_D_OUTCOME_FOCUS_TARGET");
 
 assert.ok(productEditor.includes('product.status === "archived"'), "STEP68_D_ARCHIVED_EDIT_GUARD");
 assert.ok(productEditor.includes('name="version" value={String(product.version)}'), "STEP68_D_PRODUCT_VERSION_FORM");
