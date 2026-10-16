@@ -136,6 +136,9 @@ assert.ok(detailRoute.includes('intent === "create-variant"'), "STEP68_D_CREATE_
 assert.ok(detailRoute.includes('intent === "update-variant"'), "STEP68_D_UPDATE_VARIANT");
 assert.ok(detailRoute.includes("noticeRef.current?.focus()"), "STEP68_D_OUTCOME_FOCUS_RESTORE");
 assert.ok(detailRoute.includes("tabIndex={-1}"), "STEP68_D_OUTCOME_FOCUS_TARGET");
+assert.ok(detailRoute.includes("useRevalidator"), "STEP68_D_FAILED_ACTION_REVALIDATOR");
+assert.ok(detailRoute.includes("needsRevalidation"), "STEP68_D_FAILED_ACTION_REVALIDATION_FLAG");
+assert.ok(detailRoute.includes("بازخوانی وضعیت canonical"), "STEP68_D_CONFLICT_REREAD_PATH");
 
 assert.ok(productEditor.includes('product.status === "archived"'), "STEP68_D_ARCHIVED_EDIT_GUARD");
 assert.ok(productEditor.includes('name="version" value={String(product.version)}'), "STEP68_D_PRODUCT_VERSION_FORM");

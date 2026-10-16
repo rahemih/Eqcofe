@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { data, Link, useActionData, useLoaderData, useNavigation } from "react-router";
+import { data, Link, useActionData, useLoaderData, useNavigation, useRevalidator } from "react-router";
 import {
   archiveAdminProduct,
   createAdminVariant,
@@ -34,7 +34,7 @@ import { AdminSurfaceState } from "../platform/state/AdminSurfaceState.js";
 type ActionData =
   | { kind: "confirmed" | "accepted"; message: string; requestId: string | null }
   | { kind: "invalid"; message: string; issues: readonly CatalogFormIssue[]; requestId: string | null }
-  | { kind: "failure"; message: string; requestId: string | null };
+  | { kind: "failure"; message: string; requestId: string | null; needsRevalidation?: boolean };
 
 export async function loader({
   request,
@@ -424,7 +424,7 @@ function mutationFailure(result: CatalogMutationFailure, headers: Headers) {
 
   const messages: Record<Exclude<CatalogMutationFailure["kind"], "invalid">, string> = {
     denied: "مجوز این عملیات توسط سرور تأیید نشد.",
-    conflict: "رکورد از زمان مشاهده تغییر کرده است. صفحه دوباره خوانده می‌شود؛ تغییر را بدون بررسی تکرار نکنید.",
+    conflict: "رکورد از زمان مشاهده تغییر کرده است. پیش از تکرار تغییر، وضعیت canonical را دوباره بخوانید.",
     not_found: "رکورد انتخاب‌شده دیگر در دسترس نیست.",
     unknown_outcome: "نتیجهٔ mutation قطعی نیست. عملیات را کورکورانه تکرار نکنید؛ ابتدا وضعیت کالا را دوباره بررسی کنید.",
     unavailable: "سرویس کاتالوگ فعلاً نتیجهٔ معتبر برنگرداند.",
@@ -436,13 +436,14 @@ function mutationFailure(result: CatalogMutationFailure, headers: Headers) {
     result.kind === "not_found" ? 404 : 503;
 
   return data<ActionData>(
-    { kind: "failure", message: messages[result.kind], requestId: result.requestId },
+    { kind: "failure", message: messages[result.kind], requestId: result.requestId, needsRevalidation: result.kind === "conflict" || result.kind === "unknown_outcome" },
     { status, headers },
   );
 }
 
 function CatalogActionNotice({ value }: { value: ActionData }) {
   const noticeRef = useRef<HTMLDivElement>(null);
+  const revalidator = useRevalidator();
 
   useEffect(() => {
     noticeRef.current?.focus();
@@ -460,6 +461,16 @@ function CatalogActionNotice({ value }: { value: ActionData }) {
         <ul>{value.issues.map((issue, index) => <li key={issue.field + index}>{issue.message}</li>)}</ul>
       ) : null}
       {value.requestId ? <p className="auth-request-id">شناسه پیگیری: <bdi>{value.requestId}</bdi></p> : null}
+      {value.kind === "failure" && value.needsRevalidation ? (
+        <button
+          type="button"
+          className="catalog-primary-action"
+          onClick={() => void revalidator.revalidate()}
+          disabled={revalidator.state !== "idle"}
+        >
+          {revalidator.state === "idle" ? "بازخوانی وضعیت canonical" : "در حال بازخوانی…"}
+        </button>
+      ) : null}
     </div>
   );
 }
