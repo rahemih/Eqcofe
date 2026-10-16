@@ -118,7 +118,7 @@
     "stage_c_lock_release_comment": 6204515193,
     "generated_contract_source": "src/generated/openapi.ts",
     "graph_state": "RETIRED_AND_OUT_OF_SCOPE",
-    "provenance_repair_policy": "OpenAPI If-Match repair changes a recovered Step56 source hash. Only the exact listed Step56/57 provenance contracts/manifests may receive generator-equivalent SHA refresh. No operation, screen, journey, permission, visual, approval, business rule or release semantics may change.",
+    "provenance_repair_policy": "Canonical CI confirmed recovered-source drift caused solely by the intentional one-line Variant If-Match OpenAPI repair. Only the exact 17 Step56/57 provenance paths listed in provenance_repair_paths are authorized for SHA/manifest refresh. Screen, frame, journey, operation, permission, visual, approval, runtime-release and business semantics must remain unchanged.",
     "provenance_repair_paths": [
       "docs/13-product-design/step56-admin-ux-contract.json",
       "docs/13-product-design/step56-foundation/A/manifest.json",
@@ -196,7 +196,7 @@
     },
     {
       "id": "AC-009",
-      "description": "No Attribute/Brand/Category mutation, Media mutation, Sales-Control bulk apply, pricing/inventory/Excel work, Backend/database change, Storefront change, Product Design mutation or Current-State closure update is introduced. No OpenAPI/generated-contract mutation is allowed beyond the exact Variant If-Match repair frozen in AC-000.",
+      "description": "No Attribute/Brand/Category mutation, Media mutation, Sales-Control bulk apply, pricing/inventory/Excel work, Backend/database change, Storefront change or Current-State closure update is introduced. No OpenAPI/generated-contract mutation is allowed beyond AC-000, and no Product Design semantic mutation is allowed; only the exact SHA/manifest provenance refresh listed in evidence.provenance_repair_paths is authorized.",
       "verification": "deterministic_scope_check",
       "mandatory": true
     },
