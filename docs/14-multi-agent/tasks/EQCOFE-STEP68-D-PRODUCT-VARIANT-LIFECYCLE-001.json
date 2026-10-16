@@ -143,7 +143,7 @@
     },
     {
       "id": "AC-009",
-      "description": "No Attribute/Brand/Category mutation, Media mutation, Sales-Control bulk apply, pricing/inventory/Excel work, Backend/OpenAPI/database/generated-contract change, Storefront change, Product Design mutation or Current-State closure update is introduced.",
+      "description": "No Attribute/Brand/Category mutation, Media mutation, Sales-Control bulk apply, pricing/inventory/Excel work, Backend/database change, Storefront change, Product Design mutation or Current-State closure update is introduced. No OpenAPI/generated-contract mutation is allowed beyond the exact Variant If-Match repair frozen in AC-000.",
       "verification": "deterministic_scope_check",
       "mandatory": true
     },
