@@ -111,8 +111,8 @@ export async function action({
 
   const form = await request.formData();
   const intent = String(form.get("intent") ?? "");
-  let result: ProductMutationResult | null = null;
-  let successMessage = "";
+  let result: ProductMutationResult;
+  let successMessage: string;
 
   if (intent === "update-product") {
     const issues: CatalogFormIssue[] = [];
