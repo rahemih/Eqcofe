@@ -166,5 +166,17 @@
     "rule": "Step 68-D is HIGH risk. Project Owner Human Gate is mandatory on the final exact HEAD and Artifact only. Stage 68-E remains blocked until terminal canonical closure."
   },
   "process_improvement_links": [],
-  "incident_links": []
+  "incident_links": [],
+  "authorized_human_approver": {
+    "role": "PROJECT_OWNER",
+    "github_login": "rahemih"
+  },
+  "max_repair_cycles": 5,
+  "pre_mutation_gates": {
+    "graph_health": "RETIRED_AND_OUT_OF_SCOPE",
+    "query_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "path_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "explain_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "human_gate": "REQUIRED_FINAL_EXACT_ARTIFACT"
+  }
 }
