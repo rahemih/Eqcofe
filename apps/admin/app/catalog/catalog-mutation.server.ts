@@ -263,6 +263,9 @@ function classifyMutationFailure(
         setCookies,
       };
     }
+    if (error.status === 408 || error.status >= 500) {
+      return { kind: "unknown_outcome", requestId: error.requestId, setCookies };
+    }
   }
 
   return { kind: "unavailable", requestId: error.requestId, setCookies };
