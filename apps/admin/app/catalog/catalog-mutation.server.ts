@@ -200,9 +200,10 @@ async function mutateProduct(
   mutation: (bridge: ReturnType<typeof createAdminAuthBridge>) => Promise<{ status: number; requestId: string | null }>,
 ): Promise<ProductMutationResult> {
   let bridge: ReturnType<typeof createAdminAuthBridge> | null = null;
+  let outcome: { status: number; requestId: string | null } | null = null;
   try {
     bridge = createAdminAuthBridge(request);
-    const outcome = await mutation(bridge);
+    outcome = await mutation(bridge);
     const confirmed = await readProductWithBridge(bridge, productId);
     const common = {
       product: confirmed.product,
@@ -215,7 +216,15 @@ async function mutateProduct(
     }
     return { kind: "confirmed", ...common };
   } catch (error) {
-    return classifyMutationFailure(error, bridge?.takeSetCookies() ?? []);
+    const setCookies = bridge?.takeSetCookies() ?? [];
+    if (outcome) {
+      return {
+        kind: "unknown_outcome",
+        requestId: outcome.requestId ?? requestIdFromError(error),
+        setCookies,
+      };
+    }
+    return classifyMutationFailure(error, setCookies);
   }
 }
 
@@ -234,6 +243,10 @@ async function readProductWithBridge(
     variants: Object.freeze([...variantResult.data]),
     requestId: productResult.requestId ?? variantResult.requestId,
   };
+}
+
+function requestIdFromError(error: unknown): string | null {
+  return error instanceof ApiClientError ? error.requestId : null;
 }
 
 function classifyMutationFailure(

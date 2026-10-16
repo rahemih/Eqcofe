@@ -81,6 +81,8 @@ assert.ok(mutation.includes('headers: { "If-Match": formatIfMatch(version) }'), 
 assert.ok(mutation.includes('kind: "unknown_outcome"'), "STEP68_D_UNKNOWN_OUTCOME");
 assert.ok(mutation.includes('if (outcome.status === 202)'), "STEP68_D_202_NONFINAL");
 assert.ok(mutation.includes('error.status === 408 || error.status >= 500'), "STEP68_D_AMBIGUOUS_HTTP_UNKNOWN");
+assert.ok(mutation.includes("if (outcome)"), "STEP68_D_POST_MUTATION_CONFIRMATION_UNKNOWN");
+assert.ok(mutation.includes("requestIdFromError(error)"), "STEP68_D_POST_MUTATION_REQUEST_ID");
 assert.ok(mutation.includes('body: { ...body, status: "active" }'), "STEP68_D_VARIANT_CREATE_ACTIVE");
 assert.ok(!mutation.includes('"/admin/sales-control/'), "STEP68_D_NO_BULK_SALES_CONTROL");
 assert.ok(!mutation.includes('"/admin/media/'), "STEP68_D_NO_MEDIA_MUTATION");
