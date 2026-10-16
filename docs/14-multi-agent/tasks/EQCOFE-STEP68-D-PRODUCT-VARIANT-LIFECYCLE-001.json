@@ -1,0 +1,157 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP68-D-PRODUCT-VARIANT-LIFECYCLE-001",
+  "title": "Step 68-D Product and Variant create edit lifecycle sales administration",
+  "description": "Implement only the HIGH-risk Admin product and variant create/edit/lifecycle surface on top of canonical Step 68-C. Use source-proven Catalog operations for product create/update/publish/archive/unarchive/stop-resume sales and variant create/update/stop-resume sales. Preserve server-owned authorization, exact Product If-Match concurrency, non-retry mutation semantics, explicit 202 accepted/unknown handling and server re-read after mutation. Attribute structure administration, Brand/Category mutation, Media, Sales-Control bulk controls and all Step69 pricing/inventory/Excel work remain out of scope.",
+  "risk": "HIGH",
+  "risk_floor": "HIGH",
+  "owner": "FRONTEND_ENGINEERING",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "e90a454f001d4e831f6d300927c8fa93325fe1d0"
+  },
+  "scope": {
+    "read": [
+      "package.json",
+      "apps/admin/**",
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "docs/11-step-history/**",
+      "docs/13-product-design/step56-catalog-media-wireframes.json",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "apps/admin/**",
+      "docs/11-step-history/STEP-68-D-PRODUCT-VARIANT-LIFECYCLE.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP68-D-PRODUCT-VARIANT-LIFECYCLE-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "contracts/**",
+      "database/**",
+      "src/**",
+      "test/**",
+      "scripts/**",
+      "apps/api/**",
+      "apps/worker/**",
+      "apps/scheduler/**",
+      "apps/storefront/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP68-D-PRODUCT-VARIANT-LIFECYCLE-001-01"
+  ],
+  "human_gate_required": true,
+  "token_budget": {
+    "expected_max": 46000,
+    "soft_alert": 72000,
+    "hard_cap": 118000
+  },
+  "task_risk_rules": [
+    {
+      "id": "STEP68_D_CATALOG_LIFECYCLE_HIGH",
+      "risk": "HIGH",
+      "paths": [
+        "apps/admin/**",
+        "docs/11-step-history/STEP-68-D-PRODUCT-VARIANT-LIFECYCLE.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP68-D-PRODUCT-VARIANT-LIFECYCLE-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "68-C",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "e90a454f001d4e831f6d300927c8fa93325fe1d0",
+      "evidence": "PR #363 terminally closed with exact-SHA Canonical CI #1905, Phase A #1404, CodeQL #1055 and Lock release comment 6204515193.",
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "linear_issue": "HOS-72",
+    "stage_c_pr": 363,
+    "stage_c_merge": "e90a454f001d4e831f6d300927c8fa93325fe1d0",
+    "stage_c_lock_release_comment": 6204515193,
+    "generated_contract_source": "src/generated/openapi.ts",
+    "graph_state": "RETIRED_AND_OUT_OF_SCOPE"
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Product create/update/publish/archive/unarchive/stop-sales/resume-sales use only canonical Admin Catalog endpoints through the existing server auth bridge; no browser credential authority or ad-hoc transport is introduced.",
+      "verification": "product_lifecycle_contract_boundary",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Product update sends the exact loaded Product version through canonical If-Match and 409 conflicts fail closed with an explicit re-read path; no silent overwrite or automatic conflict retry is allowed.",
+      "verification": "product_if_match_conflict_guard",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Product archive requires an explicit reason, archived products expose no edit/publish/resume action, and unarchive is represented as returning to draft without silently resuming sales.",
+      "verification": "product_lifecycle_state_guard",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Publish is server-authoritative: the frontend does not reproduce active-variant or sellable-price business rules and displays canonical 409/422 outcomes without claiming success.",
+      "verification": "publish_authority_boundary",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Variant create/update/stop-resume sales use only source-proven fields and endpoints. Pricing, inventory and attribute-structure mutation remain outside 68-D.",
+      "verification": "variant_lifecycle_contract_boundary",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Unsafe POST/PATCH mutations are never automatically retried. Any canonical 202 accepted result is treated as non-final and followed by authoritative read/manual follow-up rather than fabricated success.",
+      "verification": "unknown_mutation_outcome_guard",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "All Admin form actions enforce same-origin submission, bounded inputs and neutral 401/403 handling; field-level canonical errors may be rendered without raw backend messages.",
+      "verification": "catalog_mutation_input_security",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "The product/variant lifecycle UI is Persian RTL, responsive and keyboard accessible, uses explicit destructive action review, and restores focus/revalidates after authoritative mutation outcomes.",
+      "verification": "catalog_lifecycle_ux_accessibility",
+      "mandatory": true
+    },
+    {
+      "id": "AC-009",
+      "description": "No Attribute/Brand/Category mutation, Media mutation, Sales-Control bulk apply, pricing/inventory/Excel work, Backend/OpenAPI/database/generated-contract change, Storefront change, Product Design mutation or Current-State closure update is introduced.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-010",
+      "description": "Canonical closure requires exact-head Canonical CI, Phase A and CodeQL, deterministic Review, Independent Security PASS, exact-artifact ACTIVE Lock and explicit Project Owner Human Gate approval, followed by protected merge, exact-SHA postmerge verification and terminal Lock release.",
+      "verification": "high_risk_canonical_transport",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": ["REVIEW", "SECURITY", "HUMAN", "LOCK"],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Step 68-D is HIGH risk. Project Owner Human Gate is mandatory on the final exact HEAD and Artifact only. Stage 68-E remains blocked until terminal canonical closure."
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}
