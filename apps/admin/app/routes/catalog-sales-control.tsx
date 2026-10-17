@@ -128,7 +128,6 @@ export default function CatalogSalesControlRoute(){
 
   useEffect(()=>{
     if(!preview)return;
-    setNow(Date.now());
     const timer=window.setInterval(()=>setNow(Date.now()),1000);
     return()=>window.clearInterval(timer);
   },[preview]);
@@ -137,15 +136,17 @@ export default function CatalogSalesControlRoute(){
     const payload=fetcher.data;
     if(!payload)return;
     if(payload.kind==="preview"){
-      setPreview(payload.preview);
-      setReviewOpen(false);
-      setClientError(null);
-      queueMicrotask(()=>outcomeRef.current?.focus());
+      queueMicrotask(()=>{
+        setPreview(payload.preview);
+        setReviewOpen(false);
+        setClientError(null);
+        outcomeRef.current?.focus();
+      });
       return;
     }
     if(payload.kind==="step-up-challenge"&&handledChallenge.current!==payload.challengeId){
       handledChallenge.current=payload.challengeId;
-      setClientError(null);
+      queueMicrotask(()=>setClientError(null));
       void runAdminWebAuthn("authentication",payload.challengeId,payload.options)
         .then((credential)=>{
           const form=contextForm(payload.preview,"verify-step-up");
@@ -160,17 +161,21 @@ export default function CatalogSalesControlRoute(){
     }
     if(payload.kind==="success"){
       handledChallenge.current=null;
-      setPreview(null);
-      setReviewOpen(false);
-      setClientError(null);
-      queueMicrotask(()=>outcomeRef.current?.focus());
+      queueMicrotask(()=>{
+        setPreview(null);
+        setReviewOpen(false);
+        setClientError(null);
+        outcomeRef.current?.focus();
+      });
       return;
     }
     if(payload.kind==="expired"||payload.kind==="unknown"){
       handledChallenge.current=null;
-      setPreview(null);
-      setReviewOpen(false);
-      queueMicrotask(()=>outcomeRef.current?.focus());
+      queueMicrotask(()=>{
+        setPreview(null);
+        setReviewOpen(false);
+        outcomeRef.current?.focus();
+      });
     }
   },[fetcher.data,fetcher]);
 
