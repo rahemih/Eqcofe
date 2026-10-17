@@ -295,17 +295,49 @@ export async function updateAdminAttributeValue(request: Pick<Request, "headers"
 
 export async function setAdminAssignments(
   request: Pick<Request, "headers">,
+  parentProductId: string,
   target: { type: "product"; id: string } | { type: "variant"; id: string },
   values: readonly AttributeAssignmentInput[],
-) {
-  return mutateAndConfirm(request,
-    (bridge) => target.type === "product"
-      ? bridge.client.request("put", "/admin/products/{product_id}/attributes", { pathParams: { product_id: target.id }, body: { values: [...values] } })
-      : bridge.client.request("put", "/admin/variants/{id}/attributes", { pathParams: { id: target.id }, body: { values: [...values] } }),
-    (bridge) => target.type === "product"
-      ? bridge.client.request("get", "/admin/products/{product_id}/attributes", { pathParams: { product_id: target.id } })
-      : bridge.client.request("get", "/admin/variants/{id}/attributes", { pathParams: { id: target.id } }),
-  );
+): Promise<StructureMutationResult> {
+  let bridge: ReturnType<typeof createAdminAuthBridge> | null = null;
+  let outcome: { status: number; requestId: string | null } | null = null;
+  try {
+    bridge = createAdminAuthBridge(request);
+    if (target.type === "product") {
+      if (target.id !== parentProductId) {
+        return { kind: "not_found", requestId: null, setCookies: bridge.takeSetCookies() };
+      }
+      await bridge.client.request("get", "/admin/products/{id}", { pathParams: { id: parentProductId } });
+      outcome = await bridge.client.request("put", "/admin/products/{product_id}/attributes", {
+        pathParams: { product_id: parentProductId },
+        body: { values: [...values] },
+      });
+      await bridge.client.request("get", "/admin/products/{product_id}/attributes", {
+        pathParams: { product_id: parentProductId },
+      });
+    } else {
+      const variants = await bridge.client.request("get", "/admin/products/{product_id}/variants", {
+        pathParams: { product_id: parentProductId },
+      });
+      if (!variants.data.some((variant) => variant.id === target.id)) {
+        return { kind: "not_found", requestId: variants.requestId, setCookies: bridge.takeSetCookies() };
+      }
+      outcome = await bridge.client.request("put", "/admin/variants/{id}/attributes", {
+        pathParams: { id: target.id },
+        body: { values: [...values] },
+      });
+      await bridge.client.request("get", "/admin/variants/{id}/attributes", { pathParams: { id: target.id } });
+    }
+    return {
+      kind: outcome.status === 202 ? "accepted" : "confirmed",
+      requestId: outcome.requestId,
+      setCookies: bridge.takeSetCookies(),
+    };
+  } catch (error) {
+    const setCookies = bridge?.takeSetCookies() ?? [];
+    if (outcome) return { kind: "unknown_outcome", requestId: outcome.requestId ?? requestIdFrom(error), setCookies };
+    return classifyMutationFailure(error, setCookies);
+  }
 }
 
 async function readList<T>(
