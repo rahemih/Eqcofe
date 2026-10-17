@@ -74,11 +74,17 @@ for (const intent of [
 assert.ok(structureRoute.includes('name="version"'), "STEP68_E_VERSION_FORMS");
 assert.ok(structureRoute.includes("چرخه و والد نامعتبر توسط Backend رد می‌شود"), "STEP68_E_CATEGORY_AUTHORITY");
 assert.ok(structureRoute.includes("هیچ حذف یا آرشیو ساختگی ایجاد نمی‌کند"), "STEP68_E_NO_FAKE_DELETE_UI");
+assert.ok(structureRoute.includes("noticeRef.current?.focus()"), "STEP68_E_STRUCTURE_FOCUS_RESTORE");
+assert.ok(structureRoute.includes("useRevalidator"), "STEP68_E_STRUCTURE_REVALIDATOR");
+assert.ok(structureRoute.includes("بازخوانی وضعیت canonical"), "STEP68_E_STRUCTURE_REREAD_PATH");
 
 assert.ok(assignmentRoute.includes('name="intent" value="replace-assignments"'), "STEP68_E_FULL_SET_FORM");
 assert.ok(assignmentRoute.includes('name={"attribute:" + attribute.id}'), "STEP68_E_ASSIGNMENT_FIELDS");
 assert.ok(assignmentRoute.includes("جایگزینی مجموعه مشخصات"), "STEP68_E_FULL_SET_DISCLOSURE");
 assert.ok(assignmentRoute.includes("If-Match ساختگی"), "STEP68_E_NO_FAKE_CONCURRENCY_DISCLOSURE");
+assert.ok(assignmentRoute.includes("noticeRef.current?.focus()"), "STEP68_E_ASSIGNMENT_FOCUS_RESTORE");
+assert.ok(assignmentRoute.includes("useRevalidator"), "STEP68_E_ASSIGNMENT_REVALIDATOR");
+assert.ok(assignmentRoute.includes("بازخوانی وضعیت canonical"), "STEP68_E_ASSIGNMENT_REREAD_PATH");
 
 assert.ok(routes.includes('route("catalog/structure/:kind"'), "STEP68_E_STRUCTURE_ROUTE");
 assert.ok(routes.includes('route("catalog/products/:productId/attributes"'), "STEP68_E_ASSIGNMENT_ROUTE");
