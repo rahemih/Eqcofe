@@ -14,7 +14,7 @@ const moduleSource = fs.readFileSync('src/modules/excel/excel.module.ts','utf8')
 const a55 = fs.readFileSync('database/migrations/0055_excel_import_jobs.sql','utf8');
 const a56 = fs.readFileSync('database/migrations/0056_excel_import_recovery.sql','utf8');
 const a57 = fs.readFileSync('database/migrations/0057_excel_rbac_audit_api.sql','utf8');
-const contract:any = YAML.parse(fs.readFileSync('contracts/http/openapi-step50-a8.yaml','utf8'));
+const contract:any = YAML.parse(fs.readFileSync('contracts/http/openapi.yaml','utf8'));
 
 test('Step 50 A9 keeps every Excel HTTP route staff-only and permission separated',()=>{
   assert.match(controller,/@Controller\('admin\/excel'\)[\s\S]*@StaffOnly\(\)/);
@@ -66,7 +66,7 @@ test('Step 50 A9 audit never stores raw workbook sheets cells or secrets',()=>{
   assert.doesNotMatch(a56,/bytea|workbook_payload|raw_workbook/i);
 });
 
-test('Step 50 A9 HTTP contract agrees with runtime RBAC Step-Up and idempotency',()=>{
+test('Step 50 A9 canonical HTTP contract agrees with runtime RBAC Step-Up and idempotency',()=>{
   const viewPaths=['/admin/excel/exports/template','/admin/excel/dry-run','/admin/excel/catalog/preview','/admin/excel/pricing/preview'];
   for(const p of viewPaths){ const op=contract.paths[p][p.endsWith('template')?'get':'post']; assert.equal(op['x-eqcofe'].permission,'excel.view'); }
   for(const p of ['/admin/excel/catalog/apply','/admin/excel/pricing/apply','/admin/excel/imports/{id}/recover']){

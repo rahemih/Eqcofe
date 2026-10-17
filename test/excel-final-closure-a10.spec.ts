@@ -127,7 +127,7 @@ test('Step 50 A10 rejects malformed base64 and corrupted ZIP integrity fail clos
 test('Step 50 A10 removes client authority over decoded sheets macros links and byte length', () => {
   const controller = fs.readFileSync('src/modules/excel/presentation/excel-admin.controller.ts','utf8');
   const admin = fs.readFileSync('src/modules/excel/application/excel-admin.service.ts','utf8');
-  const contract:any = YAML.parse(fs.readFileSync('contracts/http/openapi-step50-a8.yaml','utf8'));
+  const contract:any = YAML.parse(fs.readFileSync('contracts/http/openapi.yaml','utf8'));
   assert.match(controller,/BinaryWorkbookUpload/);
   assert.match(admin,/this\.parser\.parse\(this\.binary\.decode\(upload\)\)/);
   const binary = contract.components.schemas.ExcelBinaryWorkbook;

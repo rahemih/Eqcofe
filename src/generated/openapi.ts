@@ -8376,6 +8376,135 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+
+    "/admin/excel/exports/template": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getAdminExcelExportTemplate"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/excel/dry-run": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["postAdminExcelDryRun"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/excel/catalog/preview": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["postAdminExcelCatalogPreview"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/excel/pricing/preview": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["postAdminExcelPricingPreview"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/excel/imports": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["postAdminExcelImports"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/excel/catalog/apply": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["postAdminExcelCatalogApply"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/excel/pricing/apply": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["postAdminExcelPricingApply"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/excel/imports/{id}/recover": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["postAdminExcelImportRecover"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export interface webhooks {
     paymentProviderCallback: {
@@ -9925,7 +10054,7 @@ export interface components {
             stacking_policy: "exclusive" | "stackable" | "best_only";
             scopes: {
                 /** @enum {string} */
-                scope_type: "global" | "category" | "brand" | "product" | "variant" | "customer_segment";
+                scope_type: "global" | "category" | "brand" | "product" | "variant";
                 scope_id?: components["schemas"]["NullableEntityId"];
             }[];
         };
@@ -9960,9 +10089,19 @@ export interface components {
             expected_affected_count: number;
         };
         PostAdminPricingCurrencyRatesRefreshRequest: {
-            source_currency_code: string;
-            provider_ids?: components["schemas"]["EntityId"][];
-            force_refresh?: boolean;
+            provider_key: string;
+            /** @default USD */
+            source_currency_code?: string;
+            timeout_ms?: number;
+            max_age_ms?: number;
+            /**
+             * @default all
+             * @enum {string}
+             */
+            scope_type?: "all" | "product" | "brand" | "category";
+            scope_ids?: components["schemas"]["EntityId"][];
+            /** @default false */
+            include_inactive?: boolean;
         };
         PostAdminPricingCurrencyRatesIdSelectRequest: {
             reason_code: string;
@@ -11227,6 +11366,479 @@ export interface components {
             [key: string]: unknown;
         };
     };
+        ExcelBinaryWorkbook: {
+            fileName: string;
+            /** @constant */
+            mimeType: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+            contentBase64: string;
+        };
+        ExcelWorkbookRequest: {
+            workbook: components["schemas"]["ExcelBinaryWorkbook"];
+        };
+        ExcelApplyRequest: {
+            workbook: components["schemas"]["ExcelBinaryWorkbook"];
+            expected_preview_hash: string;
+        };
+        ExcelRecoverRequest: {
+            note: string;
+        };
+        AdminDbInt64: number | string;
+        AdminDbNumeric: number | string;
+        AdminPricingBasePriceRecord: {
+            id: components["schemas"]["EntityId"];
+            variant_id: components["schemas"]["EntityId"];
+            product_id?: components["schemas"]["EntityId"];
+            sku?: string;
+            amount_toman: components["schemas"]["AdminDbInt64"];
+            /** @enum {string} */
+            source_type: "manual" | "bulk" | "currency" | "import" | "system";
+            valid_from: components["schemas"]["Timestamp"];
+            valid_until?: components["schemas"]["NullableTimestamp"];
+            version: components["schemas"]["AdminDbInt64"];
+            created_by?: components["schemas"]["NullableEntityId"];
+            created_at: components["schemas"]["Timestamp"];
+        } & {
+            [key: string]: unknown;
+        };
+        AdminBasePriceCreateRequest: {
+            amount_toman: components["schemas"]["MoneyToman"];
+            effective_from?: components["schemas"]["Timestamp"];
+            effective_until?: components["schemas"]["NullableTimestamp"];
+            /**
+             * @default manual
+             * @enum {string}
+             */
+            source_type?: "manual" | "bulk" | "currency" | "import" | "system";
+        };
+        AdminProfitGuardView: {
+            /** @enum {string} */
+            status: "passed" | "blocked" | "unavailable" | "not_required";
+            reason?: string | null;
+            unit_cost_toman?: components["schemas"]["MoneyToman"] | null;
+        } & {
+            [key: string]: unknown;
+        };
+        AdminPricingBasePricePreviewData: {
+            variant_id: components["schemas"]["EntityId"];
+            current_price_toman: components["schemas"]["MoneyToman"] | null;
+            proposed_price_toman: components["schemas"]["MoneyToman"];
+            profit_guard: components["schemas"]["AdminProfitGuardView"];
+            effective_from: components["schemas"]["Timestamp"];
+            effective_until: components["schemas"]["NullableTimestamp"];
+        };
+        AdminPricingBasePriceMutationData: {
+            base_price_id: components["schemas"]["EntityId"];
+            variant_id: components["schemas"]["EntityId"];
+            old_price_toman: components["schemas"]["MoneyToman"] | null;
+            new_price_toman: components["schemas"]["MoneyToman"];
+            effective_at: components["schemas"]["Timestamp"];
+        };
+        AdminPricingRuleRecord: {
+            id: components["schemas"]["EntityId"];
+            name_fa: string;
+            /** @enum {string} */
+            rule_type: "discount" | "quantity_discount" | "campaign" | "manual_override";
+            priority: number;
+            /** @enum {string} */
+            value_type: "percentage" | "fixed_toman";
+            value_numeric: components["schemas"]["AdminDbNumeric"];
+            starts_at?: components["schemas"]["NullableTimestamp"];
+            ends_at?: components["schemas"]["NullableTimestamp"];
+            /** @enum {string|null} */
+            customer_type?: "retail" | "wholesale" | null;
+            min_quantity?: number | null;
+            max_quantity?: number | null;
+            /** @enum {string} */
+            stacking_policy: "exclusive" | "stackable" | "best_only";
+            is_global: boolean;
+            /** @enum {string} */
+            status: "draft" | "active" | "inactive" | "expired";
+            version: components["schemas"]["AdminDbInt64"];
+            created_by?: components["schemas"]["NullableEntityId"];
+            created_at: components["schemas"]["Timestamp"];
+            updated_at: components["schemas"]["Timestamp"];
+        } & {
+            [key: string]: unknown;
+        };
+        AdminPricingWarning: {
+            variant_id?: components["schemas"]["EntityId"];
+            code?: string | null;
+        } & {
+            [key: string]: unknown;
+        };
+        AdminPricingPreviewItem: {
+            variantId: components["schemas"]["EntityId"];
+            oldPriceToman: components["schemas"]["MoneyToman"];
+            proposedPriceToman: components["schemas"]["MoneyToman"];
+            /** @enum {string} */
+            guardStatus: "passed" | "blocked" | "unavailable" | "not_required";
+            guardReason: string | null;
+        };
+        AdminPricingBulkPreviewData: {
+            preview_id: components["schemas"]["EntityId"];
+            affected_count: number;
+            warnings: components["schemas"]["AdminPricingWarning"][];
+            items: components["schemas"]["AdminPricingPreviewItem"][];
+            expires_at: components["schemas"]["Timestamp"];
+        };
+        AdminPricingBulkOperationItem: {
+            operation_id: components["schemas"]["EntityId"];
+            variant_id: components["schemas"]["EntityId"];
+            old_price_toman: components["schemas"]["AdminDbInt64"];
+            proposed_price_toman: components["schemas"]["AdminDbInt64"];
+            /** @enum {string} */
+            guard_status: "passed" | "blocked" | "unavailable" | "not_required";
+            guard_reason?: string | null;
+        } & {
+            [key: string]: unknown;
+        };
+        AdminPricingBulkOperationData: {
+            id: components["schemas"]["EntityId"];
+            /** @enum {string} */
+            operation_type: "bulk_price" | "currency_impact";
+            /** @enum {string} */
+            status: "previewed" | "running" | "completed" | "failed" | "expired";
+            request_payload: {
+                [key: string]: unknown;
+            };
+            affected_count: number;
+            warnings: components["schemas"]["AdminPricingWarning"][];
+            requested_by?: components["schemas"]["NullableEntityId"];
+            expires_at: components["schemas"]["Timestamp"];
+            applied_at?: components["schemas"]["NullableTimestamp"];
+            created_at: components["schemas"]["Timestamp"];
+            updated_at: components["schemas"]["Timestamp"];
+            items: components["schemas"]["AdminPricingBulkOperationItem"][];
+        } & {
+            [key: string]: unknown;
+        };
+        AdminPricingBulkApplyData: {
+            operation_id: components["schemas"]["EntityId"];
+            affected_count: number;
+        };
+        AdminPricingCurrencyApplyData: {
+            operation_id: components["schemas"]["EntityId"];
+            affected_count: number;
+            /** @constant */
+            source: "currency";
+        };
+        AdminPricingCurrencyRateRecord: {
+            id: components["schemas"]["EntityId"];
+            source_currency_code: string;
+            rate_to_toman: components["schemas"]["AdminDbNumeric"];
+            source_provider_id?: components["schemas"]["NullableEntityId"];
+            observed_at: components["schemas"]["Timestamp"];
+            received_at?: components["schemas"]["Timestamp"];
+            validated_at?: components["schemas"]["NullableTimestamp"];
+            /** @enum {string} */
+            status: "received" | "validated" | "suspicious" | "rejected" | "active";
+            is_selected: boolean;
+            created_at: components["schemas"]["Timestamp"];
+        } & {
+            [key: string]: unknown;
+        };
+        AdminPricingCurrencyRateRegistrationData: {
+            currency_rate_id: components["schemas"]["EntityId"];
+            source_currency_code: string;
+            rate_to_toman: number;
+            /** @enum {string} */
+            status: "validated" | "suspicious" | "active";
+            deviation_percent: number;
+        };
+        AdminPricingCurrencyRuleRecord: {
+            id: components["schemas"]["EntityId"];
+            name_fa: string;
+            source_currency_code: string;
+            coefficient: components["schemas"]["AdminDbNumeric"];
+            fixed_cost_toman: components["schemas"]["AdminDbInt64"];
+            rounding_multiple_toman: components["schemas"]["AdminDbInt64"];
+            is_global: boolean;
+            /** @enum {string} */
+            status: "draft" | "active" | "inactive";
+            version: components["schemas"]["AdminDbInt64"];
+            created_at: components["schemas"]["Timestamp"];
+            updated_at: components["schemas"]["Timestamp"];
+        } & {
+            [key: string]: unknown;
+        };
+        AdminPricingCurrencyImpactPreviewData: {
+            preview_id: components["schemas"]["EntityId"];
+            rate_to_toman: number;
+            affected_count: number;
+            warnings: components["schemas"]["AdminPricingWarning"][];
+            items: components["schemas"]["AdminPricingPreviewItem"][];
+            expires_at: components["schemas"]["Timestamp"];
+        };
+        AdminPricingFxObservation: {
+            source_currency_code: string;
+            /** @constant */
+            target_unit: "TOMAN";
+            rate_to_toman: number;
+            observed_at: components["schemas"]["Timestamp"];
+            source_reference: string | null;
+        };
+        AdminPricingFxRefreshData: {
+            provider_key: string;
+            provider_request_id: string | null;
+            observation: components["schemas"]["AdminPricingFxObservation"];
+            currency_rate: components["schemas"]["AdminPricingCurrencyRateRegistrationData"];
+            preview: components["schemas"]["AdminPricingCurrencyImpactPreviewData"];
+            /** @constant */
+            apply_required: true;
+        };
+        ExcelWorkbookTemplateColumn: {
+            key: string;
+            required: boolean;
+            description: string;
+        };
+        ExcelWorkbookTemplateSheet: {
+            /** @enum {string} */
+            name: "products" | "variants" | "prices";
+            columns: components["schemas"]["ExcelWorkbookTemplateColumn"][];
+        };
+        ExcelWorkbookTemplate: {
+            /** @constant */
+            contractVersion: "eqcofe-step50-v1";
+            /** @constant */
+            mimeType: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+            /** @constant */
+            fileName: "eqcofe-product-pricing-template.xlsx";
+            sheets: components["schemas"]["ExcelWorkbookTemplateSheet"][];
+        };
+        ExcelDryRunRowError: {
+            /** @enum {string} */
+            sheet: "products" | "variants";
+            row: number;
+            code: string;
+            field: string | null;
+            message: string;
+        };
+        ExcelDryRunRowResult: {
+            /** @enum {string} */
+            sheet: "products" | "variants";
+            row: number;
+            valid: boolean;
+            errors: components["schemas"]["ExcelDryRunRowError"][];
+        };
+        ExcelDryRunData: {
+            valid: boolean;
+            checkedRows: number;
+            validRows: number;
+            invalidRows: number;
+            rows: components["schemas"]["ExcelDryRunRowResult"][];
+        };
+        ExcelCatalogProductOperation: {
+            id: components["schemas"]["EntityId"];
+            expectedVersion: number;
+            nameFa?: string;
+            /** @enum {string} */
+            status?: "draft" | "published" | "archived";
+        };
+        ExcelCatalogVariantOperation: {
+            id: components["schemas"]["EntityId"];
+            expectedVersion: number;
+            barcode?: string | null;
+        };
+        ExcelCatalogPreviewData: {
+            fingerprint: string;
+            previewHash: string;
+            products: components["schemas"]["ExcelCatalogProductOperation"][];
+            variants: components["schemas"]["ExcelCatalogVariantOperation"][];
+        };
+        ExcelPricingPreviewItem: {
+            variantId: components["schemas"]["EntityId"];
+            sku: string;
+            proposedPriceToman: components["schemas"]["MoneyToman"];
+            currentBasePriceId: components["schemas"]["NullableEntityId"];
+            currentPriceToman: components["schemas"]["MoneyToman"] | null;
+            /** @enum {string} */
+            guardStatus: "passed" | "blocked" | "unavailable" | "not_required";
+            guardReason: string | null;
+        };
+        ExcelPricingPreviewData: {
+            sourceFingerprint: string;
+            previewHash: string;
+            items: components["schemas"]["ExcelPricingPreviewItem"][];
+        };
+        ExcelImportJob: {
+            id: components["schemas"]["EntityId"];
+            contract_version: string;
+            fingerprint: string;
+            /** @enum {string} */
+            status: "pending" | "processing" | "completed" | "failed";
+            requested_by: components["schemas"]["EntityId"];
+            created_at: components["schemas"]["Timestamp"];
+            completed_at: components["schemas"]["NullableTimestamp"];
+            failure_code: string | null;
+            failure_message: string | null;
+        };
+        ExcelImportData: {
+            job: components["schemas"]["ExcelImportJob"];
+            created: boolean;
+            replay: boolean;
+        };
+        ExcelCatalogApplyData: {
+            products: number;
+            variants: number;
+        };
+        ExcelPricingApplyData: {
+            affectedCount: number;
+        };
+        ExcelRecoveryData: {
+            jobId: components["schemas"]["EntityId"];
+            nextAttemptNo: number;
+        };
+        AdminPricingBasePriceListResponse: {
+            /** @constant */
+            success: true;
+            data: components["schemas"]["AdminPricingBasePriceRecord"][];
+            meta: components["schemas"]["SuccessMeta"];
+        };
+        AdminPricingBasePricePreviewResponse: {
+            /** @constant */
+            success: true;
+            data: components["schemas"]["AdminPricingBasePricePreviewData"];
+            meta: components["schemas"]["SuccessMeta"];
+        };
+        AdminPricingBasePriceMutationResponse: {
+            /** @constant */
+            success: true;
+            data: components["schemas"]["AdminPricingBasePriceMutationData"];
+            meta: components["schemas"]["SuccessMeta"];
+        };
+        AdminPricingRuleListResponse: {
+            /** @constant */
+            success: true;
+            data: components["schemas"]["AdminPricingRuleRecord"][];
+            meta: components["schemas"]["SuccessMeta"];
+        };
+        AdminPricingRuleResponse: {
+            /** @constant */
+            success: true;
+            data: components["schemas"]["AdminPricingRuleRecord"];
+            meta: components["schemas"]["SuccessMeta"];
+        };
+        AdminPricingBulkPreviewResponse: {
+            /** @constant */
+            success: true;
+            data: components["schemas"]["AdminPricingBulkPreviewData"];
+            meta: components["schemas"]["SuccessMeta"];
+        };
+        AdminPricingBulkApplyResponse: {
+            /** @constant */
+            success: true;
+            data: components["schemas"]["AdminPricingBulkApplyData"];
+            meta: components["schemas"]["SuccessMeta"];
+        };
+        AdminPricingBulkOperationResponse: {
+            /** @constant */
+            success: true;
+            data: components["schemas"]["AdminPricingBulkOperationData"] | null;
+            meta: components["schemas"]["SuccessMeta"];
+        };
+        AdminPricingCurrencyRateListResponse: {
+            /** @constant */
+            success: true;
+            data: components["schemas"]["AdminPricingCurrencyRateRecord"][];
+            meta: components["schemas"]["SuccessMeta"];
+        };
+        AdminPricingCurrencyRateResponse: {
+            /** @constant */
+            success: true;
+            data: components["schemas"]["AdminPricingCurrencyRateRecord"];
+            meta: components["schemas"]["SuccessMeta"];
+        };
+        AdminPricingCurrencyRateNullableResponse: {
+            /** @constant */
+            success: true;
+            data: components["schemas"]["AdminPricingCurrencyRateRecord"] | null;
+            meta: components["schemas"]["SuccessMeta"];
+        };
+        AdminPricingCurrencyRateRegistrationResponse: {
+            /** @constant */
+            success: true;
+            data: components["schemas"]["AdminPricingCurrencyRateRegistrationData"];
+            meta: components["schemas"]["SuccessMeta"];
+        };
+        AdminPricingCurrencyRuleListResponse: {
+            /** @constant */
+            success: true;
+            data: components["schemas"]["AdminPricingCurrencyRuleRecord"][];
+            meta: components["schemas"]["SuccessMeta"];
+        };
+        AdminPricingCurrencyRuleResponse: {
+            /** @constant */
+            success: true;
+            data: components["schemas"]["AdminPricingCurrencyRuleRecord"];
+            meta: components["schemas"]["SuccessMeta"];
+        };
+        AdminPricingCurrencyImpactPreviewResponse: {
+            /** @constant */
+            success: true;
+            data: components["schemas"]["AdminPricingCurrencyImpactPreviewData"];
+            meta: components["schemas"]["SuccessMeta"];
+        };
+        AdminPricingCurrencyApplyResponse: {
+            /** @constant */
+            success: true;
+            data: components["schemas"]["AdminPricingCurrencyApplyData"];
+            meta: components["schemas"]["SuccessMeta"];
+        };
+        AdminPricingFxRefreshResponse: {
+            /** @constant */
+            success: true;
+            data: components["schemas"]["AdminPricingFxRefreshData"];
+            meta: components["schemas"]["SuccessMeta"];
+        };
+        AdminExcelTemplateResponse: {
+            /** @constant */
+            success: true;
+            data: components["schemas"]["ExcelWorkbookTemplate"];
+            meta: components["schemas"]["SuccessMeta"];
+        };
+        AdminExcelDryRunResponse: {
+            /** @constant */
+            success: true;
+            data: components["schemas"]["ExcelDryRunData"];
+            meta: components["schemas"]["SuccessMeta"];
+        };
+        AdminExcelCatalogPreviewResponse: {
+            /** @constant */
+            success: true;
+            data: components["schemas"]["ExcelCatalogPreviewData"];
+            meta: components["schemas"]["SuccessMeta"];
+        };
+        AdminExcelPricingPreviewResponse: {
+            /** @constant */
+            success: true;
+            data: components["schemas"]["ExcelPricingPreviewData"];
+            meta: components["schemas"]["SuccessMeta"];
+        };
+        AdminExcelImportResponse: {
+            /** @constant */
+            success: true;
+            data: components["schemas"]["ExcelImportData"];
+            meta: components["schemas"]["SuccessMeta"];
+        };
+        AdminExcelCatalogApplyResponse: {
+            /** @constant */
+            success: true;
+            data: components["schemas"]["ExcelCatalogApplyData"];
+            meta: components["schemas"]["SuccessMeta"];
+        };
+        AdminExcelPricingApplyResponse: {
+            /** @constant */
+            success: true;
+            data: components["schemas"]["ExcelPricingApplyData"];
+            meta: components["schemas"]["SuccessMeta"];
+        };
+        AdminExcelRecoveryResponse: {
+            /** @constant */
+            success: true;
+            data: components["schemas"]["ExcelRecoveryData"];
+            meta: components["schemas"]["SuccessMeta"];
+        };
+
     responses: {
         /** @description درخواست نامعتبر */
         BadRequest: {
@@ -14629,7 +15241,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["AdminPricingBasePriceListResponse"];
+                };
             };
         };
     };
@@ -14642,23 +15256,18 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["PostAdminPricingBasePricesRequest"];
+                "application/json": components["schemas"]["AdminBasePriceCreateRequest"];
             };
         };
         responses: {
-            /** @description عملیات موفق */
-            200: {
+            /** @description عملیات با موفقیت ایجاد/اجرا شد */
+            201: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
-            };
-            /** @description عملیات پذیرفته شد */
-            202: {
-                headers: {
-                    [name: string]: unknown;
+                content: {
+                    "application/json": components["schemas"]["AdminPricingBasePriceMutationResponse"];
                 };
-                content?: never;
             };
         };
     };
@@ -14675,19 +15284,14 @@ export interface operations {
             };
         };
         responses: {
-            /** @description عملیات موفق */
-            200: {
+            /** @description عملیات با موفقیت ایجاد/اجرا شد */
+            201: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
-            };
-            /** @description عملیات پذیرفته شد */
-            202: {
-                headers: {
-                    [name: string]: unknown;
+                content: {
+                    "application/json": components["schemas"]["AdminPricingBasePricePreviewResponse"];
                 };
-                content?: never;
             };
         };
     };
@@ -14702,23 +15306,18 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["PriceCreateRequest"];
+                "application/json": components["schemas"]["AdminBasePriceCreateRequest"];
             };
         };
         responses: {
-            /** @description عملیات موفق */
-            200: {
+            /** @description عملیات با موفقیت ایجاد/اجرا شد */
+            201: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
-            };
-            /** @description عملیات پذیرفته شد */
-            202: {
-                headers: {
-                    [name: string]: unknown;
+                content: {
+                    "application/json": components["schemas"]["AdminPricingBasePriceMutationResponse"];
                 };
-                content?: never;
             };
         };
     };
@@ -14736,7 +15335,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["AdminPricingRuleListResponse"];
+                };
             };
         };
     };
@@ -14753,19 +15354,14 @@ export interface operations {
             };
         };
         responses: {
-            /** @description عملیات موفق */
-            200: {
+            /** @description عملیات با موفقیت ایجاد/اجرا شد */
+            201: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
-            };
-            /** @description عملیات پذیرفته شد */
-            202: {
-                headers: {
-                    [name: string]: unknown;
+                content: {
+                    "application/json": components["schemas"]["AdminPricingRuleResponse"];
                 };
-                content?: never;
             };
         };
     };
@@ -14785,7 +15381,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["AdminPricingRuleResponse"];
+                };
             };
         };
     };
@@ -14811,7 +15409,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["AdminPricingRuleResponse"];
+                };
             };
         };
     };
@@ -14830,19 +15430,14 @@ export interface operations {
             };
         };
         responses: {
-            /** @description عملیات موفق */
-            200: {
+            /** @description عملیات با موفقیت ایجاد/اجرا شد */
+            201: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
-            };
-            /** @description عملیات پذیرفته شد */
-            202: {
-                headers: {
-                    [name: string]: unknown;
+                content: {
+                    "application/json": components["schemas"]["AdminPricingRuleResponse"];
                 };
-                content?: never;
             };
         };
     };
@@ -14861,19 +15456,14 @@ export interface operations {
             };
         };
         responses: {
-            /** @description عملیات موفق */
-            200: {
+            /** @description عملیات با موفقیت ایجاد/اجرا شد */
+            201: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
-            };
-            /** @description عملیات پذیرفته شد */
-            202: {
-                headers: {
-                    [name: string]: unknown;
+                content: {
+                    "application/json": components["schemas"]["AdminPricingRuleResponse"];
                 };
-                content?: never;
             };
         };
     };
@@ -14890,19 +15480,14 @@ export interface operations {
             };
         };
         responses: {
-            /** @description عملیات موفق */
-            200: {
+            /** @description عملیات با موفقیت ایجاد/اجرا شد */
+            201: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
-            };
-            /** @description عملیات پذیرفته شد */
-            202: {
-                headers: {
-                    [name: string]: unknown;
+                content: {
+                    "application/json": components["schemas"]["AdminPricingBulkPreviewResponse"];
                 };
-                content?: never;
             };
         };
     };
@@ -14921,19 +15506,14 @@ export interface operations {
             };
         };
         responses: {
-            /** @description عملیات موفق */
-            200: {
+            /** @description عملیات با موفقیت ایجاد/اجرا شد */
+            201: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
-            };
-            /** @description عملیات پذیرفته شد */
-            202: {
-                headers: {
-                    [name: string]: unknown;
+                content: {
+                    "application/json": components["schemas"]["AdminPricingBulkApplyResponse"];
                 };
-                content?: never;
             };
         };
     };
@@ -14953,7 +15533,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["AdminPricingBulkOperationResponse"];
+                };
             };
         };
     };
@@ -14971,7 +15553,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["AdminPricingCurrencyRateListResponse"];
+                };
             };
         };
     };
@@ -14989,7 +15573,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["AdminPricingCurrencyRateNullableResponse"];
+                };
             };
         };
     };
@@ -15006,19 +15592,14 @@ export interface operations {
             };
         };
         responses: {
-            /** @description عملیات موفق */
-            200: {
+            /** @description عملیات با موفقیت ایجاد/اجرا شد */
+            201: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
-            };
-            /** @description عملیات پذیرفته شد */
-            202: {
-                headers: {
-                    [name: string]: unknown;
+                content: {
+                    "application/json": components["schemas"]["AdminPricingFxRefreshResponse"];
                 };
-                content?: never;
             };
         };
     };
@@ -15037,19 +15618,14 @@ export interface operations {
             };
         };
         responses: {
-            /** @description عملیات موفق */
-            200: {
+            /** @description عملیات با موفقیت ایجاد/اجرا شد */
+            201: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
-            };
-            /** @description عملیات پذیرفته شد */
-            202: {
-                headers: {
-                    [name: string]: unknown;
+                content: {
+                    "application/json": components["schemas"]["AdminPricingCurrencyRateResponse"];
                 };
-                content?: never;
             };
         };
     };
@@ -15068,19 +15644,14 @@ export interface operations {
             };
         };
         responses: {
-            /** @description عملیات موفق */
-            200: {
+            /** @description عملیات با موفقیت ایجاد/اجرا شد */
+            201: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
-            };
-            /** @description عملیات پذیرفته شد */
-            202: {
-                headers: {
-                    [name: string]: unknown;
+                content: {
+                    "application/json": components["schemas"]["AdminPricingCurrencyRateResponse"];
                 };
-                content?: never;
             };
         };
     };
@@ -15097,19 +15668,14 @@ export interface operations {
             };
         };
         responses: {
-            /** @description عملیات موفق */
-            200: {
+            /** @description عملیات با موفقیت ایجاد/اجرا شد */
+            201: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
-            };
-            /** @description عملیات پذیرفته شد */
-            202: {
-                headers: {
-                    [name: string]: unknown;
+                content: {
+                    "application/json": components["schemas"]["AdminPricingCurrencyImpactPreviewResponse"];
                 };
-                content?: never;
             };
         };
     };
@@ -15128,19 +15694,14 @@ export interface operations {
             };
         };
         responses: {
-            /** @description عملیات موفق */
-            200: {
+            /** @description عملیات با موفقیت ایجاد/اجرا شد */
+            201: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
-            };
-            /** @description عملیات پذیرفته شد */
-            202: {
-                headers: {
-                    [name: string]: unknown;
+                content: {
+                    "application/json": components["schemas"]["AdminPricingCurrencyApplyResponse"];
                 };
-                content?: never;
             };
         };
     };
@@ -24874,12 +25435,14 @@ export interface operations {
             };
         };
         responses: {
-            /** @description نرخ ارز ثبت شد */
-            200: {
+            /** @description عملیات با موفقیت ایجاد/اجرا شد */
+            201: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["AdminPricingCurrencyRateRegistrationResponse"];
+                };
             };
         };
     };
@@ -24892,12 +25455,14 @@ export interface operations {
         };
         requestBody?: never;
         responses: {
-            /** @description فهرست قوانین قیمت ارزی */
+            /** @description عملیات موفق */
             200: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["AdminPricingCurrencyRuleListResponse"];
+                };
             };
         };
     };
@@ -24914,12 +25479,14 @@ export interface operations {
             };
         };
         responses: {
-            /** @description قانون قیمت ارزی ایجاد شد */
-            200: {
+            /** @description عملیات با موفقیت ایجاد/اجرا شد */
+            201: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["AdminPricingCurrencyRuleResponse"];
+                };
             };
         };
     };
@@ -24934,12 +25501,14 @@ export interface operations {
         };
         requestBody?: never;
         responses: {
-            /** @description قانون قیمت ارزی */
+            /** @description عملیات موفق */
             200: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["AdminPricingCurrencyRuleResponse"];
+                };
             };
         };
     };
@@ -24960,12 +25529,14 @@ export interface operations {
             };
         };
         responses: {
-            /** @description قانون قیمت ارزی ویرایش شد */
+            /** @description عملیات موفق */
             200: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["AdminPricingCurrencyRuleResponse"];
+                };
             };
         };
     };
@@ -24980,12 +25551,14 @@ export interface operations {
         };
         requestBody?: never;
         responses: {
-            /** @description وضعیت قانون قیمت ارزی تغییر کرد */
-            200: {
+            /** @description عملیات با موفقیت ایجاد/اجرا شد */
+            201: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["AdminPricingCurrencyRuleResponse"];
+                };
             };
         };
     };
@@ -25000,12 +25573,14 @@ export interface operations {
         };
         requestBody?: never;
         responses: {
-            /** @description وضعیت قانون قیمت ارزی تغییر کرد */
-            200: {
+            /** @description عملیات با موفقیت ایجاد/اجرا شد */
+            201: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["AdminPricingCurrencyRuleResponse"];
+                };
             };
         };
     };
@@ -26394,4 +26969,204 @@ export interface operations {
             };
         };
     };
+    getAdminExcelExportTemplate: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description عملیات موفق */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AdminExcelTemplateResponse"];
+                };
+            };
+        };
+    };
+    postAdminExcelDryRun: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ExcelWorkbookRequest"];
+            };
+        };
+        responses: {
+            /** @description عملیات با موفقیت ایجاد/اجرا شد */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AdminExcelDryRunResponse"];
+                };
+            };
+        };
+    };
+    postAdminExcelCatalogPreview: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ExcelWorkbookRequest"];
+            };
+        };
+        responses: {
+            /** @description عملیات با موفقیت ایجاد/اجرا شد */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AdminExcelCatalogPreviewResponse"];
+                };
+            };
+        };
+    };
+    postAdminExcelPricingPreview: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ExcelWorkbookRequest"];
+            };
+        };
+        responses: {
+            /** @description عملیات با موفقیت ایجاد/اجرا شد */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AdminExcelPricingPreviewResponse"];
+                };
+            };
+        };
+    };
+    postAdminExcelImports: {
+        parameters: {
+            query?: never;
+            header: {
+                "Idempotency-Key": components["parameters"]["IdempotencyKey"];
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ExcelWorkbookRequest"];
+            };
+        };
+        responses: {
+            /** @description عملیات با موفقیت ایجاد/اجرا شد */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AdminExcelImportResponse"];
+                };
+            };
+        };
+    };
+    postAdminExcelCatalogApply: {
+        parameters: {
+            query?: never;
+            header: {
+                "Idempotency-Key": components["parameters"]["IdempotencyKey"];
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ExcelApplyRequest"];
+            };
+        };
+        responses: {
+            /** @description عملیات با موفقیت ایجاد/اجرا شد */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AdminExcelCatalogApplyResponse"];
+                };
+            };
+        };
+    };
+    postAdminExcelPricingApply: {
+        parameters: {
+            query?: never;
+            header: {
+                "Idempotency-Key": components["parameters"]["IdempotencyKey"];
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ExcelApplyRequest"];
+            };
+        };
+        responses: {
+            /** @description عملیات با موفقیت ایجاد/اجرا شد */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AdminExcelPricingApplyResponse"];
+                };
+            };
+        };
+    };
+    postAdminExcelImportRecover: {
+        parameters: {
+            query?: never;
+            header: {
+                "Idempotency-Key": components["parameters"]["IdempotencyKey"];
+            };
+            path: {
+                /** Format: uuid */
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ExcelRecoverRequest"];
+            };
+        };
+        responses: {
+            /** @description عملیات با موفقیت ایجاد/اجرا شد */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AdminExcelRecoveryResponse"];
+                };
+            };
+        };
+    };
+
 }

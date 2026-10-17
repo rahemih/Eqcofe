@@ -5,8 +5,8 @@
   "artifacts": [
     {
       "path": "docs/13-product-design/step56-final-audit.json",
-      "sha256": "f9d08d3d2c87fa53a0579993b17e0f190aae659977d64d0dbac9256009183c08",
-      "bytes": 2199796
+      "sha256": "dae754a48bc1a4df5fe9232293de210c2ee9c3fbe5e61445579c29b7118e9c8b",
+      "bytes": 2199927
     },
     {
       "path": "docs/13-product-design/step56-final-audit/surface-matrix.json",
@@ -15,8 +15,8 @@
     },
     {
       "path": "docs/13-product-design/step56-final-audit/operation-matrix.json",
-      "sha256": "3a7dfc1077d421d76eb3fadd4075b0485ac49741b0bb25363b238a3fb931887e",
-      "bytes": 229280
+      "sha256": "2f1e7918583b6958618b1b8cb12d9af2c153b2b5099f6481acaedf58ffb1f129",
+      "bytes": 229411
     },
     {
       "path": "docs/13-product-design/step56-final-audit/journey-matrix.json",

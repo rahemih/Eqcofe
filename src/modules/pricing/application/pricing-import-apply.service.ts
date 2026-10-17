@@ -95,7 +95,7 @@ export class PricingImportApplyService {
           id,
           variantId: item.variantId,
           amountToman: item.proposedPriceToman,
-          sourceType: 'excel_import',
+          sourceType: 'import',
           validFrom: effectiveAt,
           validUntil: null,
           createdBy: context.actor.id ?? null,

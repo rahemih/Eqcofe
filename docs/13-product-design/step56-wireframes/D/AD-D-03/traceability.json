@@ -24,7 +24,7 @@
         "runtime": [
           "pricing.view"
         ],
-        "openapi": null
+        "openapi": "pricing.view"
       },
       "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
       "stepUp": false,
@@ -56,7 +56,7 @@
         "runtime": [
           "pricing.bulk.manage"
         ],
-        "openapi": null
+        "openapi": "pricing.bulk.manage"
       },
       "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
       "stepUp": false,
