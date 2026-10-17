@@ -4,8 +4,8 @@ Status: **IN_PROGRESS / NOT_CANONICAL**
 
 Canonical base: `de4f72a4c2e9c4d3d48762e778f45d3644d9c727`  
 Linear: `HOS-72`  
-Risk: **MEDIUM**  
-Human Gate: **NOT_REQUIRED**
+Risk: **HIGH**  
+Human Gate: **REQUIRED — FINAL EXACT ARTIFACT ONLY**
 
 ## Entry proof
 
@@ -17,6 +17,18 @@ Step 68-D is terminally canonical:
 - canonical merge/main SHA: `de4f72a4c2e9c4d3d48762e778f45d3644d9c727`;
 - exact-SHA Canonical CI #1945, Phase A #1444, CodeQL #1097 and Storefront Quality #923 = **SUCCESS**;
 - terminal Step 68-D Lock release comment: `6230507852`.
+
+## Entry contract audit finding
+
+A bounded carry-forward concurrency defect was proven before frontend mutation work:
+
+- runtime `PATCH /admin/brands/:id` requires `if-match` and passes it through `expectedVersion(...)`;
+- runtime `PATCH /admin/categories/:id` requires the same;
+- canonical OpenAPI/generated client omitted the `If-Match` header on exactly those two PATCH operations;
+- Attribute and Attribute Value PATCH operations already declare `If-Match` correctly;
+- assignment PUT operations correctly declare no `If-Match` and must stay that way.
+
+Frontend code must not bypass this mismatch with a cast or invented untyped header. Step 68-E is therefore promoted to **HIGH** risk and includes the exact two-operation OpenAPI/generated repair plus deterministic provenance-only Step56/57 hash refresh. No other contract semantic change is authorized.
 
 ## Purpose
 
@@ -115,4 +127,4 @@ Task Contract:
 8. terminal Lock RELEASED;
 9. Linear `HOS-72` records `STEP_68_E = CANONICAL_COMPLETE`.
 
-No Project Owner Human Gate is required for this frozen MEDIUM-risk stage.
+A Project Owner Human Gate is required only after the final exact HEAD/Artifact has passed CI, Review, Security and ACTIVE Lock prerequisites.
