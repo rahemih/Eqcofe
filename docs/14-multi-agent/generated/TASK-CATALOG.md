@@ -118,6 +118,7 @@
 | EQCOFE-STEP68-G-SALES-CONTROL-001 | Step 68-G Step-Up protected sales-control preview and apply administration | HIGH | REQUIRED | `9230e88178f5ffa5d2352126ee4edac57f021fec` | 46000/72000/118000 |
 | EQCOFE-STEP68-H-INTEGRATED-ACCEPTANCE-001 | Step 68-H integrated Admin Catalog Media Sales-Control production-browser acceptance | MEDIUM | NOT_REQUIRED | `1399dc20932224a7b26ee45b72b233b80d0ee7f1` | 42000/68000/110000 |
 | EQCOFE-STEP68-I-CLOSURE-001 | Step 68-I final canonical verification, documentation reconciliation and Step 69 handoff | MEDIUM | NOT_REQUIRED | `80938cc3e3a8aa051d8bcd2b480c3555df8742f7` | 32000/50000/92000 |
+| EQCOFE-STEP69-A-PRICING-FX-EXCEL-HANDOFF-001 | Step 69-A Pricing, FX & Excel Administration canonical handoff and scope freeze | MEDIUM | NOT_REQUIRED | `2eb803d8b2e8ee0eb247818d6bff3d871b71eefc` | 30000/48000/90000 |
 | MA-AGENT-A0-ORCHESTRATOR-001 | A0 — Orchestrator / Engineering Manager Prompt | LOW | NOT_REQUIRED | `f7919991e619d416360e74a542741ef21c70f732` | 10000/16000/32000 |
 | MA-AGENT-A1-SPEC-001 | A1 — Specification & Research Prompt | LOW | NOT_REQUIRED | `120898df57138b301560e7d9b9f1b3f5da03e982` | 10000/16000/32000 |
 | MA-AGENT-A10-EVIDENCE-001 | A10 — Evidence & Documentation Prompt | LOW | NOT_REQUIRED | `bdf8fccde4ca40cced48381ad3be2e0461ade535` | 12000/18000/35000 |
@@ -163,4 +164,4 @@
 | MA-V1-ACC-MEDIUM-001 | V1 Acceptance MEDIUM R2 — telemetry terminal-state conflict hardening | MEDIUM | NOT_REQUIRED | `9017e0f25e9571568ed9acf4ca3ca977ce9e78f0` | 15000/25000/50000 |
 | MA-V1-ACCEPTANCE-CLOSURE-V16-R2-001 | V1.6 Phase 3 canonical acceptance closure R2 | HIGH | REQUIRED | `d7d235f5f240b8bea44bc607afa812b2f5bb12d4` | 30000/50000/90000 |
 
-Task contracts indexed: **157**.
+Task contracts indexed: **158**.
