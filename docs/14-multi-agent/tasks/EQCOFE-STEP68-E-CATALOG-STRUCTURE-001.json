@@ -2,9 +2,9 @@
   "schema_version": "2.2",
   "task_id": "EQCOFE-STEP68-E-CATALOG-STRUCTURE-001",
   "title": "Step 68-E Attribute Brand Category structure administration and conflict handling",
-  "description": "Implement the MEDIUM-risk Admin Catalog structure workspace on top of canonical Step 68-D. Cover source-proven Brand and Category list/create/edit/sales controls, Attribute definition/value administration, and full-set Product/Variant attribute assignment. Preserve server-owned authorization, exact version/If-Match concurrency only where the canonical contract declares it, no invented If-Match for assignment PUT, fail-closed mutation ambiguity, authoritative re-read, Persian RTL accessibility, and explicit no-delete/no-archive taxonomy boundaries. Media, Sales-Control bulk controls, pricing/inventory/Excel, Backend/OpenAPI/database changes and terminal Step-68 documentation reconciliation remain out of scope.",
-  "risk": "MEDIUM",
-  "risk_floor": "MEDIUM",
+  "description": "Implement the HIGH-risk Admin Catalog structure workspace on top of canonical Step 68-D. Cover source-proven Brand and Category list/create/edit/sales controls, Attribute definition/value administration, and full-set Product/Variant attribute assignment. Entry audit found a bounded carry-forward contract defect: PATCH /admin/brands/{id} and PATCH /admin/categories/{id} require If-Match in the runtime controller but canonical OpenAPI/generated types omit it. Repair only those exact parameter declarations before frontend mutation work, synchronize generated types and source-proven Step56/57 provenance hashes, then preserve server-owned authorization, exact concurrency, no invented If-Match for assignment PUT, fail-closed mutation ambiguity and Persian RTL accessibility.",
+  "risk": "HIGH",
+  "risk_floor": "HIGH",
   "owner": "FRONTEND_ENGINEERING",
   "canonical": {
     "repository": "rahemih/Eqcofe",
@@ -25,46 +25,81 @@
     ],
     "write": [
       "apps/admin/**",
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
       "docs/11-step-history/STEP-68-E-CATALOG-STRUCTURE.md",
       "docs/14-multi-agent/tasks/EQCOFE-STEP68-E-CATALOG-STRUCTURE-001.json",
-      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "docs/13-product-design/step56-admin-ux-contract.json",
+      "docs/13-product-design/step56-foundation/A/manifest.json",
+      "docs/13-product-design/step56-admin-shell-wireframes.json",
+      "docs/13-product-design/step56-wireframes/B/manifest.json",
+      "docs/13-product-design/step56-catalog-media-wireframes.json",
+      "docs/13-product-design/step56-wireframes/C/manifest.json",
+      "docs/13-product-design/step56-pricing-inventory-wireframes.json",
+      "docs/13-product-design/step56-wireframes/D/manifest.json",
+      "docs/13-product-design/step56-commerce-operations-wireframes.json",
+      "docs/13-product-design/step56-wireframes/E/manifest.json",
+      "docs/13-product-design/step56-customers-growth-wireframes.json",
+      "docs/13-product-design/step56-wireframes/F/manifest.json",
+      "docs/13-product-design/step56-management-security-wireframes.json",
+      "docs/13-product-design/step56-wireframes/G/manifest.json",
+      "docs/13-product-design/step56-final-audit.json",
+      "docs/13-product-design/step56-final-audit/manifest.json",
+      "docs/13-product-design/step57-high-fidelity-contract.json"
     ],
     "forbidden": [
       ".github/**",
       "package.json",
       "pnpm-lock.yaml",
       "pnpm-workspace.yaml",
-      "contracts/**",
       "database/**",
-      "src/**",
       "test/**",
       "scripts/**",
       "apps/api/**",
       "apps/worker/**",
       "apps/scheduler/**",
       "apps/storefront/**",
-      "docs/12-current-state/**",
-      "docs/13-product-design/**"
+      "docs/12-current-state/**"
     ]
   },
   "requested_lock_ids": [
     "LOCK-EQCOFE-STEP68-E-CATALOG-STRUCTURE-001-01"
   ],
-  "human_gate_required": false,
+  "human_gate_required": true,
   "token_budget": {
-    "expected_max": 38000,
-    "soft_alert": 60000,
-    "hard_cap": 100000
+    "expected_max": 46000,
+    "soft_alert": 72000,
+    "hard_cap": 118000
   },
   "task_risk_rules": [
     {
-      "id": "STEP68_E_CATALOG_STRUCTURE_MEDIUM",
-      "risk": "MEDIUM",
+      "id": "STEP68_E_CATALOG_STRUCTURE_HIGH",
+      "risk": "HIGH",
       "paths": [
         "apps/admin/**",
+        "contracts/http/openapi.yaml",
+        "src/generated/openapi.ts",
         "docs/11-step-history/STEP-68-E-CATALOG-STRUCTURE.md",
         "docs/14-multi-agent/tasks/EQCOFE-STEP68-E-CATALOG-STRUCTURE-001.json",
-        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+        "docs/14-multi-agent/generated/TASK-CATALOG.md",
+        "docs/13-product-design/step56-admin-ux-contract.json",
+        "docs/13-product-design/step56-foundation/A/manifest.json",
+        "docs/13-product-design/step56-admin-shell-wireframes.json",
+        "docs/13-product-design/step56-wireframes/B/manifest.json",
+        "docs/13-product-design/step56-catalog-media-wireframes.json",
+        "docs/13-product-design/step56-wireframes/C/manifest.json",
+        "docs/13-product-design/step56-pricing-inventory-wireframes.json",
+        "docs/13-product-design/step56-wireframes/D/manifest.json",
+        "docs/13-product-design/step56-commerce-operations-wireframes.json",
+        "docs/13-product-design/step56-wireframes/E/manifest.json",
+        "docs/13-product-design/step56-customers-growth-wireframes.json",
+        "docs/13-product-design/step56-wireframes/F/manifest.json",
+        "docs/13-product-design/step56-management-security-wireframes.json",
+        "docs/13-product-design/step56-wireframes/G/manifest.json",
+        "docs/13-product-design/step56-final-audit.json",
+        "docs/13-product-design/step56-final-audit/manifest.json",
+        "docs/13-product-design/step57-high-fidelity-contract.json"
       ]
     }
   ],
@@ -84,9 +119,35 @@
     "stage_d_merge": "de4f72a4c2e9c4d3d48762e778f45d3644d9c727",
     "stage_d_lock_release_comment": 6230507852,
     "generated_contract_source": "src/generated/openapi.ts",
-    "graph_state": "RETIRED_AND_OUT_OF_SCOPE"
+    "graph_state": "RETIRED_AND_OUT_OF_SCOPE",
+    "provenance_repair_policy": "Only the missing canonical If-Match parameter declarations for PATCH /admin/brands/{id} and PATCH /admin/categories/{id}, generated type synchronization, and exact SHA/manifest provenance refreshes are authorized. No other operation, screen, journey, permission, runtime-release or business semantic may change.",
+    "provenance_repair_paths": [
+      "docs/13-product-design/step56-admin-ux-contract.json",
+      "docs/13-product-design/step56-foundation/A/manifest.json",
+      "docs/13-product-design/step56-admin-shell-wireframes.json",
+      "docs/13-product-design/step56-wireframes/B/manifest.json",
+      "docs/13-product-design/step56-catalog-media-wireframes.json",
+      "docs/13-product-design/step56-wireframes/C/manifest.json",
+      "docs/13-product-design/step56-pricing-inventory-wireframes.json",
+      "docs/13-product-design/step56-wireframes/D/manifest.json",
+      "docs/13-product-design/step56-commerce-operations-wireframes.json",
+      "docs/13-product-design/step56-wireframes/E/manifest.json",
+      "docs/13-product-design/step56-customers-growth-wireframes.json",
+      "docs/13-product-design/step56-wireframes/F/manifest.json",
+      "docs/13-product-design/step56-management-security-wireframes.json",
+      "docs/13-product-design/step56-wireframes/G/manifest.json",
+      "docs/13-product-design/step56-final-audit.json",
+      "docs/13-product-design/step56-final-audit/manifest.json",
+      "docs/13-product-design/step57-high-fidelity-contract.json"
+    ]
   },
   "acceptance_criteria": [
+    {
+      "id": "AC-000",
+      "description": "Before Brand/Category edit UI is enabled, canonical OpenAPI for PATCH /admin/brands/{id} and PATCH /admin/categories/{id} must declare the same If-Match precondition required by runtime controllers, generated types must be synchronized, and no other endpoint semantic may change.",
+      "verification": "taxonomy_if_match_contract_repair",
+      "mandatory": true
+    },
     {
       "id": "AC-001",
       "description": "Brand, Category and Attribute structure reads/mutations use only canonical generated Admin operations through the existing server-owned auth bridge; no browser credential authority or parallel API client is introduced.",
@@ -143,8 +204,8 @@
     },
     {
       "id": "AC-010",
-      "description": "Canonical closure requires exact-head Canonical CI, Phase A and CodeQL, deterministic Review and exact-artifact ACTIVE Lock, protected merge, exact-SHA postmerge verification and terminal Lock release. Human Gate is not required for MEDIUM-risk 68-E.",
-      "verification": "medium_risk_canonical_transport",
+      "description": "Canonical closure requires exact-head Canonical CI, Phase A and CodeQL, deterministic Review, Independent Security PASS, exact-artifact ACTIVE Lock and explicit Project Owner Human Gate approval, followed by protected merge, exact-SHA postmerge verification and terminal Lock release.",
+      "verification": "high_risk_canonical_transport",
       "mandatory": true
     }
   ],
@@ -152,10 +213,12 @@
     "protocol": "EQCOFE_GATE_V1",
     "artifact_bound_gates": [
       "REVIEW",
+      "SECURITY",
+      "HUMAN",
       "LOCK"
     ],
     "trusted_github_transport_login": "rahemih",
-    "rule": "Step 68-E is MEDIUM risk. No Human Gate is required. Stage 68-F remains blocked until 68-E terminal canonical closure."
+    "rule": "Step 68-E is HIGH risk after the source-proven taxonomy concurrency contract defect. Project Owner Human Gate is mandatory only on the final exact HEAD and Artifact. Stage 68-F remains blocked until terminal canonical closure."
   },
   "process_improvement_links": [],
   "incident_links": [],
@@ -165,6 +228,10 @@
     "query_evidence": "RETIRED_AND_OUT_OF_SCOPE",
     "path_evidence": "RETIRED_AND_OUT_OF_SCOPE",
     "explain_evidence": "RETIRED_AND_OUT_OF_SCOPE",
-    "human_gate": "NOT_REQUIRED"
+    "human_gate": "REQUIRED_FINAL_EXACT_ARTIFACT"
+  },
+  "authorized_human_approver": {
+    "role": "PROJECT_OWNER",
+    "github_login": "rahemih"
   }
 }
