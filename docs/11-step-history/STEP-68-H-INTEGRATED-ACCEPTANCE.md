@@ -54,7 +54,7 @@ Close the implementation portion of Step 68 with integrated production-build acc
 
 - Backend, OpenAPI, generated contract or database mutation.
 - Product Design semantic mutation.
-- Storefront runtime mutation.
+- Storefront runtime mutation. The only Storefront-path change permitted is `apps/storefront/package.json` QA routing so the existing browser-quality workflow is triggered and invokes `@eqcofe/admin step68:acceptance`.
 - GitHub workflow/dependency mutation.
 - pricing, inventory, FX or Excel work.
 - Current-State / Master-Roadmap reconciliation — deferred to 68-I.
