@@ -25,6 +25,7 @@
     ],
     "write": [
       "apps/admin/**",
+      "apps/storefront/package.json",
       "docs/11-step-history/STEP-68-H-INTEGRATED-ACCEPTANCE.md",
       "docs/14-multi-agent/tasks/EQCOFE-STEP68-H-INTEGRATED-ACCEPTANCE-001.json",
       "docs/14-multi-agent/generated/TASK-CATALOG.md"
@@ -40,7 +41,8 @@
       "apps/api/**",
       "apps/worker/**",
       "apps/scheduler/**",
-      "apps/storefront/**",
+      "apps/storefront/app/**",
+      "apps/storefront/scripts/**",
       "contracts/**",
       "src/**",
       "docs/12-current-state/**",
@@ -62,6 +64,7 @@
       "risk": "MEDIUM",
       "paths": [
         "apps/admin/**",
+        "apps/storefront/package.json",
         "docs/11-step-history/STEP-68-H-INTEGRATED-ACCEPTANCE.md",
         "docs/14-multi-agent/tasks/EQCOFE-STEP68-H-INTEGRATED-ACCEPTANCE-001.json",
         "docs/14-multi-agent/generated/TASK-CATALOG.md"
@@ -114,7 +117,8 @@
       "media_list_endpoint_invented": false,
       "generic_catalog_bulk_runtime": false,
       "pricing_inventory_fx_excel": false
-    }
+    },
+    "qa_routing": "apps/storefront/package.json quality:browser explicitly invokes @eqcofe/admin step68:acceptance so the existing Step58 Storefront Quality workflow triggers without any workflow or Storefront runtime mutation."
   },
   "acceptance_criteria": [
     {
@@ -131,7 +135,7 @@
     },
     {
       "id": "AC-003",
-      "description": "The integrated browser gate uses the existing isolated Playwright/Axe QA root, covers all six canonical widths through representative route matrices, rejects horizontal overflow, enforces visible 44px interactive targets and reports zero WCAG-tagged Axe violations.",
+      "description": "The integrated browser gate is explicitly routed through the existing Storefront Quality isolated Playwright/Axe QA root by a package-script-only change, covers all six canonical widths through representative route matrices, rejects horizontal overflow, enforces visible 44px interactive targets and reports zero WCAG-tagged Axe violations.",
       "verification": "step68_h_browser_accessibility_responsive",
       "mandatory": true
     },
