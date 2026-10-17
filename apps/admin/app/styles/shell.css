@@ -409,3 +409,121 @@ button, a, input, select, textarea { font: inherit; }
   .catalog-media-order-actions { display: grid; grid-template-columns: 1fr; }
   .catalog-media-order-actions button { inline-size: 100%; }
 }
+
+
+/* Step 68-G — Sales Control */
+.catalog-sales-control-page {
+  display: grid;
+  gap: var(--eq-spacing-5);
+  min-inline-size: 0;
+}
+.catalog-sales-control-heading,
+.catalog-sales-control-preview {
+  min-inline-size: 0;
+}
+.catalog-sales-control-heading h1,
+.catalog-sales-control-preview h2 { margin-block: 0; }
+.catalog-sales-control-heading p,
+.catalog-sales-control-note {
+  color: var(--eq-color-text-secondary);
+  line-height: var(--eq-type-body-medium-line-height);
+  overflow-wrap: anywhere;
+}
+.catalog-sales-control-outcome:focus {
+  outline: none;
+  box-shadow: var(--eq-effect-focus-ring);
+  border-radius: var(--eq-radius-md);
+}
+.catalog-sales-control-form,
+.catalog-sales-control-preview {
+  padding-block: var(--eq-spacing-5);
+  padding-inline: var(--eq-spacing-5);
+  border: var(--eq-border-hairline) solid var(--eq-color-border-default);
+  border-radius: var(--eq-radius-lg);
+  background: var(--eq-color-bg-surface);
+}
+.catalog-sales-control-form fieldset {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--eq-spacing-4);
+  min-inline-size: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.catalog-sales-control-form legend {
+  grid-column: 1 / -1;
+  margin-block-end: var(--eq-spacing-2);
+  font-weight: var(--eq-type-heading-3-font-weight);
+}
+.catalog-sales-control-form label {
+  display: grid;
+  gap: var(--eq-spacing-2);
+  min-inline-size: 0;
+  font-weight: var(--eq-type-label-medium-font-weight);
+}
+.catalog-sales-control-form label:has(textarea),
+.catalog-sales-control-primary { grid-column: 1 / -1; }
+.catalog-sales-control-form input,
+.catalog-sales-control-form select,
+.catalog-sales-control-form textarea {
+  inline-size: 100%;
+  min-block-size: var(--eq-size-touch-min);
+  box-sizing: border-box;
+  padding-block: var(--eq-spacing-2);
+  padding-inline: var(--eq-spacing-3);
+  border: var(--eq-border-hairline) solid var(--eq-color-border-default);
+  border-radius: var(--eq-radius-md);
+  background: var(--eq-color-bg-surface);
+  color: var(--eq-color-text-primary);
+  font: inherit;
+}
+.catalog-sales-control-form textarea { min-block-size: 6.5rem; resize: vertical; }
+.catalog-sales-control-form small { color: var(--eq-color-text-muted); overflow-wrap: anywhere; }
+.catalog-sales-control-primary,
+.catalog-sales-control-preview > button {
+  min-block-size: var(--eq-size-touch-min);
+}
+.catalog-sales-control-preview {
+  display: grid;
+  gap: var(--eq-spacing-4);
+}
+.catalog-sales-control-preview dl,
+.catalog-sales-control-review {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--eq-spacing-3);
+  margin: 0;
+}
+.catalog-sales-control-preview dl > div,
+.catalog-sales-control-review > div {
+  min-inline-size: 0;
+  padding-block: var(--eq-spacing-3);
+  padding-inline: var(--eq-spacing-3);
+  border-radius: var(--eq-radius-md);
+  background: var(--eq-color-bg-subtle);
+}
+.catalog-sales-control-preview dt,
+.catalog-sales-control-review dt {
+  color: var(--eq-color-text-muted);
+  font-size: var(--eq-type-caption-font-size);
+}
+.catalog-sales-control-preview dd,
+.catalog-sales-control-review dd {
+  margin-block-start: var(--eq-spacing-1);
+  margin-inline: 0;
+  overflow-wrap: anywhere;
+}
+@media (max-width: 599px) {
+  .catalog-sales-control-form,
+  .catalog-sales-control-preview {
+    padding-inline: var(--eq-spacing-4);
+  }
+  .catalog-sales-control-form fieldset,
+  .catalog-sales-control-preview dl,
+  .catalog-sales-control-review {
+    grid-template-columns: 1fr;
+  }
+  .catalog-sales-control-form label:has(textarea),
+  .catalog-sales-control-primary { grid-column: auto; }
+}
