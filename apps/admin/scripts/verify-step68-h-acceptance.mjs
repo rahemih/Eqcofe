@@ -74,7 +74,7 @@ const api=http.createServer(async(req,res)=>{
     const parsed=parseJson(body);
     assert.equal(parsed?.scope_type,"global","STEP68_H_PREVIEW_SCOPE");
     assert.equal(parsed?.sales_enabled,false,"STEP68_H_PREVIEW_TARGET");
-    reply(res,200,{success:true,data:{preview_id:PREVIEW,scope_type:"global",scope_id:null,sales_enabled:false,affected_count:7,expires_at:new Date(Date.now()+600000).toISOString()},meta:{request_id:"step68-h-preview"}});
+    reply(res,200,{preview_id:PREVIEW,scope_type:"global",scope_id:null,sales_enabled:false,affected_count:7,expires_at:new Date(Date.now()+600000).toISOString()});
     return;
   }
 
@@ -85,14 +85,14 @@ function getFixture(pathname){
   if(pathname==="/admin/auth/session")return {success:true,data:{actor:{type:"staff",id:"staff-68h",accountId:"account-68h"}},meta:{request_id:"step68-h-session"}};
   if(pathname==="/admin/me/permissions")return {success:true,data:{permissions:["products.view","products.manage","products.create","products.archive","products.publish","products.sales.manage","attributes.manage","brands.manage","categories.manage","media.manage","sales_control.manage"]},meta:{request_id:"step68-h-permissions"}};
   if(pathname==="/admin/me/scopes")return {success:true,data:{scopes:[]},meta:{request_id:"step68-h-scopes"}};
-  if(pathname==="/admin/products")return {success:true,data:{items:[product],pagination:{next_cursor:null,has_more:false}},meta:{request_id:"step68-h-products"}};
-  if(pathname===`/admin/products/${PRODUCT}`)return {success:true,data:product,meta:{request_id:"step68-h-product"}};
-  if(pathname===`/admin/products/${PRODUCT}/variants`)return {success:true,data:[variant],meta:{request_id:"step68-h-variants"}};
-  if(pathname===`/admin/products/${PRODUCT}/media`)return {success:true,data:[productMedia],meta:{request_id:"step68-h-product-media"}};
-  if(pathname==="/admin/brands")return {success:true,data:[brand],meta:{request_id:"step68-h-brands"}};
-  if(pathname==="/admin/categories")return {success:true,data:[category],meta:{request_id:"step68-h-categories"}};
-  if(pathname==="/admin/attributes")return {success:true,data:[attribute],meta:{request_id:"step68-h-attributes"}};
-  if(pathname===`/admin/media/${MEDIA}`)return {success:true,data:mediaAsset,meta:{request_id:"step68-h-media"}};
+  if(pathname==="/admin/products")return {items:[product],pagination:{next_cursor:null,has_more:false}};
+  if(pathname===`/admin/products/${PRODUCT}`)return product;
+  if(pathname===`/admin/products/${PRODUCT}/variants`)return [variant];
+  if(pathname===`/admin/products/${PRODUCT}/media`)return [productMedia];
+  if(pathname==="/admin/brands")return [brand];
+  if(pathname==="/admin/categories")return [category];
+  if(pathname==="/admin/attributes")return [attribute];
+  if(pathname===`/admin/media/${MEDIA}`)return mediaAsset;
   return null;
 }
 
