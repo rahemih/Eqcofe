@@ -8,7 +8,9 @@ export default [
     route("security-keys", "./routes/security-keys.tsx"),
     route("catalog/products", "./routes/catalog-products.tsx"),
     route("catalog/products/new", "./routes/catalog-product-new.tsx"),
+    route("catalog/products/:productId/attributes", "./routes/catalog-product-attributes.tsx"),
     route("catalog/products/:productId", "./routes/catalog-product.tsx"),
+    route("catalog/structure/:kind", "./routes/catalog-structure.tsx"),
     route("destinations/:surfaceId", "./routes/destination.tsx"),
   ]),
 ] satisfies RouteConfig;
