@@ -8731,7 +8731,7 @@ components:
         product_id: { $ref: '#/components/schemas/EntityId' }
         sku: { type: string }
         amount_toman: { $ref: '#/components/schemas/AdminDbInt64' }
-        source_type: { type: string, enum: [manual, bulk, currency, import, system, excel_import] }
+        source_type: { type: string, enum: [manual, bulk, currency, import, system] }
         valid_from: { $ref: '#/components/schemas/Timestamp' }
         valid_until: { $ref: '#/components/schemas/NullableTimestamp' }
         version: { $ref: '#/components/schemas/AdminDbInt64' }
