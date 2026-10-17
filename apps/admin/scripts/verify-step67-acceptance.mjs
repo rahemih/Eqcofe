@@ -7,7 +7,7 @@ import { fileURLToPath } from "node:url";
 
 const adminRoot=resolve(fileURLToPath(new URL("..",import.meta.url)));
 const repoRoot=resolve(adminRoot,"../..");
-const adminPort=41771;
+const adminPort=31771;
 const apiPort=41772;
 const origin=`http://127.0.0.1:${adminPort}`;
 const command=process.platform==="win32"?"pnpm.cmd":"pnpm";
@@ -56,7 +56,10 @@ function fixture(pathname){
   return null;
 }
 
-await new Promise((ok,fail)=>{api.once("error",fail);api.listen(apiPort,"127.0.0.1",ok);});
+await new Promise((ok,fail)=>{api.once("error",fail);api.listen(0,"127.0.0.1",ok);});
+const apiAddress=api.address();
+assert.ok(apiAddress&&typeof apiAddress==="object","STEP67_H_API_DYNAMIC_PORT");
+const apiPort=apiAddress.port;
 const server=spawn(command,["exec","react-router-serve","./build/server/index.js"],{
   cwd:adminRoot,
   env:{...process.env,HOST:"127.0.0.1",PORT:String(adminPort),NODE_ENV:"production",EQCOFE_API_BASE_URL:`http://127.0.0.1:${apiPort}`},
