@@ -124,10 +124,10 @@ function destinationHref(surface:string):string{
   if(surface==="AD-C-01")return "/catalog/products";
   if(surface==="AD-C-03")return "/catalog/structure/attributes";
   if(surface==="AD-C-05")return "/catalog/structure/brands";
-  if(surface==="AD-C-06")return "/catalog/structure/categories";
+  if(surface==="AD-C-06")return "/catalog/structure/categories";\n  if(surface==="AD-C-07")return "/catalog/media";
   return `/destinations/${encodeURIComponent(surface)}`;
 }
-function readCurrentSurface(pathname:string):string|null{
+function readCurrentSurface(pathname:string):string|null{\n  if(pathname==="/catalog/media")return "AD-C-07";\n  if(/\\/catalog\\/products\\/[^/]+\\/media$/.test(pathname))return "AD-C-04";
   if(pathname.startsWith("/catalog/structure/attributes")||/\/catalog\/products\/[^/]+\/attributes$/.test(pathname))return "AD-C-03";
   if(pathname.startsWith("/catalog/structure/brands"))return "AD-C-05";
   if(pathname.startsWith("/catalog/structure/categories"))return "AD-C-06";
