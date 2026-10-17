@@ -8623,49 +8623,6 @@ components:
             $ref: '#/components/schemas/AfterSalesTimelineEntry'
       required:
       - timeline
-  responses:
-    BadRequest:
-      description: درخواست نامعتبر
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: نیاز به احراز هویت
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Forbidden:
-      description: دسترسی غیرمجاز
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    NotFound:
-      description: یافت نشد
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Conflict:
-      description: تداخل وضعیت/نسخه
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unprocessable:
-      description: نقض قانون کسب‌وکار
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    TooManyRequests:
-      description: محدودیت نرخ درخواست
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
     ExcelBinaryWorkbook:
       type: object
       additionalProperties: false
@@ -9339,6 +9296,49 @@ components:
         data: { $ref: '#/components/schemas/ExcelRecoveryData' }
         meta: { $ref: '#/components/schemas/SuccessMeta' }
 
+  responses:
+    BadRequest:
+      description: درخواست نامعتبر
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: نیاز به احراز هویت
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Forbidden:
+      description: دسترسی غیرمجاز
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: یافت نشد
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Conflict:
+      description: تداخل وضعیت/نسخه
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unprocessable:
+      description: نقض قانون کسب‌وکار
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    TooManyRequests:
+      description: محدودیت نرخ درخواست
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
 paths:
   /products:
     get:
