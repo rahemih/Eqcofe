@@ -233,6 +233,21 @@ button, a, input, select, textarea { font: inherit; }
   justify-content: center;
   padding-inline: var(--eq-spacing-2);
 }
+.catalog-editor-actions button {
+  min-block-size: var(--eq-size-touch-min);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding-inline: var(--eq-spacing-4);
+  border: var(--eq-border-hairline) solid var(--eq-color-border-default);
+  border-radius: var(--eq-radius-md);
+  background: var(--eq-color-bg-surface);
+  color: var(--eq-color-text-primary);
+  font: inherit;
+  font-weight: var(--eq-type-label-medium-font-weight);
+  cursor: pointer;
+}
+.catalog-editor-actions button:disabled { cursor: not-allowed; opacity: .65; }
 .catalog-editor-actions > span,
 .catalog-authority-footnote {
   color: var(--eq-color-text-secondary);
