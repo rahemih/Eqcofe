@@ -94,9 +94,10 @@ This is a contract-location/type-readiness migration only. It does not change Ex
 
 ## Allowed mutation
 
-69-B is contract/test/governance only.
+69-B is contract/test/governance plus one source-proven bounded runtime repair.
 
 Primary write authority:
+- `src/modules/pricing/application/pricing-import-apply.service.ts` — exact one-line source-type constraint repair only;
 - `contracts/http/openapi.yaml`;
 - `contracts/http/openapi-step50-a8.yaml` (migration/removal only);
 - `src/generated/openapi.ts`;
@@ -111,7 +112,7 @@ Only generator-equivalent Step56/57 provenance/hash repair is additionally autho
 
 ## Forbidden mutation
 
-- `src/modules/pricing/**`;
+- all Pricing runtime files except `src/modules/pricing/application/pricing-import-apply.service.ts`;
 - `src/modules/excel/**`;
 - `src/modules/integrations/**`;
 - `database/**`;
@@ -122,6 +123,16 @@ Only generator-equivalent Step56/57 provenance/hash repair is additionally autho
 - Step70 Inventory/Procurement/POS authority;
 - Step77 production-provider integration;
 - Graph/Graphify.
+
+## Bounded runtime repair discovered during 69-B
+
+Live source/DB reconciliation found a persistence defect in the existing Excel Pricing Apply path:
+
+- `PricingImportApplyService.apply` writes base prices with `sourceType: 'excel_import'`;
+- `pricing.base_prices.source_type` CHECK accepts only `manual|bulk|currency|import|system`;
+- therefore a valid Excel Pricing Apply can reach persistence and fail on the database constraint.
+
+69-B authorizes exactly one runtime repair: use the already-defined `import` source type. No migration, enum expansion, pricing rule change, permission change or Excel workflow expansion is authorized.
 
 ## Exit gate
 
