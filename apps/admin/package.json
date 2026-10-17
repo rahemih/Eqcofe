@@ -20,12 +20,13 @@
     "permission-shell:verify": "node ./scripts/generate-step67-destinations.mjs --check && pnpm --dir ../.. exec tsx apps/admin/scripts/verify-step67-permission-shell.ts",
     "stepup-credentials:verify": "pnpm --dir ../.. exec tsx apps/admin/scripts/verify-step67-stepup-credentials.ts",
     "dashboard-states:verify": "pnpm --dir ../.. exec tsx apps/admin/scripts/verify-step67-dashboard-states.ts",
-    "acceptance:verify": "node ./scripts/verify-step67-acceptance.mjs",
+    "acceptance:verify": "node ./scripts/verify-step67-acceptance.mjs && pnpm step68:acceptance",
     "catalog-read:verify": "pnpm --dir ../.. exec tsx apps/admin/scripts/verify-step68-c-catalog-read.ts",
     "catalog-lifecycle:verify": "pnpm --dir ../.. exec tsx apps/admin/scripts/verify-step68-d-product-variant-lifecycle.ts",
     "catalog-structure:verify": "pnpm --dir ../.. exec tsx apps/admin/scripts/verify-step68-e-catalog-structure.ts",
     "catalog-media:verify": "pnpm --dir ../.. exec tsx apps/admin/scripts/verify-step68-f-media.ts",
-    "catalog-sales-control:verify": "pnpm --dir ../.. exec tsx apps/admin/scripts/verify-step68-g-sales-control.ts"
+    "catalog-sales-control:verify": "pnpm --dir ../.. exec tsx apps/admin/scripts/verify-step68-g-sales-control.ts",
+    "step68:acceptance": "node ./scripts/verify-step68-h-acceptance.mjs"
   },
   "dependencies": {
     "@react-router/node": "8.4.0",
