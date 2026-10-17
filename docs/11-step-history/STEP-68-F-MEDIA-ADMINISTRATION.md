@@ -75,3 +75,13 @@ The Step 68-E exact-SHA postmerge Storefront Quality run exposed `EADDRINUSE 127
 STEP_68_F = IN_PROGRESS / NOT_CANONICAL
 STEP_68_G = BLOCKED_FROM_MUTATION
 ```
+
+
+## Execution checkpoint — PR #366
+
+- Working PR: `#366 — Step 68-F — Admin Media administration`.
+- Task Contract reference is now explicit in the PR body:
+  `docs/14-multi-agent/tasks/EQCOFE-STEP68-F-MEDIA-ADMINISTRATION-001.json`.
+- Governance repair: generated Task Catalog count synchronized after registering 68-F.
+- Reliability repair implemented: Admin acceptance mock API binds to an OS-assigned port; the Admin test server uses non-ephemeral port `31771`, removing the inherited fixed `41772` collision that caused the Step 68-E postmerge transient `EADDRINUSE`.
+- Human Gate remains intentionally absent until the final exact Head + Artifact is frozen.
