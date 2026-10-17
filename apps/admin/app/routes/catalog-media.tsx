@@ -178,7 +178,7 @@ export default function AdminMediaRoute() {
   );
 }
 
-function MediaDetail({ asset, busy }: { asset: NonNullable<Extract<Awaited<ReturnType<typeof loader>>, Response> extends never ? never : any>; busy: boolean }) {
+function MediaDetail({ asset, busy }: { asset: AdminMediaAsset; busy: boolean }) {
   const canReview = asset.status === "processing" || asset.status === "quarantine";
   const canReject = asset.status === "uploading" || asset.status === "processing" || asset.status === "quarantine";
   const deleted = asset.status === "deleted";
