@@ -44,7 +44,8 @@ export type MediaMutationFailure =
   | { kind: "invalid"; requestId: string | null; fieldErrors: readonly FieldError[]; setCookies: readonly string[]; mediaId?: string };
 
 export type MediaAssetMutationResult =
-  | { kind: "confirmed" | "accepted"; asset: AdminMediaAsset; requestId: string | null; setCookies: readonly string[] }
+  | { kind: "confirmed"; asset: AdminMediaAsset; requestId: string | null; setCookies: readonly string[] }
+  | { kind: "accepted"; asset: AdminMediaAsset; requestId: string | null; setCookies: readonly string[] }
   | MediaMutationFailure;
 
 export type MediaDeleteResult =
@@ -52,7 +53,8 @@ export type MediaDeleteResult =
   | MediaMutationFailure;
 
 export type ProductMediaMutationResult =
-  | { kind: "confirmed" | "accepted"; media: readonly AdminProductMedia[]; requestId: string | null; setCookies: readonly string[] }
+  | { kind: "confirmed"; media: readonly AdminProductMedia[]; requestId: string | null; setCookies: readonly string[] }
+  | { kind: "accepted"; media: readonly AdminProductMedia[]; requestId: string | null; setCookies: readonly string[] }
   | MediaMutationFailure;
 
 export type MediaUploadFile = {
@@ -508,10 +510,11 @@ async function putSignedUpload(
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 60_000);
   try {
+    const payload = bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength) as ArrayBuffer;
     const response = await fetch(url, {
       method: "PUT",
       headers: { "Content-Type": mimeType },
-      body: bytes,
+      body: payload,
       signal: controller.signal,
       redirect: "error",
       credentials: "omit",
