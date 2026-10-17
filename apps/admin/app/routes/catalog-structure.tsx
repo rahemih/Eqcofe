@@ -30,6 +30,7 @@ import {
   isTrustedCatalogFormOrigin,
   type CatalogFormIssue,
 } from "../catalog/catalog-form.server.js";
+import { hasCatalogControlCharacters } from "../catalog/catalog-read.server.js";
 import { appendAdminAuthSetCookies } from "../platform/auth/admin-cookie.server.js";
 
 type StructureKind = "attributes" | "brands" | "categories";
@@ -77,7 +78,7 @@ export async function action({ request, params }: { request: Request; params: { 
       : await attributeAction(request, form, intent);
 
   if ("localIssues" in result) return invalid(result.localIssues);
-  return mutationResponse(result, kind);
+  return mutationResponse(result);
 }
 
 export default function AdminCatalogStructureRoute() {
@@ -444,7 +445,7 @@ function formNonNegativeInteger(form: FormData, field: string, issues: CatalogFo
   return value;
 }
 
-function mutationResponse(result: StructureMutationResult, kind: StructureKind) {
+function mutationResponse(result: StructureMutationResult) {
   const headers = cookieHeaders(result.setCookies);
   if (result.kind === "confirmed") return data<ActionData>({ kind: "success", message: "تغییر در وضعیت canonical بازخوانی و تأیید شد.", requestId: result.requestId }, { headers });
   if (result.kind === "accepted") return data<ActionData>({ kind: "accepted", message: "درخواست پذیرفته شد اما نتیجه نهایی نیست؛ وضعیت canonical دوباره خوانده شد.", requestId: result.requestId }, { status: 202, headers });
@@ -472,7 +473,7 @@ function parseKind(value?: string): StructureKind | null {
   return value === "attributes" || value === "brands" || value === "categories" ? value : null;
 }
 function boundedId(value: string | null): string | null {
-  if (!value || value.length > 80 || /[\u0000-\u001f\u007f]/.test(value)) return null; return value;
+  if (!value || value.length > 80 || hasCatalogControlCharacters(value)) return null; return value;
 }
 function surfaceFor(kind: StructureKind) { return kind === "attributes" ? "AD-C-03" : kind === "brands" ? "AD-C-05" : "AD-C-06"; }
 function titleFor(kind: StructureKind) { return kind === "attributes" ? "مشخصات کالا و گونه" : kind === "brands" ? "برندها" : "دسته‌بندی‌ها"; }
