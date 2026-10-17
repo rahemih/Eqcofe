@@ -34,23 +34,23 @@
   "sources": [
     {
       "path": "docs/13-product-design/step56-admin-shell-wireframes.json",
-      "sha256": "31f38f9507cc7073098bb6bf702f1f26c6e2ed810a0137458668fb5f5b021f9c"
+      "sha256": "9ae42e6ffc03eb2cbe126269dd82ae87763cc0f259ff6135e85f4b7b50213602"
     },
     {
       "path": "docs/13-product-design/step56-admin-ux-contract.json",
-      "sha256": "525cf7f8acfac33aa328351a7161db46dee57be7ef41f6358a34d6e8ab2ff463"
+      "sha256": "7bdf75484aa07f54b9c7cb480ffc8b8d7d696e3995304c7ed2e96393e435d3da"
     },
     {
       "path": "docs/13-product-design/step56-catalog-media-wireframes.json",
-      "sha256": "8bdae6ed33ddd022832e3873f79fc7429723651709d960c41d831012ad9450b6"
+      "sha256": "5678e5b1ec3c18604fc97d979d33a49e131565b05992d43ab317bafc1bb6df87"
     },
     {
       "path": "docs/13-product-design/step56-commerce-operations-wireframes.json",
-      "sha256": "cab9014db30318fa97044ddc62f176082ea3ee16f7ff3beeec75ae88aa60a9e6"
+      "sha256": "b1a119ec8d67ecc59cc5e5034abdcf7d1e1887ab4e2829af442840300141f871"
     },
     {
       "path": "docs/13-product-design/step56-customers-growth-wireframes.json",
-      "sha256": "542623102f3ef75e636871c88d8e7c4316bdfdc1a85fad1deb84c31d407a5b6b"
+      "sha256": "6c3aebdfd622381b149498fa23a9c506bc675f9e1a98ea7b61737cb27793ddac"
     },
     {
       "path": "docs/13-product-design/step56-final-handoffs.json",
@@ -62,35 +62,35 @@
     },
     {
       "path": "docs/13-product-design/step56-management-security-wireframes.json",
-      "sha256": "c4d403057b3973efe22bd150f2f1a415a07524ed5af43706d6a3910b8a200ad6"
+      "sha256": "5466a2a3cc88a6dfc67a084979309b92a2493d008b456e03cefec356c1a467fd"
     },
     {
       "path": "docs/13-product-design/step56-pricing-inventory-wireframes.json",
-      "sha256": "1b4d88435575efd1a1690e3d9df19bdb8c764e0093009ddaafbbb13d4f25bc06"
+      "sha256": "d90b8c10c3087438a568da68a52afd2615c9d1399211fba7426d55e13e0301b6"
     },
     {
       "path": "docs/13-product-design/step56-wireframes/B/manifest.json",
-      "sha256": "da5249e27b54b16ea91816853b890cde2f9ee18f7d2f7ef6f8eda7b39ce19700"
+      "sha256": "10f135924ba775b4ca9a9494ec513b47fd4d485ea2b721e60588d4f0217d8640"
     },
     {
       "path": "docs/13-product-design/step56-wireframes/C/manifest.json",
-      "sha256": "0f77918715982784eea79388611a9897701de85c0ddd423543cfdba6b41a01e4"
+      "sha256": "08ca2cce8e1bf6f0b9ae12c7be80d42857fd016fb8109920919f9ef0efd0b568"
     },
     {
       "path": "docs/13-product-design/step56-wireframes/D/manifest.json",
-      "sha256": "3b15bf8745887fe4d4508b9bb4694bc7bc8cbfeb23e928c580439b4afaa1d725"
+      "sha256": "028a4cddec9437a9e420fd2a8d182545997a718194d3551f459a2e063f65ddcb"
     },
     {
       "path": "docs/13-product-design/step56-wireframes/E/manifest.json",
-      "sha256": "12e34196e44972cd50fa15d1fe57bba8eeb00e96d08179c660df4cf3e6c7dfdc"
+      "sha256": "1c83f5fbcc041091660bd2dd411fd4c7a74f6b49fe07051513158eeca1217bad"
     },
     {
       "path": "docs/13-product-design/step56-wireframes/F/manifest.json",
-      "sha256": "a95ce0cca670bc481abd079bc68a95c8f90da8f6bbae5798d6476f12f5afebe3"
+      "sha256": "29b014ae447ccc7e4a679c69f740011769b1dd32f2f836bdf139ddb61e177a6b"
     },
     {
       "path": "docs/13-product-design/step56-wireframes/G/manifest.json",
-      "sha256": "96cba0c398d1a9d1bc95dc4e7ba7bfe79a8a1c9b9eab47543d1333ca4b56fd95"
+      "sha256": "932e485de2a13ae9c18e2262b037dc99924602ad95cadb42ea36f6e518e1655a"
     },
     {
       "path": "scripts/step56-final-audit.mjs",
@@ -268,7 +268,7 @@
     {
       "gate": "B",
       "path": "docs/13-product-design/step56-wireframes/B/manifest.json",
-      "sha256": "da5249e27b54b16ea91816853b890cde2f9ee18f7d2f7ef6f8eda7b39ce19700",
+      "sha256": "10f135924ba775b4ca9a9494ec513b47fd4d485ea2b721e60588d4f0217d8640",
       "surfaces": 7,
       "frames": 74,
       "artifacts": 91,
@@ -302,7 +302,7 @@
     {
       "gate": "C",
       "path": "docs/13-product-design/step56-wireframes/C/manifest.json",
-      "sha256": "0f77918715982784eea79388611a9897701de85c0ddd423543cfdba6b41a01e4",
+      "sha256": "08ca2cce8e1bf6f0b9ae12c7be80d42857fd016fb8109920919f9ef0efd0b568",
       "surfaces": 8,
       "frames": 114,
       "artifacts": 133,
@@ -335,7 +335,7 @@
     {
       "gate": "D",
       "path": "docs/13-product-design/step56-wireframes/D/manifest.json",
-      "sha256": "3b15bf8745887fe4d4508b9bb4694bc7bc8cbfeb23e928c580439b4afaa1d725",
+      "sha256": "028a4cddec9437a9e420fd2a8d182545997a718194d3551f459a2e063f65ddcb",
       "surfaces": 21,
       "frames": 624,
       "artifacts": 669,
@@ -368,7 +368,7 @@
     {
       "gate": "E",
       "path": "docs/13-product-design/step56-wireframes/E/manifest.json",
-      "sha256": "12e34196e44972cd50fa15d1fe57bba8eeb00e96d08179c660df4cf3e6c7dfdc",
+      "sha256": "1c83f5fbcc041091660bd2dd411fd4c7a74f6b49fe07051513158eeca1217bad",
       "surfaces": 11,
       "frames": 368,
       "artifacts": 393,
@@ -402,7 +402,7 @@
     {
       "gate": "F",
       "path": "docs/13-product-design/step56-wireframes/F/manifest.json",
-      "sha256": "a95ce0cca670bc481abd079bc68a95c8f90da8f6bbae5798d6476f12f5afebe3",
+      "sha256": "29b014ae447ccc7e4a679c69f740011769b1dd32f2f836bdf139ddb61e177a6b",
       "surfaces": 16,
       "frames": 488,
       "artifacts": 523,
@@ -430,7 +430,7 @@
     {
       "gate": "G",
       "path": "docs/13-product-design/step56-wireframes/G/manifest.json",
-      "sha256": "96cba0c398d1a9d1bc95dc4e7ba7bfe79a8a1c9b9eab47543d1333ca4b56fd95",
+      "sha256": "932e485de2a13ae9c18e2262b037dc99924602ad95cadb42ea36f6e518e1655a",
       "surfaces": 34,
       "frames": 1004,
       "artifacts": 1075,
@@ -7258,7 +7258,7 @@
         "runtime": [
           "pricing.view"
         ],
-        "openapi": null
+        "openapi": "pricing.view"
       },
       "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
       "blocked": false,
@@ -7292,7 +7292,7 @@
         "runtime": [
           "pricing.manage"
         ],
-        "openapi": null
+        "openapi": "pricing.manage"
       },
       "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
       "blocked": false,
@@ -7326,7 +7326,7 @@
         "runtime": [
           "pricing.view"
         ],
-        "openapi": null
+        "openapi": "pricing.view"
       },
       "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
       "blocked": false,
@@ -7343,7 +7343,7 @@
         "runtime": [
           "pricing.view"
         ],
-        "openapi": null
+        "openapi": "pricing.view"
       },
       "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
       "blocked": false,
@@ -7428,7 +7428,7 @@
         "runtime": [
           "pricing.view"
         ],
-        "openapi": null
+        "openapi": "pricing.view"
       },
       "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
       "blocked": false,
@@ -7462,7 +7462,7 @@
         "runtime": [
           "pricing.bulk.manage"
         ],
-        "openapi": null
+        "openapi": "pricing.bulk.manage"
       },
       "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
       "blocked": false,
@@ -7479,7 +7479,7 @@
         "runtime": [
           "pricing.view"
         ],
-        "openapi": null
+        "openapi": "pricing.view"
       },
       "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
       "blocked": false,
@@ -7496,7 +7496,7 @@
         "runtime": [
           "pricing.view"
         ],
-        "openapi": null
+        "openapi": "pricing.view"
       },
       "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
       "blocked": false,
@@ -7513,7 +7513,7 @@
         "runtime": [
           "pricing.currency.manage"
         ],
-        "openapi": null
+        "openapi": "pricing.currency.manage"
       },
       "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
       "blocked": false,
@@ -7547,7 +7547,7 @@
         "runtime": [
           "pricing.currency.manage"
         ],
-        "openapi": null
+        "openapi": "pricing.currency.manage"
       },
       "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
       "blocked": false,
