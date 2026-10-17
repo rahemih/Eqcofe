@@ -56,7 +56,16 @@
       "docs/13-product-design/step56-final-audit.json",
       "docs/13-product-design/step56-final-audit/manifest.json",
       "docs/13-product-design/step57-high-fidelity-contract.json",
-      "src/modules/pricing/application/pricing-import-apply.service.ts"
+      "src/modules/pricing/application/pricing-import-apply.service.ts",
+      "docs/13-product-design/step56-wireframes/D/AD-D-01/traceability.json",
+      "docs/13-product-design/step56-wireframes/D/AD-D-02/traceability.json",
+      "docs/13-product-design/step56-wireframes/D/AD-D-03/traceability.json",
+      "docs/13-product-design/step56-wireframes/D/AD-D-04/traceability.json",
+      "docs/13-product-design/step56-wireframes/D/AD-D-05/traceability.json",
+      "docs/13-product-design/step56-wireframes/D/AD-D-19/traceability.json",
+      "docs/13-product-design/step56-wireframes/D/AD-D-20/traceability.json",
+      "docs/13-product-design/step56-wireframes/D/AD-D-21/traceability.json",
+      "docs/13-product-design/step56-final-audit/operation-matrix.json"
     ],
     "forbidden": [
       ".github/**",
@@ -119,7 +128,16 @@
         "docs/13-product-design/step56-final-audit.json",
         "docs/13-product-design/step56-final-audit/manifest.json",
         "docs/13-product-design/step57-high-fidelity-contract.json",
-        "src/modules/pricing/application/pricing-import-apply.service.ts"
+        "src/modules/pricing/application/pricing-import-apply.service.ts",
+        "docs/13-product-design/step56-wireframes/D/AD-D-01/traceability.json",
+        "docs/13-product-design/step56-wireframes/D/AD-D-02/traceability.json",
+        "docs/13-product-design/step56-wireframes/D/AD-D-03/traceability.json",
+        "docs/13-product-design/step56-wireframes/D/AD-D-04/traceability.json",
+        "docs/13-product-design/step56-wireframes/D/AD-D-05/traceability.json",
+        "docs/13-product-design/step56-wireframes/D/AD-D-19/traceability.json",
+        "docs/13-product-design/step56-wireframes/D/AD-D-20/traceability.json",
+        "docs/13-product-design/step56-wireframes/D/AD-D-21/traceability.json",
+        "docs/13-product-design/step56-final-audit/operation-matrix.json"
       ]
     }
   ],
@@ -177,7 +195,7 @@
       "AD-D-06..18 remain Step70.",
       "Production FX provider integration remains Step77."
     ],
-    "provenance_repair_policy": "Only generator-equivalent source/hash/manifest refresh caused by canonical OpenAPI mutation is authorized. No screen, operation ownership, permission semantics, journey, visual, review-status or approval semantics may change.",
+    "provenance_repair_policy": "Only generator-equivalent source/hash/manifest refresh caused by canonical OpenAPI mutation is authorized. No screen, operation ownership, permission semantics, journey, visual, review-status or approval semantics may change. Exact D traceability and final operation-matrix outputs are included because the canonical generators project operationEvidence/permissionClaims into those artifacts.",
     "provenance_repair_paths": [
       "docs/13-product-design/step56-admin-ux-contract.json",
       "docs/13-product-design/step56-foundation/A/manifest.json",
@@ -196,7 +214,16 @@
       "docs/13-product-design/step56-wireframes/G/manifest.json",
       "docs/13-product-design/step56-final-audit.json",
       "docs/13-product-design/step56-final-audit/manifest.json",
-      "docs/13-product-design/step57-high-fidelity-contract.json"
+      "docs/13-product-design/step57-high-fidelity-contract.json",
+      "docs/13-product-design/step56-wireframes/D/AD-D-01/traceability.json",
+      "docs/13-product-design/step56-wireframes/D/AD-D-02/traceability.json",
+      "docs/13-product-design/step56-wireframes/D/AD-D-03/traceability.json",
+      "docs/13-product-design/step56-wireframes/D/AD-D-04/traceability.json",
+      "docs/13-product-design/step56-wireframes/D/AD-D-05/traceability.json",
+      "docs/13-product-design/step56-wireframes/D/AD-D-19/traceability.json",
+      "docs/13-product-design/step56-wireframes/D/AD-D-20/traceability.json",
+      "docs/13-product-design/step56-wireframes/D/AD-D-21/traceability.json",
+      "docs/13-product-design/step56-final-audit/operation-matrix.json"
     ],
     "proven_runtime_defect": {
       "code": "EXCEL_PRICING_SOURCE_TYPE_CONSTRAINT_MISMATCH",
