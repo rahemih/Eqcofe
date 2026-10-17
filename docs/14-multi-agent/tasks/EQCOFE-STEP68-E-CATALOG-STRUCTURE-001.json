@@ -1,0 +1,237 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP68-E-CATALOG-STRUCTURE-001",
+  "title": "Step 68-E Attribute Brand Category structure administration and conflict handling",
+  "description": "Implement the HIGH-risk Admin Catalog structure workspace on top of canonical Step 68-D. Cover source-proven Brand and Category list/create/edit/sales controls, Attribute definition/value administration, and full-set Product/Variant attribute assignment. Entry audit found a bounded carry-forward contract defect: PATCH /admin/brands/{id} and PATCH /admin/categories/{id} require If-Match in the runtime controller but canonical OpenAPI/generated types omit it. Repair only those exact parameter declarations before frontend mutation work, synchronize generated types and source-proven Step56/57 provenance hashes, then preserve server-owned authorization, exact concurrency, no invented If-Match for assignment PUT, fail-closed mutation ambiguity and Persian RTL accessibility.",
+  "risk": "HIGH",
+  "risk_floor": "HIGH",
+  "owner": "FRONTEND_ENGINEERING",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "de4f72a4c2e9c4d3d48762e778f45d3644d9c727"
+  },
+  "scope": {
+    "read": [
+      "package.json",
+      "apps/admin/**",
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "src/modules/catalog/**",
+      "docs/11-step-history/**",
+      "docs/13-product-design/step56-catalog-media-wireframes.json",
+      "docs/13-product-design/step56-wireframes/C/**",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "apps/admin/**",
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "docs/11-step-history/STEP-68-E-CATALOG-STRUCTURE.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP68-E-CATALOG-STRUCTURE-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "docs/13-product-design/step56-admin-ux-contract.json",
+      "docs/13-product-design/step56-foundation/A/manifest.json",
+      "docs/13-product-design/step56-admin-shell-wireframes.json",
+      "docs/13-product-design/step56-wireframes/B/manifest.json",
+      "docs/13-product-design/step56-catalog-media-wireframes.json",
+      "docs/13-product-design/step56-wireframes/C/manifest.json",
+      "docs/13-product-design/step56-pricing-inventory-wireframes.json",
+      "docs/13-product-design/step56-wireframes/D/manifest.json",
+      "docs/13-product-design/step56-commerce-operations-wireframes.json",
+      "docs/13-product-design/step56-wireframes/E/manifest.json",
+      "docs/13-product-design/step56-customers-growth-wireframes.json",
+      "docs/13-product-design/step56-wireframes/F/manifest.json",
+      "docs/13-product-design/step56-management-security-wireframes.json",
+      "docs/13-product-design/step56-wireframes/G/manifest.json",
+      "docs/13-product-design/step56-final-audit.json",
+      "docs/13-product-design/step56-final-audit/manifest.json",
+      "docs/13-product-design/step57-high-fidelity-contract.json"
+    ],
+    "forbidden": [
+      ".github/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "database/**",
+      "test/**",
+      "scripts/**",
+      "apps/api/**",
+      "apps/worker/**",
+      "apps/scheduler/**",
+      "apps/storefront/**",
+      "docs/12-current-state/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP68-E-CATALOG-STRUCTURE-001-01"
+  ],
+  "human_gate_required": true,
+  "token_budget": {
+    "expected_max": 46000,
+    "soft_alert": 72000,
+    "hard_cap": 118000
+  },
+  "task_risk_rules": [
+    {
+      "id": "STEP68_E_CATALOG_STRUCTURE_HIGH",
+      "risk": "HIGH",
+      "paths": [
+        "apps/admin/**",
+        "contracts/http/openapi.yaml",
+        "src/generated/openapi.ts",
+        "docs/11-step-history/STEP-68-E-CATALOG-STRUCTURE.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP68-E-CATALOG-STRUCTURE-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md",
+        "docs/13-product-design/step56-admin-ux-contract.json",
+        "docs/13-product-design/step56-foundation/A/manifest.json",
+        "docs/13-product-design/step56-admin-shell-wireframes.json",
+        "docs/13-product-design/step56-wireframes/B/manifest.json",
+        "docs/13-product-design/step56-catalog-media-wireframes.json",
+        "docs/13-product-design/step56-wireframes/C/manifest.json",
+        "docs/13-product-design/step56-pricing-inventory-wireframes.json",
+        "docs/13-product-design/step56-wireframes/D/manifest.json",
+        "docs/13-product-design/step56-commerce-operations-wireframes.json",
+        "docs/13-product-design/step56-wireframes/E/manifest.json",
+        "docs/13-product-design/step56-customers-growth-wireframes.json",
+        "docs/13-product-design/step56-wireframes/F/manifest.json",
+        "docs/13-product-design/step56-management-security-wireframes.json",
+        "docs/13-product-design/step56-wireframes/G/manifest.json",
+        "docs/13-product-design/step56-final-audit.json",
+        "docs/13-product-design/step56-final-audit/manifest.json",
+        "docs/13-product-design/step57-high-fidelity-contract.json"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "68-D",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "de4f72a4c2e9c4d3d48762e778f45d3644d9c727",
+      "evidence": "PR #364 terminally closed after exact-artifact Project Owner approval; exact-SHA Canonical CI #1945, Phase A #1444, CodeQL #1097 and Storefront Quality #923 succeeded; terminal Lock release comment 6230507852.",
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "linear_issue": "HOS-72",
+    "stage_d_pr": 364,
+    "stage_d_merge": "de4f72a4c2e9c4d3d48762e778f45d3644d9c727",
+    "stage_d_lock_release_comment": 6230507852,
+    "generated_contract_source": "src/generated/openapi.ts",
+    "graph_state": "RETIRED_AND_OUT_OF_SCOPE",
+    "provenance_repair_policy": "Only the missing canonical If-Match parameter declarations for PATCH /admin/brands/{id} and PATCH /admin/categories/{id}, generated type synchronization, and exact SHA/manifest provenance refreshes are authorized. No other operation, screen, journey, permission, runtime-release or business semantic may change.",
+    "provenance_repair_paths": [
+      "docs/13-product-design/step56-admin-ux-contract.json",
+      "docs/13-product-design/step56-foundation/A/manifest.json",
+      "docs/13-product-design/step56-admin-shell-wireframes.json",
+      "docs/13-product-design/step56-wireframes/B/manifest.json",
+      "docs/13-product-design/step56-catalog-media-wireframes.json",
+      "docs/13-product-design/step56-wireframes/C/manifest.json",
+      "docs/13-product-design/step56-pricing-inventory-wireframes.json",
+      "docs/13-product-design/step56-wireframes/D/manifest.json",
+      "docs/13-product-design/step56-commerce-operations-wireframes.json",
+      "docs/13-product-design/step56-wireframes/E/manifest.json",
+      "docs/13-product-design/step56-customers-growth-wireframes.json",
+      "docs/13-product-design/step56-wireframes/F/manifest.json",
+      "docs/13-product-design/step56-management-security-wireframes.json",
+      "docs/13-product-design/step56-wireframes/G/manifest.json",
+      "docs/13-product-design/step56-final-audit.json",
+      "docs/13-product-design/step56-final-audit/manifest.json",
+      "docs/13-product-design/step57-high-fidelity-contract.json"
+    ]
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-000",
+      "description": "Before Brand/Category edit UI is enabled, canonical OpenAPI for PATCH /admin/brands/{id} and PATCH /admin/categories/{id} must declare the same If-Match precondition required by runtime controllers, generated types must be synchronized, and no other endpoint semantic may change.",
+      "verification": "taxonomy_if_match_contract_repair",
+      "mandatory": true
+    },
+    {
+      "id": "AC-001",
+      "description": "Brand, Category and Attribute structure reads/mutations use only canonical generated Admin operations through the existing server-owned auth bridge; no browser credential authority or parallel API client is introduced.",
+      "verification": "catalog_structure_transport_boundary",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Brand create/edit/sales uses only source-proven fields and operations. Brand PATCH uses the loaded canonical version through If-Match; 409 fails closed. No brand delete/archive control is invented.",
+      "verification": "brand_version_and_lifecycle_boundary",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Category create/edit/sales presents explicit parent hierarchy context, uses loaded canonical version for PATCH, and leaves parent existence/cycle enforcement server-authoritative. No category delete/archive control is invented.",
+      "verification": "category_hierarchy_and_conflict_boundary",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Attribute definitions support only text/number/boolean/select and source-proven fields. Attribute and Attribute Value PATCH operations carry the loaded version via If-Match, while typed values require exactly one text/numeric/boolean payload.",
+      "verification": "attribute_definition_value_contract",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Product and Variant attribute assignment is an explicit full-set replacement using the canonical assignment PUT endpoints; no If-Match guard is invented, each attribute appears at most once, and canonical state is re-read after mutation.",
+      "verification": "attribute_assignment_full_set_boundary",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Unsafe Catalog structure mutations are never automatically retried. Network/timeout/5xx or post-mutation reread ambiguity is surfaced as unknown outcome and requires canonical reread before any repeat.",
+      "verification": "structure_unknown_outcome_guard",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "All Admin form mutations enforce trusted same-origin submission and bounded parsing; 401/403/404/409/422 states fail closed with neutral Persian messaging and request-id recovery evidence where available.",
+      "verification": "structure_form_security",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "AD-C-03, AD-C-05 and AD-C-06 are implemented as Persian RTL, responsive and keyboard-accessible workspaces; product/variant assignment is reachable from canonical product context and preserves focus/revalidation after outcomes.",
+      "verification": "structure_ux_accessibility",
+      "mandatory": true
+    },
+    {
+      "id": "AC-009",
+      "description": "No Media mutation, Sales-Control apply, pricing/inventory/Excel work, Backend/OpenAPI/generated contract/database change, Storefront change, Product Design mutation or Current-State/Master-Roadmap closure reconciliation is introduced.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-010",
+      "description": "Canonical closure requires exact-head Canonical CI, Phase A and CodeQL, deterministic Review, Independent Security PASS, exact-artifact ACTIVE Lock and explicit Project Owner Human Gate approval, followed by protected merge, exact-SHA postmerge verification and terminal Lock release.",
+      "verification": "high_risk_canonical_transport",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "SECURITY",
+      "HUMAN",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Step 68-E is HIGH risk after the source-proven taxonomy concurrency contract defect. Project Owner Human Gate is mandatory only on the final exact HEAD and Artifact. Stage 68-F remains blocked until terminal canonical closure."
+  },
+  "process_improvement_links": [],
+  "incident_links": [],
+  "max_repair_cycles": 5,
+  "pre_mutation_gates": {
+    "graph_health": "RETIRED_AND_OUT_OF_SCOPE",
+    "query_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "path_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "explain_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "human_gate": "REQUIRED_FINAL_EXACT_ARTIFACT"
+  },
+  "authorized_human_approver": {
+    "role": "PROJECT_OWNER",
+    "github_login": "rahemih"
+  }
+}

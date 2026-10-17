@@ -14209,7 +14209,9 @@ export interface operations {
     patchAdminBrandsId: {
         parameters: {
             query?: never;
-            header?: never;
+            header: {
+                "If-Match": components["parameters"]["IfMatch"];
+            };
             path: {
                 id: string;
             };
@@ -14352,7 +14354,9 @@ export interface operations {
     patchAdminCategoriesId: {
         parameters: {
             query?: never;
-            header?: never;
+            header: {
+                "If-Match": components["parameters"]["IfMatch"];
+            };
             path: {
                 id: string;
             };

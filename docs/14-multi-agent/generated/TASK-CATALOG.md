@@ -113,6 +113,7 @@
 | EQCOFE-STEP68-B-CATALOG-MEDIA-CONTRACT-001 | Step 68-B Catalog and Media Backend OpenAPI contract readiness | HIGH | REQUIRED | `fcca92ee97dfb81ba56f5519bf5be85d02a1336c` | 46000/72000/118000 |
 | EQCOFE-STEP68-C-ADMIN-CATALOG-READ-001 | Step 68-C shared Admin Catalog read, detail and state foundation | MEDIUM | NOT_REQUIRED | `bc5bb287a14d3200a8c234ed5ec0c30e0ee50c11` | 36000/58000/96000 |
 | EQCOFE-STEP68-D-PRODUCT-VARIANT-LIFECYCLE-001 | Step 68-D Product and Variant create edit lifecycle sales administration | HIGH | REQUIRED | `e90a454f001d4e831f6d300927c8fa93325fe1d0` | 46000/72000/118000 |
+| EQCOFE-STEP68-E-CATALOG-STRUCTURE-001 | Step 68-E Attribute Brand Category structure administration and conflict handling | HIGH | REQUIRED | `de4f72a4c2e9c4d3d48762e778f45d3644d9c727` | 46000/72000/118000 |
 | MA-AGENT-A0-ORCHESTRATOR-001 | A0 — Orchestrator / Engineering Manager Prompt | LOW | NOT_REQUIRED | `f7919991e619d416360e74a542741ef21c70f732` | 10000/16000/32000 |
 | MA-AGENT-A1-SPEC-001 | A1 — Specification & Research Prompt | LOW | NOT_REQUIRED | `120898df57138b301560e7d9b9f1b3f5da03e982` | 10000/16000/32000 |
 | MA-AGENT-A10-EVIDENCE-001 | A10 — Evidence & Documentation Prompt | LOW | NOT_REQUIRED | `bdf8fccde4ca40cced48381ad3be2e0461ade535` | 12000/18000/35000 |
@@ -158,4 +159,4 @@
 | MA-V1-ACC-MEDIUM-001 | V1 Acceptance MEDIUM R2 — telemetry terminal-state conflict hardening | MEDIUM | NOT_REQUIRED | `9017e0f25e9571568ed9acf4ca3ca977ce9e78f0` | 15000/25000/50000 |
 | MA-V1-ACCEPTANCE-CLOSURE-V16-R2-001 | V1.6 Phase 3 canonical acceptance closure R2 | HIGH | REQUIRED | `d7d235f5f240b8bea44bc607afa812b2f5bb12d4` | 30000/50000/90000 |
 
-Task contracts indexed: **152**.
+Task contracts indexed: **153**.

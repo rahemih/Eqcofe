@@ -122,9 +122,15 @@ export function AdminShell({actor,scopes,groups}:{actor:AdminActor;scopes:readon
 
 function destinationHref(surface:string):string{
   if(surface==="AD-C-01")return "/catalog/products";
+  if(surface==="AD-C-03")return "/catalog/structure/attributes";
+  if(surface==="AD-C-05")return "/catalog/structure/brands";
+  if(surface==="AD-C-06")return "/catalog/structure/categories";
   return `/destinations/${encodeURIComponent(surface)}`;
 }
 function readCurrentSurface(pathname:string):string|null{
+  if(pathname.startsWith("/catalog/structure/attributes")||/\/catalog\/products\/[^/]+\/attributes$/.test(pathname))return "AD-C-03";
+  if(pathname.startsWith("/catalog/structure/brands"))return "AD-C-05";
+  if(pathname.startsWith("/catalog/structure/categories"))return "AD-C-06";
   if(pathname==="/catalog/products"||pathname.startsWith("/catalog/products/"))return "AD-C-01";
   const match=/^\/destinations\/([^/]+)$/.exec(pathname);
   if(!match)return null;
