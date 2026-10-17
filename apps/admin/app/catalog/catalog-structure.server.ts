@@ -70,14 +70,15 @@ export async function readAdminAttributes(
   let bridge: ReturnType<typeof createAdminAuthBridge> | null = null;
   try {
     bridge = createAdminAuthBridge(request);
-    const list = await bridge.client.request("get", "/admin/attributes", {
-      query: options.categoryId ? { category_id: options.categoryId } : {},
-    });
+    const list = await bridge.client.request("get", "/admin/attributes", {});
+    const visibleAttributes = options.categoryId
+      ? list.data.filter((attribute) => attribute.category_id == null || attribute.category_id === options.categoryId)
+      : list.data;
     const selectedAttributeId = options.selectedAttributeId ?? null;
     let values: readonly AdminAttributeValue[] = [];
     let requestId = list.requestId;
     if (selectedAttributeId) {
-      if (!list.data.some((attribute) => attribute.id === selectedAttributeId)) {
+      if (!visibleAttributes.some((attribute) => attribute.id === selectedAttributeId)) {
         return { kind: "not_found", requestId, setCookies: bridge.takeSetCookies() };
       }
       const result = await bridge.client.request("get", "/admin/attributes/{id}/values", {
@@ -88,7 +89,7 @@ export async function readAdminAttributes(
     }
     return {
       kind: "ready",
-      attributes: Object.freeze([...list.data]),
+      attributes: Object.freeze([...visibleAttributes]),
       selectedAttributeId,
       values,
       requestId,
@@ -134,10 +135,11 @@ export async function readAdminAssignmentWorkspace(
       return { kind: "not_found", requestId: productResult.requestId ?? variantResult.requestId, setCookies: bridge.takeSetCookies() };
     }
 
-    const attributeResult = await bridge.client.request("get", "/admin/attributes", {
-      query: { category_id: productResult.data.primary_category.id },
-    });
-    const eligible = attributeResult.data.filter((attribute) =>
+    const attributeResult = await bridge.client.request("get", "/admin/attributes", {});
+    const categoryAttributes = attributeResult.data.filter((attribute) =>
+      attribute.category_id == null || attribute.category_id === productResult.data.primary_category.id
+    );
+    const eligible = categoryAttributes.filter((attribute) =>
       target.type === "variant" ? attribute.is_variant_attribute : !attribute.is_variant_attribute
     );
     const attributes: Array<AdminAttribute & { values: readonly AdminAttributeValue[] }> = [];
@@ -202,9 +204,10 @@ export async function readAssignmentOptions(
   let bridge: ReturnType<typeof createAdminAuthBridge> | null = null;
   try {
     bridge = createAdminAuthBridge(request);
-    const list = await bridge.client.request("get", "/admin/attributes", { query: { category_id: categoryId } });
+    const list = await bridge.client.request("get", "/admin/attributes", {});
     const eligible = list.data.filter((attribute) =>
-      targetType === "variant" ? attribute.is_variant_attribute : !attribute.is_variant_attribute
+      (attribute.category_id == null || attribute.category_id === categoryId)
+      && (targetType === "variant" ? attribute.is_variant_attribute : !attribute.is_variant_attribute)
     );
     const withValues: Array<AdminAttribute & { values: readonly AdminAttributeValue[] }> = [];
     let requestId = list.requestId;
