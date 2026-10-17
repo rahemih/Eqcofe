@@ -1,0 +1,285 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP69-A-PRICING-FX-EXCEL-HANDOFF-001",
+  "title": "Step 69-A Pricing, FX & Excel Administration canonical handoff and scope freeze",
+  "description": "MEDIUM-risk documentation/governance handoff. Verify terminal Step-68 closure, discover live Pricing/FX/Excel Backend and Admin authority, freeze the Step69 A-I execution plan, inherit exactly Step56-D surfaces AD-D-01..05 and AD-D-19..21 (35 source-traced operations), keep Inventory/Procurement/POS in Step70, preserve production FX integration for Step77, and prevent invented pricing/FX/Excel guarantees. No runtime/backend/OpenAPI/database/dependency/workflow/Product Design semantic mutation in 69-A.",
+  "risk": "MEDIUM",
+  "risk_floor": "MEDIUM",
+  "owner": "PRODUCT_DESIGN",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "2eb803d8b2e8ee0eb247818d6bff3d871b71eefc"
+  },
+  "scope": {
+    "read": [
+      "apps/admin/**",
+      "src/modules/pricing/**",
+      "src/modules/excel/**",
+      "src/modules/fx/**",
+      "contracts/http/openapi.yaml",
+      "contracts/http/openapi-step50-a8.yaml",
+      "src/generated/openapi.ts",
+      "database/**",
+      "docs/02-business-rules/**",
+      "docs/11-step-history/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/STEP-56-D-PRICING-INVENTORY.md",
+      "docs/13-product-design/step56-wireframes/D/AD-D-01/**",
+      "docs/13-product-design/step56-wireframes/D/AD-D-02/**",
+      "docs/13-product-design/step56-wireframes/D/AD-D-03/**",
+      "docs/13-product-design/step56-wireframes/D/AD-D-04/**",
+      "docs/13-product-design/step56-wireframes/D/AD-D-05/**",
+      "docs/13-product-design/step56-wireframes/D/AD-D-19/**",
+      "docs/13-product-design/step56-wireframes/D/AD-D-20/**",
+      "docs/13-product-design/step56-wireframes/D/AD-D-21/**",
+      "docs/13-product-design/step56-final-audit/**",
+      "docs/14-multi-agent/**",
+      ".github/workflows/**"
+    ],
+    "write": [
+      "docs/11-step-history/STEP-69-A-PRICING-FX-EXCEL-HANDOFF.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP69-A-PRICING-FX-EXCEL-HANDOFF-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "apps/**",
+      "src/**",
+      "database/**",
+      "contracts/**",
+      "test/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**",
+      "graphify-out/**",
+      "scripts/graphify/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP69-A-PRICING-FX-EXCEL-HANDOFF-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 30000,
+    "soft_alert": 48000,
+    "hard_cap": 90000
+  },
+  "max_repair_cycles": 3,
+  "task_risk_rules": [
+    {
+      "id": "STEP69_A_PRICING_FX_EXCEL_HANDOFF_MEDIUM",
+      "risk": "MEDIUM",
+      "paths": [
+        "docs/11-step-history/STEP-69-A-PRICING-FX-EXCEL-HANDOFF.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP69-A-PRICING-FX-EXCEL-HANDOFF-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+      ]
+    }
+  ],
+  "pre_mutation_gates": {
+    "graph_health": "RETIRED_AND_OUT_OF_SCOPE",
+    "query_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "path_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "explain_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "human_gate": "NOT_REQUIRED_MEDIUM"
+  },
+  "dependencies": [
+    {
+      "item": "Step 68 final canonical closure",
+      "required_state": "CLOSED_FINAL_CANONICAL_PASS",
+      "observed_state": "CLOSED_FINAL_CANONICAL_PASS",
+      "merge_sha": "2eb803d8b2e8ee0eb247818d6bff3d871b71eefc",
+      "terminal_evidence_comment": 6234380960,
+      "postmerge_canonical_ci_run_id": 39035953698,
+      "postmerge_phase_a_run_id": 39035953718,
+      "postmerge_codeql_run_id": 39035953795,
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "linear_issue": "HOS-73",
+    "live_guard_main_head": "2eb803d8b2e8ee0eb247818d6bff3d871b71eefc",
+    "live_guard_compare_status": "identical",
+    "live_guard_open_repository_prs": 0,
+    "competing_writer": "NONE_OBSERVED",
+    "graph_state": "RETIRED_AND_OUT_OF_SCOPE",
+    "design_source": "Step56-D",
+    "owned_surfaces": [
+      "AD-D-01",
+      "AD-D-02",
+      "AD-D-03",
+      "AD-D-04",
+      "AD-D-05",
+      "AD-D-19",
+      "AD-D-20",
+      "AD-D-21"
+    ],
+    "source_traced_operation_count": 35,
+    "excluded_step70_surfaces": [
+      "AD-D-06",
+      "AD-D-07",
+      "AD-D-08",
+      "AD-D-09",
+      "AD-D-10",
+      "AD-D-11",
+      "AD-D-12",
+      "AD-D-13",
+      "AD-D-14",
+      "AD-D-15",
+      "AD-D-16",
+      "AD-D-17",
+      "AD-D-18"
+    ],
+    "admin_runtime": {
+      "pricing_implementation_proven": false,
+      "excel_runtime_implementation_proven": false,
+      "excel_navigation_permission_metadata_only": true
+    },
+    "pricing_boundary": {
+      "money": "integer Toman",
+      "base_preview_apply_token": false,
+      "pricing_rule_patch_if_match": true,
+      "bulk_preview_scope_cap": 5000,
+      "bulk_preview_visible_items": 200,
+      "bulk_apply_step_up": true,
+      "bulk_apply_idempotent": true,
+      "requester_binding_proven": false
+    },
+    "fx_boundary": {
+      "impact_preview_ttl_seconds": 600,
+      "impact_preview_visible_items": 200,
+      "production_provider_owner": "Step77",
+      "apply_step_up": true,
+      "apply_idempotent": true,
+      "fresh_price_recheck_proven": false,
+      "fresh_profit_guard_proven": false
+    },
+    "excel_boundary": {
+      "max_upload_bytes": 10485760,
+      "max_rows_per_sheet": 5000,
+      "max_columns": 64,
+      "max_zip_entries": 256,
+      "max_expanded_bytes": 52428800,
+      "import_list_or_status_get": false,
+      "catalog_and_pricing_apply_atomic": false,
+      "new_product_creation": false
+    },
+    "frozen_stages": [
+      {
+        "stage": "69-A",
+        "risk": "MEDIUM",
+        "human_gate": false
+      },
+      {
+        "stage": "69-B",
+        "risk": "HIGH",
+        "human_gate": true
+      },
+      {
+        "stage": "69-C",
+        "risk": "MEDIUM",
+        "human_gate": false
+      },
+      {
+        "stage": "69-D",
+        "risk": "HIGH",
+        "human_gate": true
+      },
+      {
+        "stage": "69-E",
+        "risk": "HIGH",
+        "human_gate": true
+      },
+      {
+        "stage": "69-F",
+        "risk": "HIGH",
+        "human_gate": true
+      },
+      {
+        "stage": "69-G",
+        "risk": "HIGH",
+        "human_gate": true
+      },
+      {
+        "stage": "69-H",
+        "risk": "MEDIUM",
+        "human_gate": false
+      },
+      {
+        "stage": "69-I",
+        "risk": "MEDIUM",
+        "human_gate": false
+      }
+    ]
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Step 68 is proven terminal/canonical at main 2eb803d8... with terminal Lock release 6234380960 before Step69 mutation.",
+      "verification": "provider-backed predecessor audit",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Step56-D inheritance is frozen to eight Step69-owned surfaces AD-D-01..05 and AD-D-19..21 with exactly 35 source-traced operations; AD-D-06..18 remain Step70.",
+      "verification": "design/runtime source audit",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Pricing/FX/Excel live Backend authority, RBAC, Step-Up, idempotency, If-Match and recovery limitations are recorded from canonical source without invented guarantees.",
+      "verification": "source-bound invariant audit",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Admin runtime absence is recorded accurately: no Pricing runtime implementation is proven and Excel only has navigation permission metadata at Stage-A start.",
+      "verification": "admin source audit",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "FX production-provider readiness is not claimed; Step69 administers existing source/rate workflows while live provider production integration remains Step77.",
+      "verification": "phase-boundary audit",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Excel untrusted-input limits, missing import-list/status read authority, separate Catalog/Pricing applies and no new-product creation are frozen.",
+      "verification": "excel authority audit",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "A-I execution plan, risk classification and Human Gate boundaries are frozen before implementation.",
+      "verification": "deterministic document review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "69-A diff remains documentation/governance only and Graph/Graphify stays retired.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-009",
+      "description": "Exact-head Canonical CI/Phase A, deterministic Review, exact-artifact Lock, protected merge, exact-SHA postmerge verification and terminal Lock release complete before 69-B mutation.",
+      "verification": "canonical_transport_and_postmerge_evidence",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Step 69-A is MEDIUM-risk documentation/governance handoff. Human Gate is not required. Step 69-B remains blocked until terminal 69-A closure."
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}
