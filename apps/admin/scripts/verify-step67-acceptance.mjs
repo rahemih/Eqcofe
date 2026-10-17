@@ -8,7 +8,6 @@ import { fileURLToPath } from "node:url";
 const adminRoot=resolve(fileURLToPath(new URL("..",import.meta.url)));
 const repoRoot=resolve(adminRoot,"../..");
 const adminPort=31771;
-const apiPort=41772;
 const origin=`http://127.0.0.1:${adminPort}`;
 const command=process.platform==="win32"?"pnpm.cmd":"pnpm";
 const observed=[];
