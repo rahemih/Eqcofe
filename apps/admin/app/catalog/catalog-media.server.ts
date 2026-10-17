@@ -352,8 +352,20 @@ export async function moveAdminProductMedia(
     const index = ordered.findIndex((item) => item.media_id === mediaId);
     if (index < 0) return { kind: "not_found", requestId: current.requestId, setCookies: bridge.takeSetCookies() };
 
-    if (command === "up" && index > 0) [ordered[index - 1], ordered[index]] = [ordered[index], ordered[index - 1]];
-    if (command === "down" && index < ordered.length - 1) [ordered[index + 1], ordered[index]] = [ordered[index], ordered[index + 1]];
+    if (command === "up" && index > 0) {
+      const moving = ordered[index];
+      const neighbor = ordered[index - 1];
+      if (!moving || !neighbor) return { kind: "unavailable", requestId: current.requestId, setCookies: bridge.takeSetCookies() };
+      ordered[index - 1] = moving;
+      ordered[index] = neighbor;
+    }
+    if (command === "down" && index < ordered.length - 1) {
+      const moving = ordered[index];
+      const neighbor = ordered[index + 1];
+      if (!moving || !neighbor) return { kind: "unavailable", requestId: current.requestId, setCookies: bridge.takeSetCookies() };
+      ordered[index + 1] = moving;
+      ordered[index] = neighbor;
+    }
 
     const body: ReorderRequestBody = {
       items: ordered.map((item, position) => ({
