@@ -1,7 +1,7 @@
 # EQCOFE Current State
 
 ## Trusted state date
-**2026-10-14**
+**2026-10-17**
 
 ## Official repository
 - Repository: `rahemih/Eqcofe`
@@ -30,6 +30,34 @@ The frozen Step-63 product result covers authoritative Cart/Checkout state, gues
 
 **Tooling policy supersession — 2026-10-06:** the Project Owner retired Graph/Graphify from active EQCOFE governance. Historical Step-61/62/63 documents that mention graph requirements remain chronology only and no longer create a live gate. Follow-up `HOS-181` is Canceled and PR #319 is Closed / Unmerged. There is no remaining graph debt for Step 63.
 
+## Current Step 68 position
+
+**Step 68 — Catalog & Media Administration — `CLOSED / FINAL CANONICAL PASS after terminal 68-I transport`.** Stages 68-A through 68-H are terminal/canonical; Stage 68-I is the documentation/governance closure transport based on canonical main `80938cc3e3a8aa051d8bcd2b480c3555df8742f7`. Step 69 must not mutate until the 68-I closure PR completes protected merge, exact-SHA postmerge verification and terminal Lock release.
+
+| Stage | PR | Canonical merge | Terminal Lock | State |
+| --- | ---: | --- | ---: | --- |
+| 68-A canonical handoff / live discovery / scope freeze | #361 | `fcca92ee97dfb81ba56f5519bf5be85d02a1336c` | `6167410028` | COMPLETE |
+| 68-B Catalog/Media Backend/OpenAPI/3D contract readiness | #362 | `bc5bb287a14d3200a8c234ed5ec0c30e0ee50c11` | `6204157481` | COMPLETE |
+| 68-C shared Admin Catalog read/detail/state foundation | #363 | `e90a454f001d4e831f6d300927c8fa93325fe1d0` | `6204515193` | COMPLETE |
+| 68-D Product/Variant lifecycle and sales administration | #364 | `de4f72a4c2e9c4d3d48762e778f45d3644d9c727` | `6230507852` | COMPLETE |
+| 68-E Attribute/Brand/Category structure administration | #365 | `4fe36171f1a7902bd449efbeef239e1b05cf0e05` | `6231729776` | COMPLETE |
+| 68-F Media upload/review/attachment/order/3D administration | #366 | `9230e88178f5ffa5d2352126ee4edac57f021fec` | `6232856088` | COMPLETE |
+| 68-G Step-Up protected Sales-Control preview/apply | #367 | `1399dc20932224a7b26ee45b72b233b80d0ee7f1` | `6233799402` | COMPLETE |
+| 68-H integrated Admin Catalog/Media production/browser acceptance | #368 | `80938cc3e3a8aa051d8bcd2b480c3555df8742f7` | `6234216411` | COMPLETE |
+| 68-I final verification / docs / Step 69 handoff | closure branch | based on `80938cc3e3a8aa051d8bcd2b480c3555df8742f7` | terminal evidence required | FINAL CLOSURE |
+
+Stage 68-H exact merge-SHA evidence is green: Canonical CI #1985 / `39034763776`, Phase A #1484 / `39034763912`, Storefront Quality #942 / `39034763724` and dynamic CodeQL #1133 / `39034763721` all succeeded.
+
+Canonical Step-68 functionality includes authoritative Product/Variant administration and lifecycle/sales controls; Attribute/Brand/Category administration with conflict handling; Media upload/complete/review/approve/reject/delete; Product-media attach/detach/order/primary controls; governed Admin-only GLB `model_3d` capability; Step-Up Sales-Control preview/apply across global/brand/category/product/variant scopes; and integrated Persian RTL/accessibility/responsive/security browser acceptance across 320/360/600/840/1200/1440 widths.
+
+Backend remains authority for Admin authentication, RBAC, assigned scopes, lifecycle validity and Step-Up. Signed upload targets and Admin auth capabilities are not browser-persisted; no media-library list endpoint, fresh Sales-Control recount/requester binding, generic Catalog bulk editor, pricing, inventory, FX or Excel authority is invented. Public Storefront Product Detail remains image/video-only for rich media.
+
+Acceptance hardening repaired a real 44px touch-target defect on Catalog Attributes actions and retained the earlier collision-safe Admin acceptance harness; both are QA/presentation reliability corrections only.
+
+Graph/Graphify remains retired from active EQCOFE governance; there is no graph debt or graph gate for Step 68.
+
+**Next safe action:** Step 69 — Pricing, FX & Excel Administration becomes `NEXT / NOT_STARTED` only after this 68-I closure document is terminally canonical on `main`. No Step-69 implementation is authorized before that terminal evidence.
+
 ## Current Step 67 position
 
 **Step 67 — Admin Shell, RBAC & Dashboard Foundation — `CLOSED / FINAL CANONICAL PASS after terminal 67-I transport`.** Stages 67-A through 67-H are terminal/canonical; Stage 67-I is the documentation/governance closure transport based on canonical main `64e1600631bc65677c8b1733ac6a4336c8f1e79c`. Step 68 must not mutate until the 67-I closure PR completes protected merge, exact-SHA postmerge verification and terminal Lock release.
@@ -50,11 +78,11 @@ Stage 67-H exact merge-SHA evidence is green: Canonical CI `38533755212` / #1841
 
 Canonical Step-67 functionality includes a Persian RTL Admin SSR app; fail-closed login/pre-auth/FIDO/session entry; server-derived permission and assigned-scope presentation; safe destination search/navigation and neutral denied deep links; Step-Up credential registration/revocation with secret-minimized summaries; generic protected-action review boundaries; an unavailable-only dashboard with no fabricated metrics and no `GET /admin/dashboard` runtime consumption; reusable loading/empty/error/denied/conflict states; and integrated production SSR plus Chromium/Axe acceptance at compact and desktop widths.
 
-Security authority remains Backend-owned. Navigation visibility is not authorization, scopes are server-assigned/read-only, credential/Step-Up secrets are not persisted in browser storage or rendered, dashboard success/metrics are not fabricated, and Steps 68–73 domain workspaces remain unimplemented.
+Security authority remains Backend-owned. Navigation visibility is not authorization, scopes are server-assigned/read-only, credential/Step-Up secrets are not persisted in browser storage or rendered, and dashboard success/metrics are not fabricated. Step 67 itself did not implement Steps 68–73; the current Step-68 section above supersedes that historical handoff state.
 
 Graph/Graphify remains retired from active EQCOFE governance; there is no graph debt or graph gate for Step 67.
 
-**Next safe action:** Step 68 — Catalog & Media Administration (`HOS-72`) becomes `NEXT / NOT_STARTED` only once this 67-I closure document is terminally canonical on `main`. No Step-68 mutation is authorized before that terminal evidence.
+**Historical Step-67 handoff:** Step 67 authorized Step 68 only after terminal 67-I. That handoff has been fulfilled; use the Current Step 68 position above for the live execution state.
 
 ## Current Step 66 position
 
