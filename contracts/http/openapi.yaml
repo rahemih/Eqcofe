@@ -4688,7 +4688,6 @@ components:
                 - brand
                 - product
                 - variant
-                - customer_segment
               scope_id:
                 $ref: '#/components/schemas/NullableEntityId'
             required:
@@ -4820,20 +4819,42 @@ components:
     PostAdminPricingCurrencyRatesRefreshRequest:
       type: object
       additionalProperties: false
+      required:
+      - provider_key
       properties:
+        provider_key:
+          type: string
+          minLength: 1
+          maxLength: 120
         source_currency_code:
           type: string
           minLength: 3
           maxLength: 3
           pattern: ^[A-Z]{3}$
-        provider_ids:
+          default: USD
+        timeout_ms:
+          type: integer
+          minimum: 100
+          maximum: 30000
+        max_age_ms:
+          type: integer
+          minimum: 60000
+          maximum: 86400000
+        scope_type:
+          type: string
+          enum:
+          - all
+          - product
+          - brand
+          - category
+          default: all
+        scope_ids:
           type: array
-          items: *id002
-          minItems: 0
-        force_refresh:
+          items:
+            $ref: '#/components/schemas/EntityId'
+        include_inactive:
           type: boolean
-      required:
-      - source_currency_code
+          default: false
     PostAdminPricingCurrencyRatesIdSelectRequest:
       type: object
       additionalProperties: false
@@ -8645,6 +8666,679 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
+    ExcelBinaryWorkbook:
+      type: object
+      additionalProperties: false
+      required: [fileName, mimeType, contentBase64]
+      properties:
+        fileName:
+          type: string
+          maxLength: 180
+          pattern: '\\.xlsx$'
+        mimeType:
+          type: string
+          const: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+        contentBase64:
+          type: string
+          contentEncoding: base64
+          contentMediaType: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+          maxLength: 13981020
+          description: Opaque XLSX bytes. ZIP/OOXML structure, macros, formulas, external links, sheet/cell bounds and file size are derived and validated server-side; clients cannot supply decoded workbook authority.
+    ExcelWorkbookRequest:
+      type: object
+      additionalProperties: false
+      required: [workbook]
+      properties:
+        workbook:
+          $ref: '#/components/schemas/ExcelBinaryWorkbook'
+    ExcelApplyRequest:
+      type: object
+      additionalProperties: false
+      required: [workbook, expected_preview_hash]
+      properties:
+        workbook:
+          $ref: '#/components/schemas/ExcelBinaryWorkbook'
+        expected_preview_hash:
+          type: string
+          pattern: '^[0-9a-fA-F]{64}$'
+    ExcelRecoverRequest:
+      type: object
+      additionalProperties: false
+      required: [note]
+      properties:
+        note:
+          type: string
+          minLength: 3
+          maxLength: 500
+    AdminDbInt64:
+      anyOf:
+      - type: integer
+        format: int64
+      - type: string
+        pattern: '^[0-9]+$'
+    AdminDbNumeric:
+      anyOf:
+      - type: number
+      - type: string
+        pattern: '^-?[0-9]+(?:\\.[0-9]+)?$'
+    AdminPricingBasePriceRecord:
+      type: object
+      additionalProperties: true
+      required: [id, variant_id, amount_toman, source_type, valid_from, version, created_at]
+      properties:
+        id: { $ref: '#/components/schemas/EntityId' }
+        variant_id: { $ref: '#/components/schemas/EntityId' }
+        product_id: { $ref: '#/components/schemas/EntityId' }
+        sku: { type: string }
+        amount_toman: { $ref: '#/components/schemas/AdminDbInt64' }
+        source_type: { type: string, enum: [manual, bulk, currency, import, system, excel_import] }
+        valid_from: { $ref: '#/components/schemas/Timestamp' }
+        valid_until: { $ref: '#/components/schemas/NullableTimestamp' }
+        version: { $ref: '#/components/schemas/AdminDbInt64' }
+        created_by: { $ref: '#/components/schemas/NullableEntityId' }
+        created_at: { $ref: '#/components/schemas/Timestamp' }
+    AdminBasePriceCreateRequest:
+      type: object
+      additionalProperties: false
+      required: [amount_toman]
+      properties:
+        amount_toman: { $ref: '#/components/schemas/MoneyToman' }
+        effective_from: { $ref: '#/components/schemas/Timestamp' }
+        effective_until: { $ref: '#/components/schemas/NullableTimestamp' }
+        source_type:
+          type: string
+          enum: [manual, bulk, currency, import, system]
+          default: manual
+    AdminProfitGuardView:
+      type: object
+      additionalProperties: true
+      required: [status]
+      properties:
+        status: { type: string, enum: [passed, blocked, unavailable, not_required] }
+        reason: { type: [string, 'null'] }
+        unit_cost_toman:
+          anyOf:
+          - $ref: '#/components/schemas/MoneyToman'
+          - type: 'null'
+    AdminPricingBasePricePreviewData:
+      type: object
+      additionalProperties: false
+      required: [variant_id, current_price_toman, proposed_price_toman, profit_guard, effective_from, effective_until]
+      properties:
+        variant_id: { $ref: '#/components/schemas/EntityId' }
+        current_price_toman:
+          anyOf:
+          - $ref: '#/components/schemas/MoneyToman'
+          - type: 'null'
+        proposed_price_toman: { $ref: '#/components/schemas/MoneyToman' }
+        profit_guard: { $ref: '#/components/schemas/AdminProfitGuardView' }
+        effective_from: { $ref: '#/components/schemas/Timestamp' }
+        effective_until: { $ref: '#/components/schemas/NullableTimestamp' }
+    AdminPricingBasePriceMutationData:
+      type: object
+      additionalProperties: false
+      required: [base_price_id, variant_id, old_price_toman, new_price_toman, effective_at]
+      properties:
+        base_price_id: { $ref: '#/components/schemas/EntityId' }
+        variant_id: { $ref: '#/components/schemas/EntityId' }
+        old_price_toman:
+          anyOf:
+          - $ref: '#/components/schemas/MoneyToman'
+          - type: 'null'
+        new_price_toman: { $ref: '#/components/schemas/MoneyToman' }
+        effective_at: { $ref: '#/components/schemas/Timestamp' }
+    AdminPricingRuleRecord:
+      type: object
+      additionalProperties: true
+      required: [id, name_fa, rule_type, priority, value_type, value_numeric, stacking_policy, is_global, status, version, created_at, updated_at]
+      properties:
+        id: { $ref: '#/components/schemas/EntityId' }
+        name_fa: { type: string }
+        rule_type: { type: string, enum: [discount, quantity_discount, campaign, manual_override] }
+        priority: { type: integer }
+        value_type: { type: string, enum: [percentage, fixed_toman] }
+        value_numeric: { $ref: '#/components/schemas/AdminDbNumeric' }
+        starts_at: { $ref: '#/components/schemas/NullableTimestamp' }
+        ends_at: { $ref: '#/components/schemas/NullableTimestamp' }
+        customer_type: { type: [string, 'null'], enum: [retail, wholesale, null] }
+        min_quantity: { type: [integer, 'null'] }
+        max_quantity: { type: [integer, 'null'] }
+        stacking_policy: { type: string, enum: [exclusive, stackable, best_only] }
+        is_global: { type: boolean }
+        status: { type: string, enum: [draft, active, inactive, expired] }
+        version: { $ref: '#/components/schemas/AdminDbInt64' }
+        created_by: { $ref: '#/components/schemas/NullableEntityId' }
+        created_at: { $ref: '#/components/schemas/Timestamp' }
+        updated_at: { $ref: '#/components/schemas/Timestamp' }
+    AdminPricingWarning:
+      type: object
+      additionalProperties: true
+      properties:
+        variant_id: { $ref: '#/components/schemas/EntityId' }
+        code: { type: [string, 'null'] }
+    AdminPricingPreviewItem:
+      type: object
+      additionalProperties: false
+      required: [variantId, oldPriceToman, proposedPriceToman, guardStatus, guardReason]
+      properties:
+        variantId: { $ref: '#/components/schemas/EntityId' }
+        oldPriceToman: { $ref: '#/components/schemas/MoneyToman' }
+        proposedPriceToman: { $ref: '#/components/schemas/MoneyToman' }
+        guardStatus: { type: string, enum: [passed, blocked, unavailable, not_required] }
+        guardReason: { type: [string, 'null'] }
+    AdminPricingBulkPreviewData:
+      type: object
+      additionalProperties: false
+      required: [preview_id, affected_count, warnings, items, expires_at]
+      properties:
+        preview_id: { $ref: '#/components/schemas/EntityId' }
+        affected_count: { type: integer, minimum: 0 }
+        warnings:
+          type: array
+          items: { $ref: '#/components/schemas/AdminPricingWarning' }
+        items:
+          type: array
+          maxItems: 200
+          items: { $ref: '#/components/schemas/AdminPricingPreviewItem' }
+        expires_at: { $ref: '#/components/schemas/Timestamp' }
+    AdminPricingBulkOperationItem:
+      type: object
+      additionalProperties: true
+      required: [operation_id, variant_id, old_price_toman, proposed_price_toman, guard_status]
+      properties:
+        operation_id: { $ref: '#/components/schemas/EntityId' }
+        variant_id: { $ref: '#/components/schemas/EntityId' }
+        old_price_toman: { $ref: '#/components/schemas/AdminDbInt64' }
+        proposed_price_toman: { $ref: '#/components/schemas/AdminDbInt64' }
+        guard_status: { type: string, enum: [passed, blocked, unavailable, not_required] }
+        guard_reason: { type: [string, 'null'] }
+    AdminPricingBulkOperationData:
+      type: object
+      additionalProperties: true
+      required: [id, operation_type, status, request_payload, affected_count, warnings, expires_at, created_at, items]
+      properties:
+        id: { $ref: '#/components/schemas/EntityId' }
+        operation_type: { type: string, enum: [bulk_price, currency_impact] }
+        status: { type: string, enum: [previewed, running, completed, failed, expired] }
+        request_payload: { type: object, additionalProperties: true }
+        affected_count: { type: integer, minimum: 0 }
+        warnings:
+          type: array
+          items: { $ref: '#/components/schemas/AdminPricingWarning' }
+        requested_by: { $ref: '#/components/schemas/NullableEntityId' }
+        expires_at: { $ref: '#/components/schemas/Timestamp' }
+        applied_at: { $ref: '#/components/schemas/NullableTimestamp' }
+        created_at: { $ref: '#/components/schemas/Timestamp' }
+        updated_at: { $ref: '#/components/schemas/Timestamp' }
+        items:
+          type: array
+          items: { $ref: '#/components/schemas/AdminPricingBulkOperationItem' }
+    AdminPricingBulkApplyData:
+      type: object
+      additionalProperties: false
+      required: [operation_id, affected_count]
+      properties:
+        operation_id: { $ref: '#/components/schemas/EntityId' }
+        affected_count: { type: integer, minimum: 0 }
+    AdminPricingCurrencyApplyData:
+      type: object
+      additionalProperties: false
+      required: [operation_id, affected_count, source]
+      properties:
+        operation_id: { $ref: '#/components/schemas/EntityId' }
+        affected_count: { type: integer, minimum: 0 }
+        source: { type: string, const: currency }
+    AdminPricingCurrencyRateRecord:
+      type: object
+      additionalProperties: true
+      required: [id, source_currency_code, rate_to_toman, observed_at, status, is_selected, created_at]
+      properties:
+        id: { $ref: '#/components/schemas/EntityId' }
+        source_currency_code: { type: string, pattern: '^[A-Z]{3}$' }
+        rate_to_toman: { $ref: '#/components/schemas/AdminDbNumeric' }
+        source_provider_id: { $ref: '#/components/schemas/NullableEntityId' }
+        observed_at: { $ref: '#/components/schemas/Timestamp' }
+        received_at: { $ref: '#/components/schemas/Timestamp' }
+        validated_at: { $ref: '#/components/schemas/NullableTimestamp' }
+        status: { type: string, enum: [received, validated, suspicious, rejected, active] }
+        is_selected: { type: boolean }
+        created_at: { $ref: '#/components/schemas/Timestamp' }
+    AdminPricingCurrencyRateRegistrationData:
+      type: object
+      additionalProperties: false
+      required: [currency_rate_id, source_currency_code, rate_to_toman, status, deviation_percent]
+      properties:
+        currency_rate_id: { $ref: '#/components/schemas/EntityId' }
+        source_currency_code: { type: string, pattern: '^[A-Z]{3}$' }
+        rate_to_toman: { type: number, exclusiveMinimum: 0 }
+        status: { type: string, enum: [validated, suspicious, active] }
+        deviation_percent: { type: number, minimum: 0 }
+    AdminPricingCurrencyRuleRecord:
+      type: object
+      additionalProperties: true
+      required: [id, name_fa, source_currency_code, coefficient, fixed_cost_toman, rounding_multiple_toman, is_global, status, version, created_at, updated_at]
+      properties:
+        id: { $ref: '#/components/schemas/EntityId' }
+        name_fa: { type: string }
+        source_currency_code: { type: string, pattern: '^[A-Z]{3}$' }
+        coefficient: { $ref: '#/components/schemas/AdminDbNumeric' }
+        fixed_cost_toman: { $ref: '#/components/schemas/AdminDbInt64' }
+        rounding_multiple_toman: { $ref: '#/components/schemas/AdminDbInt64' }
+        is_global: { type: boolean }
+        status: { type: string, enum: [draft, active, inactive] }
+        version: { $ref: '#/components/schemas/AdminDbInt64' }
+        created_at: { $ref: '#/components/schemas/Timestamp' }
+        updated_at: { $ref: '#/components/schemas/Timestamp' }
+    AdminPricingCurrencyImpactPreviewData:
+      type: object
+      additionalProperties: false
+      required: [preview_id, rate_to_toman, affected_count, warnings, items, expires_at]
+      properties:
+        preview_id: { $ref: '#/components/schemas/EntityId' }
+        rate_to_toman: { type: number, exclusiveMinimum: 0 }
+        affected_count: { type: integer, minimum: 0 }
+        warnings:
+          type: array
+          items: { $ref: '#/components/schemas/AdminPricingWarning' }
+        items:
+          type: array
+          maxItems: 200
+          items: { $ref: '#/components/schemas/AdminPricingPreviewItem' }
+        expires_at: { $ref: '#/components/schemas/Timestamp' }
+    AdminPricingFxObservation:
+      type: object
+      additionalProperties: false
+      required: [source_currency_code, target_unit, rate_to_toman, observed_at, source_reference]
+      properties:
+        source_currency_code: { type: string, pattern: '^[A-Z]{3}$' }
+        target_unit: { type: string, const: TOMAN }
+        rate_to_toman: { type: number, exclusiveMinimum: 0 }
+        observed_at: { $ref: '#/components/schemas/Timestamp' }
+        source_reference: { type: [string, 'null'] }
+    AdminPricingFxRefreshData:
+      type: object
+      additionalProperties: false
+      required: [provider_key, provider_request_id, observation, currency_rate, preview, apply_required]
+      properties:
+        provider_key: { type: string }
+        provider_request_id: { type: [string, 'null'] }
+        observation: { $ref: '#/components/schemas/AdminPricingFxObservation' }
+        currency_rate: { $ref: '#/components/schemas/AdminPricingCurrencyRateRegistrationData' }
+        preview: { $ref: '#/components/schemas/AdminPricingCurrencyImpactPreviewData' }
+        apply_required: { type: boolean, const: true }
+    ExcelWorkbookTemplateColumn:
+      type: object
+      additionalProperties: false
+      required: [key, required, description]
+      properties:
+        key: { type: string }
+        required: { type: boolean }
+        description: { type: string }
+    ExcelWorkbookTemplateSheet:
+      type: object
+      additionalProperties: false
+      required: [name, columns]
+      properties:
+        name: { type: string, enum: [products, variants, prices] }
+        columns:
+          type: array
+          items: { $ref: '#/components/schemas/ExcelWorkbookTemplateColumn' }
+    ExcelWorkbookTemplate:
+      type: object
+      additionalProperties: false
+      required: [contractVersion, mimeType, fileName, sheets]
+      properties:
+        contractVersion: { type: string, const: eqcofe-step50-v1 }
+        mimeType: { type: string, const: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet }
+        fileName: { type: string, const: eqcofe-product-pricing-template.xlsx }
+        sheets:
+          type: array
+          items: { $ref: '#/components/schemas/ExcelWorkbookTemplateSheet' }
+    ExcelDryRunRowError:
+      type: object
+      additionalProperties: false
+      required: [sheet, row, code, field, message]
+      properties:
+        sheet: { type: string, enum: [products, variants] }
+        row: { type: integer, minimum: 1 }
+        code: { type: string }
+        field: { type: [string, 'null'] }
+        message: { type: string }
+    ExcelDryRunRowResult:
+      type: object
+      additionalProperties: false
+      required: [sheet, row, valid, errors]
+      properties:
+        sheet: { type: string, enum: [products, variants] }
+        row: { type: integer, minimum: 1 }
+        valid: { type: boolean }
+        errors:
+          type: array
+          items: { $ref: '#/components/schemas/ExcelDryRunRowError' }
+    ExcelDryRunData:
+      type: object
+      additionalProperties: false
+      required: [valid, checkedRows, validRows, invalidRows, rows]
+      properties:
+        valid: { type: boolean }
+        checkedRows: { type: integer, minimum: 0 }
+        validRows: { type: integer, minimum: 0 }
+        invalidRows: { type: integer, minimum: 0 }
+        rows:
+          type: array
+          items: { $ref: '#/components/schemas/ExcelDryRunRowResult' }
+    ExcelCatalogProductOperation:
+      type: object
+      additionalProperties: false
+      required: [id, expectedVersion]
+      properties:
+        id: { $ref: '#/components/schemas/EntityId' }
+        expectedVersion: { type: integer, minimum: 1 }
+        nameFa: { type: string }
+        status: { type: string, enum: [draft, published, archived] }
+    ExcelCatalogVariantOperation:
+      type: object
+      additionalProperties: false
+      required: [id, expectedVersion]
+      properties:
+        id: { $ref: '#/components/schemas/EntityId' }
+        expectedVersion: { type: integer, minimum: 1 }
+        barcode: { type: [string, 'null'] }
+    ExcelCatalogPreviewData:
+      type: object
+      additionalProperties: false
+      required: [fingerprint, previewHash, products, variants]
+      properties:
+        fingerprint: { type: string, pattern: '^[0-9a-f]{64}$' }
+        previewHash: { type: string, pattern: '^[0-9a-f]{64}$' }
+        products:
+          type: array
+          items: { $ref: '#/components/schemas/ExcelCatalogProductOperation' }
+        variants:
+          type: array
+          items: { $ref: '#/components/schemas/ExcelCatalogVariantOperation' }
+    ExcelPricingPreviewItem:
+      type: object
+      additionalProperties: false
+      required: [variantId, sku, proposedPriceToman, currentBasePriceId, currentPriceToman, guardStatus, guardReason]
+      properties:
+        variantId: { $ref: '#/components/schemas/EntityId' }
+        sku: { type: string }
+        proposedPriceToman: { $ref: '#/components/schemas/MoneyToman' }
+        currentBasePriceId: { $ref: '#/components/schemas/NullableEntityId' }
+        currentPriceToman:
+          anyOf:
+          - $ref: '#/components/schemas/MoneyToman'
+          - type: 'null'
+        guardStatus: { type: string, enum: [passed, blocked, unavailable, not_required] }
+        guardReason: { type: [string, 'null'] }
+    ExcelPricingPreviewData:
+      type: object
+      additionalProperties: false
+      required: [sourceFingerprint, previewHash, items]
+      properties:
+        sourceFingerprint: { type: string, pattern: '^[0-9a-f]{64}$' }
+        previewHash: { type: string, pattern: '^[0-9a-f]{64}$' }
+        items:
+          type: array
+          items: { $ref: '#/components/schemas/ExcelPricingPreviewItem' }
+    ExcelImportJob:
+      type: object
+      additionalProperties: false
+      required: [id, contract_version, fingerprint, status, requested_by, created_at, completed_at, failure_code, failure_message]
+      properties:
+        id: { $ref: '#/components/schemas/EntityId' }
+        contract_version: { type: string }
+        fingerprint: { type: string, pattern: '^[0-9a-f]{64}$' }
+        status: { type: string, enum: [pending, processing, completed, failed] }
+        requested_by: { $ref: '#/components/schemas/EntityId' }
+        created_at: { $ref: '#/components/schemas/Timestamp' }
+        completed_at: { $ref: '#/components/schemas/NullableTimestamp' }
+        failure_code: { type: [string, 'null'] }
+        failure_message: { type: [string, 'null'] }
+    ExcelImportData:
+      type: object
+      additionalProperties: false
+      required: [job, created, replay]
+      properties:
+        job: { $ref: '#/components/schemas/ExcelImportJob' }
+        created: { type: boolean }
+        replay: { type: boolean }
+    ExcelCatalogApplyData:
+      type: object
+      additionalProperties: false
+      required: [products, variants]
+      properties:
+        products: { type: integer, minimum: 0 }
+        variants: { type: integer, minimum: 0 }
+    ExcelPricingApplyData:
+      type: object
+      additionalProperties: false
+      required: [affectedCount]
+      properties:
+        affectedCount: { type: integer, minimum: 0 }
+    ExcelRecoveryData:
+      type: object
+      additionalProperties: false
+      required: [jobId, nextAttemptNo]
+      properties:
+        jobId: { $ref: '#/components/schemas/EntityId' }
+        nextAttemptNo: { type: integer, minimum: 2, maximum: 3 }
+    AdminPricingBasePriceListResponse:
+      type: object
+      additionalProperties: false
+      required: [success, data, meta]
+      properties:
+        success: { type: boolean, const: true }
+        data:
+          type: array
+          items: { $ref: '#/components/schemas/AdminPricingBasePriceRecord' }
+        meta: { $ref: '#/components/schemas/SuccessMeta' }
+    AdminPricingBasePricePreviewResponse:
+      type: object
+      additionalProperties: false
+      required: [success, data, meta]
+      properties:
+        success: { type: boolean, const: true }
+        data: { $ref: '#/components/schemas/AdminPricingBasePricePreviewData' }
+        meta: { $ref: '#/components/schemas/SuccessMeta' }
+    AdminPricingBasePriceMutationResponse:
+      type: object
+      additionalProperties: false
+      required: [success, data, meta]
+      properties:
+        success: { type: boolean, const: true }
+        data: { $ref: '#/components/schemas/AdminPricingBasePriceMutationData' }
+        meta: { $ref: '#/components/schemas/SuccessMeta' }
+    AdminPricingRuleListResponse:
+      type: object
+      additionalProperties: false
+      required: [success, data, meta]
+      properties:
+        success: { type: boolean, const: true }
+        data:
+          type: array
+          items: { $ref: '#/components/schemas/AdminPricingRuleRecord' }
+        meta: { $ref: '#/components/schemas/SuccessMeta' }
+    AdminPricingRuleResponse:
+      type: object
+      additionalProperties: false
+      required: [success, data, meta]
+      properties:
+        success: { type: boolean, const: true }
+        data: { $ref: '#/components/schemas/AdminPricingRuleRecord' }
+        meta: { $ref: '#/components/schemas/SuccessMeta' }
+    AdminPricingBulkPreviewResponse:
+      type: object
+      additionalProperties: false
+      required: [success, data, meta]
+      properties:
+        success: { type: boolean, const: true }
+        data: { $ref: '#/components/schemas/AdminPricingBulkPreviewData' }
+        meta: { $ref: '#/components/schemas/SuccessMeta' }
+    AdminPricingBulkApplyResponse:
+      type: object
+      additionalProperties: false
+      required: [success, data, meta]
+      properties:
+        success: { type: boolean, const: true }
+        data: { $ref: '#/components/schemas/AdminPricingBulkApplyData' }
+        meta: { $ref: '#/components/schemas/SuccessMeta' }
+    AdminPricingBulkOperationResponse:
+      type: object
+      additionalProperties: false
+      required: [success, data, meta]
+      properties:
+        success: { type: boolean, const: true }
+        data:
+          anyOf:
+          - $ref: '#/components/schemas/AdminPricingBulkOperationData'
+          - type: 'null'
+        meta: { $ref: '#/components/schemas/SuccessMeta' }
+    AdminPricingCurrencyRateListResponse:
+      type: object
+      additionalProperties: false
+      required: [success, data, meta]
+      properties:
+        success: { type: boolean, const: true }
+        data:
+          type: array
+          items: { $ref: '#/components/schemas/AdminPricingCurrencyRateRecord' }
+        meta: { $ref: '#/components/schemas/SuccessMeta' }
+    AdminPricingCurrencyRateResponse:
+      type: object
+      additionalProperties: false
+      required: [success, data, meta]
+      properties:
+        success: { type: boolean, const: true }
+        data: { $ref: '#/components/schemas/AdminPricingCurrencyRateRecord' }
+        meta: { $ref: '#/components/schemas/SuccessMeta' }
+    AdminPricingCurrencyRateNullableResponse:
+      type: object
+      additionalProperties: false
+      required: [success, data, meta]
+      properties:
+        success: { type: boolean, const: true }
+        data:
+          anyOf:
+          - $ref: '#/components/schemas/AdminPricingCurrencyRateRecord'
+          - type: 'null'
+        meta: { $ref: '#/components/schemas/SuccessMeta' }
+    AdminPricingCurrencyRateRegistrationResponse:
+      type: object
+      additionalProperties: false
+      required: [success, data, meta]
+      properties:
+        success: { type: boolean, const: true }
+        data: { $ref: '#/components/schemas/AdminPricingCurrencyRateRegistrationData' }
+        meta: { $ref: '#/components/schemas/SuccessMeta' }
+    AdminPricingCurrencyRuleListResponse:
+      type: object
+      additionalProperties: false
+      required: [success, data, meta]
+      properties:
+        success: { type: boolean, const: true }
+        data:
+          type: array
+          items: { $ref: '#/components/schemas/AdminPricingCurrencyRuleRecord' }
+        meta: { $ref: '#/components/schemas/SuccessMeta' }
+    AdminPricingCurrencyRuleResponse:
+      type: object
+      additionalProperties: false
+      required: [success, data, meta]
+      properties:
+        success: { type: boolean, const: true }
+        data: { $ref: '#/components/schemas/AdminPricingCurrencyRuleRecord' }
+        meta: { $ref: '#/components/schemas/SuccessMeta' }
+    AdminPricingCurrencyImpactPreviewResponse:
+      type: object
+      additionalProperties: false
+      required: [success, data, meta]
+      properties:
+        success: { type: boolean, const: true }
+        data: { $ref: '#/components/schemas/AdminPricingCurrencyImpactPreviewData' }
+        meta: { $ref: '#/components/schemas/SuccessMeta' }
+    AdminPricingCurrencyApplyResponse:
+      type: object
+      additionalProperties: false
+      required: [success, data, meta]
+      properties:
+        success: { type: boolean, const: true }
+        data: { $ref: '#/components/schemas/AdminPricingCurrencyApplyData' }
+        meta: { $ref: '#/components/schemas/SuccessMeta' }
+    AdminPricingFxRefreshResponse:
+      type: object
+      additionalProperties: false
+      required: [success, data, meta]
+      properties:
+        success: { type: boolean, const: true }
+        data: { $ref: '#/components/schemas/AdminPricingFxRefreshData' }
+        meta: { $ref: '#/components/schemas/SuccessMeta' }
+    AdminExcelTemplateResponse:
+      type: object
+      additionalProperties: false
+      required: [success, data, meta]
+      properties:
+        success: { type: boolean, const: true }
+        data: { $ref: '#/components/schemas/ExcelWorkbookTemplate' }
+        meta: { $ref: '#/components/schemas/SuccessMeta' }
+    AdminExcelDryRunResponse:
+      type: object
+      additionalProperties: false
+      required: [success, data, meta]
+      properties:
+        success: { type: boolean, const: true }
+        data: { $ref: '#/components/schemas/ExcelDryRunData' }
+        meta: { $ref: '#/components/schemas/SuccessMeta' }
+    AdminExcelCatalogPreviewResponse:
+      type: object
+      additionalProperties: false
+      required: [success, data, meta]
+      properties:
+        success: { type: boolean, const: true }
+        data: { $ref: '#/components/schemas/ExcelCatalogPreviewData' }
+        meta: { $ref: '#/components/schemas/SuccessMeta' }
+    AdminExcelPricingPreviewResponse:
+      type: object
+      additionalProperties: false
+      required: [success, data, meta]
+      properties:
+        success: { type: boolean, const: true }
+        data: { $ref: '#/components/schemas/ExcelPricingPreviewData' }
+        meta: { $ref: '#/components/schemas/SuccessMeta' }
+    AdminExcelImportResponse:
+      type: object
+      additionalProperties: false
+      required: [success, data, meta]
+      properties:
+        success: { type: boolean, const: true }
+        data: { $ref: '#/components/schemas/ExcelImportData' }
+        meta: { $ref: '#/components/schemas/SuccessMeta' }
+    AdminExcelCatalogApplyResponse:
+      type: object
+      additionalProperties: false
+      required: [success, data, meta]
+      properties:
+        success: { type: boolean, const: true }
+        data: { $ref: '#/components/schemas/ExcelCatalogApplyData' }
+        meta: { $ref: '#/components/schemas/SuccessMeta' }
+    AdminExcelPricingApplyResponse:
+      type: object
+      additionalProperties: false
+      required: [success, data, meta]
+      properties:
+        success: { type: boolean, const: true }
+        data: { $ref: '#/components/schemas/ExcelPricingApplyData' }
+        meta: { $ref: '#/components/schemas/SuccessMeta' }
+    AdminExcelRecoveryResponse:
+      type: object
+      additionalProperties: false
+      required: [success, data, meta]
+      properties:
+        success: { type: boolean, const: true }
+        data: { $ref: '#/components/schemas/ExcelRecoveryData' }
+        meta: { $ref: '#/components/schemas/SuccessMeta' }
+
 paths:
   /products:
     get:
@@ -11945,17 +12639,26 @@ paths:
       responses:
         '200':
           description: عملیات موفق
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminPricingBasePriceListResponse'
       security:
       - adminSession: []
+      x-eqcofe:
+        domain: pricing
+        permission: pricing.view
     post:
       tags:
       - Admin Pricing
       operationId: postAdminPricingBasePrices
       responses:
-        '200':
-          description: عملیات موفق
-        '202':
-          description: عملیات پذیرفته شد
+        '201':
+          description: عملیات با موفقیت ایجاد/اجرا شد
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminBasePriceCreateRequest'
       security: &id020
       - adminSession: []
       requestBody:
@@ -11977,10 +12680,12 @@ paths:
       - Admin Pricing
       operationId: postAdminPricingBasePricesPreview
       responses:
-        '200':
-          description: عملیات موفق
-        '202':
-          description: عملیات پذیرفته شد
+        '201':
+          description: عملیات با موفقیت ایجاد/اجرا شد
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminPricingBasePricePreviewResponse'
       security:
       - adminSession: []
       requestBody:
@@ -11989,16 +12694,21 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/PostAdminPricingBasePricesPreviewRequest'
+      x-eqcofe:
+        domain: pricing
+        permission: pricing.manage
   /admin/variants/{variant_id}/prices:
     post:
       tags:
       - Admin Operations
       operationId: postAdminVariantsVariantIdPrices
       responses:
-        '200':
-          description: عملیات موفق
-        '202':
-          description: عملیات پذیرفته شد
+        '201':
+          description: عملیات با موفقیت ایجاد/اجرا شد
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminBasePriceCreateRequest'
       parameters:
       - name: variant_id
         in: path
@@ -12027,17 +12737,26 @@ paths:
       responses:
         '200':
           description: عملیات موفق
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminPricingRuleListResponse'
       security:
       - adminSession: []
+      x-eqcofe:
+        domain: pricing
+        permission: pricing.view
     post:
       tags:
       - Admin Pricing
       operationId: postAdminPricingRules
       responses:
-        '200':
-          description: عملیات موفق
-        '202':
-          description: عملیات پذیرفته شد
+        '201':
+          description: عملیات با موفقیت ایجاد/اجرا شد
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminPricingRuleResponse'
       security: *id020
       requestBody:
         required: true
@@ -12059,6 +12778,10 @@ paths:
       responses:
         '200':
           description: عملیات موفق
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminPricingRuleResponse'
       parameters:
       - name: id
         in: path
@@ -12068,6 +12791,9 @@ paths:
           format: uuid
       security:
       - adminSession: []
+      x-eqcofe:
+        domain: pricing
+        permission: pricing.view
     patch:
       tags:
       - Admin Pricing
@@ -12075,6 +12801,10 @@ paths:
       responses:
         '200':
           description: عملیات موفق
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminPricingRuleResponse'
       parameters:
       - name: id
         in: path
@@ -12102,10 +12832,12 @@ paths:
       - Admin Pricing
       operationId: postAdminPricingRulesIdActivate
       responses:
-        '200':
-          description: عملیات موفق
-        '202':
-          description: عملیات پذیرفته شد
+        '201':
+          description: عملیات با موفقیت ایجاد/اجرا شد
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminPricingRuleResponse'
       parameters:
       - name: id
         in: path
@@ -12133,10 +12865,12 @@ paths:
       - Admin Pricing
       operationId: postAdminPricingRulesIdDeactivate
       responses:
-        '200':
-          description: عملیات موفق
-        '202':
-          description: عملیات پذیرفته شد
+        '201':
+          description: عملیات با موفقیت ایجاد/اجرا شد
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminPricingRuleResponse'
       parameters:
       - name: id
         in: path
@@ -12164,10 +12898,12 @@ paths:
       - Admin Pricing
       operationId: postAdminPricingBulkPreview
       responses:
-        '200':
-          description: عملیات موفق
-        '202':
-          description: عملیات پذیرفته شد
+        '201':
+          description: عملیات با موفقیت ایجاد/اجرا شد
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminPricingBulkPreviewResponse'
       security:
       - adminSession: []
       requestBody:
@@ -12176,16 +12912,21 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/PostAdminPricingBulkPreviewRequest'
+      x-eqcofe:
+        domain: pricing
+        permission: pricing.bulk.manage
   /admin/pricing/bulk/apply:
     post:
       tags:
       - Admin Pricing
       operationId: postAdminPricingBulkApply
       responses:
-        '200':
-          description: عملیات موفق
-        '202':
-          description: عملیات پذیرفته شد
+        '201':
+          description: عملیات با موفقیت ایجاد/اجرا شد
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminPricingBulkApplyResponse'
       security: &id021
       - adminSession: []
         stepUpToken: []
@@ -12212,6 +12953,10 @@ paths:
       responses:
         '200':
           description: عملیات موفق
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminPricingBulkOperationResponse'
       parameters:
       - name: operation_id
         in: path
@@ -12220,6 +12965,9 @@ paths:
           type: string
       security:
       - adminSession: []
+      x-eqcofe:
+        domain: pricing
+        permission: pricing.view
   /admin/pricing/currency-rates:
     get:
       tags:
@@ -12228,8 +12976,15 @@ paths:
       responses:
         '200':
           description: عملیات موفق
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminPricingCurrencyRateListResponse'
       security:
       - adminSession: []
+      x-eqcofe:
+        domain: pricing
+        permission: pricing.view
   /admin/pricing/currency-rates/current:
     get:
       tags:
@@ -12238,18 +12993,27 @@ paths:
       responses:
         '200':
           description: عملیات موفق
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminPricingCurrencyRateNullableResponse'
       security:
       - adminSession: []
+      x-eqcofe:
+        domain: pricing
+        permission: pricing.view
   /admin/pricing/currency-rates/refresh:
     post:
       tags:
       - Admin Pricing
       operationId: postAdminPricingCurrencyRatesRefresh
       responses:
-        '200':
-          description: عملیات موفق
-        '202':
-          description: عملیات پذیرفته شد
+        '201':
+          description: عملیات با موفقیت ایجاد/اجرا شد
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminPricingFxRefreshResponse'
       security:
       - adminSession: []
       requestBody:
@@ -12258,16 +13022,21 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/PostAdminPricingCurrencyRatesRefreshRequest'
+      x-eqcofe:
+        domain: pricing
+        permission: pricing.currency.manage
   /admin/pricing/currency-rates/{id}/select:
     post:
       tags:
       - Admin Pricing
       operationId: postAdminPricingCurrencyRatesIdSelect
       responses:
-        '200':
-          description: عملیات موفق
-        '202':
-          description: عملیات پذیرفته شد
+        '201':
+          description: عملیات با موفقیت ایجاد/اجرا شد
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminPricingCurrencyRateResponse'
       parameters:
       - name: id
         in: path
@@ -12295,10 +13064,12 @@ paths:
       - Admin Pricing
       operationId: postAdminPricingCurrencyRatesIdReject
       responses:
-        '200':
-          description: عملیات موفق
-        '202':
-          description: عملیات پذیرفته شد
+        '201':
+          description: عملیات با موفقیت ایجاد/اجرا شد
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminPricingCurrencyRateResponse'
       parameters:
       - name: id
         in: path
@@ -12314,16 +13085,21 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/RejectRequest'
+      x-eqcofe:
+        domain: pricing
+        permission: pricing.currency.manage
   /admin/pricing/currency/impact-preview:
     post:
       tags:
       - Admin Pricing
       operationId: postAdminPricingCurrencyImpactPreview
       responses:
-        '200':
-          description: عملیات موفق
-        '202':
-          description: عملیات پذیرفته شد
+        '201':
+          description: عملیات با موفقیت ایجاد/اجرا شد
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminPricingCurrencyImpactPreviewResponse'
       security: *id020
       requestBody:
         required: true
@@ -12343,10 +13119,12 @@ paths:
       - Admin Pricing
       operationId: postAdminPricingCurrencyApply
       responses:
-        '200':
-          description: عملیات موفق
-        '202':
-          description: عملیات پذیرفته شد
+        '201':
+          description: عملیات با موفقیت ایجاد/اجرا شد
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminPricingCurrencyApplyResponse'
       security: *id021
       requestBody:
         required: true
@@ -20239,8 +21017,12 @@ paths:
             schema:
               $ref: '#/components/schemas/RegisterCurrencyRateRequest'
       responses:
-        '200':
-          description: نرخ ارز ثبت شد
+        '201':
+          description: عملیات با موفقیت ایجاد/اجرا شد
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminPricingCurrencyRateRegistrationResponse'
       x-eqcofe:
         domain: pricing
         command: RegisterCurrencyRate
@@ -20255,7 +21037,11 @@ paths:
       security: *id020
       responses:
         '200':
-          description: فهرست قوانین قیمت ارزی
+          description: عملیات موفق
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminPricingCurrencyRuleListResponse'
       x-eqcofe:
         domain: pricing
         permission: pricing.view
@@ -20271,8 +21057,12 @@ paths:
             schema:
               $ref: '#/components/schemas/CurrencyPricingRuleRequest'
       responses:
-        '200':
-          description: قانون قیمت ارزی ایجاد شد
+        '201':
+          description: عملیات با موفقیت ایجاد/اجرا شد
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminPricingCurrencyRuleResponse'
       x-eqcofe:
         domain: pricing
         command: CreateCurrencyPricingRule
@@ -20294,7 +21084,11 @@ paths:
           format: uuid
       responses:
         '200':
-          description: قانون قیمت ارزی
+          description: عملیات موفق
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminPricingCurrencyRuleResponse'
       x-eqcofe:
         domain: pricing
         permission: pricing.view
@@ -20319,7 +21113,11 @@ paths:
               $ref: '#/components/schemas/PatchCurrencyPricingRuleRequest'
       responses:
         '200':
-          description: قانون قیمت ارزی ویرایش شد
+          description: عملیات موفق
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminPricingCurrencyRuleResponse'
       x-eqcofe:
         domain: pricing
         command: UpdateCurrencyPricingRule
@@ -20339,8 +21137,12 @@ paths:
           type: string
           format: uuid
       responses:
-        '200':
-          description: وضعیت قانون قیمت ارزی تغییر کرد
+        '201':
+          description: عملیات با موفقیت ایجاد/اجرا شد
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminPricingCurrencyRuleResponse'
       x-eqcofe:
         domain: pricing
         command: ActivateCurrencyPricingRule
@@ -20360,8 +21162,12 @@ paths:
           type: string
           format: uuid
       responses:
-        '200':
-          description: وضعیت قانون قیمت ارزی تغییر کرد
+        '201':
+          description: عملیات با موفقیت ایجاد/اجرا شد
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminPricingCurrencyRuleResponse'
       x-eqcofe:
         domain: pricing
         command: DeactivateCurrencyPricingRule
@@ -21918,3 +22724,198 @@ x-eqcofe:
     - PostgreSQL constraints
     response_language: fa-IR
     status: baseline-machine-readable
+  /admin/excel/exports/template:
+    get:
+      tags: [Admin Excel]
+      operationId: getAdminExcelExportTemplate
+      security:
+        - adminSession: []
+      responses:
+        '200':
+          description: عملیات موفق
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminExcelTemplateResponse'
+      x-eqcofe:
+        domain: excel
+        permission: excel.view
+        audit: false
+  /admin/excel/dry-run:
+    post:
+      tags: [Admin Excel]
+      operationId: postAdminExcelDryRun
+      security:
+        - adminSession: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/ExcelWorkbookRequest' }
+      responses:
+        '201':
+          description: عملیات با موفقیت ایجاد/اجرا شد
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminExcelDryRunResponse'
+      x-eqcofe:
+        domain: excel
+        permission: excel.view
+        audit: false
+  /admin/excel/catalog/preview:
+    post:
+      tags: [Admin Excel]
+      operationId: postAdminExcelCatalogPreview
+      security:
+        - adminSession: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/ExcelWorkbookRequest' }
+      responses:
+        '201':
+          description: عملیات با موفقیت ایجاد/اجرا شد
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminExcelCatalogPreviewResponse'
+      x-eqcofe:
+        domain: excel
+        permission: excel.view
+        audit: false
+  /admin/excel/pricing/preview:
+    post:
+      tags: [Admin Excel]
+      operationId: postAdminExcelPricingPreview
+      security:
+        - adminSession: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/ExcelWorkbookRequest' }
+      responses:
+        '201':
+          description: عملیات با موفقیت ایجاد/اجرا شد
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminExcelPricingPreviewResponse'
+      x-eqcofe:
+        domain: excel
+        permission: excel.view
+        audit: false
+  /admin/excel/imports:
+    post:
+      tags: [Admin Excel]
+      operationId: postAdminExcelImports
+      security:
+        - adminSession: []
+      parameters:
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/ExcelWorkbookRequest' }
+      responses:
+        '201':
+          description: عملیات با موفقیت ایجاد/اجرا شد
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminExcelImportResponse'
+      x-eqcofe:
+        domain: excel
+        permission: excel.import
+        audit: true
+        idempotency: required
+  /admin/excel/catalog/apply:
+    post:
+      tags: [Admin Excel]
+      operationId: postAdminExcelCatalogApply
+      security:
+        - adminSession: []
+          stepUpToken: []
+      parameters:
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/ExcelApplyRequest' }
+      responses:
+        '201':
+          description: عملیات با موفقیت ایجاد/اجرا شد
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminExcelCatalogApplyResponse'
+      x-eqcofe:
+        domain: excel
+        permission: excel.apply
+        audit: true
+        idempotency: required
+        stepUp: true
+  /admin/excel/pricing/apply:
+    post:
+      tags: [Admin Excel]
+      operationId: postAdminExcelPricingApply
+      security:
+        - adminSession: []
+          stepUpToken: []
+      parameters:
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/ExcelApplyRequest' }
+      responses:
+        '201':
+          description: عملیات با موفقیت ایجاد/اجرا شد
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminExcelPricingApplyResponse'
+      x-eqcofe:
+        domain: excel
+        permission: excel.apply
+        audit: true
+        idempotency: required
+        stepUp: true
+  /admin/excel/imports/{id}/recover:
+    post:
+      tags: [Admin Excel]
+      operationId: postAdminExcelImportRecover
+      security:
+        - adminSession: []
+          stepUpToken: []
+      parameters:
+        - $ref: '#/components/parameters/IdempotencyKey'
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/ExcelRecoverRequest' }
+      responses:
+        '201':
+          description: عملیات با موفقیت ایجاد/اجرا شد
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminExcelRecoveryResponse'
+      x-eqcofe:
+        domain: excel
+        permission: excel.recover
+        audit: true
+        idempotency: required
+        stepUp: true
