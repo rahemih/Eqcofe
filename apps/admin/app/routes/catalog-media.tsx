@@ -7,6 +7,7 @@ import {
   readAdminMedia,
   rejectAdminMedia,
   uploadAndCompleteAdminMedia,
+  type AdminMediaAsset,
   type MediaAssetMutationResult,
   type MediaDeleteResult,
   type ProductMediaPurpose,
