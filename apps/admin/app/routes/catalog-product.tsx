@@ -295,7 +295,7 @@ export default function AdminCatalogProductDetailRoute() {
           <h1 id="catalog-product-title">{product.name_fa}</h1>
           <p>
             مشخصات، چرخهٔ انتشار و گونه‌ها از قرارداد canonical مدیریت استفاده می‌کنند.
-            قیمت، موجودی، رسانه و ساختار taxonomy در این مرحله خارج از محدوده‌اند.
+            قیمت و موجودی در این صفحه فقط خواندنی هستند؛ مشخصات، ساختار و رسانه از workspaceهای canonical خودشان مدیریت می‌شوند.
           </p>
         </div>
         <span className="catalog-read-only-badge">چرخهٔ کنترل‌شده</span>
