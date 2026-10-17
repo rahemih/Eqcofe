@@ -114,6 +114,7 @@
 | EQCOFE-STEP68-C-ADMIN-CATALOG-READ-001 | Step 68-C shared Admin Catalog read, detail and state foundation | MEDIUM | NOT_REQUIRED | `bc5bb287a14d3200a8c234ed5ec0c30e0ee50c11` | 36000/58000/96000 |
 | EQCOFE-STEP68-D-PRODUCT-VARIANT-LIFECYCLE-001 | Step 68-D Product and Variant create edit lifecycle sales administration | HIGH | REQUIRED | `e90a454f001d4e831f6d300927c8fa93325fe1d0` | 46000/72000/118000 |
 | EQCOFE-STEP68-E-CATALOG-STRUCTURE-001 | Step 68-E Attribute Brand Category structure administration and conflict handling | HIGH | REQUIRED | `de4f72a4c2e9c4d3d48762e778f45d3644d9c727` | 46000/72000/118000 |
+| EQCOFE-STEP68-F-MEDIA-ADMINISTRATION-001 | Step 68-F Media upload review product attachment order and 3D administration | HIGH | REQUIRED | `4fe36171f1a7902bd449efbeef239e1b05cf0e05` | 50000/78000/124000 |
 | MA-AGENT-A0-ORCHESTRATOR-001 | A0 — Orchestrator / Engineering Manager Prompt | LOW | NOT_REQUIRED | `f7919991e619d416360e74a542741ef21c70f732` | 10000/16000/32000 |
 | MA-AGENT-A1-SPEC-001 | A1 — Specification & Research Prompt | LOW | NOT_REQUIRED | `120898df57138b301560e7d9b9f1b3f5da03e982` | 10000/16000/32000 |
 | MA-AGENT-A10-EVIDENCE-001 | A10 — Evidence & Documentation Prompt | LOW | NOT_REQUIRED | `bdf8fccde4ca40cced48381ad3be2e0461ade535` | 12000/18000/35000 |
