@@ -1,5 +1,6 @@
+import { useEffect, useRef } from "react";
 import {
-  Form, Link, data, useActionData, useLoaderData, useNavigation,
+  Form, Link, data, useActionData, useLoaderData, useNavigation, useRevalidator,
 } from "react-router";
 import {
   createAdminAttribute,
@@ -36,7 +37,7 @@ type ActionData =
   | { kind: "success"; message: string; requestId: string | null }
   | { kind: "accepted"; message: string; requestId: string | null }
   | { kind: "invalid"; issues: readonly CatalogFormIssue[]; requestId: string | null }
-  | { kind: "failure"; message: string; requestId: string | null };
+  | { kind: "failure"; message: string; requestId: string | null; needsRevalidation?: boolean };
 
 export async function loader({ request, params }: { request: Request; params: { kind?: string } }) {
   const kind = parseKind(params.kind);
@@ -458,7 +459,7 @@ function mutationResponse(result: StructureMutationResult, kind: StructureKind) 
     unavailable: "سرویس ساختار کاتالوگ فعلاً قابل بررسی نیست.",
   } as const;
   const status = result.kind === "denied" ? 403 : result.kind === "conflict" ? 409 : result.kind === "not_found" ? 404 : 503;
-  return data<ActionData>({ kind: "failure", message: messages[result.kind], requestId: result.requestId }, { status, headers });
+  return data<ActionData>({ kind: "failure", message: messages[result.kind], requestId: result.requestId, needsRevalidation: result.kind === "conflict" || result.kind === "unknown_outcome" }, { status, headers });
 }
 
 function invalid(issues: readonly CatalogFormIssue[]) {
@@ -489,9 +490,17 @@ function displayValue(value: AdminAttributeValue) {
   return "—";
 }
 function Outcome({ value }: { value: ActionData }) {
-  return <div className="catalog-action-outcome" role={value.kind === "success" ? "status" : "alert"} tabIndex={-1}>
+  const noticeRef = useRef<HTMLDivElement>(null);
+  const revalidator = useRevalidator();
+  useEffect(() => { noticeRef.current?.focus(); }, [value]);
+  return <div ref={noticeRef} className="catalog-action-outcome" role={value.kind === "success" ? "status" : "alert"} tabIndex={-1}>
     {value.kind === "invalid" ? <><p>فرم نیاز به اصلاح دارد.</p><ul>{value.issues.map((issue, i) => <li key={issue.field + i}>{issue.message}</li>)}</ul></> : <p>{value.message}</p>}
     {value.requestId ? <p className="auth-request-id">شناسه پیگیری: <bdi>{value.requestId}</bdi></p> : null}
+    {value.kind === "failure" && value.needsRevalidation ? (
+      <button type="button" className="catalog-primary-action" onClick={() => void revalidator.revalidate()} disabled={revalidator.state !== "idle"}>
+        {revalidator.state === "idle" ? "بازخوانی وضعیت canonical" : "در حال بازخوانی…"}
+      </button>
+    ) : null}
   </div>;
 }
 function ReadFailure({ kind, requestId }: { kind: string; requestId: string | null }) {
