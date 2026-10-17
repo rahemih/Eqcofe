@@ -1,0 +1,170 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP68-E-CATALOG-STRUCTURE-001",
+  "title": "Step 68-E Attribute Brand Category structure administration and conflict handling",
+  "description": "Implement the MEDIUM-risk Admin Catalog structure workspace on top of canonical Step 68-D. Cover source-proven Brand and Category list/create/edit/sales controls, Attribute definition/value administration, and full-set Product/Variant attribute assignment. Preserve server-owned authorization, exact version/If-Match concurrency only where the canonical contract declares it, no invented If-Match for assignment PUT, fail-closed mutation ambiguity, authoritative re-read, Persian RTL accessibility, and explicit no-delete/no-archive taxonomy boundaries. Media, Sales-Control bulk controls, pricing/inventory/Excel, Backend/OpenAPI/database changes and terminal Step-68 documentation reconciliation remain out of scope.",
+  "risk": "MEDIUM",
+  "risk_floor": "MEDIUM",
+  "owner": "FRONTEND_ENGINEERING",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "de4f72a4c2e9c4d3d48762e778f45d3644d9c727"
+  },
+  "scope": {
+    "read": [
+      "package.json",
+      "apps/admin/**",
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "src/modules/catalog/**",
+      "docs/11-step-history/**",
+      "docs/13-product-design/step56-catalog-media-wireframes.json",
+      "docs/13-product-design/step56-wireframes/C/**",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "apps/admin/**",
+      "docs/11-step-history/STEP-68-E-CATALOG-STRUCTURE.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP68-E-CATALOG-STRUCTURE-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "contracts/**",
+      "database/**",
+      "src/**",
+      "test/**",
+      "scripts/**",
+      "apps/api/**",
+      "apps/worker/**",
+      "apps/scheduler/**",
+      "apps/storefront/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP68-E-CATALOG-STRUCTURE-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 38000,
+    "soft_alert": 60000,
+    "hard_cap": 100000
+  },
+  "task_risk_rules": [
+    {
+      "id": "STEP68_E_CATALOG_STRUCTURE_MEDIUM",
+      "risk": "MEDIUM",
+      "paths": [
+        "apps/admin/**",
+        "docs/11-step-history/STEP-68-E-CATALOG-STRUCTURE.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP68-E-CATALOG-STRUCTURE-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "68-D",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "de4f72a4c2e9c4d3d48762e778f45d3644d9c727",
+      "evidence": "PR #364 terminally closed after exact-artifact Project Owner approval; exact-SHA Canonical CI #1945, Phase A #1444, CodeQL #1097 and Storefront Quality #923 succeeded; terminal Lock release comment 6230507852.",
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "linear_issue": "HOS-72",
+    "stage_d_pr": 364,
+    "stage_d_merge": "de4f72a4c2e9c4d3d48762e778f45d3644d9c727",
+    "stage_d_lock_release_comment": 6230507852,
+    "generated_contract_source": "src/generated/openapi.ts",
+    "graph_state": "RETIRED_AND_OUT_OF_SCOPE"
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Brand, Category and Attribute structure reads/mutations use only canonical generated Admin operations through the existing server-owned auth bridge; no browser credential authority or parallel API client is introduced.",
+      "verification": "catalog_structure_transport_boundary",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Brand create/edit/sales uses only source-proven fields and operations. Brand PATCH uses the loaded canonical version through If-Match; 409 fails closed. No brand delete/archive control is invented.",
+      "verification": "brand_version_and_lifecycle_boundary",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Category create/edit/sales presents explicit parent hierarchy context, uses loaded canonical version for PATCH, and leaves parent existence/cycle enforcement server-authoritative. No category delete/archive control is invented.",
+      "verification": "category_hierarchy_and_conflict_boundary",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Attribute definitions support only text/number/boolean/select and source-proven fields. Attribute and Attribute Value PATCH operations carry the loaded version via If-Match, while typed values require exactly one text/numeric/boolean payload.",
+      "verification": "attribute_definition_value_contract",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Product and Variant attribute assignment is an explicit full-set replacement using the canonical assignment PUT endpoints; no If-Match guard is invented, each attribute appears at most once, and canonical state is re-read after mutation.",
+      "verification": "attribute_assignment_full_set_boundary",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Unsafe Catalog structure mutations are never automatically retried. Network/timeout/5xx or post-mutation reread ambiguity is surfaced as unknown outcome and requires canonical reread before any repeat.",
+      "verification": "structure_unknown_outcome_guard",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "All Admin form mutations enforce trusted same-origin submission and bounded parsing; 401/403/404/409/422 states fail closed with neutral Persian messaging and request-id recovery evidence where available.",
+      "verification": "structure_form_security",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "AD-C-03, AD-C-05 and AD-C-06 are implemented as Persian RTL, responsive and keyboard-accessible workspaces; product/variant assignment is reachable from canonical product context and preserves focus/revalidation after outcomes.",
+      "verification": "structure_ux_accessibility",
+      "mandatory": true
+    },
+    {
+      "id": "AC-009",
+      "description": "No Media mutation, Sales-Control apply, pricing/inventory/Excel work, Backend/OpenAPI/generated contract/database change, Storefront change, Product Design mutation or Current-State/Master-Roadmap closure reconciliation is introduced.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-010",
+      "description": "Canonical closure requires exact-head Canonical CI, Phase A and CodeQL, deterministic Review and exact-artifact ACTIVE Lock, protected merge, exact-SHA postmerge verification and terminal Lock release. Human Gate is not required for MEDIUM-risk 68-E.",
+      "verification": "medium_risk_canonical_transport",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Step 68-E is MEDIUM risk. No Human Gate is required. Stage 68-F remains blocked until 68-E terminal canonical closure."
+  },
+  "process_improvement_links": [],
+  "incident_links": [],
+  "max_repair_cycles": 5,
+  "pre_mutation_gates": {
+    "graph_health": "RETIRED_AND_OUT_OF_SCOPE",
+    "query_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "path_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "explain_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "human_gate": "NOT_REQUIRED"
+  }
+}
