@@ -98,14 +98,14 @@ export default function AdminCatalogProductsRoute() {
 
       <header className="catalog-read-heading">
         <div>
-          <p className="destination-kicker">AD-C-01 · فقط خواندن در 68-C</p>
+          <p className="destination-kicker">AD-C-01 · 68-D</p>
           <h1 id="catalog-products-title">کالاها</h1>
           <p>
-            این نما دادهٔ canonical مدیریت را می‌خواند. ایجاد، ویرایش، انتشار، آرشیو و
-            تغییر فروش در این مرحله فعال نیست.
+            فهرست همچنان با cursor canonical خوانده می‌شود؛ ایجاد و چرخهٔ محصول در
+            routeهای کنترل‌شدهٔ 68-D انجام می‌شوند.
           </p>
         </div>
-        <span className="catalog-read-only-badge">فقط خواندن</span>
+        <Link className="catalog-primary-link" to="/catalog/products/new">کالای جدید</Link>
       </header>
 
       {navigation.state !== "idle" ? (
