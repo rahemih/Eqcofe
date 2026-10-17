@@ -2,7 +2,7 @@
   "schema_version": "2.2",
   "task_id": "EQCOFE-STEP69-B-PRICING-FX-EXCEL-CONTRACT-001",
   "title": "Step 69-B Pricing, FX & Excel HTTP and generated contract readiness",
-  "description": "HIGH-risk contract-readiness stage. Reconcile the frozen 35 Step69 operations with canonical runtime, base OpenAPI and Admin generated TypeScript. Type all 27 Pricing/FX success envelopes, align runtime-accurate POST status/permission/concurrency/security metadata, promote the 8 existing Step50 Excel operations from the additive overlay into the base canonical contract so the Admin generated type authority covers all 35 operations, preserve Excel security/input semantics, and permit only generator-equivalent Product Design provenance repair if CI proves recovered-source drift. No Pricing/Excel/FX runtime, DB, dependency, Admin UI, Inventory/Procurement/POS or production FX-provider mutation.",
+  "description": "HIGH-risk contract-readiness stage. Reconcile the frozen 35 Step69 operations with canonical runtime, base OpenAPI and Admin generated TypeScript. Type all 27 Pricing/FX success envelopes, align runtime-accurate POST status/permission/concurrency/security metadata, promote the 8 existing Step50 Excel operations from the additive overlay into the base canonical contract so the Admin generated type authority covers all 35 operations, preserve Excel security/input semantics, and permit only generator-equivalent Product Design provenance repair if CI proves recovered-source drift. No Pricing/Excel/FX runtime mutation except the exact Excel-pricing source_type persistence repair; no DB, dependency, Admin UI, Inventory/Procurement/POS or production FX-provider mutation.",
   "risk": "HIGH",
   "risk_floor": "HIGH",
   "owner": "BACKEND_ENGINEERING",
