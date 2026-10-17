@@ -43,7 +43,7 @@ button, a, input, select, textarea { font: inherit; }
 .admin-scope-context > p, .admin-scope-note { color: var(--eq-color-text-secondary); line-height: var(--eq-type-body-medium-line-height); }
 .admin-scope-note { margin-block-end: 0; font-size: var(--eq-type-caption-font-size); }
 .admin-breadcrumb { display: flex; flex-wrap: wrap; align-items: center; gap: var(--eq-spacing-2); color: var(--eq-color-text-secondary); font-size: var(--eq-type-body-small-font-size); }
-.admin-breadcrumb a { min-block-size: var(--eq-size-touch-min); display: inline-flex; align-items: center; color: var(--eq-color-action-primary); }
+.admin-breadcrumb a { min-inline-size: var(--eq-size-touch-min); min-block-size: var(--eq-size-touch-min); display: inline-flex; align-items: center; justify-content: center; color: var(--eq-color-action-primary); }
 .admin-breadcrumb a:focus-visible { outline: none; box-shadow: var(--eq-effect-focus-ring); }
 .destination-handoff, .destination-state { max-inline-size: 52rem; }
 .destination-kicker { margin: var(--eq-spacing-5) 0 0; color: var(--eq-color-text-muted); font-size: var(--eq-type-caption-font-size); }
@@ -217,13 +217,21 @@ button, a, input, select, textarea { font: inherit; }
 .catalog-editor-form small { color: var(--eq-color-text-secondary); font-weight: var(--eq-type-body-small-font-weight); }
 .catalog-editor-wide { grid-column: 1 / -1; }
 .catalog-editor-check { grid-template-columns: auto 1fr; align-items: center; align-self: end; }
-.catalog-editor-check input { inline-size: var(--eq-size-control-sm); min-block-size: var(--eq-size-control-sm); }
+.catalog-editor-check input { inline-size: var(--eq-size-touch-min); min-block-size: var(--eq-size-touch-min); }
 .catalog-editor-actions {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: var(--eq-spacing-3);
   margin-block-start: var(--eq-spacing-4);
+}
+.catalog-editor-actions a {
+  min-inline-size: var(--eq-size-touch-min);
+  min-block-size: var(--eq-size-touch-min);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding-inline: var(--eq-spacing-2);
 }
 .catalog-editor-actions > span,
 .catalog-authority-footnote {
