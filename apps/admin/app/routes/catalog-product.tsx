@@ -348,14 +348,16 @@ export default function AdminCatalogProductDetailRoute() {
 
       <div className="catalog-editor-actions">
         <Link to={"/catalog/products/" + encodeURIComponent(product.id) + "/attributes"}>مدیریت مشخصات کالا و گونه‌ها</Link>
+        <Link to={"/catalog/products/" + encodeURIComponent(product.id) + "/media"}>مدیریت رسانه‌های کالا</Link>
+        <Link to="/catalog/media">بارگذاری و بررسی رسانه</Link>
         <Link to="/catalog/structure/attributes">تعریف ویژگی‌ها</Link>
       </div>
 
       <section className="catalog-authority-note" aria-labelledby="catalog-boundary-title">
         <h2 id="catalog-boundary-title">مرز این مرحله</h2>
         <p>
-          قیمت و موجودی این صفحه فقط خواندنی هستند. تعریف و تخصیص ویژگی و ساختار برند/دسته در 68-E،
-          رسانه به 68-F و کنترل گروهی فروش به 68-G تعلق دارد. تاریخچهٔ ممیزی endpoint canonical ندارد
+          قیمت و موجودی این صفحه فقط خواندنی هستند. تعریف و تخصیص ویژگی و ساختار برند/دسته در 68-E و
+          مدیریت رسانه در workspaceهای 68-F انجام می‌شود؛ کنترل گروهی فروش به 68-G تعلق دارد. تاریخچهٔ ممیزی endpoint canonical ندارد
           و در این صفحه ساخته یا شبیه‌سازی نمی‌شود.
         </p>
       </section>
