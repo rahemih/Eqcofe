@@ -9,6 +9,7 @@ import YAML from 'yaml';
 const api:any=YAML.parse(readFileSync('contracts/http/openapi.yaml','utf8'));
 const pricingController=readFileSync('src/modules/pricing/presentation/pricing.controller.ts','utf8');
 const excelController=readFileSync('src/modules/excel/presentation/excel-admin.controller.ts','utf8');
+const pricingImportApply=readFileSync('src/modules/pricing/application/pricing-import-apply.service.ts','utf8');
 const generated=readFileSync('src/generated/openapi.ts','utf8');
 
 const pricingFxOps:[string,string,string,string][]=[
