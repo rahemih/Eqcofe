@@ -11609,6 +11609,7 @@ paths:
         schema:
           type: string
           format: uuid
+      - $ref: '#/components/parameters/IfMatch'
       security:
       - adminSession: []
       requestBody:
@@ -11731,6 +11732,7 @@ paths:
         schema:
           type: string
           format: uuid
+      - $ref: '#/components/parameters/IfMatch'
       security:
       - adminSession: []
       requestBody:
