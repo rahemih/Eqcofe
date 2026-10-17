@@ -1,7 +1,6 @@
 import { useEffect, useRef } from "react";
 import { Form, Link, data, useActionData, useLoaderData, useNavigation, useRevalidator } from "react-router";
 import {
-  ADMIN_MEDIA_ALT_MAX_LENGTH,
   attachAdminProductMedia,
   detachAdminProductMedia,
   moveAdminProductMedia,
@@ -18,6 +17,8 @@ import {
 } from "../catalog/catalog-form.server.js";
 import { hasCatalogControlCharacters } from "../catalog/catalog-read.server.js";
 import { appendAdminAuthSetCookies } from "../platform/auth/admin-cookie.server.js";
+
+const MEDIA_ALT_MAX_LENGTH = 300;
 
 type ActionData =
   | { kind: "success" | "accepted"; message: string; requestId: string | null; focusMediaId?: string }
@@ -65,7 +66,7 @@ export async function action({ request, params }: { request: Request; params: { 
   if (intent === "attach") {
     const variantId = formOptionalText(form, "variant_id", 80, issues);
     if (variantId && !boundedId(variantId)) issues.push({ field: "variant_id", message: "شناسه گونه معتبر نیست." });
-    const altTextFa = formOptionalText(form, "alt_text_fa", ADMIN_MEDIA_ALT_MAX_LENGTH, issues);
+    const altTextFa = formOptionalText(form, "alt_text_fa", MEDIA_ALT_MAX_LENGTH, issues);
     const primary = formBoolean(form, "is_primary");
     if (issues.length) return invalid(issues);
     result = await attachAdminProductMedia(request, productId, {
@@ -280,7 +281,7 @@ function AttachForm({
         </label>
         <label>
           <span>متن جایگزین فارسی</span>
-          <input name="alt_text_fa" maxLength={ADMIN_MEDIA_ALT_MAX_LENGTH} defaultValue={altTextFa} />
+          <input name="alt_text_fa" maxLength={MEDIA_ALT_MAX_LENGTH} defaultValue={altTextFa} />
         </label>
         <label className="catalog-editor-check">
           <input type="checkbox" name="is_primary" defaultChecked={primary} />
