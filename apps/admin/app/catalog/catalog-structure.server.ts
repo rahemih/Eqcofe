@@ -8,6 +8,8 @@ export type AdminCategory = ApiComponents["schemas"]["AdminCategoryResponse"];
 export type AdminAttribute = ApiComponents["schemas"]["AdminAttributeResponse"];
 export type AdminAttributeValue = ApiComponents["schemas"]["AdminAttributeValueResponse"];
 export type AdminAttributeAssignment = ApiComponents["schemas"]["AdminAttributeAssignmentView"];
+export type AdminProduct = ApiComponents["schemas"]["AdminProductResponse"];
+export type AdminVariant = ApiComponents["schemas"]["AdminVariantResponse"];
 export type BrandCreateBody = ApiComponents["schemas"]["PostAdminBrandsRequest"];
 export type BrandUpdateBody = ApiComponents["schemas"]["PatchAdminBrandsIdRequest"];
 export type CategoryCreateBody = ApiComponents["schemas"]["PostAdminCategoriesRequest"];
@@ -89,6 +91,77 @@ export async function readAdminAttributes(
       attributes: Object.freeze([...list.data]),
       selectedAttributeId,
       values,
+      requestId,
+      setCookies: bridge.takeSetCookies(),
+    };
+  } catch (error) {
+    return classifyReadFailure(error, bridge?.takeSetCookies() ?? []);
+  }
+}
+
+export type AssignmentWorkspaceRead =
+  | {
+      kind: "ready";
+      product: AdminProduct;
+      variants: readonly AdminVariant[];
+      target: { type: "product"; id: string } | { type: "variant"; id: string };
+      attributes: readonly (AdminAttribute & { values: readonly AdminAttributeValue[] })[];
+      assignments: readonly AdminAttributeAssignment[];
+      requestId: string | null;
+      setCookies: readonly string[];
+    }
+  | ReadFailure;
+
+export async function readAdminAssignmentWorkspace(
+  request: Pick<Request, "headers">,
+  productId: string,
+  requestedVariantId: string | null,
+): Promise<AssignmentWorkspaceRead> {
+  let bridge: ReturnType<typeof createAdminAuthBridge> | null = null;
+  try {
+    bridge = createAdminAuthBridge(request);
+    const productResult = await bridge.client.request("get", "/admin/products/{id}", {
+      pathParams: { id: productId },
+    });
+    const variantResult = await bridge.client.request("get", "/admin/products/{product_id}/variants", {
+      pathParams: { product_id: productId },
+    });
+    const variants = Object.freeze([...variantResult.data]);
+    const target = requestedVariantId
+      ? { type: "variant" as const, id: requestedVariantId }
+      : { type: "product" as const, id: productId };
+    if (requestedVariantId && !variants.some((variant) => variant.id === requestedVariantId)) {
+      return { kind: "not_found", requestId: productResult.requestId ?? variantResult.requestId, setCookies: bridge.takeSetCookies() };
+    }
+
+    const attributeResult = await bridge.client.request("get", "/admin/attributes", {
+      query: { category_id: productResult.data.primary_category.id },
+    });
+    const eligible = attributeResult.data.filter((attribute) =>
+      target.type === "variant" ? attribute.is_variant_attribute : !attribute.is_variant_attribute
+    );
+    const attributes: Array<AdminAttribute & { values: readonly AdminAttributeValue[] }> = [];
+    let requestId = productResult.requestId ?? variantResult.requestId ?? attributeResult.requestId;
+    for (const attribute of eligible) {
+      const values = await bridge.client.request("get", "/admin/attributes/{id}/values", {
+        pathParams: { id: attribute.id },
+      });
+      requestId = requestId ?? values.requestId;
+      attributes.push({ ...attribute, values: Object.freeze([...values.data]) });
+    }
+
+    const assignmentResult = target.type === "product"
+      ? await bridge.client.request("get", "/admin/products/{product_id}/attributes", { pathParams: { product_id: target.id } })
+      : await bridge.client.request("get", "/admin/variants/{id}/attributes", { pathParams: { id: target.id } });
+    requestId = requestId ?? assignmentResult.requestId;
+
+    return {
+      kind: "ready",
+      product: productResult.data,
+      variants,
+      target,
+      attributes: Object.freeze(attributes),
+      assignments: Object.freeze([...assignmentResult.data]),
       requestId,
       setCookies: bridge.takeSetCookies(),
     };
