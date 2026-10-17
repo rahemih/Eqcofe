@@ -1,0 +1,204 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP68-H-INTEGRATED-ACCEPTANCE-001",
+  "title": "Step 68-H integrated Admin Catalog Media Sales-Control production-browser acceptance",
+  "description": "Run integrated production-build acceptance for the completed Step 68 Admin Catalog/Media surfaces AD-C-01 through AD-C-08. Extend the inherited Admin acceptance transport without changing application business semantics: canonical SSR/mock API acceptance always runs; the existing Storefront Quality isolated Playwright/Axe environment additionally exercises real Chromium RTL, accessibility, responsive/reflow, permission/security and Sales-Control preview/review behavior. Preserve all Step68 source boundaries and do not introduce new APIs, workflow dependencies, Product Design semantics, pricing/inventory/FX/Excel or Step69 scope.",
+  "risk": "MEDIUM",
+  "risk_floor": "MEDIUM",
+  "owner": "QUALITY_ENGINEERING",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "1399dc20932224a7b26ee45b72b233b80d0ee7f1"
+  },
+  "scope": {
+    "read": [
+      "package.json",
+      "apps/admin/**",
+      "apps/storefront/package.json",
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "docs/11-step-history/**",
+      "docs/13-product-design/STEP-56-C-CATALOG-MEDIA.md",
+      "docs/13-product-design/step56-wireframes/C/**",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "apps/admin/**",
+      "apps/storefront/package.json",
+      "docs/11-step-history/STEP-68-H-INTEGRATED-ACCEPTANCE.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP68-H-INTEGRATED-ACCEPTANCE-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "database/**",
+      "test/**",
+      "scripts/**",
+      "apps/api/**",
+      "apps/worker/**",
+      "apps/scheduler/**",
+      "apps/storefront/app/**",
+      "apps/storefront/scripts/**",
+      "contracts/**",
+      "src/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP68-H-INTEGRATED-ACCEPTANCE-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 42000,
+    "soft_alert": 68000,
+    "hard_cap": 110000
+  },
+  "task_risk_rules": [
+    {
+      "id": "STEP68_H_INTEGRATED_ACCEPTANCE_MEDIUM",
+      "risk": "MEDIUM",
+      "paths": [
+        "apps/admin/**",
+        "apps/storefront/package.json",
+        "docs/11-step-history/STEP-68-H-INTEGRATED-ACCEPTANCE.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP68-H-INTEGRATED-ACCEPTANCE-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "68-G",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "1399dc20932224a7b26ee45b72b233b80d0ee7f1",
+      "evidence": "PR #367 merged after exact-artifact Project Owner approval; exact-SHA Canonical CI #1973, Phase A #1472 and CodeQL #1122 succeeded; terminal Lock release comment 6233799402.",
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "linear_issue": "HOS-72",
+    "stage_g_pr": 367,
+    "stage_g_merge": "1399dc20932224a7b26ee45b72b233b80d0ee7f1",
+    "stage_g_lock_release_comment": 6233799402,
+    "design_surfaces": [
+      "AD-C-01",
+      "AD-C-02",
+      "AD-C-03",
+      "AD-C-04",
+      "AD-C-05",
+      "AD-C-06",
+      "AD-C-07",
+      "AD-C-08"
+    ],
+    "qa_modes": [
+      "canonical production SSR/mock API",
+      "Storefront Quality isolated Chromium/Axe when EQCOFE_BROWSER_QA_ROOT is available"
+    ],
+    "responsive_widths": [
+      320,
+      360,
+      600,
+      840,
+      1200,
+      1440
+    ],
+    "graph_state": "RETIRED_AND_OUT_OF_SCOPE",
+    "source_invariants": {
+      "trusted_same_origin_mutations": true,
+      "browser_auth_storage": false,
+      "step_up_token_persistence": false,
+      "sales_preview_blind_retry": false,
+      "media_list_endpoint_invented": false,
+      "generic_catalog_bulk_runtime": false,
+      "pricing_inventory_fx_excel": false
+    },
+    "qa_routing": "apps/storefront/package.json quality:browser explicitly invokes @eqcofe/admin step68:acceptance so the existing Step58 Storefront Quality workflow triggers without any workflow or Storefront runtime mutation."
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Production-build SSR acceptance covers authenticated entry and all implemented Step68 Admin Catalog/Media/Sales-Control routes using only source-proven mock API contracts; unauthenticated access remains fail-closed.",
+      "verification": "step68_h_ssr_routes",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "AD-C-01 through AD-C-08 remain permission-aware and Persian RTL with exactly one page H1, no unauthorized destination leakage and no invented read/mutation authority.",
+      "verification": "step68_h_permission_rtl",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "The integrated browser gate is explicitly routed through the existing Storefront Quality isolated Playwright/Axe QA root by a package-script-only change, covers all six canonical widths through representative route matrices, rejects horizontal overflow, enforces visible 44px interactive targets and reports zero WCAG-tagged Axe violations.",
+      "verification": "step68_h_browser_accessibility_responsive",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Catalog list/detail, taxonomy, media and product-media pages render authoritative source-backed fixtures in Chromium and preserve long Persian text/reflow without hidden browser-side authority.",
+      "verification": "step68_h_catalog_media_browser",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Sales-Control browser acceptance performs a real preview request against the mock API, presents the server-returned affected_count/expiry, opens the cancel-first review dialog and verifies Escape restores safe focus without applying the destructive command.",
+      "verification": "step68_h_sales_preview_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Browser local/session storage contains no Admin session, pre-auth, Step-Up token, credential material, Authorization/Bearer or signed media capability material after integrated navigation and preview.",
+      "verification": "step68_h_browser_secret_storage",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "The mock observer proves no unexpected Backend endpoint or unreviewed destructive mutation is emitted during acceptance; Sales-Control preview is the only intentionally exercised Catalog POST and apply is not issued by browser acceptance.",
+      "verification": "step68_h_network_authority",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "The inherited Step67 Admin acceptance remains chained before Step68-H acceptance so existing shell/auth/security-key regressions stay protected.",
+      "verification": "step68_h_inherited_acceptance",
+      "mandatory": true
+    },
+    {
+      "id": "AC-009",
+      "description": "No runtime business logic, Backend/OpenAPI/generated contract/database, Product Design, Storefront runtime, workflow/dependency, Current-State/Master-Roadmap or Step69 mutation is introduced.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-010",
+      "description": "Canonical closure requires exact-head Canonical CI, Phase A and CodeQL, deterministic Review, exact-artifact ACTIVE Lock, protected merge, exact-SHA postmerge verification and terminal Lock release. No Project Owner Human Gate is required for MEDIUM risk.",
+      "verification": "medium_risk_canonical_transport",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Step 68-H is MEDIUM risk and requires no Project Owner Human Gate. Step 68-I remains blocked until terminal canonical closure."
+  },
+  "process_improvement_links": [],
+  "incident_links": [],
+  "max_repair_cycles": 5,
+  "pre_mutation_gates": {
+    "graph_health": "RETIRED_AND_OUT_OF_SCOPE",
+    "query_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "path_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "explain_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "human_gate": "NOT_REQUIRED"
+  }
+}
