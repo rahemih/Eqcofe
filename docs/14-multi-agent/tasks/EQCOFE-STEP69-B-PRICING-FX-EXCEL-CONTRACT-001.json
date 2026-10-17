@@ -1,0 +1,276 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP69-B-PRICING-FX-EXCEL-CONTRACT-001",
+  "title": "Step 69-B Pricing, FX & Excel HTTP and generated contract readiness",
+  "description": "HIGH-risk contract-readiness stage. Reconcile the frozen 35 Step69 operations with canonical runtime, base OpenAPI and Admin generated TypeScript. Type all 27 Pricing/FX success envelopes, align runtime-accurate POST status/permission/concurrency/security metadata, promote the 8 existing Step50 Excel operations from the additive overlay into the base canonical contract so the Admin generated type authority covers all 35 operations, preserve Excel security/input semantics, and permit only generator-equivalent Product Design provenance repair if CI proves recovered-source drift. No Pricing/Excel/FX runtime, DB, dependency, Admin UI, Inventory/Procurement/POS or production FX-provider mutation.",
+  "risk": "HIGH",
+  "risk_floor": "HIGH",
+  "owner": "BACKEND_ENGINEERING",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "6bc57e87778a3819e0224b6c7e51636af0f0ff95"
+  },
+  "scope": {
+    "read": [
+      "src/modules/pricing/**",
+      "src/modules/excel/**",
+      "src/modules/integrations/**",
+      "contracts/http/openapi.yaml",
+      "contracts/http/openapi-step50-a8.yaml",
+      "src/generated/openapi.ts",
+      "scripts/validate-openapi.mjs",
+      "test/**",
+      "docs/11-step-history/**",
+      "docs/13-product-design/STEP-56-D-PRICING-INVENTORY.md",
+      "docs/13-product-design/step56-wireframes/D/**",
+      "docs/13-product-design/step56-final-audit/**",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "contracts/http/openapi.yaml",
+      "contracts/http/openapi-step50-a8.yaml",
+      "src/generated/openapi.ts",
+      "test/excel-admin-api-a8.spec.ts",
+      "test/excel-security-e2e-a9.spec.ts",
+      "test/excel-final-closure-a10.spec.ts",
+      "test/step69-pricing-fx-excel-contract.spec.ts",
+      "docs/11-step-history/STEP-69-B-PRICING-FX-EXCEL-CONTRACT-READINESS.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP69-B-PRICING-FX-EXCEL-CONTRACT-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "docs/13-product-design/step56-admin-ux-contract.json",
+      "docs/13-product-design/step56-foundation/A/manifest.json",
+      "docs/13-product-design/step56-foundation/A/admin-traceability.json",
+      "docs/13-product-design/step56-admin-shell-wireframes.json",
+      "docs/13-product-design/step56-wireframes/B/manifest.json",
+      "docs/13-product-design/step56-catalog-media-wireframes.json",
+      "docs/13-product-design/step56-wireframes/C/manifest.json",
+      "docs/13-product-design/step56-pricing-inventory-wireframes.json",
+      "docs/13-product-design/step56-wireframes/D/manifest.json",
+      "docs/13-product-design/step56-commerce-operations-wireframes.json",
+      "docs/13-product-design/step56-wireframes/E/manifest.json",
+      "docs/13-product-design/step56-customers-growth-wireframes.json",
+      "docs/13-product-design/step56-wireframes/F/manifest.json",
+      "docs/13-product-design/step56-management-security-wireframes.json",
+      "docs/13-product-design/step56-wireframes/G/manifest.json",
+      "docs/13-product-design/step56-final-audit.json",
+      "docs/13-product-design/step56-final-audit/manifest.json",
+      "docs/13-product-design/step57-high-fidelity-contract.json"
+    ],
+    "forbidden": [
+      ".github/**",
+      "apps/**",
+      "database/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "src/modules/pricing/**",
+      "src/modules/excel/**",
+      "src/modules/integrations/**",
+      "docs/12-current-state/**",
+      "scripts/graphify/**",
+      "graphify-out/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP69-B-PRICING-FX-EXCEL-CONTRACT-001-01"
+  ],
+  "human_gate_required": true,
+  "authorized_human_approver": {
+    "role": "PROJECT_OWNER",
+    "github_login": "rahemih"
+  },
+  "token_budget": {
+    "expected_max": 52000,
+    "soft_alert": 82000,
+    "hard_cap": 132000
+  },
+  "max_repair_cycles": 5,
+  "task_risk_rules": [
+    {
+      "id": "STEP69_B_PRICING_FX_EXCEL_CONTRACT_HIGH",
+      "risk": "HIGH",
+      "paths": [
+        "contracts/http/openapi.yaml",
+        "contracts/http/openapi-step50-a8.yaml",
+        "src/generated/openapi.ts",
+        "test/excel-admin-api-a8.spec.ts",
+        "test/excel-security-e2e-a9.spec.ts",
+        "test/excel-final-closure-a10.spec.ts",
+        "test/step69-pricing-fx-excel-contract.spec.ts",
+        "docs/11-step-history/STEP-69-B-PRICING-FX-EXCEL-CONTRACT-READINESS.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP69-B-PRICING-FX-EXCEL-CONTRACT-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md",
+        "docs/13-product-design/step56-admin-ux-contract.json",
+        "docs/13-product-design/step56-foundation/A/manifest.json",
+        "docs/13-product-design/step56-foundation/A/admin-traceability.json",
+        "docs/13-product-design/step56-admin-shell-wireframes.json",
+        "docs/13-product-design/step56-wireframes/B/manifest.json",
+        "docs/13-product-design/step56-catalog-media-wireframes.json",
+        "docs/13-product-design/step56-wireframes/C/manifest.json",
+        "docs/13-product-design/step56-pricing-inventory-wireframes.json",
+        "docs/13-product-design/step56-wireframes/D/manifest.json",
+        "docs/13-product-design/step56-commerce-operations-wireframes.json",
+        "docs/13-product-design/step56-wireframes/E/manifest.json",
+        "docs/13-product-design/step56-customers-growth-wireframes.json",
+        "docs/13-product-design/step56-wireframes/F/manifest.json",
+        "docs/13-product-design/step56-management-security-wireframes.json",
+        "docs/13-product-design/step56-wireframes/G/manifest.json",
+        "docs/13-product-design/step56-final-audit.json",
+        "docs/13-product-design/step56-final-audit/manifest.json",
+        "docs/13-product-design/step57-high-fidelity-contract.json"
+      ]
+    }
+  ],
+  "pre_mutation_gates": {
+    "graph_health": "RETIRED_AND_OUT_OF_SCOPE",
+    "query_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "path_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "explain_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "human_gate": "REQUIRED_FINAL_EXACT_ARTIFACT"
+  },
+  "dependencies": [
+    {
+      "item": "69-A Pricing, FX & Excel canonical handoff / scope freeze",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "6bc57e87778a3819e0224b6c7e51636af0f0ff95",
+      "terminal_evidence_comment": 6235007699,
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "linear_issue": "HOS-73",
+    "graph_state": "RETIRED_AND_OUT_OF_SCOPE",
+    "frozen_surface_count": 8,
+    "frozen_operation_count": 35,
+    "pricing_fx_operation_count": 27,
+    "excel_operation_count": 8,
+    "live_guard_main_head": "6bc57e87778a3819e0224b6c7e51636af0f0ff95",
+    "live_guard_compare_status": "identical",
+    "live_guard_open_repository_prs": 0,
+    "migration_need": "NONE",
+    "dependency_need": "NONE",
+    "runtime_mutation_need": "NONE",
+    "before_stage": {
+      "pricing_fx_runtime_operations": 27,
+      "pricing_fx_base_openapi_operations": 27,
+      "pricing_fx_typed_success_operations": 0,
+      "pricing_fx_post_status_drift": 17,
+      "pricing_fx_missing_permission_metadata_at_least": 10,
+      "excel_runtime_operations": 8,
+      "excel_overlay_operations": 8,
+      "excel_base_generated_operations": 0
+    },
+    "chosen_contract_repair": [
+      "Type all 27 Pricing/FX success envelopes in canonical base OpenAPI and regenerate TypeScript.",
+      "Align Pricing/FX POST success status with current Nest runtime default 201; GET/PATCH remain 200.",
+      "Align source-proven permission, Step-Up, idempotency and If-Match metadata without granting new authority.",
+      "Promote the existing eight Excel operations/schemas from openapi-step50-a8.yaml into openapi.yaml and remove the redundant overlay.",
+      "Update existing Step50 executable Excel tests only to follow the new canonical contract location; preserve historical documents.",
+      "Regenerate src/generated/openapi.ts so Admin type authority covers all 35 Step69 operations."
+    ],
+    "non_authority": [
+      "No Pricing/Excel/FX runtime or database mutation.",
+      "No new endpoint, delete operation, permission, provider, business rule or generic import-history endpoint.",
+      "AD-D-06..18 remain Step70.",
+      "Production FX provider integration remains Step77."
+    ],
+    "provenance_repair_policy": "Only generator-equivalent source/hash/manifest refresh caused by canonical OpenAPI mutation is authorized. No screen, operation ownership, permission semantics, journey, visual, review-status or approval semantics may change.",
+    "provenance_repair_paths": [
+      "docs/13-product-design/step56-admin-ux-contract.json",
+      "docs/13-product-design/step56-foundation/A/manifest.json",
+      "docs/13-product-design/step56-foundation/A/admin-traceability.json",
+      "docs/13-product-design/step56-admin-shell-wireframes.json",
+      "docs/13-product-design/step56-wireframes/B/manifest.json",
+      "docs/13-product-design/step56-catalog-media-wireframes.json",
+      "docs/13-product-design/step56-wireframes/C/manifest.json",
+      "docs/13-product-design/step56-pricing-inventory-wireframes.json",
+      "docs/13-product-design/step56-wireframes/D/manifest.json",
+      "docs/13-product-design/step56-commerce-operations-wireframes.json",
+      "docs/13-product-design/step56-wireframes/E/manifest.json",
+      "docs/13-product-design/step56-customers-growth-wireframes.json",
+      "docs/13-product-design/step56-wireframes/F/manifest.json",
+      "docs/13-product-design/step56-management-security-wireframes.json",
+      "docs/13-product-design/step56-wireframes/G/manifest.json",
+      "docs/13-product-design/step56-final-audit.json",
+      "docs/13-product-design/step56-final-audit/manifest.json",
+      "docs/13-product-design/step57-high-fidelity-contract.json"
+    ]
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "All 27 frozen Pricing/FX operations remain runtime/OpenAPI present and expose explicit runtime-accurate typed success envelopes in canonical base OpenAPI.",
+      "verification": "step69_pricing_contract_audit",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "All 17 Pricing/FX POST operations expose runtime-accurate 201 success rather than synthetic 200/202 alternatives; GET/PATCH remain 200 unless source proves otherwise.",
+      "verification": "step69_status_alignment_test",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Pricing/FX permissions, If-Match, Step-Up and idempotency exactly match controller authority; no authority is invented or weakened.",
+      "verification": "step69_security_contract_test",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "The 8 existing Excel operations and schemas are promoted one-for-one into canonical base OpenAPI, the redundant overlay is removed, and existing Step50 security/input assertions continue to pass against the base contract.",
+      "verification": "step69_excel_contract_promotion_test",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "src/generated/openapi.ts is byte-for-byte reproducible from canonical openapi.yaml and contains usable typed path/request/success data authority for all 35 Step69 operations.",
+      "verification": "step69_generated_contract_parity",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Excel upload bounds, permissions, Step-Up/idempotency, failed-only recovery and separate Catalog/Pricing apply boundaries are not weakened or broadened.",
+      "verification": "existing_excel_regression_plus_step69_test",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "No runtime, DB, dependency, Admin UI, Inventory/Procurement/POS, production FX provider, Current-State, workflow or Graph mutation is introduced.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "Any Product Design mutation is generator-equivalent provenance/hash repair only and occurs only if CI proves recovered-source drift.",
+      "verification": "design_check_and_scope_audit",
+      "mandatory": true
+    },
+    {
+      "id": "AC-009",
+      "description": "HIGH-risk closure requires exact-head Canonical CI, Phase A, CodeQL/Independent Security, deterministic Review, exact-artifact ACTIVE Lock and Project Owner exact-artifact Human Gate before merge.",
+      "verification": "canonical_high_risk_gate_sequence",
+      "mandatory": true
+    },
+    {
+      "id": "AC-010",
+      "description": "Protected merge, exact-SHA postmerge Canonical CI/Phase A/CodeQL and terminal Lock release complete before 69-C mutation.",
+      "verification": "canonical_transport_and_postmerge_evidence",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "SECURITY",
+      "HUMAN",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Step 69-B is HIGH risk. Project Owner approval is mandatory only after exact-head technical/security/review evidence and exact-artifact ACTIVE Lock are complete."
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}
