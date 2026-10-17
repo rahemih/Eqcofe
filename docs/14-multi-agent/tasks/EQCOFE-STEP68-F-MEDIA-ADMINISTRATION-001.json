@@ -1,0 +1,232 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP68-F-MEDIA-ADMINISTRATION-001",
+  "title": "Step 68-F Media upload review product attachment order and 3D administration",
+  "description": "Implement the HIGH-risk Admin Media workspaces on canonical Step 68-E. Cover only source-proven AD-C-04 and AD-C-07 authority: media upload-request/transfer/complete/detail/approve/reject/delete plus Product media read/attach/detach/reorder/primary/alt-text, including the governed GLB model_3d capability introduced in Step 68-B. Preserve server-owned authorization, no media-library invention, no scan-certification claim, no signed-upload URL rendering/logging, fail-closed unknown mutation outcomes, same-product Variant binding, active-media attachment, one-primary invariant and Persian RTL accessibility. A bounded reliability repair may replace inherited fixed browser-acceptance test ports with dynamically allocated/non-ephemeral ports; it must not alter product/runtime behavior.",
+  "risk": "HIGH",
+  "risk_floor": "HIGH",
+  "owner": "FRONTEND_ENGINEERING",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "4fe36171f1a7902bd449efbeef239e1b05cf0e05"
+  },
+  "scope": {
+    "read": [
+      "package.json",
+      "apps/admin/**",
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "src/modules/catalog/**",
+      "database/migrations/0064_catalog_media_3d.sql",
+      "docs/11-step-history/**",
+      "docs/13-product-design/step56-catalog-media-wireframes.json",
+      "docs/13-product-design/step56-wireframes/C/AD-C-04/**",
+      "docs/13-product-design/step56-wireframes/C/AD-C-07/**",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "apps/admin/**",
+      "docs/11-step-history/STEP-68-F-MEDIA-ADMINISTRATION.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP68-F-MEDIA-ADMINISTRATION-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "database/**",
+      "test/**",
+      "scripts/**",
+      "apps/api/**",
+      "apps/worker/**",
+      "apps/scheduler/**",
+      "apps/storefront/**",
+      "contracts/**",
+      "src/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP68-F-MEDIA-ADMINISTRATION-001-01"
+  ],
+  "human_gate_required": true,
+  "token_budget": {
+    "expected_max": 50000,
+    "soft_alert": 78000,
+    "hard_cap": 124000
+  },
+  "task_risk_rules": [
+    {
+      "id": "STEP68_F_MEDIA_ADMINISTRATION_HIGH",
+      "risk": "HIGH",
+      "paths": [
+        "apps/admin/**",
+        "docs/11-step-history/STEP-68-F-MEDIA-ADMINISTRATION.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP68-F-MEDIA-ADMINISTRATION-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "68-E",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "4fe36171f1a7902bd449efbeef239e1b05cf0e05",
+      "evidence": "PR #365 merged after exact-artifact Project Owner approval; exact-SHA Canonical CI #1958, Phase A #1457, CodeQL #1109 and Storefront Quality #934 rerun succeeded; terminal Lock release comment 6231729776.",
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "linear_issue": "HOS-72",
+    "stage_e_pr": 365,
+    "stage_e_merge": "4fe36171f1a7902bd449efbeef239e1b05cf0e05",
+    "stage_e_lock_release_comment": 6231729776,
+    "design_surfaces": ["AD-C-04", "AD-C-07"],
+    "graph_state": "RETIRED_AND_OUT_OF_SCOPE",
+    "media_operations": [
+      "GET /admin/products/{product_id}/media",
+      "POST /admin/products/{product_id}/media",
+      "POST /admin/products/{product_id}/media/reorder",
+      "DELETE /admin/products/{product_id}/media/{media_id}",
+      "POST /admin/media/upload-request",
+      "GET /admin/media/{id}",
+      "POST /admin/media/{id}/complete",
+      "POST /admin/media/{id}/approve",
+      "POST /admin/media/{id}/reject",
+      "DELETE /admin/media/{id}"
+    ],
+    "allowed_upload_mime": [
+      "image/jpeg",
+      "image/png",
+      "image/webp",
+      "video/mp4",
+      "model/gltf-binary"
+    ],
+    "max_upload_bytes": 52428800,
+    "model_3d": {
+      "admin_media_type": "model_3d",
+      "purpose": "product_model_3d",
+      "mime": "model/gltf-binary",
+      "extension": ".glb",
+      "public_storefront_exposure": false,
+      "gltf_external_resources": false,
+      "spin_360": false
+    },
+    "source_invariants": {
+      "media_library_list_endpoint": false,
+      "attachment_requires_active_media": true,
+      "variant_must_belong_to_product": true,
+      "primary_media_maximum": 1,
+      "detach_deletes_asset": false,
+      "delete_referenced_asset": false,
+      "unsafe_mutation_auto_retry": false,
+      "scan_certification_claim": false
+    },
+    "reliability_repair": {
+      "source": "apps/admin/scripts/verify-step67-acceptance.mjs",
+      "observed_incident": "Storefront Quality #934 first attempt failed on exact Step 68-E merge SHA with EADDRINUSE 127.0.0.1:41772; rerun passed with no source mutation.",
+      "authorized_change": "Use operating-system assigned mock API port and a non-ephemeral admin application port or equivalent deterministic collision-safe binding.",
+      "product_semantic_change": false
+    }
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Media operations use only canonical generated Admin endpoints through the existing server-owned auth bridge; no parallel credential authority, browser auth storage or invented media-list endpoint is introduced.",
+      "verification": "media_transport_boundary",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Upload accepts only the canonical image/jpeg, image/png, image/webp, video/mp4 and model/gltf-binary types, enforces the 50 MiB bound, purpose/MIME compatibility, SHA-256 metadata and GLB extension for product_model_3d.",
+      "verification": "media_upload_contract",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "The signed upload target is treated as ephemeral capability material: it is never rendered as visible text, persisted in browser storage or logged. Transfer and complete are explicit separate states and ambiguous unsafe outcomes are never blindly replayed.",
+      "verification": "signed_upload_capability_boundary",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Media review supports only source-proven detail, complete, approve, reject and delete transitions. The UI does not claim virus-scan certification or invent a generic approval queue; referenced assets cannot be deleted.",
+      "verification": "media_review_lifecycle_boundary",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Product media attachment reads canonical media, attaches only active compatible assets, binds any Variant to the route Product, supports Persian alt text and model_3d, and does not expose model_3d through public Storefront Product Detail.",
+      "verification": "product_media_attachment_boundary",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Reorder sends only already-attached unique media IDs with non-negative integer positions, permits at most one primary media, preserves explicit move controls and restores/announces focus after changes.",
+      "verification": "product_media_reorder_primary",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "Detach removes only the Product-media relationship and is presented distinctly from destructive asset deletion; delete requires explicit review/confirmation and server authority.",
+      "verification": "detach_delete_separation",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "All Admin media form mutations enforce trusted same-origin submission, bounded identifiers/form fields and neutral fail-closed 401/403/404/409/422/unknown-outcome handling with request-id evidence where available.",
+      "verification": "media_form_security",
+      "mandatory": true
+    },
+    {
+      "id": "AC-009",
+      "description": "AD-C-04 and AD-C-07 are Persian RTL, responsive and keyboard-accessible. No page horizontal overflow, controls meet inherited 44px target requirements, long Persian text wraps and outcome/revalidation focus is deterministic.",
+      "verification": "media_ux_accessibility",
+      "mandatory": true
+    },
+    {
+      "id": "AC-010",
+      "description": "The inherited Step67 integrated browser-acceptance mock/API ports are made collision-safe after the exact-SHA EADDRINUSE incident, without changing application behavior, contracts or production network configuration.",
+      "verification": "acceptance_harness_port_reliability",
+      "mandatory": true
+    },
+    {
+      "id": "AC-011",
+      "description": "No Sales-Control preview/apply, pricing/inventory/Excel work, Backend/OpenAPI/generated contract/database change, Storefront runtime change, Product Design semantic mutation or Current-State/Master-Roadmap closure reconciliation is introduced.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-012",
+      "description": "Canonical closure requires exact-head Canonical CI, Phase A and CodeQL, deterministic Review, Independent Security PASS, exact-artifact ACTIVE Lock and explicit Project Owner Human Gate approval, followed by protected merge, exact-SHA postmerge verification and terminal Lock release.",
+      "verification": "high_risk_canonical_transport",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": ["REVIEW", "SECURITY", "HUMAN", "LOCK"],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Step 68-F is HIGH risk. Project Owner Human Gate is mandatory only on the final exact HEAD and Artifact after CI, deterministic Review, Independent Security and exact-artifact Lock are complete. Step 68-G remains blocked until terminal canonical closure."
+  },
+  "process_improvement_links": [],
+  "incident_links": [
+    "https://github.com/rahemih/Eqcofe/actions/runs/39016969669"
+  ],
+  "max_repair_cycles": 5,
+  "pre_mutation_gates": {
+    "graph_health": "RETIRED_AND_OUT_OF_SCOPE",
+    "query_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "path_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "explain_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "human_gate": "REQUIRED_FINAL_EXACT_ARTIFACT"
+  },
+  "authorized_human_approver": {
+    "role": "PROJECT_OWNER",
+    "github_login": "rahemih"
+  }
+}
