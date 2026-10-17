@@ -10,6 +10,7 @@ import {
   isTrustedCatalogFormOrigin,
   type CatalogFormIssue,
 } from "../catalog/catalog-form.server.js";
+import { hasCatalogControlCharacters } from "../catalog/catalog-read.server.js";
 import { appendAdminAuthSetCookies } from "../platform/auth/admin-cookie.server.js";
 
 type ActionData =
@@ -165,7 +166,7 @@ function mutationResponse(result: StructureMutationResult) {
 }
 
 function boundedId(value: string | null): string | null {
-  if (!value || value.length > 80 || /[\u0000-\u001f\u007f]/.test(value)) return null;
+  if (!value || value.length > 80 || hasCatalogControlCharacters(value)) return null;
   return value;
 }
 function displayValue(value: { value_text?: string | null; value_numeric?: number | null; value_boolean?: boolean | null; normalized_value?: string | null }) {
