@@ -55,7 +55,8 @@
       "docs/13-product-design/step56-wireframes/G/manifest.json",
       "docs/13-product-design/step56-final-audit.json",
       "docs/13-product-design/step56-final-audit/manifest.json",
-      "docs/13-product-design/step57-high-fidelity-contract.json"
+      "docs/13-product-design/step57-high-fidelity-contract.json",
+      "src/modules/pricing/application/pricing-import-apply.service.ts"
     ],
     "forbidden": [
       ".github/**",
@@ -64,7 +65,6 @@
       "package.json",
       "pnpm-lock.yaml",
       "pnpm-workspace.yaml",
-      "src/modules/pricing/**",
       "src/modules/excel/**",
       "src/modules/integrations/**",
       "docs/12-current-state/**",
@@ -118,7 +118,8 @@
         "docs/13-product-design/step56-wireframes/G/manifest.json",
         "docs/13-product-design/step56-final-audit.json",
         "docs/13-product-design/step56-final-audit/manifest.json",
-        "docs/13-product-design/step57-high-fidelity-contract.json"
+        "docs/13-product-design/step57-high-fidelity-contract.json",
+        "src/modules/pricing/application/pricing-import-apply.service.ts"
       ]
     }
   ],
@@ -151,7 +152,7 @@
     "live_guard_open_repository_prs": 0,
     "migration_need": "NONE",
     "dependency_need": "NONE",
-    "runtime_mutation_need": "NONE",
+    "runtime_mutation_need": "BOUNDED_REPAIR_PRICING_IMPORT_SOURCE_TYPE",
     "before_stage": {
       "pricing_fx_runtime_operations": 27,
       "pricing_fx_base_openapi_operations": 27,
@@ -171,7 +172,7 @@
       "Regenerate src/generated/openapi.ts so Admin type authority covers all 35 Step69 operations."
     ],
     "non_authority": [
-      "No Pricing/Excel/FX runtime or database mutation.",
+      "No Pricing/Excel/FX runtime mutation except the exact pricing-import source_type constraint repair; no database mutation.",
       "No new endpoint, delete operation, permission, provider, business rule or generic import-history endpoint.",
       "AD-D-06..18 remain Step70.",
       "Production FX provider integration remains Step77."
@@ -196,7 +197,14 @@
       "docs/13-product-design/step56-final-audit.json",
       "docs/13-product-design/step56-final-audit/manifest.json",
       "docs/13-product-design/step57-high-fidelity-contract.json"
-    ]
+    ],
+    "proven_runtime_defect": {
+      "code": "EXCEL_PRICING_SOURCE_TYPE_CONSTRAINT_MISMATCH",
+      "source": "src/modules/pricing/application/pricing-import-apply.service.ts",
+      "observed": "sourceType='excel_import'",
+      "database_authority": "pricing.base_prices.source_type CHECK allows manual|bulk|currency|import|system",
+      "repair": "use existing source_type='import'; no migration or behavior expansion"
+    }
   },
   "acceptance_criteria": [
     {
@@ -236,6 +244,12 @@
       "mandatory": true
     },
     {
+      "id": "AC-006A",
+      "description": "Excel Pricing Apply uses the existing database-authorized base-price source_type 'import' rather than invalid 'excel_import'; no migration or source-type expansion is introduced.",
+      "verification": "step69_excel_pricing_source_type_regression",
+      "mandatory": true
+    },
+    {
       "id": "AC-007",
       "description": "No runtime, DB, dependency, Admin UI, Inventory/Procurement/POS, production FX provider, Current-State, workflow or Graph mutation is introduced.",
       "verification": "deterministic_scope_check",
@@ -272,5 +286,13 @@
     "rule": "Step 69-B is HIGH risk. Project Owner approval is mandatory only after exact-head technical/security/review evidence and exact-artifact ACTIVE Lock are complete."
   },
   "process_improvement_links": [],
-  "incident_links": []
+  "incident_links": [],
+  "repair_history": [
+    {
+      "date": "2026-10-17",
+      "trigger": "69-B live runtime/DB contract reconciliation",
+      "root_cause": "PricingImportApplyService inserts sourceType 'excel_import' while pricing.base_prices CHECK accepts only manual|bulk|currency|import|system, so a real Excel Pricing Apply can fail at persistence.",
+      "repair": "Authorize one bounded runtime line repair to sourceType 'import', add regression evidence, and keep database schema unchanged."
+    }
+  ]
 }
