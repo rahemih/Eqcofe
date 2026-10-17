@@ -12,7 +12,7 @@
     "start": "react-router-serve ./build/server/index.js",
     "typecheck": "react-router typegen && tsc --noEmit",
     "static-quality": "eslint app vite.config.ts react-router.config.ts",
-    "verify": "pnpm typecheck && pnpm static-quality && pnpm build && pnpm foundation:verify && pnpm transport:verify && pnpm shell:verify && pnpm auth-session:verify && pnpm permission-shell:verify && pnpm stepup-credentials:verify && pnpm dashboard-states:verify && pnpm catalog-read:verify && pnpm catalog-lifecycle:verify && pnpm catalog-structure:verify && pnpm acceptance:verify",
+    "verify": "pnpm typecheck && pnpm static-quality && pnpm build && pnpm foundation:verify && pnpm transport:verify && pnpm shell:verify && pnpm auth-session:verify && pnpm permission-shell:verify && pnpm stepup-credentials:verify && pnpm dashboard-states:verify && pnpm catalog-read:verify && pnpm catalog-lifecycle:verify && pnpm catalog-structure:verify && pnpm catalog-media:verify && pnpm acceptance:verify",
     "foundation:verify": "pnpm --dir ../.. exec tsx apps/admin/scripts/verify-step67-foundation.ts",
     "transport:verify": "pnpm --dir ../.. exec tsx apps/admin/scripts/verify-step67-transport.ts",
     "shell:verify": "node ./scripts/verify-step67-shell.mjs",
@@ -23,7 +23,8 @@
     "acceptance:verify": "node ./scripts/verify-step67-acceptance.mjs",
     "catalog-read:verify": "pnpm --dir ../.. exec tsx apps/admin/scripts/verify-step68-c-catalog-read.ts",
     "catalog-lifecycle:verify": "pnpm --dir ../.. exec tsx apps/admin/scripts/verify-step68-d-product-variant-lifecycle.ts",
-    "catalog-structure:verify": "pnpm --dir ../.. exec tsx apps/admin/scripts/verify-step68-e-catalog-structure.ts"
+    "catalog-structure:verify": "pnpm --dir ../.. exec tsx apps/admin/scripts/verify-step68-e-catalog-structure.ts",
+    "catalog-media:verify": "pnpm --dir ../.. exec tsx apps/admin/scripts/verify-step68-f-media.ts"
   },
   "dependencies": {
     "@react-router/node": "8.4.0",
@@ -45,4 +46,4 @@
     "typescript-eslint": "8.70.0",
     "vite": "8.3.0"
   }
-}
+}\n
