@@ -126,10 +126,12 @@ function destinationHref(surface:string):string{
   if(surface==="AD-C-05")return "/catalog/structure/brands";
   if(surface==="AD-C-06")return "/catalog/structure/categories";
   if(surface==="AD-C-07")return "/catalog/media";
+  if(surface==="AD-C-08")return "/catalog/sales-control";
   return `/destinations/${encodeURIComponent(surface)}`;
 }
 function readCurrentSurface(pathname:string):string|null{
   if(pathname==="/catalog/media")return "AD-C-07";
+  if(pathname==="/catalog/sales-control")return "AD-C-08";
   if(/\/catalog\/products\/[^/]+\/media$/.test(pathname))return "AD-C-04";
   if(pathname.startsWith("/catalog/structure/attributes")||/\/catalog\/products\/[^/]+\/attributes$/.test(pathname))return "AD-C-03";
   if(pathname.startsWith("/catalog/structure/brands"))return "AD-C-05";

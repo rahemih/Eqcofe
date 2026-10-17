@@ -9,6 +9,7 @@ export default [
     route("catalog/products", "./routes/catalog-products.tsx"),
     route("catalog/products/new", "./routes/catalog-product-new.tsx"),
     route("catalog/media", "./routes/catalog-media.tsx"),
+    route("catalog/sales-control", "./routes/catalog-sales-control.tsx"),
     route("catalog/products/:productId/attributes", "./routes/catalog-product-attributes.tsx"),
     route("catalog/products/:productId/media", "./routes/catalog-product-media.tsx"),
     route("catalog/products/:productId", "./routes/catalog-product.tsx"),

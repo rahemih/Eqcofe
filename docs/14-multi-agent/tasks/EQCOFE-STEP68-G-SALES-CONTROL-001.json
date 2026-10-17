@@ -1,0 +1,222 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP68-G-SALES-CONTROL-001",
+  "title": "Step 68-G Step-Up protected sales-control preview and apply administration",
+  "description": "Implement the HIGH-risk AD-C-08 Admin Sales-Control workspace on canonical Step 68-F. Cover only source-proven POST /admin/sales-control/preview and POST /admin/sales-control/apply authority across global/brand/category/product/variant scopes. Preserve the ten-minute single-use preview, exact server-returned affected_count, Step-Up-only apply, server-owned authorization, safe cancel-first review, no blind retry after ambiguous mutations, and explicit expired/unknown-outcome recovery. Do not invent fresh recount, requester binding, generic approval/replay/audit-history, generic bulk catalog editing, pricing/inventory/FX/Excel, Backend/OpenAPI/database changes, Storefront changes or Product Design semantic changes.",
+  "risk": "HIGH",
+  "risk_floor": "HIGH",
+  "owner": "FRONTEND_ENGINEERING",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "9230e88178f5ffa5d2352126ee4edac57f021fec"
+  },
+  "scope": {
+    "read": [
+      "package.json",
+      "apps/admin/**",
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "src/modules/catalog/application/sales-control.service.ts",
+      "src/modules/catalog/infrastructure/catalog.repository.ts",
+      "src/modules/catalog/presentation/catalog.controller.ts",
+      "docs/11-step-history/**",
+      "docs/13-product-design/STEP-56-C-CATALOG-MEDIA.md",
+      "docs/13-product-design/step56-catalog-media-wireframes.json",
+      "docs/13-product-design/step56-wireframes/C/AD-C-08/**",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "apps/admin/**",
+      "docs/11-step-history/STEP-68-G-SALES-CONTROL.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP68-G-SALES-CONTROL-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "database/**",
+      "test/**",
+      "scripts/**",
+      "apps/api/**",
+      "apps/worker/**",
+      "apps/scheduler/**",
+      "apps/storefront/**",
+      "contracts/**",
+      "src/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP68-G-SALES-CONTROL-001-01"
+  ],
+  "human_gate_required": true,
+  "token_budget": {
+    "expected_max": 46000,
+    "soft_alert": 72000,
+    "hard_cap": 118000
+  },
+  "task_risk_rules": [
+    {
+      "id": "STEP68_G_SALES_CONTROL_HIGH",
+      "risk": "HIGH",
+      "paths": [
+        "apps/admin/**",
+        "docs/11-step-history/STEP-68-G-SALES-CONTROL.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP68-G-SALES-CONTROL-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "68-F",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "9230e88178f5ffa5d2352126ee4edac57f021fec",
+      "evidence": "PR #366 merged after exact-artifact Project Owner approval; exact-SHA Canonical CI #1969, Phase A #1468 and CodeQL #1119 succeeded; terminal Lock release comment 6232856088.",
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "linear_issue": "HOS-72",
+    "stage_f_pr": 366,
+    "stage_f_merge": "9230e88178f5ffa5d2352126ee4edac57f021fec",
+    "stage_f_lock_release_comment": 6232856088,
+    "design_surfaces": [
+      "AD-C-08"
+    ],
+    "graph_state": "RETIRED_AND_OUT_OF_SCOPE",
+    "operations": [
+      "POST /admin/sales-control/preview",
+      "POST /admin/sales-control/apply"
+    ],
+    "permission": "sales_control.manage",
+    "step_up": {
+      "preview": false,
+      "apply": true,
+      "source": "@RequireStepUp on catalog.controller salesApply"
+    },
+    "preview_lifetime_seconds": 600,
+    "scopes": [
+      "global",
+      "brand",
+      "category",
+      "product",
+      "variant"
+    ],
+    "source_invariants": {
+      "non_global_scope_requires_id": true,
+      "preview_is_single_use": true,
+      "apply_uses_stored_preview_count": true,
+      "fresh_recount_before_apply": false,
+      "requester_binding_proven": false,
+      "generic_catalog_bulk_runtime": false,
+      "unsafe_mutation_auto_retry": false,
+      "generic_approval_queue": false,
+      "audit_history_http_endpoint": false
+    }
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Sales-Control uses only the canonical generated Admin preview/apply endpoints through the existing server-owned auth bridge; no parallel credential or browser auth authority is introduced.",
+      "verification": "sales_control_transport_boundary",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Preview supports only global/brand/category/product/variant; non-global scope requires a bounded target EntityId, the desired sales_enabled value is explicit, and the UI does not invent generic bulk catalog fields.",
+      "verification": "sales_preview_scope_contract",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "The preview screen presents the server-returned preview_id, scope, sales_enabled, affected_count and expires_at as authoritative. The ten-minute preview is treated as single-use and the UI never claims a fresh recount or requester binding.",
+      "verification": "sales_preview_authority",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Apply is unavailable until an explicit review and WebAuthn Step-Up complete. The verified step-up token stays server-side for the apply request and is not persisted or rendered.",
+      "verification": "sales_apply_step_up",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Apply sends the reviewed preview_id, a bounded operator reason and the exact reviewed affected_count as expected_affected_count. It never substitutes a locally recomputed count.",
+      "verification": "sales_apply_payload",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "The safe cancel action receives initial dialog focus; Escape cancels and restores the launcher; apply is submitted once and disabled while in flight.",
+      "verification": "sales_control_review_accessibility",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "Expired/consumed preview and AFFECTED_COUNT_CHANGED outcomes never replay apply. The operator must obtain a fresh preview and review it again.",
+      "verification": "sales_preview_expiry_recovery",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "Network/timeout/abort, HTTP 408/5xx and post-submit ambiguity fail closed as unknown_outcome. The UI instructs manual canonical target review and never blindly repeats preview or apply.",
+      "verification": "sales_control_unknown_outcome",
+      "mandatory": true
+    },
+    {
+      "id": "AC-009",
+      "description": "All form mutations enforce trusted same-origin submission, bounded inputs and neutral 401/403/409/422/unknown handling with request-id evidence where available.",
+      "verification": "sales_control_form_security",
+      "mandatory": true
+    },
+    {
+      "id": "AC-010",
+      "description": "AD-C-08 is Persian RTL, responsive and keyboard-accessible with long-text wrapping, 44px controls, deterministic error/result focus and no horizontal overflow.",
+      "verification": "sales_control_ux_accessibility",
+      "mandatory": true
+    },
+    {
+      "id": "AC-011",
+      "description": "No Media, Product/Variant/Taxonomy mutation expansion, pricing/inventory/FX/Excel, Backend/OpenAPI/generated-contract/database, Storefront, Product Design semantic mutation or Current-State/Master-Roadmap closure reconciliation is introduced.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-012",
+      "description": "Canonical closure requires exact-head Canonical CI, Phase A and CodeQL, deterministic Review, Independent Security PASS, exact-artifact ACTIVE Lock and explicit Project Owner Human Gate approval, followed by protected merge, exact-SHA postmerge verification and terminal Lock release.",
+      "verification": "high_risk_canonical_transport",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "SECURITY",
+      "HUMAN",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Step 68-G is HIGH risk. Project Owner Human Gate is mandatory only on the final exact HEAD and Artifact after CI, deterministic Review, Independent Security and exact-artifact Lock are complete. Step 68-H remains blocked until terminal canonical closure."
+  },
+  "process_improvement_links": [],
+  "incident_links": [],
+  "max_repair_cycles": 5,
+  "pre_mutation_gates": {
+    "graph_health": "RETIRED_AND_OUT_OF_SCOPE",
+    "query_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "path_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "explain_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "human_gate": "REQUIRED_FINAL_EXACT_ARTIFACT"
+  },
+  "authorized_human_approver": {
+    "role": "PROJECT_OWNER",
+    "github_login": "rahemih"
+  }
+}
