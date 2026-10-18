@@ -11365,7 +11365,6 @@ export interface components {
         } & {
             [key: string]: unknown;
         };
-    };
         ExcelBinaryWorkbook: {
             fileName: string;
             /** @constant */
@@ -11839,6 +11838,7 @@ export interface components {
             meta: components["schemas"]["SuccessMeta"];
         };
 
+    };
     responses: {
         /** @description درخواست نامعتبر */
         BadRequest: {
