@@ -22689,41 +22689,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AfterSalesTimelineResponse'
-webhooks:
-  paymentProviderCallback:
-    post:
-      summary: Webhook عمومی درگاه پرداخت؛ مسیر واقعی بر اساس provider_key مسیریابی
-        می‌شود.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: true
-      responses:
-        '200':
-          description: دریافت شد
-x-eqcofe:
-  moneyUnit: TOMAN
-  apiLanguage: en
-  uiLanguage: fa-IR
-  deliverySemantics: at-least-once for domain events
-  concurrency: ETag/If-Match for mutable admin entities
-  idempotencyHeader: Idempotency-Key
-  sourceOfTruth: This OpenAPI document is the machine-readable HTTP contract; event
-    contracts live under contracts/events/
-  schema_catalog:
-    version: '28.1'
-    money_unit: TOMAN
-    naming: English snake_case
-    validation_layers:
-    - OpenAPI schema
-    - DTO validator
-    - domain rules
-    - PostgreSQL constraints
-    response_language: fa-IR
-    status: baseline-machine-readable
   /admin/excel/exports/template:
     get:
       tags: [Admin Excel]
@@ -22919,3 +22884,39 @@ x-eqcofe:
         audit: true
         idempotency: required
         stepUp: true
+
+webhooks:
+  paymentProviderCallback:
+    post:
+      summary: Webhook عمومی درگاه پرداخت؛ مسیر واقعی بر اساس provider_key مسیریابی
+        می‌شود.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: دریافت شد
+x-eqcofe:
+  moneyUnit: TOMAN
+  apiLanguage: en
+  uiLanguage: fa-IR
+  deliverySemantics: at-least-once for domain events
+  concurrency: ETag/If-Match for mutable admin entities
+  idempotencyHeader: Idempotency-Key
+  sourceOfTruth: This OpenAPI document is the machine-readable HTTP contract; event
+    contracts live under contracts/events/
+  schema_catalog:
+    version: '28.1'
+    money_unit: TOMAN
+    naming: English snake_case
+    validation_layers:
+    - OpenAPI schema
+    - DTO validator
+    - domain rules
+    - PostgreSQL constraints
+    response_language: fa-IR
+    status: baseline-machine-readable
