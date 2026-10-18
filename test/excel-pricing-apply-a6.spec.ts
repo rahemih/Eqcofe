@@ -79,6 +79,7 @@ test('Step 50 A6 Excel owns orchestration only and cannot write Pricing SQL dire
   assert.match(source, /PricingImportApplyService/);
   assert.match(source, /EXCEL_PRICING_PREVIEW_STALE/);
   const pricingSource = readFileSync('src/modules/pricing/application/pricing-import-apply.service.ts', 'utf8');
-  assert.match(pricingSource, /sourceType: 'excel_import'/);
+  assert.match(pricingSource, /sourceType: 'import'/);
+  assert.doesNotMatch(pricingSource, /sourceType: 'excel_import'/);
   assert.doesNotMatch(pricingSource, /inventory\.|payments\.|finance\./i);
 });
