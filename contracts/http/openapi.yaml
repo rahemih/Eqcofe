@@ -12658,7 +12658,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AdminBasePriceCreateRequest'
+                $ref: '#/components/schemas/AdminPricingBasePriceMutationResponse'
       security: &id020
       - adminSession: []
       requestBody:
@@ -12708,7 +12708,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AdminBasePriceCreateRequest'
+                $ref: '#/components/schemas/AdminPricingBasePriceMutationResponse'
       parameters:
       - name: variant_id
         in: path
