@@ -104,6 +104,7 @@ Primary write authority:
 - `test/excel-admin-api-a8.spec.ts`;
 - `test/excel-security-e2e-a9.spec.ts`;
 - `test/excel-final-closure-a10.spec.ts`;
+- `test/excel-pricing-apply-a6.spec.ts` — regression expectation for the bounded source-type repair;
 - `test/step69-pricing-fx-excel-contract.spec.ts`;
 - this history document;
 - the 69-B Task Contract and generated Task Catalog.
