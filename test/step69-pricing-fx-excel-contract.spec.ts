@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { execFileSync } from 'node:child_process';
+import { execFileSync, spawnSync } from 'node:child_process';
 import { existsSync, mkdtempSync, readFileSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
@@ -143,6 +143,10 @@ test('Step 69-B generated OpenAPI is byte-for-byte reproducible from canonical b
   const pnpm=process.platform==='win32'?'pnpm.cmd':'pnpm';
   try{
     execFileSync(pnpm,['exec','openapi-typescript','contracts/http/openapi.yaml','-o',output],{stdio:'pipe'});
-    assert.equal(generated,readFileSync(output,'utf8'),'STEP69_GENERATED_OPENAPI_DRIFT');
+    const expected=readFileSync(output,'utf8');
+    if(generated!==expected){
+      const diff=spawnSync('git',['diff','--no-index','--unified=1','src/generated/openapi.ts',output],{encoding:'utf8'});
+      assert.fail('STEP69_GENERATED_OPENAPI_DRIFT\n'+String(diff.stdout||diff.stderr||'').slice(0,24000));
+    }
   }finally{rmSync(dir,{recursive:true,force:true});}
 });
