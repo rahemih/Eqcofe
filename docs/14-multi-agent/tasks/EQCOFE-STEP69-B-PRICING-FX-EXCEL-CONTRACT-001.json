@@ -65,7 +65,8 @@
       "docs/13-product-design/step56-wireframes/D/AD-D-19/traceability.json",
       "docs/13-product-design/step56-wireframes/D/AD-D-20/traceability.json",
       "docs/13-product-design/step56-wireframes/D/AD-D-21/traceability.json",
-      "docs/13-product-design/step56-final-audit/operation-matrix.json"
+      "docs/13-product-design/step56-final-audit/operation-matrix.json",
+      "test/excel-pricing-apply-a6.spec.ts"
     ],
     "forbidden": [
       ".github/**",
@@ -137,7 +138,8 @@
         "docs/13-product-design/step56-wireframes/D/AD-D-19/traceability.json",
         "docs/13-product-design/step56-wireframes/D/AD-D-20/traceability.json",
         "docs/13-product-design/step56-wireframes/D/AD-D-21/traceability.json",
-        "docs/13-product-design/step56-final-audit/operation-matrix.json"
+        "docs/13-product-design/step56-final-audit/operation-matrix.json",
+        "test/excel-pricing-apply-a6.spec.ts"
       ]
     }
   ],
@@ -230,7 +232,8 @@
       "source": "src/modules/pricing/application/pricing-import-apply.service.ts",
       "observed": "sourceType='excel_import'",
       "database_authority": "pricing.base_prices.source_type CHECK allows manual|bulk|currency|import|system",
-      "repair": "use existing source_type='import'; no migration or behavior expansion"
+      "repair": "use existing source_type='import'; no migration or behavior expansion",
+      "regression_test": "test/excel-pricing-apply-a6.spec.ts"
     }
   },
   "acceptance_criteria": [
@@ -320,6 +323,12 @@
       "trigger": "69-B live runtime/DB contract reconciliation",
       "root_cause": "PricingImportApplyService inserts sourceType 'excel_import' while pricing.base_prices CHECK accepts only manual|bulk|currency|import|system, so a real Excel Pricing Apply can fail at persistence.",
       "repair": "Authorize one bounded runtime line repair to sourceType 'import', add regression evidence, and keep database schema unchanged."
+    },
+    {
+      "date": "2026-10-18",
+      "trigger": "Canonical CI #2038 after bounded runtime repair",
+      "root_cause": "Historical Step50 A6 regression asserted the invalid persistence source_type literal excel_import, so the corrected runtime line was intentionally rejected by an outdated test.",
+      "repair": "Authorize the historical regression test to assert sourceType 'import' and explicitly reject 'excel_import'; production semantics remain unchanged beyond the already-authorized DB-constraint repair."
     }
   ]
 }
