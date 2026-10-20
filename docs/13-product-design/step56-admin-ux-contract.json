@@ -14911,16 +14911,12 @@
       "sha256": "5ed38dc51bbf6feeed07317788577beb338d55adae59ff94ea3fdf3673b081a8"
     },
     {
-      "path": "contracts/http/openapi-step50-a8.yaml",
-      "sha256": "ea9580b9bb52bb524a82c20eb5115f56e500d71ae9f6b6aca61491b9bdac393b"
-    },
-    {
       "path": "contracts/http/openapi-step51-a13.yaml",
       "sha256": "412eede5ec4a726bf0c33d35efebe2aca620078e7bb4300514fa484f1d516220"
     },
     {
       "path": "contracts/http/openapi.yaml",
-      "sha256": "5fa082edf96fea585a81fc2435f56ed18dc344a6ea41cb8997838e04d62a84ff"
+      "sha256": "57a4b4799146eea8b4427343d502c959ab1bba37655aa0682c7afeff0c0b6437"
     },
     {
       "path": "contracts/http/step49-pos-a9.yaml",
@@ -17585,7 +17581,7 @@
     {
       "key": "GET /admin/excel/exports/template",
       "openapi": {
-        "source": "contracts/http/openapi-step50-a8.yaml",
+        "source": "contracts/http/openapi.yaml",
         "operationId": "getAdminExcelExportTemplate",
         "security": [
           {
@@ -21521,7 +21517,10 @@
             "adminSession": []
           }
         ],
-        "extensions": {}
+        "extensions": {
+          "domain": "pricing",
+          "permission": "pricing.view"
+        }
       },
       "runtime": {
         "key": "GET /admin/pricing/base-prices",
@@ -21558,7 +21557,7 @@
         "runtime": [
           "pricing.view"
         ],
-        "openapi": null
+        "openapi": "pricing.view"
       },
       "permissionConflict": false,
       "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY"
@@ -21573,7 +21572,10 @@
             "adminSession": []
           }
         ],
-        "extensions": {}
+        "extensions": {
+          "domain": "pricing",
+          "permission": "pricing.view"
+        }
       },
       "runtime": {
         "key": "GET /admin/pricing/bulk/{operation_id}",
@@ -21610,7 +21612,7 @@
         "runtime": [
           "pricing.view"
         ],
-        "openapi": null
+        "openapi": "pricing.view"
       },
       "permissionConflict": false,
       "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY"
@@ -21625,7 +21627,10 @@
             "adminSession": []
           }
         ],
-        "extensions": {}
+        "extensions": {
+          "domain": "pricing",
+          "permission": "pricing.view"
+        }
       },
       "runtime": {
         "key": "GET /admin/pricing/currency-rates",
@@ -21662,7 +21667,7 @@
         "runtime": [
           "pricing.view"
         ],
-        "openapi": null
+        "openapi": "pricing.view"
       },
       "permissionConflict": false,
       "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY"
@@ -21677,7 +21682,10 @@
             "adminSession": []
           }
         ],
-        "extensions": {}
+        "extensions": {
+          "domain": "pricing",
+          "permission": "pricing.view"
+        }
       },
       "runtime": {
         "key": "GET /admin/pricing/currency-rates/current",
@@ -21714,7 +21722,7 @@
         "runtime": [
           "pricing.view"
         ],
-        "openapi": null
+        "openapi": "pricing.view"
       },
       "permissionConflict": false,
       "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY"
@@ -21839,7 +21847,10 @@
             "adminSession": []
           }
         ],
-        "extensions": {}
+        "extensions": {
+          "domain": "pricing",
+          "permission": "pricing.view"
+        }
       },
       "runtime": {
         "key": "GET /admin/pricing/rules",
@@ -21876,7 +21887,7 @@
         "runtime": [
           "pricing.view"
         ],
-        "openapi": null
+        "openapi": "pricing.view"
       },
       "permissionConflict": false,
       "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY"
@@ -21891,7 +21902,10 @@
             "adminSession": []
           }
         ],
-        "extensions": {}
+        "extensions": {
+          "domain": "pricing",
+          "permission": "pricing.view"
+        }
       },
       "runtime": {
         "key": "GET /admin/pricing/rules/{id}",
@@ -21928,7 +21942,7 @@
         "runtime": [
           "pricing.view"
         ],
-        "openapi": null
+        "openapi": "pricing.view"
       },
       "permissionConflict": false,
       "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY"
@@ -28207,7 +28221,7 @@
     {
       "key": "POST /admin/excel/catalog/apply",
       "openapi": {
-        "source": "contracts/http/openapi-step50-a8.yaml",
+        "source": "contracts/http/openapi.yaml",
         "operationId": "postAdminExcelCatalogApply",
         "security": [
           {
@@ -28266,7 +28280,7 @@
     {
       "key": "POST /admin/excel/catalog/preview",
       "openapi": {
-        "source": "contracts/http/openapi-step50-a8.yaml",
+        "source": "contracts/http/openapi.yaml",
         "operationId": "postAdminExcelCatalogPreview",
         "security": [
           {
@@ -28322,7 +28336,7 @@
     {
       "key": "POST /admin/excel/dry-run",
       "openapi": {
-        "source": "contracts/http/openapi-step50-a8.yaml",
+        "source": "contracts/http/openapi.yaml",
         "operationId": "postAdminExcelDryRun",
         "security": [
           {
@@ -28378,7 +28392,7 @@
     {
       "key": "POST /admin/excel/imports",
       "openapi": {
-        "source": "contracts/http/openapi-step50-a8.yaml",
+        "source": "contracts/http/openapi.yaml",
         "operationId": "postAdminExcelImports",
         "security": [
           {
@@ -28435,7 +28449,7 @@
     {
       "key": "POST /admin/excel/imports/{id}/recover",
       "openapi": {
-        "source": "contracts/http/openapi-step50-a8.yaml",
+        "source": "contracts/http/openapi.yaml",
         "operationId": "postAdminExcelImportRecover",
         "security": [
           {
@@ -28494,7 +28508,7 @@
     {
       "key": "POST /admin/excel/pricing/apply",
       "openapi": {
-        "source": "contracts/http/openapi-step50-a8.yaml",
+        "source": "contracts/http/openapi.yaml",
         "operationId": "postAdminExcelPricingApply",
         "security": [
           {
@@ -28553,7 +28567,7 @@
     {
       "key": "POST /admin/excel/pricing/preview",
       "openapi": {
-        "source": "contracts/http/openapi-step50-a8.yaml",
+        "source": "contracts/http/openapi.yaml",
         "operationId": "postAdminExcelPricingPreview",
         "security": [
           {
@@ -33993,7 +34007,10 @@
             "adminSession": []
           }
         ],
-        "extensions": {}
+        "extensions": {
+          "domain": "pricing",
+          "permission": "pricing.manage"
+        }
       },
       "runtime": {
         "key": "POST /admin/pricing/base-prices/preview",
@@ -34030,7 +34047,7 @@
         "runtime": [
           "pricing.manage"
         ],
-        "openapi": null
+        "openapi": "pricing.manage"
       },
       "permissionConflict": false,
       "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY"
@@ -34106,7 +34123,10 @@
             "adminSession": []
           }
         ],
-        "extensions": {}
+        "extensions": {
+          "domain": "pricing",
+          "permission": "pricing.bulk.manage"
+        }
       },
       "runtime": {
         "key": "POST /admin/pricing/bulk/preview",
@@ -34143,7 +34163,7 @@
         "runtime": [
           "pricing.bulk.manage"
         ],
-        "openapi": null
+        "openapi": "pricing.bulk.manage"
       },
       "permissionConflict": false,
       "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY"
@@ -34158,7 +34178,10 @@
             "adminSession": []
           }
         ],
-        "extensions": {}
+        "extensions": {
+          "domain": "pricing",
+          "permission": "pricing.currency.manage"
+        }
       },
       "runtime": {
         "key": "POST /admin/pricing/currency-rates/{id}/reject",
@@ -34195,7 +34218,7 @@
         "runtime": [
           "pricing.currency.manage"
         ],
-        "openapi": null
+        "openapi": "pricing.currency.manage"
       },
       "permissionConflict": false,
       "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY"
@@ -34271,7 +34294,10 @@
             "adminSession": []
           }
         ],
-        "extensions": {}
+        "extensions": {
+          "domain": "pricing",
+          "permission": "pricing.currency.manage"
+        }
       },
       "runtime": {
         "key": "POST /admin/pricing/currency-rates/refresh",
@@ -34308,7 +34334,7 @@
         "runtime": [
           "pricing.currency.manage"
         ],
-        "openapi": null
+        "openapi": "pricing.currency.manage"
       },
       "permissionConflict": false,
       "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY"

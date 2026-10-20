@@ -41,31 +41,31 @@
     },
     {
       "path": "docs/13-product-design/step56-admin-shell-wireframes.json",
-      "sha256": "31f38f9507cc7073098bb6bf702f1f26c6e2ed810a0137458668fb5f5b021f9c"
+      "sha256": "f4e6066edc86c365a61a628bb983f2d4ea6d504b06ac73c55b4c72d666b3082c"
     },
     {
       "path": "docs/13-product-design/step56-catalog-media-wireframes.json",
-      "sha256": "8bdae6ed33ddd022832e3873f79fc7429723651709d960c41d831012ad9450b6"
+      "sha256": "7c2b753e0b0abac15e255ed99f313c8ef3843f06ac16b157f826808d96bf4bdd"
     },
     {
       "path": "docs/13-product-design/step56-pricing-inventory-wireframes.json",
-      "sha256": "1b4d88435575efd1a1690e3d9df19bdb8c764e0093009ddaafbbb13d4f25bc06"
+      "sha256": "caced955a9bb17ff6470c522ccd2e0764bd5e1001370dfc4f36cac260e1feceb"
     },
     {
       "path": "docs/13-product-design/step56-commerce-operations-wireframes.json",
-      "sha256": "cab9014db30318fa97044ddc62f176082ea3ee16f7ff3beeec75ae88aa60a9e6"
+      "sha256": "1546f7e82c9b09fa6b19ec8e907a974f7629bc53e2a54003400b4bf98cd4770e"
     },
     {
       "path": "docs/13-product-design/step56-customers-growth-wireframes.json",
-      "sha256": "542623102f3ef75e636871c88d8e7c4316bdfdc1a85fad1deb84c31d407a5b6b"
+      "sha256": "4ee9b8143eaa1b86928b642bbe30f23e240debe9d9024789e4a0c34e125de422"
     },
     {
       "path": "docs/13-product-design/step56-management-security-wireframes.json",
-      "sha256": "c4d403057b3973efe22bd150f2f1a415a07524ed5af43706d6a3910b8a200ad6"
+      "sha256": "9f3888a2170706345fa60490e771e4bb533c9d57d2b9d43a678d5f21a2d4d488"
     },
     {
       "path": "docs/13-product-design/step56-final-audit.json",
-      "sha256": "f9d08d3d2c87fa53a0579993b17e0f190aae659977d64d0dbac9256009183c08"
+      "sha256": "87abce95832b379eead75f93a7b69b77f99f6f6e32978a6a00907eeb4bd0a7ee"
     },
     {
       "path": "docs/13-product-design/step56-final-handoffs.json",
@@ -7883,7 +7883,7 @@
             "runtime": [
               "pricing.view"
             ],
-            "openapi": null
+            "openapi": "pricing.view"
           },
           "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
           "stepUp": false,
@@ -7916,7 +7916,7 @@
             "runtime": [
               "pricing.manage"
             ],
-            "openapi": null
+            "openapi": "pricing.manage"
           },
           "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
           "stepUp": false,
@@ -8370,7 +8370,7 @@
             "runtime": [
               "pricing.view"
             ],
-            "openapi": null
+            "openapi": "pricing.view"
           },
           "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
           "stepUp": false,
@@ -8386,7 +8386,7 @@
             "runtime": [
               "pricing.view"
             ],
-            "openapi": null
+            "openapi": "pricing.view"
           },
           "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
           "stepUp": false,
@@ -8833,7 +8833,7 @@
             "runtime": [
               "pricing.view"
             ],
-            "openapi": null
+            "openapi": "pricing.view"
           },
           "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
           "stepUp": false,
@@ -8865,7 +8865,7 @@
             "runtime": [
               "pricing.bulk.manage"
             ],
-            "openapi": null
+            "openapi": "pricing.bulk.manage"
           },
           "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
           "stepUp": false,
@@ -9332,7 +9332,7 @@
             "runtime": [
               "pricing.view"
             ],
-            "openapi": null
+            "openapi": "pricing.view"
           },
           "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
           "stepUp": false,
@@ -9348,7 +9348,7 @@
             "runtime": [
               "pricing.view"
             ],
-            "openapi": null
+            "openapi": "pricing.view"
           },
           "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
           "stepUp": false,
@@ -9364,7 +9364,7 @@
             "runtime": [
               "pricing.currency.manage"
             ],
-            "openapi": null
+            "openapi": "pricing.currency.manage"
           },
           "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
           "stepUp": false,
@@ -9396,7 +9396,7 @@
             "runtime": [
               "pricing.currency.manage"
             ],
-            "openapi": null
+            "openapi": "pricing.currency.manage"
           },
           "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
           "stepUp": false,
@@ -52598,7 +52598,7 @@
         "runtime": [
           "pricing.view"
         ],
-        "openapi": null
+        "openapi": "pricing.view"
       },
       "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
       "blocked": false,
@@ -52632,7 +52632,7 @@
         "runtime": [
           "pricing.manage"
         ],
-        "openapi": null
+        "openapi": "pricing.manage"
       },
       "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
       "blocked": false,
@@ -52666,7 +52666,7 @@
         "runtime": [
           "pricing.view"
         ],
-        "openapi": null
+        "openapi": "pricing.view"
       },
       "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
       "blocked": false,
@@ -52683,7 +52683,7 @@
         "runtime": [
           "pricing.view"
         ],
-        "openapi": null
+        "openapi": "pricing.view"
       },
       "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
       "blocked": false,
@@ -52768,7 +52768,7 @@
         "runtime": [
           "pricing.view"
         ],
-        "openapi": null
+        "openapi": "pricing.view"
       },
       "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
       "blocked": false,
@@ -52802,7 +52802,7 @@
         "runtime": [
           "pricing.bulk.manage"
         ],
-        "openapi": null
+        "openapi": "pricing.bulk.manage"
       },
       "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
       "blocked": false,
@@ -52819,7 +52819,7 @@
         "runtime": [
           "pricing.view"
         ],
-        "openapi": null
+        "openapi": "pricing.view"
       },
       "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
       "blocked": false,
@@ -52836,7 +52836,7 @@
         "runtime": [
           "pricing.view"
         ],
-        "openapi": null
+        "openapi": "pricing.view"
       },
       "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
       "blocked": false,
@@ -52853,7 +52853,7 @@
         "runtime": [
           "pricing.currency.manage"
         ],
-        "openapi": null
+        "openapi": "pricing.currency.manage"
       },
       "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
       "blocked": false,
@@ -52887,7 +52887,7 @@
         "runtime": [
           "pricing.currency.manage"
         ],
-        "openapi": null
+        "openapi": "pricing.currency.manage"
       },
       "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
       "blocked": false,

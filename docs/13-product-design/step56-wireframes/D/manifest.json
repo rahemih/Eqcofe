@@ -2,7 +2,7 @@
   "step": 56,
   "substep": "D",
   "source": "docs/13-product-design/step56-pricing-inventory-wireframes.json",
-  "sourceSha256": "1b4d88435575efd1a1690e3d9df19bdb8c764e0093009ddaafbbb13d4f25bc06",
+  "sourceSha256": "caced955a9bb17ff6470c522ccd2e0764bd5e1001370dfc4f36cac260e1feceb",
   "screenCount": 21,
   "frameCount": 624,
   "artifacts": [
@@ -158,8 +158,8 @@
     },
     {
       "path": "docs/13-product-design/step56-wireframes/D/AD-D-01/traceability.json",
-      "sha256": "b6c29427499e15d76d8534df4468fa7fbae6408923d104638491410d79394ea3",
-      "bytes": 25053
+      "sha256": "6c424a4c1d8dce5ded7461232849595704b8dad48294bd40a2ff8f4557131b36",
+      "bytes": 25075
     },
     {
       "path": "docs/13-product-design/step56-wireframes/D/AD-D-01/README.md",
@@ -328,8 +328,8 @@
     },
     {
       "path": "docs/13-product-design/step56-wireframes/D/AD-D-02/traceability.json",
-      "sha256": "65f9a8f7bfb1667a86abe5eeb74500eab655e77f1cf8219662df8a710b893c9c",
-      "bytes": 27468
+      "sha256": "32cfffa622a01c9d51d7f48a9a7cd892631b62aac33c0f4074eac110fa84b013",
+      "bytes": 27488
     },
     {
       "path": "docs/13-product-design/step56-wireframes/D/AD-D-02/README.md",
@@ -458,8 +458,8 @@
     },
     {
       "path": "docs/13-product-design/step56-wireframes/D/AD-D-03/traceability.json",
-      "sha256": "d839a7c164e9fb5a37a6865194eafe6d58871d69b84f19101db34f7f155824dd",
-      "bytes": 26648
+      "sha256": "db1ce5fcd6ee600024e4fb7cb4890df16777d9ec6e55d592eea61a4c2c9b15e3",
+      "bytes": 26675
     },
     {
       "path": "docs/13-product-design/step56-wireframes/D/AD-D-03/README.md",
@@ -648,8 +648,8 @@
     },
     {
       "path": "docs/13-product-design/step56-wireframes/D/AD-D-04/traceability.json",
-      "sha256": "ec6862cd7634752ea5cbea86fcdb81a891b28a3c49eebf66f22ccf836b18850f",
-      "bytes": 32513
+      "sha256": "a12e3fe2649dd91432267de6e0e572c7661eb907852a6467bb264fcd7c80b3e5",
+      "bytes": 32575
     },
     {
       "path": "docs/13-product-design/step56-wireframes/D/AD-D-04/README.md",

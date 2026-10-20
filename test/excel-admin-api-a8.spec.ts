@@ -7,7 +7,7 @@ import { DomainError } from '../src/shared/errors/domain-error';
 const controller = readFileSync('src/modules/excel/presentation/excel-admin.controller.ts', 'utf8');
 const serviceSource = readFileSync('src/modules/excel/application/excel-admin.service.ts', 'utf8');
 const migration = readFileSync('database/migrations/0057_excel_rbac_audit_api.sql', 'utf8');
-const contract = readFileSync('contracts/http/openapi-step50-a8.yaml', 'utf8');
+const contract = readFileSync('contracts/http/openapi.yaml', 'utf8');
 const validator = readFileSync('scripts/validate-openapi.mjs', 'utf8');
 const moduleSource = readFileSync('src/modules/excel/excel.module.ts', 'utf8');
 
@@ -59,7 +59,7 @@ test('Step 50 A8 RBAC migration is additive and risk-classifies apply/recovery a
   assert.doesNotMatch(migration, /DELETE FROM|DROP TABLE|TRUNCATE|UPDATE admin\.permissions/i);
 });
 
-test('Step 50 A8 OpenAPI overlay covers all staff operations and sensitive controls', () => {
+test('Step 50 A8 canonical OpenAPI covers all staff operations and sensitive controls', () => {
   for (const path of ['exports/template', 'dry-run', 'catalog/preview', 'pricing/preview', 'imports', 'catalog/apply', 'pricing/apply', 'imports/{id}/recover']) {
     assert.match(contract, new RegExp(`/admin/excel/${path.replace(/[{}]/g, '\\$&')}:`));
   }
