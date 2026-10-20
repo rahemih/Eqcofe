@@ -125,3 +125,14 @@ Until then:
 STEP_69_C = IN_PROGRESS / NOT_CANONICAL
 STEP_69_D = BLOCKED_FROM_MUTATION
 ```
+
+## CI repair checkpoint
+
+Initial PR Head `3bb7a82bbabb6e118a0a8245b1f675c2e13a3588` exposed two governance-only defects before application type/build verification:
+
+- generated Task Catalog contained a literal `\\n` separator and was not byte-exact;
+- the PR event body did not yet include the mandatory canonical `Task Contract:` path.
+
+The catalog formatting was repaired on Head `9b0eb737a60568d8e8cb29e2417bc2f8a037c9d7`, where the generated-catalog exactness test passed. The PR body is now bound to `docs/14-multi-agent/tasks/EQCOFE-STEP69-C-ADMIN-PRICING-FX-EXCEL-FOUNDATION-001.json`. A fresh Head is intentionally emitted after that metadata repair so all exact-head workflows evaluate the corrected PR event snapshot.
+
+No product/runtime scope was expanded by this repair and no prior failed Head is eligible as final evidence.
