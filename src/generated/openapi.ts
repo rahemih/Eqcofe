@@ -8376,7 +8376,6 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-
     "/admin/excel/exports/template": {
         parameters: {
             query?: never;
@@ -10098,7 +10097,7 @@ export interface components {
              * @default all
              * @enum {string}
              */
-            scope_type?: "all" | "product" | "brand" | "category";
+            scope_type: "all" | "product" | "brand" | "category";
             scope_ids?: components["schemas"]["EntityId"][];
             /** @default false */
             include_inactive?: boolean;
