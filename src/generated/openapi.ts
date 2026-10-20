@@ -10090,7 +10090,7 @@ export interface components {
         PostAdminPricingCurrencyRatesRefreshRequest: {
             provider_key: string;
             /** @default USD */
-            source_currency_code?: string;
+            source_currency_code: string;
             timeout_ms?: number;
             max_age_ms?: number;
             /**
@@ -10100,7 +10100,7 @@ export interface components {
             scope_type: "all" | "product" | "brand" | "category";
             scope_ids?: components["schemas"]["EntityId"][];
             /** @default false */
-            include_inactive?: boolean;
+            include_inactive: boolean;
         };
         PostAdminPricingCurrencyRatesIdSelectRequest: {
             reason_code: string;
@@ -11368,6 +11368,7 @@ export interface components {
             fileName: string;
             /** @constant */
             mimeType: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+            /** @description Opaque XLSX bytes. ZIP/OOXML structure, macros, formulas, external links, sheet/cell bounds and file size are derived and validated server-side; clients cannot supply decoded workbook authority. */
             contentBase64: string;
         };
         ExcelWorkbookRequest: {
@@ -11406,7 +11407,7 @@ export interface components {
              * @default manual
              * @enum {string}
              */
-            source_type?: "manual" | "bulk" | "currency" | "import" | "system";
+            source_type: "manual" | "bulk" | "currency" | "import" | "system";
         };
         AdminProfitGuardView: {
             /** @enum {string} */
@@ -11505,7 +11506,7 @@ export interface components {
             expires_at: components["schemas"]["Timestamp"];
             applied_at?: components["schemas"]["NullableTimestamp"];
             created_at: components["schemas"]["Timestamp"];
-            updated_at: components["schemas"]["Timestamp"];
+            updated_at?: components["schemas"]["Timestamp"];
             items: components["schemas"]["AdminPricingBulkOperationItem"][];
         } & {
             [key: string]: unknown;
@@ -11836,7 +11837,6 @@ export interface components {
             data: components["schemas"]["ExcelRecoveryData"];
             meta: components["schemas"]["SuccessMeta"];
         };
-
     };
     responses: {
         /** @description درخواست نامعتبر */
@@ -15255,7 +15255,7 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["AdminBasePriceCreateRequest"];
+                "application/json": components["schemas"]["PostAdminPricingBasePricesRequest"];
             };
         };
         responses: {
@@ -15305,7 +15305,7 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["AdminBasePriceCreateRequest"];
+                "application/json": components["schemas"]["PriceCreateRequest"];
             };
         };
         responses: {
@@ -27145,7 +27145,6 @@ export interface operations {
                 "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             path: {
-                /** Format: uuid */
                 id: string;
             };
             cookie?: never;
@@ -27167,5 +27166,4 @@ export interface operations {
             };
         };
     };
-
 }
