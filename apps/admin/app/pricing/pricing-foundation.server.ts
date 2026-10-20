@@ -33,7 +33,8 @@ export type Step69FoundationRead =
   | ({ kind: "ready"; surface: "AD-D-05"; records: readonly CurrencyRule[] } & ReadCommon)
   | ({ kind: "ready"; surface: "AD-D-19"; template: ExcelTemplate } & ReadCommon)
   | ({ kind: "action_only"; surface: "AD-D-03" | "AD-D-20" | "AD-D-21"; reason: string } & ReadCommon)
-  | ({ kind: "denied" | "unavailable"; surface: Step69FoundationSurface } & ReadCommon);
+  | ({ kind: "denied"; surface: Step69FoundationSurface } & ReadCommon)
+  | ({ kind: "unavailable"; surface: Step69FoundationSurface } & ReadCommon);
 
 export function isStep69FoundationSurface(value: string): value is Step69FoundationSurface {
   return (STEP69_FOUNDATION_SURFACES as readonly string[]).includes(value);
