@@ -1,4 +1,5 @@
-import type { ReactNode } from "react";\nimport { data, redirect, useLoaderData } from "react-router";
+import type { ReactNode } from "react";
+import { data, redirect, useLoaderData } from "react-router";
 import { appendAdminAuthSetCookies } from "../platform/auth/admin-cookie.server";
 import { readAdminAuthorizationContext } from "../platform/auth/context.server";
 import { findPermittedDestination, getAdminGroupLabel } from "../navigation/destination-policy";
