@@ -1,4 +1,4 @@
-import { data, redirect, useLoaderData } from "react-router";
+import type { ReactNode } from "react";\nimport { data, redirect, useLoaderData } from "react-router";
 import { appendAdminAuthSetCookies } from "../platform/auth/admin-cookie.server";
 import { readAdminAuthorizationContext } from "../platform/auth/context.server";
 import { findPermittedDestination, getAdminGroupLabel } from "../navigation/destination-policy";
@@ -147,7 +147,7 @@ function Step69FoundationFrame({
   children,
 }:{
   destination:{surface:string;label:string;groupLabel:string};
-  children:React.ReactNode;
+  children:ReactNode;
 }){
   return (
     <section className="destination-handoff" aria-labelledby="destination-title">
