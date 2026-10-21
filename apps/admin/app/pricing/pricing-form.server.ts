@@ -185,6 +185,51 @@ export function validatePricingInterval(
   }
 }
 
+
+export type PricingRuleScopeInput = {
+  scope_type: "global" | "category" | "brand" | "product" | "variant";
+  scope_id?: string | null;
+};
+
+export function pricingRuleScopes(
+  form: FormData,
+  field: string,
+  issues: PricingFormIssue[],
+): readonly PricingRuleScopeInput[] {
+  const raw = pricingText(form, field, { required: true, max: 9000 }, issues);
+  if (!raw) return [];
+  const lines = raw.split(/\r?\n|,/).map((line) => line.trim()).filter(Boolean);
+  if (!lines.length || lines.length > 100) {
+    issues.push({ field, message: "حداقل یک دامنه و حداکثر ۱۰۰ دامنه مجاز است." });
+    return [];
+  }
+  const scopes: PricingRuleScopeInput[] = [];
+  const seen = new Set<string>();
+  for (const line of lines) {
+    if (line === "global") {
+      if (seen.has("global")) continue;
+      seen.add("global");
+      scopes.push({ scope_type: "global" });
+      continue;
+    }
+    const match = /^(category|brand|product|variant):([0-9a-f-]+)$/i.exec(line);
+    if (!match || !UUID_RE.test(match[2] ?? "")) {
+      issues.push({ field, message: "دامنه باید global یا به‌شکل category|brand|product|variant:UUID باشد." });
+      continue;
+    }
+    const scopeType = (match[1] ?? "").toLowerCase() as Exclude<PricingRuleScopeInput["scope_type"], "global">;
+    const scopeId = match[2] ?? "";
+    const key = scopeType + ":" + scopeId.toLowerCase();
+    if (seen.has(key)) continue;
+    seen.add(key);
+    scopes.push({ scope_type: scopeType, scope_id: scopeId });
+  }
+  if (scopes.some((scope) => scope.scope_type === "global") && scopes.length !== 1) {
+    issues.push({ field, message: "دامنه global باید تنها دامنهٔ قانون باشد." });
+  }
+  return Object.freeze(scopes);
+}
+
 export function hasControlCharacters(value: string): boolean {
   for (const character of value) {
     const code = character.charCodeAt(0);
