@@ -7,7 +7,6 @@ import {
   validateBulkApplyInput,
   validateBulkPreviewInput,
   type BulkApplyData,
-  type BulkChangeType,
   type BulkPreviewData,
   type BulkScope,
 } from "../pricing/pricing-bulk.server.js";
