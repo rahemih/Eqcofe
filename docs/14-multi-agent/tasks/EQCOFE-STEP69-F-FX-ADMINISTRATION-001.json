@@ -20,6 +20,7 @@
       "src/modules/pricing/application/currency-pricing.service.ts",
       "src/modules/pricing/application/currency-impact.service.ts",
       "src/modules/pricing/application/currency-rule.service.ts",
+      "src/modules/pricing/infrastructure/pricing.repository.ts",
       "src/modules/pricing/application/fx-currency-preview.service.ts",
       "src/modules/integrations/**",
       "docs/11-step-history/**",
@@ -93,7 +94,10 @@
     "stage_e_artifact": "daacb225815022d629c7ca265668563c11d7921856bbc06bb4e4781257dafa80",
     "stage_e_merge": "3f9e1157d28aa6d515e1591a5899fe5bc59a8274",
     "stage_e_lock_release_comment": 6310990853,
-    "surfaces": ["AD-D-04", "AD-D-05"],
+    "surfaces": [
+      "AD-D-04",
+      "AD-D-05"
+    ],
     "source_proven_operations": [
       "GET /admin/pricing/currency-rates",
       "GET /admin/pricing/currency-rates/current",
@@ -207,7 +211,12 @@
   ],
   "external_gate_evidence": {
     "protocol": "EQCOFE_GATE_V1",
-    "artifact_bound_gates": ["REVIEW", "SECURITY", "LOCK", "HUMAN"],
+    "artifact_bound_gates": [
+      "REVIEW",
+      "SECURITY",
+      "LOCK",
+      "HUMAN"
+    ],
     "trusted_github_transport_login": "rahemih",
     "rule": "Step 69-F is HIGH risk. Exact-artifact Project Owner Human Gate is mandatory after technical/security/review/Lock evidence. Step 69-G remains blocked until terminal 69-F canonical closure."
   },
