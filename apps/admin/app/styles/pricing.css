@@ -1,0 +1,243 @@
+.pricing-page {
+  max-inline-size: 78rem;
+  margin-inline: auto;
+}
+.pricing-heading {
+  max-inline-size: 58rem;
+}
+.pricing-heading h1 {
+  margin-block: var(--eq-spacing-2) 0;
+  margin-inline: 0;
+  font-size: var(--eq-type-heading-1-font-size);
+  line-height: var(--eq-type-heading-1-line-height);
+}
+.pricing-heading > p:last-child {
+  color: var(--eq-color-text-secondary);
+  line-height: var(--eq-type-body-medium-line-height);
+}
+.pricing-grid {
+  display: grid;
+  gap: var(--eq-spacing-4);
+  margin-block-start: var(--eq-spacing-5);
+}
+.pricing-card {
+  margin-block-start: var(--eq-spacing-5);
+  padding-block: var(--eq-spacing-5);
+  padding-inline: var(--eq-spacing-5);
+  border: var(--eq-border-hairline) solid var(--eq-color-border-default);
+  border-radius: var(--eq-radius-xl);
+  background: var(--eq-color-bg-surface);
+  box-shadow: var(--eq-effect-elevation-1);
+}
+.pricing-card h2,
+.pricing-card h3 {
+  margin-block-start: 0;
+}
+.pricing-card > p,
+.pricing-section-heading p {
+  color: var(--eq-color-text-secondary);
+  line-height: var(--eq-type-body-medium-line-height);
+}
+.pricing-form {
+  display: grid;
+  gap: var(--eq-spacing-4);
+  margin-block-start: var(--eq-spacing-4);
+}
+.pricing-form label,
+.pricing-filter label,
+.pricing-status-form label {
+  display: grid;
+  gap: var(--eq-spacing-2);
+}
+.pricing-form input,
+.pricing-form select,
+.pricing-form textarea,
+.pricing-filter input,
+.pricing-status-form input {
+  min-block-size: var(--eq-size-touch-min);
+  inline-size: 100%;
+  box-sizing: border-box;
+  border: var(--eq-border-hairline) solid var(--eq-color-border-default);
+  border-radius: var(--eq-radius-md);
+  padding-block: var(--eq-spacing-2);
+  padding-inline: var(--eq-spacing-3);
+  background: var(--eq-color-bg-surface);
+  color: var(--eq-color-text-primary);
+  font: inherit;
+}
+.pricing-form textarea {
+  min-block-size: 7rem;
+  resize: vertical;
+}
+.pricing-form input:focus-visible,
+.pricing-form select:focus-visible,
+.pricing-form textarea:focus-visible,
+.pricing-filter input:focus-visible,
+.pricing-status-form input:focus-visible,
+.pricing-actions button:focus-visible,
+.pricing-filter button:focus-visible,
+.pricing-filter a:focus-visible,
+.pricing-success a:focus-visible,
+.pricing-rule-list a:focus-visible {
+  outline: none;
+  box-shadow: var(--eq-effect-focus-ring);
+}
+.pricing-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--eq-spacing-3);
+  align-items: center;
+}
+.pricing-actions button,
+.pricing-filter button {
+  min-block-size: var(--eq-size-touch-min);
+  border: 0;
+  border-radius: var(--eq-radius-md);
+  padding-inline: var(--eq-spacing-4);
+  background: var(--eq-color-action-primary);
+  color: var(--eq-color-text-inverse);
+  font: inherit;
+  font-weight: var(--eq-type-label-medium-font-weight);
+  cursor: pointer;
+}
+.pricing-actions button[disabled],
+.pricing-filter button[disabled] {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+.pricing-error-summary,
+.pricing-success,
+.pricing-preview,
+.pricing-inline-warning {
+  margin-block-start: var(--eq-spacing-4);
+  border: var(--eq-border-hairline) solid var(--eq-color-border-default);
+  border-radius: var(--eq-radius-lg);
+  padding-block: var(--eq-spacing-4);
+  padding-inline: var(--eq-spacing-4);
+  background: var(--eq-color-bg-subtle);
+}
+.pricing-error-summary h2,
+.pricing-preview h3 {
+  margin-block-start: 0;
+}
+.pricing-error-summary ul {
+  margin-block-end: 0;
+}
+.pricing-success {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--eq-spacing-3);
+  align-items: center;
+}
+.pricing-success a,
+.pricing-filter a,
+.pricing-rule-list a {
+  color: var(--eq-color-action-primary);
+}
+.pricing-preview dl,
+.pricing-record-list dl {
+  display: grid;
+  gap: var(--eq-spacing-2);
+}
+.pricing-preview dl > div,
+.pricing-record-list dl > div {
+  display: grid;
+  grid-template-columns: minmax(7rem, 0.35fr) minmax(0, 1fr);
+  gap: var(--eq-spacing-3);
+}
+.pricing-preview dt,
+.pricing-record-list dt {
+  color: var(--eq-color-text-muted);
+}
+.pricing-preview dd,
+.pricing-record-list dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+.pricing-section-heading {
+  display: grid;
+  gap: var(--eq-spacing-4);
+}
+.pricing-filter {
+  display: grid;
+  gap: var(--eq-spacing-2);
+}
+.pricing-filter a {
+  min-block-size: var(--eq-size-touch-min);
+  display: inline-flex;
+  align-items: center;
+}
+.pricing-record-list,
+.pricing-rule-list {
+  list-style: none;
+  display: grid;
+  gap: var(--eq-spacing-3);
+  margin-block: var(--eq-spacing-4) 0;
+  margin-inline: 0;
+  padding: 0;
+}
+.pricing-record-list > li,
+.pricing-rule-list > li {
+  border: var(--eq-border-hairline) solid var(--eq-color-border-default);
+  border-radius: var(--eq-radius-lg);
+  padding-block: var(--eq-spacing-4);
+  padding-inline: var(--eq-spacing-4);
+}
+.pricing-record-list > li > div:first-child {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--eq-spacing-3);
+  margin-block-end: var(--eq-spacing-3);
+}
+.pricing-rule-list a {
+  min-block-size: var(--eq-size-touch-min);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--eq-spacing-3);
+  text-decoration: none;
+}
+.pricing-rule-list small {
+  display: block;
+  margin-block-start: var(--eq-spacing-2);
+  color: var(--eq-color-text-muted);
+}
+.pricing-status-form {
+  display: grid;
+  gap: var(--eq-spacing-3);
+  margin-block-start: var(--eq-spacing-5);
+  padding-block-start: var(--eq-spacing-4);
+  border-block-start: var(--eq-border-hairline) solid var(--eq-color-border-default);
+}
+@media (min-width: 760px) {
+  .pricing-form {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .pricing-form-wide {
+    grid-column: 1 / -1;
+  }
+  .pricing-section-heading {
+    grid-template-columns: minmax(0, 1fr) minmax(18rem, 0.6fr);
+    align-items: start;
+  }
+}
+@media (min-width: 1100px) {
+  .pricing-grid {
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  }
+}
+@media (max-width: 480px) {
+  .pricing-preview dl > div,
+  .pricing-record-list dl > div {
+    grid-template-columns: 1fr;
+    gap: var(--eq-spacing-1);
+  }
+  .pricing-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .pricing-actions button {
+    inline-size: 100%;
+  }
+}

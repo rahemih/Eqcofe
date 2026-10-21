@@ -14,6 +14,8 @@ export default [
     route("catalog/products/:productId/media", "./routes/catalog-product-media.tsx"),
     route("catalog/products/:productId", "./routes/catalog-product.tsx"),
     route("catalog/structure/:kind", "./routes/catalog-structure.tsx"),
+    route("pricing/base-prices", "./routes/pricing-base-prices.tsx"),
+    route("pricing/rules", "./routes/pricing-rules.tsx"),
     route("destinations/:surfaceId", "./routes/destination.tsx"),
   ]),
 ] satisfies RouteConfig;

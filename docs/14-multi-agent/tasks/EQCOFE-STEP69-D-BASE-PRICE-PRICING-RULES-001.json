@@ -1,0 +1,208 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP69-D-BASE-PRICE-PRICING-RULES-001",
+  "title": "Step 69-D Base-price/history and Pricing Rule administration",
+  "description": "Implement the HIGH-risk Admin workflows for AD-D-01 and AD-D-02 on top of canonical Step69-C: source-proven base-price history/read, informational profit-guard preview, variant-specific base-price create, Pricing Rule list/detail/create/update/activate/deactivate, explicit If-Match concurrency, fail-closed unknown-outcome/conflict/invalid handling, and Persian RTL accessible administration. Do not enter bulk pricing, FX, Excel, Backend/OpenAPI/database/Product-Design/Storefront/Current-State, Inventory/Procurement/POS, production FX provider, or Graph/Graphify scope.",
+  "risk": "HIGH",
+  "risk_floor": "HIGH",
+  "owner": "FRONTEND_ENGINEERING",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "15f695a850c1bee124223c4c1dd4e1747cc856de"
+  },
+  "scope": {
+    "read": [
+      "apps/admin/**",
+      "src/generated/openapi.ts",
+      "contracts/http/openapi.yaml",
+      "src/modules/pricing/presentation/pricing.controller.ts",
+      "src/modules/pricing/application/base-price.service.ts",
+      "src/modules/pricing/application/price-rule.service.ts",
+      "docs/11-step-history/**",
+      "docs/13-product-design/step56-wireframes/D/AD-D-01/**",
+      "docs/13-product-design/step56-wireframes/D/AD-D-02/**",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "apps/admin/**",
+      "docs/11-step-history/STEP-69-D-BASE-PRICE-PRICING-RULES.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP69-D-BASE-PRICE-PRICING-RULES-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "contracts/**",
+      "database/**",
+      "src/**",
+      "test/**",
+      "scripts/**",
+      "apps/api/**",
+      "apps/worker/**",
+      "apps/scheduler/**",
+      "apps/storefront/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**",
+      "src/modules/inventory/**",
+      "src/modules/procurement/**",
+      "scripts/graphify/**",
+      "graphify-out/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP69-D-BASE-PRICE-PRICING-RULES-001-01"
+  ],
+  "human_gate_required": true,
+  "token_budget": {
+    "expected_max": 46000,
+    "soft_alert": 72000,
+    "hard_cap": 118000
+  },
+  "task_risk_rules": [
+    {
+      "id": "STEP69_D_BASE_PRICE_PRICING_RULES_HIGH",
+      "risk": "HIGH",
+      "paths": [
+        "apps/admin/**",
+        "docs/11-step-history/STEP-69-D-BASE-PRICE-PRICING-RULES.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP69-D-BASE-PRICE-PRICING-RULES-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "69-C",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "15f695a850c1bee124223c4c1dd4e1747cc856de",
+      "evidence": "PR #372 exact artifact 1454764e94e88880df634519b14fdb222ae63dd4a4145c27acb762ee7b7c224d merged after CI/Phase A/CodeQL/Review/Lock; exact-SHA Canonical CI #2072, Phase A #1571 and CodeQL #1224 succeeded; terminal Lock release comment 6308184802.",
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "linear_issue": "HOS-73",
+    "stage_c_pr": 372,
+    "stage_c_head": "d2442ee35481018eec51b7c42bb7621007b0699c",
+    "stage_c_artifact": "1454764e94e88880df634519b14fdb222ae63dd4a4145c27acb762ee7b7c224d",
+    "stage_c_merge": "15f695a850c1bee124223c4c1dd4e1747cc856de",
+    "stage_c_lock_release_comment": 6308184802,
+    "frozen_surfaces": [
+      "AD-D-01",
+      "AD-D-02"
+    ],
+    "source_proven_operations": [
+      "GET /admin/pricing/base-prices",
+      "POST /admin/pricing/base-prices/preview",
+      "POST /admin/variants/{variant_id}/prices",
+      "GET /admin/pricing/rules",
+      "POST /admin/pricing/rules",
+      "GET /admin/pricing/rules/{id}",
+      "PATCH /admin/pricing/rules/{id}",
+      "POST /admin/pricing/rules/{id}/activate",
+      "POST /admin/pricing/rules/{id}/deactivate"
+    ],
+    "intentionally_unused_operation": "POST /admin/pricing/base-prices because the generated request contract has no variant_id; Admin uses the typed variant-specific create route instead of inventing out-of-contract body authority.",
+    "runtime_permissions": {
+      "read": "pricing.view",
+      "mutation": "pricing.manage"
+    },
+    "concurrency": "Pricing Rule PATCH requires If-Match; base-price create is append-only and has no If-Match contract.",
+    "step_up": "No Step-Up authority exists for Stage69-D source operations; Admin must not invent it.",
+    "retry": "No Stage69-D mutation is idempotency-key protected; uncertain mutation outcomes are fail-closed and never automatically replayed.",
+    "open_nonproject_prs": [
+      289,
+      290
+    ],
+    "graph_state": "RETIRED_AND_OUT_OF_SCOPE"
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "AD-D-01 reads source-proven base-price records and supports explicit variant_id history filtering without presenting collection size as global total.",
+      "verification": "base_price_read_history",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Base-price preview uses POST /admin/pricing/base-prices/preview only as informational profit-guard review; it grants no apply token or permission and retains input on blocked/unavailable results.",
+      "verification": "base_price_preview_boundary",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Base-price creation uses the typed POST /admin/variants/{variant_id}/prices route with nonnegative integer Toman, valid interval/reason input and no invented generic-body variant authority.",
+      "verification": "variant_specific_base_price_create",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "AD-D-02 implements list/detail/create/update/activate/deactivate using only canonical pricing-rule operations; no delete route or lifecycle is invented.",
+      "verification": "pricing_rule_lifecycle",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Pricing Rule PATCH sends exact If-Match from server version and treats 409/precondition drift as explicit conflict requiring authoritative reread; no silent overwrite.",
+      "verification": "pricing_rule_if_match_conflict",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Stage-D mutations use the existing Admin server auth bridge, do not expose cookies/credentials to browser authority, do not invent Step-Up/Idempotency-Key, and never automatically retry an uncertain mutation outcome.",
+      "verification": "secure_mutation_transport",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "Form parsing enforces bounded Persian text/numeric/date/scope inputs; global scope is exclusive, percentage values are capped at 100, interval ordering is validated client-side as convenience while Backend remains authoritative.",
+      "verification": "bounded_form_validation",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "Persian RTL screens expose explicit loading/empty/error/denied/conflict/invalid/unknown-outcome/success states, keyboard reachable controls, error summary focus and request-id recovery where available.",
+      "verification": "accessible_admin_states",
+      "mandatory": true
+    },
+    {
+      "id": "AC-009",
+      "description": "No bulk pricing, FX, Excel, Backend/OpenAPI/generated-contract/database/Storefront/Current-State/Product-Design/Inventory/Procurement/POS/production-FX-provider/Graph mutation is introduced.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-010",
+      "description": "Canonical closure requires exact-head Canonical CI, Phase A and CodeQL, deterministic Review, independent Security PASS, exact-artifact ACTIVE Lock, Project Owner Human Gate, protected merge, exact-SHA postmerge verification and terminal Lock release.",
+      "verification": "high_risk_canonical_gate_chain",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "SECURITY",
+      "LOCK",
+      "HUMAN"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Step 69-D is HIGH risk. Exact-artifact Project Owner Human Gate is mandatory after technical/security/review/Lock evidence. Step 69-E remains blocked until terminal 69-D canonical closure."
+  },
+  "process_improvement_links": [],
+  "incident_links": [],
+  "authorized_human_approver": {
+    "role": "PROJECT_OWNER",
+    "github_login": "rahemih"
+  },
+  "pre_mutation_gates": {
+    "graph_health": "RETIRED_AND_OUT_OF_SCOPE",
+    "query_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "path_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "explain_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "human_gate": "REQUIRED_FINAL_EXACT_ARTIFACT"
+  }
+}
