@@ -25,7 +25,7 @@ type ReadFailure=
   |({kind:"unavailable"}&Common);
 
 export type CurrencyRatesRead=
-  |({kind:"ready";rates:readonly CurrencyRateRecord[];current:CurrencyRateRecord|null;sourceCurrencyCode:string}&Common)
+  |({kind:"ready";rates:readonly CurrencyRateRecord[];current:CurrencyRateRecord|null;sourceCurrencyCode:string;loadedCount:number;filterMode:"local_canonical_response"}&Common)
   |ReadFailure;
 export type CurrencyRulesRead=
   |({kind:"ready";rules:readonly CurrencyRuleRecord[]}&Common)
@@ -64,14 +64,21 @@ export async function readCurrencyRates(
     bridge=createAdminAuthBridge(request);
     const code=normalizeCurrencyCode(sourceCurrencyCode);
     const [rates,current]=await Promise.all([
-      bridge.client.request("get","/admin/pricing/currency-rates",{query:{source_currency_code:code}}),
-      bridge.client.request("get","/admin/pricing/currency-rates/current",{query:{source_currency_code:code}}),
+      bridge.client.request("get","/admin/pricing/currency-rates",{}),
+      bridge.client.request("get","/admin/pricing/currency-rates/current",{}),
     ]);
+    const loaded=Object.freeze([...rates.data.data]);
+    const filtered=Object.freeze(loaded.filter((rate)=>rate.source_currency_code===code));
+    const defaultCurrent=current.data.data;
+    const selectedFromLoaded=filtered.find((rate)=>rate.is_selected)??null;
+    const effectiveCurrent=defaultCurrent?.source_currency_code===code?defaultCurrent:selectedFromLoaded;
     return{
       kind:"ready",
-      rates:Object.freeze([...rates.data.data]),
-      current:current.data.data?Object.freeze({...current.data.data}):null,
+      rates:filtered,
+      current:effectiveCurrent?Object.freeze({...effectiveCurrent}):null,
       sourceCurrencyCode:code,
+      loadedCount:loaded.length,
+      filterMode:"local_canonical_response",
       requestId:rates.requestId??current.requestId??rates.data.meta.request_id??current.data.meta.request_id,
       setCookies:bridge.takeSetCookies(),
     };
