@@ -132,6 +132,11 @@ export async function readBulkPricingStatus(
   }catch(error){return classifyFailure(error,bridge?.takeSetCookies()??[]);}
 }
 
+export function bulkPricingIdempotencyKey(previewId:string):string{
+  if(!UUID.test(previewId))throw new Error("BULK_PREVIEW_ID_INVALID");
+  return "pricing-bulk:"+previewId.toLowerCase();
+}
+
 export async function applyBulkPricing(
   request:Pick<Request,"headers">,
   stepUpToken:string,
