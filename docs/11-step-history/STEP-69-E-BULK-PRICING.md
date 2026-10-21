@@ -86,7 +86,7 @@ The Admin may read `GET /admin/pricing/bulk/{operation_id}` using the known prev
 4. the preview is unexpired;
 5. the stored affected count equals the reviewed count;
 6. the exact same Apply payload is retained;
-7. the exact same `Idempotency-Key` is reused;
+7. the exact same `Idempotency-Key` is deterministically re-derived server-side from `preview_id`; the browser cannot supply or replace the key;
 8. a fresh Step-Up is completed.
 
 No automatic replay is permitted.
