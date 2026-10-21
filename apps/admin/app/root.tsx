@@ -4,7 +4,8 @@ import "./styles/tokens.css";
 import "./styles/shell.css";
 import "./styles/foundation.css";
 import "./styles/states.css";
-import "./styles/auth.css";\nimport "./styles/pricing.css";
+import "./styles/auth.css";
+import "./styles/pricing.css";
 
 export const meta = () => [{ title: getAdminMessages().documentTitle }];
 
