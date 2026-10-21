@@ -1,0 +1,188 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP69-C-ADMIN-PRICING-FX-EXCEL-FOUNDATION-001",
+  "title": "Step 69-C shared Admin Pricing, FX & Excel read/state foundation",
+  "description": "Implement the MEDIUM-risk shared Admin foundation for the eight frozen Step69 Pricing/FX/Excel surfaces after 69-B canonical closure. Reuse the existing server auth bridge and canonical generated OpenAPI types for source-proven GET reads, provide explicit denied/unavailable/action-only boundaries where no read endpoint exists, and upgrade the existing secure destination handoff into a Persian RTL read/state foundation. No Pricing/FX/Excel mutation, Step-Up command, idempotent apply, Backend/OpenAPI/database/Product-Design/Storefront/Current-State mutation, Inventory/Procurement/POS work, or production FX-provider integration.",
+  "risk": "MEDIUM",
+  "risk_floor": "MEDIUM",
+  "owner": "FRONTEND_ENGINEERING",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "3f0cca89f309931ba4ea3877468c6290c8b2a97e"
+  },
+  "scope": {
+    "read": [
+      "apps/admin/**",
+      "src/generated/openapi.ts",
+      "contracts/http/openapi.yaml",
+      "docs/11-step-history/**",
+      "docs/13-product-design/step56-wireframes/D/AD-D-01/**",
+      "docs/13-product-design/step56-wireframes/D/AD-D-02/**",
+      "docs/13-product-design/step56-wireframes/D/AD-D-03/**",
+      "docs/13-product-design/step56-wireframes/D/AD-D-04/**",
+      "docs/13-product-design/step56-wireframes/D/AD-D-05/**",
+      "docs/13-product-design/step56-wireframes/D/AD-D-19/**",
+      "docs/13-product-design/step56-wireframes/D/AD-D-20/**",
+      "docs/13-product-design/step56-wireframes/D/AD-D-21/**",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "apps/admin/**",
+      "docs/11-step-history/STEP-69-C-ADMIN-PRICING-FX-EXCEL-FOUNDATION.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP69-C-ADMIN-PRICING-FX-EXCEL-FOUNDATION-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "contracts/**",
+      "database/**",
+      "src/**",
+      "test/**",
+      "scripts/**",
+      "apps/api/**",
+      "apps/worker/**",
+      "apps/scheduler/**",
+      "apps/storefront/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**",
+      "src/modules/inventory/**",
+      "src/modules/procurement/**",
+      "scripts/graphify/**",
+      "graphify-out/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP69-C-ADMIN-PRICING-FX-EXCEL-FOUNDATION-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 38000,
+    "soft_alert": 62000,
+    "hard_cap": 100000
+  },
+  "task_risk_rules": [
+    {
+      "id": "STEP69_C_ADMIN_PRICING_FX_EXCEL_FOUNDATION_MEDIUM",
+      "risk": "MEDIUM",
+      "paths": [
+        "apps/admin/**",
+        "docs/11-step-history/STEP-69-C-ADMIN-PRICING-FX-EXCEL-FOUNDATION.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP69-C-ADMIN-PRICING-FX-EXCEL-FOUNDATION-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "69-B",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "3f0cca89f309931ba4ea3877468c6290c8b2a97e",
+      "evidence": "PR #371 merged after exact-artifact Project Owner approval; exact-SHA Canonical CI #2065, Phase A #1564, CodeQL #1217 and Storefront Quality #1013 succeeded; terminal Lock release comment 6303877602.",
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "linear_issue": "HOS-73",
+    "stage_b_pr": 371,
+    "stage_b_approved_head": "2a4dd9b1a1807934877da19f1d5a9c55d719ddad",
+    "stage_b_artifact": "174de7885cc474ea6f30a8335cc8f39cc8ddc1d3a334e120f9bb4bb9853badd0",
+    "stage_b_merge": "3f0cca89f309931ba4ea3877468c6290c8b2a97e",
+    "stage_b_lock_release_comment": 6303877602,
+    "frozen_surfaces": [
+      "AD-D-01",
+      "AD-D-02",
+      "AD-D-03",
+      "AD-D-04",
+      "AD-D-05",
+      "AD-D-19",
+      "AD-D-20",
+      "AD-D-21"
+    ],
+    "source_proven_foundation_reads": [
+      "GET /admin/pricing/base-prices",
+      "GET /admin/pricing/rules",
+      "GET /admin/pricing/currency-rates",
+      "GET /admin/pricing/currency-rates/current",
+      "GET /admin/pricing/currency-rules",
+      "GET /admin/excel/exports/template"
+    ],
+    "explicit_no_collection_read_surfaces": [
+      "AD-D-03",
+      "AD-D-20",
+      "AD-D-21"
+    ],
+    "open_nonproject_prs": [
+      289,
+      290
+    ],
+    "graph_state": "RETIRED_AND_OUT_OF_SCOPE",
+    "pr_number": 372,
+    "pr_url": "https://github.com/rahemih/Eqcofe/pull/372"
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "All Step69-C Admin reads use the canonical generated contract and existing createAdminAuthBridge server transport; no browser credential authority, raw cookie forwarding or parallel API client is introduced.",
+      "verification": "typed_step69_server_read",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Stage 69-C performs only source-proven GET reads for base prices, pricing rules, FX rates/current, FX rules and Excel template. AD-D-03, AD-D-20 and AD-D-21 explicitly disclose that no collection/read foundation exists without the later stage operation context; no synthetic GET endpoint is invented.",
+      "verification": "read_authority_boundary",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Read failures are fail-closed into denied or unavailable states with request-id recovery where available; stale data is never substituted and safe retries remain inherited GET-only transport policy.",
+      "verification": "failure_state_boundary",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "The eight frozen Step69 destinations retain permission gating and render a Persian RTL, keyboard-accessible foundation through the existing destination route; no mutation control is exposed in Stage 69-C.",
+      "verification": "step69_destination_foundation",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "No POST/PUT/PATCH/DELETE request, Step-Up token, Idempotency-Key, If-Match write, automatic mutation retry or unknown-outcome replay is introduced by Stage 69-C.",
+      "verification": "read_only_static_audit",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Stage 69-C verification is wired into the Admin canonical verify chain and asserts task scope, exact base SHA, frozen surfaces, endpoint allowlist, auth-bridge reuse and mutation absence.",
+      "verification": "admin_step69_c_verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "No Backend/OpenAPI/generated-contract/database/Storefront/Current-State/Product-Design/Inventory/Procurement/POS/production-FX-provider mutation is introduced.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "Canonical closure requires exact-head Canonical CI, Phase A and CodeQL, deterministic Review and exact-artifact ACTIVE Lock, protected merge, exact-SHA postmerge verification and terminal Lock release. Human Gate is not required for MEDIUM-risk 69-C.",
+      "verification": "canonical_transport_and_postmerge_evidence",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Step 69-C is MEDIUM risk. No Human Gate is required. Stage 69-D remains blocked until 69-C terminal canonical closure."
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}
