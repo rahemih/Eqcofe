@@ -113,7 +113,7 @@ for(const endpoint of [
 ])assert.ok(server.includes(endpoint),"STEP69_E_ENDPOINT:"+endpoint);
 
 assert.ok(server.includes("createAdminAuthBridge(request,{stepUpToken})"),"STEP69_E_SERVER_STEPUP");
-assert.ok(server.includes('headers:{"Idempotency-Key":idempotencyKey}'),"STEP69_E_IDEMPOTENCY_HEADER");
+assert.ok(server.includes('headers:{"Idempotency-Key":idempotencyKey}'),"STEP69_E_IDEMPOTENCY_HEADER");\nassert.ok(server.includes('return "pricing-bulk:"+previewId.toLowerCase()'),"STEP69_E_SERVER_DERIVED_IDEMPOTENCY");
 assert.ok(server.includes('"PRICING_PREVIEW_EXPIRED"'),"STEP69_E_EXPIRED_MAPPING");
 assert.ok(server.includes('"AFFECTED_COUNT_CHANGED"'),"STEP69_E_COUNT_CONFLICT");
 assert.ok(server.includes('"PRICE_CHANGED_SINCE_PREVIEW"'),"STEP69_E_PRICE_CONFLICT");
@@ -132,15 +132,15 @@ assert.ok(route.includes('intent==="begin-retry"'),"STEP69_E_EXPLICIT_RETRY");
 assert.ok(route.includes('readBulkPricingStatus(request,context.preview_id)'),"STEP69_E_STATUS_BEFORE_RETRY");
 assert.ok(route.includes('runAdminWebAuthn("authentication"'),"STEP69_E_WEBAUTHN");
 assert.ok(route.includes("verifyAdminStepUp(request,credential)"),"STEP69_E_VERIFY_SERVER");
-assert.ok(route.includes("applyBulkPricing(request,stepped.token,context.idempotency_key"),"STEP69_E_APPLY_SERVER_ONLY_TOKEN");
+assert.ok(route.includes("applyBulkPricing(request,stepped.token,bulkPricingIdempotencyKey(context.preview_id)"),"STEP69_E_APPLY_SERVER_DERIVED_KEY");
 assert.ok(!route.includes('name="step_up_token"')&&!route.includes('form.set("step_up_token"'),"STEP69_E_NO_STEPUP_RENDER");
-assert.ok(route.includes("Idempotency-Key حفظ شده"),"STEP69_E_RECOVERY_COPY");
+assert.ok(route.includes("مرورگر authority ساخت یا تغییر key را ندارد"),"STEP69_E_IDEMPOTENCY_AUTHORITY_COPY");
 assert.ok(route.includes("replay خودکار"),"STEP69_E_NO_AUTO_REPLAY_COPY");
 assert.ok(route.includes("requester-binding"),"STEP69_E_NO_REQUESTER_BINDING_DISCLOSURE");
 assert.ok(route.includes("Profit Guard تازه"),"STEP69_E_NO_FRESH_GUARD_DISCLOSURE");
 assert.ok(route.includes("ActionReviewDialog"),"STEP69_E_ACTION_REVIEW");
 assert.ok(route.includes("affected_count>preview.data.items.length"),"STEP69_E_TRUNCATION_DISCLOSURE");
-assert.ok(!route.includes("localStorage")&&!route.includes("sessionStorage"),"STEP69_E_NO_CLIENT_PERSISTENCE");
+assert.ok(!route.includes('name="idempotency_key"')&&!route.includes('form.set("idempotency_key"'),"STEP69_E_NO_BROWSER_KEY_AUTHORITY");\nassert.ok(!route.includes("localStorage")&&!route.includes("sessionStorage"),"STEP69_E_NO_CLIENT_PERSISTENCE");
 assert.ok(!route.includes("dangerouslySetInnerHTML"),"STEP69_E_NO_DANGEROUS_HTML");
 
 const retryIndex=route.indexOf('if(intent==="begin-retry")');
