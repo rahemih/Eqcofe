@@ -1,0 +1,236 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP69-F-FX-ADMINISTRATION-001",
+  "title": "Step 69-F FX rate source rule impact preview and apply administration",
+  "description": "Implement HIGH-risk AD-D-04 and AD-D-05 Admin FX administration on top of canonical Step69-E: currency-rate read/current, manual register, provider refresh preview, reject/select, FX-linked rule list/detail/create/update/status, impact preview, and Step-Up + idempotent currency apply. Preserve source-proven authority only; do not claim production FX-provider readiness, requester binding, fresh apply-time Profit Guard, current-price recheck, generic FX operation status, Excel authority, Backend/OpenAPI/database changes, Step70 scope, or Graph/Graphify.",
+  "risk": "HIGH",
+  "risk_floor": "HIGH",
+  "owner": "FRONTEND_ENGINEERING",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "3f9e1157d28aa6d515e1591a5899fe5bc59a8274"
+  },
+  "scope": {
+    "read": [
+      "apps/admin/**",
+      "src/generated/openapi.ts",
+      "contracts/http/openapi.yaml",
+      "src/modules/pricing/presentation/pricing.controller.ts",
+      "src/modules/pricing/application/currency-pricing.service.ts",
+      "src/modules/pricing/application/currency-impact.service.ts",
+      "src/modules/pricing/application/currency-rule.service.ts",
+      "src/modules/pricing/infrastructure/pricing.repository.ts",
+      "src/modules/pricing/application/fx-currency-preview.service.ts",
+      "src/modules/integrations/**",
+      "docs/11-step-history/**",
+      "docs/13-product-design/step56-wireframes/D/AD-D-04/**",
+      "docs/13-product-design/step56-wireframes/D/AD-D-05/**",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "apps/admin/**",
+      "docs/11-step-history/STEP-69-F-FX-ADMINISTRATION.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP69-F-FX-ADMINISTRATION-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "contracts/**",
+      "database/**",
+      "src/**",
+      "test/**",
+      "scripts/**",
+      "apps/api/**",
+      "apps/worker/**",
+      "apps/scheduler/**",
+      "apps/storefront/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**",
+      "src/modules/inventory/**",
+      "src/modules/procurement/**",
+      "scripts/graphify/**",
+      "graphify-out/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP69-F-FX-ADMINISTRATION-001-01"
+  ],
+  "human_gate_required": true,
+  "token_budget": {
+    "expected_max": 52000,
+    "soft_alert": 80000,
+    "hard_cap": 125000
+  },
+  "task_risk_rules": [
+    {
+      "id": "STEP69_F_FX_ADMIN_HIGH",
+      "risk": "HIGH",
+      "paths": [
+        "apps/admin/**",
+        "docs/11-step-history/STEP-69-F-FX-ADMINISTRATION.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP69-F-FX-ADMINISTRATION-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "69-E",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "3f9e1157d28aa6d515e1591a5899fe5bc59a8274",
+      "evidence": "PR #374 exact artifact daacb225815022d629c7ca265668563c11d7921856bbc06bb4e4781257dafa80 merged after CI/Phase A/CodeQL/Review/Security/Lock/Human Gate; exact-SHA Canonical CI #2091, Phase A #1590 and CodeQL #1241 succeeded; terminal Lock release comment 6310990853.",
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "linear_issue": "HOS-73",
+    "stage_e_pr": 374,
+    "stage_e_head": "b4b0d115fdaa438a7bd191b65bcf03c059d4606f",
+    "stage_e_artifact": "daacb225815022d629c7ca265668563c11d7921856bbc06bb4e4781257dafa80",
+    "stage_e_merge": "3f9e1157d28aa6d515e1591a5899fe5bc59a8274",
+    "stage_e_lock_release_comment": 6310990853,
+    "surfaces": [
+      "AD-D-04",
+      "AD-D-05"
+    ],
+    "source_proven_operations": [
+      "GET /admin/pricing/currency-rates",
+      "GET /admin/pricing/currency-rates/current",
+      "POST /admin/pricing/currency-rates/refresh",
+      "POST /admin/pricing/currency-rates/{id}/select",
+      "POST /admin/pricing/currency-rates/{id}/reject",
+      "POST /admin/pricing/currency-rates/register",
+      "POST /admin/pricing/currency/impact-preview",
+      "POST /admin/pricing/currency/apply",
+      "GET /admin/pricing/currency-rules",
+      "POST /admin/pricing/currency-rules",
+      "GET /admin/pricing/currency-rules/{id}",
+      "PATCH /admin/pricing/currency-rules/{id}",
+      "POST /admin/pricing/currency-rules/{id}/activate",
+      "POST /admin/pricing/currency-rules/{id}/deactivate"
+    ],
+    "runtime_permissions": {
+      "read": "pricing.view",
+      "mutation": "pricing.currency.manage"
+    },
+    "concurrency": "Currency Rule PATCH requires exact If-Match; rate/rule lifecycle commands do not expose If-Match.",
+    "step_up": {
+      "rate_select": true,
+      "currency_apply": true,
+      "other_stage_f_mutations": false
+    },
+    "idempotency": {
+      "currency_apply": "pricing.currency.apply",
+      "rate_select": null,
+      "other_stage_f_mutations": null
+    },
+    "preview": {
+      "ttl_seconds": 600,
+      "visible_items_max": 200,
+      "scope_query_default_cap": 5001,
+      "scope_query_complete_population_proven": false
+    },
+    "apply": {
+      "expected_affected_count_optional_in_contract": true,
+      "stored_guard_rejection": true,
+      "current_price_recheck_proven": false,
+      "fresh_profit_guard_recheck_proven": false,
+      "requester_binding_proven": false,
+      "generic_status_read_proven": false
+    },
+    "provider_boundary": "Stage 69 administers existing provider/source abstraction. Production FX-provider integration and production-readiness claims remain Step 77.",
+    "unknown_outcome": "No automatic replay. Non-idempotent mutations require authoritative reread/manual review. Currency apply retains a deterministic server-derived idempotency key but, because Stage69-F has no source-proven generic operation-status authority, unknown outcome is surfaced for manual review rather than blind replay.",
+    "graph_state": "RETIRED_AND_OUT_OF_SCOPE"
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "AD-D-04 exposes only source-proven currency-rate read/current, provider refresh-preview, manual register, reject/select, impact-preview and apply operations.",
+      "verification": "fx_rate_operation_authority",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Provider refresh is a preview-producing command over the existing provider abstraction, validates bounded inputs, and explicitly discloses that production provider integration remains Step77.",
+      "verification": "fx_provider_boundary",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Rate select requires WebAuthn Step-Up but does not invent Idempotency-Key; uncertain select outcome is never automatically replayed.",
+      "verification": "fx_select_stepup",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Impact preview separates affected_count from at-most-200 visible items, preserves the ten-minute lifetime, and treats backend warnings/guards as authoritative.",
+      "verification": "fx_impact_preview",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Currency apply requires WebAuthn Step-Up, exact reviewed affected count and a server-derived scoped Idempotency-Key; unknown outcome fails closed without blind replay or invented status endpoint.",
+      "verification": "fx_apply_secure_transport",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "UI does not claim requester binding, apply-time current-price recheck, fresh universal Profit Guard, complete scope population, or production FX-provider readiness beyond source proof.",
+      "verification": "fx_no_invented_guarantees",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "AD-D-05 supports currency-rule list/detail/create/update/activate/deactivate only; PATCH sends exact If-Match and conflict requires reread.",
+      "verification": "currency_rule_lifecycle",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "All form input is bounded; Toman values are nonnegative integers, currency codes are three uppercase letters, scopes are explicit, and unsafe control characters are rejected.",
+      "verification": "fx_form_validation",
+      "mandatory": true
+    },
+    {
+      "id": "AC-009",
+      "description": "No Excel, Backend/OpenAPI/generated-contract/database/Storefront/Current-State/Product-Design/Inventory/Procurement/POS/production-provider/Graph mutation is introduced.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-010",
+      "description": "Canonical closure requires exact-head Canonical CI, Phase A and CodeQL, deterministic Review, independent Security PASS, exact-artifact ACTIVE Lock, Project Owner Human Gate, protected merge, exact-SHA postmerge verification and terminal Lock release.",
+      "verification": "high_risk_canonical_gate_chain",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "SECURITY",
+      "LOCK",
+      "HUMAN"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Step 69-F is HIGH risk. Exact-artifact Project Owner Human Gate is mandatory after technical/security/review/Lock evidence. Step 69-G remains blocked until terminal 69-F canonical closure."
+  },
+  "process_improvement_links": [],
+  "incident_links": [],
+  "authorized_human_approver": {
+    "role": "PROJECT_OWNER",
+    "github_login": "rahemih"
+  },
+  "pre_mutation_gates": {
+    "graph_health": "RETIRED_AND_OUT_OF_SCOPE",
+    "query_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "path_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "explain_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "human_gate": "REQUIRED_FINAL_EXACT_ARTIFACT"
+  }
+}
