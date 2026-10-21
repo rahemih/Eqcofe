@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, type MouseEvent } from "react";
 import { data, useFetcher } from "react-router";
 import {
   applyBulkPricing,
+  bulkPricingIdempotencyKey,
   previewBulkPricing,
   readBulkPricingStatus,
   validateBulkApplyInput,
@@ -21,7 +22,6 @@ type BulkContext={
   affected_count:number;
   expires_at:string;
   reason:string;
-  idempotency_key:string;
 };
 type ActionData=
   | {kind:"preview";preview:BulkPreviewData;reason:string;requestId:string|null}
@@ -33,7 +33,6 @@ type ActionData=
   | {kind:"failure";message:string;requestId:string|null;issues?:readonly {field:string;message:string}[]};
 
 const UUID=/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
-const IDEMPOTENCY=/^[A-Za-z0-9._:-]{8,200}$/;
 const REASON_MAX=500;
 const SCOPE_IDS_MAX_TEXT=40000;
 
@@ -67,7 +66,7 @@ export async function action({request}:{request:Request}){
   }
 
   if(intent==="begin-apply"){
-    const context=parseContext(form,false);
+    const context=parseContext(form);
     if(!context)return data<ActionData>({kind:"failure",message:"زمینه پیش‌نمایش معتبر نیست؛ پیش‌نمایش تازه بگیرید.",requestId:null},{status:400});
     if(Date.parse(context.expires_at)<=Date.now()){
       return data<ActionData>({kind:"expired",message:"پیش‌نمایش منقضی شده است؛ پیش‌نمایش تازه بگیرید و اثر را دوباره بازبینی کنید.",requestId:null},{status:409});
@@ -76,7 +75,7 @@ export async function action({request}:{request:Request}){
     if(!challenge.ok)return stepUpStartFailure(challenge);
     return data<ActionData>({
       kind:"step-up-challenge",
-      context:{...context,idempotency_key:createIdempotencyKey()},
+      context,
       challengeId:challenge.challengeId,
       options:challenge.options,
       recovery:false,
@@ -84,13 +83,13 @@ export async function action({request}:{request:Request}){
   }
 
   if(intent==="status-check"){
-    const context=parseContext(form,true);
+    const context=parseContext(form);
     if(!context)return data<ActionData>({kind:"failure",message:"اطلاعات بازیابی نتیجه معتبر نیست.",requestId:null},{status:400});
     return statusResponse(request,context);
   }
 
   if(intent==="begin-retry"){
-    const context=parseContext(form,true);
+    const context=parseContext(form);
     if(!context)return data<ActionData>({kind:"failure",message:"اطلاعات بازیابی نتیجه معتبر نیست.",requestId:null},{status:400});
     const status=await readBulkPricingStatus(request,context.preview_id);
     const headers=cookieHeaders(status.setCookies);
@@ -122,7 +121,7 @@ export async function action({request}:{request:Request}){
   }
 
   if(intent==="verify-step-up"){
-    const context=parseContext(form,true);
+    const context=parseContext(form);
     const credential=parseCredential(form.get("credential"));
     if(!context||!credential){
       return data<ActionData>({kind:"failure",message:"پاسخ احراز مجدد یا زمینه Apply معتبر نیست.",requestId:null},{status:400});
@@ -140,7 +139,7 @@ export async function action({request}:{request:Request}){
       expectedAffectedCount:context.affected_count,
     });
     if(!valid.ok)return invalidResponse("زمینه Apply معتبر نیست.",valid.fieldErrors);
-    const result=await applyBulkPricing(request,stepped.token,context.idempotency_key,valid.body);
+    const result=await applyBulkPricing(request,stepped.token,bulkPricingIdempotencyKey(context.preview_id),valid.body);
     const headers=cookieHeaders(result.setCookies);
     if(result.kind==="confirmed"){
       return data<ActionData>({kind:"success",result:result.result,requestId:result.requestId},{headers});
@@ -254,7 +253,6 @@ export default function PricingBulkRoute(){
       affected_count:preview.data.affected_count,
       expires_at:preview.data.expires_at,
       reason:preview.reason,
-      idempotency_key:"",
     },"begin-apply"),{method:"post"});
   };
   const response=fetcher.data;
@@ -282,7 +280,7 @@ export default function PricingBulkRoute(){
         {unknown?<div className="pricing-error-summary" role="alert">
           <h2>نتیجه Apply نامشخص است</h2>
           <p>{unknown.message}</p>
-          <p>همان Idempotency-Key حفظ شده است؛ پیش از هر replay باید وضعیت authoritative خوانده شود.</p>
+          <p>Idempotency-Key از preview_id در سرور به‌صورت deterministic مشتق می‌شود؛ مرورگر authority ساخت یا تغییر key را ندارد. پیش از هر replay باید وضعیت authoritative خوانده شود.</p>
           {unknown.requestId?<p>شناسه پیگیری: <bdi>{unknown.requestId}</bdi></p>:null}
           <fetcher.Form method="post">
             {contextInputs(unknown.context)}
@@ -436,7 +434,7 @@ async function statusResponse(request:Request,context:BulkContext){
     &&Date.parse(operation.expires_at)>Date.now()
     &&operation.affected_count===context.affected_count;
   const message=canRetry
-    ?"عملیات هنوز previewed و معتبر است. در صورت نیاز می‌توانید فقط همان payload را با همان Idempotency-Key و پس از Step-Up تازه replay کنید."
+    ?"عملیات هنوز previewed و معتبر است. در صورت نیاز می‌توانید فقط همان payload را با همان Idempotency-Key مشتق‌شده در سرور و پس از Step-Up تازه replay کنید."
     :operation.status==="running"
       ?"Backend عملیات را در وضعیت running گزارش می‌کند؛ replay انجام ندهید و وضعیت را دوباره بخوانید."
       :"عملیات دیگر در وضعیت امن برای replay نیست. درخواست تازه نسازید مگر با پیش‌نمایش تازه.";
@@ -450,7 +448,6 @@ function contextForm(context:BulkContext,intent:string):FormData{
   form.set("affected_count",String(context.affected_count));
   form.set("expires_at",context.expires_at);
   form.set("reason",context.reason);
-  if(context.idempotency_key)form.set("idempotency_key",context.idempotency_key);
   return form;
 }
 function contextInputs(context:BulkContext){
@@ -459,21 +456,17 @@ function contextInputs(context:BulkContext){
     <input type="hidden" name="affected_count" value={context.affected_count}/>
     <input type="hidden" name="expires_at" value={context.expires_at}/>
     <input type="hidden" name="reason" value={context.reason}/>
-    <input type="hidden" name="idempotency_key" value={context.idempotency_key}/>
   </>;
 }
-function parseContext(form:FormData,requireKey:boolean):BulkContext|null{
+function parseContext(form:FormData):BulkContext|null{
   const previewId=String(form.get("preview_id")??"").trim();
   const affectedCount=Number(form.get("affected_count"));
   const expiresAt=String(form.get("expires_at")??"").trim();
   const reason=String(form.get("reason")??"").trim();
-  const key=String(form.get("idempotency_key")??"").trim();
   if(!UUID.test(previewId)||!Number.isSafeInteger(affectedCount)||affectedCount<0)return null;
   if(!expiresAt||!Number.isFinite(Date.parse(expiresAt)))return null;
   if(!reason||reason.length>REASON_MAX||hasControlCharacters(reason))return null;
-  if(requireKey&&!IDEMPOTENCY.test(key))return null;
-  if(!requireKey&&key)return null;
-  return{preview_id:previewId,affected_count:affectedCount,expires_at:expiresAt,reason,idempotency_key:key};
+  return{preview_id:previewId,affected_count:affectedCount,expires_at:expiresAt,reason};
 }
 function parseScopeIds(value:FormDataEntryValue|null):readonly string[]|null{
   if(value===null||value==="")return[];
@@ -488,7 +481,6 @@ function parseCredential(value:FormDataEntryValue|null){
     return parsed as {challenge_id:string;credential_id:string;client_data_json:string;authenticator_data:string;signature:string;user_handle?:string|null};
   }catch{return null;}
 }
-function createIdempotencyKey():string{return "pricing-bulk-"+globalThis.crypto.randomUUID();}
 function invalidResponse(message:string,errors:readonly {field:string;message:string}[]){
   return data<ActionData>({kind:"failure",message,requestId:null,issues:errors.map(x=>({field:x.field,message:x.message}))},{status:400});
 }
