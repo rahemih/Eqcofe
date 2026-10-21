@@ -196,8 +196,16 @@ export function pricingRuleScopes(
   field: string,
   issues: PricingFormIssue[],
 ): readonly PricingRuleScopeInput[] {
-  const raw = pricingText(form, field, { required: true, max: 9000 }, issues);
-  if (!raw) return [];
+  const rawValue = form.get(field);
+  if (typeof rawValue !== "string") {
+    issues.push({ field, message: "حداقل یک دامنه الزامی است." });
+    return [];
+  }
+  const raw = rawValue.trim();
+  if (!raw || raw.length > 9000 || hasUnsafeMultilineControlCharacters(raw)) {
+    issues.push({ field, message: "متن دامنه‌ها معتبر نیست." });
+    return [];
+  }
   const lines = raw.split(/\r?\n|,/).map((line) => line.trim()).filter(Boolean);
   if (!lines.length || lines.length > 100) {
     issues.push({ field, message: "حداقل یک دامنه و حداکثر ۱۰۰ دامنه مجاز است." });
@@ -228,6 +236,15 @@ export function pricingRuleScopes(
     issues.push({ field, message: "دامنه global باید تنها دامنهٔ قانون باشد." });
   }
   return Object.freeze(scopes);
+}
+
+function hasUnsafeMultilineControlCharacters(value: string): boolean {
+  for (const character of value) {
+    if (character === "\n" || character === "\r") continue;
+    const code = character.charCodeAt(0);
+    if (code <= 0x1f || code === 0x7f) return true;
+  }
+  return false;
 }
 
 export function hasControlCharacters(value: string): boolean {
