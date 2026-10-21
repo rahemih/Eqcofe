@@ -21,6 +21,14 @@ Step 69-D is terminally canonical:
 
 Therefore 69-E is authorized to mutate its frozen Admin/docs scope.
 
+## Live PR checkpoint
+
+- PR: `#374 — Step 69-E — Bulk pricing administration`.
+- Initial implementation Head before this checkpoint: `2bfc8e461ffaa480e115bb0b4ecc35409ae3d50f`.
+- The first CI/Phase A event was created before the required `Task Contract:` PR-body metadata existed and failed only at `PR_TASK_CONTRACT_REFERENCE_REQUIRED` before Admin implementation verification.
+- PR metadata is now bound to `docs/14-multi-agent/tasks/EQCOFE-STEP69-E-BULK-PRICING-001.json`; this checkpoint intentionally creates a fresh synchronize event so subsequent provider evidence uses the corrected PR declaration.
+- Evidence from the pre-checkpoint Head/event is diagnostic history only and cannot satisfy final gates.
+
 ## Source authority
 
 69-E owns exactly the source-proven AD-D-03 operations:
