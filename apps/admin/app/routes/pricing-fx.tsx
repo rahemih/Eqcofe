@@ -33,6 +33,7 @@ type LoaderData={
   rates:readonly CurrencyRateRecord[];
   current:CurrencyRateRecord|null;
   sourceCurrencyCode:string;
+  loadedCount:number;
   requestId:string|null;
 };
 type ApplyContext={operation:"apply";preview_id:string;affected_count:number;expires_at:string;reason:string};
@@ -57,13 +58,14 @@ export async function loader({request}:{request:Request}){
   const result=await readCurrencyRates(request,code);
   const headers=cookieHeaders(result.setCookies);
   if(result.kind==="ready"){
-    return data<LoaderData>({state:"ready",rates:result.rates,current:result.current,sourceCurrencyCode:result.sourceCurrencyCode,requestId:result.requestId},{headers});
+    return data<LoaderData>({state:"ready",rates:result.rates,current:result.current,sourceCurrencyCode:result.sourceCurrencyCode,loadedCount:result.loadedCount,requestId:result.requestId},{headers});
   }
   return data<LoaderData>({
     state:result.kind==="denied"?"denied":"unavailable",
     rates:[],
     current:null,
     sourceCurrencyCode:code,
+    loadedCount:0,
     requestId:result.requestId,
   },{status:result.kind==="denied"?403:503,headers});
 }
@@ -318,7 +320,7 @@ export default function PricingFxRoute(){
 
     <section className="pricing-card" aria-labelledby="rates-title">
       <div className="pricing-section-heading">
-        <div><h2 id="rates-title">نرخ‌های ثبت‌شده</h2><p>خواندن با permission مرجع <bdi>pricing.view</bdi> انجام می‌شود.</p></div>
+        <div><h2 id="rates-title">نرخ‌های ثبت‌شده</h2><p>خواندن با permission مرجع <bdi>pricing.view</bdi> انجام می‌شود. چون OpenAPI این GET را بدون query تایپ کرده، فیلتر ارز فقط روی پاسخ canonical بارگذاری‌شده اعمال می‌شود و تعداد نمایش‌داده‌شده total سراسری نیست.</p></div>
         <Form method="get" className="pricing-filter">
           <label><span>کد ارز</span><input name="currency" defaultValue={loaderData.sourceCurrencyCode} maxLength={3} pattern="[A-Za-z]{3}"/></label>
           <button type="submit">بازخوانی</button>
@@ -335,6 +337,7 @@ export default function PricingFxRoute(){
           <div><dt>وضعیت</dt><dd><bdi>{loaderData.current.status}</bdi></dd></div>
         </dl>
       </div>:null}
+      {loaderData.state==="ready"?<p className="pricing-inline-warning">از {formatNumber(loaderData.loadedCount)} رکورد بارگذاری‌شده، {formatNumber(loaderData.rates.length)} رکورد برای <bdi>{loaderData.sourceCurrencyCode}</bdi> به‌صورت محلی نمایش داده می‌شود.</p>:null}
       {loaderData.state==="ready"&&!loaderData.rates.length?<p>نرخی در پاسخ مرجع وجود ندارد.</p>:null}
       {loaderData.state==="ready"&&loaderData.rates.length?<ul className="pricing-record-list">
         {loaderData.rates.map(rate=><li key={rate.id}>
