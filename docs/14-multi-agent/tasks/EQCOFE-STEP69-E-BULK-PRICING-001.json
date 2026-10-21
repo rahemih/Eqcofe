@@ -100,8 +100,19 @@
       "preview_apply": "pricing.bulk.manage"
     },
     "preview": {
-      "scope_types": ["all", "category", "brand", "product"],
-      "change_types": ["set_price", "increase_percent", "decrease_percent", "increase_fixed", "decrease_fixed"],
+      "scope_types": [
+        "all",
+        "category",
+        "brand",
+        "product"
+      ],
+      "change_types": [
+        "set_price",
+        "increase_percent",
+        "decrease_percent",
+        "increase_fixed",
+        "decrease_fixed"
+      ],
       "max_affected_variants": 5000,
       "visible_items_max": 200,
       "ttl_seconds": 600
@@ -115,8 +126,11 @@
       "fresh_profit_guard_recheck_proven": false,
       "requester_binding_proven": false
     },
-    "recovery": "Unknown apply outcome must first use GET operation status. Replay is never automatic and is allowed only explicitly with the same Idempotency-Key and unchanged payload after authoritative status confirms the operation is still previewed and unexpired.",
-    "open_nonproject_prs": [289, 290],
+    "recovery": "Unknown apply outcome must first use GET operation status. The Idempotency-Key is deterministically derived server-side from preview_id, is never browser authority, and explicit replay is allowed only with the unchanged apply payload after authoritative status confirms the operation is still previewed and unexpired.",
+    "open_nonproject_prs": [
+      289,
+      290
+    ],
     "graph_state": "RETIRED_AND_OUT_OF_SCOPE"
   },
   "acceptance_criteria": [
@@ -140,7 +154,7 @@
     },
     {
       "id": "AC-004",
-      "description": "Unknown apply outcomes are never automatically replayed. Recovery reads authoritative operation status and only offers explicit same-key/same-payload replay when status remains previewed and unexpired.",
+      "description": "Unknown apply outcomes are never automatically replayed. Recovery reads authoritative operation status and only offers explicit replay when status remains previewed and unexpired; the same Idempotency-Key is deterministically re-derived server-side from preview_id and cannot be replaced by browser input.",
       "verification": "bulk_idempotent_recovery",
       "mandatory": true
     },
@@ -177,7 +191,12 @@
   ],
   "external_gate_evidence": {
     "protocol": "EQCOFE_GATE_V1",
-    "artifact_bound_gates": ["REVIEW", "SECURITY", "LOCK", "HUMAN"],
+    "artifact_bound_gates": [
+      "REVIEW",
+      "SECURITY",
+      "LOCK",
+      "HUMAN"
+    ],
     "trusted_github_transport_login": "rahemih",
     "rule": "Step 69-E is HIGH risk. Exact-artifact Project Owner Human Gate is mandatory after technical/security/review/Lock evidence. Step 69-F remains blocked until terminal 69-E canonical closure."
   },
