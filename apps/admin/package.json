@@ -12,7 +12,7 @@
     "start": "react-router-serve ./build/server/index.js",
     "typecheck": "react-router typegen && tsc --noEmit",
     "static-quality": "eslint app vite.config.ts react-router.config.ts",
-    "verify": "pnpm typecheck && pnpm static-quality && pnpm build && pnpm foundation:verify && pnpm transport:verify && pnpm shell:verify && pnpm auth-session:verify && pnpm permission-shell:verify && pnpm stepup-credentials:verify && pnpm dashboard-states:verify && pnpm catalog-read:verify && pnpm catalog-lifecycle:verify && pnpm catalog-structure:verify && pnpm catalog-media:verify && pnpm catalog-sales-control:verify && pnpm acceptance:verify && pnpm step68:acceptance && pnpm step69-foundation:verify",
+    "verify": "pnpm typecheck && pnpm static-quality && pnpm build && pnpm foundation:verify && pnpm transport:verify && pnpm shell:verify && pnpm auth-session:verify && pnpm permission-shell:verify && pnpm stepup-credentials:verify && pnpm dashboard-states:verify && pnpm catalog-read:verify && pnpm catalog-lifecycle:verify && pnpm catalog-structure:verify && pnpm catalog-media:verify && pnpm catalog-sales-control:verify && pnpm acceptance:verify && pnpm step68:acceptance && pnpm step69-foundation:verify && pnpm step69-pricing-admin:verify",
     "foundation:verify": "pnpm --dir ../.. exec tsx apps/admin/scripts/verify-step67-foundation.ts",
     "transport:verify": "pnpm --dir ../.. exec tsx apps/admin/scripts/verify-step67-transport.ts",
     "shell:verify": "node ./scripts/verify-step67-shell.mjs",
@@ -27,7 +27,8 @@
     "catalog-media:verify": "pnpm --dir ../.. exec tsx apps/admin/scripts/verify-step68-f-media.ts",
     "catalog-sales-control:verify": "pnpm --dir ../.. exec tsx apps/admin/scripts/verify-step68-g-sales-control.ts",
     "step68:acceptance": "node ./scripts/verify-step68-h-acceptance.mjs",
-    "step69-foundation:verify": "pnpm --dir ../.. exec tsx apps/admin/scripts/verify-step69-c-pricing-foundation.ts"
+    "step69-foundation:verify": "pnpm --dir ../.. exec tsx apps/admin/scripts/verify-step69-c-pricing-foundation.ts",
+    "step69-pricing-admin:verify": "pnpm --dir ../.. exec tsx apps/admin/scripts/verify-step69-d-pricing-admin.ts"
   },
   "dependencies": {
     "@react-router/node": "8.4.0",
