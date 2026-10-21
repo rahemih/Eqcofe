@@ -241,3 +241,101 @@
     inline-size: 100%;
   }
 }
+
+
+/* Step 69-E — Bulk Pricing */
+.pricing-bulk-outcome,
+.pricing-bulk-status {
+  margin-block-start: var(--eq-spacing-4);
+}
+.pricing-bulk-status {
+  border: var(--eq-border-hairline) solid var(--eq-color-border-default);
+  border-radius: var(--eq-radius-lg);
+  padding-block: var(--eq-spacing-4);
+  padding-inline: var(--eq-spacing-4);
+  background: var(--eq-color-bg-subtle);
+}
+.pricing-bulk-status h2 {
+  margin-block-start: 0;
+}
+.pricing-bulk-preview dl,
+.pricing-bulk-review {
+  display: grid;
+  gap: var(--eq-spacing-2);
+  margin: 0;
+}
+.pricing-bulk-preview dl > div,
+.pricing-bulk-review > div {
+  display: grid;
+  grid-template-columns: minmax(8rem, 0.45fr) minmax(0, 1fr);
+  gap: var(--eq-spacing-3);
+}
+.pricing-bulk-preview dd,
+.pricing-bulk-review dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+.pricing-bulk-preview dt,
+.pricing-bulk-review dt {
+  color: var(--eq-color-text-muted);
+}
+.pricing-bulk-table-wrap {
+  max-inline-size: 100%;
+  margin-block-start: var(--eq-spacing-4);
+  overflow-x: auto;
+  border: var(--eq-border-hairline) solid var(--eq-color-border-default);
+  border-radius: var(--eq-radius-lg);
+}
+.pricing-bulk-table-wrap:focus-visible {
+  outline: none;
+  box-shadow: var(--eq-effect-focus-ring);
+}
+.pricing-bulk-table {
+  inline-size: 100%;
+  min-inline-size: 44rem;
+  border-collapse: collapse;
+}
+.pricing-bulk-table th,
+.pricing-bulk-table td {
+  padding-block: var(--eq-spacing-3);
+  padding-inline: var(--eq-spacing-3);
+  border-block-end: var(--eq-border-hairline) solid var(--eq-color-border-default);
+  text-align: start;
+  vertical-align: top;
+}
+.pricing-bulk-table th {
+  color: var(--eq-color-text-secondary);
+  background: var(--eq-color-bg-subtle);
+}
+.pricing-bulk-table tbody tr:last-child td {
+  border-block-end: 0;
+}
+.pricing-bulk-outcome form button,
+.pricing-bulk-status form button {
+  min-block-size: var(--eq-size-touch-min);
+  border: 0;
+  border-radius: var(--eq-radius-md);
+  padding-inline: var(--eq-spacing-4);
+  background: var(--eq-color-action-primary);
+  color: var(--eq-color-text-inverse);
+  font: inherit;
+  font-weight: var(--eq-type-label-medium-font-weight);
+  cursor: pointer;
+}
+.pricing-bulk-outcome form button:focus-visible,
+.pricing-bulk-status form button:focus-visible {
+  outline: none;
+  box-shadow: var(--eq-effect-focus-ring);
+}
+.pricing-bulk-outcome form button[disabled],
+.pricing-bulk-status form button[disabled] {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+@media (max-width: 599px) {
+  .pricing-bulk-preview dl > div,
+  .pricing-bulk-review > div {
+    grid-template-columns: 1fr;
+    gap: var(--eq-spacing-1);
+  }
+}
