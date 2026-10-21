@@ -113,7 +113,8 @@ for(const endpoint of [
 ])assert.ok(server.includes(endpoint),"STEP69_E_ENDPOINT:"+endpoint);
 
 assert.ok(server.includes("createAdminAuthBridge(request,{stepUpToken})"),"STEP69_E_SERVER_STEPUP");
-assert.ok(server.includes('headers:{"Idempotency-Key":idempotencyKey}'),"STEP69_E_IDEMPOTENCY_HEADER");\nassert.ok(server.includes('return "pricing-bulk:"+previewId.toLowerCase()'),"STEP69_E_SERVER_DERIVED_IDEMPOTENCY");
+assert.ok(server.includes('headers:{"Idempotency-Key":idempotencyKey}'),"STEP69_E_IDEMPOTENCY_HEADER");
+assert.ok(server.includes('return "pricing-bulk:"+previewId.toLowerCase()'),"STEP69_E_SERVER_DERIVED_IDEMPOTENCY");
 assert.ok(server.includes('"PRICING_PREVIEW_EXPIRED"'),"STEP69_E_EXPIRED_MAPPING");
 assert.ok(server.includes('"AFFECTED_COUNT_CHANGED"'),"STEP69_E_COUNT_CONFLICT");
 assert.ok(server.includes('"PRICE_CHANGED_SINCE_PREVIEW"'),"STEP69_E_PRICE_CONFLICT");
@@ -140,7 +141,8 @@ assert.ok(route.includes("requester-binding"),"STEP69_E_NO_REQUESTER_BINDING_DIS
 assert.ok(route.includes("Profit Guard تازه"),"STEP69_E_NO_FRESH_GUARD_DISCLOSURE");
 assert.ok(route.includes("ActionReviewDialog"),"STEP69_E_ACTION_REVIEW");
 assert.ok(route.includes("affected_count>preview.data.items.length"),"STEP69_E_TRUNCATION_DISCLOSURE");
-assert.ok(!route.includes('name="idempotency_key"')&&!route.includes('form.set("idempotency_key"'),"STEP69_E_NO_BROWSER_KEY_AUTHORITY");\nassert.ok(!route.includes("localStorage")&&!route.includes("sessionStorage"),"STEP69_E_NO_CLIENT_PERSISTENCE");
+assert.ok(!route.includes('name="idempotency_key"')&&!route.includes('form.set("idempotency_key"'),"STEP69_E_NO_BROWSER_KEY_AUTHORITY");
+assert.ok(!route.includes("localStorage")&&!route.includes("sessionStorage"),"STEP69_E_NO_CLIENT_PERSISTENCE");
 assert.ok(!route.includes("dangerouslySetInnerHTML"),"STEP69_E_NO_DANGEROUS_HTML");
 
 const retryIndex=route.indexOf('if(intent==="begin-retry")');
