@@ -94,6 +94,10 @@ for(const endpoint of [
 ])assert.ok(server.includes(endpoint),"STEP69_F_ENDPOINT:"+endpoint);
 
 assert.ok(server.includes('createAdminAuthBridge(request,{stepUpToken})'),"STEP69_F_SERVER_STEPUP");
+assert.ok(server.includes('client.request("get","/admin/pricing/currency-rates",{})'),"STEP69_F_TYPED_RATE_READ");
+assert.ok(server.includes('client.request("get","/admin/pricing/currency-rates/current",{})'),"STEP69_F_TYPED_CURRENT_READ");
+assert.ok(!server.includes('/admin/pricing/currency-rates",{query:'),"STEP69_F_NO_UNTYPED_RATE_QUERY");
+assert.ok(fxRoute.includes("فیلتر ارز فقط روی پاسخ canonical بارگذاری‌شده اعمال می‌شود"),"STEP69_F_LOCAL_FILTER_DISCLOSURE");
 assert.ok(server.includes('headers:{"Idempotency-Key":idempotencyKey}'),"STEP69_F_APPLY_IDEMPOTENCY_HEADER");
 assert.ok(server.includes('return "pricing-currency:"+previewId.toLowerCase()'),"STEP69_F_SERVER_DERIVED_KEY");
 assert.ok(server.includes('headers:{"If-Match":formatCurrencyIfMatch(version)}'),"STEP69_F_IF_MATCH_WIRED");
