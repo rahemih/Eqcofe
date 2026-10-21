@@ -238,10 +238,17 @@ export default function PricingFxRoute(){
   const [reviewOpen,setReviewOpen]=useState(false);
   const [applyReason,setApplyReason]=useState("");
   const [clientError,setClientError]=useState<string|null>(null);
+  const [now,setNow]=useState(()=>Date.now());
   const handledChallenge=useRef<string|null>(null);
   const launcherRef=useRef<HTMLButtonElement|null>(null);
   const outcomeRef=useRef<HTMLDivElement|null>(null);
   const busy=fetcher.state!=="idle";
+
+  useEffect(()=>{
+    if(!preview)return;
+    const timer=window.setInterval(()=>setNow(Date.now()),1000);
+    return()=>window.clearInterval(timer);
+  },[preview]);
 
   useEffect(()=>{
     const payload=fetcher.data;
@@ -283,7 +290,7 @@ export default function PricingFxRoute(){
 
   const response=fetcher.data;
   const blocked=preview?preview.data.items.some(item=>item.guardStatus==="blocked"||item.guardStatus==="unavailable"):false;
-  const expired=preview?Date.parse(preview.data.expires_at)<=Date.now():false;
+  const expired=preview?Date.parse(preview.data.expires_at)<=now:false;
   const openApplyReview=()=>{
     if(!preview||!applyReason.trim()){
       setClientError("برای Apply دلیل عملیاتی را وارد کنید.");
@@ -478,7 +485,7 @@ function parseStepUpContext(value:FormDataEntryValue|null):StepUpContext|null{
     if(x.operation==="apply"&&typeof x.preview_id==="string"&&UUID.test(x.preview_id)&&Number.isSafeInteger(x.affected_count)&&Number(x.affected_count)>=0&&typeof x.expires_at==="string"&&Number.isFinite(Date.parse(x.expires_at))&&typeof x.reason==="string"&&x.reason.length>0&&x.reason.length<=500){
       return{operation:"apply",preview_id:x.preview_id,affected_count:Number(x.affected_count),expires_at:x.expires_at,reason:x.reason};
     }
-  }catch{}
+  }catch{return null;}
   return null;
 }
 function parseCredential(value:FormDataEntryValue|null){
