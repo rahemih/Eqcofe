@@ -1,0 +1,197 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP69-E-BULK-PRICING-001",
+  "title": "Step 69-E Bulk pricing scope preview status review and apply administration",
+  "description": "Implement the HIGH-risk AD-D-03 Admin bulk-pricing workflow on top of canonical Step69-D: source-proven scope/change preview, bounded affected-item review, authoritative operation status read, explicit Action Review + WebAuthn Step-Up, scoped Idempotency-Key apply, and fail-closed recovery that only permits explicit same-key/same-payload replay after status check. Do not invent requester binding, fresh guard guarantees, generic operation lists, FX/Excel authority, Backend/OpenAPI/database changes, Step70 scope, production FX provider work, or Graph/Graphify.",
+  "risk": "HIGH",
+  "risk_floor": "HIGH",
+  "owner": "FRONTEND_ENGINEERING",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "8621831d688e55e0150c6928944d3dff2b385e11"
+  },
+  "scope": {
+    "read": [
+      "apps/admin/**",
+      "src/generated/openapi.ts",
+      "contracts/http/openapi.yaml",
+      "src/modules/pricing/presentation/pricing.controller.ts",
+      "src/modules/pricing/application/bulk-pricing.service.ts",
+      "src/modules/pricing/application/pricing-query.service.ts",
+      "docs/11-step-history/**",
+      "docs/13-product-design/step56-wireframes/D/AD-D-03/**",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "apps/admin/**",
+      "docs/11-step-history/STEP-69-E-BULK-PRICING.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP69-E-BULK-PRICING-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "contracts/**",
+      "database/**",
+      "src/**",
+      "test/**",
+      "scripts/**",
+      "apps/api/**",
+      "apps/worker/**",
+      "apps/scheduler/**",
+      "apps/storefront/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**",
+      "src/modules/inventory/**",
+      "src/modules/procurement/**",
+      "scripts/graphify/**",
+      "graphify-out/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP69-E-BULK-PRICING-001-01"
+  ],
+  "human_gate_required": true,
+  "token_budget": {
+    "expected_max": 48000,
+    "soft_alert": 76000,
+    "hard_cap": 122000
+  },
+  "task_risk_rules": [
+    {
+      "id": "STEP69_E_BULK_PRICING_HIGH",
+      "risk": "HIGH",
+      "paths": [
+        "apps/admin/**",
+        "docs/11-step-history/STEP-69-E-BULK-PRICING.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP69-E-BULK-PRICING-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "69-D",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "8621831d688e55e0150c6928944d3dff2b385e11",
+      "evidence": "PR #373 exact artifact 1d65c625d84fb63862706806c0d9d8f407b50b8197278fae150673ed2b1c3da5 merged after exact-head CI/Phase A/CodeQL/Review/Security/Lock/Human Gate; exact-SHA Canonical CI #2081, Phase A #1580 and CodeQL #1232 succeeded; terminal Lock release comment 6309500326.",
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "linear_issue": "HOS-73",
+    "stage_d_pr": 373,
+    "stage_d_head": "18aa62e67eabcd67e402e6ec744989ec4ef40267",
+    "stage_d_artifact": "1d65c625d84fb63862706806c0d9d8f407b50b8197278fae150673ed2b1c3da5",
+    "stage_d_merge": "8621831d688e55e0150c6928944d3dff2b385e11",
+    "stage_d_lock_release_comment": 6309500326,
+    "surface": "AD-D-03",
+    "source_proven_operations": [
+      "GET /admin/pricing/bulk/{operation_id}",
+      "POST /admin/pricing/bulk/preview",
+      "POST /admin/pricing/bulk/apply"
+    ],
+    "runtime_permissions": {
+      "status_read": "pricing.view",
+      "preview_apply": "pricing.bulk.manage"
+    },
+    "preview": {
+      "scope_types": ["all", "category", "brand", "product"],
+      "change_types": ["set_price", "increase_percent", "decrease_percent", "increase_fixed", "decrease_fixed"],
+      "max_affected_variants": 5000,
+      "visible_items_max": 200,
+      "ttl_seconds": 600
+    },
+    "apply": {
+      "step_up_required": true,
+      "idempotency_scope": "pricing.bulk.apply",
+      "expected_affected_count_required": true,
+      "stored_guard_rejection": true,
+      "current_price_recheck": true,
+      "fresh_profit_guard_recheck_proven": false,
+      "requester_binding_proven": false
+    },
+    "recovery": "Unknown apply outcome must first use GET operation status. Replay is never automatic and is allowed only explicitly with the same Idempotency-Key and unchanged payload after authoritative status confirms the operation is still previewed and unexpired.",
+    "open_nonproject_prs": [289, 290],
+    "graph_state": "RETIRED_AND_OUT_OF_SCOPE"
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "AD-D-03 uses only the three canonical bulk-pricing operations and never invents an operation list, audit endpoint or extra lifecycle.",
+      "verification": "bulk_operation_authority",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Preview validates bounded scope/change input, retains Backend as authority for the 5000-variant cap, shows affected_count separately from the at-most-200 visible items and discloses truncation.",
+      "verification": "bulk_preview_boundary",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Apply uses existing Admin server auth bridge, WebAuthn Step-Up, exact reviewed expected_affected_count and a scoped Idempotency-Key; no Step-Up token is rendered or stored in browser state.",
+      "verification": "bulk_apply_secure_transport",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Unknown apply outcomes are never automatically replayed. Recovery reads authoritative operation status and only offers explicit same-key/same-payload replay when status remains previewed and unexpired.",
+      "verification": "bulk_idempotent_recovery",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Expired, affected-count drift, current-price drift, stored profit-guard failure, Step-Up failure, denied, invalid and unavailable states fail closed while preserving safe review context where useful.",
+      "verification": "bulk_failure_states",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "UI never claims requester binding, a fresh profit-guard recheck at apply, complete visibility beyond returned preview items, or automatic safety beyond source-proven Backend checks.",
+      "verification": "no_invented_guarantees",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "Persian RTL workflow is keyboard reachable, uses explicit review/cancel-first focus, prevents double submission, exposes request IDs and supports responsive item review.",
+      "verification": "accessible_bulk_admin",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "No FX, Excel, Backend/OpenAPI/generated-contract/database/Storefront/Current-State/Product-Design/Inventory/Procurement/POS/production-FX-provider/Graph mutation is introduced.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-009",
+      "description": "Canonical closure requires exact-head Canonical CI, Phase A and CodeQL, deterministic Review, independent Security PASS, exact-artifact ACTIVE Lock, Project Owner Human Gate, protected merge, exact-SHA postmerge verification and terminal Lock release.",
+      "verification": "high_risk_canonical_gate_chain",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": ["REVIEW", "SECURITY", "LOCK", "HUMAN"],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Step 69-E is HIGH risk. Exact-artifact Project Owner Human Gate is mandatory after technical/security/review/Lock evidence. Step 69-F remains blocked until terminal 69-E canonical closure."
+  },
+  "process_improvement_links": [],
+  "incident_links": [],
+  "authorized_human_approver": {
+    "role": "PROJECT_OWNER",
+    "github_login": "rahemih"
+  },
+  "pre_mutation_gates": {
+    "graph_health": "RETIRED_AND_OUT_OF_SCOPE",
+    "query_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "path_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "explain_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "human_gate": "REQUIRED_FINAL_EXACT_ARTIFACT"
+  }
+}
