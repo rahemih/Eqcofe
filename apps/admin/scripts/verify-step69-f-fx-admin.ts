@@ -77,6 +77,7 @@ const controller=read("src/modules/pricing/presentation/pricing.controller.ts");
 const impact=read("src/modules/pricing/application/currency-impact.service.ts");
 const refresh=read("src/modules/pricing/application/fx-currency-preview.service.ts");
 const rules=read("src/modules/pricing/application/currency-rule.service.ts");
+const pricingRepository=read("src/modules/pricing/infrastructure/pricing.repository.ts");
 
 for(const endpoint of [
   '"/admin/pricing/currency-rates"',
@@ -137,7 +138,8 @@ assert.ok(impact.includes("items:items.slice(0,200)"),"STEP69_F_RUNTIME_VISIBLE_
 assert.ok(impact.includes("PROFIT_GUARD_FAILED"),"STEP69_F_RUNTIME_STORED_GUARD");
 assert.ok(!impact.includes("PRICE_CHANGED_SINCE_PREVIEW"),"STEP69_F_NO_RUNTIME_PRICE_RECHECK");
 assert.ok(refresh.includes("FX_RATE_REQUIRES_REVIEW"),"STEP69_F_REFRESH_REVIEW");
-assert.ok(rules.includes("VERSION_CONFLICT"),"STEP69_F_RULE_CONFLICT");
+assert.ok(rules.includes("updateCurrencyRule"),"STEP69_F_RULE_UPDATE_SERVICE");
+assert.ok(pricingRepository.includes("VERSION_CONFLICT"),"STEP69_F_RULE_CONFLICT");
 
 assert.ok(routes.includes('route("pricing/fx", "./routes/pricing-fx.tsx")'),"STEP69_F_FX_ROUTE");
 assert.ok(routes.includes('route("pricing/currency-rules", "./routes/pricing-currency-rules.tsx")'),"STEP69_F_RULE_ROUTE");
