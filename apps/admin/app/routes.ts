@@ -16,6 +16,7 @@ export default [
     route("catalog/structure/:kind", "./routes/catalog-structure.tsx"),
     route("pricing/base-prices", "./routes/pricing-base-prices.tsx"),
     route("pricing/rules", "./routes/pricing-rules.tsx"),
+    route("pricing/bulk", "./routes/pricing-bulk.tsx"),
     route("destinations/:surfaceId", "./routes/destination.tsx"),
   ]),
 ] satisfies RouteConfig;
