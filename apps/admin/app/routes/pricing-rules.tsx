@@ -272,7 +272,7 @@ export default function PricingRulesRoute(){
             <ul>{actionData.issues.map((issue,index)=><li key={issue.field+index}><bdi>{issue.field}</bdi>: {issue.message}</li>)}</ul>
           ):null}
           {actionData.requestId?<p>شناسه پیگیری: <bdi>{actionData.requestId}</bdi></p>:null}
-          {actionData.needsRevalidation?<p>برای جلوگیری از overwrite یا replay، قانون را دوباره از سرور بخوانید.</p>:null}
+          {actionData.kind==="failure"&&actionData.needsRevalidation?<p>برای جلوگیری از overwrite یا replay، قانون را دوباره از سرور بخوانید.</p>:null}
         </div>
       ):null}
 
