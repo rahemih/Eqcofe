@@ -1,0 +1,241 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP69-G-EXCEL-ADMINISTRATION-001",
+  "title": "Step 69-G Excel template dry-run import recovery Catalog and Pricing administration",
+  "description": "Implement HIGH-risk AD-D-19, AD-D-20 and AD-D-21 Admin Excel administration on canonical Step69-F: template contract read, bounded XLSX upload transport, dry-run, idempotent import create, failed-import recovery with WebAuthn Step-Up, Catalog preview/apply, and Pricing preview/apply with exact preview hashes. Preserve source-proven authority only; uploaded XLSX is untrusted, no import list/status read may be invented, Catalog and Pricing apply remain separate, no new Product creation is claimed, and unknown mutation outcomes fail closed without blind replay. No Backend/OpenAPI/generated-contract/database, Storefront, Current-State, Product-Design, Step70, production FX-provider or Graph mutation.",
+  "risk": "HIGH",
+  "risk_floor": "HIGH",
+  "owner": "FRONTEND_ENGINEERING",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "a2cfcb5a306110e84aa17fcbc17c7114da9ddf88"
+  },
+  "scope": {
+    "read": [
+      "apps/admin/**",
+      "src/generated/openapi.ts",
+      "contracts/http/openapi.yaml",
+      "src/modules/excel/presentation/excel-admin.controller.ts",
+      "src/modules/excel/application/**",
+      "src/modules/excel/domain/**",
+      "docs/11-step-history/**",
+      "docs/13-product-design/step56-wireframes/D/AD-D-19/**",
+      "docs/13-product-design/step56-wireframes/D/AD-D-20/**",
+      "docs/13-product-design/step56-wireframes/D/AD-D-21/**",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "apps/admin/**",
+      "docs/11-step-history/STEP-69-G-EXCEL-ADMINISTRATION.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP69-G-EXCEL-ADMINISTRATION-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "contracts/**",
+      "database/**",
+      "src/**",
+      "test/**",
+      "scripts/**",
+      "apps/api/**",
+      "apps/worker/**",
+      "apps/scheduler/**",
+      "apps/storefront/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**",
+      "src/modules/inventory/**",
+      "src/modules/procurement/**",
+      "scripts/graphify/**",
+      "graphify-out/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP69-G-EXCEL-ADMINISTRATION-001-01"
+  ],
+  "human_gate_required": true,
+  "token_budget": {
+    "expected_max": 56000,
+    "soft_alert": 86000,
+    "hard_cap": 132000
+  },
+  "task_risk_rules": [
+    {
+      "id": "STEP69_G_EXCEL_ADMIN_HIGH",
+      "risk": "HIGH",
+      "paths": [
+        "apps/admin/**",
+        "docs/11-step-history/STEP-69-G-EXCEL-ADMINISTRATION.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP69-G-EXCEL-ADMINISTRATION-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "69-F",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "a2cfcb5a306110e84aa17fcbc17c7114da9ddf88",
+      "evidence": "PR #375 exact artifact 2064a93699049daae992162306ed2b06578425e89248c97e7398f40c40dccacd merged after CI/Phase A/CodeQL/Review/Security/Lock/Human Gate; exact-SHA Canonical CI #2101, Phase A #1600 and CodeQL #1250 succeeded; terminal Lock release comment 6312340369.",
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "linear_issue": "HOS-73",
+    "stage_f_pr": 375,
+    "stage_f_head": "86d56b91d1601b7ca93a00b440b85c748c0638b9",
+    "stage_f_artifact": "2064a93699049daae992162306ed2b06578425e89248c97e7398f40c40dccacd",
+    "stage_f_merge": "a2cfcb5a306110e84aa17fcbc17c7114da9ddf88",
+    "stage_f_lock_release_comment": 6312340369,
+    "surfaces": [
+      "AD-D-19",
+      "AD-D-20",
+      "AD-D-21"
+    ],
+    "source_proven_operations": [
+      "GET /admin/excel/exports/template",
+      "POST /admin/excel/dry-run",
+      "POST /admin/excel/imports",
+      "POST /admin/excel/imports/{id}/recover",
+      "POST /admin/excel/catalog/preview",
+      "POST /admin/excel/catalog/apply",
+      "POST /admin/excel/pricing/preview",
+      "POST /admin/excel/pricing/apply"
+    ],
+    "runtime_permissions": {
+      "template_dryrun_preview": "excel.view",
+      "import_create": "excel.import",
+      "apply": "excel.apply",
+      "recover": "excel.recover"
+    },
+    "workbook_limits": {
+      "max_upload_bytes": 10485760,
+      "max_rows_per_sheet": 5000,
+      "max_columns_per_sheet": 64,
+      "max_zip_entries": 256,
+      "max_expanded_bytes": 52428800
+    },
+    "import_boundary": {
+      "idempotency_scope": "excel.import.create",
+      "step_up": false,
+      "list_or_status_get_proven": false
+    },
+    "recovery_boundary": {
+      "step_up": true,
+      "idempotency_scope": "excel.import.recover",
+      "failed_only": true,
+      "max_attempts": 3,
+      "note_min": 3,
+      "note_max": 500,
+      "status_read_proven": false
+    },
+    "catalog_boundary": {
+      "preview_permission": "excel.view",
+      "apply_permission": "excel.apply",
+      "apply_step_up": true,
+      "idempotency_scope": "excel.catalog.apply",
+      "new_product_creation": false
+    },
+    "pricing_boundary": {
+      "preview_permission": "excel.view",
+      "apply_permission": "excel.apply",
+      "apply_step_up": true,
+      "idempotency_scope": "excel.pricing.apply",
+      "money": "nonnegative integer Toman",
+      "current_price_recheck": true
+    },
+    "transaction_boundary": "Catalog apply and Pricing apply are separate transactions; no combined atomic guarantee exists.",
+    "unknown_outcome": "No automatic replay. No source-proven import/status collection/read endpoint exists, so uncertain import/apply/recovery outcomes are surfaced for manual reconciliation rather than blind replay.",
+    "graph_state": "RETIRED_AND_OUT_OF_SCOPE"
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "AD-D-19 exposes only template read, dry-run, import create and failed-import recovery authority; no import list/status endpoint is invented.",
+      "verification": "excel_core_operation_authority",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Uploaded XLSX is handled as untrusted binary input and bounded to the source-proven 10 MiB client/server envelope while Backend remains authority for ZIP, expanded-size, row, column, macro/formula/link and workbook-structure validation.",
+      "verification": "excel_untrusted_upload_boundary",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Import create sends a server-derived Idempotency-Key bound to exact workbook bytes and never exposes browser-supplied key authority.",
+      "verification": "excel_import_idempotency",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Recovery requires bounded UUID/note input, WebAuthn Step-Up and a server-derived scoped Idempotency-Key; unknown outcome is not automatically replayed and no fabricated status lookup is offered.",
+      "verification": "excel_recovery_security",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "AD-D-20 Catalog preview/apply uses exact workbook + previewHash, Step-Up and idempotency on apply, shows existing Product/Variant operations only and never claims new-product creation.",
+      "verification": "excel_catalog_preview_apply",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "AD-D-21 Pricing preview/apply uses exact workbook + previewHash, Step-Up and idempotency, displays Toman/current/proposed/guard data and preserves current-price check semantics.",
+      "verification": "excel_pricing_preview_apply",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "Catalog and Pricing apply remain explicitly separate/non-atomic; unknown outcomes fail closed and no combined apply or blind retry is invented.",
+      "verification": "excel_transaction_and_recovery_boundary",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "Persian RTL Excel workspace is keyboard reachable, prevents double submission, exposes request IDs, preserves reviewed file identity/hash context across Step-Up, and provides responsive review tables.",
+      "verification": "accessible_excel_admin",
+      "mandatory": true
+    },
+    {
+      "id": "AC-009",
+      "description": "No Backend/OpenAPI/generated-contract/database/Storefront/Current-State/Product-Design/Inventory/Procurement/POS/production-provider/Graph mutation is introduced.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-010",
+      "description": "Canonical closure requires exact-head Canonical CI, Phase A and CodeQL, deterministic Review, independent Security PASS, exact-artifact ACTIVE Lock, Project Owner Human Gate, protected merge, exact-SHA postmerge verification and terminal Lock release.",
+      "verification": "high_risk_canonical_gate_chain",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "SECURITY",
+      "LOCK",
+      "HUMAN"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Step 69-G is HIGH risk. Exact-artifact Project Owner Human Gate is mandatory after technical/security/review/Lock evidence. Step 69-H remains blocked until terminal 69-G canonical closure."
+  },
+  "process_improvement_links": [],
+  "incident_links": [],
+  "authorized_human_approver": {
+    "role": "PROJECT_OWNER",
+    "github_login": "rahemih"
+  },
+  "pre_mutation_gates": {
+    "graph_health": "RETIRED_AND_OUT_OF_SCOPE",
+    "query_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "path_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "explain_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "human_gate": "REQUIRED_FINAL_EXACT_ARTIFACT"
+  }
+}

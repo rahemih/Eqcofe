@@ -415,3 +415,87 @@
     gap: var(--eq-spacing-1);
   }
 }
+
+
+/* Step 69-G — Excel administration */
+.excel-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--eq-spacing-2);
+  margin-block-start: var(--eq-spacing-5);
+}
+.excel-tabs a {
+  min-block-size: var(--eq-size-touch-min);
+  display: inline-flex;
+  align-items: center;
+  border: var(--eq-border-hairline) solid var(--eq-color-border-default);
+  border-radius: var(--eq-radius-md);
+  padding-inline: var(--eq-spacing-4);
+  color: var(--eq-color-action-primary);
+  text-decoration: none;
+}
+.excel-tabs a[aria-current="page"] {
+  background: var(--eq-color-bg-subtle);
+  color: var(--eq-color-text-primary);
+}
+.excel-tabs a:focus-visible {
+  outline: none;
+  box-shadow: var(--eq-effect-focus-ring);
+}
+.excel-template-meta {
+  display: grid;
+  gap: var(--eq-spacing-2);
+  margin-block: var(--eq-spacing-4);
+}
+.excel-template-meta > div {
+  display: grid;
+  grid-template-columns: minmax(8rem, 0.4fr) minmax(0, 1fr);
+  gap: var(--eq-spacing-3);
+}
+.excel-template-meta dt {
+  color: var(--eq-color-text-muted);
+}
+.excel-template-meta dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+.excel-template-grid {
+  display: grid;
+  gap: var(--eq-spacing-4);
+  margin-block-start: var(--eq-spacing-4);
+}
+.excel-template-grid article {
+  border: var(--eq-border-hairline) solid var(--eq-color-border-default);
+  border-radius: var(--eq-radius-lg);
+  padding-block: var(--eq-spacing-4);
+  padding-inline: var(--eq-spacing-4);
+}
+.excel-template-grid article h3 {
+  margin-block-start: 0;
+}
+.excel-template-grid ul,
+.excel-error-list {
+  display: grid;
+  gap: var(--eq-spacing-2);
+  margin-block-end: 0;
+}
+.excel-template-grid li span {
+  display: block;
+  margin-block-start: var(--eq-spacing-1);
+  color: var(--eq-color-text-secondary);
+}
+.excel-error-list {
+  max-block-size: 24rem;
+  overflow: auto;
+}
+@media (min-width: 760px) {
+  .excel-template-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+@media (max-width: 599px) {
+  .excel-template-meta > div {
+    grid-template-columns: 1fr;
+    gap: var(--eq-spacing-1);
+  }
+}

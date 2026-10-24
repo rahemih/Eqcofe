@@ -132,6 +132,9 @@ function destinationHref(surface:string):string{
   if(surface==="AD-D-03")return "/pricing/bulk";
   if(surface==="AD-D-04")return "/pricing/fx";
   if(surface==="AD-D-05")return "/pricing/currency-rules";
+  if(surface==="AD-D-19")return "/excel/core";
+  if(surface==="AD-D-20")return "/excel/catalog";
+  if(surface==="AD-D-21")return "/excel/pricing";
   return `/destinations/${encodeURIComponent(surface)}`;
 }
 function readCurrentSurface(pathname:string):string|null{
@@ -140,6 +143,9 @@ function readCurrentSurface(pathname:string):string|null{
   if(pathname==="/pricing/bulk")return "AD-D-03";
   if(pathname==="/pricing/fx")return "AD-D-04";
   if(pathname==="/pricing/currency-rules")return "AD-D-05";
+  if(pathname==="/excel/core")return "AD-D-19";
+  if(pathname==="/excel/catalog")return "AD-D-20";
+  if(pathname==="/excel/pricing")return "AD-D-21";
   if(pathname==="/catalog/media")return "AD-C-07";
   if(pathname==="/catalog/sales-control")return "AD-C-08";
   if(/\/catalog\/products\/[^/]+\/media$/.test(pathname))return "AD-C-04";
