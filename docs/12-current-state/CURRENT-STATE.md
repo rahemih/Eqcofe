@@ -10,7 +10,7 @@
 
 ## Current Step 69 position
 
-**Step 69 — Pricing, FX & Excel Administration — `CLOSED / FINAL CANONICAL PASS after terminal 69-I transport`.** Stages 69-A through 69-H are terminal/canonical; Stage 69-I is the documentation/governance closure transport based on canonical main `1f1cd76f2336f868af89b5a2690ae63d3b2df702`. Step 70 must not mutate until the 69-I closure PR completes protected merge, exact-SHA postmerge verification and terminal Lock release.
+**Step 69 — Pricing, FX & Excel Administration — `CLOSED / FINAL CANONICAL PASS`.** Final closure PR #378 merged to protected canonical `main@f9cede6b02f883396de59a2c93d7a48e94971766`; exact-SHA Canonical CI #2112, Phase A #1611 and CodeQL #1258 passed, terminal Lock `6383476124` was released, and Linear `HOS-73` is Done. Step 70 is now authorized as `NEXT / NOT_STARTED`.
 
 | Stage | PR | Canonical merge | Terminal Lock | State |
 | --- | ---: | --- | ---: | --- |
@@ -22,7 +22,7 @@
 | 69-F FX administration | #375 | `a2cfcb5a306110e84aa17fcbc17c7114da9ddf88` | `6312340369` | COMPLETE |
 | 69-G Excel administration | #376 | `4dae72e58486c35a5cca3a4966de824ecf275527` | `6382729692` | COMPLETE |
 | 69-H integrated Pricing/FX/Excel production/browser acceptance | #377 | `1f1cd76f2336f868af89b5a2690ae63d3b2df702` | `6383297591` | COMPLETE |
-| 69-I final verification / docs / Step 70 handoff | closure branch | based on `1f1cd76f2336f868af89b5a2690ae63d3b2df702` | terminal evidence required | FINAL CLOSURE |
+| 69-I final verification / docs / Step 70 handoff | #378 | `f9cede6b02f883396de59a2c93d7a48e94971766` | `6383476124` | COMPLETE |
 
 Stage 69-H exact merge-SHA evidence is green: Canonical CI #2109 / `40084844399`, Phase A #1608 / `40084844350`, Storefront Quality #1017 / `40084844346`, Prototype #1520 / `40084844365` and CodeQL #1256 / `40084844281` all succeeded.
 
@@ -34,7 +34,7 @@ Stage 69-H production browser acceptance covers Persian RTL, accessibility and t
 
 Graph/Graphify remains retired from active EQCOFE governance; there is no graph debt or graph gate for Step 69.
 
-**Next safe action:** Step 70 — Inventory, Procurement & POS Administration becomes `NEXT / NOT_STARTED` only after this 69-I closure document is terminally canonical on `main`. No Step-70 implementation is authorized before that terminal evidence.
+**Next safe action:** Step 70 — Inventory, Procurement & POS Administration is `AUTHORIZED / NEXT / NOT_STARTED`. Begin only through a fresh Step70 task contract, live main/PR conflict check and canonical Stage 70-A scope freeze.
 
 ## Previous Step 63 position
 
@@ -60,7 +60,7 @@ The frozen Step-63 product result covers authoritative Cart/Checkout state, gues
 
 ## Previous Step 68 position
 
-**Step 68 — Catalog & Media Administration — `CLOSED / FINAL CANONICAL PASS`.** Final closure PR #369 merged as `2eb803d8b2e8ee0eb247818d6bff3d871b71eefc` and terminal Lock release comment `6234380960` completed the Step69 handoff. This section is retained as predecessor history; the live execution boundary is Step69-I above.
+**Step 68 — Catalog & Media Administration — `CLOSED / FINAL CANONICAL PASS`.** Final closure PR #369 merged as `2eb803d8b2e8ee0eb247818d6bff3d871b71eefc` and terminal Lock release comment `6234380960` completed the Step69 handoff. This section is retained as predecessor history; the live execution boundary is the closed Step69 state and authorized Step70 handoff above.
 
 | Stage | PR | Canonical merge | Terminal Lock | State |
 | --- | ---: | --- | ---: | --- |
