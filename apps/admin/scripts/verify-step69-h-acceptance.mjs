@@ -353,14 +353,14 @@ async function exerciseSafePreviews(page){
   await page.goto(origin+"/excel/catalog",{waitUntil:"networkidle"});
   await page.locator('input[name="workbook"]').setInputFiles(file);
   await page.getByRole("button",{name:"ساخت Catalog Preview"}).click();
-  await page.getByText("Preview Hash").waitFor({state:"visible"});
+  await page.locator(".excel-template-meta dt").filter({hasText:"Preview Hash"}).first().waitFor({state:"visible"});
   const catalogLauncher=page.getByRole("button",{name:"بازبینی نهایی و Apply"});
   await assertCancelFirstReview(page,catalogLauncher);
 
   await page.goto(origin+"/excel/pricing",{waitUntil:"networkidle"});
   await page.locator('input[name="workbook"]').setInputFiles(file);
   await page.getByRole("button",{name:"ساخت Pricing Preview"}).click();
-  await page.getByText("Source fingerprint").waitFor({state:"visible"});
+  await page.locator(".excel-template-meta dt").filter({hasText:"Source fingerprint"}).first().waitFor({state:"visible"});
   const pricingLauncher=page.getByRole("button",{name:"بازبینی نهایی و Apply"});
   await assertCancelFirstReview(page,pricingLauncher);
 }
