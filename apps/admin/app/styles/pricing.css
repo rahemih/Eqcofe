@@ -147,7 +147,7 @@
 }
 .pricing-preview dt,
 .pricing-record-list dt {
-  color: var(--eq-color-text-muted);
+  color: var(--eq-color-text-secondary);
 }
 .pricing-preview dd,
 .pricing-record-list dd {
