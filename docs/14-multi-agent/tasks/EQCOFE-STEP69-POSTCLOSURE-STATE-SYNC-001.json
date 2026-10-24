@@ -1,0 +1,131 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP69-POSTCLOSURE-STATE-SYNC-001",
+  "title": "Step 69 post-closure canonical state synchronization",
+  "description": "Repair the prospective closure wording left by Step69-I after its terminal merge. Synchronize MASTER-ROADMAP Current Position, CURRENT-STATE Step69-I terminal evidence, and CHAT-HANDOFF with live canonical main f9cede6b02f883396de59a2c93d7a48e94971766, terminal Lock release 6383476124, HOS-73 Done, and Step70 AUTHORIZED / NEXT / NOT_STARTED. Documentation/governance only; no Step70 implementation or runtime mutation.",
+  "risk": "MEDIUM",
+  "risk_floor": "MEDIUM",
+  "owner": "PRODUCT_DESIGN",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "f9cede6b02f883396de59a2c93d7a48e94971766"
+  },
+  "scope": {
+    "read": [
+      "docs/11-step-history/**",
+      "docs/12-current-state/**",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "docs/11-step-history/STEP-69-POSTCLOSURE-STATE-SYNC.md",
+      "docs/12-current-state/CURRENT-STATE.md",
+      "docs/12-current-state/MASTER-ROADMAP.md",
+      "docs/12-current-state/CHAT-HANDOFF.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP69-POSTCLOSURE-STATE-SYNC-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "apps/**",
+      "src/**",
+      "database/**",
+      "contracts/**",
+      "test/**",
+      "scripts/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "docs/13-product-design/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP69-POSTCLOSURE-STATE-SYNC-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 18000,
+    "soft_alert": 30000,
+    "hard_cap": 56000
+  },
+  "task_risk_rules": [
+    {
+      "id": "STEP69_POSTCLOSURE_STATE_SYNC_MEDIUM",
+      "risk": "MEDIUM",
+      "paths": [
+        "docs/11-step-history/STEP-69-POSTCLOSURE-STATE-SYNC.md",
+        "docs/12-current-state/CURRENT-STATE.md",
+        "docs/12-current-state/MASTER-ROADMAP.md",
+        "docs/12-current-state/CHAT-HANDOFF.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP69-POSTCLOSURE-STATE-SYNC-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "Step 69-I terminal closure",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "f9cede6b02f883396de59a2c93d7a48e94971766",
+      "terminal_lock_comment": 6383476124,
+      "evidence": "PR #378 merged after exact-head Canonical CI #2111, Phase A #1610, CodeQL #1257, deterministic Review and exact-artifact Lock; exact-SHA Canonical CI #2112, Phase A #1611 and CodeQL #1258 passed; terminal Lock released; HOS-73 is Done.",
+      "blocking": false
+    }
+  ],
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "MASTER-ROADMAP Current Position no longer calls Step69-I active and records Step69 CLOSED / FINAL CANONICAL PASS and Step70 AUTHORIZED / NEXT / NOT_STARTED.",
+      "verification": "roadmap_state_sync",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "CURRENT-STATE records PR #378 merge f9cede6b..., terminal Lock 6383476124, 69-I COMPLETE and Step70 authorized.",
+      "verification": "current_state_sync",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "CHAT-HANDOFF records canonical main f9cede6b..., HOS-73 Done, Step69 closed and Step70 authorized/not-started.",
+      "verification": "chat_handoff_sync",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "No runtime, workflow, API/OpenAPI, database, dependency, Product Design semantic or Step70 implementation mutation occurs.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Canonical closure requires exact-head Canonical CI/Phase A/CodeQL, deterministic Review, exact-artifact Lock, protected merge, exact-SHA postmerge verification and terminal Lock release.",
+      "verification": "canonical_transport",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Post-closure state synchronization is MEDIUM and requires no Project Owner Human Gate. Step70 implementation begins only after this repair is terminally canonical."
+  },
+  "evidence": {
+    "linear_issue": "HOS-73",
+    "linear_state": "Done",
+    "step69_i_pr": 378,
+    "step69_i_merge": "f9cede6b02f883396de59a2c93d7a48e94971766",
+    "step69_i_terminal_lock": 6383476124,
+    "successor_issue": "HOS-74",
+    "successor_state": "Backlog",
+    "graph_state": "RETIRED_AND_OUT_OF_SCOPE"
+  },
+  "pre_mutation_gates": {
+    "graph_health": "RETIRED_AND_OUT_OF_SCOPE",
+    "human_gate": "NOT_REQUIRED"
+  }
+}
