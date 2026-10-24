@@ -26,44 +26,51 @@ Conversation history is supporting context only. It must not override current ca
 - Valid blocker: NONE.
 - This closure proves current canonical behavior; it does not convert current verification into historical provenance.
 
-## Current handoff snapshot — 2026-10-17
+## Current handoff snapshot — 2026-10-24
 
 - Official repository / canonical branch: `rahemih/Eqcofe` / `main`.
-- Canonical product baseline before final Step-68 docs closure: `80938cc3e3a8aa051d8bcd2b480c3555df8742f7` (PR #368).
-- Last completed implementation stage: **Step 68-H — integrated Catalog/Media/Sales-Control production/browser acceptance — CANONICAL_COMPLETE**.
-- Active substep: **68-I — final canonical verification / docs reconciliation / Step 69 handoff**.
-- Step 68 stages A–H canonical PR lineage: #361, #362, #363, #364, #365, #366, #367, #368.
-- Step 68-H exact merge-SHA Canonical CI #1985 / `39034763776`, Phase A #1484 / `39034763912`, Storefront Quality #942 / `39034763724` and dynamic CodeQL #1133 / `39034763721` are PASS.
+- Canonical implementation baseline before final Step-69 docs closure: `1f1cd76f2336f868af89b5a2690ae63d3b2df702` (PR #377).
+- Last completed implementation stage: **Step 69-H — integrated Pricing/FX/Excel production/browser acceptance — CANONICAL_COMPLETE**.
+- Active substep: **69-I — final canonical verification / docs reconciliation / Step 70 handoff**.
+- Step 69 stages A–H canonical PR lineage: #370, #371, #372, #373, #374, #375, #376, #377.
+- Step 69-H exact merge-SHA Canonical CI #2109 / `40084844399`, Phase A #1608 / `40084844350`, Storefront Quality #1017 / `40084844346`, Prototype #1520 / `40084844365` and CodeQL #1256 / `40084844281` are PASS.
 - Graph/Graphify is **RETIRED / OUT OF SCOPE**; historical graph language does not create a live gate.
-- Linear current issue: `HOS-72 — Step 68 — Catalog & Media Administration` remains In Progress until terminal 68-I.
-- Successor execution step: **Step 69 — Pricing, FX & Excel Administration** remains not-started until terminal 68-I.
-- Step 69 is authorized only after the 68-I closure PR has protected merge, exact-SHA postmerge verification and terminal Lock release; until then all Step69 implementation mutation is blocked.
+- Linear current issue: `HOS-73 — Step 69 — Pricing, FX & Excel Administration` remains In Progress until terminal 69-I.
+- Successor execution step: **Step 70 — Inventory, Procurement & POS Administration** remains not-started until terminal 69-I.
+- Step 70 is authorized only after the 69-I closure PR has protected merge, exact-SHA postmerge verification and terminal Lock release; until then all Step70 implementation mutation is blocked.
 - Technical source of truth remains GitHub `main` + CI + merged PR evidence; Linear mirrors management state.
 
-### Step 68 canonical lineage
+### Step 69 canonical lineage
 
 | Stage | PR | Merge SHA | Terminal Lock | State |
 | --- | ---: | --- | ---: | --- |
-| 68-A | #361 | `fcca92ee97dfb81ba56f5519bf5be85d02a1336c` | `6167410028` | COMPLETE |
-| 68-B | #362 | `bc5bb287a14d3200a8c234ed5ec0c30e0ee50c11` | `6204157481` | COMPLETE |
-| 68-C | #363 | `e90a454f001d4e831f6d300927c8fa93325fe1d0` | `6204515193` | COMPLETE |
-| 68-D | #364 | `de4f72a4c2e9c4d3d48762e778f45d3644d9c727` | `6230507852` | COMPLETE |
-| 68-E | #365 | `4fe36171f1a7902bd449efbeef239e1b05cf0e05` | `6231729776` | COMPLETE |
-| 68-F | #366 | `9230e88178f5ffa5d2352126ee4edac57f021fec` | `6232856088` | COMPLETE |
-| 68-G | #367 | `1399dc20932224a7b26ee45b72b233b80d0ee7f1` | `6233799402` | COMPLETE |
-| 68-H | #368 | `80938cc3e3a8aa051d8bcd2b480c3555df8742f7` | `6234216411` | COMPLETE |
-| 68-I | closure branch | terminal on this closure document's canonical merge | terminal evidence required | FINAL CLOSURE |
+| 69-A | #370 | `6bc57e87778a3819e0224b6c7e51636af0f0ff95` | `6235007699` | COMPLETE |
+| 69-B | #371 | `3f0cca89f309931ba4ea3877468c6290c8b2a97e` | `6303877602` | COMPLETE |
+| 69-C | #372 | `15f695a850c1bee124223c4c1dd4e1747cc856de` | `6308184802` | COMPLETE |
+| 69-D | #373 | `8621831d688e55e0150c6928944d3dff2b385e11` | `6310005194` | COMPLETE |
+| 69-E | #374 | `3f9e1157d28aa6d515e1591a5899fe5bc59a8274` | `6310990853` | COMPLETE |
+| 69-F | #375 | `a2cfcb5a306110e84aa17fcbc17c7114da9ddf88` | `6312340369` | COMPLETE |
+| 69-G | #376 | `4dae72e58486c35a5cca3a4966de824ecf275527` | `6382729692` | COMPLETE |
+| 69-H | #377 | `1f1cd76f2336f868af89b5a2690ae63d3b2df702` | `6383297591` | COMPLETE |
+| 69-I | closure branch | terminal on this closure document's canonical merge | terminal evidence required | FINAL CLOSURE |
 
-### Frozen Step 68 authority boundary
+PR #374 has a later duplicate release comment `6311811899`; `6310990853` is the first valid terminal release evidence retained for lineage.
 
-- Backend remains authority for Admin authentication, RBAC, assigned scopes, lifecycle validity and Step-Up;
-- Product/Variant, Attribute/Brand/Category and Media administration use only source-proven Admin contracts;
-- Media 3D capability is Admin-only GLB `model_3d` / `product_model_3d`; no 360/spin or public viewer is invented;
-- signed media upload capability remains server-side and is not browser-persisted;
-- Sales-Control preview/apply supports only global/brand/category/product/variant, preserves stored preview count/single-use semantics and does not claim requester binding or fresh recount;
-- mutation ambiguity fails closed without blind replay;
-- generic Catalog bulk editing, pricing, inventory, FX and Excel remain outside Step68 and belong to Step69;
-- integrated production SSR plus Chromium/Axe acceptance covers Persian RTL, accessibility, six responsive widths and security boundaries;
+### Frozen Step 69 authority boundary
+
+- Backend remains authority for Admin authentication, RBAC, assigned scopes, Step-Up, concurrency and business validation;
+- Base Price/history uses integer-Toman values and source-proven Profit Guard preview/mutation semantics;
+- Pricing Rules preserve source-defined If-Match/version behavior and expose no invented delete route;
+- Bulk Pricing supports only all/category/brand/product scope and source-proven change types, with authoritative affected count separate from visible rows;
+- Bulk Apply retains Step-Up, expected affected count, stored guard/current-price checks and server-derived idempotency; no requester-binding or universal fresh-guard guarantee is claimed;
+- FX rate/source/rule/impact workflows preserve separate rate-selection and price-apply commands, Step-Up/idempotency on sensitive paths and source-proven limitations;
+- production FX-provider integration remains Step 77;
+- Excel uploads remain untrusted and Backend owns workbook/ZIP/expanded-size/row/column/formula/macro/link validation;
+- Excel Import/Recovery and Catalog/Pricing preview/apply use only source-proven operations; no generic Import history/status endpoint or combined atomic Catalog+Pricing apply is invented;
+- mutation ambiguity fails closed without unsafe blind replay;
+- Inventory, Procurement and POS remain outside Step69 and belong to Step70;
+- integrated production SSR plus Chromium/Axe acceptance covers Persian RTL, accessibility, six responsive widths and network/storage security boundaries;
+- Stage 69-H repaired a real pricing-preview color-contrast defect using the existing secondary-text token; its later locator repair changed test reliability only;
 - Graph/Graphify remains retired.
 
 ## Historical Step 56 handoff snapshot (superseded)
