@@ -1,0 +1,240 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP69-H-INTEGRATED-ACCEPTANCE-001",
+  "title": "Step 69-H integrated Admin Pricing FX Excel production-browser acceptance",
+  "description": "Run integrated production-build acceptance for completed Step69 Admin Pricing/FX/Excel surfaces AD-D-01, AD-D-02, AD-D-03, AD-D-04, AD-D-05, AD-D-19, AD-D-20 and AD-D-21. Extend the inherited Admin acceptance transport without changing application business semantics: canonical SSR/mock API acceptance always runs; the existing Storefront Quality isolated Playwright/Axe environment additionally exercises real Chromium Persian RTL, accessibility, responsive/reflow, permission/security and safe preview/review behavior. No destructive Apply or lifecycle mutation is issued by browser acceptance; no new Backend/OpenAPI/generated-contract/database/Product Design/Step70/production-provider/Graph authority is introduced.",
+  "risk": "MEDIUM",
+  "risk_floor": "MEDIUM",
+  "owner": "QUALITY_ENGINEERING",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "4dae72e58486c35a5cca3a4966de824ecf275527"
+  },
+  "scope": {
+    "read": [
+      "package.json",
+      "apps/admin/**",
+      "apps/storefront/package.json",
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "docs/11-step-history/**",
+      "docs/13-product-design/STEP-56-D-PRICING-FX-EXCEL.md",
+      "docs/13-product-design/step56-wireframes/D/**",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "apps/admin/**",
+      "apps/storefront/package.json",
+      "docs/11-step-history/STEP-69-H-INTEGRATED-ACCEPTANCE.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP69-H-INTEGRATED-ACCEPTANCE-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "database/**",
+      "test/**",
+      "scripts/**",
+      "apps/api/**",
+      "apps/worker/**",
+      "apps/scheduler/**",
+      "apps/storefront/app/**",
+      "apps/storefront/scripts/**",
+      "contracts/**",
+      "src/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**",
+      "src/modules/inventory/**",
+      "src/modules/procurement/**",
+      "scripts/graphify/**",
+      "graphify-out/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP69-H-INTEGRATED-ACCEPTANCE-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 46000,
+    "soft_alert": 72000,
+    "hard_cap": 116000
+  },
+  "task_risk_rules": [
+    {
+      "id": "STEP69_H_INTEGRATED_ACCEPTANCE_MEDIUM",
+      "risk": "MEDIUM",
+      "paths": [
+        "apps/admin/**",
+        "apps/storefront/package.json",
+        "docs/11-step-history/STEP-69-H-INTEGRATED-ACCEPTANCE.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP69-H-INTEGRATED-ACCEPTANCE-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "69-G",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "4dae72e58486c35a5cca3a4966de824ecf275527",
+      "evidence": "PR #376 exact artifact 6557b7c4abe9da073c56f6c37d0f227ad18b2b87645c396bb66afffb64a2e66e merged after CI/Phase A/CodeQL/Review/Security/Lock/Human Gate; exact-SHA Canonical CI #2104, Phase A #1603 and CodeQL #1252 succeeded; terminal Lock release comment 6382729692.",
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "linear_issue": "HOS-73",
+    "stage_g_pr": 376,
+    "stage_g_head": "5d726f343606e138bc148d19099930f20e585d18",
+    "stage_g_artifact": "6557b7c4abe9da073c56f6c37d0f227ad18b2b87645c396bb66afffb64a2e66e",
+    "stage_g_merge": "4dae72e58486c35a5cca3a4966de824ecf275527",
+    "stage_g_lock_release_comment": 6382729692,
+    "design_surfaces": [
+      "AD-D-01",
+      "AD-D-02",
+      "AD-D-03",
+      "AD-D-04",
+      "AD-D-05",
+      "AD-D-19",
+      "AD-D-20",
+      "AD-D-21"
+    ],
+    "qa_modes": [
+      "canonical production SSR/mock API",
+      "Storefront Quality isolated Chromium/Axe when EQCOFE_BROWSER_QA_ROOT is available"
+    ],
+    "responsive_widths": [
+      320,
+      360,
+      600,
+      840,
+      1200,
+      1440
+    ],
+    "safe_browser_commands": [
+      "POST /admin/pricing/base-prices/preview",
+      "POST /admin/pricing/bulk/preview",
+      "POST /admin/pricing/currency/impact-preview",
+      "POST /admin/excel/dry-run",
+      "POST /admin/excel/catalog/preview",
+      "POST /admin/excel/pricing/preview"
+    ],
+    "destructive_browser_commands_forbidden": [
+      "POST /admin/variants/{variant_id}/prices",
+      "POST /admin/pricing/rules",
+      "PATCH /admin/pricing/rules/{id}",
+      "POST /admin/pricing/rules/{id}/activate",
+      "POST /admin/pricing/rules/{id}/deactivate",
+      "POST /admin/pricing/bulk/apply",
+      "POST /admin/pricing/currency/apply",
+      "POST /admin/pricing/currency-rates/{id}/select",
+      "POST /admin/pricing/currency-rates/{id}/reject",
+      "POST /admin/pricing/currency-rates/register",
+      "POST /admin/pricing/currency-rates/refresh",
+      "POST /admin/pricing/currency-rules",
+      "PATCH /admin/pricing/currency-rules/{id}",
+      "POST /admin/pricing/currency-rules/{id}/activate",
+      "POST /admin/pricing/currency-rules/{id}/deactivate",
+      "POST /admin/excel/imports",
+      "POST /admin/excel/imports/{id}/recover",
+      "POST /admin/excel/catalog/apply",
+      "POST /admin/excel/pricing/apply"
+    ],
+    "source_invariants": {
+      "trusted_same_origin_mutations": true,
+      "browser_auth_storage": false,
+      "step_up_token_persistence": false,
+      "blind_retry": false,
+      "pricing_bulk_status_invented": false,
+      "excel_import_status_invented": false,
+      "combined_excel_apply": false,
+      "production_fx_provider_ready": false
+    },
+    "qa_routing": "apps/storefront/package.json quality:browser invokes @eqcofe/admin step69:acceptance after the existing Step68 acceptance, using the already-installed isolated Playwright/Axe QA root.",
+    "graph_state": "RETIRED_AND_OUT_OF_SCOPE"
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Production-build SSR acceptance covers authenticated entry for all implemented Step69 Admin Pricing/FX/Excel routes using source-proven mock API contracts; unauthenticated access remains fail-closed.",
+      "verification": "step69_h_ssr_routes",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "AD-D-01/02/03/04/05/19/20/21 remain permission-aware Persian fa-IR RTL pages with exactly one H1 and no source-unproven navigation or API authority.",
+      "verification": "step69_h_permission_rtl",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "The existing Storefront Quality isolated Playwright/Axe environment exercises the six canonical responsive widths, rejects horizontal overflow, enforces visible 44px interactive targets and reports zero WCAG-tagged Axe violations.",
+      "verification": "step69_h_browser_accessibility_responsive",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Browser acceptance exercises representative safe previews for pricing/bulk/FX/Excel and may open cancel-first review dialogs, but never emits destructive Apply, Step-Up verify, rule/rate lifecycle, import creation or recovery mutations.",
+      "verification": "step69_h_safe_preview_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Browser local/session storage contains no Admin session, pre-auth, Step-Up token, credential, Authorization/Bearer, workbook bytes/hash authority or idempotency material after integrated navigation and preview.",
+      "verification": "step69_h_browser_secret_storage",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Mock network observer proves only source-proven GETs and explicitly safe preview/dry-run POSTs are emitted; no invented bulk collection/status, Excel import status/history, combined Excel apply or production-provider authority appears.",
+      "verification": "step69_h_network_authority",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "Excel acceptance preserves untrusted XLSX semantics and distinct Catalog/Pricing preview surfaces; browser tests do not claim that Template metadata is a downloadable XLSX or that Catalog+Pricing apply is atomic.",
+      "verification": "step69_h_excel_boundaries",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "Inherited Step67 and Step68 Admin acceptance remain chained before Step69-H acceptance so existing shell/auth/Catalog/Media regressions remain protected.",
+      "verification": "step69_h_inherited_acceptance",
+      "mandatory": true
+    },
+    {
+      "id": "AC-009",
+      "description": "No runtime business logic, Backend/OpenAPI/generated contract/database, Product Design, Storefront runtime, workflow/dependency, Current-State/Master-Roadmap, Inventory/Procurement/POS, production-provider or Graph mutation is introduced.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-010",
+      "description": "Canonical closure requires exact-head Canonical CI, Phase A and CodeQL, deterministic Review, exact-artifact ACTIVE Lock, protected merge, exact-SHA postmerge verification and terminal Lock release. No Project Owner Human Gate is required for MEDIUM risk.",
+      "verification": "medium_risk_canonical_transport",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Step 69-H is MEDIUM risk and requires no Project Owner Human Gate. Step 69-I remains blocked until terminal 69-H canonical closure."
+  },
+  "process_improvement_links": [],
+  "incident_links": [],
+  "max_repair_cycles": 5,
+  "pre_mutation_gates": {
+    "graph_health": "RETIRED_AND_OUT_OF_SCOPE",
+    "query_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "path_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "explain_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "human_gate": "NOT_REQUIRED"
+  }
+}
