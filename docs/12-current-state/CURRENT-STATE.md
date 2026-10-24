@@ -1,12 +1,40 @@
 # EQCOFE Current State
 
 ## Trusted state date
-**2026-10-17**
+**2026-10-24**
 
 ## Official repository
 - Repository: `rahemih/Eqcofe`
 - Default/canonical branch: `main`
 - Historical repository: `rahemih/digikala-clone` — historical/recovery evidence only; not canonical application source.
+
+## Current Step 69 position
+
+**Step 69 — Pricing, FX & Excel Administration — `CLOSED / FINAL CANONICAL PASS after terminal 69-I transport`.** Stages 69-A through 69-H are terminal/canonical; Stage 69-I is the documentation/governance closure transport based on canonical main `1f1cd76f2336f868af89b5a2690ae63d3b2df702`. Step 70 must not mutate until the 69-I closure PR completes protected merge, exact-SHA postmerge verification and terminal Lock release.
+
+| Stage | PR | Canonical merge | Terminal Lock | State |
+| --- | ---: | --- | ---: | --- |
+| 69-A canonical handoff / live discovery / scope freeze | #370 | `6bc57e87778a3819e0224b6c7e51636af0f0ff95` | `6235007699` | COMPLETE |
+| 69-B Pricing/FX/Excel Backend/OpenAPI contract readiness | #371 | `3f0cca89f309931ba4ea3877468c6290c8b2a97e` | `6303877602` | COMPLETE |
+| 69-C shared Admin Pricing/FX/Excel read/state foundation | #372 | `15f695a850c1bee124223c4c1dd4e1747cc856de` | `6308184802` | COMPLETE |
+| 69-D Base Price / Pricing Rule administration | #373 | `8621831d688e55e0150c6928944d3dff2b385e11` | `6310005194` | COMPLETE |
+| 69-E Bulk Pricing administration | #374 | `3f9e1157d28aa6d515e1591a5899fe5bc59a8274` | `6310990853` | COMPLETE |
+| 69-F FX administration | #375 | `a2cfcb5a306110e84aa17fcbc17c7114da9ddf88` | `6312340369` | COMPLETE |
+| 69-G Excel administration | #376 | `4dae72e58486c35a5cca3a4966de824ecf275527` | `6382729692` | COMPLETE |
+| 69-H integrated Pricing/FX/Excel production/browser acceptance | #377 | `1f1cd76f2336f868af89b5a2690ae63d3b2df702` | `6383297591` | COMPLETE |
+| 69-I final verification / docs / Step 70 handoff | closure branch | based on `1f1cd76f2336f868af89b5a2690ae63d3b2df702` | terminal evidence required | FINAL CLOSURE |
+
+Stage 69-H exact merge-SHA evidence is green: Canonical CI #2109 / `40084844399`, Phase A #1608 / `40084844350`, Storefront Quality #1017 / `40084844346`, Prototype #1520 / `40084844365` and CodeQL #1256 / `40084844281` all succeeded.
+
+Canonical Step-69 functionality now includes Base Price history/preview/mutation, Pricing Rule administration with source-defined concurrency, Bulk Pricing preview/status/Step-Up Apply, FX rate/source/rule/impact-preview/apply administration, and Excel template/dry-run/import/recovery plus Catalog/Pricing preview/apply. Financial values remain integer Toman where applicable; sensitive Apply/Recovery flows retain Backend Step-Up/idempotency authority; mutation ambiguity fails closed without unsafe blind replay.
+
+Source boundaries remain explicit: Bulk visible rows are not the authoritative affected count; FX Apply does not gain unproven requester-binding/current-price/fresh-guard guarantees; Excel uploads remain untrusted; no generic Excel import history/status endpoint or combined atomic Catalog+Pricing Apply exists; production FX-provider integration remains Step 77; Inventory/Procurement/POS remain Step 70.
+
+Stage 69-H production browser acceptance covers Persian RTL, accessibility and the canonical 320/360/600/840/1200/1440 widths. It found and repaired a real pricing-preview metadata color-contrast defect by moving from the muted token to the existing secondary-text token. A later broad Playwright locator was narrowed as a test-reliability repair only; neither correction changed business authority.
+
+Graph/Graphify remains retired from active EQCOFE governance; there is no graph debt or graph gate for Step 69.
+
+**Next safe action:** Step 70 — Inventory, Procurement & POS Administration becomes `NEXT / NOT_STARTED` only after this 69-I closure document is terminally canonical on `main`. No Step-70 implementation is authorized before that terminal evidence.
 
 ## Previous Step 63 position
 
@@ -30,9 +58,9 @@ The frozen Step-63 product result covers authoritative Cart/Checkout state, gues
 
 **Tooling policy supersession — 2026-10-06:** the Project Owner retired Graph/Graphify from active EQCOFE governance. Historical Step-61/62/63 documents that mention graph requirements remain chronology only and no longer create a live gate. Follow-up `HOS-181` is Canceled and PR #319 is Closed / Unmerged. There is no remaining graph debt for Step 63.
 
-## Current Step 68 position
+## Previous Step 68 position
 
-**Step 68 — Catalog & Media Administration — `CLOSED / FINAL CANONICAL PASS after terminal 68-I transport`.** Stages 68-A through 68-H are terminal/canonical; Stage 68-I is the documentation/governance closure transport based on canonical main `80938cc3e3a8aa051d8bcd2b480c3555df8742f7`. Step 69 must not mutate until the 68-I closure PR completes protected merge, exact-SHA postmerge verification and terminal Lock release.
+**Step 68 — Catalog & Media Administration — `CLOSED / FINAL CANONICAL PASS`.** Final closure PR #369 merged as `2eb803d8b2e8ee0eb247818d6bff3d871b71eefc` and terminal Lock release comment `6234380960` completed the Step69 handoff. This section is retained as predecessor history; the live execution boundary is Step69-I above.
 
 | Stage | PR | Canonical merge | Terminal Lock | State |
 | --- | ---: | --- | ---: | --- |
@@ -44,7 +72,7 @@ The frozen Step-63 product result covers authoritative Cart/Checkout state, gues
 | 68-F Media upload/review/attachment/order/3D administration | #366 | `9230e88178f5ffa5d2352126ee4edac57f021fec` | `6232856088` | COMPLETE |
 | 68-G Step-Up protected Sales-Control preview/apply | #367 | `1399dc20932224a7b26ee45b72b233b80d0ee7f1` | `6233799402` | COMPLETE |
 | 68-H integrated Admin Catalog/Media production/browser acceptance | #368 | `80938cc3e3a8aa051d8bcd2b480c3555df8742f7` | `6234216411` | COMPLETE |
-| 68-I final verification / docs / Step 69 handoff | closure branch | based on `80938cc3e3a8aa051d8bcd2b480c3555df8742f7` | terminal evidence required | FINAL CLOSURE |
+| 68-I final verification / docs / Step 69 handoff | #369 | `2eb803d8b2e8ee0eb247818d6bff3d871b71eefc` | `6234380960` | COMPLETE |
 
 Stage 68-H exact merge-SHA evidence is green: Canonical CI #1985 / `39034763776`, Phase A #1484 / `39034763912`, Storefront Quality #942 / `39034763724` and dynamic CodeQL #1133 / `39034763721` all succeeded.
 
@@ -56,7 +84,7 @@ Acceptance hardening repaired a real 44px touch-target defect on Catalog Attribu
 
 Graph/Graphify remains retired from active EQCOFE governance; there is no graph debt or graph gate for Step 68.
 
-**Next safe action:** Step 69 — Pricing, FX & Excel Administration becomes `NEXT / NOT_STARTED` only after this 68-I closure document is terminally canonical on `main`. No Step-69 implementation is authorized before that terminal evidence.
+**Historical Step-68 handoff:** Step 69 was authorized after terminal 68-I and has since executed through Stage 69-H. Use the Current Step 69 position above for live authority.
 
 ## Current Step 67 position
 

@@ -1,0 +1,214 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP69-I-CLOSURE-001",
+  "title": "Step 69-I final canonical verification, documentation reconciliation and Step 70 handoff",
+  "description": "MEDIUM-risk documentation/governance closure for Step 69 Pricing, FX & Excel Administration. Audit terminal canonical evidence for Stages 69-A through 69-H, reconcile MASTER-ROADMAP, CURRENT-STATE and CHAT-HANDOFF with live GitHub/CI truth, freeze the implemented Pricing/FX/Excel result, and authorize Step 70 Inventory, Procurement & POS Administration only after this closure PR completes protected merge, exact-SHA postmerge verification and terminal Lock release. Graph/Graphify remains retired. No runtime, Backend/OpenAPI/database, dependency, workflow, Product Design semantic or Step70 implementation mutation is authorized.",
+  "risk": "MEDIUM",
+  "risk_floor": "MEDIUM",
+  "owner": "PRODUCT_DESIGN",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "1f1cd76f2336f868af89b5a2690ae63d3b2df702"
+  },
+  "scope": {
+    "read": [
+      "apps/admin/**",
+      "apps/storefront/package.json",
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "docs/11-step-history/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**",
+      "docs/14-multi-agent/**",
+      ".github/workflows/**"
+    ],
+    "write": [
+      "docs/11-step-history/STEP-69-I-FINAL-CANONICAL-CLOSURE.md",
+      "docs/12-current-state/CURRENT-STATE.md",
+      "docs/12-current-state/MASTER-ROADMAP.md",
+      "docs/12-current-state/CHAT-HANDOFF.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP69-I-CLOSURE-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "apps/**",
+      "src/**",
+      "database/**",
+      "contracts/**",
+      "test/**",
+      "scripts/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "docs/13-product-design/**",
+      "graphify-out/**",
+      "scripts/graphify/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP69-I-CLOSURE-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 34000,
+    "soft_alert": 52000,
+    "hard_cap": 94000
+  },
+  "max_repair_cycles": 3,
+  "task_risk_rules": [
+    {
+      "id": "STEP69_I_CANONICAL_CLOSURE_MEDIUM",
+      "risk": "MEDIUM",
+      "paths": [
+        "docs/11-step-history/STEP-69-I-FINAL-CANONICAL-CLOSURE.md",
+        "docs/12-current-state/CURRENT-STATE.md",
+        "docs/12-current-state/MASTER-ROADMAP.md",
+        "docs/12-current-state/CHAT-HANDOFF.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP69-I-CLOSURE-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+      ]
+    }
+  ],
+  "pre_mutation_gates": {
+    "graph_health": "RETIRED_AND_OUT_OF_SCOPE",
+    "query_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "path_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "explain_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "human_gate": "NOT_REQUIRED_MEDIUM"
+  },
+  "dependencies": [
+    {
+      "item": "69-H Integrated Pricing/FX/Excel Production-Browser Acceptance",
+      "required_state": "TERMINAL_MERGED_POSTMERGE_PASS_LOCK_RELEASED",
+      "observed_state": "TERMINAL_MERGED_POSTMERGE_PASS_LOCK_RELEASED",
+      "merge_sha": "1f1cd76f2336f868af89b5a2690ae63d3b2df702",
+      "terminal_evidence_comment": 6383297591,
+      "postmerge_canonical_ci_run_id": 40084844399,
+      "postmerge_phase_a_run_id": 40084844350,
+      "postmerge_storefront_quality_run_id": 40084844346,
+      "postmerge_codeql_run_id": 40084844281,
+      "blocking": false
+    }
+  ],
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Step 69 A-H canonical lineage records actual merged PRs #370-#377, merge SHAs and valid terminal Lock RELEASED evidence from live GitHub.",
+      "verification": "provider-backed PR and terminal-gate audit",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "MASTER-ROADMAP advances from stale Step69 NEXT wording to Step69 CLOSED / FINAL CANONICAL PASS after terminal 69-I transport, and marks Step70 Inventory, Procurement & POS Administration as NEXT / NOT_STARTED only after terminal 69-I closure.",
+      "verification": "deterministic document review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "CURRENT-STATE records Step69 A-H canonical lineage, the frozen Pricing/FX/Excel result, integrated browser acceptance and 69-I as final closure transport.",
+      "verification": "deterministic document review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "CHAT-HANDOFF is refreshed from the stale Step68 snapshot to the verified Step69 closure boundary, keeps HOS-73 current until terminal 69-I, and names Step70 as successor without starting it.",
+      "verification": "deterministic document review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Frozen Step69 result accurately records Base Price/history, Pricing Rules, Bulk Pricing, FX rate/source/rules/impact preview/apply, Excel template/dry-run/import/recovery/Catalog/Pricing preview/apply and source-proven Step-Up/idempotency boundaries without inventing Step70 authority or production FX provider readiness.",
+      "verification": "source and history audit",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "69-H accessibility hardening is documented as a presentation correction only, and the acceptance locator repair is documented as test reliability only, with no business authority drift.",
+      "verification": "history and acceptance evidence audit",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "Graph/Graphify remains RETIRED / OUT OF SCOPE and no historical graph requirement is reintroduced as a live gate.",
+      "verification": "document review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "Diff remains documentation/governance only; no runtime, workflow, API/OpenAPI, database, dependency, Product Design semantic, graph artifact or Step70 implementation mutation occurs.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-009",
+      "description": "Exact-head Canonical CI and Phase A, deterministic Review, exact-artifact ACTIVE Lock, protected merge, exact-SHA postmerge verification and terminal Lock release complete before HOS-73 becomes Done or Step70 implementation is authorized.",
+      "verification": "canonical_transport_and_postmerge_evidence",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Step 69-I is MEDIUM-risk documentation/governance closure. Human Gate is not required. Step70 implementation remains blocked until 69-I protected merge, exact-SHA postmerge verification and terminal Lock release."
+  },
+  "evidence": {
+    "linear_issue": "HOS-73",
+    "successor_step": "70",
+    "live_guard_main_head": "1f1cd76f2336f868af89b5a2690ae63d3b2df702",
+    "live_guard_open_step69_i_prs": 0,
+    "competing_writer": "NONE_OBSERVED",
+    "graph_state": "RETIRED_AND_OUT_OF_SCOPE",
+    "canonical_stages": {
+      "69-A": {
+        "pr": 370,
+        "merge_sha": "6bc57e87778a3819e0224b6c7e51636af0f0ff95",
+        "terminal_comment": 6235007699
+      },
+      "69-B": {
+        "pr": 371,
+        "merge_sha": "3f0cca89f309931ba4ea3877468c6290c8b2a97e",
+        "terminal_comment": 6303877602
+      },
+      "69-C": {
+        "pr": 372,
+        "merge_sha": "15f695a850c1bee124223c4c1dd4e1747cc856de",
+        "terminal_comment": 6308184802
+      },
+      "69-D": {
+        "pr": 373,
+        "merge_sha": "8621831d688e55e0150c6928944d3dff2b385e11",
+        "terminal_comment": 6310005194
+      },
+      "69-E": {
+        "pr": 374,
+        "merge_sha": "3f9e1157d28aa6d515e1591a5899fe5bc59a8274",
+        "terminal_comment": 6310990853
+      },
+      "69-F": {
+        "pr": 375,
+        "merge_sha": "a2cfcb5a306110e84aa17fcbc17c7114da9ddf88",
+        "terminal_comment": 6312340369
+      },
+      "69-G": {
+        "pr": 376,
+        "merge_sha": "4dae72e58486c35a5cca3a4966de824ecf275527",
+        "terminal_comment": 6382729692
+      },
+      "69-H": {
+        "pr": 377,
+        "merge_sha": "1f1cd76f2336f868af89b5a2690ae63d3b2df702",
+        "terminal_comment": 6383297591
+      }
+    },
+    "duplicate_terminal_note": "PR #374 also has later duplicate RELEASED comment 6311811899; 6310990853 is retained as the first valid terminal release evidence.",
+    "closure_branch": "eqcofe/step69-i-final-closure"
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}
