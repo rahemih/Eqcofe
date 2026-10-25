@@ -1,12 +1,12 @@
 # EQCOFE — Complete Master Execution Roadmap
 
-**Roadmap version:** 3.65 — Step-68 Final Closure / Step-69 Handoff
-**Effective date:** 2026-10-17
+**Roadmap version:** 3.66 — Step-69 Final Closure / Step-70 Handoff
+**Effective date:** 2026-10-25
 **Canonical repository:** `rahemih/Eqcofe`  
 **Canonical branch:** `main`  
 **Verified Step-44 code baseline:** `b239dfe825b615f36caf2e26cc7abc80c70d349c`
 
-> This is the canonical end-to-end execution map for EQCOFE. Phase A (Steps 1–28) is `CLOSED / FINAL GATE PASS` by current canonical verification. For historical Steps 1–27, exact original labels/closure lineage remain `Historical Attribution: UNVERIFIED`; Step 28 remains `Historical Attribution: PARTIAL`. Current-baseline verification does not prove recovered historical provenance. Steps 29–67 retain their established canonical status. Step 68 — Catalog & Media Administration is `CLOSED / FINAL CANONICAL PASS` after Stage 68-I completes its terminal documentation/governance transport; Stages 68-A–68-H are already canonical through PR #368 / `80938cc3e3a8aa051d8bcd2b480c3555df8742f7`. Step 69 — Pricing, FX & Excel Administration becomes `NEXT / NOT_STARTED` only after the Step-68-I protected merge, exact-SHA postmerge verification and terminal Lock release. Graph/Graphify remains retired from active project governance and is not a gate, dependency, evidence requirement or Definition-of-Done item.
+> This is the canonical end-to-end execution map for EQCOFE. Phase A (Steps 1–28) is `CLOSED / FINAL GATE PASS` by current canonical verification. For historical Steps 1–27, exact original labels/closure lineage remain `Historical Attribution: UNVERIFIED`; Step 28 remains `Historical Attribution: PARTIAL`. Current-baseline verification does not prove recovered historical provenance. Steps 29–68 retain their established canonical status. Step 69 — Pricing, FX & Excel Administration is `CLOSED / FINAL CANONICAL PASS` after Stage 69-I completes its terminal documentation/governance transport; Stages 69-A–69-H are already canonical through PR #377 / `1f1cd76f2336f868af89b5a2690ae63d3b2df702`. Step 70 — Inventory, Procurement & POS Administration becomes `NEXT / NOT_STARTED` only after the Step-69-I protected merge, exact-SHA postmerge verification and terminal Lock release. Graph/Graphify remains retired from active project governance and is not a gate, dependency, evidence requirement or Definition-of-Done item.
 
 ## Status legend
 - `RECONSTRUCTED-HISTORY`: normalized historical description; exact historical step attribution is not proven.
@@ -430,11 +430,11 @@ Step 68 establishes the production Admin Catalog/Media/Sales-Control workspaces 
 
 The frozen Step-68 result includes authoritative Product/Variant lifecycle administration, Attribute/Brand/Category structure management, Media upload/review/approval/delete and Product-media attachment/order/primary control, Admin-only GLB `model_3d` capability, Step-Up protected Sales-Control preview/apply and integrated Persian RTL/accessibility/responsive/security browser acceptance. It does **not** introduce generic Catalog bulk editing, pricing/inventory/FX/Excel authority, browser-owned Admin credentials, a media-library list endpoint, a public 3D viewer, requester binding/fresh recount claims for Sales-Control, or blind mutation replay.
 
-## Step 69 — Pricing, FX & Excel Administration — `NEXT / NOT_STARTED after terminal 68-I transport`
-Implement price history, bulk/category/brand updates, FX-source/status, affected-product preview/apply and Excel import/export/dry-run/error UX. Step 69 implementation is authorized only after terminal Step-68-I protected merge, exact-SHA postmerge verification and Lock release.
+## Step 69 — Pricing, FX & Excel Administration — `CLOSED / FINAL CANONICAL PASS after terminal 69-I transport`
+Stages 69-A through 69-H are canonically complete through PR #377 / `1f1cd76f2336f868af89b5a2690ae63d3b2df702`. The frozen result includes Base Price/history administration, Pricing Rules with If-Match concurrency, Bulk Pricing preview/status/review/apply with Step-Up/idempotency, FX rate/source/rule and impact-preview/apply administration, Excel template/dry-run/import/recovery plus Catalog/Pricing preview/apply, and integrated Persian RTL/accessibility/responsive/security browser acceptance. Production FX-provider integration remains Step 77; Excel import history/status is not invented; Catalog/Pricing Excel apply remains separate/non-atomic. Stage 69-I performs documentation/governance-only final closure and Step70 handoff.
 
-## Step 70 — Inventory, Procurement & POS Administration — `PLANNED`
-Implement stock/variant views, low-stock/reserve controls, procurement operations and POS/reconciliation management.
+## Step 70 — Inventory, Procurement & POS Administration — `NEXT / NOT_STARTED after terminal 69-I transport`
+Implement source-proven stock/variant views and controls, low-stock/physical-reserve administration, inventory/reconciliation operations, procurement administration and POS/physical-sale/reconciliation management. Step70 implementation is authorized only after terminal Step-69-I protected merge, exact-SHA postmerge verification and Lock release.
 
 ## Step 71 — Orders, Payments, Fulfillment & After-Sales Administration — `PLANNED`
 Implement order/payment/fulfillment operational views, tracking/pickup, refund controls, returns/warranty decisions and exception handling.
@@ -521,16 +521,16 @@ Evolve architecture, integrations and product capabilities based on production e
 
 # Current Position
 
-- **Last fully closed implementation stage:** Step 68-H — integrated Catalog/Media/Sales-Control production/browser acceptance — PR #368 / `80938cc3e3a8aa051d8bcd2b480c3555df8742f7`.
+- **Last fully closed implementation stage:** Step 69-H — integrated Pricing/FX/Excel production/browser acceptance — PR #377 / `1f1cd76f2336f868af89b5a2690ae63d3b2df702`.
 - **Phase A:** CLOSED / FINAL GATE PASS — Steps 1–28 are COMPLETE / VERIFIED BY CURRENT CANONICAL BASELINE; historical attribution remains UNVERIFIED for Steps 1–27 and PARTIAL for Step 28.
 - **Step 49 closure:** CLOSED / FINAL GATE PASS after A11 audit.
-- **Active step:** Step 68-I — Final Canonical Verification / Documentation Reconciliation / Step 69 Handoff.
-- **Next approved step:** Step 69 — Pricing, FX & Excel Administration, only after Step 68-I completes protected merge, exact-SHA postmerge verification and terminal Lock release.
+- **Active step:** Step 69-I — Final Canonical Verification / Documentation Reconciliation / Step 70 Handoff.
+- **Next approved step:** Step 70 — Inventory, Procurement & POS Administration, only after Step 69-I completes protected merge, exact-SHA postmerge verification and terminal Lock release.
 - **Graph/Graphify:** RETIRED / OUT OF SCOPE; no live graph gate remains.
 - **Backend feature-completion horizon:** Step 52.
 - **UI/UX design begins:** Step 53.
 - **Storefront implementation begins:** Step 58.
-- **Admin frontend foundation:** Step 67 is closed; Catalog & Media domain administration is implemented in Step 68; Pricing/FX/Excel administration is next at Step 69.
+- **Admin frontend foundation:** Step 67 is closed; Catalog/Media is closed in Step 68; Pricing/FX/Excel is closed through Step69-H and awaits only 69-I final documentation closure; Inventory/Procurement/POS administration is next at Step70.
 - **Real provider integration phase:** Step 74.
 - **Production-readiness gate begins:** Step 79.
 - **Soft launch:** Step 88.
