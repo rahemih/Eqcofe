@@ -1,7 +1,7 @@
 # EQCOFE Current State
 
 ## Trusted state date
-**2026-10-17**
+**2026-10-25**
 
 ## Official repository
 - Repository: `rahemih/Eqcofe`
@@ -29,6 +29,34 @@
 The frozen Step-63 product result covers authoritative Cart/Checkout state, guest/auth identity boundaries, address/shipping/quote, signed Review snapshot, idempotent reserve/order submission, signed payment handoff, callback-state containment, authoritative payment recovery and Order Outcome, plus Persian RTL/responsive/accessibility acceptance. Real provider activation/secrets remain deferred to Step 74.
 
 **Tooling policy supersession — 2026-10-06:** the Project Owner retired Graph/Graphify from active EQCOFE governance. Historical Step-61/62/63 documents that mention graph requirements remain chronology only and no longer create a live gate. Follow-up `HOS-181` is Canceled and PR #319 is Closed / Unmerged. There is no remaining graph debt for Step 63.
+
+## Current Step 69 position
+
+**Step 69 — Pricing, FX & Excel Administration — `CLOSED / FINAL CANONICAL PASS after terminal 69-I transport`.** Stages 69-A through 69-H are terminal/canonical; Stage 69-I is the documentation/governance closure transport based on canonical main `1f1cd76f2336f868af89b5a2690ae63d3b2df702`. Step 70 must not mutate until the 69-I closure PR completes protected merge, exact-SHA postmerge verification and terminal Lock release.
+
+| Stage | PR | Canonical merge | Terminal Lock | State |
+| --- | ---: | --- | ---: | --- |
+| 69-A canonical handoff / live discovery / scope freeze | #370 | `6bc57e87778a3819e0224b6c7e51636af0f0ff95` | `6235007699` | COMPLETE |
+| 69-B Pricing/FX/Excel Backend/OpenAPI contract readiness | #371 | `3f0cca89f309931ba4ea3877468c6290c8b2a97e` | `6303877602` | COMPLETE |
+| 69-C shared Admin Pricing/FX/Excel read/state foundation | #372 | `15f695a850c1bee124223c4c1dd4e1747cc856de` | `6308184802` | COMPLETE |
+| 69-D Base Price/history and Pricing Rule administration | #373 | `8621831d688e55e0150c6928944d3dff2b385e11` | `6310005194` | COMPLETE |
+| 69-E Bulk Pricing administration | #374 | `3f9e1157d28aa6d515e1591a5899fe5bc59a8274` | `6310990853` | COMPLETE |
+| 69-F FX administration | #375 | `a2cfcb5a306110e84aa17fcbc17c7114da9ddf88` | `6312340369` | COMPLETE |
+| 69-G Excel administration | #376 | `4dae72e58486c35a5cca3a4966de824ecf275527` | `6382729692` | COMPLETE |
+| 69-H integrated Pricing/FX/Excel production/browser acceptance | #377 | `1f1cd76f2336f868af89b5a2690ae63d3b2df702` | `6383297591` | COMPLETE |
+| 69-I final verification / docs / Step 70 handoff | closure branch | based on `1f1cd76f2336f868af89b5a2690ae63d3b2df702` | terminal evidence required | FINAL CLOSURE |
+
+Stage 69-H exact merge-SHA evidence is green: Canonical CI #2109 / `40084844399`, Phase A #1608 / `40084844350`, Storefront Quality #1017 / `40084844346`, Prototype #1520 / `40084844365` and CodeQL #1256 / `40084844281` all succeeded.
+
+Canonical Step-69 functionality includes Base Price/history administration; Pricing Rule create/read/update/status management with If-Match concurrency; Bulk Pricing preview/status/review/apply with Step-Up/idempotency; FX rate/source/rule and impact-preview/apply administration; Excel template metadata, dry-run, idempotent import creation, failed-import recovery, Catalog preview/apply and Pricing preview/apply; and integrated Persian RTL/accessibility/responsive/security browser acceptance across 320/360/600/840/1200/1440 widths.
+
+Backend remains authority for authentication/RBAC/Step-Up and all Pricing/FX/Excel mutations. No generic FX operation history or Excel import-status/history endpoint is invented; unsafe ambiguity fails closed without blind replay; Excel Catalog does not create Products; Catalog/Pricing Excel apply remains non-atomic; production FX-provider integration remains Step 77; Inventory/Procurement/POS remains Step 70.
+
+Acceptance hardening in 69-H repaired a real Axe color-contrast defect in pricing preview metadata by replacing the muted text token with the secondary text token. The final Chromium/Axe gate passed after the repair. A separate broad Playwright locator was narrowed deterministically without changing product behavior.
+
+Graph/Graphify remains retired from active EQCOFE governance; there is no graph debt or graph gate for Step 69.
+
+**Next safe action:** Step 70 — Inventory, Procurement & POS Administration becomes `NEXT / NOT_STARTED` only after this 69-I closure document is terminally canonical on `main`. No Step-70 implementation is authorized before that terminal evidence.
 
 ## Current Step 68 position
 
