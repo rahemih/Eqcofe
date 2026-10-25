@@ -126,6 +126,7 @@
 | EQCOFE-STEP69-F-FX-ADMINISTRATION-001 | Step 69-F FX rate source rule impact preview and apply administration | HIGH | REQUIRED | `3f9e1157d28aa6d515e1591a5899fe5bc59a8274` | 52000/80000/125000 |
 | EQCOFE-STEP69-G-EXCEL-ADMINISTRATION-001 | Step 69-G Excel template dry-run import recovery Catalog and Pricing administration | HIGH | REQUIRED | `a2cfcb5a306110e84aa17fcbc17c7114da9ddf88` | 56000/86000/132000 |
 | EQCOFE-STEP69-H-INTEGRATED-ACCEPTANCE-001 | Step 69-H integrated Admin Pricing FX Excel production-browser acceptance | MEDIUM | NOT_REQUIRED | `4dae72e58486c35a5cca3a4966de824ecf275527` | 46000/72000/116000 |
+| EQCOFE-STEP69-I-CLOSURE-001 | Step 69-I final canonical verification, documentation reconciliation and Step 70 handoff | MEDIUM | NOT_REQUIRED | `1f1cd76f2336f868af89b5a2690ae63d3b2df702` | 34000/54000/96000 |
 | MA-AGENT-A0-ORCHESTRATOR-001 | A0 — Orchestrator / Engineering Manager Prompt | LOW | NOT_REQUIRED | `f7919991e619d416360e74a542741ef21c70f732` | 10000/16000/32000 |
 | MA-AGENT-A1-SPEC-001 | A1 — Specification & Research Prompt | LOW | NOT_REQUIRED | `120898df57138b301560e7d9b9f1b3f5da03e982` | 10000/16000/32000 |
 | MA-AGENT-A10-EVIDENCE-001 | A10 — Evidence & Documentation Prompt | LOW | NOT_REQUIRED | `bdf8fccde4ca40cced48381ad3be2e0461ade535` | 12000/18000/35000 |
@@ -171,4 +172,4 @@
 | MA-V1-ACC-MEDIUM-001 | V1 Acceptance MEDIUM R2 — telemetry terminal-state conflict hardening | MEDIUM | NOT_REQUIRED | `9017e0f25e9571568ed9acf4ca3ca977ce9e78f0` | 15000/25000/50000 |
 | MA-V1-ACCEPTANCE-CLOSURE-V16-R2-001 | V1.6 Phase 3 canonical acceptance closure R2 | HIGH | REQUIRED | `d7d235f5f240b8bea44bc607afa812b2f5bb12d4` | 30000/50000/90000 |
 
-Task contracts indexed: **165**.
+Task contracts indexed: **166**.
