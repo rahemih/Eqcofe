@@ -29,15 +29,15 @@ Conversation history is supporting context only. It must not override current ca
 ## Current handoff snapshot — 2026-10-24
 
 - Official repository / canonical branch: `rahemih/Eqcofe` / `main`.
-- Canonical implementation baseline before final Step-69 docs closure: `1f1cd76f2336f868af89b5a2690ae63d3b2df702` (PR #377).
-- Last completed implementation stage: **Step 69-H — integrated Pricing/FX/Excel production/browser acceptance — CANONICAL_COMPLETE**.
-- Active substep: **69-I — final canonical verification / docs reconciliation / Step 70 handoff**.
+- Canonical Step-69 closure baseline: `f9cede6b02f883396de59a2c93d7a48e94971766` (PR #378).
+- Last completed step: **Step 69 — Pricing, FX & Excel Administration — CLOSED / FINAL CANONICAL PASS**.
+- Active substep: **None. Step 69-I is CANONICAL_COMPLETE.**
 - Step 69 stages A–H canonical PR lineage: #370, #371, #372, #373, #374, #375, #376, #377.
 - Step 69-H exact merge-SHA Canonical CI #2109 / `40084844399`, Phase A #1608 / `40084844350`, Storefront Quality #1017 / `40084844346`, Prototype #1520 / `40084844365` and CodeQL #1256 / `40084844281` are PASS.
 - Graph/Graphify is **RETIRED / OUT OF SCOPE**; historical graph language does not create a live gate.
-- Linear current issue: `HOS-73 — Step 69 — Pricing, FX & Excel Administration` remains In Progress until terminal 69-I.
-- Successor execution step: **Step 70 — Inventory, Procurement & POS Administration** remains not-started until terminal 69-I.
-- Step 70 is authorized only after the 69-I closure PR has protected merge, exact-SHA postmerge verification and terminal Lock release; until then all Step70 implementation mutation is blocked.
+- Linear Step69 issue: `HOS-73 — Step 69 — Pricing, FX & Excel Administration` is **Done**.
+- Successor execution step: **Step 70 — Inventory, Procurement & POS Administration — AUTHORIZED / NEXT / NOT_STARTED** (`HOS-74`, Backlog until its separate start event).
+- Step 70 authorization condition has been satisfied by PR #378 merge `f9cede6b02f883396de59a2c93d7a48e94971766`, exact-SHA CI/Phase A/CodeQL PASS and terminal Lock release `6383476124`; Step70 has not yet started.
 - Technical source of truth remains GitHub `main` + CI + merged PR evidence; Linear mirrors management state.
 
 ### Step 69 canonical lineage
@@ -52,7 +52,7 @@ Conversation history is supporting context only. It must not override current ca
 | 69-F | #375 | `a2cfcb5a306110e84aa17fcbc17c7114da9ddf88` | `6312340369` | COMPLETE |
 | 69-G | #376 | `4dae72e58486c35a5cca3a4966de824ecf275527` | `6382729692` | COMPLETE |
 | 69-H | #377 | `1f1cd76f2336f868af89b5a2690ae63d3b2df702` | `6383297591` | COMPLETE |
-| 69-I | closure branch | terminal on this closure document's canonical merge | terminal evidence required | FINAL CLOSURE |
+| 69-I | #378 | `f9cede6b02f883396de59a2c93d7a48e94971766` | `6383476124` | COMPLETE |
 
 PR #374 has a later duplicate release comment `6311811899`; `6310990853` is the first valid terminal release evidence retained for lineage.
 

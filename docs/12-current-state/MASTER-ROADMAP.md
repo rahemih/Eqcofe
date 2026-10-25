@@ -528,16 +528,16 @@ Evolve architecture, integrations and product capabilities based on production e
 
 # Current Position
 
-- **Last fully closed implementation stage:** Step 69-H — integrated Pricing/FX/Excel production/browser acceptance — PR #377 / `1f1cd76f2336f868af89b5a2690ae63d3b2df702`.
+- **Last fully closed step:** Step 69 — Pricing, FX & Excel Administration — final closure PR #378 / `f9cede6b02f883396de59a2c93d7a48e94971766`.
 - **Phase A:** CLOSED / FINAL GATE PASS — Steps 1–28 are COMPLETE / VERIFIED BY CURRENT CANONICAL BASELINE; historical attribution remains UNVERIFIED for Steps 1–27 and PARTIAL for Step 28.
 - **Step 49 closure:** CLOSED / FINAL GATE PASS after A11 audit.
-- **Active step:** Step 69-I — Final Canonical Verification / Documentation Reconciliation / Step 70 Handoff.
-- **Next approved step:** Step 70 — Inventory, Procurement & POS Administration, only after Step 69-I completes protected merge, exact-SHA postmerge verification and terminal Lock release.
+- **Active step:** None; Step 69 is terminally closed and Step 70 has not yet started.
+- **Next approved step:** Step 70 — Inventory, Procurement & POS Administration — `AUTHORIZED / NEXT / NOT_STARTED`.
 - **Graph/Graphify:** RETIRED / OUT OF SCOPE; no live graph gate remains.
 - **Backend feature-completion horizon:** Step 52.
 - **UI/UX design begins:** Step 53.
 - **Storefront implementation begins:** Step 58.
-- **Admin frontend foundation:** Step 67 is closed; Catalog & Media administration is closed in Step 68; Pricing/FX/Excel administration is implemented through Step 69-H; Inventory/Procurement/POS administration is next at Step 70.
+- **Admin frontend foundation:** Step 67 is closed; Catalog & Media administration is closed in Step 68; Pricing/FX/Excel administration is fully closed in Step 69; Inventory/Procurement/POS administration is authorized next at Step 70.
 - **Real provider integration phase:** Step 74.
 - **Production-readiness gate begins:** Step 79.
 - **Soft launch:** Step 88.
