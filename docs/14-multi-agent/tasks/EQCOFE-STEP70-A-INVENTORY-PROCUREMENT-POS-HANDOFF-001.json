@@ -1,0 +1,255 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP70-A-INVENTORY-PROCUREMENT-POS-HANDOFF-001",
+  "title": "Step 70-A Inventory Procurement POS canonical handoff and scope freeze",
+  "description": "Documentation/governance-only canonical start of Step 70. Freeze live source authority for Inventory, Procurement and POS administration before any Backend/OpenAPI/Admin runtime mutation. Step70 owns Step56-D AD-D-06..18 (13 Inventory/Procurement surfaces, 77 source-traced operations) plus Step56-E AD-E-09..11 (3 POS surfaces, 19 design obligations). Preserve the live POS reconciliation gap exactly: 11 PosAdminController operations are backed by the Step49 supplemental POS contract but are absent from canonical assembled OpenAPI, while 8 canonical-OpenAPI POS operations (all 7 store/register/shift operations plus POST /admin/pos/orders) have no matching source controller. These 19 POS operations remain non-executable for Step70 frontend until 70-B canonical contract/runtime reconciliation. No runtime, OpenAPI, database, workflow, dependency, Product Design semantic or Step71 mutation in 70-A.",
+  "risk": "MEDIUM",
+  "risk_floor": "MEDIUM",
+  "owner": "PRODUCT_DESIGN",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "da446535d29ad4e6a95197a4d0a6058c8d27654e"
+  },
+  "scope": {
+    "read": [
+      "apps/admin/**",
+      "contracts/http/openapi.yaml",
+      "contracts/http/step49-pos-a9.yaml",
+      "src/generated/openapi.ts",
+      "src/modules/inventory/**",
+      "src/modules/procurement/**",
+      "src/modules/pos/**",
+      "docs/11-step-history/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "docs/11-step-history/STEP-70-A-INVENTORY-PROCUREMENT-POS-HANDOFF.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP70-A-INVENTORY-PROCUREMENT-POS-HANDOFF-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "apps/**",
+      "src/**",
+      "database/**",
+      "contracts/**",
+      "test/**",
+      "scripts/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP70-A-INVENTORY-PROCUREMENT-POS-HANDOFF-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 30000,
+    "soft_alert": 50000,
+    "hard_cap": 92000
+  },
+  "max_repair_cycles": 3,
+  "task_risk_rules": [
+    {
+      "id": "STEP70_A_HANDOFF_MEDIUM",
+      "risk": "MEDIUM",
+      "paths": [
+        "docs/11-step-history/STEP-70-A-INVENTORY-PROCUREMENT-POS-HANDOFF.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP70-A-INVENTORY-PROCUREMENT-POS-HANDOFF-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "Step 69 terminal closure + post-closure state sync",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "da446535d29ad4e6a95197a4d0a6058c8d27654e",
+      "evidence": "Step69-I canonical PR #378 merged at f9cede6b02f883396de59a2c93d7a48e94971766 with exact-SHA postmerge PASS and terminal Lock release 6383476124. Post-closure state sync PR #379 merged at da446535d29ad4e6a95197a4d0a6058c8d27654e after exact-head Review/Lock and exact-SHA Canonical CI #2114, Phase A #1613, CodeQL #1262 PASS.",
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "linear_issue": "HOS-74",
+    "successor_step": "71",
+    "canonical_main": "da446535d29ad4e6a95197a4d0a6058c8d27654e",
+    "design_surfaces_inventory_procurement": [
+      "AD-D-06",
+      "AD-D-07",
+      "AD-D-08",
+      "AD-D-09",
+      "AD-D-10",
+      "AD-D-11",
+      "AD-D-12",
+      "AD-D-13",
+      "AD-D-14",
+      "AD-D-15",
+      "AD-D-16",
+      "AD-D-17",
+      "AD-D-18"
+    ],
+    "design_surfaces_pos": [
+      "AD-E-09",
+      "AD-E-10",
+      "AD-E-11"
+    ],
+    "surface_count": 16,
+    "inventory_procurement_operation_count": 77,
+    "pos_operation_count": 19,
+    "total_operation_count": 96,
+    "pos_gap": {
+      "controller_supplemental_not_canonical_openapi_count": 11,
+      "canonical_openapi_no_controller_count": 8,
+      "canonical_openapi_no_controller_operations": [
+        "GET /admin/pos/stores",
+        "GET /admin/pos/registers",
+        "GET /admin/pos/shifts/current",
+        "POST /admin/pos/shifts/open",
+        "POST /admin/pos/shifts/{id}/begin-closing",
+        "POST /admin/pos/shifts/{id}/close",
+        "POST /admin/pos/shifts/{id}/reconcile",
+        "POST /admin/pos/orders"
+      ],
+      "controller_supplemental_not_canonical_openapi_operations": [
+        "GET /admin/pos/scan",
+        "POST /admin/pos/sales",
+        "POST /admin/pos/sales/{id}/lines",
+        "POST /admin/pos/sales/{id}/price",
+        "POST /admin/pos/sales/{id}/commit",
+        "POST /admin/pos/offline/commands",
+        "POST /admin/pos/offline/commands/{clientCommandId}/sync",
+        "GET /admin/pos/reconciliation/failed",
+        "GET /admin/pos/reconciliation/{clientCommandId}",
+        "POST /admin/pos/reconciliation/{clientCommandId}/retry",
+        "POST /admin/pos/reconciliation/{clientCommandId}/abandon"
+      ]
+    },
+    "graph_state": "RETIRED_AND_OUT_OF_SCOPE"
+  },
+  "frozen_execution_plan": [
+    {
+      "stage": "70-A",
+      "goal": "canonical handoff, live discovery, source authority and scope freeze",
+      "risk": "MEDIUM",
+      "human_gate": false
+    },
+    {
+      "stage": "70-B",
+      "goal": "Backend/OpenAPI/generated-contract readiness and POS gap reconciliation for the frozen 96-operation union; repair only proven drift/gaps",
+      "risk": "HIGH",
+      "human_gate": true
+    },
+    {
+      "stage": "70-C",
+      "goal": "shared Admin Inventory/Procurement/POS read, state, permission and safe server-transport foundation",
+      "risk": "MEDIUM",
+      "human_gate": false
+    },
+    {
+      "stage": "70-D",
+      "goal": "Inventory overview/cost/movement, warehouse protection and Step-Up inventory adjustment administration",
+      "risk": "HIGH",
+      "human_gate": true
+    },
+    {
+      "stage": "70-E",
+      "goal": "Inventory transfer, reservation, allocation, pick/unpick and sale-consumption administration",
+      "risk": "HIGH",
+      "human_gate": true
+    },
+    {
+      "stage": "70-F",
+      "goal": "Supplier, purchase-request and purchase-order administration",
+      "risk": "HIGH",
+      "human_gate": true
+    },
+    {
+      "stage": "70-G",
+      "goal": "Goods receipt/reversal, landed cost, supplier invoice/dispute and purchase-return administration",
+      "risk": "HIGH",
+      "human_gate": true
+    },
+    {
+      "stage": "70-H",
+      "goal": "POS store/register/shift, scan/sale, offline sync and reconciliation administration only after 70-B canonical authority exists",
+      "risk": "HIGH",
+      "human_gate": true
+    },
+    {
+      "stage": "70-I",
+      "goal": "integrated Persian RTL/accessibility/responsive/security production-browser acceptance",
+      "risk": "MEDIUM",
+      "human_gate": false
+    },
+    {
+      "stage": "70-J",
+      "goal": "final canonical verification, documentation reconciliation and Step71 handoff",
+      "risk": "MEDIUM",
+      "human_gate": false
+    }
+  ],
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Step69 closure and post-closure sync are terminal/canonical and main is exactly da446535d29ad4e6a95197a4d0a6058c8d27654e before Step70-A mutation.",
+      "verification": "live_main_and_terminal_evidence",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Step70 source ownership freezes exactly 16 surfaces: AD-D-06..18 and AD-E-09..11, with 77 Inventory/Procurement + 19 POS = 96 source/design-traced operations.",
+      "verification": "step56_surface_operation_audit",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "The live POS authority gap is frozen without upgrade: 11 controller+supplemental-contract operations remain absent from canonical assembled OpenAPI; 8 canonical-OpenAPI operations remain without source controller. All 19 POS operations remain blocked from frontend execution until canonical 70-B reconciliation.",
+      "verification": "pos_runtime_contract_gap_audit",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Inventory/Procurement source-specific invariants from AD-D-06..18 are retained, including FIFO/cost boundaries, adjustment Step-Up/idempotency, transfer/reservation/allocation lifecycle limits, warehouse protection If-Match, procurement separation-of-duties, receipt/landed-cost/return Step-Up/idempotency and invoice read limitations.",
+      "verification": "step56_d_invariant_audit",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "No unsupported guarantee is introduced: approval does not reserve transfer stock, ship does not claim fresh free-stock recheck, warehouse scope is not claimed uniform where source omits it, supplier delete/payment endpoints are not invented, and purchase-return approval does not claim fresh receipt-ownership recheck.",
+      "verification": "authority_negative_assertions",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "70-A makes no runtime, API/OpenAPI, generated-contract, database, workflow/dependency, Product Design semantic or Step71 implementation mutation.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "70-B remains blocked until exact-head Canonical CI/Phase A/CodeQL, deterministic Review, exact-artifact Lock, protected merge, exact-SHA postmerge verification and terminal Lock release complete for 70-A.",
+      "verification": "canonical_transport",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Step70-A is MEDIUM-risk documentation/governance handoff and requires no Project Owner Human Gate. Step70-B mutation remains blocked until terminal 70-A canonical closure."
+  },
+  "pre_mutation_gates": {
+    "graph_health": "RETIRED_AND_OUT_OF_SCOPE",
+    "human_gate": "NOT_REQUIRED"
+  }
+}
