@@ -74,6 +74,8 @@ test('runtime-accurate POS status and validation bounds are frozen',()=>{
   assert.match(openapi,/\/admin\/pos\/sales\/\{id\}\/commit:[\s\S]*?responses:[\s\S]*?'200':/);
   assert.match(openapi,/\/admin\/pos\/offline\/commands:[\s\S]*?responses:[\s\S]*?'201':/);
   assert.match(openapi,/\/admin\/pos\/offline\/commands\/\{clientCommandId\}\/sync:[\s\S]*?responses:[\s\S]*?'200':/);
+  assert.match(openapi,/\/admin\/pos\/scan:[\s\S]*?name: value[\s\S]*?minLength: 1[\s\S]*?maxLength: 120/);
+  assert.match(read('src/modules/catalog/application/pos-variant-lookup.service.ts'),/value\.length > 120/);
   assert.ok(openapi.includes('maxLength: 120'));
   assert.ok(openapi.includes('maxItems: 100'));
   assert.ok(openapi.includes('maximum: 999'));
