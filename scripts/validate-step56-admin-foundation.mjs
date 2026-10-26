@@ -102,7 +102,7 @@ export function validateContract(c) {
     check(same(gap.affectedScreens, c.screenInventory.filter((s) => s.operations.some((k) => gap.operations.includes(k))).map((s) => s.id)), `Gap surface coverage drift ${gap.id}`);
     check(same(gap.responsibleDomains, sorted(c.operationEvidence.filter((e) => gap.operations.includes(e.key)).map((e) => e.domain))), `Gap owner coverage drift ${gap.id}`);
   }
-  const expected = { actors: 3, inheritedAdminJourneys: 12, tasks: 97, surfaceObligations: 97, backendModules: 28, assembledAdminOpenapiOperations: 507, adminRuntimeRoutes: 376, unionOperations: 532, explicitPermissionKeys: 118, unresolvedPermissionOperations: 151, screenJourneyLinks: 111, runtimePermissionKeys: 114, allSourcePermissionKeys: 122, permissionConflictOperations: 5 };
+  const expected = { actors: 3, inheritedAdminJourneys: 12, tasks: 97, surfaceObligations: 97, backendModules: 28, assembledAdminOpenapiOperations: 510, adminRuntimeRoutes: 376, unionOperations: 524, explicitPermissionKeys: 118, unresolvedPermissionOperations: 143, screenJourneyLinks: 111, runtimePermissionKeys: 114, allSourcePermissionKeys: 122, permissionConflictOperations: 5 };
   check(same(c.counts, expected), 'Frozen counts changed');
   check(c.screenInventory.length === 97 && c.tasks.length === 97 && c.domains.length === 28 && sorted(c.operationEvidence.flatMap((e) => e.permissions)).length === 118, 'Actual counts disagree');
   check(c.operationEvidence.filter((e) => e.openapi).length === c.counts.assembledAdminOpenapiOperations && c.operationEvidence.filter((e) => e.runtime).length === c.counts.adminRuntimeRoutes && c.operationEvidence.length === c.counts.unionOperations, 'Actual source counts disagree');
