@@ -159,3 +159,7 @@ Step57 foundation deterministically pins Step56 B-H source hashes and inherits t
 ## 2026-10-26 — Step57 provenance projection synchronized
 
 The deterministic Step57 source-linked contract now inherits the reconciled Step56 authority: 134 total screens, 97 Admin screens, 524 unique Admin operations, 167 NO_ACTION operations, 1143 Admin views and 4472 Admin states. All Step57 closure/review fields remain PENDING. Prototype coverage and manifest are regenerated only for source parity; no prototype behavior or approval state changed.
+
+## Admin destination generated projection authorization
+
+The reconciled POS authority makes `AD-E-10` and `AD-E-11` source-backed destinations in the existing Step67 registry generator. 70-B authorizes only `apps/admin/scripts/generate-step67-destinations.mjs` and its generated `apps/admin/app/navigation/destinations.generated.ts` projection, changing the deterministic destination count from 60 to 62. This does not implement routes, components, handlers, POS workflows or any other Admin runtime behavior; all other `apps/**` paths remain outside the Task Contract write allowlist.
