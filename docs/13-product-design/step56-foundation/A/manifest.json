@@ -3,13 +3,13 @@
   "substep": "A",
   "status": "A_COMPLETE_STEP_IN_PROGRESS",
   "source": "docs/13-product-design/step56-admin-ux-contract.json",
-  "sourceSha256": "2130ef762b71134d5c1013d12d2f5d9ff25ee73ec482c81d70d10ef8fea48732",
+  "sourceSha256": "44269f7c4a84722beb0eb3ffe727c46dac4e1c86787ecd20de120e319edbaf3d",
   "pageWireframeCount": 0,
   "canonicalSource": "repository",
   "figmaMirror": "OPTIONAL_NOT_REQUIRED",
   "generatedArtifacts": [
-    {"path":"docs/13-product-design/step56-foundation/A/admin-traceability.json","sha256":"d92132a19c8e1402574d1b2e221ab13240e4010c16d8e19d7d7a227e8edf09f9","bytes":882841},
-    {"path":"docs/13-product-design/step56-foundation/A/ADMIN-SCOPE-INVENTORY.md","sha256":"950ebb05cc38af6d3b6050c454cebb7b38e6690688568912f5c8ce9e1f3f4a24","bytes":13345},
-    {"path":"docs/13-product-design/step56-foundation/A/SOURCE-GAPS.md","sha256":"270c1bb6018749a60815fb4e1e0e539be990941d170647e2ed75b438fd3692c2","bytes":50911}
+    {"path":"docs/13-product-design/step56-foundation/A/admin-traceability.json","sha256":"35f2128295d73c014cbfab975b50db7cb91605326731cb20e58aae3b99f7e1c8","bytes":877684},
+    {"path":"docs/13-product-design/step56-foundation/A/ADMIN-SCOPE-INVENTORY.md","sha256":"d5b5fb94e13c3ef92b4bcc76703482d525044520a2837e3a1e45586ac7374463","bytes":13347},
+    {"path":"docs/13-product-design/step56-foundation/A/SOURCE-GAPS.md","sha256":"019c9bd40ec8b44fd3953e897eeb9e3b1ea2360c58816f16e4fce6ea953eb765","bytes":46928}
   ]
 }
