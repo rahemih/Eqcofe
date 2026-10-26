@@ -2,11 +2,11 @@
 
 These findings remain unresolved implementation evidence requirements. Foundation acceptance freezes complete design scope and mandatory NO_ACTION restrictions; it does not certify runtime/API/permission reconciliation. Every obligation remains counted and H must audit its unavailable/disabled concept coverage. Backend/API/permission repair is outside this foundation.
 
-## GAP-01 — 156 operations
+## GAP-01 — 148 operations
 
 156 assembled Admin OpenAPI operations have no matching source controller route; contract existence does not prove executable admin capability.
 
-Foundation disposition: RETAINED_DESIGN_OBLIGATION_NO_ACTION. Scope removed: false. Design audit: 56-H. Responsible domains: admin, ai, catalog, customer, integrations, loyalty, marketing, operations, orders, pos, security.
+Foundation disposition: RETAINED_DESIGN_OBLIGATION_NO_ACTION. Scope removed: false. Design audit: 56-H. Responsible domains: admin, ai, catalog, customer, integrations, loyalty, marketing, operations, orders, security.
 
 Execution release prerequisite: Separate authorized canonical API/runtime reconciliation; do not implement backend in 56-A.
 
@@ -74,9 +74,6 @@ Execution release prerequisite: Separate authorized canonical API/runtime reconc
 | `GET /admin/orders/{id}` | AD-E-01 | contracts/http/openapi.yaml | No matching source controller | UNRESOLVED_NOT_GRANTED |
 | `GET /admin/orders/{id}/allowed-actions` | AD-E-01 | contracts/http/openapi.yaml | No matching source controller | UNRESOLVED_NOT_GRANTED |
 | `GET /admin/orders/{id}/timeline` | AD-E-01 | contracts/http/openapi.yaml | No matching source controller | UNRESOLVED_NOT_GRANTED |
-| `GET /admin/pos/registers` | AD-E-09 | contracts/http/openapi.yaml | No matching source controller | UNRESOLVED_NOT_GRANTED |
-| `GET /admin/pos/shifts/current` | AD-E-09 | contracts/http/openapi.yaml | No matching source controller | UNRESOLVED_NOT_GRANTED |
-| `GET /admin/pos/stores` | AD-E-09 | contracts/http/openapi.yaml | No matching source controller | UNRESOLVED_NOT_GRANTED |
 | `GET /admin/reviews` | AD-F-05 | contracts/http/openapi.yaml | No matching source controller | UNRESOLVED_NOT_GRANTED |
 | `GET /admin/reviews/{id}` | AD-F-05 | contracts/http/openapi.yaml | No matching source controller | UNRESOLVED_NOT_GRANTED |
 | `GET /admin/security/dashboard` | AD-G-19 | contracts/http/openapi.yaml | No matching source controller | UNRESOLVED_NOT_GRANTED |
@@ -150,11 +147,6 @@ Execution release prerequisite: Separate authorized canonical API/runtime reconc
 | `POST /admin/orders/{id}/cancel` | AD-E-01 | contracts/http/openapi.yaml | No matching source controller | SOURCE_EXPLICIT |
 | `POST /admin/orders/{id}/complete` | AD-E-01 | contracts/http/openapi.yaml | No matching source controller | UNRESOLVED_NOT_GRANTED |
 | `POST /admin/orders/{id}/confirm` | AD-E-01 | contracts/http/openapi.yaml | No matching source controller | UNRESOLVED_NOT_GRANTED |
-| `POST /admin/pos/orders` | AD-E-10 | contracts/http/openapi.yaml | No matching source controller | UNRESOLVED_NOT_GRANTED |
-| `POST /admin/pos/shifts/{id}/begin-closing` | AD-E-09 | contracts/http/openapi.yaml | No matching source controller | UNRESOLVED_NOT_GRANTED |
-| `POST /admin/pos/shifts/{id}/close` | AD-E-09 | contracts/http/openapi.yaml | No matching source controller | UNRESOLVED_NOT_GRANTED |
-| `POST /admin/pos/shifts/{id}/reconcile` | AD-E-09 | contracts/http/openapi.yaml | No matching source controller | UNRESOLVED_NOT_GRANTED |
-| `POST /admin/pos/shifts/open` | AD-E-09 | contracts/http/openapi.yaml | No matching source controller | UNRESOLVED_NOT_GRANTED |
 | `POST /admin/reviews/{id}/approve` | AD-F-05 | contracts/http/openapi.yaml | No matching source controller | UNRESOLVED_NOT_GRANTED |
 | `POST /admin/reviews/{id}/hide` | AD-F-05 | contracts/http/openapi.yaml | No matching source controller | UNRESOLVED_NOT_GRANTED |
 | `POST /admin/reviews/{id}/reject` | AD-F-05 | contracts/http/openapi.yaml | No matching source controller | UNRESOLVED_NOT_GRANTED |
@@ -169,11 +161,11 @@ Execution release prerequisite: Separate authorized canonical API/runtime reconc
 | `POST /admin/security/vulnerabilities/{id}/accept-risk` | AD-G-23 | contracts/http/openapi.yaml | No matching source controller | UNRESOLVED_NOT_GRANTED |
 | `POST /admin/security/vulnerabilities/{id}/resolve` | AD-G-23 | contracts/http/openapi.yaml | No matching source controller | UNRESOLVED_NOT_GRANTED |
 
-## GAP-02 — 151 operations
+## GAP-02 — 143 operations
 
 151 contract-only operations have no explicit permission key in OpenAPI or matching runtime controller. Complete permission boundary cannot be frozen as verified.
 
-Foundation disposition: RETAINED_DESIGN_OBLIGATION_NO_ACTION. Scope removed: false. Design audit: 56-H. Responsible domains: admin, ai, catalog, customer, integrations, loyalty, marketing, operations, orders, pos, security.
+Foundation disposition: RETAINED_DESIGN_OBLIGATION_NO_ACTION. Scope removed: false. Design audit: 56-H. Responsible domains: admin, ai, catalog, customer, integrations, loyalty, marketing, operations, orders, security.
 
 Execution release prerequisite: Owner-approved canonical permission evidence; never invent permission names or persona grants.
 
@@ -241,9 +233,6 @@ Execution release prerequisite: Owner-approved canonical permission evidence; ne
 | `GET /admin/orders/{id}` | AD-E-01 | contracts/http/openapi.yaml | No matching source controller | UNRESOLVED_NOT_GRANTED |
 | `GET /admin/orders/{id}/allowed-actions` | AD-E-01 | contracts/http/openapi.yaml | No matching source controller | UNRESOLVED_NOT_GRANTED |
 | `GET /admin/orders/{id}/timeline` | AD-E-01 | contracts/http/openapi.yaml | No matching source controller | UNRESOLVED_NOT_GRANTED |
-| `GET /admin/pos/registers` | AD-E-09 | contracts/http/openapi.yaml | No matching source controller | UNRESOLVED_NOT_GRANTED |
-| `GET /admin/pos/shifts/current` | AD-E-09 | contracts/http/openapi.yaml | No matching source controller | UNRESOLVED_NOT_GRANTED |
-| `GET /admin/pos/stores` | AD-E-09 | contracts/http/openapi.yaml | No matching source controller | UNRESOLVED_NOT_GRANTED |
 | `GET /admin/reviews` | AD-F-05 | contracts/http/openapi.yaml | No matching source controller | UNRESOLVED_NOT_GRANTED |
 | `GET /admin/reviews/{id}` | AD-F-05 | contracts/http/openapi.yaml | No matching source controller | UNRESOLVED_NOT_GRANTED |
 | `GET /admin/security/dashboard` | AD-G-19 | contracts/http/openapi.yaml | No matching source controller | UNRESOLVED_NOT_GRANTED |
@@ -313,11 +302,6 @@ Execution release prerequisite: Owner-approved canonical permission evidence; ne
 | `POST /admin/operations/manual-reviews/{id}/resolve` | AD-G-30 | contracts/http/openapi.yaml | No matching source controller | UNRESOLVED_NOT_GRANTED |
 | `POST /admin/orders/{id}/complete` | AD-E-01 | contracts/http/openapi.yaml | No matching source controller | UNRESOLVED_NOT_GRANTED |
 | `POST /admin/orders/{id}/confirm` | AD-E-01 | contracts/http/openapi.yaml | No matching source controller | UNRESOLVED_NOT_GRANTED |
-| `POST /admin/pos/orders` | AD-E-10 | contracts/http/openapi.yaml | No matching source controller | UNRESOLVED_NOT_GRANTED |
-| `POST /admin/pos/shifts/{id}/begin-closing` | AD-E-09 | contracts/http/openapi.yaml | No matching source controller | UNRESOLVED_NOT_GRANTED |
-| `POST /admin/pos/shifts/{id}/close` | AD-E-09 | contracts/http/openapi.yaml | No matching source controller | UNRESOLVED_NOT_GRANTED |
-| `POST /admin/pos/shifts/{id}/reconcile` | AD-E-09 | contracts/http/openapi.yaml | No matching source controller | UNRESOLVED_NOT_GRANTED |
-| `POST /admin/pos/shifts/open` | AD-E-09 | contracts/http/openapi.yaml | No matching source controller | UNRESOLVED_NOT_GRANTED |
 | `POST /admin/reviews/{id}/approve` | AD-F-05 | contracts/http/openapi.yaml | No matching source controller | UNRESOLVED_NOT_GRANTED |
 | `POST /admin/reviews/{id}/hide` | AD-F-05 | contracts/http/openapi.yaml | No matching source controller | UNRESOLVED_NOT_GRANTED |
 | `POST /admin/reviews/{id}/reject` | AD-F-05 | contracts/http/openapi.yaml | No matching source controller | UNRESOLVED_NOT_GRANTED |
@@ -331,11 +315,11 @@ Execution release prerequisite: Owner-approved canonical permission evidence; ne
 | `POST /admin/security/vulnerabilities/{id}/accept-risk` | AD-G-23 | contracts/http/openapi.yaml | No matching source controller | UNRESOLVED_NOT_GRANTED |
 | `POST /admin/security/vulnerabilities/{id}/resolve` | AD-G-23 | contracts/http/openapi.yaml | No matching source controller | UNRESOLVED_NOT_GRANTED |
 
-## GAP-03 — 25 operations
+## GAP-03 — 14 operations
 
 25 implemented admin controller operations are outside assembled OpenAPI; POS has a separate supplemental contract for some of them.
 
-Foundation disposition: RETAINED_DESIGN_OBLIGATION_NO_ACTION. Scope removed: false. Design audit: 56-H. Responsible domains: loyalty, marketing, pos.
+Foundation disposition: RETAINED_DESIGN_OBLIGATION_NO_ACTION. Scope removed: false. Design audit: 56-H. Responsible domains: loyalty, marketing.
 
 Execution release prerequisite: Separate authorized contract reconciliation; preserve existing source truth and do not silently add overlay/API changes in A.
 
@@ -345,9 +329,6 @@ Execution release prerequisite: Separate authorized contract reconciliation; pre
 | `GET /admin/loyalty/customers/{customerId}/history` | AD-F-03 | Not in assembled OpenAPI | src/modules/loyalty/presentation/loyalty-admin.controller.ts:11 | SOURCE_EXPLICIT |
 | `GET /admin/marketing/promotions` | AD-F-09 | Not in assembled OpenAPI | src/modules/marketing/presentation/marketing-admin.controller.ts:20 | SOURCE_EXPLICIT |
 | `GET /admin/marketing/redemptions` | AD-F-08 | Not in assembled OpenAPI | src/modules/marketing/presentation/marketing-admin.controller.ts:30 | SOURCE_EXPLICIT |
-| `GET /admin/pos/reconciliation/{clientCommandId}` | AD-E-11 | contracts/http/step49-pos-a9.yaml | src/modules/pos/presentation/pos-admin.controller.ts:52 | SOURCE_EXPLICIT |
-| `GET /admin/pos/reconciliation/failed` | AD-E-11 | contracts/http/step49-pos-a9.yaml | src/modules/pos/presentation/pos-admin.controller.ts:48 | SOURCE_EXPLICIT |
-| `GET /admin/pos/scan` | AD-E-10 | contracts/http/step49-pos-a9.yaml | src/modules/pos/presentation/pos-admin.controller.ts:11 | SOURCE_EXPLICIT |
 | `POST /admin/loyalty/customers/{customerId}/adjust` | AD-F-03 | Not in assembled OpenAPI | src/modules/loyalty/presentation/loyalty-admin.controller.ts:12 | SOURCE_EXPLICIT |
 | `POST /admin/loyalty/customers/{customerId}/entries/{entryId}/reverse` | AD-F-03 | Not in assembled OpenAPI | src/modules/loyalty/presentation/loyalty-admin.controller.ts:13 | SOURCE_EXPLICIT |
 | `POST /admin/marketing/campaigns/{id}/archive` | AD-F-07 | Not in assembled OpenAPI | src/modules/marketing/presentation/marketing-admin.controller.ts:18 | SOURCE_EXPLICIT |
@@ -358,14 +339,6 @@ Execution release prerequisite: Separate authorized contract reconciliation; pre
 | `POST /admin/marketing/promotions` | AD-F-09 | Not in assembled OpenAPI | src/modules/marketing/presentation/marketing-admin.controller.ts:21 | SOURCE_EXPLICIT |
 | `POST /admin/marketing/promotions/{id}/disable` | AD-F-09 | Not in assembled OpenAPI | src/modules/marketing/presentation/marketing-admin.controller.ts:23 | SOURCE_EXPLICIT |
 | `POST /admin/marketing/promotions/{id}/enable` | AD-F-09 | Not in assembled OpenAPI | src/modules/marketing/presentation/marketing-admin.controller.ts:22 | SOURCE_EXPLICIT |
-| `POST /admin/pos/offline/commands` | AD-E-11 | contracts/http/step49-pos-a9.yaml | src/modules/pos/presentation/pos-admin.controller.ts:37 | SOURCE_EXPLICIT |
-| `POST /admin/pos/offline/commands/{clientCommandId}/sync` | AD-E-11 | contracts/http/step49-pos-a9.yaml | src/modules/pos/presentation/pos-admin.controller.ts:42 | SOURCE_EXPLICIT |
-| `POST /admin/pos/reconciliation/{clientCommandId}/abandon` | AD-E-11 | contracts/http/step49-pos-a9.yaml | src/modules/pos/presentation/pos-admin.controller.ts:63 | SOURCE_EXPLICIT |
-| `POST /admin/pos/reconciliation/{clientCommandId}/retry` | AD-E-11 | contracts/http/step49-pos-a9.yaml | src/modules/pos/presentation/pos-admin.controller.ts:56 | SOURCE_EXPLICIT |
-| `POST /admin/pos/sales` | AD-E-10 | contracts/http/step49-pos-a9.yaml | src/modules/pos/presentation/pos-admin.controller.ts:15 | SOURCE_EXPLICIT |
-| `POST /admin/pos/sales/{id}/commit` | AD-E-10 | contracts/http/step49-pos-a9.yaml | src/modules/pos/presentation/pos-admin.controller.ts:31 | SOURCE_EXPLICIT |
-| `POST /admin/pos/sales/{id}/lines` | AD-E-10 | contracts/http/step49-pos-a9.yaml | src/modules/pos/presentation/pos-admin.controller.ts:20 | SOURCE_EXPLICIT |
-| `POST /admin/pos/sales/{id}/price` | AD-E-10 | contracts/http/step49-pos-a9.yaml | src/modules/pos/presentation/pos-admin.controller.ts:25 | SOURCE_EXPLICIT |
 
 ## GAP-04 — 5 operations
 
