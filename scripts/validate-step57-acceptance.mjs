@@ -40,9 +40,9 @@ export function validateStep57Acceptance(contract) {
     const adminStates = admin.flatMap((screen) => screen.states || []);
     const adminViewRefs = new Set(admin.flatMap((screen) => (screen.views || []).map((view) => `${screen.id}/${view.id}`)));
 
-    check(operationIds.size === 532, `Expected 532 inherited admin operations, found ${operationIds.size}`);
-    check(blockedOperationIds.size === 186, `Expected 186 NO_ACTION operations, found ${blockedOperationIds.size}`);
-    check(adminViews.length === 1142, `Expected 1142 inherited admin views, found ${adminViews.length}`);
+    check(operationIds.size === 524, `Expected 524 inherited admin operations, found ${operationIds.size}`);
+    check(blockedOperationIds.size === 167, `Expected 167 NO_ACTION operations, found ${blockedOperationIds.size}`);
+    check(adminViews.length === 1143, `Expected 1143 inherited admin views, found ${adminViews.length}`);
     check(adminStates.length === 4472, `Expected 4472 inherited admin states, found ${adminStates.length}`);
 
     for (const screen of admin) {
@@ -103,5 +103,5 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
   const contract = read(`${root}/step57-high-fidelity-contract.json`);
   const errors = validateStep57Acceptance(contract);
   if (errors.length) throw new Error(errors.join('\n'));
-  console.log('Step57 deterministic acceptance PASS: 37 storefront, 97 admin, 24 journeys, 532 operations, 186 NO_ACTION; human visual/accessibility approval remains PENDING');
+  console.log('Step57 deterministic acceptance PASS: 37 storefront, 97 admin, 24 journeys, 524 operations, 167 NO_ACTION; human visual/accessibility approval remains PENDING');
 }
