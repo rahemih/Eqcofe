@@ -8,133 +8,11 @@
     "staff"
   ],
   "domains": [
-    "pos"
+    "admin"
   ],
-  "operations": [
-    "GET /admin/pos/registers",
-    "GET /admin/pos/shifts/current",
-    "GET /admin/pos/stores",
-    "POST /admin/pos/shifts/{id}/begin-closing",
-    "POST /admin/pos/shifts/{id}/close",
-    "POST /admin/pos/shifts/{id}/reconcile",
-    "POST /admin/pos/shifts/open"
-  ],
-  "operationViews": [
-    {
-      "operation": "GET /admin/pos/registers",
-      "view": "op-01",
-      "permissionClaims": {
-        "runtime": null,
-        "openapi": null
-      },
-      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
-      "stepUp": null,
-      "idempotencyScope": null,
-      "versionRequired": false,
-      "recovery": "NO_ACTION",
-      "executionEnabled": false,
-      "fields": []
-    },
-    {
-      "operation": "GET /admin/pos/shifts/current",
-      "view": "op-02",
-      "permissionClaims": {
-        "runtime": null,
-        "openapi": null
-      },
-      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
-      "stepUp": null,
-      "idempotencyScope": null,
-      "versionRequired": false,
-      "recovery": "NO_ACTION",
-      "executionEnabled": false,
-      "fields": []
-    },
-    {
-      "operation": "GET /admin/pos/stores",
-      "view": "op-03",
-      "permissionClaims": {
-        "runtime": null,
-        "openapi": null
-      },
-      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
-      "stepUp": null,
-      "idempotencyScope": null,
-      "versionRequired": false,
-      "recovery": "NO_ACTION",
-      "executionEnabled": false,
-      "fields": []
-    },
-    {
-      "operation": "POST /admin/pos/shifts/{id}/begin-closing",
-      "view": "op-04",
-      "permissionClaims": {
-        "runtime": null,
-        "openapi": null
-      },
-      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
-      "stepUp": null,
-      "idempotencyScope": null,
-      "versionRequired": false,
-      "recovery": "NO_ACTION",
-      "executionEnabled": false,
-      "fields": []
-    },
-    {
-      "operation": "POST /admin/pos/shifts/{id}/close",
-      "view": "op-05",
-      "permissionClaims": {
-        "runtime": null,
-        "openapi": null
-      },
-      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
-      "stepUp": null,
-      "idempotencyScope": null,
-      "versionRequired": false,
-      "recovery": "NO_ACTION",
-      "executionEnabled": false,
-      "fields": []
-    },
-    {
-      "operation": "POST /admin/pos/shifts/{id}/reconcile",
-      "view": "op-06",
-      "permissionClaims": {
-        "runtime": null,
-        "openapi": null
-      },
-      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
-      "stepUp": null,
-      "idempotencyScope": null,
-      "versionRequired": false,
-      "recovery": "NO_ACTION",
-      "executionEnabled": false,
-      "fields": []
-    },
-    {
-      "operation": "POST /admin/pos/shifts/open",
-      "view": "op-07",
-      "permissionClaims": {
-        "runtime": null,
-        "openapi": null
-      },
-      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
-      "stepUp": null,
-      "idempotencyScope": null,
-      "versionRequired": false,
-      "recovery": "NO_ACTION",
-      "executionEnabled": false,
-      "fields": []
-    }
-  ],
-  "blockedOperations": [
-    "GET /admin/pos/registers",
-    "GET /admin/pos/shifts/current",
-    "GET /admin/pos/stores",
-    "POST /admin/pos/shifts/{id}/begin-closing",
-    "POST /admin/pos/shifts/{id}/close",
-    "POST /admin/pos/shifts/{id}/reconcile",
-    "POST /admin/pos/shifts/open"
-  ],
+  "operations": [],
+  "operationViews": [],
+  "blockedOperations": [],
   "facets": [
     "entry-and-context",
     "permission-aware-read-or-explicit-unavailable",
@@ -146,232 +24,232 @@
     {
       "id": "allocation-needed",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "id": "approval-required",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "id": "audit-reference",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "id": "authoritative-success",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "id": "blocked",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "id": "blocked-by-lifecycle",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "id": "cancelled",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "id": "completed",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "id": "confirmed",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "id": "destructive-action-confirmation",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "id": "disabled",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "id": "empty-filtered",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "id": "empty-first-use",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "id": "handed-over",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "id": "idempotent-replay",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "id": "impact-changed",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "id": "initial-loading",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "id": "irreversible-outcome",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "id": "manual-review",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "id": "new",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "id": "no-results",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "id": "offline",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "id": "partial-success",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "id": "payment-pending",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "id": "permission-denied",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "id": "picking",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "id": "preview-expired",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "id": "progressive-loading",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "id": "provider-unavailable",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "id": "read-only",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "id": "ready",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "id": "refresh-loading",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "id": "safe-retry",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "id": "scope-filtered",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "id": "server-error",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "id": "session-expired",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "id": "stale-data",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "id": "status-check",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "id": "step-up-required",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "id": "submitting",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "id": "terminal-success",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "id": "timeout",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "id": "unauthenticated",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "id": "unknown-result",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "id": "validation-error",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "id": "version-conflict",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     }
   ],
   "frames": [
