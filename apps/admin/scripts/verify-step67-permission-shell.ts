@@ -17,7 +17,7 @@ const task=JSON.parse(read("../../docs/14-multi-agent/tasks/EQCOFE-STEP67-E-PERM
   risk:string;human_gate_required:boolean;canonical:{base_sha:string};scope:{forbidden:string[]}
 };
 
-assert.equal(ADMIN_DESTINATIONS.length,60);
+assert.equal(ADMIN_DESTINATIONS.length,62);
 assert.equal(ADMIN_NAV_GROUPS.length,8);
 assert.ok(!new Set(ADMIN_DESTINATIONS.map((item)=>String(item.group))).has("admin-home"));
 assert.equal(new Set(ADMIN_DESTINATIONS.map((item)=>item.surface)).size,60);
