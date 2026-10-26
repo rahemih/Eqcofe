@@ -5,7 +5,7 @@
   "artifacts": [
     {
       "path": "docs/13-product-design/step56-final-audit.json",
-      "sha256": "1e94e7d6432bb1cf7cf513e15bbbd41c4097781b69ee88164af86d1276cea725",
+      "sha256": "3f84b7b5aa6c0dac46c196866b0e264520047ae0d77331dafb68fd4cd23da427",
       "bytes": 2169104
     },
     {
@@ -35,7 +35,7 @@
     },
     {
       "path": "docs/13-product-design/step56-final-audit/README.md",
-      "sha256": "6f892b68ce6a1c96568f6ad0719ca2fbd941c8f8cab6cb27a35605d8b79efde4",
+      "sha256": "d43d7989c846deb5ba96912061826eecd3d1328ca021e141e8c468ce9bdf2180",
       "bytes": 942
     }
   ]
