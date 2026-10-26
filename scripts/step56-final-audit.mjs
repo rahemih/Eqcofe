@@ -16,7 +16,7 @@ export function auditUnion({a,gates}){
  const screens=gates.flatMap(g=>g.screens),ops=screens.flatMap(s=>s.operations);
  assert(screens.length===97&&unique(screens.map(s=>s.id)).length===97,'97 unique surface obligations');
  assert(same(sorted(screens.map(s=>s.id)),sorted(a.screenInventory.map(s=>s.id))),'Complete foundation surface union');
- assert(ops.length===532&&unique(ops).length===532&&same(sorted(ops),sorted(a.operationEvidence.map(o=>o.key))),'532 operations with exactly one owner');
+ assert(ops.length===524&&unique(ops).length===524&&same(sorted(ops),sorted(a.operationEvidence.map(o=>o.key))),'524 operations with exactly one owner');
  const rows=[],operationRows=[],states=[];
  for(const gate of gates){
   assert(gate.status===`${gate.substep}_COMPLETE_STEP_IN_PROGRESS`,'Historical gate completion');
