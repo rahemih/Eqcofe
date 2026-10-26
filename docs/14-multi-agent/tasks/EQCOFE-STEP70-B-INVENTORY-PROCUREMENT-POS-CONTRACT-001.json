@@ -68,7 +68,8 @@
       "docs/13-product-design/step56-final-audit/README.md",
       "scripts/validate-step57-acceptance.mjs",
       "docs/13-product-design/step57-prototype/src/coverage.json",
-      "docs/13-product-design/step57-prototype/manifest.json"
+      "docs/13-product-design/step57-prototype/manifest.json",
+      "scripts/generate-step56-commerce-operations.mjs"
     ],
     "forbidden": [
       ".github/**",
@@ -124,7 +125,8 @@
         "docs/13-product-design/step56-final-audit/README.md",
         "scripts/validate-step57-acceptance.mjs",
         "docs/13-product-design/step57-prototype/src/coverage.json",
-        "docs/13-product-design/step57-prototype/manifest.json"
+        "docs/13-product-design/step57-prototype/manifest.json",
+        "scripts/generate-step56-commerce-operations.mjs"
       ]
     }
   ],
@@ -253,6 +255,17 @@
       "closure_fields": "PENDING_UNCHANGED",
       "semantic_change": false,
       "generator_equivalent_only": true
+    },
+    "gate_e_generated_artifact_regeneration": {
+      "reason": "Step70-B POS authority reconciliation changes the generated design projection for AD-E-09..11. Refresh the Step56-E generator outputs and remove exactly the orphan frames no longer owned by a current view.",
+      "affected_surfaces": [
+        "AD-E-09",
+        "AD-E-10",
+        "AD-E-11"
+      ],
+      "expected_frame_count_after": 366,
+      "generator_equivalent_only": true,
+      "semantic_change": false
     }
   },
   "acceptance_criteria": [
