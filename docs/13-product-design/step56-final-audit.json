@@ -82,7 +82,7 @@
     },
     {
       "path": "docs/13-product-design/step56-wireframes/E/manifest.json",
-      "sha256": "85d62b576c242f7fd7e81aafa4e3f53a6bf061c7243a435dd4bf6fb59f1edac1"
+      "sha256": "c215a40653ec178916c5c100fd0e40a2c2539ef32938acd320757ab9b428e35e"
     },
     {
       "path": "docs/13-product-design/step56-wireframes/F/manifest.json",
@@ -368,7 +368,7 @@
     {
       "gate": "E",
       "path": "docs/13-product-design/step56-wireframes/E/manifest.json",
-      "sha256": "85d62b576c242f7fd7e81aafa4e3f53a6bf061c7243a435dd4bf6fb59f1edac1",
+      "sha256": "c215a40653ec178916c5c100fd0e40a2c2539ef32938acd320757ab9b428e35e",
       "surfaces": 11,
       "frames": 368,
       "artifacts": 393,
