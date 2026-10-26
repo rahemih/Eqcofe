@@ -715,6 +715,7 @@
       "id": "admin",
       "source": "src/modules/admin/admin.module.ts",
       "screens": [
+        "AD-E-09",
         "AD-G-16",
         "AD-G-17",
         "AD-G-18",
@@ -936,7 +937,6 @@
       "id": "pos",
       "source": "src/modules/pos/pos.module.ts",
       "screens": [
-        "AD-E-09",
         "AD-E-10",
         "AD-E-11"
       ],
@@ -2576,15 +2576,7 @@
         "Read authoritative outcome or status; recover without blind replay"
       ],
       "success": "Authoritative owner response with safe reference; contract-only and unresolved actions remain unavailable",
-      "operations": [
-        "GET /admin/pos/registers",
-        "GET /admin/pos/shifts/current",
-        "GET /admin/pos/stores",
-        "POST /admin/pos/shifts/{id}/begin-closing",
-        "POST /admin/pos/shifts/{id}/close",
-        "POST /admin/pos/shifts/{id}/reconcile",
-        "POST /admin/pos/shifts/open"
-      ],
+      "operations": [],
       "requiredFacets": [
         "entry-and-context",
         "permission-aware-read-or-explicit-unavailable",
@@ -2618,7 +2610,6 @@
       "success": "Authoritative owner response with safe reference; contract-only and unresolved actions remain unavailable",
       "operations": [
         "GET /admin/pos/scan",
-        "POST /admin/pos/orders",
         "POST /admin/pos/sales",
         "POST /admin/pos/sales/{id}/commit",
         "POST /admin/pos/sales/{id}/lines",
@@ -8688,17 +8679,9 @@
         "AJ-04"
       ],
       "kind": "task-workspace-obligation",
-      "operations": [
-        "GET /admin/pos/registers",
-        "GET /admin/pos/shifts/current",
-        "GET /admin/pos/stores",
-        "POST /admin/pos/shifts/{id}/begin-closing",
-        "POST /admin/pos/shifts/{id}/close",
-        "POST /admin/pos/shifts/{id}/reconcile",
-        "POST /admin/pos/shifts/open"
-      ],
+      "operations": [],
       "domains": [
-        "pos"
+        "admin"
       ],
       "actors": [
         "staff"
@@ -8771,15 +8754,8 @@
         "TextField",
         "Badge"
       ],
-      "blockedOperations": [
-        "GET /admin/pos/registers",
-        "GET /admin/pos/shifts/current",
-        "GET /admin/pos/stores",
-        "POST /admin/pos/shifts/{id}/begin-closing",
-        "POST /admin/pos/shifts/{id}/close",
-        "POST /admin/pos/shifts/{id}/reconcile",
-        "POST /admin/pos/shifts/open"
-      ]
+      "blockedOperations": [],
+      "noApiReason": "Step70-B canonical reconciliation proved no runtime/controller authority for store, register, shift or generic POS order operations; the design obligation remains concept-only until source authority exists."
     },
     {
       "id": "AD-E-10",
@@ -8797,7 +8773,6 @@
       "kind": "task-workspace-obligation",
       "operations": [
         "GET /admin/pos/scan",
-        "POST /admin/pos/orders",
         "POST /admin/pos/sales",
         "POST /admin/pos/sales/{id}/commit",
         "POST /admin/pos/sales/{id}/lines",
@@ -8889,14 +8864,7 @@
         "TextField",
         "Badge"
       ],
-      "blockedOperations": [
-        "GET /admin/pos/scan",
-        "POST /admin/pos/orders",
-        "POST /admin/pos/sales",
-        "POST /admin/pos/sales/{id}/commit",
-        "POST /admin/pos/sales/{id}/lines",
-        "POST /admin/pos/sales/{id}/price"
-      ]
+      "blockedOperations": []
     },
     {
       "id": "AD-E-11",
@@ -9007,14 +8975,7 @@
         "TextField",
         "Badge"
       ],
-      "blockedOperations": [
-        "GET /admin/pos/reconciliation/{clientCommandId}",
-        "GET /admin/pos/reconciliation/failed",
-        "POST /admin/pos/offline/commands",
-        "POST /admin/pos/offline/commands/{clientCommandId}/sync",
-        "POST /admin/pos/reconciliation/{clientCommandId}/abandon",
-        "POST /admin/pos/reconciliation/{clientCommandId}/retry"
-      ]
+      "blockedOperations": []
     },
     {
       "id": "AD-F-01",
@@ -14916,7 +14877,7 @@
     },
     {
       "path": "contracts/http/openapi.yaml",
-      "sha256": "57a4b4799146eea8b4427343d502c959ab1bba37655aa0682c7afeff0c0b6437"
+      "sha256": "3296e0a7d57559a729997c693749bbd1c59f073f5437013b00de7b5709b1d852"
     },
     {
       "path": "contracts/http/step49-pos-a9.yaml",
@@ -21278,10 +21239,18 @@
     },
     {
       "key": "GET /admin/pos/reconciliation/{clientCommandId}",
-      "openapi": null,
-      "supplemental": {
-        "source": "contracts/http/step49-pos-a9.yaml",
-        "permission": "pos.reconcile"
+      "openapi": {
+        "source": "contracts/http/openapi.yaml",
+        "operationId": "getAdminPosReconciliationClientCommandId",
+        "security": [
+          {
+            "adminSession": []
+          }
+        ],
+        "extensions": {
+          "domain": "pos",
+          "permission": "pos.reconcile"
+        }
       },
       "runtime": {
         "key": "GET /admin/pos/reconciliation/{clientCommandId}",
@@ -21300,7 +21269,7 @@
       },
       "screen": "AD-E-11",
       "domain": "pos",
-      "authority": "RUNTIME_OUTSIDE_ASSEMBLED_OPENAPI",
+      "authority": "OPENAPI_AND_CONTROLLER",
       "permissions": [
         "pos.reconcile"
       ],
@@ -21313,22 +21282,30 @@
       "stepUp": "NO_DECORATOR_CHECK_DOMAIN_POLICY",
       "audit": "CHECK_OWNER_SERVICE_NOT_INFERRED",
       "scope": "ScopePolicy and owner-service checks remain authoritative; no new scope grants",
-      "designDisposition": "RUNTIME_SOURCE_PRESERVED_CONTRACT_GAP",
+      "designDisposition": "SOURCE_RECONCILED_EXISTING_RUNTIME",
       "permissionClaims": {
         "runtime": [
           "pos.reconcile"
         ],
-        "openapi": null
+        "openapi": "pos.reconcile"
       },
       "permissionConflict": false,
-      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION"
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY"
     },
     {
       "key": "GET /admin/pos/reconciliation/failed",
-      "openapi": null,
-      "supplemental": {
-        "source": "contracts/http/step49-pos-a9.yaml",
-        "permission": "pos.reconcile"
+      "openapi": {
+        "source": "contracts/http/openapi.yaml",
+        "operationId": "getAdminPosReconciliationFailed",
+        "security": [
+          {
+            "adminSession": []
+          }
+        ],
+        "extensions": {
+          "domain": "pos",
+          "permission": "pos.reconcile"
+        }
       },
       "runtime": {
         "key": "GET /admin/pos/reconciliation/failed",
@@ -21347,7 +21324,7 @@
       },
       "screen": "AD-E-11",
       "domain": "pos",
-      "authority": "RUNTIME_OUTSIDE_ASSEMBLED_OPENAPI",
+      "authority": "OPENAPI_AND_CONTROLLER",
       "permissions": [
         "pos.reconcile"
       ],
@@ -21360,52 +21337,30 @@
       "stepUp": "NO_DECORATOR_CHECK_DOMAIN_POLICY",
       "audit": "CHECK_OWNER_SERVICE_NOT_INFERRED",
       "scope": "ScopePolicy and owner-service checks remain authoritative; no new scope grants",
-      "designDisposition": "RUNTIME_SOURCE_PRESERVED_CONTRACT_GAP",
+      "designDisposition": "SOURCE_RECONCILED_EXISTING_RUNTIME",
       "permissionClaims": {
         "runtime": [
           "pos.reconcile"
         ],
-        "openapi": null
+        "openapi": "pos.reconcile"
       },
       "permissionConflict": false,
-      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION"
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY"
     },
     {
-      "key": "GET /admin/pos/registers",
+      "key": "GET /admin/pos/scan",
       "openapi": {
         "source": "contracts/http/openapi.yaml",
-        "operationId": "getAdminPosRegisters",
+        "operationId": "getAdminPosScan",
         "security": [
           {
             "adminSession": []
           }
         ],
-        "extensions": {}
-      },
-      "runtime": null,
-      "screen": "AD-E-09",
-      "domain": "pos",
-      "authority": "CONTRACT_ONLY_NO_CONTROLLER",
-      "permissions": [],
-      "permissionStatus": "UNRESOLVED_NOT_GRANTED",
-      "permissionSources": {},
-      "stepUp": "UNVERIFIED_NO_CONTROLLER",
-      "audit": "CHECK_OWNER_SERVICE_NOT_INFERRED",
-      "scope": "ScopePolicy and owner-service checks remain authoritative; no new scope grants",
-      "designDisposition": "QUARANTINED_CONCEPT_ONLY",
-      "permissionClaims": {
-        "runtime": null,
-        "openapi": null
-      },
-      "permissionConflict": false,
-      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION"
-    },
-    {
-      "key": "GET /admin/pos/scan",
-      "openapi": null,
-      "supplemental": {
-        "source": "contracts/http/step49-pos-a9.yaml",
-        "permission": "pos.view"
+        "extensions": {
+          "domain": "pos",
+          "permission": "pos.view"
+        }
       },
       "runtime": {
         "key": "GET /admin/pos/scan",
@@ -21424,7 +21379,7 @@
       },
       "screen": "AD-E-10",
       "domain": "pos",
-      "authority": "RUNTIME_OUTSIDE_ASSEMBLED_OPENAPI",
+      "authority": "OPENAPI_AND_CONTROLLER",
       "permissions": [
         "pos.view"
       ],
@@ -21437,75 +21392,15 @@
       "stepUp": "NO_DECORATOR_CHECK_DOMAIN_POLICY",
       "audit": "CHECK_OWNER_SERVICE_NOT_INFERRED",
       "scope": "ScopePolicy and owner-service checks remain authoritative; no new scope grants",
-      "designDisposition": "RUNTIME_SOURCE_PRESERVED_CONTRACT_GAP",
+      "designDisposition": "SOURCE_RECONCILED_EXISTING_RUNTIME",
       "permissionClaims": {
         "runtime": [
           "pos.view"
         ],
-        "openapi": null
+        "openapi": "pos.view"
       },
       "permissionConflict": false,
-      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION"
-    },
-    {
-      "key": "GET /admin/pos/shifts/current",
-      "openapi": {
-        "source": "contracts/http/openapi.yaml",
-        "operationId": "getAdminPosShiftsCurrent",
-        "security": [
-          {
-            "adminSession": []
-          }
-        ],
-        "extensions": {}
-      },
-      "runtime": null,
-      "screen": "AD-E-09",
-      "domain": "pos",
-      "authority": "CONTRACT_ONLY_NO_CONTROLLER",
-      "permissions": [],
-      "permissionStatus": "UNRESOLVED_NOT_GRANTED",
-      "permissionSources": {},
-      "stepUp": "UNVERIFIED_NO_CONTROLLER",
-      "audit": "CHECK_OWNER_SERVICE_NOT_INFERRED",
-      "scope": "ScopePolicy and owner-service checks remain authoritative; no new scope grants",
-      "designDisposition": "QUARANTINED_CONCEPT_ONLY",
-      "permissionClaims": {
-        "runtime": null,
-        "openapi": null
-      },
-      "permissionConflict": false,
-      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION"
-    },
-    {
-      "key": "GET /admin/pos/stores",
-      "openapi": {
-        "source": "contracts/http/openapi.yaml",
-        "operationId": "getAdminPosStores",
-        "security": [
-          {
-            "adminSession": []
-          }
-        ],
-        "extensions": {}
-      },
-      "runtime": null,
-      "screen": "AD-E-09",
-      "domain": "pos",
-      "authority": "CONTRACT_ONLY_NO_CONTROLLER",
-      "permissions": [],
-      "permissionStatus": "UNRESOLVED_NOT_GRANTED",
-      "permissionSources": {},
-      "stepUp": "UNVERIFIED_NO_CONTROLLER",
-      "audit": "CHECK_OWNER_SERVICE_NOT_INFERRED",
-      "scope": "ScopePolicy and owner-service checks remain authoritative; no new scope grants",
-      "designDisposition": "QUARANTINED_CONCEPT_ONLY",
-      "permissionClaims": {
-        "runtime": null,
-        "openapi": null
-      },
-      "permissionConflict": false,
-      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION"
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY"
     },
     {
       "key": "GET /admin/pricing/base-prices",
@@ -33410,10 +33305,21 @@
     },
     {
       "key": "POST /admin/pos/offline/commands",
-      "openapi": null,
-      "supplemental": {
-        "source": "contracts/http/step49-pos-a9.yaml",
-        "permission": "pos.sell"
+      "openapi": {
+        "source": "contracts/http/openapi.yaml",
+        "operationId": "postAdminPosOfflineCommands",
+        "security": [
+          {
+            "adminSession": []
+          }
+        ],
+        "extensions": {
+          "domain": "pos",
+          "command": "CaptureOfflineSale",
+          "permission": "pos.sell",
+          "idempotencyScope": "pos.offline.capture",
+          "audit": true
+        }
       },
       "runtime": {
         "key": "POST /admin/pos/offline/commands",
@@ -33432,7 +33338,7 @@
       },
       "screen": "AD-E-11",
       "domain": "pos",
-      "authority": "RUNTIME_OUTSIDE_ASSEMBLED_OPENAPI",
+      "authority": "OPENAPI_AND_CONTROLLER",
       "permissions": [
         "pos.sell"
       ],
@@ -33443,24 +33349,35 @@
         ]
       },
       "stepUp": "NO_DECORATOR_CHECK_DOMAIN_POLICY",
-      "audit": "CHECK_OWNER_SERVICE_NOT_INFERRED",
+      "audit": true,
       "scope": "ScopePolicy and owner-service checks remain authoritative; no new scope grants",
-      "designDisposition": "RUNTIME_SOURCE_PRESERVED_CONTRACT_GAP",
+      "designDisposition": "SOURCE_RECONCILED_EXISTING_RUNTIME",
       "permissionClaims": {
         "runtime": [
           "pos.sell"
         ],
-        "openapi": null
+        "openapi": "pos.sell"
       },
       "permissionConflict": false,
-      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION"
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY"
     },
     {
       "key": "POST /admin/pos/offline/commands/{clientCommandId}/sync",
-      "openapi": null,
-      "supplemental": {
-        "source": "contracts/http/step49-pos-a9.yaml",
-        "permission": "pos.sell"
+      "openapi": {
+        "source": "contracts/http/openapi.yaml",
+        "operationId": "postAdminPosOfflineCommandsClientCommandIdSync",
+        "security": [
+          {
+            "adminSession": []
+          }
+        ],
+        "extensions": {
+          "domain": "pos",
+          "command": "SyncOfflineSale",
+          "permission": "pos.sell",
+          "idempotencyScope": "pos.offline.sync",
+          "audit": true
+        }
       },
       "runtime": {
         "key": "POST /admin/pos/offline/commands/{clientCommandId}/sync",
@@ -33479,7 +33396,7 @@
       },
       "screen": "AD-E-11",
       "domain": "pos",
-      "authority": "RUNTIME_OUTSIDE_ASSEMBLED_OPENAPI",
+      "authority": "OPENAPI_AND_CONTROLLER",
       "permissions": [
         "pos.sell"
       ],
@@ -33490,54 +33407,36 @@
         ]
       },
       "stepUp": "NO_DECORATOR_CHECK_DOMAIN_POLICY",
-      "audit": "CHECK_OWNER_SERVICE_NOT_INFERRED",
+      "audit": true,
       "scope": "ScopePolicy and owner-service checks remain authoritative; no new scope grants",
-      "designDisposition": "RUNTIME_SOURCE_PRESERVED_CONTRACT_GAP",
+      "designDisposition": "SOURCE_RECONCILED_EXISTING_RUNTIME",
       "permissionClaims": {
         "runtime": [
           "pos.sell"
         ],
-        "openapi": null
+        "openapi": "pos.sell"
       },
       "permissionConflict": false,
-      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION"
-    },
-    {
-      "key": "POST /admin/pos/orders",
-      "openapi": {
-        "source": "contracts/http/openapi.yaml",
-        "operationId": "postAdminPosOrders",
-        "security": [
-          {
-            "adminSession": []
-          }
-        ],
-        "extensions": {}
-      },
-      "runtime": null,
-      "screen": "AD-E-10",
-      "domain": "pos",
-      "authority": "CONTRACT_ONLY_NO_CONTROLLER",
-      "permissions": [],
-      "permissionStatus": "UNRESOLVED_NOT_GRANTED",
-      "permissionSources": {},
-      "stepUp": "UNVERIFIED_NO_CONTROLLER",
-      "audit": "CHECK_OWNER_SERVICE_NOT_INFERRED",
-      "scope": "ScopePolicy and owner-service checks remain authoritative; no new scope grants",
-      "designDisposition": "QUARANTINED_CONCEPT_ONLY",
-      "permissionClaims": {
-        "runtime": null,
-        "openapi": null
-      },
-      "permissionConflict": false,
-      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION"
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY"
     },
     {
       "key": "POST /admin/pos/reconciliation/{clientCommandId}/abandon",
-      "openapi": null,
-      "supplemental": {
-        "source": "contracts/http/step49-pos-a9.yaml",
-        "permission": "pos.reconcile"
+      "openapi": {
+        "source": "contracts/http/openapi.yaml",
+        "operationId": "postAdminPosReconciliationClientCommandIdAbandon",
+        "security": [
+          {
+            "adminSession": [],
+            "stepUpToken": []
+          }
+        ],
+        "extensions": {
+          "domain": "pos",
+          "command": "AbandonPosReconciliation",
+          "permission": "pos.reconcile",
+          "idempotencyScope": "pos.reconciliation.admin.abandon",
+          "audit": true
+        }
       },
       "runtime": {
         "key": "POST /admin/pos/reconciliation/{clientCommandId}/abandon",
@@ -33556,7 +33455,7 @@
       },
       "screen": "AD-E-11",
       "domain": "pos",
-      "authority": "RUNTIME_OUTSIDE_ASSEMBLED_OPENAPI",
+      "authority": "OPENAPI_AND_CONTROLLER",
       "permissions": [
         "pos.reconcile"
       ],
@@ -33567,24 +33466,36 @@
         ]
       },
       "stepUp": "DECORATOR_REQUIRED",
-      "audit": "CHECK_OWNER_SERVICE_NOT_INFERRED",
+      "audit": true,
       "scope": "ScopePolicy and owner-service checks remain authoritative; no new scope grants",
-      "designDisposition": "RUNTIME_SOURCE_PRESERVED_CONTRACT_GAP",
+      "designDisposition": "SOURCE_RECONCILED_EXISTING_RUNTIME",
       "permissionClaims": {
         "runtime": [
           "pos.reconcile"
         ],
-        "openapi": null
+        "openapi": "pos.reconcile"
       },
       "permissionConflict": false,
-      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION"
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY"
     },
     {
       "key": "POST /admin/pos/reconciliation/{clientCommandId}/retry",
-      "openapi": null,
-      "supplemental": {
-        "source": "contracts/http/step49-pos-a9.yaml",
-        "permission": "pos.reconcile"
+      "openapi": {
+        "source": "contracts/http/openapi.yaml",
+        "operationId": "postAdminPosReconciliationClientCommandIdRetry",
+        "security": [
+          {
+            "adminSession": [],
+            "stepUpToken": []
+          }
+        ],
+        "extensions": {
+          "domain": "pos",
+          "command": "RetryPosReconciliation",
+          "permission": "pos.reconcile",
+          "idempotencyScope": "pos.reconciliation.admin.retry",
+          "audit": true
+        }
       },
       "runtime": {
         "key": "POST /admin/pos/reconciliation/{clientCommandId}/retry",
@@ -33603,7 +33514,7 @@
       },
       "screen": "AD-E-11",
       "domain": "pos",
-      "authority": "RUNTIME_OUTSIDE_ASSEMBLED_OPENAPI",
+      "authority": "OPENAPI_AND_CONTROLLER",
       "permissions": [
         "pos.reconcile"
       ],
@@ -33614,24 +33525,35 @@
         ]
       },
       "stepUp": "DECORATOR_REQUIRED",
-      "audit": "CHECK_OWNER_SERVICE_NOT_INFERRED",
+      "audit": true,
       "scope": "ScopePolicy and owner-service checks remain authoritative; no new scope grants",
-      "designDisposition": "RUNTIME_SOURCE_PRESERVED_CONTRACT_GAP",
+      "designDisposition": "SOURCE_RECONCILED_EXISTING_RUNTIME",
       "permissionClaims": {
         "runtime": [
           "pos.reconcile"
         ],
-        "openapi": null
+        "openapi": "pos.reconcile"
       },
       "permissionConflict": false,
-      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION"
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY"
     },
     {
       "key": "POST /admin/pos/sales",
-      "openapi": null,
-      "supplemental": {
-        "source": "contracts/http/step49-pos-a9.yaml",
-        "permission": "pos.sell"
+      "openapi": {
+        "source": "contracts/http/openapi.yaml",
+        "operationId": "postAdminPosSales",
+        "security": [
+          {
+            "adminSession": []
+          }
+        ],
+        "extensions": {
+          "domain": "pos",
+          "command": "CreatePhysicalSale",
+          "permission": "pos.sell",
+          "idempotencyScope": "pos.sale.create",
+          "audit": true
+        }
       },
       "runtime": {
         "key": "POST /admin/pos/sales",
@@ -33650,7 +33572,7 @@
       },
       "screen": "AD-E-10",
       "domain": "pos",
-      "authority": "RUNTIME_OUTSIDE_ASSEMBLED_OPENAPI",
+      "authority": "OPENAPI_AND_CONTROLLER",
       "permissions": [
         "pos.sell"
       ],
@@ -33661,24 +33583,38 @@
         ]
       },
       "stepUp": "NO_DECORATOR_CHECK_DOMAIN_POLICY",
-      "audit": "CHECK_OWNER_SERVICE_NOT_INFERRED",
+      "audit": true,
       "scope": "ScopePolicy and owner-service checks remain authoritative; no new scope grants",
-      "designDisposition": "RUNTIME_SOURCE_PRESERVED_CONTRACT_GAP",
+      "designDisposition": "SOURCE_RECONCILED_EXISTING_RUNTIME",
       "permissionClaims": {
         "runtime": [
           "pos.sell"
         ],
-        "openapi": null
+        "openapi": "pos.sell"
       },
       "permissionConflict": false,
-      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION"
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY"
     },
     {
       "key": "POST /admin/pos/sales/{id}/commit",
-      "openapi": null,
-      "supplemental": {
-        "source": "contracts/http/step49-pos-a9.yaml",
-        "permission": "pos.sell"
+      "openapi": {
+        "source": "contracts/http/openapi.yaml",
+        "operationId": "postAdminPosSalesIdCommit",
+        "security": [
+          {
+            "adminSession": []
+          }
+        ],
+        "extensions": {
+          "domain": "pos",
+          "command": "CommitPhysicalSale",
+          "permission": "pos.sell",
+          "idempotencyScope": "pos.sale.commit",
+          "audit": true,
+          "producesEvents": [
+            "pos.sale.committed.v1"
+          ]
+        }
       },
       "runtime": {
         "key": "POST /admin/pos/sales/{id}/commit",
@@ -33697,7 +33633,7 @@
       },
       "screen": "AD-E-10",
       "domain": "pos",
-      "authority": "RUNTIME_OUTSIDE_ASSEMBLED_OPENAPI",
+      "authority": "OPENAPI_AND_CONTROLLER",
       "permissions": [
         "pos.sell"
       ],
@@ -33708,24 +33644,35 @@
         ]
       },
       "stepUp": "NO_DECORATOR_CHECK_DOMAIN_POLICY",
-      "audit": "CHECK_OWNER_SERVICE_NOT_INFERRED",
+      "audit": true,
       "scope": "ScopePolicy and owner-service checks remain authoritative; no new scope grants",
-      "designDisposition": "RUNTIME_SOURCE_PRESERVED_CONTRACT_GAP",
+      "designDisposition": "SOURCE_RECONCILED_EXISTING_RUNTIME",
       "permissionClaims": {
         "runtime": [
           "pos.sell"
         ],
-        "openapi": null
+        "openapi": "pos.sell"
       },
       "permissionConflict": false,
-      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION"
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY"
     },
     {
       "key": "POST /admin/pos/sales/{id}/lines",
-      "openapi": null,
-      "supplemental": {
-        "source": "contracts/http/step49-pos-a9.yaml",
-        "permission": "pos.sell"
+      "openapi": {
+        "source": "contracts/http/openapi.yaml",
+        "operationId": "postAdminPosSalesIdLines",
+        "security": [
+          {
+            "adminSession": []
+          }
+        ],
+        "extensions": {
+          "domain": "pos",
+          "command": "AddPhysicalSaleLine",
+          "permission": "pos.sell",
+          "idempotencyScope": "pos.sale.line.add",
+          "audit": true
+        }
       },
       "runtime": {
         "key": "POST /admin/pos/sales/{id}/lines",
@@ -33744,7 +33691,7 @@
       },
       "screen": "AD-E-10",
       "domain": "pos",
-      "authority": "RUNTIME_OUTSIDE_ASSEMBLED_OPENAPI",
+      "authority": "OPENAPI_AND_CONTROLLER",
       "permissions": [
         "pos.sell"
       ],
@@ -33755,24 +33702,35 @@
         ]
       },
       "stepUp": "NO_DECORATOR_CHECK_DOMAIN_POLICY",
-      "audit": "CHECK_OWNER_SERVICE_NOT_INFERRED",
+      "audit": true,
       "scope": "ScopePolicy and owner-service checks remain authoritative; no new scope grants",
-      "designDisposition": "RUNTIME_SOURCE_PRESERVED_CONTRACT_GAP",
+      "designDisposition": "SOURCE_RECONCILED_EXISTING_RUNTIME",
       "permissionClaims": {
         "runtime": [
           "pos.sell"
         ],
-        "openapi": null
+        "openapi": "pos.sell"
       },
       "permissionConflict": false,
-      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION"
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY"
     },
     {
       "key": "POST /admin/pos/sales/{id}/price",
-      "openapi": null,
-      "supplemental": {
-        "source": "contracts/http/step49-pos-a9.yaml",
-        "permission": "pos.sell"
+      "openapi": {
+        "source": "contracts/http/openapi.yaml",
+        "operationId": "postAdminPosSalesIdPrice",
+        "security": [
+          {
+            "adminSession": []
+          }
+        ],
+        "extensions": {
+          "domain": "pos",
+          "command": "PricePhysicalSale",
+          "permission": "pos.sell",
+          "idempotencyScope": "pos.sale.price",
+          "audit": true
+        }
       },
       "runtime": {
         "key": "POST /admin/pos/sales/{id}/price",
@@ -33791,7 +33749,7 @@
       },
       "screen": "AD-E-10",
       "domain": "pos",
-      "authority": "RUNTIME_OUTSIDE_ASSEMBLED_OPENAPI",
+      "authority": "OPENAPI_AND_CONTROLLER",
       "permissions": [
         "pos.sell"
       ],
@@ -33802,140 +33760,17 @@
         ]
       },
       "stepUp": "NO_DECORATOR_CHECK_DOMAIN_POLICY",
-      "audit": "CHECK_OWNER_SERVICE_NOT_INFERRED",
+      "audit": true,
       "scope": "ScopePolicy and owner-service checks remain authoritative; no new scope grants",
-      "designDisposition": "RUNTIME_SOURCE_PRESERVED_CONTRACT_GAP",
+      "designDisposition": "SOURCE_RECONCILED_EXISTING_RUNTIME",
       "permissionClaims": {
         "runtime": [
           "pos.sell"
         ],
-        "openapi": null
+        "openapi": "pos.sell"
       },
       "permissionConflict": false,
-      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION"
-    },
-    {
-      "key": "POST /admin/pos/shifts/{id}/begin-closing",
-      "openapi": {
-        "source": "contracts/http/openapi.yaml",
-        "operationId": "postAdminPosShiftsIdBeginClosing",
-        "security": [
-          {
-            "adminSession": []
-          }
-        ],
-        "extensions": {
-          "requestBody": "none",
-          "noRequestBody": true
-        }
-      },
-      "runtime": null,
-      "screen": "AD-E-09",
-      "domain": "pos",
-      "authority": "CONTRACT_ONLY_NO_CONTROLLER",
-      "permissions": [],
-      "permissionStatus": "UNRESOLVED_NOT_GRANTED",
-      "permissionSources": {},
-      "stepUp": "UNVERIFIED_NO_CONTROLLER",
-      "audit": "CHECK_OWNER_SERVICE_NOT_INFERRED",
-      "scope": "ScopePolicy and owner-service checks remain authoritative; no new scope grants",
-      "designDisposition": "QUARANTINED_CONCEPT_ONLY",
-      "permissionClaims": {
-        "runtime": null,
-        "openapi": null
-      },
-      "permissionConflict": false,
-      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION"
-    },
-    {
-      "key": "POST /admin/pos/shifts/{id}/close",
-      "openapi": {
-        "source": "contracts/http/openapi.yaml",
-        "operationId": "postAdminPosShiftsIdClose",
-        "security": [
-          {
-            "adminSession": []
-          }
-        ],
-        "extensions": {}
-      },
-      "runtime": null,
-      "screen": "AD-E-09",
-      "domain": "pos",
-      "authority": "CONTRACT_ONLY_NO_CONTROLLER",
-      "permissions": [],
-      "permissionStatus": "UNRESOLVED_NOT_GRANTED",
-      "permissionSources": {},
-      "stepUp": "UNVERIFIED_NO_CONTROLLER",
-      "audit": "CHECK_OWNER_SERVICE_NOT_INFERRED",
-      "scope": "ScopePolicy and owner-service checks remain authoritative; no new scope grants",
-      "designDisposition": "QUARANTINED_CONCEPT_ONLY",
-      "permissionClaims": {
-        "runtime": null,
-        "openapi": null
-      },
-      "permissionConflict": false,
-      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION"
-    },
-    {
-      "key": "POST /admin/pos/shifts/{id}/reconcile",
-      "openapi": {
-        "source": "contracts/http/openapi.yaml",
-        "operationId": "postAdminPosShiftsIdReconcile",
-        "security": [
-          {
-            "adminSession": []
-          }
-        ],
-        "extensions": {}
-      },
-      "runtime": null,
-      "screen": "AD-E-09",
-      "domain": "pos",
-      "authority": "CONTRACT_ONLY_NO_CONTROLLER",
-      "permissions": [],
-      "permissionStatus": "UNRESOLVED_NOT_GRANTED",
-      "permissionSources": {},
-      "stepUp": "UNVERIFIED_NO_CONTROLLER",
-      "audit": "CHECK_OWNER_SERVICE_NOT_INFERRED",
-      "scope": "ScopePolicy and owner-service checks remain authoritative; no new scope grants",
-      "designDisposition": "QUARANTINED_CONCEPT_ONLY",
-      "permissionClaims": {
-        "runtime": null,
-        "openapi": null
-      },
-      "permissionConflict": false,
-      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION"
-    },
-    {
-      "key": "POST /admin/pos/shifts/open",
-      "openapi": {
-        "source": "contracts/http/openapi.yaml",
-        "operationId": "postAdminPosShiftsOpen",
-        "security": [
-          {
-            "adminSession": []
-          }
-        ],
-        "extensions": {}
-      },
-      "runtime": null,
-      "screen": "AD-E-09",
-      "domain": "pos",
-      "authority": "CONTRACT_ONLY_NO_CONTROLLER",
-      "permissions": [],
-      "permissionStatus": "UNRESOLVED_NOT_GRANTED",
-      "permissionSources": {},
-      "stepUp": "UNVERIFIED_NO_CONTROLLER",
-      "audit": "CHECK_OWNER_SERVICE_NOT_INFERRED",
-      "scope": "ScopePolicy and owner-service checks remain authoritative; no new scope grants",
-      "designDisposition": "QUARANTINED_CONCEPT_ONLY",
-      "permissionClaims": {
-        "runtime": null,
-        "openapi": null
-      },
-      "permissionConflict": false,
-      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION"
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY"
     },
     {
       "key": "POST /admin/pricing/base-prices",
@@ -40303,11 +40138,11 @@
     "tasks": 97,
     "surfaceObligations": 97,
     "backendModules": 28,
-    "assembledAdminOpenapiOperations": 507,
+    "assembledAdminOpenapiOperations": 510,
     "adminRuntimeRoutes": 376,
-    "unionOperations": 532,
+    "unionOperations": 524,
     "explicitPermissionKeys": 118,
-    "unresolvedPermissionOperations": 151,
+    "unresolvedPermissionOperations": 143,
     "screenJourneyLinks": 111,
     "runtimePermissionKeys": 114,
     "allSourcePermissionKeys": 122,
@@ -40457,10 +40292,7 @@
       "GET /admin/payments/{id}/attempts",
       "GET /admin/pos/reconciliation/{clientCommandId}",
       "GET /admin/pos/reconciliation/failed",
-      "GET /admin/pos/registers",
       "GET /admin/pos/scan",
-      "GET /admin/pos/shifts/current",
-      "GET /admin/pos/stores",
       "GET /admin/pricing/base-prices",
       "GET /admin/pricing/bulk/{operation_id}",
       "GET /admin/pricing/currency-rates",
@@ -40718,17 +40550,12 @@
       "POST /admin/payments/{id}/reconcile",
       "POST /admin/pos/offline/commands",
       "POST /admin/pos/offline/commands/{clientCommandId}/sync",
-      "POST /admin/pos/orders",
       "POST /admin/pos/reconciliation/{clientCommandId}/abandon",
       "POST /admin/pos/reconciliation/{clientCommandId}/retry",
       "POST /admin/pos/sales",
       "POST /admin/pos/sales/{id}/commit",
       "POST /admin/pos/sales/{id}/lines",
       "POST /admin/pos/sales/{id}/price",
-      "POST /admin/pos/shifts/{id}/begin-closing",
-      "POST /admin/pos/shifts/{id}/close",
-      "POST /admin/pos/shifts/{id}/reconcile",
-      "POST /admin/pos/shifts/open",
       "POST /admin/pricing/base-prices",
       "POST /admin/pricing/base-prices/preview",
       "POST /admin/pricing/bulk/apply",
@@ -40931,9 +40758,6 @@
         "GET /admin/orders/{id}",
         "GET /admin/orders/{id}/allowed-actions",
         "GET /admin/orders/{id}/timeline",
-        "GET /admin/pos/registers",
-        "GET /admin/pos/shifts/current",
-        "GET /admin/pos/stores",
         "GET /admin/reviews",
         "GET /admin/reviews/{id}",
         "GET /admin/security/dashboard",
@@ -41007,11 +40831,6 @@
         "POST /admin/orders/{id}/cancel",
         "POST /admin/orders/{id}/complete",
         "POST /admin/orders/{id}/confirm",
-        "POST /admin/pos/orders",
-        "POST /admin/pos/shifts/{id}/begin-closing",
-        "POST /admin/pos/shifts/{id}/close",
-        "POST /admin/pos/shifts/{id}/reconcile",
-        "POST /admin/pos/shifts/open",
         "POST /admin/reviews/{id}/approve",
         "POST /admin/reviews/{id}/hide",
         "POST /admin/reviews/{id}/reject",
@@ -41030,8 +40849,6 @@
       "affectedScreens": [
         "AD-B-03",
         "AD-E-01",
-        "AD-E-09",
-        "AD-E-10",
         "AD-F-01",
         "AD-F-03",
         "AD-F-04",
@@ -41071,7 +40888,6 @@
         "marketing",
         "operations",
         "orders",
-        "pos",
         "security"
       ],
       "foundationDisposition": {
@@ -41150,9 +40966,6 @@
         "GET /admin/orders/{id}",
         "GET /admin/orders/{id}/allowed-actions",
         "GET /admin/orders/{id}/timeline",
-        "GET /admin/pos/registers",
-        "GET /admin/pos/shifts/current",
-        "GET /admin/pos/stores",
         "GET /admin/reviews",
         "GET /admin/reviews/{id}",
         "GET /admin/security/dashboard",
@@ -41222,11 +41035,6 @@
         "POST /admin/operations/manual-reviews/{id}/resolve",
         "POST /admin/orders/{id}/complete",
         "POST /admin/orders/{id}/confirm",
-        "POST /admin/pos/orders",
-        "POST /admin/pos/shifts/{id}/begin-closing",
-        "POST /admin/pos/shifts/{id}/close",
-        "POST /admin/pos/shifts/{id}/reconcile",
-        "POST /admin/pos/shifts/open",
         "POST /admin/reviews/{id}/approve",
         "POST /admin/reviews/{id}/hide",
         "POST /admin/reviews/{id}/reject",
@@ -41244,8 +41052,6 @@
       "affectedScreens": [
         "AD-B-03",
         "AD-E-01",
-        "AD-E-09",
-        "AD-E-10",
         "AD-F-01",
         "AD-F-03",
         "AD-F-04",
@@ -41285,7 +41091,6 @@
         "marketing",
         "operations",
         "orders",
-        "pos",
         "security"
       ],
       "foundationDisposition": {
@@ -41306,9 +41111,6 @@
         "GET /admin/loyalty/customers/{customerId}/history",
         "GET /admin/marketing/promotions",
         "GET /admin/marketing/redemptions",
-        "GET /admin/pos/reconciliation/{clientCommandId}",
-        "GET /admin/pos/reconciliation/failed",
-        "GET /admin/pos/scan",
         "POST /admin/loyalty/customers/{customerId}/adjust",
         "POST /admin/loyalty/customers/{customerId}/entries/{entryId}/reverse",
         "POST /admin/marketing/campaigns/{id}/archive",
@@ -41318,20 +41120,10 @@
         "POST /admin/marketing/coupons/{id}/enable",
         "POST /admin/marketing/promotions",
         "POST /admin/marketing/promotions/{id}/disable",
-        "POST /admin/marketing/promotions/{id}/enable",
-        "POST /admin/pos/offline/commands",
-        "POST /admin/pos/offline/commands/{clientCommandId}/sync",
-        "POST /admin/pos/reconciliation/{clientCommandId}/abandon",
-        "POST /admin/pos/reconciliation/{clientCommandId}/retry",
-        "POST /admin/pos/sales",
-        "POST /admin/pos/sales/{id}/commit",
-        "POST /admin/pos/sales/{id}/lines",
-        "POST /admin/pos/sales/{id}/price"
+        "POST /admin/marketing/promotions/{id}/enable"
       ],
       "requiredResolution": "Separate authorized contract reconciliation; preserve existing source truth and do not silently add overlay/API changes in A.",
       "affectedScreens": [
-        "AD-E-10",
-        "AD-E-11",
         "AD-F-03",
         "AD-F-07",
         "AD-F-08",
@@ -41339,8 +41131,7 @@
       ],
       "responsibleDomains": [
         "loyalty",
-        "marketing",
-        "pos"
+        "marketing"
       ],
       "foundationDisposition": {
         "status": "RETAINED_DESIGN_OBLIGATION_NO_ACTION",
