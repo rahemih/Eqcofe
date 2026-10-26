@@ -163,3 +163,7 @@ The deterministic Step57 source-linked contract now inherits the reconciled Step
 ## Admin destination generated projection authorization
 
 The reconciled POS authority makes `AD-E-10` and `AD-E-11` source-backed destinations in the existing Step67 registry generator. 70-B authorizes only `apps/admin/scripts/generate-step67-destinations.mjs` and its generated `apps/admin/app/navigation/destinations.generated.ts` projection, changing the deterministic destination count from 60 to 62. This does not implement routes, components, handlers, POS workflows or any other Admin runtime behavior; all other `apps/**` paths remain outside the Task Contract write allowlist.
+
+## Deterministic design regression count synchronization
+
+Canonical reconciliation changes two exact generated expectations used by historical Step56 regression tests: contract-only/no-controller evidence is now 148 instead of 156 because eight false POS OpenAPI authorities were removed, while Step56-E now has 370 frames / 395 artifacts including manifest after source-backed POS projection regeneration. Only these exact expected counts may change; validators, negative tests and security assertions remain intact.
