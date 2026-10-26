@@ -249,9 +249,6 @@
         "GET /admin/orders/{id}",
         "GET /admin/orders/{id}/allowed-actions",
         "GET /admin/orders/{id}/timeline",
-        "GET /admin/pos/registers",
-        "GET /admin/pos/shifts/current",
-        "GET /admin/pos/stores",
         "GET /admin/reviews",
         "GET /admin/reviews/{id}",
         "GET /admin/security/dashboard",
@@ -325,11 +322,6 @@
         "POST /admin/orders/{id}/cancel",
         "POST /admin/orders/{id}/complete",
         "POST /admin/orders/{id}/confirm",
-        "POST /admin/pos/orders",
-        "POST /admin/pos/shifts/{id}/begin-closing",
-        "POST /admin/pos/shifts/{id}/close",
-        "POST /admin/pos/shifts/{id}/reconcile",
-        "POST /admin/pos/shifts/open",
         "POST /admin/reviews/{id}/approve",
         "POST /admin/reviews/{id}/hide",
         "POST /admin/reviews/{id}/reject",
@@ -348,8 +340,6 @@
       "affectedScreens": [
         "AD-B-03",
         "AD-E-01",
-        "AD-E-09",
-        "AD-E-10",
         "AD-F-01",
         "AD-F-03",
         "AD-F-04",
@@ -389,7 +379,6 @@
         "marketing",
         "operations",
         "orders",
-        "pos",
         "security"
       ],
       "foundationDisposition": {
@@ -468,9 +457,6 @@
         "GET /admin/orders/{id}",
         "GET /admin/orders/{id}/allowed-actions",
         "GET /admin/orders/{id}/timeline",
-        "GET /admin/pos/registers",
-        "GET /admin/pos/shifts/current",
-        "GET /admin/pos/stores",
         "GET /admin/reviews",
         "GET /admin/reviews/{id}",
         "GET /admin/security/dashboard",
@@ -540,11 +526,6 @@
         "POST /admin/operations/manual-reviews/{id}/resolve",
         "POST /admin/orders/{id}/complete",
         "POST /admin/orders/{id}/confirm",
-        "POST /admin/pos/orders",
-        "POST /admin/pos/shifts/{id}/begin-closing",
-        "POST /admin/pos/shifts/{id}/close",
-        "POST /admin/pos/shifts/{id}/reconcile",
-        "POST /admin/pos/shifts/open",
         "POST /admin/reviews/{id}/approve",
         "POST /admin/reviews/{id}/hide",
         "POST /admin/reviews/{id}/reject",
@@ -562,8 +543,6 @@
       "affectedScreens": [
         "AD-B-03",
         "AD-E-01",
-        "AD-E-09",
-        "AD-E-10",
         "AD-F-01",
         "AD-F-03",
         "AD-F-04",
@@ -603,7 +582,6 @@
         "marketing",
         "operations",
         "orders",
-        "pos",
         "security"
       ],
       "foundationDisposition": {
@@ -624,9 +602,6 @@
         "GET /admin/loyalty/customers/{customerId}/history",
         "GET /admin/marketing/promotions",
         "GET /admin/marketing/redemptions",
-        "GET /admin/pos/reconciliation/{clientCommandId}",
-        "GET /admin/pos/reconciliation/failed",
-        "GET /admin/pos/scan",
         "POST /admin/loyalty/customers/{customerId}/adjust",
         "POST /admin/loyalty/customers/{customerId}/entries/{entryId}/reverse",
         "POST /admin/marketing/campaigns/{id}/archive",
@@ -636,20 +611,10 @@
         "POST /admin/marketing/coupons/{id}/enable",
         "POST /admin/marketing/promotions",
         "POST /admin/marketing/promotions/{id}/disable",
-        "POST /admin/marketing/promotions/{id}/enable",
-        "POST /admin/pos/offline/commands",
-        "POST /admin/pos/offline/commands/{clientCommandId}/sync",
-        "POST /admin/pos/reconciliation/{clientCommandId}/abandon",
-        "POST /admin/pos/reconciliation/{clientCommandId}/retry",
-        "POST /admin/pos/sales",
-        "POST /admin/pos/sales/{id}/commit",
-        "POST /admin/pos/sales/{id}/lines",
-        "POST /admin/pos/sales/{id}/price"
+        "POST /admin/marketing/promotions/{id}/enable"
       ],
       "requiredResolution": "Separate authorized contract reconciliation; preserve existing source truth and do not silently add overlay/API changes in A.",
       "affectedScreens": [
-        "AD-E-10",
-        "AD-E-11",
         "AD-F-03",
         "AD-F-07",
         "AD-F-08",
@@ -657,8 +622,7 @@
       ],
       "responsibleDomains": [
         "loyalty",
-        "marketing",
-        "pos"
+        "marketing"
       ],
       "foundationDisposition": {
         "status": "RETAINED_DESIGN_OBLIGATION_NO_ACTION",
@@ -826,7 +790,7 @@
   "sources": [
     {
       "path": "contracts/http/openapi.yaml",
-      "sha256": "57a4b4799146eea8b4427343d502c959ab1bba37655aa0682c7afeff0c0b6437"
+      "sha256": "3296e0a7d57559a729997c693749bbd1c59f073f5437013b00de7b5709b1d852"
     },
     {
       "path": "contracts/http/step49-pos-a9.yaml",
@@ -834,15 +798,15 @@
     },
     {
       "path": "docs/13-product-design/step56-admin-shell-wireframes.json",
-      "sha256": "f4e6066edc86c365a61a628bb983f2d4ea6d504b06ac73c55b4c72d666b3082c"
+      "sha256": "373999bb557a4eff8c9c30af271f7e935f138dbd2a47407c9e24bd7136642f5c"
     },
     {
       "path": "docs/13-product-design/step56-admin-ux-contract.json",
-      "sha256": "2130ef762b71134d5c1013d12d2f5d9ff25ee73ec482c81d70d10ef8fea48732"
+      "sha256": "44269f7c4a84722beb0eb3ffe727c46dac4e1c86787ecd20de120e319edbaf3d"
     },
     {
       "path": "docs/13-product-design/step56-pricing-inventory-wireframes.json",
-      "sha256": "caced955a9bb17ff6470c522ccd2e0764bd5e1001370dfc4f36cac260e1feceb"
+      "sha256": "d8c2b30ca5b3dce22655e3d805f960b4761747739b5589f621f770bc7e5cdbd5"
     },
     {
       "path": "src/modules/after-sales/after-sales.module.ts",
