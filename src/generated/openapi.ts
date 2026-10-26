@@ -11746,8 +11746,11 @@ export interface components {
             quantity: number;
         };
         AdminPosPriceRequest: {
-            /** @default retail */
-            customer_type?: "retail" | "wholesale";
+            /**
+             * @default retail
+             * @enum {string}
+             */
+            customer_type: "retail" | "wholesale";
         };
         AdminPosCommitRequest: {
             warehouse_id: components["schemas"]["EntityId"];
@@ -11823,7 +11826,7 @@ export interface components {
             id: components["schemas"]["EntityId"];
             client_command_id: components["schemas"]["EntityId"];
             staff_actor_id: components["schemas"]["EntityId"];
-            /** @constant */
+            /** @enum {string} */
             command_type: "sale.sync";
             /** @enum {string} */
             status: "queued" | "applied" | "failed" | "abandoned";
@@ -17646,15 +17649,21 @@ export interface operations {
         responses: {
             /** @description کالای متناظر اسکن‌شده */
             200: {
-                headers: { [name: string]: unknown; };
-                content: { "application/json": components["schemas"]["AdminPosScanResponse"]; };
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AdminPosScanResponse"];
+                };
             };
         };
     };
     postAdminPosSales: {
         parameters: {
             query?: never;
-            header: { "Idempotency-Key": components["parameters"]["IdempotencyKey"]; };
+            header: {
+                "Idempotency-Key": components["parameters"]["IdempotencyKey"];
+            };
             path?: never;
             cookie?: never;
         };
@@ -17662,94 +17671,154 @@ export interface operations {
         responses: {
             /** @description پیش‌نویس فروش حضوری */
             201: {
-                headers: { [name: string]: unknown; };
-                content: { "application/json": components["schemas"]["AdminPosSaleResponse"]; };
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AdminPosSaleResponse"];
+                };
             };
         };
     };
     postAdminPosSalesIdLines: {
         parameters: {
             query?: never;
-            header: { "Idempotency-Key": components["parameters"]["IdempotencyKey"]; };
-            path: { id: components["schemas"]["EntityId"]; };
+            header: {
+                "Idempotency-Key": components["parameters"]["IdempotencyKey"];
+            };
+            path: {
+                id: components["schemas"]["EntityId"];
+            };
             cookie?: never;
         };
-        requestBody: { content: { "application/json": components["schemas"]["AdminPosAddLineRequest"]; }; };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["AdminPosAddLineRequest"];
+            };
+        };
         responses: {
             /** @description ردیف فروش حضوری */
             201: {
-                headers: { [name: string]: unknown; };
-                content: { "application/json": components["schemas"]["AdminPosSaleLineResponse"]; };
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AdminPosSaleLineResponse"];
+                };
             };
         };
     };
     postAdminPosSalesIdPrice: {
         parameters: {
             query?: never;
-            header: { "Idempotency-Key": components["parameters"]["IdempotencyKey"]; };
-            path: { id: components["schemas"]["EntityId"]; };
+            header: {
+                "Idempotency-Key": components["parameters"]["IdempotencyKey"];
+            };
+            path: {
+                id: components["schemas"]["EntityId"];
+            };
             cookie?: never;
         };
-        requestBody?: { content: { "application/json": components["schemas"]["AdminPosPriceRequest"]; }; };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["AdminPosPriceRequest"];
+            };
+        };
         responses: {
             /** @description snapshot معتبر قیمت فروش حضوری */
             200: {
-                headers: { [name: string]: unknown; };
-                content: { "application/json": components["schemas"]["AdminPosPricingResponse"]; };
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AdminPosPricingResponse"];
+                };
             };
         };
     };
     postAdminPosSalesIdCommit: {
         parameters: {
             query?: never;
-            header: { "Idempotency-Key": components["parameters"]["IdempotencyKey"]; };
-            path: { id: components["schemas"]["EntityId"]; };
+            header: {
+                "Idempotency-Key": components["parameters"]["IdempotencyKey"];
+            };
+            path: {
+                id: components["schemas"]["EntityId"];
+            };
             cookie?: never;
         };
-        requestBody: { content: { "application/json": components["schemas"]["AdminPosCommitRequest"]; }; };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["AdminPosCommitRequest"];
+            };
+        };
         responses: {
             /** @description فروش حضوری ثبت‌شده */
             200: {
-                headers: { [name: string]: unknown; };
-                content: { "application/json": components["schemas"]["AdminPosSaleResponse"]; };
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AdminPosSaleResponse"];
+                };
             };
         };
     };
     postAdminPosOfflineCommands: {
         parameters: {
             query?: never;
-            header: { "Idempotency-Key": components["parameters"]["IdempotencyKey"]; };
+            header: {
+                "Idempotency-Key": components["parameters"]["IdempotencyKey"];
+            };
             path?: never;
             cookie?: never;
         };
-        requestBody: { content: { "application/json": components["schemas"]["AdminPosOfflineSaleSyncRequest"]; }; };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["AdminPosOfflineSaleSyncRequest"];
+            };
+        };
         responses: {
             /** @description فرمان آفلاین ثبت‌شده */
             201: {
-                headers: { [name: string]: unknown; };
-                content: { "application/json": components["schemas"]["AdminPosOfflineCommandResponse"]; };
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AdminPosOfflineCommandResponse"];
+                };
             };
         };
     };
     postAdminPosOfflineCommandsClientCommandIdSync: {
         parameters: {
             query?: never;
-            header: { "Idempotency-Key": components["parameters"]["IdempotencyKey"]; };
-            path: { clientCommandId: components["schemas"]["EntityId"]; };
+            header: {
+                "Idempotency-Key": components["parameters"]["IdempotencyKey"];
+            };
+            path: {
+                clientCommandId: components["schemas"]["EntityId"];
+            };
             cookie?: never;
         };
         requestBody?: never;
         responses: {
             /** @description نتیجه authoritative همگام‌سازی */
             200: {
-                headers: { [name: string]: unknown; };
-                content: { "application/json": components["schemas"]["AdminPosOfflineCommandResponse"]; };
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AdminPosOfflineCommandResponse"];
+                };
             };
         };
     };
     getAdminPosReconciliationFailed: {
         parameters: {
-            query?: { limit?: number; };
+            query?: {
+                limit?: number;
+            };
             header?: never;
             path?: never;
             cookie?: never;
@@ -17758,8 +17827,12 @@ export interface operations {
         responses: {
             /** @description فرمان‌های آفلاین ناموفق */
             200: {
-                headers: { [name: string]: unknown; };
-                content: { "application/json": components["schemas"]["AdminPosFailedReconciliationListResponse"]; };
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AdminPosFailedReconciliationListResponse"];
+                };
             };
         };
     };
@@ -17767,47 +17840,77 @@ export interface operations {
         parameters: {
             query?: never;
             header?: never;
-            path: { clientCommandId: components["schemas"]["EntityId"]; };
+            path: {
+                clientCommandId: components["schemas"]["EntityId"];
+            };
             cookie?: never;
         };
         requestBody?: never;
         responses: {
             /** @description فرمان و تاریخچه immutable reconciliation */
             200: {
-                headers: { [name: string]: unknown; };
-                content: { "application/json": components["schemas"]["AdminPosReconciliationDetailResponse"]; };
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AdminPosReconciliationDetailResponse"];
+                };
             };
         };
     };
     postAdminPosReconciliationClientCommandIdRetry: {
         parameters: {
             query?: never;
-            header: { "Idempotency-Key": components["parameters"]["IdempotencyKey"]; };
-            path: { clientCommandId: components["schemas"]["EntityId"]; };
+            header: {
+                "Idempotency-Key": components["parameters"]["IdempotencyKey"];
+            };
+            path: {
+                clientCommandId: components["schemas"]["EntityId"];
+            };
             cookie?: never;
         };
-        requestBody?: { content: { "application/json": components["schemas"]["AdminPosReconciliationNoteRequest"]; }; };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["AdminPosReconciliationNoteRequest"];
+            };
+        };
         responses: {
             /** @description فرمان ناموفق برای retry باز شده است */
             200: {
-                headers: { [name: string]: unknown; };
-                content: { "application/json": components["schemas"]["AdminPosRecoveryResponse"]; };
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AdminPosRecoveryResponse"];
+                };
             };
         };
     };
     postAdminPosReconciliationClientCommandIdAbandon: {
         parameters: {
             query?: never;
-            header: { "Idempotency-Key": components["parameters"]["IdempotencyKey"]; };
-            path: { clientCommandId: components["schemas"]["EntityId"]; };
+            header: {
+                "Idempotency-Key": components["parameters"]["IdempotencyKey"];
+            };
+            path: {
+                clientCommandId: components["schemas"]["EntityId"];
+            };
             cookie?: never;
         };
-        requestBody?: { content: { "application/json": components["schemas"]["AdminPosReconciliationNoteRequest"]; }; };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["AdminPosReconciliationNoteRequest"];
+            };
+        };
         responses: {
             /** @description فرمان ناموفق به‌صورت terminal کنار گذاشته شد */
             200: {
-                headers: { [name: string]: unknown; };
-                content: { "application/json": components["schemas"]["AdminPosOfflineCommandResponse"]; };
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AdminPosOfflineCommandResponse"];
+                };
             };
         };
     };
