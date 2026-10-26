@@ -72,7 +72,9 @@
       "scripts/generate-step56-commerce-operations.mjs",
       "apps/admin/scripts/generate-step67-destinations.mjs",
       "apps/admin/scripts/verify-step67-permission-shell.ts",
-      "apps/admin/app/navigation/destinations.generated.ts"
+      "apps/admin/app/navigation/destinations.generated.ts",
+      "test/design-system/step56-admin-foundation.spec.ts",
+      "test/design-system/step56-commerce-operations.spec.ts"
     ],
     "forbidden": [
       ".github/**",
@@ -132,7 +134,9 @@
         "scripts/generate-step56-commerce-operations.mjs",
         "apps/admin/scripts/generate-step67-destinations.mjs",
         "apps/admin/scripts/verify-step67-permission-shell.ts",
-        "apps/admin/app/navigation/destinations.generated.ts"
+        "apps/admin/app/navigation/destinations.generated.ts",
+        "test/design-system/step56-admin-foundation.spec.ts",
+        "test/design-system/step56-commerce-operations.spec.ts"
       ]
     }
   ],
@@ -297,6 +301,25 @@
       "destination_count_after": 62,
       "semantic_runtime_change": false,
       "generated_projection_only": true
+    },
+    "design_regression_expectation_sync": {
+      "reason": "Canonical POS source reconciliation changes deterministic Step56 provenance counts. Preserve the historical assertions by updating only their exact expected counts to the regenerated canonical outputs; validators and negative tests remain unchanged.",
+      "changes": {
+        "CONTRACT_ONLY_NO_CONTROLLER": {
+          "before": 156,
+          "after": 148
+        },
+        "step56_e_frame_count": {
+          "before": 368,
+          "after": 370
+        },
+        "step56_e_artifact_count_including_manifest": {
+          "before": 393,
+          "after": 395
+        }
+      },
+      "semantic_change": false,
+      "assertion_weakening": false
     }
   },
   "acceptance_criteria": [
