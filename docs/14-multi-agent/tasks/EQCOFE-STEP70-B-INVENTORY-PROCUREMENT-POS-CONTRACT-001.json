@@ -54,7 +54,10 @@
       "docs/13-product-design/step56-wireframes/E/AD-E-09/traceability.json",
       "docs/13-product-design/step56-wireframes/E/AD-E-10/traceability.json",
       "docs/13-product-design/step56-wireframes/E/AD-E-11/traceability.json",
-      "docs/13-product-design/step56-final-audit/operation-matrix.json"
+      "docs/13-product-design/step56-final-audit/operation-matrix.json",
+      "scripts/validate-step56-admin-foundation.mjs",
+      "docs/13-product-design/step56-foundation/A/ADMIN-SCOPE-INVENTORY.md",
+      "docs/13-product-design/step56-foundation/A/SOURCE-GAPS.md"
     ],
     "forbidden": [
       ".github/**",
@@ -96,7 +99,9 @@
         "docs/11-step-history/STEP-70-B-INVENTORY-PROCUREMENT-POS-CONTRACT-READINESS.md",
         "docs/14-multi-agent/tasks/EQCOFE-STEP70-B-INVENTORY-PROCUREMENT-POS-CONTRACT-001.json",
         "docs/14-multi-agent/generated/TASK-CATALOG.md",
-        "docs/13-product-design/**"
+        "docs/13-product-design/**",
+        "scripts/validate-step56-admin-foundation.mjs",
+        "docs/13-product-design/step56-foundation/A/**"
       ]
     }
   ],
@@ -186,7 +191,22 @@
       "No Inventory/Procurement runtime or business-rule mutation unless a separate source-proven defect is discovered.",
       "No database migration, Admin UI, Step71, dependency, workflow or Graph mutation."
     ],
-    "provenance_repair_policy": "Only generator-equivalent source/hash/manifest refresh caused by the canonical OpenAPI mutation is authorized; no design semantics, ownership, review status or journey behavior may change."
+    "provenance_repair_policy": "Only generator-equivalent source/hash/manifest refresh caused by the canonical OpenAPI mutation is authorized; no design semantics, ownership, review status or journey behavior may change.",
+    "provenance_count_reconciliation": {
+      "reason": "Canonical POS reconciliation removes 8 source-unproven OpenAPI-only operations while promoting 11 existing runtime-only operations into canonical OpenAPI. The union therefore drops only the 8 false authorities; source counts and derived Step56 evidence must be synchronized without changing design intent.",
+      "before": {
+        "assembledAdminOpenapiOperations": 507,
+        "adminRuntimeRoutes": 376,
+        "unionOperations": 532,
+        "unresolvedPermissionOperations": 151
+      },
+      "after": {
+        "assembledAdminOpenapiOperations": 510,
+        "adminRuntimeRoutes": 376,
+        "unionOperations": 524,
+        "unresolvedPermissionOperations": 143
+      }
+    }
   },
   "acceptance_criteria": [
     {
