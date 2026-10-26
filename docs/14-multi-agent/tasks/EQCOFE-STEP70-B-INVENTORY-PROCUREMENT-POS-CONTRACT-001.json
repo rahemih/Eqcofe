@@ -65,7 +65,10 @@
       "docs/13-product-design/step56-final-audit/journey-matrix.json",
       "docs/13-product-design/step56-final-audit/state-matrix.json",
       "docs/13-product-design/step56-final-audit/release-blockers.json",
-      "docs/13-product-design/step56-final-audit/README.md"
+      "docs/13-product-design/step56-final-audit/README.md",
+      "scripts/validate-step57-acceptance.mjs",
+      "docs/13-product-design/step57-prototype/src/coverage.json",
+      "docs/13-product-design/step57-prototype/manifest.json"
     ],
     "forbidden": [
       ".github/**",
@@ -118,7 +121,10 @@
         "docs/13-product-design/step56-final-audit/journey-matrix.json",
         "docs/13-product-design/step56-final-audit/state-matrix.json",
         "docs/13-product-design/step56-final-audit/release-blockers.json",
-        "docs/13-product-design/step56-final-audit/README.md"
+        "docs/13-product-design/step56-final-audit/README.md",
+        "scripts/validate-step57-acceptance.mjs",
+        "docs/13-product-design/step57-prototype/src/coverage.json",
+        "docs/13-product-design/step57-prototype/manifest.json"
       ]
     }
   ],
@@ -228,6 +234,23 @@
       "reason": "Step70-B canonical POS reconciliation reduces the independently derived operation union from 532 to 524 by removing exactly eight source-unproven POS OpenAPI authorities. The Step56-H audit generator and all of its generated artifacts must be refreshed generator-equivalently so canonical validation reflects the same source union.",
       "before_operation_union": 532,
       "after_operation_union": 524,
+      "semantic_change": false,
+      "generator_equivalent_only": true
+    },
+    "step57_provenance_cascade": {
+      "reason": "Step57 foundation deterministically pins Step56 B-H source hashes and inherits the Step56 operation/view authority. After canonical POS reconciliation, regenerate only the source-linked Step57 contract and prototype projection required for generator parity.",
+      "before": {
+        "operations": 532,
+        "blocked_operations": 186,
+        "admin_views": 1142
+      },
+      "after": {
+        "operations": 524,
+        "blocked_operations": 167,
+        "admin_views": 1143
+      },
+      "admin_states": 4472,
+      "closure_fields": "PENDING_UNCHANGED",
       "semantic_change": false,
       "generator_equivalent_only": true
     }
