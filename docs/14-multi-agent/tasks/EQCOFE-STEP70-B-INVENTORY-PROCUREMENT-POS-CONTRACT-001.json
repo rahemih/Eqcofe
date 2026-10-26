@@ -59,7 +59,13 @@
       "docs/13-product-design/step56-foundation/A/ADMIN-SCOPE-INVENTORY.md",
       "docs/13-product-design/step56-foundation/A/SOURCE-GAPS.md",
       "scripts/validate-step56-commerce-operations.mjs",
-      "docs/13-product-design/step56-wireframes/E/**"
+      "docs/13-product-design/step56-wireframes/E/**",
+      "scripts/step56-final-audit.mjs",
+      "docs/13-product-design/step56-final-audit/surface-matrix.json",
+      "docs/13-product-design/step56-final-audit/journey-matrix.json",
+      "docs/13-product-design/step56-final-audit/state-matrix.json",
+      "docs/13-product-design/step56-final-audit/release-blockers.json",
+      "docs/13-product-design/step56-final-audit/README.md"
     ],
     "forbidden": [
       ".github/**",
@@ -105,7 +111,14 @@
         "scripts/validate-step56-admin-foundation.mjs",
         "docs/13-product-design/step56-foundation/A/**",
         "scripts/validate-step56-commerce-operations.mjs",
-        "docs/13-product-design/step56-wireframes/E/**"
+        "docs/13-product-design/step56-wireframes/E/**",
+        "scripts/step56-final-audit.mjs",
+        "docs/13-product-design/step56-final-audit.json",
+        "docs/13-product-design/step56-final-audit/surface-matrix.json",
+        "docs/13-product-design/step56-final-audit/journey-matrix.json",
+        "docs/13-product-design/step56-final-audit/state-matrix.json",
+        "docs/13-product-design/step56-final-audit/release-blockers.json",
+        "docs/13-product-design/step56-final-audit/README.md"
       ]
     }
   ],
@@ -210,6 +223,13 @@
         "unionOperations": 524,
         "unresolvedPermissionOperations": 143
       }
+    },
+    "final_audit_regeneration": {
+      "reason": "Step70-B canonical POS reconciliation reduces the independently derived operation union from 532 to 524 by removing exactly eight source-unproven POS OpenAPI authorities. The Step56-H audit generator and all of its generated artifacts must be refreshed generator-equivalently so canonical validation reflects the same source union.",
+      "before_operation_union": 532,
+      "after_operation_union": 524,
+      "semantic_change": false,
+      "generator_equivalent_only": true
     }
   },
   "acceptance_criteria": [
