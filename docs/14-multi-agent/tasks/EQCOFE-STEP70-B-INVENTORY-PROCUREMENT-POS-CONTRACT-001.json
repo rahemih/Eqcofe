@@ -76,7 +76,6 @@
     ],
     "forbidden": [
       ".github/**",
-      "apps/**",
       "database/**",
       "package.json",
       "pnpm-lock.yaml",
@@ -86,7 +85,8 @@
       "src/modules/pos/**",
       "docs/12-current-state/**",
       "scripts/graphify/**",
-      "graphify-out/**"
+      "graphify-out/**",
+      "apps/storefront/**"
     ]
   },
   "requested_lock_ids": [
@@ -286,6 +286,17 @@
       "removed_surfaces": [],
       "generated_metadata_only": true,
       "step70_admin_ui_implementation": false
+    },
+    "admin_destination_projection": {
+      "reason": "The reconciled Step70 POS source authority makes AD-E-10 and AD-E-11 source-backed Admin destinations. Existing deterministic Step67 destination generation therefore changes from 60 to 62 entries. Authorize only the generator count and generated destination registry; no route, component, handler, mutation flow or Admin implementation is introduced in 70-B.",
+      "paths": [
+        "apps/admin/scripts/generate-step67-destinations.mjs",
+        "apps/admin/app/navigation/destinations.generated.ts"
+      ],
+      "destination_count_before": 60,
+      "destination_count_after": 62,
+      "semantic_runtime_change": false,
+      "generated_projection_only": true
     }
   },
   "acceptance_criteria": [
