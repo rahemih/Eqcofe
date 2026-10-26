@@ -167,3 +167,7 @@ The reconciled POS authority makes `AD-E-10` and `AD-E-11` source-backed destina
 ## Deterministic design regression count synchronization
 
 Canonical reconciliation changes two exact generated expectations used by historical Step56 regression tests: contract-only/no-controller evidence is now 148 instead of 156 because eight false POS OpenAPI authorities were removed, while Step56-E now has 370 frames / 395 artifacts including manifest after source-backed POS projection regeneration. Only these exact expected counts may change; validators, negative tests and security assertions remain intact.
+
+## 2026-10-26 — POS scan bound source reconciliation
+
+Independent exact-head security review found one stale evidence value before artifact lock: the historical Step49 supplemental POS contract allowed scan `value` up to 200 characters, while the current runtime `PosVariantLookupService` rejects values longer than 120 and the Step70-B canonical OpenAPI already encodes `maxLength: 120`. The Task Contract is corrected to 120 and the Stage-B regression test now binds the OpenAPI scan parameter specifically to the current runtime source. No runtime behavior was changed.
