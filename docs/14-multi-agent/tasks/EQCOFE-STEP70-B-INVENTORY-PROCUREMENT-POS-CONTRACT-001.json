@@ -69,7 +69,10 @@
       "scripts/validate-step57-acceptance.mjs",
       "docs/13-product-design/step57-prototype/src/coverage.json",
       "docs/13-product-design/step57-prototype/manifest.json",
-      "scripts/generate-step56-commerce-operations.mjs"
+      "scripts/generate-step56-commerce-operations.mjs",
+      "apps/admin/scripts/generate-step67-destinations.mjs",
+      "apps/admin/scripts/verify-step67-permission-shell.ts",
+      "apps/admin/app/navigation/destinations.generated.ts"
     ],
     "forbidden": [
       ".github/**",
@@ -126,7 +129,10 @@
         "scripts/validate-step57-acceptance.mjs",
         "docs/13-product-design/step57-prototype/src/coverage.json",
         "docs/13-product-design/step57-prototype/manifest.json",
-        "scripts/generate-step56-commerce-operations.mjs"
+        "scripts/generate-step56-commerce-operations.mjs",
+        "apps/admin/scripts/generate-step67-destinations.mjs",
+        "apps/admin/scripts/verify-step67-permission-shell.ts",
+        "apps/admin/app/navigation/destinations.generated.ts"
       ]
     }
   ],
@@ -268,6 +274,18 @@
       "semantic_change": false,
       "operation_count_after": 66,
       "blocked_operation_count_after": 7
+    },
+    "step67_destination_registry_cascade": {
+      "reason": "The canonical POS contract reconciliation makes existing Admin surfaces AD-E-10 and AD-E-11 source-executable. The pre-existing Step67 permission-aware destination generator therefore derives two additional destinations from repository-proven runtime permissions. Refresh only generator/check metadata; do not implement Step70 Admin workflows or routes.",
+      "before_destination_count": 60,
+      "after_destination_count": 62,
+      "added_surfaces": [
+        "AD-E-10",
+        "AD-E-11"
+      ],
+      "removed_surfaces": [],
+      "generated_metadata_only": true,
+      "step70_admin_ui_implementation": false
     }
   },
   "acceptance_criteria": [
