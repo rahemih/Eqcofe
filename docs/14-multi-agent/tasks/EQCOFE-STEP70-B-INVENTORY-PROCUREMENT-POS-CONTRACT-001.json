@@ -74,7 +74,8 @@
       "apps/admin/scripts/verify-step67-permission-shell.ts",
       "apps/admin/app/navigation/destinations.generated.ts",
       "test/design-system/step56-admin-foundation.spec.ts",
-      "test/design-system/step56-commerce-operations.spec.ts"
+      "test/design-system/step56-commerce-operations.spec.ts",
+      "docs/13-product-design/step57-prototype/scripts/exhaustive-browser-audit.mjs"
     ],
     "forbidden": [
       ".github/**",
@@ -136,7 +137,8 @@
         "apps/admin/scripts/verify-step67-permission-shell.ts",
         "apps/admin/app/navigation/destinations.generated.ts",
         "test/design-system/step56-admin-foundation.spec.ts",
-        "test/design-system/step56-commerce-operations.spec.ts"
+        "test/design-system/step56-commerce-operations.spec.ts",
+        "docs/13-product-design/step57-prototype/scripts/exhaustive-browser-audit.mjs"
       ]
     }
   ],
@@ -318,6 +320,15 @@
           "after": 395
         }
       },
+      "semantic_change": false,
+      "assertion_weakening": false
+    },
+    "step57_exhaustive_inventory_reconciliation": {
+      "reason": "The Step57 exhaustive browser audit is source-derived from the current Step57 contract. Canonical POS reconciliation adds one repository-proven Admin review view while reducing false operation authority, so the exact expected Admin-view inventory changes from 1142 to 1143. Only the frozen inventory assertion is synchronized; browser, interaction, responsive and accessibility checks remain unchanged.",
+      "before_admin_views": 1142,
+      "after_admin_views": 1143,
+      "admin_states": 4472,
+      "screens": 134,
       "semantic_change": false,
       "assertion_weakening": false
     }
