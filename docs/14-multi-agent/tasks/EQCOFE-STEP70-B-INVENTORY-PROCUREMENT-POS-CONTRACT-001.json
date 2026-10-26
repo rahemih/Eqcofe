@@ -210,7 +210,7 @@
         "sku",
         "barcode"
       ],
-      "scan_value_max": 200,
+      "scan_value_max": 120,
       "line_quantity_min": 1,
       "line_quantity_max": 999,
       "offline_lines_min": 1,
@@ -331,6 +331,12 @@
       "screens": 134,
       "semantic_change": false,
       "assertion_weakening": false
+    },
+    "scan_bound_reconciliation": {
+      "reason": "Live PosVariantLookupService normalizes and rejects scan values longer than 120 characters. The historical Step49 supplemental contract used 200; Step70-B canonical reconciliation follows current runtime authority.",
+      "historical_step49_max": 200,
+      "runtime_and_canonical_max": 120,
+      "semantic_authority": "CURRENT_RUNTIME_SOURCE"
     }
   },
   "acceptance_criteria": [
