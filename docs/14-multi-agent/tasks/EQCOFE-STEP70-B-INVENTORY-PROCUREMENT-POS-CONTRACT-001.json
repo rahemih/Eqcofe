@@ -263,9 +263,11 @@
         "AD-E-10",
         "AD-E-11"
       ],
-      "expected_frame_count_after": 366,
+      "expected_frame_count_after": 370,
       "generator_equivalent_only": true,
-      "semantic_change": false
+      "semantic_change": false,
+      "operation_count_after": 66,
+      "blocked_operation_count_after": 7
     }
   },
   "acceptance_criteria": [
