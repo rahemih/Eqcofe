@@ -125,6 +125,10 @@ Forbidden:
 - Product Design semantic changes;
 - Graph/Graphify.
 
+## Step56-H provenance regeneration authorization
+
+Exact-head validation after the source-count reconciliation reached Step56-H and proved one remaining generated-evidence drift: the final audit generator still froze the historical 532-operation union even though canonical reconciliation now derives 524 operations by removing exactly eight source-unproven POS authorities. 70-B therefore authorizes a generator-equivalent refresh of `scripts/step56-final-audit.mjs` and the complete `step56-final-audit/**` generated artifact set. This changes no product semantics, runtime route, permission, lifecycle or business rule; it only makes the terminal design evidence reflect the already-authorized source union.
+
 ## Exit gate
 
 70-C remains blocked until:
