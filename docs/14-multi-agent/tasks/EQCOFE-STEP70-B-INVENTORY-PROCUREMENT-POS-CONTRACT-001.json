@@ -1,0 +1,273 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP70-B-INVENTORY-PROCUREMENT-POS-CONTRACT-001",
+  "title": "Step 70-B Inventory Procurement POS HTTP and generated contract readiness",
+  "description": "HIGH-risk contract-readiness stage for the frozen Step70 96-operation union. Reconcile canonical OpenAPI/generated TypeScript with live Inventory/Procurement/POS runtime authority. Preserve the existing 77 Inventory/Procurement operations unless source-proven drift requires bounded metadata repair. Resolve the frozen POS split by removing the 8 canonical OpenAPI POS operations that have no matching runtime controller and promoting the 11 live PosAdminController operations, already documented by the Step49 supplemental POS contract, into canonical base OpenAPI with runtime-accurate status, permission, Step-Up, idempotency, validation and typed request/response authority. No store/register/shift/order runtime may be invented. No database, Admin UI, dependency, workflow, Product Design semantic or Step71 mutation.",
+  "risk": "HIGH",
+  "risk_floor": "HIGH",
+  "owner": "BACKEND_ENGINEERING",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "017475977c0377d42a668c84647eff1b3c9097b9"
+  },
+  "scope": {
+    "read": [
+      "src/modules/inventory/**",
+      "src/modules/procurement/**",
+      "src/modules/pos/**",
+      "database/migrations/0049_pos_physical_sales.sql",
+      "contracts/http/openapi.yaml",
+      "contracts/http/step49-pos-a9.yaml",
+      "src/generated/openapi.ts",
+      "scripts/validate-openapi.mjs",
+      "test/**",
+      "docs/11-step-history/**",
+      "docs/13-product-design/**",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "test/step70-inventory-procurement-pos-contract.spec.ts",
+      "docs/11-step-history/STEP-70-B-INVENTORY-PROCUREMENT-POS-CONTRACT-READINESS.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP70-B-INVENTORY-PROCUREMENT-POS-CONTRACT-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "docs/13-product-design/step56-admin-ux-contract.json",
+      "docs/13-product-design/step56-foundation/A/manifest.json",
+      "docs/13-product-design/step56-foundation/A/admin-traceability.json",
+      "docs/13-product-design/step56-admin-shell-wireframes.json",
+      "docs/13-product-design/step56-wireframes/B/manifest.json",
+      "docs/13-product-design/step56-catalog-media-wireframes.json",
+      "docs/13-product-design/step56-wireframes/C/manifest.json",
+      "docs/13-product-design/step56-pricing-inventory-wireframes.json",
+      "docs/13-product-design/step56-wireframes/D/manifest.json",
+      "docs/13-product-design/step56-commerce-operations-wireframes.json",
+      "docs/13-product-design/step56-wireframes/E/manifest.json",
+      "docs/13-product-design/step56-customers-growth-wireframes.json",
+      "docs/13-product-design/step56-wireframes/F/manifest.json",
+      "docs/13-product-design/step56-management-security-wireframes.json",
+      "docs/13-product-design/step56-wireframes/G/manifest.json",
+      "docs/13-product-design/step56-final-audit.json",
+      "docs/13-product-design/step56-final-audit/manifest.json",
+      "docs/13-product-design/step57-high-fidelity-contract.json",
+      "docs/13-product-design/step56-wireframes/E/AD-E-09/traceability.json",
+      "docs/13-product-design/step56-wireframes/E/AD-E-10/traceability.json",
+      "docs/13-product-design/step56-wireframes/E/AD-E-11/traceability.json",
+      "docs/13-product-design/step56-final-audit/operation-matrix.json"
+    ],
+    "forbidden": [
+      ".github/**",
+      "apps/**",
+      "database/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "src/modules/inventory/**",
+      "src/modules/procurement/**",
+      "src/modules/pos/**",
+      "docs/12-current-state/**",
+      "scripts/graphify/**",
+      "graphify-out/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP70-B-INVENTORY-PROCUREMENT-POS-CONTRACT-001-01"
+  ],
+  "human_gate_required": true,
+  "authorized_human_approver": {
+    "role": "PROJECT_OWNER",
+    "github_login": "rahemih"
+  },
+  "token_budget": {
+    "expected_max": 52000,
+    "soft_alert": 82000,
+    "hard_cap": 132000
+  },
+  "max_repair_cycles": 5,
+  "task_risk_rules": [
+    {
+      "id": "STEP70_B_INVENTORY_PROCUREMENT_POS_CONTRACT_HIGH",
+      "risk": "HIGH",
+      "paths": [
+        "contracts/http/openapi.yaml",
+        "src/generated/openapi.ts",
+        "test/step70-inventory-procurement-pos-contract.spec.ts",
+        "docs/11-step-history/STEP-70-B-INVENTORY-PROCUREMENT-POS-CONTRACT-READINESS.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP70-B-INVENTORY-PROCUREMENT-POS-CONTRACT-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md",
+        "docs/13-product-design/**"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "70-A Inventory Procurement POS canonical handoff",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "017475977c0377d42a668c84647eff1b3c9097b9",
+      "terminal_evidence_comment": 6397857754,
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "linear_issue": "HOS-74",
+    "graph_state": "RETIRED_AND_OUT_OF_SCOPE",
+    "frozen_surface_count": 16,
+    "frozen_operation_count": 96,
+    "inventory_procurement_operation_count": 77,
+    "pos_operation_count": 19,
+    "inventory_procurement_repair_policy": "NO_MUTATION_UNLESS_SOURCE_PROVEN_DRIFT",
+    "pos_before": {
+      "runtime_controller_operations": 11,
+      "supplemental_contract_operations": 11,
+      "canonical_openapi_runtime_operations": 0,
+      "canonical_openapi_without_controller_operations": 8
+    },
+    "pos_canonical_target_operations": [
+      "GET /admin/pos/scan",
+      "POST /admin/pos/sales",
+      "POST /admin/pos/sales/{id}/lines",
+      "POST /admin/pos/sales/{id}/price",
+      "POST /admin/pos/sales/{id}/commit",
+      "POST /admin/pos/offline/commands",
+      "POST /admin/pos/offline/commands/{clientCommandId}/sync",
+      "GET /admin/pos/reconciliation/failed",
+      "GET /admin/pos/reconciliation/{clientCommandId}",
+      "POST /admin/pos/reconciliation/{clientCommandId}/retry",
+      "POST /admin/pos/reconciliation/{clientCommandId}/abandon"
+    ],
+    "pos_remove_from_canonical_openapi": [
+      "GET /admin/pos/stores",
+      "GET /admin/pos/registers",
+      "GET /admin/pos/shifts/current",
+      "POST /admin/pos/shifts/open",
+      "POST /admin/pos/shifts/{id}/begin-closing",
+      "POST /admin/pos/shifts/{id}/close",
+      "POST /admin/pos/shifts/{id}/reconcile",
+      "POST /admin/pos/orders"
+    ],
+    "pos_runtime_security": {
+      "scan_permission": "pos.view",
+      "sale_permission": "pos.sell",
+      "reconciliation_permission": "pos.reconcile",
+      "retry_abandon_step_up": true,
+      "idempotency_scopes": [
+        "pos.sale.create",
+        "pos.sale.line.add",
+        "pos.sale.price",
+        "pos.sale.commit",
+        "pos.offline.capture",
+        "pos.offline.sync",
+        "pos.reconciliation.admin.retry",
+        "pos.reconciliation.admin.abandon"
+      ]
+    },
+    "pos_runtime_bounds": {
+      "scan_kind": [
+        "sku",
+        "barcode"
+      ],
+      "scan_value_max": 200,
+      "line_quantity_min": 1,
+      "line_quantity_max": 999,
+      "offline_lines_min": 1,
+      "offline_lines_max": 100,
+      "external_reference_max": 120,
+      "reconciliation_list_min": 1,
+      "reconciliation_list_max": 100,
+      "reconciliation_note_max": 500,
+      "recovery_max": 5
+    },
+    "non_authority": [
+      "No POS store/register/shift/order runtime is created or claimed.",
+      "No POS route absent from PosAdminController becomes executable authority.",
+      "No client-provided price, stock, COGS, payment truth or totals become POS authority.",
+      "No Inventory/Procurement runtime or business-rule mutation unless a separate source-proven defect is discovered.",
+      "No database migration, Admin UI, Step71, dependency, workflow or Graph mutation."
+    ],
+    "provenance_repair_policy": "Only generator-equivalent source/hash/manifest refresh caused by the canonical OpenAPI mutation is authorized; no design semantics, ownership, review status or journey behavior may change."
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "The frozen 77 Inventory/Procurement operations remain runtime/OpenAPI/generated-contract aligned; no business semantics are changed absent a separately proven defect.",
+      "verification": "step70_inventory_procurement_contract_audit",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Canonical POS HTTP authority becomes exactly the 11 live PosAdminController operations and excludes the 8 previously-declared operations with no matching source controller.",
+      "verification": "step70_pos_route_reconciliation",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "POS permissions, runtime success status, Step-Up and idempotency metadata exactly match PosAdminController decorators; no security authority is weakened or invented.",
+      "verification": "step70_pos_security_contract",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Canonical POS request validation reflects runtime authority, including offline external_reference max 120, line bounds, reconciliation limit/note bounds and failed-only/max-five recovery semantics.",
+      "verification": "step70_pos_validation_contract",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Canonical OpenAPI exposes typed success/request authority for all 11 live POS operations and src/generated/openapi.ts is reproducible from canonical openapi.yaml.",
+      "verification": "step70_generated_contract_parity",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "No store/register/shift/order runtime is invented; no source-unproven POS operation remains in canonical OpenAPI.",
+      "verification": "step70_negative_authority_assertions",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "No database, Admin UI, Inventory/Procurement/POS runtime, dependency, workflow, Current-State, Step71 or Graph mutation is introduced.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "Any Product Design mutation is generator-equivalent provenance/hash repair only and does not change design semantics.",
+      "verification": "design_check_and_scope_audit",
+      "mandatory": true
+    },
+    {
+      "id": "AC-009",
+      "description": "HIGH-risk closure requires exact-head Canonical CI, Phase A, CodeQL/Independent Security, deterministic Review, exact-artifact ACTIVE Lock and Project Owner exact-artifact Human Gate before merge.",
+      "verification": "canonical_high_risk_gate_sequence",
+      "mandatory": true
+    },
+    {
+      "id": "AC-010",
+      "description": "Protected merge, exact-SHA postmerge Canonical CI/Phase A/CodeQL and terminal Lock release complete before 70-C mutation.",
+      "verification": "canonical_transport_and_postmerge_evidence",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "SECURITY",
+      "HUMAN",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Step70-B is HIGH risk. Project Owner approval is mandatory only after exact-head technical/security/review evidence and exact-artifact ACTIVE Lock are complete."
+  },
+  "pre_mutation_gates": {
+    "graph_health": "RETIRED_AND_OUT_OF_SCOPE",
+    "query_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "path_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "explain_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "human_gate": "REQUIRED_FINAL_EXACT_ARTIFACT"
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}
