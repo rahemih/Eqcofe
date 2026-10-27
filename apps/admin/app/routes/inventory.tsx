@@ -49,9 +49,11 @@ export async function loader({request,params}:{request:Request;params:{view?:str
   const result=await probeInventory(request,probe,variantId);
   const headers=new Headers();
   appendAdminAuthSetCookies(headers,result.setCookies);
-  if(result.kind==="denied")return data({kind:"denied" as const,view,requestId:result.requestId},{status:403,headers});
-  if(result.kind==="not_found")return data({kind:"not-found" as const,view,requestId:result.requestId},{status:404,headers});
-  if(result.kind==="unavailable")return data({kind:"unavailable" as const,view,requestId:result.requestId},{status:503,headers});
+  if(result.kind!=="ready"){
+    if(result.kind==="denied")return data({kind:"denied" as const,view,requestId:result.requestId},{status:403,headers});
+    if(result.kind==="not_found")return data({kind:"not-found" as const,view,requestId:result.requestId},{status:404,headers});
+    return data({kind:"unavailable" as const,view,requestId:result.requestId},{status:503,headers});
+  }
   return data({
     kind:"ready" as const,
     view,
