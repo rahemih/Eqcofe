@@ -1,0 +1,194 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP70-C-ADMIN-INVENTORY-PROCUREMENT-POS-FOUNDATION-001",
+  "title": "Step 70-C shared Admin Inventory, Procurement & POS read/state foundation",
+  "description": "Implement only the shared MEDIUM-risk Admin foundation after Step70-B canonical closure: source-proven server-side GET reads for Inventory/Procurement/POS destinations, permission-safe and fail-closed states, explicit context/no-authority boundaries, and Persian RTL presentation. Do not implement Inventory/Procurement/POS mutations, Backend/OpenAPI/database changes, Product Design changes, Storefront changes, Current-State closure or Step71 work.",
+  "risk": "MEDIUM",
+  "risk_floor": "MEDIUM",
+  "owner": "FRONTEND_ENGINEERING",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "4a98b9b856233ec01fff4472163b37644d911ce6"
+  },
+  "scope": {
+    "read": [
+      "package.json",
+      "apps/admin/**",
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "docs/11-step-history/**",
+      "docs/13-product-design/step56-pricing-inventory-wireframes.json",
+      "docs/13-product-design/step56-commerce-operations-wireframes.json",
+      "docs/13-product-design/step56-wireframes/D/**",
+      "docs/13-product-design/step56-wireframes/E/AD-E-09/**",
+      "docs/13-product-design/step56-wireframes/E/AD-E-10/**",
+      "docs/13-product-design/step56-wireframes/E/AD-E-11/**",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "apps/admin/**",
+      "docs/11-step-history/STEP-70-C-ADMIN-INVENTORY-PROCUREMENT-POS-FOUNDATION.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP70-C-ADMIN-INVENTORY-PROCUREMENT-POS-FOUNDATION-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "contracts/**",
+      "database/**",
+      "src/**",
+      "test/**",
+      "scripts/**",
+      "apps/api/**",
+      "apps/worker/**",
+      "apps/scheduler/**",
+      "apps/storefront/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**",
+      "graphify-out/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP70-C-ADMIN-INVENTORY-PROCUREMENT-POS-FOUNDATION-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 40000,
+    "soft_alert": 64000,
+    "hard_cap": 104000
+  },
+  "task_risk_rules": [
+    {
+      "id": "STEP70_C_ADMIN_OPS_FOUNDATION_MEDIUM",
+      "risk": "MEDIUM",
+      "paths": [
+        "apps/admin/**",
+        "docs/11-step-history/STEP-70-C-ADMIN-INVENTORY-PROCUREMENT-POS-FOUNDATION.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP70-C-ADMIN-INVENTORY-PROCUREMENT-POS-FOUNDATION-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "70-B Inventory Procurement POS contract readiness",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "4a98b9b856233ec01fff4472163b37644d911ce6",
+      "evidence": "PR #382 exact-artifact Human Gate approved; Merge Policy #1881 passed; protected merge completed; postmerge Canonical CI #2186, Phase A #1685 and CodeQL #1331 passed; terminal Lock release comment 6435828755.",
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "linear_issue": "HOS-74",
+    "stage_b_pr": 382,
+    "stage_b_approved_head": "f0b0532385f5d6f94d055126f17adf64ab795d70",
+    "stage_b_artifact": "fe4f402d0d8686383f58e4fa7282cf29451cbbc2d691d4a503a13207a77976d3",
+    "stage_b_merge": "4a98b9b856233ec01fff4472163b37644d911ce6",
+    "stage_b_lock_release_comment": 6435828755,
+    "generated_contract_source": "src/generated/openapi.ts",
+    "graph_state": "RETIRED_AND_OUT_OF_SCOPE",
+    "frozen_surfaces": [
+      "AD-D-06",
+      "AD-D-07",
+      "AD-D-08",
+      "AD-D-09",
+      "AD-D-10",
+      "AD-D-11",
+      "AD-D-12",
+      "AD-D-13",
+      "AD-D-14",
+      "AD-D-15",
+      "AD-D-16",
+      "AD-D-17",
+      "AD-D-18",
+      "AD-E-09",
+      "AD-E-10",
+      "AD-E-11"
+    ],
+    "source_proven_foundation_reads": [
+      "GET /admin/inventory",
+      "GET /admin/inventory/transfers",
+      "GET /admin/inventory/reservations",
+      "GET /admin/inventory/allocations",
+      "GET /admin/inventory/warehouses",
+      "GET /admin/procurement/suppliers",
+      "GET /admin/procurement/purchase-requests",
+      "GET /admin/procurement/purchase-orders",
+      "GET /admin/procurement/goods-receipts",
+      "GET /admin/procurement/landed-costs",
+      "GET /admin/procurement/supplier-invoices",
+      "GET /admin/procurement/purchase-returns",
+      "GET /admin/pos/reconciliation/failed"
+    ],
+    "explicit_boundaries": {
+      "AD-D-07": "Inventory adjustment is mutation-only and remains Step70-D.",
+      "AD-E-09": "No source-backed POS store/register/shift/order operation remains after Step70-B reconciliation.",
+      "AD-E-10": "The only passive POS read is scan and requires explicit operator kind/value input; Stage70-C performs no synthetic scan."
+    }
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "All Step70-C reads reuse the existing server-only Admin auth bridge and canonical generated contract; no browser credential authority or parallel ad-hoc API client is introduced.",
+      "verification": "typed_admin_step70_server_reads",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Exactly the 13 source-proven passive GET endpoints frozen by this task are callable from the Stage-C foundation; no mutation method is invoked.",
+      "verification": "step70_read_allowlist",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "AD-D-07, AD-E-09 and AD-E-10 remain explicit boundaries rather than fabricated reads: mutation-only adjustment, no-authority POS store/register/shift, and scan requiring explicit operator input respectively.",
+      "verification": "step70_boundary_states",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Backend 401/403 remains authoritative denied state; network/5xx/transport failure fails closed as unavailable with request-id recovery when present. No stale-data fallback is treated as truth.",
+      "verification": "step70_fail_closed_states",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "The Admin destination route renders Persian RTL source-backed readiness/boundary/error states and does not expose create/edit/apply/retry/abandon/adjust/transfer/procurement/POS mutation controls in Stage70-C.",
+      "verification": "step70_admin_foundation_presentation",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Stage70-C does not mutate Backend/OpenAPI/generated contracts/database/Storefront/Product Design/Current-State/Step71 or Graph/Graphify.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "Admin canonical verification includes a deterministic Step70-C verifier while preserving all inherited Step67-69 verification gates.",
+      "verification": "admin_canonical_verify_integration",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "Canonical closure requires exact-head Canonical CI, Phase A and CodeQL, deterministic Review, exact-artifact ACTIVE Lock, protected merge, exact-SHA postmerge verification and terminal Lock release. Human Gate is not required for MEDIUM-risk 70-C.",
+      "verification": "canonical_transport_and_postmerge_evidence",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Step70-C is MEDIUM risk. No Human Gate is required. Step70-D remains blocked until Step70-C terminal canonical closure."
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}
