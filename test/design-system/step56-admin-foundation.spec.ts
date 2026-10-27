@@ -8,8 +8,8 @@ const source = JSON.parse(readFileSync('docs/13-product-design/step56-admin-ux-c
 const copy = () => structuredClone(source);
 test('56-A records complete evidence while preserving open implementation restrictions', () => {
   assert.deepEqual(validateContract(source), []);
-  assert.equal(source.operationEvidence.filter((e: any) => e.authority === 'CONTRACT_ONLY_NO_CONTROLLER').length, 156);
-  assert.equal(source.operationEvidence.filter((e: any) => e.permissionStatus === 'UNRESOLVED_NOT_GRANTED').length, 151);
+  assert.equal(source.operationEvidence.filter((e: any) => e.authority === 'CONTRACT_ONLY_NO_CONTROLLER').length, 148);
+  assert.equal(source.operationEvidence.filter((e: any) => e.permissionStatus === 'UNRESOLVED_NOT_GRANTED').length, 143);
 });
 test('56-A rejects a fabricated permission for a contract-only operation', () => {
   const c = copy();

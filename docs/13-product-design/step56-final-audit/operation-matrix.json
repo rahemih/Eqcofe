@@ -3855,132 +3855,6 @@
     "gapIds": []
   },
   {
-    "operation": "GET /admin/pos/registers",
-    "owner": "AD-E-09",
-    "gate": "E",
-    "view": "AD-E-09/op-01",
-    "permissionClaims": {
-      "runtime": null,
-      "openapi": null
-    },
-    "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
-    "blocked": true,
-    "stepUp": null,
-    "idempotencyScope": null,
-    "gapIds": [
-      "GAP-01",
-      "GAP-02"
-    ]
-  },
-  {
-    "operation": "GET /admin/pos/shifts/current",
-    "owner": "AD-E-09",
-    "gate": "E",
-    "view": "AD-E-09/op-02",
-    "permissionClaims": {
-      "runtime": null,
-      "openapi": null
-    },
-    "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
-    "blocked": true,
-    "stepUp": null,
-    "idempotencyScope": null,
-    "gapIds": [
-      "GAP-01",
-      "GAP-02"
-    ]
-  },
-  {
-    "operation": "GET /admin/pos/stores",
-    "owner": "AD-E-09",
-    "gate": "E",
-    "view": "AD-E-09/op-03",
-    "permissionClaims": {
-      "runtime": null,
-      "openapi": null
-    },
-    "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
-    "blocked": true,
-    "stepUp": null,
-    "idempotencyScope": null,
-    "gapIds": [
-      "GAP-01",
-      "GAP-02"
-    ]
-  },
-  {
-    "operation": "POST /admin/pos/shifts/{id}/begin-closing",
-    "owner": "AD-E-09",
-    "gate": "E",
-    "view": "AD-E-09/op-04",
-    "permissionClaims": {
-      "runtime": null,
-      "openapi": null
-    },
-    "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
-    "blocked": true,
-    "stepUp": null,
-    "idempotencyScope": null,
-    "gapIds": [
-      "GAP-01",
-      "GAP-02"
-    ]
-  },
-  {
-    "operation": "POST /admin/pos/shifts/{id}/close",
-    "owner": "AD-E-09",
-    "gate": "E",
-    "view": "AD-E-09/op-05",
-    "permissionClaims": {
-      "runtime": null,
-      "openapi": null
-    },
-    "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
-    "blocked": true,
-    "stepUp": null,
-    "idempotencyScope": null,
-    "gapIds": [
-      "GAP-01",
-      "GAP-02"
-    ]
-  },
-  {
-    "operation": "POST /admin/pos/shifts/{id}/reconcile",
-    "owner": "AD-E-09",
-    "gate": "E",
-    "view": "AD-E-09/op-06",
-    "permissionClaims": {
-      "runtime": null,
-      "openapi": null
-    },
-    "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
-    "blocked": true,
-    "stepUp": null,
-    "idempotencyScope": null,
-    "gapIds": [
-      "GAP-01",
-      "GAP-02"
-    ]
-  },
-  {
-    "operation": "POST /admin/pos/shifts/open",
-    "owner": "AD-E-09",
-    "gate": "E",
-    "view": "AD-E-09/op-07",
-    "permissionClaims": {
-      "runtime": null,
-      "openapi": null
-    },
-    "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
-    "blocked": true,
-    "stepUp": null,
-    "idempotencyScope": null,
-    "gapIds": [
-      "GAP-01",
-      "GAP-02"
-    ]
-  },
-  {
     "operation": "GET /admin/pos/scan",
     "owner": "AD-E-10",
     "gate": "E",
@@ -3989,33 +3863,13 @@
       "runtime": [
         "pos.view"
       ],
-      "openapi": null
+      "openapi": "pos.view"
     },
-    "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
-    "blocked": true,
+    "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+    "blocked": false,
     "stepUp": false,
     "idempotencyScope": null,
-    "gapIds": [
-      "GAP-03"
-    ]
-  },
-  {
-    "operation": "POST /admin/pos/orders",
-    "owner": "AD-E-10",
-    "gate": "E",
-    "view": "AD-E-10/op-02",
-    "permissionClaims": {
-      "runtime": null,
-      "openapi": null
-    },
-    "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
-    "blocked": true,
-    "stepUp": null,
-    "idempotencyScope": null,
-    "gapIds": [
-      "GAP-01",
-      "GAP-02"
-    ]
+    "gapIds": []
   },
   {
     "operation": "POST /admin/pos/sales",
@@ -4026,15 +3880,13 @@
       "runtime": [
         "pos.sell"
       ],
-      "openapi": null
+      "openapi": "pos.sell"
     },
-    "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
-    "blocked": true,
+    "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+    "blocked": false,
     "stepUp": false,
     "idempotencyScope": "pos.sale.create",
-    "gapIds": [
-      "GAP-03"
-    ]
+    "gapIds": []
   },
   {
     "operation": "POST /admin/pos/sales/{id}/commit",
@@ -4045,15 +3897,13 @@
       "runtime": [
         "pos.sell"
       ],
-      "openapi": null
+      "openapi": "pos.sell"
     },
-    "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
-    "blocked": true,
+    "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+    "blocked": false,
     "stepUp": false,
     "idempotencyScope": "pos.sale.commit",
-    "gapIds": [
-      "GAP-03"
-    ]
+    "gapIds": []
   },
   {
     "operation": "POST /admin/pos/sales/{id}/lines",
@@ -4064,15 +3914,13 @@
       "runtime": [
         "pos.sell"
       ],
-      "openapi": null
+      "openapi": "pos.sell"
     },
-    "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
-    "blocked": true,
+    "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+    "blocked": false,
     "stepUp": false,
     "idempotencyScope": "pos.sale.line.add",
-    "gapIds": [
-      "GAP-03"
-    ]
+    "gapIds": []
   },
   {
     "operation": "POST /admin/pos/sales/{id}/price",
@@ -4083,15 +3931,13 @@
       "runtime": [
         "pos.sell"
       ],
-      "openapi": null
+      "openapi": "pos.sell"
     },
-    "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
-    "blocked": true,
+    "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+    "blocked": false,
     "stepUp": false,
     "idempotencyScope": "pos.sale.price",
-    "gapIds": [
-      "GAP-03"
-    ]
+    "gapIds": []
   },
   {
     "operation": "GET /admin/pos/reconciliation/{clientCommandId}",
@@ -4102,15 +3948,13 @@
       "runtime": [
         "pos.reconcile"
       ],
-      "openapi": null
+      "openapi": "pos.reconcile"
     },
-    "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
-    "blocked": true,
+    "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+    "blocked": false,
     "stepUp": false,
     "idempotencyScope": null,
-    "gapIds": [
-      "GAP-03"
-    ]
+    "gapIds": []
   },
   {
     "operation": "GET /admin/pos/reconciliation/failed",
@@ -4121,15 +3965,13 @@
       "runtime": [
         "pos.reconcile"
       ],
-      "openapi": null
+      "openapi": "pos.reconcile"
     },
-    "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
-    "blocked": true,
+    "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+    "blocked": false,
     "stepUp": false,
     "idempotencyScope": null,
-    "gapIds": [
-      "GAP-03"
-    ]
+    "gapIds": []
   },
   {
     "operation": "POST /admin/pos/offline/commands",
@@ -4140,15 +3982,13 @@
       "runtime": [
         "pos.sell"
       ],
-      "openapi": null
+      "openapi": "pos.sell"
     },
-    "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
-    "blocked": true,
+    "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+    "blocked": false,
     "stepUp": false,
     "idempotencyScope": "pos.offline.capture",
-    "gapIds": [
-      "GAP-03"
-    ]
+    "gapIds": []
   },
   {
     "operation": "POST /admin/pos/offline/commands/{clientCommandId}/sync",
@@ -4159,15 +3999,13 @@
       "runtime": [
         "pos.sell"
       ],
-      "openapi": null
+      "openapi": "pos.sell"
     },
-    "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
-    "blocked": true,
+    "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+    "blocked": false,
     "stepUp": false,
     "idempotencyScope": "pos.offline.sync",
-    "gapIds": [
-      "GAP-03"
-    ]
+    "gapIds": []
   },
   {
     "operation": "POST /admin/pos/reconciliation/{clientCommandId}/abandon",
@@ -4178,15 +4016,13 @@
       "runtime": [
         "pos.reconcile"
       ],
-      "openapi": null
+      "openapi": "pos.reconcile"
     },
-    "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
-    "blocked": true,
+    "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+    "blocked": false,
     "stepUp": true,
     "idempotencyScope": "pos.reconciliation.admin.abandon",
-    "gapIds": [
-      "GAP-03"
-    ]
+    "gapIds": []
   },
   {
     "operation": "POST /admin/pos/reconciliation/{clientCommandId}/retry",
@@ -4197,15 +4033,13 @@
       "runtime": [
         "pos.reconcile"
       ],
-      "openapi": null
+      "openapi": "pos.reconcile"
     },
-    "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
-    "blocked": true,
+    "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+    "blocked": false,
     "stepUp": true,
     "idempotencyScope": "pos.reconciliation.admin.retry",
-    "gapIds": [
-      "GAP-03"
-    ]
+    "gapIds": []
   },
   {
     "operation": "GET /admin/customers",

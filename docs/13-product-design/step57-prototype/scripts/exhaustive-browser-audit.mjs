@@ -39,7 +39,7 @@ function assertInventory(){
   if(screens.length!==134)fail('inventory',`Expected 134 screens, found ${screens.length}`);
   if(storefront.length!==37)fail('inventory',`Expected 37 storefront screens, found ${storefront.length}`);
   if(admin.length!==97)fail('inventory',`Expected 97 admin screens, found ${admin.length}`);
-  if(adminViews.length!==1142)fail('inventory',`Expected 1142 admin views, found ${adminViews.length}`);
+  if(adminViews.length!==1143)fail('inventory',`Expected 1143 admin views, found ${adminViews.length}`);
   if(adminStates.length!==4472)fail('inventory',`Expected 4472 admin states, found ${adminStates.length}`);
   if(journeyIds.length!==24)fail('inventory',`Expected 24 journeys, found ${journeyIds.length}`);
   for(const screen of screens){
@@ -332,7 +332,7 @@ async function main(){
     await testInternalLinks(page);await testBackForward(page);await testCriticalJourneys(page);await context.close();
   }finally{await browser.close();}
 
-  const report={generatedAt:new Date().toISOString(),base,metrics,failures,warnings,expected:{screens:134,storefront:37,admin:97,adminViews:1142,adminStates:4472,journeys:24,widths}};
+  const report={generatedAt:new Date().toISOString(),base,metrics,failures,warnings,expected:{screens:134,storefront:37,admin:97,adminViews:1143,adminStates:4472,journeys:24,widths}};
   writeFileSync(new URL('./step57-exhaustive-browser-audit.json',evidenceDir),JSON.stringify(report,null,2));
   const summary=[
     '# Step 57 exhaustive browser audit',

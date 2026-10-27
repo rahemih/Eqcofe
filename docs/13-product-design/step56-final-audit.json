@@ -15,14 +15,14 @@
     "journeys": 12,
     "domains": 28,
     "surfaces": 97,
-    "operations": 532,
-    "blocked": 186,
-    "supported": 346,
+    "operations": 524,
+    "blocked": 167,
+    "supported": 357,
     "states": 4472,
-    "views": 1142,
+    "views": 1143,
     "screenJourneyLinks": 111,
-    "frames": 2672,
-    "artifacts": 2884
+    "frames": 2674,
+    "artifacts": 2886
   },
   "designExceptions": [],
   "limitations": [
@@ -34,23 +34,23 @@
   "sources": [
     {
       "path": "docs/13-product-design/step56-admin-shell-wireframes.json",
-      "sha256": "f4e6066edc86c365a61a628bb983f2d4ea6d504b06ac73c55b4c72d666b3082c"
+      "sha256": "373999bb557a4eff8c9c30af271f7e935f138dbd2a47407c9e24bd7136642f5c"
     },
     {
       "path": "docs/13-product-design/step56-admin-ux-contract.json",
-      "sha256": "2130ef762b71134d5c1013d12d2f5d9ff25ee73ec482c81d70d10ef8fea48732"
+      "sha256": "44269f7c4a84722beb0eb3ffe727c46dac4e1c86787ecd20de120e319edbaf3d"
     },
     {
       "path": "docs/13-product-design/step56-catalog-media-wireframes.json",
-      "sha256": "7c2b753e0b0abac15e255ed99f313c8ef3843f06ac16b157f826808d96bf4bdd"
+      "sha256": "afd85b99d4f17e66abdd0b96b3b2f5befbda751a349d900698f2c9b3e3b22539"
     },
     {
       "path": "docs/13-product-design/step56-commerce-operations-wireframes.json",
-      "sha256": "1546f7e82c9b09fa6b19ec8e907a974f7629bc53e2a54003400b4bf98cd4770e"
+      "sha256": "acb7e3e96b3cfb26a23d1dbd83072e8eafa98071a390415002978354f683fd35"
     },
     {
       "path": "docs/13-product-design/step56-customers-growth-wireframes.json",
-      "sha256": "4ee9b8143eaa1b86928b642bbe30f23e240debe9d9024789e4a0c34e125de422"
+      "sha256": "6eebd897dfb0ed3101f9f2f55ca3e41d5d1b469bd3335eefb1d3bb4cc50e76d4"
     },
     {
       "path": "docs/13-product-design/step56-final-handoffs.json",
@@ -62,39 +62,39 @@
     },
     {
       "path": "docs/13-product-design/step56-management-security-wireframes.json",
-      "sha256": "9f3888a2170706345fa60490e771e4bb533c9d57d2b9d43a678d5f21a2d4d488"
+      "sha256": "a588d59cedb119ade322b1b79fd1cd56cf47176e4bb50243cdd8152a8f47812b"
     },
     {
       "path": "docs/13-product-design/step56-pricing-inventory-wireframes.json",
-      "sha256": "caced955a9bb17ff6470c522ccd2e0764bd5e1001370dfc4f36cac260e1feceb"
+      "sha256": "d8c2b30ca5b3dce22655e3d805f960b4761747739b5589f621f770bc7e5cdbd5"
     },
     {
       "path": "docs/13-product-design/step56-wireframes/B/manifest.json",
-      "sha256": "6acd90667331b4f5971207d7173bc53d204a750565e6a3af50ef27c5c9939451"
+      "sha256": "4b1ca357bdd217ea274d8d8ed9999b20609e5d97c64f2a78769424dc7475380c"
     },
     {
       "path": "docs/13-product-design/step56-wireframes/C/manifest.json",
-      "sha256": "88a637d96e579b7506f7f64fa7f3c6497be35346a70b291f87883adbe3a0975e"
+      "sha256": "5286257f488a1acddfae51bafe3b17dea052e3eef2debcff24e8cd5eabf4ae4a"
     },
     {
       "path": "docs/13-product-design/step56-wireframes/D/manifest.json",
-      "sha256": "fca8cc1a2e1dfd2b36dc6fadceee88233704e281aebf64886716baa553957dad"
+      "sha256": "885080aa7f7363395f7fa1f9e5d84a1ab32ac4b701c5cbbc9bf92abb344f23db"
     },
     {
       "path": "docs/13-product-design/step56-wireframes/E/manifest.json",
-      "sha256": "5010f060d55d44bc19f4d56459aadcdb273843a0ad6c63bbf17bad5a4d6eb843"
+      "sha256": "076f06df6d2efd77b887bbe6bc7e0c211072d13810b7adc58e627a4da5df368f"
     },
     {
       "path": "docs/13-product-design/step56-wireframes/F/manifest.json",
-      "sha256": "2411c52cb30d43e91873666533531b0793516babca71c7a43c021ed04a00712c"
+      "sha256": "781d21be3453272a79980b9fde008ecdd97dbd501acea0eaaaf29aaddd10535a"
     },
     {
       "path": "docs/13-product-design/step56-wireframes/G/manifest.json",
-      "sha256": "60bce943aaf5456315f0159c4b53b75475286fbaca2c3462540f9484627a156f"
+      "sha256": "d2c218efb48942a7cd64d09bd7689894d2d1262e6d850351cdddbb0317d767ff"
     },
     {
       "path": "scripts/step56-final-audit.mjs",
-      "sha256": "fed068d9c0884fb53c8d4494b6d88427830e85889feba8706a7cf1feae815e0e"
+      "sha256": "5a98b10f22a55b5f6a706fe471c67e33e834ac89ca178046c61296a513729b43"
     }
   ],
   "transport": {
@@ -268,7 +268,7 @@
     {
       "gate": "B",
       "path": "docs/13-product-design/step56-wireframes/B/manifest.json",
-      "sha256": "6acd90667331b4f5971207d7173bc53d204a750565e6a3af50ef27c5c9939451",
+      "sha256": "4b1ca357bdd217ea274d8d8ed9999b20609e5d97c64f2a78769424dc7475380c",
       "surfaces": 7,
       "frames": 74,
       "artifacts": 91,
@@ -302,7 +302,7 @@
     {
       "gate": "C",
       "path": "docs/13-product-design/step56-wireframes/C/manifest.json",
-      "sha256": "88a637d96e579b7506f7f64fa7f3c6497be35346a70b291f87883adbe3a0975e",
+      "sha256": "5286257f488a1acddfae51bafe3b17dea052e3eef2debcff24e8cd5eabf4ae4a",
       "surfaces": 8,
       "frames": 114,
       "artifacts": 133,
@@ -335,7 +335,7 @@
     {
       "gate": "D",
       "path": "docs/13-product-design/step56-wireframes/D/manifest.json",
-      "sha256": "fca8cc1a2e1dfd2b36dc6fadceee88233704e281aebf64886716baa553957dad",
+      "sha256": "885080aa7f7363395f7fa1f9e5d84a1ab32ac4b701c5cbbc9bf92abb344f23db",
       "surfaces": 21,
       "frames": 624,
       "artifacts": 669,
@@ -368,10 +368,10 @@
     {
       "gate": "E",
       "path": "docs/13-product-design/step56-wireframes/E/manifest.json",
-      "sha256": "5010f060d55d44bc19f4d56459aadcdb273843a0ad6c63bbf17bad5a4d6eb843",
+      "sha256": "076f06df6d2efd77b887bbe6bc7e0c211072d13810b7adc58e627a4da5df368f",
       "surfaces": 11,
-      "frames": 368,
-      "artifacts": 393,
+      "frames": 370,
+      "artifacts": 395,
       "review": {
         "visual": "PASS_SAMPLED_STATIC_COMPOSITIONS",
         "runtimeCertified": false,
@@ -402,7 +402,7 @@
     {
       "gate": "F",
       "path": "docs/13-product-design/step56-wireframes/F/manifest.json",
-      "sha256": "2411c52cb30d43e91873666533531b0793516babca71c7a43c021ed04a00712c",
+      "sha256": "781d21be3453272a79980b9fde008ecdd97dbd501acea0eaaaf29aaddd10535a",
       "surfaces": 16,
       "frames": 488,
       "artifacts": 523,
@@ -430,7 +430,7 @@
     {
       "gate": "G",
       "path": "docs/13-product-design/step56-wireframes/G/manifest.json",
-      "sha256": "60bce943aaf5456315f0159c4b53b75475286fbaca2c3462540f9484627a156f",
+      "sha256": "d2c218efb48942a7cd64d09bd7689894d2d1262e6d850351cdddbb0317d767ff",
       "surfaces": 34,
       "frames": 1004,
       "artifacts": 1075,
@@ -3083,7 +3083,7 @@
         "AJ-04"
       ],
       "domains": [
-        "pos"
+        "admin"
       ],
       "permissions": [],
       "facets": [
@@ -3093,15 +3093,7 @@
         "allowed-action-review-or-read-only",
         "authoritative-outcome-and-recovery"
       ],
-      "operations": [
-        "GET /admin/pos/registers",
-        "GET /admin/pos/shifts/current",
-        "GET /admin/pos/stores",
-        "POST /admin/pos/shifts/{id}/begin-closing",
-        "POST /admin/pos/shifts/{id}/close",
-        "POST /admin/pos/shifts/{id}/reconcile",
-        "POST /admin/pos/shifts/open"
-      ],
+      "operations": [],
       "states": 46,
       "views": [
         "overview",
@@ -3124,15 +3116,7 @@
         "error": "After failed submit focus linked error summary and inline description; retain safe input; asynchronous refresh never steals focus.",
         "navigation": "Keyboard alternatives for every action, labelled compact cards and44px minimum touch targets; no fixed action obscures focus. Polite result announcement."
       },
-      "blockedOperations": [
-        "GET /admin/pos/registers",
-        "GET /admin/pos/shifts/current",
-        "GET /admin/pos/stores",
-        "POST /admin/pos/shifts/{id}/begin-closing",
-        "POST /admin/pos/shifts/{id}/close",
-        "POST /admin/pos/shifts/{id}/reconcile",
-        "POST /admin/pos/shifts/open"
-      ]
+      "blockedOperations": []
     },
     {
       "id": "AD-E-10",
@@ -3162,7 +3146,6 @@
       ],
       "operations": [
         "GET /admin/pos/scan",
-        "POST /admin/pos/orders",
         "POST /admin/pos/sales",
         "POST /admin/pos/sales/{id}/commit",
         "POST /admin/pos/sales/{id}/lines",
@@ -3172,11 +3155,11 @@
       "views": [
         "overview",
         "op-01",
-        "op-02",
         "op-03",
         "op-04",
         "op-05",
         "op-06",
+        "confirmation",
         "conflict",
         "denied",
         "loading",
@@ -3189,14 +3172,7 @@
         "error": "After failed submit focus linked error summary and inline description; retain safe input; asynchronous refresh never steals focus.",
         "navigation": "Keyboard alternatives for every action, labelled compact cards and44px minimum touch targets; no fixed action obscures focus. Polite result announcement."
       },
-      "blockedOperations": [
-        "GET /admin/pos/scan",
-        "POST /admin/pos/orders",
-        "POST /admin/pos/sales",
-        "POST /admin/pos/sales/{id}/commit",
-        "POST /admin/pos/sales/{id}/lines",
-        "POST /admin/pos/sales/{id}/price"
-      ]
+      "blockedOperations": []
     },
     {
       "id": "AD-E-11",
@@ -3242,6 +3218,7 @@
         "op-04",
         "op-05",
         "op-06",
+        "confirmation",
         "conflict",
         "denied",
         "loading",
@@ -3254,14 +3231,7 @@
         "error": "After failed submit focus linked error summary and inline description; retain safe input; asynchronous refresh never steals focus.",
         "navigation": "Keyboard alternatives for every action, labelled compact cards and44px minimum touch targets; no fixed action obscures focus. Polite result announcement."
       },
-      "blockedOperations": [
-        "GET /admin/pos/reconciliation/{clientCommandId}",
-        "GET /admin/pos/reconciliation/failed",
-        "POST /admin/pos/offline/commands",
-        "POST /admin/pos/offline/commands/{clientCommandId}/sync",
-        "POST /admin/pos/reconciliation/{clientCommandId}/abandon",
-        "POST /admin/pos/reconciliation/{clientCommandId}/retry"
-      ]
+      "blockedOperations": []
     },
     {
       "id": "AD-F-01",
@@ -10095,132 +10065,6 @@
       "gapIds": []
     },
     {
-      "operation": "GET /admin/pos/registers",
-      "owner": "AD-E-09",
-      "gate": "E",
-      "view": "AD-E-09/op-01",
-      "permissionClaims": {
-        "runtime": null,
-        "openapi": null
-      },
-      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
-      "blocked": true,
-      "stepUp": null,
-      "idempotencyScope": null,
-      "gapIds": [
-        "GAP-01",
-        "GAP-02"
-      ]
-    },
-    {
-      "operation": "GET /admin/pos/shifts/current",
-      "owner": "AD-E-09",
-      "gate": "E",
-      "view": "AD-E-09/op-02",
-      "permissionClaims": {
-        "runtime": null,
-        "openapi": null
-      },
-      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
-      "blocked": true,
-      "stepUp": null,
-      "idempotencyScope": null,
-      "gapIds": [
-        "GAP-01",
-        "GAP-02"
-      ]
-    },
-    {
-      "operation": "GET /admin/pos/stores",
-      "owner": "AD-E-09",
-      "gate": "E",
-      "view": "AD-E-09/op-03",
-      "permissionClaims": {
-        "runtime": null,
-        "openapi": null
-      },
-      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
-      "blocked": true,
-      "stepUp": null,
-      "idempotencyScope": null,
-      "gapIds": [
-        "GAP-01",
-        "GAP-02"
-      ]
-    },
-    {
-      "operation": "POST /admin/pos/shifts/{id}/begin-closing",
-      "owner": "AD-E-09",
-      "gate": "E",
-      "view": "AD-E-09/op-04",
-      "permissionClaims": {
-        "runtime": null,
-        "openapi": null
-      },
-      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
-      "blocked": true,
-      "stepUp": null,
-      "idempotencyScope": null,
-      "gapIds": [
-        "GAP-01",
-        "GAP-02"
-      ]
-    },
-    {
-      "operation": "POST /admin/pos/shifts/{id}/close",
-      "owner": "AD-E-09",
-      "gate": "E",
-      "view": "AD-E-09/op-05",
-      "permissionClaims": {
-        "runtime": null,
-        "openapi": null
-      },
-      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
-      "blocked": true,
-      "stepUp": null,
-      "idempotencyScope": null,
-      "gapIds": [
-        "GAP-01",
-        "GAP-02"
-      ]
-    },
-    {
-      "operation": "POST /admin/pos/shifts/{id}/reconcile",
-      "owner": "AD-E-09",
-      "gate": "E",
-      "view": "AD-E-09/op-06",
-      "permissionClaims": {
-        "runtime": null,
-        "openapi": null
-      },
-      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
-      "blocked": true,
-      "stepUp": null,
-      "idempotencyScope": null,
-      "gapIds": [
-        "GAP-01",
-        "GAP-02"
-      ]
-    },
-    {
-      "operation": "POST /admin/pos/shifts/open",
-      "owner": "AD-E-09",
-      "gate": "E",
-      "view": "AD-E-09/op-07",
-      "permissionClaims": {
-        "runtime": null,
-        "openapi": null
-      },
-      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
-      "blocked": true,
-      "stepUp": null,
-      "idempotencyScope": null,
-      "gapIds": [
-        "GAP-01",
-        "GAP-02"
-      ]
-    },
-    {
       "operation": "GET /admin/pos/scan",
       "owner": "AD-E-10",
       "gate": "E",
@@ -10229,33 +10073,13 @@
         "runtime": [
           "pos.view"
         ],
-        "openapi": null
+        "openapi": "pos.view"
       },
-      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
-      "blocked": true,
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "blocked": false,
       "stepUp": false,
       "idempotencyScope": null,
-      "gapIds": [
-        "GAP-03"
-      ]
-    },
-    {
-      "operation": "POST /admin/pos/orders",
-      "owner": "AD-E-10",
-      "gate": "E",
-      "view": "AD-E-10/op-02",
-      "permissionClaims": {
-        "runtime": null,
-        "openapi": null
-      },
-      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
-      "blocked": true,
-      "stepUp": null,
-      "idempotencyScope": null,
-      "gapIds": [
-        "GAP-01",
-        "GAP-02"
-      ]
+      "gapIds": []
     },
     {
       "operation": "POST /admin/pos/sales",
@@ -10266,15 +10090,13 @@
         "runtime": [
           "pos.sell"
         ],
-        "openapi": null
+        "openapi": "pos.sell"
       },
-      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
-      "blocked": true,
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "blocked": false,
       "stepUp": false,
       "idempotencyScope": "pos.sale.create",
-      "gapIds": [
-        "GAP-03"
-      ]
+      "gapIds": []
     },
     {
       "operation": "POST /admin/pos/sales/{id}/commit",
@@ -10285,15 +10107,13 @@
         "runtime": [
           "pos.sell"
         ],
-        "openapi": null
+        "openapi": "pos.sell"
       },
-      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
-      "blocked": true,
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "blocked": false,
       "stepUp": false,
       "idempotencyScope": "pos.sale.commit",
-      "gapIds": [
-        "GAP-03"
-      ]
+      "gapIds": []
     },
     {
       "operation": "POST /admin/pos/sales/{id}/lines",
@@ -10304,15 +10124,13 @@
         "runtime": [
           "pos.sell"
         ],
-        "openapi": null
+        "openapi": "pos.sell"
       },
-      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
-      "blocked": true,
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "blocked": false,
       "stepUp": false,
       "idempotencyScope": "pos.sale.line.add",
-      "gapIds": [
-        "GAP-03"
-      ]
+      "gapIds": []
     },
     {
       "operation": "POST /admin/pos/sales/{id}/price",
@@ -10323,15 +10141,13 @@
         "runtime": [
           "pos.sell"
         ],
-        "openapi": null
+        "openapi": "pos.sell"
       },
-      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
-      "blocked": true,
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "blocked": false,
       "stepUp": false,
       "idempotencyScope": "pos.sale.price",
-      "gapIds": [
-        "GAP-03"
-      ]
+      "gapIds": []
     },
     {
       "operation": "GET /admin/pos/reconciliation/{clientCommandId}",
@@ -10342,15 +10158,13 @@
         "runtime": [
           "pos.reconcile"
         ],
-        "openapi": null
+        "openapi": "pos.reconcile"
       },
-      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
-      "blocked": true,
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "blocked": false,
       "stepUp": false,
       "idempotencyScope": null,
-      "gapIds": [
-        "GAP-03"
-      ]
+      "gapIds": []
     },
     {
       "operation": "GET /admin/pos/reconciliation/failed",
@@ -10361,15 +10175,13 @@
         "runtime": [
           "pos.reconcile"
         ],
-        "openapi": null
+        "openapi": "pos.reconcile"
       },
-      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
-      "blocked": true,
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "blocked": false,
       "stepUp": false,
       "idempotencyScope": null,
-      "gapIds": [
-        "GAP-03"
-      ]
+      "gapIds": []
     },
     {
       "operation": "POST /admin/pos/offline/commands",
@@ -10380,15 +10192,13 @@
         "runtime": [
           "pos.sell"
         ],
-        "openapi": null
+        "openapi": "pos.sell"
       },
-      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
-      "blocked": true,
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "blocked": false,
       "stepUp": false,
       "idempotencyScope": "pos.offline.capture",
-      "gapIds": [
-        "GAP-03"
-      ]
+      "gapIds": []
     },
     {
       "operation": "POST /admin/pos/offline/commands/{clientCommandId}/sync",
@@ -10399,15 +10209,13 @@
         "runtime": [
           "pos.sell"
         ],
-        "openapi": null
+        "openapi": "pos.sell"
       },
-      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
-      "blocked": true,
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "blocked": false,
       "stepUp": false,
       "idempotencyScope": "pos.offline.sync",
-      "gapIds": [
-        "GAP-03"
-      ]
+      "gapIds": []
     },
     {
       "operation": "POST /admin/pos/reconciliation/{clientCommandId}/abandon",
@@ -10418,15 +10226,13 @@
         "runtime": [
           "pos.reconcile"
         ],
-        "openapi": null
+        "openapi": "pos.reconcile"
       },
-      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
-      "blocked": true,
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "blocked": false,
       "stepUp": true,
       "idempotencyScope": "pos.reconciliation.admin.abandon",
-      "gapIds": [
-        "GAP-03"
-      ]
+      "gapIds": []
     },
     {
       "operation": "POST /admin/pos/reconciliation/{clientCommandId}/retry",
@@ -10437,15 +10243,13 @@
         "runtime": [
           "pos.reconcile"
         ],
-        "openapi": null
+        "openapi": "pos.reconcile"
       },
-      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
-      "blocked": true,
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
+      "blocked": false,
       "stepUp": true,
       "idempotencyScope": "pos.reconciliation.admin.retry",
-      "gapIds": [
-        "GAP-03"
-      ]
+      "gapIds": []
     },
     {
       "operation": "GET /admin/customers",
@@ -28604,931 +28408,931 @@
       "surface": "AD-E-09",
       "id": "allocation-needed",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "surface": "AD-E-09",
       "id": "approval-required",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "surface": "AD-E-09",
       "id": "audit-reference",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "surface": "AD-E-09",
       "id": "authoritative-success",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "surface": "AD-E-09",
       "id": "blocked",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "surface": "AD-E-09",
       "id": "blocked-by-lifecycle",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "surface": "AD-E-09",
       "id": "cancelled",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "surface": "AD-E-09",
       "id": "completed",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "surface": "AD-E-09",
       "id": "confirmed",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "surface": "AD-E-09",
       "id": "destructive-action-confirmation",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "surface": "AD-E-09",
       "id": "disabled",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "surface": "AD-E-09",
       "id": "empty-filtered",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "surface": "AD-E-09",
       "id": "empty-first-use",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "surface": "AD-E-09",
       "id": "handed-over",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "surface": "AD-E-09",
       "id": "idempotent-replay",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "surface": "AD-E-09",
       "id": "impact-changed",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "surface": "AD-E-09",
       "id": "initial-loading",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "surface": "AD-E-09",
       "id": "irreversible-outcome",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "surface": "AD-E-09",
       "id": "manual-review",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "surface": "AD-E-09",
       "id": "new",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "surface": "AD-E-09",
       "id": "no-results",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "surface": "AD-E-09",
       "id": "offline",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "surface": "AD-E-09",
       "id": "partial-success",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "surface": "AD-E-09",
       "id": "payment-pending",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "surface": "AD-E-09",
       "id": "permission-denied",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "surface": "AD-E-09",
       "id": "picking",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "surface": "AD-E-09",
       "id": "preview-expired",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "surface": "AD-E-09",
       "id": "progressive-loading",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "surface": "AD-E-09",
       "id": "provider-unavailable",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "surface": "AD-E-09",
       "id": "read-only",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "surface": "AD-E-09",
       "id": "ready",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "surface": "AD-E-09",
       "id": "refresh-loading",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "surface": "AD-E-09",
       "id": "safe-retry",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "surface": "AD-E-09",
       "id": "scope-filtered",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "surface": "AD-E-09",
       "id": "server-error",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "surface": "AD-E-09",
       "id": "session-expired",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "surface": "AD-E-09",
       "id": "stale-data",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "surface": "AD-E-09",
       "id": "status-check",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "surface": "AD-E-09",
       "id": "step-up-required",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "surface": "AD-E-09",
       "id": "submitting",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "surface": "AD-E-09",
       "id": "terminal-success",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "surface": "AD-E-09",
       "id": "timeout",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "surface": "AD-E-09",
       "id": "unauthenticated",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "surface": "AD-E-09",
       "id": "unknown-result",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "surface": "AD-E-09",
       "id": "validation-error",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "surface": "AD-E-09",
       "id": "version-conflict",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen shift/store/register operations have unresolved assembled-contract/runtime evidence. Preserve all seven NO_ACTION dispositions and do not infer an executable shift lifecycle. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "NO_ACTION: این سطح پس از reconciliation فاقد endpoint و controller منبع‌اثبات‌شده است؛ هیچ داده، mutation، loading-success یا چرخهٔ شیفت از قراردادهای دیگر استنباط نمی‌شود و بازگشت امن تنها اقدام مجاز است."
     },
     {
       "surface": "AD-E-10",
       "id": "allocation-needed",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-10",
       "id": "approval-required",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-10",
       "id": "approved",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-10",
       "id": "audit-reference",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-10",
       "id": "authoritative-success",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "success",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-10",
       "id": "blocked",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-10",
       "id": "blocked-by-lifecycle",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-10",
       "id": "cancelled",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-10",
       "id": "completed",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "success",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-10",
       "id": "confirmed",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "success",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-10",
       "id": "destructive-action-confirmation",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "confirmation",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-10",
       "id": "disabled",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-10",
       "id": "empty-filtered",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "empty",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-10",
       "id": "empty-first-use",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "empty",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-10",
       "id": "failed",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-10",
       "id": "handed-over",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-10",
       "id": "idempotent-replay",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-10",
       "id": "impact-changed",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-10",
       "id": "initial-loading",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "loading",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-10",
       "id": "irreversible-outcome",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-10",
       "id": "manual-review",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-10",
       "id": "new",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-10",
       "id": "no-results",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "empty",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-10",
       "id": "offline",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-10",
       "id": "partial-success",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-10",
       "id": "payment-pending",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-10",
       "id": "pending",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-10",
       "id": "permission-denied",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-10",
       "id": "picking",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-10",
       "id": "preview-expired",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-10",
       "id": "processing",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-10",
       "id": "progressive-loading",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "loading",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-10",
       "id": "provider-unavailable",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-10",
       "id": "read-only",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-10",
       "id": "ready",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-10",
       "id": "reconcile-required",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-10",
       "id": "refresh-loading",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "loading",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-10",
       "id": "refund-requested",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-10",
       "id": "retryable",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-10",
       "id": "safe-retry",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-10",
       "id": "scope-filtered",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-10",
       "id": "server-error",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "conflict",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-10",
       "id": "session-expired",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-10",
       "id": "stale-data",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-10",
       "id": "status-check",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-10",
       "id": "step-up-required",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "confirmation",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-10",
       "id": "submitting",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "loading",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-10",
       "id": "terminal-success",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "success",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-10",
       "id": "timeout",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "conflict",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-10",
       "id": "unauthenticated",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-10",
       "id": "unknown",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "conflict",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-10",
       "id": "unknown-result",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "conflict",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-10",
       "id": "validation-error",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-10",
       "id": "version-conflict",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "conflict",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-11",
       "id": "acknowledged",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-11",
       "id": "alerting",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-11",
       "id": "allocation-needed",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-11",
       "id": "approval-required",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-11",
       "id": "audit-reference",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-11",
       "id": "authoritative-success",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "success",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-11",
       "id": "blocked",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-11",
       "id": "blocked-by-lifecycle",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-11",
       "id": "cancelled",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-11",
       "id": "completed",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "success",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-11",
       "id": "confirmed",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "success",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-11",
       "id": "contained",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-11",
       "id": "degraded",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-11",
       "id": "destructive-action-confirmation",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "confirmation",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-11",
       "id": "disabled",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-11",
       "id": "empty-filtered",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "empty",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-11",
       "id": "empty-first-use",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "empty",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-11",
       "id": "failed",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-11",
       "id": "handed-over",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-11",
       "id": "healthy",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-11",
       "id": "idempotent-replay",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-11",
       "id": "impact-changed",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-11",
       "id": "initial-loading",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "loading",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-11",
       "id": "investigating",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-11",
       "id": "irreversible-outcome",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-11",
       "id": "manual-review",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-11",
       "id": "new",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-11",
       "id": "no-results",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "empty",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-11",
       "id": "offline",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-11",
       "id": "partial-success",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-11",
       "id": "payment-pending",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-11",
       "id": "permission-denied",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-11",
       "id": "picking",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-11",
       "id": "preview-expired",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-11",
       "id": "progressive-loading",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "loading",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-11",
       "id": "provider-unavailable",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-11",
       "id": "read-only",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-11",
       "id": "ready",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-11",
       "id": "recovered",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-11",
       "id": "recovery-preview",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-11",
       "id": "refresh-loading",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "loading",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-11",
       "id": "safe-retry",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-11",
       "id": "scope-filtered",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-11",
       "id": "server-error",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "conflict",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-11",
       "id": "session-expired",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-11",
       "id": "stale-data",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-11",
       "id": "status-check",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-11",
       "id": "step-up-required",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "confirmation",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-11",
       "id": "submitting",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "loading",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-11",
       "id": "terminal-success",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "success",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-11",
       "id": "timeout",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "conflict",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-11",
       "id": "unauthenticated",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-11",
       "id": "unknown-result",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "conflict",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-11",
       "id": "validation-error",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-E-11",
       "id": "version-conflict",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. All six offline/reconciliation obligations remain NO_ACTION. Runtime retry only failed and recovery_count<5, requires owner sync; retry is not completed sale. Abandon failed only. Preserve staff ownership, no owner transfer or automatic sync is invented. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "conflict",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "surface": "AD-F-01",
@@ -43453,9 +43257,6 @@
         "GET /admin/orders/{id}",
         "GET /admin/orders/{id}/allowed-actions",
         "GET /admin/orders/{id}/timeline",
-        "GET /admin/pos/registers",
-        "GET /admin/pos/shifts/current",
-        "GET /admin/pos/stores",
         "GET /admin/reviews",
         "GET /admin/reviews/{id}",
         "GET /admin/security/dashboard",
@@ -43529,11 +43330,6 @@
         "POST /admin/orders/{id}/cancel",
         "POST /admin/orders/{id}/complete",
         "POST /admin/orders/{id}/confirm",
-        "POST /admin/pos/orders",
-        "POST /admin/pos/shifts/{id}/begin-closing",
-        "POST /admin/pos/shifts/{id}/close",
-        "POST /admin/pos/shifts/{id}/reconcile",
-        "POST /admin/pos/shifts/open",
         "POST /admin/reviews/{id}/approve",
         "POST /admin/reviews/{id}/hide",
         "POST /admin/reviews/{id}/reject",
@@ -43552,8 +43348,6 @@
       "affectedScreens": [
         "AD-B-03",
         "AD-E-01",
-        "AD-E-09",
-        "AD-E-10",
         "AD-F-01",
         "AD-F-03",
         "AD-F-04",
@@ -43593,7 +43387,6 @@
         "marketing",
         "operations",
         "orders",
-        "pos",
         "security"
       ],
       "foundationDisposition": {
@@ -43672,9 +43465,6 @@
         "GET /admin/orders/{id}",
         "GET /admin/orders/{id}/allowed-actions",
         "GET /admin/orders/{id}/timeline",
-        "GET /admin/pos/registers",
-        "GET /admin/pos/shifts/current",
-        "GET /admin/pos/stores",
         "GET /admin/reviews",
         "GET /admin/reviews/{id}",
         "GET /admin/security/dashboard",
@@ -43744,11 +43534,6 @@
         "POST /admin/operations/manual-reviews/{id}/resolve",
         "POST /admin/orders/{id}/complete",
         "POST /admin/orders/{id}/confirm",
-        "POST /admin/pos/orders",
-        "POST /admin/pos/shifts/{id}/begin-closing",
-        "POST /admin/pos/shifts/{id}/close",
-        "POST /admin/pos/shifts/{id}/reconcile",
-        "POST /admin/pos/shifts/open",
         "POST /admin/reviews/{id}/approve",
         "POST /admin/reviews/{id}/hide",
         "POST /admin/reviews/{id}/reject",
@@ -43766,8 +43551,6 @@
       "affectedScreens": [
         "AD-B-03",
         "AD-E-01",
-        "AD-E-09",
-        "AD-E-10",
         "AD-F-01",
         "AD-F-03",
         "AD-F-04",
@@ -43807,7 +43590,6 @@
         "marketing",
         "operations",
         "orders",
-        "pos",
         "security"
       ],
       "foundationDisposition": {
@@ -43828,9 +43610,6 @@
         "GET /admin/loyalty/customers/{customerId}/history",
         "GET /admin/marketing/promotions",
         "GET /admin/marketing/redemptions",
-        "GET /admin/pos/reconciliation/{clientCommandId}",
-        "GET /admin/pos/reconciliation/failed",
-        "GET /admin/pos/scan",
         "POST /admin/loyalty/customers/{customerId}/adjust",
         "POST /admin/loyalty/customers/{customerId}/entries/{entryId}/reverse",
         "POST /admin/marketing/campaigns/{id}/archive",
@@ -43840,20 +43619,10 @@
         "POST /admin/marketing/coupons/{id}/enable",
         "POST /admin/marketing/promotions",
         "POST /admin/marketing/promotions/{id}/disable",
-        "POST /admin/marketing/promotions/{id}/enable",
-        "POST /admin/pos/offline/commands",
-        "POST /admin/pos/offline/commands/{clientCommandId}/sync",
-        "POST /admin/pos/reconciliation/{clientCommandId}/abandon",
-        "POST /admin/pos/reconciliation/{clientCommandId}/retry",
-        "POST /admin/pos/sales",
-        "POST /admin/pos/sales/{id}/commit",
-        "POST /admin/pos/sales/{id}/lines",
-        "POST /admin/pos/sales/{id}/price"
+        "POST /admin/marketing/promotions/{id}/enable"
       ],
       "requiredResolution": "Separate authorized contract reconciliation; preserve existing source truth and do not silently add overlay/API changes in A.",
       "affectedScreens": [
-        "AD-E-10",
-        "AD-E-11",
         "AD-F-03",
         "AD-F-07",
         "AD-F-08",
@@ -43861,8 +43630,7 @@
       ],
       "responsibleDomains": [
         "loyalty",
-        "marketing",
-        "pos"
+        "marketing"
       ],
       "foundationDisposition": {
         "status": "RETAINED_DESIGN_OBLIGATION_NO_ACTION",

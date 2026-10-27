@@ -29,7 +29,7 @@
   "sources": [
     {
       "path": "docs/13-product-design/step56-admin-ux-contract.json",
-      "sha256": "2130ef762b71134d5c1013d12d2f5d9ff25ee73ec482c81d70d10ef8fea48732"
+      "sha256": "44269f7c4a84722beb0eb3ffe727c46dac4e1c86787ecd20de120e319edbaf3d"
     },
     {
       "path": "src/modules/identity/application/admin-auth.service.ts",
@@ -453,10 +453,7 @@
       "GET /admin/payments/{id}/attempts",
       "GET /admin/pos/reconciliation/{clientCommandId}",
       "GET /admin/pos/reconciliation/failed",
-      "GET /admin/pos/registers",
       "GET /admin/pos/scan",
-      "GET /admin/pos/shifts/current",
-      "GET /admin/pos/stores",
       "GET /admin/pricing/base-prices",
       "GET /admin/pricing/bulk/{operation_id}",
       "GET /admin/pricing/currency-rates",
@@ -714,17 +711,12 @@
       "POST /admin/payments/{id}/reconcile",
       "POST /admin/pos/offline/commands",
       "POST /admin/pos/offline/commands/{clientCommandId}/sync",
-      "POST /admin/pos/orders",
       "POST /admin/pos/reconciliation/{clientCommandId}/abandon",
       "POST /admin/pos/reconciliation/{clientCommandId}/retry",
       "POST /admin/pos/sales",
       "POST /admin/pos/sales/{id}/commit",
       "POST /admin/pos/sales/{id}/lines",
       "POST /admin/pos/sales/{id}/price",
-      "POST /admin/pos/shifts/{id}/begin-closing",
-      "POST /admin/pos/shifts/{id}/close",
-      "POST /admin/pos/shifts/{id}/reconcile",
-      "POST /admin/pos/shifts/open",
       "POST /admin/pricing/base-prices",
       "POST /admin/pricing/base-prices/preview",
       "POST /admin/pricing/bulk/apply",
@@ -916,9 +908,6 @@
         "GET /admin/orders/{id}",
         "GET /admin/orders/{id}/allowed-actions",
         "GET /admin/orders/{id}/timeline",
-        "GET /admin/pos/registers",
-        "GET /admin/pos/shifts/current",
-        "GET /admin/pos/stores",
         "GET /admin/reviews",
         "GET /admin/reviews/{id}",
         "GET /admin/security/dashboard",
@@ -992,11 +981,6 @@
         "POST /admin/orders/{id}/cancel",
         "POST /admin/orders/{id}/complete",
         "POST /admin/orders/{id}/confirm",
-        "POST /admin/pos/orders",
-        "POST /admin/pos/shifts/{id}/begin-closing",
-        "POST /admin/pos/shifts/{id}/close",
-        "POST /admin/pos/shifts/{id}/reconcile",
-        "POST /admin/pos/shifts/open",
         "POST /admin/reviews/{id}/approve",
         "POST /admin/reviews/{id}/hide",
         "POST /admin/reviews/{id}/reject",
@@ -1015,8 +999,6 @@
       "affectedScreens": [
         "AD-B-03",
         "AD-E-01",
-        "AD-E-09",
-        "AD-E-10",
         "AD-F-01",
         "AD-F-03",
         "AD-F-04",
@@ -1056,7 +1038,6 @@
         "marketing",
         "operations",
         "orders",
-        "pos",
         "security"
       ],
       "foundationDisposition": {
@@ -1135,9 +1116,6 @@
         "GET /admin/orders/{id}",
         "GET /admin/orders/{id}/allowed-actions",
         "GET /admin/orders/{id}/timeline",
-        "GET /admin/pos/registers",
-        "GET /admin/pos/shifts/current",
-        "GET /admin/pos/stores",
         "GET /admin/reviews",
         "GET /admin/reviews/{id}",
         "GET /admin/security/dashboard",
@@ -1207,11 +1185,6 @@
         "POST /admin/operations/manual-reviews/{id}/resolve",
         "POST /admin/orders/{id}/complete",
         "POST /admin/orders/{id}/confirm",
-        "POST /admin/pos/orders",
-        "POST /admin/pos/shifts/{id}/begin-closing",
-        "POST /admin/pos/shifts/{id}/close",
-        "POST /admin/pos/shifts/{id}/reconcile",
-        "POST /admin/pos/shifts/open",
         "POST /admin/reviews/{id}/approve",
         "POST /admin/reviews/{id}/hide",
         "POST /admin/reviews/{id}/reject",
@@ -1229,8 +1202,6 @@
       "affectedScreens": [
         "AD-B-03",
         "AD-E-01",
-        "AD-E-09",
-        "AD-E-10",
         "AD-F-01",
         "AD-F-03",
         "AD-F-04",
@@ -1270,7 +1241,6 @@
         "marketing",
         "operations",
         "orders",
-        "pos",
         "security"
       ],
       "foundationDisposition": {
@@ -1291,9 +1261,6 @@
         "GET /admin/loyalty/customers/{customerId}/history",
         "GET /admin/marketing/promotions",
         "GET /admin/marketing/redemptions",
-        "GET /admin/pos/reconciliation/{clientCommandId}",
-        "GET /admin/pos/reconciliation/failed",
-        "GET /admin/pos/scan",
         "POST /admin/loyalty/customers/{customerId}/adjust",
         "POST /admin/loyalty/customers/{customerId}/entries/{entryId}/reverse",
         "POST /admin/marketing/campaigns/{id}/archive",
@@ -1303,20 +1270,10 @@
         "POST /admin/marketing/coupons/{id}/enable",
         "POST /admin/marketing/promotions",
         "POST /admin/marketing/promotions/{id}/disable",
-        "POST /admin/marketing/promotions/{id}/enable",
-        "POST /admin/pos/offline/commands",
-        "POST /admin/pos/offline/commands/{clientCommandId}/sync",
-        "POST /admin/pos/reconciliation/{clientCommandId}/abandon",
-        "POST /admin/pos/reconciliation/{clientCommandId}/retry",
-        "POST /admin/pos/sales",
-        "POST /admin/pos/sales/{id}/commit",
-        "POST /admin/pos/sales/{id}/lines",
-        "POST /admin/pos/sales/{id}/price"
+        "POST /admin/marketing/promotions/{id}/enable"
       ],
       "requiredResolution": "Separate authorized contract reconciliation; preserve existing source truth and do not silently add overlay/API changes in A.",
       "affectedScreens": [
-        "AD-E-10",
-        "AD-E-11",
         "AD-F-03",
         "AD-F-07",
         "AD-F-08",
@@ -1324,8 +1281,7 @@
       ],
       "responsibleDomains": [
         "loyalty",
-        "marketing",
-        "pos"
+        "marketing"
       ],
       "foundationDisposition": {
         "status": "RETAINED_DESIGN_OBLIGATION_NO_ACTION",
@@ -4574,15 +4530,7 @@
       "label": "فروشگاه، صندوق و شیفت حضوری",
       "group": "commerce",
       "gate": "56-E",
-      "operations": [
-        "GET /admin/pos/registers",
-        "GET /admin/pos/shifts/current",
-        "GET /admin/pos/stores",
-        "POST /admin/pos/shifts/{id}/begin-closing",
-        "POST /admin/pos/shifts/{id}/close",
-        "POST /admin/pos/shifts/{id}/reconcile",
-        "POST /admin/pos/shifts/open"
-      ],
+      "operations": [],
       "visibility": "SERVER_AUTHORIZED_CONTEXT_ONLY",
       "unresolved": "NO_ACTION",
       "target": "DESIGN_SURFACE_ID_NOT_INVENTED_URL"
@@ -4594,7 +4542,6 @@
       "gate": "56-E",
       "operations": [
         "GET /admin/pos/scan",
-        "POST /admin/pos/orders",
         "POST /admin/pos/sales",
         "POST /admin/pos/sales/{id}/commit",
         "POST /admin/pos/sales/{id}/lines",

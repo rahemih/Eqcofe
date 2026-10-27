@@ -2382,7 +2382,7 @@
       "AJ-04"
     ],
     "domains": [
-      "pos"
+      "admin"
     ],
     "permissions": [],
     "facets": [
@@ -2392,15 +2392,7 @@
       "allowed-action-review-or-read-only",
       "authoritative-outcome-and-recovery"
     ],
-    "operations": [
-      "GET /admin/pos/registers",
-      "GET /admin/pos/shifts/current",
-      "GET /admin/pos/stores",
-      "POST /admin/pos/shifts/{id}/begin-closing",
-      "POST /admin/pos/shifts/{id}/close",
-      "POST /admin/pos/shifts/{id}/reconcile",
-      "POST /admin/pos/shifts/open"
-    ],
+    "operations": [],
     "states": 46,
     "views": [
       "overview",
@@ -2423,15 +2415,7 @@
       "error": "After failed submit focus linked error summary and inline description; retain safe input; asynchronous refresh never steals focus.",
       "navigation": "Keyboard alternatives for every action, labelled compact cards and44px minimum touch targets; no fixed action obscures focus. Polite result announcement."
     },
-    "blockedOperations": [
-      "GET /admin/pos/registers",
-      "GET /admin/pos/shifts/current",
-      "GET /admin/pos/stores",
-      "POST /admin/pos/shifts/{id}/begin-closing",
-      "POST /admin/pos/shifts/{id}/close",
-      "POST /admin/pos/shifts/{id}/reconcile",
-      "POST /admin/pos/shifts/open"
-    ]
+    "blockedOperations": []
   },
   {
     "id": "AD-E-10",
@@ -2461,7 +2445,6 @@
     ],
     "operations": [
       "GET /admin/pos/scan",
-      "POST /admin/pos/orders",
       "POST /admin/pos/sales",
       "POST /admin/pos/sales/{id}/commit",
       "POST /admin/pos/sales/{id}/lines",
@@ -2471,11 +2454,11 @@
     "views": [
       "overview",
       "op-01",
-      "op-02",
       "op-03",
       "op-04",
       "op-05",
       "op-06",
+      "confirmation",
       "conflict",
       "denied",
       "loading",
@@ -2488,14 +2471,7 @@
       "error": "After failed submit focus linked error summary and inline description; retain safe input; asynchronous refresh never steals focus.",
       "navigation": "Keyboard alternatives for every action, labelled compact cards and44px minimum touch targets; no fixed action obscures focus. Polite result announcement."
     },
-    "blockedOperations": [
-      "GET /admin/pos/scan",
-      "POST /admin/pos/orders",
-      "POST /admin/pos/sales",
-      "POST /admin/pos/sales/{id}/commit",
-      "POST /admin/pos/sales/{id}/lines",
-      "POST /admin/pos/sales/{id}/price"
-    ]
+    "blockedOperations": []
   },
   {
     "id": "AD-E-11",
@@ -2541,6 +2517,7 @@
       "op-04",
       "op-05",
       "op-06",
+      "confirmation",
       "conflict",
       "denied",
       "loading",
@@ -2553,14 +2530,7 @@
       "error": "After failed submit focus linked error summary and inline description; retain safe input; asynchronous refresh never steals focus.",
       "navigation": "Keyboard alternatives for every action, labelled compact cards and44px minimum touch targets; no fixed action obscures focus. Polite result announcement."
     },
-    "blockedOperations": [
-      "GET /admin/pos/reconciliation/{clientCommandId}",
-      "GET /admin/pos/reconciliation/failed",
-      "POST /admin/pos/offline/commands",
-      "POST /admin/pos/offline/commands/{clientCommandId}/sync",
-      "POST /admin/pos/reconciliation/{clientCommandId}/abandon",
-      "POST /admin/pos/reconciliation/{clientCommandId}/retry"
-    ]
+    "blockedOperations": []
   },
   {
     "id": "AD-F-01",

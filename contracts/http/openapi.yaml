@@ -9081,6 +9081,246 @@ components:
       properties:
         jobId: { $ref: '#/components/schemas/EntityId' }
         nextAttemptNo: { type: integer, minimum: 2, maximum: 3 }
+    AdminPosScanData:
+      type: object
+      additionalProperties: false
+      required: [variantId, productId, sku, barcode]
+      properties:
+        variantId: { $ref: '#/components/schemas/EntityId' }
+        productId: { $ref: '#/components/schemas/EntityId' }
+        sku: { type: string, minLength: 2, maxLength: 120 }
+        barcode:
+          anyOf:
+          - { type: string, minLength: 4, maxLength: 120 }
+          - { type: 'null' }
+    AdminPosAddLineRequest:
+      type: object
+      additionalProperties: false
+      required: [variant_id, quantity]
+      properties:
+        variant_id: { $ref: '#/components/schemas/EntityId' }
+        quantity: { type: integer, minimum: 1, maximum: 999 }
+    AdminPosPriceRequest:
+      type: object
+      additionalProperties: false
+      properties:
+        customer_type: { type: string, enum: [retail, wholesale], default: retail }
+    AdminPosCommitRequest:
+      type: object
+      additionalProperties: false
+      required: [warehouse_id, expected_version, payment_method]
+      properties:
+        warehouse_id: { $ref: '#/components/schemas/EntityId' }
+        expected_version: { type: integer, minimum: 1 }
+        payment_method: { type: string, enum: [cash, card] }
+        external_reference:
+          anyOf:
+          - { type: string, minLength: 1, maxLength: 120 }
+          - { type: 'null' }
+    AdminPosOfflineSaleSyncRequest:
+      type: object
+      additionalProperties: false
+      required: [warehouse_id, customer_type, payment_method, lines]
+      properties:
+        warehouse_id: { $ref: '#/components/schemas/EntityId' }
+        customer_type: { type: string, enum: [retail, wholesale] }
+        payment_method: { type: string, enum: [cash, card] }
+        external_reference:
+          anyOf:
+          - { type: string, minLength: 1, maxLength: 120 }
+          - { type: 'null' }
+        lines:
+          type: array
+          minItems: 1
+          maxItems: 100
+          items:
+            type: object
+            additionalProperties: false
+            required: [variant_id, quantity]
+            properties:
+              variant_id: { $ref: '#/components/schemas/EntityId' }
+              quantity: { type: integer, minimum: 1, maximum: 999 }
+    AdminPosReconciliationNoteRequest:
+      type: object
+      additionalProperties: false
+      properties:
+        note:
+          anyOf:
+          - { type: string, minLength: 1, maxLength: 500 }
+          - { type: 'null' }
+    AdminPosSaleData:
+      type: object
+      additionalProperties: true
+      required: [id, client_command_id, staff_actor_id, status, version, subtotal_toman, discount_total_toman, total_toman, created_at, updated_at]
+      properties:
+        id: { $ref: '#/components/schemas/EntityId' }
+        client_command_id: { $ref: '#/components/schemas/EntityId' }
+        staff_actor_id: { $ref: '#/components/schemas/EntityId' }
+        status: { type: string, enum: [draft, committed, voided] }
+        version: { type: integer, minimum: 1 }
+        warehouse_id: { $ref: '#/components/schemas/NullableEntityId' }
+        payment_receipt_id: { $ref: '#/components/schemas/NullableEntityId' }
+        subtotal_toman: { $ref: '#/components/schemas/MoneyToman' }
+        discount_total_toman: { $ref: '#/components/schemas/MoneyToman' }
+        total_toman: { $ref: '#/components/schemas/MoneyToman' }
+        total_cost_toman:
+          anyOf:
+          - { $ref: '#/components/schemas/MoneyToman' }
+          - { type: 'null' }
+        committed_at: { $ref: '#/components/schemas/NullableTimestamp' }
+        voided_at: { $ref: '#/components/schemas/NullableTimestamp' }
+        created_at: { $ref: '#/components/schemas/Timestamp' }
+        updated_at: { $ref: '#/components/schemas/Timestamp' }
+    AdminPosSaleLineData:
+      type: object
+      additionalProperties: true
+      required: [id, sale_id, variant_id, quantity]
+      properties:
+        id: { $ref: '#/components/schemas/EntityId' }
+        sale_id: { $ref: '#/components/schemas/EntityId' }
+        variant_id: { $ref: '#/components/schemas/EntityId' }
+        quantity: { type: integer, minimum: 1, maximum: 999 }
+        base_price_toman:
+          anyOf: [{ $ref: '#/components/schemas/MoneyToman' }, { type: 'null' }]
+        discount_toman:
+          anyOf: [{ $ref: '#/components/schemas/MoneyToman' }, { type: 'null' }]
+        unit_price_toman:
+          anyOf: [{ $ref: '#/components/schemas/MoneyToman' }, { type: 'null' }]
+    AdminPosPricingLine:
+      type: object
+      additionalProperties: false
+      required: [variant_id, quantity, unit_price_toman, discount_toman, base_price_toman, pricing_rule_ids]
+      properties:
+        variant_id: { $ref: '#/components/schemas/EntityId' }
+        quantity: { type: integer, minimum: 1, maximum: 999 }
+        unit_price_toman: { $ref: '#/components/schemas/MoneyToman' }
+        discount_toman: { $ref: '#/components/schemas/MoneyToman' }
+        base_price_toman: { $ref: '#/components/schemas/MoneyToman' }
+        pricing_rule_ids:
+          type: array
+          items: { $ref: '#/components/schemas/EntityId' }
+    AdminPosPricingData:
+      type: object
+      additionalProperties: false
+      required: [sale_id, customer_type, subtotal_toman, discount_total_toman, total_toman, lines]
+      properties:
+        sale_id: { $ref: '#/components/schemas/EntityId' }
+        customer_type: { type: string, enum: [retail, wholesale] }
+        subtotal_toman: { $ref: '#/components/schemas/MoneyToman' }
+        discount_total_toman: { $ref: '#/components/schemas/MoneyToman' }
+        total_toman: { $ref: '#/components/schemas/MoneyToman' }
+        lines:
+          type: array
+          items: { $ref: '#/components/schemas/AdminPosPricingLine' }
+    AdminPosOfflineCommandData:
+      type: object
+      additionalProperties: true
+      required: [id, client_command_id, staff_actor_id, command_type, status, recovery_count]
+      properties:
+        id: { $ref: '#/components/schemas/EntityId' }
+        client_command_id: { $ref: '#/components/schemas/EntityId' }
+        staff_actor_id: { $ref: '#/components/schemas/EntityId' }
+        command_type: { type: string, enum: [sale.sync] }
+        status: { type: string, enum: [queued, applied, failed, abandoned] }
+        error_code:
+          anyOf: [{ type: string, maxLength: 120 }, { type: 'null' }]
+        recovery_count: { type: integer, minimum: 0, maximum: 5 }
+    AdminPosReconciliationHistoryItem:
+      type: object
+      additionalProperties: true
+      required: [id, command_id, action, actor_id, prior_error_code, recovery_count, created_at]
+      properties:
+        id: { $ref: '#/components/schemas/EntityId' }
+        command_id: { $ref: '#/components/schemas/EntityId' }
+        action: { type: string, enum: [retry_requested, abandoned] }
+        actor_id: { $ref: '#/components/schemas/EntityId' }
+        prior_error_code: { type: string }
+        recovery_count: { type: integer, minimum: 0, maximum: 5 }
+        note:
+          anyOf: [{ type: string, minLength: 1, maxLength: 500 }, { type: 'null' }]
+        created_at: { $ref: '#/components/schemas/Timestamp' }
+    AdminPosReconciliationDetailData:
+      type: object
+      additionalProperties: false
+      required: [command, history]
+      properties:
+        command: { $ref: '#/components/schemas/AdminPosOfflineCommandData' }
+        history:
+          type: array
+          items: { $ref: '#/components/schemas/AdminPosReconciliationHistoryItem' }
+    AdminPosRecoveryData:
+      type: object
+      additionalProperties: false
+      required: [command, requires_owner_sync]
+      properties:
+        command: { $ref: '#/components/schemas/AdminPosOfflineCommandData' }
+        requires_owner_sync: { type: boolean, const: true }
+    AdminPosScanResponse:
+      type: object
+      additionalProperties: false
+      required: [success, data, meta]
+      properties:
+        success: { type: boolean, const: true }
+        data: { $ref: '#/components/schemas/AdminPosScanData' }
+        meta: { $ref: '#/components/schemas/SuccessMeta' }
+    AdminPosSaleResponse:
+      type: object
+      additionalProperties: false
+      required: [success, data, meta]
+      properties:
+        success: { type: boolean, const: true }
+        data: { $ref: '#/components/schemas/AdminPosSaleData' }
+        meta: { $ref: '#/components/schemas/SuccessMeta' }
+    AdminPosSaleLineResponse:
+      type: object
+      additionalProperties: false
+      required: [success, data, meta]
+      properties:
+        success: { type: boolean, const: true }
+        data: { $ref: '#/components/schemas/AdminPosSaleLineData' }
+        meta: { $ref: '#/components/schemas/SuccessMeta' }
+    AdminPosPricingResponse:
+      type: object
+      additionalProperties: false
+      required: [success, data, meta]
+      properties:
+        success: { type: boolean, const: true }
+        data: { $ref: '#/components/schemas/AdminPosPricingData' }
+        meta: { $ref: '#/components/schemas/SuccessMeta' }
+    AdminPosOfflineCommandResponse:
+      type: object
+      additionalProperties: false
+      required: [success, data, meta]
+      properties:
+        success: { type: boolean, const: true }
+        data: { $ref: '#/components/schemas/AdminPosOfflineCommandData' }
+        meta: { $ref: '#/components/schemas/SuccessMeta' }
+    AdminPosFailedReconciliationListResponse:
+      type: object
+      additionalProperties: false
+      required: [success, data, meta]
+      properties:
+        success: { type: boolean, const: true }
+        data:
+          type: array
+          items: { $ref: '#/components/schemas/AdminPosOfflineCommandData' }
+        meta: { $ref: '#/components/schemas/SuccessMeta' }
+    AdminPosReconciliationDetailResponse:
+      type: object
+      additionalProperties: false
+      required: [success, data, meta]
+      properties:
+        success: { type: boolean, const: true }
+        data: { $ref: '#/components/schemas/AdminPosReconciliationDetailData' }
+        meta: { $ref: '#/components/schemas/SuccessMeta' }
+    AdminPosRecoveryResponse:
+      type: object
+      additionalProperties: false
+      required: [success, data, meta]
+      properties:
+        success: { type: boolean, const: true }
+        data: { $ref: '#/components/schemas/AdminPosRecoveryData' }
+        meta: { $ref: '#/components/schemas/SuccessMeta' }
     AdminPricingBasePriceListResponse:
       type: object
       additionalProperties: false
@@ -14744,144 +14984,325 @@ paths:
         risk: medium
         idempotency: required
         stepUp: true
-  /admin/pos/stores:
+  /admin/pos/scan:
     get:
       tags:
       - Admin POS
-      operationId: getAdminPosStores
-      responses:
-        '200':
-          description: عملیات موفق
-      security:
-      - adminSession: []
-  /admin/pos/registers:
-    get:
-      tags:
-      - Admin POS
-      operationId: getAdminPosRegisters
-      responses:
-        '200':
-          description: عملیات موفق
-      security:
-      - adminSession: []
-  /admin/pos/shifts/current:
-    get:
-      tags:
-      - Admin POS
-      operationId: getAdminPosShiftsCurrent
-      responses:
-        '200':
-          description: عملیات موفق
-      security:
-      - adminSession: []
-  /admin/pos/shifts/open:
-    post:
-      tags:
-      - Admin POS
-      operationId: postAdminPosShiftsOpen
-      responses:
-        '200':
-          description: عملیات موفق
-        '202':
-          description: عملیات پذیرفته شد
-      security:
-      - adminSession: []
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/PostAdminPosShiftsOpenRequest'
-  /admin/pos/shifts/{id}/begin-closing:
-    post:
-      tags:
-      - Admin POS
-      operationId: postAdminPosShiftsIdBeginClosing
-      responses:
-        '200':
-          description: عملیات موفق
-        '202':
-          description: عملیات پذیرفته شد
+      operationId: getAdminPosScan
       parameters:
-      - name: id
-        in: path
+      - name: kind
+        in: query
         required: true
         schema:
           type: string
-          format: uuid
+          enum: [sku, barcode]
+      - name: value
+        in: query
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 120
+      responses:
+        '200':
+          description: کالای متناظر اسکن‌شده
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminPosScanResponse'
       security:
       - adminSession: []
       x-eqcofe:
-        requestBody: none
-        noRequestBody: true
-  /admin/pos/shifts/{id}/close:
+        domain: pos
+        permission: pos.view
+  /admin/pos/sales:
     post:
       tags:
       - Admin POS
-      operationId: postAdminPosShiftsIdClose
+      operationId: postAdminPosSales
+      parameters:
+      - $ref: '#/components/parameters/IdempotencyKey'
       responses:
-        '200':
-          description: عملیات موفق
-        '202':
-          description: عملیات پذیرفته شد
+        '201':
+          description: پیش‌نویس فروش حضوری
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminPosSaleResponse'
+      security:
+      - adminSession: []
+      x-eqcofe:
+        domain: pos
+        command: CreatePhysicalSale
+        permission: pos.sell
+        idempotencyScope: pos.sale.create
+        audit: true
+  /admin/pos/sales/{id}/lines:
+    post:
+      tags:
+      - Admin POS
+      operationId: postAdminPosSalesIdLines
       parameters:
       - name: id
         in: path
         required: true
-        schema:
-          type: string
-          format: uuid
-      security:
-      - adminSession: []
+        schema: { $ref: '#/components/schemas/EntityId' }
+      - $ref: '#/components/parameters/IdempotencyKey'
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ResolveRequest'
-  /admin/pos/shifts/{id}/reconcile:
+              $ref: '#/components/schemas/AdminPosAddLineRequest'
+      responses:
+        '201':
+          description: ردیف فروش حضوری
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminPosSaleLineResponse'
+      security:
+      - adminSession: []
+      x-eqcofe:
+        domain: pos
+        command: AddPhysicalSaleLine
+        permission: pos.sell
+        idempotencyScope: pos.sale.line.add
+        audit: true
+  /admin/pos/sales/{id}/price:
     post:
       tags:
       - Admin POS
-      operationId: postAdminPosShiftsIdReconcile
-      responses:
-        '200':
-          description: عملیات موفق
-        '202':
-          description: عملیات پذیرفته شد
+      operationId: postAdminPosSalesIdPrice
       parameters:
       - name: id
         in: path
         required: true
-        schema:
-          type: string
-          format: uuid
-      security:
-      - adminSession: []
+        schema: { $ref: '#/components/schemas/EntityId' }
+      - $ref: '#/components/parameters/IdempotencyKey'
       requestBody:
-        required: true
+        required: false
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ApproveRequest'
-  /admin/pos/orders:
+              $ref: '#/components/schemas/AdminPosPriceRequest'
+      responses:
+        '200':
+          description: snapshot معتبر قیمت فروش حضوری
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminPosPricingResponse'
+      security:
+      - adminSession: []
+      x-eqcofe:
+        domain: pos
+        command: PricePhysicalSale
+        permission: pos.sell
+        idempotencyScope: pos.sale.price
+        audit: true
+  /admin/pos/sales/{id}/commit:
     post:
       tags:
       - Admin POS
-      operationId: postAdminPosOrders
-      responses:
-        '200':
-          description: عملیات موفق
-        '202':
-          description: عملیات پذیرفته شد
-      security:
-      - adminSession: []
+      operationId: postAdminPosSalesIdCommit
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema: { $ref: '#/components/schemas/EntityId' }
+      - $ref: '#/components/parameters/IdempotencyKey'
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/PostAdminPosOrdersRequest'
+              $ref: '#/components/schemas/AdminPosCommitRequest'
+      responses:
+        '200':
+          description: فروش حضوری ثبت‌شده
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminPosSaleResponse'
+      security:
+      - adminSession: []
+      x-eqcofe:
+        domain: pos
+        command: CommitPhysicalSale
+        permission: pos.sell
+        idempotencyScope: pos.sale.commit
+        audit: true
+        producesEvents:
+        - pos.sale.committed.v1
+  /admin/pos/offline/commands:
+    post:
+      tags:
+      - Admin POS
+      operationId: postAdminPosOfflineCommands
+      parameters:
+      - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdminPosOfflineSaleSyncRequest'
+      responses:
+        '201':
+          description: فرمان آفلاین ثبت‌شده
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminPosOfflineCommandResponse'
+      security:
+      - adminSession: []
+      x-eqcofe:
+        domain: pos
+        command: CaptureOfflineSale
+        permission: pos.sell
+        idempotencyScope: pos.offline.capture
+        audit: true
+  /admin/pos/offline/commands/{clientCommandId}/sync:
+    post:
+      tags:
+      - Admin POS
+      operationId: postAdminPosOfflineCommandsClientCommandIdSync
+      parameters:
+      - name: clientCommandId
+        in: path
+        required: true
+        schema: { $ref: '#/components/schemas/EntityId' }
+      - $ref: '#/components/parameters/IdempotencyKey'
+      responses:
+        '200':
+          description: نتیجه authoritative همگام‌سازی
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminPosOfflineCommandResponse'
+      security:
+      - adminSession: []
+      x-eqcofe:
+        domain: pos
+        command: SyncOfflineSale
+        permission: pos.sell
+        idempotencyScope: pos.offline.sync
+        audit: true
+  /admin/pos/reconciliation/failed:
+    get:
+      tags:
+      - Admin POS
+      operationId: getAdminPosReconciliationFailed
+      parameters:
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 50
+      responses:
+        '200':
+          description: فرمان‌های آفلاین ناموفق
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminPosFailedReconciliationListResponse'
+      security:
+      - adminSession: []
+      x-eqcofe:
+        domain: pos
+        permission: pos.reconcile
+  /admin/pos/reconciliation/{clientCommandId}:
+    get:
+      tags:
+      - Admin POS
+      operationId: getAdminPosReconciliationClientCommandId
+      parameters:
+      - name: clientCommandId
+        in: path
+        required: true
+        schema: { $ref: '#/components/schemas/EntityId' }
+      responses:
+        '200':
+          description: فرمان و تاریخچه immutable reconciliation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminPosReconciliationDetailResponse'
+      security:
+      - adminSession: []
+      x-eqcofe:
+        domain: pos
+        permission: pos.reconcile
+  /admin/pos/reconciliation/{clientCommandId}/retry:
+    post:
+      tags:
+      - Admin POS
+      operationId: postAdminPosReconciliationClientCommandIdRetry
+      parameters:
+      - name: clientCommandId
+        in: path
+        required: true
+        schema: { $ref: '#/components/schemas/EntityId' }
+      - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdminPosReconciliationNoteRequest'
+      responses:
+        '200':
+          description: فرمان ناموفق برای retry باز شده است
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminPosRecoveryResponse'
+      security:
+      - adminSession: []
+        stepUpToken: []
+      x-eqcofe:
+        domain: pos
+        command: RetryPosReconciliation
+        permission: pos.reconcile
+        idempotencyScope: pos.reconciliation.admin.retry
+        audit: true
+  /admin/pos/reconciliation/{clientCommandId}/abandon:
+    post:
+      tags:
+      - Admin POS
+      operationId: postAdminPosReconciliationClientCommandIdAbandon
+      parameters:
+      - name: clientCommandId
+        in: path
+        required: true
+        schema: { $ref: '#/components/schemas/EntityId' }
+      - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdminPosReconciliationNoteRequest'
+      responses:
+        '200':
+          description: فرمان ناموفق به‌صورت terminal کنار گذاشته شد
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminPosOfflineCommandResponse'
+      security:
+      - adminSession: []
+        stepUpToken: []
+      x-eqcofe:
+        domain: pos
+        command: AbandonPosReconciliation
+        permission: pos.reconcile
+        idempotencyScope: pos.reconciliation.admin.abandon
+        audit: true
   /admin/fulfillment/orders:
     get:
       tags:

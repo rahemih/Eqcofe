@@ -561,6 +561,32 @@ export const ADMIN_DESTINATIONS = [
     ]
   },
   {
+    "surface": "AD-E-10",
+    "label": "اسکن و فروش حضوری",
+    "group": "commerce",
+    "permissionAlternatives": [
+      [
+        "pos.view"
+      ],
+      [
+        "pos.sell"
+      ]
+    ]
+  },
+  {
+    "surface": "AD-E-11",
+    "label": "فرمان آفلاین و تطبیق فروش حضوری",
+    "group": "commerce",
+    "permissionAlternatives": [
+      [
+        "pos.reconcile"
+      ],
+      [
+        "pos.sell"
+      ]
+    ]
+  },
+  {
     "surface": "AD-F-02",
     "label": "بررسی عضویت عمده",
     "group": "customers",

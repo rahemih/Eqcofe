@@ -1,0 +1,424 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP70-B-INVENTORY-PROCUREMENT-POS-CONTRACT-001",
+  "title": "Step 70-B Inventory Procurement POS HTTP and generated contract readiness",
+  "description": "HIGH-risk contract-readiness stage for the frozen Step70 96-operation union. Reconcile canonical OpenAPI/generated TypeScript with live Inventory/Procurement/POS runtime authority. Preserve the existing 77 Inventory/Procurement operations unless source-proven drift requires bounded metadata repair. Resolve the frozen POS split by removing the 8 canonical OpenAPI POS operations that have no matching runtime controller and promoting the 11 live PosAdminController operations, already documented by the Step49 supplemental POS contract, into canonical base OpenAPI with runtime-accurate status, permission, Step-Up, idempotency, validation and typed request/response authority. No store/register/shift/order runtime may be invented. No database, Admin UI, dependency, workflow, Product Design semantic or Step71 mutation.",
+  "risk": "HIGH",
+  "risk_floor": "HIGH",
+  "owner": "BACKEND_ENGINEERING",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "017475977c0377d42a668c84647eff1b3c9097b9"
+  },
+  "scope": {
+    "read": [
+      "src/modules/inventory/**",
+      "src/modules/procurement/**",
+      "src/modules/pos/**",
+      "database/migrations/0049_pos_physical_sales.sql",
+      "contracts/http/openapi.yaml",
+      "contracts/http/step49-pos-a9.yaml",
+      "src/generated/openapi.ts",
+      "scripts/validate-openapi.mjs",
+      "test/**",
+      "docs/11-step-history/**",
+      "docs/13-product-design/**",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "test/step70-inventory-procurement-pos-contract.spec.ts",
+      "docs/11-step-history/STEP-70-B-INVENTORY-PROCUREMENT-POS-CONTRACT-READINESS.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP70-B-INVENTORY-PROCUREMENT-POS-CONTRACT-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "docs/13-product-design/step56-admin-ux-contract.json",
+      "docs/13-product-design/step56-foundation/A/manifest.json",
+      "docs/13-product-design/step56-foundation/A/admin-traceability.json",
+      "docs/13-product-design/step56-admin-shell-wireframes.json",
+      "docs/13-product-design/step56-wireframes/B/manifest.json",
+      "docs/13-product-design/step56-catalog-media-wireframes.json",
+      "docs/13-product-design/step56-wireframes/C/manifest.json",
+      "docs/13-product-design/step56-pricing-inventory-wireframes.json",
+      "docs/13-product-design/step56-wireframes/D/manifest.json",
+      "docs/13-product-design/step56-commerce-operations-wireframes.json",
+      "docs/13-product-design/step56-wireframes/E/manifest.json",
+      "docs/13-product-design/step56-customers-growth-wireframes.json",
+      "docs/13-product-design/step56-wireframes/F/manifest.json",
+      "docs/13-product-design/step56-management-security-wireframes.json",
+      "docs/13-product-design/step56-wireframes/G/manifest.json",
+      "docs/13-product-design/step56-final-audit.json",
+      "docs/13-product-design/step56-final-audit/manifest.json",
+      "docs/13-product-design/step57-high-fidelity-contract.json",
+      "docs/13-product-design/step56-wireframes/E/AD-E-09/traceability.json",
+      "docs/13-product-design/step56-wireframes/E/AD-E-10/traceability.json",
+      "docs/13-product-design/step56-wireframes/E/AD-E-11/traceability.json",
+      "docs/13-product-design/step56-final-audit/operation-matrix.json",
+      "scripts/validate-step56-admin-foundation.mjs",
+      "docs/13-product-design/step56-foundation/A/ADMIN-SCOPE-INVENTORY.md",
+      "docs/13-product-design/step56-foundation/A/SOURCE-GAPS.md",
+      "scripts/validate-step56-commerce-operations.mjs",
+      "docs/13-product-design/step56-wireframes/E/**",
+      "scripts/step56-final-audit.mjs",
+      "docs/13-product-design/step56-final-audit/surface-matrix.json",
+      "docs/13-product-design/step56-final-audit/journey-matrix.json",
+      "docs/13-product-design/step56-final-audit/state-matrix.json",
+      "docs/13-product-design/step56-final-audit/release-blockers.json",
+      "docs/13-product-design/step56-final-audit/README.md",
+      "scripts/validate-step57-acceptance.mjs",
+      "docs/13-product-design/step57-prototype/src/coverage.json",
+      "docs/13-product-design/step57-prototype/manifest.json",
+      "scripts/generate-step56-commerce-operations.mjs",
+      "apps/admin/scripts/generate-step67-destinations.mjs",
+      "apps/admin/scripts/verify-step67-permission-shell.ts",
+      "apps/admin/app/navigation/destinations.generated.ts",
+      "test/design-system/step56-admin-foundation.spec.ts",
+      "test/design-system/step56-commerce-operations.spec.ts",
+      "docs/13-product-design/step57-prototype/scripts/exhaustive-browser-audit.mjs"
+    ],
+    "forbidden": [
+      ".github/**",
+      "database/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "src/modules/inventory/**",
+      "src/modules/procurement/**",
+      "src/modules/pos/**",
+      "docs/12-current-state/**",
+      "scripts/graphify/**",
+      "graphify-out/**",
+      "apps/storefront/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP70-B-INVENTORY-PROCUREMENT-POS-CONTRACT-001-01"
+  ],
+  "human_gate_required": true,
+  "authorized_human_approver": {
+    "role": "PROJECT_OWNER",
+    "github_login": "rahemih"
+  },
+  "token_budget": {
+    "expected_max": 52000,
+    "soft_alert": 82000,
+    "hard_cap": 132000
+  },
+  "max_repair_cycles": 5,
+  "task_risk_rules": [
+    {
+      "id": "STEP70_B_INVENTORY_PROCUREMENT_POS_CONTRACT_HIGH",
+      "risk": "HIGH",
+      "paths": [
+        "contracts/http/openapi.yaml",
+        "src/generated/openapi.ts",
+        "test/step70-inventory-procurement-pos-contract.spec.ts",
+        "docs/11-step-history/STEP-70-B-INVENTORY-PROCUREMENT-POS-CONTRACT-READINESS.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP70-B-INVENTORY-PROCUREMENT-POS-CONTRACT-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md",
+        "docs/13-product-design/**",
+        "scripts/validate-step56-admin-foundation.mjs",
+        "docs/13-product-design/step56-foundation/A/**",
+        "scripts/validate-step56-commerce-operations.mjs",
+        "docs/13-product-design/step56-wireframes/E/**",
+        "scripts/step56-final-audit.mjs",
+        "docs/13-product-design/step56-final-audit.json",
+        "docs/13-product-design/step56-final-audit/surface-matrix.json",
+        "docs/13-product-design/step56-final-audit/journey-matrix.json",
+        "docs/13-product-design/step56-final-audit/state-matrix.json",
+        "docs/13-product-design/step56-final-audit/release-blockers.json",
+        "docs/13-product-design/step56-final-audit/README.md",
+        "scripts/validate-step57-acceptance.mjs",
+        "docs/13-product-design/step57-prototype/src/coverage.json",
+        "docs/13-product-design/step57-prototype/manifest.json",
+        "scripts/generate-step56-commerce-operations.mjs",
+        "apps/admin/scripts/generate-step67-destinations.mjs",
+        "apps/admin/scripts/verify-step67-permission-shell.ts",
+        "apps/admin/app/navigation/destinations.generated.ts",
+        "test/design-system/step56-admin-foundation.spec.ts",
+        "test/design-system/step56-commerce-operations.spec.ts",
+        "docs/13-product-design/step57-prototype/scripts/exhaustive-browser-audit.mjs"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "70-A Inventory Procurement POS canonical handoff",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "017475977c0377d42a668c84647eff1b3c9097b9",
+      "terminal_evidence_comment": 6397857754,
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "linear_issue": "HOS-74",
+    "graph_state": "RETIRED_AND_OUT_OF_SCOPE",
+    "frozen_surface_count": 16,
+    "frozen_operation_count": 96,
+    "inventory_procurement_operation_count": 77,
+    "pos_operation_count": 19,
+    "inventory_procurement_repair_policy": "NO_MUTATION_UNLESS_SOURCE_PROVEN_DRIFT",
+    "pos_before": {
+      "runtime_controller_operations": 11,
+      "supplemental_contract_operations": 11,
+      "canonical_openapi_runtime_operations": 0,
+      "canonical_openapi_without_controller_operations": 8
+    },
+    "pos_canonical_target_operations": [
+      "GET /admin/pos/scan",
+      "POST /admin/pos/sales",
+      "POST /admin/pos/sales/{id}/lines",
+      "POST /admin/pos/sales/{id}/price",
+      "POST /admin/pos/sales/{id}/commit",
+      "POST /admin/pos/offline/commands",
+      "POST /admin/pos/offline/commands/{clientCommandId}/sync",
+      "GET /admin/pos/reconciliation/failed",
+      "GET /admin/pos/reconciliation/{clientCommandId}",
+      "POST /admin/pos/reconciliation/{clientCommandId}/retry",
+      "POST /admin/pos/reconciliation/{clientCommandId}/abandon"
+    ],
+    "pos_remove_from_canonical_openapi": [
+      "GET /admin/pos/stores",
+      "GET /admin/pos/registers",
+      "GET /admin/pos/shifts/current",
+      "POST /admin/pos/shifts/open",
+      "POST /admin/pos/shifts/{id}/begin-closing",
+      "POST /admin/pos/shifts/{id}/close",
+      "POST /admin/pos/shifts/{id}/reconcile",
+      "POST /admin/pos/orders"
+    ],
+    "pos_runtime_security": {
+      "scan_permission": "pos.view",
+      "sale_permission": "pos.sell",
+      "reconciliation_permission": "pos.reconcile",
+      "retry_abandon_step_up": true,
+      "idempotency_scopes": [
+        "pos.sale.create",
+        "pos.sale.line.add",
+        "pos.sale.price",
+        "pos.sale.commit",
+        "pos.offline.capture",
+        "pos.offline.sync",
+        "pos.reconciliation.admin.retry",
+        "pos.reconciliation.admin.abandon"
+      ]
+    },
+    "pos_runtime_bounds": {
+      "scan_kind": [
+        "sku",
+        "barcode"
+      ],
+      "scan_value_max": 120,
+      "line_quantity_min": 1,
+      "line_quantity_max": 999,
+      "offline_lines_min": 1,
+      "offline_lines_max": 100,
+      "external_reference_max": 120,
+      "reconciliation_list_min": 1,
+      "reconciliation_list_max": 100,
+      "reconciliation_note_max": 500,
+      "recovery_max": 5
+    },
+    "non_authority": [
+      "No POS store/register/shift/order runtime is created or claimed.",
+      "No POS route absent from PosAdminController becomes executable authority.",
+      "No client-provided price, stock, COGS, payment truth or totals become POS authority.",
+      "No Inventory/Procurement runtime or business-rule mutation unless a separate source-proven defect is discovered.",
+      "No database migration, Admin UI, Step71, dependency, workflow or Graph mutation."
+    ],
+    "provenance_repair_policy": "Generator-equivalent source/hash/manifest refresh is authorized. Where canonical reconciliation changes an operation from NO_ACTION to OPENAPI_AND_CONTROLLER, authority-derived view metadata may transition from unavailable to review/confirmation/result states using only existing runtime/OpenAPI facts; no new operation, field, lifecycle, permission, route or business guarantee may be invented.",
+    "provenance_count_reconciliation": {
+      "reason": "Canonical POS reconciliation removes 8 source-unproven OpenAPI-only operations while promoting 11 existing runtime-only operations into canonical OpenAPI. The union therefore drops only the 8 false authorities; source counts and derived Step56 evidence must be synchronized without changing design intent.",
+      "before": {
+        "assembledAdminOpenapiOperations": 507,
+        "adminRuntimeRoutes": 376,
+        "unionOperations": 532,
+        "unresolvedPermissionOperations": 151
+      },
+      "after": {
+        "assembledAdminOpenapiOperations": 510,
+        "adminRuntimeRoutes": 376,
+        "unionOperations": 524,
+        "unresolvedPermissionOperations": 143
+      }
+    },
+    "final_audit_regeneration": {
+      "reason": "Step70-B canonical POS reconciliation reduces the independently derived operation union from 532 to 524 by removing exactly eight source-unproven POS OpenAPI authorities. The Step56-H audit generator and all of its generated artifacts must be refreshed generator-equivalently so canonical validation reflects the same source union.",
+      "before_operation_union": 532,
+      "after_operation_union": 524,
+      "semantic_change": false,
+      "generator_equivalent_only": true
+    },
+    "step57_provenance_cascade": {
+      "reason": "Step57 foundation deterministically pins Step56 B-H source hashes and inherits the Step56 operation/view authority. After canonical POS reconciliation, regenerate only the source-linked Step57 contract and prototype projection required for generator parity.",
+      "before": {
+        "operations": 532,
+        "blocked_operations": 186,
+        "admin_views": 1142
+      },
+      "after": {
+        "operations": 524,
+        "blocked_operations": 167,
+        "admin_views": 1143
+      },
+      "admin_states": 4472,
+      "closure_fields": "PENDING_UNCHANGED",
+      "semantic_change": false,
+      "generator_equivalent_only": true
+    },
+    "gate_e_generated_artifact_regeneration": {
+      "reason": "Step70-B POS authority reconciliation changes the generated design projection for AD-E-09..11. Refresh the Step56-E generator outputs and remove exactly the orphan frames no longer owned by a current view.",
+      "affected_surfaces": [
+        "AD-E-09",
+        "AD-E-10",
+        "AD-E-11"
+      ],
+      "expected_frame_count_after": 370,
+      "generator_equivalent_only": true,
+      "semantic_change": false,
+      "operation_count_after": 66,
+      "blocked_operation_count_after": 7
+    },
+    "step67_destination_registry_cascade": {
+      "reason": "The canonical POS contract reconciliation makes existing Admin surfaces AD-E-10 and AD-E-11 source-executable. The pre-existing Step67 permission-aware destination generator therefore derives two additional destinations from repository-proven runtime permissions. Refresh only generator/check metadata; do not implement Step70 Admin workflows or routes.",
+      "before_destination_count": 60,
+      "after_destination_count": 62,
+      "added_surfaces": [
+        "AD-E-10",
+        "AD-E-11"
+      ],
+      "removed_surfaces": [],
+      "generated_metadata_only": true,
+      "step70_admin_ui_implementation": false
+    },
+    "admin_destination_projection": {
+      "reason": "The reconciled Step70 POS source authority makes AD-E-10 and AD-E-11 source-backed Admin destinations. Existing deterministic Step67 destination generation therefore changes from 60 to 62 entries. Authorize only the generator count and generated destination registry; no route, component, handler, mutation flow or Admin implementation is introduced in 70-B.",
+      "paths": [
+        "apps/admin/scripts/generate-step67-destinations.mjs",
+        "apps/admin/app/navigation/destinations.generated.ts"
+      ],
+      "destination_count_before": 60,
+      "destination_count_after": 62,
+      "semantic_runtime_change": false,
+      "generated_projection_only": true
+    },
+    "design_regression_expectation_sync": {
+      "reason": "Canonical POS source reconciliation changes deterministic Step56 provenance counts. Preserve the historical assertions by updating only their exact expected counts to the regenerated canonical outputs; validators and negative tests remain unchanged.",
+      "changes": {
+        "CONTRACT_ONLY_NO_CONTROLLER": {
+          "before": 156,
+          "after": 148
+        },
+        "step56_e_frame_count": {
+          "before": 368,
+          "after": 370
+        },
+        "step56_e_artifact_count_including_manifest": {
+          "before": 393,
+          "after": 395
+        }
+      },
+      "semantic_change": false,
+      "assertion_weakening": false
+    },
+    "step57_exhaustive_inventory_reconciliation": {
+      "reason": "The Step57 exhaustive browser audit is source-derived from the current Step57 contract. Canonical POS reconciliation adds one repository-proven Admin review view while reducing false operation authority, so the exact expected Admin-view inventory changes from 1142 to 1143. Only the frozen inventory assertion is synchronized; browser, interaction, responsive and accessibility checks remain unchanged.",
+      "before_admin_views": 1142,
+      "after_admin_views": 1143,
+      "admin_states": 4472,
+      "screens": 134,
+      "semantic_change": false,
+      "assertion_weakening": false
+    },
+    "scan_bound_reconciliation": {
+      "reason": "Live PosVariantLookupService normalizes and rejects scan values longer than 120 characters. The historical Step49 supplemental contract used 200; Step70-B canonical reconciliation follows current runtime authority.",
+      "historical_step49_max": 200,
+      "runtime_and_canonical_max": 120,
+      "semantic_authority": "CURRENT_RUNTIME_SOURCE"
+    }
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "The frozen 77 Inventory/Procurement operations remain runtime/OpenAPI/generated-contract aligned; no business semantics are changed absent a separately proven defect.",
+      "verification": "step70_inventory_procurement_contract_audit",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Canonical POS HTTP authority becomes exactly the 11 live PosAdminController operations and excludes the 8 previously-declared operations with no matching source controller.",
+      "verification": "step70_pos_route_reconciliation",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "POS permissions, runtime success status, Step-Up and idempotency metadata exactly match PosAdminController decorators; no security authority is weakened or invented.",
+      "verification": "step70_pos_security_contract",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Canonical POS request validation reflects runtime authority, including offline external_reference max 120, line bounds, reconciliation limit/note bounds and failed-only/max-five recovery semantics.",
+      "verification": "step70_pos_validation_contract",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Canonical OpenAPI exposes typed success/request authority for all 11 live POS operations and src/generated/openapi.ts is reproducible from canonical openapi.yaml.",
+      "verification": "step70_generated_contract_parity",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "No store/register/shift/order runtime is invented; no source-unproven POS operation remains in canonical OpenAPI.",
+      "verification": "step70_negative_authority_assertions",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "No database, Admin UI, Inventory/Procurement/POS runtime, dependency, workflow, Current-State, Step71 or Graph mutation is introduced.",
+      "verification": "deterministic_scope_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "Any Product Design mutation is generator-equivalent provenance/hash repair only and does not change design semantics.",
+      "verification": "design_check_and_scope_audit",
+      "mandatory": true
+    },
+    {
+      "id": "AC-009",
+      "description": "HIGH-risk closure requires exact-head Canonical CI, Phase A, CodeQL/Independent Security, deterministic Review, exact-artifact ACTIVE Lock and Project Owner exact-artifact Human Gate before merge.",
+      "verification": "canonical_high_risk_gate_sequence",
+      "mandatory": true
+    },
+    {
+      "id": "AC-010",
+      "description": "Protected merge, exact-SHA postmerge Canonical CI/Phase A/CodeQL and terminal Lock release complete before 70-C mutation.",
+      "verification": "canonical_transport_and_postmerge_evidence",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "SECURITY",
+      "HUMAN",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Step70-B is HIGH risk. Project Owner approval is mandatory only after exact-head technical/security/review evidence and exact-artifact ACTIVE Lock are complete."
+  },
+  "pre_mutation_gates": {
+    "graph_health": "RETIRED_AND_OUT_OF_SCOPE",
+    "query_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "path_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "explain_evidence": "RETIRED_AND_OUT_OF_SCOPE",
+    "human_gate": "REQUIRED_FINAL_EXACT_ARTIFACT"
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}

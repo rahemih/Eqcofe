@@ -14,7 +14,6 @@
   ],
   "operations": [
     "GET /admin/pos/scan",
-    "POST /admin/pos/orders",
     "POST /admin/pos/sales",
     "POST /admin/pos/sales/{id}/commit",
     "POST /admin/pos/sales/{id}/lines",
@@ -28,29 +27,14 @@
         "runtime": [
           "pos.view"
         ],
-        "openapi": null
+        "openapi": "pos.view"
       },
-      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
       "stepUp": false,
       "idempotencyScope": null,
       "versionRequired": false,
-      "recovery": "NO_ACTION",
-      "executionEnabled": false,
-      "fields": []
-    },
-    {
-      "operation": "POST /admin/pos/orders",
-      "view": "op-02",
-      "permissionClaims": {
-        "runtime": null,
-        "openapi": null
-      },
-      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
-      "stepUp": null,
-      "idempotencyScope": null,
-      "versionRequired": false,
-      "recovery": "NO_ACTION",
-      "executionEnabled": false,
+      "recovery": "READ_OR_MANUAL_NO_RETRY",
+      "executionEnabled": true,
       "fields": []
     },
     {
@@ -60,15 +44,18 @@
         "runtime": [
           "pos.sell"
         ],
-        "openapi": null
+        "openapi": "pos.sell"
       },
-      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
       "stepUp": false,
       "idempotencyScope": "pos.sale.create",
       "versionRequired": false,
-      "recovery": "NO_ACTION",
-      "executionEnabled": false,
-      "fields": []
+      "recovery": "EXPLICIT_SAME_KEY_SAME_PAYLOAD_AFTER_STATUS_CHECK",
+      "executionEnabled": true,
+      "fields": [],
+      "confirmation": "SAFE_CANCEL_FIRST",
+      "confirmationView": "confirmation",
+      "resultView": "success"
     },
     {
       "operation": "POST /admin/pos/sales/{id}/commit",
@@ -77,15 +64,18 @@
         "runtime": [
           "pos.sell"
         ],
-        "openapi": null
+        "openapi": "pos.sell"
       },
-      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
       "stepUp": false,
       "idempotencyScope": "pos.sale.commit",
       "versionRequired": false,
-      "recovery": "NO_ACTION",
-      "executionEnabled": false,
-      "fields": []
+      "recovery": "EXPLICIT_SAME_KEY_SAME_PAYLOAD_AFTER_STATUS_CHECK",
+      "executionEnabled": true,
+      "fields": [],
+      "confirmation": "SAFE_CANCEL_FIRST",
+      "confirmationView": "confirmation",
+      "resultView": "success"
     },
     {
       "operation": "POST /admin/pos/sales/{id}/lines",
@@ -94,15 +84,18 @@
         "runtime": [
           "pos.sell"
         ],
-        "openapi": null
+        "openapi": "pos.sell"
       },
-      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
       "stepUp": false,
       "idempotencyScope": "pos.sale.line.add",
       "versionRequired": false,
-      "recovery": "NO_ACTION",
-      "executionEnabled": false,
-      "fields": []
+      "recovery": "EXPLICIT_SAME_KEY_SAME_PAYLOAD_AFTER_STATUS_CHECK",
+      "executionEnabled": true,
+      "fields": [],
+      "confirmation": "SAFE_CANCEL_FIRST",
+      "confirmationView": "confirmation",
+      "resultView": "success"
     },
     {
       "operation": "POST /admin/pos/sales/{id}/price",
@@ -111,25 +104,21 @@
         "runtime": [
           "pos.sell"
         ],
-        "openapi": null
+        "openapi": "pos.sell"
       },
-      "executionAuthority": "NO_ACTION_UNTIL_CANONICAL_RECONCILIATION",
+      "executionAuthority": "SUBJECT_TO_EXISTING_SERVER_PERMISSION_SCOPE_AND_OWNER_POLICY",
       "stepUp": false,
       "idempotencyScope": "pos.sale.price",
       "versionRequired": false,
-      "recovery": "NO_ACTION",
-      "executionEnabled": false,
-      "fields": []
+      "recovery": "EXPLICIT_SAME_KEY_SAME_PAYLOAD_AFTER_STATUS_CHECK",
+      "executionEnabled": true,
+      "fields": [],
+      "confirmation": "SAFE_CANCEL_FIRST",
+      "confirmationView": "confirmation",
+      "resultView": "success"
     }
   ],
-  "blockedOperations": [
-    "GET /admin/pos/scan",
-    "POST /admin/pos/orders",
-    "POST /admin/pos/sales",
-    "POST /admin/pos/sales/{id}/commit",
-    "POST /admin/pos/sales/{id}/lines",
-    "POST /admin/pos/sales/{id}/price"
-  ],
+  "blockedOperations": [],
   "facets": [
     "entry-and-context",
     "permission-aware-read-or-explicit-unavailable",
@@ -140,273 +129,273 @@
   "states": [
     {
       "id": "allocation-needed",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "id": "approval-required",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "id": "approved",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "id": "audit-reference",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "id": "authoritative-success",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "success",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "id": "blocked",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "id": "blocked-by-lifecycle",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "id": "cancelled",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "id": "completed",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "success",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "id": "confirmed",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "success",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "id": "destructive-action-confirmation",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "confirmation",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "id": "disabled",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "id": "empty-filtered",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "empty",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "id": "empty-first-use",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "empty",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "id": "failed",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "id": "handed-over",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "id": "idempotent-replay",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "id": "impact-changed",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "id": "initial-loading",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "loading",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "id": "irreversible-outcome",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "id": "manual-review",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "id": "new",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "id": "no-results",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "empty",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "id": "offline",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "id": "partial-success",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "id": "payment-pending",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "id": "pending",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "id": "permission-denied",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "id": "picking",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "id": "preview-expired",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "id": "processing",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "id": "progressive-loading",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "loading",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "id": "provider-unavailable",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "id": "read-only",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "id": "ready",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "id": "reconcile-required",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "id": "refresh-loading",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "loading",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "id": "refund-requested",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "id": "retryable",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "id": "safe-retry",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "id": "scope-filtered",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "id": "server-error",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "conflict",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "id": "session-expired",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "id": "stale-data",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "id": "status-check",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "id": "step-up-required",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "confirmation",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "id": "submitting",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "loading",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "id": "terminal-success",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "success",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "id": "timeout",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "conflict",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "id": "unauthenticated",
       "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "id": "unknown",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "conflict",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "id": "unknown-result",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "conflict",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "id": "validation-error",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "overview",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     },
     {
       "id": "version-conflict",
-      "view": "denied",
-      "behavior": "NO_ACTION: all states are conceptual only; no read, mutation, loading or success is executable. Frozen POS sale operations remain NO_ACTION even where controller exists outside assembled OpenAPI. Runtime commit expected_version is a body field, not If-Match. Cash/card source evidence does not authorize any action. Server permission and lifecycle remain authoritative. Design evidence grants no permission and certifies no runtime readiness."
+      "view": "conflict",
+      "behavior": "Source-backed POS state: render only data and actions supported by the canonical operation set; keep permission, lifecycle, idempotency, Step-Up and authoritative outcome on the server, and never infer store/shift/order authority or treat retry as guaranteed success."
     }
   ],
   "frames": [
@@ -451,16 +440,6 @@
       "width": 1440
     },
     {
-      "path": "docs/13-product-design/step56-wireframes/E/AD-E-10/AD-E-10--320--op-02--v1.svg",
-      "view": "op-02",
-      "width": 320
-    },
-    {
-      "path": "docs/13-product-design/step56-wireframes/E/AD-E-10/AD-E-10--1440--op-02--v1.svg",
-      "view": "op-02",
-      "width": 1440
-    },
-    {
       "path": "docs/13-product-design/step56-wireframes/E/AD-E-10/AD-E-10--320--op-03--v1.svg",
       "view": "op-03",
       "width": 320
@@ -498,6 +477,16 @@
     {
       "path": "docs/13-product-design/step56-wireframes/E/AD-E-10/AD-E-10--1440--op-06--v1.svg",
       "view": "op-06",
+      "width": 1440
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-10/AD-E-10--320--confirmation--v1.svg",
+      "view": "confirmation",
+      "width": 320
+    },
+    {
+      "path": "docs/13-product-design/step56-wireframes/E/AD-E-10/AD-E-10--1440--confirmation--v1.svg",
+      "view": "confirmation",
       "width": 1440
     },
     {
