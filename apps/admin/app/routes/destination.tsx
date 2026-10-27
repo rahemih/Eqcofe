@@ -31,6 +31,9 @@ export async function loader({request,params}:{request:Request;params:{surfaceId
   if(!groupLabel)return data({kind:"denied" as const},{status:403,headers});
 
   const destinationView={surface:destination.surface,label:destination.label,groupLabel};
+  if(destination.surface==="AD-D-06")throw redirect("/inventory/overview",{headers});
+  if(destination.surface==="AD-D-07")throw redirect("/inventory/adjustment",{headers});
+  if(destination.surface==="AD-D-11")throw redirect("/inventory/warehouses",{headers});
   if(isStep69FoundationSurface(destination.surface)){
     const foundation=await readStep69Foundation(request,destination.surface);
     appendAdminAuthSetCookies(headers,foundation.setCookies);
