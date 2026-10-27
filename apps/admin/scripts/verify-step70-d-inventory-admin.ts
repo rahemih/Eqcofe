@@ -101,6 +101,16 @@ assert.equal(validateInventoryAdjustment({
   reason:"اصلاح",
   unitCostToman:0,
 }).ok,false);
+for(const type of ["damage","quarantine","quarantine_release","damaged_disposal"]){
+  assert.equal(validateInventoryAdjustment({
+    warehouseId:"11111111-1111-4111-8111-111111111111",
+    variantId:"22222222-2222-4222-8222-222222222222",
+    quantityDelta:-1,
+    adjustmentType:type,
+    reason:"اصلاح bucket",
+    unitCostToman:null,
+  }).ok,false,"STEP70_D_POSITIVE_BUCKET:"+type);
+}
 assert.equal(validateWarehouseProtection({
   warehouseId:"11111111-1111-4111-8111-111111111111",expectedVersion:2,percent:20,
 }).ok,true);
