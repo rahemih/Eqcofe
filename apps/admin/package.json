@@ -12,7 +12,7 @@
     "start": "react-router-serve ./build/server/index.js",
     "typecheck": "react-router typegen && tsc --noEmit",
     "static-quality": "eslint app vite.config.ts react-router.config.ts",
-    "verify": "pnpm typecheck && pnpm static-quality && pnpm build && pnpm foundation:verify && pnpm transport:verify && pnpm shell:verify && pnpm auth-session:verify && pnpm permission-shell:verify && pnpm stepup-credentials:verify && pnpm dashboard-states:verify && pnpm catalog-read:verify && pnpm catalog-lifecycle:verify && pnpm catalog-structure:verify && pnpm catalog-media:verify && pnpm catalog-sales-control:verify && pnpm acceptance:verify && pnpm step68:acceptance && pnpm step69-foundation:verify && pnpm step69-pricing-admin:verify && pnpm step69-bulk-pricing:verify && pnpm step69-fx-admin:verify && pnpm step69-excel-admin:verify && pnpm step69:acceptance && pnpm step70-foundation:verify && pnpm step70-inventory:verify",
+    "verify": "pnpm typecheck && pnpm static-quality && pnpm build && pnpm foundation:verify && pnpm transport:verify && pnpm shell:verify && pnpm auth-session:verify && pnpm permission-shell:verify && pnpm stepup-credentials:verify && pnpm dashboard-states:verify && pnpm catalog-read:verify && pnpm catalog-lifecycle:verify && pnpm catalog-structure:verify && pnpm catalog-media:verify && pnpm catalog-sales-control:verify && pnpm acceptance:verify && pnpm step68:acceptance && pnpm step69-foundation:verify && pnpm step69-pricing-admin:verify && pnpm step69-bulk-pricing:verify && pnpm step69-fx-admin:verify && pnpm step69-excel-admin:verify && pnpm step69:acceptance && pnpm step70-foundation:verify && pnpm step70-inventory:verify && pnpm step70-flow:verify",
     "foundation:verify": "pnpm --dir ../.. exec tsx apps/admin/scripts/verify-step67-foundation.ts",
     "transport:verify": "pnpm --dir ../.. exec tsx apps/admin/scripts/verify-step67-transport.ts",
     "shell:verify": "node ./scripts/verify-step67-shell.mjs",
@@ -34,7 +34,8 @@
     "step69-excel-admin:verify": "pnpm --dir ../.. exec tsx apps/admin/scripts/verify-step69-g-excel-admin.ts",
     "step69:acceptance": "node ./scripts/verify-step69-h-acceptance.mjs",
     "step70-foundation:verify": "pnpm --dir ../.. exec tsx apps/admin/scripts/verify-step70-c-operations-foundation.ts",
-    "step70-inventory:verify": "pnpm --dir ../.. exec tsx apps/admin/scripts/verify-step70-d-inventory-admin.ts"
+    "step70-inventory:verify": "pnpm --dir ../.. exec tsx apps/admin/scripts/verify-step70-d-inventory-admin.ts",
+    "step70-flow:verify": "pnpm --dir ../.. exec tsx apps/admin/scripts/verify-step70-e-inventory-flow-admin.ts"
   },
   "dependencies": {
     "@react-router/node": "8.4.0",

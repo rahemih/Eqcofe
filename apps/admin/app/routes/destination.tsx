@@ -34,6 +34,9 @@ export async function loader({request,params}:{request:Request;params:{surfaceId
   if(destination.surface==="AD-D-06")throw redirect("/inventory/overview",{headers});
   if(destination.surface==="AD-D-07")throw redirect("/inventory/adjustment",{headers});
   if(destination.surface==="AD-D-11")throw redirect("/inventory/warehouses",{headers});
+  if(destination.surface==="AD-D-08")throw redirect("/inventory-flows/transfers",{headers});
+  if(destination.surface==="AD-D-09")throw redirect("/inventory-flows/reservations",{headers});
+  if(destination.surface==="AD-D-10")throw redirect("/inventory-flows/allocations",{headers});
   if(isStep69FoundationSurface(destination.surface)){
     const foundation=await readStep69Foundation(request,destination.surface);
     appendAdminAuthSetCookies(headers,foundation.setCookies);

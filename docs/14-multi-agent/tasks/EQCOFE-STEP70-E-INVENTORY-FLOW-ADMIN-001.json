@@ -1,0 +1,280 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP70-E-INVENTORY-FLOW-ADMIN-001",
+  "title": "Step 70-E Transfer Reservation Allocation and Sale Consumption administration",
+  "description": "Implement HIGH-risk Admin inventory flow administration for AD-D-08, AD-D-09 and AD-D-10, plus the minimal canonical contract correction required to align late-payment-review with its existing runtime RequireIdempotency('inventory.convert') authority. Reuse generated request types, server-owned idempotency where runtime requires it, fail-closed unknown outcomes, scope-safe reads and Persian RTL workflows. Do not mutate Backend runtime/database/Product Design/Storefront/Current-State/Step71.",
+  "risk": "HIGH",
+  "risk_floor": "HIGH",
+  "owner": "FRONTEND_ENGINEERING",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "acbb8e35a29bdffec27d1ea9d7ce12ea4c402a01"
+  },
+  "scope": {
+    "read": [
+      "package.json",
+      "apps/admin/**",
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "src/modules/inventory/**",
+      "docs/11-step-history/**",
+      "docs/13-product-design/step56-pricing-inventory-wireframes.json",
+      "docs/13-product-design/step56-wireframes/D/**",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "apps/admin/**",
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "docs/11-step-history/STEP-70-E-INVENTORY-FLOW-ADMINISTRATION.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP70-E-INVENTORY-FLOW-ADMIN-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "docs/13-product-design/step56-admin-ux-contract.json",
+      "docs/13-product-design/step56-foundation/A/manifest.json",
+      "docs/13-product-design/step56-admin-shell-wireframes.json",
+      "docs/13-product-design/step56-wireframes/B/manifest.json",
+      "docs/13-product-design/step56-catalog-media-wireframes.json",
+      "docs/13-product-design/step56-wireframes/C/manifest.json",
+      "docs/13-product-design/step56-pricing-inventory-wireframes.json",
+      "docs/13-product-design/step56-wireframes/D/manifest.json",
+      "docs/13-product-design/step56-commerce-operations-wireframes.json",
+      "docs/13-product-design/step56-wireframes/E/manifest.json",
+      "docs/13-product-design/step56-customers-growth-wireframes.json",
+      "docs/13-product-design/step56-wireframes/F/manifest.json",
+      "docs/13-product-design/step56-management-security-wireframes.json",
+      "docs/13-product-design/step56-wireframes/G/manifest.json",
+      "docs/13-product-design/step56-final-audit.json",
+      "docs/13-product-design/step56-final-audit/manifest.json",
+      "docs/13-product-design/step57-high-fidelity-contract.json"
+    ],
+    "forbidden": [
+      ".github/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "database/**",
+      "test/**",
+      "scripts/**",
+      "apps/api/**",
+      "apps/worker/**",
+      "apps/scheduler/**",
+      "apps/storefront/**",
+      "docs/12-current-state/**",
+      "graphify-out/**",
+      "contracts/events/**",
+      "src/modules/**",
+      "src/platform/**",
+      "src/shared/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP70-E-INVENTORY-FLOW-ADMIN-001-01"
+  ],
+  "human_gate_required": true,
+  "authorized_human_approver": {
+    "role": "PROJECT_OWNER",
+    "github_login": "rahemih"
+  },
+  "token_budget": {
+    "expected_max": 52000,
+    "soft_alert": 82000,
+    "hard_cap": 132000
+  },
+  "task_risk_rules": [
+    {
+      "id": "STEP70_E_INVENTORY_FLOW_ADMIN_HIGH",
+      "risk": "HIGH",
+      "paths": [
+        "apps/admin/**",
+        "contracts/http/openapi.yaml",
+        "src/generated/openapi.ts",
+        "docs/11-step-history/STEP-70-E-INVENTORY-FLOW-ADMINISTRATION.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP70-E-INVENTORY-FLOW-ADMIN-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md",
+        "docs/13-product-design/step56-admin-ux-contract.json",
+        "docs/13-product-design/step56-foundation/A/manifest.json",
+        "docs/13-product-design/step56-admin-shell-wireframes.json",
+        "docs/13-product-design/step56-wireframes/B/manifest.json",
+        "docs/13-product-design/step56-catalog-media-wireframes.json",
+        "docs/13-product-design/step56-wireframes/C/manifest.json",
+        "docs/13-product-design/step56-pricing-inventory-wireframes.json",
+        "docs/13-product-design/step56-wireframes/D/manifest.json",
+        "docs/13-product-design/step56-commerce-operations-wireframes.json",
+        "docs/13-product-design/step56-wireframes/E/manifest.json",
+        "docs/13-product-design/step56-customers-growth-wireframes.json",
+        "docs/13-product-design/step56-wireframes/F/manifest.json",
+        "docs/13-product-design/step56-management-security-wireframes.json",
+        "docs/13-product-design/step56-wireframes/G/manifest.json",
+        "docs/13-product-design/step56-final-audit.json",
+        "docs/13-product-design/step56-final-audit/manifest.json",
+        "docs/13-product-design/step57-high-fidelity-contract.json"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "70-D Inventory administration",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "acbb8e35a29bdffec27d1ea9d7ce12ea4c402a01",
+      "terminal_evidence_comment": 6437551035,
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "linear_issue": "HOS-74",
+    "graph_state": "RETIRED_AND_OUT_OF_SCOPE",
+    "surfaces": [
+      "AD-D-08",
+      "AD-D-09",
+      "AD-D-10"
+    ],
+    "read_authority": [
+      "GET /admin/inventory/transfers",
+      "GET /admin/inventory/transfers/{id}",
+      "GET /admin/inventory/reservations",
+      "GET /admin/inventory/reservations/{id}",
+      "GET /admin/inventory/allocations"
+    ],
+    "idempotent_mutations": [
+      "POST /admin/inventory/transfers",
+      "POST /admin/inventory/transfers/{id}/ship",
+      "POST /admin/inventory/transfers/{id}/receive",
+      "POST /admin/inventory/reservations",
+      "POST /admin/inventory/reservations/{id}/late-payment-review",
+      "POST /admin/inventory/reservations/{id}/convert",
+      "POST /admin/inventory/allocations",
+      "POST /admin/inventory/consume-sale"
+    ],
+    "non_idempotent_mutations": [
+      "POST /admin/inventory/transfers/{id}/approve",
+      "POST /admin/inventory/transfers/{id}/cancel",
+      "POST /admin/inventory/reservations/{id}/begin-payment",
+      "POST /admin/inventory/reservations/{id}/release",
+      "POST /admin/inventory/reservations/{id}/release-commitment",
+      "POST /admin/inventory/reservations/{id}/expire",
+      "POST /admin/inventory/allocations/{id}/pick",
+      "POST /admin/inventory/allocations/{id}/unpick",
+      "POST /admin/inventory/allocations/{id}/release"
+    ],
+    "step_up_required": false,
+    "transfer_invariants": [
+      "source and destination warehouses must differ",
+      "items are required",
+      "variant IDs are unique within a transfer",
+      "quantities are positive integers",
+      "approve checks source physical availability",
+      "ship consumes source FIFO layers",
+      "receive recreates destination cost layers",
+      "cancel only draft or approved"
+    ],
+    "reservation_invariants": [
+      "expiry must be a valid future datetime",
+      "payment grace when present must be at or after expiry",
+      "warehouse+variant pairs are unique",
+      "quantities are positive integers",
+      "online sellable stock remains Backend authority",
+      "late payment review may reclaim released stock only when available",
+      "converted reservation commitment release preserves stock-balance consistency"
+    ],
+    "allocation_invariants": [
+      "quantity is a positive integer",
+      "reservation-backed allocation cannot exceed remaining converted reservation commitment",
+      "pick is allocated->picked only",
+      "unpick is picked->allocated only",
+      "release cannot release shipped allocation",
+      "sale consumption requires picked allocation and consumes FIFO/COGS before shipped status"
+    ],
+    "read_contract_limit": "Canonical generated GET responses for these inventory flow views do not expose typed response bodies. Stage70-E must not bypass generated authority or invent response shapes; read surfaces report source-backed endpoint/status/request-id only.",
+    "contract_drift_correction": {
+      "path": "POST /admin/inventory/reservations/{id}/late-payment-review",
+      "runtime_authority": "@RequireIdempotency('inventory.convert')",
+      "prior_canonical_drift": "OpenAPI/generated header authority omitted Idempotency-Key",
+      "correction": "Add canonical IdempotencyKey parameter and regenerate src/generated/openapi.ts only",
+      "runtime_mutation": false
+    },
+    "design_provenance_repair": "Canonical CI/Phase A failed closed after the authorized late-payment-review OpenAPI idempotency correction because Step56/57 recovered-source evidence pins mutable source SHA256 values. Stage70-E authorizes only the canonical generator-equivalent source-hash cascade on the 17 explicitly listed Product Design provenance files. No screen, journey, operation, permission, visual, review-status, approval, runtime-release or business semantics may change."
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Stage70-E reuses createAdminAuthBridge and canonical generated request schemas; no raw Admin credential authority or parallel API client is introduced.",
+      "verification": "step70_e_server_transport",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Only the five frozen source-backed reads are exposed. Because canonical GET responses are untyped, UI does not invent transfer/reservation/allocation record shapes.",
+      "verification": "step70_e_read_authority",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Exactly the eight runtime-required idempotent mutations receive server-owned fresh Idempotency-Key values. Browser input cannot supply or alter those keys.",
+      "verification": "step70_e_idempotency",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "The nine runtime mutations without RequireIdempotency do not invent idempotency or automatic replay. Network/timeout/aborted/5xx is treated as unknown outcome for every mutation and requires authoritative re-read before another action.",
+      "verification": "step70_e_unknown_outcome",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Transfer create validation matches runtime: distinct source/destination, non-empty unique variant items and positive integer quantities. State-transition/FIFO/source-stock authority remains Backend-owned.",
+      "verification": "step70_e_transfer_validation",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Reservation validation matches runtime: future expiry, grace not before expiry, unique warehouse+variant pairs and positive integer quantities. Reservation state transitions and late-payment stock reclaim remain Backend-owned.",
+      "verification": "step70_e_reservation_validation",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "Allocation validation matches runtime: required order-item/warehouse/variant UUIDs, positive integer quantity and optional reservation UUID. Pick/unpick/release/consume-sale are exposed only through canonical operations.",
+      "verification": "step70_e_allocation_validation",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "No Inventory adjustment/warehouse-protection, Procurement/POS, Backend runtime/database/Product Design/Storefront/Current-State/Step71/Graph mutation is added. The only contract mutation is the source-proven late-payment-review Idempotency-Key correction in canonical OpenAPI and generated TypeScript.",
+      "verification": "step70_e_negative_authority",
+      "mandatory": true
+    },
+    {
+      "id": "AC-009",
+      "description": "Admin canonical verify includes a deterministic Step70-E verifier and preserves inherited Step67-70-D verification.",
+      "verification": "admin_verify_chain",
+      "mandatory": true
+    },
+    {
+      "id": "AC-010",
+      "description": "HIGH-risk closure requires exact-head Canonical CI, Phase A, CodeQL/Independent Security, deterministic Review, exact-artifact ACTIVE Lock and explicit Project Owner Human Gate before protected merge; exact-SHA postmerge verification and terminal Lock release complete before 70-F.",
+      "verification": "canonical_high_risk_gate_sequence",
+      "mandatory": true
+    },
+    {
+      "id": "AC-011",
+      "description": "Recovered Step56/57 provenance drift caused only by the authorized late-payment-review OpenAPI correction is synchronized through generator-equivalent source SHA/manifest/final-audit/high-fidelity hash propagation on the 17 explicitly listed Product Design provenance files; no design semantics or historical verdicts change.",
+      "verification": "step56_step57_provenance_only_repair",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "SECURITY",
+      "HUMAN",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Step70-E is HIGH risk. Project Owner approval is mandatory only after exact-head technical/security/review evidence and exact-artifact ACTIVE Lock are complete."
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}

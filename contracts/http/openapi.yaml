@@ -21874,6 +21874,7 @@ paths:
         schema:
           type: string
           format: uuid
+      - $ref: '#/components/parameters/IdempotencyKey'
   /admin/inventory/{variant_id}/cost-layers:
     get:
       tags:

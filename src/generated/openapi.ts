@@ -26201,7 +26201,9 @@ export interface operations {
     adminInventoryReservationLatePaymentReview: {
         parameters: {
             query?: never;
-            header?: never;
+            header: {
+                "Idempotency-Key": components["parameters"]["IdempotencyKey"];
+            };
             path: {
                 id: string;
             };
