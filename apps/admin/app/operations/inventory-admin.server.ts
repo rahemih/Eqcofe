@@ -59,6 +59,8 @@ export function validateInventoryAdjustment(input:{
   if(!(INVENTORY_ADJUSTMENT_TYPES as readonly string[]).includes(type))errors.push(field("adjustment_type","INVALID_ADJUSTMENT_TYPE","نوع اصلاح موجودی معتبر نیست."));
   if(reason.length<2)errors.push(field("reason","INVALID_REASON","دلیل اصلاح موجودی باید حداقل دو نویسه داشته باشد."));
   if(input.unitCostToman!==null&&(!Number.isSafeInteger(input.unitCostToman)||input.unitCostToman<0))errors.push(field("unit_cost_toman","INVALID_MONEY","بهای واحد باید عدد صحیح نامنفی به تومان باشد."));
+  const positiveBucketMovement=type==="damage"||type==="quarantine"||type==="quarantine_release"||type==="damaged_disposal";
+  if(positiveBucketMovement&&input.quantityDelta<=0)errors.push(field("quantity_delta","POSITIVE_QUANTITY_REQUIRED","برای این نوع جابه‌جایی bucket، تعداد باید مثبت باشد."));
   const ordinaryIncrease=type==="count_correction"||type==="receipt_adjustment"||type==="manual";
   if(ordinaryIncrease&&input.quantityDelta>0&&input.unitCostToman===null)errors.push(field("unit_cost_toman","COST_BASIS_REQUIRED","برای افزایش موجودی از این نوع، بهای واحد به تومان الزامی است."));
   if(errors.length)return{ok:false,fieldErrors:Object.freeze(errors)};
