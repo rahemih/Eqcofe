@@ -21,6 +21,7 @@ export default [
     route("pricing/currency-rules", "./routes/pricing-currency-rules.tsx"),
     route("excel/:kind", "./routes/excel.tsx"),
     route("inventory/:view", "./routes/inventory.tsx"),
+    route("inventory-flows/:view", "./routes/inventory-flows.tsx"),
     route("destinations/:surfaceId", "./routes/destination.tsx"),
   ]),
 ] satisfies RouteConfig;
