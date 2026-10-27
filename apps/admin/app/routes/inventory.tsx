@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { data, Form, Link, useFetcher, useLoaderData, useNavigation } from "react-router";
 import {
   INVENTORY_ADJUSTMENT_TYPES,
@@ -157,6 +157,7 @@ export default function InventoryAdminRoute(){
   const navigation=useNavigation();
   const handledChallenge=useRef<string|null>(null);
   const outcomeRef=useRef<HTMLDivElement|null>(null);
+  const [clientError,setClientError]=useState<string|null>(null);
   const busy=fetcher.state!=="idle"||navigation.state!=="idle";
 
   useEffect(()=>{
@@ -164,6 +165,7 @@ export default function InventoryAdminRoute(){
     if(!payload)return;
     if(payload.kind==="step-up-challenge"&&handledChallenge.current!==payload.challengeId){
       handledChallenge.current=payload.challengeId;
+      setClientError(null);
       void runAdminWebAuthn("authentication",payload.challengeId,payload.options)
         .then((credential)=>{
           const form=adjustmentContextForm(payload.context);
@@ -173,12 +175,14 @@ export default function InventoryAdminRoute(){
         })
         .catch(()=>{
           handledChallenge.current=null;
+          setClientError("احراز مجدد لغو شد یا کلید امنیتی پاسخ نداد؛ اصلاح موجودی ارسال نشد.");
           outcomeRef.current?.focus();
         });
       return;
     }
     if(payload.kind!=="step-up-challenge"){
       handledChallenge.current=null;
+      setClientError(null);
       queueMicrotask(()=>outcomeRef.current?.focus());
     }
   },[fetcher.data,fetcher]);
@@ -204,6 +208,7 @@ export default function InventoryAdminRoute(){
       </nav>
 
       <div ref={outcomeRef} tabIndex={-1}>
+        {clientError?<div className="pricing-error-summary" role="alert"><h2>عملیات ارسال نشد</h2><p>{clientError}</p></div>:null}
         <Outcome data={fetcher.data}/>
       </div>
 
@@ -224,7 +229,20 @@ export default function InventoryAdminRoute(){
             <div className="pricing-actions pricing-form-wide"><button type="submit" disabled={busy}>احراز مجدد و ارسال اصلاح</button></div>
           </fetcher.Form>
         </section>
-      ):view==="warehouses"?<WarehouseProtection state={state} busy={busy}/>:<InventoryOverview state={state} busy={busy}/>}
+      ):view==="warehouses"?(
+        <section className="pricing-card" aria-labelledby="warehouse-protection-title">
+          <h2 id="warehouse-protection-title">درصد محافظت فروش حضوری</h2>
+          <p>نسخهٔ فعلی entity باید صریحاً وارد شود و به If-Match تبدیل می‌شود. در conflict هیچ overwrite خودکاری انجام نمی‌شود. مقدار منبع پیش‌فرض ۲۰٪ است، اما این فرم مقدار فعلی را حدس نمی‌زند.</p>
+          {state.kind==="ready"?<p className="pricing-success">خواندن فهرست انبارها از <bdi>{state.endpoint}</bdi> با HTTP <bdi>{state.status}</bdi> موفق بود.</p>:null}
+          <fetcher.Form method="post" className="pricing-form" aria-busy={busy}>
+            <input type="hidden" name="intent" value="update-protection"/>
+            <label><span>شناسه انبار</span><input name="warehouse_id" required dir="ltr" autoComplete="off"/></label>
+            <label><span>نسخهٔ فعلی</span><input name="expected_version" required type="number" min="1" step="1"/></label>
+            <label><span>درصد محافظت</span><input name="physical_protection_percent" required type="number" min="0" max="100" step="any"/></label>
+            <div className="pricing-actions pricing-form-wide"><button type="submit" disabled={busy}>ثبت با If-Match</button></div>
+          </fetcher.Form>
+        </section>
+      ):<InventoryOverview state={state} busy={busy}/>}
     </section>
   );
 }
@@ -262,23 +280,6 @@ function InventoryOverview({state,busy}:{state:ReturnType<typeof useLoaderData<t
         <span>HTTP: <bdi>{state.status}</bdi></span>
         {state.requestId?<span>request-id: <bdi>{state.requestId}</bdi></span>:null}
       </div>:null}
-    </section>
-  );
-}
-
-function WarehouseProtection({state,busy}:{state:ReturnType<typeof useLoaderData<typeof loader>>;busy:boolean}){
-  return (
-    <section className="pricing-card" aria-labelledby="warehouse-protection-title">
-      <h2 id="warehouse-protection-title">درصد محافظت فروش حضوری</h2>
-      <p>نسخهٔ فعلی entity باید صریحاً وارد شود و به If-Match تبدیل می‌شود. در conflict هیچ overwrite خودکاری انجام نمی‌شود. مقدار منبع پیش‌فرض ۲۰٪ است، اما این فرم مقدار فعلی را حدس نمی‌زند.</p>
-      {state.kind==="ready"?<p className="pricing-success">خواندن فهرست انبارها از <bdi>{state.endpoint}</bdi> با HTTP <bdi>{state.status}</bdi> موفق بود.</p>:null}
-      <Form method="post" className="pricing-form" aria-busy={busy}>
-        <input type="hidden" name="intent" value="update-protection"/>
-        <label><span>شناسه انبار</span><input name="warehouse_id" required dir="ltr" autoComplete="off"/></label>
-        <label><span>نسخهٔ فعلی</span><input name="expected_version" required type="number" min="1" step="1"/></label>
-        <label><span>درصد محافظت</span><input name="physical_protection_percent" required type="number" min="0" max="100" step="any"/></label>
-        <div className="pricing-actions pricing-form-wide"><button type="submit" disabled={busy}>ثبت با If-Match</button></div>
-      </Form>
     </section>
   );
 }
