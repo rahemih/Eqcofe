@@ -131,6 +131,7 @@
 | EQCOFE-STEP70-A-INVENTORY-PROCUREMENT-POS-HANDOFF-001 | Step 70-A Inventory Procurement POS canonical handoff and scope freeze | MEDIUM | NOT_REQUIRED | `da446535d29ad4e6a95197a4d0a6058c8d27654e` | 30000/50000/92000 |
 | EQCOFE-STEP70-B-INVENTORY-PROCUREMENT-POS-CONTRACT-001 | Step 70-B Inventory Procurement POS HTTP and generated contract readiness | HIGH | REQUIRED | `017475977c0377d42a668c84647eff1b3c9097b9` | 52000/82000/132000 |
 | EQCOFE-STEP70-C-ADMIN-INVENTORY-PROCUREMENT-POS-FOUNDATION-001 | Step 70-C shared Admin Inventory, Procurement & POS read/state foundation | MEDIUM | NOT_REQUIRED | `4a98b9b856233ec01fff4472163b37644d911ce6` | 40000/64000/104000 |
+| EQCOFE-STEP70-D-INVENTORY-ADMIN-001 | Step 70-D Inventory administration | HIGH | REQUIRED | `7d7b1468e33b0ec0c7e0e47061e50bb63e72374c` | 52000/82000/132000 |
 | MA-AGENT-A0-ORCHESTRATOR-001 | A0 — Orchestrator / Engineering Manager Prompt | LOW | NOT_REQUIRED | `f7919991e619d416360e74a542741ef21c70f732` | 10000/16000/32000 |
 | MA-AGENT-A1-SPEC-001 | A1 — Specification & Research Prompt | LOW | NOT_REQUIRED | `120898df57138b301560e7d9b9f1b3f5da03e982` | 10000/16000/32000 |
 | MA-AGENT-A10-EVIDENCE-001 | A10 — Evidence & Documentation Prompt | LOW | NOT_REQUIRED | `bdf8fccde4ca40cced48381ad3be2e0461ade535` | 12000/18000/35000 |
@@ -176,4 +177,4 @@
 | MA-V1-ACC-MEDIUM-001 | V1 Acceptance MEDIUM R2 — telemetry terminal-state conflict hardening | MEDIUM | NOT_REQUIRED | `9017e0f25e9571568ed9acf4ca3ca977ce9e78f0` | 15000/25000/50000 |
 | MA-V1-ACCEPTANCE-CLOSURE-V16-R2-001 | V1.6 Phase 3 canonical acceptance closure R2 | HIGH | REQUIRED | `d7d235f5f240b8bea44bc607afa812b2f5bb12d4` | 30000/50000/90000 |
 
-Task contracts indexed: **170**.
+Task contracts indexed: **171**.
