@@ -17,7 +17,7 @@ Step70-C is terminally canonical through PR #383 on `main@7d7b1468e33b0ec0c7e0e4
 
 - AD-D-06 inventory overview / variant inspection / movements / cost basis / FIFO cost-layer probes;
 - AD-D-07 inventory adjustment;
-- warehouse protection percentage update required by the frozen Inventory administration scope.
+- AD-D-11 warehouse protection percentage update required by the frozen Inventory administration scope.
 
 Transfer, reservation, allocation and sale-consumption workflows remain 70-E. Procurement remains 70-F/70-G. POS remains 70-H.
 
