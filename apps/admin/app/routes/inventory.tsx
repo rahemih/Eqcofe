@@ -167,7 +167,7 @@ export default function InventoryAdminRoute(){
     if(!payload)return;
     if(payload.kind==="step-up-challenge"&&handledChallenge.current!==payload.challengeId){
       handledChallenge.current=payload.challengeId;
-      setClientError(null);
+      queueMicrotask(()=>setClientError(null));
       void runAdminWebAuthn("authentication",payload.challengeId,payload.options)
         .then((credential)=>{
           const form=adjustmentContextForm(payload.context);
@@ -184,8 +184,10 @@ export default function InventoryAdminRoute(){
     }
     if(payload.kind!=="step-up-challenge"){
       handledChallenge.current=null;
-      setClientError(null);
-      queueMicrotask(()=>outcomeRef.current?.focus());
+      queueMicrotask(()=>{
+        setClientError(null);
+        outcomeRef.current?.focus();
+      });
     }
   },[fetcher.data,fetcher]);
 
