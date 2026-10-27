@@ -1,0 +1,204 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP70-D-INVENTORY-ADMIN-001",
+  "title": "Step 70-D Inventory administration",
+  "description": "Implement HIGH-risk Admin Inventory administration for AD-D-06 and AD-D-07 only: source-proven inventory read/status inspection, variant detail/movement/cost/cost-layer probes, warehouse protection update with current If-Match supplied explicitly, and inventory adjustment with exact runtime validation, Project Owner Step-Up and server-owned idempotency. Do not implement transfer/reservation/allocation/procurement/POS workflows or mutate Backend/OpenAPI/database/Product Design/Storefront/Current-State/Step71.",
+  "risk": "HIGH",
+  "risk_floor": "HIGH",
+  "owner": "FRONTEND_ENGINEERING",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "7d7b1468e33b0ec0c7e0e47061e50bb63e72374c"
+  },
+  "scope": {
+    "read": [
+      "package.json",
+      "apps/admin/**",
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "src/modules/inventory/**",
+      "docs/11-step-history/**",
+      "docs/13-product-design/step56-pricing-inventory-wireframes.json",
+      "docs/13-product-design/step56-wireframes/D/**",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "apps/admin/**",
+      "docs/11-step-history/STEP-70-D-INVENTORY-ADMINISTRATION.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP70-D-INVENTORY-ADMIN-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "contracts/**",
+      "database/**",
+      "src/**",
+      "test/**",
+      "scripts/**",
+      "apps/api/**",
+      "apps/worker/**",
+      "apps/scheduler/**",
+      "apps/storefront/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**",
+      "graphify-out/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP70-D-INVENTORY-ADMIN-001-01"
+  ],
+  "human_gate_required": true,
+  "authorized_human_approver": {
+    "role": "PROJECT_OWNER",
+    "github_login": "rahemih"
+  },
+  "token_budget": {
+    "expected_max": 52000,
+    "soft_alert": 82000,
+    "hard_cap": 132000
+  },
+  "task_risk_rules": [
+    {
+      "id": "STEP70_D_INVENTORY_ADMIN_HIGH",
+      "risk": "HIGH",
+      "paths": [
+        "apps/admin/**",
+        "docs/11-step-history/STEP-70-D-INVENTORY-ADMINISTRATION.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP70-D-INVENTORY-ADMIN-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "70-C shared Admin Inventory Procurement POS foundation",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "7d7b1468e33b0ec0c7e0e47061e50bb63e72374c",
+      "terminal_evidence_comment": 6436076540,
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "linear_issue": "HOS-74",
+    "graph_state": "RETIRED_AND_OUT_OF_SCOPE",
+    "surfaces": ["AD-D-06", "AD-D-07"],
+    "read_authority": [
+      "GET /admin/inventory",
+      "GET /admin/inventory/{variant_id}",
+      "GET /admin/inventory/{variant_id}/movements",
+      "GET /admin/inventory/{variant_id}/cost-basis",
+      "GET /admin/inventory/{variant_id}/cost-layers",
+      "GET /admin/inventory/warehouses"
+    ],
+    "mutation_authority": [
+      "POST /admin/inventory/adjustments",
+      "PATCH /admin/inventory/warehouses/{id}/protection"
+    ],
+    "adjustment": {
+      "permission": "inventory.adjust",
+      "step_up": true,
+      "idempotency_scope": "inventory.adjust",
+      "adjustment_types": [
+        "count_correction",
+        "receipt_adjustment",
+        "manual",
+        "damage",
+        "quarantine",
+        "quarantine_release",
+        "damaged_disposal"
+      ],
+      "quantity_delta": "NONZERO_INTEGER",
+      "reason_min_length": 2,
+      "positive_count_cost_required": true,
+      "unit_cost_toman": "OPTIONAL_NONNEGATIVE_SAFE_INTEGER",
+      "unknown_outcome_policy": "NO_AUTOMATIC_RETRY; READ_MOVEMENTS_BEFORE_NEW_ATTEMPT"
+    },
+    "warehouse_protection": {
+      "permission": "inventory.warehouse.manage",
+      "if_match": "REQUIRED_CURRENT_ENTITY_VERSION",
+      "percent_min": 0,
+      "percent_max": 100,
+      "step_up": false,
+      "idempotency": false,
+      "conflict_policy": "NO_OVERWRITE; REQUIRE_FRESH_VERSION"
+    },
+    "read_contract_limit": "Canonical generated inventory GET responses do not currently expose typed response bodies. Stage70-D must not bypass generated authority or invent response shapes; read surfaces may prove endpoint/status/request-id only.",
+    "frozen_inventory_invariants": [
+      "physical=max(0,on_hand-reserved-allocated-damaged-quarantine)",
+      "protected=ceil(physical*physical_protection_percent/100)",
+      "online=max(0,physical-protected)",
+      "FIFO cost layers order by receivedAt then id",
+      "encumbered stock may not be undercut",
+      "warehouse protection source default remains 20 percent"
+    ]
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Stage70-D reuses createAdminAuthBridge and canonical generated request types. Browser code receives no raw Admin credential authority and no parallel API client is introduced.",
+      "verification": "step70_d_server_transport",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Inventory overview supports only the six source-proven GET reads frozen by the task. Because canonical responses are not typed, the UI does not invent inventory record fields; it reports endpoint/status/request-id and requires explicit variant IDs for variant-scoped probes.",
+      "verification": "step70_d_read_authority",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Inventory adjustment accepts exactly the seven runtime-defined adjustment types, requires a nonzero integer delta and a trimmed reason of at least two characters, and requires nonnegative integer unit cost for positive count/receipt/manual increases where runtime requires cost.",
+      "verification": "step70_d_adjustment_validation",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Inventory adjustment requires WebAuthn Step-Up and sends an Idempotency-Key generated server-side for that submission. Network/timeout/5xx yields unknown outcome; the UI never automatically retries and instructs the operator to inspect authoritative movements first.",
+      "verification": "step70_d_adjustment_security",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Warehouse protection accepts finite 0..100 only, requires explicit current positive entity version converted to If-Match, preserves backend conflict semantics, and never overwrites after 409/412/428 without a fresh version.",
+      "verification": "step70_d_protection_concurrency",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "No warehouse create/delete/archive/type mutation is exposed in 70-D; no transfer/reservation/allocation/consume-sale/procurement/POS mutation is exposed. Those remain later Step70 stages.",
+      "verification": "step70_d_negative_authority",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "Admin canonical verification includes a deterministic Step70-D verifier and preserves all inherited Step67-70-C verification.",
+      "verification": "admin_verify_chain",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "HIGH-risk closure requires exact-head Canonical CI, Phase A, CodeQL/Independent Security, deterministic Review, exact-artifact ACTIVE Lock and explicit Project Owner exact-artifact Human Gate before protected merge.",
+      "verification": "canonical_high_risk_gate_sequence",
+      "mandatory": true
+    },
+    {
+      "id": "AC-009",
+      "description": "Protected merge, exact-SHA postmerge Canonical CI/Phase A/CodeQL and terminal Lock release complete before 70-E mutation.",
+      "verification": "canonical_transport_and_postmerge_evidence",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": ["REVIEW", "SECURITY", "HUMAN", "LOCK"],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Step70-D is HIGH risk. Project Owner approval is mandatory only after exact-head technical/security/review evidence and exact-artifact ACTIVE Lock are complete."
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}
