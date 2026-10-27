@@ -86,7 +86,7 @@
   "evidence": {
     "linear_issue": "HOS-74",
     "graph_state": "RETIRED_AND_OUT_OF_SCOPE",
-    "surfaces": ["AD-D-06", "AD-D-07"],
+    "surfaces": ["AD-D-06", "AD-D-07", "AD-D-11"],
     "read_authority": [
       "GET /admin/inventory",
       "GET /admin/inventory/{variant_id}",
