@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { data, Form, Link, useFetcher, useLoaderData, useNavigation } from "react-router";
 import {
-  INVENTORY_ADJUSTMENT_TYPES,
   probeInventory,
   submitInventoryAdjustment,
   updateWarehouseProtection,
@@ -31,6 +30,15 @@ type ActionData=
   | {kind:"failure";message:string;requestId:string|null;issues?:readonly {field:string;message:string}[]};
 
 const PROBES=new Set<InventoryProbe>(["overview","warehouses","variant","movements","cost-basis","cost-layers"]);
+const ADJUSTMENT_OPTIONS=[
+  "count_correction",
+  "receipt_adjustment",
+  "manual",
+  "damage",
+  "quarantine",
+  "quarantine_release",
+  "damaged_disposal",
+] as const;
 
 export async function loader({request,params}:{request:Request;params:{view?:string}}){
   const view=parseView(params.view);
@@ -226,7 +234,7 @@ export default function InventoryAdminRoute(){
             <label><span>شناسه واریانت</span><input name="variant_id" required dir="ltr" autoComplete="off"/></label>
             <label><span>تغییر تعداد</span><input name="quantity_delta" type="number" step="1" required/></label>
             <label><span>نوع اصلاح</span><select name="adjustment_type" defaultValue="count_correction">
-              {INVENTORY_ADJUSTMENT_TYPES.map(type=><option key={type} value={type}>{adjustmentLabel(type)}</option>)}
+              {ADJUSTMENT_OPTIONS.map(type=><option key={type} value={type}>{adjustmentLabel(type)}</option>)}
             </select></label>
             <label><span>بهای واحد تومان (در صورت نیاز)</span><input name="unit_cost_toman" type="number" min="0" step="1"/></label>
             <label className="pricing-form-wide"><span>دلیل</span><textarea name="reason" required rows={3}/></label>
