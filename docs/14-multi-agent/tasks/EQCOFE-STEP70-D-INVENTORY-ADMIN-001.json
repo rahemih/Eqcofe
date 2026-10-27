@@ -86,7 +86,11 @@
   "evidence": {
     "linear_issue": "HOS-74",
     "graph_state": "RETIRED_AND_OUT_OF_SCOPE",
-    "surfaces": ["AD-D-06", "AD-D-07", "AD-D-11"],
+    "surfaces": [
+      "AD-D-06",
+      "AD-D-07",
+      "AD-D-11"
+    ],
     "read_authority": [
       "GET /admin/inventory",
       "GET /admin/inventory/{variant_id}",
@@ -116,7 +120,13 @@
       "reason_min_length": 2,
       "positive_count_cost_required": true,
       "unit_cost_toman": "OPTIONAL_NONNEGATIVE_SAFE_INTEGER",
-      "unknown_outcome_policy": "NO_AUTOMATIC_RETRY; READ_MOVEMENTS_BEFORE_NEW_ATTEMPT"
+      "unknown_outcome_policy": "NO_AUTOMATIC_RETRY; READ_MOVEMENTS_BEFORE_NEW_ATTEMPT",
+      "positive_bucket_types": [
+        "damage",
+        "quarantine",
+        "quarantine_release",
+        "damaged_disposal"
+      ]
     },
     "warehouse_protection": {
       "permission": "inventory.warehouse.manage",
@@ -152,7 +162,7 @@
     },
     {
       "id": "AC-003",
-      "description": "Inventory adjustment accepts exactly the seven runtime-defined adjustment types, requires a nonzero integer delta and a trimmed reason of at least two characters, and requires nonnegative integer unit cost for positive count/receipt/manual increases where runtime requires cost.",
+      "description": "Inventory adjustment accepts exactly the seven runtime-defined adjustment types, requires a nonzero integer delta and a trimmed reason of at least two characters; damage/quarantine/quarantine_release/damaged_disposal require positive delta; ordinary positive count/receipt/manual increases require nonnegative integer unit cost.",
       "verification": "step70_d_adjustment_validation",
       "mandatory": true
     },
@@ -195,7 +205,12 @@
   ],
   "external_gate_evidence": {
     "protocol": "EQCOFE_GATE_V1",
-    "artifact_bound_gates": ["REVIEW", "SECURITY", "HUMAN", "LOCK"],
+    "artifact_bound_gates": [
+      "REVIEW",
+      "SECURITY",
+      "HUMAN",
+      "LOCK"
+    ],
     "trusted_github_transport_login": "rahemih",
     "rule": "Step70-D is HIGH risk. Project Owner approval is mandatory only after exact-head technical/security/review evidence and exact-artifact ACTIVE Lock are complete."
   },
