@@ -16,7 +16,7 @@ const read=(path:string)=>readFileSync(resolve(repoRoot,path),"utf8");
 const task=JSON.parse(read("docs/14-multi-agent/tasks/EQCOFE-STEP70-E-INVENTORY-FLOW-ADMIN-001.json")) as {
   risk:string;human_gate_required:boolean;canonical:{base_sha:string};
   evidence:{surfaces:string[];read_authority:string[];idempotent_mutations:string[];non_idempotent_mutations:string[];step_up_required:boolean};
-  scope:{forbidden:string[]};
+  scope:{write:string[];forbidden:string[]};
 };
 const server=read("apps/admin/app/operations/inventory-flow-admin.server.ts");
 const route=read("apps/admin/app/routes/inventory-flows.tsx");
@@ -35,9 +35,32 @@ assert.deepEqual(task.evidence.surfaces,["AD-D-08","AD-D-09","AD-D-10"]);
 assert.equal(task.evidence.step_up_required,false);
 assert.equal(task.evidence.idempotent_mutations.length,8);
 assert.equal(task.evidence.non_idempotent_mutations.length,9);
-for(const forbidden of ["contracts/**","database/**","src/**","test/**","scripts/**","apps/storefront/**","docs/12-current-state/**","docs/13-product-design/**"]){
+for(const forbidden of [
+  ".github/**",
+  "package.json",
+  "pnpm-lock.yaml",
+  "pnpm-workspace.yaml",
+  "database/**",
+  "test/**",
+  "scripts/**",
+  "apps/api/**",
+  "apps/worker/**",
+  "apps/scheduler/**",
+  "apps/storefront/**",
+  "docs/12-current-state/**",
+  "graphify-out/**",
+  "contracts/events/**",
+  "src/modules/**",
+  "src/platform/**",
+  "src/shared/**",
+]){
   assert.ok(task.scope.forbidden.includes(forbidden),"STEP70_E_FORBIDDEN:"+forbidden);
 }
+assert.ok(task.scope.write.includes("contracts/http/openapi.yaml"),"STEP70_E_OPENAPI_DRIFT_PATH_ALLOWED");
+assert.ok(task.scope.write.includes("src/generated/openapi.ts"),"STEP70_E_GENERATED_SYNC_PATH_ALLOWED");
+assert.ok(!task.scope.write.includes("contracts/**"),"STEP70_E_NO_BROAD_CONTRACT_WRITE");
+assert.ok(!task.scope.write.includes("src/**"),"STEP70_E_NO_BROAD_SRC_WRITE");
+assert.ok(!task.scope.write.includes("docs/13-product-design/**"),"STEP70_E_NO_BROAD_PRODUCT_DESIGN_WRITE");
 
 assert.deepEqual(task.evidence.read_authority,[
   "GET /admin/inventory/transfers",
