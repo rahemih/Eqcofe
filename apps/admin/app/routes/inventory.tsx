@@ -207,7 +207,24 @@ export default function InventoryAdminRoute(){
         <Outcome data={fetcher.data}/>
       </div>
 
-      {view==="adjustment"?<AdjustmentForm busy={busy}/>:view==="warehouses"?<WarehouseProtection state={state} busy={busy}/>:<InventoryOverview state={state} busy={busy}/>}
+      {view==="adjustment"?(
+        <section className="pricing-card" aria-labelledby="inventory-adjust-title">
+          <h2 id="inventory-adjust-title">اصلاح موجودی با Step-Up</h2>
+          <p>Backend authority نهایی موجودی، bucketها، FIFO و موجودی درگیر است. پس از تأیید فرم، WebAuthn Step-Up انجام می‌شود و Idempotency-Key فقط در سرور ساخته می‌شود.</p>
+          <fetcher.Form method="post" className="pricing-form" aria-busy={busy}>
+            <input type="hidden" name="intent" value="begin-adjustment"/>
+            <label><span>شناسه انبار</span><input name="warehouse_id" required dir="ltr" autoComplete="off"/></label>
+            <label><span>شناسه واریانت</span><input name="variant_id" required dir="ltr" autoComplete="off"/></label>
+            <label><span>تغییر تعداد</span><input name="quantity_delta" type="number" step="1" required/></label>
+            <label><span>نوع اصلاح</span><select name="adjustment_type" defaultValue="count_correction">
+              {INVENTORY_ADJUSTMENT_TYPES.map(type=><option key={type} value={type}>{adjustmentLabel(type)}</option>)}
+            </select></label>
+            <label><span>بهای واحد تومان (در صورت نیاز)</span><input name="unit_cost_toman" type="number" min="0" step="1"/></label>
+            <label className="pricing-form-wide"><span>دلیل</span><textarea name="reason" required rows={3}/></label>
+            <div className="pricing-actions pricing-form-wide"><button type="submit" disabled={busy}>احراز مجدد و ارسال اصلاح</button></div>
+          </fetcher.Form>
+        </section>
+      ):view==="warehouses"?<WarehouseProtection state={state} busy={busy}/>:<InventoryOverview state={state} busy={busy}/>}
     </section>
   );
 }
@@ -246,35 +263,6 @@ function InventoryOverview({state,busy}:{state:ReturnType<typeof useLoaderData<t
         {state.requestId?<span>request-id: <bdi>{state.requestId}</bdi></span>:null}
       </div>:null}
     </section>
-  );
-}
-
-function AdjustmentForm({busy}:{busy:boolean}){
-  return (
-    <section className="pricing-card" aria-labelledby="inventory-adjust-title">
-      <h2 id="inventory-adjust-title">اصلاح موجودی با Step-Up</h2>
-      <p>Backend authority نهایی موجودی، bucketها، FIFO و موجودی درگیر است. پس از تأیید فرم، WebAuthn Step-Up انجام می‌شود و Idempotency-Key فقط در سرور ساخته می‌شود.</p>
-      <fetcherPlaceholder/>
-      <FormLikeAdjustment busy={busy}/>
-    </section>
-  );
-}
-
-function FormLikeAdjustment({busy}:{busy:boolean}){
-  const fetcher=useFetcher<typeof action>();
-  return (
-    <fetcher.Form method="post" className="pricing-form" aria-busy={busy||fetcher.state!=="idle"}>
-      <input type="hidden" name="intent" value="begin-adjustment"/>
-      <label><span>شناسه انبار</span><input name="warehouse_id" required dir="ltr" autoComplete="off"/></label>
-      <label><span>شناسه واریانت</span><input name="variant_id" required dir="ltr" autoComplete="off"/></label>
-      <label><span>تغییر تعداد</span><input name="quantity_delta" type="number" step="1" required/></label>
-      <label><span>نوع اصلاح</span><select name="adjustment_type" defaultValue="count_correction">
-        {INVENTORY_ADJUSTMENT_TYPES.map(type=><option key={type} value={type}>{adjustmentLabel(type)}</option>)}
-      </select></label>
-      <label><span>بهای واحد تومان (در صورت نیاز)</span><input name="unit_cost_toman" type="number" min="0" step="1"/></label>
-      <label className="pricing-form-wide"><span>دلیل</span><textarea name="reason" required rows={3}/></label>
-      <div className="pricing-actions pricing-form-wide"><button type="submit" disabled={busy||fetcher.state!=="idle"}>احراز مجدد و ارسال اصلاح</button></div>
-    </fetcher.Form>
   );
 }
 
@@ -378,5 +366,3 @@ function stepUpFailureMessage(code:string):string{
   return"احراز مجدد کامل نشد؛ اصلاح موجودی ارسال نشد.";
 }
 
-// Marker retained only to make the Stage-D form section explicit without adding a mutation authority.
-function fetcherPlaceholder(){return null;}
