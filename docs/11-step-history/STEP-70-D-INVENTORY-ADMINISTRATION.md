@@ -53,6 +53,7 @@ Security and runtime invariants:
   - `quarantine_release`
   - `damaged_disposal`;
 - quantity delta is an integer and nonzero;
+- `damage`, `quarantine`, `quarantine_release` and `damaged_disposal` require a positive delta exactly as runtime does;
 - reason is trimmed and at least two characters;
 - unit cost is an integer nonnegative Toman value when supplied;
 - positive ordinary inventory increase requires unit cost;
