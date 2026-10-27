@@ -9,6 +9,10 @@ import {
   readStep69Foundation,
   type Step69FoundationRead,
 } from "../pricing/pricing-foundation.server";
+import {
+  isStep70FoundationSurface,
+  readStep70Foundation,
+} from "../operations/step70-foundation.server";
 
 export async function loader({request,params}:{request:Request;params:{surfaceId?:string}}){
   const context=await readAdminAuthorizationContext(request);
@@ -52,6 +56,36 @@ export async function loader({request,params}:{request:Request;params:{surfaceId
       kind:"step69-ready" as const,
       destination:destinationView,
       summary:summarizeStep69Read(foundation),
+      requestId:foundation.requestId,
+    },{headers});
+  }
+
+  if(isStep70FoundationSurface(destination.surface)){
+    const foundation=await readStep70Foundation(request,destination.surface);
+    appendAdminAuthSetCookies(headers,foundation.setCookies);
+
+    if(foundation.kind==="denied"){
+      return data({kind:"denied" as const},{status:403,headers});
+    }
+    if(foundation.kind==="unavailable"){
+      return data({
+        kind:"step70-unavailable" as const,
+        destination:destinationView,
+        requestId:foundation.requestId,
+      },{status:503,headers});
+    }
+    if(foundation.kind==="boundary"){
+      return data({
+        kind:"step70-boundary" as const,
+        destination:destinationView,
+        reason:foundation.reason,
+      },{headers});
+    }
+    return data({
+      kind:"step70-ready" as const,
+      destination:destinationView,
+      endpoint:foundation.endpoint,
+      status:foundation.status,
       requestId:foundation.requestId,
     },{headers});
   }
@@ -121,6 +155,43 @@ export default function AdminDestinationRoute(){
       </Step69FoundationFrame>
     );
   }
+  if(state.kind==="step70-unavailable"){
+    return (
+      <Step70FoundationFrame destination={state.destination}>
+        <AdminSurfaceState
+          kind="error"
+          title="خواندن وضعیت معتبر این بخش ممکن نشد"
+          description="دادهٔ قدیمی یا حدسی جایگزین پاسخ معتبر سرور نمی‌شود. پس از رفع خطا، وضعیت را دوباره از مرجع بخوانید."
+          requestId={state.requestId}
+          action={{href:"/destinations/"+encodeURIComponent(state.destination.surface),label:"خواندن دوباره"}}
+        />
+      </Step70FoundationFrame>
+    );
+  }
+  if(state.kind==="step70-boundary"){
+    return (
+      <Step70FoundationFrame destination={state.destination}>
+        <AdminSurfaceState
+          kind="unavailable"
+          title="مرز منبع‌اثبات‌شدهٔ این مقصد"
+          description={state.reason}
+        />
+      </Step70FoundationFrame>
+    );
+  }
+  if(state.kind==="step70-ready"){
+    return (
+      <Step70FoundationFrame destination={state.destination}>
+        <section className="destination-reference" aria-labelledby="step70-read-title">
+          <p className="destination-kicker">خواندن معتبر مرحله 70-C</p>
+          <h2 id="step70-read-title">مرجع سرور با موفقیت خوانده شد</h2>
+          <p>پاسخ منبع‌اثبات‌شده از <bdi>{state.endpoint}</bdi> با وضعیت <bdi>{state.status}</bdi> دریافت شد.</p>
+          {state.requestId?<p className="admin-state-request">شناسه پیگیری: <bdi>{state.requestId}</bdi></p>:null}
+          <p>این پاسخ فقط بنیاد خواندن و وضعیت است؛ هیچ کنترل تغییردهنده‌ای در 70-C فعال نیست.</p>
+        </section>
+      </Step70FoundationFrame>
+    );
+  }
 
   return (
     <section className="destination-handoff" aria-labelledby="destination-title">
@@ -182,4 +253,30 @@ function summarizeStep69Read(read:Extract<Step69FoundationRead,{kind:"ready"}>):
     return `${read.records.length} قاعدهٔ وابسته به ارز در پاسخ فعلی دریافت شد.`;
   }
   return "قالب مرجع اکسل از endpoint خواندن canonical دریافت شد؛ بارگذاری و اعمال فایل در مرحله 69-G باقی می‌ماند.";
+}
+
+
+function Step70FoundationFrame({
+  destination,
+  children,
+}:{
+  destination:{surface:string;label:string;groupLabel:string};
+  children:ReactNode;
+}){
+  return (
+    <section className="destination-handoff" aria-labelledby="destination-title">
+      <nav className="admin-breadcrumb" aria-label="مسیر صفحه">
+        <a href="/">مدیریت</a>
+        <span aria-hidden="true">/</span>
+        <span>{destination.groupLabel}</span>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page">{destination.label}</span>
+      </nav>
+      <p className="destination-kicker">بنیاد امن موجودی، تأمین و فروش حضوری</p>
+      <h1 id="destination-title">{destination.label}</h1>
+      <p>مرحلهٔ 70-C فقط خواندن و وضعیت منبع‌اثبات‌شده را فعال می‌کند؛ اختیارهای تغییردهنده در مراحل 70-D تا 70-H باقی می‌مانند.</p>
+      {children}
+      <a className="auth-secondary-link" href="/">بازگشت به نمای کلی</a>
+    </section>
+  );
 }
