@@ -11,8 +11,9 @@ export type InvoiceCreate=ApiComponents["schemas"]["SupplierInvoiceCreateRequest
 export type ReturnCreate=ApiComponents["schemas"]["PurchaseReturnCreateRequest"];
 type Issue={field:string;code:string;message:string};
 export type Validation<T>={ok:true;body:T}|{ok:false;issues:Issue[]};
+export type SettlementRecord={id:string;status:string|null;version:number|null;reference:string|null};
 export type SettlementRead=
-  |{kind:"ready";endpoint:string;requestId:string|null;status:number;setCookies:readonly string[]}
+  |{kind:"ready";endpoint:string;requestId:string|null;status:number;setCookies:readonly string[];records:readonly SettlementRecord[]|null;total:number|null}
   |{kind:"denied"|"not_found"|"unavailable";requestId:string|null;setCookies:readonly string[]};
 export type SettlementMutation=
   |{kind:"confirmed";requestId:string|null;idempotencyKey:string|null;setCookies:readonly string[]}
@@ -106,9 +107,29 @@ export function validateReturnCreate(body:ReturnCreate):Validation<ReturnCreate>
 }
 
 type Bridge=ReturnType<typeof createAdminAuthBridge>;
-async function read(request:Pick<Request,"headers">,endpoint:string,call:(bridge:Bridge)=>Promise<{status:number;requestId:string|null}>):Promise<SettlementRead>{
+/** Project only non-sensitive source-owned identity and version fields. Do not infer a state from absent fields. */
+export function projectSettlementRead(payload:unknown):{records:readonly SettlementRecord[]|null;total:number|null}{
+  let value:unknown=payload;
+  if(value!==null&&typeof value==="object"&&!Array.isArray(value)&&"data" in value)value=(value as {data:unknown}).data;
+  if(value!==null&&typeof value==="object"&&!Array.isArray(value)&&"data" in value)value=(value as {data:unknown}).data;
+  const raw=Array.isArray(value)?value:value!==null&&typeof value==="object"?[value]:null;
+  if(raw===null)return{records:null,total:null};
+  const records:SettlementRecord[]=[];
+  for(const entry of raw.slice(0,100)){
+    if(entry===null||typeof entry!=="object"||Array.isArray(entry))continue;
+    const r=entry as Record<string,unknown>;
+    if(!uuid(r.id))continue;
+    const status=typeof r.status==="string"&&r.status.length<=48&&/^[a-z_]+$/.test(r.status)?r.status:null;
+    const version=typeof r.version==="number"&&Number.isSafeInteger(r.version)&&r.version>0?r.version:null;
+    const reference=[r.receipt_number,r.return_number,r.invoice_number,r.reference,r.reference_number,r.number]
+      .find(x=>typeof x==="string"&&x.length>0&&x.length<=80&&/^[^\r\n\0]+$/.test(x));
+    records.push({id:r.id,status,version,reference:typeof reference==="string"?reference:null});
+  }
+  return{records,total:raw.length};
+}
+async function read(request:Pick<Request,"headers">,endpoint:string,call:(bridge:Bridge)=>Promise<{status:number;requestId:string|null;data:unknown}>):Promise<SettlementRead>{
   let bridge:Bridge|null=null;
-  try{bridge=createAdminAuthBridge(request);const response=await call(bridge);return{kind:"ready",endpoint,status:response.status,requestId:response.requestId,setCookies:bridge.takeSetCookies()};}
+  try{bridge=createAdminAuthBridge(request);const response=await call(bridge);return{kind:"ready",endpoint,status:response.status,requestId:response.requestId,...projectSettlementRead(response.data),setCookies:bridge.takeSetCookies()};}
   catch(err){const cookies=bridge?.takeSetCookies()??[];if(err instanceof ApiClientError&&err.kind==="http"){if(err.status===401||err.status===403)return{kind:"denied",requestId:err.requestId,setCookies:cookies};if(err.status===404)return{kind:"not_found",requestId:err.requestId,setCookies:cookies};}return{kind:"unavailable",requestId:err instanceof ApiClientError?err.requestId:null,setCookies:cookies};}
 }
 export function readSettlement(request:Pick<Request,"headers">,view:SettlementView,id:string|null):Promise<SettlementRead>{
