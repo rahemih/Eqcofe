@@ -41,7 +41,7 @@ export class ProcurementController{
  @StaffOnly() @Permissions('procurement.receipt.manage') @Patch('goods-receipts/:id') updateReceipt(@Param('id')id:string,@Headers('if-match')v:string,@Body()b:any){return this.receipts.updateReceipt(id,{items:b.items},version(v));}
  @StaffOnly() @Permissions('procurement.receipt.manage') @Post('goods-receipts/:id/submit') submitReceipt(@Param('id')id:string,@Headers('if-match')v:string){return this.receipts.transitionReceipt(id,'submitted',version(v));}
  @StaffOnly() @Permissions('procurement.receipt.post') @RequireStepUp() @RequireIdempotency('procurement.receipt.post') @Post('goods-receipts/:id/post') postReceipt(@Param('id')id:string,@Headers('if-match')v:string){return this.receipts.transitionReceipt(id,'posted',version(v));}
- @StaffOnly() @Permissions('procurement.receipt.reverse') @RequireStepUp() @RequireIdempotency('procurement.receipt.reverse') @Post('goods-receipts/:id/reverse') reverseReceipt(@Param('id')id:string,@Headers('if-match')v:string,@Body()b:any){return this.receipts.transitionReceipt(id,'reversed',version(v),b.reason??b.note);}
+ @StaffOnly() @Permissions('procurement.receipt.reverse') @RequireStepUp() @RequireIdempotency('procurement.receipt.reverse') @Post('goods-receipts/:id/reverse') reverseReceipt(@Param('id')id:string,@Headers('if-match')v:string,@Body()b:any){return this.receipts.transitionReceipt(id,'reversed',version(v),b.comment??b.reason??b.note);}
 
  @StaffOnly() @Permissions('procurement.view') @Get('landed-costs') landedCosts(){return this.receipts.landedCosts();}
  @StaffOnly() @Permissions('procurement.view') @Get('landed-costs/:id') landedCost(@Param('id')id:string){return this.receipts.landedCost(id);}
@@ -52,8 +52,8 @@ export class ProcurementController{
  @StaffOnly() @Permissions('procurement.view') @Get('supplier-invoices') invoices(){return this.receipts.invoices();}
  @StaffOnly() @Permissions('procurement.invoice.manage') @RequireIdempotency('procurement.invoice.create') @Post('supplier-invoices') createInvoice(@Body()b:any){return this.receipts.createInvoice(b);}
  @StaffOnly() @Permissions('procurement.invoice.manage') @Post('supplier-invoices/:id/match') matchInvoice(@Param('id')id:string,@Headers('if-match')v:string){return this.receipts.transitionInvoice(id,'matched',version(v));}
- @StaffOnly() @Permissions('procurement.invoice.manage') @Post('supplier-invoices/:id/dispute') disputeInvoice(@Param('id')id:string,@Headers('if-match')v:string,@Body()b:any){return this.receipts.transitionInvoice(id,'disputed',version(v),b.reason??b.note);}
- @StaffOnly() @Permissions('procurement.invoice.manage') @Post('supplier-invoices/:id/cancel') cancelInvoice(@Param('id')id:string,@Headers('if-match')v:string,@Body()b:any){return this.receipts.transitionInvoice(id,'cancelled',version(v),b.reason??b.note);}
+ @StaffOnly() @Permissions('procurement.invoice.manage') @Post('supplier-invoices/:id/dispute') disputeInvoice(@Param('id')id:string,@Headers('if-match')v:string,@Body()b:any){return this.receipts.transitionInvoice(id,'disputed',version(v),b.resolution_note??b.reason??b.note);}
+ @StaffOnly() @Permissions('procurement.invoice.manage') @Post('supplier-invoices/:id/cancel') cancelInvoice(@Param('id')id:string,@Headers('if-match')v:string,@Body()b:any){return this.receipts.transitionInvoice(id,'cancelled',version(v),b.resolution_note??b.reason??b.note);}
 
  @StaffOnly() @Permissions('procurement.view') @Get('purchase-returns') purchaseReturns(){return this.returns.list();}
  @StaffOnly() @Permissions('procurement.view') @Get('purchase-returns/:id') purchaseReturn(@Param('id')id:string){return this.returns.get(id);}
