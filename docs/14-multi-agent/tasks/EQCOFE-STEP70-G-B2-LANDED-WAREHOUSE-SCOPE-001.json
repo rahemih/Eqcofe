@@ -1,0 +1,178 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP70-G-B2-LANDED-WAREHOUSE-SCOPE-001",
+  "title": "Step70-G B2 fail-closed landed-cost preview/finalize warehouse scope",
+  "description": "HIGH-risk security guard: ensure locked landed-cost aggregate resolves authoritative receipt/PO warehouse, and assert warehouse scope before preview allocation or financial finalization. No OpenAPI body changes, tokens, allocation arithmetic or pricing semantics. Preserve existing Step56/57 source-provenance-only hash propagation, no Step70-H/Step71.",
+  "risk": "HIGH",
+  "risk_floor": "HIGH",
+  "owner": "BACKEND_ENGINEERING",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "946ccb63ed210305b0ced2fb12143944ff37b796"
+  },
+  "scope": {
+    "read": [
+      "src/modules/procurement/**",
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "test/**",
+      "docs/13-product-design/**",
+      "docs/11-step-history/**",
+      "scripts/generate-step56*.mjs",
+      "scripts/generate-step57*.mjs",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "docs/13-product-design/step56-admin-ux-contract.json",
+      "docs/13-product-design/step56-admin-shell-wireframes.json",
+      "docs/13-product-design/step56-catalog-media-wireframes.json",
+      "docs/13-product-design/step56-pricing-inventory-wireframes.json",
+      "docs/13-product-design/step56-commerce-operations-wireframes.json",
+      "docs/13-product-design/step56-customers-growth-wireframes.json",
+      "docs/13-product-design/step56-management-security-wireframes.json",
+      "docs/13-product-design/step56-final-audit.json",
+      "docs/13-product-design/step57-high-fidelity-contract.json",
+      "docs/13-product-design/step56-foundation/A/manifest.json",
+      "docs/13-product-design/step56-wireframes/B/manifest.json",
+      "docs/13-product-design/step56-wireframes/C/manifest.json",
+      "docs/13-product-design/step56-wireframes/D/manifest.json",
+      "docs/13-product-design/step56-wireframes/E/manifest.json",
+      "docs/13-product-design/step56-wireframes/F/manifest.json",
+      "docs/13-product-design/step56-wireframes/G/manifest.json",
+      "docs/13-product-design/step56-final-audit/manifest.json",
+      "src/modules/procurement/application/receipt-cost.service.ts",
+      "src/modules/procurement/infrastructure/procurement.repository.ts",
+      "test/procurement/step70-g-landed-warehouse-scope.spec.ts",
+      "docs/11-step-history/STEP-70-G-B2-LANDED-WAREHOUSE-SCOPE.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP70-G-B2-LANDED-WAREHOUSE-SCOPE-001.json"
+    ],
+    "forbidden": [
+      ".github/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "database/**",
+      "apps/**",
+      "scripts/**",
+      "contracts/**",
+      "src/generated/**",
+      "src/platform/**",
+      "src/shared/**",
+      "src/modules/inventory/**",
+      "src/modules/pos/**",
+      "src/modules/pricing/**",
+      "docs/12-current-state/**",
+      "graphify-out/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP70-G-B2-LANDED-WAREHOUSE-SCOPE-001-01"
+  ],
+  "human_gate_required": true,
+  "authorized_human_approver": {
+    "role": "PROJECT_OWNER",
+    "github_login": "rahemih"
+  },
+  "token_budget": {
+    "expected_max": 31000,
+    "soft_alert": 47000,
+    "hard_cap": 94000
+  },
+  "task_risk_rules": [
+    {
+      "id": "STEP70_G_B2_LANDED_SCOPE_HIGH",
+      "risk": "HIGH",
+      "paths": [
+        "docs/14-multi-agent/generated/TASK-CATALOG.md",
+        "docs/13-product-design/step56-admin-ux-contract.json",
+        "docs/13-product-design/step56-admin-shell-wireframes.json",
+        "docs/13-product-design/step56-catalog-media-wireframes.json",
+        "docs/13-product-design/step56-pricing-inventory-wireframes.json",
+        "docs/13-product-design/step56-commerce-operations-wireframes.json",
+        "docs/13-product-design/step56-customers-growth-wireframes.json",
+        "docs/13-product-design/step56-management-security-wireframes.json",
+        "docs/13-product-design/step56-final-audit.json",
+        "docs/13-product-design/step57-high-fidelity-contract.json",
+        "docs/13-product-design/step56-foundation/A/manifest.json",
+        "docs/13-product-design/step56-wireframes/B/manifest.json",
+        "docs/13-product-design/step56-wireframes/C/manifest.json",
+        "docs/13-product-design/step56-wireframes/D/manifest.json",
+        "docs/13-product-design/step56-wireframes/E/manifest.json",
+        "docs/13-product-design/step56-wireframes/F/manifest.json",
+        "docs/13-product-design/step56-wireframes/G/manifest.json",
+        "docs/13-product-design/step56-final-audit/manifest.json",
+        "src/modules/procurement/application/receipt-cost.service.ts",
+        "src/modules/procurement/infrastructure/procurement.repository.ts",
+        "test/procurement/step70-g-landed-warehouse-scope.spec.ts",
+        "docs/11-step-history/STEP-70-G-B2-LANDED-WAREHOUSE-SCOPE.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP70-G-B2-LANDED-WAREHOUSE-SCOPE-001.json"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "Step70-F canonical postmerge",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "946ccb63ed210305b0ced2fb12143944ff37b796",
+      "blocking": false
+    },
+    {
+      "item": "PR #390 B1 source canonical reasons",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "OPEN_UNMERGED",
+      "blocking": true
+    }
+  ],
+  "evidence": {
+    "linear_issue": "HOS-74",
+    "github_issue": "https://github.com/rahemih/Eqcofe/issues/388",
+    "concurrent_pr": "https://github.com/rahemih/Eqcofe/pull/390",
+    "downstream_pr": "https://github.com/rahemih/Eqcofe/pull/387",
+    "scope_basis": "warehouse_id resolved from locked landed cost via receipt/PO; refuse missing warehouse and cross-warehouse before candidates or mutations",
+    "unresolved": "OpenAPI preview/finalize allocation token and unsupported weight remain blocked; B2 solely corrects authorization"
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Locked landed-cost lookup resolves COALESCE receipt or PO warehouse_id and locks only landed-cost target",
+      "verification": "repository_query_audit",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Preview denies out-of-scope or unresolvable warehouse before reading candidates",
+      "verification": "negative_scope_unit",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Finalize denies out-of-scope or unresolvable warehouse before revaluation, inventory or allocations",
+      "verification": "negative_scope_unit",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Existing transaction, If-Match, idempotency, StepUp and allocation algorithms unchanged",
+      "verification": "exact_diff_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Step56/57 provenance only; exact-head tests and independent gate chain required",
+      "verification": "pnpm_verify_phase_a_codeql_security_lock_owner",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "B1 must be canonically integrated and branch rebased with design hashes before B2 merge, no Step70-H or Step71",
+      "verification": "dependency_negative_gate",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": [],
+  "process_improvement_links": [],
+  "incident_links": []
+}
