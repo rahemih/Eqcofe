@@ -49,7 +49,7 @@ for(const [name,guard] of [
   ["return.ship","@RequireIdempotency('procurement.return.ship')"]
 ])assert.ok(controller.includes(guard),`GUARD:${name}`);
 assert.ok(verifyScript["step70-settlement:verify"]?.includes("verify-step70-g-settlement-admin.ts"));
-assert.ok(verifyScript.verify.includes("step70-settlement:verify"));
+assert.ok(String(verifyScript.verify??"").includes("step70-settlement:verify"));
 
 const item={variant_id:uuid(3),received_quantity:4,accepted_quantity:2,quarantine_quantity:1,rejected_quantity:1,unit_cost_toman:1400};
 const receipt={supplier_id:uuid(1),warehouse_id:uuid(2),items:[item]};
@@ -65,9 +65,10 @@ assert.equal(validateLandedCreate({goods_receipt_id:uuid(4),cost_type:"shipping"
 const invoice={supplier_id:uuid(1),invoice_number:"A-1",invoice_date:"2026-10-28",amount_toman:200};
 assert.equal(validateInvoiceCreate(invoice).ok,true);
 assert.equal(validateInvoiceCreate({...invoice,invoice_number:""}).ok,false);
-const ret={supplier_id:uuid(1),warehouse_id:uuid(2),reason:"return",items:[{variant_id:uuid(3),quantity:2,stock_bucket:"quarantine" as const}]};
+const returnItem={variant_id:uuid(3),quantity:2,stock_bucket:"quarantine" as const};
+const ret={supplier_id:uuid(1),warehouse_id:uuid(2),reason:"return",items:[returnItem]};
 assert.equal(validateReturnCreate(ret).ok,true);
-assert.equal(validateReturnCreate({...ret,items:[ret.items[0],ret.items[0]]}).ok,false);
-assert.equal(validateReturnCreate({...ret,items:[{...ret.items[0],quantity:0}]}).ok,false);
+assert.equal(validateReturnCreate({...ret,items:[returnItem,returnItem]}).ok,false);
+assert.equal(validateReturnCreate({...ret,items:[{...returnItem,quantity:0}]}).ok,false);
 
 console.log("Step 70-G bounded settlement administration verifier PASS");
