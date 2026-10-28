@@ -1,0 +1,176 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP70-G-B1-BACKEND-REASON-ALIAS-001",
+  "title": "Step70-G B1 canonical reason aliases for receipt reversal and invoice dispute/cancel",
+  "description": "Narrow HIGH-risk backend controller-to-OpenAPI compatibility correction: receipt reverse consumes ApproveRequest.comment, invoice dispute/cancel consume ResolveRequest.resolution_note. Preserve old legacy aliases as fallback; no business state changes, security guard changes, schema/data changes, landed-cost changes, Step70-H or Step71. Deterministically propagate source provenance only in existing Step56/Step57 generated artifacts.",
+  "risk": "HIGH",
+  "risk_floor": "HIGH",
+  "owner": "BACKEND_ENGINEERING",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "946ccb63ed210305b0ced2fb12143944ff37b796"
+  },
+  "scope": {
+    "read": [
+      "src/modules/procurement/**",
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "test/**",
+      "docs/13-product-design/**",
+      "docs/11-step-history/**",
+      "scripts/generate-step56*.mjs",
+      "scripts/generate-step57*.mjs",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "src/modules/procurement/presentation/procurement.controller.ts",
+      "test/procurement/step70-g-reason-compat.spec.ts",
+      "docs/11-step-history/STEP-70-G-B1-BACKEND-REASON-ALIASES.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP70-G-B1-BACKEND-REASON-ALIAS-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "docs/13-product-design/step56-admin-ux-contract.json",
+      "docs/13-product-design/step56-admin-shell-wireframes.json",
+      "docs/13-product-design/step56-catalog-media-wireframes.json",
+      "docs/13-product-design/step56-pricing-inventory-wireframes.json",
+      "docs/13-product-design/step56-commerce-operations-wireframes.json",
+      "docs/13-product-design/step56-customers-growth-wireframes.json",
+      "docs/13-product-design/step56-management-security-wireframes.json",
+      "docs/13-product-design/step56-final-audit.json",
+      "docs/13-product-design/step57-high-fidelity-contract.json",
+      "docs/13-product-design/step56-foundation/A/manifest.json",
+      "docs/13-product-design/step56-wireframes/B/manifest.json",
+      "docs/13-product-design/step56-wireframes/C/manifest.json",
+      "docs/13-product-design/step56-wireframes/D/manifest.json",
+      "docs/13-product-design/step56-wireframes/E/manifest.json",
+      "docs/13-product-design/step56-wireframes/F/manifest.json",
+      "docs/13-product-design/step56-wireframes/G/manifest.json",
+      "docs/13-product-design/step56-final-audit/manifest.json"
+    ],
+    "forbidden": [
+      ".github/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "database/**",
+      "apps/**",
+      "scripts/**",
+      "contracts/**",
+      "src/generated/**",
+      "src/platform/**",
+      "src/shared/**",
+      "src/modules/inventory/**",
+      "src/modules/pos/**",
+      "src/modules/pricing/**",
+      "docs/12-current-state/**",
+      "graphify-out/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP70-G-B1-BACKEND-REASON-ALIAS-001-01"
+  ],
+  "human_gate_required": true,
+  "authorized_human_approver": {
+    "role": "PROJECT_OWNER",
+    "github_login": "rahemih"
+  },
+  "token_budget": {
+    "expected_max": 31000,
+    "soft_alert": 47000,
+    "hard_cap": 94000
+  },
+  "task_risk_rules": [
+    {
+      "id": "STEP70_G_BACKEND_REASON_ALIAS_HIGH",
+      "risk": "HIGH",
+      "paths": [
+        "src/modules/procurement/presentation/procurement.controller.ts",
+        "test/procurement/step70-g-reason-compat.spec.ts",
+        "docs/11-step-history/STEP-70-G-B1-BACKEND-REASON-ALIASES.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP70-G-B1-BACKEND-REASON-ALIAS-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md",
+        "docs/13-product-design/step56-admin-ux-contract.json",
+        "docs/13-product-design/step56-admin-shell-wireframes.json",
+        "docs/13-product-design/step56-catalog-media-wireframes.json",
+        "docs/13-product-design/step56-pricing-inventory-wireframes.json",
+        "docs/13-product-design/step56-commerce-operations-wireframes.json",
+        "docs/13-product-design/step56-customers-growth-wireframes.json",
+        "docs/13-product-design/step56-management-security-wireframes.json",
+        "docs/13-product-design/step56-final-audit.json",
+        "docs/13-product-design/step57-high-fidelity-contract.json",
+        "docs/13-product-design/step56-foundation/A/manifest.json",
+        "docs/13-product-design/step56-wireframes/B/manifest.json",
+        "docs/13-product-design/step56-wireframes/C/manifest.json",
+        "docs/13-product-design/step56-wireframes/D/manifest.json",
+        "docs/13-product-design/step56-wireframes/E/manifest.json",
+        "docs/13-product-design/step56-wireframes/F/manifest.json",
+        "docs/13-product-design/step56-wireframes/G/manifest.json",
+        "docs/13-product-design/step56-final-audit/manifest.json"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "Step70-F canonical postmerge",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "946ccb63ed210305b0ced2fb12143944ff37b796",
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "linear_issue": "HOS-74",
+    "github_issue": "https://github.com/rahemih/Eqcofe/issues/388",
+    "blocked_frontend_pr": "https://github.com/rahemih/Eqcofe/pull/387",
+    "canonical_schema_authority": [
+      "ApproveRequest.comment",
+      "ResolveRequest.resolution_note"
+    ],
+    "runtime_compat_fields": [
+      "comment??reason??note",
+      "resolution_note??reason??note"
+    ],
+    "strict_negative_scope": "No contract/source-generated types, DB/business logic, permissions, landed-cost, POS or Step71 alterations. Step56/57 only source hash propagation on explicit 17-file allowlist."
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Receipt reverse with canonical comment passes exact string into transitionReceipt; absent comment falls back to prior reason/note",
+      "verification": "controller_mapping_test",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Invoice dispute and cancel with canonical resolution_note pass exact string to transitionInvoice; legacy aliases only fallback",
+      "verification": "controller_mapping_test",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "No change to RequireStepUp, RequireIdempotency, Permissions, If-Match parsing or domain/DB semantics",
+      "verification": "controller_diff_audit",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Exact 17-file Step56/57 source-provenance-only hash propagation; no semantic changes or overwritten historical design verdict",
+      "verification": "design_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "All inherited pnpm verify, Phase A, CodeQL, Review, Security, Lock ACTIVE, Owner Human Gate, protected merge, exact-SHA postmerge and Lock RELEASED required",
+      "verification": "canonical_gate_chain",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "No landed-cost, Step70-H, Step71 or Graph/Graphify changes",
+      "verification": "negative_scope",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": [],
+  "process_improvement_links": [],
+  "incident_links": []
+}
