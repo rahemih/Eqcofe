@@ -1,0 +1,260 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP70-F-SUPPLIER-PR-PO-ADMIN-001",
+  "title": "Step 70-F Supplier Purchase Request and Purchase Order administration",
+  "description": "Implement HIGH-risk Admin procurement administration for AD-D-12, AD-D-13 and AD-D-14 from canonical Backend/OpenAPI authority, including one narrow source-proven controller compatibility repair so PO close consumes canonical resolution_note. Preserve server-owned idempotency, If-Match concurrency, WebAuthn Step-Up, separation-of-duties and fail-closed unknown outcomes. Do not enter 70-G/70-H/Step71. The source-proven controller correction requires provenance-only Step56/57 source-hash propagation on an explicit 17-file allowlist; no design semantics or historical verdicts change.",
+  "risk": "HIGH",
+  "risk_floor": "HIGH",
+  "owner": "FRONTEND_ENGINEERING",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "5d2dbd3acdde3c993253e30391cf3701b3c84ba8"
+  },
+  "scope": {
+    "read": [
+      "package.json",
+      "apps/admin/**",
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "src/modules/procurement/**",
+      "docs/11-step-history/**",
+      "docs/13-product-design/step56-pricing-inventory-wireframes.json",
+      "docs/13-product-design/step56-wireframes/D/**",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "apps/admin/**",
+      "src/modules/procurement/presentation/procurement.controller.ts",
+      "docs/11-step-history/STEP-70-F-SUPPLIER-PR-PO-ADMINISTRATION.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP70-F-SUPPLIER-PR-PO-ADMIN-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "docs/13-product-design/step56-admin-ux-contract.json",
+      "docs/13-product-design/step56-foundation/A/manifest.json",
+      "docs/13-product-design/step56-admin-shell-wireframes.json",
+      "docs/13-product-design/step56-wireframes/B/manifest.json",
+      "docs/13-product-design/step56-catalog-media-wireframes.json",
+      "docs/13-product-design/step56-wireframes/C/manifest.json",
+      "docs/13-product-design/step56-pricing-inventory-wireframes.json",
+      "docs/13-product-design/step56-wireframes/D/manifest.json",
+      "docs/13-product-design/step56-commerce-operations-wireframes.json",
+      "docs/13-product-design/step56-wireframes/E/manifest.json",
+      "docs/13-product-design/step56-customers-growth-wireframes.json",
+      "docs/13-product-design/step56-wireframes/F/manifest.json",
+      "docs/13-product-design/step56-management-security-wireframes.json",
+      "docs/13-product-design/step56-wireframes/G/manifest.json",
+      "docs/13-product-design/step56-final-audit.json",
+      "docs/13-product-design/step56-final-audit/manifest.json",
+      "docs/13-product-design/step57-high-fidelity-contract.json"
+    ],
+    "forbidden": [
+      ".github/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "database/**",
+      "test/**",
+      "scripts/**",
+      "apps/api/**",
+      "apps/worker/**",
+      "apps/scheduler/**",
+      "apps/storefront/**",
+      "docs/12-current-state/**",
+      "graphify-out/**",
+      "contracts/**",
+      "src/generated/**",
+      "src/platform/**",
+      "src/shared/**",
+      "src/modules/inventory/**",
+      "src/modules/pos/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP70-F-SUPPLIER-PR-PO-ADMIN-001-01"
+  ],
+  "human_gate_required": true,
+  "authorized_human_approver": {
+    "role": "PROJECT_OWNER",
+    "github_login": "rahemih"
+  },
+  "token_budget": {
+    "expected_max": 54000,
+    "soft_alert": 84000,
+    "hard_cap": 134000
+  },
+  "task_risk_rules": [
+    {
+      "id": "STEP70_F_PROCUREMENT_ADMIN_HIGH",
+      "risk": "HIGH",
+      "paths": [
+        "apps/admin/**",
+        "src/modules/procurement/presentation/procurement.controller.ts",
+        "docs/11-step-history/STEP-70-F-SUPPLIER-PR-PO-ADMINISTRATION.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP70-F-SUPPLIER-PR-PO-ADMIN-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md",
+        "docs/13-product-design/step56-admin-ux-contract.json",
+        "docs/13-product-design/step56-foundation/A/manifest.json",
+        "docs/13-product-design/step56-admin-shell-wireframes.json",
+        "docs/13-product-design/step56-wireframes/B/manifest.json",
+        "docs/13-product-design/step56-catalog-media-wireframes.json",
+        "docs/13-product-design/step56-wireframes/C/manifest.json",
+        "docs/13-product-design/step56-pricing-inventory-wireframes.json",
+        "docs/13-product-design/step56-wireframes/D/manifest.json",
+        "docs/13-product-design/step56-commerce-operations-wireframes.json",
+        "docs/13-product-design/step56-wireframes/E/manifest.json",
+        "docs/13-product-design/step56-customers-growth-wireframes.json",
+        "docs/13-product-design/step56-wireframes/F/manifest.json",
+        "docs/13-product-design/step56-management-security-wireframes.json",
+        "docs/13-product-design/step56-wireframes/G/manifest.json",
+        "docs/13-product-design/step56-final-audit.json",
+        "docs/13-product-design/step56-final-audit/manifest.json",
+        "docs/13-product-design/step57-high-fidelity-contract.json"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "70-E Inventory flow administration",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "5d2dbd3acdde3c993253e30391cf3701b3c84ba8",
+      "terminal_evidence_comment": 6440192366,
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "linear_issue": "HOS-74",
+    "graph_state": "RETIRED_AND_OUT_OF_SCOPE",
+    "surfaces": [
+      "AD-D-12",
+      "AD-D-13",
+      "AD-D-14"
+    ],
+    "operation_count": 23,
+    "read_authority": [
+      "GET /admin/procurement/suppliers",
+      "GET /admin/procurement/suppliers/{id}",
+      "GET /admin/procurement/purchase-requests",
+      "GET /admin/procurement/purchase-requests/{id}",
+      "GET /admin/procurement/purchase-orders",
+      "GET /admin/procurement/purchase-orders/{id}"
+    ],
+    "idempotent_mutations": [
+      "POST /admin/procurement/suppliers",
+      "POST /admin/procurement/purchase-requests",
+      "POST /admin/procurement/purchase-orders"
+    ],
+    "versioned_mutations": [
+      "PATCH /admin/procurement/suppliers/{id}",
+      "POST /admin/procurement/suppliers/{id}/activate",
+      "POST /admin/procurement/suppliers/{id}/deactivate",
+      "PATCH /admin/procurement/purchase-requests/{id}",
+      "POST /admin/procurement/purchase-requests/{id}/submit",
+      "POST /admin/procurement/purchase-requests/{id}/approve",
+      "POST /admin/procurement/purchase-requests/{id}/reject",
+      "POST /admin/procurement/purchase-requests/{id}/cancel",
+      "PATCH /admin/procurement/purchase-orders/{id}",
+      "POST /admin/procurement/purchase-orders/{id}/submit",
+      "POST /admin/procurement/purchase-orders/{id}/approve",
+      "POST /admin/procurement/purchase-orders/{id}/send",
+      "POST /admin/procurement/purchase-orders/{id}/cancel",
+      "POST /admin/procurement/purchase-orders/{id}/close"
+    ],
+    "step_up_mutations": [
+      "POST /admin/procurement/purchase-requests/{id}/approve",
+      "POST /admin/procurement/purchase-requests/{id}/reject",
+      "POST /admin/procurement/purchase-orders/{id}/approve"
+    ],
+    "controller_drift_correction": {
+      "path": "POST /admin/procurement/purchase-orders/{id}/close",
+      "canonical_body_field": "resolution_note",
+      "prior_runtime_forwarding": "reason ?? note",
+      "correction": "resolution_note ?? reason ?? note",
+      "database_mutation": false,
+      "openapi_mutation": false
+    },
+    "unsupported_runtime_field": "Purchase Request item suggested_quantity remains contract-visible but has no runtime service/repository authority; Admin does not silently submit it.",
+    "design_provenance_repair": "The authorized one-line procurement.controller.ts compatibility repair changes a mutable recovered source hash. Stage70-F permits only generator-equivalent Step56/57 source SHA/manifest/final-audit/high-fidelity hash propagation on the 17 explicitly allowlisted Product Design provenance files; no screen, journey, operation, permission, visual, approval, review status, runtime-release or historical verdict semantics may change."
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Exactly AD-D-12/13/14 and 23 source-backed operations are owned.",
+      "verification": "step70_f_scope",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Three create mutations use fresh server-owned idempotency keys and browser cannot set them.",
+      "verification": "step70_f_idempotency",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Fourteen update/transition mutations use If-Match current version and fail closed on conflicts.",
+      "verification": "step70_f_concurrency",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Only PR approve/reject and PO approve use existing WebAuthn Step-Up; separation-of-duties stays Backend-owned.",
+      "verification": "step70_f_stepup_sod",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Supplier, PR and PO validation preserves runtime invariants including nonnegative integer Toman and discount <= subtotal.",
+      "verification": "step70_f_validation",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Unknown network/timeout/abort/408/5xx outcomes never auto-retry; operator must authoritative re-read.",
+      "verification": "step70_f_unknown_outcome",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "PO close controller consumes canonical resolution_note with no state/database/OpenAPI change.",
+      "verification": "step70_f_close_drift",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "No 70-G/70-H/Step71/Graph authority is introduced.",
+      "verification": "step70_f_negative_scope",
+      "mandatory": true
+    },
+    {
+      "id": "AC-009",
+      "description": "Admin verify chain includes deterministic Step70-F verifier and preserves inherited verification.",
+      "verification": "admin_verify_chain",
+      "mandatory": true
+    },
+    {
+      "id": "AC-010",
+      "description": "HIGH-risk exact-artifact gate sequence and postmerge closure are mandatory before 70-G.",
+      "verification": "canonical_high_risk_gate_sequence",
+      "mandatory": true
+    },
+    {
+      "id": "AC-011",
+      "description": "Recovered Step56/57 evidence affected only by the authorized procurement.controller.ts compatibility correction is synchronized by source SHA/manifest/final-audit/high-fidelity hash propagation on the explicit 17-file allowlist; no screen, journey, operation, permission, visual semantics, approval state or historical verdict changes.",
+      "verification": "step56_step57_provenance_only_repair",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "REVIEW",
+      "SECURITY",
+      "HUMAN",
+      "LOCK"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "Project Owner approval only after exact-head technical/security/review evidence and ACTIVE exact-artifact Lock."
+  },
+  "process_improvement_links": [],
+  "incident_links": []
+}

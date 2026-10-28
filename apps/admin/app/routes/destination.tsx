@@ -37,6 +37,9 @@ export async function loader({request,params}:{request:Request;params:{surfaceId
   if(destination.surface==="AD-D-08")throw redirect("/inventory-flows/transfers",{headers});
   if(destination.surface==="AD-D-09")throw redirect("/inventory-flows/reservations",{headers});
   if(destination.surface==="AD-D-10")throw redirect("/inventory-flows/allocations",{headers});
+  if(destination.surface==="AD-D-12")throw redirect("/procurement/suppliers",{headers});
+  if(destination.surface==="AD-D-13")throw redirect("/procurement/requests",{headers});
+  if(destination.surface==="AD-D-14")throw redirect("/procurement/orders",{headers});
   if(isStep69FoundationSurface(destination.surface)){
     const foundation=await readStep69Foundation(request,destination.surface);
     appendAdminAuthSetCookies(headers,foundation.setCookies);

@@ -15332,7 +15332,7 @@
     },
     {
       "path": "src/modules/procurement/presentation/procurement.controller.ts",
-      "sha256": "871ecb4f32a5ff212e844d6855565a3e5ac6f62792559031d3fe5ad7d35499e3"
+      "sha256": "6f8e6c33bdc5559b0e1e5443929ebb87234a15dbed46826e366b6983db14c7a3"
     },
     {
       "path": "src/modules/procurement/procurement.module.ts",

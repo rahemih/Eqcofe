@@ -794,15 +794,15 @@
     },
     {
       "path": "docs/13-product-design/step56-admin-shell-wireframes.json",
-      "sha256": "797deeaa77a5ac4170d38dd046f50f6d960de630e2897e5aa95f49a7729404ef"
+      "sha256": "1f05a4fe5903abf09e7bff88b895b72bb63be4a6427f3266be394f7c3be0f29e"
     },
     {
       "path": "docs/13-product-design/step56-admin-ux-contract.json",
-      "sha256": "179cec0d250678c05c2836be9b2448710317e75e3ecec84e812dd64ed4567080"
+      "sha256": "0d3562b826a3ef2e44645a56e06c2bfa315333e5c9161c2df6cb9dfcd8317b5f"
     },
     {
       "path": "docs/13-product-design/step56-catalog-media-wireframes.json",
-      "sha256": "bfb1218f67979eb53fa2398b2cc86eec2248f46cca88e706d8e5131530c7be5b"
+      "sha256": "0c161dfafe7bc1804f01bd510d8c7182229514a29f108a4315b5e0eb4999ffd2"
     },
     {
       "path": "src/modules/catalog/application/catalog-import-apply.service.ts",
@@ -1066,7 +1066,7 @@
     },
     {
       "path": "src/modules/procurement/presentation/procurement.controller.ts",
-      "sha256": "871ecb4f32a5ff212e844d6855565a3e5ac6f62792559031d3fe5ad7d35499e3"
+      "sha256": "6f8e6c33bdc5559b0e1e5443929ebb87234a15dbed46826e366b6983db14c7a3"
     },
     {
       "path": "src/modules/procurement/procurement.module.ts",

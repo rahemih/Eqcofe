@@ -33,7 +33,7 @@ export class ProcurementController{
  @StaffOnly() @Permissions('procurement.po.approve') @RequireStepUp() @Post('purchase-orders/:id/approve') approveOrder(@Param('id')id:string,@Headers('if-match')v:string){return this.purchase.transitionOrder(id,'approved',version(v));}
  @StaffOnly() @Permissions('procurement.po.manage') @Post('purchase-orders/:id/send') sendOrder(@Param('id')id:string,@Headers('if-match')v:string){return this.purchase.transitionOrder(id,'sent',version(v));}
  @StaffOnly() @Permissions('procurement.po.manage') @Post('purchase-orders/:id/cancel') cancelOrder(@Param('id')id:string,@Headers('if-match')v:string,@Body()b:any){return this.purchase.transitionOrder(id,'cancelled',version(v),b.reason??b.note);}
- @StaffOnly() @Permissions('procurement.po.manage') @Post('purchase-orders/:id/close') closeOrder(@Param('id')id:string,@Headers('if-match')v:string,@Body()b:any){return this.purchase.transitionOrder(id,'closed',version(v),b.reason??b.note);}
+ @StaffOnly() @Permissions('procurement.po.manage') @Post('purchase-orders/:id/close') closeOrder(@Param('id')id:string,@Headers('if-match')v:string,@Body()b:any){return this.purchase.transitionOrder(id,'closed',version(v),b.resolution_note??b.reason??b.note);}
 
  @StaffOnly() @Permissions('procurement.view') @Get('goods-receipts') listReceipts(){return this.receipts.receipts();}
  @StaffOnly() @Permissions('procurement.view') @Get('goods-receipts/:id') receipt(@Param('id')id:string){return this.receipts.receipt(id);}
