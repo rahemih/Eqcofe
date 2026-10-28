@@ -4,7 +4,7 @@ import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import {
   validateReceiptCreate, validateReceiptUpdate, validateLandedCreate,
-  validateInvoiceCreate, validateReturnCreate,
+  validateInvoiceCreate, validateReturnCreate, projectSettlementRead,
 } from "../app/operations/procurement-settlement.server.js";
 
 const repo=resolve(fileURLToPath(new URL("../..",import.meta.url)),"..");
@@ -48,6 +48,18 @@ for(const [name,guard] of [
   ["landed.finalize","@RequireIdempotency('procurement.landed_cost.finalize')"],
   ["return.ship","@RequireIdempotency('procurement.return.ship')"]
 ] as const)assert.ok(controller.includes(guard),`GUARD:${name}`);
+assert.ok(server.includes("projectSettlementRead(response.data)"),"STEP70_G_AUTHORIZED_READ_PROJECTION");
+assert.ok(route.includes("state.records.map")&&route.includes("item.version"),"STEP70_G_AUTHORITATIVE_VERSION_VISIBILITY");
+assert.ok(route.includes('view==="invoices"?"مسیر جزئیات وجود ندارد"'),"STEP70_G_NO_INVOICE_DETAIL_FABRICATION");
+const sourceRow={id:uuid(5),status:"posted",version:3,receipt_number:"GR-10",supplier_tax_identifier:"sensitive"};
+const projected=projectSettlementRead({data:{data:[sourceRow]}});
+assert.deepEqual(projected,{records:[{id:uuid(5),status:"posted",version:3,reference:"GR-10"}],total:1});
+assert.ok(!JSON.stringify(projected).includes("sensitive"),"STEP70_G_READ_MINIMAL_DISCLOSURE");
+assert.deepEqual(projectSettlementRead({data:[{id:"invalid",version:2},{id:uuid(6),status:"malformed\\n",version:0}]}),
+  {records:[{id:uuid(6),status:null,version:null,reference:null}],total:2});
+assert.deepEqual(projectSettlementRead(undefined),{records:null,total:null});
+assert.deepEqual(projectSettlementRead([]),{records:[],total:0});
+assert.equal(projectSettlementRead(Array.from({length:101},(_,i)=>({id:uuid((i%6)+1)}))).records?.length,100);
 assert.ok(verifyScript["step70-settlement:verify"]?.includes("verify-step70-g-settlement-admin.ts"));
 assert.ok(String(verifyScript.verify??"").includes("step70-settlement:verify"));
 
