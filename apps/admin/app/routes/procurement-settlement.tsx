@@ -23,7 +23,7 @@ const labels:Record<SettlementView,string>={
 const initial:Record<SettlementView,string>={
   receipts:JSON.stringify({supplier_id:"",warehouse_id:"",items:[{variant_id:"",received_quantity:1,accepted_quantity:1,quarantine_quantity:0,rejected_quantity:0,unit_cost_toman:0}]},null,2),
   "landed-costs":JSON.stringify({goods_receipt_id:"",cost_type:"shipping",amount_toman:0,allocation_method:"quantity"},null,2),
-  invoices:JSON.stringify({supplier_id:"",invoice_number:"",invoice_date:"2026-10-28",amount_toman:0},null,2),
+  invoices:JSON.stringify({supplier_id:"",invoice_number:"",invoice_date:"",amount_toman:0},null,2),
   returns:JSON.stringify({supplier_id:"",warehouse_id:"",reason:"",items:[{variant_id:"",quantity:1,stock_bucket:"quarantine"}]},null,2),
 };
 const allowedTransitions:Record<SettlementView,readonly {value:string;label:string}[]>={
