@@ -71,7 +71,7 @@ export async function loader({request,params}:{request:Request;params:{view?:str
   if(id&&!operationsUuid(id))return data({kind:"invalid" as const,view},{status:400});
   const result=await readSettlement(request,view,id||null),headers=cookies(result.setCookies);
   if(result.kind!=="ready")return data({kind:result.kind,view,requestId:result.requestId},{status:result.kind==="denied"?403:result.kind==="not_found"?404:503,headers});
-  return data({kind:"ready" as const,view,endpoint:result.endpoint,requestId:result.requestId,status:result.status},{headers});
+  return data({kind:"ready" as const,view,endpoint:result.endpoint,requestId:result.requestId,status:result.status,records:result.records,total:result.total},{headers});
 }
 export async function action({request}:{request:Request}){
   if(request.method!=="POST"||!isTrustedOperationsFormOrigin(request))return bad("درخواست از مبدأ معتبر ارسال نشده است.",403);
@@ -140,6 +140,16 @@ export default function ProcurementSettlementRoute(){
     {state.kind==="ready"?<section aria-label="نتیجه خواندن داده">
       <p role="status">خواندن مسیر مجاز با HTTP {state.status} انجام شد.</p>
       <p>مسیر: <bdi>{state.endpoint}</bdi></p>{state.requestId?<p>شناسه درخواست: <bdi>{state.requestId}</bdi></p>:null}
+      {state.records===null?<p role="status">قرارداد پاسخ این منبع، جزئیات قابل‌نمایش تأییدشده ندارد؛ فقط نتیجهٔ HTTP قطعی است.</p>:
+        <section aria-label="فهرست شناسه‌ها و نسخه‌های معتبر">
+          <p>{state.total===null?"تعداد مشخص نیست":`تعداد ردیف پاسخ: ${state.total}؛ حداکثر ۱۰۰ ردیف اول نمایش داده می‌شود.`}</p>
+          {state.records.length===0?<p>هیچ ردیف معتبر دارای شناسه UUID در پاسخ یافت نشد؛ نتیجه به‌معنای خالی بودن قطعی پایگاه داده نیست.</p>:
+          <table><caption>شناسه، مرجع، وضعیت و نسخه از پاسخ فعلی Backend</caption><thead><tr><th scope="col">شناسه</th><th scope="col">مرجع</th><th scope="col">وضعیت</th><th scope="col">نسخه</th><th scope="col">جزئیات</th></tr></thead>
+            <tbody>{state.records.map(item=><tr key={item.id}>
+              <td><bdi>{item.id}</bdi></td><td>{item.reference??"—"}</td><td>{item.status??"نامشخص"}</td><td>{item.version??"نامشخص"}</td>
+              <td>{view==="invoices"?"مسیر جزئیات وجود ندارد":<Link to={`?id=${item.id}`}>مشاهده</Link>}</td>
+            </tr>)}</tbody></table>}
+        </section>}
       <Form method="get"><label htmlFor="settlement-detail">شناسه UUID برای مشاهده جزئیات (فاکتور جزئیات ندارد)</label>
         <input id="settlement-detail" name="id" placeholder="UUID" disabled={view==="invoices"}/><button type="submit" disabled={view==="invoices"}>بازخوانی مرجع</button></Form>
     </section>:<p role="alert">{state.kind==="invalid"?"UUID معتبر نیست.":state.kind==="denied"?"مجوز خواندن وجود ندارد.":state.kind==="not_found"?"مرجع پیدا نشد.":"خواندن وضعیت معتبر Backend امکان‌پذیر نیست."}</p>}
