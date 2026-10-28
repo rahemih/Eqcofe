@@ -34,6 +34,8 @@ function receiptItems(items:ReceiptCreate["items"]):Issue[]{
   if(!Array.isArray(items)||items.length===0||items.length>1000)return [error("items","ITEMS_REQUIRED","اقلام رسید باید بین ۱ تا ۱۰۰۰ قلم باشند.")];
   const ids:string[]=[];
   for(const [i,x] of items.entries()){
+    if(!x||typeof x!=="object"){issues.push(error(`items.${i}`,"INVALID_ITEM","ساختار قلم معتبر نیست."));continue;}
+    if(!hasOnly(x,["purchase_order_item_id","variant_id","received_quantity","accepted_quantity","quarantine_quantity","rejected_quantity","unit_cost_toman"]))issues.push(error(`items.${i}`,"UNSUPPORTED_FIELD","فیلد ناشناخته در قلم مجاز نیست."));
     if(!uuid(x.variant_id))issues.push(error(`items.${i}.variant_id`,"INVALID_ID","شناسه کالا معتبر نیست."));
     if(!optionalId(x.purchase_order_item_id))issues.push(error(`items.${i}.purchase_order_item_id`,"INVALID_ID","شناسه قلم سفارش خرید معتبر نیست."));
     if(!quantity(x.received_quantity))issues.push(error(`items.${i}.received_quantity`,"INVALID_QUANTITY","تعداد دریافتی باید مثبت باشد."));
@@ -69,7 +71,7 @@ export function validateLandedCreate(body:LandedCreate):Validation<LandedCreate>
   if(!optionalId(body.purchase_order_id)||!optionalId(body.goods_receipt_id))issues.push(error("source","INVALID_ID","شناسه منبع معتبر نیست."));
   if(!["shipping","insurance","customs","handling","other"].includes(body.cost_type))issues.push(error("cost_type","INVALID_TYPE","نوع هزینه مجاز نیست."));
   if(!money(body.amount_toman))issues.push(error("amount_toman","INVALID_MONEY","مبلغ صحیح نامنفی تومان الزامی است."));
-  if(!["quantity","value","manual"].includes(body.allocation_method))issues.push(error("allocation_method","UNSUPPORTED_RUNTIME_METHOD","روش weight در Backend فعلی پشتیبانی نمی‌شود."));
+  if(!["quantity","value"].includes(body.allocation_method))issues.push(error("allocation_method","UNSUPPORTED_RUNTIME_METHOD","روش weight پشتیبانی نمی‌شود؛ تخصیص دستی نیز تا اصلاح قرارداد پیش‌نمایش/نهایی‌سازی مسدود است."));
   return issues.length?invalid(issues):valid(body);
 }
 export function validateInvoiceCreate(body:InvoiceCreate):Validation<InvoiceCreate>{
@@ -78,7 +80,7 @@ export function validateInvoiceCreate(body:InvoiceCreate):Validation<InvoiceCrea
   if(!uuid(body.supplier_id))issues.push(error("supplier_id","INVALID_ID","شناسه تأمین‌کننده معتبر نیست."));
   if(!optionalId(body.purchase_order_id))issues.push(error("purchase_order_id","INVALID_ID","شناسه سفارش خرید معتبر نیست."));
   if(!body.invoice_number?.trim()||body.invoice_number.length>80)issues.push(error("invoice_number","INVALID_INVOICE","شماره فاکتور الزامی است (حداکثر ۸۰ نویسه)."));
-  if(!/^\d{4}-\d{2}-\d{2}$/.test(body.invoice_date)||!Number.isFinite(Date.parse(body.invoice_date)))issues.push(error("invoice_date","INVALID_DATE","تاریخ معتبر لازم است."));
+  if(!/^\d{4}-\d{2}-\d{2}$/.test(body.invoice_date)||!Number.isFinite(Date.parse(body.invoice_date))||new Date(body.invoice_date).toISOString().slice(0,10)!==body.invoice_date)issues.push(error("invoice_date","INVALID_DATE","تاریخ معتبر لازم است."));
   if(!money(body.amount_toman))issues.push(error("amount_toman","INVALID_MONEY","مبلغ صحیح نامنفی تومان الزامی است."));
   return issues.length?invalid(issues):valid(body);
 }
@@ -91,6 +93,8 @@ export function validateReturnCreate(body:ReturnCreate):Validation<ReturnCreate>
   else {
     const ids:string[]=[];
     for(const [i,x] of body.items.entries()){
+      if(!x||typeof x!=="object"){issues.push(error(`items.${i}`,"INVALID_ITEM","ساختار قلم معتبر نیست."));continue;}
+      if(!hasOnly(x,["variant_id","quantity","stock_bucket"]))issues.push(error(`items.${i}`,"UNSUPPORTED_FIELD","فیلد ناشناخته در قلم مجاز نیست."));
       if(!uuid(x.variant_id))issues.push(error(`items.${i}.variant_id`,"INVALID_ID","شناسه کالا نامعتبر است."));
       if(!quantity(x.quantity))issues.push(error(`items.${i}.quantity`,"INVALID_QUANTITY","تعداد باید صحیح و مثبت باشد."));
       if(!["sellable","quarantine","damaged"].includes(x.stock_bucket))issues.push(error(`items.${i}.stock_bucket`,"INVALID_BUCKET","باکت نامعتبر است."));
@@ -131,7 +135,7 @@ async function mutate(request:Pick<Request,"headers">,idempotent:boolean,stepUpT
       if(err.status===404)return{kind:"not_found",...base};
       if(err.status===409||err.status===412||err.status===428)return{kind:"conflict",...base};
       if(err.status===400||err.status===422)return{kind:"invalid",issues:err.fieldErrors.map(e=>({field:e.field,code:e.code,message:e.message})),...base};
-      if(err.status===408||(err.status!==null&&err.status>=500))return{kind:"unknown_outcome",...base};
+      if(err.status===408||(typeof err.status==="number"&&err.status>=500))return{kind:"unknown_outcome",...base};
     }
     return{kind:"unavailable",...base};
   }
