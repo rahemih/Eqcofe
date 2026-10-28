@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { ReceiptCostService } from '../../src/modules/procurement/application/receipt-cost.service';
 import { ScopePolicy } from '../../src/platform/auth/scope-policy';
+import { DomainError } from '../../src/shared/errors/domain-error';
 
 const WAREHOUSE_OK='11111111-1111-4111-8111-111111111111';
 const WAREHOUSE_OTHER='22222222-2222-4222-8222-222222222222';
@@ -42,7 +43,7 @@ test('70-G B2 preview rejects wrong warehouse before candidates',async()=>{
 });
 test('70-G B2 preview refuses unresolved warehouse before candidates',async()=>{
  const x=fixture(null);
- await assert.rejects(x.service.previewAllocation('lc'),/LANDED_COST_SCOPE_UNRESOLVED/);
+ await assert.rejects(x.service.previewAllocation('lc'),(e:unknown)=>e instanceof DomainError&&e.code==='LANDED_COST_SCOPE_UNRESOLVED');
  assert.deepEqual(x.events,['locked_cost']);
 });
 test('70-G B2 finalize rejects wrong warehouse before mutations',async()=>{
@@ -52,7 +53,7 @@ test('70-G B2 finalize rejects wrong warehouse before mutations',async()=>{
 });
 test('70-G B2 finalize refuses unresolved warehouse before mutations',async()=>{
  const x=fixture(null);
- await assert.rejects(x.service.finalizeLandedCost('lc',2),/LANDED_COST_SCOPE_UNRESOLVED/);
+ await assert.rejects(x.service.finalizeLandedCost('lc',2),(e:unknown)=>e instanceof DomainError&&e.code==='LANDED_COST_SCOPE_UNRESOLVED');
  assert.deepEqual(x.events,['locked_cost']);
 });
 test('70-G B2 authorized preview computes only after scope check',async()=>{
