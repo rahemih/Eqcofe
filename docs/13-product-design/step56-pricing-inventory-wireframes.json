@@ -1046,7 +1046,7 @@
     },
     {
       "path": "src/modules/procurement/application/receipt-cost.service.ts",
-      "sha256": "4bff3ef805144af126dfca9bbd9a82dab6672277430c6ce81f2bde9fdc10d413"
+      "sha256": "66d522324de2ff37264126e1c7ea45c5da8662342a1a52b0d7a93bfee154a55c"
     },
     {
       "path": "src/modules/procurement/application/supplier.service.ts",
@@ -1062,7 +1062,7 @@
     },
     {
       "path": "src/modules/procurement/infrastructure/procurement.repository.ts",
-      "sha256": "ba57ccc13251f67fa93e21629fed5ba39d52afef4da4834e9ebd73481c550f6b"
+      "sha256": "a834c9c17700f6a3a396e196fe4f1e6566a94517bd307c761bbcaf9ff2e994f8"
     },
     {
       "path": "src/modules/procurement/presentation/procurement.controller.ts",
