@@ -134,6 +134,7 @@
 | EQCOFE-STEP70-D-INVENTORY-ADMIN-001 | Step 70-D Inventory administration | HIGH | REQUIRED | `7d7b1468e33b0ec0c7e0e47061e50bb63e72374c` | 52000/82000/132000 |
 | EQCOFE-STEP70-E-INVENTORY-FLOW-ADMIN-001 | Step 70-E Transfer Reservation Allocation and Sale Consumption administration | HIGH | REQUIRED | `acbb8e35a29bdffec27d1ea9d7ce12ea4c402a01` | 52000/82000/132000 |
 | EQCOFE-STEP70-F-SUPPLIER-PR-PO-ADMIN-001 | Step 70-F Supplier Purchase Request and Purchase Order administration | HIGH | REQUIRED | `5d2dbd3acdde3c993253e30391cf3701b3c84ba8` | 54000/84000/134000 |
+| EQCOFE-STEP70-G-B1-BACKEND-REASON-ALIAS-001 | Step70-G B1 canonical reason aliases for receipt reversal and invoice dispute/cancel | HIGH | REQUIRED | `946ccb63ed210305b0ced2fb12143944ff37b796` | 31000/47000/94000 |
 | MA-AGENT-A0-ORCHESTRATOR-001 | A0 — Orchestrator / Engineering Manager Prompt | LOW | NOT_REQUIRED | `f7919991e619d416360e74a542741ef21c70f732` | 10000/16000/32000 |
 | MA-AGENT-A1-SPEC-001 | A1 — Specification & Research Prompt | LOW | NOT_REQUIRED | `120898df57138b301560e7d9b9f1b3f5da03e982` | 10000/16000/32000 |
 | MA-AGENT-A10-EVIDENCE-001 | A10 — Evidence & Documentation Prompt | LOW | NOT_REQUIRED | `bdf8fccde4ca40cced48381ad3be2e0461ade535` | 12000/18000/35000 |
@@ -179,4 +180,4 @@
 | MA-V1-ACC-MEDIUM-001 | V1 Acceptance MEDIUM R2 — telemetry terminal-state conflict hardening | MEDIUM | NOT_REQUIRED | `9017e0f25e9571568ed9acf4ca3ca977ce9e78f0` | 15000/25000/50000 |
 | MA-V1-ACCEPTANCE-CLOSURE-V16-R2-001 | V1.6 Phase 3 canonical acceptance closure R2 | HIGH | REQUIRED | `d7d235f5f240b8bea44bc607afa812b2f5bb12d4` | 30000/50000/90000 |
 
-Task contracts indexed: **173**.
+Task contracts indexed: **174**.
