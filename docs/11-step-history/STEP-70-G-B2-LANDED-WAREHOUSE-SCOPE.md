@@ -10,7 +10,7 @@ Status: **DRAFT / FAIL-CLOSED / NOT CANONICAL**. Parent [Issue #388](https://git
 
 - Locked aggregate query joins receipt/PO and projects `COALESCE(gr.warehouse_id,po.warehouse_id)` as `warehouse_id`, with `FOR UPDATE OF lc` locking only the landed cost, never the nullable side of an outer join.
 - Both service operations fail closed when warehouse authority cannot be resolved. Both call existing `ScopePolicy.assert(actor,'warehouse',warehouseId)` before candidate reads, allocation persistence, inventory revaluation or audit events.
-- Negative tests cover wrong-warehouse and missing-warehouse for **each** operation, and a positive authorized preview. Preserve existing transaction, Step-Up, idempotency, If-Match, signed-in actor semantics and allocation math.
+- Seven targeted tests cover wrong-warehouse and missing-warehouse for **each** operation, an authorized preview, an authorized finalize through inventory revaluation/audit/outbox, and the locked SQL query. Preserve existing transaction, Step-Up, idempotency, If-Match, signed-in actor semantics and allocation math.
 - Controller, OpenAPI, generated types, DB schema, other modules, approval lifecycle, scheduled operations, and Step70-H/Step71 remain unchanged.
 - The 17-file Step56/Step57 source-provenance allowlist was checked; only **11 transitively affected** generated design/prototype files required SHA updates. The other six remained unchanged. No UI semantics or historical verdicts are modified.
 
