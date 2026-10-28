@@ -105,7 +105,7 @@ export async function action({request}:{request:Request}){
   if(intent==="verify-stepup"){
     const context=parseContext(form),credential=parseJson(form.get("credential"));
     if(!context||!credential)return bad("نتیجه WebAuthn یا مشخصات عملیات معتبر نیست.",400);
-    const verified=await verifyAdminStepUp(request,credential);
+    const verified=await verifyAdminStepUp(request,credential as Parameters<typeof verifyAdminStepUp>[1]);
     if(!verified.ok)return bad("کلید امنیتی تأیید نشد؛ عملیات ارسال نشده است.",403);
     if(context.entity==="receipt")return outcome(await postReceipt(request,context.id,context.version,verified.token),"ثبت قطعی رسید");
     if(context.transition==="approve")return outcome(await approvePurchaseReturn(request,context.id,context.version,verified.token),"تأیید مرجوعی");
@@ -129,7 +129,7 @@ export default function ProcurementSettlementRoute(){
       }).catch(()=>{done.current=null;setClientError("تأیید WebAuthn لغو شد؛ عملیات ارسال نشده است.");feedback.current?.focus();});
     }else if(value.kind!=="challenge"){done.current=null;feedback.current?.focus();}
   },[fetcher.data,fetcher]);
-  const view=state.view,busy=fetcher.state!=="idle"||navigation.state!=="idle";
+  const view=state.view,busy=fetcher.state!=="idle"||navigation.state!=="idle"||state.kind!=="ready";
   return <section className="pricing-page" aria-labelledby="settlement-title" dir="rtl">
     <nav className="admin-breadcrumb" aria-label="مسیر صفحه"><Link to="/">مدیریت</Link><span>/</span><Link to="/procurement/orders">تدارکات</Link><span>/</span><span>{labels[view]}</span></nav>
     <header className="pricing-heading"><p className="destination-kicker">Step 70-G · AD-D-15–18</p><h1 id="settlement-title">مدیریت تکمیلی تدارکات — {labels[view]}</h1>
