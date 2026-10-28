@@ -47,7 +47,7 @@ for(const [name,guard] of [
   ["receipt.reverse","@RequireIdempotency('procurement.receipt.reverse')"],
   ["landed.finalize","@RequireIdempotency('procurement.landed_cost.finalize')"],
   ["return.ship","@RequireIdempotency('procurement.return.ship')"]
-])assert.ok(controller.includes(guard),`GUARD:${name}`);
+] as const)assert.ok(controller.includes(guard),`GUARD:${name}`);
 assert.ok(verifyScript["step70-settlement:verify"]?.includes("verify-step70-g-settlement-admin.ts"));
 assert.ok(String(verifyScript.verify??"").includes("step70-settlement:verify"));
 
