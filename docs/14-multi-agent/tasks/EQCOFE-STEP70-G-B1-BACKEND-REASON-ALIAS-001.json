@@ -63,8 +63,7 @@
       "src/modules/pos/**",
       "src/modules/pricing/**",
       "docs/12-current-state/**",
-      "graphify-out/**",
-      "docs/13-product-design/step56-wireframes/**/AD-*/**"
+      "graphify-out/**"
     ]
   },
   "requested_lock_ids": [
