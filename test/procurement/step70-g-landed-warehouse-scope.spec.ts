@@ -16,10 +16,13 @@ function fixture(warehouseId:string|null,allowed:string[]=[WAREHOUSE_OK]){
     landedCostForUpdate:async()=>{events.push('locked_cost');return{id:'lc',version:2,status:'draft',warehouse_id:warehouseId,allocation_method:'quantity',amount_toman:10,allocations:[]};},
     allocationCandidates:async()=>{events.push('candidates');return[{id:'44444444-4444-4444-8444-444444444444',accepted_quantity:1,quarantine_quantity:0,unit_cost_toman:10}];},
     replaceAllocations:async()=>{events.push('write_allocations');},
+    finalizeLandedCost:async()=>{events.push('finalize');},
   };
-  const inventory={revalueReceiptItem:async()=>{events.push('revalue');return{}}};
+  const inventory={revalueReceiptItem:async()=>{events.push('revalue');return{inventory_revaluation_toman:6,consumed_cogs_revaluation_toman:4}}};
+  const audit={writeWith:async()=>{events.push('audit');}};
+  const outbox={append:async()=>{events.push('outbox');}};
   const ctx={require:()=>({actor}),get:()=>({actor})};
-  const service=new ReceiptCostService(tx as never,repo as never,inventory as never,{} as never,{} as never,ctx as never,new ScopePolicy());
+  const service=new ReceiptCostService(tx as never,repo as never,inventory as never,audit as never,outbox as never,ctx as never,new ScopePolicy());
   return{service,events};
 }
 
@@ -63,4 +66,14 @@ test('70-G B2 authorized preview computes only after scope check',async()=>{
  assert.equal(res.amount_toman,10);
  assert.equal(res.allocations.length,1);
  assert.deepEqual(x.events,['locked_cost','candidates']);
+});
+
+test('70-G B2 authorized finalize proceeds through allocations, inventory, audit and outbox',async()=>{
+ const x=fixture(WAREHOUSE_OK);
+ const res=await x.service.finalizeLandedCost('lc',2);
+ assert.equal(res.status,'finalized');
+ assert.equal(res.inventory_revaluation_toman,6);
+ assert.equal(res.consumed_cogs_revaluation_toman,4);
+ assert.equal(res.allocations.length,1);
+ assert.deepEqual(x.events,['locked_cost','candidates','write_allocations','revalue','finalize','audit','outbox']);
 });
