@@ -97,7 +97,7 @@ export function validateReturnCreate(body:ReturnCreate):Validation<ReturnCreate>
       if(!hasOnly(x,["variant_id","quantity","stock_bucket"]))issues.push(error(`items.${i}`,"UNSUPPORTED_FIELD","فیلد ناشناخته در قلم مجاز نیست."));
       if(!uuid(x.variant_id))issues.push(error(`items.${i}.variant_id`,"INVALID_ID","شناسه کالا نامعتبر است."));
       if(!quantity(x.quantity))issues.push(error(`items.${i}.quantity`,"INVALID_QUANTITY","تعداد باید صحیح و مثبت باشد."));
-      if(!["sellable","quarantine","damaged"].includes(x.stock_bucket))issues.push(error(`items.${i}.stock_bucket`,"INVALID_BUCKET","باکت نامعتبر است."));
+      if(!["sellable","quarantine","damaged"].includes(x.stock_bucket??"quarantine"))issues.push(error(`items.${i}.stock_bucket`,"INVALID_BUCKET","باکت نامعتبر است."));
       ids.push(x.variant_id);
     }
     if(new Set(ids).size!==ids.length)issues.push(error("items","DUPLICATE_VARIANT","کالای تکراری در مرجوعی."));
