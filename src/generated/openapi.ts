@@ -10281,7 +10281,7 @@ export interface components {
              * @default quantity
              * @enum {string}
              */
-            allocation_method?: "quantity" | "value" | "manual";
+            allocation_method: "quantity" | "value" | "manual";
         };
         PostAdminProcurementLandedCostsIdPreviewAllocationRequest: {
             allocations?: {

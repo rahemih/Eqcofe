@@ -143,7 +143,7 @@
     },
     "source_sha256_after": {
       "openapi": "31c4cb526085d6aeed862bb93c61ed3a2c1e20230251337ca60fcf4499e97d67",
-      "generated_types": "87dcd29fcf94f12253b8fb03ddcfa65f37b43663b205380c26ea4cc65f4bfd3f"
+      "generated_types": "44ac5ed2865325ff36335a9ff4b716c9b0e1e8dd11712bf60a236e8857a5c003"
     },
     "security_policy": "NO_GATE_INFERENCE: no Security, Lock, Human, merge or canonical status is self-certified"
   },
