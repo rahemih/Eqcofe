@@ -71,3 +71,13 @@ test("Step70-G B2 denies a dangling linked purchase order before financial mutat
   await assert.rejects(f.service.finalizeLandedCost(id(1),1,f.manual),{code:"LANDED_COST_SCOPE_UNRESOLVED"});
   assert.deepEqual(f.calls,["landed","po"]);
 });
+
+test("Step70-G B2 authorized finalize writes only after matching linked warehouses are scoped",async()=>{
+  const f=fixture({receipt:"warehouse-a",po:"warehouse-a"});
+  const result=await f.service.finalizeLandedCost(id(1),1,f.manual);
+  assert.equal(result.status,"finalized");
+  assert.deepEqual(result.allocations,f.manual);
+  assert.equal(result.inventory_revaluation_toman,100);
+  assert.equal(result.consumed_cogs_revaluation_toman,0);
+  assert.deepEqual(f.calls,["landed","receipt","po","candidates","write_allocations","revalue","persist_final","audit","outbox"]);
+});
