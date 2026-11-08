@@ -4,7 +4,7 @@ import { ReceiptCostService } from "../../src/modules/procurement/application/re
 import { ScopePolicy } from "../../src/platform/auth/scope-policy";
 
 const id=(n:number)=>`${String(n).repeat(8)}-${String(n).repeat(4)}-4${String(n).repeat(3)}-8${String(n).repeat(3)}-${String(n).repeat(12)}`;
-type Fixture={receipt?:string|null;po?:string|null;allowed?:string[];candidate?:boolean;status?:string;method?:string};
+type Fixture={receipt?:string|null;po?:string|null;missingReceipt?:boolean;missingPo?:boolean;allowed?:string[];candidate?:boolean;status?:string;method?:string};
 function fixture(opts:Fixture={}){
   const calls:string[]=[];
   const receiptWarehouse=opts.receipt===undefined?"warehouse-a":opts.receipt;
@@ -12,8 +12,8 @@ function fixture(opts:Fixture={}){
   const lc={id:id(1),status:opts.status??"draft",version:1,amount_toman:100,allocation_method:opts.method??"manual",goods_receipt_id:receiptWarehouse===null?null:id(2),purchase_order_id:poWarehouse===null?null:id(3)};
   const repo={
     landedCostForUpdate:async()=>{calls.push("landed");return lc;},
-    receiptForUpdate:async()=>{calls.push("receipt");return receiptWarehouse===null?null:{id:id(2),warehouse_id:receiptWarehouse};},
-    purchaseOrderForUpdate:async()=>{calls.push("po");return poWarehouse===null?null:{id:id(3),warehouse_id:poWarehouse};},
+    receiptForUpdate:async()=>{calls.push("receipt");return opts.missingReceipt?null:receiptWarehouse===null?null:{id:id(2),warehouse_id:receiptWarehouse};},
+    purchaseOrderForUpdate:async()=>{calls.push("po");return opts.missingPo?null:poWarehouse===null?null:{id:id(3),warehouse_id:poWarehouse};},
     allocationCandidates:async()=>{calls.push("candidates");return opts.candidate===false?[]:[{id:id(4),received_quantity:1,accepted_quantity:1,quarantine_quantity:0,unit_cost_toman:100}]},
     replaceAllocations:async()=>{calls.push("write_allocations");},
     finalizeLandedCost:async()=>{calls.push("persist_final");},
@@ -59,4 +59,15 @@ test("Step70-G B2 allowed invoice-linked PO-only warehouse has permission before
   const response=await f.service.previewAllocation(id(1),f.manual);
   assert.deepEqual(response.allocations,f.manual);
   assert.deepEqual(f.calls,["landed","po","candidates"]);
+});
+
+test("Step70-G B2 denies a dangling linked receipt before any allocation read",async()=>{
+  const f=fixture({receipt:"warehouse-a",missingReceipt:true});
+  await assert.rejects(f.service.previewAllocation(id(1),f.manual),/LANDED_COST_SCOPE_UNRESOLVED/);
+  assert.deepEqual(f.calls,["landed","receipt"]);
+});
+test("Step70-G B2 denies a dangling linked purchase order before financial mutation",async()=>{
+  const f=fixture({receipt:null,po:"warehouse-a",missingPo:true});
+  await assert.rejects(f.service.finalizeLandedCost(id(1),1,f.manual),/LANDED_COST_SCOPE_UNRESOLVED/);
+  assert.deepEqual(f.calls,["landed","po"]);
 });
