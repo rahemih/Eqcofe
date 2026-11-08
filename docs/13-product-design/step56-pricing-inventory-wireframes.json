@@ -1046,7 +1046,7 @@
     },
     {
       "path": "src/modules/procurement/application/receipt-cost.service.ts",
-      "sha256": "4bff3ef805144af126dfca9bbd9a82dab6672277430c6ce81f2bde9fdc10d413"
+      "sha256": "e585f3e671a1fb0222f1703eecfff69811c0836b354ce4201d9ee354289f52da"
     },
     {
       "path": "src/modules/procurement/application/supplier.service.ts",
