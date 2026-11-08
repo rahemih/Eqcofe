@@ -1,0 +1,165 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP70-G-B2C-LANDED-CREATE-LINK-SCOPE-001",
+  "title": "Step70-G B2C secure landed-cost create with explicit linked PO warehouse validation",
+  "description": "HIGH-risk independent remediation: resolve and assert every supplied or inherited PO for landed-cost creation when a posted Goods Receipt is present, deny mismatched warehouse/supplier/missing PO before writes, preserve existing state and guards. Eleven Step56/57 source-hash-only files. Parallel preparation; merge only after B1 #390 and B2 #394 canonical.",
+  "risk": "HIGH",
+  "risk_floor": "HIGH",
+  "owner": "BACKEND_ENGINEERING",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "946ccb63ed210305b0ced2fb12143944ff37b796"
+  },
+  "scope": {
+    "read": [
+      "src/modules/procurement/**",
+      "src/platform/auth/scope-policy.ts",
+      "test/**",
+      "docs/13-product-design/**",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "docs/11-step-history/STEP-70-G-B2C-LANDED-CREATE-LINK-SCOPE.md",
+      "docs/13-product-design/step56-commerce-operations-wireframes.json",
+      "docs/13-product-design/step56-customers-growth-wireframes.json",
+      "docs/13-product-design/step56-final-audit.json",
+      "docs/13-product-design/step56-final-audit/manifest.json",
+      "docs/13-product-design/step56-management-security-wireframes.json",
+      "docs/13-product-design/step56-pricing-inventory-wireframes.json",
+      "docs/13-product-design/step56-wireframes/D/manifest.json",
+      "docs/13-product-design/step56-wireframes/E/manifest.json",
+      "docs/13-product-design/step56-wireframes/F/manifest.json",
+      "docs/13-product-design/step56-wireframes/G/manifest.json",
+      "docs/13-product-design/step57-high-fidelity-contract.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP70-G-B2C-LANDED-CREATE-LINK-SCOPE-001.json",
+      "src/modules/procurement/application/receipt-cost.service.ts",
+      "test/procurement/step70-g-landed-create-link-scope.spec.ts"
+    ],
+    "forbidden": [
+      ".github/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "database/**",
+      "apps/**",
+      "scripts/**",
+      "contracts/**",
+      "src/generated/**",
+      "src/modules/procurement/presentation/**",
+      "src/modules/procurement/infrastructure/**",
+      "src/platform/**",
+      "src/modules/inventory/**",
+      "src/modules/pos/**",
+      "docs/12-current-state/**",
+      "graphify-out/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP70-G-B2C-LANDED-CREATE-LINK-SCOPE-001-01"
+  ],
+  "human_gate_required": true,
+  "authorized_human_approver": {
+    "role": "PROJECT_OWNER",
+    "github_login": "rahemih"
+  },
+  "token_budget": {
+    "expected_max": 28000,
+    "soft_alert": 45000,
+    "hard_cap": 90000
+  },
+  "task_risk_rules": [
+    {
+      "id": "STEP70_G_B2C_LANDED_CREATE_SCOPE_HIGH",
+      "risk": "HIGH",
+      "paths": [
+        "docs/11-step-history/STEP-70-G-B2C-LANDED-CREATE-LINK-SCOPE.md",
+        "docs/13-product-design/step56-commerce-operations-wireframes.json",
+        "docs/13-product-design/step56-customers-growth-wireframes.json",
+        "docs/13-product-design/step56-final-audit.json",
+        "docs/13-product-design/step56-final-audit/manifest.json",
+        "docs/13-product-design/step56-management-security-wireframes.json",
+        "docs/13-product-design/step56-pricing-inventory-wireframes.json",
+        "docs/13-product-design/step56-wireframes/D/manifest.json",
+        "docs/13-product-design/step56-wireframes/E/manifest.json",
+        "docs/13-product-design/step56-wireframes/F/manifest.json",
+        "docs/13-product-design/step56-wireframes/G/manifest.json",
+        "docs/13-product-design/step57-high-fidelity-contract.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP70-G-B2C-LANDED-CREATE-LINK-SCOPE-001.json",
+        "src/modules/procurement/application/receipt-cost.service.ts",
+        "test/procurement/step70-g-landed-create-link-scope.spec.ts"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "Step70-F canonical",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "946ccb63ed210305b0ced2fb12143944ff37b796",
+      "blocking": false
+    },
+    {
+      "item": "Step70-G B1 PR #390",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "PENDING_SECURITY_HUMAN",
+      "blocking": true
+    },
+    {
+      "item": "Step70-G B2 PR #394",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "PENDING_B1_AND_GATES",
+      "blocking": true
+    }
+  ],
+  "evidence": {
+    "linear_issue": "HOS-74",
+    "github_issue": "https://github.com/rahemih/Eqcofe/issues/396",
+    "parent_issue": "https://github.com/rahemih/Eqcofe/issues/388",
+    "source_sha256_before": "4bff3ef805144af126dfca9bbd9a82dab6672277430c6ce81f2bde9fdc10d413",
+    "source_sha256_after": "0eb26f1df1cdfb9f28f3eb2376c95bf8248fcd99acdcf39e86db473466e4721f",
+    "non_authority": "No Security/Lock/Human/merge approval inferred."
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Unauthorized PO warehouse denied before numbering or any write",
+      "verification": "negative_test",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Global-scope mismatch warehouse/supplier forbidden",
+      "verification": "negative_test",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Missing linked PO denied before write",
+      "verification": "negative_test",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Valid explicit/inherited PO, receipt-only, and PO-only paths retained",
+      "verification": "positive_test",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Eleven transitive design source-hash-only changes",
+      "verification": "design_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "B1 and B2 canonical before rebase and fresh independent Security/Lock/Human/protected-merge/postmerge gates",
+      "verification": "canonical_gate_chain",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": [],
+  "process_improvement_links": [],
+  "incident_links": []
+}
