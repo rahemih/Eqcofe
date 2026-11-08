@@ -10277,20 +10277,23 @@ export interface components {
             goods_receipt_id?: components["schemas"]["NullableEntityId"];
             cost_type: string;
             amount_toman: components["schemas"]["MoneyToman"];
-            /** @enum {string} */
-            allocation_method: "quantity" | "value" | "weight" | "manual";
+            /**
+             * @default quantity
+             * @enum {string}
+             */
+            allocation_method?: "quantity" | "value" | "manual";
         };
         PostAdminProcurementLandedCostsIdPreviewAllocationRequest: {
-            /** @enum {string} */
-            allocation_method: "quantity" | "value" | "weight" | "manual";
-            manual_allocations?: {
+            allocations?: {
                 goods_receipt_item_id: components["schemas"]["EntityId"];
                 allocated_amount_toman: components["schemas"]["MoneyToman"];
             }[];
         };
         PostAdminProcurementLandedCostsIdFinalizeRequest: {
-            preview_id: components["schemas"]["EntityId"];
-            reason?: string | null;
+            allocations?: {
+                goods_receipt_item_id: components["schemas"]["EntityId"];
+                allocated_amount_toman: components["schemas"]["MoneyToman"];
+            }[];
         };
         PostAdminOrdersIdConfirmRequest: {
             note?: string | null;
@@ -17181,7 +17184,7 @@ export interface operations {
             };
             cookie?: never;
         };
-        requestBody: {
+        requestBody?: {
             content: {
                 "application/json": components["schemas"]["PostAdminProcurementLandedCostsIdPreviewAllocationRequest"];
             };
@@ -17215,7 +17218,7 @@ export interface operations {
             };
             cookie?: never;
         };
-        requestBody: {
+        requestBody?: {
             content: {
                 "application/json": components["schemas"]["PostAdminProcurementLandedCostsIdFinalizeRequest"];
             };

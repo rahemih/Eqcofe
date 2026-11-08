@@ -5263,26 +5263,16 @@ components:
           enum:
           - quantity
           - value
-          - weight
           - manual
+          default: quantity
       required:
       - cost_type
       - amount_toman
-      - allocation_method
     PostAdminProcurementLandedCostsIdPreviewAllocationRequest:
       type: object
       additionalProperties: false
       properties:
-        allocation_method:
-          type: string
-          minLength: 1
-          maxLength: 30
-          enum:
-          - quantity
-          - value
-          - weight
-          - manual
-        manual_allocations:
+        allocations:
           type: array
           items:
             type: object
@@ -5294,21 +5284,22 @@ components:
             - goods_receipt_item_id
             - allocated_amount_toman
           minItems: 0
-      required:
-      - allocation_method
     PostAdminProcurementLandedCostsIdFinalizeRequest:
       type: object
       additionalProperties: false
       properties:
-        preview_id: *id002
-        reason:
-          type:
-          - string
-          - 'null'
-          minLength: 1
-          maxLength: 2000
-      required:
-      - preview_id
+        allocations:
+          type: array
+          items:
+            type: object
+            additionalProperties: false
+            properties:
+              goods_receipt_item_id: *id002
+              allocated_amount_toman: *id005
+            required:
+            - goods_receipt_item_id
+            - allocated_amount_toman
+          minItems: 0
     PostAdminOrdersIdConfirmRequest:
       type: object
       additionalProperties: false
@@ -14584,7 +14575,7 @@ paths:
       security:
       - adminSession: []
       requestBody:
-        required: true
+        required: false
         content:
           application/json:
             schema:
@@ -14616,7 +14607,7 @@ paths:
       - adminSession: []
         stepUpToken: []
       requestBody:
-        required: true
+        required: false
         content:
           application/json:
             schema:

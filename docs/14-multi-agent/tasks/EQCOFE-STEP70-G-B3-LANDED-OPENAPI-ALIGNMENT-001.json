@@ -1,0 +1,190 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP70-G-B3-LANDED-OPENAPI-ALIGNMENT-001",
+  "title": "Step70-G B3 landed-cost source-aligned OpenAPI and generated types",
+  "description": "HIGH-risk schema reconciliation for landed-cost create/preview/finalize to match existing backend source, with quantity default and no unsupported weight or non-existent preview_id. Mutate only two API/type files, one scoped test, task/history/catalog and 17 generated Step56/57 source-hash references; no runtime or UX semantic changes. DRAFT parallel preparation only; PR #390/#394/#397 must become canonical first, rebase/reverify.",
+  "risk": "HIGH",
+  "risk_floor": "HIGH",
+  "owner": "BACKEND_ENGINEERING",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "946ccb63ed210305b0ced2fb12143944ff37b796"
+  },
+  "scope": {
+    "read": [
+      "contracts/http/**",
+      "src/modules/procurement/**",
+      "src/generated/openapi.ts",
+      "test/**",
+      "docs/13-product-design/**",
+      "docs/14-multi-agent/**",
+      "scripts/**",
+      "apps/admin/**"
+    ],
+    "write": [
+      "contracts/http/openapi.yaml",
+      "docs/11-step-history/STEP-70-G-B3-LANDED-OPENAPI-ALIGNMENT.md",
+      "docs/13-product-design/step56-admin-shell-wireframes.json",
+      "docs/13-product-design/step56-admin-ux-contract.json",
+      "docs/13-product-design/step56-catalog-media-wireframes.json",
+      "docs/13-product-design/step56-commerce-operations-wireframes.json",
+      "docs/13-product-design/step56-customers-growth-wireframes.json",
+      "docs/13-product-design/step56-final-audit.json",
+      "docs/13-product-design/step56-final-audit/manifest.json",
+      "docs/13-product-design/step56-foundation/A/manifest.json",
+      "docs/13-product-design/step56-management-security-wireframes.json",
+      "docs/13-product-design/step56-pricing-inventory-wireframes.json",
+      "docs/13-product-design/step56-wireframes/B/manifest.json",
+      "docs/13-product-design/step56-wireframes/C/manifest.json",
+      "docs/13-product-design/step56-wireframes/D/manifest.json",
+      "docs/13-product-design/step56-wireframes/E/manifest.json",
+      "docs/13-product-design/step56-wireframes/F/manifest.json",
+      "docs/13-product-design/step56-wireframes/G/manifest.json",
+      "docs/13-product-design/step57-high-fidelity-contract.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP70-G-B3-LANDED-OPENAPI-ALIGNMENT-001.json",
+      "src/generated/openapi.ts",
+      "test/procurement/step70-g-landed-openapi-contract.spec.ts"
+    ],
+    "forbidden": [
+      ".github/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "database/**",
+      "apps/**",
+      "scripts/**",
+      "src/modules/**",
+      "src/platform/**",
+      "src/modules/inventory/**",
+      "src/modules/pos/**",
+      "docs/12-current-state/**",
+      "graphify-out/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP70-G-B3-LANDED-OPENAPI-ALIGNMENT-001-01"
+  ],
+  "human_gate_required": true,
+  "authorized_human_approver": {
+    "role": "PROJECT_OWNER",
+    "github_login": "rahemih"
+  },
+  "token_budget": {
+    "expected_max": 34000,
+    "soft_alert": 53000,
+    "hard_cap": 95000
+  },
+  "task_risk_rules": [
+    {
+      "id": "STEP70_G_B3_LANDED_CONTRACT_HIGH",
+      "risk": "HIGH",
+      "paths": [
+        "contracts/http/openapi.yaml",
+        "docs/11-step-history/STEP-70-G-B3-LANDED-OPENAPI-ALIGNMENT.md",
+        "docs/13-product-design/step56-admin-shell-wireframes.json",
+        "docs/13-product-design/step56-admin-ux-contract.json",
+        "docs/13-product-design/step56-catalog-media-wireframes.json",
+        "docs/13-product-design/step56-commerce-operations-wireframes.json",
+        "docs/13-product-design/step56-customers-growth-wireframes.json",
+        "docs/13-product-design/step56-final-audit.json",
+        "docs/13-product-design/step56-final-audit/manifest.json",
+        "docs/13-product-design/step56-foundation/A/manifest.json",
+        "docs/13-product-design/step56-management-security-wireframes.json",
+        "docs/13-product-design/step56-pricing-inventory-wireframes.json",
+        "docs/13-product-design/step56-wireframes/B/manifest.json",
+        "docs/13-product-design/step56-wireframes/C/manifest.json",
+        "docs/13-product-design/step56-wireframes/D/manifest.json",
+        "docs/13-product-design/step56-wireframes/E/manifest.json",
+        "docs/13-product-design/step56-wireframes/F/manifest.json",
+        "docs/13-product-design/step56-wireframes/G/manifest.json",
+        "docs/13-product-design/step57-high-fidelity-contract.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP70-G-B3-LANDED-OPENAPI-ALIGNMENT-001.json",
+        "src/generated/openapi.ts",
+        "test/procurement/step70-g-landed-openapi-contract.spec.ts"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "Step70-F canonical",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "946ccb63ed210305b0ced2fb12143944ff37b796",
+      "blocking": false
+    },
+    {
+      "item": "Step70-G B1 PR #390",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "OPEN_UNMERGED_INDEPENDENT_SECURITY_PENDING",
+      "blocking": true
+    },
+    {
+      "item": "Step70-G B2 PR #394",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "OPEN_UNMERGED_PENDING_B1",
+      "blocking": true
+    },
+    {
+      "item": "Step70-G B2C PR #397",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "DRAFT_UNMERGED_PENDING_B1_B2",
+      "blocking": true
+    }
+  ],
+  "evidence": {
+    "linear_issue": "HOS-74",
+    "github_issue": "https://github.com/rahemih/Eqcofe/issues/388",
+    "source_contract": "AD-D-16 Step56 canonical: no preview token, stored method quantity/value/manual, recompute on finalize",
+    "source_sha256_before": {
+      "openapi": "74c69f8cb9e983ef7693cf16874939da380d5cf027f5a924a786ee1aa2c41359",
+      "generated_types": "feadbca83c469599e38282ad3f183356777453a4db1bc03ed3fa0190885e8aad"
+    },
+    "source_sha256_after": {
+      "openapi": "31c4cb526085d6aeed862bb93c61ed3a2c1e20230251337ca60fcf4499e97d67",
+      "generated_types": "87dcd29fcf94f12253b8fb03ddcfa65f37b43663b205380c26ea4cc65f4bfd3f"
+    },
+    "security_policy": "NO_GATE_INFERENCE: no Security, Lock, Human, merge or canonical status is self-certified"
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Create allocation_method optional; only quantity/value/manual; default quantity; no unsupported weight",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Preview optional requestBody with optional allocations of candidate receipt UUID and nonnegative integer Toman; no method override or preview token",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Finalize optional allocations and no preview_id/reason; If-Match, WebAuthn Step-Up, Idempotency-Key, audit/security metadata unchanged",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Version-pinned pnpm exec openapi-typescript regenerated types exactly match committed src/generated/openapi.ts",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Source-backed regression tests check accepted/denied manual allocations, duplicate or invalid candidates, negative/non-integer/amount mismatch",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Only 17 Step56/57 SHA source-provenance changes, no semantic change or historical approval mutation; all design validation PASS",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "PR #390 then #394 then #397 canonical first; B3 rebase/hashes/gates independently; independent Security, ACTIVE Scope Lock, explicit Owner Human Gate, protected merge/postmerge exact SHA and terminal Lock release",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": [],
+  "process_improvement_links": [],
+  "incident_links": []
+}
