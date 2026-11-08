@@ -40,12 +40,12 @@ test("Step70-G B2 denies cross-warehouse finalize before inventory or audit side
 });
 test("Step70-G B2 rejects mismatched receipt and PO warehouse even for globally scoped staff",async()=>{
   const f=fixture({receipt:"warehouse-a",po:"warehouse-b",allowed:[]});
-  await assert.rejects(f.service.previewAllocation(id(1),f.manual),/LANDED_COST_WAREHOUSE_MISMATCH/);
+  await assert.rejects(f.service.previewAllocation(id(1),f.manual),{code:"LANDED_COST_WAREHOUSE_MISMATCH"});
   assert.deepEqual(f.calls,["landed","receipt","po"]);
 });
 test("Step70-G B2 rejects missing linked warehouse without choosing a guessed fallback",async()=>{
   const f=fixture({receipt:null,po:null});
-  await assert.rejects(f.service.previewAllocation(id(1),f.manual),/LANDED_COST_SCOPE_UNRESOLVED/);
+  await assert.rejects(f.service.previewAllocation(id(1),f.manual),{code:"LANDED_COST_SCOPE_UNRESOLVED"});
   assert.deepEqual(f.calls,["landed"]);
 });
 test("Step70-G B2 resolves two matching warehouse links before permitted preview",async()=>{
@@ -63,11 +63,11 @@ test("Step70-G B2 allowed invoice-linked PO-only warehouse has permission before
 
 test("Step70-G B2 denies a dangling linked receipt before any allocation read",async()=>{
   const f=fixture({receipt:"warehouse-a",missingReceipt:true});
-  await assert.rejects(f.service.previewAllocation(id(1),f.manual),/LANDED_COST_SCOPE_UNRESOLVED/);
+  await assert.rejects(f.service.previewAllocation(id(1),f.manual),{code:"LANDED_COST_SCOPE_UNRESOLVED"});
   assert.deepEqual(f.calls,["landed","receipt"]);
 });
 test("Step70-G B2 denies a dangling linked purchase order before financial mutation",async()=>{
   const f=fixture({receipt:null,po:"warehouse-a",missingPo:true});
-  await assert.rejects(f.service.finalizeLandedCost(id(1),1,f.manual),/LANDED_COST_SCOPE_UNRESOLVED/);
+  await assert.rejects(f.service.finalizeLandedCost(id(1),1,f.manual),{code:"LANDED_COST_SCOPE_UNRESOLVED"});
   assert.deepEqual(f.calls,["landed","po"]);
 });
