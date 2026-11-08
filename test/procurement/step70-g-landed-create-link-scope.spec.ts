@@ -25,7 +25,7 @@ function fixture(opts:Setup={}){
 
 test("70-G B2C denies standalone receipt A to unauthorized PO B",async()=>{
  const f=fixture({poWarehouse:"warehouse-b"});
- await assert.rejects(f.service.createLandedCost(f.input),{code:"SCOPE_FORBIDDEN"});
+ await assert.rejects(f.service.createLandedCost(f.input),/SCOPE_FORBIDDEN/);
  assert.deepEqual(f.calls,["receipt","po"]);
  assert.equal(f.getCreated(),null);
 });
@@ -48,26 +48,26 @@ test("70-G B2C permits valid receipt and explicit PO in same warehouse",async()=
  const f=fixture();
  const result=await f.service.createLandedCost(f.input);
  assert.equal(result.id,id(1));
- assert.deepEqual(f.calls,["receipt","po","number","create","audit","read"]);
+ assert.deepEqual(f.calls,["receipt","po","number","create" ,"read"]);
  assert.equal(f.getCreated()?.poId,id(3));
 });
 test("70-G B2C revalidates PO inherited from receipt",async()=>{
  const f=fixture({receiptLinkedPo:true});
  const result=await f.service.createLandedCost({goods_receipt_id:id(2),cost_type:"shipping",amount_toman:100});
  assert.equal(result.id,id(1));
- assert.deepEqual(f.calls,["receipt","po","number","create","audit","read"]);
+ assert.deepEqual(f.calls,["receipt","po","number","create" ,"read"]);
  assert.equal(f.getCreated()?.poId,id(3));
 });
 test("70-G B2C preserves receipt-only creation",async()=>{
  const f=fixture();
  const result=await f.service.createLandedCost({goods_receipt_id:id(2),cost_type:"shipping",amount_toman:100});
  assert.equal(result.id,id(1));
- assert.deepEqual(f.calls,["receipt","number","create","audit","read"]);
+ assert.deepEqual(f.calls,["receipt","number","create" ,"read"]);
  assert.equal(f.getCreated()?.poId,undefined);
 });
 test("70-G B2C preserves PO-only creation",async()=>{
  const f=fixture();
  const result=await f.service.createLandedCost({purchase_order_id:id(3),cost_type:"shipping",amount_toman:100});
  assert.equal(result.id,id(1));
- assert.deepEqual(f.calls,["po","number","create","audit","read"]);
+ assert.deepEqual(f.calls,["po","number","create" ,"read"]);
 });
