@@ -441,3 +441,52 @@ test('protection failure always blocks merge even when all other gates pass', ()
   const result = evaluateMergePolicy(policyInput({ protection: protection({ passed: false, blockers: ['PROTECTION_DRIFT'] }) }));
   assert.ok(result.blockers.includes('PROTECTION_NOT_VERIFIED'));
 });
+
+test('Owner-only alternative is fail-closed in Merge Policy when CodeQL or exact risk evidence is missing', () => {
+  const input = policyInput({
+    task_contract: contract({
+      task_id: 'EQCOFE-STEP70-G-B1-BACKEND-REASON-ALIAS-001',
+      owner_internal_security_assurance: {
+        mode:'OWNER_ACCEPTED_INTERNAL_SECURITY_ASSURANCE',
+        governance_issue:'https://github.com/rahemih/Eqcofe/issues/399',
+        risk_acknowledgement:'NO_INDEPENDENT_HUMAN_SECURITY_REVIEW',
+      },
+    }),
+  });
+  delete input.gate_evidence.current.SECURITY;
+  const result = evaluateMergePolicy(input);
+  assert.equal(result.merge_eligible,false);
+  assert.equal(result.security_assurance.status,'BLOCKED');
+  assert.ok(result.blockers.includes('CODEQL_PROVIDER_DATA_MISSING'));
+  assert.ok(result.blockers.includes('EXACT_ARTIFACT_OWNER_RISK_ACCEPTANCE_MISSING'));
+  assert.ok(result.blockers.includes('INTERNAL_SECURITY_ASSESSMENT_INVALID'));
+});
+test('Owner-only alternate Security mode never bypasses Human, Lock or protection', () => {
+  const input = policyInput({
+    task_contract: contract({
+      task_id: 'EQCOFE-STEP70-G-B1-BACKEND-REASON-ALIAS-001',
+      owner_internal_security_assurance: {
+        mode:'OWNER_ACCEPTED_INTERNAL_SECURITY_ASSURANCE',
+        governance_issue:'https://github.com/rahemih/Eqcofe/issues/399',
+        risk_acknowledgement:'NO_INDEPENDENT_HUMAN_SECURITY_REVIEW',
+      },
+    }),
+    protection: protection({passed:false}),
+  });
+  delete input.gate_evidence.current.SECURITY;
+  delete input.gate_evidence.current.HUMAN;
+  delete input.gate_evidence.current.LOCK;
+  const result = evaluateMergePolicy(input);
+  for(const b of ['HUMAN_APPROVAL_MISSING','LOCK_EVIDENCE_MISSING','PROTECTION_NOT_VERIFIED'])assert.ok(result.blockers.includes(b));
+});
+test('Untrusted INTERNAL_SECURITY / OWNER_RISK comments are ignored or rejected', () => {
+  for(const gate of ['INTERNAL_SECURITY','OWNER_RISK']){
+    const parsed = parseGateEvidence([
+      {id:1,user:{login:'intruder'},body:formatGateEvidence({gate,task_id:'MA-TEST-001',artifact_hash:HASH,status:'ACCEPTED'})},
+      {id:2,user:{login:'owner'},body:formatGateEvidence({gate,task_id:'MA-TEST-001',artifact_hash:OTHER_HASH,status:'ACCEPTED'})},
+    ],{task_id:'MA-TEST-001',artifact_hash:HASH,trusted_author_login:'owner'});
+    assert.equal(parsed.current[gate],undefined);
+    assert.equal(parsed.unauthorized.length,1);
+    assert.equal(parsed.stale.length,1);
+  }
+});

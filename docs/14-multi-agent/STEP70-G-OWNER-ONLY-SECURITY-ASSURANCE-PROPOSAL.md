@@ -38,4 +38,4 @@ The assistant/implementer and Project Owner can perform and accept a documented 
 
 ## 5. Checkpoint acceptance
 
-The scope-freeze checkpoint now includes a **standalone, non-authorizing** evidence validator and eight negative/positive tests. It is not integrated into Merge Policy and grants NO merge permission. Merge Policy integration, full exact-head verification, and separate Owner gates remain pending. A green CI on this proposal alone is **not** proof that the alternative gate works. No owner Human Gate or governance merge is claimed by creating this PR.
+The scope freeze now includes a standalone internal evidence validator with eight tests, plus **candidate wiring** in Merge Policy with three additional negative tests. This branch has no matching internal assessment/owner-risk evidence, no ACTIVE Lock, and no exact-artifact Human Gate; the new path remains fail-closed and this DRAFT PR grants no merge permission. Full exact-head verification and separate Owner gates remain pending. A green CI on this proposal alone is **not** proof that the alternative gate works. No owner Human Gate or governance merge is claimed by creating this PR.
