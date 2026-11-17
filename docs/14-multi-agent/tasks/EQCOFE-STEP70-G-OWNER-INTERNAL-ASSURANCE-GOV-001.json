@@ -2,7 +2,7 @@
   "schema_version": "2.2",
   "task_id": "EQCOFE-STEP70-G-OWNER-INTERNAL-ASSURANCE-GOV-001",
   "title": "Step 70-G HIGH-risk owner-accepted internal security assurance governance amendment",
-  "description": "Version and test a narrowly scoped governance alternative for Step70-G after explicit Owner acceptance of removing human-review independence. Preserve HIGH risk, exact-artifact evidence, CI/CodeQL, deterministic Review, ACTIVE Lock, separate Human Gate, protected merge, exact-SHA postmerge and terminal release; do not impersonate independent Security PASS. This draft is proposal-only until the policy controller and negative tests are implemented and exact-head gates pass.",
+  "description": "Version and test a narrowly scoped governance alternative for Step70-G after explicit Owner acceptance of removing human-review independence. Preserve HIGH risk, exact-artifact evidence, CI/CodeQL, deterministic Review, ACTIVE Lock, separate Human Gate, protected merge, exact-SHA postmerge and terminal release; do not impersonate independent Security PASS. This draft adds a standalone, non-authorizing internal evidence validator with negative tests. Merge Policy integration and full governance are still pending; existing gate enforcement is unchanged.",
   "risk": "HIGH",
   "risk_floor": "HIGH",
   "owner": "GOVERNANCE_ENGINEERING",
@@ -27,7 +27,9 @@
       "docs/14-multi-agent/STEP70-G-OWNER-ONLY-SECURITY-ASSURANCE-PROPOSAL.md",
       "docs/14-multi-agent/GOVERNANCE.md",
       "docs/14-multi-agent/tasks/EQCOFE-STEP70-G-OWNER-INTERNAL-ASSURANCE-GOV-001.json",
-      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "scripts/multi-agent/owner-internal-security-assurance.mjs",
+      "test/multi-agent/owner-internal-security-assurance.test.mjs"
     ],
     "forbidden": [
       ".github/**",
@@ -67,7 +69,9 @@
         "docs/14-multi-agent/STEP70-G-OWNER-ONLY-SECURITY-ASSURANCE-PROPOSAL.md",
         "docs/14-multi-agent/GOVERNANCE.md",
         "docs/14-multi-agent/tasks/EQCOFE-STEP70-G-OWNER-INTERNAL-ASSURANCE-GOV-001.json",
-        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+        "docs/14-multi-agent/generated/TASK-CATALOG.md",
+        "scripts/multi-agent/owner-internal-security-assurance.mjs",
+        "test/multi-agent/owner-internal-security-assurance.test.mjs"
       ]
     }
   ],

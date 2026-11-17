@@ -38,4 +38,4 @@ The assistant/implementer and Project Owner can perform and accept a documented 
 
 ## 5. Checkpoint acceptance
 
-This first change is **scope freeze and design only**. Follow-on commits on this branch must implement and negative-test the policy before it can be considered for protected merge. A green CI on this proposal alone is **not** proof that the alternative gate works. No owner Human Gate or governance merge is claimed by creating this PR.
+The scope-freeze checkpoint now includes a **standalone, non-authorizing** evidence validator and eight negative/positive tests. It is not integrated into Merge Policy and grants NO merge permission. Merge Policy integration, full exact-head verification, and separate Owner gates remain pending. A green CI on this proposal alone is **not** proof that the alternative gate works. No owner Human Gate or governance merge is claimed by creating this PR.
