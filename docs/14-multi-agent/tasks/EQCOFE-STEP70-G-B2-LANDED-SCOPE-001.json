@@ -1,0 +1,168 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP70-G-B2-LANDED-SCOPE-001",
+  "title": "Step70-G B2 security: assert authoritative linked warehouse scope on landed-cost preview and finalize",
+  "description": "Fail-closed warehouse authorization before preview-allocation and finalization. No OpenAPI changes, preview tokens, lifecycle changes, guessed warehouse or permission bypass. Parallel development only; merge waits for B1 PR390 canonical and rebase of design provenance.",
+  "risk": "HIGH",
+  "risk_floor": "HIGH",
+  "owner": "BACKEND_ENGINEERING",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "946ccb63ed210305b0ced2fb12143944ff37b796"
+  },
+  "scope": {
+    "read": [
+      "src/modules/procurement/**",
+      "src/platform/auth/scope-policy.ts",
+      "test/**",
+      "docs/13-product-design/**",
+      "scripts/**",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "src/modules/procurement/application/receipt-cost.service.ts",
+      "test/procurement/step70-g-landed-scope.spec.ts",
+      "docs/11-step-history/STEP-70-G-B2-LANDED-WAREHOUSE-SCOPE.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP70-G-B2-LANDED-SCOPE-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "docs/13-product-design/step56-admin-ux-contract.json",
+      "docs/13-product-design/step56-foundation/A/manifest.json",
+      "docs/13-product-design/step56-admin-shell-wireframes.json",
+      "docs/13-product-design/step56-wireframes/B/manifest.json",
+      "docs/13-product-design/step56-catalog-media-wireframes.json",
+      "docs/13-product-design/step56-wireframes/C/manifest.json",
+      "docs/13-product-design/step56-pricing-inventory-wireframes.json",
+      "docs/13-product-design/step56-wireframes/D/manifest.json",
+      "docs/13-product-design/step56-commerce-operations-wireframes.json",
+      "docs/13-product-design/step56-wireframes/E/manifest.json",
+      "docs/13-product-design/step56-customers-growth-wireframes.json",
+      "docs/13-product-design/step56-wireframes/F/manifest.json",
+      "docs/13-product-design/step56-management-security-wireframes.json",
+      "docs/13-product-design/step56-wireframes/G/manifest.json",
+      "docs/13-product-design/step56-final-audit.json",
+      "docs/13-product-design/step56-final-audit/manifest.json",
+      "docs/13-product-design/step57-high-fidelity-contract.json"
+    ],
+    "forbidden": [
+      ".github/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "database/**",
+      "apps/**",
+      "scripts/**",
+      "contracts/**",
+      "src/generated/**",
+      "src/modules/procurement/presentation/**",
+      "src/modules/procurement/infrastructure/**",
+      "src/platform/**",
+      "src/modules/inventory/**",
+      "src/modules/pos/**",
+      "docs/12-current-state/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP70-G-B2-LANDED-SCOPE-001-01"
+  ],
+  "human_gate_required": true,
+  "authorized_human_approver": {
+    "role": "PROJECT_OWNER",
+    "github_login": "rahemih"
+  },
+  "token_budget": {
+    "expected_max": 28000,
+    "soft_alert": 45000,
+    "hard_cap": 90000
+  },
+  "task_risk_rules": [
+    {
+      "id": "STEP70_G_B2_LANDED_SCOPE_HIGH",
+      "risk": "HIGH",
+      "paths": [
+        "src/modules/procurement/application/receipt-cost.service.ts",
+        "test/procurement/step70-g-landed-scope.spec.ts",
+        "docs/11-step-history/STEP-70-G-B2-LANDED-WAREHOUSE-SCOPE.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP70-G-B2-LANDED-SCOPE-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md",
+        "docs/13-product-design/step56-admin-ux-contract.json",
+        "docs/13-product-design/step56-foundation/A/manifest.json",
+        "docs/13-product-design/step56-admin-shell-wireframes.json",
+        "docs/13-product-design/step56-wireframes/B/manifest.json",
+        "docs/13-product-design/step56-catalog-media-wireframes.json",
+        "docs/13-product-design/step56-wireframes/C/manifest.json",
+        "docs/13-product-design/step56-pricing-inventory-wireframes.json",
+        "docs/13-product-design/step56-wireframes/D/manifest.json",
+        "docs/13-product-design/step56-commerce-operations-wireframes.json",
+        "docs/13-product-design/step56-wireframes/E/manifest.json",
+        "docs/13-product-design/step56-customers-growth-wireframes.json",
+        "docs/13-product-design/step56-wireframes/F/manifest.json",
+        "docs/13-product-design/step56-management-security-wireframes.json",
+        "docs/13-product-design/step56-wireframes/G/manifest.json",
+        "docs/13-product-design/step56-final-audit.json",
+        "docs/13-product-design/step56-final-audit/manifest.json",
+        "docs/13-product-design/step57-high-fidelity-contract.json"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "Step70-F canonical",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "946ccb63ed210305b0ced2fb12143944ff37b796",
+      "blocking": false
+    },
+    {
+      "item": "Step70-G B1 PR #390",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "PENDING_HUMAN_SECURITY",
+      "blocking": true
+    }
+  ],
+  "evidence": {
+    "linear_issue": "HOS-74",
+    "github_issue": "https://github.com/rahemih/Eqcofe/issues/388",
+    "source_contract": "AD-D-16 warehouse scope unknown before this remediation",
+    "excluded_contract_drifts": [
+      "preview-allocation body",
+      "finalize preview_id",
+      "unsupported weight allocation"
+    ],
+    "security_policy": "Cross-warehouse scope fail-closed before candidate read / inventory revaluation; do not use synthetic warehouse scope"
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Both preview/finalize resolve linked receipt/PO warehouse(s) via existing database transaction and deny inaccessible or unresolved scope",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Linked receipt and PO warehouses must match; missing/ambiguous references denied",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Unauthorised calls cannot read allocation candidates, adjust stock, write audit or append outbox",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Minimal code, negative tests, 17 exact-source-provenance generated files verified",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "B1 #390 must become canonical first; rebase and regenerate provenance before terminal gates",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Independent security/review, CodeQL, ACTIVE Scope Lock, explicit Owner Human Gate, postmerge exact-SHA required",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": [],
+  "process_improvement_links": [],
+  "incident_links": []
+}
