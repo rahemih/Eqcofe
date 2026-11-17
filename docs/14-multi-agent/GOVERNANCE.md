@@ -241,3 +241,17 @@ Minimum required coverage:
 5. **Gate evidence** — exact-head deterministic test evidence, required CI PASS, Reviewer/QA disposition, and zero unresolved blocking findings.
 
 If any mandatory Pre-Pilot check is `FAIL`, `PENDING`, `NOT_EXECUTED`, or otherwise unverified, Item 8 Pilot execution remains forbidden. The first real LOW Pilot is executed only after this gate passes; the Pilot itself is not counted as part of the Pre-Pilot Verification Gate.
+
+## Step 70-G owner-accepted internal security assurance — PROPOSED AMENDMENT (#399 / #400)
+
+**Draft status: not canonical until the governed PR is independently verified by provider checks, separately accepted by the Project Owner on exact artifact, and merged under protected-main policy.**
+
+The Project Owner's 2026-11-17 proposal acceptance authorizes development of a narrowly allowlisted owner/assistant-only alternative to an outside human security reviewer. It **does not** grant an independent Security PASS or approve any particular PR or artifact.
+
+The candidate internal route is explicitly labeled `OWNER_ACCEPTED_INTERNAL_SECURITY_ASSURANCE`. It is neither identical to independent review nor a waiver of HIGH risk. The owner knowingly accepts the loss of independent human judgment. Required controls remain: a documented internal threat assessment and negative tests with no unresolved HIGH/CRITICAL security findings; separate exact-artifact Owner risk acceptance; exact HEAD GitHub Actions `verify` and `phase-a`, CodeQL analyses plus Code Scanning aggregation; deterministic Review; exact-artifact ACTIVE Scope Lock; distinct owner `HUMAN: APPROVED`; immutable branch protection and no bypass actors; provider-backed protected merge; exact-SHA postmerge and terminal Lock release.
+
+Only task IDs hard-allowlisted in `scripts/multi-agent/owner-internal-security-assurance.mjs` and individually opted-in by their own governed Task Contract may use this route. Unknown tasks and malformed/stale/absent evidence fail closed. Existing independent Security workflow remains available unchanged. The controller must **never write or infer** `SECURITY: PASS` from an internal assessment, and ordinary owner proposal consent is **not** an exact-artifact Human Gate.
+
+The original bootstrap exception closed at Item 6 and remains CLOSED; this amendment is not a resurrection of that exception. The pending inherited unlinked-invoice warehouse authorization issue is not waived. No Step70-H, Step71 or external project is covered.
+
+Reference: [Owner decision issue #399](https://github.com/rahemih/Eqcofe/issues/399), [Draft PR #400](https://github.com/rahemih/Eqcofe/pull/400), [security blocker #395](https://github.com/rahemih/Eqcofe/issues/395).

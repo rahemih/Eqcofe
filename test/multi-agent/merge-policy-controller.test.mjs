@@ -490,3 +490,50 @@ test('Untrusted INTERNAL_SECURITY / OWNER_RISK comments are ignored or rejected'
     assert.equal(parsed.stale.length,1);
   }
 });
+
+test('owner-only assurance explicitly identifies non-independent verified path, without Human/Lock bypass', () => {
+  const head = 'd'.repeat(40);
+  const taskId = 'EQCOFE-STEP70-G-B1-BACKEND-REASON-ALIAS-001';
+  const mode = 'OWNER_ACCEPTED_INTERNAL_SECURITY_ASSURANCE';
+  const issue = 'https://github.com/rahemih/Eqcofe/issues/399';
+  const incoming = evidence();
+  delete incoming.current.SECURITY;
+  incoming.current.HUMAN.task_id = taskId;
+  incoming.current.LOCK.task_id = taskId;
+  incoming.current.INTERNAL_SECURITY = {
+    gate:'INTERNAL_SECURITY',status:'ASSESSED',task_id:taskId,head_sha:head,
+    artifact_hash:HASH,author_login:'owner',source:'OWNER_ASSISTANT_INTERNAL_REVIEW',
+    assurance_label:mode,negative_security_tests_passed:true,unresolved_high:0,unresolved_critical:0,
+    report_url:'https://github.com/rahemih/Eqcofe/issues/395',
+  };
+  incoming.current.OWNER_RISK = {
+    gate:'OWNER_RISK',status:'ACCEPTED',task_id:taskId,head_sha:head,
+    artifact_hash:HASH,author_login:'owner',source:'PROJECT_OWNER_EXPLICIT_RISK_ACCEPTANCE',
+    governance_issue:issue,acknowledges_absent_independent_human_reviewer:true,
+  };
+  const checks=['Analyze (actions)','Analyze (python)','Analyze (javascript-typescript)','CodeQL']
+    .map((name,i)=>({id:i+1,name,head_sha:head,status:'completed',conclusion:'success',app:{id:name==='CodeQL'?57789:GITHUB_ACTIONS_INTEGRATION_ID}}));
+  const input=policyInput({
+    task_contract:contract({task_id:taskId,owner_internal_security_assurance:{
+      mode,governance_issue:issue,risk_acknowledgement:'NO_INDEPENDENT_HUMAN_SECURITY_REVIEW',
+    }}),
+    artifact_binding:{artifact_hash:HASH,commit_sha:head},
+    gate_evidence:incoming,
+    codeql_check_runs:checks,
+    deterministic_review:deterministicReview({
+      head_sha:head,provider_checks:providerChecks({head_sha:head}),
+    }),
+  });
+  const pass=evaluateMergePolicy(input);
+  assert.equal(pass.effective_risk,'HIGH');
+  assert.equal(pass.merge_eligible,true);
+  assert.deepEqual(pass.blockers,[]);
+  assert.equal(pass.security_assurance.human_reviewer_independent,false);
+  assert.equal(pass.security_assurance.status,'INTERNAL_EVIDENCE_VERIFIED');
+  assert.equal(pass.human_gate_required,true);
+  delete input.gate_evidence.current.HUMAN;
+  assert.ok(evaluateMergePolicy(input).blockers.includes('HUMAN_APPROVAL_MISSING'));
+  input.gate_evidence.current.HUMAN=evidence().current.HUMAN;
+  input.gate_evidence.current.OWNER_RISK.head_sha='f'.repeat(40);
+  assert.ok(evaluateMergePolicy(input).blockers.includes('EXACT_ARTIFACT_OWNER_RISK_ACCEPTANCE_MISSING'));
+});
