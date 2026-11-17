@@ -38,7 +38,7 @@ export function evaluateInternalSecurityEvidence({contract, head_sha, artifact_h
       || assessment.negative_security_tests_passed !== true
       || assessment.unresolved_high !== 0 || assessment.unresolved_critical !== 0
       || typeof assessment.report_url !== 'string'
-      || !/^https:\/\/github\.com\/rahemih\/Eqcofe\/(issues|pull)\/\d+(?:[#?].*)?$/.test(assessment.report_url)) {
+      || !/^https:\/\/github\.com\/rahemih\/Eqcofe\/(issues|pull)\/\d+#issuecomment-[1-9]\d*$/.test(assessment.report_url)) {
     blockers.push('INTERNAL_SECURITY_ASSESSMENT_INVALID');
   }
   const risk=current?.OWNER_RISK;
@@ -48,6 +48,16 @@ export function evaluateInternalSecurityEvidence({contract, head_sha, artifact_h
       || risk.source !== 'PROJECT_OWNER_EXPLICIT_RISK_ACCEPTANCE'
       || risk.governance_issue !== ISSUE || risk.acknowledges_absent_independent_human_reviewer !== true) {
     blockers.push('EXACT_ARTIFACT_OWNER_RISK_ACCEPTANCE_MISSING');
+  }
+  // Three owner-attested decisions must be separate chronological GitHub comments.
+  // The Project Owner's later HUMAN gate cannot be bundled with its RISK acceptance.
+  const assessmentId = assessment?.comment_id;
+  const riskId = risk?.comment_id;
+  const humanId = current?.HUMAN?.comment_id;
+  if (!Number.isSafeInteger(assessmentId) || assessmentId < 1
+      || !Number.isSafeInteger(riskId) || riskId <= assessmentId
+      || (current?.HUMAN && (!Number.isSafeInteger(humanId) || humanId <= riskId))) {
+    blockers.push('INTERNAL_GATE_SEPARATION_ORDER_INVALID');
   }
   if (!Array.isArray(check_runs)) blockers.push('CODEQL_PROVIDER_DATA_MISSING');
   else {

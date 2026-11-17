@@ -6,8 +6,8 @@ const cfg={mode:ASSURANCE_MODE,governance_issue:'https://github.com/rahemih/Eqco
 function fixture(){
  const checks=['Analyze (actions)','Analyze (python)','Analyze (javascript-typescript)','CodeQL'].map((name,i)=>({id:i+1,name,head_sha:sha,status:'completed',conclusion:'success',app:{id:name==='CodeQL'?57789:15368}}));
  return {contract:{task_id:task,risk:'HIGH',risk_floor:'HIGH',human_gate_required:true,authorized_human_approver:{github_login:'rahemih'},owner_internal_security_assurance:cfg},head_sha:sha,artifact_hash:hash,
-  current:{INTERNAL_SECURITY:{gate:'INTERNAL_SECURITY',status:'ASSESSED',task_id:task,head_sha:sha,artifact_hash:hash,author_login:'rahemih',source:'OWNER_ASSISTANT_INTERNAL_REVIEW',assurance_label:ASSURANCE_MODE,negative_security_tests_passed:true,unresolved_high:0,unresolved_critical:0,report_url:'https://github.com/rahemih/Eqcofe/issues/395'},
-    OWNER_RISK:{gate:'OWNER_RISK',status:'ACCEPTED',task_id:task,head_sha:sha,artifact_hash:hash,author_login:'rahemih',source:'PROJECT_OWNER_EXPLICIT_RISK_ACCEPTANCE',governance_issue:cfg.governance_issue,acknowledges_absent_independent_human_reviewer:true}},
+  current:{INTERNAL_SECURITY:{gate:'INTERNAL_SECURITY',status:'ASSESSED',task_id:task,head_sha:sha,artifact_hash:hash,author_login:'rahemih',source:'OWNER_ASSISTANT_INTERNAL_REVIEW',assurance_label:ASSURANCE_MODE,negative_security_tests_passed:true,unresolved_high:0,unresolved_critical:0,comment_id:20,report_url:'https://github.com/rahemih/Eqcofe/issues/399#issuecomment-10'},
+    OWNER_RISK:{gate:'OWNER_RISK',status:'ACCEPTED',task_id:task,head_sha:sha,artifact_hash:hash,author_login:'rahemih',source:'PROJECT_OWNER_EXPLICIT_RISK_ACCEPTANCE',governance_issue:cfg.governance_issue,acknowledges_absent_independent_human_reviewer:true,comment_id:30}},
   check_runs:checks};
 }
 function result(mutate){const f=fixture();mutate?.(f);return evaluateInternalSecurityEvidence(f)}
@@ -19,3 +19,15 @@ test('unallowlisted task or missing opt-in is blocked',()=>{assert.ok(result(f=>
 test('HIGH risk, Human Gate and exact sha hashes cannot be lowered',()=>{assert.ok(result(f=>{f.contract.risk='MEDIUM';f.contract.human_gate_required=false}).blockers.includes('HIGH_RISK_HUMAN_GATE_NOT_PRESERVED'));assert.ok(result(f=>{f.head_sha='not-a-sha'}).blockers.includes('EXACT_ARTIFACT_INVALID'))});
 test('missing, skipped, failed or wrong-provider CodeQL blocks',()=>{assert.ok(result(f=>{f.check_runs=[]}).blockers.includes('CODEQL_AGGREGATE_NOT_PASS'));assert.ok(result(f=>{f.check_runs[0].conclusion='failure'}).blockers.includes('CODEQL_ANALYSIS_NOT_PASS:Analyze (actions)'));assert.ok(result(f=>{f.check_runs[0].app.id=99}).blockers.includes('CODEQL_ANALYSIS_NOT_PASS:Analyze (actions)'));assert.ok(result(f=>{f.check_runs[3].conclusion='neutral'}).blockers.includes('CODEQL_AGGREGATE_NOT_PASS'));assert.ok(result(f=>{f.check_runs=null}).blockers.includes('CODEQL_PROVIDER_DATA_MISSING'))});
 test('latest exact provider failure cannot be overridden by earlier green check',()=>{assert.ok(result(f=>{f.check_runs.push({...f.check_runs[0],id:50,conclusion:'failure'})}).blockers.includes('CODEQL_ANALYSIS_NOT_PASS:Analyze (actions)'))});
+
+test('Gate comments must be distinct, chronological and cannot bundle HUMAN risk acceptance',()=>{
+  assert.ok(result(f=>{f.current.OWNER_RISK.comment_id=20}).blockers.includes('INTERNAL_GATE_SEPARATION_ORDER_INVALID'));
+  assert.ok(result(f=>{f.current.INTERNAL_SECURITY.comment_id=40}).blockers.includes('INTERNAL_GATE_SEPARATION_ORDER_INVALID'));
+  assert.ok(result(f=>{f.current.HUMAN={comment_id:30}}).blockers.includes('INTERNAL_GATE_SEPARATION_ORDER_INVALID'));
+  assert.ok(result(f=>{f.current.HUMAN={comment_id:31}}).blockers.length===0);
+  assert.ok(result(f=>{delete f.current.INTERNAL_SECURITY.comment_id}).blockers.includes('INTERNAL_GATE_SEPARATION_ORDER_INVALID'));
+});
+test('Internal assessment must link to a specific evidence comment, not a generic issue',()=>{
+  assert.ok(result(f=>{f.current.INTERNAL_SECURITY.report_url='https://github.com/rahemih/Eqcofe/issues/399'}).blockers.includes('INTERNAL_SECURITY_ASSESSMENT_INVALID'));
+  assert.ok(result(f=>{f.current.INTERNAL_SECURITY.report_url='https://github.com/rahemih/Eqcofe/pull/403#issuecomment-31'}).blockers.length===0);
+});

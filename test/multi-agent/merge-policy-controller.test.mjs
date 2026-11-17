@@ -499,17 +499,18 @@ test('owner-only assurance explicitly identifies non-independent verified path, 
   const incoming = evidence();
   delete incoming.current.SECURITY;
   incoming.current.HUMAN.task_id = taskId;
+  incoming.current.HUMAN.comment_id = 103;
   incoming.current.LOCK.task_id = taskId;
   incoming.current.INTERNAL_SECURITY = {
     gate:'INTERNAL_SECURITY',status:'ASSESSED',task_id:taskId,head_sha:head,
     artifact_hash:HASH,author_login:'owner',source:'OWNER_ASSISTANT_INTERNAL_REVIEW',
     assurance_label:mode,negative_security_tests_passed:true,unresolved_high:0,unresolved_critical:0,
-    report_url:'https://github.com/rahemih/Eqcofe/issues/395',
+    report_url:'https://github.com/rahemih/Eqcofe/issues/399#issuecomment-100',comment_id:101,
   };
   incoming.current.OWNER_RISK = {
     gate:'OWNER_RISK',status:'ACCEPTED',task_id:taskId,head_sha:head,
     artifact_hash:HASH,author_login:'owner',source:'PROJECT_OWNER_EXPLICIT_RISK_ACCEPTANCE',
-    governance_issue:issue,acknowledges_absent_independent_human_reviewer:true,
+    governance_issue:issue,acknowledges_absent_independent_human_reviewer:true,comment_id:102,
   };
   const checks=['Analyze (actions)','Analyze (python)','Analyze (javascript-typescript)','CodeQL']
     .map((name,i)=>({id:i+1,name,head_sha:head,status:'completed',conclusion:'success',app:{id:name==='CodeQL'?57789:GITHUB_ACTIONS_INTEGRATION_ID}}));

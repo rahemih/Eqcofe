@@ -43,3 +43,7 @@ The scope freeze now includes a standalone internal evidence validator with eigh
 ## 6. Canonical-base refresh — November 17, 2026
 
 Following protected merge of [Step57 CI compatibility PR #402](https://github.com/rahemih/Eqcofe/pull/402), the canonical `main` advanced to `27f00a2477df97e80ad385ee43f7444e9d414a67`. The old governance Draft PR #400 diverged from main; this successor re-proposes the same 8-file scope from the new canonical base with fresh task contract and clean history. No workflow modifications are included: Ubuntu 24.04 pin is now in main. The old PR's Head and artifact approvals cannot be reused. Owner proposal authorization remains separate from exact-head approval and from an independent Security Gate.
+
+## 7. Separate chronological owner decisions (hardened)
+
+The internal assurance protocol explicitly requires three **different** owner-transport GitHub issue comments in chronological order: an `INTERNAL_SECURITY` evaluation referencing a **specific** prior report comment, a separately documented `OWNER_RISK` exact-artifact acceptance, then a separate `HUMAN` decision. The controller checks numeric source comment IDs and blocks missing, same-comment or out-of-order evidence. Merely citing the generic Issue #395 or #399 page is insufficient as a report URL. These are separate auditable attestations, **not** a replacement for the independent-human judgment that the owner explicitly chose to forgo.
