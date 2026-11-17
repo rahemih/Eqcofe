@@ -153,5 +153,11 @@
   "process_improvement_links": [
     "https://github.com/rahemih/Eqcofe/issues/399"
   ],
-  "incident_links": []
+  "incident_links": [],
+  "owner_internal_security_assurance": {
+    "mode": "OWNER_ACCEPTED_INTERNAL_SECURITY_ASSURANCE",
+    "governance_issue": "https://github.com/rahemih/Eqcofe/issues/399",
+    "risk_acknowledgement": "NO_INDEPENDENT_HUMAN_SECURITY_REVIEW",
+    "activation_scope": "THIS_HIGH_GOVERNANCE_PR_ONLY; REQUIRES_EXACT_ARTIFACT_INTERNAL_ASSESSMENT_AND_OWNER_RISK_AND_HUMAN_GATE"
+  }
 }
