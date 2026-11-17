@@ -134,7 +134,7 @@
 | EQCOFE-STEP70-D-INVENTORY-ADMIN-001 | Step 70-D Inventory administration | HIGH | REQUIRED | `7d7b1468e33b0ec0c7e0e47061e50bb63e72374c` | 52000/82000/132000 |
 | EQCOFE-STEP70-E-INVENTORY-FLOW-ADMIN-001 | Step 70-E Transfer Reservation Allocation and Sale Consumption administration | HIGH | REQUIRED | `acbb8e35a29bdffec27d1ea9d7ce12ea4c402a01` | 52000/82000/132000 |
 | EQCOFE-STEP70-F-SUPPLIER-PR-PO-ADMIN-001 | Step 70-F Supplier Purchase Request and Purchase Order administration | HIGH | REQUIRED | `5d2dbd3acdde3c993253e30391cf3701b3c84ba8` | 54000/84000/134000 |
-| EQCOFE-STEP70-G-OWNER-INTERNAL-ASSURANCE-GOV-001 | Step 70-G owner-only internal security assurance governance amendment | HIGH | REQUIRED | `946ccb63ed210305b0ced2fb12143944ff37b796` | 34000/55000/100000 |
+| EQCOFE-STEP70-G-OWNER-INTERNAL-ASSURANCE-GOV-001 | Step 70-G HIGH-risk owner-accepted internal security assurance governance amendment | HIGH | REQUIRED | `946ccb63ed210305b0ced2fb12143944ff37b796` | 34000/55000/100000 |
 | MA-AGENT-A0-ORCHESTRATOR-001 | A0 — Orchestrator / Engineering Manager Prompt | LOW | NOT_REQUIRED | `f7919991e619d416360e74a542741ef21c70f732` | 10000/16000/32000 |
 | MA-AGENT-A1-SPEC-001 | A1 — Specification & Research Prompt | LOW | NOT_REQUIRED | `120898df57138b301560e7d9b9f1b3f5da03e982` | 10000/16000/32000 |
 | MA-AGENT-A10-EVIDENCE-001 | A10 — Evidence & Documentation Prompt | LOW | NOT_REQUIRED | `bdf8fccde4ca40cced48381ad3be2e0461ade535` | 12000/18000/35000 |
