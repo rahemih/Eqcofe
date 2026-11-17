@@ -1,0 +1,153 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP70-G-OWNER-INTERNAL-ASSURANCE-GOV-001",
+  "title": "Step 70-G HIGH-risk owner-accepted internal security assurance governance amendment",
+  "description": "Version and test a narrowly scoped governance alternative for Step70-G after explicit Owner acceptance of removing human-review independence. Preserve HIGH risk, exact-artifact evidence, CI/CodeQL, deterministic Review, ACTIVE Lock, separate Human Gate, protected merge, exact-SHA postmerge and terminal release; do not impersonate independent Security PASS. This draft is proposal-only until the policy controller and negative tests are implemented and exact-head gates pass.",
+  "risk": "HIGH",
+  "risk_floor": "HIGH",
+  "owner": "GOVERNANCE_ENGINEERING",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "946ccb63ed210305b0ced2fb12143944ff37b796"
+  },
+  "scope": {
+    "read": [
+      "scripts/multi-agent/**",
+      "test/multi-agent/**",
+      "docs/14-multi-agent/**",
+      ".github/workflows/**",
+      ".eqcofe/project-map.json",
+      "src/modules/procurement/**",
+      "docs/11-step-history/STEP-70-G*"
+    ],
+    "write": [
+      "scripts/multi-agent/merge-policy-controller.mjs",
+      "test/multi-agent/merge-policy-controller.test.mjs",
+      "docs/14-multi-agent/STEP70-G-OWNER-ONLY-SECURITY-ASSURANCE-PROPOSAL.md",
+      "docs/14-multi-agent/GOVERNANCE.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP70-G-OWNER-INTERNAL-ASSURANCE-GOV-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "src/**",
+      "apps/**",
+      "database/**",
+      "contracts/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**",
+      "graphify-out/**",
+      "test/procurement/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP70-G-OWNER-INTERNAL-ASSURANCE-GOV-001-01"
+  ],
+  "human_gate_required": true,
+  "authorized_human_approver": {
+    "role": "PROJECT_OWNER",
+    "github_login": "rahemih"
+  },
+  "token_budget": {
+    "expected_max": 34000,
+    "soft_alert": 55000,
+    "hard_cap": 100000
+  },
+  "task_risk_rules": [
+    {
+      "id": "STEP70_OWNER_ASSURANCE_GOVERNANCE_HIGH",
+      "risk": "HIGH",
+      "paths": [
+        "scripts/multi-agent/merge-policy-controller.mjs",
+        "test/multi-agent/merge-policy-controller.test.mjs",
+        "docs/14-multi-agent/STEP70-G-OWNER-ONLY-SECURITY-ASSURANCE-PROPOSAL.md",
+        "docs/14-multi-agent/GOVERNANCE.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP70-G-OWNER-INTERNAL-ASSURANCE-GOV-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "Step70-G Issue #399 explicit Project Owner preference",
+      "required_state": "OWNER_RISK_REDUCTION_ACKNOWLEDGED",
+      "observed_state": "ACKNOWLEDGED_FOR_PROPOSAL_ONLY",
+      "blocking": false
+    },
+    {
+      "item": "Existing HIGH-risk canonical gate policy",
+      "required_state": "MUST_REMAIN_EFFECTIVE_UNTIL_NEW_POLICY_IS_CANONICAL",
+      "observed_state": "ACTIVE",
+      "blocking": true
+    }
+  ],
+  "evidence": {
+    "linear_issue": "HOS-74",
+    "github_issue": "https://github.com/rahemih/Eqcofe/issues/399",
+    "blocked_pr": "https://github.com/rahemih/Eqcofe/pull/390",
+    "requested_mode": "OWNER_ACCEPTED_INTERNAL_SECURITY_ASSURANCE",
+    "baseline_security_gate": "INDEPENDENT_SECURITY_PASS",
+    "owner_approval_scope": "PROPOSAL_ONLY; not exact-artifact Security/Human/merge approval",
+    "treat_as_independent_security_pass": false
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Never treat internal assistant security assessment or owner risk consent as independent SECURITY PASS; the alternate result is explicitly named and auditable.",
+      "verification": "node --test test/multi-agent/merge-policy-controller.test.mjs",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Alternative, if implemented, is allowlisted and explicit per exact HIGH-risk task; unknown, stale, modified head/artifact, wrong author, absent owner consent or missing internal findings fail closed.",
+      "verification": "node --test test/multi-agent/merge-policy-controller.test.mjs",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Preserve mandatory Phase A, Canonical CI, CodeQL exact-head checks, deterministic Review, Scope Lock, separate Project Owner Human Gate, branch ruleset/no-bypass and protected merge/postmerge.",
+      "verification": "node --test test/multi-agent/merge-policy-controller.test.mjs",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Do not reduce HIGH risk classification, remove existing tests, skip CodeQL analyses, disable required status checks or edit any prohibited runtime/workflow paths.",
+      "verification": "scope_and_test_audit",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Document the residual unlinked-invoice warehouse scope finding; no waiver of unresolved HIGH/CRITICAL vulnerability without separate remediation and tests.",
+      "verification": "security_findings_register",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Governance amendment stays unmerged until its own exact-artifact technical proof and owner decision; no self-referential bootstrap bypass is presumed.",
+      "verification": "merge_policy_exact_head",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "SECURITY",
+      "HUMAN",
+      "LOCK"
+    ],
+    "provider_bound_gates": [
+      "REVIEW",
+      "VERIFICATION"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "The current canonical Security requirement remains binding until a separately verified governance change becomes canonical. Owner proposal acceptance does not count as Security/Human/Lock evidence."
+  },
+  "process_improvement_links": [
+    "https://github.com/rahemih/Eqcofe/issues/399"
+  ],
+  "incident_links": []
+}
