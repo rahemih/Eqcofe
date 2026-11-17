@@ -1,0 +1,124 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP70-CI-STEP57-RUNNER-COMPAT-001",
+  "title": "Step 70 CI Step57 Playwright runner compatibility (Ubuntu 24.04 pin)",
+  "description": "Fix exact observed 2026-11-17 Step57 Prototype failure caused by Playwright 1.55.0 refusing Ubuntu 26.04 during ubuntu-latest migration. Pin only Step57 workflow runner to ubuntu-24.04, retain all test, security, quality and browser steps unchanged. No security-gate bypass; isolated from Step70-G business and owner-only governance PRs.",
+  "risk": "MEDIUM",
+  "risk_floor": "MEDIUM",
+  "owner": "DEVOPS_ENGINEERING",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "946ccb63ed210305b0ced2fb12143944ff37b796"
+  },
+  "scope": {
+    "read": [
+      ".github/workflows/step57-prototype.yml",
+      "docs/14-multi-agent/**",
+      "docs/13-product-design/step57-prototype/**",
+      "scripts/multi-agent/**"
+    ],
+    "write": [
+      ".github/workflows/step57-prototype.yml",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP70-CI-STEP57-RUNNER-COMPAT-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "docs/14-multi-agent/incidents/STEP70-CI-STEP57-RUNNER-COMPAT-001.md"
+    ],
+    "forbidden": [
+      ".github/workflows/merge-policy.yml",
+      ".github/workflows/ci.yml",
+      ".github/workflows/phase-a.yml",
+      "scripts/multi-agent/**",
+      "src/**",
+      "apps/**",
+      "database/**",
+      "contracts/**",
+      "test/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "docs/12-current-state/**",
+      "graphify-out/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP70-CI-STEP57-RUNNER-COMPAT-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 12000,
+    "soft_alert": 18000,
+    "hard_cap": 32000
+  },
+  "task_risk_rules": [
+    {
+      "id": "STEP70_CI_STEP57_OS_COMPAT_MEDIUM",
+      "risk": "MEDIUM",
+      "paths": [
+        ".github/workflows/step57-prototype.yml",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP70-CI-STEP57-RUNNER-COMPAT-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md",
+        "docs/14-multi-agent/incidents/STEP70-CI-STEP57-RUNNER-COMPAT-001.md"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "GitHub Issue #401 Ubuntu 26.04 Playwright 1.55 CI failure",
+      "required_state": "REPRODUCED",
+      "observed_state": "REPRODUCED",
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "issue": "https://github.com/rahemih/Eqcofe/issues/401",
+    "parent_governance_issue": "https://github.com/rahemih/Eqcofe/issues/399",
+    "failing_run": "https://github.com/rahemih/Eqcofe/actions/runs/44042004778",
+    "external_reference": "https://github.blog/changelog/2026-09-17-ubuntu-26-generally-available-and-latest-migration/",
+    "strict_negative_scope": "Only 'runs-on: ubuntu-latest' becomes 'runs-on: ubuntu-24.04' in Step57 workflow; no Playwright or test version, steps, required gates, branch protection or permission changes."
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "One-line runner pin from ubuntu-latest to ubuntu-24.04 in only Step57 Prototype workflow; other workflow bytes and every browser/security/a11y/test step identical.",
+      "verification": "git diff -- .github/workflows/step57-prototype.yml",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Full Step57 Prototype workflow including Chromium install, exhaustive browser/interactions/a11y audit and screenshots executes to PASS on actual GitHub-hosted Ubuntu 24.04.",
+      "verification": "provider_step57_prototype_workflow_exact_head",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Canonical CI and Phase A execute successfully on the exact PR head; deterministic Review/Verification remain mandatory.",
+      "verification": "provider_exact_head_ci",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Scope and task catalog are exactly regenerated/validated; no runtime code, security or release policy modified.",
+      "verification": "pnpm verify and scope history",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Current MEDIUM risk and exact-artifact ACTIVE Scope Lock plus protected-main Merge Policy validation required; no direct main write or gate spoofing.",
+      "verification": "merge_policy_exact_head",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "LOCK"
+    ],
+    "provider_bound_gates": [
+      "REVIEW",
+      "VERIFICATION"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "MEDIUM requires deterministic Review/Verification, ACTIVE exact-artifact Scope Lock, protected-main required CI; no waiver, suppression, skip or modified security gate."
+  }
+}
