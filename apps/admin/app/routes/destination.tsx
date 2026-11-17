@@ -40,6 +40,10 @@ export async function loader({request,params}:{request:Request;params:{surfaceId
   if(destination.surface==="AD-D-12")throw redirect("/procurement/suppliers",{headers});
   if(destination.surface==="AD-D-13")throw redirect("/procurement/requests",{headers});
   if(destination.surface==="AD-D-14")throw redirect("/procurement/orders",{headers});
+  if(destination.surface==="AD-D-15")throw redirect("/procurement-settlement/receipts",{headers});
+  if(destination.surface==="AD-D-16")throw redirect("/procurement-settlement/landed-costs",{headers});
+  if(destination.surface==="AD-D-17")throw redirect("/procurement-settlement/invoices",{headers});
+  if(destination.surface==="AD-D-18")throw redirect("/procurement-settlement/returns",{headers});
   if(isStep69FoundationSurface(destination.surface)){
     const foundation=await readStep69Foundation(request,destination.surface);
     appendAdminAuthSetCookies(headers,foundation.setCookies);

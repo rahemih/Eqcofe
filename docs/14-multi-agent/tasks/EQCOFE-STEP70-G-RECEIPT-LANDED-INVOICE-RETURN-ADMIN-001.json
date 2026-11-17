@@ -1,0 +1,220 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP70-G-RECEIPT-LANDED-INVOICE-RETURN-ADMIN-001",
+  "title": "Step 70-G Goods Receipt, Landed Cost, Supplier Invoice and Purchase Return administration",
+  "description": "HIGH-risk Admin operations for AD-D-15/16/17/18 from exact canonical Backend/OpenAPI authority. Discovered contract/runtime drift must be resolved or fail-closed: reverse uses ApproveRequest.comment but controller reads reason/note; invoice dispute/cancel require ResolveRequest.resolution_note but controller reads reason/note; landed preview/finalize contract cannot be asserted to have preview_id persistence or allocation_method override. Do not silently imply supported semantics. Preserve backend permissions, idempotency, If-Match, WebAuthn Step-Up and unknown-outcome rules; do not enter 70-H or Step71.",
+  "risk": "HIGH",
+  "risk_floor": "HIGH",
+  "owner": "FRONTEND_ENGINEERING",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "946ccb63ed210305b0ced2fb12143944ff37b796"
+  },
+  "scope": {
+    "read": [
+      "apps/admin/**",
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "src/modules/procurement/**",
+      "docs/11-step-history/**",
+      "docs/13-product-design/step56-pricing-inventory-wireframes.json",
+      "docs/13-product-design/step56-wireframes/D/**",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "apps/admin/**",
+      "docs/11-step-history/STEP-70-G-PROCUREMENT-SETTLEMENT-ADMINISTRATION.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP70-G-RECEIPT-LANDED-INVOICE-RETURN-ADMIN-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "database/**",
+      "test/**",
+      "scripts/**",
+      "apps/api/**",
+      "apps/worker/**",
+      "apps/scheduler/**",
+      "apps/storefront/**",
+      "docs/12-current-state/**",
+      "graphify-out/**",
+      "contracts/**",
+      "src/generated/**",
+      "src/platform/**",
+      "src/shared/**",
+      "src/modules/inventory/**",
+      "src/modules/pos/**",
+      "src/modules/procurement/**",
+      "docs/13-product-design/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP70-G-RECEIPT-LANDED-INVOICE-RETURN-ADMIN-001-01"
+  ],
+  "human_gate_required": true,
+  "authorized_human_approver": {
+    "role": "PROJECT_OWNER",
+    "github_login": "rahemih"
+  },
+  "token_budget": {
+    "expected_max": 54000,
+    "soft_alert": 84000,
+    "hard_cap": 134000
+  },
+  "task_risk_rules": [
+    {
+      "id": "STEP70_G_PROCUREMENT_SETTLEMENT_ADMIN_HIGH",
+      "risk": "HIGH",
+      "paths": [
+        "apps/admin/**",
+        "docs/11-step-history/STEP-70-G-PROCUREMENT-SETTLEMENT-ADMINISTRATION.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP70-G-RECEIPT-LANDED-INVOICE-RETURN-ADMIN-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "70-F Supplier/PR/PO administration",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "946ccb63ed210305b0ced2fb12143944ff37b796",
+      "terminal_evidence_comment": 6465016528,
+      "postmerge_run": 40660305178,
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "linear_issue": "HOS-74",
+    "graph_state": "RETIRED_AND_OUT_OF_SCOPE",
+    "surfaces": [
+      "AD-D-15",
+      "AD-D-16",
+      "AD-D-17",
+      "AD-D-18"
+    ],
+    "operation_count": 23,
+    "mutation_policy": {
+      "idempotency_required": [
+        "goods-receipts:create",
+        "goods-receipts:post",
+        "goods-receipts:reverse",
+        "landed-costs:create",
+        "landed-costs:finalize",
+        "supplier-invoices:create",
+        "purchase-returns:create",
+        "purchase-returns:ship"
+      ],
+      "if_match_required": [
+        "goods-receipts:update",
+        "goods-receipts:submit",
+        "goods-receipts:post",
+        "goods-receipts:reverse",
+        "landed-costs:finalize",
+        "supplier-invoices:match",
+        "supplier-invoices:dispute",
+        "supplier-invoices:cancel",
+        "purchase-returns:approve",
+        "purchase-returns:ship",
+        "purchase-returns:complete"
+      ],
+      "step_up_required": [
+        "goods-receipts:post",
+        "goods-receipts:reverse",
+        "landed-costs:finalize",
+        "purchase-returns:approve",
+        "purchase-returns:ship"
+      ]
+    },
+    "source_gaps": [
+      {
+        "route": "POST /admin/procurement/goods-receipts/{id}/reverse",
+        "contract": "ApproveRequest.comment",
+        "runtime": "reason ?? note",
+        "policy": "block until sourced compatibility repair"
+      },
+      {
+        "route": "POST /admin/procurement/supplier-invoices/{id}/dispute|cancel",
+        "contract": "ResolveRequest.resolution_note",
+        "runtime": "reason ?? note",
+        "policy": "block until sourced compatibility repair"
+      },
+      {
+        "route": "POST /admin/procurement/landed-costs/{id}/preview-allocation",
+        "contract": "allocation_method/manual_allocations",
+        "runtime": "allocations; method from stored draft",
+        "policy": "block unsupported override/manual contract semantics"
+      },
+      {
+        "route": "POST /admin/procurement/landed-costs/{id}/finalize",
+        "contract": "preview_id/reason",
+        "runtime": "allocations; no preview_id lookup",
+        "policy": "block preview-binding assumption and document separate governed Backend fix"
+      }
+    ],
+    "strict_negative_scope": "No Step70-H/Step71/POS/Graph; no invented persistence or synthetic response shapes"
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Exactly AD-D-15/16/17/18 and 23 source-backed operations mapped; no invented permission",
+      "verification": "step70_g_scope",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Required create/post/reverse/finalize/ship idempotency server-owned; If-Match where declared, WebAuthn only where source-proven",
+      "verification": "step70_g_authority",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Receipt quantity invariant accepted+quarantine+rejected=received; owned excludes rejected; PO/warehouse/supplier matching remains Backend authority",
+      "verification": "step70_g_receipts",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Landed cost allocation and preview/finalize contract drift is reconciled before exposing unsafe actions; no fake preview id",
+      "verification": "step70_g_landed",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Invoice resolution_note and goods receipt reversal comment drift are corrected or blocked and explicitly disclosed",
+      "verification": "step70_g_contract_drift",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Purchase returns preserve default quarantine, positive quantities, unique variants and separation-of-duties authority",
+      "verification": "step70_g_returns",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "Unknown mutation outcomes do not auto-retry; authoritative re-read required",
+      "verification": "step70_g_fail_closed",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "Full Admin verify chain, CI/Phase A/CodeQL/Review/Independent Security and exact-head Lock; Human Gate then postmerge and release",
+      "verification": "step70_g_gates",
+      "mandatory": true
+    },
+    {
+      "id": "AC-009",
+      "description": "No 70-H, Step71 or Graph/Graphify authority introduced",
+      "verification": "step70_g_negative",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": [],
+  "process_improvement_links": [],
+  "incident_links": []
+}
