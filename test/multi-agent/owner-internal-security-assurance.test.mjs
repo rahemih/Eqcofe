@@ -31,3 +31,42 @@ test('Internal assessment must link to a specific evidence comment, not a generi
   assert.ok(result(f=>{f.current.INTERNAL_SECURITY.report_url='https://github.com/rahemih/Eqcofe/issues/399'}).blockers.includes('INTERNAL_SECURITY_ASSESSMENT_INVALID'));
   assert.ok(result(f=>{f.current.INTERNAL_SECURITY.report_url='https://github.com/rahemih/Eqcofe/pull/403#issuecomment-31'}).blockers.length===0);
 });
+
+test('Step70-G governance allowlist R2 grants only explicit HIGH task opt-ins, never a wildcard',()=>{
+  for(const taskId of [
+    'EQCOFE-STEP70-G-OWNER-INTERNAL-ASSURANCE-ALLOWLIST-002',
+    'EQCOFE-STEP70-G-INVOICE-WAREHOUSE-SCOPE-001',
+  ]){
+    const actual=result(f=>{
+      f.contract.task_id=taskId;
+      f.current.INTERNAL_SECURITY.task_id=taskId;
+      f.current.OWNER_RISK.task_id=taskId;
+    });
+    assert.equal(actual.status,'INTERNAL_EVIDENCE_VERIFIED',taskId);
+    assert.equal(actual.human_reviewer_independent,false);
+    assert.equal(Object.hasOwn(actual,'security_pass'),false);
+  }
+  const unrelated=result(f=>{
+    f.contract.task_id='EQCOFE-STEP70-H-PROHIBITED-001';
+    f.current.INTERNAL_SECURITY.task_id=f.contract.task_id;
+    f.current.OWNER_RISK.task_id=f.contract.task_id;
+  });
+  assert.ok(unrelated.blockers.includes('INTERNAL_TASK_NOT_ALLOWLISTED'));
+});
+test('Step70-G new allowlisted task cannot evade exact task opt-in, HIGH floor or owner-risk',()=>{
+  const setTask=f=>{
+    f.contract.task_id='EQCOFE-STEP70-G-INVOICE-WAREHOUSE-SCOPE-001';
+    f.current.INTERNAL_SECURITY.task_id='EQCOFE-STEP70-G-INVOICE-WAREHOUSE-SCOPE-001';
+    f.current.OWNER_RISK.task_id='EQCOFE-STEP70-G-INVOICE-WAREHOUSE-SCOPE-001';
+  };
+  for(const alter of [
+    f=>{delete f.contract.owner_internal_security_assurance;},
+    f=>{f.contract.risk='MEDIUM';},
+    f=>{f.contract.human_gate_required=false;},
+    f=>{f.current.OWNER_RISK.artifact_hash='f'.repeat(64);},
+    f=>{f.check_runs[0].app.id=42;},
+  ]){
+    const assessed=result(f=>{setTask(f);alter(f);});
+    assert.equal(assessed.status,'BLOCKED');
+  }
+});

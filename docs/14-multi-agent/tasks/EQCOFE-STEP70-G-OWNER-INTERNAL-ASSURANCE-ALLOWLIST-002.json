@@ -1,0 +1,153 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP70-G-OWNER-INTERNAL-ASSURANCE-ALLOWLIST-002",
+  "title": "Step 70-G HIGH governance allowlist extension for warehouse invoice security task",
+  "description": "Versioned, exact-task owner-only internal security assurance allowlist extension for the supplier-invoice warehouse BOLA HIGH remediation Task. The candidate governance Task ID itself is explicitly allowlisted only to permit separately owner-approved HIGH exact-artifact governance review. Never infer independent SECURITY PASS, broad exception, or approval of the business repair.",
+  "risk": "HIGH",
+  "risk_floor": "HIGH",
+  "owner": "GOVERNANCE_ENGINEERING",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "58ac38b730f192799ca582e7d2e0b70ecb580989"
+  },
+  "scope": {
+    "read": [
+      "scripts/multi-agent/**",
+      "test/multi-agent/**",
+      "docs/14-multi-agent/**",
+      "docs/11-step-history/STEP-70-G*",
+      "src/modules/procurement/**",
+      ".github/workflows/**"
+    ],
+    "write": [
+      "scripts/multi-agent/owner-internal-security-assurance.mjs",
+      "test/multi-agent/owner-internal-security-assurance.test.mjs",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP70-G-OWNER-INTERNAL-ASSURANCE-ALLOWLIST-002.json",
+      "docs/14-multi-agent/STEP70-G-OWNER-ONLY-INVOICE-WAREHOUSE-ALLOWLIST-AMENDMENT.md",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md"
+    ],
+    "forbidden": [
+      ".github/**",
+      "src/**",
+      "apps/**",
+      "database/**",
+      "contracts/**",
+      "scripts/multi-agent/merge-policy-controller.mjs",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**",
+      "graphify-out/**",
+      "test/step70-g-invoice-warehouse-auth.spec.ts"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP70-G-OWNER-INTERNAL-ASSURANCE-ALLOWLIST-002-01"
+  ],
+  "human_gate_required": true,
+  "authorized_human_approver": {
+    "role": "PROJECT_OWNER",
+    "github_login": "rahemih"
+  },
+  "token_budget": {
+    "expected_max": 18000,
+    "soft_alert": 30000,
+    "hard_cap": 60000
+  },
+  "task_risk_rules": [
+    {
+      "id": "STEP70_G_OWNER_ONLY_ALLOWLIST_R2_HIGH",
+      "risk": "HIGH",
+      "paths": [
+        "scripts/multi-agent/owner-internal-security-assurance.mjs",
+        "test/multi-agent/owner-internal-security-assurance.test.mjs",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP70-G-OWNER-INTERNAL-ASSURANCE-ALLOWLIST-002.json",
+        "docs/14-multi-agent/STEP70-G-OWNER-ONLY-INVOICE-WAREHOUSE-ALLOWLIST-AMENDMENT.md",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "Canonical owner-only assurance governance PR #403",
+      "required_state": "MERGED_POSTMERGE_LOCK_RELEASED",
+      "observed_state": "CONFIRMED",
+      "blocking": false
+    },
+    {
+      "item": "Issue #407 controlled explicit Owner approval of new HIGH governance revision",
+      "required_state": "SEPARATE_EXACT_ARTIFACT_OWNER_RISK_AND_HUMAN",
+      "observed_state": "MISSING",
+      "blocking": true
+    },
+    {
+      "item": "Invoice BOLA remediation Draft PR #404",
+      "required_state": "STAY_BLOCKED_UNTIL_THIS_TASK_CANONICAL",
+      "observed_state": "OPEN_NOT_MERGED",
+      "blocking": true
+    }
+  ],
+  "owner_internal_security_assurance": {
+    "mode": "OWNER_ACCEPTED_INTERNAL_SECURITY_ASSURANCE",
+    "governance_issue": "https://github.com/rahemih/Eqcofe/issues/399",
+    "risk_acknowledgement": "NO_INDEPENDENT_HUMAN_SECURITY_REVIEW",
+    "activation_scope": "EXPLICIT_GOV_TASK_ONLY; EXACT_ARTIFACT_INTERNAL_ASSESSMENT, OWNER_RISK, HUMAN, LOCK, CODEQL AND PROTECTED_MERGE_REQUIRED"
+  },
+  "evidence": {
+    "parent_issue": "https://github.com/rahemih/Eqcofe/issues/407",
+    "canonical_governance_issue": "https://github.com/rahemih/Eqcofe/issues/399",
+    "target_task": "EQCOFE-STEP70-G-INVOICE-WAREHOUSE-SCOPE-001",
+    "target_pr": "https://github.com/rahemih/Eqcofe/pull/404",
+    "owner_approval_scope": "NOT_YET_GRANTED_FOR_THIS_EXACT_ARTIFACT",
+    "no_independent_reviewer_claim": true
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Precisely two additions to existing allowlist: governance v2 task and invoice warehouse task; no wildcard/external business tasks.",
+      "verification": "git diff; test/multi-agent/owner-internal-security-assurance.test.mjs",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Unknown task, missing opt-in, wrong SHA/artifact/owner, missing risk/Human, downgraded HIGH and failing CodeQL still fail closed.",
+      "verification": "owner_assurance_negative_tests",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Independent Security PASS remains distinct; owner-only mode explicitly NON-INDEPENDENT and requires an internal assessment with no unresolved HIGH/CRITICAL.",
+      "verification": "controller+helper source audit",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Canonical CI, Phase A, CodeQL, deterministic Review, exact-artifact Lock, separate Owner risk acceptance and subsequent Human Gate all required.",
+      "verification": "GitHub exact-head provider and gate evidence",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Protected merge and exact-SHA postmerge, then terminal Lock RELEASED; no PR #404 merge or security-signoff implied.",
+      "verification": "official_merge_policy_workflow",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "INTERNAL_SECURITY",
+      "OWNER_RISK",
+      "HUMAN",
+      "LOCK"
+    ],
+    "provider_bound_gates": [
+      "REVIEW",
+      "VERIFICATION"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "HIGH exact-artifact opt-in; explicitly non-independent assistant review, independent owner consent and Human Gate after technical evidence, retained CodeQL; no bypass or equivalent external Security PASS."
+  }
+}
