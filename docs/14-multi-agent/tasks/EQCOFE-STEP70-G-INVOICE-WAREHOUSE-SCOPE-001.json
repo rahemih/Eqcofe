@@ -1,0 +1,206 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP70-G-INVOICE-WAREHOUSE-SCOPE-001",
+  "title": "Step 70-G HIGH supplier-invoice warehouse authorization fail-closed repair",
+  "description": "Remediate PO-unlinked invoice BOLA in restricted warehouse list/create/transition and fail closed when a linked PO is absent, while preserving global staff workflows, supplier checks, version/If-Match, reason, RBAC, Step-Up, idempotency and audit. A separate exact-head owner-only assurance allowlist governance amendment is mandatory for user/assistant review; do not spoof independent Security PASS.",
+  "risk": "HIGH",
+  "risk_floor": "HIGH",
+  "owner": "PROCUREMENT_SECURITY_ENGINEERING",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "58ac38b730f192799ca582e7d2e0b70ecb580989"
+  },
+  "scope": {
+    "read": [
+      "src/modules/procurement/**",
+      "src/platform/auth/scope-policy.ts",
+      "test/**",
+      "docs/14-multi-agent/**",
+      "docs/11-step-history/STEP-70-G*",
+      "contracts/http/**",
+      "scripts/multi-agent/**",
+      "docs/13-product-design/**"
+    ],
+    "write": [
+      "src/modules/procurement/application/receipt-cost.service.ts",
+      "src/modules/procurement/infrastructure/procurement.repository.ts",
+      "test/step70-g-invoice-warehouse-auth.spec.ts",
+      "docs/11-step-history/STEP-70-G-INVOICE-WAREHOUSE-SCOPE-SECURITY.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP70-G-INVOICE-WAREHOUSE-SCOPE-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "docs/13-product-design/step56-pricing-inventory-wireframes.json",
+      "docs/13-product-design/step56-wireframes/D/manifest.json",
+      "docs/13-product-design/step56-final-audit.json",
+      "docs/13-product-design/step56-final-audit/manifest.json",
+      "docs/13-product-design/step57-high-fidelity-contract.json",
+      "docs/13-product-design/step56-commerce-operations-wireframes.json",
+      "docs/13-product-design/step56-wireframes/E/manifest.json",
+      "docs/13-product-design/step56-customers-growth-wireframes.json",
+      "docs/13-product-design/step56-wireframes/F/manifest.json",
+      "docs/13-product-design/step56-management-security-wireframes.json",
+      "docs/13-product-design/step56-wireframes/G/manifest.json"
+    ],
+    "forbidden": [
+      ".github/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "database/**",
+      "src/platform/**",
+      "src/modules/identity/**",
+      "src/modules/inventory/**",
+      "src/modules/pos/**",
+      "src/modules/procurement/presentation/**",
+      "contracts/**",
+      "apps/**",
+      "docs/12-current-state/**",
+      "graphify-out/**",
+      "scripts/**",
+      "docs/13-product-design/step57-prototype/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP70-G-INVOICE-WAREHOUSE-SCOPE-001-01"
+  ],
+  "human_gate_required": true,
+  "authorized_human_approver": {
+    "role": "PROJECT_OWNER",
+    "github_login": "rahemih"
+  },
+  "token_budget": {
+    "expected_max": 30000,
+    "soft_alert": 50000,
+    "hard_cap": 100000
+  },
+  "task_risk_rules": [
+    {
+      "id": "STEP70_G_INVOICE_WAREHOUSE_BOLA_HIGH",
+      "risk": "HIGH",
+      "paths": [
+        "src/modules/procurement/application/receipt-cost.service.ts",
+        "src/modules/procurement/infrastructure/procurement.repository.ts",
+        "test/step70-g-invoice-warehouse-auth.spec.ts",
+        "docs/11-step-history/STEP-70-G-INVOICE-WAREHOUSE-SCOPE-SECURITY.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP70-G-INVOICE-WAREHOUSE-SCOPE-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md",
+        "docs/13-product-design/step56-pricing-inventory-wireframes.json",
+        "docs/13-product-design/step56-wireframes/D/manifest.json",
+        "docs/13-product-design/step56-final-audit.json",
+        "docs/13-product-design/step56-final-audit/manifest.json",
+        "docs/13-product-design/step57-high-fidelity-contract.json",
+        "docs/13-product-design/step56-commerce-operations-wireframes.json",
+        "docs/13-product-design/step56-wireframes/E/manifest.json",
+        "docs/13-product-design/step56-customers-growth-wireframes.json",
+        "docs/13-product-design/step56-wireframes/F/manifest.json",
+        "docs/13-product-design/step56-management-security-wireframes.json",
+        "docs/13-product-design/step56-wireframes/G/manifest.json"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "Source-confirmed BOLA in #388",
+      "required_state": "REMEDIATION_VERIFIED",
+      "observed_state": "IMPLEMENTATION_PROPOSED",
+      "blocking": true
+    },
+    {
+      "item": "Narrow exact-task allowlist amendment in owner-internal security assurance",
+      "required_state": "SEPARATELY_GOVERNED_AND_CANONICAL",
+      "observed_state": "NOT_YET_ALLOWLISTED",
+      "blocking": true
+    }
+  ],
+  "owner_internal_security_assurance": {
+    "mode": "OWNER_ACCEPTED_INTERNAL_SECURITY_ASSURANCE",
+    "governance_issue": "https://github.com/rahemih/Eqcofe/issues/399",
+    "risk_acknowledgement": "NO_INDEPENDENT_HUMAN_SECURITY_REVIEW",
+    "activation_scope": "ONLY_AFTER_SEPARATE_GOVERNED_ALLOWLIST_APPROVAL; never counted as independent security PASS"
+  },
+  "evidence": {
+    "parent_issue": "https://github.com/rahemih/Eqcofe/issues/388",
+    "linear_issue": "HOS-74",
+    "code_review_required": true,
+    "security_report_required": true,
+    "owner_approval_scope": "NOT_REQUESTED",
+    "business_scope": "Supplier invoice warehouse BOLA only",
+    "no_new_db_columns": true,
+    "existing_PR390": "https://github.com/rahemih/Eqcofe/pull/390",
+    "provenance": "Step56 D service/repo source SHA256 -> D manifest -> Step56 E, F, G sources+manifests -> Step56 H final audit+manifest -> Step57 foundation hash pins; design verdicts unchanged",
+    "pinned_sha256": {
+      "service": "249c615ce0c450b408cc443faead240f6c468cf6a59b2176f419a7cee59249b2",
+      "repository": "05533803a1fdf35fca6e40320e0fbfdba05b38cc34de90093e56ea0f938520d3",
+      "pricing": "5d2ca97b97e8828f0d221111dd48af688ea8b7eab2dc63774da55d18a7b29e30",
+      "Dmanifest": "c91916c6ea78ee8a468d466322cd8aeff878d5c87c4b468ded9364ceeb535188",
+      "finalAudit": "6ab62f3eb1fce3f1bd98775505d5d5414a9b04a19dfc957e2c224bf486e66e7e",
+      "finalAuditManifest": "1c9ea98f7a0f5e23dd18b759c836e9835f7ebef091984b87ac0517ff0a43c5ae",
+      "step57": "d33e585ccfb85efd19d7d7e7d990f9ac6651e43cf38bc67fa5810fa08c25bd4d",
+      "commerce": "008d7e36bad0ce672d3a1d13b1cec2761e1b473694779a8c27976fc5bf54cfee",
+      "eManifest": "c9905d8f5186ff28ef5c78afe9cfa961916dfa2b7eccd737826edbda3080d368",
+      "customers": "ab39215a64ed591908108da373327069929cc3ab736220483ffe1b5b3dc304a2",
+      "fManifest": "73b7e0149285a28d4edd16a1c5e7491fbb4569dca9f7a4b249775f0f4c1320e5",
+      "management": "7585f8df00d88f6b27823c98228ec1e18e10c06db442676cb3fa5c91065b8f29",
+      "gManifest": "62a5c0c1bfc250e0ab315433e83182d09ee21514a9c639a759acf84c21ddd868"
+    }
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Restricted staff cannot list PO-unlinked invoices; global staff retain intended visibility.",
+      "verification": "test/step70-g-invoice-warehouse-auth.spec.ts and SQL scope audit",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Restricted staff cannot create or transition PO-unlinked invoices; global permitted operations retain existing audit and reason checks.",
+      "verification": "negative_and_positive_service_tests",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Linked invoice creation/transition enforce linked PO warehouse and supplier; missing PO fails closed for all transition targets.",
+      "verification": "negative_test_crosswarehouse_orphan_and_mismatch",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "If-Match/version, status, reason, RBAC, Step-Up, idempotency, audit and canonical OpenAPI are preserved without bypass or schema change.",
+      "verification": "source_diff_and_full_CI",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Exact-head full Canonical CI, Phase A, CodeQL and Prototype success, deterministic review and correct main protection.",
+      "verification": "provider_workflows",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Internal assurance only once exact task allowlist is governed; distinct internal assessment and owner exact-artifact risk/Human, ACTIVE Lock, protected merge and exact-SHA postmerge required.",
+      "verification": "merge_policy_controller",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "All generated Step56 D/E/F/G/H and Step57 SHA256 pins and manifests are regenerated/validated without changing static design, permissions or review verdicts.",
+      "verification": "pnpm verify full source and artifact chain",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "INTERNAL_SECURITY",
+      "OWNER_RISK",
+      "HUMAN",
+      "LOCK"
+    ],
+    "provider_bound_gates": [
+      "REVIEW",
+      "VERIFICATION"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "HIGH risk; no independent SECURITY PASS spoofing; owner-only alternative only after separately governed exact task allowlist; no merge without all exact-head gates, owner Human, ACTIVE lock and protected merge."
+  }
+}
