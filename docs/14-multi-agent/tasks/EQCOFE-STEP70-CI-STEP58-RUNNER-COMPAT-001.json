@@ -1,0 +1,126 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP70-CI-STEP58-RUNNER-COMPAT-001",
+  "title": "Step 70 CI Step58 Playwright storefront-quality runner compatibility (Ubuntu 24.04 pin)",
+  "description": "Isolated MEDIUM CI compatibility repair for Step58 Storefront Quality: pin the GitHub hosted runner to Ubuntu 24.04 because pinned Playwright 1.55 cannot install Chromium on migrated Ubuntu 26.04. Preserve every browser, interaction, accessibility, keyboard, responsive, storefront build, supply-chain check, permissions and status check. Not a Step70-G runtime or governance bypass.",
+  "risk": "MEDIUM",
+  "risk_floor": "MEDIUM",
+  "owner": "DEVOPS_ENGINEERING",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "58ac38b730f192799ca582e7d2e0b70ecb580989"
+  },
+  "scope": {
+    "read": [
+      ".github/workflows/step58-storefront-quality.yml",
+      ".github/workflows/step57-prototype.yml",
+      "docs/14-multi-agent/**",
+      "scripts/multi-agent/**",
+      "apps/storefront/**"
+    ],
+    "write": [
+      ".github/workflows/step58-storefront-quality.yml",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP70-CI-STEP58-RUNNER-COMPAT-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "docs/14-multi-agent/incidents/STEP70-CI-STEP58-RUNNER-COMPAT-001.md"
+    ],
+    "forbidden": [
+      ".github/workflows/merge-policy.yml",
+      ".github/workflows/ci.yml",
+      ".github/workflows/phase-a-verification.yml",
+      "scripts/**",
+      "src/**",
+      "apps/**",
+      "database/**",
+      "contracts/**",
+      "test/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**",
+      "graphify-out/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP70-CI-STEP58-RUNNER-COMPAT-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 12000,
+    "soft_alert": 18000,
+    "hard_cap": 32000
+  },
+  "task_risk_rules": [
+    {
+      "id": "STEP70_CI_STEP58_OS_COMPAT_MEDIUM",
+      "risk": "MEDIUM",
+      "paths": [
+        ".github/workflows/step58-storefront-quality.yml",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP70-CI-STEP58-RUNNER-COMPAT-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md",
+        "docs/14-multi-agent/incidents/STEP70-CI-STEP58-RUNNER-COMPAT-001.md"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "GitHub Issue #405, Step58 Playwright 1.55 / Ubuntu 26.04 failure",
+      "required_state": "REPRODUCED",
+      "observed_state": "REPRODUCED",
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "issue": "https://github.com/rahemih/Eqcofe/issues/405",
+    "parent_pr": "https://github.com/rahemih/Eqcofe/pull/404",
+    "observed_failure": "https://github.com/rahemih/Eqcofe/actions/runs/44291906251",
+    "canonical_analogy": "https://github.com/rahemih/Eqcofe/pull/402",
+    "strict_runtime_diff": "Exactly one runner pin line in Step58 workflow; no test, browser version, dependencies, permissions, quality gates or other workflow changes."
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "One-line Step58 workflow change only: ubuntu-latest -> ubuntu-24.04, while retaining Playwright 1.55, axe-core 4.10.3, Chromium install, storefront build and all interaction, responsive, accessibility and keyboard QA.",
+      "verification": "git diff -- .github/workflows/step58-storefront-quality.yml",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Exact-head full Step58 browser-quality job SUCCESS with Chromium installation and browser/a11y/responsive/keyboard QA executed, not skipped.",
+      "verification": "provider_step58_storefront_quality_exact_head",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Exact-head Canonical CI, Phase A, deterministic Review and required security checks PASS.",
+      "verification": "exact_head_GitHub_Actions",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "MEDIUM scope lock ACTIVE on exact artifact; protected branch ruleset and Merge Policy must remain binding.",
+      "verification": "merge_policy_exact_head",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "After approved protected merge, exact-SHA postmerge Canonical CI and Phase A PASS, canonical Step58 runner pin present and Lock RELEASED; do not mark PR404 or Step70 closed.",
+      "verification": "protected_merge_postmerge",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "LOCK"
+    ],
+    "provider_bound_gates": [
+      "REVIEW",
+      "VERIFICATION"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "MEDIUM: exact-head required CI, full Step58 QA and ACTIVE exact-artifact Lock; no security bypass, no direct main writes, protected merge and exact-SHA postmerge required."
+  }
+}

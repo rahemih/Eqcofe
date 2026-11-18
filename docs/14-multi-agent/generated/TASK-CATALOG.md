@@ -132,6 +132,7 @@
 | EQCOFE-STEP70-B-INVENTORY-PROCUREMENT-POS-CONTRACT-001 | Step 70-B Inventory Procurement POS HTTP and generated contract readiness | HIGH | REQUIRED | `017475977c0377d42a668c84647eff1b3c9097b9` | 52000/82000/132000 |
 | EQCOFE-STEP70-C-ADMIN-INVENTORY-PROCUREMENT-POS-FOUNDATION-001 | Step 70-C shared Admin Inventory, Procurement & POS read/state foundation | MEDIUM | NOT_REQUIRED | `4a98b9b856233ec01fff4472163b37644d911ce6` | 40000/64000/104000 |
 | EQCOFE-STEP70-CI-STEP57-RUNNER-COMPAT-001 | Step 70 CI Step57 Playwright runner compatibility (Ubuntu 24.04 pin) | MEDIUM | NOT_REQUIRED | `946ccb63ed210305b0ced2fb12143944ff37b796` | 12000/18000/32000 |
+| EQCOFE-STEP70-CI-STEP58-RUNNER-COMPAT-001 | Step 70 CI Step58 Playwright storefront-quality runner compatibility (Ubuntu 24.04 pin) | MEDIUM | NOT_REQUIRED | `58ac38b730f192799ca582e7d2e0b70ecb580989` | 12000/18000/32000 |
 | EQCOFE-STEP70-D-INVENTORY-ADMIN-001 | Step 70-D Inventory administration | HIGH | REQUIRED | `7d7b1468e33b0ec0c7e0e47061e50bb63e72374c` | 52000/82000/132000 |
 | EQCOFE-STEP70-E-INVENTORY-FLOW-ADMIN-001 | Step 70-E Transfer Reservation Allocation and Sale Consumption administration | HIGH | REQUIRED | `acbb8e35a29bdffec27d1ea9d7ce12ea4c402a01` | 52000/82000/132000 |
 | EQCOFE-STEP70-F-SUPPLIER-PR-PO-ADMIN-001 | Step 70-F Supplier Purchase Request and Purchase Order administration | HIGH | REQUIRED | `5d2dbd3acdde3c993253e30391cf3701b3c84ba8` | 54000/84000/134000 |
@@ -181,4 +182,4 @@
 | MA-V1-ACC-MEDIUM-001 | V1 Acceptance MEDIUM R2 — telemetry terminal-state conflict hardening | MEDIUM | NOT_REQUIRED | `9017e0f25e9571568ed9acf4ca3ca977ce9e78f0` | 15000/25000/50000 |
 | MA-V1-ACCEPTANCE-CLOSURE-V16-R2-001 | V1.6 Phase 3 canonical acceptance closure R2 | HIGH | REQUIRED | `d7d235f5f240b8bea44bc607afa812b2f5bb12d4` | 30000/50000/90000 |
 
-Task contracts indexed: **175**.
+Task contracts indexed: **176**.
