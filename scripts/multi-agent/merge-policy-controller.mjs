@@ -2,6 +2,7 @@ import { readFileSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { pathToFileURL } from 'node:url';
 import { buildArtifactBinding } from './artifact-hash-generator.mjs';
+import { evaluateInternalSecurityEvidence } from './owner-internal-security-assurance.mjs';
 import {
   normalizeRepoPath,
   normalizeScopePattern,
@@ -19,7 +20,7 @@ export const REQUIRED_PROTECTION_CHECKS = Object.freeze(['verify', 'phase-a', 'm
 export const DETERMINISTIC_REVIEW_CHECKS = Object.freeze(['verify', 'phase-a']);
 export const GITHUB_ACTIONS_INTEGRATION_ID = 15368;
 export const TASK_CONTRACT_ROOT = 'docs/14-multi-agent/tasks/';
-const COMMENT_GATE_TYPES = new Set(['REVIEW', 'VERIFICATION', 'SECURITY', 'HUMAN', 'LOCK']);
+const COMMENT_GATE_TYPES = new Set(['REVIEW', 'VERIFICATION', 'SECURITY', 'HUMAN', 'LOCK', 'INTERNAL_SECURITY', 'OWNER_RISK']);
 const EXECUTOR_FORBIDDEN_COMMENT_GATES = new Map([
   ['REVIEW', 'UNAUTHORIZED_REVIEW_EVIDENCE'],
   ['VERIFICATION', 'UNAUTHORIZED_VERIFICATION_EVIDENCE'],
@@ -259,6 +260,7 @@ export function evaluateMergePolicy({
   protection,
   required_ci = {},
   require_required_ci = true,
+  codeql_check_runs = null,
 }) {
   const contract = normalizeContract(task_contract);
   const artifact = assertObject(artifact_binding, 'ARTIFACT_BINDING_REQUIRED');
@@ -321,7 +323,21 @@ export function evaluateMergePolicy({
       if (JSON.stringify(reviewChecks) !== JSON.stringify([...DETERMINISTIC_REVIEW_CHECKS].sort())) blockers.push('REVIEW_CHECK_SET_INVALID');
     }
   }
-  if (effectiveRisk === 'HIGH' && !gatePass(evidence.SECURITY, 'PASS')) blockers.push('SECURITY_PASS_MISSING');
+  let securityAssurance = { mode: 'INDEPENDENT_SECURITY', status: 'NOT_EXECUTED' };
+  if (effectiveRisk === 'HIGH') {
+    if (gatePass(evidence.SECURITY, 'PASS')) {
+      securityAssurance = { mode: 'INDEPENDENT_SECURITY', status: 'PASS' };
+    } else if (contract.owner_internal_security_assurance !== undefined) {
+      securityAssurance = evaluateInternalSecurityEvidence({
+        contract,
+        head_sha: artifact.commit_sha,
+        artifact_hash: artifactHash,
+        current: evidence,
+        check_runs: codeql_check_runs,
+      });
+      blockers.push(...securityAssurance.blockers);
+    } else blockers.push('SECURITY_PASS_MISSING');
+  }
 
   const humanRequired = contract.human_gate_required === true || riskPolicy.human_gate_required;
   if (humanRequired) {
@@ -353,6 +369,7 @@ export function evaluateMergePolicy({
     changed_paths: normalizedChangedPaths,
     human_gate_required: humanRequired,
     deterministic_review: deterministic_review ?? null,
+    security_assurance: securityAssurance,
     required_ci_checked: require_required_ci,
     protection_passed: protection?.passed === true,
     blockers: uniqueBlockers,
@@ -575,6 +592,11 @@ async function fetchProviderChecks({ repository, sha, checks, token, api_url }) 
   });
 }
 
+async function fetchExactCodeQlCheckRuns({ repository, sha, token, api_url }) {
+  const response = await githubRequest(`${api_url}/repos/${repository}/commits/${sha}/check-runs?per_page=100`, { token });
+  return response.check_runs ?? [];
+}
+
 function loadProjectMap() {
   return loadJson('.eqcofe/project-map.json', 'PROJECT_MAP_REQUIRED');
 }
@@ -636,6 +658,9 @@ async function runCiPr() {
     artifact_hash: context.artifact.artifact_hash,
     head_sha: context.headSha,
   });
+  const codeQlRuns = context.contract.owner_internal_security_assurance
+    ? await fetchExactCodeQlCheckRuns({ repository, sha: context.headSha, token, api_url })
+    : null;
   const result = evaluateMergePolicy({
     task_contract: context.contract,
     changed_paths: artifactScopePaths(context.artifact),
@@ -643,6 +668,7 @@ async function runCiPr() {
     project_map: context.projectMap,
     gate_evidence: context.evidence,
     deterministic_review: deterministicReview,
+    codeql_check_runs: codeQlRuns,
     protection: context.protection,
     require_required_ci: false,
   });
@@ -699,6 +725,9 @@ async function runMergePr(prNumberInput) {
     artifact_hash: context.artifact.artifact_hash,
     head_sha: context.headSha,
   });
+  const codeQlRuns = context.contract.owner_internal_security_assurance
+    ? await fetchExactCodeQlCheckRuns({ repository, sha: context.headSha, token, api_url })
+    : null;
   const result = evaluateMergePolicy({
     task_contract: context.contract,
     changed_paths: artifactScopePaths(context.artifact),
@@ -706,6 +735,7 @@ async function runMergePr(prNumberInput) {
     project_map: context.projectMap,
     gate_evidence: context.evidence,
     deterministic_review: deterministicReview,
+    codeql_check_runs: codeQlRuns,
     protection: context.protection,
     required_ci: requiredCi,
     require_required_ci: true,
