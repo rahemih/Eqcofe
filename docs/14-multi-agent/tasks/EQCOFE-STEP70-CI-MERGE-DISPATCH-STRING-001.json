@@ -1,0 +1,150 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP70-CI-MERGE-DISPATCH-STRING-001",
+  "title": "Step 70 A11 protected Merge Policy dispatch string-transport repair",
+  "description": "A11/A6 repair repeated workflow_dispatch PR 408 rendered as refs/pull/408.0/head. Stage an isolated HIGH repair with exact source/test preflight. The required generated task catalog remains locked by approved PR #408 and is NOT changed; this draft is expressly BLOCKED_NOT_MERGE_READY until canonical lock resolution, catalog regeneration, distinct security review and artifact-bound Owner Human Gate. No PR #408 head mutation or bypass.",
+  "risk": "HIGH",
+  "risk_floor": "HIGH",
+  "owner": "DEVOPS_ENGINEERING",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "58ac38b730f192799ca582e7d2e0b70ecb580989"
+  },
+  "scope": {
+    "read": [
+      ".github/workflows/merge-policy.yml",
+      "test/multi-agent/**",
+      "docs/14-multi-agent/**",
+      "scripts/multi-agent/**"
+    ],
+    "write": [
+      ".github/workflows/merge-policy.yml",
+      "test/multi-agent/merge-policy-workflow.test.mjs",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP70-CI-MERGE-DISPATCH-STRING-001.json"
+    ],
+    "forbidden": [
+      ".github/workflows/ci.yml",
+      ".github/workflows/phase-a-verification.yml",
+      "scripts/multi-agent/merge-policy-controller.mjs",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "src/**",
+      "apps/**",
+      "database/**",
+      "contracts/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "docs/12-current-state/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP70-CI-MERGE-DISPATCH-STRING-001-01"
+  ],
+  "human_gate_required": true,
+  "authorized_human_approver": {
+    "role": "PROJECT_OWNER",
+    "github_login": "rahemih"
+  },
+  "token_budget": {
+    "expected_max": 12000,
+    "soft_alert": 18000,
+    "hard_cap": 36000
+  },
+  "max_repair_cycles": 2,
+  "task_risk_rules": [
+    {
+      "id": "STEP70_CI_MERGE_DISPATCH_HIGH",
+      "risk": "HIGH",
+      "paths": [
+        ".github/workflows/merge-policy.yml",
+        "test/multi-agent/merge-policy-workflow.test.mjs",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP70-CI-MERGE-DISPATCH-STRING-001.json"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "GitHub Issue #410 and third failure run #44477629192",
+      "required_state": "REPRODUCED",
+      "observed_state": "REPRODUCED",
+      "blocking": false
+    },
+    {
+      "item": "PR #408 ACTIVE Lock on generated task catalog",
+      "required_state": "RELEASED_OR_FORMALLY_RESOLVED",
+      "observed_state": "ACTIVE",
+      "blocking": true
+    },
+    {
+      "item": "HIGH independent Security Gate and fresh Owner Human Gate for repair artifact",
+      "required_state": "EVIDENCE_COMPLETE",
+      "observed_state": "NOT_EXECUTED",
+      "blocking": true
+    }
+  ],
+  "evidence": {
+    "linear_issue": "HOS-74",
+    "github_issue": "https://github.com/rahemih/Eqcofe/issues/410",
+    "failing_runs": [
+      "44475292468",
+      "44475350442",
+      "44477629192"
+    ],
+    "main_base_sha": "58ac38b730f192799ca582e7d2e0b70ecb580989",
+    "previous_approval_not_inherited_from_pr_408": true,
+    "generated_catalog": "PENDING_ACTIVE_LOCK; NO_MUTATION; expected CI docs check failure until formally reconciled",
+    "stage": "DRAFT_NOT_MERGE_READY"
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Validate positive integer string PR number before checkout, including decimal/negative/zero rejection.",
+      "verification": "node --test test/multi-agent/merge-policy-workflow.test.mjs",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Checkout, GitHub PR API, merge controller, postmerge failure reporter use only github.event.inputs.pr_number or validated PR_NUMBER.",
+      "verification": "node --test test/multi-agent/merge-policy-workflow.test.mjs",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "No reduction of required checks, risk, locks, permissions or exact-SHA postmerge validation.",
+      "verification": "diff_and_security_review",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "No catalog edit under PR #408 lock; draft remains blocked until separate legitimate reconciliation.",
+      "verification": "active_lock_and_catalog_drift_check",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "All required GitHub CI, security and exact-artifact Human Gate before protected merge.",
+      "verification": "provider_exact_head_merge_policy",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "After fixed canonical workflow, PR #408 protected merge then exact-SHA postmerge and terminal lock release.",
+      "verification": "official_workflow_dispatch_postmerge",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "SECURITY",
+      "HUMAN",
+      "LOCK"
+    ],
+    "provider_bound_gates": [
+      "REVIEW",
+      "VERIFICATION"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "All HIGH-risk controls mandatory. Owner approval of PR #408 does NOT authorize this separate repair task."
+  }
+}
