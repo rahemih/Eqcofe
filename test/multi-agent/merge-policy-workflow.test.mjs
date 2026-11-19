@@ -30,7 +30,7 @@ test('merge job resolves the exact merge SHA from the canonical repository', () 
 });
 
 test('pre-merge checkout does not persist write credentials', () => {
-  assert.match(mergeJob, /ref: refs\/pull\/\$\{\{ inputs\.pr_number \}\}\/head[\s\S]*?persist-credentials: false/);
+  assert.match(mergeJob, /ref: refs\/pull\/\$\{\{ github\.event\.inputs\.pr_number \}\}\/head[\s\S]*?persist-credentials: false/);
 });
 
 
@@ -41,6 +41,133 @@ test('workflow_dispatch is idempotent when the requested PR is already merged', 
   assert.match(mergeJob, /if: steps\.pr_state\.outputs\.already_merged != 'true'/);
   assert.match(mergeJob, /if \[ "\$merged" = "true" \]; then[\s\S]*?gh api "repos\/\$\{GITHUB_REPOSITORY\}\/commits\/\$\{merge_sha\}" --silent/);
   assert.match(mergeJob, /name: resolve-exact-merge-sha[\s\S]*?test "\$merged" = "true"/);
+});
+
+test('manual merge dispatch validates a string PR number before checking out code', () => {
+  const dispatch = section('  workflow_dispatch:\n', '\njobs:\n');
+  assert.ok(dispatch.includes('type: string'));
+  assert.ok(mergeJob.includes('if [[ ! "$PR_NUMBER" =~ ^[1-9][0-9]*$ ]]; then'));
+  assert.ok(mergeJob.indexOf('- name: validate-dispatch-pr-number') < mergeJob.indexOf('- uses: actions/checkout@v5.1.0'));
+});
+
+test('all merge-dispatch PR inputs are string-valued and cannot float-render to 408.0', () => {
+  const expression = '
+  assert.match(postmergeJob, /needs: merge/);
+  assert.match(postmergeJob, /runs-on: ubuntu-latest/);
+  assert.match(postmergeJob, /timeout-minutes: 30/);
+  assert.match(postmergeJob, /permissions:\n\s+contents: read/);
+  assert.doesNotMatch(postmergeJob, /contents: write/);
+  assert.doesNotMatch(postmergeJob, /pull-requests: write/);
+  assert.doesNotMatch(postmergeJob, /issues: write/);
+  assert.doesNotMatch(postmergeJob, /GITHUB_TOKEN:/);
+});
+
+test('post-merge checkout is canonical-repository exact-SHA bound and credential-free', () => {
+  assert.match(postmergeJob, /repository: \$\{\{ github\.repository \}\}/);
+  assert.match(postmergeJob, /ref: \$\{\{ needs\.merge\.outputs\.merge_sha \}\}/);
+  assert.match(postmergeJob, /persist-credentials: false/);
+  assert.match(postmergeJob, /test "\$\(git rev-parse HEAD\)" = "\$\{\{ needs\.merge\.outputs\.merge_sha \}\}"/);
+  assert.doesNotMatch(postmergeJob, /ref: main/);
+  assert.doesNotMatch(postmergeJob, /refs\/pull/);
+});
+
+test('moving main from SHA_1 to SHA_2 cannot retarget post-merge verification', () => {
+  const immutableRef = 'ref: ${{ needs.merge.outputs.merge_sha }}';
+  assert.ok(postmergeJob.includes(immutableRef));
+  assert.equal((postmergeJob.match(/ref: main/g) ?? []).length, 0);
+  assert.equal((postmergeJob.match(/github\.ref/g) ?? []).length, 0);
+  assert.equal((postmergeJob.match(/github\.sha/g) ?? []).length, 0);
+});
+
+test('post-merge verification runs both canonical and Phase A commands', () => {
+  assert.match(postmergeJob, /name: postmerge-canonical-verify\n\s+run: pnpm verify/);
+  assert.match(postmergeJob, /name: postmerge-phase-a-verify\n\s+run: node scripts\/verify-phase-a\.mjs/);
+  assert.match(postmergeJob, /POSTGRES_DB: eqcofe_phase_a/);
+  assert.match(postmergeJob, /DATABASE_URL: postgresql:\/\/postgres:postgres@127\.0\.0\.1:5432\/eqcofe_phase_a/);
+});
+
+test('post-merge failure is fail-visible, alerts owner and never auto-rolls back', () => {
+  assert.match(failureJob, /needs: \[merge, postmerge-verify\]/);
+  assert.match(failureJob, /needs\.postmerge-verify\.result != 'success'/);
+  assert.match(failureJob, /issues: write/);
+  assert.match(failureJob, /incident_state: POST_MERGE_FAILED/);
+  assert.match(failureJob, /assignees\[\]=\$\{GITHUB_REPOSITORY_OWNER\}/);
+  assert.match(failureJob, /Automatic rollback is prohibited/);
+  assert.doesNotMatch(failureJob, /git revert/);
+  assert.doesNotMatch(failureJob, /pulls\/.*\/merge/);
+});
+
+test('failure reporter does not checkout or execute repository code', () => {
+  assert.doesNotMatch(failureJob, /actions\/checkout/);
+  assert.doesNotMatch(failureJob, /pnpm /);
+  assert.doesNotMatch(failureJob, /node scripts\//);
+});
+ + '{{ github.event.inputs.pr_number }}';
+  assert.ok(!workflow.includes('
+  assert.match(postmergeJob, /needs: merge/);
+  assert.match(postmergeJob, /runs-on: ubuntu-latest/);
+  assert.match(postmergeJob, /timeout-minutes: 30/);
+  assert.match(postmergeJob, /permissions:\n\s+contents: read/);
+  assert.doesNotMatch(postmergeJob, /contents: write/);
+  assert.doesNotMatch(postmergeJob, /pull-requests: write/);
+  assert.doesNotMatch(postmergeJob, /issues: write/);
+  assert.doesNotMatch(postmergeJob, /GITHUB_TOKEN:/);
+});
+
+test('post-merge checkout is canonical-repository exact-SHA bound and credential-free', () => {
+  assert.match(postmergeJob, /repository: \$\{\{ github\.repository \}\}/);
+  assert.match(postmergeJob, /ref: \$\{\{ needs\.merge\.outputs\.merge_sha \}\}/);
+  assert.match(postmergeJob, /persist-credentials: false/);
+  assert.match(postmergeJob, /test "\$\(git rev-parse HEAD\)" = "\$\{\{ needs\.merge\.outputs\.merge_sha \}\}"/);
+  assert.doesNotMatch(postmergeJob, /ref: main/);
+  assert.doesNotMatch(postmergeJob, /refs\/pull/);
+});
+
+test('moving main from SHA_1 to SHA_2 cannot retarget post-merge verification', () => {
+  const immutableRef = 'ref: ${{ needs.merge.outputs.merge_sha }}';
+  assert.ok(postmergeJob.includes(immutableRef));
+  assert.equal((postmergeJob.match(/ref: main/g) ?? []).length, 0);
+  assert.equal((postmergeJob.match(/github\.ref/g) ?? []).length, 0);
+  assert.equal((postmergeJob.match(/github\.sha/g) ?? []).length, 0);
+});
+
+test('post-merge verification runs both canonical and Phase A commands', () => {
+  assert.match(postmergeJob, /name: postmerge-canonical-verify\n\s+run: pnpm verify/);
+  assert.match(postmergeJob, /name: postmerge-phase-a-verify\n\s+run: node scripts\/verify-phase-a\.mjs/);
+  assert.match(postmergeJob, /POSTGRES_DB: eqcofe_phase_a/);
+  assert.match(postmergeJob, /DATABASE_URL: postgresql:\/\/postgres:postgres@127\.0\.0\.1:5432\/eqcofe_phase_a/);
+});
+
+test('post-merge failure is fail-visible, alerts owner and never auto-rolls back', () => {
+  assert.match(failureJob, /needs: \[merge, postmerge-verify\]/);
+  assert.match(failureJob, /needs\.postmerge-verify\.result != 'success'/);
+  assert.match(failureJob, /issues: write/);
+  assert.match(failureJob, /incident_state: POST_MERGE_FAILED/);
+  assert.match(failureJob, /assignees\[\]=\$\{GITHUB_REPOSITORY_OWNER\}/);
+  assert.match(failureJob, /Automatic rollback is prohibited/);
+  assert.doesNotMatch(failureJob, /git revert/);
+  assert.doesNotMatch(failureJob, /pulls\/.*\/merge/);
+});
+
+test('failure reporter does not checkout or execute repository code', () => {
+  assert.doesNotMatch(failureJob, /actions\/checkout/);
+  assert.doesNotMatch(failureJob, /pnpm /);
+  assert.doesNotMatch(failureJob, /node scripts\//);
+});
+ + '{{ inputs.pr_number }}'));
+  assert.ok(mergeJob.includes('ref: refs/pull/' + expression + '/head'));
+  assert.ok(mergeJob.includes('PR_NUMBER: ' + expression));
+  assert.ok(mergeJob.includes('node scripts/multi-agent/merge-policy-controller.mjs --merge-pr "$PR_NUMBER"'));
+  assert.ok(failureJob.includes('PR_NUMBER: ' + expression));
+  assert.equal(workflow.split(expression).length - 1, 6);
+});
+
+test('PR number validation rejects decimals, zero and malformed refs', () => {
+  const accepted = (value) => /^[1-9][0-9]*$/.test(value);
+  assert.equal(accepted('408'), true);
+  for (const invalid of ['408.0', '0', '-1', '+408', '408/../main', '', 'abc', ' 408', '408\n']) {
+    assert.equal(accepted(invalid), false, invalid);
+  }
 });
 
 test('post-merge verification runs in a separate read-only GitHub-hosted job', () => {
