@@ -23,7 +23,7 @@
       ".github/workflows/step58-storefront-quality.yml",
       "docs/14-multi-agent/tasks/EQCOFE-STEP70-CI-STEP58-RUNNER-COMPAT-002.json",
       "docs/14-multi-agent/generated/TASK-CATALOG.md",
-      "docs/14-multi-agent/incidents/STEP70-CI-STEP58-RUNNER-COMPAT-001.md"
+      "docs/14-multi-agent/incidents/STEP70-CI-STEP58-RUNNER-COMPAT-002.md"
     ],
     "forbidden": [
       ".github/workflows/merge-policy.yml",
@@ -60,7 +60,7 @@
         ".github/workflows/step58-storefront-quality.yml",
         "docs/14-multi-agent/tasks/EQCOFE-STEP70-CI-STEP58-RUNNER-COMPAT-002.json",
         "docs/14-multi-agent/generated/TASK-CATALOG.md",
-        "docs/14-multi-agent/incidents/STEP70-CI-STEP58-RUNNER-COMPAT-001.md"
+        "docs/14-multi-agent/incidents/STEP70-CI-STEP58-RUNNER-COMPAT-002.md"
       ]
     }
   ],
@@ -83,7 +83,7 @@
     "parent_pr": "https://github.com/rahemih/Eqcofe/pull/404",
     "observed_failure": "https://github.com/rahemih/Eqcofe/actions/runs/44291906251",
     "canonical_analogy": "https://github.com/rahemih/Eqcofe/pull/402",
-    "strict_runtime_diff": "Exactly one runner pin line in Step58 workflow; no test, browser version, dependencies, permissions, quality gates or other workflow changes.",
+    "strict_runtime_diff": "The only workflow change is runs-on ubuntu-latest -> ubuntu-24.04; canonical successor includes four exact paths and 177 tasks including post-PR408 governance.",
     "legacy_pr_406": {
       "url": "https://github.com/rahemih/Eqcofe/pull/406",
       "head_sha": "58c5f09ef132539ced0cc343654e84028ead2e46",
