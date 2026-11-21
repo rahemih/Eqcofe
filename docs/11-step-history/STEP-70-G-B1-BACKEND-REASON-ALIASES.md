@@ -21,3 +21,7 @@ Direct unit tests must prove `comment` and `resolution_note` mapping and negativ
 ## Clean-base provenance (2026-11-21)
 
 This proposal is a NEW exact-head draft based on the post-#408/#412 canonical main, not a reuse of old PR #390 approval, scope lock, security verdict, or artifact. The controller and focused test logic are transplanted from PR #390 without broadening their source scope; Step56/57 source hash propagation is only for the unchanged generated artifacts and exact source change. Any future HEAD requires complete fresh CI/Phase A/Prototype/CodeQL, a new ACTIVE Scope Lock, separately authorized security and owner Human Gate, and official protected merge. No PR #404 or Step71 authority is inferred.
+
+## CI event provenance correction
+
+The initial PR-open event omitted the machine-required `Task Contract: `...`` line in its PR description, causing `PR_TASK_CONTRACT_REFERENCE_REQUIRED` and `PR_TASK_CONTRACT_PATH_MISSING` even though the changed source files were in scope. The PR description now contains the canonical exact contract path; this dedicated in-scope documentation commit forces a fresh `pull_request/synchronize` provider event rather than treating the initial failed event as passing. Old failures remain in the audit history. This is not security approval, lock acquisition or permission to merge.
