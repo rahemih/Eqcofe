@@ -1,0 +1,183 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP70-G-B2-LANDED-SCOPE-001",
+  "title": "Step70-G B2 security: assert authoritative linked warehouse scope on landed-cost preview and finalize",
+  "description": "Reconstructed as a clean-base successor to stale PR #394 on canonical post-#414 main. Fail closed on inaccessible, unresolvable or mismatched linked warehouse sources before landed-cost preview/finalization side effects. Preserve canonical #413 reason aliases and #414 invoice BOLA. Fresh independent Security, exact-head CI/CodeQL, Lock and separate Human Gate required.",
+  "risk": "HIGH",
+  "risk_floor": "HIGH",
+  "owner": "BACKEND_ENGINEERING",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "48bf2b39d81b439b62dfa27aabbb286f801cff58"
+  },
+  "scope": {
+    "read": [
+      "src/modules/procurement/**",
+      "src/platform/auth/scope-policy.ts",
+      "test/**",
+      "docs/13-product-design/**",
+      "scripts/**",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "src/modules/procurement/application/receipt-cost.service.ts",
+      "test/procurement/step70-g-landed-scope.spec.ts",
+      "docs/11-step-history/STEP-70-G-B2-LANDED-WAREHOUSE-SCOPE.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP70-G-B2-LANDED-SCOPE-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "docs/13-product-design/step56-pricing-inventory-wireframes.json",
+      "docs/13-product-design/step56-wireframes/D/manifest.json",
+      "docs/13-product-design/step56-commerce-operations-wireframes.json",
+      "docs/13-product-design/step56-wireframes/E/manifest.json",
+      "docs/13-product-design/step56-customers-growth-wireframes.json",
+      "docs/13-product-design/step56-wireframes/F/manifest.json",
+      "docs/13-product-design/step56-management-security-wireframes.json",
+      "docs/13-product-design/step56-wireframes/G/manifest.json",
+      "docs/13-product-design/step56-final-audit.json",
+      "docs/13-product-design/step56-final-audit/manifest.json",
+      "docs/13-product-design/step57-high-fidelity-contract.json"
+    ],
+    "forbidden": [
+      ".github/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "database/**",
+      "apps/**",
+      "scripts/**",
+      "contracts/**",
+      "src/generated/**",
+      "src/modules/procurement/presentation/**",
+      "src/modules/procurement/infrastructure/**",
+      "src/platform/**",
+      "src/modules/inventory/**",
+      "src/modules/pos/**",
+      "docs/12-current-state/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP70-G-B2-LANDED-SCOPE-001-01"
+  ],
+  "human_gate_required": true,
+  "authorized_human_approver": {
+    "role": "PROJECT_OWNER",
+    "github_login": "rahemih"
+  },
+  "token_budget": {
+    "expected_max": 28000,
+    "soft_alert": 45000,
+    "hard_cap": 90000
+  },
+  "task_risk_rules": [
+    {
+      "id": "STEP70_G_B2_LANDED_SCOPE_HIGH",
+      "risk": "HIGH",
+      "paths": [
+        "src/modules/procurement/application/receipt-cost.service.ts",
+        "test/procurement/step70-g-landed-scope.spec.ts",
+        "docs/11-step-history/STEP-70-G-B2-LANDED-WAREHOUSE-SCOPE.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP70-G-B2-LANDED-SCOPE-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md",
+        "docs/13-product-design/step56-pricing-inventory-wireframes.json",
+        "docs/13-product-design/step56-wireframes/D/manifest.json",
+        "docs/13-product-design/step56-commerce-operations-wireframes.json",
+        "docs/13-product-design/step56-wireframes/E/manifest.json",
+        "docs/13-product-design/step56-customers-growth-wireframes.json",
+        "docs/13-product-design/step56-wireframes/F/manifest.json",
+        "docs/13-product-design/step56-management-security-wireframes.json",
+        "docs/13-product-design/step56-wireframes/G/manifest.json",
+        "docs/13-product-design/step56-final-audit.json",
+        "docs/13-product-design/step56-final-audit/manifest.json",
+        "docs/13-product-design/step57-high-fidelity-contract.json"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "Step70-F canonical",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "946ccb63ed210305b0ced2fb12143944ff37b796",
+      "blocking": false
+    },
+    {
+      "item": "Step70-G B1 canonical successor PR #413 (supersedes stale #390)",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "cfd405be5630a62c46476570c61e98a78d76c926",
+      "blocking": false
+    },
+    {
+      "item": "Step70-G supplier invoice BOLA security PR #414",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "48bf2b39d81b439b62dfa27aabbb286f801cff58",
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "linear_issue": "HOS-74",
+    "github_issue": "https://github.com/rahemih/Eqcofe/issues/388",
+    "source_contract": "AD-D-16 warehouse scope unknown before this remediation",
+    "excluded_contract_drifts": [
+      "preview-allocation body",
+      "finalize preview_id",
+      "unsupported weight allocation"
+    ],
+    "security_policy": "Cross-warehouse scope fail-closed before candidate read / inventory revaluation; do not use synthetic warehouse scope",
+    "base_at_creation": "48bf2b39d81b439b62dfa27aabbb286f801cff58",
+    "stale_predecessor_pr": "https://github.com/rahemih/Eqcofe/pull/394",
+    "canonical_predecessors": [
+      "https://github.com/rahemih/Eqcofe/pull/413",
+      "https://github.com/rahemih/Eqcofe/pull/414"
+    ],
+    "security_assurance": "OWNER_ACCEPTED_INTERNAL_SECURITY_ASSURANCE_NOT_INDEPENDENT",
+    "original_B2_tests_count": 9,
+    "security_tests_current_count": 11,
+    "new_fail_closed_empty_warehouse_tests": 2,
+    "governance_policy_revision": "https://github.com/rahemih/Eqcofe/pull/417",
+    "owner_policy_directive": "2026-11-21: Replace independent human Security Reviewer with documented internal security report and separated owner risk plus Human Gate; not a per-artifact approval.",
+    "previous_exact_head_invalidated_by_contract_change": "89f570c7ab84b227180a0e0b7f0604129ab4e58e"
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Both preview/finalize resolve linked receipt/PO warehouse(s) via existing database transaction and deny inaccessible or unresolved scope",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Linked receipt and PO warehouses must match; missing/ambiguous references denied",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Unauthorised calls cannot read allocation candidates, adjust stock, write audit or append outbox",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Minimal B2 code and eleven negative/positive security tests with eleven verified transitive Step56/57 provenance files",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "B1 successor #413 and supplier invoice BOLA #414 already canonical; rebuilt B2 must pass new exact-head gates",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Documented exact-artifact owner-led internal security assessment with no unresolved HIGH/CRITICAL findings, required CodeQL and CI, ACTIVE Scope Lock, separate explicit Project Owner OWNER_RISK acknowledgement of absent independent human reviewer and later distinct Human Gate, protected merge and exact-SHA postmerge mandatory.",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": [],
+  "process_improvement_links": [],
+  "incident_links": [],
+  "owner_internal_security_assurance": {
+    "mode": "OWNER_ACCEPTED_INTERNAL_SECURITY_ASSURANCE",
+    "governance_issue": "https://github.com/rahemih/Eqcofe/issues/399",
+    "risk_acknowledgement": "NO_INDEPENDENT_HUMAN_SECURITY_REVIEW",
+    "activation_scope": "EXACT_TASK_ALREADY_CANONICALLY_ALLOWLISTED; SECURITY_INTERNAL_ASSESSMENT_AND_SEPARATE_OWNER_RISK_AND_HUMAN_BOUND_TO_NEW_HEAD_ARTIFACT_REQUIRED"
+  }
+}
