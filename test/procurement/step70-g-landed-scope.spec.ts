@@ -81,3 +81,14 @@ test("Step70-G B2 authorized finalize writes only after matching linked warehous
   assert.equal(result.consumed_cogs_revaluation_toman,0);
   assert.deepEqual(f.calls,["landed","receipt","po","candidates","write_allocations","revalue","persist_final","audit","outbox"]);
 });
+
+test("Step70-G B2 rejects linked receipt with an empty authoritative warehouse before candidates",async()=>{
+  const f=fixture({receipt:""});
+  await assert.rejects(f.service.previewAllocation(id(1),f.manual),{code:"LANDED_COST_SCOPE_UNRESOLVED"});
+  assert.deepEqual(f.calls,["landed","receipt"]);
+});
+test("Step70-G B2 rejects linked PO with an empty authoritative warehouse before finalize side effects",async()=>{
+  const f=fixture({receipt:null,po:""});
+  await assert.rejects(f.service.finalizeLandedCost(id(1),1,f.manual),{code:"LANDED_COST_SCOPE_UNRESOLVED"});
+  assert.deepEqual(f.calls,["landed","po"]);
+});

@@ -132,7 +132,9 @@
       "https://github.com/rahemih/Eqcofe/pull/414"
     ],
     "security_assurance": "INDEPENDENT_SECURITY_NOT_YET_ATTESTED",
-    "original_B2_tests_count": 9
+    "original_B2_tests_count": 9,
+    "security_tests_current_count": 11,
+    "new_fail_closed_empty_warehouse_tests": 2
   },
   "acceptance_criteria": [
     {
@@ -152,7 +154,7 @@
     },
     {
       "id": "AC-004",
-      "description": "Minimal B2 code and nine negative/positive security tests with eleven verified transitive Step56/57 provenance files",
+      "description": "Minimal B2 code and eleven negative/positive security tests with eleven verified transitive Step56/57 provenance files",
       "mandatory": true
     },
     {
