@@ -1,0 +1,141 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP70-CI-STEP58-RUNNER-COMPAT-002",
+  "title": "Step 70 CI Step58 Playwright Ubuntu 24.04 runner pin — clean-base successor",
+  "description": "Clean-base MEDIUM successor to PR #406 (CLOSED_UNMERGED/ABORTED, Lock released). Pin only Step58 storefront browser-quality to Ubuntu 24.04 to support Playwright 1.55 while preserving every browser/keyboard/RTL/responsive/a11y test, pinned tooling, permissions, security checks and protected merge policy. Based directly on post-PR408 canonical main; no rewriting old #406 history or importing stale Task Catalog. Unique new Task ID avoids conflicting ABORTED and MERGED telemetry for the historical task.",
+  "risk": "MEDIUM",
+  "risk_floor": "MEDIUM",
+  "owner": "DEVOPS_ENGINEERING",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "97582ea1e85eaf6874dd40aabfaa712dbc7c128a"
+  },
+  "scope": {
+    "read": [
+      ".github/workflows/step58-storefront-quality.yml",
+      ".github/workflows/step57-prototype.yml",
+      "docs/14-multi-agent/**",
+      "scripts/multi-agent/**",
+      "apps/storefront/**"
+    ],
+    "write": [
+      ".github/workflows/step58-storefront-quality.yml",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP70-CI-STEP58-RUNNER-COMPAT-002.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "docs/14-multi-agent/incidents/STEP70-CI-STEP58-RUNNER-COMPAT-002.md"
+    ],
+    "forbidden": [
+      ".github/workflows/merge-policy.yml",
+      ".github/workflows/ci.yml",
+      ".github/workflows/phase-a-verification.yml",
+      "scripts/**",
+      "src/**",
+      "apps/**",
+      "database/**",
+      "contracts/**",
+      "test/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**",
+      "graphify-out/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP70-CI-STEP58-RUNNER-COMPAT-002-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 12000,
+    "soft_alert": 18000,
+    "hard_cap": 32000
+  },
+  "task_risk_rules": [
+    {
+      "id": "STEP70_CI_STEP58_OS_COMPAT_MEDIUM",
+      "risk": "MEDIUM",
+      "paths": [
+        ".github/workflows/step58-storefront-quality.yml",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP70-CI-STEP58-RUNNER-COMPAT-002.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md",
+        "docs/14-multi-agent/incidents/STEP70-CI-STEP58-RUNNER-COMPAT-002.md"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "GitHub Issue #405, Step58 Playwright 1.55 / Ubuntu 26.04 failure",
+      "required_state": "REPRODUCED",
+      "observed_state": "REPRODUCED",
+      "blocking": false
+    },
+    {
+      "item": "Old #406 task lock terminal ABORTED, RELEASED with exact original artifact",
+      "required_state": "RELEASED_ABORTED",
+      "observed_state": "RELEASED_ABORTED",
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "issue": "https://github.com/rahemih/Eqcofe/issues/405",
+    "parent_pr": "https://github.com/rahemih/Eqcofe/pull/404",
+    "observed_failure": "https://github.com/rahemih/Eqcofe/actions/runs/44291906251",
+    "canonical_analogy": "https://github.com/rahemih/Eqcofe/pull/402",
+    "strict_runtime_diff": "The only workflow change is runs-on ubuntu-latest -> ubuntu-24.04; canonical successor includes four exact paths and 177 tasks including post-PR408 governance.",
+    "legacy_pr_406": {
+      "url": "https://github.com/rahemih/Eqcofe/pull/406",
+      "head_sha": "58c5f09ef132539ced0cc343654e84028ead2e46",
+      "artifact_sha256": "0788e2026ec754f76bbf85f2091cd64d10c6f8787357637c3ddd186ca9918000",
+      "terminal_status": "CLOSED_UNMERGED_ABORTED",
+      "lock_release_comment": "https://github.com/rahemih/Eqcofe/pull/406#issuecomment-7039450263"
+    },
+    "after_408_main_sha": "97582ea1e85eaf6874dd40aabfaa712dbc7c128a",
+    "scope_reconciliation": "NEW UNIQUE TASK / canonical generated catalog retains merged #408 governance task and this successor Task; aborted old Task is historical on closed #406, not newly made canonical"
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "One-line Step58 workflow change only: ubuntu-latest -> ubuntu-24.04, while retaining Playwright 1.55, axe-core 4.10.3, Chromium install, storefront build and all interaction, responsive, accessibility and keyboard QA.",
+      "verification": "git diff -- .github/workflows/step58-storefront-quality.yml",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Exact-head full Step58 browser-quality job SUCCESS with Chromium installation and browser/a11y/responsive/keyboard QA executed, not skipped.",
+      "verification": "provider_step58_storefront_quality_exact_head",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Exact-head Canonical CI, Phase A, deterministic Review and required security checks PASS.",
+      "verification": "exact_head_GitHub_Actions",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "MEDIUM scope lock ACTIVE on exact artifact; protected branch ruleset and Merge Policy must remain binding.",
+      "verification": "merge_policy_exact_head",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "After approved protected merge, exact-SHA postmerge Canonical CI and Phase A PASS, canonical Step58 runner pin present and Lock RELEASED; do not mark PR404 or Step70 closed.",
+      "verification": "protected_merge_postmerge",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": {
+    "protocol": "EQCOFE_GATE_V1",
+    "artifact_bound_gates": [
+      "LOCK"
+    ],
+    "provider_bound_gates": [
+      "REVIEW",
+      "VERIFICATION"
+    ],
+    "trusted_github_transport_login": "rahemih",
+    "rule": "MEDIUM: exact-head required CI, full Step58 QA and ACTIVE exact-artifact Lock; no security bypass, no direct main writes, protected merge and exact-SHA postmerge required."
+  }
+}
