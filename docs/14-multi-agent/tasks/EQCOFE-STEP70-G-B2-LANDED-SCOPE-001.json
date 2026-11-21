@@ -131,10 +131,13 @@
       "https://github.com/rahemih/Eqcofe/pull/413",
       "https://github.com/rahemih/Eqcofe/pull/414"
     ],
-    "security_assurance": "INDEPENDENT_SECURITY_NOT_YET_ATTESTED",
+    "security_assurance": "OWNER_ACCEPTED_INTERNAL_SECURITY_ASSURANCE_NOT_INDEPENDENT",
     "original_B2_tests_count": 9,
     "security_tests_current_count": 11,
-    "new_fail_closed_empty_warehouse_tests": 2
+    "new_fail_closed_empty_warehouse_tests": 2,
+    "governance_policy_revision": "https://github.com/rahemih/Eqcofe/pull/417",
+    "owner_policy_directive": "2026-11-21: Replace independent human Security Reviewer with documented internal security report and separated owner risk plus Human Gate; not a per-artifact approval.",
+    "previous_exact_head_invalidated_by_contract_change": "89f570c7ab84b227180a0e0b7f0604129ab4e58e"
   },
   "acceptance_criteria": [
     {
@@ -164,11 +167,17 @@
     },
     {
       "id": "AC-006",
-      "description": "Independent security/review, CodeQL, ACTIVE Scope Lock, explicit Owner Human Gate, postmerge exact-SHA required",
+      "description": "Documented exact-artifact owner-led internal security assessment with no unresolved HIGH/CRITICAL findings, required CodeQL and CI, ACTIVE Scope Lock, separate explicit Project Owner OWNER_RISK acknowledgement of absent independent human reviewer and later distinct Human Gate, protected merge and exact-SHA postmerge mandatory.",
       "mandatory": true
     }
   ],
   "external_gate_evidence": [],
   "process_improvement_links": [],
-  "incident_links": []
+  "incident_links": [],
+  "owner_internal_security_assurance": {
+    "mode": "OWNER_ACCEPTED_INTERNAL_SECURITY_ASSURANCE",
+    "governance_issue": "https://github.com/rahemih/Eqcofe/issues/399",
+    "risk_acknowledgement": "NO_INDEPENDENT_HUMAN_SECURITY_REVIEW",
+    "activation_scope": "EXACT_TASK_ALREADY_CANONICALLY_ALLOWLISTED; SECURITY_INTERNAL_ASSESSMENT_AND_SEPARATE_OWNER_RISK_AND_HUMAN_BOUND_TO_NEW_HEAD_ARTIFACT_REQUIRED"
+  }
 }
