@@ -67,7 +67,7 @@
     ]
   },
   "requested_lock_ids": [
-    "LOCK-EQCOFE-STEP70-G-B1-BACKEND-REASON-ALIAS-001-01"
+    "LOCK-EQCOFE-STEP70-G-B1-BACKEND-REASON-ALIAS-001-02"
   ],
   "human_gate_required": true,
   "authorized_human_approver": {
@@ -130,7 +130,8 @@
       "comment??reason??note",
       "resolution_note??reason??note"
     ],
-    "strict_negative_scope": "No contract/source-generated types, DB/business logic, permissions, landed-cost, POS or Step71 alterations. Step56/57 only source hash propagation on explicit 17-file allowlist."
+    "strict_negative_scope": "No contract/source-generated types, DB/business logic, permissions, landed-cost, POS or Step71 alterations. Step56/57 only source hash propagation on explicit 17-file allowlist.",
+    "security_route_proposal": "OWNER_ACCEPTED_INTERNAL_SECURITY_ASSURANCE_PENDING_EXPLICIT_NEW_ARTIFACT_OWNER_RISK"
   },
   "acceptance_criteria": [
     {
@@ -172,5 +173,11 @@
   ],
   "external_gate_evidence": [],
   "process_improvement_links": [],
-  "incident_links": []
+  "incident_links": [],
+  "owner_internal_security_assurance": {
+    "mode": "OWNER_ACCEPTED_INTERNAL_SECURITY_ASSURANCE",
+    "governance_issue": "https://github.com/rahemih/Eqcofe/issues/399",
+    "risk_acknowledgement": "NO_INDEPENDENT_HUMAN_SECURITY_REVIEW",
+    "activation_scope": "B1_EXACT_ARTIFACT_PROPOSAL_ONLY; fresh bounded non-independent INTERNAL_SECURITY assessment, separate explicit PROJECT_OWNER OWNER_RISK, later distinct HUMAN, exact-head CI/CodeQL/Lock and protected merge all required"
+  }
 }
