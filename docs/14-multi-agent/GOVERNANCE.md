@@ -213,7 +213,7 @@ From this milestone onward:
 - no manual/raw LLM-agent merge to `main` is a canonical path;
 - every future merge must pass the protected-main required checks and Merge Policy Controller;
 - LOW/MEDIUM tasks remain subject to their deterministic risk/review/verification policy;
-- HIGH tasks additionally require exact-artifact Security and Project Owner Human Gate evidence;
+- HIGH tasks additionally require exact-artifact Security assurance evidence **and** Project Owner Human Gate: for narrowly allowlisted, task-opted Step70-G work this may be non-independent `OWNER_ACCEPTED_INTERNAL_SECURITY_ASSURANCE` with separate documented `INTERNAL_SECURITY`, explicit `OWNER_RISK` and later distinct `HUMAN` approval; otherwise a real independent `SECURITY:PASS` remains mandatory;
 - changing an artifact invalidates artifact-bound evidence and requires fresh verification/review as applicable;
 - no future task may cite the Item 6 bootstrap exception as precedent.
 
