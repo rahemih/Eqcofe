@@ -30,7 +30,7 @@ test('merge job resolves the exact merge SHA from the canonical repository', () 
 });
 
 test('pre-merge checkout does not persist write credentials', () => {
-  assert.match(mergeJob, /ref: refs\/pull\/\$\{\{ inputs\.pr_number \}\}\/head[\s\S]*?persist-credentials: false/);
+  assert.match(mergeJob, /ref: refs\/pull\/\$\{\{ github\.event\.inputs\.pr_number \}\}\/head[\s\S]*?persist-credentials: false/);
 });
 
 
@@ -41,6 +41,31 @@ test('workflow_dispatch is idempotent when the requested PR is already merged', 
   assert.match(mergeJob, /if: steps\.pr_state\.outputs\.already_merged != 'true'/);
   assert.match(mergeJob, /if \[ "\$merged" = "true" \]; then[\s\S]*?gh api "repos\/\$\{GITHUB_REPOSITORY\}\/commits\/\$\{merge_sha\}" --silent/);
   assert.match(mergeJob, /name: resolve-exact-merge-sha[\s\S]*?test "\$merged" = "true"/);
+});
+
+test('manual merge dispatch validates a string PR number before checking out code', () => {
+  const dispatch = section('  workflow_dispatch:\n', '\njobs:\n');
+  assert.ok(dispatch.includes('type: string'));
+  assert.ok(mergeJob.includes('if [[ ! "$PR_NUMBER" =~ ^[1-9][0-9]*$ ]]; then'));
+  assert.ok(mergeJob.indexOf('- name: validate-dispatch-pr-number') < mergeJob.indexOf('- uses: actions/checkout@v5.1.0'));
+});
+
+test('all merge-dispatch PR inputs are string-valued and cannot float-render to 408.0', () => {
+  const expression = '$' + '{{ github.event.inputs.pr_number }}';
+  assert.ok(!workflow.includes('$' + '{{ inputs.pr_number }}'));
+  assert.ok(mergeJob.includes('ref: refs/pull/' + expression + '/head'));
+  assert.ok(mergeJob.includes('PR_NUMBER: ' + expression));
+  assert.ok(mergeJob.includes('node scripts/multi-agent/merge-policy-controller.mjs --merge-pr "$PR_NUMBER"'));
+  assert.ok(failureJob.includes('PR_NUMBER: ' + expression));
+  assert.equal(workflow.split(expression).length - 1, 6);
+});
+
+test('PR number validation rejects decimals, zero and malformed refs', () => {
+  const accepted = (value) => /^[1-9][0-9]*$/.test(value);
+  assert.equal(accepted('408'), true);
+  for (const invalid of ['408.0', '0', '-1', '+408', '408/../main', '', 'abc', ' 408', '408\n']) {
+    assert.equal(accepted(invalid), false, invalid);
+  }
 });
 
 test('post-merge verification runs in a separate read-only GitHub-hosted job', () => {

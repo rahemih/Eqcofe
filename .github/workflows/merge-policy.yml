@@ -12,7 +12,7 @@ on:
       pr_number:
         description: 'Pull request number to merge through deterministic Merge Policy Controller'
         required: true
-        type: number
+        type: string
 
 jobs:
   merge-policy:
@@ -65,16 +65,24 @@ jobs:
     outputs:
       merge_sha: ${{ steps.merged.outputs.merge_sha }}
     steps:
+      - name: validate-dispatch-pr-number
+        env:
+          PR_NUMBER: ${{ github.event.inputs.pr_number }}
+        run: |
+          if [[ ! "$PR_NUMBER" =~ ^[1-9][0-9]*$ ]]; then
+            echo "::error::pr_number must be a positive integer"
+            exit 1
+          fi
       - uses: actions/checkout@v5.1.0
         with:
-          ref: refs/pull/${{ inputs.pr_number }}/head
+          ref: refs/pull/${{ github.event.inputs.pr_number }}/head
           fetch-depth: 0
           persist-credentials: false
       - name: inspect-pr-merge-state
         id: pr_state
         env:
           GH_TOKEN: ${{ github.token }}
-          PR_NUMBER: ${{ inputs.pr_number }}
+          PR_NUMBER: ${{ github.event.inputs.pr_number }}
         run: |
           set -euo pipefail
           read -r merged merge_sha pr_state < <(gh api "repos/${GITHUB_REPOSITORY}/pulls/${PR_NUMBER}" --jq '[.merged, (.merge_commit_sha // ""), .state] | @tsv')
@@ -94,12 +102,13 @@ jobs:
         if: steps.pr_state.outputs.already_merged != 'true'
         env:
           GITHUB_TOKEN: ${{ github.token }}
-        run: node scripts/multi-agent/merge-policy-controller.mjs --merge-pr '${{ inputs.pr_number }}'
+          PR_NUMBER: ${{ github.event.inputs.pr_number }}
+        run: node scripts/multi-agent/merge-policy-controller.mjs --merge-pr "$PR_NUMBER"
       - name: resolve-exact-merge-sha
         id: merged
         env:
           GH_TOKEN: ${{ github.token }}
-          PR_NUMBER: ${{ inputs.pr_number }}
+          PR_NUMBER: ${{ github.event.inputs.pr_number }}
         run: |
           set -euo pipefail
           read -r merged merge_sha < <(gh api "repos/${GITHUB_REPOSITORY}/pulls/${PR_NUMBER}" --jq '[.merged, .merge_commit_sha] | @tsv')
@@ -168,7 +177,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           MERGE_SHA: ${{ needs.merge.outputs.merge_sha }}
-          PR_NUMBER: ${{ inputs.pr_number }}
+          PR_NUMBER: ${{ github.event.inputs.pr_number }}
           VERIFY_RESULT: ${{ needs.postmerge-verify.result }}
         run: |
           set -euo pipefail
