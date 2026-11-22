@@ -1,0 +1,18 @@
+# Step70-G B3 — Landed-cost OpenAPI authority reconciliation
+
+**HIGH / DRAFT / NOT CANONICAL.** Tracker: https://github.com/rahemih/Eqcofe/issues/388; Linear HOS-74. Canonical current-main base: main@f24e6eb63285eed961c6e08fbbf3930bde034a4e. Task contract: EQCOFE-STEP70-G-B3-LANDED-OPENAPI-ALIGNMENT-001.
+
+## Verified mismatch and bounded resolution
+The existing Backend `ReceiptCostService` stores method `quantity` when absent, accepts only `quantity|value|manual`, and takes optional `allocations` on preview/finalize. Preview uses the persisted method. Finalize re-computes allocations transactionally under the current If-Match version; no preview ID exists, is stored or is validated. OpenAPI previously declared unsupported `weight`, required override `allocation_method`/unconsumed `manual_allocations` for preview, and a required `preview_id` and unused `reason` for finalize. Step56 AD-D-16 disallows invented frozen previews.
+
+B3 adjusts exactly three OpenAPI schemas and marks the two read/compute request bodies optional. `allocation_method` on create is optional with default quantity and enum quantity/value/manual only. Preview and finalize have only optional `allocations[{goods_receipt_item_id:EntityId, allocated_amount_toman:MoneyToman}]`; no preview_id, reason or method override. Existing `procurement.landed_cost.manage` permission, `If-Match`, Step-Up and Idempotency-Key on finalize, and audit metadata remain unchanged. No changes to runtime endpoints, financial state machine, database, UX layout, or warehouse permissions.
+
+## Evidence, testing and generated-source discipline
+`src/generated/openapi.ts` is synchronized with the new schema and subject to an executable test that invokes the pinned `openapi-typescript` generator and compares the exact output. Additional source-backed tests verify service manual allocations duplicate/unknown candidate/exact total/negative and fractional Toman failures. Exactly 17 Step56/Step57 design JSON or manifest source-provenance digests are carried through; no semantic fields or immutable verdicts changed.
+
+## Dependency and merge gates (fresh current-main successor)
+B1 protected successor [#413](https://github.com/rahemih/Eqcofe/pull/413), B2 protected successor [#418](https://github.com/rahemih/Eqcofe/pull/418), and B2C protected successor [#419](https://github.com/rahemih/Eqcofe/pull/419) are **canonically merged** and postmerge verified. Their security guards remain in main, and NONE of their gates, exact-HEAD checks or owner risk approvals transfer to this B3 candidate. Historical B3 draft #398 is stale and MUST NOT be merged; this successor is an independent exact-main implementation.
+
+Precisely 23 contract-owned paths; the 17 design sources/manifests are **digest-only** updates without page/UX redesign or historical approval rewrite. B3 introduces no backend runtime, storage, auth, financial mutation or POS changes. Its fresh HIGH governance requires new canonical CI, Phase A/PostgreSQL, Step57, Step58, CodeQL aggregate plus all analyzers, deterministic Review, active exact-scope lock, bounded non-independent internal assessment and later **separate explicit owner risk acceptance + Human Gate**, or genuine independent security review. The owner-accepted internal assurance route is only allowlisted, NOT approved for this B3 artifact. Merge is allowed only through official protected workflow_dispatch after every gate succeeds; postmerge verify exact SHA and release its lock. Frontend #387 remains separate; Step70-H and Step71 excluded.
+
+Current authority: DRAFT preparation only, no approval/lock/merge granted.
