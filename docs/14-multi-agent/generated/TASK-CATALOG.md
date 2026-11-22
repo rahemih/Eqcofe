@@ -137,10 +137,10 @@
 | EQCOFE-STEP70-E-INVENTORY-FLOW-ADMIN-001 | Step 70-E Transfer Reservation Allocation and Sale Consumption administration | HIGH | REQUIRED | `acbb8e35a29bdffec27d1ea9d7ce12ea4c402a01` | 52000/82000/132000 |
 | EQCOFE-STEP70-F-SUPPLIER-PR-PO-ADMIN-001 | Step 70-F Supplier Purchase Request and Purchase Order administration | HIGH | REQUIRED | `5d2dbd3acdde3c993253e30391cf3701b3c84ba8` | 54000/84000/134000 |
 | EQCOFE-STEP70-G-B1-BACKEND-REASON-ALIAS-001 | Step70-G B1 canonical reason aliases for receipt reversal and invoice dispute/cancel | HIGH | REQUIRED | `3fdd1bc7a8564f490140adbd0e0f81d85c99ca5d` | 31000/47000/94000 |
-| EQCOFE-STEP70-G-B2-LANDED-SCOPE-001 | Step70-G B2 security: assert authoritative linked warehouse scope on landed-cost preview and finalize | HIGH | REQUIRED | `48bf2b39d81b439b62dfa27aabbb286f801cff58` | 28000/45000/90000 |
+| EQCOFE-STEP70-G-B2-LANDED-SCOPE-001 | Step70-G B2 security: assert authoritative linked warehouse scope on landed-cost preview and finalize | HIGH | REQUIRED | `d2c5cdb8d6b9fe5a5fff7f3e6e65fa1d13f890f2` | 28000/45000/90000 |
 | EQCOFE-STEP70-G-INVOICE-WAREHOUSE-SCOPE-001 | Step 70-G HIGH supplier-invoice warehouse authorization fail-closed repair | HIGH | REQUIRED | `cfd405be5630a62c46476570c61e98a78d76c926` | 30000/50000/100000 |
 | EQCOFE-STEP70-G-OWNER-INTERNAL-ASSURANCE-ALLOWLIST-002 | Step 70-G HIGH governance allowlist extension for warehouse invoice security task | HIGH | REQUIRED | `58ac38b730f192799ca582e7d2e0b70ecb580989` | 18000/30000/60000 |
-| EQCOFE-STEP70-G-OWNER-INTERNAL-ASSURANCE-GOV-001 | Step 70-G HIGH-risk owner-accepted internal security assurance governance amendment | HIGH | REQUIRED | `27f00a2477df97e80ad385ee43f7444e9d414a67` | 34000/55000/100000 |
+| EQCOFE-STEP70-G-OWNER-INTERNAL-ASSURANCE-GOV-001 | Step70-G owner-accepted internal assurance — canonical governance document reconciliation | HIGH | REQUIRED | `48bf2b39d81b439b62dfa27aabbb286f801cff58` | 34000/55000/100000 |
 | MA-AGENT-A0-ORCHESTRATOR-001 | A0 — Orchestrator / Engineering Manager Prompt | LOW | NOT_REQUIRED | `f7919991e619d416360e74a542741ef21c70f732` | 10000/16000/32000 |
 | MA-AGENT-A1-SPEC-001 | A1 — Specification & Research Prompt | LOW | NOT_REQUIRED | `120898df57138b301560e7d9b9f1b3f5da03e982` | 10000/16000/32000 |
 | MA-AGENT-A10-EVIDENCE-001 | A10 — Evidence & Documentation Prompt | LOW | NOT_REQUIRED | `bdf8fccde4ca40cced48381ad3be2e0461ade535` | 12000/18000/35000 |

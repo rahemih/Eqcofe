@@ -2,14 +2,14 @@
   "schema_version": "2.2",
   "task_id": "EQCOFE-STEP70-G-B2-LANDED-SCOPE-001",
   "title": "Step70-G B2 security: assert authoritative linked warehouse scope on landed-cost preview and finalize",
-  "description": "Reconstructed as a clean-base successor to stale PR #394 on canonical post-#414 main. Fail closed on inaccessible, unresolvable or mismatched linked warehouse sources before landed-cost preview/finalization side effects. Preserve canonical #413 reason aliases and #414 invoice BOLA. Fresh independent Security, exact-head CI/CodeQL, Lock and separate Human Gate required.",
+  "description": "Reconstructed as a clean-base successor to stale PR #394 on canonical post-#414 main. Fail closed on inaccessible, unresolvable or mismatched linked warehouse sources before landed-cost preview/finalization side effects. Preserve canonical #413 reason aliases and #414 invoice BOLA. Current-main exact-head CI/CodeQL, non-independent internal security assessment, separate exact-artifact Owner Risk and later Human Gate, active Scope Lock and protected merge required.",
   "risk": "HIGH",
   "risk_floor": "HIGH",
   "owner": "BACKEND_ENGINEERING",
   "canonical": {
     "repository": "rahemih/Eqcofe",
     "branch": "main",
-    "base_sha": "48bf2b39d81b439b62dfa27aabbb286f801cff58"
+    "base_sha": "d2c5cdb8d6b9fe5a5fff7f3e6e65fa1d13f890f2"
   },
   "scope": {
     "read": [
@@ -56,7 +56,7 @@
     ]
   },
   "requested_lock_ids": [
-    "LOCK-EQCOFE-STEP70-G-B2-LANDED-SCOPE-001-01"
+    "LOCK-EQCOFE-STEP70-G-B2-LANDED-SCOPE-001-02"
   ],
   "human_gate_required": true,
   "authorized_human_approver": {
@@ -113,6 +113,13 @@
       "observed_state": "CANONICAL_COMPLETE",
       "merge_sha": "48bf2b39d81b439b62dfa27aabbb286f801cff58",
       "blocking": false
+    },
+    {
+      "item": "Step70-G owner-approved documentation PR #417 canonical",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "d2c5cdb8d6b9fe5a5fff7f3e6e65fa1d13f890f2",
+      "blocking": false
     }
   ],
   "evidence": {
@@ -137,7 +144,10 @@
     "new_fail_closed_empty_warehouse_tests": 2,
     "governance_policy_revision": "https://github.com/rahemih/Eqcofe/pull/417",
     "owner_policy_directive": "2026-11-21: Replace independent human Security Reviewer with documented internal security report and separated owner risk plus Human Gate; not a per-artifact approval.",
-    "previous_exact_head_invalidated_by_contract_change": "89f570c7ab84b227180a0e0b7f0604129ab4e58e"
+    "previous_exact_head_invalidated_by_contract_change": "89f570c7ab84b227180a0e0b7f0604129ab4e58e",
+    "main_refresh_sha": "d2c5cdb8d6b9fe5a5fff7f3e6e65fa1d13f890f2",
+    "main_refresh_reason": "PR #417 canonical governance merged; preserve canonical generated catalog and original 16 file B2 write scope",
+    "aborted_prior_head": "2862e016af43c49b734c381d8ee157691e2dfe64"
   },
   "acceptance_criteria": [
     {
