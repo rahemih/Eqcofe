@@ -19,7 +19,7 @@
       "src/modules/payments/**",
       "contracts/http/step49-pos-a9.yaml",
       "src/generated/openapi.ts",
-      "test/pos-*.spec.ts",
+      "test/**",
       "docs/11-step-history/**",
       "docs/14-multi-agent/**"
     ],
@@ -57,8 +57,7 @@
       "src/shared/**",
       "src/modules/inventory/**",
       "src/modules/procurement/**",
-      "src/modules/payments/**",
-      "docs/13-product-design/**/*.svg"
+      "src/modules/payments/**"
     ]
   },
   "requested_lock_ids": [
