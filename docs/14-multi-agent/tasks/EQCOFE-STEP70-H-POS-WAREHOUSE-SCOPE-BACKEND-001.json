@@ -25,6 +25,7 @@
     ],
     "write": [
       "docs/11-step-history/STEP-70-H-POS-WAREHOUSE-SCOPE-SECURITY.md",
+      "docs/13-product-design/step56-commerce-operations-wireframes.json",
       "docs/14-multi-agent/generated/TASK-CATALOG.md",
       "docs/14-multi-agent/tasks/EQCOFE-STEP70-H-POS-WAREHOUSE-SCOPE-BACKEND-001.json",
       "src/modules/pos/application/offline-command-sync.service.ts",
@@ -49,7 +50,7 @@
       "src/modules/inventory/**",
       "src/modules/procurement/**",
       "src/modules/payments/**",
-      "docs/13-product-design/**"
+      "docs/13-product-design/step56-wireframes/**"
     ]
   },
   "requested_lock_ids": [
@@ -71,6 +72,7 @@
       "risk": "HIGH",
       "paths": [
         "docs/11-step-history/STEP-70-H-POS-WAREHOUSE-SCOPE-SECURITY.md",
+        "docs/13-product-design/step56-commerce-operations-wireframes.json",
         "docs/14-multi-agent/generated/TASK-CATALOG.md",
         "docs/14-multi-agent/tasks/EQCOFE-STEP70-H-POS-WAREHOUSE-SCOPE-BACKEND-001.json",
         "src/modules/pos/application/offline-command-sync.service.ts",
@@ -118,7 +120,24 @@
       "sync denied no draft or failure marker"
     ],
     "scope_invariant": "EXISTING_SCOPE_POLICY_SEMANTICS_PRESERVED",
-    "security_policy": "NEW HIGH task. No independent security PASS claimed. Separate Owner Risk plus later Human Gate before protected merge."
+    "security_policy": "NEW HIGH task. No independent security PASS claimed. Separate Owner Risk plus later Human Gate before protected merge.",
+    "source_provenance_refresh": {
+      "path": "docs/13-product-design/step56-commerce-operations-wireframes.json",
+      "mode": "TWO_SHA256_VALUES_ONLY_NO_DESIGN_CHANGE",
+      "changed": [
+        {
+          "path": "src/modules/pos/application/offline-command-sync.service.ts",
+          "oldHash": "ea27a4d02018c10e00a425614787bffb1ab2d3de7512298db683bfe550405b83",
+          "newHash": "ea9c8e32e790ac32a876eb056797990387f433bd1211703478c3b70a14c3870f"
+        },
+        {
+          "path": "src/modules/pos/application/physical-sale-commit.service.ts",
+          "oldHash": "4e0aa0a0802f058accccf3938d676413ba2c699f02e6041e2be90c0b25a2a1a3",
+          "newHash": "6a62b92c278ee1158f4d89e3385343ca90628013156f2296c368e83b9d186cf2"
+        }
+      ],
+      "scope_prohibited": "NO_OTHER_STEP56_DESIGN_OR_VERDICT_CHANGE"
+    }
   },
   "acceptance_criteria": [
     {

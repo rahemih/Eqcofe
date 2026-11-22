@@ -1050,7 +1050,7 @@
     },
     {
       "path": "src/modules/pos/application/offline-command-sync.service.ts",
-      "sha256": "ea27a4d02018c10e00a425614787bffb1ab2d3de7512298db683bfe550405b83"
+      "sha256": "ea9c8e32e790ac32a876eb056797990387f433bd1211703478c3b70a14c3870f"
     },
     {
       "path": "src/modules/pos/application/offline-reconciliation.service.ts",
@@ -1058,7 +1058,7 @@
     },
     {
       "path": "src/modules/pos/application/physical-sale-commit.service.ts",
-      "sha256": "4e0aa0a0802f058accccf3938d676413ba2c699f02e6041e2be90c0b25a2a1a3"
+      "sha256": "6a62b92c278ee1158f4d89e3385343ca90628013156f2296c368e83b9d186cf2"
     },
     {
       "path": "src/modules/pos/application/physical-sale.service.ts",

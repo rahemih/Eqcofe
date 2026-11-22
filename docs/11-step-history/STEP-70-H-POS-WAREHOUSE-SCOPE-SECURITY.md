@@ -13,3 +13,7 @@ Extend existing Step49 A6 and A7 tests for restricted/allowed/global staff, deni
 
 ## Governance
 Separate HIGH Task Contract `EQCOFE-STEP70-H-POS-WAREHOUSE-SCOPE-BACKEND-001` with exact seven-path allowlist, fresh Canonical CI/Phase A/Step57/Step58/CodeQL + three analyzers, deterministic Review, bounded threat assessment, ACTIVE exact-artifact Lock, independent reviewer or owner-accepted internal assurance with **separate fresh owner risk**, later independent-in-time Project Owner Human Gate, only official protected workflow_dispatch merge, exact-SHA postmerge and terminal Lock release. Frontend #424 MUST NOT inherit this approval and must remain unmerged until source protection lands. No Step70-I/J or Step71.
+
+## Source provenance hash refresh (not design re-approval)
+
+The Step56-E snapshot validator pins source hashes for two files corrected by this new security patch. Update precisely the two `sources[].sha256` entries in `docs/13-product-design/step56-commerce-operations-wireframes.json` to actual SHA256 of these updated source files (normalized LF), with no change to screens, wireframes, operation matrix, accepted designs, textual decisions, or prior approval claims. Frozen design judgments are not regenerated or re-certified. If any downstream provenance hash validation fails, stop and reconcile deterministically within a new governed scope.
