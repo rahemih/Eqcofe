@@ -46,6 +46,7 @@ export async function action({request}:{request:Request}){
   }else if(intent==="commit"){
     const body={warehouse_id:operationsUuid(form.get("warehouse_id")),expected_version:operationsInteger(form.get("expected_version")),
       payment_method:form.get("payment_method"),external_reference:form.get("external_reference")===null?undefined:form.get("external_reference")===""?undefined:operationsText(form.get("external_reference"),120)};
+    if(form.get("external_reference")!==null&&form.get("external_reference")!==""&&body.external_reference===null)return actionFailure("شماره مرجع معتبر نیست؛ هیچ عملیات فروش ارسال نشد.");
     const v=validateCommit(body);
     if(!saleId||!v.ok)return actionFailure("شناسه، نسخه فروش و روش پرداخت معتبر نیست.");
     result=await commitPosSale(request,saleId,v.body);
