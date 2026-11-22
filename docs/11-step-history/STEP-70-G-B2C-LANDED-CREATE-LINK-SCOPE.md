@@ -14,3 +14,6 @@ B1 successor #413 and B2 successor #418 are canonically complete; this clean B2C
 
 ## Current-main security invariants
 Preserve B1/Invoice and B2 `assertLandedWarehouseScope` preview/finalize controls. Only harden `createLandedCost` authoritative PO lookup/warehouse/supplier/scope before number allocation. Twelve service mock tests are not an independent live-HTTP/PostgreSQL penetration test. Inherited create-path audit absence, PO-only allocation warehouse-integrity, transaction lock ordering, and preexisting corrupt links require separate review; no implicit waiver. This task does not authorize Step70-H/Step71.
+
+## PR event metadata synchronization checkpoint
+The initial PR #419 `pull_request.opened` snapshot used Markdown bold in the `Task Contract:` label, which is not the literal parser format required by `scope-history-ci`. No policy bypass: the PR body has been corrected to the exact plaintext `Task Contract: ...` label, and this in-scope history-only update creates a fresh `pull_request.synchronize` event so the immutable GitHub event payload used by canonical CI and Merge Policy is correct. The previous failed check on an older event snapshot is not reusable as a pass. Preserve the HIGH risk floor, original 16-path scope, source code, all B2 predecessor guards and new provider-wide checks. No lock or owner approval is inferred.
