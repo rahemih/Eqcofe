@@ -1,0 +1,164 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP70-H-POS-WAREHOUSE-SCOPE-BACKEND-001",
+  "title": "Step70-H HIGH POS physical sale and offline command warehouse scope BOLA hardening",
+  "description": "HIGH scoped backend authorization remediation for POS physical sale commit and offline capture/sync, preserving original permission and transaction authorities.",
+  "risk": "HIGH",
+  "risk_floor": "HIGH",
+  "owner": "FRONTEND_ENGINEERING",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "f7291716fe319138e79fe9934654f708f2479231"
+  },
+  "scope": {
+    "read": [
+      "src/modules/pos/**",
+      "src/platform/auth/**",
+      "src/modules/inventory/**",
+      "src/modules/payments/**",
+      "contracts/http/step49-pos-a9.yaml",
+      "src/generated/openapi.ts",
+      "test/pos-*.spec.ts",
+      "docs/11-step-history/**",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "docs/11-step-history/STEP-70-H-POS-WAREHOUSE-SCOPE-SECURITY.md",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP70-H-POS-WAREHOUSE-SCOPE-BACKEND-001.json",
+      "src/modules/pos/application/offline-command-sync.service.ts",
+      "src/modules/pos/application/physical-sale-commit.service.ts",
+      "test/pos-offline-command-sync-a7.spec.ts",
+      "test/pos-physical-sale-commit-a6.spec.ts"
+    ],
+    "forbidden": [
+      ".github/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "database/**",
+      "scripts/**",
+      "apps/**",
+      "docs/12-current-state/**",
+      "graphify-out/**",
+      "contracts/**",
+      "src/generated/**",
+      "src/platform/**",
+      "src/shared/**",
+      "src/modules/inventory/**",
+      "src/modules/procurement/**",
+      "src/modules/payments/**",
+      "docs/13-product-design/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP70-H-POS-WAREHOUSE-SCOPE-BACKEND-001-01"
+  ],
+  "human_gate_required": true,
+  "authorized_human_approver": {
+    "role": "PROJECT_OWNER",
+    "github_login": "rahemih"
+  },
+  "token_budget": {
+    "expected_max": 26000,
+    "soft_alert": 43000,
+    "hard_cap": 75000
+  },
+  "task_risk_rules": [
+    {
+      "id": "STEP70_H_POS_WAREHOUSE_SCOPE_HIGH",
+      "risk": "HIGH",
+      "paths": [
+        "docs/11-step-history/STEP-70-H-POS-WAREHOUSE-SCOPE-SECURITY.md",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP70-H-POS-WAREHOUSE-SCOPE-BACKEND-001.json",
+        "src/modules/pos/application/offline-command-sync.service.ts",
+        "src/modules/pos/application/physical-sale-commit.service.ts",
+        "test/pos-offline-command-sync-a7.spec.ts",
+        "test/pos-physical-sale-commit-a6.spec.ts"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "Step70-G canonical closed by PR #421",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "f7291716fe319138e79fe9934654f708f2479231",
+      "postmerge_run": 45015103937,
+      "terminal_evidence_comment": 7078287921,
+      "blocking": false
+    },
+    {
+      "item": "Source-scope gap Issue #425",
+      "required_state": "REMEDIATION_CANDIDATE",
+      "observed_state": "REMEDIATION_CANDIDATE",
+      "github_issue": 425,
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "linear_issue": "HOS-74",
+    "github_issue": 425,
+    "graph_state": "RETIRED_AND_OUT_OF_SCOPE",
+    "finding": "POS_COMMIT_WAREHOUSE_SCOPED_AUTHORITY_ABSENT",
+    "risk": "HIGH",
+    "read_source": "ScopePolicy.assert(actor,'warehouse',warehouseId)",
+    "paths_hardened": [
+      "commit",
+      "offline.capture",
+      "offline.sync"
+    ],
+    "negative_cases": [
+      "restricted A denies B and no payment/inventory/outbox",
+      "assigned A allows A",
+      "global staff preserved",
+      "capture denied no persistence",
+      "sync denied no draft or failure marker"
+    ],
+    "scope_invariant": "EXISTING_SCOPE_POLICY_SEMANTICS_PRESERVED",
+    "security_policy": "NEW HIGH task. No independent security PASS claimed. Separate Owner Risk plus later Human Gate before protected merge."
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Commit checks assigned warehouse before any payment/inventory/outbox write",
+      "verification": "pos_commit_scope",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Offline capture checks assigned warehouse before persistence and replay; sync rechecks before side effects",
+      "verification": "pos_offline_scope",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Negative regression rejects denied A→B, allows A, maintains canonical global staff, and proves zero transaction mutation on denial",
+      "verification": "pos_negative",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "No DB, permission, OpenAPI, pricing, stock, workflow, framework, Frontend, Step71 modifications",
+      "verification": "pos_negative_scope",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Fresh HIGH security assessment, exact artifact Scope Lock, exact-head CI, Postgres, Step57/58/CodeQL, separate owner risk/Human approvals, protected merge, postmerge and lock release",
+      "verification": "pos_governance",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": [],
+  "process_improvement_links": [],
+  "incident_links": [],
+  "owner_internal_security_assurance": {
+    "mode": "OWNER_ACCEPTED_INTERNAL_SECURITY_ASSURANCE",
+    "governance_issue": "https://github.com/rahemih/Eqcofe/issues/399",
+    "risk_acknowledgement": "NO_INDEPENDENT_HUMAN_SECURITY_REVIEW",
+    "activation_scope": "ALLOWLISTED_BUT_NOT_OWNER_APPROVED; NEW EXACT_ARTIFACT_INTERNAL_SECURITY_AND_OWNER_RISK_AND_HUMAN_REQUIRED"
+  }
+}

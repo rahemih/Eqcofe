@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { OfflineCommandSyncService } from '../src/modules/pos/application/offline-command-sync.service';
+import { ScopePolicy } from '../src/platform/auth/scope-policy';
 
 const uuid=(n:string)=>`${n.repeat(8)}-${n.repeat(4)}-4${n.repeat(3)}-8${n.repeat(3)}-${n.repeat(12)}`;
 const commandId=uuid('1'),staffId=uuid('2'),warehouseId=uuid('3'),variantId=uuid('4'),saleId=uuid('5');
@@ -28,8 +29,8 @@ function make(overrides:any={}){
   };
   const pricing:any={priceDraft:async(input:any)=>{calls.push(['price',input]);if(overrides.priceError)throw overrides.priceError;return{total_toman:1000};}};
   const commit:any={commit:async(input:any)=>{calls.push(['commit',input]);if(overrides.commitError)throw overrides.commitError;return{id:saleId,status:'committed',version:4};}};
-  const ctx:any={get:()=>overrides.noActor?undefined:{actor:{type:'staff',id:staffId},requestId:uuid('7'),correlationId:uuid('8')}};
-  return{svc:new OfflineCommandSyncService(tx,commands,sales,saleRepo,pricing,commit,ctx),calls,getCommand:()=>command};
+  const ctx:any={get:()=>overrides.noActor?undefined:{actor:{type:'staff',id:staffId,scopes:overrides.scopes??[]},requestId:uuid('7'),correlationId:uuid('8')}};
+  return{svc:new OfflineCommandSyncService(tx,commands,sales,saleRepo,pricing,commit,ctx,new ScopePolicy()),calls,getCommand:()=>command};
 }
 
 test('Step 49 A7 capture stores only normalized allow-listed sale sync intent',async()=>{
@@ -93,4 +94,23 @@ test('Step 49 A7 persistence is forward-only, server-authoritative and leaves re
   assert.match(svc,/PhysicalSaleCommitService/);
   assert.doesNotMatch(svc,/price_toman|stock_toman|paid_status|secret|password|token/);
   assert.doesNotMatch(sql,/ALTER TABLE .* DROP COLUMN|DROP TABLE|TRUNCATE/);
+});
+
+test('Step70-H HIGH rejects offline capture outside assigned warehouse before persistence',()=>{
+  const {svc,calls}=make({scopes:['warehouse:'+uuid('e')]});
+  assert.throws(()=>svc.capture({clientCommandId:commandId,commandType:'sale.sync',payload}),(e:any)=>e?.message==='SCOPE_FORBIDDEN'||e?.response?.message==='SCOPE_FORBIDDEN');
+  assert.deepEqual(calls,[],'no offline command persisted or replayed on denied warehouse');
+});
+test('Step70-H HIGH checks current scope again on offline sync before draft, pricing and failure marks',async()=>{
+  const {svc,calls,getCommand}=make({scopes:['warehouse:'+uuid('e')]});
+  await assert.rejects(()=>svc.sync(commandId),(e:any)=>e?.message==='SCOPE_FORBIDDEN'||e?.response?.message==='SCOPE_FORBIDDEN');
+  assert.deepEqual(calls,[],'denial must not create sale, line effects, price, or failed marker');
+  assert.equal(getCommand().status,'queued');
+});
+test('Step70-H HIGH allows assigned warehouse capture and sync without changing POS replay behavior',async()=>{
+  const {svc,calls}=make({scopes:['warehouse:'+warehouseId]});
+  await svc.capture({clientCommandId:commandId,commandType:'sale.sync',payload});
+  await svc.sync(commandId);
+  assert.ok(calls.some(x=>x[0]==='capture'));
+  assert.ok(calls.some(x=>x[0]==='commit'));
 });

@@ -144,6 +144,7 @@
 | EQCOFE-STEP70-G-OWNER-INTERNAL-ASSURANCE-ALLOWLIST-002 | Step 70-G HIGH governance allowlist extension for warehouse invoice security task | HIGH | REQUIRED | `58ac38b730f192799ca582e7d2e0b70ecb580989` | 18000/30000/60000 |
 | EQCOFE-STEP70-G-OWNER-INTERNAL-ASSURANCE-GOV-001 | Step70-G owner-accepted internal assurance — canonical governance document reconciliation | HIGH | REQUIRED | `48bf2b39d81b439b62dfa27aabbb286f801cff58` | 34000/55000/100000 |
 | EQCOFE-STEP70-G-RECEIPT-LANDED-INVOICE-RETURN-ADMIN-001 | Step 70-G Goods Receipt, Landed Cost, Supplier Invoice and Purchase Return administration | HIGH | REQUIRED | `5ec04f5c5e61a58cbd195df6b1f60dd827cdbdf0` | 54000/84000/134000 |
+| EQCOFE-STEP70-H-POS-WAREHOUSE-SCOPE-BACKEND-001 | Step70-H HIGH POS physical sale and offline command warehouse scope BOLA hardening | HIGH | REQUIRED | `f7291716fe319138e79fe9934654f708f2479231` | 26000/43000/75000 |
 | MA-AGENT-A0-ORCHESTRATOR-001 | A0 — Orchestrator / Engineering Manager Prompt | LOW | NOT_REQUIRED | `f7919991e619d416360e74a542741ef21c70f732` | 10000/16000/32000 |
 | MA-AGENT-A1-SPEC-001 | A1 — Specification & Research Prompt | LOW | NOT_REQUIRED | `120898df57138b301560e7d9b9f1b3f5da03e982` | 10000/16000/32000 |
 | MA-AGENT-A10-EVIDENCE-001 | A10 — Evidence & Documentation Prompt | LOW | NOT_REQUIRED | `bdf8fccde4ca40cced48381ad3be2e0461ade535` | 12000/18000/35000 |
@@ -189,4 +190,4 @@
 | MA-V1-ACC-MEDIUM-001 | V1 Acceptance MEDIUM R2 — telemetry terminal-state conflict hardening | MEDIUM | NOT_REQUIRED | `9017e0f25e9571568ed9acf4ca3ca977ce9e78f0` | 15000/25000/50000 |
 | MA-V1-ACCEPTANCE-CLOSURE-V16-R2-001 | V1.6 Phase 3 canonical acceptance closure R2 | HIGH | REQUIRED | `d7d235f5f240b8bea44bc607afa812b2f5bb12d4` | 30000/50000/90000 |
 
-Task contracts indexed: **183**.
+Task contracts indexed: **184**.
