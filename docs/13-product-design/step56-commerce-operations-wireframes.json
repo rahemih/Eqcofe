@@ -806,7 +806,7 @@
     },
     {
       "path": "docs/13-product-design/step56-pricing-inventory-wireframes.json",
-      "sha256": "9da4f2f49de4849be824b2df0d8e69d5356904fe37c53271e014ff571921c520"
+      "sha256": "6286108dae12db50a336071524ccc7ee29b202e20d781d228d3aaea539169513"
     },
     {
       "path": "src/modules/after-sales/after-sales.module.ts",
