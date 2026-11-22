@@ -22,7 +22,7 @@ const record=(v:unknown):v is Record<string,unknown>=>v!==null&&typeof v==="obje
 const exact=(v:Record<string,unknown>,keys:string[])=>Object.keys(v).every(k=>keys.includes(k));
 const positive=(v:unknown,max:number)=>typeof v==="number"&&Number.isSafeInteger(v)&&v>=1&&v<=max;
 const money=(v:unknown)=>typeof v==="number"&&Number.isSafeInteger(v)&&v>=0;
-const text=(v:unknown,max:number)=>typeof v==="string"&&v.trim().length>0&&v.trim().length<=max&&!/[\r\n\0-\x1f\x7f]/.test(v);
+const text=(v:unknown,max:number)=>typeof v==="string"&&v.trim().length>0&&v.trim().length<=max&&![...v].some(char=>{const point=char.charCodeAt(0);return point<32||point===127;});
 const invalid=<T>(reason:string):Valid<T>=>({ok:false,reason});
 export function validateScan(kind:unknown,value:unknown):Valid<{kind:"sku"|"barcode";value:string}>{
   if(kind!=="sku"&&kind!=="barcode")return invalid("نوع اسکن فقط SKU یا بارکد است.");
