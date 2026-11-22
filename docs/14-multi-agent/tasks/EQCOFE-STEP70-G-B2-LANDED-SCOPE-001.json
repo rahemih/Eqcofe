@@ -56,7 +56,7 @@
     ]
   },
   "requested_lock_ids": [
-    "LOCK-EQCOFE-STEP70-G-B2-LANDED-SCOPE-001-03"
+    "LOCK-EQCOFE-STEP70-G-B2-LANDED-SCOPE-001-04"
   ],
   "human_gate_required": true,
   "authorized_human_approver": {
@@ -150,7 +150,9 @@
     "aborted_prior_head": "2862e016af43c49b734c381d8ee157691e2dfe64",
     "reconstruction_method": "CLEAN_SINGLE_PARENT_COMMIT_AT_CURRENT_MAIN",
     "intermediate_merge_head_rejected_by_scope_history": "585898f2a39c2e16e95937ef59990037a0704b8f",
-    "scope_history_failure_evidence": "https://github.com/rahemih/Eqcofe/actions/runs/44990579129"
+    "scope_history_failure_evidence": "https://github.com/rahemih/Eqcofe/actions/runs/44990579129",
+    "metadata_reconciliation": "Fresh GitHub pull_request.synchronize event required: first event body had unlabeled Task Contract; prior reruns retained immutable GITHUB_EVENT_PATH.",
+    "previous_metadata_event_head": "7845ffb5f5c70f94059a66b1335a43feab78004f"
   },
   "acceptance_criteria": [
     {
