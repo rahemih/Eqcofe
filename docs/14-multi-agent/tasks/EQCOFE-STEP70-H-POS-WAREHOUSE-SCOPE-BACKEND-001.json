@@ -26,6 +26,14 @@
     "write": [
       "docs/11-step-history/STEP-70-H-POS-WAREHOUSE-SCOPE-SECURITY.md",
       "docs/13-product-design/step56-commerce-operations-wireframes.json",
+      "docs/13-product-design/step56-customers-growth-wireframes.json",
+      "docs/13-product-design/step56-final-audit.json",
+      "docs/13-product-design/step56-final-audit/manifest.json",
+      "docs/13-product-design/step56-management-security-wireframes.json",
+      "docs/13-product-design/step56-wireframes/E/manifest.json",
+      "docs/13-product-design/step56-wireframes/F/manifest.json",
+      "docs/13-product-design/step56-wireframes/G/manifest.json",
+      "docs/13-product-design/step57-high-fidelity-contract.json",
       "docs/14-multi-agent/generated/TASK-CATALOG.md",
       "docs/14-multi-agent/tasks/EQCOFE-STEP70-H-POS-WAREHOUSE-SCOPE-BACKEND-001.json",
       "src/modules/pos/application/offline-command-sync.service.ts",
@@ -50,7 +58,7 @@
       "src/modules/inventory/**",
       "src/modules/procurement/**",
       "src/modules/payments/**",
-      "docs/13-product-design/step56-wireframes/**"
+      "docs/13-product-design/**/*.svg"
     ]
   },
   "requested_lock_ids": [
@@ -73,6 +81,14 @@
       "paths": [
         "docs/11-step-history/STEP-70-H-POS-WAREHOUSE-SCOPE-SECURITY.md",
         "docs/13-product-design/step56-commerce-operations-wireframes.json",
+        "docs/13-product-design/step56-customers-growth-wireframes.json",
+        "docs/13-product-design/step56-final-audit.json",
+        "docs/13-product-design/step56-final-audit/manifest.json",
+        "docs/13-product-design/step56-management-security-wireframes.json",
+        "docs/13-product-design/step56-wireframes/E/manifest.json",
+        "docs/13-product-design/step56-wireframes/F/manifest.json",
+        "docs/13-product-design/step56-wireframes/G/manifest.json",
+        "docs/13-product-design/step57-high-fidelity-contract.json",
         "docs/14-multi-agent/generated/TASK-CATALOG.md",
         "docs/14-multi-agent/tasks/EQCOFE-STEP70-H-POS-WAREHOUSE-SCOPE-BACKEND-001.json",
         "src/modules/pos/application/offline-command-sync.service.ts",
@@ -123,7 +139,7 @@
     "security_policy": "NEW HIGH task. No independent security PASS claimed. Separate Owner Risk plus later Human Gate before protected merge.",
     "source_provenance_refresh": {
       "path": "docs/13-product-design/step56-commerce-operations-wireframes.json",
-      "mode": "TWO_SHA256_VALUES_ONLY_NO_DESIGN_CHANGE",
+      "mode": "SOURCE_SHA256_ONLY_CASCADE_NO_VISUAL_VERDICT_CHANGES",
       "changed": [
         {
           "path": "src/modules/pos/application/offline-command-sync.service.ts",
@@ -136,7 +152,25 @@
           "newHash": "6a62b92c278ee1158f4d89e3385343ca90628013156f2296c368e83b9d186cf2"
         }
       ],
-      "scope_prohibited": "NO_OTHER_STEP56_DESIGN_OR_VERDICT_CHANGE"
+      "scope_prohibited": "NO_OTHER_STEP56_DESIGN_OR_VERDICT_CHANGE",
+      "downstream_paths": [
+        "docs/13-product-design/step56-customers-growth-wireframes.json",
+        "docs/13-product-design/step56-management-security-wireframes.json",
+        "docs/13-product-design/step56-wireframes/E/manifest.json",
+        "docs/13-product-design/step56-wireframes/F/manifest.json",
+        "docs/13-product-design/step56-wireframes/G/manifest.json",
+        "docs/13-product-design/step56-final-audit.json",
+        "docs/13-product-design/step56-final-audit/manifest.json",
+        "docs/13-product-design/step57-high-fidelity-contract.json"
+      ],
+      "source_hash_changes": [
+        "step56-E sources: offline-command-sync, physical-sale-commit",
+        "step56-F references E",
+        "step56-G references F",
+        "step56-E/F/G manifest source hashes",
+        "step56-H audit source and manifest hashes",
+        "step57 high-fidelity contract 4 source hashes"
+      ]
     }
   },
   "acceptance_criteria": [

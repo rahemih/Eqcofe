@@ -17,3 +17,7 @@ Separate HIGH Task Contract `EQCOFE-STEP70-H-POS-WAREHOUSE-SCOPE-BACKEND-001` wi
 ## Source provenance hash refresh (not design re-approval)
 
 The Step56-E snapshot validator pins source hashes for two files corrected by this new security patch. Update precisely the two `sources[].sha256` entries in `docs/13-product-design/step56-commerce-operations-wireframes.json` to actual SHA256 of these updated source files (normalized LF), with no change to screens, wireframes, operation matrix, accepted designs, textual decisions, or prior approval claims. Frozen design judgments are not regenerated or re-certified. If any downstream provenance hash validation fails, stop and reconcile deterministically within a new governed scope.
+
+## Transitive frozen provenance references (source digests only)
+
+Source SHA256 fields must correspond to the present source repository. The two Step56-E POS source SHA256 entries changed solely because the backend POS authority patch changed source bytes. The downstream Step56-F and Step56-G SHA references, E/F/G frame manifest sourceSha256, Step56-H final audit sources/manifests and its artifact manifest, and Step57 high-fidelity contract source SHA references are updated deterministically. No operation, layout, SVG, screenshot, page render, design decision or historical human review is changed. This refresh does not claim new runtime design certification.
