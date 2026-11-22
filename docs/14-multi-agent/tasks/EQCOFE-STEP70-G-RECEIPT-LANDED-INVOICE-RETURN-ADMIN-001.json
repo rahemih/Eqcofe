@@ -1,0 +1,276 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP70-G-RECEIPT-LANDED-INVOICE-RETURN-ADMIN-001",
+  "title": "Step 70-G Goods Receipt, Landed Cost, Supplier Invoice and Purchase Return administration",
+  "description": "HIGH Step70-G Admin settlement successor to stale PR #387, built on canonical main after protected B1/B2/B2C/B3 and invoice warehouse remediation. Source-aligned 23 operations with server-owned idempotency, If-Match, WebAuthn Step-Up, source-only manual allocations, fail-closed unknown outcome; no preview token/weight, no Step70-H/71. No old approval, lock or test evidence inherited.",
+  "risk": "HIGH",
+  "risk_floor": "HIGH",
+  "owner": "FRONTEND_ENGINEERING",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "5ec04f5c5e61a58cbd195df6b1f60dd827cdbdf0"
+  },
+  "scope": {
+    "read": [
+      "apps/admin/**",
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "src/modules/procurement/**",
+      "docs/11-step-history/**",
+      "docs/13-product-design/step56-pricing-inventory-wireframes.json",
+      "docs/13-product-design/step56-wireframes/D/**",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "apps/admin/app/operations/procurement-settlement.server.ts",
+      "apps/admin/app/routes.ts",
+      "apps/admin/app/routes/destination.tsx",
+      "apps/admin/app/routes/procurement-settlement.tsx",
+      "apps/admin/package.json",
+      "apps/admin/scripts/verify-step70-g-settlement-admin.ts",
+      "docs/11-step-history/STEP-70-G-PROCUREMENT-SETTLEMENT-ADMINISTRATION.md",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP70-G-RECEIPT-LANDED-INVOICE-RETURN-ADMIN-001.json"
+    ],
+    "forbidden": [
+      ".github/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "database/**",
+      "test/**",
+      "scripts/**",
+      "apps/api/**",
+      "apps/worker/**",
+      "apps/scheduler/**",
+      "apps/storefront/**",
+      "docs/12-current-state/**",
+      "graphify-out/**",
+      "contracts/**",
+      "src/generated/**",
+      "src/platform/**",
+      "src/shared/**",
+      "src/modules/inventory/**",
+      "src/modules/pos/**",
+      "src/modules/procurement/**",
+      "docs/13-product-design/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP70-G-RECEIPT-LANDED-INVOICE-RETURN-ADMIN-001-02"
+  ],
+  "human_gate_required": true,
+  "authorized_human_approver": {
+    "role": "PROJECT_OWNER",
+    "github_login": "rahemih"
+  },
+  "token_budget": {
+    "expected_max": 54000,
+    "soft_alert": 84000,
+    "hard_cap": 134000
+  },
+  "task_risk_rules": [
+    {
+      "id": "STEP70_G_PROCUREMENT_SETTLEMENT_ADMIN_HIGH",
+      "risk": "HIGH",
+      "paths": [
+        "apps/admin/app/operations/procurement-settlement.server.ts",
+        "apps/admin/app/routes.ts",
+        "apps/admin/app/routes/destination.tsx",
+        "apps/admin/app/routes/procurement-settlement.tsx",
+        "apps/admin/package.json",
+        "apps/admin/scripts/verify-step70-g-settlement-admin.ts",
+        "docs/11-step-history/STEP-70-G-PROCUREMENT-SETTLEMENT-ADMINISTRATION.md",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP70-G-RECEIPT-LANDED-INVOICE-RETURN-ADMIN-001.json"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "70-F Supplier/PR/PO administration",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "946ccb63ed210305b0ced2fb12143944ff37b796",
+      "terminal_evidence_comment": 6465016528,
+      "postmerge_run": 40660305178,
+      "blocking": false
+    },
+    {
+      "item": "Step70-G B1 #413 canonical reason alias",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "cfd405be5630a62c46476570c61e98a78d76c926",
+      "blocking": false
+    },
+    {
+      "item": "Step70-G invoice warehouse #414",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "48bf2b39d81b439b62dfa27aabbb286f801cff58",
+      "blocking": false
+    },
+    {
+      "item": "Step70-G B2 #418",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "7da3daa7802d404a26a32bd2a87d89734482af11",
+      "blocking": false
+    },
+    {
+      "item": "Step70-G B2C #419",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "f24e6eb63285eed961c6e08fbbf3930bde034a4e",
+      "blocking": false
+    },
+    {
+      "item": "Step70-G B3 #420",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "5ec04f5c5e61a58cbd195df6b1f60dd827cdbdf0",
+      "postmerge_run": 45009072159,
+      "terminal_evidence_comment": 7077559350,
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "linear_issue": "HOS-74",
+    "graph_state": "RETIRED_AND_OUT_OF_SCOPE",
+    "surfaces": [
+      "AD-D-15",
+      "AD-D-16",
+      "AD-D-17",
+      "AD-D-18"
+    ],
+    "operation_count": 23,
+    "mutation_policy": {
+      "idempotency_required": [
+        "goods-receipts:create",
+        "goods-receipts:post",
+        "goods-receipts:reverse",
+        "landed-costs:create",
+        "landed-costs:finalize",
+        "supplier-invoices:create",
+        "purchase-returns:create",
+        "purchase-returns:ship"
+      ],
+      "if_match_required": [
+        "goods-receipts:update",
+        "goods-receipts:submit",
+        "goods-receipts:post",
+        "goods-receipts:reverse",
+        "landed-costs:finalize",
+        "supplier-invoices:match",
+        "supplier-invoices:dispute",
+        "supplier-invoices:cancel",
+        "purchase-returns:approve",
+        "purchase-returns:ship",
+        "purchase-returns:complete"
+      ],
+      "step_up_required": [
+        "goods-receipts:post",
+        "goods-receipts:reverse",
+        "landed-costs:finalize",
+        "purchase-returns:approve",
+        "purchase-returns:ship"
+      ]
+    },
+    "source_gaps": [
+      {
+        "route": "POST /admin/procurement/goods-receipts/{id}/reverse",
+        "contract": "ApproveRequest.comment",
+        "runtime": "comment ?? reason ?? note (B1 #413)",
+        "policy": "RECONCILED_ON_CANONICAL_MAIN; frontend must use canonical request field and backend authoritative checks"
+      },
+      {
+        "route": "POST /admin/procurement/supplier-invoices/{id}/dispute|cancel",
+        "contract": "ResolveRequest.resolution_note",
+        "runtime": "resolution_note ?? reason ?? note (B1 #413)",
+        "policy": "RECONCILED_ON_CANONICAL_MAIN; frontend must use canonical request field and backend authoritative checks"
+      },
+      {
+        "route": "POST /admin/procurement/landed-costs/{id}/preview-allocation",
+        "contract": "Optional allocations; persisted method quantity/value/manual only (B3 #420)",
+        "runtime": "allocations; method from stored draft",
+        "policy": "RECONCILED_ON_CANONICAL_MAIN; frontend must use canonical request field and backend authoritative checks"
+      },
+      {
+        "route": "POST /admin/procurement/landed-costs/{id}/finalize",
+        "contract": "Optional allocations; no preview_id/reason (B3 #420)",
+        "runtime": "allocations; no preview_id lookup",
+        "policy": "RECONCILED_ON_CANONICAL_MAIN; frontend must use canonical request field and backend authoritative checks"
+      }
+    ],
+    "strict_negative_scope": "No Step70-H/Step71/POS/Graph; no invented persistence or synthetic response shapes",
+    "security_policy": "NO_PRIOR_GATE_TRANSFER: fresh exact-head CI/Phase A/Step57/Step58/CodeQL, independent security or separately owner-accepted INTERNAL_SECURITY and OWNER_RISK, later separate HUMAN and protected merge required.",
+    "current_main_source": "5ec04f5c5e61a58cbd195df6b1f60dd827cdbdf0",
+    "frontend_prior_candidate": "PR #387 historical DRAFT, stale HEAD; no security/CI/Human evidence carried"
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Exactly AD-D-15/16/17/18 and 23 source-backed operations mapped; no invented permission",
+      "verification": "step70_g_scope",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Required create/post/reverse/finalize/ship idempotency server-owned; If-Match where declared, WebAuthn only where source-proven",
+      "verification": "step70_g_authority",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Receipt quantity invariant accepted+quarantine+rejected=received; owned excludes rejected; PO/warehouse/supplier matching remains Backend authority",
+      "verification": "step70_g_receipts",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Landed create quantity/value/manual, preview optional allocations, finalize recompute with If-Match/StepUp/idempotency; no weight or invented preview token",
+      "verification": "step70_g_landed",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Invoice resolution_note and goods receipt reverse comment canonical B1 aliases correctly bound and negative-tested",
+      "verification": "step70_g_contract_drift",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Purchase returns preserve default quarantine, positive quantities, unique variants and separation-of-duties authority",
+      "verification": "step70_g_returns",
+      "mandatory": true
+    },
+    {
+      "id": "AC-007",
+      "description": "Unknown mutation outcomes do not auto-retry; authoritative re-read required",
+      "verification": "step70_g_fail_closed",
+      "mandatory": true
+    },
+    {
+      "id": "AC-008",
+      "description": "Fresh exact-head Admin verify/Canonical CI/Phase A/Step57/Step58/CodeQL/deterministic Review, bounded security, new ACTIVE Lock, distinct Owner risk and later Human Gate, protected merge, postmerge, release",
+      "verification": "step70_g_gates",
+      "mandatory": true
+    },
+    {
+      "id": "AC-009",
+      "description": "No 70-H, Step71 or Graph/Graphify authority introduced",
+      "verification": "step70_g_negative",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": [],
+  "process_improvement_links": [],
+  "incident_links": [],
+  "owner_internal_security_assurance": {
+    "mode": "OWNER_ACCEPTED_INTERNAL_SECURITY_ASSURANCE",
+    "governance_issue": "https://github.com/rahemih/Eqcofe/issues/399",
+    "risk_acknowledgement": "NO_INDEPENDENT_HUMAN_SECURITY_REVIEW",
+    "activation_scope": "ALLOWLISTED_BUT_NOT_OWNER_APPROVED; FRESH_EXACT_ARTIFACT_INTERNAL_SECURITY_AND_OWNER_RISK_AND_HUMAN_REQUIRED"
+  }
+}
