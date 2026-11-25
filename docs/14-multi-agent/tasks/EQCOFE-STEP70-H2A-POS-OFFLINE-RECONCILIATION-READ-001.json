@@ -1,0 +1,177 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP70-H2A-POS-OFFLINE-RECONCILIATION-READ-001",
+  "title": "Step70-H2A POS offline capture/sync and reconciliation read-only Admin",
+  "description": "Four of six source-backed AD-E-11 endpoints; separate HIGH capture, sync, list failed, inspect. Step-up retry/abandon deferred to H2B.",
+  "risk": "HIGH",
+  "risk_floor": "HIGH",
+  "owner": "FRONTEND_ENGINEERING",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "f0a01c76a65a71a8d30b1d51bdcd1420225b532a"
+  },
+  "scope": {
+    "read": [
+      "apps/admin/**",
+      "src/modules/pos/**",
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "docs/14-multi-agent/**",
+      "docs/11-step-history/**"
+    ],
+    "write": [
+      "apps/admin/app/operations/pos-offline.server.ts",
+      "apps/admin/app/routes/pos-offline.tsx",
+      "apps/admin/app/routes.ts",
+      "apps/admin/app/routes/destination.tsx",
+      "apps/admin/package.json",
+      "apps/admin/scripts/verify-step70-h2a-pos-offline.ts",
+      "docs/11-step-history/STEP-70-H2A-POS-OFFLINE-ADMIN.md",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP70-H2A-POS-OFFLINE-RECONCILIATION-READ-001.json"
+    ],
+    "forbidden": [
+      ".github/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "database/**",
+      "test/**",
+      "scripts/**",
+      "apps/storefront/**",
+      "apps/api/**",
+      "apps/worker/**",
+      "apps/scheduler/**",
+      "src/**",
+      "contracts/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**",
+      "graphify-out/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP70-H2A-POS-OFFLINE-RECONCILIATION-READ-001-01"
+  ],
+  "human_gate_required": true,
+  "authorized_human_approver": {
+    "role": "PROJECT_OWNER",
+    "github_login": "rahemih"
+  },
+  "token_budget": {
+    "expected_max": 30000,
+    "soft_alert": 50000,
+    "hard_cap": 90000
+  },
+  "task_risk_rules": [
+    {
+      "id": "STEP70_H2A_OFFLINE_RECONCILIATION_HIGH",
+      "risk": "HIGH",
+      "paths": [
+        "apps/admin/app/operations/pos-offline.server.ts",
+        "apps/admin/app/routes/pos-offline.tsx",
+        "apps/admin/app/routes.ts",
+        "apps/admin/app/routes/destination.tsx",
+        "apps/admin/package.json",
+        "apps/admin/scripts/verify-step70-h2a-pos-offline.ts",
+        "docs/11-step-history/STEP-70-H2A-POS-OFFLINE-ADMIN.md",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP70-H2A-POS-OFFLINE-RECONCILIATION-READ-001.json"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "H1 PR #424 canonical protected closeout",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "f0a01c76a65a71a8d30b1d51bdcd1420225b532a",
+      "postmerge_run": 45581898288,
+      "terminal_evidence_comment": 7159628989,
+      "blocking": false
+    },
+    {
+      "item": "H backend warehouse BOLA PR #426 canonical",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "042b29207927d5538b9f8d8787c879622df93114",
+      "postmerge_run": 45575151289,
+      "terminal_evidence_comment": 7157021998,
+      "blocking": false
+    },
+    {
+      "item": "Genuine independent HIGH human security review or exact H2A owner-approved governance amendment",
+      "required_state": "INDEPENDENT_SECURITY_PASS_OR_NEW_EXACT_OWNER_OPT_IN",
+      "observed_state": "PENDING",
+      "blocking": true
+    }
+  ],
+  "evidence": {
+    "linear_issue": "HOS-74",
+    "github_issue": 422,
+    "surfaces": [
+      "AD-E-11"
+    ],
+    "operation_count": 4,
+    "operations": [
+      "POST /admin/pos/offline/commands",
+      "POST /admin/pos/offline/commands/{clientCommandId}/sync",
+      "GET /admin/pos/reconciliation/failed",
+      "GET /admin/pos/reconciliation/{clientCommandId}"
+    ],
+    "permission_policy": {
+      "capture_sync": "pos.sell",
+      "read": "pos.reconcile"
+    },
+    "server_generated_idempotency": true,
+    "warehouse_scope": "BACKEND_ENFORCED_PR426",
+    "unknown_outcome": "FAIL_CLOSED_NO_AUTO_RETRY",
+    "offline_semantics": "SERVER_QUEUE_ONLY_NOT_LOCAL_PWA",
+    "deferred_h2b": [
+      "POST /admin/pos/reconciliation/{clientCommandId}/retry",
+      "POST /admin/pos/reconciliation/{clientCommandId}/abandon"
+    ],
+    "step71": "FORBIDDEN"
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Four of six source-backed AD-E-11 operations only",
+      "verification": "h2a_verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Server-only Admin auth, origin, scope and pos.sell/pos.reconcile permissions",
+      "verification": "h2a_verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Strict offline payload, no automatic sync retry, bounded projected response, no sensitive backend payload",
+      "verification": "h2a_verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Retry/abandon restricted to separately governed WebAuthn step-up H2B",
+      "verification": "h2a_verify",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Exact-head CI/PhaseA/Step57/CodeQL3, independent security or new explicit H2A governance, HUMAN, Scope Lock, protected merge/postmerge",
+      "verification": "h2a_gates",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": [],
+  "process_improvement_links": [],
+  "incident_links": [],
+  "owner_internal_security_assurance": {
+    "mode": "INDEPENDENT_HUMAN_REVIEW_REQUIRED_UNTIL_EXACT_OWNER_GOVERNANCE_AMENDMENT",
+    "governance_issue": "https://github.com/rahemih/Eqcofe/issues/399",
+    "risk_acknowledgement": "NOT_GRANTED_FOR_H2A",
+    "activation_scope": "NOT_IN_PR428_ALLOWLIST_DO_NOT_INHERIT"
+  }
+}
