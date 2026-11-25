@@ -70,3 +70,32 @@ test('Step70-G new allowlisted task cannot evade exact task opt-in, HIGH floor o
     assert.equal(assessed.status,'BLOCKED');
   }
 });
+
+test('Step70-H exact task allowlist is opt-in only and can never widen to H2 or Step71',()=>{
+  const optInIds=["EQCOFE-STEP70-H-OWNER-INTERNAL-ASSURANCE-ALLOWLIST-001","EQCOFE-STEP70-H-POS-WAREHOUSE-SCOPE-BACKEND-001","EQCOFE-STEP70-H1-POS-SCAN-SALE-ADMIN-001"];
+  for(const taskId of optInIds){
+    const v=result(f=>{f.contract.task_id=taskId;f.current.INTERNAL_SECURITY.task_id=taskId;f.current.OWNER_RISK.task_id=taskId;});
+    assert.equal(v.status,'INTERNAL_EVIDENCE_VERIFIED',taskId);
+    assert.equal(v.human_reviewer_independent,false);
+    assert.equal(Object.hasOwn(v,'security_pass'),false);
+  }
+  for(const taskId of ['EQCOFE-STEP70-H2-POS-OFFLINE-RECONCILIATION-ADMIN-001','EQCOFE-STEP71-START-001','*','EQCOFE-STEP70-H-OTHER-001']){
+    const v=result(f=>{f.contract.task_id=taskId;f.current.INTERNAL_SECURITY.task_id=taskId;f.current.OWNER_RISK.task_id=taskId;});
+    assert.ok(v.blockers.includes('INTERNAL_TASK_NOT_ALLOWLISTED'),taskId);
+  }
+});
+test('Step70-H assurance cannot evade explicit owner risk, codeql, HIGH floor or independent-in-time order',()=>{
+  for(const taskId of ["EQCOFE-STEP70-H-OWNER-INTERNAL-ASSURANCE-ALLOWLIST-001","EQCOFE-STEP70-H-POS-WAREHOUSE-SCOPE-BACKEND-001","EQCOFE-STEP70-H1-POS-SCAN-SALE-ADMIN-001"]){
+    for(const change of [
+      f=>{delete f.contract.owner_internal_security_assurance;},
+      f=>{f.contract.risk='MEDIUM';},
+      f=>{f.contract.human_gate_required=false;},
+      f=>{f.current.OWNER_RISK.artifact_hash='d'.repeat(64);},
+      f=>{f.current.OWNER_RISK.comment_id=f.current.INTERNAL_SECURITY.comment_id;},
+      f=>{f.check_runs[0].conclusion='failure';},
+    ]){
+      const v=result(f=>{f.contract.task_id=taskId;f.current.INTERNAL_SECURITY.task_id=taskId;f.current.OWNER_RISK.task_id=taskId;change(f)});
+      assert.equal(v.status,'BLOCKED',taskId);
+    }
+  }
+});
