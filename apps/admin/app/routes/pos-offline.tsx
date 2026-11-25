@@ -111,7 +111,7 @@ export async function action({request}:{request:Request}){
 
 export default function PosOfflineRoute(){
   const state=useLoaderData<typeof loader>(),fetcher=useFetcher<typeof action>(),navigation=useNavigation();
-  const [review,setReview]=useState<RecoveryIntent|null>(null),[clientError,setClientError]=useState<string|null>(null);
+  const [review,setReview]=useState<RecoveryIntent|null>(null),[clientError,setClientError]=useState<string|null>(null),[noteInput,setNoteInput]=useState("");
   const handled=useRef<string|null>(null);
   const busy=fetcher.state!=="idle"||navigation.state!=="idle";
   useEffect(()=>{
@@ -166,9 +166,9 @@ export default function PosOfflineRoute(){
         <p>شناسه: <bdi>{state.selected.clientCommandId}</bdi> · وضعیت: {state.selected.status} · کد خطا: {state.selected.errorCode??"ندارد"} · بازیابی: {state.selected.recoveryCount} از ۵</p>
         {state.history?.length?<ol>{state.history.map((entry,i)=><li key={entry.createdAt+"-"+i}>{entry.action} · تعداد {entry.recoveryCount} · {entry.createdAt} · {entry.note??"بدون یادداشت"}</li>)}</ol>:<p>تاریخچه مدیریتی ثبت نشده است.</p>}
         {state.selected.status==="failed"?<div className="pricing-actions">
-          <label>یادداشت بازیابی اختیاری <input id="pos-recovery-note" maxLength={500} placeholder="حداکثر ۵۰۰ نویسه" onChange={e=>setReview(x=>x?{...x,note:e.currentTarget.value}:x)}/></label>
-          <button type="button" disabled={busy||state.selected.recoveryCount>=5} onClick={()=>setReview({mode:"retry",commandId:state.selected!.clientCommandId,note:(document.getElementById("pos-recovery-note") as HTMLInputElement|null)?.value??""})}>تلاش بازیابی با WebAuthn</button>
-          <button type="button" disabled={busy} onClick={()=>setReview({mode:"abandon",commandId:state.selected!.clientCommandId,note:(document.getElementById("pos-recovery-note") as HTMLInputElement|null)?.value??""})}>کنارگذاری با WebAuthn</button>
+          <label>یادداشت بازیابی اختیاری <input id="pos-recovery-note" maxLength={500} placeholder="حداکثر ۵۰۰ نویسه" value={noteInput} onChange={e=>setNoteInput(e.currentTarget.value)}/></label>
+          <button type="button" disabled={busy||state.selected.recoveryCount>=5} onClick={()=>setReview({mode:"retry",commandId:state.selected!.clientCommandId,note:noteInput})}>تلاش بازیابی با WebAuthn</button>
+          <button type="button" disabled={busy} onClick={()=>setReview({mode:"abandon",commandId:state.selected!.clientCommandId,note:noteInput})}>کنارگذاری با WebAuthn</button>
         </div>:<p>فقط وضعیت failed برای اقدام مدیریتی مجاز است.</p>}
       </section>:null}
     </section>:null}

@@ -115,7 +115,7 @@ export async function inspectCommand(request:Pick<Request,"headers">,commandId:s
     return value?{kind:"ready",value,requestId:r.requestId,setCookies:bridge.takeSetCookies()}:{kind:"unavailable",requestId:r.requestId,setCookies:bridge.takeSetCookies()};
   }catch(e){return readError(e,bridge?.takeSetCookies()??[]);}
 }
-async function mutate(request:Pick<Request,"headers">,key:string,stepUpToken:string|undefined,
+async function mutate(request:Pick<Request,"headers">,key:string,expectedClientCommandId:string,stepUpToken:string|undefined,
   call:(bridge:ReturnType<typeof createAdminAuthBridge>)=>Promise<{requestId:string|null;data:unknown;recovery:boolean}>):Promise<MutationResult>{
   let bridge:ReturnType<typeof createAdminAuthBridge>|null=null;
   try{
@@ -123,7 +123,7 @@ async function mutate(request:Pick<Request,"headers">,key:string,stepUpToken:str
     const r=await call(bridge);
     const source=r.recovery&&object(r.data)?r.data.command:r.data;
     const command=projectCommand(source);
-    if(!command||(r.recovery&&(!object(r.data)||r.data.requires_owner_sync!==true)))return{kind:"unknown_outcome",requestId:r.requestId,key,setCookies:bridge.takeSetCookies()};
+    if(!command||command.clientCommandId.toLowerCase()!==expectedClientCommandId.toLowerCase()||(r.recovery&&(!object(r.data)||r.data.requires_owner_sync!==true)))return{kind:"unknown_outcome",requestId:r.requestId,key,setCookies:bridge.takeSetCookies()};
     return{kind:"confirmed",command,...(r.recovery?{requiresOwnerSync:true as const}:{}),requestId:r.requestId,key,setCookies:bridge.takeSetCookies()};
   }catch(e){return mutationError(e,key,bridge?.takeSetCookies()??[]);}
 }
@@ -131,7 +131,7 @@ export async function captureOfflineCommand(request:Pick<Request,"headers">,comm
   if(!uuid(commandId)||!validateOfflinePayload(body).ok)return localInvalid();
   // The offline terminal's immutable client_command_id is the Backend's idempotency identity.
   // Do NOT mint a different UUID for each capture attempt; ambiguous outcomes require reconciliation.
-  return mutate(request,commandId,undefined,async bridge=>{
+  return mutate(request,commandId,commandId,undefined,async bridge=>{
     const r=await bridge.client.request("post","/admin/pos/offline/commands",{headers:{"Idempotency-Key":commandId},body});
     return{requestId:r.requestId,data:r.data.data,recovery:false};
   });
@@ -139,7 +139,7 @@ export async function captureOfflineCommand(request:Pick<Request,"headers">,comm
 export async function syncOfflineCommand(request:Pick<Request,"headers">,commandId:string):Promise<MutationResult>{
   if(!uuid(commandId))return localInvalid();
   const key=randomUUID();
-  return mutate(request,key,undefined,async bridge=>{
+  return mutate(request,key,commandId,undefined,async bridge=>{
     const r=await bridge.client.request("post","/admin/pos/offline/commands/{clientCommandId}/sync",{pathParams:{clientCommandId:commandId},headers:{"Idempotency-Key":key}});
     return{requestId:r.requestId,data:r.data.data,recovery:false};
   });
@@ -147,7 +147,7 @@ export async function syncOfflineCommand(request:Pick<Request,"headers">,command
 export async function recoverOfflineCommand(request:Pick<Request,"headers">,commandId:string,mode:"retry"|"abandon",note:NoteBody,stepUpToken:string):Promise<MutationResult>{
   if(!uuid(commandId)||!validateNote(note.note).ok||!stepUpToken)return localInvalid();
   const key=randomUUID();
-  return mutate(request,key,stepUpToken,async bridge=>{
+  return mutate(request,key,commandId,stepUpToken,async bridge=>{
     const path=mode==="retry"?"/admin/pos/reconciliation/{clientCommandId}/retry" as const:"/admin/pos/reconciliation/{clientCommandId}/abandon" as const;
     if(path==="/admin/pos/reconciliation/{clientCommandId}/retry"){
       const r=await bridge.client.request("post",path,{pathParams:{clientCommandId:commandId},headers:{"Idempotency-Key":key},body:note});
