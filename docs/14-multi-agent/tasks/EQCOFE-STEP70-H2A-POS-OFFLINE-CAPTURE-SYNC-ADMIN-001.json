@@ -1,0 +1,187 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP70-H2A-POS-OFFLINE-CAPTURE-SYNC-ADMIN-001",
+  "title": "Step70-H2A POS offline sale.sync capture and owner sync Admin frontend",
+  "description": "HIGH isolated first two controller-backed POS offline operations; four reconciliation actions deferred to separate H2B; no optimistic money/inventory.",
+  "risk": "HIGH",
+  "risk_floor": "HIGH",
+  "owner": "FRONTEND_ENGINEERING",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "f0a01c76a65a71a8d30b1d51bdcd1420225b532a"
+  },
+  "scope": {
+    "read": [
+      "apps/admin/**",
+      "src/modules/pos/**",
+      "src/generated/openapi.ts",
+      "contracts/http/openapi.yaml",
+      "docs/11-step-history/**",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "apps/admin/app/operations/pos-offline.server.ts",
+      "apps/admin/app/routes/pos-offline.tsx",
+      "apps/admin/app/routes.ts",
+      "apps/admin/app/routes/destination.tsx",
+      "apps/admin/package.json",
+      "apps/admin/scripts/verify-step70-h2a-pos-offline.ts",
+      "docs/11-step-history/STEP-70-H2A-POS-OFFLINE-CAPTURE-SYNC-ADMIN.md",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP70-H2A-POS-OFFLINE-CAPTURE-SYNC-ADMIN-001.json"
+    ],
+    "forbidden": [
+      ".github/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "database/**",
+      "test/**",
+      "scripts/**",
+      "apps/api/**",
+      "apps/worker/**",
+      "apps/scheduler/**",
+      "apps/storefront/**",
+      "docs/12-current-state/**",
+      "graphify-out/**",
+      "contracts/**",
+      "src/generated/**",
+      "src/platform/**",
+      "src/shared/**",
+      "src/modules/inventory/**",
+      "src/modules/pos/**",
+      "src/modules/procurement/**",
+      "docs/13-product-design/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP70-H2A-POS-OFFLINE-CAPTURE-SYNC-ADMIN-001-01"
+  ],
+  "human_gate_required": true,
+  "authorized_human_approver": {
+    "role": "PROJECT_OWNER",
+    "github_login": "rahemih"
+  },
+  "token_budget": {
+    "expected_max": 35000,
+    "soft_alert": 57000,
+    "hard_cap": 90000
+  },
+  "task_risk_rules": [
+    {
+      "id": "STEP70_H2A_POS_OFFLINE_CAPTURE_SYNC_HIGH",
+      "risk": "HIGH",
+      "paths": [
+        "apps/admin/app/operations/pos-offline.server.ts",
+        "apps/admin/app/routes/pos-offline.tsx",
+        "apps/admin/app/routes.ts",
+        "apps/admin/app/routes/destination.tsx",
+        "apps/admin/package.json",
+        "apps/admin/scripts/verify-step70-h2a-pos-offline.ts",
+        "docs/11-step-history/STEP-70-H2A-POS-OFFLINE-CAPTURE-SYNC-ADMIN.md",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP70-H2A-POS-OFFLINE-CAPTURE-SYNC-ADMIN-001.json"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "Step70-H1 PR #424 source-backed POS sales Admin protected terminal closure",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "f0a01c76a65a71a8d30b1d51bdcd1420225b532a",
+      "postmerge_run": 45581898288,
+      "terminal_evidence_comment": 7159628989,
+      "blocking": false
+    },
+    {
+      "item": "Step70-H backend warehouse scope BOLA PR #426 protected terminal closure",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "042b29207927d5538b9f8d8787c879622df93114",
+      "postmerge_run": 45575151289,
+      "terminal_evidence_comment": 7157021998,
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "linear_issue": "HOS-74",
+    "github_issue": 422,
+    "graph_state": "RETIRED_AND_OUT_OF_SCOPE",
+    "surfaces": [
+      "AD-E-11"
+    ],
+    "operation_count": 2,
+    "operations": [
+      "POST /admin/pos/offline/commands",
+      "POST /admin/pos/offline/commands/{clientCommandId}/sync"
+    ],
+    "permission_policy": {
+      "mutations": "pos.sell"
+    },
+    "scopes": [
+      "pos.offline.capture",
+      "pos.offline.sync"
+    ],
+    "server_generated_idempotency": true,
+    "warehouse_scope": "BACKEND_ENFORCED",
+    "line_count": [
+      1,
+      100
+    ],
+    "quantity_range": [
+      1,
+      999
+    ],
+    "external_reference_max": 120,
+    "unknown_outcome": "FAIL_CLOSED_NO_AUTORETRY",
+    "deferred_h2b": [
+      "GET /admin/pos/reconciliation/failed",
+      "GET /admin/pos/reconciliation/{clientCommandId}",
+      "POST /admin/pos/reconciliation/{clientCommandId}/retry",
+      "POST /admin/pos/reconciliation/{clientCommandId}/abandon"
+    ],
+    "excluded": [
+      "AD-E-09",
+      "Step70-I",
+      "Step70-J",
+      "Step71"
+    ]
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Only 2 real source-backed offline capture and sync endpoints and POS sell permission, no inventing reconciliation UI",
+      "verification": "source_scope",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Strict server input and wire payload canonical: warehouse UUID, lines 1-100 quantities 1..999, no money injection",
+      "verification": "payload_negative",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Server generated command id and mutation idempotency; no automatic retry on ambiguous outcomes; whitelist response fields",
+      "verification": "fail_closed",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Exact-head provider gates, bounded HIGH security review, separate owner risk if internal assurance and separate Human, official merge & postmerge",
+      "verification": "governance",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": [],
+  "process_improvement_links": [],
+  "incident_links": [],
+  "owner_internal_security_assurance": {
+    "mode": "OWNER_ACCEPTED_INTERNAL_SECURITY_ASSURANCE",
+    "governance_issue": "https://github.com/rahemih/Eqcofe/issues/399",
+    "risk_acknowledgement": "NO_INDEPENDENT_HUMAN_SECURITY_REVIEW",
+    "activation_scope": "ALLOWLISTED_BUT_NOT_OWNER_APPROVED; FRESH_EXACT_ARTIFACT_INTERNAL_SECURITY_AND_OWNER_RISK_AND_HUMAN_REQUIRED"
+  }
+}
