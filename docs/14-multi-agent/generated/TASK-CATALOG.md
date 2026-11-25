@@ -147,6 +147,7 @@
 | EQCOFE-STEP70-H-OWNER-INTERNAL-ASSURANCE-ALLOWLIST-001 | Step70-H HIGH governance: exact owner-led security assurance opt-in for POS #424 and #426 | HIGH | REQUIRED | `f7291716fe319138e79fe9934654f708f2479231` | 14000/28000/58000 |
 | EQCOFE-STEP70-H-POS-WAREHOUSE-SCOPE-BACKEND-001 | Step70-H HIGH POS physical sale and offline command warehouse scope BOLA hardening | HIGH | REQUIRED | `f3f34aad5f47fae45260e12d483fd686f7500be6` | 26000/43000/75000 |
 | EQCOFE-STEP70-H1-POS-SCAN-SALE-ADMIN-001 | Step 70-H1 POS scan, draft sale, lines, pricing and commit Admin frontend | HIGH | REQUIRED | `042b29207927d5538b9f8d8787c879622df93114` | 40000/62000/96000 |
+| EQCOFE-STEP70-H2-POS-OFFLINE-RECONCILIATION-ADMIN-001 | Step70-H2 HIGH — POS offline capture/sync and failed-command reconciliation Admin | HIGH | REQUIRED | `f0a01c76a65a71a8d30b1d51bdcd1420225b532a` | 42000/65000/98000 |
 | MA-AGENT-A0-ORCHESTRATOR-001 | A0 — Orchestrator / Engineering Manager Prompt | LOW | NOT_REQUIRED | `f7919991e619d416360e74a542741ef21c70f732` | 10000/16000/32000 |
 | MA-AGENT-A1-SPEC-001 | A1 — Specification & Research Prompt | LOW | NOT_REQUIRED | `120898df57138b301560e7d9b9f1b3f5da03e982` | 10000/16000/32000 |
 | MA-AGENT-A10-EVIDENCE-001 | A10 — Evidence & Documentation Prompt | LOW | NOT_REQUIRED | `bdf8fccde4ca40cced48381ad3be2e0461ade535` | 12000/18000/35000 |
@@ -192,4 +193,4 @@
 | MA-V1-ACC-MEDIUM-001 | V1 Acceptance MEDIUM R2 — telemetry terminal-state conflict hardening | MEDIUM | NOT_REQUIRED | `9017e0f25e9571568ed9acf4ca3ca977ce9e78f0` | 15000/25000/50000 |
 | MA-V1-ACCEPTANCE-CLOSURE-V16-R2-001 | V1.6 Phase 3 canonical acceptance closure R2 | HIGH | REQUIRED | `d7d235f5f240b8bea44bc607afa812b2f5bb12d4` | 30000/50000/90000 |
 
-Task contracts indexed: **186**.
+Task contracts indexed: **187**.

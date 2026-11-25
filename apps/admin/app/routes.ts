@@ -25,6 +25,7 @@ export default [
     route("procurement/:view", "./routes/procurement.tsx"),
     route("procurement-settlement/:view", "./routes/procurement-settlement.tsx"),
     route("pos/sales", "./routes/pos-sales.tsx"),
+    route("pos/offline", "./routes/pos-offline.tsx"),
     route("destinations/:surfaceId", "./routes/destination.tsx"),
   ]),
 ] satisfies RouteConfig;

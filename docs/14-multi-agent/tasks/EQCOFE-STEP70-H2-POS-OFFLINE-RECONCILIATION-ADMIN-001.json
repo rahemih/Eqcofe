@@ -1,0 +1,204 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP70-H2-POS-OFFLINE-RECONCILIATION-ADMIN-001",
+  "title": "Step70-H2 HIGH — POS offline capture/sync and failed-command reconciliation Admin",
+  "description": "Second bounded HIGH POS Admin implementation of six source-backed AD-E-11 operations only; WebAuthn step-up for retry/abandon, fail-closed offline idempotency and warehouse scopes; no backend rewrite, shift/register/order or Step71.",
+  "risk": "HIGH",
+  "risk_floor": "HIGH",
+  "owner": "FRONTEND_ENGINEERING",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "f0a01c76a65a71a8d30b1d51bdcd1420225b532a"
+  },
+  "scope": {
+    "read": [
+      "apps/admin/**",
+      "src/modules/pos/**",
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "docs/11-step-history/**",
+      "docs/13-product-design/step56-wireframes/E/**",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "apps/admin/app/operations/pos-offline.server.ts",
+      "apps/admin/app/routes.ts",
+      "apps/admin/app/routes/destination.tsx",
+      "apps/admin/app/routes/pos-offline.tsx",
+      "apps/admin/package.json",
+      "apps/admin/scripts/verify-step70-h2-pos-offline.ts",
+      "docs/11-step-history/STEP-70-H2-POS-OFFLINE-RECONCILIATION-ADMIN.md",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP70-H2-POS-OFFLINE-RECONCILIATION-ADMIN-001.json"
+    ],
+    "forbidden": [
+      ".github/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "database/**",
+      "test/**",
+      "scripts/**",
+      "apps/api/**",
+      "apps/worker/**",
+      "apps/scheduler/**",
+      "apps/storefront/**",
+      "docs/12-current-state/**",
+      "graphify-out/**",
+      "contracts/**",
+      "src/generated/**",
+      "src/platform/**",
+      "src/shared/**",
+      "src/modules/inventory/**",
+      "src/modules/pos/**",
+      "src/modules/procurement/**",
+      "docs/13-product-design/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP70-H2-POS-OFFLINE-RECONCILIATION-ADMIN-001-01"
+  ],
+  "human_gate_required": true,
+  "authorized_human_approver": {
+    "role": "PROJECT_OWNER",
+    "github_login": "rahemih"
+  },
+  "token_budget": {
+    "expected_max": 42000,
+    "soft_alert": 65000,
+    "hard_cap": 98000
+  },
+  "task_risk_rules": [
+    {
+      "id": "STEP70_H2_POS_OFFLINE_RECONCILIATION_HIGH",
+      "risk": "HIGH",
+      "paths": [
+        "apps/admin/app/operations/pos-offline.server.ts",
+        "apps/admin/app/routes.ts",
+        "apps/admin/app/routes/destination.tsx",
+        "apps/admin/app/routes/pos-offline.tsx",
+        "apps/admin/package.json",
+        "apps/admin/scripts/verify-step70-h2-pos-offline.ts",
+        "docs/11-step-history/STEP-70-H2-POS-OFFLINE-RECONCILIATION-ADMIN.md",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP70-H2-POS-OFFLINE-RECONCILIATION-ADMIN-001.json"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "Step70-H1 POS Sale Admin PR #424 canonical terminal closeout",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "f0a01c76a65a71a8d30b1d51bdcd1420225b532a",
+      "postmerge_run": 45581898288,
+      "terminal_evidence_comment": 7159628989,
+      "blocking": false
+    },
+    {
+      "item": "Step70-H POS warehouse scope security PR #426",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "042b29207927d5538b9f8d8787c879622df93114",
+      "postmerge_run": 45575151289,
+      "terminal_evidence_comment": 7157021998,
+      "blocking": false
+    },
+    {
+      "item": "Step70-B authoritative POS 11 operations",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "linear_issue": "HOS-74",
+    "github_issue": 422,
+    "graph_state": "RETIRED_AND_OUT_OF_SCOPE",
+    "surfaces": [
+      "AD-E-11"
+    ],
+    "operation_count": 6,
+    "idempotency_required": [
+      "pos.offline.capture",
+      "pos.offline.sync",
+      "pos.reconciliation.admin.retry",
+      "pos.reconciliation.admin.abandon"
+    ],
+    "permission_policy": {
+      "offline": "pos.sell",
+      "reconciliation": "pos.reconcile",
+      "sensitive_recovery": "pos.reconcile + WebAuthn step-up"
+    },
+    "command_type": "sale.sync",
+    "lines_range": [
+      1,
+      100
+    ],
+    "quantity_range": [
+      1,
+      999
+    ],
+    "failed_list_limit": [
+      1,
+      100
+    ],
+    "note_max": 500,
+    "retry_limit": 5,
+    "client_command_id": "UNCHANGED_OFFLINE_CLIENT_UUID_AS_BACKEND_IDEMPOTENCY_KEY",
+    "unknown_outcome": "FAIL_CLOSED_NO_AUTORETRY",
+    "security_policy": "H2 is NOT in PR #428 exact owner-internal assurance allowlist. Independent qualified human security review and SECURITY:PASS required unless a future separately owner-approved protected governance amendment explicitly enables an alternative. No implied Owner Risk or Human Gate.",
+    "excluded_operations": [
+      "GET /admin/pos/stores",
+      "GET /admin/pos/registers",
+      "GET /admin/pos/shifts/current",
+      "POST /admin/pos/shifts/open",
+      "POST /admin/pos/shifts/{id}/begin-closing",
+      "POST /admin/pos/shifts/{id}/close",
+      "POST /admin/pos/shifts/{id}/reconcile",
+      "POST /admin/pos/orders"
+    ]
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Only six canonical AD-E-11 backed routes; no store/shift/order or unsupported endpoint",
+      "verification": "h2_source_scope",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Server RBAC pos.sell versus pos.reconcile, verified session/same-origin and immutable source offline idempotency",
+      "verification": "h2_auth",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Offline capture uses exact strict payload validation, UUIDs, max 100 lines, quantity 1..999, authoritative backend warehouse scope and no price injection",
+      "verification": "h2_capture",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Retry/abandon only for failed commands and with fresh WebAuthn challenge/verify step-up; token kept only server-side; five retry cap",
+      "verification": "h2_stepup",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Unknown outcome never silently retried; narrow response projection strips payload and secret fields; immutable reconciliation history only read",
+      "verification": "h2_fail_closed",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "Fresh exact-head Canonical CI, Phase A/PostgreSQL, Step57, Step58 if applicable, CodeQL 3, bounded independent HIGH security review, Scope Lock, distinct owner Human Gate, protected workflow_dispatch/postmerge and final RELEASE",
+      "verification": "h2_governance",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": [],
+  "process_improvement_links": [],
+  "incident_links": []
+}
