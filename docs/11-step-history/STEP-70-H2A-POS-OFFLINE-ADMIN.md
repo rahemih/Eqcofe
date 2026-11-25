@@ -20,3 +20,7 @@ The other two source-backed operations `POST /admin/pos/reconciliation/{clientCo
 ## Governance/security gate
 
 The **H owner-internal-security governance amendment PR #428 explicitly allows only #424 and #426**, NOT this H2A task. Therefore internal assistant security assessment alone **CANNOT** unblock H2A. It requires either genuine independent human security review or a new independently owner-approved exact-task governance amendment, with no weakening of CodeQL, CI, Scope Lock, protected merge, authentication, risk or Human Gate. All code/tests must pass exact-head Canonical CI, Phase A/PostgreSQL, Step57, CodeQL three analyses; Step58 if applicable; exact task lock, deterministic review and separate Owner Human Gate. Official protected merge only, exact merged-SHA postmerge checks, terminal lock RELEASED. No H2B/70-I/70-J/Step71 authorization transferred.
+
+## Governance incident checkpoint — PR #431
+
+The initial push triggered a closed-fail CI/Phase A PR event before the required exact Task Contract path was included in the GitHub PR description. The PR description now declares exactly one source path: `docs/14-multi-agent/tasks/EQCOFE-STEP70-H2A-POS-OFFLINE-RECONCILIATION-READ-001.json`, as mandated by scope history and deterministic Merge Policy. The new documentation-only commit intentionally triggers fresh workflows with a new PR event snapshot; previous failed runs cannot count as PASS. Task remains HIGH/DRAFT and has no Security/Human approval or merge authorization. H2A is not covered by PR #428 owner-only security assurance allowlist.
