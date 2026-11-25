@@ -5,7 +5,7 @@ import { appendAdminAuthSetCookies } from "../platform/auth/admin-cookie.server.
 import { readAdminAuthorizationContext } from "../platform/auth/context.server.js";
 import { createAdminStepUpChallenge, verifyAdminStepUp } from "../platform/auth/step-up-credentials.server.js";
 import { runAdminWebAuthn } from "../platform/auth/webauthn.client.js";
-import { isTrustedOperationsFormOrigin, operationsInteger, operationsText, operationsUuid } from "../operations/operations-form.server.js";
+import { isTrustedOperationsFormOrigin, operationsInteger, operationsUuid } from "../operations/operations-form.server.js";
 import {
   captureOfflineCommand, inspectCommand, listFailedCommands, recoverOfflineCommand, syncOfflineCommand,
   validateOfflinePayload, validateNote, type CommandView, type HistoryView, type MutationResult,

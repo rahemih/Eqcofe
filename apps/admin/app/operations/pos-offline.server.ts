@@ -16,7 +16,7 @@ const object=(v:unknown):v is Record<string,unknown>=>v!==null&&typeof v==="obje
 const uuid=(v:unknown):v is string=>typeof v==="string"&&UUID.test(v);
 const integer=(v:unknown,min:number,max:number)=>typeof v==="number"&&Number.isSafeInteger(v)&&v>=min&&v<=max;
 const only=(v:Record<string,unknown>,fields:string[])=>Object.keys(v).every(k=>fields.includes(k));
-const cleanText=(v:unknown,max:number)=>typeof v==="string"&&v.trim().length>0&&v.trim().length<=max&&!/[\u0000-\u001f\u007f]/.test(v);
+const cleanText=(v:unknown,max:number)=>typeof v==="string"&&v.trim().length>0&&v.trim().length<=max&&![...v].some(ch=>{const code=ch.charCodeAt(0);return code<32||code===127;});
 const invalid=<T>():Valid<T>=>({ok:false});
 const localInvalid=():MutationResult=>({kind:"invalid",key:null,requestId:null,setCookies:[]});
 export function validateClientCommandId(v:unknown):v is string{return uuid(v);}
