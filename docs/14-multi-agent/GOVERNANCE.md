@@ -260,3 +260,14 @@ This route is **already implemented in canonical code**, not just a proposal: `s
 Reference: [Governance decision #399](https://github.com/rahemih/Eqcofe/issues/399), [Step70-G B2 Owner-led evidence handoff #416](https://github.com/rahemih/Eqcofe/issues/416), and the archived [original proposal](https://github.com/rahemih/Eqcofe/blob/main/docs/14-multi-agent/STEP70-G-OWNER-ONLY-SECURITY-ASSURANCE-PROPOSAL.md).
 
 **Governed change status:** this clarification enters canonical documentation only when its own exact-artifact GitHub protected-merge and postmerge checks complete successfully. Until then the last protected `main` text is authoritative.
+
+## Step 70-H — PROPOSED exact-task owner-only security assurance amendment (HIGH, NOT ACTIVE UNTIL CANONICAL MERGE)
+
+Proposal [Issue #427](https://github.com/rahemih/Eqcofe/issues/427) is **not a blanket authorization**. A separately governed, owner-approved protected merge may extend the *existing non-independent route* only to:
+- `EQCOFE-STEP70-H-OWNER-INTERNAL-ASSURANCE-ALLOWLIST-001` (this exact HIGH governance amendment itself);
+- `EQCOFE-STEP70-H-POS-WAREHOUSE-SCOPE-BACKEND-001` (warehouse-scope backend PR #426);
+- `EQCOFE-STEP70-H1-POS-SCAN-SALE-ADMIN-001` (POS sale Admin frontend PR #424).
+
+**Before approval and protected merge, these remain NOT allowlisted on canonical main.** The governance candidate's self-ID is listed for candidate validation only; it has no power to grant itself OWNER_RISK or HUMAN approval and is subject to full HIGH provider/Scope Lock/CodeQL/protection enforcement. The user must **explicitly approve** accepting a non-independent human security assurance route at lower independence than external review for this amendment. Separately and chronologically, each target PR requires its own bounded source/threat evaluation, exact artifact and active Scope Lock, distinct Project Owner OWNER_RISK:ACCEPTED, later HUMAN:APPROVED, full exact-head Canonical CI/Phase A/Step57/Step58/CodeQL, official protected merge and exact-SHA postmerge/lock release. Historical G approvals do not transfer. Any other Step70-H2, Step70-I/J or Step71 task remains ineligible until separately governed.
+
+No change to `scripts/multi-agent/merge-policy-controller.mjs`, branch protection, workflow, permissions, independent reviewer meaning, security check severity or any business code is allowed by this candidate.

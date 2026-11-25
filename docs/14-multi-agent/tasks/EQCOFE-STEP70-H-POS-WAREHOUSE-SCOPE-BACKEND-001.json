@@ -9,7 +9,7 @@
   "canonical": {
     "repository": "rahemih/Eqcofe",
     "branch": "main",
-    "base_sha": "f7291716fe319138e79fe9934654f708f2479231"
+    "base_sha": "f3f34aad5f47fae45260e12d483fd686f7500be6"
   },
   "scope": {
     "read": [
@@ -113,6 +113,13 @@
       "observed_state": "REMEDIATION_CANDIDATE",
       "github_issue": 425,
       "blocking": false
+    },
+    {
+      "item": "Step70-H owner-only exact allowlist PR #428",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "f3f34aad5f47fae45260e12d483fd686f7500be6",
+      "blocking": false
     }
   ],
   "evidence": {
@@ -211,6 +218,6 @@
     "mode": "OWNER_ACCEPTED_INTERNAL_SECURITY_ASSURANCE",
     "governance_issue": "https://github.com/rahemih/Eqcofe/issues/399",
     "risk_acknowledgement": "NO_INDEPENDENT_HUMAN_SECURITY_REVIEW",
-    "activation_scope": "NOT_CURRENTLY_ALLOWLISTED: Must obtain independent human Security PASS or a separately owner-approved and protected-merged narrow Step70-H governance amendment; plus fresh artifact owner risk and human approval."
+    "activation_scope": "EXACT_TASK_ALLOWLIST_ACTIVE_AFTER_PR_428; separate fresh HIGH INTERNAL_SECURITY, OWNER_RISK, HUMAN, exact artifact, CI and lock mandatory for this PR"
   }
 }
