@@ -33,7 +33,9 @@ export async function action({request}:{request:Request}){
     const source=form.get("lines");
     if(typeof source!=="string"||source.length>16000)return failed("فهرست اقلام نامعتبر یا بیش از حد بزرگ است.");
     let lines:unknown;try{lines=JSON.parse(source);}catch{return failed("ساختار JSON اقلام نامعتبر است.");}
-    const raw={warehouse_id:warehouse,customer_type:form.get("customer_type"),payment_method:form.get("payment_method"),lines,...(form.get("external_reference")?{external_reference:operationsText(form.get("external_reference"),120)}:{})};
+    const reference=form.get("external_reference");
+    if(reference!==null&&reference!==""&&operationsText(reference,120)===null)return failed("مرجع پرداخت معتبر نیست؛ هیچ فرمانی ثبت نشده است.");
+    const raw={warehouse_id:warehouse,customer_type:form.get("customer_type"),payment_method:form.get("payment_method"),lines,...(reference!==null&&reference!==""?{external_reference:operationsText(reference,120)}:{})};
     const v=validateOfflineBody(raw);
     if(!v.ok)return failed("اطلاعات فروش آفلاین معتبر نیست یا شامل فیلد اضافی است.");
     result=await captureOffline(request,v.body);

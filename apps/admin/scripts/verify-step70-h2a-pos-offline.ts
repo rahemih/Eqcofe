@@ -20,6 +20,7 @@ for(const s of ["pos.offline.capture","pos.offline.sync"])assert.ok(controller.i
 assert.ok(controller.includes("@Permissions('pos.reconcile')"));
 assert.ok(route.includes('auth.permissions.includes("pos.sell")')&&route.includes('auth.permissions.includes("pos.reconcile")'));
 assert.ok(route.includes("isTrustedOperationsFormOrigin(request)")&&route.includes("auth.scopes.some"));
+assert.ok(route.includes('operationsText(reference,120)===null'),"INVALID_REFERENCE_MUST_FAIL_CLOSED");
 assert.ok(transport.includes('randomUUID()')&&transport.includes('"Idempotency-Key":key'));
 assert.ok(!route.includes('name="idempotency_key"')&&!route.includes('name="step_up_token"'));
 assert.ok(!transport.includes('"/admin/pos/reconciliation/{clientCommandId}/retry"'));
@@ -33,7 +34,8 @@ for(const bad of [
   {...example,warehouse_id:"wrong"},{...example,customer_type:"admin"},{...example,payment_method:"bank"},
   {...example,extra:1},{...example,lines:[]},{...example,lines:Array(101).fill({variant_id:id,quantity:1})},
   {...example,lines:[{variant_id:id,quantity:0}]},{...example,lines:[{variant_id:id,quantity:1000}]},
-  {...example,lines:[{variant_id:id,quantity:1,total_toman:0}]},{...example,external_reference:"X".repeat(121)}
+  {...example,lines:[{variant_id:id,quantity:1,total_toman:0}]},{...example,external_reference:"X".repeat(121)},
+  {...example,external_reference:null},{...example,external_reference:"evil\nref"}
 ])assert.equal(validateOfflineBody(bad).ok,false);
 assert.deepEqual(projectOffline({client_command_id:id,status:"failed",recovery_count:2,error_code:"OFFLINE_FAILED",payload:{credit_card:"SECRET"}}),{client_command_id:id,status:"failed",recovery_count:2,error_code:"OFFLINE_FAILED"});
 assert.equal(projectOffline({client_command_id:id,status:"wrong",recovery_count:1}),null);
