@@ -5,7 +5,7 @@
   "description": "HIGH scoped backend authorization remediation for POS physical sale commit and offline capture/sync, preserving original permission and transaction authorities.",
   "risk": "HIGH",
   "risk_floor": "HIGH",
-  "owner": "FRONTEND_ENGINEERING",
+  "owner": "BACKEND_ENGINEERING",
   "canonical": {
     "repository": "rahemih/Eqcofe",
     "branch": "main",
@@ -211,6 +211,6 @@
     "mode": "OWNER_ACCEPTED_INTERNAL_SECURITY_ASSURANCE",
     "governance_issue": "https://github.com/rahemih/Eqcofe/issues/399",
     "risk_acknowledgement": "NO_INDEPENDENT_HUMAN_SECURITY_REVIEW",
-    "activation_scope": "ALLOWLISTED_BUT_NOT_OWNER_APPROVED; NEW EXACT_ARTIFACT_INTERNAL_SECURITY_AND_OWNER_RISK_AND_HUMAN_REQUIRED"
+    "activation_scope": "NOT_CURRENTLY_ALLOWLISTED: Must obtain independent human Security PASS or a separately owner-approved and protected-merged narrow Step70-H governance amendment; plus fresh artifact owner risk and human approval."
   }
 }
