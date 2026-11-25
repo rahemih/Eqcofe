@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { randomUUID } from 'node:crypto';
 import { TransactionManager } from '../../../platform/database/transaction-manager';
 import { RequestContextStore } from '../../../platform/request-context/request-context.store';
+import { ScopePolicy } from '../../../platform/auth/scope-policy';
 import { OutboxWriter } from '../../../platform/outbox/outbox-writer';
 import { DomainError } from '../../../shared/errors/domain-error';
 import { InventoryPosService } from '../../inventory/application/inventory-pos.service';
@@ -19,6 +20,7 @@ export class PhysicalSaleCommitService {
     private readonly payments: PhysicalSalePaymentService,
     private readonly outbox: OutboxWriter,
     private readonly ctx: RequestContextStore,
+    private readonly scopes: ScopePolicy,
   ) {}
 
   commit(input:{saleId:unknown;warehouseId:unknown;expectedVersion:unknown;paymentMethod:unknown;externalReference?:unknown}){
@@ -32,6 +34,8 @@ export class PhysicalSaleCommitService {
     if(externalReference!==null&&(externalReference.length<1||externalReference.length>120))throw new DomainError('POS_PAYMENT_REFERENCE_INVALID','مرجع پرداخت فروش حضوری معتبر نیست.');
     const actor=this.ctx.get()?.actor;
     if(actor?.type!=='staff')throw new DomainError('POS_STAFF_REQUIRED','ثبت نهایی فروش حضوری فقط برای کاربر سازمانی مجاز است.');
+    // Check the actor's warehouse assignment before payments, inventory or outbox writes.
+    this.scopes.assert(actor,'warehouse',warehouseId);
 
     return this.tx.run(async ex=>{
       const sale=await this.repo.byId(saleId,ex,true);
