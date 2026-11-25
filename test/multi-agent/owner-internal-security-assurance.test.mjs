@@ -99,3 +99,32 @@ test('Step70-H assurance cannot evade explicit owner risk, codeql, HIGH floor or
     }
   }
 });
+
+test('Step70-H2 new exact governance, H2A and H2B opt-ins preserve HIGH and deny all other stages',()=>{
+  const exactIds=['EQCOFE-STEP70-H2-OWNER-INTERNAL-ASSURANCE-ALLOWLIST-001','EQCOFE-STEP70-H2A-POS-OFFLINE-CAPTURE-SYNC-ADMIN-001','EQCOFE-STEP70-H2B-POS-RECONCILIATION-ADMIN-001'];
+  for(const taskId of exactIds){
+    const v=result(f=>{f.contract.task_id=taskId;f.current.INTERNAL_SECURITY.task_id=taskId;f.current.OWNER_RISK.task_id=taskId;});
+    assert.equal(v.status,'INTERNAL_EVIDENCE_VERIFIED',taskId);
+    assert.equal(v.human_reviewer_independent,false);
+    assert.equal(Object.hasOwn(v,'security_pass'),false);
+  }
+  for(const taskId of ['EQCOFE-STEP70-H2-OTHER-001','EQCOFE-STEP70-I-001','EQCOFE-STEP70-J-001','EQCOFE-STEP71-START-001','*']){
+    const v=result(f=>{f.contract.task_id=taskId;f.current.INTERNAL_SECURITY.task_id=taskId;f.current.OWNER_RISK.task_id=taskId;});
+    assert.ok(v.blockers.includes('INTERNAL_TASK_NOT_ALLOWLISTED'),taskId);
+  }
+});
+test('Step70-H2 allowlist cannot replace owner gates, source evidence or provider CodeQL',()=>{
+  for(const taskId of ['EQCOFE-STEP70-H2-OWNER-INTERNAL-ASSURANCE-ALLOWLIST-001','EQCOFE-STEP70-H2A-POS-OFFLINE-CAPTURE-SYNC-ADMIN-001','EQCOFE-STEP70-H2B-POS-RECONCILIATION-ADMIN-001']){
+    for(const modify of [
+      f=>{delete f.contract.owner_internal_security_assurance;},
+      f=>{f.contract.risk='MEDIUM';},
+      f=>{f.contract.human_gate_required=false;},
+      f=>{f.current.OWNER_RISK.artifact_hash='d'.repeat(64);},
+      f=>{f.current.OWNER_RISK.comment_id=f.current.INTERNAL_SECURITY.comment_id;},
+      f=>{f.check_runs[0].conclusion='failure';},
+    ]){
+      const v=result(f=>{f.contract.task_id=taskId;f.current.INTERNAL_SECURITY.task_id=taskId;f.current.OWNER_RISK.task_id=taskId;modify(f)});
+      assert.equal(v.status,'BLOCKED',taskId);
+    }
+  }
+});
