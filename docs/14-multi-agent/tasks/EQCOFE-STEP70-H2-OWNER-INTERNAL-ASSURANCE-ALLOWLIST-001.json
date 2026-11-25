@@ -1,0 +1,136 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP70-H2-OWNER-INTERNAL-ASSURANCE-ALLOWLIST-001",
+  "title": "Step70-H2 HIGH governance: narrowly opt in owner-led security assurance for H2A/H2B",
+  "description": "New protected owner-led non-independent security path whitelist ONLY for H2A/H2B and this HIGH self-governed amendment; independent owner gates remain mandatory.",
+  "risk": "HIGH",
+  "risk_floor": "HIGH",
+  "owner": "GOVERNANCE_ENGINEERING",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "f0a01c76a65a71a8d30b1d51bdcd1420225b532a"
+  },
+  "scope": {
+    "read": [
+      "scripts/multi-agent/**",
+      "test/multi-agent/**",
+      "docs/14-multi-agent/**",
+      ".github/workflows/**"
+    ],
+    "write": [
+      "docs/14-multi-agent/GOVERNANCE.md",
+      "docs/14-multi-agent/STEP70-H2-OWNER-ASSURANCE-AMENDMENT.md",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP70-H2-OWNER-INTERNAL-ASSURANCE-ALLOWLIST-001.json",
+      "scripts/multi-agent/owner-internal-security-assurance.mjs",
+      "test/multi-agent/owner-internal-security-assurance.test.mjs"
+    ],
+    "forbidden": [
+      ".github/**",
+      "src/**",
+      "apps/**",
+      "database/**",
+      "contracts/**",
+      "scripts/multi-agent/merge-policy-controller.mjs",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**",
+      "graphify-out/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP70-H2-OWNER-INTERNAL-ASSURANCE-ALLOWLIST-001-01"
+  ],
+  "human_gate_required": true,
+  "authorized_human_approver": {
+    "role": "PROJECT_OWNER",
+    "github_login": "rahemih"
+  },
+  "token_budget": {
+    "expected_max": 16000,
+    "soft_alert": 30000,
+    "hard_cap": 62000
+  },
+  "task_risk_rules": [
+    {
+      "id": "STEP70_H2_OWNER_ONLY_EXACT_TASKS_HIGH",
+      "risk": "HIGH",
+      "paths": [
+        "docs/14-multi-agent/GOVERNANCE.md",
+        "docs/14-multi-agent/STEP70-H2-OWNER-ASSURANCE-AMENDMENT.md",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP70-H2-OWNER-INTERNAL-ASSURANCE-ALLOWLIST-001.json",
+        "scripts/multi-agent/owner-internal-security-assurance.mjs",
+        "test/multi-agent/owner-internal-security-assurance.test.mjs"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "Step70-H backend scope PR #426 and H1 frontend PR #424 canonical and terminal",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "f0a01c76a65a71a8d30b1d51bdcd1420225b532a",
+      "postmerge_run": 45581898288,
+      "terminal_evidence_comment": 7159628989,
+      "blocking": false
+    },
+    {
+      "item": "Fresh exact-artifact owner risk and independent-in-time Human approval for this amendment",
+      "required_state": "OWNER_RISK_THEN_HUMAN",
+      "observed_state": "NOT_GRANTED",
+      "blocking": true
+    }
+  ],
+  "evidence": {
+    "governance_issue": "https://github.com/rahemih/Eqcofe/issues/435",
+    "prior_framework": "https://github.com/rahemih/Eqcofe/issues/399",
+    "exact_opt_in_ids": [
+      "EQCOFE-STEP70-H2-OWNER-INTERNAL-ASSURANCE-ALLOWLIST-001",
+      "EQCOFE-STEP70-H2A-POS-OFFLINE-CAPTURE-SYNC-ADMIN-001",
+      "EQCOFE-STEP70-H2B-POS-RECONCILIATION-ADMIN-001"
+    ],
+    "pending_product_prs": [
+      434
+    ],
+    "forbidden_wildcards": true,
+    "owner_decision": "PENDING_NEW_EXPLICIT_EXACT_ARTIFACT",
+    "independent_human_reviewer": false
+  },
+  "owner_internal_security_assurance": {
+    "mode": "OWNER_ACCEPTED_INTERNAL_SECURITY_ASSURANCE",
+    "governance_issue": "https://github.com/rahemih/Eqcofe/issues/399",
+    "risk_acknowledgement": "NO_INDEPENDENT_HUMAN_SECURITY_REVIEW",
+    "activation_scope": "PROPOSED_NOT_OWNER_APPROVED_FOR_ISSUE_435; THREE_EXACT_IDS_ONLY; SEPARATE_ASSESSMENT_OWNER_RISK_HUMAN_PER_ARTIFACT"
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Only 3 exact HIGH opt-in task IDs; arbitrary H2/I/J/Step71 and wildcard remain denied",
+      "verification": "allowlist negative tests",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Preserve HIGH floor, independent-in-time owner gate order, exact artifact and provider CodeQL checks",
+      "verification": "assurance negative tests",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "No merge policy/CI/branch protection changes, no production app/backend/database change, no bypass",
+      "verification": "scope lock",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Fresh scoped SECURITY:ASSESSED non-independent review, distinct owner risk and later Human, protected merge/postmerge/lock release",
+      "verification": "governance",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": []
+}
