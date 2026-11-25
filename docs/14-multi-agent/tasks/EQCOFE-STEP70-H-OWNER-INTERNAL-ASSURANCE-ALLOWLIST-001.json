@@ -1,0 +1,140 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP70-H-OWNER-INTERNAL-ASSURANCE-ALLOWLIST-001",
+  "title": "Step70-H HIGH governance: exact owner-led security assurance opt-in for POS #424 and #426",
+  "description": "Opt-in proposal for exactly 2 HIGH POS Task IDs plus this governance task; no wildcard, no H2/Step71 and no owner approval presumed.",
+  "risk": "HIGH",
+  "risk_floor": "HIGH",
+  "owner": "GOVERNANCE_ENGINEERING",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "f7291716fe319138e79fe9934654f708f2479231"
+  },
+  "scope": {
+    "read": [
+      "scripts/multi-agent/**",
+      "test/multi-agent/**",
+      "docs/14-multi-agent/**",
+      ".github/workflows/**"
+    ],
+    "write": [
+      "docs/14-multi-agent/GOVERNANCE.md",
+      "docs/14-multi-agent/STEP70-H-OWNER-ASSURANCE-AMENDMENT.md",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP70-H-OWNER-INTERNAL-ASSURANCE-ALLOWLIST-001.json",
+      "scripts/multi-agent/owner-internal-security-assurance.mjs",
+      "test/multi-agent/owner-internal-security-assurance.test.mjs"
+    ],
+    "forbidden": [
+      ".github/**",
+      "src/**",
+      "apps/**",
+      "database/**",
+      "contracts/**",
+      "scripts/multi-agent/merge-policy-controller.mjs",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**",
+      "graphify-out/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP70-H-OWNER-INTERNAL-ASSURANCE-ALLOWLIST-001-01"
+  ],
+  "human_gate_required": true,
+  "authorized_human_approver": {
+    "role": "PROJECT_OWNER",
+    "github_login": "rahemih"
+  },
+  "token_budget": {
+    "expected_max": 14000,
+    "soft_alert": 28000,
+    "hard_cap": 58000
+  },
+  "task_risk_rules": [
+    {
+      "id": "STEP70_H_OWNER_ONLY_ALLOWLIST_EXACT_TASKS_HIGH",
+      "risk": "HIGH",
+      "paths": [
+        "docs/14-multi-agent/GOVERNANCE.md",
+        "docs/14-multi-agent/STEP70-H-OWNER-ASSURANCE-AMENDMENT.md",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP70-H-OWNER-INTERNAL-ASSURANCE-ALLOWLIST-001.json",
+        "scripts/multi-agent/owner-internal-security-assurance.mjs",
+        "test/multi-agent/owner-internal-security-assurance.test.mjs"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "Existing Step70-G allowlist scheme canonical",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "blocking": false
+    },
+    {
+      "item": "Issue #427 explicit owner acceptance of reduced independence for this governance candidate",
+      "required_state": "EXPLICIT_OWNER_RISK_AND_LATER_HUMAN",
+      "observed_state": "NOT_GRANTED",
+      "blocking": true
+    },
+    {
+      "item": "Products #424 and #426 stay Draft until this governance amendment is protected-merged",
+      "required_state": "DRAFT_NO_MERGE",
+      "observed_state": "DRAFT",
+      "blocking": true
+    }
+  ],
+  "owner_internal_security_assurance": {
+    "mode": "OWNER_ACCEPTED_INTERNAL_SECURITY_ASSURANCE",
+    "governance_issue": "https://github.com/rahemih/Eqcofe/issues/399",
+    "risk_acknowledgement": "NO_INDEPENDENT_HUMAN_SECURITY_REVIEW",
+    "activation_scope": "PROPOSED_NOT_OWNER_APPROVED_FOR_ISSUE_427; NEW_SEPARATE_ARTIFACT_INTERNAL_SECURITY_OWNER_RISK_HUMAN_REQUIRED"
+  },
+  "evidence": {
+    "governance_issue": "https://github.com/rahemih/Eqcofe/issues/427",
+    "prior_framework": "https://github.com/rahemih/Eqcofe/issues/399",
+    "exact_opt_in_ids": [
+      "EQCOFE-STEP70-H-OWNER-INTERNAL-ASSURANCE-ALLOWLIST-001",
+      "EQCOFE-STEP70-H-POS-WAREHOUSE-SCOPE-BACKEND-001",
+      "EQCOFE-STEP70-H1-POS-SCAN-SALE-ADMIN-001"
+    ],
+    "product_prs": [
+      424,
+      426
+    ],
+    "forbidden_wildcards": true,
+    "owner_decision": "PENDING_NEW_EXPLICIT_EXACT_ARTIFACT",
+    "independent_human_reviewer": false
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Only three new exact task IDs, no wildcard or H2/Step71",
+      "verification": "git diff and negative tests",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "All HIGH CI/CodeQL and chronological owner gate validations fail closed on missing opt-in/evidence or wrong artifact",
+      "verification": "owner internal security unit tests",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "No merge policy, CI, protection, admin, backend, DB or OpenAPI code changed; new governance applies only after protected merge",
+      "verification": "scope-git-diff",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Bounded non-independent assessment transparently labeled, separate explicit Project Owner risk and later Human Gate, exact lock and protected merge",
+      "verification": "GATES",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": []
+}
