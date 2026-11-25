@@ -1,0 +1,221 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP70-H1-POS-SCAN-SALE-ADMIN-001",
+  "title": "Step 70-H1 POS scan, draft sale, lines, pricing and commit Admin frontend",
+  "description": "First bounded HIGH POS Admin implementation of AD-E-10 five controller-backed operations only; source-backed sales security, no store/shift/orders/offline or Step71.",
+  "risk": "HIGH",
+  "risk_floor": "HIGH",
+  "owner": "FRONTEND_ENGINEERING",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "042b29207927d5538b9f8d8787c879622df93114"
+  },
+  "scope": {
+    "read": [
+      "apps/admin/**",
+      "src/modules/pos/**",
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "docs/11-step-history/**",
+      "docs/13-product-design/step56-wireframes/E/**",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "apps/admin/app/operations/pos-sale.server.ts",
+      "apps/admin/app/routes.ts",
+      "apps/admin/app/routes/destination.tsx",
+      "apps/admin/app/routes/pos-sales.tsx",
+      "apps/admin/package.json",
+      "apps/admin/scripts/verify-step70-h1-pos-sale.ts",
+      "docs/11-step-history/STEP-70-H1-POS-SCAN-SALE-ADMIN.md",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP70-H1-POS-SCAN-SALE-ADMIN-001.json"
+    ],
+    "forbidden": [
+      ".github/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "database/**",
+      "test/**",
+      "scripts/**",
+      "apps/api/**",
+      "apps/worker/**",
+      "apps/scheduler/**",
+      "apps/storefront/**",
+      "docs/12-current-state/**",
+      "graphify-out/**",
+      "contracts/**",
+      "src/generated/**",
+      "src/platform/**",
+      "src/shared/**",
+      "src/modules/inventory/**",
+      "src/modules/pos/**",
+      "src/modules/procurement/**",
+      "docs/13-product-design/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP70-H1-POS-SCAN-SALE-ADMIN-001-01"
+  ],
+  "human_gate_required": true,
+  "authorized_human_approver": {
+    "role": "PROJECT_OWNER",
+    "github_login": "rahemih"
+  },
+  "token_budget": {
+    "expected_max": 40000,
+    "soft_alert": 62000,
+    "hard_cap": 96000
+  },
+  "task_risk_rules": [
+    {
+      "id": "STEP70_H1_POS_SCAN_SALE_HIGH",
+      "risk": "HIGH",
+      "paths": [
+        "apps/admin/app/operations/pos-sale.server.ts",
+        "apps/admin/app/routes.ts",
+        "apps/admin/app/routes/destination.tsx",
+        "apps/admin/app/routes/pos-sales.tsx",
+        "apps/admin/package.json",
+        "apps/admin/scripts/verify-step70-h1-pos-sale.ts",
+        "docs/11-step-history/STEP-70-H1-POS-SCAN-SALE-ADMIN.md",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP70-H1-POS-SCAN-SALE-ADMIN-001.json"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "Step70-G PR #421 canonical closeout and scope Lock release",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "f7291716fe319138e79fe9934654f708f2479231",
+      "postmerge_run": 45015103937,
+      "terminal_evidence_comment": 7078287921,
+      "blocking": false
+    },
+    {
+      "item": "Step70-B canonical POS 11 controller-backed operations",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "blocking": false
+    },
+    {
+      "item": "Step70-H POS backend warehouse BOLA security PR #426 canonical protected closeout",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "042b29207927d5538b9f8d8787c879622df93114",
+      "postmerge_run": 45575151289,
+      "terminal_evidence_comment": 7157021998,
+      "security_issue": 425,
+      "blocking": false
+    },
+    {
+      "item": "Step70-H bounded owner-led HIGH security assurance allowlist PR #428",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "f3f34aad5f47fae45260e12d483fd686f7500be6",
+      "postmerge_run": 45567161426,
+      "terminal_evidence_comment": 7156044119,
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "linear_issue": "HOS-74",
+    "github_issue": 422,
+    "graph_state": "RETIRED_AND_OUT_OF_SCOPE",
+    "surfaces": [
+      "AD-E-10"
+    ],
+    "operation_count": 5,
+    "idempotency_required": [
+      "pos.sale.create",
+      "pos.sale.line.add",
+      "pos.sale.price",
+      "pos.sale.commit"
+    ],
+    "permission_policy": {
+      "scan": "pos.view",
+      "mutations": "pos.sell"
+    },
+    "scan_types": [
+      "sku",
+      "barcode"
+    ],
+    "quantity_range": [
+      1,
+      999
+    ],
+    "external_reference_max": 120,
+    "pricing_authority": "BACKEND_ONLY",
+    "unknown_outcome": "FAIL_CLOSED_NO_AUTORETRY",
+    "excluded_operations": [
+      "GET /admin/pos/stores",
+      "GET /admin/pos/registers",
+      "GET /admin/pos/shifts/current",
+      "POST /admin/pos/shifts/open",
+      "POST /admin/pos/shifts/{id}/begin-closing",
+      "POST /admin/pos/shifts/{id}/close",
+      "POST /admin/pos/shifts/{id}/reconcile",
+      "POST /admin/pos/orders"
+    ],
+    "deferred_70_h2": [
+      "POST /admin/pos/offline/commands",
+      "POST /admin/pos/offline/commands/{clientCommandId}/sync",
+      "GET /admin/pos/reconciliation/failed",
+      "GET /admin/pos/reconciliation/{clientCommandId}",
+      "POST /admin/pos/reconciliation/{clientCommandId}/retry",
+      "POST /admin/pos/reconciliation/{clientCommandId}/abandon"
+    ],
+    "security_policy": "Fresh exact-head bounded assessment, separate Owner Risk acceptance if no independent reviewer and later separate Human Gate required; no 70-G inheritance."
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Only five source backed AD-E-10 HTTP operations; eight unsupported store/shift/order actions remain NO_ACTION",
+      "verification": "h1_source_scope",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Server session RBAC pos.view vs pos.sell; server-owned idempotency keys; form same-origin check; no invented price/COGS/stock",
+      "verification": "h1_security",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "Strict scan max120, sale id/variant UUID and qty1..999, pricing retail/wholesale, exact source commit body/expected version",
+      "verification": "h1_validation",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Network/timeout/5xx unknown outcome fail closed with no silent retry; whitelist response projection",
+      "verification": "h1_fail_closed",
+      "mandatory": true
+    },
+    {
+      "id": "AC-005",
+      "description": "Exact-head Canonical CI/Phase A/Step57/Step58/CodeQL3, deterministic Review, HIGH security, ACTIVE Lock, separate Owner Risk and Human gate before protected merge, postmerge release",
+      "verification": "h1_gates",
+      "mandatory": true
+    },
+    {
+      "id": "AC-006",
+      "description": "No POS offline/reconciliation, shift, Step70-I/J or Step71 implementation",
+      "verification": "h1_negative",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": [],
+  "process_improvement_links": [],
+  "incident_links": [],
+  "owner_internal_security_assurance": {
+    "mode": "OWNER_ACCEPTED_INTERNAL_SECURITY_ASSURANCE",
+    "governance_issue": "https://github.com/rahemih/Eqcofe/issues/399",
+    "risk_acknowledgement": "NO_INDEPENDENT_HUMAN_SECURITY_REVIEW",
+    "activation_scope": "ALLOWLISTED_BUT_NOT_OWNER_APPROVED; FRESH_EXACT_ARTIFACT_INTERNAL_SECURITY_AND_OWNER_RISK_AND_HUMAN_REQUIRED"
+  }
+}
