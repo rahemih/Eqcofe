@@ -99,3 +99,19 @@ test('Step70-H assurance cannot evade explicit owner risk, codeql, HIGH floor or
     }
   }
 });
+
+
+test('H2A exact owner-led HIGH governance amendment authorizes ONLY governance candidate and the 4-operation H2A Task, not H2B or Step71',()=>{
+  for(const id of ['EQCOFE-STEP70-H2A-OWNER-INTERNAL-ASSURANCE-ALLOWLIST-001','EQCOFE-STEP70-H2A-POS-OFFLINE-RECONCILIATION-READ-001']){
+    const v=result(f=>{f.contract.task_id=id;f.current.INTERNAL_SECURITY.task_id=id;f.current.OWNER_RISK.task_id=id;});
+    assert.equal(v.status,'INTERNAL_EVIDENCE_VERIFIED',id);
+    assert.equal(v.human_reviewer_independent,false);
+    assert.equal(Object.hasOwn(v,'security_pass'),false);
+  }
+  for(const id of ['EQCOFE-STEP70-H2B-POS-OFFLINE-RECOVERY-ADMIN-001','EQCOFE-STEP70-H2-POS-OFFLINE-RECONCILIATION-ADMIN-001','EQCOFE-STEP71-START-001','*']){
+    const v=result(f=>{f.contract.task_id=id;f.current.INTERNAL_SECURITY.task_id=id;f.current.OWNER_RISK.task_id=id;});
+    assert.ok(v.blockers.includes('INTERNAL_TASK_NOT_ALLOWLISTED'),id);
+  }
+  const bad=result(f=>{f.contract.task_id='EQCOFE-STEP70-H2A-POS-OFFLINE-RECONCILIATION-READ-001';f.current.INTERNAL_SECURITY.task_id=f.contract.task_id;f.current.OWNER_RISK.task_id=f.contract.task_id;f.current.OWNER_RISK.artifact_hash='c'.repeat(64);});
+  assert.ok(bad.blockers.includes('EXACT_ARTIFACT_OWNER_RISK_ACCEPTANCE_MISSING'));
+});
