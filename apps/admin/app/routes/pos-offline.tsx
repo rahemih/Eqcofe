@@ -1,7 +1,7 @@
 import {data,redirect,useFetcher,useLoaderData,Link} from "react-router";
 import {appendAdminAuthSetCookies} from "../platform/auth/admin-cookie.server.js";
 import {readAdminAuthorizationContext} from "../platform/auth/context.server.js";
-import {isTrustedOperationsFormOrigin,operationsInteger,operationsUuid,operationsText} from "../operations/operations-form.server.js";
+import {isTrustedOperationsFormOrigin,operationsUuid,operationsText} from "../operations/operations-form.server.js";
 import {captureOffline,syncOffline,listFailedOffline,inspectOffline,validateOfflineBody,type OfflineResult} from "../operations/pos-offline.server.js";
 import {AdminSurfaceState} from "../platform/state/AdminSurfaceState.js";
 const headersFor=(cookies:readonly string[])=>{const h=new Headers();appendAdminAuthSetCookies(h,cookies);return h;};

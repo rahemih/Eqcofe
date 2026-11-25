@@ -12,7 +12,7 @@ const exact=(v:Record<string,unknown>,keys:string[])=>Object.keys(v).every(k=>ke
 const integer=(v:unknown,min:number,max:number)=>typeof v==="number"&&Number.isSafeInteger(v)&&v>=min&&v<=max;
 export function validateOfflineBody(raw:unknown):Valid<OfflineBody>{
   if(!record(raw)||!exact(raw,["warehouse_id","customer_type","payment_method","external_reference","lines"])||!uuid(raw.warehouse_id)||!["retail","wholesale"].includes(String(raw.customer_type))||!["cash","card"].includes(String(raw.payment_method)))return {ok:false};
-  if(raw.external_reference!==undefined&&raw.external_reference!==null&&(typeof raw.external_reference!=="string"||raw.external_reference.trim().length<1||raw.external_reference.trim().length>120||/[\u0000-\u001f\u007f]/.test(raw.external_reference)))return {ok:false};
+  if(raw.external_reference!==undefined&&raw.external_reference!==null&&(typeof raw.external_reference!=="string"||raw.external_reference.trim().length<1||raw.external_reference.trim().length>120||[...raw.external_reference].some(ch=>ch.charCodeAt(0)<32||ch.charCodeAt(0)===127)))return {ok:false};
   if(!Array.isArray(raw.lines)||raw.lines.length<1||raw.lines.length>100)return {ok:false};
   const lines:Array<{variant_id:string;quantity:number}>=[];
   for(const line of raw.lines){
