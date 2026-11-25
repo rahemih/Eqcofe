@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { PhysicalSaleCommitService } from '../src/modules/pos/application/physical-sale-commit.service';
+import { ScopePolicy } from '../src/platform/auth/scope-policy';
 
 const uuid=(n:string)=>`${n.repeat(8)}-${n.repeat(4)}-4${n.repeat(3)}-8${n.repeat(3)}-${n.repeat(12)}`;
 const saleId=uuid('1'),warehouseId=uuid('2'),staffId=uuid('3'),receiptId=uuid('4'),variantA=uuid('5'),variantB=uuid('6');
@@ -21,9 +22,9 @@ function make(overrides:any={}){
   const inventory:any={consumePhysicalSaleInTransaction:async(_ex:any,input:any)=>{calls.push(['inventory',input]);return{total_cost_toman:input.variantId===variantA?1200:700,movement_ids:[uuid(input.variantId===variantA?'9':'a')]};}};
   const payments:any={confirmInTransaction:async(_ex:any,input:any)=>{calls.push(['payment',input]);return{id:receiptId,...input};}};
   const outbox:any={append:async(_ex:any,events:any[])=>calls.push(['event',events[0]])};
-  const ctx:any={get:()=>overrides.actor===null?undefined:{actor:{type:'staff',id:staffId},requestId:uuid('b'),correlationId:uuid('c')}};
+  const ctx:any={get:()=>overrides.actor===null?undefined:{actor:{type:'staff',id:staffId,scopes:overrides.scopes??[]},requestId:uuid('b'),correlationId:uuid('c')}};
   const tx:any={run:(fn:any)=>fn({})};
-  return{svc:new PhysicalSaleCommitService(tx,repo,inventory,payments,outbox,ctx),calls};
+  return{svc:new PhysicalSaleCommitService(tx,repo,inventory,payments,outbox,ctx,new ScopePolicy()),calls};
 }
 
 test('Step 49 A6 commits only through Payments and Inventory authoritative boundaries',async()=>{
@@ -75,4 +76,21 @@ test('Step 49 A6 POS imports Payments but does not fabricate online order paymen
   assert.match(svc,/InventoryPosService/);
   assert.doesNotMatch(svc,/payments\/application\/payment\.service/);
   assert.doesNotMatch(svc,/orders\.orders|payments\.payments/);
+});
+
+test('Step70-H HIGH denies scoped staff access to a different POS warehouse before all writes',()=>{
+  const {svc,calls}=make({scopes:['warehouse:'+uuid('e')]});
+  assert.throws(()=>svc.commit({saleId,warehouseId,expectedVersion:5,paymentMethod:'card'}),(e:any)=>e?.message==='SCOPE_FORBIDDEN'||e?.response?.message==='SCOPE_FORBIDDEN');
+  assert.deepEqual(calls,[],'no payment, inventory, sale commit or outbox writes on scope denial');
+});
+test('Step70-H HIGH permits assigned POS warehouse without widening permissions',async()=>{
+  const {svc,calls}=make({scopes:['warehouse:'+warehouseId]});
+  const result:any=await svc.commit({saleId,warehouseId,expectedVersion:5,paymentMethod:'cash'});
+  assert.equal(result.status,'committed');
+  assert.ok(calls.some(x=>x[0]==='payment'));
+});
+test('Step70-H HIGH keeps canonical global warehouse scope behavior for unscoped staff',async()=>{
+  const {svc,calls}=make({scopes:[]});
+  assert.equal((await svc.commit({saleId,warehouseId,expectedVersion:5,paymentMethod:'cash'}) as any).status,'committed');
+  assert.ok(calls.some(x=>x[0]==='inventory'));
 });

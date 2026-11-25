@@ -3,6 +3,7 @@ import { createHash, randomUUID } from 'node:crypto';
 import { DomainError } from '../../../shared/errors/domain-error';
 import { TransactionManager } from '../../../platform/database/transaction-manager';
 import { RequestContextStore } from '../../../platform/request-context/request-context.store';
+import { ScopePolicy } from '../../../platform/auth/scope-policy';
 import { createPhysicalSale, addPhysicalSaleLine } from '../domain/physical-sale';
 import { PhysicalSaleRepository } from '../infrastructure/physical-sale.repository';
 import { OfflineCommandRepository } from '../infrastructure/offline-command.repository';
@@ -23,6 +24,7 @@ export class OfflineCommandSyncService {
     private readonly pricing:PosPricingSnapshotService,
     private readonly commit:PhysicalSaleCommitService,
     private readonly ctx:RequestContextStore,
+    private readonly scopes:ScopePolicy,
   ){}
 
   capture(input:{clientCommandId:unknown;commandType:unknown;payload:unknown}){
@@ -31,6 +33,8 @@ export class OfflineCommandSyncService {
     const commandType=String(input.commandType??'');
     if(commandType!=='sale.sync')throw new DomainError('POS_OFFLINE_COMMAND_TYPE_INVALID','نوع فرمان آفلاین POS معتبر نیست.');
     const payload=this.saleSyncPayload(input.payload);
+    // Deny unassigned warehouses before persisting an offline command.
+    this.scopes.assert(actor,'warehouse',payload.warehouse_id);
     const payloadHash=createHash('sha256').update(JSON.stringify(payload)).digest('hex');
     return this.tx.run(async ex=>{
       const created=await this.commands.create(ex,{id:randomUUID(),clientCommandId,staffActorId:actor.id!,commandType,payload,payloadHash});
@@ -52,6 +56,9 @@ export class OfflineCommandSyncService {
     if(String(command.status)==='failed')throw new DomainError('POS_OFFLINE_COMMAND_FAILED','فرمان آفلاین قبلاً ناموفق ثبت شده و بازیابی آن به مرحله reconciliation واگذار شده است.',{error_code:command.error_code});
 
     const payload=this.saleSyncPayload(command.payload);
+    // A captured command is not authorization to use a warehouse after scope revocation.
+    // Reject before creating a draft or marking the command failed.
+    this.scopes.assert(actor,'warehouse',payload.warehouse_id);
     try{
       const sale=await this.sales.createDraft({clientCommandId,staffActorId:actor.id});
       if(String(sale.status)==='committed')return this.markApplied(String(command.id),sale);
