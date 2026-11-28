@@ -1,0 +1,205 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP70-I-INTEGRATED-ACCEPTANCE-001",
+  "title": "Step70-I integrated Inventory Procurement POS production SSR and browser acceptance",
+  "description": "MEDIUM validation-only Stage I after exact canonical Step70-H2B closure: 16 implemented Admin Inventory/Procurement/POS destinations, safe mock read authority, fa-IR RTL, authenticated and denied SSR, six responsive Chromium/Axe widths, no mutation or backend changes. Existing Storefront Quality isolated browser tools are reused without new production dependencies. Stage 70-J and Step71 are excluded. A discovered mobile touch-target defect is remediated only by scoped presentational CSS for existing pricing-actions navigation links (44px target + keyboard focus ring); no action/permission/backend mutation.",
+  "risk": "MEDIUM",
+  "risk_floor": "MEDIUM",
+  "owner": "QUALITY_ENGINEERING",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "2a7a0151af2bc4f1aa29c61f8c2511a36f761ca0"
+  },
+  "scope": {
+    "read": [
+      "apps/admin/**",
+      "apps/storefront/package.json",
+      "contracts/http/openapi.yaml",
+      "src/generated/openapi.ts",
+      "docs/11-step-history/**",
+      "docs/14-multi-agent/**",
+      ".github/workflows/step58-storefront-quality.yml",
+      "apps/admin/app/styles/pricing.css"
+    ],
+    "write": [
+      "apps/admin/scripts/verify-step70-i-acceptance.mjs",
+      "apps/admin/package.json",
+      "apps/storefront/package.json",
+      "docs/11-step-history/STEP-70-I-INTEGRATED-ACCEPTANCE.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP70-I-INTEGRATED-ACCEPTANCE-001.json",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "apps/admin/app/styles/pricing.css"
+    ],
+    "forbidden": [
+      ".github/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "database/**",
+      "contracts/**",
+      "src/**",
+      "test/**",
+      "scripts/**",
+      "apps/api/**",
+      "apps/worker/**",
+      "apps/scheduler/**",
+      "apps/storefront/app/**",
+      "apps/storefront/scripts/**",
+      "docs/12-current-state/**",
+      "docs/13-product-design/**",
+      "graphify-out/**",
+      "apps/admin/app/routes/**",
+      "apps/admin/app/operations/**",
+      "apps/admin/app/platform/**",
+      "apps/admin/app/navigation/**",
+      "apps/admin/app/security/**",
+      "apps/admin/app/shell/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP70-I-INTEGRATED-ACCEPTANCE-001-01"
+  ],
+  "human_gate_required": false,
+  "token_budget": {
+    "expected_max": 40000,
+    "soft_alert": 64000,
+    "hard_cap": 95000
+  },
+  "task_risk_rules": [
+    {
+      "id": "STEP70_I_INTEGRATED_ADMIN_ACCEPTANCE_MEDIUM",
+      "risk": "MEDIUM",
+      "paths": [
+        "apps/admin/scripts/verify-step70-i-acceptance.mjs",
+        "apps/admin/package.json",
+        "apps/storefront/package.json",
+        "docs/11-step-history/STEP-70-I-INTEGRATED-ACCEPTANCE.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP70-I-INTEGRATED-ACCEPTANCE-001.json",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md",
+        "apps/admin/app/styles/pricing.css"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "Step70-H2B POS reconciliation PR #437",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "2a7a0151af2bc4f1aa29c61f8c2511a36f761ca0",
+      "postmerge_run": 46143278986,
+      "terminal_evidence_comment": 7239160315,
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "linear_issue": "HOS-74",
+    "github_issue": 422,
+    "graph_state": "RETIRED_AND_OUT_OF_SCOPE",
+    "surfaces": [
+      "AD-D-06",
+      "AD-D-07",
+      "AD-D-08",
+      "AD-D-09",
+      "AD-D-10",
+      "AD-D-11",
+      "AD-D-12",
+      "AD-D-13",
+      "AD-D-14",
+      "AD-D-15",
+      "AD-D-16",
+      "AD-D-17",
+      "AD-D-18",
+      "AD-E-10",
+      "AD-E-11"
+    ],
+    "implemented_route_count": 16,
+    "no_action_surface": "AD-E-09",
+    "source_only_pos_operations": 11,
+    "responsive_widths": [
+      320,
+      360,
+      600,
+      840,
+      1200,
+      1440
+    ],
+    "qa_modes": [
+      "production SSR and mock GET API on every canonical verify",
+      "isolated Chromium/Axe through existing Storefront Quality for all routes and six widths"
+    ],
+    "security": {
+      "unauthenticated_fail_closed": true,
+      "permission_denial_for_pos": true,
+      "untrusted_origin_rejected": true,
+      "mutation_requests_forbidden": true,
+      "no_browser_secret_persistence": true
+    },
+    "explicit_exclusions": [
+      "POS store/register/shift/order runtime fabrication",
+      "destructive stock/procurement/POS mutation",
+      "Backend/OpenAPI/DB/Workflows/Dependencies",
+      "Step70-J",
+      "Step71"
+    ],
+    "accessibility_remediation": {
+      "source": "Step58 exact-head browser-quality #46145909238 at job #140981816062",
+      "finding": "320px /inventory/overview pricing-actions navigation anchors 19px high (<44px)",
+      "remedy": "scoped CSS .pricing-actions > a min-block-size 44px and focus-visible outline; no JS/Backend semantics",
+      "unverified_until_new_head_browser_pass": true,
+      "additional_finding": {
+        "source": "Step58 exact-head browser-quality #46146310838, job #140983032582",
+        "failure": "320px /inventory-flows/reservations root and body scrollWidth 332 vs viewport 320",
+        "fix": "CSS-only intrinsic grid min-size zero + wrap source-backed bdi endpoint text rather than crop/hide overflow; strict test with offending-element diagnostics preserved",
+        "verification": "UNVERIFIED_UNTIL_NEW_HEAD_BROWSER_SUCCESS"
+      },
+      "additional_finding_2": {
+        "source": "Step58 exact-head job 140985647424 at HEAD 904c326cffdccb665c810420c8fde3b29490ae1d",
+        "failure": "320px /procurement-settlement/receipts legacy controls: inputs 24px, buttons 25px, select 21px and textarea 42px",
+        "fix": "CSS-only minimum block height 44px for visible controls within .pricing-page, preserve existing checkbox 44px width and keyboard focus; 44px inline POS navigation links",
+        "verification": "MUST PASS NEW HEAD FULL BROWSER QA"
+      }
+    }
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "mandatory": true,
+      "description": "Production-build SSR uses locally mocked source-backed GETs to accept all 16 canonical Admin Inventory/Procurement/POS route destinations with fa-IR RTL one H1",
+      "verification": "step70_i_ssr_routes"
+    },
+    {
+      "id": "AC-002",
+      "mandatory": true,
+      "description": "No-session and insufficient pos.sell/pos.reconcile/pos.view access fail closed; malformed reconciliation inputs denied before backend call",
+      "verification": "step70_i_auth_negative"
+    },
+    {
+      "id": "AC-003",
+      "mandatory": true,
+      "description": "Existing isolated Playwright and Axe evidence proves RTL, six widths, no overflow, 44x44 targets, zero WCAG-tagged violations, and no browser secret persistence Source-confirmed undersized navigation anchors are fixed via one exact CSS file without weakening the assertion. Long server-authored identifiers must wrap on 320px with no clipping; overflow diagnostics include offending element geometry.",
+      "verification": "step70_i_browser_accessibility"
+    },
+    {
+      "id": "AC-004",
+      "mandatory": true,
+      "description": "No destructive mutation, Step-Up, idempotency, status fabrication, prohibited source GET or external untrusted API executed by acceptance; invalid-origin POST denied",
+      "verification": "step70_i_security_no_mutation"
+    },
+    {
+      "id": "AC-005",
+      "mandatory": true,
+      "description": "Preserve existing Stage67-69 acceptance and Stage70-H verifiers and trigger same Stage58 quality workflow with browser root; no new dependency",
+      "verification": "step70_i_verify_integration"
+    },
+    {
+      "id": "AC-006",
+      "mandatory": true,
+      "description": "Exact HEAD Canonical CI, Phase A/PostgreSQL, Step57, Step58, three CodeQL analyses, deterministic Review, lock, protected merge and postmerge before Stage70-J. No Human Gate for MEDIUM if classifier remains MEDIUM",
+      "verification": "governed_merge"
+    }
+  ],
+  "external_gate_evidence": [],
+  "process_improvement_links": [],
+  "incident_links": []
+}

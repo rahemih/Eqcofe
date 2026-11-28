@@ -88,6 +88,20 @@
   gap: var(--eq-spacing-3);
   align-items: center;
 }
+/* Step70-I: touch-accessible real navigation links (44px minimum), CSS-only. */
+.pricing-actions > a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-block-size: var(--eq-size-touch-min);
+  padding-inline: var(--eq-spacing-3);
+  border-radius: var(--eq-radius-md);
+}
+.pricing-actions > a:focus-visible {
+  outline: none;
+  box-shadow: var(--eq-effect-focus-ring);
+}
+
 .pricing-actions button,
 .pricing-filter button {
   min-block-size: var(--eq-size-touch-min);
@@ -498,4 +512,50 @@
     grid-template-columns: 1fr;
     gap: var(--eq-spacing-1);
   }
+}
+
+/* Stage 70-I: allow long source-backed endpoint/provenance IDs to wrap in narrow cards. */
+.pricing-card,
+.pricing-grid,
+.pricing-success > span,
+.pricing-form,
+.pricing-form > label {
+  min-inline-size: 0;
+}
+@media (max-width: 759px) {
+  .pricing-grid,
+  .pricing-form {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+.pricing-card bdi,
+.pricing-success bdi,
+.pricing-success > span {
+  overflow-wrap: anywhere;
+}
+.pricing-form input:not([type="checkbox"]):not([type="radio"]),
+.pricing-form select,
+.pricing-form textarea {
+  min-inline-size: 0;
+  max-inline-size: 100%;
+}
+
+/* Stage70-I: canonical touch-height for existing Admin inventory,
+   procurement and POS interactive controls without changing their behavior. */
+.pricing-page input:not([type="hidden"]),
+.pricing-page select,
+.pricing-page textarea,
+.pricing-page button {
+  min-block-size: var(--eq-size-touch-min);
+}
+.pricing-page > p > a {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: var(--eq-size-touch-min);
+  padding-inline: var(--eq-spacing-3);
+  border-radius: var(--eq-radius-md);
+}
+.pricing-page > p > a:focus-visible {
+  outline: none;
+  box-shadow: var(--eq-effect-focus-ring);
 }
