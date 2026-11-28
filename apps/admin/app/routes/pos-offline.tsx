@@ -73,6 +73,7 @@ export default function PosOfflineRoute(){
    {fetcher.data.key?<p>شناسه پیگیری سرور: <bdi>{fetcher.data.key}</bdi></p>:null}
    {fetcher.data.requestId?<p>شناسه درخواست: <bdi>{fetcher.data.requestId}</bdi></p>:null}
   </section>:null}
+  <p><Link to="/pos/reconciliation">مدیریت مغایرت‌ها و فرمان‌های ناموفق (مجوز pos.reconcile)</Link></p>
   <p>بررسی خطا، retry و abandon مستلزم مجوز pos.reconcile و احراز مجدد WebAuthn هستند و در بسته مستقل H2B انجام می‌شوند. هیچ retry خودکاری مجاز نیست.</p>
  </section>;
 }

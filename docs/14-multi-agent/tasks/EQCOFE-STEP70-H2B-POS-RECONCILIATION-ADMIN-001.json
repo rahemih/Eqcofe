@@ -1,0 +1,179 @@
+{
+  "schema_version": "2.2",
+  "task_id": "EQCOFE-STEP70-H2B-POS-RECONCILIATION-ADMIN-001",
+  "title": "Step70-H2B POS failed-command reconciliation, inspect and WebAuthn recovery Admin frontend",
+  "description": "HIGH isolated four canonical source-backed pos.reconcile endpoints, two read and two sensitive WebAuthn-gated writes; H2A unchanged; fail closed on ambiguity.",
+  "risk": "HIGH",
+  "risk_floor": "HIGH",
+  "owner": "FRONTEND_ENGINEERING",
+  "canonical": {
+    "repository": "rahemih/Eqcofe",
+    "branch": "main",
+    "base_sha": "6aef2114c4a39f8e6826424a72f0acf33f5a9b35"
+  },
+  "scope": {
+    "read": [
+      "apps/admin/**",
+      "src/modules/pos/**",
+      "src/generated/openapi.ts",
+      "contracts/http/openapi.yaml",
+      "docs/11-step-history/**",
+      "docs/14-multi-agent/**"
+    ],
+    "write": [
+      "apps/admin/app/operations/pos-reconciliation.server.ts",
+      "apps/admin/app/routes/pos-reconciliation.tsx",
+      "apps/admin/app/routes/pos-offline.tsx",
+      "apps/admin/app/routes.ts",
+      "apps/admin/package.json",
+      "apps/admin/scripts/verify-step70-h2b-pos-reconciliation.ts",
+      "docs/11-step-history/STEP-70-H2B-POS-RECONCILIATION-ADMIN.md",
+      "docs/14-multi-agent/generated/TASK-CATALOG.md",
+      "docs/14-multi-agent/tasks/EQCOFE-STEP70-H2B-POS-RECONCILIATION-ADMIN-001.json"
+    ],
+    "forbidden": [
+      ".github/**",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "database/**",
+      "test/**",
+      "scripts/**",
+      "apps/api/**",
+      "apps/worker/**",
+      "apps/scheduler/**",
+      "apps/storefront/**",
+      "docs/12-current-state/**",
+      "graphify-out/**",
+      "contracts/**",
+      "src/generated/**",
+      "src/platform/**",
+      "src/shared/**",
+      "src/modules/inventory/**",
+      "src/modules/pos/**",
+      "src/modules/procurement/**",
+      "docs/13-product-design/**"
+    ]
+  },
+  "requested_lock_ids": [
+    "LOCK-EQCOFE-STEP70-H2B-POS-RECONCILIATION-ADMIN-001-01"
+  ],
+  "human_gate_required": true,
+  "authorized_human_approver": {
+    "role": "PROJECT_OWNER",
+    "github_login": "rahemih"
+  },
+  "token_budget": {
+    "expected_max": 36000,
+    "soft_alert": 60000,
+    "hard_cap": 90000
+  },
+  "task_risk_rules": [
+    {
+      "id": "STEP70_H2B_POS_RECONCILIATION_ADMIN_HIGH",
+      "risk": "HIGH",
+      "paths": [
+        "apps/admin/app/operations/pos-reconciliation.server.ts",
+        "apps/admin/app/routes/pos-reconciliation.tsx",
+        "apps/admin/app/routes/pos-offline.tsx",
+        "apps/admin/app/routes.ts",
+        "apps/admin/package.json",
+        "apps/admin/scripts/verify-step70-h2b-pos-reconciliation.ts",
+        "docs/11-step-history/STEP-70-H2B-POS-RECONCILIATION-ADMIN.md",
+        "docs/14-multi-agent/generated/TASK-CATALOG.md",
+        "docs/14-multi-agent/tasks/EQCOFE-STEP70-H2B-POS-RECONCILIATION-ADMIN-001.json"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "item": "Step70-H2A POS offline source-backed capture/sync PR #434",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "6aef2114c4a39f8e6826424a72f0acf33f5a9b35",
+      "postmerge_run": 46120344997,
+      "terminal_evidence_comment": 7236677230,
+      "blocking": false
+    },
+    {
+      "item": "Step70-H2 narrow owner-led assurance allowlist PR #436",
+      "required_state": "CANONICAL_COMPLETE",
+      "observed_state": "CANONICAL_COMPLETE",
+      "merge_sha": "27386dc3c03556dde531d46564b8488c0fc936dc",
+      "postmerge_run": 45610682827,
+      "terminal_evidence_comment": 7162116714,
+      "blocking": false
+    }
+  ],
+  "evidence": {
+    "linear_issue": "HOS-74",
+    "github_issue": 422,
+    "graph_state": "RETIRED_AND_OUT_OF_SCOPE",
+    "surfaces": [
+      "AD-E-11"
+    ],
+    "operation_count": 4,
+    "operations": [
+      "GET /admin/pos/reconciliation/failed",
+      "GET /admin/pos/reconciliation/{clientCommandId}",
+      "POST /admin/pos/reconciliation/{clientCommandId}/retry",
+      "POST /admin/pos/reconciliation/{clientCommandId}/abandon"
+    ],
+    "permission_policy": {
+      "reads": "pos.reconcile",
+      "mutations": "pos.reconcile",
+      "step_up_mutations": [
+        "retry",
+        "abandon"
+      ]
+    },
+    "server_generated_idempotency": true,
+    "unknown_outcome": "FAIL_CLOSED_NO_AUTORETRY",
+    "recovery_count_max": 5,
+    "note_max": 500,
+    "excluded": [
+      "H2A mutation rewrite",
+      "Step70-I",
+      "Step70-J",
+      "Step71"
+    ],
+    "governance_allowlist_pr": 436,
+    "governance_allowlist_merged_sha": "27386dc3c03556dde531d46564b8488c0fc936dc",
+    "governance_lock_released_comment": 7162116714
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Exactly four source-backed reconciliation endpoints; permission pos.reconcile enforced in route and backend",
+      "verification": "source_scope",
+      "mandatory": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Strict input validators and response projection protect server-private fields",
+      "verification": "payload_negative",
+      "mandatory": true
+    },
+    {
+      "id": "AC-003",
+      "description": "WebAuthn step-up server-only verified for retry and abandon; preflight current status and explicit owner-sync restriction; no automatic retry",
+      "verification": "security_negative",
+      "mandatory": true
+    },
+    {
+      "id": "AC-004",
+      "description": "Exact-head canonical provider gates, bounded HIGH security review, separate owner risk and later Human, protected merge and postmerge",
+      "verification": "governance",
+      "mandatory": true
+    }
+  ],
+  "external_gate_evidence": [],
+  "process_improvement_links": [],
+  "incident_links": [],
+  "owner_internal_security_assurance": {
+    "mode": "OWNER_ACCEPTED_INTERNAL_SECURITY_ASSURANCE",
+    "governance_issue": "https://github.com/rahemih/Eqcofe/issues/399",
+    "risk_acknowledgement": "NO_INDEPENDENT_HUMAN_SECURITY_REVIEW",
+    "activation_scope": "ALLOWLISTED_BUT_NOT_OWNER_APPROVED; FRESH_H2B_EXACT_ARTIFACT_INTERNAL_SECURITY_OWNER_RISK_AND_HUMAN_REQUIRED"
+  }
+}

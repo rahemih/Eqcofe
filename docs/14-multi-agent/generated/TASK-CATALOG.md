@@ -149,6 +149,7 @@
 | EQCOFE-STEP70-H1-POS-SCAN-SALE-ADMIN-001 | Step 70-H1 POS scan, draft sale, lines, pricing and commit Admin frontend | HIGH | REQUIRED | `042b29207927d5538b9f8d8787c879622df93114` | 40000/62000/96000 |
 | EQCOFE-STEP70-H2-OWNER-INTERNAL-ASSURANCE-ALLOWLIST-001 | Step70-H2 HIGH governance: narrowly opt in owner-led security assurance for H2A/H2B | HIGH | REQUIRED | `f0a01c76a65a71a8d30b1d51bdcd1420225b532a` | 16000/30000/62000 |
 | EQCOFE-STEP70-H2A-POS-OFFLINE-CAPTURE-SYNC-ADMIN-001 | Step70-H2A POS offline sale.sync capture and owner sync Admin frontend | HIGH | REQUIRED | `27386dc3c03556dde531d46564b8488c0fc936dc` | 35000/57000/90000 |
+| EQCOFE-STEP70-H2B-POS-RECONCILIATION-ADMIN-001 | Step70-H2B POS failed-command reconciliation, inspect and WebAuthn recovery Admin frontend | HIGH | REQUIRED | `6aef2114c4a39f8e6826424a72f0acf33f5a9b35` | 36000/60000/90000 |
 | MA-AGENT-A0-ORCHESTRATOR-001 | A0 — Orchestrator / Engineering Manager Prompt | LOW | NOT_REQUIRED | `f7919991e619d416360e74a542741ef21c70f732` | 10000/16000/32000 |
 | MA-AGENT-A1-SPEC-001 | A1 — Specification & Research Prompt | LOW | NOT_REQUIRED | `120898df57138b301560e7d9b9f1b3f5da03e982` | 10000/16000/32000 |
 | MA-AGENT-A10-EVIDENCE-001 | A10 — Evidence & Documentation Prompt | LOW | NOT_REQUIRED | `bdf8fccde4ca40cced48381ad3be2e0461ade535` | 12000/18000/35000 |
@@ -194,4 +195,4 @@
 | MA-V1-ACC-MEDIUM-001 | V1 Acceptance MEDIUM R2 — telemetry terminal-state conflict hardening | MEDIUM | NOT_REQUIRED | `9017e0f25e9571568ed9acf4ca3ca977ce9e78f0` | 15000/25000/50000 |
 | MA-V1-ACCEPTANCE-CLOSURE-V16-R2-001 | V1.6 Phase 3 canonical acceptance closure R2 | HIGH | REQUIRED | `d7d235f5f240b8bea44bc607afa812b2f5bb12d4` | 30000/50000/90000 |
 
-Task contracts indexed: **188**.
+Task contracts indexed: **189**.
