@@ -45,6 +45,7 @@ export async function loader({request,params}:{request:Request;params:{surfaceId
   if(destination.surface==="AD-D-17")throw redirect("/procurement-settlement/invoices",{headers});
   if(destination.surface==="AD-D-18")throw redirect("/procurement-settlement/returns",{headers});
   if(destination.surface==="AD-E-10")throw redirect("/pos/sales",{headers});
+  if(destination.surface==="AD-E-11")throw redirect("/pos/offline",{headers});
   if(isStep69FoundationSurface(destination.surface)){
     const foundation=await readStep69Foundation(request,destination.surface);
     appendAdminAuthSetCookies(headers,foundation.setCookies);
